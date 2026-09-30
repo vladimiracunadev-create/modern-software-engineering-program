@@ -1,17 +1,9 @@
 # SE-338 — Memoria compartida, locks y condiciones de carrera
 
+[← SE-337 — Concurrencia, paralelismo y asincronía](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-concurrencia-paralelismo-y-asincronia/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-338.html) · [SE-339 — Actores, canales y structured concurrency →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-339-actores-canales-y-structured-concurrency/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 28 · Concurrencia y sistemas distribuidos |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-337 — Concurrencia, paralelismo y asincronía](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-concurrencia-paralelismo-y-asincronia/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-338.html) · [SE-339 — Actores, canales y structured concurrency →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-339-actores-canales-y-structured-concurrency/README.md)

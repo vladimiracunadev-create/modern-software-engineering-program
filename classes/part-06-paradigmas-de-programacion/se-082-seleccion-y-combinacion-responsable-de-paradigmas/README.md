@@ -1,19 +1,10 @@
 # SE-082 — Selección y combinación responsable de paradigmas
 
+[← SE-081 — Programación concurrente y actores](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-082.html) · [SE-083 — Taller: una regla de negocio en cinco paradigmas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 06 · Paradigmas de programación |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 4 horas |
-| Producto de la clase | comparación semántica entre paradigmas |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «forzar un paradigma por moda aunque complique el problema» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Selección | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Combinación | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Responsable | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Paradigmas | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Selección y combinación responsable de paradigmas**.
+
 ## Conceptos y decisiones
 
 Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.
@@ -53,23 +58,34 @@ Un paradigma organiza estado, control y composición; ninguno es universal y una
 La pregunta rectora de esta parte es: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** La respuesta debe
 apoyarse en **implementaciones equivalentes, pruebas comunes y comparación de compromisos**.
 
-### 1. Selección
+### 1. Selección: modelo
 
-En **Selección y combinación responsable de paradigmas**, `Selección` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Selección** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Selección y combinación responsable de paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Combinación
+### 2. Combinación: mecanismo
 
-En **Selección y combinación responsable de paradigmas**, `combinación` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **combinación** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Selección y combinación responsable de paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Responsable
+### 3. Responsable: evidencia
 
-En **Selección y combinación responsable de paradigmas**, `responsable` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **responsable** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Selección y combinación responsable de paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Paradigmas
+### 4. Paradigmas: decisión
 
-En **Selección y combinación responsable de paradigmas**, `paradigmas` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **paradigmas** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Selección y combinación responsable de paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Selección:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Combinación:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Responsable:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Paradigmas:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la comunidad social, el equipo prepara un cambio relacionado con **Selección
 1. **Fundamental:** define Selección y combinación con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `case.md` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **comparación semántica entre paradigmas** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,6 +182,27 @@ Fuentes verificadas el 2026-09-30:
 - **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Selección y combinación responsable de paradigmas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-083`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-081 — Programación concurrente y actores](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-082.html) · [SE-083 — Taller: una regla de negocio en cinco paradigmas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)

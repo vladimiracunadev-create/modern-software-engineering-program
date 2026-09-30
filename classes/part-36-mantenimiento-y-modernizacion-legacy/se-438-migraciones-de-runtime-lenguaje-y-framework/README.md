@@ -1,17 +1,9 @@
 # SE-438 — Migraciones de runtime, lenguaje y framework
 
+[← SE-437 — Strangler, branch by abstraction y anticorruption](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/README.md) · [↑ Parte 36](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-438.html) · [SE-439 — Migraciones de datos sin interrupción →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 36 · Mantenimiento y modernización legacy |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-437 — Strangler, branch by abstraction y anticorruption](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/README.md) · [↑ Parte 36](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-438.html) · [SE-439 — Migraciones de datos sin interrupción →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/README.md)

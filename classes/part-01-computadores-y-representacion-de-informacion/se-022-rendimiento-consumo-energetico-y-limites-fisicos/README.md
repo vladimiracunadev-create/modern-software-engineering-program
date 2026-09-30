@@ -1,19 +1,10 @@
 # SE-022 — Rendimiento, consumo energético y límites físicos
 
+[← SE-021 — Runtimes, máquinas virtuales y recolección de basura](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-022.html) · [SE-023 — Taller: observar un programa desde el código hasta la máquina →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | A · Fundamentos de la profesión |
-| Parte | 01 · Computadores y representación de información |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 4 horas |
-| Producto de la clase | cuaderno reproducible de representación y recursos |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Rendimiento | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Consumo | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Energético | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Límites | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Rendimiento, consumo energético y límites físicos**.
+
 ## Conceptos y decisiones
 
 Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
@@ -53,23 +58,34 @@ Un computador representa información mediante estados discretos y ejecuta instr
 La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
 apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
 
-### 1. Rendimiento
+### 1. Rendimiento: modelo
 
-En **Rendimiento, consumo energético y límites físicos**, `Rendimiento` se analiza dentro de esta base: Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía. Para volverlo operativo, responde «¿cómo se representa, transforma y observa la información en cada nivel?» y conserva bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Rendimiento** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Rendimiento, consumo energético y límites físicos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Consumo
+### 2. Consumo: mecanismo
 
-En **Rendimiento, consumo energético y límites físicos**, `consumo` se analiza dentro de esta base: Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía. Para volverlo operativo, responde «¿cómo se representa, transforma y observa la información en cada nivel?» y conserva bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **consumo** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Rendimiento, consumo energético y límites físicos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Energético
+### 3. Energético: evidencia
 
-En **Rendimiento, consumo energético y límites físicos**, `energético` se analiza dentro de esta base: Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía. Para volverlo operativo, responde «¿cómo se representa, transforma y observa la información en cada nivel?» y conserva bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **energético** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Rendimiento, consumo energético y límites físicos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Límites
+### 4. Límites: decisión
 
-En **Rendimiento, consumo energético y límites físicos**, `límites` se analiza dentro de esta base: Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía. Para volverlo operativo, responde «¿cómo se representa, transforma y observa la información en cada nivel?» y conserva bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **límites** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Rendimiento, consumo energético y límites físicos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Rendimiento:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **Consumo:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **Energético:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **Límites:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la comunidad social, el equipo prepara un cambio relacionado con **Rendimient
 1. **Fundamental:** define Rendimiento y consumo con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,6 +182,27 @@ Fuentes verificadas el 2026-09-30:
 - **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Rendimiento, consumo energético y límites físicos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-023`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-021 — Runtimes, máquinas virtuales y recolección de basura](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-022.html) · [SE-023 — Taller: observar un programa desde el código hasta la máquina →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md)

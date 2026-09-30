@@ -1,17 +1,9 @@
 # SE-407 — Taller: verificar la procedencia de un release
 
+[← SE-406 — Riesgos de CI y dependencias comprometidas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-407.html) · [SE-408 — Proyecto: release firmado y recuperable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 33 · Build, release y cadena de suministro |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-406 — Riesgos de CI y dependencias comprometidas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-407.html) · [SE-408 — Proyecto: release firmado y recuperable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable/README.md)

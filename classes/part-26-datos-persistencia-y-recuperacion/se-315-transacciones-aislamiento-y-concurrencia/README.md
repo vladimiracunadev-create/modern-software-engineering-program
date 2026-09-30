@@ -1,17 +1,9 @@
 # SE-315 — Transacciones, aislamiento y concurrencia
 
+[← SE-314 — Relacional, documental, clave-valor, grafos y series](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-315.html) · [SE-316 — Restricciones, invariantes y consistencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 26 · Datos, persistencia y recuperación |
-| Tipo | `class` |
-| Propietario profundo | `database-systems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-314 — Relacional, documental, clave-valor, grafos y series](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-315.html) · [SE-316 — Restricciones, invariantes y consistencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/README.md)

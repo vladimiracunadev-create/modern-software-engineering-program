@@ -1,17 +1,9 @@
 # SE-346 — Caos controlado y pruebas de distribución
 
+[← SE-345 — Replicación, sharding y balanceo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-346.html) · [SE-347 — Taller: reproducir una carrera y un fallo parcial →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 28 · Concurrencia y sistemas distribuidos |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-345 — Replicación, sharding y balanceo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-346.html) · [SE-347 — Taller: reproducir una carrera y un fallo parcial →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial/README.md)

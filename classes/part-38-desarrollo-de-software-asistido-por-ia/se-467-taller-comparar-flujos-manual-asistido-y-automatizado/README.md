@@ -1,17 +1,9 @@
 # SE-467 — Taller: comparar flujos manual, asistido y automatizado
 
+[← SE-466 — Privacidad, propiedad intelectual y código inseguro](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-466-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-467.html) · [SE-468 — Proyecto: cambio real con trazabilidad y revisión humana →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | H · Ingeniería de software nativa con IA |
-| Parte | 38 · Desarrollo de software asistido por IA |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -80,3 +72,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-466 — Privacidad, propiedad intelectual y código inseguro](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-466-privacidad-propiedad-intelectual-y-codigo-inseguro/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-467.html) · [SE-468 — Proyecto: cambio real con trazabilidad y revisión humana →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana/README.md)

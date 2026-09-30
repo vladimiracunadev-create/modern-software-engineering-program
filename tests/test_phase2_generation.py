@@ -53,6 +53,21 @@ class PhaseTwoGenerationTests(unittest.TestCase):
                 self.assertIn(f"({part_folder}/{lesson_folder}/README.md)", index, lesson["id"])
                 self.assertIn(f"/classes/{lesson['id']}.html)", index, lesson["id"])
 
+    def test_classes_have_navigation_and_no_record_table(self) -> None:
+        lessons = [lesson for part in self.program["parts"] for lesson in part["lessons"]]
+        for lesson in lessons:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            self.assertNotIn("## Ficha", text, lesson["id"])
+            self.assertNotIn("| Campo | Valor |", text, lesson["id"])
+            self.assertIn("Índice completo", text, lesson["id"])
+            part_id = Path(lesson["path"]).parts[-2].split("-")[1]
+            self.assertIn(f"↑ Parte {part_id}", text, lesson["id"])
+
+    def test_middle_class_links_to_both_neighbors(self) -> None:
+        text = (ROOT / self.program["parts"][3]["lessons"][5]["path"] / "README.md").read_text(encoding="utf-8")
+        self.assertIn("SE-041", text)
+        self.assertIn("SE-043", text)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,17 +1,9 @@
 # SE-303 — Monolito, modular monolith y servicios
 
+[← SE-302 — Vistas lógica, runtime, datos y despliegue](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-302-vistas-logica-runtime-datos-y-despliegue/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-303.html) · [SE-304 — Capas, hexagonal, clean y ports and adapters →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-304-capas-hexagonal-clean-y-ports-and-adapters/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 25 · Arquitectura de software y dominio |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-302 — Vistas lógica, runtime, datos y despliegue](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-302-vistas-logica-runtime-datos-y-despliegue/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-303.html) · [SE-304 — Capas, hexagonal, clean y ports and adapters →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-304-capas-hexagonal-clean-y-ports-and-adapters/README.md)

@@ -1,17 +1,9 @@
 # SE-200 — Contribución, gobernanza y comunidades abiertas
 
+[← SE-199 — Convenciones, ownership y CODEOWNERS](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-200.html) · [SE-201 — Licencias de software y obligaciones básicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 16 · Git, colaboración y código abierto |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-199 — Convenciones, ownership y CODEOWNERS](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-200.html) · [SE-201 — Licencias de software y obligaciones básicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md)

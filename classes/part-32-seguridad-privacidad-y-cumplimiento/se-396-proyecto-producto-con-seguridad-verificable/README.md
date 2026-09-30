@@ -1,17 +1,9 @@
 # SE-396 — Proyecto: producto con seguridad verificable
 
+[← SE-395 — Taller: explotar y reparar un control aparente](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-396.html) · [SE-397 — Build reproducible y hermético →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 32 · Seguridad, privacidad y cumplimiento |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-395 — Taller: explotar y reparar un control aparente](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-396.html) · [SE-397 — Build reproducible y hermético →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md)

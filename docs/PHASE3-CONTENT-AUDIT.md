@@ -16,11 +16,11 @@ Esta auditoría distingue tres hechos:
 | Comprobación | Resultado | Interpretación |
 | --- | ---: | --- |
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
-| borradores que repiten el mismo párrafo genérico | 180 | incumple la exigencia de contenido específico |
-| clases con sección `Definiciones` | 0 | requisito ausente |
+| borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
+| clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
 | clases con sección `Glosario` | 0 | requisito ausente |
-| clases con sección `Preguntas frecuentes` | 0 | requisito ausente |
-| clases con sección `Reto` | 0 | requisito ausente |
+| clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
+| clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
 | clases aprobadas | 0 | todas permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
@@ -30,11 +30,11 @@ pedagógica integral.
 ## Defectos cualitativos
 
 - explicaciones intercambiables entre temas distintos;
-- conceptos tratados como palabras del título y no como mecanismos técnicos;
+- conceptos todavía pendientes de validación técnica individual por un revisor;
 - ejemplos genéricos que no demuestran el concepto de la clase;
 - prácticas sin preparación técnica suficiente ni resultado específico;
 - fuentes agrupadas por parte, pero no ligadas a afirmaciones concretas;
-- ausencia de definiciones, glosario, reto y FAQ;
+- ausencia de un glosario consolidado y de enlaces de fuente por afirmación;
 - diagramas formales sin interpretación específica suficiente;
 - índices que antes obligaban a recorrer carpetas para localizar una clase.
 

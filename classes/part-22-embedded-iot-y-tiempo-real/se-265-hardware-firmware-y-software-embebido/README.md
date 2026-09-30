@@ -1,17 +1,9 @@
 # SE-265 — Hardware, firmware y software embebido
 
+[← SE-264 — Proyecto: cliente multiplataforma con sincronización](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-265.html) · [SE-266 — Microcontroladores, periféricos y buses →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 22 · Embedded, IoT y tiempo real |
-| Tipo | `class` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-264 — Proyecto: cliente multiplataforma con sincronización](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-265.html) · [SE-266 — Microcontroladores, periféricos y buses →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)

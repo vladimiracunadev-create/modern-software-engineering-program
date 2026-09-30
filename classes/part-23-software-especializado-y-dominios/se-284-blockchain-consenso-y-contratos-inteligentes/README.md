@@ -1,17 +1,9 @@
 # SE-284 — Blockchain, consenso y contratos inteligentes
 
+[← SE-283 — Salud, datos sensibles y sistemas regulados](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-283-salud-datos-sensibles-y-sistemas-regulados/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-284.html) · [SE-285 — Sistemas geoespaciales y temporales →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-285-sistemas-geoespaciales-y-temporales/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 23 · Software especializado y dominios |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-283 — Salud, datos sensibles y sistemas regulados](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-283-salud-datos-sensibles-y-sistemas-regulados/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-284.html) · [SE-285 — Sistemas geoespaciales y temporales →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-285-sistemas-geoespaciales-y-temporales/README.md)

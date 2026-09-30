@@ -1,17 +1,9 @@
 # SE-386 — Identidad, autenticación y sesiones
 
+[← SE-385 — Principios de seguridad y modelos de amenaza](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-386.html) · [SE-387 — Autorización, recursos y mínimo privilegio →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 32 · Seguridad, privacidad y cumplimiento |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-385 — Principios de seguridad y modelos de amenaza](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-386.html) · [SE-387 — Autorización, recursos y mínimo privilegio →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio/README.md)

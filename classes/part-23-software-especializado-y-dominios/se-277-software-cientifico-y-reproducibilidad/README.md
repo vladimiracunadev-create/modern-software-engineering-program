@@ -1,17 +1,9 @@
 # SE-277 — Software científico y reproducibilidad
 
+[← SE-276 — Proyecto: dispositivo simulado operable y actualizable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-277.html) · [SE-278 — Ingeniería de datos y procesamiento analítico →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 23 · Software especializado y dominios |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-276 — Proyecto: dispositivo simulado operable y actualizable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-277.html) · [SE-278 — Ingeniería de datos y procesamiento analítico →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/README.md)

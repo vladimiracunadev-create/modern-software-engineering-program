@@ -1,19 +1,10 @@
 # SE-063 — Iteración, recursión y recorridos
 
+[← SE-062 — Control de flujo y decisiones](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-063.html) · [SE-064 — Funciones, parámetros, retorno y alcance →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 05 · Fundamentos de programación |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 4 horas |
-| Producto de la clase | programa pequeño con pruebas y decisiones explicadas |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «confundir que un ejemplo se ejecute con que sea correcto para el dominio» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Iteración | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Recursión | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Recorridos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Valor | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Iteración, recursión y recorridos**.
+
 ## Conceptos y decisiones
 
 Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio.
@@ -53,23 +58,34 @@ Programar transforma entradas y estado mediante reglas explícitas; la legibilid
 La pregunta rectora de esta parte es: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** La respuesta debe
 apoyarse en **ejemplos ejecutables, pruebas y salidas reproducibles**.
 
-### 1. Iteración
+### 1. Iteración: modelo
 
-En **Iteración, recursión y recorridos**, `Iteración` se analiza dentro de esta base: Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio. Para volverlo operativo, responde «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y conserva ejemplos ejecutables, pruebas y salidas reproducibles. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Iteración** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Iteración, recursión y recorridos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Recursión
+### 2. Recursión: mecanismo
 
-En **Iteración, recursión y recorridos**, `recursión` se analiza dentro de esta base: Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio. Para volverlo operativo, responde «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y conserva ejemplos ejecutables, pruebas y salidas reproducibles. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **recursión** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Iteración, recursión y recorridos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Recorridos
+### 3. Recorridos: evidencia
 
-En **Iteración, recursión y recorridos**, `recorridos` se analiza dentro de esta base: Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio. Para volverlo operativo, responde «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y conserva ejemplos ejecutables, pruebas y salidas reproducibles. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **recorridos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Iteración, recursión y recorridos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Valor
+### 4. Valor: decisión
 
-En **Iteración, recursión y recorridos**, `valor` se analiza dentro de esta base: Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio. Para volverlo operativo, responde «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y conserva ejemplos ejecutables, pruebas y salidas reproducibles. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **valor** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Iteración, recursión y recorridos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Iteración:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **Recursión:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **Recorridos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **Valor:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la servicio financiero, el equipo prepara un cambio relacionado con **Iteraci
 1. **Fundamental:** define Iteración y recursión con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `main.py` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **programa pequeño con pruebas y decisiones explicadas** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,6 +182,27 @@ Fuentes verificadas el 2026-09-30:
 - **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Iteración, recursión y recorridos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-064`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-062 — Control de flujo y decisiones](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-063.html) · [SE-064 — Funciones, parámetros, retorno y alcance →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md)

@@ -6,7 +6,7 @@ Currículo abierto en español para comprender, construir, probar, entregar, ope
 y evolucionar software. Recorre computación, programación, producto, requisitos,
 arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por IA.
 
-[📚 Índice completo de las 480 clases](classes/README.md) · [🔎 Revisar fase 3 desde SE-001](classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [🌐 Portal web](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado verificable](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
+[📚 480 clases](classes/README.md) · [🧭 Rutas](#-rutas-sugeridas) · [🧪 Práctica](#-práctica-y-producto-transversal) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Estándar](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
 ---
 
@@ -21,7 +21,7 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 > [!CAUTION]
 > **Estado real:** la arquitectura contiene 480 clases, pero hoy hay **0 clases
 > aprobadas** contra el estándar pedagógico. `SE-001`–`SE-180` son borradores
-> estructurales públicos y repetitivos; `SE-181`–`SE-480` son scaffolds. No deben
+> estructurales públicos con contenido inicial; `SE-181`–`SE-480` son scaffolds. No deben
 > confundirse con material docente terminado.
 
 ## 🎯 Qué es esto
@@ -83,6 +83,38 @@ trazables. El gate completo está en
 La referencia de profundidad es la
 [Parte 6 de modern-cybersecurity-program](https://github.com/vladimiracunadev-create/modern-cybersecurity-program/tree/main/classes/parte-6-analisis-de-malware).
 Se replica su calidad docente, no su contenido ni una cuota de palabras.
+
+## 📚 Pauta derivada de la literatura de ingeniería de software
+
+El programa no depende de una sola herramienta ni de la opinión de un autor. Su
+cobertura se contrasta con cuerpos de conocimiento, normas y especificaciones
+primarias. Estas referencias orientan el currículo; una clase solo puede citarlas
+como evidencia cuando su contenido haya sido revisado de forma individual.
+
+| Área | Referencia de orientación | Uso dentro del programa |
+| --- | --- | --- |
+| profesión y cuerpo de conocimiento | [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | mapa de áreas, prácticas y límites profesionales |
+| resultados de aprendizaje | [ACM/IEEE SE2014](https://www.acm.org/binaries/content/assets/education/se2014.pdf) | línea base curricular histórica y competencias |
+| calidad del producto | [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) | atributos de calidad y decisiones verificables |
+| desarrollo seguro | [NIST SSDF](https://csrc.nist.gov/pubs/sp/800/218/final) | seguridad integrada al ciclo de vida |
+| accesibilidad | [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) | experiencia inclusiva y criterios comprobables |
+| contratos HTTP y API | [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) y [OpenAPI](https://spec.openapis.org/oas/latest.html) | semántica, interoperabilidad y especificaciones ejecutables |
+| IA responsable | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | riesgo, evaluación y supervisión humana |
+| desarrollo basado en SPEC | [Spec Kit](https://github.github.com/spec-kit/) | intención, especificación, plan, tareas e implementación |
+| agentes y herramientas | [Model Context Protocol](https://modelcontextprotocol.io/) | contexto, capacidades, autorización y límites |
+
+## 📖 De dónde sale el material
+
+Las fuentes se mantienen como datos auditables, no como una bibliografía decorativa:
+
+- [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
+- [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
+- [registro de fase 3](sources/phase3.json): fuentes usadas por los 180 borradores en revisión;
+- [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
+
+Una asignación en el registro **no demuestra** que la clase esté terminada. Falta
+ligar cada afirmación importante con su fuente concreta y revisar vigencia,
+interpretación y alcance antes de promoverla a `GUIDED`.
 
 ## 🗂️ Las 40 partes
 
@@ -146,6 +178,78 @@ recuperación.
 
 La matriz precisa se encuentra en [docs/COVERAGE-MATRIX.md](docs/COVERAGE-MATRIX.md).
 
+## 🧪 Práctica y producto transversal
+
+La práctica se organiza alrededor de un producto de referencia que atraviesa
+descubrimiento, requisitos, arquitectura, APIs, pruebas, amenazas y operación. El
+objetivo es que una decisión sobreviva al cambio de lenguaje o framework y deje
+evidencia revisable.
+
+| Recurso | Qué permite revisar hoy |
+| --- | --- |
+| [Producto de referencia](blueprints/reference-product/README.md) | mapa del caso transversal y sus artefactos |
+| [Requisitos](blueprints/reference-product/REQUIREMENTS.md) | alcance, reglas y trazabilidad inicial |
+| [Arquitectura](blueprints/reference-product/ARCHITECTURE.md) | límites y estructura del sistema |
+| [Contrato OpenAPI](blueprints/reference-product/api/openapi.yaml) | interfaz formal y verificable |
+| [Estrategia de pruebas](blueprints/reference-product/TEST_STRATEGY.md) | niveles, riesgos y evidencia esperada |
+| [Modelo de amenazas](blueprints/reference-product/THREAT_MODEL.md) | activos, amenazas y controles |
+| [Runbook de degradación](blueprints/reference-product/runbooks/API_DEGRADED.md) | diagnóstico y recuperación operacional |
+| [Proyecto integrador](projects/capstone.md) | transferencia del aprendizaje a un producto completo |
+| [Rúbrica transversal](assessments/rubric.md) | criterios comunes de evaluación |
+
+Estos artefactos son una base documental versionada; todavía no constituyen una
+colección de laboratorios ejecutados ni evidencia de que las 180 clases estén
+aprobadas.
+
+## 🌐 Portal y navegación
+
+El [portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
+permite buscar por texto, filtrar por parte y estado, abrir una parte y leer cada
+clase. Cada clase incorpora navegación **anterior / parte / índice / siguiente** al
+inicio y al final, además de su enlace equivalente en GitHub. El
+[índice plano](classes/README.md) conserva acceso directo a las 480 clases y a sus
+480 páginas publicadas.
+
+La fuente de verdad sigue siendo el repositorio: Pages es una presentación generada
+y la CI falla si difiere de los manifiestos o del contenido de las clases.
+
+## 👩‍🏫 Para instructores y revisores
+
+- [Arquitectura del programa](docs/PROGRAM-ARCHITECTURE.md): etapas, progresión y dependencias;
+- [modelo de aprendizaje](docs/LEARNING-MODEL.md): cómo se transforma teoría en evidencia;
+- [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md): gate obligatorio por clase;
+- [matriz de cobertura](docs/COVERAGE-MATRIX.md): conceptos y ubicación curricular;
+- [auditoría de fase 3](docs/PHASE3-CONTENT-AUDIT.md): defectos conocidos y conteos comprobables;
+- [gobernanza](docs/GOVERNANCE.md): decisiones, revisión y evolución;
+- [guía de contribución](CONTRIBUTING.md): cambio reproducible y validación local.
+
+## 🚀 Cómo usar el programa
+
+1. Empieza en el [índice completo](classes/README.md) y abre la ruta que corresponda a tu base actual.
+2. Lee el estado de la clase: un borrador sirve para revisión; un scaffold solo describe trabajo pendiente.
+3. Produce el artefacto solicitado, registra decisiones y conserva evidencia del resultado y del fallo.
+4. Compara tu entrega con la rúbrica y las fuentes; no promociones contenido por cantidad de texto.
+5. Continúa con los enlaces anterior/siguiente o vuelve al README de la parte para revisar dependencias.
+
+## 🧭 Rutas sugeridas
+
+| Objetivo | Recorrido recomendado | Resultado esperado |
+| --- | --- | --- |
+| construir fundamentos sólidos | partes 00–09 | razonar sobre sistemas, código, datos, herramientas y depuración |
+| pasar de problema a SPEC | partes 10–17 | descubrir valor, especificar, planificar, colaborar y documentar |
+| desarrollar productos en distintas plataformas | partes 18–29 | construir interfaces, servicios, sistemas de datos, distribuidos y cloud |
+| asegurar calidad y entrega | partes 30–34 | probar, proteger, empaquetar y desplegar con evidencia |
+| operar y evolucionar software | partes 35–37 | observar, responder, modernizar y liderar cambios |
+| crear software con IA y agentes | partes 38–39, después de 00–17 y 30–35 | usar SPEC, contexto, evals, herramientas, MCP, delegación y recuperación |
+
+## 📦 Formatos y superficies disponibles
+
+Actualmente existen dos superficies oficiales: documentación navegable en GitHub y
+el portal estático en GitHub Pages. No se anuncian como disponibles un manual
+descargable, una aplicación móvil/escritorio, seguimiento personal de progreso ni
+releases empaquetadas; cualquiera de esas superficies deberá implementarse,
+probarse y declararse de forma separada antes de aparecer como capacidad del programa.
+
 ## 📊 Estado verificable
 
 Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría:
@@ -175,7 +279,16 @@ generación automática. El estado actual vive en [STATUS.md](STATUS.md) y la
 evidencia de por qué las 180 entradas no cuentan como clases construidas está en
 [docs/PHASE3-CONTENT-AUDIT.md](docs/PHASE3-CONTENT-AUDIT.md).
 
-## ✅ Validación local
+## ✅ Calidad, CI y validación local
+
+| Workflow | Qué comprueba | Plataformas / salida |
+| --- | --- | --- |
+| [Validate](.github/workflows/validate.yml) | generación reproducible, contratos, madurez, UTF-8, enlaces, políticas y tests | Python 3.11–3.14 en Linux; portabilidad en Windows y macOS |
+| [Pages](.github/workflows/pages.yml) | las 521 páginas generadas, integridad del portal y despliegue | artefacto y publicación en GitHub Pages |
+
+Las acciones externas están fijadas por SHA, los permisos son mínimos por job y los
+workflows usan concurrencia con cancelación de ejecuciones obsoletas. La misma
+validación crítica puede ejecutarse localmente sin instalar dependencias:
 
 Requiere Python 3.11 o posterior y no instala dependencias:
 
@@ -212,13 +325,6 @@ scripts/           generación y validación sin dependencias externas
 tests/             pruebas estructurales
 ```
 
-## 📖 Fuentes
-
-La línea base y la fase 3 usan fuentes oficiales o primarias y registran fecha,
-autoridad, estado y propósito en [sources/baseline.json](sources/baseline.json) y
-[sources/phase3.json](sources/phase3.json). Las afirmaciones temporales se revisan
-antes de publicarse.
-
 ## 🌐 Publicación
 
 La identidad, About, topics, gates y URL de Pages están definidos en
@@ -227,7 +333,18 @@ desde el manifiesto. El workflow remoto y la respuesta HTTPS del
 [portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 fueron verificados el 30 de septiembre de 2026.
 
-## 🧭 Filosofía
+## 🎯 Qué es y qué no es este programa
+
+| Es | No es todavía |
+| --- | --- |
+| una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
+| 180 borradores ampliados y auditables | 180 clases aprobadas o listas para impartir |
+| un estándar explícito para aceptar contenido | una certificación profesional |
+| un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
+| un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |
+| una cobertura deliberada de IA, SPEC y agentes | permiso para delegar decisiones críticas sin supervisión |
+
+## 🧭 Principios editoriales
 
 - conceptos transferibles antes que catálogos de herramientas;
 - problemas, decisiones y evidencia antes que texto genérico;
@@ -237,7 +354,21 @@ fueron verificados el 30 de septiembre de 2026.
 - afirmaciones públicas derivadas de fuentes verificables;
 - portafolio reproducible en vez de certificación sin práctica.
 
+## 💡 Idea fuerza
+
+> Crear software no es producir archivos: es convertir una necesidad en un sistema
+> comprensible, verificable, seguro, operable y capaz de evolucionar. La IA amplía
+> esa capacidad solo cuando la intención, la evidencia y la responsabilidad siguen
+> bajo control humano.
+
 ## 📄 Licencia
 
 MIT para el código y contenido propio actualmente cubierto por [LICENSE](LICENSE).
 Las fuentes, estándares, marcas y tecnologías externas conservan sus propios términos.
+
+---
+
+Hecho para aprender ingeniería de software de principio a fin, con práctica,
+evidencia y límites explícitos.
+
+[⬆️ Volver al inicio](#-programa-de-ingeniería-de-software-moderna) · [📚 Abrir las 480 clases](classes/README.md) · [🌐 Entrar al portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [👤 Vladimir Acuña](https://github.com/vladimiracunadev-create)

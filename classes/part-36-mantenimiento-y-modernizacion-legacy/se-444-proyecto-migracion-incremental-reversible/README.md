@@ -1,17 +1,9 @@
 # SE-444 — Proyecto: migración incremental reversible
 
+[← SE-443 — Taller: estabilizar antes de modernizar](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar/README.md) · [↑ Parte 36](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-444.html) · [SE-445 — Liderazgo técnico sin autoridad formal →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-445-liderazgo-tecnico-sin-autoridad-formal/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 36 · Mantenimiento y modernización legacy |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-443 — Taller: estabilizar antes de modernizar](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar/README.md) · [↑ Parte 36](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-444.html) · [SE-445 — Liderazgo técnico sin autoridad formal →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-445-liderazgo-tecnico-sin-autoridad-formal/README.md)

@@ -1,17 +1,9 @@
 # SE-310 — Arquitectura socio-técnica y límites de equipo
 
+[← SE-309 — Trade-offs, ADR y evaluación de alternativas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-309-trade-offs-adr-y-evaluacion-de-alternativas/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-310.html) · [SE-311 — Taller: revisar una arquitectura contra escenarios →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-311-taller-revisar-una-arquitectura-contra-escenarios/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 25 · Arquitectura de software y dominio |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-309 — Trade-offs, ADR y evaluación de alternativas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-309-trade-offs-adr-y-evaluacion-de-alternativas/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-310.html) · [SE-311 — Taller: revisar una arquitectura contra escenarios →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-311-taller-revisar-una-arquitectura-contra-escenarios/README.md)

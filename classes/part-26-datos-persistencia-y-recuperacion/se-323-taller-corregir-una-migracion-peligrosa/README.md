@@ -1,17 +1,9 @@
 # SE-323 — Taller: corregir una migración peligrosa
 
+[← SE-322 — Privacidad, retención y ciclo de vida del dato](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-323.html) · [SE-324 — Proyecto: capa de datos recuperable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 26 · Datos, persistencia y recuperación |
-| Tipo | `studio` |
-| Propietario profundo | `database-systems-labs` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-322 — Privacidad, retención y ciclo de vida del dato](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-323.html) · [SE-324 — Proyecto: capa de datos recuperable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/README.md)

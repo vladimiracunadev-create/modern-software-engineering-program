@@ -1,17 +1,9 @@
 # SE-314 — Relacional, documental, clave-valor, grafos y series
 
+[← SE-313 — Modelado conceptual, lógico y físico](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-314.html) · [SE-315 — Transacciones, aislamiento y concurrencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 26 · Datos, persistencia y recuperación |
-| Tipo | `class` |
-| Propietario profundo | `database-systems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-313 — Modelado conceptual, lógico y físico](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-314.html) · [SE-315 — Transacciones, aislamiento y concurrencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md)

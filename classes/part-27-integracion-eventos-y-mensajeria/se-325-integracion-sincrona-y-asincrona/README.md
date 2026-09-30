@@ -1,17 +1,9 @@
 # SE-325 — Integración síncrona y asíncrona
 
+[← SE-324 — Proyecto: capa de datos recuperable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/README.md) · [↑ Parte 27](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-325.html) · [SE-326 — Mensajes, eventos, comandos y documentos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 27 · Integración, eventos y mensajería |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-324 — Proyecto: capa de datos recuperable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/README.md) · [↑ Parte 27](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-325.html) · [SE-326 — Mensajes, eventos, comandos y documentos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos/README.md)

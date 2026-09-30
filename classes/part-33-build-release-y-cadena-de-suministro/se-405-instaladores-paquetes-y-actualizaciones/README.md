@@ -1,17 +1,9 @@
 # SE-405 — Instaladores, paquetes y actualizaciones
 
+[← SE-404 — Canary, blue-green y rollback](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-405.html) · [SE-406 — Riesgos de CI y dependencias comprometidas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 33 · Build, release y cadena de suministro |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-404 — Canary, blue-green y rollback](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-405.html) · [SE-406 — Riesgos de CI y dependencias comprometidas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/README.md)

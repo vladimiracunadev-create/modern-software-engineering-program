@@ -1,17 +1,9 @@
 # SE-389 — Criptografía aplicada y gestión de claves
 
+[← SE-388 — Validación, codificación y clases de inyección](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-388-validacion-codificacion-y-clases-de-inyeccion/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-389.html) · [SE-390 — Secretos, configuración y separación de ambientes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 32 · Seguridad, privacidad y cumplimiento |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-388 — Validación, codificación y clases de inyección](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-388-validacion-codificacion-y-clases-de-inyeccion/README.md) · [↑ Parte 32](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-389.html) · [SE-390 — Secretos, configuración y separación de ambientes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/README.md)

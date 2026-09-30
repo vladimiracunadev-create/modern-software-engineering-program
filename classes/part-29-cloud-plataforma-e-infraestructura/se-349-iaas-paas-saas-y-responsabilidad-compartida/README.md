@@ -1,17 +1,9 @@
 # SE-349 — IaaS, PaaS, SaaS y responsabilidad compartida
 
+[← SE-348 — Proyecto: servicio distribuido con degradación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-348-proyecto-servicio-distribuido-con-degradacion/README.md) · [↑ Parte 29](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-349.html) · [SE-350 — Máquinas virtuales, contenedores y aislamiento →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-350-maquinas-virtuales-contenedores-y-aislamiento/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 29 · Cloud, plataforma e infraestructura |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-348 — Proyecto: servicio distribuido con degradación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-348-proyecto-servicio-distribuido-con-degradacion/README.md) · [↑ Parte 29](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-349.html) · [SE-350 — Máquinas virtuales, contenedores y aislamiento →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-350-maquinas-virtuales-contenedores-y-aislamiento/README.md)

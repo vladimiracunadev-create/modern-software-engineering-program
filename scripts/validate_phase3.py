@@ -9,16 +9,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_SECTIONS = [
-    "## Ficha", "## Prerrequisitos", "## Problema auténtico",
+    "## Prerrequisitos", "## Problema auténtico",
     "## Objetivos observables", "## Mapa conceptual",
-    "## Conceptos y decisiones", "## Ejemplo mínimo",
+    "## Temas y por qué importan", "## Conceptos y decisiones",
+    "## Definiciones de trabajo", "## Ejemplo mínimo",
     "## Ejemplo profesional", "## Práctica guiada", "## Ejercicios",
+    "## Reto verificable", "## Preguntas frecuentes",
     "## Fallo controlado y diagnóstico", "## Entorno y archivos clave",
     "## Seguridad, ética y accesibilidad", "## Transferencia",
     "## Evaluación y evidencia", "## Fuentes", "## Límites y siguiente paso",
 ]
 APPROVAL_SECTIONS = [
-    "## Definiciones", "## Glosario", "## Reto", "## Preguntas frecuentes",
+    "## Definiciones de trabajo", "## Glosario", "## Reto verificable",
+    "## Preguntas frecuentes",
 ]
 GENERIC_SENTENCE = "La respuesta profesional separa hechos, inferencias y preferencias"
 
@@ -55,6 +58,10 @@ def main() -> int:
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
                 failures.append(f"missing sections {lesson['id']}: {missing}")
+            if "## Ficha" in text or "| Campo | Valor |" in text:
+                failures.append(f"forbidden class record table: {lesson['id']}")
+            if "Índice completo" not in text or f"↑ Parte {part['id']}" not in text:
+                failures.append(f"missing class navigation: {lesson['id']}")
             if GENERIC_SENTENCE in text:
                 generic_count += 1
             for section in APPROVAL_SECTIONS:
@@ -84,10 +91,10 @@ def main() -> int:
     audit = (ROOT / "docs/PHASE3-CONTENT-AUDIT.md").read_text(encoding="utf-8")
     audit_claims = {
         "borradores que repiten el mismo párrafo genérico": generic_count,
-        "clases con sección `Definiciones`": approval_section_counts["## Definiciones"],
+        "clases con sección `Definiciones de trabajo`": approval_section_counts["## Definiciones de trabajo"],
         "clases con sección `Glosario`": approval_section_counts["## Glosario"],
         "clases con sección `Preguntas frecuentes`": approval_section_counts["## Preguntas frecuentes"],
-        "clases con sección `Reto`": approval_section_counts["## Reto"],
+        "clases con sección `Reto verificable`": approval_section_counts["## Reto verificable"],
     }
     for label, count in audit_claims.items():
         if f"| {label} | {count} |" not in audit:

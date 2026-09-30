@@ -1,17 +1,9 @@
 # SE-287 — Taller: comparar riesgos entre dominios
 
+[← SE-286 — Low-code, no-code y automatización visual](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-286-low-code-no-code-y-automatizacion-visual/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-287.html) · [SE-288 — Proyecto: diseño profundo de un dominio elegido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 23 · Software especializado y dominios |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-286 — Low-code, no-code y automatización visual](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-286-low-code-no-code-y-automatizacion-visual/README.md) · [↑ Parte 23](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-287.html) · [SE-288 — Proyecto: diseño profundo de un dominio elegido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)

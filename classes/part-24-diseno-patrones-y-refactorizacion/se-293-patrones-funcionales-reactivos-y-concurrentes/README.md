@@ -1,17 +1,9 @@
 # SE-293 — Patrones funcionales, reactivos y concurrentes
 
+[← SE-292 — Patrones creacionales, estructurales y conductuales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-292-patrones-creacionales-estructurales-y-conductuales/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-293.html) · [SE-294 — Code smells y diagnóstico contextual →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-294-code-smells-y-diagnostico-contextual/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 24 · Diseño, patrones y refactorización |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-292 — Patrones creacionales, estructurales y conductuales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-292-patrones-creacionales-estructurales-y-conductuales/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-293.html) · [SE-294 — Code smells y diagnóstico contextual →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-294-code-smells-y-diagnostico-contextual/README.md)

@@ -113,6 +113,13 @@ def words(title: str, profile: dict) -> list[str]:
     return result
 
 
+def display_term(term: str) -> str:
+    """Start ordinary terms with a capital while preserving acronyms and product casing."""
+    if term.isupper() or any(character.isupper() for character in term[1:]):
+        return term
+    return term[:1].upper() + term[1:]
+
+
 def source_catalog(program: dict) -> dict:
     used = sorted({source for part in program["parts"] if part["lessons"][-1]["number"] <= TARGET_LAST_CLASS for source in PROFILES[part["id"]]["sources"]})
     return {
@@ -129,17 +136,52 @@ def source_catalog(program: dict) -> dict:
     }
 
 
-def context(program: dict) -> dict[str, tuple[dict, dict, str, str]]:
+def context(program: dict) -> dict[str, tuple[dict, dict, dict | None, dict | None]]:
     flat = [(part, lesson) for part in program["parts"] for lesson in part["lessons"]]
     result = {}
     for index, (part, lesson) in enumerate(flat):
-        previous = flat[index - 1][1]["id"] if index else "diagnóstico inicial"
-        following = flat[index + 1][1]["id"] if index + 1 < len(flat) else "cierre del programa"
+        previous = flat[index - 1][1] if index else None
+        following = flat[index + 1][1] if index + 1 < len(flat) else None
         result[lesson["id"]] = (part, lesson, previous, following)
     return result
 
 
-def lesson_readme(part: dict, lesson: dict, previous: str, following: str) -> str:
+def repository_class_url(lesson: dict) -> str:
+    return (
+        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        f"blob/main/{lesson['path']}/README.md"
+    )
+
+
+def lesson_navigation(part: dict, lesson: dict, previous: dict | None, following: dict | None) -> str:
+    previous_link = (
+        f"[← {previous['id']} — {previous['title']}]({repository_class_url(previous)})"
+        if previous else "← Inicio del programa"
+    )
+    following_link = (
+        f"[{following['id']} — {following['title']} →]({repository_class_url(following)})"
+        if following else "Fin del programa →"
+    )
+    portal = (
+        "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/"
+        f"classes/{lesson['id']}.html"
+    )
+    part_url = (
+        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        f"blob/main/{part['path']}/README.md"
+    )
+    index_url = (
+        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        "blob/main/classes/README.md"
+    )
+    return (
+        f"{previous_link} · [↑ Parte {part['id']}]({part_url}) · "
+        f"[📚 Índice completo]({index_url}) · "
+        f"[🌐 Portal]({portal}) · {following_link}"
+    )
+
+
+def lesson_readme(part: dict, lesson: dict, previous: dict | None, following: dict | None) -> str:
     profile = PROFILES[part["id"]]
     teaching = TEACHING[part["id"]]
     terms = words(lesson["title"], profile)
@@ -149,31 +191,38 @@ def lesson_readme(part: dict, lesson: dict, previous: str, following: str) -> st
         for source_id in profile["sources"]
     )
     files = "\n".join(f"│   ├── {name}" for name in profile["files"])
+    roles = [
+        ("modelo", "delimita qué entidad, estado o relación se estudia y qué queda fuera"),
+        ("mecanismo", "explica la cadena causal: qué entrada cambia qué estado y mediante qué regla"),
+        ("evidencia", "define la señal observable que permite contrastar el modelo sin confundir correlación con causa"),
+        ("decisión", "convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión"),
+    ]
     concept_sections = "\n\n".join(
-        f"### {index}. {term.capitalize()}\n\nEn **{lesson['title']}**, `{term}` se analiza dentro de esta base: {teaching['foundation']} Para volverlo operativo, responde «{teaching['question']}» y conserva {teaching['evidence']}. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta."
-        for index, term in enumerate(terms[:4], start=1)
+        f"### {index}. {display_term(term)}: {role}\n\nEn esta clase, **{term}** se estudia como {role}. Su función es {explanation}. Debe conectarse con la pregunta «{teaching['question']}» y demostrarse mediante {teaching['evidence']}. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **{lesson['title']}**, registra los supuestos y explica qué decisión concreta cambia al comprenderla."
+        for index, (term, (role, explanation)) in enumerate(zip(terms[:4], roles), start=1)
     )
-    mode = {"class": "análisis guiado", "studio": "taller de integración", "project": "proyecto de portafolio"}[lesson["kind"]]
+    topic_rows = "\n".join(
+        f"| {display_term(term)} | {display_term(role)} | {display_term(explanation)}. |"
+        for term, (role, explanation) in zip(terms[:4], roles)
+    )
+    definitions = "\n".join(
+        f"- **{display_term(term)}:** concepto usado aquí como {role}; se acepta solo si puede observarse o justificarse mediante {teaching['evidence']}."
+        for term, (role, _) in zip(terms[:4], roles)
+    )
+    navigation = lesson_navigation(part, lesson, previous, following)
+    previous_label = previous["id"] if previous else "diagnóstico inicial del programa"
+    following_label = following["id"] if following else "cierre del programa"
     return f"""# {lesson['id']} — {lesson['title']}
+
+{navigation}
 
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | {part['stage']} · {part['stage_title']} |
-| Parte | {part['id']} · {part['title']} |
-| Modalidad | {mode} (`{lesson['kind']}`) |
-| Dominio técnico principal | `{part['owner']}` |
-| Duración estimada | {lesson['estimated_hours']} horas |
-| Producto de la clase | {profile['artifact']} |
-
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `{previous}` y poder explicar qué evidencia produjo.
+- Haber completado o diagnosticado `{previous_label}` y poder explicar qué evidencia produjo.
 - Manejar archivos de texto, rutas y control de versiones a nivel básico.
 - Disponer de {profile['environment']}.
 
@@ -191,6 +240,12 @@ Al terminar podrás:
 4. diagnosticar el fallo «{profile['failure']}» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+{topic_rows}
+
 ## Mapa conceptual
 
 ```mermaid
@@ -202,6 +257,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **{lesson['title']}**.
+
 ## Conceptos y decisiones
 
 {teaching['foundation']}
@@ -212,6 +272,14 @@ apoyarse en **{teaching['evidence']}**.
 {concept_sections}
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+{definitions}
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -247,6 +315,14 @@ En la {product}, el equipo prepara un cambio relacionado con **{lesson['title']}
 1. **Fundamental:** define {terms[0]} y {terms[1]} con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la {product}, compara tres opciones y entrega `{profile['files'][0]}` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **{profile['artifact']}** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -297,9 +373,30 @@ Fuentes verificadas el {VERIFIED_ON}:
 
 {source_lines}
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `{following}`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `{following_label}`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+{navigation}
 """
 
 
@@ -339,7 +436,11 @@ def inline_markdown(value: str) -> str:
     escaped = html.escape(value)
     escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
     escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
-    escaped = re.sub(r"\[([^]]+)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', escaped)
+    escaped = re.sub(
+        r"\[([^]]+)\]\((https?://[^)]+|\.{1,2}/[^)]+)\)",
+        r'<a href="\2">\1</a>',
+        escaped,
+    )
     return escaped
 
 
@@ -441,11 +542,20 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
     return "".join(output), headings
 
 
-def site_page(part: dict, lesson: dict, markdown: str) -> str:
+def site_page(
+    part: dict,
+    lesson: dict,
+    markdown: str,
+    previous: dict | None,
+    following: dict | None,
+) -> str:
     content, headings = markdown_to_html(markdown)
     toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
     repository_url = f"https://github.com/vladimiracunadev-create/software-engineering-learning-suite/tree/main/{lesson['path']}"
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador estructural {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p></main><footer>Software Engineering Learning Suite · Fase 3 en reconstrucción</footer></body></html>\n"""
+    previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
+    following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
+    navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador estructural {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content">{navigation}<p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Software Engineering Learning Suite · Fase 3 en reconstrucción</footer></body></html>\n"""
 
 
 def expected_files(program: dict) -> dict[Path, str]:
@@ -461,7 +571,9 @@ def expected_files(program: dict) -> dict[Path, str]:
             result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = dump_json(activity(part, lesson))
             result[directory / "rubric.json"] = dump_json(rubric(part, lesson))
-            result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(part, lesson, markdown)
+            result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(
+                part, lesson, markdown, previous, following
+            )
     return result
 
 

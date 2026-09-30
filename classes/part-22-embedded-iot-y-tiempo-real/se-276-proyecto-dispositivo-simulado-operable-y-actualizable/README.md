@@ -1,17 +1,9 @@
 # SE-276 — Proyecto: dispositivo simulado operable y actualizable
 
+[← SE-275 — Taller: modelar fallos físicos y digitales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-276.html) · [SE-277 — Software científico y reproducibilidad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-277-software-cientifico-y-reproducibilidad/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 22 · Embedded, IoT y tiempo real |
-| Tipo | `project` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-275 — Taller: modelar fallos físicos y digitales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-275-taller-modelar-fallos-fisicos-y-digitales/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-276.html) · [SE-277 — Software científico y reproducibilidad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-23-software-especializado-y-dominios/se-277-software-cientifico-y-reproducibilidad/README.md)

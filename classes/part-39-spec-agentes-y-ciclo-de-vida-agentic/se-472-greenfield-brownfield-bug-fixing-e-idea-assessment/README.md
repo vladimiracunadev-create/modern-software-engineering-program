@@ -1,17 +1,9 @@
 # SE-472 — Greenfield, brownfield, bug fixing e idea assessment
 
+[← SE-471 — Implementación, análisis y convergencia contra SPEC](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-471-implementacion-analisis-y-convergencia-contra-spec/README.md) · [↑ Parte 39](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-472.html) · [SE-473 — Agentes, herramientas, permisos y límites de autoridad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-473-agentes-herramientas-permisos-y-limites-de-autoridad/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | H · Ingeniería de software nativa con IA |
-| Parte | 39 · SPEC, agentes y ciclo de vida agentic |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -81,3 +73,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-471 — Implementación, análisis y convergencia contra SPEC](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-471-implementacion-analisis-y-convergencia-contra-spec/README.md) · [↑ Parte 39](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-472.html) · [SE-473 — Agentes, herramientas, permisos y límites de autoridad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-473-agentes-herramientas-permisos-y-limites-de-autoridad/README.md)

@@ -1,17 +1,9 @@
 # SE-464 — Context engineering y reducción de ambigüedad
 
+[← SE-463 — Revisión, refactorización y explicación asistidas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-463-revision-refactorizacion-y-explicacion-asistidas/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-464.html) · [SE-465 — Evals de exactitud, utilidad, costo y latencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | H · Ingeniería de software nativa con IA |
-| Parte | 38 · Desarrollo de software asistido por IA |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -80,3 +72,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-463 — Revisión, refactorización y explicación asistidas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-463-revision-refactorizacion-y-explicacion-asistidas/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-464.html) · [SE-465 — Evals de exactitud, utilidad, costo y latencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md)

@@ -1,17 +1,9 @@
 # SE-324 — Proyecto: capa de datos recuperable
 
+[← SE-323 — Taller: corregir una migración peligrosa](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-323-taller-corregir-una-migracion-peligrosa/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-324.html) · [SE-325 — Integración síncrona y asíncrona →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 26 · Datos, persistencia y recuperación |
-| Tipo | `project` |
-| Propietario profundo | `database-systems-labs` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-323 — Taller: corregir una migración peligrosa](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-323-taller-corregir-una-migracion-peligrosa/README.md) · [↑ Parte 26](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-324.html) · [SE-325 — Integración síncrona y asíncrona →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/README.md)

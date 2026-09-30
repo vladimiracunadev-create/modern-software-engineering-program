@@ -1,19 +1,10 @@
 # SE-166 — Especificaciones ejecutables y pruebas contractuales
 
+[← SE-165 — Spec-first, spec-anchored y spec-as-source](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) · [↑ Parte 13](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-166.html) · [SE-167 — Taller: convertir intención en contrato comprobable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 13 · Especificaciones, contratos y modelos |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `suite` |
-| Duración estimada | 4 horas |
-| Producto de la clase | contrato versionado y ejemplos verificables |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «cambiar una interfaz sin analizar consumidores ni compatibilidad» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Especificaciones | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Ejecutables | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Pruebas | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Contractuales | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Especificaciones ejecutables y pruebas contractuales**.
+
 ## Conceptos y decisiones
 
 Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes.
@@ -53,23 +58,34 @@ Una especificación reduce interpretaciones permitidas mediante vocabulario, mod
 La pregunta rectora de esta parte es: **¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?** La respuesta debe
 apoyarse en **esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual**.
 
-### 1. Especificaciones
+### 1. Especificaciones: modelo
 
-En **Especificaciones ejecutables y pruebas contractuales**, `Especificaciones` se analiza dentro de esta base: Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes. Para volverlo operativo, responde «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y conserva esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Especificaciones** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Especificaciones ejecutables y pruebas contractuales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Ejecutables
+### 2. Ejecutables: mecanismo
 
-En **Especificaciones ejecutables y pruebas contractuales**, `ejecutables` se analiza dentro de esta base: Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes. Para volverlo operativo, responde «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y conserva esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **ejecutables** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Especificaciones ejecutables y pruebas contractuales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Pruebas
+### 3. Pruebas: evidencia
 
-En **Especificaciones ejecutables y pruebas contractuales**, `pruebas` se analiza dentro de esta base: Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes. Para volverlo operativo, responde «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y conserva esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **pruebas** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Especificaciones ejecutables y pruebas contractuales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Contractuales
+### 4. Contractuales: decisión
 
-En **Especificaciones ejecutables y pruebas contractuales**, `contractuales` se analiza dentro de esta base: Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes. Para volverlo operativo, responde «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y conserva esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **contractuales** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Especificaciones ejecutables y pruebas contractuales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Especificaciones:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+- **Ejecutables:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+- **Pruebas:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+- **Contractuales:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la comunidad social, el equipo prepara un cambio relacionado con **Especifica
 1. **Fundamental:** define Especificaciones y ejecutables con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `contract.yaml` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **contrato versionado y ejemplos verificables** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -160,6 +184,27 @@ Fuentes verificadas el 2026-09-30:
 - **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **GraphQL Specification** — GraphQL Foundation. [https://spec.graphql.org/](https://spec.graphql.org/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Especificaciones ejecutables y pruebas contractuales**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-167`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-165 — Spec-first, spec-anchored y spec-as-source](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source/README.md) · [↑ Parte 13](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-166.html) · [SE-167 — Taller: convertir intención en contrato comprobable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable/README.md)

@@ -1,17 +1,9 @@
 # SE-204 — Proyecto: contribución revisable de extremo a extremo
 
+[← SE-203 — Taller: rescatar una integración conflictiva](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-204.html) · [SE-205 — Documentación orientada a tareas y audiencias →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 16 · Git, colaboración y código abierto |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-203 — Taller: rescatar una integración conflictiva](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-204.html) · [SE-205 — Documentación orientada a tareas y audiencias →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md)

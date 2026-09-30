@@ -1,17 +1,9 @@
 # SE-478 — Seguridad agentic, prompt injection y auditoría
 
+[← SE-477 — Human-in-the-loop, aprobación y acciones reversibles](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-477-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md) · [↑ Parte 39](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-478.html) · [SE-479 — Taller: detener, recuperar y evaluar un agente →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | H · Ingeniería de software nativa con IA |
-| Parte | 39 · SPEC, agentes y ciclo de vida agentic |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -81,3 +73,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-477 — Human-in-the-loop, aprobación y acciones reversibles](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-477-human-in-the-loop-aprobacion-y-acciones-reversibles/README.md) · [↑ Parte 39](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-478.html) · [SE-479 — Taller: detener, recuperar y evaluar un agente →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente/README.md)

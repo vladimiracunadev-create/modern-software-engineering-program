@@ -1,17 +1,9 @@
 # SE-194 — Commits atómicos, historial y recuperación
 
+[← SE-193 — Modelo de objetos y áreas de Git](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-194.html) · [SE-195 — Ramas, integración, rebase y conflictos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 16 · Git, colaboración y código abierto |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-193 — Modelo de objetos y áreas de Git](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git/README.md) · [↑ Parte 16](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-194.html) · [SE-195 — Ramas, integración, rebase y conflictos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md)

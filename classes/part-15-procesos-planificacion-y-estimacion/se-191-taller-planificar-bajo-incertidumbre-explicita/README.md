@@ -1,17 +1,9 @@
 # SE-191 — Taller: planificar bajo incertidumbre explícita
 
+[← SE-190 — Retrospectivas y mejora del sistema de trabajo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-191.html) · [SE-192 — Proyecto: plan adaptativo con evidencia y guardrails →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 15 · Procesos, planificación y estimación |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-190 — Retrospectivas y mejora del sistema de trabajo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-191.html) · [SE-192 — Proyecto: plan adaptativo con evidencia y guardrails →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails/README.md)

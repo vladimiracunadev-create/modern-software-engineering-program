@@ -1,19 +1,10 @@
 # SE-048 — Proyecto: servicio observable y tolerante a fallos de red
 
+[← SE-047 — Taller: seguir una petición de extremo a extremo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-048.html) · [SE-049 — Descomposición, abstracción y reconocimiento de patrones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | A · Fundamentos de la profesión |
-| Parte | 03 · Redes, Internet y protocolos |
-| Modalidad | proyecto de portafolio (`project`) |
-| Dominio técnico principal | `suite` |
-| Duración estimada | 8 horas |
-| Producto de la clase | traza comentada de una comunicación |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «atribuir al servidor un fallo que ocurre en resolución, transporte o caché» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Servicio | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Observable | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Tolerante | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: servicio observable y tolerante a fallos de red**.
+
 ## Conceptos y decisiones
 
 Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes.
@@ -53,23 +58,34 @@ Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad
 La pregunta rectora de esta parte es: **¿en qué capa se define el comportamiento y en cuál aparece el síntoma?** La respuesta debe
 apoyarse en **mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno**.
 
-### 1. Proyecto
+### 1. Proyecto: modelo
 
-En **Proyecto: servicio observable y tolerante a fallos de red**, `Proyecto` se analiza dentro de esta base: Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes. Para volverlo operativo, responde «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y conserva mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Servicio
+### 2. Servicio: mecanismo
 
-En **Proyecto: servicio observable y tolerante a fallos de red**, `servicio` se analiza dentro de esta base: Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes. Para volverlo operativo, responde «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y conserva mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **servicio** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Observable
+### 3. Observable: evidencia
 
-En **Proyecto: servicio observable y tolerante a fallos de red**, `observable` se analiza dentro de esta base: Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes. Para volverlo operativo, responde «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y conserva mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **observable** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Tolerante
+### 4. Tolerante: decisión
 
-En **Proyecto: servicio observable y tolerante a fallos de red**, `tolerante` se analiza dentro de esta base: Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes. Para volverlo operativo, responde «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y conserva mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **tolerante** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+- **Servicio:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+- **Observable:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+- **Tolerante:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la suite familiar privada, el equipo prepara un cambio relacionado con **Proy
 1. **Fundamental:** define Proyecto y servicio con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `request.txt` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **traza comentada de una comunicación** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -160,6 +184,27 @@ Fuentes verificadas el 2026-09-30:
 - **QUIC: A UDP-Based Multiplexed and Secure Transport** — IETF. [https://www.rfc-editor.org/rfc/rfc9000](https://www.rfc-editor.org/rfc/rfc9000) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **HTTP Semantics** — IETF. [https://www.rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Proyecto: servicio observable y tolerante a fallos de red**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-049`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-047 — Taller: seguir una petición de extremo a extremo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-048.html) · [SE-049 — Descomposición, abstracción y reconocimiento de patrones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)

@@ -1,17 +1,9 @@
 # SE-190 — Retrospectivas y mejora del sistema de trabajo
 
+[← SE-189 — Métricas de flujo, calidad y resultados](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-190.html) · [SE-191 — Taller: planificar bajo incertidumbre explícita →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 15 · Procesos, planificación y estimación |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-189 — Métricas de flujo, calidad y resultados](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-190.html) · [SE-191 — Taller: planificar bajo incertidumbre explícita →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)

@@ -1,17 +1,9 @@
 # SE-398 — Artefactos, repositorios y promoción
 
+[← SE-397 — Build reproducible y hermético](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-398.html) · [SE-399 — Dependencias directas, transitivas y vendorización →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 33 · Build, release y cadena de suministro |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-397 — Build reproducible y hermético](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-398.html) · [SE-399 — Dependencias directas, transitivas y vendorización →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion/README.md)

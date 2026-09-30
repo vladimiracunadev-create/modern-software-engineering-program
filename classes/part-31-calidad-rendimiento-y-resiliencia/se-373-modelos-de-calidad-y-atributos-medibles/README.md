@@ -1,17 +1,9 @@
 # SE-373 — Modelos de calidad y atributos medibles
 
+[← SE-372 — Proyecto: estrategia ejecutable por riesgo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-373.html) · [SE-374 — Revisión, análisis estático y quality gates →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-374-revision-analisis-estatico-y-quality-gates/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 31 · Calidad, rendimiento y resiliencia |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-372 — Proyecto: estrategia ejecutable por riesgo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-373.html) · [SE-374 — Revisión, análisis estático y quality gates →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-374-revision-analisis-estatico-y-quality-gates/README.md)

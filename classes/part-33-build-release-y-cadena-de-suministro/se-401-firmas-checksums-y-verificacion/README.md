@@ -1,17 +1,9 @@
 # SE-401 — Firmas, checksums y verificación
 
+[← SE-400 — SBOM, procedencia y atestaciones](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-401.html) · [SE-402 — Versionado, compatibilidad y changelog →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 33 · Build, release y cadena de suministro |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-400 — SBOM, procedencia y atestaciones](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/README.md) · [↑ Parte 33](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-401.html) · [SE-402 — Versionado, compatibilidad y changelog →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/README.md)

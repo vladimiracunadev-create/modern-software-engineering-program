@@ -1,17 +1,9 @@
 # SE-300 — Proyecto: evolución compatible de un componente
 
+[← SE-299 — Taller: refactorizar sin alterar comportamiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-299-taller-refactorizar-sin-alterar-comportamiento/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-300.html) · [SE-301 — Drivers, restricciones y atributos de arquitectura →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 24 · Diseño, patrones y refactorización |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-299 — Taller: refactorizar sin alterar comportamiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-299-taller-refactorizar-sin-alterar-comportamiento/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-300.html) · [SE-301 — Drivers, restricciones y atributos de arquitectura →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura/README.md)

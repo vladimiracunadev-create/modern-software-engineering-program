@@ -1,17 +1,9 @@
 # SE-456 — Proyecto: dossier profesional defendible
 
+[← SE-455 — Taller: conducir una revisión de decisión difícil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil/README.md) · [↑ Parte 37](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-456.html) · [SE-457 — Capacidades y límites de los modelos generativos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-457-capacidades-y-limites-de-los-modelos-generativos/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 37 · Gestión, liderazgo y práctica profesional |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-455 — Taller: conducir una revisión de decisión difícil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil/README.md) · [↑ Parte 37](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-456.html) · [SE-457 — Capacidades y límites de los modelos generativos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-457-capacidades-y-limites-de-los-modelos-generativos/README.md)

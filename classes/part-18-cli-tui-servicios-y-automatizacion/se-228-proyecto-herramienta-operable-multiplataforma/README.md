@@ -1,17 +1,9 @@
 # SE-228 — Proyecto: herramienta operable multiplataforma
 
+[← SE-227 — Taller: endurecer una automatización frágil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md) · [↑ Parte 18](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-228.html) · [SE-229 — Plataforma web, HTML semántico y CSS →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 18 · CLI, TUI, servicios y automatización |
-| Tipo | `project` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-227 — Taller: endurecer una automatización frágil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/README.md) · [↑ Parte 18](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-228.html) · [SE-229 — Plataforma web, HTML semántico y CSS →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/README.md)

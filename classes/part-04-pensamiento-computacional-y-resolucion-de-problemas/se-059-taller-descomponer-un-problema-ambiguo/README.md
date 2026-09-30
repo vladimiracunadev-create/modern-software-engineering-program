@@ -1,19 +1,10 @@
 # SE-059 — Taller: descomponer un problema ambiguo
 
+[← SE-058 — Resolución sistemática y registro de hipótesis](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-059.html) · [SE-060 — Proyecto: especificación y solución contrastable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | A · Fundamentos de la profesión |
-| Parte | 04 · Pensamiento computacional y resolución de problemas |
-| Modalidad | taller de integración (`studio`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 6 horas |
-| Producto de la clase | especificación contrastable de una solución |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «resolver un ejemplo y asumir que la solución cubre todo el dominio» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Descomponer | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Problema | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Ambiguo | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Taller: descomponer un problema ambiguo**.
+
 ## Conceptos y decisiones
 
 Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio.
@@ -53,23 +58,34 @@ Resolver un problema exige modelar entradas, salidas, estado, invariantes y cost
 La pregunta rectora de esta parte es: **¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?** La respuesta debe
 apoyarse en **casos límite, contraejemplos, argumento de terminación y costo medido o acotado**.
 
-### 1. Taller
+### 1. Taller: modelo
 
-En **Taller: descomponer un problema ambiguo**, `Taller` se analiza dentro de esta base: Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio. Para volverlo operativo, responde «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y conserva casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: descomponer un problema ambiguo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Descomponer
+### 2. Descomponer: mecanismo
 
-En **Taller: descomponer un problema ambiguo**, `descomponer` se analiza dentro de esta base: Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio. Para volverlo operativo, responde «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y conserva casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **descomponer** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: descomponer un problema ambiguo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Problema
+### 3. Problema: evidencia
 
-En **Taller: descomponer un problema ambiguo**, `problema` se analiza dentro de esta base: Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio. Para volverlo operativo, responde «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y conserva casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **problema** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: descomponer un problema ambiguo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Ambiguo
+### 4. Ambiguo: decisión
 
-En **Taller: descomponer un problema ambiguo**, `ambiguo` se analiza dentro de esta base: Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio. Para volverlo operativo, responde «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y conserva casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **ambiguo** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: descomponer un problema ambiguo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+- **Descomponer:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+- **Problema:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+- **Ambiguo:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la control de agentes, el equipo prepara un cambio relacionado con **Taller: 
 1. **Fundamental:** define Taller y descomponer con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `problem.md` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **especificación contrastable de una solución** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,6 +182,27 @@ Fuentes verificadas el 2026-09-30:
 - **Mathematics for Computer Science** — MIT OpenCourseWare. [https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Taller: descomponer un problema ambiguo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-060`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-058 — Resolución sistemática y registro de hipótesis](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-059.html) · [SE-060 — Proyecto: especificación y solución contrastable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)

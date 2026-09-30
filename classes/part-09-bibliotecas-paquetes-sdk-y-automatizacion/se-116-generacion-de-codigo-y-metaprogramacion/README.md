@@ -1,19 +1,10 @@
 # SE-116 — Generación de código y metaprogramación
 
+[← SE-115 — Plugins, extensiones y puntos de integración](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-116.html) · [SE-117 — Licencias, procedencia y reutilización →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 09 · Bibliotecas, paquetes, SDK y automatización |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `suite` |
-| Duración estimada | 4 horas |
-| Producto de la clase | paquete y CLI con contrato público |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «romper consumidores mediante un cambio presentado como compatible» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Generación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Código | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Metaprogramación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Contrato | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Generación de código y metaprogramación**.
+
 ## Conceptos y decisiones
 
 Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia.
@@ -53,23 +58,34 @@ Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versi
 La pregunta rectora de esta parte es: **¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?** La respuesta debe
 apoyarse en **contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida**.
 
-### 1. Generación
+### 1. Generación: modelo
 
-En **Generación de código y metaprogramación**, `Generación` se analiza dentro de esta base: Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia. Para volverlo operativo, responde «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y conserva contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Generación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Generación de código y metaprogramación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Código
+### 2. Código: mecanismo
 
-En **Generación de código y metaprogramación**, `código` se analiza dentro de esta base: Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia. Para volverlo operativo, responde «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y conserva contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **código** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Generación de código y metaprogramación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Metaprogramación
+### 3. Metaprogramación: evidencia
 
-En **Generación de código y metaprogramación**, `metaprogramación` se analiza dentro de esta base: Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia. Para volverlo operativo, responde «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y conserva contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **metaprogramación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Generación de código y metaprogramación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Contrato
+### 4. Contrato: decisión
 
-En **Generación de código y metaprogramación**, `contrato` se analiza dentro de esta base: Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia. Para volverlo operativo, responde «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y conserva contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **contrato** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Generación de código y metaprogramación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Generación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+- **Código:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+- **Metaprogramación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+- **Contrato:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la comercio responsable, el equipo prepara un cambio relacionado con **Genera
 1. **Fundamental:** define Generación y código con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `pyproject.toml` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **paquete y CLI con contrato público** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -160,6 +184,27 @@ Fuentes verificadas el 2026-09-30:
 - **SPDX License List** — Linux Foundation. [https://spdx.org/licenses/](https://spdx.org/licenses/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Generación de código y metaprogramación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-117`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-115 — Plugins, extensiones y puntos de integración](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-116.html) · [SE-117 — Licencias, procedencia y reutilización →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md)

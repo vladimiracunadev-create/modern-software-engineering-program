@@ -1,17 +1,9 @@
 # SE-337 — Concurrencia, paralelismo y asincronía
 
+[← SE-336 — Proyecto: flujo integrado tolerante a reintentos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-336-proyecto-flujo-integrado-tolerante-a-reintentos/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-337.html) · [SE-338 — Memoria compartida, locks y condiciones de carrera →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 28 · Concurrencia y sistemas distribuidos |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-336 — Proyecto: flujo integrado tolerante a reintentos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-336-proyecto-flujo-integrado-tolerante-a-reintentos/README.md) · [↑ Parte 28](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-337.html) · [SE-338 — Memoria compartida, locks y condiciones de carrera →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/README.md)

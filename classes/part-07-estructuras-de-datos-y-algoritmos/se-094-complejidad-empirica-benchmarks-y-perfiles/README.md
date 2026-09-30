@@ -1,19 +1,10 @@
 # SE-094 — Complejidad empírica, benchmarks y perfiles
 
+[← SE-093 — Índices, probabilísticas y estructuras persistentes](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-094.html) · [SE-095 — Taller: elegir por carga y no por costumbre →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 07 · Estructuras de datos y algoritmos |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 4 horas |
-| Producto de la clase | implementación medida con casos límite |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «elegir una estructura por costumbre sin medir la carga relevante» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Complejidad | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Empírica | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Benchmarks | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Perfiles | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Complejidad empírica, benchmarks y perfiles**.
+
 ## Conceptos y decisiones
 
 Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga.
@@ -53,23 +58,34 @@ Una estructura de datos define operaciones y costos; un algoritmo debe preservar
 La pregunta rectora de esta parte es: **¿qué operaciones dominan la carga y qué garantía necesita cada una?** La respuesta debe
 apoyarse en **casos límite, pruebas de propiedades, complejidad y medición empírica**.
 
-### 1. Complejidad
+### 1. Complejidad: modelo
 
-En **Complejidad empírica, benchmarks y perfiles**, `Complejidad` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Complejidad** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Complejidad empírica, benchmarks y perfiles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Empírica
+### 2. Empírica: mecanismo
 
-En **Complejidad empírica, benchmarks y perfiles**, `empírica` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **empírica** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Complejidad empírica, benchmarks y perfiles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Benchmarks
+### 3. Benchmarks: evidencia
 
-En **Complejidad empírica, benchmarks y perfiles**, `benchmarks` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **benchmarks** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Complejidad empírica, benchmarks y perfiles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Perfiles
+### 4. Perfiles: decisión
 
-En **Complejidad empírica, benchmarks y perfiles**, `perfiles` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **perfiles** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Complejidad empírica, benchmarks y perfiles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Complejidad:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Empírica:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Benchmarks:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Perfiles:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la comunidad social, el equipo prepara un cambio relacionado con **Complejida
 1. **Fundamental:** define Complejidad y empírica con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `algorithm.py` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **implementación medida con casos límite** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -159,6 +183,27 @@ Fuentes verificadas el 2026-09-30:
 - **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Complejidad empírica, benchmarks y perfiles**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-095`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-093 — Índices, probabilísticas y estructuras persistentes](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-094.html) · [SE-095 — Taller: elegir por carga y no por costumbre →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md)

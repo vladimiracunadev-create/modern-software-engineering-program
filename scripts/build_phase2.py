@@ -13,7 +13,6 @@ PROGRAM_PATH = ROOT / "curriculum.yaml"
 SOURCE_PATH = ROOT / "sources/baseline.json"
 
 REQUIRED_CLASS_SECTIONS = [
-    "## Ficha",
     "## Prerrequisitos",
     "## Problema auténtico",
     "## Objetivos observables",
@@ -97,22 +96,48 @@ def write_generated(path: Path, content: str, check: bool, stale: list[str]) -> 
     path.write_text(content, encoding="utf-8", newline="\n")
 
 
-def class_scaffold(part: dict, lesson: dict, source_ids: list[str]) -> str:
+def repository_class_url(lesson: dict) -> str:
+    return (
+        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        f"blob/main/{lesson['path']}/README.md"
+    )
+
+
+def class_navigation(part: dict, lesson: dict, previous: dict | None, following: dict | None) -> str:
+    previous_link = (
+        f"[← {previous['id']} — {previous['title']}]({repository_class_url(previous)})"
+        if previous else "← Inicio del programa"
+    )
+    following_link = (
+        f"[{following['id']} — {following['title']} →]({repository_class_url(following)})"
+        if following else "Fin del programa →"
+    )
+    portal = (
+        "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/"
+        f"classes/{lesson['id']}.html"
+    )
+    return (
+        f"{previous_link} · [↑ Parte {part['id']}](../README.md) · "
+        "[📚 Índice completo](../../README.md) · "
+        f"[🌐 Portal]({portal}) · {following_link}"
+    )
+
+
+def class_scaffold(
+    part: dict,
+    lesson: dict,
+    source_ids: list[str],
+    previous: dict | None,
+    following: dict | None,
+) -> str:
     sources = "\n".join(f"- `{source_id}` — fuente inicial; precisar uso al construir la clase." for source_id in source_ids)
+    navigation = class_navigation(part, lesson, previous, following)
     return f"""# {lesson['id']} — {lesson['title']}
+
+{navigation}
 
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | {part['stage']} · {part['stage_title']} |
-| Parte | {part['id']} · {part['title']} |
-| Tipo | `{lesson['kind']}` |
-| Dominio técnico principal | `{part['owner']}` |
-| Horas estimadas | {lesson['estimated_hours']} |
 
 ## Prerrequisitos
 
@@ -179,6 +204,10 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+{navigation}
 """
 
 
@@ -203,7 +232,8 @@ def part_index(part: dict) -> str:
     for lesson in part["lessons"]:
         folder = Path(lesson["path"]).name
         rows.append(
-            f"| {lesson['id']} | [{lesson['title']}]({folder}/README.md) | "
+            f"| {lesson['id']} | [{lesson['title']}]({folder}/README.md) · "
+            f"[🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/{lesson['id']}.html) | "
             f"{lesson['kind']} | {lesson['estimated_hours']} | {lesson['status']} |"
         )
     statuses = Counter(lesson["status"] for lesson in part["lessons"])
@@ -365,7 +395,7 @@ Todos los conteos se validan contra `curriculum.yaml`.
 
 
 def site_css() -> str:
-    return """:root{color-scheme:dark;--bg:#071016;--panel:#101b23;--ink:#f4f2eb;--muted:#a8b4bd;--line:#293943;--aqua:#69e2d0;--orange:#ff8c42;--max:1180px;font-family:Inter,ui-sans-serif,system-ui,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.7}a{color:var(--aqua)}.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:white;color:#111;padding:.7rem;z-index:4}.hero{padding:clamp(3rem,8vw,7rem) max(1rem,calc((100% - var(--max))/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 85% 10%,#16413f,transparent 35%)}.eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.15em;font-weight:800}.hero h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.92;letter-spacing:-.055em;margin:.7rem 0}.hero p{max-width:760px;color:var(--muted)}.metrics,.stage-grid,.class-grid{display:grid;gap:1rem}.metrics{grid-template-columns:repeat(4,1fr);margin-top:2rem}.metric,.stage,.class-card,.notice,.lesson-toc,.callout{background:var(--panel);border:1px solid var(--line);padding:1.2rem}.metric strong{display:block;color:var(--aqua);font-size:1.8rem}.metric span,.meta{color:var(--muted)}main{width:min(var(--max),calc(100% - 2rem));margin:auto;padding:3rem 0 6rem}h2{font-size:clamp(1.8rem,4vw,3.6rem);line-height:1.08;margin:4rem 0 1.5rem}.stage-grid{grid-template-columns:repeat(2,1fr)}.stage h3{margin:.2rem 0}.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:1rem;position:sticky;top:0;background:rgba(7,16,22,.95);padding:1rem 0;z-index:2}.toolbar input,.toolbar select{width:100%;background:#0b151c;border:1px solid var(--line);color:var(--ink);padding:.8rem;border-radius:.4rem;font:inherit}.class-grid{grid-template-columns:repeat(3,1fr)}.class-card h3{font-size:1.05rem;margin:.4rem 0}.badge{display:inline-block;border:1px solid #3f5a64;border-radius:999px;padding:.15rem .55rem;font-size:.75rem;color:var(--muted)}.notice{border-color:#74512c}.back{display:inline-block;margin:1rem 0}.lesson-list{padding:0;list-style:none}.lesson-list li{border-bottom:1px solid var(--line);padding:.8rem 0}.lesson{max-width:980px}.lesson-toc{margin:2rem 0}.lesson-toc ol{columns:2}.lesson-content h2{border-top:1px solid var(--line);padding-top:2rem}.lesson-content h3{color:var(--aqua);margin-top:2rem}.lesson-content p{max-width:78ch}.lesson-content li{margin:.35rem 0}.table-wrap{overflow-x:auto;margin:1.5rem 0}.lesson-content table{border-collapse:collapse;width:100%}.lesson-content th,.lesson-content td{border:1px solid var(--line);padding:.7rem;text-align:left;vertical-align:top}.lesson-content th{background:#152630}.lesson-content pre{overflow:auto;background:#03080b;border:1px solid var(--line);padding:1rem;border-radius:.4rem}.lesson-content code{background:#152630;padding:.12rem .3rem;border-radius:.25rem}.lesson-content pre code{background:transparent;padding:0}.callout{border-left:4px solid var(--orange);margin:1rem 0}.source-link{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line)}footer{border-top:1px solid var(--line);padding:2rem;text-align:center;color:var(--muted)}@media(max-width:800px){.metrics,.class-grid{grid-template-columns:repeat(2,1fr)}.stage-grid{grid-template-columns:1fr}.lesson-toc ol{columns:1}}@media(max-width:520px){.metrics,.class-grid,.toolbar{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}\n"""
+    return """:root{color-scheme:dark;--bg:#071016;--panel:#101b23;--ink:#f4f2eb;--muted:#a8b4bd;--line:#293943;--aqua:#69e2d0;--orange:#ff8c42;--max:1180px;font-family:Inter,ui-sans-serif,system-ui,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.7}a{color:var(--aqua)}.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:white;color:#111;padding:.7rem;z-index:4}.hero{padding:clamp(3rem,8vw,7rem) max(1rem,calc((100% - var(--max))/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 85% 10%,#16413f,transparent 35%)}.eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.15em;font-weight:800}.hero h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.92;letter-spacing:-.055em;margin:.7rem 0}.hero p{max-width:760px;color:var(--muted)}.metrics,.stage-grid,.class-grid{display:grid;gap:1rem}.metrics{grid-template-columns:repeat(4,1fr);margin-top:2rem}.metric,.stage,.class-card,.notice,.lesson-toc,.callout{background:var(--panel);border:1px solid var(--line);padding:1.2rem}.metric strong{display:block;color:var(--aqua);font-size:1.8rem}.metric span,.meta{color:var(--muted)}main{width:min(var(--max),calc(100% - 2rem));margin:auto;padding:3rem 0 6rem}h2{font-size:clamp(1.8rem,4vw,3.6rem);line-height:1.08;margin:4rem 0 1.5rem}.stage-grid{grid-template-columns:repeat(2,1fr)}.stage h3{margin:.2rem 0}.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:1rem;position:sticky;top:0;background:rgba(7,16,22,.95);padding:1rem 0;z-index:2}.toolbar input,.toolbar select{width:100%;background:#0b151c;border:1px solid var(--line);color:var(--ink);padding:.8rem;border-radius:.4rem;font:inherit}.class-grid{grid-template-columns:repeat(3,1fr)}.class-card h3{font-size:1.05rem;margin:.4rem 0}.badge{display:inline-block;border:1px solid #3f5a64;border-radius:999px;padding:.15rem .55rem;font-size:.75rem;color:var(--muted)}.notice{border-color:#74512c}.back{display:inline-block;margin:1rem 0}.class-nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.65rem 1rem;margin:1rem 0 2rem;padding:1rem;background:var(--panel);border:1px solid var(--line)}.class-nav span{color:var(--muted)}.lesson-list{padding:0;list-style:none}.lesson-list li{border-bottom:1px solid var(--line);padding:.8rem 0}.lesson{max-width:980px}.lesson-toc{margin:2rem 0}.lesson-toc ol{columns:2}.lesson-content h2{border-top:1px solid var(--line);padding-top:2rem}.lesson-content h3{color:var(--aqua);margin-top:2rem}.lesson-content p{max-width:78ch}.lesson-content li{margin:.35rem 0}.table-wrap{overflow-x:auto;margin:1.5rem 0}.lesson-content table{border-collapse:collapse;width:100%}.lesson-content th,.lesson-content td{border:1px solid var(--line);padding:.7rem;text-align:left;vertical-align:top}.lesson-content th{background:#152630}.lesson-content pre{overflow:auto;background:#03080b;border:1px solid var(--line);padding:1rem;border-radius:.4rem}.lesson-content code{background:#152630;padding:.12rem .3rem;border-radius:.25rem}.lesson-content pre code{background:transparent;padding:0}.callout{border-left:4px solid var(--orange);margin:1rem 0}.source-link{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line)}footer{border-top:1px solid var(--line);padding:2rem;text-align:center;color:var(--muted)}@media(max-width:800px){.metrics,.class-grid{grid-template-columns:repeat(2,1fr)}.stage-grid{grid-template-columns:1fr}.lesson-toc ol{columns:1}}@media(max-width:520px){.metrics,.class-grid,.toolbar{grid-template-columns:1fr}.class-nav{display:grid}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}\n"""
 
 
 def site_js() -> str:
@@ -417,9 +447,18 @@ def part_page(part: dict) -> str:
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Dominio técnico principal: {html.escape(part['owner'])}</p><div class="notice">{state}</div><ol class="lesson-list">{items}</ol></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
 
 
-def class_page(part: dict, lesson: dict, source_ids: list[str]) -> str:
+def class_page(
+    part: dict,
+    lesson: dict,
+    source_ids: list[str],
+    previous: dict | None,
+    following: dict | None,
+) -> str:
     source_list = "".join(f"<li><code>{html.escape(source_id)}</code></li>" for source_id in source_ids)
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED:</strong> scaffold navegable; esta clase aún no contiene desarrollo pedagógico.</div><section><h2>Ficha</h2><p>Etapa {part['stage']} · Parte {part['id']} · {lesson['estimated_hours']} horas estimadas · propietario <code>{html.escape(part['owner'])}</code>.</p></section><section><h2>Contrato previsto</h2><p>Problema, objetivos, conceptos, ejemplos, práctica, tres ejercicios, fallo controlado, entorno, transferencia, evaluación, evidencia y límites.</p></section><section><h2>Fuentes iniciales</h2><ul>{source_list}</ul><p>Se ampliarán y vincularán a afirmaciones cuando la clase sea construida.</p></section></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
+    previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
+    following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
+    navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content">{navigation}<p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED:</strong> scaffold navegable; esta clase aún no contiene desarrollo pedagógico.</div><section><h2>Contrato previsto</h2><p>Problema, objetivos, conceptos, ejemplos, práctica, tres ejercicios, fallo controlado, entorno, transferencia, evaluación, evidencia y límites.</p></section><section><h2>Fuentes iniciales</h2><ul>{source_list}</ul><p>Se ampliarán y vincularán a afirmaciones cuando la clase sea construida.</p></section>{navigation}</main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
 
 
 def validate_scaffold(path: Path, lesson: dict, failures: list[str]) -> None:
@@ -429,6 +468,8 @@ def validate_scaffold(path: Path, lesson: dict, failures: list[str]) -> None:
     text = path.read_text(encoding="utf-8")
     if not text.startswith(f"# {lesson['id']} — {lesson['title']}"):
         failures.append(f"identity drift: {relative(path)}")
+    if "## Ficha" in text or "| Campo | Valor |" in text:
+        failures.append(f"forbidden ficha metadata in {relative(path)}")
     missing = [section for section in REQUIRED_CLASS_SECTIONS if section not in text]
     if missing:
         failures.append(f"contract sections missing in {relative(path)}: {missing}")
@@ -445,25 +486,32 @@ def build(check: bool) -> tuple[list[str], list[str]]:
     write_generated(ROOT / "classes/README.md", classes_index(program), check, stale)
 
     web_catalog = {"generated_on": program["baseline_date"], "classes": []}
+    flat_lessons = [lesson for part in program["parts"] for lesson in part["lessons"]]
+    neighbors = {
+        lesson["id"]: (
+            flat_lessons[index - 1] if index else None,
+            flat_lessons[index + 1] if index + 1 < len(flat_lessons) else None,
+        )
+        for index, lesson in enumerate(flat_lessons)
+    }
     for part in program["parts"]:
         part_dir = ROOT / part["path"]
         write_generated(part_dir / "README.md", part_index(part), check, stale)
         source_ids = PART_SOURCE_MAP[part["id"]]
         write_generated(ROOT / "site/parts" / f"{part['id']}.html", part_page(part), check, stale)
         for lesson in part["lessons"]:
+            previous, following = neighbors[lesson["id"]]
             lesson_dir = ROOT / lesson["path"]
             scaffold_path = lesson_dir / "README.md"
             if check:
                 validate_scaffold(scaffold_path, lesson, failures)
-            elif (
-                not scaffold_path.exists()
-                or (
-                    lesson["number"] > 180
-                    and "Estado: **GUIDED**. Esta clase contiene" in scaffold_path.read_text(encoding="utf-8")
+            elif lesson["number"] > 180:
+                write_generated(
+                    scaffold_path,
+                    class_scaffold(part, lesson, source_ids, previous, following),
+                    check,
+                    stale,
                 )
-            ):
-                scaffold_path.parent.mkdir(parents=True, exist_ok=True)
-                scaffold_path.write_text(class_scaffold(part, lesson, source_ids), encoding="utf-8", newline="\n")
             write_generated(
                 lesson_dir / "lesson.json",
                 dump_json(class_metadata(part, lesson, source_ids)),
@@ -474,7 +522,7 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             if lesson["status"] == "PLANNED" and lesson["number"] > phase3_target:
                 write_generated(
                     ROOT / "site/classes" / f"{lesson['id']}.html",
-                    class_page(part, lesson, source_ids),
+                    class_page(part, lesson, source_ids, previous, following),
                     check,
                     stale,
                 )

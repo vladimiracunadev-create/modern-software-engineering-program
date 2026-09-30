@@ -1,17 +1,9 @@
 # SE-410 — Pipelines, jobs, matrices y cachés
 
+[← SE-409 — Integración continua y feedback temprano](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano/README.md) · [↑ Parte 34](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-410.html) · [SE-411 — Tests, seguridad y políticas como gates →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-411-tests-seguridad-y-politicas-como-gates/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 34 · CI/CD, IaC y platform engineering |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-409 — Integración continua y feedback temprano](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano/README.md) · [↑ Parte 34](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-410.html) · [SE-411 — Tests, seguridad y políticas como gates →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-411-tests-seguridad-y-politicas-como-gates/README.md)

@@ -1,17 +1,9 @@
 # SE-297 — Complejidad accidental y esencial
 
+[← SE-296 — Diseño para cambio, prueba y operación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-296-diseno-para-cambio-prueba-y-operacion/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-297.html) · [SE-298 — Deuda técnica, interés y opciones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 24 · Diseño, patrones y refactorización |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-296 — Diseño para cambio, prueba y operación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-296-diseno-para-cambio-prueba-y-operacion/README.md) · [↑ Parte 24](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-297.html) · [SE-298 — Deuda técnica, interés y opciones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones/README.md)

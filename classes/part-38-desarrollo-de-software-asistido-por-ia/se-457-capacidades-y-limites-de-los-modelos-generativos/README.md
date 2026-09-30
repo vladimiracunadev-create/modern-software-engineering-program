@@ -1,17 +1,9 @@
 # SE-457 — Capacidades y límites de los modelos generativos
 
+[← SE-456 — Proyecto: dossier profesional defendible](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-457.html) · [SE-458 — Prompting, instrucciones y criterios de salida →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-458-prompting-instrucciones-y-criterios-de-salida/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | H · Ingeniería de software nativa con IA |
-| Parte | 38 · Desarrollo de software asistido por IA |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -80,3 +72,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-456 — Proyecto: dossier profesional defendible](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-457.html) · [SE-458 — Prompting, instrucciones y criterios de salida →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-458-prompting-instrucciones-y-criterios-de-salida/README.md)

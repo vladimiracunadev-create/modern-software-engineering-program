@@ -1,17 +1,9 @@
 # SE-268 — Sistemas de tiempo real y deadlines
 
+[← SE-267 — Restricciones de memoria, energía y cómputo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-267-restricciones-de-memoria-energia-y-computo/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-268.html) · [SE-269 — Interrupciones, concurrencia y estado compartido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 22 · Embedded, IoT y tiempo real |
-| Tipo | `class` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-267 — Restricciones de memoria, energía y cómputo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-267-restricciones-de-memoria-energia-y-computo/README.md) · [↑ Parte 22](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-268.html) · [SE-269 — Interrupciones, concurrencia y estado compartido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-269-interrupciones-concurrencia-y-estado-compartido/README.md)

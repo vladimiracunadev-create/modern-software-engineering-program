@@ -1,19 +1,10 @@
 # SE-087 — Tablas hash, mapas y conjuntos
 
+[← SE-086 — Pilas, colas, deques y prioridades](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-087.html) · [SE-088 — Árboles, tries y estructuras jerárquicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 07 · Estructuras de datos y algoritmos |
-| Modalidad | análisis guiado (`class`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 4 horas |
-| Producto de la clase | implementación medida con casos límite |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «elegir una estructura por costumbre sin medir la carga relevante» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Tablas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Hash | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Mapas | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Conjuntos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Tablas hash, mapas y conjuntos**.
+
 ## Conceptos y decisiones
 
 Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga.
@@ -53,23 +58,34 @@ Una estructura de datos define operaciones y costos; un algoritmo debe preservar
 La pregunta rectora de esta parte es: **¿qué operaciones dominan la carga y qué garantía necesita cada una?** La respuesta debe
 apoyarse en **casos límite, pruebas de propiedades, complejidad y medición empírica**.
 
-### 1. Tablas
+### 1. Tablas: modelo
 
-En **Tablas hash, mapas y conjuntos**, `Tablas` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Tablas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tablas hash, mapas y conjuntos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Hash
+### 2. Hash: mecanismo
 
-En **Tablas hash, mapas y conjuntos**, `hash` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **hash** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tablas hash, mapas y conjuntos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Mapas
+### 3. Mapas: evidencia
 
-En **Tablas hash, mapas y conjuntos**, `mapas` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **mapas** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tablas hash, mapas y conjuntos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Conjuntos
+### 4. Conjuntos: decisión
 
-En **Tablas hash, mapas y conjuntos**, `conjuntos` se analiza dentro de esta base: Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga. Para volverlo operativo, responde «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y conserva casos límite, pruebas de propiedades, complejidad y medición empírica. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **conjuntos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tablas hash, mapas y conjuntos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Tablas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Hash:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Mapas:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **Conjuntos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la servicio financiero, el equipo prepara un cambio relacionado con **Tablas 
 1. **Fundamental:** define Tablas y hash con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `algorithm.py` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **implementación medida con casos límite** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -159,6 +183,27 @@ Fuentes verificadas el 2026-09-30:
 - **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Tablas hash, mapas y conjuntos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-088`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-086 — Pilas, colas, deques y prioridades](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-087.html) · [SE-088 — Árboles, tries y estructuras jerárquicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)

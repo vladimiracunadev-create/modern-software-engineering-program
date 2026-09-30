@@ -6,17 +6,17 @@
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |
-| SE-097 | [Editores, IDE y servidores de lenguaje](se-097-editores-ide-y-servidores-de-lenguaje/README.md) | class | 4 | PLANNED |
-| SE-098 | [Depuradores, breakpoints y observación de estado](se-098-depuradores-breakpoints-y-observacion-de-estado/README.md) | class | 4 | PLANNED |
-| SE-099 | [Profilers de CPU, memoria, I/O y red](se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) | class | 4 | PLANNED |
-| SE-100 | [Compiladores, linters, formatters y análisis estático](se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) | class | 4 | PLANNED |
-| SE-101 | [REPL, notebooks y desarrollo exploratorio](se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) | class | 4 | PLANNED |
-| SE-102 | [Gestores de versiones de runtimes](se-102-gestores-de-versiones-de-runtimes/README.md) | class | 4 | PLANNED |
-| SE-103 | [Entornos virtuales y aislamiento de dependencias](se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md) | class | 4 | PLANNED |
-| SE-104 | [Dev Containers y entornos desechables](se-104-dev-containers-y-entornos-desechables/README.md) | class | 4 | PLANNED |
-| SE-105 | [Reproducción de errores y reducción de casos](se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | class | 4 | PLANNED |
-| SE-106 | [Ergonomía, accesibilidad y productividad del entorno](se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md) | class | 4 | PLANNED |
-| SE-107 | [Taller: diagnosticar un fallo desconocido](se-107-taller-diagnosticar-un-fallo-desconocido/README.md) | studio | 6 | PLANNED |
-| SE-108 | [Proyecto: entorno de desarrollo autocontenido](se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) | project | 8 | PLANNED |
+| SE-097 | [Editores, IDE y servidores de lenguaje](se-097-editores-ide-y-servidores-de-lenguaje/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-097.html) | class | 4 | PLANNED |
+| SE-098 | [Depuradores, breakpoints y observación de estado](se-098-depuradores-breakpoints-y-observacion-de-estado/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-098.html) | class | 4 | PLANNED |
+| SE-099 | [Profilers de CPU, memoria, I/O y red](se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-099.html) | class | 4 | PLANNED |
+| SE-100 | [Compiladores, linters, formatters y análisis estático](se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-100.html) | class | 4 | PLANNED |
+| SE-101 | [REPL, notebooks y desarrollo exploratorio](se-101-repl-notebooks-y-desarrollo-exploratorio/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-101.html) | class | 4 | PLANNED |
+| SE-102 | [Gestores de versiones de runtimes](se-102-gestores-de-versiones-de-runtimes/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-102.html) | class | 4 | PLANNED |
+| SE-103 | [Entornos virtuales y aislamiento de dependencias](se-103-entornos-virtuales-y-aislamiento-de-dependencias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-103.html) | class | 4 | PLANNED |
+| SE-104 | [Dev Containers y entornos desechables](se-104-dev-containers-y-entornos-desechables/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-104.html) | class | 4 | PLANNED |
+| SE-105 | [Reproducción de errores y reducción de casos](se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-105.html) | class | 4 | PLANNED |
+| SE-106 | [Ergonomía, accesibilidad y productividad del entorno](se-106-ergonomia-accesibilidad-y-productividad-del-entorno/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-106.html) | class | 4 | PLANNED |
+| SE-107 | [Taller: diagnosticar un fallo desconocido](se-107-taller-diagnosticar-un-fallo-desconocido/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-107.html) | studio | 6 | PLANNED |
+| SE-108 | [Proyecto: entorno de desarrollo autocontenido](se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-108.html) | project | 8 | PLANNED |
 
 [Volver al índice de clases](../README.md)

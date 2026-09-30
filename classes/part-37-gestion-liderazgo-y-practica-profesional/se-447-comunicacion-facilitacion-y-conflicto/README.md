@@ -1,17 +1,9 @@
 # SE-447 — Comunicación, facilitación y conflicto
 
+[← SE-446 — Diseño de equipos y ownership](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md) · [↑ Parte 37](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-447.html) · [SE-448 — Mentoría, feedback y crecimiento →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-448-mentoria-feedback-y-crecimiento/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 37 · Gestión, liderazgo y práctica profesional |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-446 — Diseño de equipos y ownership](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md) · [↑ Parte 37](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-447.html) · [SE-448 — Mentoría, feedback y crecimiento →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-448-mentoria-feedback-y-crecimiento/README.md)

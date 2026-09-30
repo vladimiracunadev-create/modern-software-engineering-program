@@ -1,17 +1,9 @@
 # SE-311 — Taller: revisar una arquitectura contra escenarios
 
+[← SE-310 — Arquitectura socio-técnica y límites de equipo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-311.html) · [SE-312 — Proyecto: arquitectura defendible y verificable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-312-proyecto-arquitectura-defendible-y-verificable/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 25 · Arquitectura de software y dominio |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-310 — Arquitectura socio-técnica y límites de equipo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/README.md) · [↑ Parte 25](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-311.html) · [SE-312 — Proyecto: arquitectura defendible y verificable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-312-proyecto-arquitectura-defendible-y-verificable/README.md)

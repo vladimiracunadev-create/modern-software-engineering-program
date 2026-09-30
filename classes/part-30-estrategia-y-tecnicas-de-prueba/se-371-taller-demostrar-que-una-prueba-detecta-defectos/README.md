@@ -1,17 +1,9 @@
 # SE-371 — Taller: demostrar que una prueba detecta defectos
 
+[← SE-370 — Flakiness, diagnóstico y mantenimiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento/README.md) · [↑ Parte 30](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-371.html) · [SE-372 — Proyecto: estrategia ejecutable por riesgo →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 30 · Estrategia y técnicas de prueba |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-370 — Flakiness, diagnóstico y mantenimiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento/README.md) · [↑ Parte 30](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-371.html) · [SE-372 — Proyecto: estrategia ejecutable por riesgo →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/README.md)

@@ -1,17 +1,9 @@
 # SE-214 — Documentación para humanos, máquinas y LLM
 
+[← SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md) · [↑ Parte 17](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-214.html) · [SE-215 — Taller: reconstruir conocimiento perdido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 17 · Documentación y conocimiento técnico |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md) · [↑ Parte 17](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-214.html) · [SE-215 — Taller: reconstruir conocimiento perdido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md)

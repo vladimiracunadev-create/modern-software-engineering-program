@@ -1,17 +1,9 @@
 # SE-360 — Proyecto: plataforma mínima reproducible
 
+[← SE-359 — Taller: desplegar y destruir un entorno seguro](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-359-taller-desplegar-y-destruir-un-entorno-seguro/README.md) · [↑ Parte 29](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-360.html) · [SE-361 — Calidad por riesgo y propósito de las pruebas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 29 · Cloud, plataforma e infraestructura |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-359 — Taller: desplegar y destruir un entorno seguro](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-359-taller-desplegar-y-destruir-un-entorno-seguro/README.md) · [↑ Parte 29](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-360.html) · [SE-361 — Calidad por riesgo y propósito de las pruebas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md)

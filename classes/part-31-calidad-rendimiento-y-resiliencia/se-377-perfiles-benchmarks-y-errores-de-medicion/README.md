@@ -1,17 +1,9 @@
 # SE-377 — Perfiles, benchmarks y errores de medición
 
+[← SE-376 — Latencia, throughput, saturación y capacidad](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-377.html) · [SE-378 — Timeouts, retries, backoff y jitter →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 31 · Calidad, rendimiento y resiliencia |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-376 — Latencia, throughput, saturación y capacidad](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-377.html) · [SE-378 — Timeouts, retries, backoff y jitter →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md)

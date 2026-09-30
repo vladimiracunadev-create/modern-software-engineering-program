@@ -1,17 +1,9 @@
 # SE-384 — Proyecto: informe reproducible de calidad
 
+[← SE-383 — Taller: someter un sistema a presión controlada](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-383-taller-someter-un-sistema-a-presion-controlada/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-384.html) · [SE-385 — Principios de seguridad y modelos de amenaza →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 31 · Calidad, rendimiento y resiliencia |
-| Tipo | `project` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 8 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-383 — Taller: someter un sistema a presión controlada](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-383-taller-someter-un-sistema-a-presion-controlada/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-384.html) · [SE-385 — Principios de seguridad y modelos de amenaza →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md)

@@ -1,17 +1,9 @@
 # SE-430 — Continuidad, disaster recovery y ejercicios
 
+[← SE-429 — Postmortems sin culpa y aprendizaje](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje/README.md) · [↑ Parte 35](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-430.html) · [SE-431 — Taller: diagnosticar con telemetría incompleta →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 35 · Observabilidad, SRE e incidentes |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-429 — Postmortems sin culpa y aprendizaje](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje/README.md) · [↑ Parte 35](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-430.html) · [SE-431 — Taller: diagnosticar con telemetría incompleta →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta/README.md)

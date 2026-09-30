@@ -1,17 +1,9 @@
 # SE-231 — Renderizado cliente, servidor, estático e híbrido
 
+[← SE-230 — JavaScript, DOM y eventos del navegador](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) · [↑ Parte 19](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-231.html) · [SE-232 — Estado, componentes y gestión de datos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-232-estado-componentes-y-gestion-de-datos/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 19 · Web, frontend y aplicaciones progresivas |
-| Tipo | `class` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-230 — JavaScript, DOM y eventos del navegador](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/README.md) · [↑ Parte 19](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-231.html) · [SE-232 — Estado, componentes y gestión de datos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-232-estado-componentes-y-gestion-de-datos/README.md)

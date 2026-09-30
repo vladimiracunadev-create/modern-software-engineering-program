@@ -41,6 +41,30 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         self.assertTrue(all(item["url"].startswith("https://") for item in sources["sources"]))
         self.assertEqual(15, len(sources["parts"]))
 
+    def test_phase_three_drafts_have_deeper_learning_sections(self) -> None:
+        required = (
+            "## Temas y por qué importan",
+            "## Definiciones de trabajo",
+            "## Reto verificable",
+            "## Preguntas frecuentes",
+        )
+        for lesson in self.lessons[:180]:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            for heading in required:
+                self.assertIn(heading, text, lesson["id"])
+
+    def test_phase_three_pages_have_bidirectional_navigation(self) -> None:
+        page = (ROOT / "site/classes/SE-090.html").read_text(encoding="utf-8")
+        self.assertGreaterEqual(page.count('class="class-nav"'), 2)
+        self.assertIn("SE-089", page)
+        self.assertIn("SE-091", page)
+        self.assertNotIn("](", page)
+
+    def test_prerequisite_renders_identifier_not_internal_record(self) -> None:
+        text = (ROOT / self.lessons[41]["path"] / "README.md").read_text(encoding="utf-8")
+        self.assertIn("diagnosticado `SE-041`", text)
+        self.assertNotIn("{'id':", text)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,19 +1,10 @@
 # SE-083 — Taller: una regla de negocio en cinco paradigmas
 
+[← SE-082 — Selección y combinación responsable de paradigmas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-083.html) · [SE-084 — Proyecto: comparación semántica con pruebas comunes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
 > pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | B · Programación y construcción |
-| Parte | 06 · Paradigmas de programación |
-| Modalidad | taller de integración (`studio`) |
-| Dominio técnico principal | `polyglot-programming-labs` |
-| Duración estimada | 6 horas |
-| Producto de la clase | comparación semántica entre paradigmas |
 
 ## Prerrequisitos
 
@@ -35,6 +26,15 @@ Al terminar podrás:
 4. diagnosticar el fallo «forzar un paradigma por moda aunque complique el problema» sin ocultar incertidumbre;
 5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
+## Temas y por qué importan
+
+| Tema | Función en la clase | Por qué importa |
+| --- | --- | --- |
+| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
+| Regla | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
+| Negocio | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
+| Cinco | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+
 ## Mapa conceptual
 
 ```mermaid
@@ -46,6 +46,11 @@ flowchart LR
     R -->|nueva información| M
 ```
 
+El diagrama se lee de izquierda a derecha: el problema obliga a construir un
+modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
+la revisión devuelve nueva información al modelo. No es una secuencia lineal de
+entrega, sino un ciclo de aprendizaje aplicado a **Taller: una regla de negocio en cinco paradigmas**.
+
 ## Conceptos y decisiones
 
 Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.
@@ -53,23 +58,34 @@ Un paradigma organiza estado, control y composición; ninguno es universal y una
 La pregunta rectora de esta parte es: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** La respuesta debe
 apoyarse en **implementaciones equivalentes, pruebas comunes y comparación de compromisos**.
 
-### 1. Taller
+### 1. Taller: modelo
 
-En **Taller: una regla de negocio en cinco paradigmas**, `Taller` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 2. Regla
+### 2. Regla: mecanismo
 
-En **Taller: una regla de negocio en cinco paradigmas**, `regla` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **regla** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 3. Negocio
+### 3. Negocio: evidencia
 
-En **Taller: una regla de negocio en cinco paradigmas**, `negocio` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **negocio** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
-### 4. Cinco
+### 4. Cinco: decisión
 
-En **Taller: una regla de negocio en cinco paradigmas**, `cinco` se analiza dentro de esta base: Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible. Para volverlo operativo, responde «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y conserva implementaciones equivalentes, pruebas comunes y comparación de compromisos. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+En esta clase, **cinco** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
 
 La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+
+## Definiciones de trabajo
+
+- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Regla:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Negocio:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **Cinco:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+
+Estas definiciones son operativas para el borrador: deberán sustituirse o
+precisarse con terminología de las fuentes de la clase durante la revisión
+cualitativa. No son un glosario normativo.
 
 ## Ejemplo mínimo
 
@@ -105,6 +121,14 @@ En la control de agentes, el equipo prepara un cambio relacionado con **Taller: 
 1. **Fundamental:** define Taller y regla con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
 2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `case.md` con trazabilidad completa.
 3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+
+## Reto verificable
+
+Entrega el **comparación semántica entre paradigmas** de forma que una persona que no participó en
+la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
+El reto se acepta únicamente si esa persona puede señalar una condición concreta
+que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
+oral adicional.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,6 +182,27 @@ Fuentes verificadas el 2026-09-30:
 - **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
 - **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
+## Preguntas frecuentes
+
+### ¿Basta con definir los términos del título?
+
+No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
+contrasta y qué decisión profesional cambia gracias a esa comprensión.
+
+### ¿La herramienta recomendada es obligatoria?
+
+No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
+si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+
+### ¿Completar los archivos aprueba automáticamente la clase?
+
+No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
+del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+
 ## Límites y siguiente paso
 
 Esta guía enseña a razonar y producir evidencia sobre **Taller: una regla de negocio en cinco paradigmas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-084`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+
+---
+
+[← SE-082 — Selección y combinación responsable de paradigmas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-083.html) · [SE-084 — Proyecto: comparación semántica con pruebas comunes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes/README.md)

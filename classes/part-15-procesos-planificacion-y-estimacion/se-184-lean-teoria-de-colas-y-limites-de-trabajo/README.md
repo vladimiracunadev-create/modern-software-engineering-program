@@ -1,17 +1,9 @@
 # SE-184 — Lean, teoría de colas y límites de trabajo
 
+[← SE-183 — Scrum, Kanban, XP y Shape Up](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-184.html) · [SE-185 — Estimación por tamaño, rango y evidencia histórica →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 15 · Procesos, planificación y estimación |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-183 — Scrum, Kanban, XP y Shape Up](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-184.html) · [SE-185 — Estimación por tamaño, rango y evidencia histórica →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md)

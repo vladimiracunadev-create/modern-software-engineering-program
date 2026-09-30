@@ -1,17 +1,9 @@
 # SE-183 — Scrum, Kanban, XP y Shape Up
 
+[← SE-182 — Agile como principios y no como ceremonia](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-183.html) · [SE-184 — Lean, teoría de colas y límites de trabajo →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | C · Producto, requisitos y especificación |
-| Parte | 15 · Procesos, planificación y estimación |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-182 — Agile como principios y no como ceremonia](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md) · [↑ Parte 15](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-183.html) · [SE-184 — Lean, teoría de colas y límites de trabajo →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md)

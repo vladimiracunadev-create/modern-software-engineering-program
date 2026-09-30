@@ -1,17 +1,9 @@
 # SE-419 — Taller: endurecer un pipeline vulnerable
 
+[← SE-418 — Métricas DORA y mejora sin gaming](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-418-metricas-dora-y-mejora-sin-gaming/README.md) · [↑ Parte 34](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-419.html) · [SE-420 — Proyecto: camino a producción con rollback →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-420-proyecto-camino-a-produccion-con-rollback/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 34 · CI/CD, IaC y platform engineering |
-| Tipo | `studio` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 6 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-418 — Métricas DORA y mejora sin gaming](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-418-metricas-dora-y-mejora-sin-gaming/README.md) · [↑ Parte 34](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-419.html) · [SE-420 — Proyecto: camino a producción con rollback →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-34-ci-cd-iac-y-platform-engineering/se-420-proyecto-camino-a-produccion-con-rollback/README.md)

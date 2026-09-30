@@ -1,17 +1,9 @@
 # SE-362 — Pruebas unitarias y diseño testable
 
+[← SE-361 — Calidad por riesgo y propósito de las pruebas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) · [↑ Parte 30](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-362.html) · [SE-363 — Integración, componentes y contratos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | F · Calidad, seguridad y entrega |
-| Parte | 30 · Estrategia y técnicas de prueba |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-361 — Calidad por riesgo y propósito de las pruebas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) · [↑ Parte 30](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-362.html) · [SE-363 — Integración, componentes y contratos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos/README.md)

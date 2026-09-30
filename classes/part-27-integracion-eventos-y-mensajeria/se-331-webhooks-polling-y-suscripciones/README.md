@@ -1,17 +1,9 @@
 # SE-331 — Webhooks, polling y suscripciones
 
+[← SE-330 — CDC, ETL, ELT y sincronización](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/README.md) · [↑ Parte 27](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-331.html) · [SE-332 — Compatibilidad de esquemas y registros →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | E · Diseño, arquitectura, datos e integración |
-| Parte | 27 · Integración, eventos y mensajería |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-330 — CDC, ETL, ELT y sincronización](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/README.md) · [↑ Parte 27](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-331.html) · [SE-332 — Compatibilidad de esquemas y registros →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/README.md)

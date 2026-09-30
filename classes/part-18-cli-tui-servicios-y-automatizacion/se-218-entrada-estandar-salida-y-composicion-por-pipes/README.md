@@ -1,17 +1,9 @@
 # SE-218 — Entrada estándar, salida y composición por pipes
 
+[← SE-217 — Diseño de interfaces de línea de comandos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-217-diseno-de-interfaces-de-linea-de-comandos/README.md) · [↑ Parte 18](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-218.html) · [SE-219 — Configuración, flags, archivos y precedencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | D · Superficies y formas de software |
-| Parte | 18 · CLI, TUI, servicios y automatización |
-| Tipo | `class` |
-| Propietario profundo | `framework-ecosystems-labs` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -78,3 +70,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-217 — Diseño de interfaces de línea de comandos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-217-diseno-de-interfaces-de-linea-de-comandos/README.md) · [↑ Parte 18](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-218.html) · [SE-219 — Configuración, flags, archivos y precedencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/README.md)

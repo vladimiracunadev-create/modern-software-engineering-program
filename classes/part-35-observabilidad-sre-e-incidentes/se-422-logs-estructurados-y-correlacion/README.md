@@ -1,17 +1,9 @@
 # SE-422 — Logs estructurados y correlación
 
+[← SE-421 — Señales, eventos y observabilidad útil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/README.md) · [↑ Parte 35](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-422.html) · [SE-423 — Métricas, dimensiones y cardinalidad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/README.md)
+
 > [!WARNING]
 > Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
-
-## Ficha
-
-| Campo | Valor |
-| --- | --- |
-| Etapa | G · Operación, evolución y liderazgo |
-| Parte | 35 · Observabilidad, SRE e incidentes |
-| Tipo | `class` |
-| Propietario profundo | `suite` |
-| Horas estimadas | 4 |
 
 ## Prerrequisitos
 
@@ -79,3 +71,7 @@ Pendiente de desarrollar con criterios observables y conexión al portafolio.
 ## Límites y siguiente paso
 
 Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+
+---
+
+[← SE-421 — Señales, eventos y observabilidad útil](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/README.md) · [↑ Parte 35](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-422.html) · [SE-423 — Métricas, dimensiones y cardinalidad →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/README.md)

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json",
+  "title": "Guided class activity",
+  "type": "object",
+  "required": ["schema_version", "class_id", "status", "mode", "environment", "duration_hours", "steps", "outputs", "safety", "source_ids"],
+  "properties": {
+    "$schema": {"const": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json"},
+    "schema_version": {"const": 1},
+    "class_id": {"pattern": "^SE-[0-9]{3}$"},
+    "status": {"const": "GUIDED"},
+    "mode": {"enum": ["class", "studio", "project"]},
+    "environment": {"type": "string", "minLength": 10},
+    "duration_hours": {"type": "integer", "minimum": 1},
+    "steps": {"type": "array", "minItems": 7, "items": {"type": "string"}},
+    "outputs": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+    "safety": {
+      "type": "object",
+      "required": ["real_personal_data", "production_access", "secrets"],
+      "properties": {
+        "real_personal_data": {"const": false},
+        "production_access": {"const": false},
+        "secrets": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

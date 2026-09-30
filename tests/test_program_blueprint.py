@@ -50,13 +50,26 @@ class ProgramBlueprintTests(unittest.TestCase):
         generated = json.loads((ROOT / "curriculum.yaml").read_text(encoding="utf-8"))
         self.assertEqual(self.payload, generated)
 
-    def test_phase_one_does_not_overstate_completion(self) -> None:
-        statuses = {
-            lesson["status"]
+    def test_phase_three_statuses_match_scope(self) -> None:
+        guided = [
+            lesson
             for part in self.payload["parts"]
             for lesson in part["lessons"]
-        }
-        self.assertEqual({"PLANNED"}, statuses)
+            if lesson["status"] == "GUIDED"
+        ]
+        planned = [
+            lesson
+            for part in self.payload["parts"]
+            for lesson in part["lessons"]
+            if lesson["status"] == "PLANNED"
+        ]
+        self.assertEqual(156, len(guided))
+        self.assertEqual(324, len(planned))
+        self.assertEqual({"A", "C"}, {
+            part["stage"]
+            for part in self.payload["parts"]
+            if any(lesson["status"] == "GUIDED" for lesson in part["lessons"])
+        })
 
 
 if __name__ == "__main__":

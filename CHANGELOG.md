@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased — fase 1
+## Unreleased — fase 3
+
+### Fase 3 — fundamentos, producto y especificación
+
+- 156 clases de las etapas A y C elevadas a `GUIDED`;
+- guías específicas con conceptos, ejemplos, prácticas, ejercicios y fallos controlados;
+- 156 contratos de actividad y 156 rúbricas machine-readable;
+- catálogo de fuentes primarias u oficiales verificadas para trece partes;
+- portal con estados de madurez y páginas guiadas enlazadas al material completo;
+- validador de fase 3 y quince pruebas estructurales.
 
 ### Fase 2 — generadores y controles
 

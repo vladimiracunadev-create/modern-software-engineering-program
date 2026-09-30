@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "schema_version": 1,
+  "class_id": "SE-156",
+  "status": "GUIDED",
+  "mode": "project",
+  "environment": "editor, tablas Markdown y control de versiones",
+  "duration_hours": 8,
+  "steps": [
+    "frame-problem",
+    "separate-evidence",
+    "compare-options",
+    "produce-artifact",
+    "inject-safe-failure",
+    "peer-review",
+    "revise"
+  ],
+  "outputs": [
+    "requirements.md",
+    "traceability.csv",
+    "review.md"
+  ],
+  "safety": {
+    "real_personal_data": false,
+    "production_access": false,
+    "secrets": false
+  },
+  "source_ids": [
+    "ISO-29148",
+    "SWEBOK-4A",
+    "ISO-25010"
+  ]
+}

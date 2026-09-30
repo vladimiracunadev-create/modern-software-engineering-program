@@ -1,6 +1,6 @@
 # Arquitectura del programa profesional
 
-Estado: **fase 1 especificada** · Línea base: **2026-09-30**
+Estado: **fase 3 guiada** · Línea base: **2026-09-30**
 
 ## Propósito
 
@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | planificadas |
+| Clases | 480 | 156 guiadas y 324 planificadas |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 

@@ -1,7 +1,7 @@
 # SE-174 — Semántica, teclado, foco y tecnologías de asistencia
 
-> [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> [!NOTE]
+> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
 
 ## Ficha
 
@@ -9,73 +9,155 @@
 | --- | --- |
 | Etapa | C · Producto, requisitos y especificación |
 | Parte | 14 · Experiencia, accesibilidad e internacionalización |
-| Tipo | `class` |
+| Modalidad | análisis guiado (`class`) |
 | Propietario profundo | `suite` |
-| Horas estimadas | 4 |
+| Duración estimada | 4 horas |
+| Producto de la clase | prototipo y auditoría de inclusión |
 
 ## Prerrequisitos
 
-Pendiente de desarrollar en la fase de contenido.
+- Haber completado o diagnosticado `SE-173` y poder explicar qué evidencia produjo.
+- Manejar archivos de texto, rutas y control de versiones a nivel básico.
+- Disponer de navegador, teclado, lector de pantalla disponible y editor.
 
 ## Problema auténtico
 
-Pendiente de desarrollar en la fase de contenido.
+Un equipo que trabaja en una suite familiar privada debe decidir sobre **Semántica, teclado, foco y tecnologías de asistencia**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
 
 ## Objetivos observables
 
-- Pendiente de desarrollar.
+Al terminar podrás:
+
+1. explicar Semántica y teclado con un ejemplo y un contraejemplo;
+2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
+3. producir el artefacto **prototipo y auditoría de inclusión** para que otra persona pueda revisarlo;
+4. diagnosticar el fallo «declarar accesibilidad únicamente por el resultado de una herramienta automática» sin ocultar incertidumbre;
+5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
 
 ## Mapa conceptual
 
-Pendiente de desarrollar.
+```mermaid
+flowchart LR
+    P["Problema: Semántica, teclado, foco y tecnologías de asistencia"] --> M["Modelo: Semántica"]
+    M --> D["Decisión: teclado"]
+    D --> E["Evidencia: foco"]
+    E --> R["Revisión: tecnologías"]
+    R -->|nueva información| M
+```
 
 ## Conceptos y decisiones
 
-Pendiente de desarrollar.
+La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales.
+
+La pregunta rectora de esta parte es: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** La respuesta debe
+apoyarse en **recorrido por teclado, semántica, contraste, formatos culturales y observación de uso**.
+
+### 1. Semántica
+
+En **Semántica, teclado, foco y tecnologías de asistencia**, `Semántica` se analiza dentro de esta base: La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales. Para volverlo operativo, responde «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y conserva recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+
+### 2. Teclado
+
+En **Semántica, teclado, foco y tecnologías de asistencia**, `teclado` se analiza dentro de esta base: La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales. Para volverlo operativo, responde «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y conserva recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+
+### 3. Foco
+
+En **Semántica, teclado, foco y tecnologías de asistencia**, `foco` se analiza dentro de esta base: La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales. Para volverlo operativo, responde «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y conserva recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+
+### 4. Tecnologías
+
+En **Semántica, teclado, foco y tecnologías de asistencia**, `tecnologías` se analiza dentro de esta base: La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales. Para volverlo operativo, responde «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y conserva recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Después declara qué problema resuelve, qué supuesto utiliza, qué señal permitiría aceptarlo y qué señal obligaría a revisarlo. La respuesta profesional separa hechos, inferencias y preferencias; además registra costo, riesgo y reversibilidad antes de elegir una herramienta.
+
+La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
 
 ## Ejemplo mínimo
 
-Pendiente de desarrollar. No se añadirá código ornamental cuando el objetivo sea conceptual.
+Registra una sola decisión sobre **Semántica, teclado, foco y tecnologías de asistencia**:
+
+| Elemento | Ejemplo contrastable |
+| --- | --- |
+| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
+| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
+| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
+| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
+| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+
+El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
 
 ## Ejemplo profesional
 
-Pendiente de desarrollar con contexto, restricciones y evidencia.
+En la suite familiar privada, el equipo prepara un cambio relacionado con **Semántica, teclado, foco y tecnologías de asistencia**. Parte de esta pregunta: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `prototype.html` y enlaza la evidencia, no solo la conclusión.
 
 ## Práctica guiada
 
-Pendiente de desarrollar.
+1. Crea `work/SE-174/` sin copiar datos personales ni secretos.
+2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
+3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
+4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
+5. Construye el prototipo y auditoría de inclusión con los archivos indicados abajo.
+6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
+7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
+8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
 
 ## Ejercicios
 
-1. Básico — pendiente.
-2. Intermedio — pendiente.
-3. Avanzado — pendiente.
+1. **Fundamental:** define Semántica y teclado con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
+2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `prototype.html` con trazabilidad completa.
+3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
 
 ## Fallo controlado y diagnóstico
 
-Pendiente de desarrollar.
+Provoca de forma segura este fallo: **declarar accesibilidad únicamente por el resultado de una herramienta automática**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
 
 ## Entorno y archivos clave
 
-Pendiente de declarar por sistema operativo, runtime, comandos, datos y recuperación.
+Entorno de referencia: navegador, teclado, lector de pantalla disponible y editor. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
+
+```text
+work/SE-174/
+├── README.md
+│   ├── prototype.html
+│   ├── accessibility.md
+│   ├── usability-notes.md
+├── activity.yaml
+└── rubric.json
+```
+
+`README.md` explica cómo reproducir la actividad; `prototype.html` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
 
 ## Seguridad, ética y accesibilidad
 
-Pendiente de desarrollar según los riesgos reales de la clase.
+- usa datos sintéticos o anonimizados y aplica minimización;
+- no incluyas tokens, rutas privadas ni información personal en evidencias;
+- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
+- ofrece una alternativa textual a diagramas y no uses color como única señal;
+- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
+- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
 
 ## Transferencia
 
-Pendiente de desarrollar hacia otra tecnología, plataforma o dominio.
+Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
 
 ## Evaluación y evidencia
 
-Pendiente de desarrollar con criterios observables y conexión al portafolio.
+| Criterio | Evidencia para aprobar |
+| --- | --- |
+| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
+| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
+| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
+| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
+| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+
+Entrega el directorio `work/SE-174/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
 
 ## Fuentes
 
-- `W3C-WCAG` — fuente inicial; precisar uso al construir la clase.
-- `ISO-25010-2023` — fuente inicial; precisar uso al construir la clase.
+Fuentes verificadas el 2026-09-30:
+
+- **Web Content Accessibility Guidelines 2.2** — W3C. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+- **Internationalization techniques** — W3C. [https://www.w3.org/International/techniques/](https://www.w3.org/International/techniques/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
 
 ## Límites y siguiente paso
 
-Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+Esta guía enseña a razonar y producir evidencia sobre **Semántica, teclado, foco y tecnologías de asistencia**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-175`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.

@@ -1,7 +1,7 @@
 # Índice de clases
 
-> Las 480 clases están en estado `PLANNED`. Los archivos son
-> scaffolds estructurales y no deben citarse como clases terminadas.
+> Estado verificable: 156 `GUIDED` · 324 `PLANNED`. `GUIDED` significa material pedagógico completo;
+> no implica laboratorio ejecutable ni operación verificada.
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |

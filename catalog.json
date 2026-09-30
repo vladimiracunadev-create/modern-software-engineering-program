@@ -1,12 +1,13 @@
 {
   "program": "software-engineering-learning-suite",
   "baseline_date": "2026-09-30",
-  "status": "PHASE_1_SPECIFIED",
+  "status": "PHASE_3_GUIDED",
   "stages": 8,
   "parts": 40,
   "classes": 480,
   "estimated_hours": 2160,
   "class_status": {
-    "PLANNED": 480
+    "GUIDED": 156,
+    "PLANNED": 324
   }
 }

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "schema_version": 1,
+  "class_id": "SE-170",
+  "status": "GUIDED",
+  "mode": "class",
+  "environment": "navegador, teclado, lector de pantalla disponible y editor",
+  "duration_hours": 4,
+  "steps": [
+    "frame-problem",
+    "separate-evidence",
+    "compare-options",
+    "produce-artifact",
+    "inject-safe-failure",
+    "peer-review",
+    "revise"
+  ],
+  "outputs": [
+    "prototype.html",
+    "accessibility.md",
+    "usability-notes.md"
+  ],
+  "safety": {
+    "real_personal_data": false,
+    "production_access": false,
+    "secrets": false
+  },
+  "source_ids": [
+    "WCAG-22",
+    "W3C-I18N",
+    "NIST-PRIVACY"
+  ]
+}

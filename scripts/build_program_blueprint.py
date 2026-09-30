@@ -4,12 +4,15 @@ import argparse
 import json
 import re
 import unicodedata
+from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
+
+PHASE_3_STAGES = {"A", "C"}
 
 STAGES = [
     ("A", "Fundamentos de la profesión"),
@@ -615,7 +618,7 @@ def build_payload() -> dict:
                 "title": lesson_title,
                 "kind": kind,
                 "estimated_hours": hours,
-                "status": "PLANNED",
+                "status": "GUIDED" if stage_id in PHASE_3_STAGES else "PLANNED",
                 "path": f"{part_path}/{lesson_id.lower()}-{lesson_slug}",
             })
             lesson_number += 1
@@ -633,7 +636,7 @@ def build_payload() -> dict:
         "program": "software-engineering-learning-suite",
         "language": "es",
         "baseline_date": "2026-09-30",
-        "status": "PHASE_1_SPECIFIED",
+        "status": "PHASE_3_GUIDED",
         "part_count": len(parts),
         "class_count": sum(len(part["lessons"]) for part in parts),
         "estimated_hours": sum(
@@ -662,6 +665,9 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     payload = build_payload()
+    class_status = Counter(
+        lesson["status"] for part in payload["parts"] for lesson in part["lessons"]
+    )
     catalog = {
         "program": payload["program"],
         "baseline_date": payload["baseline_date"],
@@ -670,7 +676,7 @@ def main() -> int:
         "parts": payload["part_count"],
         "classes": payload["class_count"],
         "estimated_hours": payload["estimated_hours"],
-        "class_status": {"PLANNED": payload["class_count"]},
+        "class_status": dict(sorted(class_status.items())),
     }
     targets = [
         (OUTPUT, render(payload)),

@@ -3,7 +3,7 @@
   "program": "software-engineering-learning-suite",
   "language": "es",
   "baseline_date": "2026-09-30",
-  "status": "PHASE_1_SPECIFIED",
+  "status": "PHASE_3_GUIDED",
   "part_count": 40,
   "class_count": 480,
   "estimated_hours": 2160,
@@ -56,7 +56,7 @@
           "title": "Software, sistemas y productos: fronteras de la disciplina",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina"
         },
         {
@@ -65,7 +65,7 @@
           "title": "Historia de la crisis del software a la ingeniería continua",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua"
         },
         {
@@ -74,7 +74,7 @@
           "title": "Ciclo de vida completo y responsabilidades profesionales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales"
         },
         {
@@ -83,7 +83,7 @@
           "title": "Ética, interés público y consecuencias de las decisiones técnicas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas"
         },
         {
@@ -92,7 +92,7 @@
           "title": "Roles, especialidades y colaboración interdisciplinaria",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria"
         },
         {
@@ -101,7 +101,7 @@
           "title": "Evidencia, incertidumbre y pensamiento crítico en ingeniería",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-006-evidencia-incertidumbre-y-pensamiento-critico-en-ingenieria"
         },
         {
@@ -110,7 +110,7 @@
           "title": "Calidad interna, externa y calidad en uso",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-007-calidad-interna-externa-y-calidad-en-uso"
         },
         {
@@ -119,7 +119,7 @@
           "title": "Restricciones, riesgos y compromisos entre atributos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos"
         },
         {
@@ -128,7 +128,7 @@
           "title": "Sostenibilidad, inclusión y responsabilidad social",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social"
         },
         {
@@ -137,7 +137,7 @@
           "title": "Cómo leer estándares, documentación y literatura técnica",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica"
         },
         {
@@ -146,7 +146,7 @@
           "title": "Taller: anatomía verificable de un producto real",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real"
         },
         {
@@ -155,7 +155,7 @@
           "title": "Proyecto: mapa profesional y contrato personal de aprendizaje",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje"
         }
       ]
@@ -174,7 +174,7 @@
           "title": "Arquitectura básica de un computador moderno",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno"
         },
         {
@@ -183,7 +183,7 @@
           "title": "Bits, bytes, bases numéricas y representación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion"
         },
         {
@@ -192,7 +192,7 @@
           "title": "Texto, Unicode, codificaciones y mojibake",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake"
         },
         {
@@ -201,7 +201,7 @@
           "title": "Enteros, coma flotante, precisión y errores numéricos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos"
         },
         {
@@ -210,7 +210,7 @@
           "title": "CPU, instrucciones, registros y ciclos de ejecución",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion"
         },
         {
@@ -219,7 +219,7 @@
           "title": "Memoria, cachés, almacenamiento y jerarquías",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias"
         },
         {
@@ -228,7 +228,7 @@
           "title": "Procesos, hilos, interrupciones y entrada/salida",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida"
         },
         {
@@ -237,7 +237,7 @@
           "title": "Compilación, interpretación, bytecode y JIT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit"
         },
         {
@@ -246,7 +246,7 @@
           "title": "Runtimes, máquinas virtuales y recolección de basura",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura"
         },
         {
@@ -255,7 +255,7 @@
           "title": "Rendimiento, consumo energético y límites físicos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos"
         },
         {
@@ -264,7 +264,7 @@
           "title": "Taller: observar un programa desde el código hasta la máquina",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina"
         },
         {
@@ -273,7 +273,7 @@
           "title": "Proyecto: informe reproducible de comportamiento y recursos",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos"
         }
       ]
@@ -292,7 +292,7 @@
           "title": "Windows, Linux, macOS y sus modelos operativos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos"
         },
         {
@@ -301,7 +301,7 @@
           "title": "Sistemas de archivos, rutas, enlaces y metadatos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos"
         },
         {
@@ -310,7 +310,7 @@
           "title": "Usuarios, grupos, permisos y elevación de privilegios",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios"
         },
         {
@@ -319,7 +319,7 @@
           "title": "Procesos, señales, servicios y tareas programadas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas"
         },
         {
@@ -328,7 +328,7 @@
           "title": "Terminales, shells y composición de comandos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos"
         },
         {
@@ -337,7 +337,7 @@
           "title": "PowerShell, Bash y portabilidad de scripts",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts"
         },
         {
@@ -346,7 +346,7 @@
           "title": "Variables de entorno, configuración y secretos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos"
         },
         {
@@ -355,7 +355,7 @@
           "title": "Instalación de software y gestores de paquetes del sistema",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema"
         },
         {
@@ -364,7 +364,7 @@
           "title": "Logs del sistema y diagnóstico de fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos"
         },
         {
@@ -373,7 +373,7 @@
           "title": "Virtualización, WSL y aislamiento local",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local"
         },
         {
@@ -382,7 +382,7 @@
           "title": "Taller: preparar y reparar un entorno reproducible",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible"
         },
         {
@@ -391,7 +391,7 @@
           "title": "Proyecto: kit de diagnóstico multiplataforma",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma"
         }
       ]
@@ -410,7 +410,7 @@
           "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico"
         },
         {
@@ -419,7 +419,7 @@
           "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales"
         },
         {
@@ -428,7 +428,7 @@
           "title": "IPv4, IPv6, subredes, rutas y NAT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat"
         },
         {
@@ -437,7 +437,7 @@
           "title": "TCP, UDP, QUIC y decisiones de transporte",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte"
         },
         {
@@ -446,7 +446,7 @@
           "title": "DNS, nombres, resolución y fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos"
         },
         {
@@ -455,7 +455,7 @@
           "title": "HTTP, semántica, caché y negociación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion"
         },
         {
@@ -464,7 +464,7 @@
           "title": "TLS, certificados y confianza en tránsito",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito"
         },
         {
@@ -473,7 +473,7 @@
           "title": "Proxies, balanceadores, gateways y CDN",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn"
         },
         {
@@ -482,7 +482,7 @@
           "title": "Sockets, conexiones persistentes y tiempo real",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real"
         },
         {
@@ -491,7 +491,7 @@
           "title": "Captura, medición y diagnóstico de tráfico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico"
         },
         {
@@ -500,7 +500,7 @@
           "title": "Taller: seguir una petición de extremo a extremo",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo"
         },
         {
@@ -509,7 +509,7 @@
           "title": "Proyecto: servicio observable y tolerante a fallos de red",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red"
         }
       ]
@@ -528,7 +528,7 @@
           "title": "Descomposición, abstracción y reconocimiento de patrones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones"
         },
         {
@@ -537,7 +537,7 @@
           "title": "Lógica proposicional, predicados e inferencia",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia"
         },
         {
@@ -546,7 +546,7 @@
           "title": "Conjuntos, relaciones, funciones y grafos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos"
         },
         {
@@ -555,7 +555,7 @@
           "title": "Invariantes, precondiciones y poscondiciones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones"
         },
         {
@@ -564,7 +564,7 @@
           "title": "Recursión, inducción y razonamiento estructural",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-053-recursion-induccion-y-razonamiento-estructural"
         },
         {
@@ -573,7 +573,7 @@
           "title": "Algoritmos, corrección y terminación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion"
         },
         {
@@ -582,7 +582,7 @@
           "title": "Complejidad temporal y espacial",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial"
         },
         {
@@ -591,7 +591,7 @@
           "title": "Heurísticas, aproximación y límites computacionales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales"
         },
         {
@@ -600,7 +600,7 @@
           "title": "Modelado de estado, transiciones y eventos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos"
         },
         {
@@ -609,7 +609,7 @@
           "title": "Resolución sistemática y registro de hipótesis",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis"
         },
         {
@@ -618,7 +618,7 @@
           "title": "Taller: descomponer un problema ambiguo",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo"
         },
         {
@@ -627,7 +627,7 @@
           "title": "Proyecto: especificación y solución contrastable",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable"
         }
       ]
@@ -1236,7 +1236,7 @@
           "title": "Problemas, síntomas, necesidades y oportunidades",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades"
         },
         {
@@ -1245,7 +1245,7 @@
           "title": "Usuarios, actores, trabajos y contextos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos"
         },
         {
@@ -1254,7 +1254,7 @@
           "title": "Investigación, entrevistas y evidencia cualitativa",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-123-investigacion-entrevistas-y-evidencia-cualitativa"
         },
         {
@@ -1263,7 +1263,7 @@
           "title": "Hipótesis, supuestos y preguntas críticas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-124-hipotesis-supuestos-y-preguntas-criticas"
         },
         {
@@ -1272,7 +1272,7 @@
           "title": "Propuesta de valor y resultados deseados",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados"
         },
         {
@@ -1281,7 +1281,7 @@
           "title": "Segmentación, mercado y alternativas existentes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes"
         },
         {
@@ -1290,7 +1290,7 @@
           "title": "Prototipos, experimentos y reducción de incertidumbre",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre"
         },
         {
@@ -1299,7 +1299,7 @@
           "title": "Priorización por valor, riesgo y aprendizaje",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-128-priorizacion-por-valor-riesgo-y-aprendizaje"
         },
         {
@@ -1308,7 +1308,7 @@
           "title": "Ética del descubrimiento y protección de participantes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-129-etica-del-descubrimiento-y-proteccion-de-participantes"
         },
         {
@@ -1317,7 +1317,7 @@
           "title": "Criterios de no éxito y decisiones de abandono",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-130-criterios-de-no-exito-y-decisiones-de-abandono"
         },
         {
@@ -1326,7 +1326,7 @@
           "title": "Taller: convertir una petición en un problema investigable",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable"
         },
         {
@@ -1335,7 +1335,7 @@
           "title": "Proyecto: product brief respaldado por evidencia",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia"
         }
       ]
@@ -1354,7 +1354,7 @@
           "title": "Modelos de negocio y sostenibilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad"
         },
         {
@@ -1363,7 +1363,7 @@
           "title": "Costos de construcción, operación y oportunidad",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad"
         },
         {
@@ -1372,7 +1372,7 @@
           "title": "Resultados, outputs, actividad y vanity metrics",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics"
         },
         {
@@ -1381,7 +1381,7 @@
           "title": "Métricas de adopción, retención y tarea útil",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util"
         },
         {
@@ -1390,7 +1390,7 @@
           "title": "Telemetría de producto y consentimiento",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento"
         },
         {
@@ -1399,7 +1399,7 @@
           "title": "Experimentos, sesgos y causalidad básica",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica"
         },
         {
@@ -1408,7 +1408,7 @@
           "title": "North Star, guardrails y métricas contrarias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias"
         },
         {
@@ -1417,7 +1417,7 @@
           "title": "FinOps de producto y costo por resultado",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado"
         },
         {
@@ -1426,7 +1426,7 @@
           "title": "Portafolio, opciones y secuenciación de inversión",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion"
         },
         {
@@ -1435,7 +1435,7 @@
           "title": "Decisiones reversibles e irreversibles",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles"
         },
         {
@@ -1444,7 +1444,7 @@
           "title": "Taller: diseñar un árbol de métricas",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas"
         },
         {
@@ -1453,7 +1453,7 @@
           "title": "Proyecto: caso de viabilidad técnico-económica",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica"
         }
       ]
@@ -1472,7 +1472,7 @@
           "title": "Elicitación, análisis, especificación y validación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-145-elicitacion-analisis-especificacion-y-validacion"
         },
         {
@@ -1481,7 +1481,7 @@
           "title": "Requisitos funcionales y reglas de negocio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio"
         },
         {
@@ -1490,7 +1490,7 @@
           "title": "Atributos de calidad y restricciones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones"
         },
         {
@@ -1499,7 +1499,7 @@
           "title": "Casos de uso, historias y job stories",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-148-casos-de-uso-historias-y-job-stories"
         },
         {
@@ -1508,7 +1508,7 @@
           "title": "Criterios de aceptación y ejemplos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-149-criterios-de-aceptacion-y-ejemplos"
         },
         {
@@ -1517,7 +1517,7 @@
           "title": "Priorización, dependencias y negociación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion"
         },
         {
@@ -1526,7 +1526,7 @@
           "title": "Trazabilidad desde necesidad hasta evidencia",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia"
         },
         {
@@ -1535,7 +1535,7 @@
           "title": "Requisitos regulatorios, de datos y seguridad",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad"
         },
         {
@@ -1544,7 +1544,7 @@
           "title": "Gestión de cambios y líneas base",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base"
         },
         {
@@ -1553,7 +1553,7 @@
           "title": "Ambigüedad, contradicción e incompletitud",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-154-ambiguedad-contradiccion-e-incompletitud"
         },
         {
@@ -1562,7 +1562,7 @@
           "title": "Taller: reparar requisitos no verificables",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables"
         },
         {
@@ -1571,7 +1571,7 @@
           "title": "Proyecto: especificación de requisitos revisable",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable"
         }
       ]
@@ -1590,7 +1590,7 @@
           "title": "Especificación informal, semiformal y formal",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal"
         },
         {
@@ -1599,7 +1599,7 @@
           "title": "Specification by Example y BDD",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-158-specification-by-example-y-bdd"
         },
         {
@@ -1608,7 +1608,7 @@
           "title": "Contratos, invariantes y diseño por contrato",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato"
         },
         {
@@ -1617,7 +1617,7 @@
           "title": "Modelos estructurales, conductuales y de información",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion"
         },
         {
@@ -1626,7 +1626,7 @@
           "title": "Máquinas de estado y model checking introductorio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-161-maquinas-de-estado-y-model-checking-introductorio"
         },
         {
@@ -1635,7 +1635,7 @@
           "title": "Esquemas de datos y validación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion"
         },
         {
@@ -1644,7 +1644,7 @@
           "title": "OpenAPI, AsyncAPI, GraphQL y contratos de eventos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos"
         },
         {
@@ -1653,7 +1653,7 @@
           "title": "Compatibilidad, versionado y evolución de contratos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos"
         },
         {
@@ -1662,7 +1662,7 @@
           "title": "Spec-first, spec-anchored y spec-as-source",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-165-spec-first-spec-anchored-y-spec-as-source"
         },
         {
@@ -1671,7 +1671,7 @@
           "title": "Especificaciones ejecutables y pruebas contractuales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales"
         },
         {
@@ -1680,7 +1680,7 @@
           "title": "Taller: convertir intención en contrato comprobable",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable"
         },
         {
@@ -1689,7 +1689,7 @@
           "title": "Proyecto: paquete de especificaciones trazables",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables"
         }
       ]
@@ -1708,7 +1708,7 @@
           "title": "Diseño centrado en personas y tareas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas"
         },
         {
@@ -1717,7 +1717,7 @@
           "title": "Arquitectura de información y navegación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion"
         },
         {
@@ -1726,7 +1726,7 @@
           "title": "Interacción, affordances y retroalimentación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion"
         },
         {
@@ -1735,7 +1735,7 @@
           "title": "Estados vacíos, carga, error y recuperación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-172-estados-vacios-carga-error-y-recuperacion"
         },
         {
@@ -1744,7 +1744,7 @@
           "title": "Accesibilidad perceptible, operable y comprensible",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible"
         },
         {
@@ -1753,7 +1753,7 @@
           "title": "Semántica, teclado, foco y tecnologías de asistencia",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia"
         },
         {
@@ -1762,7 +1762,7 @@
           "title": "Diseño visual, tipografía, color y contraste",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste"
         },
         {
@@ -1771,7 +1771,7 @@
           "title": "Responsive, adaptativo y preferencias del usuario",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario"
         },
         {
@@ -1780,7 +1780,7 @@
           "title": "Internacionalización, localización y formatos culturales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales"
         },
         {
@@ -1789,7 +1789,7 @@
           "title": "Investigación de usabilidad y medición",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-178-investigacion-de-usabilidad-y-medicion"
         },
         {
@@ -1798,7 +1798,7 @@
           "title": "Taller: auditar y reparar un flujo excluyente",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente"
         },
         {
@@ -1807,7 +1807,7 @@
           "title": "Proyecto: prototipo accesible evaluado con usuarios",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios"
         }
       ]
@@ -1826,7 +1826,7 @@
           "title": "Modelos predictivos, iterativos e incrementales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales"
         },
         {
@@ -1835,7 +1835,7 @@
           "title": "Agile como principios y no como ceremonia",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia"
         },
         {
@@ -1844,7 +1844,7 @@
           "title": "Scrum, Kanban, XP y Shape Up",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up"
         },
         {
@@ -1853,7 +1853,7 @@
           "title": "Lean, teoría de colas y límites de trabajo",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo"
         },
         {
@@ -1862,7 +1862,7 @@
           "title": "Estimación por tamaño, rango y evidencia histórica",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica"
         },
         {
@@ -1871,7 +1871,7 @@
           "title": "Planificación de entregas y gestión de dependencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias"
         },
         {
@@ -1880,7 +1880,7 @@
           "title": "Riesgos, supuestos, issues y decisiones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-187-riesgos-supuestos-issues-y-decisiones"
         },
         {
@@ -1889,7 +1889,7 @@
           "title": "Definition of Ready, Done y aceptación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-188-definition-of-ready-done-y-aceptacion"
         },
         {
@@ -1898,7 +1898,7 @@
           "title": "Métricas de flujo, calidad y resultados",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados"
         },
         {
@@ -1907,7 +1907,7 @@
           "title": "Retrospectivas y mejora del sistema de trabajo",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo"
         },
         {
@@ -1916,7 +1916,7 @@
           "title": "Taller: planificar bajo incertidumbre explícita",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita"
         },
         {
@@ -1925,7 +1925,7 @@
           "title": "Proyecto: plan adaptativo con evidencia y guardrails",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails"
         }
       ]
@@ -1944,7 +1944,7 @@
           "title": "Modelo de objetos y áreas de Git",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git"
         },
         {
@@ -1953,7 +1953,7 @@
           "title": "Commits atómicos, historial y recuperación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion"
         },
         {
@@ -1962,7 +1962,7 @@
           "title": "Ramas, integración, rebase y conflictos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos"
         },
         {
@@ -1971,7 +1971,7 @@
           "title": "Pull requests y revisión basada en riesgo",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo"
         },
         {
@@ -1980,7 +1980,7 @@
           "title": "Trunk-based, GitFlow y estrategias híbridas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas"
         },
         {
@@ -1989,7 +1989,7 @@
           "title": "Issues, discusiones y trazabilidad del cambio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio"
         },
         {
@@ -1998,7 +1998,7 @@
           "title": "Convenciones, ownership y CODEOWNERS",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-199-convenciones-ownership-y-codeowners"
         },
         {
@@ -2007,7 +2007,7 @@
           "title": "Contribución, gobernanza y comunidades abiertas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-200-contribucion-gobernanza-y-comunidades-abiertas"
         },
         {
@@ -2016,7 +2016,7 @@
           "title": "Licencias de software y obligaciones básicas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas"
         },
         {
@@ -2025,7 +2025,7 @@
           "title": "Firmas, procedencia y protección del repositorio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio"
         },
         {
@@ -2034,7 +2034,7 @@
           "title": "Taller: rescatar una integración conflictiva",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva"
         },
         {
@@ -2043,7 +2043,7 @@
           "title": "Proyecto: contribución revisable de extremo a extremo",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-204-proyecto-contribucion-revisable-de-extremo-a-extremo"
         }
       ]
@@ -2062,7 +2062,7 @@
           "title": "Documentación orientada a tareas y audiencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias"
         },
         {
@@ -2071,7 +2071,7 @@
           "title": "Tutoriales, how-to, referencia y explicación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion"
         },
         {
@@ -2080,7 +2080,7 @@
           "title": "README, instalación y primer éxito",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito"
         },
         {
@@ -2089,7 +2089,7 @@
           "title": "ADRs, RFCs y registro de decisiones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones"
         },
         {
@@ -2098,7 +2098,7 @@
           "title": "Diagramas, modelos y documentación visual",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual"
         },
         {
@@ -2107,7 +2107,7 @@
           "title": "API docs, ejemplos y contratos publicados",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-210-api-docs-ejemplos-y-contratos-publicados"
         },
         {
@@ -2116,7 +2116,7 @@
           "title": "Runbooks, playbooks y documentación operacional",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional"
         },
         {
@@ -2125,7 +2125,7 @@
           "title": "Docs as code, revisión y publicación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion"
         },
         {
@@ -2134,7 +2134,7 @@
           "title": "Búsqueda, glosarios y arquitectura de conocimiento",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento"
         },
         {
@@ -2143,7 +2143,7 @@
           "title": "Documentación para humanos, máquinas y LLM",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm"
         },
         {
@@ -2152,7 +2152,7 @@
           "title": "Taller: reconstruir conocimiento perdido",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido"
         },
         {
@@ -2161,7 +2161,7 @@
           "title": "Proyecto: portal documental versionado",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado"
         }
       ]

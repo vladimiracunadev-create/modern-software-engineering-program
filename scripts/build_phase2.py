@@ -206,11 +206,13 @@ def part_index(part: dict) -> str:
             f"| {lesson['id']} | [{lesson['title']}]({folder}/README.md) | "
             f"{lesson['kind']} | {lesson['estimated_hours']} | {lesson['status']} |"
         )
+    statuses = Counter(lesson["status"] for lesson in part["lessons"])
+    status_text = ", ".join(f"{count} `{status}`" for status, count in sorted(statuses.items()))
     return f"""# Parte {part['id']} — {part['title']}
 
 - **Etapa:** {part['stage']} · {part['stage_title']}
 - **Propietario profundo:** `{part['owner']}`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** {status_text}.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |
@@ -229,10 +231,14 @@ def classes_index(program: dict) -> str:
             f"| {part['id']} | [{part['title']}]({Path(part['path']).name}/README.md) | "
             f"{part['stage']} | {start}–{end} | `{part['owner']}` |"
         )
+    statuses = Counter(
+        lesson["status"] for part in program["parts"] for lesson in part["lessons"]
+    )
+    status_text = " · ".join(f"{count} `{status}`" for status, count in sorted(statuses.items()))
     return f"""# Índice de clases
 
-> Las {program['class_count']} clases están en estado `PLANNED`. Los archivos son
-> scaffolds estructurales y no deben citarse como clases terminadas.
+> Estado verificable: {status_text}. `GUIDED` significa material pedagógico completo;
+> no implica laboratorio ejecutable ni operación verificada.
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -252,9 +258,13 @@ def source_registry(program: dict, baseline: dict) -> dict:
             raise ValueError(f"Unknown sources for part {part['id']}: {sorted(unresolved)}")
         for lesson in part["lessons"]:
             entries[lesson["id"]] = {
-                "status": "SEEDED_BASELINE",
+                "status": "GUIDED_BASELINE" if lesson["status"] == "GUIDED" else "SEEDED_BASELINE",
                 "source_ids": source_ids,
-                "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase.",
+                "note": (
+                    "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+                    if lesson["status"] == "GUIDED"
+                    else "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+                ),
             }
     return {
         "schema_version": 1,
@@ -265,33 +275,38 @@ def source_registry(program: dict, baseline: dict) -> dict:
 
 
 def status_document(program: dict) -> str:
+    statuses = Counter(
+        lesson["status"] for part in program["parts"] for lesson in part["lessons"]
+    )
+    guided = statuses.get("GUIDED", 0)
+    planned = statuses.get("PLANNED", 0)
     return f"""# Estado verificable
 
 Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 
 | Superficie | Estado actual |
 | --- | --- |
-| Arquitectura | fases 1 y 2 completadas |
+| Arquitectura | fases 1, 2 y 3 completadas |
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
-| Clases | {program['class_count']} scaffolds `PLANNED`; 0 clases declaradas como construidas |
+| Clases | {guided} `GUIDED`; {planned} `PLANNED` |
 | Horas | {program['estimated_hours']:,} estimadas; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
-| Portal definitivo | catálogo navegable de fase 2; contenido pedagógico pendiente |
+| Portal definitivo | catálogo navegable con contenido de fase 3 y estados de madurez |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado
 
-La fase 2 demuestra que el programa puede generarse, navegarse y validarse sin deriva.
-No demuestra que las clases estén desarrolladas. El estado `PLANNED` y los avisos de
-cada scaffold son deliberados.
+La fase 3 desarrolla fundamentos y producto/especificación como guías pedagógicas.
+`GUIDED` confirma explicación, práctica, ejercicios, fuentes y evaluación; no afirma
+que exista ejecución automática. Las demás clases conservan deliberadamente `PLANNED`.
 """.replace("2,160", "2.160")
 
 
 def file_index(program: dict) -> str:
-    return f"""# Índice de archivos de la fase 2
+    return f"""# Índice de archivos del programa
 
 | Superficie | Ruta | Cantidad esperada |
 | --- | --- | ---: |
@@ -299,9 +314,12 @@ def file_index(program: dict) -> str:
 | Catálogo resumido | `catalog.json` | 1 |
 | Índice general | `classes/README.md` | 1 |
 | Índices de parte | `classes/part-*/README.md` | {program['part_count']} |
-| Scaffolds de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
+| Materiales de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |
 | Fuentes por clase | `sources/class-sources.json` | {program['class_count']} entradas |
+| Fuentes verificadas de fase 3 | `sources/phase3.json` | 13 partes |
+| Contratos de actividad | `classes/part-*/se-*/activity.yaml` | 156 |
+| Rúbricas | `classes/part-*/se-*/rubric.json` | 156 |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.
@@ -334,12 +352,12 @@ def site_index(program: dict) -> str:
         )
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Programa verificable de ingeniería de software: 480 clases planificadas, SPEC, IA y agentes.">
+<meta name="description" content="Programa verificable de ingeniería de software: 156 guías construidas, 324 clases planificadas, SPEC, IA y agentes.">
 <title>Software Engineering Learning Suite</title><link rel="stylesheet" href="assets/styles.css"></head>
-<body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><p class="eyebrow">Programa profesional · fase 2</p>
+<body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><p class="eyebrow">Programa profesional · fase 3</p>
 <h1>Software Engineering<br>Learning Suite</h1><p>Del problema al producto operable: fundamentos, construcción, arquitectura, calidad, operación, SPEC e ingeniería con agentes.</p>
-<div class="metrics"><div class="metric"><strong>8</strong><span>etapas</span></div><div class="metric"><strong>40</strong><span>partes</span></div><div class="metric"><strong>480</strong><span>clases planificadas</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Estado honesto:</strong> esta publicación demuestra estructura, navegación y controles. Las clases siguen en estado <code>PLANNED</code>.</div>
+<div class="metrics"><div class="metric"><strong>8</strong><span>etapas</span></div><div class="metric"><strong>40</strong><span>partes</span></div><div class="metric"><strong>156</strong><span>clases guiadas</span></div><div class="metric"><strong>324</strong><span>clases planificadas</span></div></div></header>
+<main id="content"><div class="notice"><strong>Estado honesto:</strong> 156 clases de fundamentos y producto/especificación están <code>GUIDED</code>; las otras 324 siguen <code>PLANNED</code>.</div>
 <h2>Ocho etapas</h2><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
@@ -351,7 +369,9 @@ def part_page(part: dict) -> str:
         f'<li><a href="../classes/{lesson["id"]}.html">{lesson["id"]} — {html.escape(lesson["title"])}</a> '
         f'<span class="badge">{lesson["status"]}</span></li>' for lesson in part["lessons"]
     )
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Propietario profundo: {html.escape(part['owner'])}</p><div class="notice">Doce clases planificadas. El contenido pedagógico se construirá en fases posteriores.</div><ol class="lesson-list">{items}</ol></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
+    guided = sum(lesson["status"] == "GUIDED" for lesson in part["lessons"])
+    state = "Doce guías pedagógicas construidas." if guided == 12 else "Contenido planificado para una fase posterior."
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Propietario profundo: {html.escape(part['owner'])}</p><div class="notice">{state}</div><ol class="lesson-list">{items}</ol></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
 
 
 def class_page(part: dict, lesson: dict, source_ids: list[str]) -> str:
@@ -401,12 +421,13 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 check,
                 stale,
             )
-            write_generated(
-                ROOT / "site/classes" / f"{lesson['id']}.html",
-                class_page(part, lesson, source_ids),
-                check,
-                stale,
-            )
+            if lesson["status"] == "PLANNED":
+                write_generated(
+                    ROOT / "site/classes" / f"{lesson['id']}.html",
+                    class_page(part, lesson, source_ids),
+                    check,
+                    stale,
+                )
             web_catalog["classes"].append({
                 "id": lesson["id"],
                 "title": lesson["title"],
@@ -423,6 +444,9 @@ def build(check: bool) -> tuple[list[str], list[str]]:
     write_generated(ROOT / "site/assets/styles.css", site_css(), check, stale)
     write_generated(ROOT / "site/assets/app.js", site_js(), check, stale)
     write_generated(ROOT / "site/assets/catalog.json", dump_json(web_catalog), check, stale)
+    for schema_name in ("curriculum.schema.json", "activity.schema.json", "rubric.schema.json"):
+        schema_content = (ROOT / "schemas" / schema_name).read_text(encoding="utf-8")
+        write_generated(ROOT / "site/schemas" / schema_name, schema_content, check, stale)
     write_generated(ROOT / "site/.nojekyll", "", check, stale)
     write_generated(ROOT / "STATUS.md", status_document(program), check, stale)
     write_generated(ROOT / "FILE_INDEX.md", file_index(program), check, stale)
@@ -441,7 +465,7 @@ def main() -> int:
             print(f"... {len(stale) + len(failures) - 40} additional failures", file=sys.stderr)
         return 1
     action = "PHASE2_CHECK_OK" if args.check else "PHASE2_BUILD_OK"
-    print(f"{action}: 40 parts, 480 class scaffolds, 521 HTML pages")
+    print(f"{action}: 40 parts, 480 class records, phase-aware site")
     return 0
 
 

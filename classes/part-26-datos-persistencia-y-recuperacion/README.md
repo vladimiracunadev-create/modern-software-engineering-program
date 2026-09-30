@@ -2,7 +2,7 @@
 
 - **Etapa:** E · Diseño, arquitectura, datos e integración
 - **Propietario profundo:** `database-systems-labs`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |

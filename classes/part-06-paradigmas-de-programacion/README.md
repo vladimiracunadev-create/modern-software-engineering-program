@@ -2,7 +2,7 @@
 
 - **Etapa:** B · Programación y construcción
 - **Propietario profundo:** `polyglot-programming-labs`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |

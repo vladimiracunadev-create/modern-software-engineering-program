@@ -10,6 +10,7 @@ on:
       - "site/**"
       - "sources/**"
       - "scripts/build_phase2.py"
+      - "scripts/build_phase3.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -41,6 +42,8 @@ jobs:
         run: |
           python scripts/build_program_blueprint.py --check
           python scripts/build_phase2.py --check
+          python scripts/build_phase3.py --check
+          python scripts/validate_phase3.py
           python scripts/validate_encoding.py
           python scripts/validate_site.py
           python -c "from pathlib import Path; pages=list(Path('site').rglob('*.html')); assert len(pages)==521, len(pages)"

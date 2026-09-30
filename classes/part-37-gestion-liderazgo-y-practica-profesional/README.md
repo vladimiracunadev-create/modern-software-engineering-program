@@ -2,7 +2,7 @@
 
 - **Etapa:** G · Operación, evolución y liderazgo
 - **Propietario profundo:** `suite`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |

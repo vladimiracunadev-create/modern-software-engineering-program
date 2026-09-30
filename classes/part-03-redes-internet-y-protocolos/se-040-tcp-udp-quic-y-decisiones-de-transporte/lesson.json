@@ -7,7 +7,7 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
     "IETF-RFC-9110"
   ],

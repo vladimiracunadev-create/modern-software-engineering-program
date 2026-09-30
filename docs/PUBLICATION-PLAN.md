@@ -9,9 +9,10 @@
 
 ## About publicado
 
-> 🧭 software-engineering-learning-suite · 480 clases especificadas · producto, arquitectura, calidad, DevSecOps, SRE, SPEC e IA agéntica · Python + sitio estático · 🐧🍎🪟
+> 🧭 software-engineering-learning-suite · 156 clases guiadas y 324 planificadas · fundamentos, producto, requisitos y SPEC · Python + sitio estático · 🐧🍎🪟
 
-La palabra **especificadas** se mantendrá hasta que el contenido exista y sea validado.
+Los conteos de madurez se sincronizan desde `catalog.json`; `GUIDED` no se presenta
+como laboratorio ejecutable.
 
 ## Topics publicados
 

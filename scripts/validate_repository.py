@@ -11,6 +11,7 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "README.md",
+    ".github/repository-metadata.json",
     "STATUS.md",
     "ROADMAP.md",
     "PROMPT_MAESTRO.md",
@@ -30,7 +31,10 @@ REQUIRED = [
     "docs/SOURCES.md",
     "sources/baseline.json",
     "sources/class-sources.json",
+    "sources/phase3.json",
     "schemas/curriculum.schema.json",
+    "schemas/activity.schema.json",
+    "schemas/rubric.schema.json",
     "matrices/COMPETENCY-MAP.md",
     "projects/capstone.md",
     "blueprints/reference-product/README.md",
@@ -42,9 +46,11 @@ REQUIRED = [
     "site/index.html",
     "site/assets/catalog.json",
     "scripts/build_phase2.py",
+    "scripts/build_phase3.py",
     "scripts/validate_class_contracts.py",
     "scripts/validate_encoding.py",
     "scripts/validate_site.py",
+    "scripts/validate_phase3.py",
 ]
 LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 FULL_SHA = re.compile(r"^[0-9a-f]{40}$")
@@ -110,8 +116,9 @@ def validate_program_blueprint() -> None:
         kinds = [lesson["kind"] for lesson in part["lessons"]]
         if kinds != ["class"] * 10 + ["studio", "project"]:
             raise AssertionError(f"Part {part['id']} must have ten classes, one studio and one project")
-        if any(lesson["status"] != "PLANNED" for lesson in part["lessons"]):
-            raise AssertionError("Phase 1 classes must be honestly marked PLANNED")
+        expected_status = "GUIDED" if part["stage"] in {"A", "C"} else "PLANNED"
+        if any(lesson["status"] != expected_status for lesson in part["lessons"]):
+            raise AssertionError(f"Unexpected phase 3 maturity in part {part['id']}")
     hours = sum(lesson["estimated_hours"] for lesson in lessons)
     if hours != payload["estimated_hours"]:
         raise AssertionError("Estimated hours do not match the class manifest")
@@ -120,7 +127,7 @@ def validate_program_blueprint() -> None:
         "parts": 40,
         "classes": 480,
         "estimated_hours": hours,
-        "class_status": {"PLANNED": 480},
+        "class_status": {"GUIDED": 156, "PLANNED": 324},
     }
     for key, value in expected_catalog.items():
         if catalog.get(key) != value:
@@ -169,18 +176,29 @@ def validate_sources() -> None:
         if not entry.get("source_ids") or not set(entry["source_ids"]).issubset(set(ids)):
             raise AssertionError(f"Class source registry has unresolved sources: {class_id}")
 
+    phase3 = read_json("sources/phase3.json")
+    phase3_ids = {source["id"] for source in phase3.get("sources", [])}
+    if len(phase3_ids) < 20 or len(phase3.get("parts", {})) != 13:
+        raise AssertionError("Phase 3 source registry must cover 13 parts with at least 20 sources")
+    if any(not set(items).issubset(phase3_ids) for items in phase3["parts"].values()):
+        raise AssertionError("Phase 3 source registry contains unresolved IDs")
+
 
 def validate_phase2_outputs() -> None:
     part_directories = sorted((ROOT / "classes").glob("part-*"))
     metadata = sorted((ROOT / "classes").glob("part-*/se-*/lesson.json"))
     scaffolds = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
     pages = sorted((ROOT / "site").rglob("*.html"))
+    activities = sorted((ROOT / "classes").glob("part-*/se-*/activity.yaml"))
+    rubrics = sorted((ROOT / "classes").glob("part-*/se-*/rubric.json"))
     if len(part_directories) != 40:
         raise AssertionError(f"Expected 40 generated part directories, found {len(part_directories)}")
     if len(metadata) != 480 or len(scaffolds) != 480:
         raise AssertionError(f"Expected 480 class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
     if len(pages) != 521:
         raise AssertionError(f"Expected 521 generated HTML pages, found {len(pages)}")
+    if len(activities) != 156 or len(rubrics) != 156:
+        raise AssertionError(f"Expected 156 phase 3 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
 
 def validate_blueprint() -> None:

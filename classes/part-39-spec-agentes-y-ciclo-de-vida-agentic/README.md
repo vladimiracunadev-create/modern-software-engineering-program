@@ -2,7 +2,7 @@
 
 - **Etapa:** H · Ingeniería de software nativa con IA
 - **Propietario profundo:** `suite`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |

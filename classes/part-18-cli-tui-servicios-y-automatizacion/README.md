@@ -2,7 +2,7 @@
 
 - **Etapa:** D · Superficies y formas de software
 - **Propietario profundo:** `framework-ecosystems-labs`
-- **Estado:** doce clases planificadas; contenido pendiente.
+- **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |
 | --- | --- | --- | ---: | --- |

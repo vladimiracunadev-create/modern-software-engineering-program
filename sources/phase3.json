@@ -1,0 +1,265 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json",
+  "schema_version": 1,
+  "verified_on": "2026-09-30",
+  "scope": "Fase 3: etapas A y C",
+  "policy": "Fuentes primarias u oficiales; la guía indica el uso pedagógico y evita atribuirles afirmaciones no contenidas.",
+  "sources": [
+    {
+      "id": "ACM-ETHICS",
+      "title": "ACM Code of Ethics and Professional Conduct",
+      "authority": "ACM",
+      "url": "https://www.acm.org/code-of-ethics",
+      "status": "verified"
+    },
+    {
+      "id": "ASYNCAPI",
+      "title": "AsyncAPI Specification",
+      "authority": "AsyncAPI Initiative",
+      "url": "https://www.asyncapi.com/docs/reference/specification/latest",
+      "status": "verified"
+    },
+    {
+      "id": "BASH",
+      "title": "Bash Reference Manual",
+      "authority": "GNU Project",
+      "url": "https://www.gnu.org/software/bash/manual/",
+      "status": "verified"
+    },
+    {
+      "id": "C4",
+      "title": "C4 model",
+      "authority": "C4 model project",
+      "url": "https://c4model.com/",
+      "status": "verified"
+    },
+    {
+      "id": "DIATAXIS",
+      "title": "Diátaxis documentation framework",
+      "authority": "Diátaxis project",
+      "url": "https://diataxis.fr/",
+      "status": "verified"
+    },
+    {
+      "id": "GIT",
+      "title": "Git documentation",
+      "authority": "Git project",
+      "url": "https://git-scm.com/docs",
+      "status": "verified"
+    },
+    {
+      "id": "GITHUB-COLLAB",
+      "title": "Collaborating with pull requests",
+      "authority": "GitHub",
+      "url": "https://docs.github.com/pull-requests/collaborating-with-pull-requests",
+      "status": "verified"
+    },
+    {
+      "id": "GOV-RESEARCH",
+      "title": "The Service Manual: user research",
+      "authority": "UK Government Digital Service",
+      "url": "https://www.gov.uk/service-manual/user-research",
+      "status": "verified"
+    },
+    {
+      "id": "GRAPHQL",
+      "title": "GraphQL Specification",
+      "authority": "GraphQL Foundation",
+      "url": "https://spec.graphql.org/",
+      "status": "verified"
+    },
+    {
+      "id": "ISO-25010",
+      "title": "ISO/IEC 25010:2023",
+      "authority": "ISO",
+      "url": "https://www.iso.org/standard/78176.html",
+      "status": "verified"
+    },
+    {
+      "id": "ISO-29148",
+      "title": "ISO/IEC/IEEE 29148:2018 Requirements Engineering",
+      "authority": "ISO",
+      "url": "https://www.iso.org/standard/72089.html",
+      "status": "verified"
+    },
+    {
+      "id": "KANBAN",
+      "title": "The Kanban Guide",
+      "authority": "Kanban Guides",
+      "url": "https://kanbanguides.org/english/",
+      "status": "verified"
+    },
+    {
+      "id": "MIT-MATH-CS",
+      "title": "Mathematics for Computer Science",
+      "authority": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+      "status": "verified"
+    },
+    {
+      "id": "NIST-PRIVACY",
+      "title": "NIST Privacy Framework",
+      "authority": "NIST",
+      "url": "https://www.nist.gov/privacy-framework",
+      "status": "verified"
+    },
+    {
+      "id": "OPENAPI",
+      "title": "OpenAPI Specification",
+      "authority": "OpenAPI Initiative",
+      "url": "https://spec.openapis.org/oas/latest.html",
+      "status": "verified"
+    },
+    {
+      "id": "POSIX",
+      "title": "The Open Group Base Specifications",
+      "authority": "The Open Group",
+      "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+      "status": "verified"
+    },
+    {
+      "id": "POWERSHELL",
+      "title": "PowerShell documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/powershell/",
+      "status": "verified"
+    },
+    {
+      "id": "RFC-8200",
+      "title": "Internet Protocol, Version 6",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8200",
+      "status": "verified"
+    },
+    {
+      "id": "RFC-8446",
+      "title": "The Transport Layer Security Protocol Version 1.3",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8446",
+      "status": "verified"
+    },
+    {
+      "id": "RFC-9000",
+      "title": "QUIC: A UDP-Based Multiplexed and Secure Transport",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9000",
+      "status": "verified"
+    },
+    {
+      "id": "RFC-9110",
+      "title": "HTTP Semantics",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "status": "verified"
+    },
+    {
+      "id": "SCRUM",
+      "title": "The Scrum Guide",
+      "authority": "Scrum Guide authors",
+      "url": "https://scrumguides.org/scrum-guide.html",
+      "status": "verified"
+    },
+    {
+      "id": "SWEBOK-4A",
+      "title": "SWEBOK Guide v4.0a",
+      "authority": "IEEE Computer Society",
+      "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+      "status": "verified"
+    },
+    {
+      "id": "UNICODE",
+      "title": "The Unicode Standard",
+      "authority": "Unicode Consortium",
+      "url": "https://www.unicode.org/standard/standard.html",
+      "status": "verified"
+    },
+    {
+      "id": "W3C-I18N",
+      "title": "Internationalization techniques",
+      "authority": "W3C",
+      "url": "https://www.w3.org/International/techniques/",
+      "status": "verified"
+    },
+    {
+      "id": "WCAG-22",
+      "title": "Web Content Accessibility Guidelines 2.2",
+      "authority": "W3C",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "status": "verified"
+    },
+    {
+      "id": "WINDOWS",
+      "title": "Windows developer documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/windows/",
+      "status": "verified"
+    }
+  ],
+  "parts": {
+    "00": [
+      "SWEBOK-4A",
+      "ACM-ETHICS",
+      "ISO-25010"
+    ],
+    "01": [
+      "UNICODE",
+      "SWEBOK-4A"
+    ],
+    "02": [
+      "POSIX",
+      "WINDOWS",
+      "POWERSHELL",
+      "BASH"
+    ],
+    "03": [
+      "RFC-8200",
+      "RFC-8446",
+      "RFC-9000",
+      "RFC-9110"
+    ],
+    "04": [
+      "MIT-MATH-CS",
+      "SWEBOK-4A"
+    ],
+    "10": [
+      "GOV-RESEARCH",
+      "NIST-PRIVACY",
+      "SWEBOK-4A"
+    ],
+    "11": [
+      "SWEBOK-4A",
+      "NIST-PRIVACY"
+    ],
+    "12": [
+      "ISO-29148",
+      "SWEBOK-4A",
+      "ISO-25010"
+    ],
+    "13": [
+      "ISO-29148",
+      "OPENAPI",
+      "ASYNCAPI",
+      "GRAPHQL"
+    ],
+    "14": [
+      "WCAG-22",
+      "W3C-I18N",
+      "NIST-PRIVACY"
+    ],
+    "15": [
+      "SCRUM",
+      "KANBAN",
+      "SWEBOK-4A"
+    ],
+    "16": [
+      "GIT",
+      "GITHUB-COLLAB",
+      "ACM-ETHICS"
+    ],
+    "17": [
+      "DIATAXIS",
+      "C4",
+      "SWEBOK-4A"
+    ]
+  }
+}

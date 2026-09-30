@@ -1,7 +1,7 @@
 {
   "program": "software-engineering-learning-suite",
   "baseline_date": "2026-09-30",
-  "status": "PHASE_3_REBUILDING",
+  "status": "PHASE_3_AND_4_REBUILDING",
   "stages": 8,
   "parts": 40,
   "classes": 480,
@@ -12,6 +12,12 @@
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",
+    "classes": 180,
+    "approved": 0
+  },
+  "phase_4_target": {
+    "first_class": "SE-181",
+    "last_class": "SE-360",
     "classes": 180,
     "approved": 0
   }

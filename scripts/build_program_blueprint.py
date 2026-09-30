@@ -13,6 +13,8 @@ OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 
 PHASE_3_TARGET_END = 180
+PHASE_4_TARGET_START = 181
+PHASE_4_TARGET_END = 360
 
 STAGES = [
     ("A", "Fundamentos de la profesión"),
@@ -636,11 +638,17 @@ def build_payload() -> dict:
         "program": "software-engineering-learning-suite",
         "language": "es",
         "baseline_date": "2026-09-30",
-        "status": "PHASE_3_REBUILDING",
+        "status": "PHASE_3_AND_4_REBUILDING",
         "phase_3_target": {
             "first_class": "SE-001",
             "last_class": f"SE-{PHASE_3_TARGET_END:03d}",
             "classes": PHASE_3_TARGET_END,
+            "approved": 0,
+        },
+        "phase_4_target": {
+            "first_class": f"SE-{PHASE_4_TARGET_START:03d}",
+            "last_class": f"SE-{PHASE_4_TARGET_END:03d}",
+            "classes": PHASE_4_TARGET_END - PHASE_4_TARGET_START + 1,
             "approved": 0,
         },
         "part_count": len(parts),
@@ -684,6 +692,7 @@ def main() -> int:
         "estimated_hours": payload["estimated_hours"],
         "class_status": dict(sorted(class_status.items())),
         "phase_3_target": payload["phase_3_target"],
+        "phase_4_target": payload["phase_4_target"],
     }
     targets = [
         (OUTPUT, render(payload)),

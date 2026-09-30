@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-30",
+  "scope": "Fase 4 en desarrollo: SE-181 a SE-360",
+  "policy": "Fuentes primarias u oficiales; cada borrador explica su uso, pero requiere revisión técnica individual antes de ser aprobado.",
+  "sources": [
+    {
+      "id": "ACM-ETHICS",
+      "title": "ACM Code of Ethics and Professional Conduct",
+      "authority": "ACM",
+      "url": "https://www.acm.org/code-of-ethics",
+      "status": "verified"
+    },
+    {
+      "id": "ANDROID",
+      "title": "Android Developers",
+      "authority": "Google",
+      "url": "https://developer.android.com/docs",
+      "status": "verified"
+    },
+    {
+      "id": "APPLE",
+      "title": "Apple Developer Documentation",
+      "authority": "Apple",
+      "url": "https://developer.apple.com/documentation/",
+      "status": "verified"
+    },
+    {
+      "id": "ASYNCAPI",
+      "title": "AsyncAPI Specification",
+      "authority": "AsyncAPI Initiative",
+      "url": "https://www.asyncapi.com/docs/reference/specification/latest",
+      "status": "verified"
+    },
+    {
+      "id": "AWS-WAF",
+      "title": "AWS Well-Architected Framework",
+      "authority": "Amazon Web Services",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html",
+      "status": "verified"
+    },
+    {
+      "id": "C4",
+      "title": "C4 model",
+      "authority": "C4 model project",
+      "url": "https://c4model.com/",
+      "status": "verified"
+    },
+    {
+      "id": "CLOUDEVENTS",
+      "title": "CloudEvents specification",
+      "authority": "Cloud Native Computing Foundation",
+      "url": "https://cloudevents.io/",
+      "status": "verified"
+    },
+    {
+      "id": "DIATAXIS",
+      "title": "Diátaxis documentation framework",
+      "authority": "Diátaxis project",
+      "url": "https://diataxis.fr/",
+      "status": "verified"
+    },
+    {
+      "id": "ELECTRON",
+      "title": "Electron documentation",
+      "authority": "OpenJS Foundation",
+      "url": "https://www.electronjs.org/docs/latest/",
+      "status": "verified"
+    },
+    {
+      "id": "FREERTOS",
+      "title": "FreeRTOS documentation",
+      "authority": "FreeRTOS",
+      "url": "https://www.freertos.org/Documentation/RTOS_book.html",
+      "status": "verified"
+    },
+    {
+      "id": "GIT",
+      "title": "Git documentation",
+      "authority": "Git project",
+      "url": "https://git-scm.com/docs",
+      "status": "verified"
+    },
+    {
+      "id": "GITHUB-COLLAB",
+      "title": "Collaborating with pull requests",
+      "authority": "GitHub",
+      "url": "https://docs.github.com/pull-requests/collaborating-with-pull-requests",
+      "status": "verified"
+    },
+    {
+      "id": "GO-MEMORY",
+      "title": "The Go Memory Model",
+      "authority": "Go project",
+      "url": "https://go.dev/ref/mem",
+      "status": "verified"
+    },
+    {
+      "id": "GODOT",
+      "title": "Godot Engine documentation",
+      "authority": "Godot Engine",
+      "url": "https://docs.godotengine.org/en/stable/",
+      "status": "verified"
+    },
+    {
+      "id": "ISO-25010",
+      "title": "ISO/IEC 25010:2023",
+      "authority": "ISO",
+      "url": "https://www.iso.org/standard/78176.html",
+      "status": "verified"
+    },
+    {
+      "id": "JUPYTER",
+      "title": "Jupyter documentation",
+      "authority": "Project Jupyter",
+      "url": "https://docs.jupyter.org/en/latest/",
+      "status": "verified"
+    },
+    {
+      "id": "KANBAN",
+      "title": "The Kanban Guide",
+      "authority": "Kanban Guides",
+      "url": "https://kanbanguides.org/english/",
+      "status": "verified"
+    },
+    {
+      "id": "KUBERNETES",
+      "title": "Kubernetes documentation",
+      "authority": "Cloud Native Computing Foundation",
+      "url": "https://kubernetes.io/docs/",
+      "status": "verified"
+    },
+    {
+      "id": "NIST-SSDF-800-218",
+      "title": "Secure Software Development Framework",
+      "authority": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "status": "verified"
+    },
+    {
+      "id": "OCI",
+      "title": "Open Container Initiative specifications",
+      "authority": "Open Container Initiative",
+      "url": "https://opencontainers.org/release-notices/overview/",
+      "status": "verified"
+    },
+    {
+      "id": "OPENAPI",
+      "title": "OpenAPI Specification",
+      "authority": "OpenAPI Initiative",
+      "url": "https://spec.openapis.org/oas/latest.html",
+      "status": "verified"
+    },
+    {
+      "id": "POSIX",
+      "title": "The Open Group Base Specifications",
+      "authority": "The Open Group",
+      "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+      "status": "verified"
+    },
+    {
+      "id": "POSTGRESQL",
+      "title": "PostgreSQL documentation",
+      "authority": "PostgreSQL Global Development Group",
+      "url": "https://www.postgresql.org/docs/current/",
+      "status": "verified"
+    },
+    {
+      "id": "PYTHON",
+      "title": "Python 3 documentation",
+      "authority": "Python Software Foundation",
+      "url": "https://docs.python.org/3/",
+      "status": "verified"
+    },
+    {
+      "id": "RAFT",
+      "title": "In Search of an Understandable Consensus Algorithm",
+      "authority": "Stanford University",
+      "url": "https://raft.github.io/raft.pdf",
+      "status": "verified"
+    },
+    {
+      "id": "RFC-9110",
+      "title": "HTTP Semantics",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "status": "verified"
+    },
+    {
+      "id": "SCRUM",
+      "title": "The Scrum Guide",
+      "authority": "Scrum Guide authors",
+      "url": "https://scrumguides.org/scrum-guide.html",
+      "status": "verified"
+    },
+    {
+      "id": "SQLITE",
+      "title": "SQLite documentation",
+      "authority": "SQLite project",
+      "url": "https://www.sqlite.org/docs.html",
+      "status": "verified"
+    },
+    {
+      "id": "SWEBOK-4A",
+      "title": "SWEBOK Guide v4.0a",
+      "authority": "IEEE Computer Society",
+      "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+      "status": "verified"
+    },
+    {
+      "id": "TERRAFORM",
+      "title": "Terraform language documentation",
+      "authority": "HashiCorp",
+      "url": "https://developer.hashicorp.com/terraform/language",
+      "status": "verified"
+    },
+    {
+      "id": "W3C-MANIFEST",
+      "title": "Web Application Manifest",
+      "authority": "W3C",
+      "url": "https://www.w3.org/TR/appmanifest/",
+      "status": "verified"
+    },
+    {
+      "id": "WCAG-22",
+      "title": "Web Content Accessibility Guidelines 2.2",
+      "authority": "W3C",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "status": "verified"
+    },
+    {
+      "id": "WHATWG-HTML",
+      "title": "HTML Living Standard",
+      "authority": "WHATWG",
+      "url": "https://html.spec.whatwg.org/",
+      "status": "verified"
+    },
+    {
+      "id": "ZEPHYR",
+      "title": "Zephyr Project documentation",
+      "authority": "Linux Foundation",
+      "url": "https://docs.zephyrproject.org/latest/",
+      "status": "verified"
+    }
+  ],
+  "parts": {
+    "15": [
+      "SCRUM",
+      "KANBAN",
+      "SWEBOK-4A"
+    ],
+    "16": [
+      "GIT",
+      "GITHUB-COLLAB",
+      "ACM-ETHICS"
+    ],
+    "17": [
+      "DIATAXIS",
+      "C4",
+      "SWEBOK-4A"
+    ],
+    "18": [
+      "PYTHON",
+      "POSIX",
+      "SWEBOK-4A"
+    ],
+    "19": [
+      "WHATWG-HTML",
+      "W3C-MANIFEST",
+      "WCAG-22",
+      "RFC-9110"
+    ],
+    "20": [
+      "OPENAPI",
+      "ASYNCAPI",
+      "RFC-9110",
+      "SWEBOK-4A"
+    ],
+    "21": [
+      "ANDROID",
+      "APPLE",
+      "ELECTRON",
+      "ISO-25010"
+    ],
+    "22": [
+      "ZEPHYR",
+      "FREERTOS",
+      "NIST-SSDF-800-218",
+      "SWEBOK-4A"
+    ],
+    "23": [
+      "JUPYTER",
+      "GODOT",
+      "ISO-25010",
+      "SWEBOK-4A"
+    ],
+    "24": [
+      "SWEBOK-4A",
+      "ISO-25010",
+      "PYTHON"
+    ],
+    "25": [
+      "C4",
+      "ISO-25010",
+      "SWEBOK-4A"
+    ],
+    "26": [
+      "POSTGRESQL",
+      "SQLITE",
+      "SWEBOK-4A"
+    ],
+    "27": [
+      "ASYNCAPI",
+      "CLOUDEVENTS",
+      "OPENAPI",
+      "SWEBOK-4A"
+    ],
+    "28": [
+      "RAFT",
+      "GO-MEMORY",
+      "ISO-25010",
+      "SWEBOK-4A"
+    ],
+    "29": [
+      "KUBERNETES",
+      "OCI",
+      "TERRAFORM",
+      "AWS-WAF",
+      "NIST-SSDF-800-218"
+    ]
+  }
+}

@@ -136,6 +136,12 @@ def validate_program_blueprint() -> None:
             "classes": 180,
             "approved": 0,
         },
+        "phase_4_target": {
+            "first_class": "SE-181",
+            "last_class": "SE-360",
+            "classes": 180,
+            "approved": 0,
+        },
     }
     for key, value in expected_catalog.items():
         if catalog.get(key) != value:
@@ -190,6 +196,12 @@ def validate_sources() -> None:
         raise AssertionError("Phase 3 source registry must cover 15 parts with at least 20 sources")
     if any(not set(items).issubset(phase3_ids) for items in phase3["parts"].values()):
         raise AssertionError("Phase 3 source registry contains unresolved IDs")
+    phase4 = read_json("sources/phase4.json")
+    phase4_ids = {source["id"] for source in phase4.get("sources", [])}
+    if len(phase4_ids) < 20 or len(phase4.get("parts", {})) != 15:
+        raise AssertionError("Phase 4 source registry must cover 15 parts with at least 20 sources")
+    if any(not set(items).issubset(phase4_ids) for items in phase4["parts"].values()):
+        raise AssertionError("Phase 4 source registry contains unresolved IDs")
 
 
 def validate_phase2_outputs() -> None:
@@ -205,8 +217,8 @@ def validate_phase2_outputs() -> None:
         raise AssertionError(f"Expected 480 class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
     if len(pages) != 521:
         raise AssertionError(f"Expected 521 generated HTML pages, found {len(pages)}")
-    if len(activities) != 180 or len(rubrics) != 180:
-        raise AssertionError(f"Expected 180 phase 3 activities/rubrics, found {len(activities)}/{len(rubrics)}")
+    if len(activities) != 360 or len(rubrics) != 360:
+        raise AssertionError(f"Expected 360 phase 3-4 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
 
 def validate_blueprint() -> None:

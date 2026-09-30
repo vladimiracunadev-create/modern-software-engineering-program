@@ -12,6 +12,8 @@
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
 | Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 borradores |
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
+| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 borradores |
+| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

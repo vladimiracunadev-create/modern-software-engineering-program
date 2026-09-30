@@ -12,7 +12,7 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
 [![Pages](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml)
-[![Estado](https://img.shields.io/badge/clases%20aprobadas-0%20de%20180-c47f17?style=flat-square)](STATUS.md)
+[![Estado](https://img.shields.io/badge/clases%20aprobadas-0%20de%20360-c47f17?style=flat-square)](STATUS.md)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
@@ -20,9 +20,9 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 > [!CAUTION]
 > **Estado real:** la arquitectura contiene 480 clases, pero hoy hay **0 clases
-> aprobadas** contra el estándar pedagógico. `SE-001`–`SE-180` son borradores
-> estructurales públicos con contenido inicial; `SE-181`–`SE-480` son scaffolds. No deben
-> confundirse con material docente terminado.
+> aprobadas** contra el estándar pedagógico. `SE-001`–`SE-360` son borradores
+> estructurales públicos con contenido inicial; `SE-361`–`SE-480` son scaffolds.
+> No deben confundirse con material docente terminado.
 
 ## 🎯 Qué es esto
 
@@ -110,6 +110,7 @@ Las fuentes se mantienen como datos auditables, no como una bibliografía decora
 - [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
 - [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
 - [registro de fase 3](sources/phase3.json): fuentes usadas por los 180 borradores en revisión;
+- [registro de fase 4](sources/phase4.json): fuentes usadas por `SE-181`–`SE-360`;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
 
 Una asignación en el registro **no demuestra** que la clase esté terminada. Falta
@@ -119,7 +120,8 @@ interpretación y alcance antes de promoverla a `GUIDED`.
 ## 🗂️ Las 40 partes
 
 Cada parte tiene un README con sus doce clases enlazadas. La fase 3 comprende las
-partes 00–14; todas siguen pendientes de desarrollo y aprobación cualitativa.
+partes 00–14 y la fase 4 las partes 15–29; todas siguen pendientes de aprobación
+cualitativa clase por clase.
 
 | # | Parte | Clases | Foco | Estado | README |
 | ---: | --- | --- | --- | --- | --- |
@@ -138,21 +140,21 @@ partes 00–14; todas siguen pendientes de desarrollo y aprobación cualitativa.
 | 12 | Ingeniería de requisitos | SE-145–SE-156 | elicitación, calidad, trazabilidad y cambio | borrador no aprobado | [📘 leer](classes/part-12-ingenieria-de-requisitos/README.md) |
 | 13 | Especificaciones, contratos y modelos | SE-157–SE-168 | SPEC, invariantes, APIs y aceptación | borrador no aprobado | [📘 leer](classes/part-13-especificaciones-contratos-y-modelos/README.md) |
 | 14 | Experiencia, accesibilidad e internacionalización | SE-169–SE-180 | UX, inclusión, contenido e i18n | borrador no aprobado | [📘 leer](classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
-| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y mejora | planificado | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
-| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, integración y gobernanza | planificado | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
-| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, runbook y búsqueda | planificado | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
-| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales y procesos | planificado | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
-| 19 | Web, frontend y aplicaciones progresivas | SE-229–SE-240 | navegador, UI, estado y PWA | planificado | [📘 leer](classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
-| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos y tareas | planificado | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
-| 21 | Software móvil, escritorio y multiplataforma | SE-253–SE-264 | plataformas, distribución y ciclo de vida | planificado | [📘 leer](classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
-| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | recursos, hardware y temporización | planificado | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
-| 23 | Software especializado y dominios | SE-277–SE-288 | datos, ciencia, juegos y regulación | planificado | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
-| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | diseño evolutivo y deuda | planificado | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
-| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y decisiones | planificado | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
-| 26 | Datos, persistencia y recuperación | SE-313–SE-324 | modelos, transacciones, índices y backup | planificado | [📘 leer](classes/part-26-datos-persistencia-y-recuperacion/README.md) |
-| 27 | Integración, eventos y mensajería | SE-325–SE-336 | contratos, colas, eventos y consistencia | planificado | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
-| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos y consenso | planificado | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
-| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y plataforma | planificado | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
+| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y mejora | borrador no aprobado | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, integración y gobernanza | borrador no aprobado | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, runbook y búsqueda | borrador no aprobado | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales y procesos | borrador no aprobado | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
+| 19 | Web, frontend y aplicaciones progresivas | SE-229–SE-240 | navegador, UI, estado y PWA | borrador no aprobado | [📘 leer](classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos y tareas | borrador no aprobado | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
+| 21 | Software móvil, escritorio y multiplataforma | SE-253–SE-264 | plataformas, distribución y ciclo de vida | borrador no aprobado | [📘 leer](classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | recursos, hardware y temporización | borrador no aprobado | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| 23 | Software especializado y dominios | SE-277–SE-288 | datos, ciencia, juegos y regulación | borrador no aprobado | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
+| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | diseño evolutivo y deuda | borrador no aprobado | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
+| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y decisiones | borrador no aprobado | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
+| 26 | Datos, persistencia y recuperación | SE-313–SE-324 | modelos, transacciones, índices y backup | borrador no aprobado | [📘 leer](classes/part-26-datos-persistencia-y-recuperacion/README.md) |
+| 27 | Integración, eventos y mensajería | SE-325–SE-336 | contratos, colas, eventos y consistencia | borrador no aprobado | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
+| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos y consenso | borrador no aprobado | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
+| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y plataforma | borrador no aprobado | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
 | 30 | Estrategia y técnicas de prueba | SE-361–SE-372 | niveles, propiedades, contratos y E2E | planificado | [📘 leer](classes/part-30-estrategia-y-tecnicas-de-prueba/README.md) |
 | 31 | Calidad, rendimiento y resiliencia | SE-373–SE-384 | atributos, carga, degradación y recuperación | planificado | [📘 leer](classes/part-31-calidad-rendimiento-y-resiliencia/README.md) |
 | 32 | Seguridad, privacidad y cumplimiento | SE-385–SE-396 | amenazas, controles, privacidad y regulación | planificado | [📘 leer](classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) |
@@ -198,7 +200,7 @@ evidencia revisable.
 | [Rúbrica transversal](assessments/rubric.md) | criterios comunes de evaluación |
 
 Estos artefactos son una base documental versionada; todavía no constituyen una
-colección de laboratorios ejecutados ni evidencia de que las 180 clases estén
+colección de laboratorios ejecutados ni evidencia de que las 360 clases estén
 aprobadas.
 
 ## 🌐 Portal y navegación
@@ -252,7 +254,8 @@ probarse y declararse de forma separada antes de aparecer como capacidad del pro
 
 ## 📊 Estado verificable
 
-Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría:
+Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría y la
+infraestructura pública de fase 4 ya está implementada:
 
 - arquitectura de ocho etapas;
 - 40 partes con doce clases cada una;
@@ -270,6 +273,7 @@ Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría:
 - workflow separado para GitHub Pages.
 - alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
 - 180 borradores estructurales, actividades y rúbricas visibles para revisión;
+- fase 4 añadida: 180 borradores, actividades y rúbricas de `SE-181`–`SE-360`;
 - texto íntegro de cada borrador publicado en Pages, no una ficha-resumen;
 - 0 clases `GUIDED` hasta completar revisión cualitativa clase por clase;
 - instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
@@ -278,6 +282,8 @@ Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría:
 generación automática. El estado actual vive en [STATUS.md](STATUS.md) y la
 evidencia de por qué las 180 entradas no cuentan como clases construidas está en
 [docs/PHASE3-CONTENT-AUDIT.md](docs/PHASE3-CONTENT-AUDIT.md).
+La auditoría equivalente de fase 4 está en
+[docs/PHASE4-CONTENT-AUDIT.md](docs/PHASE4-CONTENT-AUDIT.md).
 
 ## ✅ Calidad, CI y validación local
 
@@ -296,8 +302,10 @@ Requiere Python 3.11 o posterior y no instala dependencias:
 python scripts/build_program_blueprint.py --check
 python scripts/build_phase2.py --check
 python scripts/build_phase3.py --check
+python scripts/build_phase4.py --check
 python scripts/validate_class_contracts.py
 python scripts/validate_phase3.py
+python scripts/validate_phase4.py
 python scripts/validate_encoding.py
 python scripts/validate_site.py
 python scripts/validate_repository.py --strict
@@ -309,7 +317,7 @@ python -m unittest discover -s tests -v
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       métricas canónicas de estado
-classes/           480 clases; 180 borradores en revisión de fase 3
+classes/           480 clases; 360 borradores en revisión de fases 3 y 4
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
@@ -338,7 +346,7 @@ fueron verificados el 30 de septiembre de 2026.
 | Es | No es todavía |
 | --- | --- |
 | una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
-| 180 borradores ampliados y auditables | 180 clases aprobadas o listas para impartir |
+| 360 borradores ampliados y auditables | 360 clases aprobadas o listas para impartir |
 | un estándar explícito para aceptar contenido | una certificación profesional |
 | un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
 | un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |

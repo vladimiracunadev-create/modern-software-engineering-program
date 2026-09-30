@@ -47,9 +47,21 @@ Estado verificable: 180 borradores públicos, 0 clases aprobadas y 480 clases
 `PLANNED`. La declaración anterior de 156 clases `GUIDED` fue retirada porque la
 estructura generada no alcanzaba el estándar pedagógico permanente.
 
-## Fases 4–6 — Construcción restante del programa
+## Fase 4 — Construcción, superficies y arquitectura — implementada 2026-09-30
 
-- construcción, superficies, arquitectura e integración;
+- alcance: `SE-181`–`SE-360`, partes 15–29;
+- 180 borradores estructurales con actividades, rúbricas y fuentes por parte;
+- procesos, Git, documentación, CLI/TUI, web, backend, móvil, escritorio y embedded;
+- diseño, arquitectura, persistencia, integración, concurrencia, distribución y cloud;
+- contenido íntegro en Pages con navegación bidireccional y presentación visual renovada;
+- validador y pruebas propias de fase 4 integrados a Validate y Pages.
+
+Estado verificable: 180 borradores públicos, 0 clases aprobadas. “Implementada”
+describe la infraestructura y publicación de la fase, no la aprobación pedagógica
+de sus clases.
+
+## Fases 5–6 — Construcción restante del programa
+
 - calidad, seguridad, entrega, operación y liderazgo;
 - IA asistida, SPEC, agentes, MCP, evaluación y gobernanza.
 

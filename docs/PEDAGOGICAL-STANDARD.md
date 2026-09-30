@@ -89,3 +89,9 @@ Solo entonces se cambia `PLANNED` a `GUIDED`. Los estados `EXECUTABLE`, `TESTED`
 La fase 3 comprende **180 clases consecutivas**, de `SE-001` a `SE-180`, agrupadas
 en las partes 00–14. Mientras una clase no supere el gate, permanece `PLANNED` aunque
 exista un borrador público.
+
+## Alcance de fase 4
+
+La fase 4 comprende **180 clases consecutivas**, de `SE-181` a `SE-360`, agrupadas
+en las partes 15–29. Aplica el mismo gate cualitativo: disponer de guía, actividad,
+rúbrica, fuentes y publicación no cambia por sí solo la madurez `PLANNED`.

@@ -1,6 +1,6 @@
 # Arquitectura del programa profesional
 
-Estado: **fase 3 en reconstrucción cualitativa** · Línea base: **2026-09-30**
+Estado: **fases 3 y 4 en reconstrucción cualitativa** · Línea base: **2026-09-30**
 
 ## Propósito
 
@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | 480 planificadas; 180 borradores de fase 3; 0 aprobadas |
+| Clases | 480 | 480 planificadas; 360 borradores de fases 3–4; 0 aprobadas |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 

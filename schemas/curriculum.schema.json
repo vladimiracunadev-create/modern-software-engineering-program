@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/curriculum.schema.json",
+  "title": "Software Engineering Learning Suite curriculum",
+  "type": "object",
+  "required": ["schema_version", "program", "baseline_date", "status", "part_count", "class_count", "estimated_hours", "stages", "parts"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "program": {"const": "software-engineering-learning-suite"},
+    "status": {"const": "PHASE_1_SPECIFIED"},
+    "part_count": {"const": 40},
+    "class_count": {"const": 480},
+    "estimated_hours": {"type": "integer", "minimum": 1},
+    "stages": {"type": "array", "minItems": 8, "maxItems": 8},
+    "parts": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "required": ["id", "stage", "stage_title", "title", "owner", "lessons"],
+        "properties": {
+          "id": {"pattern": "^[0-3][0-9]$"},
+          "lessons": {"type": "array", "minItems": 12, "maxItems": 12}
+        }
+      }
+    }
+  }
+}

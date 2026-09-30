@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-30",
+  "suite": "software-engineering-learning-suite",
+  "repositories": [
+    {
+      "name": "polyglot-programming-labs",
+      "role": "languages-and-paradigms",
+      "comparison_unit": "same algorithm and behavioral tests",
+      "owned_topics": ["syntax", "types", "paradigms", "algorithms", "language transfer"],
+      "integration_contract": ["canonical problems", "common tests", "comparison reports"]
+    },
+    {
+      "name": "database-systems-labs",
+      "role": "data-and-persistence",
+      "comparison_unit": "same domain, model, workload and guarantees",
+      "owned_topics": ["modeling", "SQL", "database engines", "data operations", "vector retrieval"],
+      "integration_contract": ["canonical domains", "data contracts", "migration and recovery evidence"]
+    },
+    {
+      "name": "framework-ecosystems-labs",
+      "role": "frameworks-and-platforms",
+      "comparison_unit": "same external contract and quality attributes",
+      "owned_topics": ["frontend", "backend", "full stack", "mobile", "desktop", "framework migration"],
+      "integration_contract": ["OpenAPI contracts", "acceptance tests", "runtime evidence"]
+    },
+    {
+      "name": "software-engineering-learning-suite",
+      "role": "lifecycle-and-product-integration",
+      "comparison_unit": "same product outcome across the full lifecycle",
+      "owned_topics": ["requirements", "architecture", "quality", "security", "delivery", "operations", "product", "leadership"],
+      "integration_contract": ["curriculum manifest", "competency map", "canonical products", "portfolio rubric", "governance", "public learning portal"]
+    }
+  ]
+}

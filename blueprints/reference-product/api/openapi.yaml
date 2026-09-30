@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: EduProgress API
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      responses:
+        "200":
+          description: Healthy
+  /students/{studentId}/progress:
+    get:
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Authorized progress view
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Progress"
+        "403": {description: Actor cannot access this student}
+        "404": {description: Student or enrollment not found}
+  /evidence:
+    post:
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, minLength: 1, maxLength: 128}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/CreateEvidence"}
+      responses:
+        "201": {description: Evidence created}
+        "200": {description: Existing idempotent result}
+        "403": {description: Actor cannot register evidence}
+        "422": {description: Invalid input}
+components:
+  schemas:
+    Progress:
+      type: object
+      required: [studentId, completed, total, pending]
+      properties:
+        studentId: {type: string}
+        completed: {type: integer, minimum: 0}
+        total: {type: integer, minimum: 0}
+        pending: {type: array, items: {type: string}}
+    CreateEvidence:
+      type: object
+      additionalProperties: false
+      required: [studentId, requirementId, outcome]
+      properties:
+        studentId: {type: string}
+        requirementId: {type: string}
+        outcome: {type: string, enum: [achieved, needs_support]}
+        reason: {type: string, maxLength: 500}

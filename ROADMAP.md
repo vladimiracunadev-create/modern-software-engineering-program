@@ -1,0 +1,79 @@
+# Roadmap
+
+## Fase 1 — Especificación y arquitectura — completada 2026-09-30
+
+- arquitectura de ocho etapas, 40 partes y 480 clases;
+- manifiesto canónico con IDs, títulos, propietarios y estados;
+- mapa de cobertura profesional, SPEC, IA y agentes;
+- contrato pedagógico, estados de madurez y entornos;
+- fronteras con los tres repositorios especializados;
+- ADR de expansión y plan de publicación pública;
+- línea base de fuentes primarias y oficiales;
+- validación y CI endurecidos.
+
+Las 480 clases están **planificadas**, no construidas. Las siguientes fases deben
+elevarlas con evidencia desde `PLANNED`.
+
+## 0.1 — Suite integradora — histórico
+
+- manifiesto de repositorios;
+- currículo de 260 horas;
+- mapa de competencias y rutas profesionales;
+- blueprint de producto;
+- portal local;
+- prompt maestro, plantillas y validación.
+
+## Fase 2 — Generadores y controles
+
+- scaffolding de clases y partes;
+- generación de índices, STATUS y documentación derivada;
+- registro bibliográfico por clase;
+- validadores de contrato pedagógico y codificación;
+- portal generado desde el manifiesto.
+
+## Fases 3–6 — Construcción del programa
+
+- fundamentos, producto y especificación;
+- construcción, superficies, arquitectura e integración;
+- calidad, seguridad, entrega, operación y liderazgo;
+- IA asistida, SPEC, agentes, MCP, evaluación y gobernanza.
+
+## Fase 7 — Experiencia pública
+
+- GitHub Pages completo, búsqueda, rutas, progreso local y PWA;
+- manuales, material docente, SEO, Open Graph y `llms.txt`;
+- About, topics y presentación pública verificados.
+
+## Fase 8 — Auditoría final
+
+- cobertura, fuentes, ejecución, accesibilidad y licencias;
+- seguridad, coherencia entre repositorios y revisión visual;
+- declaración final de alcance ejecutado.
+
+## 0.2 — Contratos compartidos — histórico
+
+- sincronización de dominios canónicos;
+- pruebas contractuales entre frameworks y datos;
+- ADR y trazabilidad cruzada;
+- portafolio automático de evidencias.
+
+## 0.3 — Experiencia docente
+
+- planes de clase y guías de facilitación;
+- rúbricas por nivel;
+- rutas accesibles y recuperación de aprendizajes;
+- panel local de avance sin datos personales reales.
+
+## 0.4 — Ingeniería de productos
+
+- simuladores de requisitos, incidentes y costos;
+- modernización de un legacy de referencia;
+- productos educativo, financiero y de agentes;
+- evaluación técnica y de negocio.
+
+## 1.0 — Programa profesional
+
+- repositorios especializados interoperables;
+- proyectos completos reproducibles;
+- seguridad y recuperación verificadas;
+- portafolio defendible desde novato hasta arquitecto/ingeniero de productos.

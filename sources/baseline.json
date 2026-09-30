@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-09-30",
+  "policy": "Prefer primary standards, official specifications and original project documentation. Mark drafts and historical material explicitly.",
+  "sources": [
+    {
+      "id": "IEEE-SWEBOK-4A",
+      "title": "Guide to the Software Engineering Body of Knowledge v4.0a",
+      "authority": "IEEE Computer Society",
+      "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+      "status": "current",
+      "used_for": ["professional-body", "coverage", "curriculum"]
+    },
+    {
+      "id": "ACM-IEEE-SE2014",
+      "title": "Software Engineering 2014 Curriculum Guidelines",
+      "authority": "ACM and IEEE Computer Society",
+      "url": "https://www.acm.org/binaries/content/assets/education/se2014.pdf",
+      "status": "historical-current-reference",
+      "used_for": ["curriculum", "learning-outcomes"]
+    },
+    {
+      "id": "ISO-25010-2023",
+      "title": "ISO/IEC 25010:2023 Systems and software Quality Requirements and Evaluation",
+      "authority": "ISO",
+      "url": "https://www.iso.org/standard/78176.html",
+      "status": "current",
+      "used_for": ["quality-model", "quality-attributes"]
+    },
+    {
+      "id": "NIST-SSDF-800-218",
+      "title": "Secure Software Development Framework",
+      "authority": "NIST",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "status": "current",
+      "used_for": ["secure-development", "supply-chain"]
+    },
+    {
+      "id": "NIST-AI-RMF",
+      "title": "Artificial Intelligence Risk Management Framework",
+      "authority": "NIST",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "status": "current-under-revision",
+      "used_for": ["ai-governance", "ai-risk", "evaluations"]
+    },
+    {
+      "id": "NIST-AI-600-1",
+      "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "authority": "NIST",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "status": "current",
+      "used_for": ["generative-ai", "ai-risk", "evaluations"]
+    },
+    {
+      "id": "OWASP-ASVS",
+      "title": "Application Security Verification Standard",
+      "authority": "OWASP Foundation",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "status": "living",
+      "used_for": ["application-security", "verification"]
+    },
+    {
+      "id": "W3C-WCAG",
+      "title": "Web Content Accessibility Guidelines",
+      "authority": "W3C",
+      "url": "https://www.w3.org/WAI/standards-guidelines/wcag/",
+      "status": "living",
+      "used_for": ["accessibility", "web"]
+    },
+    {
+      "id": "IETF-RFC-9110",
+      "title": "HTTP Semantics",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "status": "current",
+      "used_for": ["http", "web", "apis"]
+    },
+    {
+      "id": "OPENAPI-LATEST",
+      "title": "OpenAPI Specification",
+      "authority": "OpenAPI Initiative",
+      "url": "https://spec.openapis.org/oas/latest.html",
+      "status": "living",
+      "used_for": ["api-contracts", "specification"]
+    },
+    {
+      "id": "GITHUB-SPEC-KIT",
+      "title": "Spec Kit",
+      "authority": "GitHub and community maintainers",
+      "url": "https://github.github.com/spec-kit/",
+      "status": "living",
+      "used_for": ["spec-driven-development", "coding-agents"]
+    },
+    {
+      "id": "MCP-2026-07-28",
+      "title": "Model Context Protocol 2026-07-28",
+      "authority": "Model Context Protocol maintainers",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "status": "current",
+      "used_for": ["mcp", "agents", "tools", "authorization"]
+    },
+    {
+      "id": "GITHUB-ACTIONS-SHA",
+      "title": "Managing GitHub Actions settings for a repository",
+      "authority": "GitHub",
+      "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository",
+      "status": "living",
+      "used_for": ["ci-security", "action-pinning"]
+    }
+  ]
+}

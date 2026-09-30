@@ -1,0 +1,11 @@
+.env
+*.log
+tmp/
+dist/
+coverage/
+node_modules/
+.pnpm-store/
+.venv/
+__pycache__/
+.DS_Store
+Thumbs.db

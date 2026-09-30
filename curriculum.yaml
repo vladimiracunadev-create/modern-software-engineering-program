@@ -1,0 +1,4246 @@
+{
+  "schema_version": 1,
+  "program": "software-engineering-learning-suite",
+  "language": "es",
+  "baseline_date": "2026-09-30",
+  "status": "PHASE_1_SPECIFIED",
+  "part_count": 40,
+  "class_count": 480,
+  "estimated_hours": 2160,
+  "stages": [
+    {
+      "id": "A",
+      "title": "Fundamentos de la profesión"
+    },
+    {
+      "id": "B",
+      "title": "Programación y construcción"
+    },
+    {
+      "id": "C",
+      "title": "Producto, requisitos y especificación"
+    },
+    {
+      "id": "D",
+      "title": "Superficies y formas de software"
+    },
+    {
+      "id": "E",
+      "title": "Diseño, arquitectura, datos e integración"
+    },
+    {
+      "id": "F",
+      "title": "Calidad, seguridad y entrega"
+    },
+    {
+      "id": "G",
+      "title": "Operación, evolución y liderazgo"
+    },
+    {
+      "id": "H",
+      "title": "Ingeniería de software nativa con IA"
+    }
+  ],
+  "parts": [
+    {
+      "id": "00",
+      "stage": "A",
+      "stage_title": "Fundamentos de la profesión",
+      "title": "Ingeniería de software como profesión",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-001",
+          "number": 1,
+          "title": "Software, sistemas y productos: fronteras de la disciplina",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-002",
+          "number": 2,
+          "title": "Historia de la crisis del software a la ingeniería continua",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-003",
+          "number": 3,
+          "title": "Ciclo de vida completo y responsabilidades profesionales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-004",
+          "number": 4,
+          "title": "Ética, interés público y consecuencias de las decisiones técnicas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-005",
+          "number": 5,
+          "title": "Roles, especialidades y colaboración interdisciplinaria",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-006",
+          "number": 6,
+          "title": "Evidencia, incertidumbre y pensamiento crítico en ingeniería",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-007",
+          "number": 7,
+          "title": "Calidad interna, externa y calidad en uso",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-008",
+          "number": 8,
+          "title": "Restricciones, riesgos y compromisos entre atributos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-009",
+          "number": 9,
+          "title": "Sostenibilidad, inclusión y responsabilidad social",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-010",
+          "number": 10,
+          "title": "Cómo leer estándares, documentación y literatura técnica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-011",
+          "number": 11,
+          "title": "Taller: anatomía verificable de un producto real",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-012",
+          "number": 12,
+          "title": "Proyecto: mapa profesional y contrato personal de aprendizaje",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "01",
+      "stage": "A",
+      "stage_title": "Fundamentos de la profesión",
+      "title": "Computadores y representación de información",
+      "owner": "polyglot-programming-labs",
+      "lessons": [
+        {
+          "id": "SE-013",
+          "number": 13,
+          "title": "Arquitectura básica de un computador moderno",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-014",
+          "number": 14,
+          "title": "Bits, bytes, bases numéricas y representación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-015",
+          "number": 15,
+          "title": "Texto, Unicode, codificaciones y mojibake",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-016",
+          "number": 16,
+          "title": "Enteros, coma flotante, precisión y errores numéricos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-017",
+          "number": 17,
+          "title": "CPU, instrucciones, registros y ciclos de ejecución",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-018",
+          "number": 18,
+          "title": "Memoria, cachés, almacenamiento y jerarquías",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-019",
+          "number": 19,
+          "title": "Procesos, hilos, interrupciones y entrada/salida",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-020",
+          "number": 20,
+          "title": "Compilación, interpretación, bytecode y JIT",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-021",
+          "number": 21,
+          "title": "Runtimes, máquinas virtuales y recolección de basura",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-022",
+          "number": 22,
+          "title": "Rendimiento, consumo energético y límites físicos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-023",
+          "number": 23,
+          "title": "Taller: observar un programa desde el código hasta la máquina",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-024",
+          "number": 24,
+          "title": "Proyecto: informe reproducible de comportamiento y recursos",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "stage": "A",
+      "stage_title": "Fundamentos de la profesión",
+      "title": "Sistemas operativos, terminal y automatización base",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-025",
+          "number": 25,
+          "title": "Windows, Linux, macOS y sus modelos operativos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-026",
+          "number": 26,
+          "title": "Sistemas de archivos, rutas, enlaces y metadatos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-027",
+          "number": 27,
+          "title": "Usuarios, grupos, permisos y elevación de privilegios",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-028",
+          "number": 28,
+          "title": "Procesos, señales, servicios y tareas programadas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-029",
+          "number": 29,
+          "title": "Terminales, shells y composición de comandos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-030",
+          "number": 30,
+          "title": "PowerShell, Bash y portabilidad de scripts",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-031",
+          "number": 31,
+          "title": "Variables de entorno, configuración y secretos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-032",
+          "number": 32,
+          "title": "Instalación de software y gestores de paquetes del sistema",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-033",
+          "number": 33,
+          "title": "Logs del sistema y diagnóstico de fallos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-034",
+          "number": 34,
+          "title": "Virtualización, WSL y aislamiento local",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-035",
+          "number": 35,
+          "title": "Taller: preparar y reparar un entorno reproducible",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-036",
+          "number": 36,
+          "title": "Proyecto: kit de diagnóstico multiplataforma",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "stage": "A",
+      "stage_title": "Fundamentos de la profesión",
+      "title": "Redes, Internet y protocolos",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-037",
+          "number": 37,
+          "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-038",
+          "number": 38,
+          "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-039",
+          "number": 39,
+          "title": "IPv4, IPv6, subredes, rutas y NAT",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-040",
+          "number": 40,
+          "title": "TCP, UDP, QUIC y decisiones de transporte",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-041",
+          "number": 41,
+          "title": "DNS, nombres, resolución y fallos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-042",
+          "number": 42,
+          "title": "HTTP, semántica, caché y negociación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-043",
+          "number": 43,
+          "title": "TLS, certificados y confianza en tránsito",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-044",
+          "number": 44,
+          "title": "Proxies, balanceadores, gateways y CDN",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-045",
+          "number": 45,
+          "title": "Sockets, conexiones persistentes y tiempo real",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-046",
+          "number": 46,
+          "title": "Captura, medición y diagnóstico de tráfico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-047",
+          "number": 47,
+          "title": "Taller: seguir una petición de extremo a extremo",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-048",
+          "number": 48,
+          "title": "Proyecto: servicio observable y tolerante a fallos de red",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "stage": "A",
+      "stage_title": "Fundamentos de la profesión",
+      "title": "Pensamiento computacional y resolución de problemas",
+      "owner": "polyglot-programming-labs",
+      "lessons": [
+        {
+          "id": "SE-049",
+          "number": 49,
+          "title": "Descomposición, abstracción y reconocimiento de patrones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-050",
+          "number": 50,
+          "title": "Lógica proposicional, predicados e inferencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-051",
+          "number": 51,
+          "title": "Conjuntos, relaciones, funciones y grafos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-052",
+          "number": 52,
+          "title": "Invariantes, precondiciones y poscondiciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-053",
+          "number": 53,
+          "title": "Recursión, inducción y razonamiento estructural",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-054",
+          "number": 54,
+          "title": "Algoritmos, corrección y terminación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-055",
+          "number": 55,
+          "title": "Complejidad temporal y espacial",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-056",
+          "number": 56,
+          "title": "Heurísticas, aproximación y límites computacionales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-057",
+          "number": 57,
+          "title": "Modelado de estado, transiciones y eventos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-058",
+          "number": 58,
+          "title": "Resolución sistemática y registro de hipótesis",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-059",
+          "number": 59,
+          "title": "Taller: descomponer un problema ambiguo",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-060",
+          "number": 60,
+          "title": "Proyecto: especificación y solución contrastable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "stage": "B",
+      "stage_title": "Programación y construcción",
+      "title": "Fundamentos de programación",
+      "owner": "polyglot-programming-labs",
+      "lessons": [
+        {
+          "id": "SE-061",
+          "number": 61,
+          "title": "Valores, expresiones, tipos y variables",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-062",
+          "number": 62,
+          "title": "Control de flujo y decisiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-063",
+          "number": 63,
+          "title": "Iteración, recursión y recorridos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-064",
+          "number": 64,
+          "title": "Funciones, parámetros, retorno y alcance",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-065",
+          "number": 65,
+          "title": "Errores, excepciones y resultados explícitos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-066",
+          "number": 66,
+          "title": "Colecciones y transformación de datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-067",
+          "number": 67,
+          "title": "Entrada, salida y serialización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-068",
+          "number": 68,
+          "title": "Módulos, interfaces y separación de responsabilidades",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-069",
+          "number": 69,
+          "title": "Pruebas tempranas y diseño por ejemplos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-070",
+          "number": 70,
+          "title": "Legibilidad, nombres y mantenimiento básico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-071",
+          "number": 71,
+          "title": "Taller: transferir una solución entre lenguajes",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-072",
+          "number": 72,
+          "title": "Proyecto: herramienta de línea de comandos probada",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "stage": "B",
+      "stage_title": "Programación y construcción",
+      "title": "Paradigmas de programación",
+      "owner": "polyglot-programming-labs",
+      "lessons": [
+        {
+          "id": "SE-073",
+          "number": 73,
+          "title": "Programación imperativa y estado mutable",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-074",
+          "number": 74,
+          "title": "Programación procedural y descomposición funcional",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-075",
+          "number": 75,
+          "title": "Orientación a objetos, mensajes y encapsulación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-076",
+          "number": 76,
+          "title": "Programación funcional, composición e inmutabilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-077",
+          "number": 77,
+          "title": "Programación declarativa y basada en reglas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-078",
+          "number": 78,
+          "title": "Programación lógica y resolución",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-079",
+          "number": 79,
+          "title": "Programación orientada a eventos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-080",
+          "number": 80,
+          "title": "Programación reactiva y flujos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-081",
+          "number": 81,
+          "title": "Programación concurrente y actores",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-082",
+          "number": 82,
+          "title": "Selección y combinación responsable de paradigmas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-083",
+          "number": 83,
+          "title": "Taller: una regla de negocio en cinco paradigmas",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-084",
+          "number": 84,
+          "title": "Proyecto: comparación semántica con pruebas comunes",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "stage": "B",
+      "stage_title": "Programación y construcción",
+      "title": "Estructuras de datos y algoritmos",
+      "owner": "polyglot-programming-labs",
+      "lessons": [
+        {
+          "id": "SE-085",
+          "number": 85,
+          "title": "Arreglos, listas y secuencias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-086",
+          "number": 86,
+          "title": "Pilas, colas, deques y prioridades",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-087",
+          "number": 87,
+          "title": "Tablas hash, mapas y conjuntos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-088",
+          "number": 88,
+          "title": "Árboles, tries y estructuras jerárquicas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-089",
+          "number": 89,
+          "title": "Grafos y recorridos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-090",
+          "number": 90,
+          "title": "Búsqueda, ordenamiento y selección",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-091",
+          "number": 91,
+          "title": "Algoritmos voraces y programación dinámica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-092",
+          "number": 92,
+          "title": "Backtracking, divide y vencerás",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-093",
+          "number": 93,
+          "title": "Índices, probabilísticas y estructuras persistentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-094",
+          "number": 94,
+          "title": "Complejidad empírica, benchmarks y perfiles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-095",
+          "number": 95,
+          "title": "Taller: elegir por carga y no por costumbre",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-096",
+          "number": 96,
+          "title": "Proyecto: biblioteca comparada con casos límite",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "stage": "B",
+      "stage_title": "Programación y construcción",
+      "title": "Entornos, herramientas y depuración",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-097",
+          "number": 97,
+          "title": "Editores, IDE y servidores de lenguaje",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-098",
+          "number": 98,
+          "title": "Depuradores, breakpoints y observación de estado",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-099",
+          "number": 99,
+          "title": "Profilers de CPU, memoria, I/O y red",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-100",
+          "number": 100,
+          "title": "Compiladores, linters, formatters y análisis estático",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-101",
+          "number": 101,
+          "title": "REPL, notebooks y desarrollo exploratorio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-102",
+          "number": 102,
+          "title": "Gestores de versiones de runtimes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-103",
+          "number": 103,
+          "title": "Entornos virtuales y aislamiento de dependencias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-104",
+          "number": 104,
+          "title": "Dev Containers y entornos desechables",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-105",
+          "number": 105,
+          "title": "Reproducción de errores y reducción de casos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-106",
+          "number": 106,
+          "title": "Ergonomía, accesibilidad y productividad del entorno",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-107",
+          "number": 107,
+          "title": "Taller: diagnosticar un fallo desconocido",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-108",
+          "number": 108,
+          "title": "Proyecto: entorno de desarrollo autocontenido",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "stage": "B",
+      "stage_title": "Programación y construcción",
+      "title": "Bibliotecas, paquetes, SDK y automatización",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-109",
+          "number": 109,
+          "title": "Biblioteca, framework, runtime, plataforma y SDK",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-110",
+          "number": 110,
+          "title": "SemVer, compatibilidad y contratos públicos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-111",
+          "number": 111,
+          "title": "Resolución de dependencias y lockfiles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-112",
+          "number": 112,
+          "title": "Paquetes, módulos y publicación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-113",
+          "number": 113,
+          "title": "CLI, flags, configuración y códigos de salida",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-114",
+          "number": 114,
+          "title": "Scripting repetible y tareas idempotentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-115",
+          "number": 115,
+          "title": "Plugins, extensiones y puntos de integración",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-116",
+          "number": 116,
+          "title": "Generación de código y metaprogramación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-117",
+          "number": 117,
+          "title": "Licencias, procedencia y reutilización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-118",
+          "number": 118,
+          "title": "Diseño de experiencia para desarrolladores",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-119",
+          "number": 119,
+          "title": "Taller: empaquetar una capacidad reusable",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-120",
+          "number": 120,
+          "title": "Proyecto: SDK y CLI con compatibilidad verificada",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Descubrimiento y estrategia de producto",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-121",
+          "number": 121,
+          "title": "Problemas, síntomas, necesidades y oportunidades",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-122",
+          "number": 122,
+          "title": "Usuarios, actores, trabajos y contextos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-123",
+          "number": 123,
+          "title": "Investigación, entrevistas y evidencia cualitativa",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-124",
+          "number": 124,
+          "title": "Hipótesis, supuestos y preguntas críticas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-125",
+          "number": 125,
+          "title": "Propuesta de valor y resultados deseados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-126",
+          "number": 126,
+          "title": "Segmentación, mercado y alternativas existentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-127",
+          "number": 127,
+          "title": "Prototipos, experimentos y reducción de incertidumbre",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-128",
+          "number": 128,
+          "title": "Priorización por valor, riesgo y aprendizaje",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-129",
+          "number": 129,
+          "title": "Ética del descubrimiento y protección de participantes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-130",
+          "number": 130,
+          "title": "Criterios de no éxito y decisiones de abandono",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-131",
+          "number": 131,
+          "title": "Taller: convertir una petición en un problema investigable",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-132",
+          "number": 132,
+          "title": "Proyecto: product brief respaldado por evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Economía, métricas y decisiones de producto",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-133",
+          "number": 133,
+          "title": "Modelos de negocio y sostenibilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-134",
+          "number": 134,
+          "title": "Costos de construcción, operación y oportunidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-135",
+          "number": 135,
+          "title": "Resultados, outputs, actividad y vanity metrics",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-136",
+          "number": 136,
+          "title": "Métricas de adopción, retención y tarea útil",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-137",
+          "number": 137,
+          "title": "Telemetría de producto y consentimiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-138",
+          "number": 138,
+          "title": "Experimentos, sesgos y causalidad básica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-139",
+          "number": 139,
+          "title": "North Star, guardrails y métricas contrarias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-140",
+          "number": 140,
+          "title": "FinOps de producto y costo por resultado",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-141",
+          "number": 141,
+          "title": "Portafolio, opciones y secuenciación de inversión",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-142",
+          "number": 142,
+          "title": "Decisiones reversibles e irreversibles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-143",
+          "number": 143,
+          "title": "Taller: diseñar un árbol de métricas",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-144",
+          "number": 144,
+          "title": "Proyecto: caso de viabilidad técnico-económica",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Ingeniería de requisitos",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-145",
+          "number": 145,
+          "title": "Elicitación, análisis, especificación y validación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-146",
+          "number": 146,
+          "title": "Requisitos funcionales y reglas de negocio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-147",
+          "number": 147,
+          "title": "Atributos de calidad y restricciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-148",
+          "number": 148,
+          "title": "Casos de uso, historias y job stories",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-149",
+          "number": 149,
+          "title": "Criterios de aceptación y ejemplos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-150",
+          "number": 150,
+          "title": "Priorización, dependencias y negociación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-151",
+          "number": 151,
+          "title": "Trazabilidad desde necesidad hasta evidencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-152",
+          "number": 152,
+          "title": "Requisitos regulatorios, de datos y seguridad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-153",
+          "number": 153,
+          "title": "Gestión de cambios y líneas base",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-154",
+          "number": 154,
+          "title": "Ambigüedad, contradicción e incompletitud",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-155",
+          "number": 155,
+          "title": "Taller: reparar requisitos no verificables",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-156",
+          "number": 156,
+          "title": "Proyecto: especificación de requisitos revisable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Especificaciones, contratos y modelos",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-157",
+          "number": 157,
+          "title": "Especificación informal, semiformal y formal",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-158",
+          "number": 158,
+          "title": "Specification by Example y BDD",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-159",
+          "number": 159,
+          "title": "Contratos, invariantes y diseño por contrato",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-160",
+          "number": 160,
+          "title": "Modelos estructurales, conductuales y de información",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-161",
+          "number": 161,
+          "title": "Máquinas de estado y model checking introductorio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-162",
+          "number": 162,
+          "title": "Esquemas de datos y validación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-163",
+          "number": 163,
+          "title": "OpenAPI, AsyncAPI, GraphQL y contratos de eventos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-164",
+          "number": 164,
+          "title": "Compatibilidad, versionado y evolución de contratos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-165",
+          "number": 165,
+          "title": "Spec-first, spec-anchored y spec-as-source",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-166",
+          "number": 166,
+          "title": "Especificaciones ejecutables y pruebas contractuales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-167",
+          "number": 167,
+          "title": "Taller: convertir intención en contrato comprobable",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-168",
+          "number": 168,
+          "title": "Proyecto: paquete de especificaciones trazables",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Experiencia, accesibilidad e internacionalización",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-169",
+          "number": 169,
+          "title": "Diseño centrado en personas y tareas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-170",
+          "number": 170,
+          "title": "Arquitectura de información y navegación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-171",
+          "number": 171,
+          "title": "Interacción, affordances y retroalimentación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-172",
+          "number": 172,
+          "title": "Estados vacíos, carga, error y recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-173",
+          "number": 173,
+          "title": "Accesibilidad perceptible, operable y comprensible",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-174",
+          "number": 174,
+          "title": "Semántica, teclado, foco y tecnologías de asistencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-175",
+          "number": 175,
+          "title": "Diseño visual, tipografía, color y contraste",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-176",
+          "number": 176,
+          "title": "Responsive, adaptativo y preferencias del usuario",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-177",
+          "number": 177,
+          "title": "Internacionalización, localización y formatos culturales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-178",
+          "number": 178,
+          "title": "Investigación de usabilidad y medición",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-179",
+          "number": 179,
+          "title": "Taller: auditar y reparar un flujo excluyente",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-180",
+          "number": 180,
+          "title": "Proyecto: prototipo accesible evaluado con usuarios",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Procesos, planificación y estimación",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-181",
+          "number": 181,
+          "title": "Modelos predictivos, iterativos e incrementales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-182",
+          "number": 182,
+          "title": "Agile como principios y no como ceremonia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-183",
+          "number": 183,
+          "title": "Scrum, Kanban, XP y Shape Up",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-184",
+          "number": 184,
+          "title": "Lean, teoría de colas y límites de trabajo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-185",
+          "number": 185,
+          "title": "Estimación por tamaño, rango y evidencia histórica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-186",
+          "number": 186,
+          "title": "Planificación de entregas y gestión de dependencias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-187",
+          "number": 187,
+          "title": "Riesgos, supuestos, issues y decisiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-188",
+          "number": 188,
+          "title": "Definition of Ready, Done y aceptación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-189",
+          "number": 189,
+          "title": "Métricas de flujo, calidad y resultados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-190",
+          "number": 190,
+          "title": "Retrospectivas y mejora del sistema de trabajo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-191",
+          "number": 191,
+          "title": "Taller: planificar bajo incertidumbre explícita",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-192",
+          "number": 192,
+          "title": "Proyecto: plan adaptativo con evidencia y guardrails",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Git, colaboración y código abierto",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-193",
+          "number": 193,
+          "title": "Modelo de objetos y áreas de Git",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-194",
+          "number": 194,
+          "title": "Commits atómicos, historial y recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-195",
+          "number": 195,
+          "title": "Ramas, integración, rebase y conflictos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-196",
+          "number": 196,
+          "title": "Pull requests y revisión basada en riesgo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-197",
+          "number": 197,
+          "title": "Trunk-based, GitFlow y estrategias híbridas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-198",
+          "number": 198,
+          "title": "Issues, discusiones y trazabilidad del cambio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-199",
+          "number": 199,
+          "title": "Convenciones, ownership y CODEOWNERS",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-200",
+          "number": 200,
+          "title": "Contribución, gobernanza y comunidades abiertas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-201",
+          "number": 201,
+          "title": "Licencias de software y obligaciones básicas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-202",
+          "number": 202,
+          "title": "Firmas, procedencia y protección del repositorio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-203",
+          "number": 203,
+          "title": "Taller: rescatar una integración conflictiva",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-204",
+          "number": 204,
+          "title": "Proyecto: contribución revisable de extremo a extremo",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "stage": "C",
+      "stage_title": "Producto, requisitos y especificación",
+      "title": "Documentación y conocimiento técnico",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-205",
+          "number": 205,
+          "title": "Documentación orientada a tareas y audiencias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-206",
+          "number": 206,
+          "title": "Tutoriales, how-to, referencia y explicación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-207",
+          "number": 207,
+          "title": "README, instalación y primer éxito",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-208",
+          "number": 208,
+          "title": "ADRs, RFCs y registro de decisiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-209",
+          "number": 209,
+          "title": "Diagramas, modelos y documentación visual",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-210",
+          "number": 210,
+          "title": "API docs, ejemplos y contratos publicados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-211",
+          "number": 211,
+          "title": "Runbooks, playbooks y documentación operacional",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-212",
+          "number": 212,
+          "title": "Docs as code, revisión y publicación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-213",
+          "number": 213,
+          "title": "Búsqueda, glosarios y arquitectura de conocimiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-214",
+          "number": 214,
+          "title": "Documentación para humanos, máquinas y LLM",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-215",
+          "number": 215,
+          "title": "Taller: reconstruir conocimiento perdido",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-216",
+          "number": 216,
+          "title": "Proyecto: portal documental versionado",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "CLI, TUI, servicios y automatización",
+      "owner": "framework-ecosystems-labs",
+      "lessons": [
+        {
+          "id": "SE-217",
+          "number": 217,
+          "title": "Diseño de interfaces de línea de comandos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-218",
+          "number": 218,
+          "title": "Entrada estándar, salida y composición por pipes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-219",
+          "number": 219,
+          "title": "Configuración, flags, archivos y precedencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-220",
+          "number": 220,
+          "title": "Códigos de salida, errores y diagnóstico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-221",
+          "number": 221,
+          "title": "TUI, terminales y accesibilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-222",
+          "number": 222,
+          "title": "Daemons, servicios y ciclo de vida",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-223",
+          "number": 223,
+          "title": "Schedulers, workers y trabajos por lotes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-224",
+          "number": 224,
+          "title": "Automatización idempotente y reanudable",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-225",
+          "number": 225,
+          "title": "Distribución de binarios y actualizaciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-226",
+          "number": 226,
+          "title": "Telemetría opt-in y privacidad en herramientas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-227",
+          "number": 227,
+          "title": "Taller: endurecer una automatización frágil",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-228",
+          "number": 228,
+          "title": "Proyecto: herramienta operable multiplataforma",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Web, frontend y aplicaciones progresivas",
+      "owner": "framework-ecosystems-labs",
+      "lessons": [
+        {
+          "id": "SE-229",
+          "number": 229,
+          "title": "Plataforma web, HTML semántico y CSS",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-230",
+          "number": 230,
+          "title": "JavaScript, DOM y eventos del navegador",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-231",
+          "number": 231,
+          "title": "Renderizado cliente, servidor, estático e híbrido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-232",
+          "number": 232,
+          "title": "Estado, componentes y gestión de datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-233",
+          "number": 233,
+          "title": "Formularios, validación y experiencia de error",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-234",
+          "number": 234,
+          "title": "Navegación, routing y URLs durables",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-235",
+          "number": 235,
+          "title": "Rendimiento web y presupuestos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-236",
+          "number": 236,
+          "title": "Seguridad del navegador y políticas de contenido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-237",
+          "number": 237,
+          "title": "PWA, caché, offline y sincronización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-238",
+          "number": 238,
+          "title": "SEO, metadatos y descubribilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-239",
+          "number": 239,
+          "title": "Taller: construir un flujo web resiliente",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-240",
+          "number": 240,
+          "title": "Proyecto: aplicación web accesible y offline",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Backend, APIs y procesamiento asíncrono",
+      "owner": "framework-ecosystems-labs",
+      "lessons": [
+        {
+          "id": "SE-241",
+          "number": 241,
+          "title": "Responsabilidades y fronteras del backend",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-242",
+          "number": 242,
+          "title": "REST y semántica de recursos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-243",
+          "number": 243,
+          "title": "RPC, GraphQL y selección de interfaz",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-244",
+          "number": 244,
+          "title": "Validación, errores y contratos consistentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-245",
+          "number": 245,
+          "title": "Autenticación, autorización y contexto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-246",
+          "number": 246,
+          "title": "Idempotencia, reintentos y deduplicación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-247",
+          "number": 247,
+          "title": "Jobs, colas y procesamiento diferido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-248",
+          "number": 248,
+          "title": "Archivos, streaming y cargas extensas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-249",
+          "number": 249,
+          "title": "Caching, rate limiting y protección",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-250",
+          "number": 250,
+          "title": "Health, readiness y shutdown ordenado",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-251",
+          "number": 251,
+          "title": "Taller: reparar una API insegura e inconsistente",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-252",
+          "number": 252,
+          "title": "Proyecto: servicio contractual operable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Software móvil, escritorio y multiplataforma",
+      "owner": "framework-ecosystems-labs",
+      "lessons": [
+        {
+          "id": "SE-253",
+          "number": 253,
+          "title": "Modelos de aplicación móvil y de escritorio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-254",
+          "number": 254,
+          "title": "Ciclo de vida, suspensión y reanudación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-255",
+          "number": 255,
+          "title": "Nativo, híbrido, web wrapper y cross-platform",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-256",
+          "number": 256,
+          "title": "Almacenamiento local y sincronización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-257",
+          "number": 257,
+          "title": "Permisos, sensores y capacidades del dispositivo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-258",
+          "number": 258,
+          "title": "Interacción táctil, teclado, mouse y accesibilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-259",
+          "number": 259,
+          "title": "Actualizaciones, tiendas y distribución empresarial",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-260",
+          "number": 260,
+          "title": "Offline-first y resolución de conflictos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-261",
+          "number": 261,
+          "title": "Rendimiento, batería y recursos limitados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-262",
+          "number": 262,
+          "title": "Firma, sandbox y seguridad del cliente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-263",
+          "number": 263,
+          "title": "Taller: adaptar un producto a dos plataformas",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-264",
+          "number": 264,
+          "title": "Proyecto: cliente multiplataforma con sincronización",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Embedded, IoT y tiempo real",
+      "owner": "framework-ecosystems-labs",
+      "lessons": [
+        {
+          "id": "SE-265",
+          "number": 265,
+          "title": "Hardware, firmware y software embebido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-266",
+          "number": 266,
+          "title": "Microcontroladores, periféricos y buses",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-267",
+          "number": 267,
+          "title": "Restricciones de memoria, energía y cómputo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-268",
+          "number": 268,
+          "title": "Sistemas de tiempo real y deadlines",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-269",
+          "number": 269,
+          "title": "Interrupciones, concurrencia y estado compartido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-270",
+          "number": 270,
+          "title": "Protocolos IoT y conectividad intermitente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-271",
+          "number": 271,
+          "title": "Actualizaciones OTA y recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-272",
+          "number": 272,
+          "title": "Identidad de dispositivo y gestión de claves",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-273",
+          "number": 273,
+          "title": "Edge, gateways y procesamiento local",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-274",
+          "number": 274,
+          "title": "Safety, seguridad y vida útil prolongada",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-275",
+          "number": 275,
+          "title": "Taller: modelar fallos físicos y digitales",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-276",
+          "number": 276,
+          "title": "Proyecto: dispositivo simulado operable y actualizable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Software especializado y dominios",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-277",
+          "number": 277,
+          "title": "Software científico y reproducibilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-278",
+          "number": 278,
+          "title": "Ingeniería de datos y procesamiento analítico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-279",
+          "number": 279,
+          "title": "Machine learning como componente de producto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-280",
+          "number": 280,
+          "title": "Videojuegos, loops, entidades y simulación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-281",
+          "number": 281,
+          "title": "Gráficos, audio, XR y experiencias inmersivas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-282",
+          "number": 282,
+          "title": "Fintech, contabilidad e invariantes monetarias",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-283",
+          "number": 283,
+          "title": "Salud, datos sensibles y sistemas regulados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-284",
+          "number": 284,
+          "title": "Blockchain, consenso y contratos inteligentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-285",
+          "number": 285,
+          "title": "Sistemas geoespaciales y temporales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-286",
+          "number": 286,
+          "title": "Low-code, no-code y automatización visual",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-287",
+          "number": 287,
+          "title": "Taller: comparar riesgos entre dominios",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-288",
+          "number": 288,
+          "title": "Proyecto: diseño profundo de un dominio elegido",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Diseño, patrones y refactorización",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-289",
+          "number": 289,
+          "title": "Cohesión, acoplamiento y encapsulación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-290",
+          "number": 290,
+          "title": "SOLID y sus límites",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-291",
+          "number": 291,
+          "title": "Composición, herencia y delegación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-292",
+          "number": 292,
+          "title": "Patrones creacionales, estructurales y conductuales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-293",
+          "number": 293,
+          "title": "Patrones funcionales, reactivos y concurrentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-294",
+          "number": 294,
+          "title": "Code smells y diagnóstico contextual",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-295",
+          "number": 295,
+          "title": "Refactorización segura apoyada por pruebas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-296",
+          "number": 296,
+          "title": "Diseño para cambio, prueba y operación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-297",
+          "number": 297,
+          "title": "Complejidad accidental y esencial",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-298",
+          "number": 298,
+          "title": "Deuda técnica, interés y opciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-299",
+          "number": 299,
+          "title": "Taller: refactorizar sin alterar comportamiento",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-300",
+          "number": 300,
+          "title": "Proyecto: evolución compatible de un componente",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Arquitectura de software y dominio",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-301",
+          "number": 301,
+          "title": "Drivers, restricciones y atributos de arquitectura",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-302",
+          "number": 302,
+          "title": "Vistas lógica, runtime, datos y despliegue",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-303",
+          "number": 303,
+          "title": "Monolito, modular monolith y servicios",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-304",
+          "number": 304,
+          "title": "Capas, hexagonal, clean y ports and adapters",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-305",
+          "number": 305,
+          "title": "Domain-Driven Design estratégico y táctico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-306",
+          "number": 306,
+          "title": "Event-driven, CQRS y event sourcing",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-307",
+          "number": 307,
+          "title": "Arquitecturas serverless, edge y peer-to-peer",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-308",
+          "number": 308,
+          "title": "Fitness functions y arquitectura evolutiva",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-309",
+          "number": 309,
+          "title": "Trade-offs, ADR y evaluación de alternativas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-310",
+          "number": 310,
+          "title": "Arquitectura socio-técnica y límites de equipo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-311",
+          "number": 311,
+          "title": "Taller: revisar una arquitectura contra escenarios",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-312",
+          "number": 312,
+          "title": "Proyecto: arquitectura defendible y verificable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Datos, persistencia y recuperación",
+      "owner": "database-systems-labs",
+      "lessons": [
+        {
+          "id": "SE-313",
+          "number": 313,
+          "title": "Modelado conceptual, lógico y físico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-314",
+          "number": 314,
+          "title": "Relacional, documental, clave-valor, grafos y series",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-315",
+          "number": 315,
+          "title": "Transacciones, aislamiento y concurrencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-316",
+          "number": 316,
+          "title": "Restricciones, invariantes y consistencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-317",
+          "number": 317,
+          "title": "Consultas, índices y patrones de acceso",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-318",
+          "number": 318,
+          "title": "Migraciones compatibles y evolución de esquema",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-319",
+          "number": 319,
+          "title": "Replicación, partición y distribución",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-320",
+          "number": 320,
+          "title": "Cachés y consistencia entre capas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-321",
+          "number": 321,
+          "title": "Backups, restauración y pruebas de recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-322",
+          "number": 322,
+          "title": "Privacidad, retención y ciclo de vida del dato",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-323",
+          "number": 323,
+          "title": "Taller: corregir una migración peligrosa",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-324",
+          "number": 324,
+          "title": "Proyecto: capa de datos recuperable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Integración, eventos y mensajería",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-325",
+          "number": 325,
+          "title": "Integración síncrona y asíncrona",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-326",
+          "number": 326,
+          "title": "Mensajes, eventos, comandos y documentos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-327",
+          "number": 327,
+          "title": "Brokers, colas, topics y logs distribuidos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-328",
+          "number": 328,
+          "title": "Entrega, orden, duplicación y semánticas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-329",
+          "number": 329,
+          "title": "Outbox, inbox, sagas y compensación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-330",
+          "number": 330,
+          "title": "CDC, ETL, ELT y sincronización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-331",
+          "number": 331,
+          "title": "Webhooks, polling y suscripciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-332",
+          "number": 332,
+          "title": "Compatibilidad de esquemas y registros",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-333",
+          "number": 333,
+          "title": "Anti-corruption layers y traducción de modelos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-334",
+          "number": 334,
+          "title": "Observabilidad y seguridad de integraciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-335",
+          "number": 335,
+          "title": "Taller: provocar y contener mensajes duplicados",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-336",
+          "number": 336,
+          "title": "Proyecto: flujo integrado tolerante a reintentos",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Concurrencia y sistemas distribuidos",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-337",
+          "number": 337,
+          "title": "Concurrencia, paralelismo y asincronía",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-338",
+          "number": 338,
+          "title": "Memoria compartida, locks y condiciones de carrera",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-339",
+          "number": 339,
+          "title": "Actores, canales y structured concurrency",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-340",
+          "number": 340,
+          "title": "Tiempo, relojes y orden parcial",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-341",
+          "number": 341,
+          "title": "Fallos parciales y modelos de red",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-342",
+          "number": 342,
+          "title": "Consistencia, disponibilidad y particiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-343",
+          "number": 343,
+          "title": "Consenso, elección y coordinación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-344",
+          "number": 344,
+          "title": "Idempotencia y procesamiento distribuido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-345",
+          "number": 345,
+          "title": "Replicación, sharding y balanceo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-346",
+          "number": 346,
+          "title": "Caos controlado y pruebas de distribución",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-347",
+          "number": 347,
+          "title": "Taller: reproducir una carrera y un fallo parcial",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-348",
+          "number": 348,
+          "title": "Proyecto: servicio distribuido con degradación",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Cloud, plataforma e infraestructura",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-349",
+          "number": 349,
+          "title": "IaaS, PaaS, SaaS y responsabilidad compartida",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-350",
+          "number": 350,
+          "title": "Máquinas virtuales, contenedores y aislamiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-351",
+          "number": 351,
+          "title": "Orquestación y scheduling",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-352",
+          "number": 352,
+          "title": "Serverless y ejecución gestionada",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-353",
+          "number": 353,
+          "title": "Redes, identidad y secretos en cloud",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-354",
+          "number": 354,
+          "title": "Infraestructura como código y estado",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-355",
+          "number": 355,
+          "title": "Entornos, cuentas y separación de responsabilidades",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-356",
+          "number": 356,
+          "title": "Escalado, capacidad y costos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-357",
+          "number": 357,
+          "title": "Multi-cloud, híbrido y portabilidad real",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-358",
+          "number": 358,
+          "title": "Plataformas internas y golden paths",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-359",
+          "number": 359,
+          "title": "Taller: desplegar y destruir un entorno seguro",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-360",
+          "number": 360,
+          "title": "Proyecto: plataforma mínima reproducible",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Estrategia y técnicas de prueba",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-361",
+          "number": 361,
+          "title": "Calidad por riesgo y propósito de las pruebas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-362",
+          "number": 362,
+          "title": "Pruebas unitarias y diseño testable",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-363",
+          "number": 363,
+          "title": "Integración, componentes y contratos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-364",
+          "number": 364,
+          "title": "End-to-end, aceptación y recorridos críticos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-365",
+          "number": 365,
+          "title": "Pruebas basadas en propiedades y modelos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-366",
+          "number": 366,
+          "title": "Mutación, fuzzing y generación de casos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-367",
+          "number": 367,
+          "title": "Dobles, virtualización y entornos de prueba",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-368",
+          "number": 368,
+          "title": "Datos deterministas y gestión de fixtures",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-369",
+          "number": 369,
+          "title": "Pruebas exploratorias y sesiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-370",
+          "number": 370,
+          "title": "Flakiness, diagnóstico y mantenimiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-371",
+          "number": 371,
+          "title": "Taller: demostrar que una prueba detecta defectos",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-372",
+          "number": 372,
+          "title": "Proyecto: estrategia ejecutable por riesgo",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "31",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Calidad, rendimiento y resiliencia",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-373",
+          "number": 373,
+          "title": "Modelos de calidad y atributos medibles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-374",
+          "number": 374,
+          "title": "Revisión, análisis estático y quality gates",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-375",
+          "number": 375,
+          "title": "Carga, estrés, picos y endurance",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-376",
+          "number": 376,
+          "title": "Latencia, throughput, saturación y capacidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-377",
+          "number": 377,
+          "title": "Perfiles, benchmarks y errores de medición",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-378",
+          "number": 378,
+          "title": "Timeouts, retries, backoff y jitter",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-379",
+          "number": 379,
+          "title": "Circuit breakers, bulkheads y degradación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-380",
+          "number": 380,
+          "title": "Disponibilidad, durabilidad y recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-381",
+          "number": 381,
+          "title": "Compatibilidad, portabilidad e interoperabilidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-382",
+          "number": 382,
+          "title": "Calidad de experiencia y presupuestos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-383",
+          "number": 383,
+          "title": "Taller: someter un sistema a presión controlada",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-384",
+          "number": 384,
+          "title": "Proyecto: informe reproducible de calidad",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Seguridad, privacidad y cumplimiento",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-385",
+          "number": 385,
+          "title": "Principios de seguridad y modelos de amenaza",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-386",
+          "number": 386,
+          "title": "Identidad, autenticación y sesiones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-387",
+          "number": 387,
+          "title": "Autorización, recursos y mínimo privilegio",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-388",
+          "number": 388,
+          "title": "Validación, codificación y clases de inyección",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-389",
+          "number": 389,
+          "title": "Criptografía aplicada y gestión de claves",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-390",
+          "number": 390,
+          "title": "Secretos, configuración y separación de ambientes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-391",
+          "number": 391,
+          "title": "Privacidad por diseño y minimización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-392",
+          "number": 392,
+          "title": "Secure SDLC, abuso y pruebas negativas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-393",
+          "number": 393,
+          "title": "Vulnerabilidades, divulgación y respuesta",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-394",
+          "number": 394,
+          "title": "Cumplimiento, evidencia y límites legales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-395",
+          "number": 395,
+          "title": "Taller: explotar y reparar un control aparente",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-396",
+          "number": 396,
+          "title": "Proyecto: producto con seguridad verificable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "33",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "Build, release y cadena de suministro",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-397",
+          "number": 397,
+          "title": "Build reproducible y hermético",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-398",
+          "number": 398,
+          "title": "Artefactos, repositorios y promoción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-399",
+          "number": 399,
+          "title": "Dependencias directas, transitivas y vendorización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-400",
+          "number": 400,
+          "title": "SBOM, procedencia y atestaciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-401",
+          "number": 401,
+          "title": "Firmas, checksums y verificación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-402",
+          "number": 402,
+          "title": "Versionado, compatibilidad y changelog",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-403",
+          "number": 403,
+          "title": "Feature flags y entrega progresiva",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-404",
+          "number": 404,
+          "title": "Canary, blue-green y rollback",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-405",
+          "number": 405,
+          "title": "Instaladores, paquetes y actualizaciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-406",
+          "number": 406,
+          "title": "Riesgos de CI y dependencias comprometidas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-407",
+          "number": 407,
+          "title": "Taller: verificar la procedencia de un release",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-408",
+          "number": 408,
+          "title": "Proyecto: release firmado y recuperable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "34",
+      "stage": "F",
+      "stage_title": "Calidad, seguridad y entrega",
+      "title": "CI/CD, IaC y platform engineering",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-409",
+          "number": 409,
+          "title": "Integración continua y feedback temprano",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-410",
+          "number": 410,
+          "title": "Pipelines, jobs, matrices y cachés",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-411",
+          "number": 411,
+          "title": "Tests, seguridad y políticas como gates",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-412",
+          "number": 412,
+          "title": "Credenciales efímeras y OIDC",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-413",
+          "number": 413,
+          "title": "Entrega y despliegue continuos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-414",
+          "number": 414,
+          "title": "Infraestructura como código en pipeline",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-415",
+          "number": 415,
+          "title": "GitOps y reconciliación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-416",
+          "number": 416,
+          "title": "Entornos preview y datos seguros",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-417",
+          "number": 417,
+          "title": "Developer portals y capacidades de plataforma",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-418",
+          "number": 418,
+          "title": "Métricas DORA y mejora sin gaming",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-419",
+          "number": 419,
+          "title": "Taller: endurecer un pipeline vulnerable",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-420",
+          "number": 420,
+          "title": "Proyecto: camino a producción con rollback",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "35",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Observabilidad, SRE e incidentes",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-421",
+          "number": 421,
+          "title": "Señales, eventos y observabilidad útil",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-422",
+          "number": 422,
+          "title": "Logs estructurados y correlación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-423",
+          "number": 423,
+          "title": "Métricas, dimensiones y cardinalidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-424",
+          "number": 424,
+          "title": "Trazas distribuidas y contexto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-425",
+          "number": 425,
+          "title": "SLI, SLO, SLA y presupuestos de error",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-426",
+          "number": 426,
+          "title": "Alertas accionables y fatiga",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-427",
+          "number": 427,
+          "title": "Runbooks, on-call y escalamiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-428",
+          "number": 428,
+          "title": "Gestión de incidentes y comunicación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-429",
+          "number": 429,
+          "title": "Postmortems sin culpa y aprendizaje",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-430",
+          "number": 430,
+          "title": "Continuidad, disaster recovery y ejercicios",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-431",
+          "number": 431,
+          "title": "Taller: diagnosticar con telemetría incompleta",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-432",
+          "number": 432,
+          "title": "Proyecto: operación observable y recuperable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "36",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Mantenimiento y modernización legacy",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-433",
+          "number": 433,
+          "title": "Mantenimiento correctivo, adaptativo y perfectivo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-434",
+          "number": 434,
+          "title": "Arqueología de código y recuperación de conocimiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-435",
+          "number": 435,
+          "title": "Pruebas de caracterización y seams",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-436",
+          "number": 436,
+          "title": "Dependencias obsoletas y riesgo acumulado",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-437",
+          "number": 437,
+          "title": "Strangler, branch by abstraction y anticorruption",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-438",
+          "number": 438,
+          "title": "Migraciones de runtime, lenguaje y framework",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-439",
+          "number": 439,
+          "title": "Migraciones de datos sin interrupción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-440",
+          "number": 440,
+          "title": "Compatibilidad, coexistencia y doble escritura",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-441",
+          "number": 441,
+          "title": "Retiro, archivado y disposición de sistemas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-442",
+          "number": 442,
+          "title": "Economía de reescribir frente a evolucionar",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-443",
+          "number": 443,
+          "title": "Taller: estabilizar antes de modernizar",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-444",
+          "number": 444,
+          "title": "Proyecto: migración incremental reversible",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "37",
+      "stage": "G",
+      "stage_title": "Operación, evolución y liderazgo",
+      "title": "Gestión, liderazgo y práctica profesional",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-445",
+          "number": 445,
+          "title": "Liderazgo técnico sin autoridad formal",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-446",
+          "number": 446,
+          "title": "Diseño de equipos y ownership",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-447",
+          "number": 447,
+          "title": "Comunicación, facilitación y conflicto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-448",
+          "number": 448,
+          "title": "Mentoría, feedback y crecimiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-449",
+          "number": 449,
+          "title": "Estimación organizacional y compromisos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-450",
+          "number": 450,
+          "title": "Gestión de riesgos y decisiones ejecutivas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-451",
+          "number": 451,
+          "title": "Compras, proveedores y evaluación técnica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-452",
+          "number": 452,
+          "title": "Propiedad intelectual, contratos y ética",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-453",
+          "number": 453,
+          "title": "Economía del software y costo total",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-454",
+          "number": 454,
+          "title": "Portafolio, entrevistas y defensa profesional",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-455",
+          "number": 455,
+          "title": "Taller: conducir una revisión de decisión difícil",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-456",
+          "number": 456,
+          "title": "Proyecto: dossier profesional defendible",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "38",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Desarrollo de software asistido por IA",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-457",
+          "number": 457,
+          "title": "Capacidades y límites de los modelos generativos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-458",
+          "number": 458,
+          "title": "Prompting, instrucciones y criterios de salida",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-459",
+          "number": 459,
+          "title": "Contexto, archivos, memoria y recuperación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-460",
+          "number": 460,
+          "title": "Autocompletado, chat, edición y generación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-461",
+          "number": 461,
+          "title": "Prototipado, scaffolding y exploración de alternativas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-462",
+          "number": 462,
+          "title": "Generación de pruebas, documentación y migraciones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-463",
+          "number": 463,
+          "title": "Revisión, refactorización y explicación asistidas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-464",
+          "number": 464,
+          "title": "Context engineering y reducción de ambigüedad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-465",
+          "number": 465,
+          "title": "Evals de exactitud, utilidad, costo y latencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-466",
+          "number": 466,
+          "title": "Privacidad, propiedad intelectual y código inseguro",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-467",
+          "number": 467,
+          "title": "Taller: comparar flujos manual, asistido y automatizado",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-468",
+          "number": 468,
+          "title": "Proyecto: cambio real con trazabilidad y revisión humana",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    },
+    {
+      "id": "39",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "SPEC, agentes y ciclo de vida agentic",
+      "owner": "suite",
+      "lessons": [
+        {
+          "id": "SE-469",
+          "number": 469,
+          "title": "De la intención a la especificación durable",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-470",
+          "number": 470,
+          "title": "Constitución, specify, clarify, plan y tasks",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-471",
+          "number": 471,
+          "title": "Implementación, análisis y convergencia contra SPEC",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-472",
+          "number": 472,
+          "title": "Greenfield, brownfield, bug fixing e idea assessment",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-473",
+          "number": 473,
+          "title": "Agentes, herramientas, permisos y límites de autoridad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-474",
+          "number": 474,
+          "title": "Skills, plugins, hooks y entornos aislados",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-475",
+          "number": 475,
+          "title": "MCP, recursos, prompts, tools y confianza",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-476",
+          "number": 476,
+          "title": "Delegación, subagentes y sistemas multiagente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-477",
+          "number": 477,
+          "title": "Human-in-the-loop, aprobación y acciones reversibles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-478",
+          "number": 478,
+          "title": "Seguridad agentic, prompt injection y auditoría",
+          "kind": "class",
+          "estimated_hours": 4,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-479",
+          "number": 479,
+          "title": "Taller: detener, recuperar y evaluar un agente",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "status": "PLANNED"
+        },
+        {
+          "id": "SE-480",
+          "number": 480,
+          "title": "Proyecto final: producto operable construido desde SPEC",
+          "kind": "project",
+          "estimated_hours": 8,
+          "status": "PLANNED"
+        }
+      ]
+    }
+  ]
+}

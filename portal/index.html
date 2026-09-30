@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mapa local del programa Software Engineering Learning Suite">
+  <title>Software Engineering Learning Suite</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Saltar al contenido</a>
+  <header class="hero">
+    <p class="eyebrow">Fase 1 especificada · 2.160 horas estimadas</p>
+    <h1>Software Engineering<br><span>Learning Suite</span></h1>
+    <p class="intro">Del problema al producto operable: lenguajes, datos, frameworks, arquitectura, seguridad y evolución.</p>
+    <div class="metrics" aria-label="Resumen del programa">
+      <div><strong>8</strong><span>etapas</span></div>
+      <div><strong>40</strong><span>partes</span></div>
+      <div><strong>480</strong><span>clases planificadas</span></div>
+      <div><strong>6</strong><span>productos</span></div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section aria-labelledby="family-title">
+      <p class="section-kicker">La familia</p>
+      <h2 id="family-title">Una disciplina, cuatro profundidades</h2>
+      <div class="repo-grid">
+        <article class="repo"><span>01</span><h3>Polyglot Programming</h3><p>Mismo algoritmo, distintos lenguajes y paradigmas.</p></article>
+        <article class="repo"><span>02</span><h3>Database Systems</h3><p>Mismo dominio, modelos, cargas y garantías comparables.</p></article>
+        <article class="repo"><span>03</span><h3>Framework Ecosystems</h3><p>Mismo contrato, implementaciones y pruebas compartidas.</p></article>
+        <article class="repo accent"><span>04</span><h3>Software Engineering</h3><p>Mismo resultado de producto durante todo el ciclo de vida.</p></article>
+      </div>
+    </section>
+
+    <section aria-labelledby="route-title">
+      <p class="section-kicker">Ruta adaptable</p>
+      <div class="section-head">
+      <h2 id="route-title">Explora la arquitectura del programa</h2>
+        <div class="filters" role="group" aria-label="Filtrar etapas">
+          <button class="active" data-filter="all" type="button">Todos</button>
+          <button data-filter="developer" type="button">Desarrollador</button>
+          <button data-filter="architect" type="button">Arquitecto</button>
+          <button data-filter="product" type="button">Producto</button>
+          <button data-filter="legacy" type="button">Legacy</button>
+        </div>
+      </div>
+      <ol class="modules" id="stages">
+        <li data-roles="developer architect product legacy"><b>A</b><span>Fundamentos de la profesión</span><em>5 partes</em></li>
+        <li data-roles="developer architect legacy"><b>B</b><span>Programación y construcción</span><em>5 partes</em></li>
+        <li data-roles="developer architect product legacy"><b>C</b><span>Producto, requisitos y especificación</span><em>8 partes</em></li>
+        <li data-roles="developer architect product legacy"><b>D</b><span>Superficies y formas de software</span><em>6 partes</em></li>
+        <li data-roles="developer architect legacy"><b>E</b><span>Diseño, arquitectura, datos e integración</span><em>6 partes</em></li>
+        <li data-roles="developer architect product legacy"><b>F</b><span>Calidad, seguridad y entrega</span><em>5 partes</em></li>
+        <li data-roles="developer architect product legacy"><b>G</b><span>Operación, evolución y liderazgo</span><em>3 partes</em></li>
+        <li data-roles="developer architect product legacy"><b>H</b><span>Ingeniería de software nativa con IA</span><em>2 partes</em></li>
+      </ol>
+      <p class="result" id="filter-result" aria-live="polite">Mostrando 8 etapas.</p>
+      <p class="result">Los títulos están definidos; el contenido detallado se construirá por fases.</p>
+    </section>
+
+    <section class="outcome" aria-labelledby="outcome-title">
+      <div>
+        <p class="section-kicker">Evidencia final</p>
+        <h2 id="outcome-title">Un producto que otro equipo puede continuar</h2>
+      </div>
+      <ul>
+        <li>Requisitos y decisiones trazables</li>
+        <li>Código, datos y contratos probados</li>
+        <li>Seguridad y accesibilidad verificadas</li>
+        <li>Telemetría, recuperación y rollback</li>
+        <li>Portafolio y defensa profesional</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer><p>Software Engineering Learning Suite · Línea base 2026-09-30</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>

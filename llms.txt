@@ -1,0 +1,18 @@
+# Software Engineering Learning Suite
+
+Purpose: coordinate a professional, evidence-based software engineering curriculum across specialized repositories.
+
+Read first:
+- README.md
+- PROMPT_MAESTRO.md
+- manifest/repositories.json
+- curriculum/README.md
+- docs/INTEGRATION-CONTRACT.md
+- matrices/COMPETENCY-MAP.md
+
+Rules:
+- Respect repository ownership and avoid duplication.
+- Verify changing claims in primary or official sources.
+- Security, accessibility, testing, observability and recovery are part of done.
+- Use pnpm only for JavaScript/TypeScript.
+- Do not invent evidence, metrics, laws, APIs or compatibility.

@@ -1,7 +1,7 @@
 # Parte 39 — SPEC, agentes y ciclo de vida agentic
 
 - **Etapa:** H · Ingeniería de software nativa con IA
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

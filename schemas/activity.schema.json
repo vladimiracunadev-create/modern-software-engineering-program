@@ -8,7 +8,7 @@
     "$schema": {"const": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json"},
     "schema_version": {"const": 1},
     "class_id": {"pattern": "^SE-[0-9]{3}$"},
-    "status": {"const": "GUIDED"},
+    "status": {"enum": ["PLANNED", "GUIDED"]},
     "mode": {"enum": ["class", "studio", "project"]},
     "environment": {"type": "string", "minLength": 10},
     "duration_hours": {"type": "integer", "minimum": 1},

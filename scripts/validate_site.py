@@ -64,6 +64,11 @@ def main() -> int:
     catalog = json.loads((SITE / "assets/catalog.json").read_text(encoding="utf-8"))
     if len(catalog.get("classes", [])) != 480:
         failures.append("site catalog does not contain 480 classes")
+    for number in range(1, 181):
+        draft = (SITE / "classes" / f"SE-{number:03d}.html").read_text(encoding="utf-8")
+        for marker in ("PLANNED · EN REVISIÓN", "Problema auténtico", "Ejercicios", "Fuentes"):
+            if marker not in draft:
+                failures.append(f"phase 3 page lacks full draft content: SE-{number:03d} -> {marker}")
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1

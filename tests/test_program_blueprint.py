@@ -50,26 +50,16 @@ class ProgramBlueprintTests(unittest.TestCase):
         generated = json.loads((ROOT / "curriculum.yaml").read_text(encoding="utf-8"))
         self.assertEqual(self.payload, generated)
 
-    def test_phase_three_statuses_match_scope(self) -> None:
-        guided = [
-            lesson
+    def test_phase_three_rebuild_is_honest(self) -> None:
+        statuses = [
+            lesson["status"]
             for part in self.payload["parts"]
             for lesson in part["lessons"]
-            if lesson["status"] == "GUIDED"
         ]
-        planned = [
-            lesson
-            for part in self.payload["parts"]
-            for lesson in part["lessons"]
-            if lesson["status"] == "PLANNED"
-        ]
-        self.assertEqual(156, len(guided))
-        self.assertEqual(324, len(planned))
-        self.assertEqual({"A", "C"}, {
-            part["stage"]
-            for part in self.payload["parts"]
-            if any(lesson["status"] == "GUIDED" for lesson in part["lessons"])
-        })
+        self.assertEqual(["PLANNED"] * 480, statuses)
+        self.assertEqual("PHASE_3_REBUILDING", self.payload["status"])
+        self.assertEqual(180, self.payload["phase_3_target"]["classes"])
+        self.assertEqual(0, self.payload["phase_3_target"]["approved"])
 
 
 if __name__ == "__main__":

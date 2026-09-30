@@ -1,6 +1,6 @@
 # Arquitectura del programa profesional
 
-Estado: **fase 3 guiada** · Línea base: **2026-09-30**
+Estado: **fase 3 en reconstrucción cualitativa** · Línea base: **2026-09-30**
 
 ## Propósito
 
@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | 156 guiadas y 324 planificadas |
+| Clases | 480 | 480 planificadas; 180 borradores de fase 3; 0 aprobadas |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 
@@ -87,6 +87,10 @@ Una clase construida debe contener:
 12. autoevaluación y evidencia de portafolio;
 13. fuentes primarias u oficiales con fecha;
 14. límites honestos y siguiente paso.
+
+La presencia mecánica de estos encabezados no basta. La revisión cualitativa y el
+gate de aprobación están definidos en
+[`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md).
 
 Cuando exista código, la carpeta de clase podrá incorporar `starter/`, `solution/`,
 `examples/`, `exercises/`, `tests/`, `fixtures/` y `evidence/`. Una clase conceptual

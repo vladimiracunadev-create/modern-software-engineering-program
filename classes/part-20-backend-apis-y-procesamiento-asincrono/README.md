@@ -1,7 +1,7 @@
 # Parte 20 — Backend, APIs y procesamiento asíncrono
 
 - **Etapa:** D · Superficies y formas de software
-- **Propietario profundo:** `framework-ecosystems-labs`
+- **Dominio técnico principal:** `framework-ecosystems-labs`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

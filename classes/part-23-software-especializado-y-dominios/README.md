@@ -1,7 +1,7 @@
 # Parte 23 — Software especializado y dominios
 
 - **Etapa:** D · Superficies y formas de software
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

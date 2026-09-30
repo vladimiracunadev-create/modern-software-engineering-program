@@ -1,7 +1,7 @@
 # Parte 28 — Concurrencia y sistemas distribuidos
 
 - **Etapa:** E · Diseño, arquitectura, datos e integración
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

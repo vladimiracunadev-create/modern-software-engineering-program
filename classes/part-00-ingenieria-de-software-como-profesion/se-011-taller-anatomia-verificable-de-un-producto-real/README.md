@@ -1,7 +1,8 @@
 # SE-011 — Taller: anatomía verificable de un producto real
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 00 · Ingeniería de software como profesión |
 | Modalidad | taller de integración (`studio`) |
-| Propietario profundo | `suite` |
+| Dominio técnico principal | `suite` |
 | Duración estimada | 6 horas |
 | Producto de la clase | informe de decisión profesional |
 

@@ -9,10 +9,10 @@
 
 ## About publicado
 
-> 🧭 software-engineering-learning-suite · 156 clases guiadas y 324 planificadas · fundamentos, producto, requisitos y SPEC · Python + sitio estático · 🐧🍎🪟
+> 🧭 software-engineering-learning-suite · 480 clases · fase 3 reconstruye SE-001–SE-180 con estándar pedagógico profundo · Python + Pages · 🐧🍎🪟
 
-Los conteos de madurez se sincronizan desde `catalog.json`; `GUIDED` no se presenta
-como laboratorio ejecutable.
+Los conteos de madurez se sincronizan desde `catalog.json`. Mientras dura la
+reconstrucción, ningún borrador se presenta como clase aprobada.
 
 ## Topics publicados
 

@@ -1,7 +1,8 @@
 # SE-029 — Terminales, shells y composición de comandos
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 02 · Sistemas operativos, terminal y automatización base |
 | Modalidad | análisis guiado (`class`) |
-| Propietario profundo | `suite` |
+| Dominio técnico principal | `suite` |
 | Duración estimada | 4 horas |
 | Producto de la clase | runbook de entorno reproducible |
 

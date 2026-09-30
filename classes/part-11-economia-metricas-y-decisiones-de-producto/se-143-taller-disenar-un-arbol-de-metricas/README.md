@@ -1,7 +1,8 @@
 # SE-143 — Taller: diseñar un árbol de métricas
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | C · Producto, requisitos y especificación |
 | Parte | 11 · Economía, métricas y decisiones de producto |
 | Modalidad | taller de integración (`studio`) |
-| Propietario profundo | `suite` |
+| Dominio técnico principal | `suite` |
 | Duración estimada | 6 horas |
 | Producto de la clase | árbol de métricas y caso de decisión |
 

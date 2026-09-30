@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
-TARGET_STAGES = {"A", "C"}
+TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
 
 PRODUCTS = [
@@ -43,6 +43,10 @@ SOURCES = {
     "SCRUM": ("The Scrum Guide", "Scrum Guide authors", "https://scrumguides.org/scrum-guide.html"),
     "KANBAN": ("The Kanban Guide", "Kanban Guides", "https://kanbanguides.org/english/"),
     "GIT": ("Git documentation", "Git project", "https://git-scm.com/docs"),
+    "PYTHON": ("Python 3 documentation", "Python Software Foundation", "https://docs.python.org/3/"),
+    "DEVCONTAINERS": ("Development Containers Specification", "Dev Container Specification maintainers", "https://containers.dev/implementors/spec/"),
+    "SEMVER": ("Semantic Versioning 2.0.0", "Semantic Versioning project", "https://semver.org/"),
+    "SPDX": ("SPDX License List", "Linux Foundation", "https://spdx.org/licenses/"),
     "GITHUB-COLLAB": ("Collaborating with pull requests", "GitHub", "https://docs.github.com/pull-requests/collaborating-with-pull-requests"),
     "C4": ("C4 model", "C4 model project", "https://c4model.com/"),
     "DIATAXIS": ("Diátaxis documentation framework", "Diátaxis project", "https://diataxis.fr/"),
@@ -54,6 +58,11 @@ PROFILES = {
     "02": {"artifact": "runbook de entorno reproducible", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["bootstrap.ps1", "bootstrap.sh", "runbook.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH"]},
     "03": {"artifact": "traza comentada de una comunicación", "environment": "navegador, curl y utilidades de diagnóstico de red", "files": ["request.txt", "trace.md", "failure-report.md"], "lenses": ["capa", "protocolo", "estado", "observabilidad"], "failure": "atribuir al servidor un fallo que ocurre en resolución, transporte o caché", "sources": ["RFC-8200", "RFC-8446", "RFC-9000", "RFC-9110"]},
     "04": {"artifact": "especificación contrastable de una solución", "environment": "editor, Python opcional y diagramas Mermaid", "files": ["problem.md", "model.md", "checks.md"], "lenses": ["abstracción", "invariante", "algoritmo", "complejidad"], "failure": "resolver un ejemplo y asumir que la solución cubre todo el dominio", "sources": ["MIT-MATH-CS", "SWEBOK-4A"]},
+    "05": {"artifact": "programa pequeño con pruebas y decisiones explicadas", "environment": "Python 3.11+, editor, terminal y Git", "files": ["main.py", "test_main.py", "README.md"], "lenses": ["valor", "control", "función", "prueba"], "failure": "confundir que un ejemplo se ejecute con que sea correcto para el dominio", "sources": ["PYTHON", "SWEBOK-4A"]},
+    "06": {"artifact": "comparación semántica entre paradigmas", "environment": "Python 3.11+ y un segundo lenguaje elegido", "files": ["case.md", "implementation-a.py", "comparison.md"], "lenses": ["estado", "composición", "efecto", "modelo"], "failure": "forzar un paradigma por moda aunque complique el problema", "sources": ["PYTHON", "SWEBOK-4A"]},
+    "07": {"artifact": "implementación medida con casos límite", "environment": "Python 3.11+, unittest y temporizador monotónico", "files": ["algorithm.py", "test_algorithm.py", "benchmark.md"], "lenses": ["estructura", "invariante", "complejidad", "carga"], "failure": "elegir una estructura por costumbre sin medir la carga relevante", "sources": ["MIT-MATH-CS", "PYTHON", "SWEBOK-4A"]},
+    "08": {"artifact": "entorno reproducible y sesión de diagnóstico", "environment": "editor o IDE, Python 3.11+, Git y contenedor opcional", "files": ["environment.md", "reproduction.md", "diagnosis.md"], "lenses": ["observación", "reproducción", "aislamiento", "diagnóstico"], "failure": "cambiar varias variables a la vez y perder la causa del fallo", "sources": ["PYTHON", "DEVCONTAINERS", "SWEBOK-4A"]},
+    "09": {"artifact": "paquete y CLI con contrato público", "environment": "Python 3.11+, entorno virtual y Git", "files": ["pyproject.toml", "cli.py", "compatibility.md"], "lenses": ["contrato", "versión", "dependencia", "experiencia"], "failure": "romper consumidores mediante un cambio presentado como compatible", "sources": ["PYTHON", "SEMVER", "SPDX", "SWEBOK-4A"]},
     "10": {"artifact": "product brief respaldado por evidencia", "environment": "editor, hoja de cálculo opcional y repositorio de investigación", "files": ["brief.md", "assumptions.md", "research-log.md"], "lenses": ["necesidad", "hipótesis", "evidencia", "resultado"], "failure": "convertir la primera petición de una persona en requisito definitivo", "sources": ["GOV-RESEARCH", "NIST-PRIVACY", "SWEBOK-4A"]},
     "11": {"artifact": "árbol de métricas y caso de decisión", "environment": "editor y hoja de cálculo sin datos personales reales", "files": ["metric-tree.md", "decision.csv", "guardrails.md"], "lenses": ["valor", "costo", "métrica", "opción"], "failure": "optimizar actividad o una vanity metric en lugar del resultado", "sources": ["SWEBOK-4A", "NIST-PRIVACY"]},
     "12": {"artifact": "paquete de requisitos trazables", "environment": "editor, tablas Markdown y control de versiones", "files": ["requirements.md", "traceability.csv", "review.md"], "lenses": ["necesidad", "requisito", "criterio", "trazabilidad"], "failure": "aceptar lenguaje ambiguo que no puede verificarse", "sources": ["ISO-29148", "SWEBOK-4A", "ISO-25010"]},
@@ -70,6 +79,11 @@ TEACHING = {
     "02": {"foundation": "El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.", "question": "¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?", "evidence": "estado anterior y posterior, logs, códigos de salida y procedimiento de rollback"},
     "03": {"foundation": "Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes.", "question": "¿en qué capa se define el comportamiento y en cuál aparece el síntoma?", "evidence": "mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno"},
     "04": {"foundation": "Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio.", "question": "¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?", "evidence": "casos límite, contraejemplos, argumento de terminación y costo medido o acotado"},
+    "05": {"foundation": "Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio.", "question": "¿qué comportamiento debe producirse para entradas normales, límites y errores?", "evidence": "ejemplos ejecutables, pruebas y salidas reproducibles"},
+    "06": {"foundation": "Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.", "question": "¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?", "evidence": "implementaciones equivalentes, pruebas comunes y comparación de compromisos"},
+    "07": {"foundation": "Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga.", "question": "¿qué operaciones dominan la carga y qué garantía necesita cada una?", "evidence": "casos límite, pruebas de propiedades, complejidad y medición empírica"},
+    "08": {"foundation": "Una herramienta de desarrollo es útil cuando hace observable y reproducible el sistema; depurar exige reducir el caso y cambiar una variable por vez.", "question": "¿qué estado debe observarse para refutar la hipótesis actual?", "evidence": "reproducción mínima, versiones, trazas y secuencia de diagnóstico"},
+    "09": {"foundation": "Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia.", "question": "¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?", "evidence": "contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida"},
     "10": {"foundation": "El descubrimiento reduce incertidumbre sobre personas, problemas y resultados antes de comprometer una solución; una entrevista produce evidencia situada, no verdad universal.", "question": "¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?", "evidence": "observaciones trazables, patrones y contradicciones, siempre separadas de interpretación"},
     "11": {"foundation": "Una métrica representa parcialmente un resultado y puede cambiar conductas; por eso se interpreta junto con costo, población, ventana temporal y guardrails.", "question": "¿qué decisión cambiaría con esta medida y qué daño podría ocultar?", "evidence": "definición calculable, fuente de datos, segmento, tendencia y métrica contraria"},
     "12": {"foundation": "Un requisito conecta una necesidad con comportamiento o restricción verificable; la trazabilidad permite explicar origen, cambio, implementación y evidencia de aceptación.", "question": "¿quién necesita qué resultado, bajo qué condición y cómo se verificará?", "evidence": "criterios inequívocos, ejemplos y enlaces bidireccionales entre necesidad y prueba"},
@@ -100,18 +114,18 @@ def words(title: str, profile: dict) -> list[str]:
 
 
 def source_catalog(program: dict) -> dict:
-    used = sorted({source for part in program["parts"] if part["stage"] in TARGET_STAGES for source in PROFILES[part["id"]]["sources"]})
+    used = sorted({source for part in program["parts"] if part["lessons"][-1]["number"] <= TARGET_LAST_CLASS for source in PROFILES[part["id"]]["sources"]})
     return {
         "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json",
         "schema_version": 1,
         "verified_on": VERIFIED_ON,
-        "scope": "Fase 3: etapas A y C",
+        "scope": "Fase 3 en reconstrucción: SE-001 a SE-180",
         "policy": "Fuentes primarias u oficiales; la guía indica el uso pedagógico y evita atribuirles afirmaciones no contenidas.",
         "sources": [
             {"id": source_id, "title": SOURCES[source_id][0], "authority": SOURCES[source_id][1], "url": SOURCES[source_id][2], "status": "verified"}
             for source_id in used
         ],
-        "parts": {part_id: PROFILES[part_id]["sources"] for part_id in sorted(PROFILES)},
+        "parts": {part_id: PROFILES[part_id]["sources"] for part_id in sorted(PROFILES) if int(part_id) <= 14},
     }
 
 
@@ -142,8 +156,9 @@ def lesson_readme(part: dict, lesson: dict, previous: str, following: str) -> st
     mode = {"class": "análisis guiado", "studio": "taller de integración", "project": "proyecto de portafolio"}[lesson["kind"]]
     return f"""# {lesson['id']} — {lesson['title']}
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -152,7 +167,7 @@ def lesson_readme(part: dict, lesson: dict, previous: str, following: str) -> st
 | Etapa | {part['stage']} · {part['stage_title']} |
 | Parte | {part['id']} · {part['title']} |
 | Modalidad | {mode} (`{lesson['kind']}`) |
-| Propietario profundo | `{part['owner']}` |
+| Dominio técnico principal | `{part['owner']}` |
 | Duración estimada | {lesson['estimated_hours']} horas |
 | Producto de la clase | {profile['artifact']} |
 
@@ -294,7 +309,7 @@ def activity(part: dict, lesson: dict) -> dict:
         "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
         "schema_version": 1,
         "class_id": lesson["id"],
-        "status": "GUIDED",
+        "status": "PLANNED",
         "mode": lesson["kind"],
         "environment": profile["environment"],
         "duration_hours": lesson["estimated_hours"],
@@ -320,37 +335,133 @@ def rubric(part: dict, lesson: dict) -> dict:
     }
 
 
-def site_page(part: dict, lesson: dict) -> str:
-    profile = PROFILES[part["id"]]
-    source_items = "".join(
-        f'<li><a href="{html.escape(SOURCES[source_id][2])}">{html.escape(SOURCES[source_id][0])}</a> · {html.escape(SOURCES[source_id][1])}</li>'
-        for source_id in profile["sources"]
-    )
-    objectives = "".join(
-        f"<li>{text}</li>" for text in [
-            f"Explicar {lesson['title']} con ejemplo, contraejemplo y límites.",
-            "Comparar opciones por evidencia, riesgo, costo y reversibilidad.",
-            f"Producir un {profile['artifact']} revisable.",
-            "Diagnosticar un fallo controlado y documentar recuperación.",
-        ]
-    )
+def inline_markdown(value: str) -> str:
+    escaped = html.escape(value)
+    escaped = re.sub(r"`([^`]+)`", r"<code>\1</code>", escaped)
+    escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+    escaped = re.sub(r"\[([^]]+)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', escaped)
+    return escaped
+
+
+def heading_id(value: str) -> str:
+    plain = re.sub(r"[`*_]", "", value).casefold()
+    plain = re.sub(r"[^a-z0-9áéíóúüñ]+", "-", plain).strip("-")
+    return plain or "seccion"
+
+
+def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
+    lines = markdown.splitlines()
+    output: list[str] = []
+    headings: list[tuple[str, str]] = []
+    index = 0
+    in_code = False
+    code_language = ""
+    code_lines: list[str] = []
+    while index < len(lines):
+        line = lines[index]
+        if line.startswith("```"):
+            if not in_code:
+                in_code = True
+                code_language = line[3:].strip()
+                code_lines = []
+            else:
+                css_class = "mermaid-source" if code_language == "mermaid" else "code-block"
+                output.append(f'<pre class="{css_class}"><code>{html.escape(chr(10).join(code_lines))}</code></pre>')
+                in_code = False
+            index += 1
+            continue
+        if in_code:
+            code_lines.append(line)
+            index += 1
+            continue
+        if index == 0 and line.startswith("# "):
+            index += 1
+            continue
+        heading = re.match(r"^(#{2,4})\s+(.+)$", line)
+        if heading:
+            level = len(heading.group(1))
+            label = heading.group(2)
+            anchor = heading_id(label)
+            if level == 2:
+                headings.append((anchor, re.sub(r"[`*_]", "", label)))
+            output.append(f'<h{level} id="{anchor}">{inline_markdown(label)}</h{level}>')
+            index += 1
+            continue
+        if line.startswith(">"):
+            quoted = []
+            while index < len(lines) and lines[index].startswith(">"):
+                quoted.append(lines[index].lstrip("> "))
+                index += 1
+            callout_kind = ""
+            if quoted and re.fullmatch(r"\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]", quoted[0], re.IGNORECASE):
+                callout_kind = quoted.pop(0)[2:-1].casefold()
+            callout_class = f"callout {callout_kind}".strip()
+            output.append(f'<aside class="{callout_class}">{inline_markdown(" ".join(quoted))}</aside>')
+            continue
+        if "|" in line and index + 1 < len(lines) and re.match(r"^\s*\|?\s*:?-+", lines[index + 1]):
+            headers = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            index += 2
+            rows = []
+            while index < len(lines) and "|" in lines[index] and lines[index].strip():
+                rows.append([cell.strip() for cell in lines[index].strip().strip("|").split("|")])
+                index += 1
+            head = "".join(f"<th>{inline_markdown(cell)}</th>" for cell in headers)
+            body = "".join("<tr>" + "".join(f"<td>{inline_markdown(cell)}</td>" for cell in row) + "</tr>" for row in rows)
+            output.append(f'<div class="table-wrap"><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>')
+            continue
+        unordered = re.match(r"^-\s+(.+)$", line)
+        ordered = re.match(r"^\d+\.\s+(.+)$", line)
+        if unordered or ordered:
+            tag = "ul" if unordered else "ol"
+            items = []
+            pattern = r"^-\s+(.+)$" if unordered else r"^\d+\.\s+(.+)$"
+            while index < len(lines):
+                match = re.match(pattern, lines[index])
+                if not match:
+                    break
+                items.append(f"<li>{inline_markdown(match.group(1))}</li>")
+                index += 1
+            output.append(f"<{tag}>{''.join(items)}</{tag}>")
+            continue
+        if line.strip() == "---":
+            output.append("<hr>")
+            index += 1
+            continue
+        if not line.strip():
+            index += 1
+            continue
+        paragraph = [line.strip()]
+        index += 1
+        while index < len(lines) and lines[index].strip() and not re.match(r"^(#{2,4})\s+|^>|^```|^-\s+|^\d+\.\s+", lines[index]):
+            if "|" in lines[index] and index + 1 < len(lines) and re.match(r"^\s*\|?\s*:?-+", lines[index + 1]):
+                break
+            paragraph.append(lines[index].strip())
+            index += 1
+        output.append(f"<p>{inline_markdown(' '.join(paragraph))}</p>")
+    return "".join(output), headings
+
+
+def site_page(part: dict, lesson: dict, markdown: str) -> str:
+    content, headings = markdown_to_html(markdown)
+    toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
     repository_url = f"https://github.com/vladimiracunadev-create/software-engineering-learning-suite/tree/main/{lesson['path']}"
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Guía pedagógica {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>GUIDED:</strong> explicación, práctica, ejercicios, evaluación y fuentes disponibles. No implica ejecución automática.</div><section><h2>Resultado</h2><p>Construir el artefacto {html.escape(profile['artifact'])} en {lesson['estimated_hours']} horas estimadas.</p></section><section><h2>Objetivos</h2><ol>{objectives}</ol></section><section><h2>Entorno y archivos</h2><p>{html.escape(profile['environment'])}.</p><ul>{''.join(f'<li><code>{html.escape(name)}</code></li>' for name in profile['files'])}<li><code>activity.yaml</code></li><li><code>rubric.json</code></li></ul></section><section><h2>Actividad</h2><p>Enmarca el problema, separa evidencia de supuestos, compara tres opciones, produce el artefacto, provoca un fallo seguro, solicita revisión y revisa la decisión.</p></section><section><h2>Fuentes oficiales o primarias</h2><ul>{source_items}</ul><p>Verificadas el {VERIFIED_ON}.</p></section><section><h2>Material completo</h2><p><a href="{repository_url}">Abrir la guía íntegra, el contrato de actividad y la rúbrica en GitHub</a>.</p></section></main><footer>Software Engineering Learning Suite · Fase 3</footer></body></html>\n"""
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador pedagógico completo {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> contenido completo del borrador publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p></main><footer>Software Engineering Learning Suite · Fase 3 en reconstrucción</footer></body></html>\n"""
 
 
 def expected_files(program: dict) -> dict[Path, str]:
     result = {ROOT / "sources/phase3.json": dump_json(source_catalog(program))}
     entries = context(program)
     for part in program["parts"]:
-        if part["stage"] not in TARGET_STAGES:
+        if part["lessons"][-1]["number"] > TARGET_LAST_CLASS:
             continue
         for lesson in part["lessons"]:
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
-            result[directory / "README.md"] = lesson_readme(part, lesson, previous, following)
+            markdown = lesson_readme(part, lesson, previous, following)
+            result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = dump_json(activity(part, lesson))
             result[directory / "rubric.json"] = dump_json(rubric(part, lesson))
-            result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(part, lesson)
+            result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(part, lesson, markdown)
     return result
 
 
@@ -372,7 +483,7 @@ def main() -> int:
         print("PHASE3_STALE: " + ", ".join(stale[:30]), file=sys.stderr)
         return 1
     action = "PHASE3_CHECK_OK" if args.check else "PHASE3_BUILD_OK"
-    print(f"{action}: 156 GUIDED classes, 312 activity/rubric contracts, 156 guided web pages")
+    print(f"{action}: 180 reviewed-scope drafts, 360 activity/rubric contracts, 0 classes approved")
     return 0
 
 

@@ -111,7 +111,7 @@ def class_scaffold(part: dict, lesson: dict, source_ids: list[str]) -> str:
 | Etapa | {part['stage']} · {part['stage_title']} |
 | Parte | {part['id']} · {part['title']} |
 | Tipo | `{lesson['kind']}` |
-| Propietario profundo | `{part['owner']}` |
+| Dominio técnico principal | `{part['owner']}` |
 | Horas estimadas | {lesson['estimated_hours']} |
 
 ## Prerrequisitos
@@ -211,7 +211,7 @@ def part_index(part: dict) -> str:
     return f"""# Parte {part['id']} — {part['title']}
 
 - **Etapa:** {part['stage']} · {part['stage_title']}
-- **Propietario profundo:** `{part['owner']}`
+- **Dominio técnico principal:** `{part['owner']}`
 - **Estado:** {status_text}.
 
 | ID | Clase | Tipo | Horas | Estado |
@@ -280,28 +280,30 @@ def status_document(program: dict) -> str:
     )
     guided = statuses.get("GUIDED", 0)
     planned = statuses.get("PLANNED", 0)
+    target = program.get("phase_3_target", {"classes": 0, "approved": 0})
     return f"""# Estado verificable
 
 Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 
 | Superficie | Estado actual |
 | --- | --- |
-| Arquitectura | fases 1, 2 y 3 completadas |
+| Arquitectura | fases 1 y 2 completadas; fase 3 en reconstrucción cualitativa |
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
 | Clases | {guided} `GUIDED`; {planned} `PLANNED` |
+| Objetivo de fase 3 | {target['classes']} clases (`SE-001`–`SE-180`); {target['approved']} aprobadas contra el estándar profundo |
 | Horas | {program['estimated_hours']:,} estimadas; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
-| Portal definitivo | catálogo navegable con contenido de fase 3 y estados de madurez |
+| Portal definitivo | catálogo navegable; borradores visibles sin presentarlos como clases aprobadas |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado
 
-La fase 3 desarrolla fundamentos y producto/especificación como guías pedagógicas.
-`GUIDED` confirma explicación, práctica, ejercicios, fuentes y evaluación; no afirma
-que exista ejecución automática. Las demás clases conservan deliberadamente `PLANNED`.
+La fase 3 fue reabierta después de una auditoría contra el estándar permanente de
+los programas educativos. Los borradores generados no equivalen a clases construidas.
+Una clase solo avanzará a `GUIDED` tras revisión cualitativa completa, clase por clase.
 """.replace("2,160", "2.160")
 
 
@@ -317,9 +319,9 @@ def file_index(program: dict) -> str:
 | Materiales de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |
 | Fuentes por clase | `sources/class-sources.json` | {program['class_count']} entradas |
-| Fuentes verificadas de fase 3 | `sources/phase3.json` | 13 partes |
-| Contratos de actividad | `classes/part-*/se-*/activity.yaml` | 156 |
-| Rúbricas | `classes/part-*/se-*/rubric.json` | 156 |
+| Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
+| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 borradores |
+| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.
@@ -327,7 +329,7 @@ Todos los conteos se validan contra `curriculum.yaml`.
 
 
 def site_css() -> str:
-    return """:root{color-scheme:dark;--bg:#071016;--panel:#101b23;--ink:#f4f2eb;--muted:#a8b4bd;--line:#293943;--aqua:#69e2d0;--orange:#ff8c42;--max:1180px;font-family:Inter,ui-sans-serif,system-ui,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6}a{color:var(--aqua)}.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:white;color:#111;padding:.7rem;z-index:4}.hero{padding:clamp(3rem,8vw,7rem) max(1rem,calc((100% - var(--max))/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 85% 10%,#16413f,transparent 35%)}.eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.15em;font-weight:800}.hero h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.92;letter-spacing:-.055em;margin:.7rem 0}.hero p{max-width:760px;color:var(--muted)}.metrics,.stage-grid,.class-grid{display:grid;gap:1rem}.metrics{grid-template-columns:repeat(4,1fr);margin-top:2rem}.metric,.stage,.class-card,.notice{background:var(--panel);border:1px solid var(--line);padding:1.2rem}.metric strong{display:block;color:var(--aqua);font-size:1.8rem}.metric span,.meta{color:var(--muted)}main{width:min(var(--max),calc(100% - 2rem));margin:auto;padding:3rem 0 6rem}h2{font-size:clamp(1.8rem,4vw,3.6rem);line-height:1;margin:4rem 0 1.5rem}.stage-grid{grid-template-columns:repeat(2,1fr)}.stage h3{margin:.2rem 0}.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:1rem;position:sticky;top:0;background:rgba(7,16,22,.95);padding:1rem 0;z-index:2}.toolbar input,.toolbar select{width:100%;background:#0b151c;border:1px solid var(--line);color:var(--ink);padding:.8rem;border-radius:.4rem;font:inherit}.class-grid{grid-template-columns:repeat(3,1fr)}.class-card h3{font-size:1.05rem;margin:.4rem 0}.badge{display:inline-block;border:1px solid #3f5a64;border-radius:999px;padding:.15rem .55rem;font-size:.75rem;color:var(--muted)}.notice{border-color:#74512c}.back{display:inline-block;margin:1rem 0}.lesson-list{padding:0;list-style:none}.lesson-list li{border-bottom:1px solid var(--line);padding:.8rem 0}.lesson{max-width:860px}.lesson section{border-top:1px solid var(--line);margin-top:2rem;padding-top:1rem}footer{border-top:1px solid var(--line);padding:2rem;text-align:center;color:var(--muted)}@media(max-width:800px){.metrics,.class-grid{grid-template-columns:repeat(2,1fr)}.stage-grid{grid-template-columns:1fr}}@media(max-width:520px){.metrics,.class-grid,.toolbar{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}\n"""
+    return """:root{color-scheme:dark;--bg:#071016;--panel:#101b23;--ink:#f4f2eb;--muted:#a8b4bd;--line:#293943;--aqua:#69e2d0;--orange:#ff8c42;--max:1180px;font-family:Inter,ui-sans-serif,system-ui,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.7}a{color:var(--aqua)}.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:white;color:#111;padding:.7rem;z-index:4}.hero{padding:clamp(3rem,8vw,7rem) max(1rem,calc((100% - var(--max))/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 85% 10%,#16413f,transparent 35%)}.eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.15em;font-weight:800}.hero h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.92;letter-spacing:-.055em;margin:.7rem 0}.hero p{max-width:760px;color:var(--muted)}.metrics,.stage-grid,.class-grid{display:grid;gap:1rem}.metrics{grid-template-columns:repeat(4,1fr);margin-top:2rem}.metric,.stage,.class-card,.notice,.lesson-toc,.callout{background:var(--panel);border:1px solid var(--line);padding:1.2rem}.metric strong{display:block;color:var(--aqua);font-size:1.8rem}.metric span,.meta{color:var(--muted)}main{width:min(var(--max),calc(100% - 2rem));margin:auto;padding:3rem 0 6rem}h2{font-size:clamp(1.8rem,4vw,3.6rem);line-height:1.08;margin:4rem 0 1.5rem}.stage-grid{grid-template-columns:repeat(2,1fr)}.stage h3{margin:.2rem 0}.toolbar{display:grid;grid-template-columns:2fr 1fr;gap:1rem;position:sticky;top:0;background:rgba(7,16,22,.95);padding:1rem 0;z-index:2}.toolbar input,.toolbar select{width:100%;background:#0b151c;border:1px solid var(--line);color:var(--ink);padding:.8rem;border-radius:.4rem;font:inherit}.class-grid{grid-template-columns:repeat(3,1fr)}.class-card h3{font-size:1.05rem;margin:.4rem 0}.badge{display:inline-block;border:1px solid #3f5a64;border-radius:999px;padding:.15rem .55rem;font-size:.75rem;color:var(--muted)}.notice{border-color:#74512c}.back{display:inline-block;margin:1rem 0}.lesson-list{padding:0;list-style:none}.lesson-list li{border-bottom:1px solid var(--line);padding:.8rem 0}.lesson{max-width:980px}.lesson-toc{margin:2rem 0}.lesson-toc ol{columns:2}.lesson-content h2{border-top:1px solid var(--line);padding-top:2rem}.lesson-content h3{color:var(--aqua);margin-top:2rem}.lesson-content p{max-width:78ch}.lesson-content li{margin:.35rem 0}.table-wrap{overflow-x:auto;margin:1.5rem 0}.lesson-content table{border-collapse:collapse;width:100%}.lesson-content th,.lesson-content td{border:1px solid var(--line);padding:.7rem;text-align:left;vertical-align:top}.lesson-content th{background:#152630}.lesson-content pre{overflow:auto;background:#03080b;border:1px solid var(--line);padding:1rem;border-radius:.4rem}.lesson-content code{background:#152630;padding:.12rem .3rem;border-radius:.25rem}.lesson-content pre code{background:transparent;padding:0}.callout{border-left:4px solid var(--orange);margin:1rem 0}.source-link{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line)}footer{border-top:1px solid var(--line);padding:2rem;text-align:center;color:var(--muted)}@media(max-width:800px){.metrics,.class-grid{grid-template-columns:repeat(2,1fr)}.stage-grid{grid-template-columns:1fr}.lesson-toc ol{columns:1}}@media(max-width:520px){.metrics,.class-grid,.toolbar{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}\n"""
 
 
 def site_js() -> str:
@@ -352,12 +354,12 @@ def site_index(program: dict) -> str:
         )
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Programa verificable de ingeniería de software: 156 guías construidas, 324 clases planificadas, SPEC, IA y agentes.">
+<meta name="description" content="Programa profesional de ingeniería de software: 480 clases planificadas; fase 3 reconstruye SE-001 a SE-180 con estándar pedagógico profundo.">
 <title>Software Engineering Learning Suite</title><link rel="stylesheet" href="assets/styles.css"></head>
 <body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><p class="eyebrow">Programa profesional · fase 3</p>
 <h1>Software Engineering<br>Learning Suite</h1><p>Del problema al producto operable: fundamentos, construcción, arquitectura, calidad, operación, SPEC e ingeniería con agentes.</p>
-<div class="metrics"><div class="metric"><strong>8</strong><span>etapas</span></div><div class="metric"><strong>40</strong><span>partes</span></div><div class="metric"><strong>156</strong><span>clases guiadas</span></div><div class="metric"><strong>324</strong><span>clases planificadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Estado honesto:</strong> 156 clases de fundamentos y producto/especificación están <code>GUIDED</code>; las otras 324 siguen <code>PLANNED</code>.</div>
+<div class="metrics"><div class="metric"><strong>8</strong><span>etapas</span></div><div class="metric"><strong>40</strong><span>partes</span></div><div class="metric"><strong>180</strong><span>objetivo fase 3</span></div><div class="metric"><strong>0</strong><span>aprobadas todavía</span></div></div></header>
+<main id="content"><div class="notice"><strong>Estado honesto:</strong> la fase 3 está en reconstrucción. Los borradores de <code>SE-001</code> a <code>SE-180</code> son visibles, pero ninguna clase está aprobada aún contra el estándar pedagógico profundo.</div>
 <h2>Ocho etapas</h2><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
@@ -370,8 +372,13 @@ def part_page(part: dict) -> str:
         f'<span class="badge">{lesson["status"]}</span></li>' for lesson in part["lessons"]
     )
     guided = sum(lesson["status"] == "GUIDED" for lesson in part["lessons"])
-    state = "Doce guías pedagógicas construidas." if guided == 12 else "Contenido planificado para una fase posterior."
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Propietario profundo: {html.escape(part['owner'])}</p><div class="notice">{state}</div><ol class="lesson-list">{items}</ol></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
+    if guided == 12:
+        state = "Doce guías pedagógicas construidas."
+    elif part["lessons"][-1]["number"] <= 180:
+        state = "Fase 3 en reconstrucción: doce borradores visibles, todavía sin aprobación pedagógica."
+    else:
+        state = "Contenido planificado para una fase posterior."
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Dominio técnico principal: {html.escape(part['owner'])}</p><div class="notice">{state}</div><ol class="lesson-list">{items}</ol></main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
 
 
 def class_page(part: dict, lesson: dict, source_ids: list[str]) -> str:
@@ -412,7 +419,13 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             scaffold_path = lesson_dir / "README.md"
             if check:
                 validate_scaffold(scaffold_path, lesson, failures)
-            elif not scaffold_path.exists():
+            elif (
+                not scaffold_path.exists()
+                or (
+                    lesson["number"] > 180
+                    and "Estado: **GUIDED**. Esta clase contiene" in scaffold_path.read_text(encoding="utf-8")
+                )
+            ):
                 scaffold_path.parent.mkdir(parents=True, exist_ok=True)
                 scaffold_path.write_text(class_scaffold(part, lesson, source_ids), encoding="utf-8", newline="\n")
             write_generated(
@@ -421,7 +434,8 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 check,
                 stale,
             )
-            if lesson["status"] == "PLANNED":
+            phase3_target = program.get("phase_3_target", {}).get("classes", 0)
+            if lesson["status"] == "PLANNED" and lesson["number"] > phase3_target:
                 write_generated(
                     ROOT / "site/classes" / f"{lesson['id']}.html",
                     class_page(part, lesson, source_ids),

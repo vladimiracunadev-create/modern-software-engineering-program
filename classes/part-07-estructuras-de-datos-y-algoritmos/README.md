@@ -1,7 +1,7 @@
 # Parte 07 — Estructuras de datos y algoritmos
 
 - **Etapa:** B · Programación y construcción
-- **Propietario profundo:** `polyglot-programming-labs`
+- **Dominio técnico principal:** `polyglot-programming-labs`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

@@ -1,6 +1,6 @@
 # Índice de clases
 
-> Estado verificable: 156 `GUIDED` · 324 `PLANNED`. `GUIDED` significa material pedagógico completo;
+> Estado verificable: 480 `PLANNED`. `GUIDED` significa material pedagógico completo;
 > no implica laboratorio ejecutable ni operación verificada.
 
 | Parte | Título | Etapa | Clases | Propietario |

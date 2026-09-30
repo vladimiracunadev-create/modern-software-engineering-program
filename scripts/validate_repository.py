@@ -11,6 +11,7 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "README.md",
+    "AGENTS.md",
     ".github/repository-metadata.json",
     "STATUS.md",
     "ROADMAP.md",
@@ -22,6 +23,7 @@ REQUIRED = [
     "classes/README.md",
     "manifest/repositories.json",
     "docs/PROGRAM-ARCHITECTURE.md",
+    "docs/PEDAGOGICAL-STANDARD.md",
     "docs/COVERAGE-MATRIX.md",
     "docs/REPOSITORY-BOUNDARIES.md",
     "docs/PUBLICATION-PLAN.md",
@@ -116,8 +118,7 @@ def validate_program_blueprint() -> None:
         kinds = [lesson["kind"] for lesson in part["lessons"]]
         if kinds != ["class"] * 10 + ["studio", "project"]:
             raise AssertionError(f"Part {part['id']} must have ten classes, one studio and one project")
-        expected_status = "GUIDED" if part["stage"] in {"A", "C"} else "PLANNED"
-        if any(lesson["status"] != expected_status for lesson in part["lessons"]):
+        if any(lesson["status"] != "PLANNED" for lesson in part["lessons"]):
             raise AssertionError(f"Unexpected phase 3 maturity in part {part['id']}")
     hours = sum(lesson["estimated_hours"] for lesson in lessons)
     if hours != payload["estimated_hours"]:
@@ -127,7 +128,13 @@ def validate_program_blueprint() -> None:
         "parts": 40,
         "classes": 480,
         "estimated_hours": hours,
-        "class_status": {"GUIDED": 156, "PLANNED": 324},
+        "class_status": {"PLANNED": 480},
+        "phase_3_target": {
+            "first_class": "SE-001",
+            "last_class": "SE-180",
+            "classes": 180,
+            "approved": 0,
+        },
     }
     for key, value in expected_catalog.items():
         if catalog.get(key) != value:
@@ -178,8 +185,8 @@ def validate_sources() -> None:
 
     phase3 = read_json("sources/phase3.json")
     phase3_ids = {source["id"] for source in phase3.get("sources", [])}
-    if len(phase3_ids) < 20 or len(phase3.get("parts", {})) != 13:
-        raise AssertionError("Phase 3 source registry must cover 13 parts with at least 20 sources")
+    if len(phase3_ids) < 20 or len(phase3.get("parts", {})) != 15:
+        raise AssertionError("Phase 3 source registry must cover 15 parts with at least 20 sources")
     if any(not set(items).issubset(phase3_ids) for items in phase3["parts"].values()):
         raise AssertionError("Phase 3 source registry contains unresolved IDs")
 
@@ -197,8 +204,8 @@ def validate_phase2_outputs() -> None:
         raise AssertionError(f"Expected 480 class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
     if len(pages) != 521:
         raise AssertionError(f"Expected 521 generated HTML pages, found {len(pages)}")
-    if len(activities) != 156 or len(rubrics) != 156:
-        raise AssertionError(f"Expected 156 phase 3 activities/rubrics, found {len(activities)}/{len(rubrics)}")
+    if len(activities) != 180 or len(rubrics) != 180:
+        raise AssertionError(f"Expected 180 phase 3 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
 
 def validate_blueprint() -> None:

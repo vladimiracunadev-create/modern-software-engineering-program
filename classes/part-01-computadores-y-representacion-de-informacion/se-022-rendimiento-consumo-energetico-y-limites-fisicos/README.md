@@ -1,7 +1,8 @@
 # SE-022 — Rendimiento, consumo energético y límites físicos
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 01 · Computadores y representación de información |
 | Modalidad | análisis guiado (`class`) |
-| Propietario profundo | `polyglot-programming-labs` |
+| Dominio técnico principal | `polyglot-programming-labs` |
 | Duración estimada | 4 horas |
 | Producto de la clase | cuaderno reproducible de representación y recursos |
 

@@ -1,7 +1,8 @@
 # SE-047 — Taller: seguir una petición de extremo a extremo
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 03 · Redes, Internet y protocolos |
 | Modalidad | taller de integración (`studio`) |
-| Propietario profundo | `suite` |
+| Dominio técnico principal | `suite` |
 | Duración estimada | 6 horas |
 | Producto de la clase | traza comentada de una comunicación |
 

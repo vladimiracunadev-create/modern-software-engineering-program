@@ -2,7 +2,7 @@
   "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json",
   "schema_version": 1,
   "verified_on": "2026-09-30",
-  "scope": "Fase 3: etapas A y C",
+  "scope": "Fase 3 en reconstrucción: SE-001 a SE-180",
   "policy": "Fuentes primarias u oficiales; la guía indica el uso pedagógico y evita atribuirles afirmaciones no contenidas.",
   "sources": [
     {
@@ -27,31 +27,10 @@
       "status": "verified"
     },
     {
-      "id": "C4",
-      "title": "C4 model",
-      "authority": "C4 model project",
-      "url": "https://c4model.com/",
-      "status": "verified"
-    },
-    {
-      "id": "DIATAXIS",
-      "title": "Diátaxis documentation framework",
-      "authority": "Diátaxis project",
-      "url": "https://diataxis.fr/",
-      "status": "verified"
-    },
-    {
-      "id": "GIT",
-      "title": "Git documentation",
-      "authority": "Git project",
-      "url": "https://git-scm.com/docs",
-      "status": "verified"
-    },
-    {
-      "id": "GITHUB-COLLAB",
-      "title": "Collaborating with pull requests",
-      "authority": "GitHub",
-      "url": "https://docs.github.com/pull-requests/collaborating-with-pull-requests",
+      "id": "DEVCONTAINERS",
+      "title": "Development Containers Specification",
+      "authority": "Dev Container Specification maintainers",
+      "url": "https://containers.dev/implementors/spec/",
       "status": "verified"
     },
     {
@@ -80,13 +59,6 @@
       "title": "ISO/IEC/IEEE 29148:2018 Requirements Engineering",
       "authority": "ISO",
       "url": "https://www.iso.org/standard/72089.html",
-      "status": "verified"
-    },
-    {
-      "id": "KANBAN",
-      "title": "The Kanban Guide",
-      "authority": "Kanban Guides",
-      "url": "https://kanbanguides.org/english/",
       "status": "verified"
     },
     {
@@ -125,6 +97,13 @@
       "status": "verified"
     },
     {
+      "id": "PYTHON",
+      "title": "Python 3 documentation",
+      "authority": "Python Software Foundation",
+      "url": "https://docs.python.org/3/",
+      "status": "verified"
+    },
+    {
       "id": "RFC-8200",
       "title": "Internet Protocol, Version 6",
       "authority": "IETF",
@@ -153,10 +132,17 @@
       "status": "verified"
     },
     {
-      "id": "SCRUM",
-      "title": "The Scrum Guide",
-      "authority": "Scrum Guide authors",
-      "url": "https://scrumguides.org/scrum-guide.html",
+      "id": "SEMVER",
+      "title": "Semantic Versioning 2.0.0",
+      "authority": "Semantic Versioning project",
+      "url": "https://semver.org/",
+      "status": "verified"
+    },
+    {
+      "id": "SPDX",
+      "title": "SPDX License List",
+      "authority": "Linux Foundation",
+      "url": "https://spdx.org/licenses/",
       "status": "verified"
     },
     {
@@ -221,6 +207,30 @@
       "MIT-MATH-CS",
       "SWEBOK-4A"
     ],
+    "05": [
+      "PYTHON",
+      "SWEBOK-4A"
+    ],
+    "06": [
+      "PYTHON",
+      "SWEBOK-4A"
+    ],
+    "07": [
+      "MIT-MATH-CS",
+      "PYTHON",
+      "SWEBOK-4A"
+    ],
+    "08": [
+      "PYTHON",
+      "DEVCONTAINERS",
+      "SWEBOK-4A"
+    ],
+    "09": [
+      "PYTHON",
+      "SEMVER",
+      "SPDX",
+      "SWEBOK-4A"
+    ],
     "10": [
       "GOV-RESEARCH",
       "NIST-PRIVACY",
@@ -245,21 +255,6 @@
       "WCAG-22",
       "W3C-I18N",
       "NIST-PRIVACY"
-    ],
-    "15": [
-      "SCRUM",
-      "KANBAN",
-      "SWEBOK-4A"
-    ],
-    "16": [
-      "GIT",
-      "GITHUB-COLLAB",
-      "ACM-ETHICS"
-    ],
-    "17": [
-      "DIATAXIS",
-      "C4",
-      "SWEBOK-4A"
     ]
   }
 }

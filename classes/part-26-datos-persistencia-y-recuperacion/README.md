@@ -1,7 +1,7 @@
 # Parte 26 — Datos, persistencia y recuperación
 
 - **Etapa:** E · Diseño, arquitectura, datos e integración
-- **Propietario profundo:** `database-systems-labs`
+- **Dominio técnico principal:** `database-systems-labs`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

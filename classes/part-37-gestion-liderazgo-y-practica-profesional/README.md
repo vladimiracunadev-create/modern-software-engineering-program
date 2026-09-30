@@ -1,7 +1,7 @@
 # Parte 37 — Gestión, liderazgo y práctica profesional
 
 - **Etapa:** G · Operación, evolución y liderazgo
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

@@ -2,7 +2,15 @@
 
 ## Unreleased — fase 3
 
-### Fase 3 — fundamentos, producto y especificación
+### Corrección de integridad pedagógica
+
+- fase 3 reabierta con alcance correcto de 180 clases (`SE-001`–`SE-180`);
+- retiro de la afirmación incorrecta de 156 clases `GUIDED`;
+- incorporación del estándar pedagógico permanente y gate cualitativo;
+- publicación del contenido completo de cada borrador en lugar de fichas resumidas;
+- estados actuales devueltos a `PLANNED` hasta revisión clase por clase.
+
+### Fase 3 — declaración anterior, sustituida por la corrección
 
 - 156 clases de las etapas A y C elevadas a `GUIDED`;
 - guías específicas con conceptos, ejemplos, prácticas, ejercicios y fallos controlados;

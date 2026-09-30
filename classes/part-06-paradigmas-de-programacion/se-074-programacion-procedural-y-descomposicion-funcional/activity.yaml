@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "schema_version": 1,
+  "class_id": "SE-074",
+  "status": "PLANNED",
+  "mode": "class",
+  "environment": "Python 3.11+ y un segundo lenguaje elegido",
+  "duration_hours": 4,
+  "steps": [
+    "frame-problem",
+    "separate-evidence",
+    "compare-options",
+    "produce-artifact",
+    "inject-safe-failure",
+    "peer-review",
+    "revise"
+  ],
+  "outputs": [
+    "case.md",
+    "implementation-a.py",
+    "comparison.md"
+  ],
+  "safety": {
+    "real_personal_data": false,
+    "production_access": false,
+    "secrets": false
+  },
+  "source_ids": [
+    "PYTHON",
+    "SWEBOK-4A"
+  ]
+}

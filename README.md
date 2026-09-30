@@ -2,25 +2,30 @@
 
 # 🧭 Software Engineering Learning Suite
 
-## **8 etapas · 40 partes · 156 clases guiadas · 324 planificadas**
+## **480 clases · 40 partes · de fundamentos a IA y sistemas multiagente**
 
-**Programa integral y verificable para aprender a descubrir, especificar, construir,
-probar, entregar, operar, recuperar y evolucionar software — desde los fundamentos
-de computación hasta SPEC, desarrollo asistido por IA y sistemas multiagente.**
+**Programa profesional de ingeniería de software en español: fundamentos,
+programación, producto, SPEC, arquitectura, calidad, seguridad, DevOps, SRE,
+desarrollo asistido por IA y sistemas multiagente.**
+
+[📚 Índice de clases](classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado verificable](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
+
+---
 
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
-[![Estado](https://img.shields.io/badge/fase%203-completada-2e8b57?style=flat-square)](STATUS.md)
-[![Clases](https://img.shields.io/badge/clases-156%20GUIDED%20%7C%20324%20PLANNED-7c5cff?style=flat-square)](curriculum.yaml)
+[![Estado](https://img.shields.io/badge/fase%203-en%20reconstrucción-c47f17?style=flat-square)](STATUS.md)
+[![Clases](https://img.shields.io/badge/objetivo%20fase%203-180%20clases-7c5cff?style=flat-square)](curriculum.yaml)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![License](https://img.shields.io/badge/license-MIT-3fb950?style=flat-square)](LICENSE)
 
 </div>
 
-> [!IMPORTANT]
-> Las 156 clases de fundamentos y producto/especificación están en estado `GUIDED`:
-> incluyen explicación, práctica, ejercicios, evaluación y fuentes. No se presentan
-> como laboratorios ejecutables. Las otras 324 conservan el estado `PLANNED`.
+> [!WARNING]
+> La fase 3 está **en reconstrucción cualitativa**. Su alcance correcto es
+> `SE-001`–`SE-180`. Los 180 borradores son públicos para auditoría, pero hay
+> **0 clases aprobadas** contra el estándar pedagógico profundo. Ninguna se presenta
+> como terminada por tener muchas secciones, palabras o archivos generados.
 
 ## Qué es
 
@@ -38,6 +43,19 @@ frameworks pertenece a repositorios especializados.
 
 Las fronteras y reglas antiduplicación están en
 [docs/REPOSITORY-BOUNDARIES.md](docs/REPOSITORY-BOUNDARIES.md).
+
+## Estándar pedagógico
+
+Cada clase aprobada debe enseñar el tema completo, no resumirlo. El contrato exige
+objetivo, resultados verificables, tabla de temas, explicación desde primeros
+principios, definiciones, glosario, diagrama interpretado, preparación, laboratorio,
+ejercicios, reto con aceptación, errores síntoma→causa→solución, FAQ y fuentes
+trazables. El gate completo está en
+[docs/PEDAGOGICAL-STANDARD.md](docs/PEDAGOGICAL-STANDARD.md).
+
+La referencia de profundidad es la
+[Parte 6 de modern-cybersecurity-program](https://github.com/vladimiracunadev-create/modern-cybersecurity-program/tree/main/classes/parte-6-analisis-de-malware).
+Se replica su calidad docente, no su contenido ni una cuota de palabras.
 
 ## Recorrido
 
@@ -68,7 +86,7 @@ La matriz precisa se encuentra en [docs/COVERAGE-MATRIX.md](docs/COVERAGE-MATRIX
 
 ## Estado verificable
 
-Las fases 1, 2 y 3 están resueltas:
+Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría:
 
 - arquitectura de ocho etapas;
 - 40 partes con doce clases cada una;
@@ -84,15 +102,14 @@ Las fases 1, 2 y 3 están resueltas:
 - sitio estático con 521 páginas, búsqueda y filtros;
 - validadores dedicados de contratos y UTF-8;
 - workflow separado para GitHub Pages.
-- 156 guías pedagógicas completas para las etapas A y C;
-- 156 contratos de actividad y 156 rúbricas legibles por máquinas;
-- 27 fuentes primarias u oficiales organizadas por parte;
-- contenido específico con ejemplos, práctica, tres ejercicios, fallos controlados,
-  archivos clave, entorno, transferencia y criterios de evidencia;
-- validador de madurez que impide declarar `GUIDED` a una clase incompleta.
+- alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
+- 180 borradores, actividades y rúbricas visibles para revisión;
+- contenido completo del borrador publicado en Pages, no una ficha-resumen;
+- 0 clases `GUIDED` hasta completar revisión cualitativa clase por clase;
+- instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
 
-`GUIDED` no significa `EXECUTABLE`, `TESTED` u `OPERABLE`. Las fases siguientes
-construyen las 324 clases restantes y elevan laboratorios y proyectos con ejecución real.
+`GUIDED` no significa `EXECUTABLE`, `TESTED` u `OPERABLE`; tampoco se concede por
+generación automática. El estado actual y los conteos viven en [STATUS.md](STATUS.md).
 
 ## Validación local
 
@@ -115,7 +132,7 @@ python -m unittest discover -s tests -v
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       métricas canónicas de estado
-classes/           480 clases; 156 con guía, actividad y rúbrica
+classes/           480 clases; 180 borradores en revisión de fase 3
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios

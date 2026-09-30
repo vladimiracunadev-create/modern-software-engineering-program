@@ -1,7 +1,7 @@
 # Parte 08 — Entornos, herramientas y depuración
 
 - **Etapa:** B · Programación y construcción
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

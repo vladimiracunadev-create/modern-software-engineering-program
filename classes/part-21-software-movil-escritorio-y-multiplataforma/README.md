@@ -1,7 +1,7 @@
 # Parte 21 — Software móvil, escritorio y multiplataforma
 
 - **Etapa:** D · Superficies y formas de software
-- **Propietario profundo:** `framework-ecosystems-labs`
+- **Dominio técnico principal:** `framework-ecosystems-labs`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

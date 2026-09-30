@@ -1,7 +1,8 @@
 # SE-180 — Proyecto: prototipo accesible evaluado con usuarios
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | C · Producto, requisitos y especificación |
 | Parte | 14 · Experiencia, accesibilidad e internacionalización |
 | Modalidad | proyecto de portafolio (`project`) |
-| Propietario profundo | `suite` |
+| Dominio técnico principal | `suite` |
 | Duración estimada | 8 horas |
 | Producto de la clase | prototipo y auditoría de inclusión |
 

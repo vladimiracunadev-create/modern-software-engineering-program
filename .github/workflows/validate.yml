@@ -39,13 +39,13 @@ jobs:
       - name: Verify scaffolds, indices, sources and site
         run: python scripts/build_phase2.py --check
 
-      - name: Verify phase 3 guided content
+      - name: Verify phase 3 draft scope and generated publication
         run: python scripts/build_phase3.py --check
 
       - name: Validate class contracts
         run: python scripts/validate_class_contracts.py
 
-      - name: Validate phase 3 maturity and evidence
+      - name: Validate phase 3 integrity without false maturity claims
         run: python scripts/validate_phase3.py
 
       - name: Validate UTF-8 encoding

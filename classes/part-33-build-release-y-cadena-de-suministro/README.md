@@ -1,7 +1,7 @@
 # Parte 33 — Build, release y cadena de suministro
 
 - **Etapa:** F · Calidad, seguridad y entrega
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

@@ -35,16 +35,17 @@ Resultado verificable: 480 scaffolds, 480 metadatos, 480 registros de fuentes,
 40 índices de parte, 521 páginas HTML y diez pruebas estructurales. El contenido de
 las clases continúa correctamente marcado `PLANNED`.
 
-## Fase 3 — Fundamentos, producto y especificación — completada 2026-09-30
+## Fase 3 — 180 clases profesionales — reabierta 2026-09-30
 
-- etapas A y C elevadas de `PLANNED` a `GUIDED`;
-- 156 guías con explicación, ejemplos, práctica, ejercicios y diagnóstico;
-- contratos de actividad, rúbricas, entornos y archivos clave por clase;
-- fuentes primarias u oficiales verificadas y organizadas por parte;
-- portal y controles de madurez actualizados sin afirmar ejecución inexistente.
+- alcance: `SE-001`–`SE-180`, partes 00–14;
+- revisión parte por parte contra `docs/PEDAGOGICAL-STANDARD.md`;
+- contenido íntegro de cada clase visible en GitHub Pages;
+- fuentes vinculadas a afirmaciones, temario completamente desarrollado y práctica reproducible;
+- un commit independiente por parte, con CI y revisión cualitativa.
 
-Resultado verificable: 156 clases `GUIDED`, 324 `PLANNED`, 156 actividades,
-156 rúbricas, 521 páginas y quince pruebas estructurales.
+Estado verificable: 180 borradores públicos, 0 clases aprobadas y 480 clases
+`PLANNED`. La declaración anterior de 156 clases `GUIDED` fue retirada porque la
+estructura generada no alcanzaba el estándar pedagógico permanente.
 
 ## Fases 4–6 — Construcción restante del programa
 

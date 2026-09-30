@@ -1,7 +1,8 @@
 # SE-060 — Proyecto: especificación y solución contrastable
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 04 · Pensamiento computacional y resolución de problemas |
 | Modalidad | proyecto de portafolio (`project`) |
-| Propietario profundo | `polyglot-programming-labs` |
+| Dominio técnico principal | `polyglot-programming-labs` |
 | Duración estimada | 8 horas |
 | Producto de la clase | especificación contrastable de una solución |
 

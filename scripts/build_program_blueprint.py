@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 
-PHASE_3_STAGES = {"A", "C"}
+PHASE_3_TARGET_END = 180
 
 STAGES = [
     ("A", "Fundamentos de la profesión"),
@@ -618,7 +618,7 @@ def build_payload() -> dict:
                 "title": lesson_title,
                 "kind": kind,
                 "estimated_hours": hours,
-                "status": "GUIDED" if stage_id in PHASE_3_STAGES else "PLANNED",
+                "status": "PLANNED",
                 "path": f"{part_path}/{lesson_id.lower()}-{lesson_slug}",
             })
             lesson_number += 1
@@ -636,7 +636,13 @@ def build_payload() -> dict:
         "program": "software-engineering-learning-suite",
         "language": "es",
         "baseline_date": "2026-09-30",
-        "status": "PHASE_3_GUIDED",
+        "status": "PHASE_3_REBUILDING",
+        "phase_3_target": {
+            "first_class": "SE-001",
+            "last_class": f"SE-{PHASE_3_TARGET_END:03d}",
+            "classes": PHASE_3_TARGET_END,
+            "approved": 0,
+        },
         "part_count": len(parts),
         "class_count": sum(len(part["lessons"]) for part in parts),
         "estimated_hours": sum(
@@ -677,6 +683,7 @@ def main() -> int:
         "classes": payload["class_count"],
         "estimated_hours": payload["estimated_hours"],
         "class_status": dict(sorted(class_status.items())),
+        "phase_3_target": payload["phase_3_target"],
     }
     targets = [
         (OUTPUT, render(payload)),

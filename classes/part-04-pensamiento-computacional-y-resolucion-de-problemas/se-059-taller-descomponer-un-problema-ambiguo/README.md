@@ -1,7 +1,8 @@
 # SE-059 — Taller: descomponer un problema ambiguo
 
-> [!NOTE]
-> Estado: **GUIDED**. Esta clase contiene explicación, práctica, ejercicios, evaluación y fuentes. No afirma ejecución automática; esa madurez requiere `EXECUTABLE` o superior.
+> [!WARNING]
+> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
+> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
 
 ## Ficha
 
@@ -10,7 +11,7 @@
 | Etapa | A · Fundamentos de la profesión |
 | Parte | 04 · Pensamiento computacional y resolución de problemas |
 | Modalidad | taller de integración (`studio`) |
-| Propietario profundo | `polyglot-programming-labs` |
+| Dominio técnico principal | `polyglot-programming-labs` |
 | Duración estimada | 6 horas |
 | Producto de la clase | especificación contrastable de una solución |
 

@@ -9,9 +9,9 @@
 | Materiales de clase | `classes/part-*/se-*/README.md` | 480 |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | 480 |
 | Fuentes por clase | `sources/class-sources.json` | 480 entradas |
-| Fuentes verificadas de fase 3 | `sources/phase3.json` | 13 partes |
-| Contratos de actividad | `classes/part-*/se-*/activity.yaml` | 156 |
-| Rúbricas | `classes/part-*/se-*/rubric.json` | 156 |
+| Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
+| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 borradores |
+| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

@@ -1,7 +1,7 @@
 # Parte 38 — Desarrollo de software asistido por IA
 
 - **Etapa:** H · Ingeniería de software nativa con IA
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -27,15 +26,15 @@ def main() -> int:
     statuses = Counter()
     hashes = set()
     failures: list[str] = []
-    guided_count = 0
+    draft_count = 0
 
     for part in program["parts"]:
         for lesson in part["lessons"]:
             statuses[lesson["status"]] += 1
             directory = ROOT / lesson["path"]
-            if lesson["status"] != "GUIDED":
+            if lesson["number"] > 180:
                 continue
-            guided_count += 1
+            draft_count += 1
             readme = directory / "README.md"
             activity_path = directory / "activity.yaml"
             rubric_path = directory / "rubric.json"
@@ -45,14 +44,11 @@ def main() -> int:
             if not all(path.is_file() for path in (readme, activity_path, rubric_path)):
                 continue
             text = readme.read_text(encoding="utf-8")
-            if "Estado: **GUIDED**" not in text or "Pendiente de desarrollar" in text:
+            if "Estado: **PLANNED · BORRADOR EN REVISIÓN**" not in text or "Pendiente de desarrollar" in text:
                 failures.append(f"invalid maturity content: {lesson['id']}")
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
                 failures.append(f"missing sections {lesson['id']}: {missing}")
-            word_count = len(re.findall(r"\b[\wÁÉÍÓÚÜÑáéíóúüñ]+\b", text))
-            if word_count < 850:
-                failures.append(f"class too short {lesson['id']}: {word_count} words")
             digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
             if digest in hashes:
                 failures.append(f"duplicate class document: {lesson['id']}")
@@ -60,7 +56,7 @@ def main() -> int:
 
             activity = json.loads(activity_path.read_text(encoding="utf-8"))
             rubric = json.loads(rubric_path.read_text(encoding="utf-8"))
-            if activity.get("class_id") != lesson["id"] or activity.get("status") != "GUIDED":
+            if activity.get("class_id") != lesson["id"] or activity.get("status") != "PLANNED":
                 failures.append(f"activity contract drift: {lesson['id']}")
             if not set(activity.get("source_ids", [])).issubset(source_ids):
                 failures.append(f"unresolved phase 3 source: {lesson['id']}")
@@ -69,14 +65,14 @@ def main() -> int:
             if sum(item.get("max", 0) for item in rubric.get("criteria", [])) != rubric.get("maximum_score"):
                 failures.append(f"rubric score drift: {lesson['id']}")
 
-    if statuses != Counter({"PLANNED": 324, "GUIDED": 156}):
+    if statuses != Counter({"PLANNED": 480}):
         failures.append(f"unexpected maturity counts: {dict(statuses)}")
-    if guided_count != 156 or len(hashes) != 156:
-        failures.append(f"expected 156 unique guided classes, found {guided_count}/{len(hashes)}")
+    if draft_count != 180 or len(hashes) != 180:
+        failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
     if failures:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
-    print("PHASE3_OK: 156 GUIDED, 324 PLANNED, 156 unique guides and 312 contracts")
+    print("PHASE3_REBUILD_OK: 180 unique drafts audited, 0 GUIDED claims, 360 contracts")
     return 0
 
 

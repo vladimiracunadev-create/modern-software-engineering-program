@@ -7,7 +7,7 @@
   "properties": {
     "schema_version": {"const": 1},
     "program": {"const": "software-engineering-learning-suite"},
-    "status": {"enum": ["PHASE_1_SPECIFIED", "PHASE_3_GUIDED"]},
+    "status": {"enum": ["PHASE_1_SPECIFIED", "PHASE_3_REBUILDING", "PHASE_3_GUIDED"]},
     "part_count": {"const": 40},
     "class_count": {"const": 480},
     "estimated_hours": {"type": "integer", "minimum": 1},

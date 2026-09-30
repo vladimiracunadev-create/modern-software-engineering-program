@@ -1,7 +1,7 @@
 # Parte 34 — CI/CD, IaC y platform engineering
 
 - **Etapa:** F · Calidad, seguridad y entrega
-- **Propietario profundo:** `suite`
+- **Dominio técnico principal:** `suite`
 - **Estado:** 12 `PLANNED`.
 
 | ID | Clase | Tipo | Horas | Estado |

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "class_id": "SE-304",
+  "passing_score": 12,
+  "maximum_score": 16,
+  "criteria": [
+    {
+      "id": "understanding",
+      "max": 4,
+      "evidence": "example, counterexample and limits"
+    },
+    {
+      "id": "decision",
+      "max": 4,
+      "evidence": "options, criteria, risks and reversibility"
+    },
+    {
+      "id": "reproducibility",
+      "max": 4,
+      "evidence": "environment, files and review trail"
+    },
+    {
+      "id": "responsibility",
+      "max": 4,
+      "evidence": "security, privacy, accessibility and affected people"
+    }
+  ]
+}

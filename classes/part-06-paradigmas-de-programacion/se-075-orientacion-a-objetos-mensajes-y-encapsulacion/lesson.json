@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-075",
+  "title": "Orientación a objetos, mensajes y encapsulación",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion"
+}

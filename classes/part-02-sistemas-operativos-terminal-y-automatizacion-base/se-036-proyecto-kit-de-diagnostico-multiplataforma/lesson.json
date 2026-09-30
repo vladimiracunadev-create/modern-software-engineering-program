@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-036",
+  "title": "Proyecto: kit de diagnóstico multiplataforma",
+  "stage": "A",
+  "part": "02",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma"
+}

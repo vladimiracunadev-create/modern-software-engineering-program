@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-192",
+  "title": "Proyecto: plan adaptativo con evidencia y guardrails",
+  "stage": "C",
+  "part": "15",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-192-proyecto-plan-adaptativo-con-evidencia-y-guardrails"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-326",
+  "title": "Mensajes, eventos, comandos y documentos",
+  "stage": "E",
+  "part": "27",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos"
+}

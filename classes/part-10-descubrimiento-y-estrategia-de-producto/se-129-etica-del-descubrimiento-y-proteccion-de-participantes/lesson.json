@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-129",
+  "title": "Ética del descubrimiento y protección de participantes",
+  "stage": "C",
+  "part": "10",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-129-etica-del-descubrimiento-y-proteccion-de-participantes"
+}

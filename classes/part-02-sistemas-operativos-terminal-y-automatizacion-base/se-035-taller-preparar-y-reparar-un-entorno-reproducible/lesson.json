@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-035",
+  "title": "Taller: preparar y reparar un entorno reproducible",
+  "stage": "A",
+  "part": "02",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-081",
+  "title": "Programación concurrente y actores",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-215",
+  "title": "Taller: reconstruir conocimiento perdido",
+  "stage": "C",
+  "part": "17",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido"
+}

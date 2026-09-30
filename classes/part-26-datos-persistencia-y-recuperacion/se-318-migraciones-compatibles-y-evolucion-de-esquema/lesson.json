@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-318",
+  "title": "Migraciones compatibles y evolución de esquema",
+  "stage": "E",
+  "part": "26",
+  "kind": "class",
+  "owner": "database-systems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema"
+}

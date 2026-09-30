@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-239",
+  "title": "Taller: construir un flujo web resiliente",
+  "stage": "D",
+  "part": "19",
+  "kind": "studio",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente"
+}

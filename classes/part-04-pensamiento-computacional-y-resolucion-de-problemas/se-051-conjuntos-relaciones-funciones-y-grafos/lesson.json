@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-051",
+  "title": "Conjuntos, relaciones, funciones y grafos",
+  "stage": "A",
+  "part": "04",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos"
+}

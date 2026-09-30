@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-383",
+  "title": "Taller: someter un sistema a presión controlada",
+  "stage": "F",
+  "part": "31",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-383-taller-someter-un-sistema-a-presion-controlada"
+}

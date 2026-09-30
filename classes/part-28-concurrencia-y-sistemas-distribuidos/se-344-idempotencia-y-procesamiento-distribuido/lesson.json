@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-344",
+  "title": "Idempotencia y procesamiento distribuido",
+  "stage": "E",
+  "part": "28",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido"
+}

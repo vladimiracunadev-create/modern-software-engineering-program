@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "SE-467",
+  "title": "Taller: comparar flujos manual, asistido y automatizado",
+  "stage": "H",
+  "part": "38",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-AI-RMF",
+    "NIST-AI-600-1",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado"
+}

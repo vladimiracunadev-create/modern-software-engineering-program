@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-164",
+  "title": "Compatibilidad, versionado y evolución de contratos",
+  "stage": "C",
+  "part": "13",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos"
+}

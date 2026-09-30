@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-083",
+  "title": "Taller: una regla de negocio en cinco paradigmas",
+  "stage": "B",
+  "part": "06",
+  "kind": "studio",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas"
+}

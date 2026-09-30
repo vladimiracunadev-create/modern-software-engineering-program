@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-226",
+  "title": "Telemetría opt-in y privacidad en herramientas",
+  "stage": "D",
+  "part": "18",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas"
+}

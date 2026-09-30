@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-203",
+  "title": "Taller: rescatar una integración conflictiva",
+  "stage": "C",
+  "part": "16",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva"
+}

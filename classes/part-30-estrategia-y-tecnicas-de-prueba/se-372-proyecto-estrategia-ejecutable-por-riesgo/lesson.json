@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-372",
+  "title": "Proyecto: estrategia ejecutable por riesgo",
+  "stage": "F",
+  "part": "30",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo"
+}

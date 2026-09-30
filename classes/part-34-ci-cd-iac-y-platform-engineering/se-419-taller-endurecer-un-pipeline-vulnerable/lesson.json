@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-419",
+  "title": "Taller: endurecer un pipeline vulnerable",
+  "stage": "F",
+  "part": "34",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-419-taller-endurecer-un-pipeline-vulnerable"
+}

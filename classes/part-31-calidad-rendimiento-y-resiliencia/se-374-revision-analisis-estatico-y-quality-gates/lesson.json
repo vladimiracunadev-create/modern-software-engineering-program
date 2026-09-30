@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-374",
+  "title": "Revisión, análisis estático y quality gates",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-374-revision-analisis-estatico-y-quality-gates"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-100",
+  "title": "Compiladores, linters, formatters y análisis estático",
+  "stage": "B",
+  "part": "08",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-201",
+  "title": "Licencias de software y obligaciones básicas",
+  "stage": "C",
+  "part": "16",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas"
+}

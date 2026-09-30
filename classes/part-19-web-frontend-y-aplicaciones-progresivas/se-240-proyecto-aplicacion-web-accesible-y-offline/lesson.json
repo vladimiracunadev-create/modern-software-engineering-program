@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-240",
+  "title": "Proyecto: aplicación web accesible y offline",
+  "stage": "D",
+  "part": "19",
+  "kind": "project",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline"
+}

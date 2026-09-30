@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-155",
+  "title": "Taller: reparar requisitos no verificables",
+  "stage": "C",
+  "part": "12",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-12-ingenieria-de-requisitos/se-155-taller-reparar-requisitos-no-verificables"
+}

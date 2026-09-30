@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-131",
+  "title": "Taller: convertir una petición en un problema investigable",
+  "stage": "C",
+  "part": "10",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable"
+}

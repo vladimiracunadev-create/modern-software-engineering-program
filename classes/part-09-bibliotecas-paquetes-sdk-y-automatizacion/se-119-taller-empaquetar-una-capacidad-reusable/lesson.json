@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-119",
+  "title": "Taller: empaquetar una capacidad reusable",
+  "stage": "B",
+  "part": "09",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable"
+}

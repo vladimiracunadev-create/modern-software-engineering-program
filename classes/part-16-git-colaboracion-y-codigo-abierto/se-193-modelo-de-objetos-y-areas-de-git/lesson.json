@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-193",
+  "title": "Modelo de objetos y áreas de Git",
+  "stage": "C",
+  "part": "16",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-193-modelo-de-objetos-y-areas-de-git"
+}

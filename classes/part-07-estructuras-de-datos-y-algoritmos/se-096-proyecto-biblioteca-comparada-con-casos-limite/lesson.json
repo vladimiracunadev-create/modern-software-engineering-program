@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-096",
+  "title": "Proyecto: biblioteca comparada con casos límite",
+  "stage": "B",
+  "part": "07",
+  "kind": "project",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-113",
+  "title": "CLI, flags, configuración y códigos de salida",
+  "stage": "B",
+  "part": "09",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida"
+}

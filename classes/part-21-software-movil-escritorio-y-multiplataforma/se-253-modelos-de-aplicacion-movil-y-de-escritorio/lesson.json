@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-253",
+  "title": "Modelos de aplicación móvil y de escritorio",
+  "stage": "D",
+  "part": "21",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-21-software-movil-escritorio-y-multiplataforma/se-253-modelos-de-aplicacion-movil-y-de-escritorio"
+}

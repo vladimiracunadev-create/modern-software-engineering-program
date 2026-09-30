@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-380",
+  "title": "Disponibilidad, durabilidad y recuperación",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-144",
+  "title": "Proyecto: caso de viabilidad técnico-económica",
+  "stage": "C",
+  "part": "11",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-144-proyecto-caso-de-viabilidad-tecnico-economica"
+}

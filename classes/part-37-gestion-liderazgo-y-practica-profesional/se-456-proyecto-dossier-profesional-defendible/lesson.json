@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-456",
+  "title": "Proyecto: dossier profesional defendible",
+  "stage": "G",
+  "part": "37",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible"
+}

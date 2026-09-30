@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-289",
+  "title": "Cohesión, acoplamiento y encapsulación",
+  "stage": "E",
+  "part": "24",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-289-cohesion-acoplamiento-y-encapsulacion"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-218",
+  "title": "Entrada estándar, salida y composición por pipes",
+  "stage": "D",
+  "part": "18",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-218-entrada-estandar-salida-y-composicion-por-pipes"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-266",
+  "title": "Microcontroladores, periféricos y buses",
+  "stage": "D",
+  "part": "22",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses"
+}

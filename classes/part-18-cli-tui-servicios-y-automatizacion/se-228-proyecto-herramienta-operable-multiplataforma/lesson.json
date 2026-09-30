@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-228",
+  "title": "Proyecto: herramienta operable multiplataforma",
+  "stage": "D",
+  "part": "18",
+  "kind": "project",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-170",
+  "title": "Arquitectura de información y navegación",
+  "stage": "C",
+  "part": "14",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-170-arquitectura-de-informacion-y-navegacion"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-040",
+  "title": "TCP, UDP, QUIC y decisiones de transporte",
+  "stage": "A",
+  "part": "03",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte"
+}

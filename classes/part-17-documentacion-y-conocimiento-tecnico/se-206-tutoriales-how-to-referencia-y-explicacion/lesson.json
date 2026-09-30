@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-206",
+  "title": "Tutoriales, how-to, referencia y explicación",
+  "stage": "C",
+  "part": "17",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-206-tutoriales-how-to-referencia-y-explicacion"
+}

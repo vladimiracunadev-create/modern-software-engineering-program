@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-168",
+  "title": "Proyecto: paquete de especificaciones trazables",
+  "stage": "C",
+  "part": "13",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-168-proyecto-paquete-de-especificaciones-trazables"
+}

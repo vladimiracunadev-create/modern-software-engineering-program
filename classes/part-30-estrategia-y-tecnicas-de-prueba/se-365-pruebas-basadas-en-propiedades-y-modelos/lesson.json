@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-365",
+  "title": "Pruebas basadas en propiedades y modelos",
+  "stage": "F",
+  "part": "30",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-276",
+  "title": "Proyecto: dispositivo simulado operable y actualizable",
+  "stage": "D",
+  "part": "22",
+  "kind": "project",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable"
+}

@@ -17,6 +17,8 @@ REQUIRED = [
     "LICENSE",
     "catalog.json",
     "curriculum.yaml",
+    "FILE_INDEX.md",
+    "classes/README.md",
     "manifest/repositories.json",
     "docs/PROGRAM-ARCHITECTURE.md",
     "docs/COVERAGE-MATRIX.md",
@@ -27,6 +29,7 @@ REQUIRED = [
     "docs/INTEGRATION-CONTRACT.md",
     "docs/SOURCES.md",
     "sources/baseline.json",
+    "sources/class-sources.json",
     "schemas/curriculum.schema.json",
     "matrices/COMPETENCY-MAP.md",
     "projects/capstone.md",
@@ -36,6 +39,12 @@ REQUIRED = [
     "portal/index.html",
     "portal/styles.css",
     "portal/app.js",
+    "site/index.html",
+    "site/assets/catalog.json",
+    "scripts/build_phase2.py",
+    "scripts/validate_class_contracts.py",
+    "scripts/validate_encoding.py",
+    "scripts/validate_site.py",
 ]
 LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 FULL_SHA = re.compile(r"^[0-9a-f]{40}$")
@@ -152,6 +161,27 @@ def validate_sources() -> None:
         if not source.get("used_for"):
             raise AssertionError(f"Source must declare its purpose: {source['id']}")
 
+    class_sources = read_json("sources/class-sources.json")
+    expected_ids = {f"SE-{number:03d}" for number in range(1, 481)}
+    if class_sources.get("class_count") != 480 or set(class_sources.get("classes", {})) != expected_ids:
+        raise AssertionError("Class source registry must cover SE-001 through SE-480")
+    for class_id, entry in class_sources["classes"].items():
+        if not entry.get("source_ids") or not set(entry["source_ids"]).issubset(set(ids)):
+            raise AssertionError(f"Class source registry has unresolved sources: {class_id}")
+
+
+def validate_phase2_outputs() -> None:
+    part_directories = sorted((ROOT / "classes").glob("part-*"))
+    metadata = sorted((ROOT / "classes").glob("part-*/se-*/lesson.json"))
+    scaffolds = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
+    pages = sorted((ROOT / "site").rglob("*.html"))
+    if len(part_directories) != 40:
+        raise AssertionError(f"Expected 40 generated part directories, found {len(part_directories)}")
+    if len(metadata) != 480 or len(scaffolds) != 480:
+        raise AssertionError(f"Expected 480 class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
+    if len(pages) != 521:
+        raise AssertionError(f"Expected 521 generated HTML pages, found {len(pages)}")
+
 
 def validate_blueprint() -> None:
     contract = (ROOT / "blueprints/reference-product/api/openapi.yaml").read_text(encoding="utf-8")
@@ -222,6 +252,7 @@ def main() -> int:
         validate_legacy_curriculum()
         validate_relative_links()
         validate_sources()
+        validate_phase2_outputs()
         validate_blueprint()
         validate_portal()
         validate_workflows(args.strict)

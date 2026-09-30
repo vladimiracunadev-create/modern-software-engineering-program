@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-012",
+  "title": "Proyecto: mapa profesional y contrato personal de aprendizaje",
+  "stage": "A",
+  "part": "00",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje"
+}

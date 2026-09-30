@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-281",
+  "title": "Gráficos, audio, XR y experiencias inmersivas",
+  "stage": "D",
+  "part": "23",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-23-software-especializado-y-dominios/se-281-graficos-audio-xr-y-experiencias-inmersivas"
+}

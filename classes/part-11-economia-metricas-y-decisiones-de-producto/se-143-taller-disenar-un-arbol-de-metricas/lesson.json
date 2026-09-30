@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-143",
+  "title": "Taller: diseñar un árbol de métricas",
+  "stage": "C",
+  "part": "11",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas"
+}

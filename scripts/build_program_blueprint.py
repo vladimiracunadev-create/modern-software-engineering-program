@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import unicodedata
 from pathlib import Path
 
 
@@ -586,6 +588,12 @@ PARTS = [
 ]
 
 
+def slugify(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    ascii_value = normalized.encode("ascii", "ignore").decode("ascii").lower()
+    return re.sub(r"[^a-z0-9]+", "-", ascii_value).strip("-")
+
+
 def build_payload() -> dict:
     stage_names = dict(STAGES)
     lesson_number = 1
@@ -593,17 +601,22 @@ def build_payload() -> dict:
     for part_id, stage_id, title, owner, lesson_titles in PARTS:
         if len(lesson_titles) != 12:
             raise ValueError(f"Part {part_id} must define exactly 12 classes")
+        part_slug = slugify(title)
+        part_path = f"classes/part-{part_id}-{part_slug}"
         lessons = []
         for position, lesson_title in enumerate(lesson_titles, start=1):
             kind = "project" if position == 12 else "studio" if position == 11 else "class"
             hours = 8 if kind == "project" else 6 if kind == "studio" else 4
+            lesson_id = f"SE-{lesson_number:03d}"
+            lesson_slug = slugify(lesson_title)
             lessons.append({
-                "id": f"SE-{lesson_number:03d}",
+                "id": lesson_id,
                 "number": lesson_number,
                 "title": lesson_title,
                 "kind": kind,
                 "estimated_hours": hours,
                 "status": "PLANNED",
+                "path": f"{part_path}/{lesson_id.lower()}-{lesson_slug}",
             })
             lesson_number += 1
         parts.append({
@@ -612,6 +625,7 @@ def build_payload() -> dict:
             "stage_title": stage_names[stage_id],
             "title": title,
             "owner": owner,
+            "path": part_path,
             "lessons": lessons,
         })
     return {

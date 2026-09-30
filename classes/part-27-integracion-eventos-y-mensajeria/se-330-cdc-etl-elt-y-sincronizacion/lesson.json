@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-330",
+  "title": "CDC, ETL, ELT y sincronización",
+  "stage": "E",
+  "part": "27",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion"
+}

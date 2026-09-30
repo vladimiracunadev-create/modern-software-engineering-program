@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-030",
+  "title": "PowerShell, Bash y portabilidad de scripts",
+  "stage": "A",
+  "part": "02",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts"
+}

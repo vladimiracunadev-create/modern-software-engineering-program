@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-008",
+  "title": "Restricciones, riesgos y compromisos entre atributos",
+  "stage": "A",
+  "part": "00",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-00-ingenieria-de-software-como-profesion/se-008-restricciones-riesgos-y-compromisos-entre-atributos"
+}

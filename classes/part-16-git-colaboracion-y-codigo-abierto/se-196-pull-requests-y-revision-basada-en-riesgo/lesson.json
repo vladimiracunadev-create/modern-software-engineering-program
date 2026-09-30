@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-196",
+  "title": "Pull requests y revisión basada en riesgo",
+  "stage": "C",
+  "part": "16",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo"
+}

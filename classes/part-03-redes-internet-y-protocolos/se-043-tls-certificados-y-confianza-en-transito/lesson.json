@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-043",
+  "title": "TLS, certificados y confianza en tránsito",
+  "stage": "A",
+  "part": "03",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito"
+}

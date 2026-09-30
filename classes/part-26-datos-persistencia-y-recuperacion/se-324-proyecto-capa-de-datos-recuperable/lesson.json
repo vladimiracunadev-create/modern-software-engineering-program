@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-324",
+  "title": "Proyecto: capa de datos recuperable",
+  "stage": "E",
+  "part": "26",
+  "kind": "project",
+  "owner": "database-systems-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable"
+}

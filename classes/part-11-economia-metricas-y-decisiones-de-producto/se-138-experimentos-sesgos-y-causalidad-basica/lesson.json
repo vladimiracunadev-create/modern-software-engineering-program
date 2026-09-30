@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-138",
+  "title": "Experimentos, sesgos y causalidad básica",
+  "stage": "C",
+  "part": "11",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-175",
+  "title": "Diseño visual, tipografía, color y contraste",
+  "stage": "C",
+  "part": "14",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste"
+}

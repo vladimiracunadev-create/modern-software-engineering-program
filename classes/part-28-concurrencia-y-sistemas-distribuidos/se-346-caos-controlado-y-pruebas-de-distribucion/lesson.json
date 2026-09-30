@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-346",
+  "title": "Caos controlado y pruebas de distribución",
+  "stage": "E",
+  "part": "28",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-346-caos-controlado-y-pruebas-de-distribucion"
+}

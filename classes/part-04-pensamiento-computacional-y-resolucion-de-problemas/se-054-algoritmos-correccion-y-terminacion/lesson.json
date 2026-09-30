@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-054",
+  "title": "Algoritmos, corrección y terminación",
+  "stage": "A",
+  "part": "04",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion"
+}

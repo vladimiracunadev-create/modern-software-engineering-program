@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-394",
+  "title": "Cumplimiento, evidencia y límites legales",
+  "stage": "F",
+  "part": "32",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales"
+}

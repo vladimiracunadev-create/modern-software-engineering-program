@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-029",
+  "title": "Terminales, shells y composición de comandos",
+  "stage": "A",
+  "part": "02",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos"
+}

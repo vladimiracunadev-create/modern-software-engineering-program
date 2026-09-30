@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-132",
+  "title": "Proyecto: product brief respaldado por evidencia",
+  "stage": "C",
+  "part": "10",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-132-proyecto-product-brief-respaldado-por-evidencia"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-299",
+  "title": "Taller: refactorizar sin alterar comportamiento",
+  "stage": "E",
+  "part": "24",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-299-taller-refactorizar-sin-alterar-comportamiento"
+}

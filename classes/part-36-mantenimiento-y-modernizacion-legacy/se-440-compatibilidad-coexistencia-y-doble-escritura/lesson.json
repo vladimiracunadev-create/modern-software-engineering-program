@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-440",
+  "title": "Compatibilidad, coexistencia y doble escritura",
+  "stage": "G",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura"
+}

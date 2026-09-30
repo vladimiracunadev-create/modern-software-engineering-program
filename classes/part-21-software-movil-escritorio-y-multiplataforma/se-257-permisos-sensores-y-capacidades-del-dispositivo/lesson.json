@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-257",
+  "title": "Permisos, sensores y capacidades del dispositivo",
+  "stage": "D",
+  "part": "21",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-21-software-movil-escritorio-y-multiplataforma/se-257-permisos-sensores-y-capacidades-del-dispositivo"
+}

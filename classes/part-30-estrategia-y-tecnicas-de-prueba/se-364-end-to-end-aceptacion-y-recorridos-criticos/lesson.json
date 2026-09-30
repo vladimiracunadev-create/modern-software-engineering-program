@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-364",
+  "title": "End-to-end, aceptación y recorridos críticos",
+  "stage": "F",
+  "part": "30",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos"
+}

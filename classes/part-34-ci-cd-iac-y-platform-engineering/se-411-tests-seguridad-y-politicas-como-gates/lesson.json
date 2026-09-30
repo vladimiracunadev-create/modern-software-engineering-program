@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-411",
+  "title": "Tests, seguridad y políticas como gates",
+  "stage": "F",
+  "part": "34",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-411-tests-seguridad-y-politicas-como-gates"
+}

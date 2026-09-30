@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-455",
+  "title": "Taller: conducir una revisión de decisión difícil",
+  "stage": "G",
+  "part": "37",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil"
+}

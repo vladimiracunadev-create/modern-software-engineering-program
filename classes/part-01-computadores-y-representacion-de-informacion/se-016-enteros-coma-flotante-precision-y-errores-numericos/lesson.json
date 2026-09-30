@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-016",
+  "title": "Enteros, coma flotante, precisión y errores numéricos",
+  "stage": "A",
+  "part": "01",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos"
+}

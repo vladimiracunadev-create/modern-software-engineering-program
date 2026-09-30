@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "SE-478",
+  "title": "Seguridad agentic, prompt injection y auditoría",
+  "stage": "H",
+  "part": "39",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "GITHUB-SPEC-KIT",
+    "MCP-2026-07-28",
+    "NIST-AI-RMF",
+    "NIST-AI-600-1"
+  ],
+  "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-478-seguridad-agentic-prompt-injection-y-auditoria"
+}

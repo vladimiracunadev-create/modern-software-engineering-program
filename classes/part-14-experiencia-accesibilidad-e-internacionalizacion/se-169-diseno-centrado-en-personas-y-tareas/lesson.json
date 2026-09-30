@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-169",
+  "title": "Diseño centrado en personas y tareas",
+  "stage": "C",
+  "part": "14",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas"
+}

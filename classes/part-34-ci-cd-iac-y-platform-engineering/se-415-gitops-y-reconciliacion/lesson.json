@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-415",
+  "title": "GitOps y reconciliación",
+  "stage": "F",
+  "part": "34",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-34-ci-cd-iac-y-platform-engineering/se-415-gitops-y-reconciliacion"
+}

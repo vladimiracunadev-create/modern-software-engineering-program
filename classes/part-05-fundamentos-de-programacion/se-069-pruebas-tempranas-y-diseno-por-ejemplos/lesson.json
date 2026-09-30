@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-069",
+  "title": "Pruebas tempranas y diseño por ejemplos",
+  "stage": "B",
+  "part": "05",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos"
+}

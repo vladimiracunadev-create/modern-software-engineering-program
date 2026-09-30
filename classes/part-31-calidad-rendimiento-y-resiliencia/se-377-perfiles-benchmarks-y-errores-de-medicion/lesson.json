@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-377",
+  "title": "Perfiles, benchmarks y errores de medición",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-377-perfiles-benchmarks-y-errores-de-medicion"
+}

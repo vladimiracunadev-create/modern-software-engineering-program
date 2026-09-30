@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-048",
+  "title": "Proyecto: servicio observable y tolerante a fallos de red",
+  "stage": "A",
+  "part": "03",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red"
+}

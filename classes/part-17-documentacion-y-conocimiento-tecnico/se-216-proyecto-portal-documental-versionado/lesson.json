@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-216",
+  "title": "Proyecto: portal documental versionado",
+  "stage": "C",
+  "part": "17",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-216-proyecto-portal-documental-versionado"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-072",
+  "title": "Proyecto: herramienta de línea de comandos probada",
+  "stage": "B",
+  "part": "05",
+  "kind": "project",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada"
+}

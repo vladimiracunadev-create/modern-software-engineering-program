@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-059",
+  "title": "Taller: descomponer un problema ambiguo",
+  "stage": "A",
+  "part": "04",
+  "kind": "studio",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo"
+}

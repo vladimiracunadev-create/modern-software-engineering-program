@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-162",
+  "title": "Esquemas de datos y validación",
+  "stage": "C",
+  "part": "13",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion"
+}

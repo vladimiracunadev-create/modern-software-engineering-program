@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-180",
+  "title": "Proyecto: prototipo accesible evaluado con usuarios",
+  "stage": "C",
+  "part": "14",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-180-proyecto-prototipo-accesible-evaluado-con-usuarios"
+}

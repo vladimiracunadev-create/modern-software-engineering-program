@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-064",
+  "title": "Funciones, parámetros, retorno y alcance",
+  "stage": "B",
+  "part": "05",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance"
+}

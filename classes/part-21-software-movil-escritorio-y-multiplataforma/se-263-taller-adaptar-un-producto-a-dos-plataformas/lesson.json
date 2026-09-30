@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-263",
+  "title": "Taller: adaptar un producto a dos plataformas",
+  "stage": "D",
+  "part": "21",
+  "kind": "studio",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-21-software-movil-escritorio-y-multiplataforma/se-263-taller-adaptar-un-producto-a-dos-plataformas"
+}

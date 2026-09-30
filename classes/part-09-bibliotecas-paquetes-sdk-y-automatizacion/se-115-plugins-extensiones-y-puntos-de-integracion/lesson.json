@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-115",
+  "title": "Plugins, extensiones y puntos de integración",
+  "stage": "B",
+  "part": "09",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion"
+}

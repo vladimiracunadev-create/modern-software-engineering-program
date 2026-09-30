@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-355",
+  "title": "Entornos, cuentas y separación de responsabilidades",
+  "stage": "E",
+  "part": "29",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-29-cloud-plataforma-e-infraestructura/se-355-entornos-cuentas-y-separacion-de-responsabilidades"
+}

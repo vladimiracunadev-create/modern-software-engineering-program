@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-198",
+  "title": "Issues, discusiones y trazabilidad del cambio",
+  "stage": "C",
+  "part": "16",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio"
+}

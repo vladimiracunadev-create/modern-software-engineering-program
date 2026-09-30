@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-041",
+  "title": "DNS, nombres, resolución y fallos",
+  "stage": "A",
+  "part": "03",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos"
+}

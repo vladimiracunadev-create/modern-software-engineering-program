@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-194",
+  "title": "Commits atómicos, historial y recuperación",
+  "stage": "C",
+  "part": "16",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "GITHUB-ACTIONS-SHA"
+  ],
+  "path": "classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion"
+}

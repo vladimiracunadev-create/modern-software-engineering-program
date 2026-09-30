@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-022",
+  "title": "Rendimiento, consumo energético y límites físicos",
+  "stage": "A",
+  "part": "01",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos"
+}

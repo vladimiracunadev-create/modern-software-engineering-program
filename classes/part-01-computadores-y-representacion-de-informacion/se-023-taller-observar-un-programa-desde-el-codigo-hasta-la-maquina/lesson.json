@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-023",
+  "title": "Taller: observar un programa desde el código hasta la máquina",
+  "stage": "A",
+  "part": "01",
+  "kind": "studio",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina"
+}

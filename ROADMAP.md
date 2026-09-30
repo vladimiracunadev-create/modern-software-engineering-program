@@ -23,13 +23,17 @@ elevarlas con evidencia desde `PLANNED`.
 - portal local;
 - prompt maestro, plantillas y validación.
 
-## Fase 2 — Generadores y controles
+## Fase 2 — Generadores y controles — completada 2026-09-30
 
 - scaffolding de clases y partes;
 - generación de índices, STATUS y documentación derivada;
 - registro bibliográfico por clase;
 - validadores de contrato pedagógico y codificación;
 - portal generado desde el manifiesto.
+
+Resultado verificable: 480 scaffolds, 480 metadatos, 480 registros de fuentes,
+40 índices de parte, 521 páginas HTML y diez pruebas estructurales. El contenido de
+las clases continúa correctamente marcado `PLANNED`.
 
 ## Fases 3–6 — Construcción del programa
 

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-384",
+  "title": "Proyecto: informe reproducible de calidad",
+  "stage": "F",
+  "part": "31",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-384-proyecto-informe-reproducible-de-calidad"
+}

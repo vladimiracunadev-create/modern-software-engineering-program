@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-179",
+  "title": "Taller: auditar y reparar un flujo excluyente",
+  "stage": "C",
+  "part": "14",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "W3C-WCAG",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-179-taller-auditar-y-reparar-un-flujo-excluyente"
+}

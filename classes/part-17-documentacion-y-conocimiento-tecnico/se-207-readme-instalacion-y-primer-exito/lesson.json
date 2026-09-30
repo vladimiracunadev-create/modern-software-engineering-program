@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-207",
+  "title": "README, instalación y primer éxito",
+  "stage": "C",
+  "part": "17",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito"
+}

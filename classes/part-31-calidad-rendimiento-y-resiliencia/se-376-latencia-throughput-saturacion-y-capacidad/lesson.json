@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-376",
+  "title": "Latencia, throughput, saturación y capacidad",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad"
+}

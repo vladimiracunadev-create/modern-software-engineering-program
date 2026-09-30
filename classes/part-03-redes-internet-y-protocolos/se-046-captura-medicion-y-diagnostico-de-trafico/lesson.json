@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-046",
+  "title": "Captura, medición y diagnóstico de tráfico",
+  "stage": "A",
+  "part": "03",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico"
+}

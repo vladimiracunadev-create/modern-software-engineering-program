@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-105",
+  "title": "Reproducción de errores y reducción de casos",
+  "stage": "B",
+  "part": "08",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos"
+}

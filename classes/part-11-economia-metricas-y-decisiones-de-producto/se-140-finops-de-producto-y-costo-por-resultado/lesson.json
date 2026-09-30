@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-140",
+  "title": "FinOps de producto y costo por resultado",
+  "stage": "C",
+  "part": "11",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado"
+}

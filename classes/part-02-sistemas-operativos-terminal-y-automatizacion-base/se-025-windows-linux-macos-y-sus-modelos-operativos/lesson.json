@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-025",
+  "title": "Windows, Linux, macOS y sus modelos operativos",
+  "stage": "A",
+  "part": "02",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-082",
+  "title": "Selección y combinación responsable de paradigmas",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas"
+}

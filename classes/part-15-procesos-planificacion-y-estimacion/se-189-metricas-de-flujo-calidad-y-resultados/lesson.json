@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-189",
+  "title": "Métricas de flujo, calidad y resultados",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados"
+}

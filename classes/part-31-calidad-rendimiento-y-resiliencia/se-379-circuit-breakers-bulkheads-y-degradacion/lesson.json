@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-379",
+  "title": "Circuit breakers, bulkheads y degradación",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion"
+}

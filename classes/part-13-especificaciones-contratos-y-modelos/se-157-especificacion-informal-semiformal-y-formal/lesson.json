@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-157",
+  "title": "Especificación informal, semiformal y formal",
+  "stage": "C",
+  "part": "13",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal"
+}

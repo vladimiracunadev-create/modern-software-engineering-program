@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-256",
+  "title": "Almacenamiento local y sincronización",
+  "stage": "D",
+  "part": "21",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-21-software-movil-escritorio-y-multiplataforma/se-256-almacenamiento-local-y-sincronizacion"
+}

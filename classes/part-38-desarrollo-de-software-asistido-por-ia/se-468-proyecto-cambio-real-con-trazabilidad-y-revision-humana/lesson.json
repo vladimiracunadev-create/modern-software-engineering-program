@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "SE-468",
+  "title": "Proyecto: cambio real con trazabilidad y revisión humana",
+  "stage": "H",
+  "part": "38",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-AI-RMF",
+    "NIST-AI-600-1",
+    "NIST-SSDF-800-218"
+  ],
+  "path": "classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-292",
+  "title": "Patrones creacionales, estructurales y conductuales",
+  "stage": "E",
+  "part": "24",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-292-patrones-creacionales-estructurales-y-conductuales"
+}

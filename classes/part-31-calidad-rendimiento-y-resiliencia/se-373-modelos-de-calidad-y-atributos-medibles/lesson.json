@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-373",
+  "title": "Modelos de calidad y atributos medibles",
+  "stage": "F",
+  "part": "31",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-31-calidad-rendimiento-y-resiliencia/se-373-modelos-de-calidad-y-atributos-medibles"
+}

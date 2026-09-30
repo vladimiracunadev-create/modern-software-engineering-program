@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-441",
+  "title": "Retiro, archivado y disposición de sistemas",
+  "stage": "G",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas"
+}

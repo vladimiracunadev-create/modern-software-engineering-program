@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-120",
+  "title": "Proyecto: SDK y CLI con compatibilidad verificada",
+  "stage": "B",
+  "part": "09",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada"
+}

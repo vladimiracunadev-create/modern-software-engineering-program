@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-436",
+  "title": "Dependencias obsoletas y riesgo acumulado",
+  "stage": "G",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado"
+}

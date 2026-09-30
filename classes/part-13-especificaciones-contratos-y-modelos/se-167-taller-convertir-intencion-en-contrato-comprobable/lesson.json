@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-167",
+  "title": "Taller: convertir intención en contrato comprobable",
+  "stage": "C",
+  "part": "13",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable"
+}

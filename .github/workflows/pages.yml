@@ -1,0 +1,67 @@
+name: Pages
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "classes/**"
+      - "curriculum.yaml"
+      - "catalog.json"
+      - "site/**"
+      - "sources/**"
+      - "scripts/build_phase2.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Verify site artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Verify generated site
+        run: |
+          python scripts/build_program_blueprint.py --check
+          python scripts/build_phase2.py --check
+          python scripts/validate_encoding.py
+          python scripts/validate_site.py
+          python -c "from pathlib import Path; pages=list(Path('site').rglob('*.html')); assert len(pages)==521, len(pages)"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: site
+
+  deploy:
+    name: Deploy GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

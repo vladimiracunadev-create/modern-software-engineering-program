@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-298",
+  "title": "Deuda técnica, interés y opciones",
+  "stage": "E",
+  "part": "24",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-395",
+  "title": "Taller: explotar y reparar un control aparente",
+  "stage": "F",
+  "part": "32",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-011",
+  "title": "Taller: anatomía verificable de un producto real",
+  "stage": "A",
+  "part": "00",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real"
+}

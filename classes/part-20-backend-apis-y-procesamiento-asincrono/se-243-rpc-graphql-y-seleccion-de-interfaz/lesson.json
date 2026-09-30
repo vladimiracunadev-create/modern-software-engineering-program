@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-243",
+  "title": "RPC, GraphQL y selección de interfaz",
+  "stage": "D",
+  "part": "20",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-20-backend-apis-y-procesamiento-asincrono/se-243-rpc-graphql-y-seleccion-de-interfaz"
+}

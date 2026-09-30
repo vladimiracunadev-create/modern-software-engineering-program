@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-074",
+  "title": "Programación procedural y descomposición funcional",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-153",
+  "title": "Gestión de cambios y líneas base",
+  "stage": "C",
+  "part": "12",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base"
+}

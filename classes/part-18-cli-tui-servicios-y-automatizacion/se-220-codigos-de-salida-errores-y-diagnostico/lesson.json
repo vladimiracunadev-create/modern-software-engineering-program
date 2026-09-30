@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-220",
+  "title": "Códigos de salida, errores y diagnóstico",
+  "stage": "D",
+  "part": "18",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico"
+}

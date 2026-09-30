@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-186",
+  "title": "Planificación de entregas y gestión de dependencias",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias"
+}

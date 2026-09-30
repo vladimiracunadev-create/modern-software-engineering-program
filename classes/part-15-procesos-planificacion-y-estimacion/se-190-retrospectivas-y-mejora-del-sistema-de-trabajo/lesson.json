@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-190",
+  "title": "Retrospectivas y mejora del sistema de trabajo",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-190-retrospectivas-y-mejora-del-sistema-de-trabajo"
+}

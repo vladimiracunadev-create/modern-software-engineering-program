@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-304",
+  "title": "Capas, hexagonal, clean y ports and adapters",
+  "stage": "E",
+  "part": "25",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-25-arquitectura-de-software-y-dominio/se-304-capas-hexagonal-clean-y-ports-and-adapters"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-062",
+  "title": "Control de flujo y decisiones",
+  "stage": "B",
+  "part": "05",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones"
+}

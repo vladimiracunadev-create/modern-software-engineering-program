@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-428",
+  "title": "Gestión de incidentes y comunicación",
+  "stage": "G",
+  "part": "35",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion"
+}

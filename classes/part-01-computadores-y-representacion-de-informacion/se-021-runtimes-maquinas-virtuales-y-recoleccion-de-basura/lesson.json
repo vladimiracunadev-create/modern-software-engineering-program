@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-021",
+  "title": "Runtimes, máquinas virtuales y recolección de basura",
+  "stage": "A",
+  "part": "01",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura"
+}

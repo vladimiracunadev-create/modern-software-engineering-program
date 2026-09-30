@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-071",
+  "title": "Taller: transferir una solución entre lenguajes",
+  "stage": "B",
+  "part": "05",
+  "kind": "studio",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes"
+}

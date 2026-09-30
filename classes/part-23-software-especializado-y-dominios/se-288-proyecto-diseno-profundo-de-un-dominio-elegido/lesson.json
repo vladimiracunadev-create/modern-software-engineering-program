@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-288",
+  "title": "Proyecto: diseño profundo de un dominio elegido",
+  "stage": "D",
+  "part": "23",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido"
+}

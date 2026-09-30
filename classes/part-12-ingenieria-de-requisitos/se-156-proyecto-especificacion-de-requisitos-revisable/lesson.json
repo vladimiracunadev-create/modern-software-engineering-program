@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-156",
+  "title": "Proyecto: especificación de requisitos revisable",
+  "stage": "C",
+  "part": "12",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable"
+}

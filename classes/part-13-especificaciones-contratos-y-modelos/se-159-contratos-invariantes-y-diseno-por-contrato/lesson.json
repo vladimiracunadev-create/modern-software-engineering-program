@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-159",
+  "title": "Contratos, invariantes y diseño por contrato",
+  "stage": "C",
+  "part": "13",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-159-contratos-invariantes-y-diseno-por-contrato"
+}

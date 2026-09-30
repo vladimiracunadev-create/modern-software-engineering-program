@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-444",
+  "title": "Proyecto: migración incremental reversible",
+  "stage": "G",
+  "part": "36",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible"
+}

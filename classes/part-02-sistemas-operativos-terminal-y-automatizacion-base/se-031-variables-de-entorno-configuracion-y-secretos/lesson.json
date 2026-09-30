@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-031",
+  "title": "Variables de entorno, configuración y secretos",
+  "stage": "A",
+  "part": "02",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos"
+}

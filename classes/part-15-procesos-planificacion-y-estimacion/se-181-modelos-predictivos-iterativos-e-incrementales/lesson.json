@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-181",
+  "title": "Modelos predictivos, iterativos e incrementales",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-181-modelos-predictivos-iterativos-e-incrementales"
+}

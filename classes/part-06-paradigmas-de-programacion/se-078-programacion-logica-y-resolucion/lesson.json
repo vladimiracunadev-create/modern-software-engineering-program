@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-078",
+  "title": "Programación lógica y resolución",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion"
+}

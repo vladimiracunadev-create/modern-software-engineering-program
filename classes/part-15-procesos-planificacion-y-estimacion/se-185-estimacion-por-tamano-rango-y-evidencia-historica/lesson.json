@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-185",
+  "title": "Estimación por tamaño, rango y evidencia histórica",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica"
+}

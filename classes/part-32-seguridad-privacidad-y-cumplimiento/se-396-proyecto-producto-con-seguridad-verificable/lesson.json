@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-396",
+  "title": "Proyecto: producto con seguridad verificable",
+  "stage": "F",
+  "part": "32",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "NIST-SSDF-800-218",
+    "OWASP-ASVS"
+  ],
+  "path": "classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable"
+}

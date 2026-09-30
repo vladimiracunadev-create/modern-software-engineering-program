@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-080",
+  "title": "Programación reactiva y flujos",
+  "stage": "B",
+  "part": "06",
+  "kind": "class",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-06-paradigmas-de-programacion/se-080-programacion-reactiva-y-flujos"
+}

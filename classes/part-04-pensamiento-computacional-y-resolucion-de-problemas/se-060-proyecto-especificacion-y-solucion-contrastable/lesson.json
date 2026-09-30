@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-060",
+  "title": "Proyecto: especificación y solución contrastable",
+  "stage": "A",
+  "part": "04",
+  "kind": "project",
+  "owner": "polyglot-programming-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-108",
+  "title": "Proyecto: entorno de desarrollo autocontenido",
+  "stage": "B",
+  "part": "08",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido"
+}

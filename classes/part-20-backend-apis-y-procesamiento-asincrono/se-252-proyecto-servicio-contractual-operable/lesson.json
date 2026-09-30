@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-252",
+  "title": "Proyecto: servicio contractual operable",
+  "stage": "D",
+  "part": "20",
+  "kind": "project",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-20-backend-apis-y-procesamiento-asincrono/se-252-proyecto-servicio-contractual-operable"
+}

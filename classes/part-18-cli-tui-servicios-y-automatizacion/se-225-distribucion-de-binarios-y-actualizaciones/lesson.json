@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-225",
+  "title": "Distribución de binarios y actualizaciones",
+  "stage": "D",
+  "part": "18",
+  "kind": "class",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones"
+}

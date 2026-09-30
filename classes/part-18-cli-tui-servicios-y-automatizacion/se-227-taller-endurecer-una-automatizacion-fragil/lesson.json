@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-227",
+  "title": "Taller: endurecer una automatización frágil",
+  "stage": "D",
+  "part": "18",
+  "kind": "studio",
+  "owner": "framework-ecosystems-labs",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil"
+}

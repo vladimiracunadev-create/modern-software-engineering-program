@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-127",
+  "title": "Prototipos, experimentos y reducción de incertidumbre",
+  "stage": "C",
+  "part": "10",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre"
+}

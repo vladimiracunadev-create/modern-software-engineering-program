@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-121",
+  "title": "Problemas, síntomas, necesidades y oportunidades",
+  "stage": "C",
+  "part": "10",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades"
+}

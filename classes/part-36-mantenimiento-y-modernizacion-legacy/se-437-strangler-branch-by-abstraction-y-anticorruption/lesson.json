@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-437",
+  "title": "Strangler, branch by abstraction y anticorruption",
+  "stage": "G",
+  "part": "36",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption"
+}

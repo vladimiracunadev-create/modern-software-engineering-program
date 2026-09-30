@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-047",
+  "title": "Taller: seguir una petición de extremo a extremo",
+  "stage": "A",
+  "part": "03",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-347",
+  "title": "Taller: reproducir una carrera y un fallo parcial",
+  "stage": "E",
+  "part": "28",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023"
+  ],
+  "path": "classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial"
+}

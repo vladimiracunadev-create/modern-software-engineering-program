@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-037",
+  "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
+  "stage": "A",
+  "part": "03",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IETF-RFC-9110"
+  ],
+  "path": "classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico"
+}

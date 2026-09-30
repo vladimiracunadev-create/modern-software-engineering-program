@@ -9,8 +9,9 @@ probar, entregar, operar, recuperar y evolucionar software — desde los fundame
 de computación hasta SPEC, desarrollo asistido por IA y sistemas multiagente.**
 
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
-[![Estado](https://img.shields.io/badge/fase%201-especificada-2e8b57?style=flat-square)](STATUS.md)
+[![Estado](https://img.shields.io/badge/fase%202-infraestructura%20lista-2e8b57?style=flat-square)](STATUS.md)
 [![Clases](https://img.shields.io/badge/clases-480%20planificadas-7c5cff?style=flat-square)](curriculum.yaml)
+[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](site/index.html)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![License](https://img.shields.io/badge/license-MIT-3fb950?style=flat-square)](LICENSE)
 
@@ -67,7 +68,7 @@ La matriz precisa se encuentra en [docs/COVERAGE-MATRIX.md](docs/COVERAGE-MATRIX
 
 ## Estado verificable
 
-La fase 1 está resuelta:
+Las fases 1 y 2 están resueltas:
 
 - arquitectura de ocho etapas;
 - 40 partes con doce clases cada una;
@@ -77,6 +78,12 @@ La fase 1 está resuelta:
 - ADR de expansión;
 - fuentes primarias iniciales;
 - manifiesto, catálogo, validación y CI multiplataforma.
+- 480 scaffolds con contrato pedagógico protegido;
+- 480 metadatos y registros bibliográficos iniciales;
+- índices globales y por parte generados;
+- sitio estático con 521 páginas, búsqueda y filtros;
+- validadores dedicados de contratos y UTF-8;
+- workflow separado para GitHub Pages.
 
 El programa todavía no afirma que las clases estén construidas. Esa producción
 corresponde a las fases siguientes descritas en [ROADMAP.md](ROADMAP.md).
@@ -87,6 +94,10 @@ Requiere Python 3.11 o posterior y no instala dependencias:
 
 ```bash
 python scripts/build_program_blueprint.py --check
+python scripts/build_phase2.py --check
+python scripts/validate_class_contracts.py
+python scripts/validate_encoding.py
+python scripts/validate_site.py
 python scripts/validate_repository.py --strict
 python -m unittest discover -s tests -v
 ```
@@ -96,16 +107,18 @@ python -m unittest discover -s tests -v
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       métricas canónicas de estado
+classes/           40 índices, 480 scaffolds y metadatos
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
 sources/           registro de fuentes primarias y oficiales
 schemas/           contratos legibles por máquinas
+site/              521 páginas estáticas generadas para GitHub Pages
 blueprints/        producto documental de referencia
 projects/          dominios y proyectos transversales
 assessments/       diagnóstico y rúbrica
 templates/         artefactos profesionales reutilizables
-portal/            portada local de transición
+portal/            portada local histórica de transición
 scripts/           generación y validación sin dependencias externas
 tests/             pruebas estructurales
 ```
@@ -119,9 +132,9 @@ temporales se revisan antes de publicarse.
 ## Publicación
 
 La identidad, About, topics, gates y URL de Pages están definidos en
-[docs/PUBLICATION-PLAN.md](docs/PUBLICATION-PLAN.md). El repositorio debe ser público,
-pero la publicación remota solo se considera completa después de releer su estado por
-API y comprobar el workflow verde.
+[docs/PUBLICATION-PLAN.md](docs/PUBLICATION-PLAN.md). El sitio se genera íntegramente
+desde el manifiesto y su publicación solo se considera válida después de comprobar el
+workflow remoto y la respuesta de la URL pública.
 
 ## Filosofía
 

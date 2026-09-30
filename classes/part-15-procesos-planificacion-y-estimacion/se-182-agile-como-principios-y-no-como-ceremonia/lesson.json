@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-182",
+  "title": "Agile como principios y no como ceremonia",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia"
+}

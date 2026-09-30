@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-010",
+  "title": "Cómo leer estándares, documentación y literatura técnica",
+  "stage": "A",
+  "part": "00",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica"
+}

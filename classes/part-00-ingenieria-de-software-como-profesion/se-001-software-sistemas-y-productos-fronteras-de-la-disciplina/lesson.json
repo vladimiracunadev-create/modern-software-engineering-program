@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-001",
+  "title": "Software, sistemas y productos: fronteras de la disciplina",
+  "stage": "A",
+  "part": "00",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina"
+}

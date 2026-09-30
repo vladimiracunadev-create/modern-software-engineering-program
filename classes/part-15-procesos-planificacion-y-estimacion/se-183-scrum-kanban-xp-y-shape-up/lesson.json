@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-183",
+  "title": "Scrum, Kanban, XP y Shape Up",
+  "stage": "C",
+  "part": "15",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up"
+}

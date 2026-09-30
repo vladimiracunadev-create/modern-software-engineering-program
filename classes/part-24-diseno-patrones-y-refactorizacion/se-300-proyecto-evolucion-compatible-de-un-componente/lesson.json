@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-300",
+  "title": "Proyecto: evolución compatible de un componente",
+  "stage": "E",
+  "part": "24",
+  "kind": "project",
+  "owner": "suite",
+  "estimated_hours": 8,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-24-diseno-patrones-y-refactorizacion/se-300-proyecto-evolucion-compatible-de-un-componente"
+}

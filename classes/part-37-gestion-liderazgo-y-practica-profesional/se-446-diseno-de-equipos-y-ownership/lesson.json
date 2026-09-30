@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-446",
+  "title": "Diseño de equipos y ownership",
+  "stage": "G",
+  "part": "37",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "ACM-IEEE-SE2014"
+  ],
+  "path": "classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership"
+}

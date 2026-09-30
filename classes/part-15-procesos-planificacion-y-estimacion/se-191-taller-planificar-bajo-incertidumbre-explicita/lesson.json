@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "SE-191",
+  "title": "Taller: planificar bajo incertidumbre explícita",
+  "stage": "C",
+  "part": "15",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A"
+  ],
+  "path": "classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita"
+}

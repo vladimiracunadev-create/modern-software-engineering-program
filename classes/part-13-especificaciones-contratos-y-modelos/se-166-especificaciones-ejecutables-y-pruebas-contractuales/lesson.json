@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "SE-166",
+  "title": "Especificaciones ejecutables y pruebas contractuales",
+  "stage": "C",
+  "part": "13",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "status": "PLANNED",
+  "source_ids": [
+    "IEEE-SWEBOK-4A",
+    "OPENAPI-LATEST"
+  ],
+  "path": "classes/part-13-especificaciones-contratos-y-modelos/se-166-especificaciones-ejecutables-y-pruebas-contractuales"
+}

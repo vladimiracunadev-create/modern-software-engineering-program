@@ -1,13 +1,18 @@
 # Software Engineering Learning Suite
 
-Purpose: coordinate a professional, evidence-based software engineering curriculum across specialized repositories.
+Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. The current phase specifies 8 stages, 40 parts and 480 planned classes; it does not claim that those classes are already built.
 
 Read first:
 - README.md
+- STATUS.md
+- curriculum.yaml
+- catalog.json
 - PROMPT_MAESTRO.md
 - manifest/repositories.json
-- curriculum/README.md
+- docs/PROGRAM-ARCHITECTURE.md
+- docs/COVERAGE-MATRIX.md
 - docs/INTEGRATION-CONTRACT.md
+- docs/REPOSITORY-BOUNDARIES.md
 - matrices/COMPETENCY-MAP.md
 
 Rules:
@@ -16,3 +21,4 @@ Rules:
 - Security, accessibility, testing, observability and recovery are part of done.
 - Use pnpm only for JavaScript/TypeScript.
 - Do not invent evidence, metrics, laws, APIs or compatibility.
+- Treat PLANNED as specification only; require evidence before raising maturity.

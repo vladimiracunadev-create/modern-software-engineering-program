@@ -17,6 +17,10 @@ REQUIRED_SECTIONS = [
     "## Seguridad, ética y accesibilidad", "## Transferencia",
     "## Evaluación y evidencia", "## Fuentes", "## Límites y siguiente paso",
 ]
+APPROVAL_SECTIONS = [
+    "## Definiciones", "## Glosario", "## Reto", "## Preguntas frecuentes",
+]
+GENERIC_SENTENCE = "La respuesta profesional separa hechos, inferencias y preferencias"
 
 
 def main() -> int:
@@ -27,6 +31,8 @@ def main() -> int:
     hashes = set()
     failures: list[str] = []
     draft_count = 0
+    generic_count = 0
+    approval_section_counts = Counter()
 
     for part in program["parts"]:
         for lesson in part["lessons"]:
@@ -49,6 +55,11 @@ def main() -> int:
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
                 failures.append(f"missing sections {lesson['id']}: {missing}")
+            if GENERIC_SENTENCE in text:
+                generic_count += 1
+            for section in APPROVAL_SECTIONS:
+                if section in text:
+                    approval_section_counts[section] += 1
             digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
             if digest in hashes:
                 failures.append(f"duplicate class document: {lesson['id']}")
@@ -69,10 +80,25 @@ def main() -> int:
         failures.append(f"unexpected maturity counts: {dict(statuses)}")
     if draft_count != 180 or len(hashes) != 180:
         failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
+
+    audit = (ROOT / "docs/PHASE3-CONTENT-AUDIT.md").read_text(encoding="utf-8")
+    audit_claims = {
+        "borradores que repiten el mismo párrafo genérico": generic_count,
+        "clases con sección `Definiciones`": approval_section_counts["## Definiciones"],
+        "clases con sección `Glosario`": approval_section_counts["## Glosario"],
+        "clases con sección `Preguntas frecuentes`": approval_section_counts["## Preguntas frecuentes"],
+        "clases con sección `Reto`": approval_section_counts["## Reto"],
+    }
+    for label, count in audit_claims.items():
+        if f"| {label} | {count} |" not in audit:
+            failures.append(f"phase 3 audit drift: {label} should report {count}")
     if failures:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
-    print("PHASE3_REBUILD_OK: 180 unique drafts audited, 0 GUIDED claims, 360 contracts")
+    print(
+        "PHASE3_STRUCTURE_OK: 180 drafts, "
+        f"{generic_count} still generic, 0 approved, 360 contracts"
+    )
     return 0
 
 

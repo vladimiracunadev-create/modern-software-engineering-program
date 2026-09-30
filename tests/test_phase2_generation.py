@@ -44,6 +44,15 @@ class PhaseTwoGenerationTests(unittest.TestCase):
         self.assertEqual("SE-001", catalog["classes"][0]["id"])
         self.assertEqual("SE-480", catalog["classes"][-1]["id"])
 
+    def test_class_index_links_every_class_and_portal_page(self) -> None:
+        index = (ROOT / "classes/README.md").read_text(encoding="utf-8")
+        for part in self.program["parts"]:
+            part_folder = Path(part["path"]).name
+            for lesson in part["lessons"]:
+                lesson_folder = Path(lesson["path"]).name
+                self.assertIn(f"({part_folder}/{lesson_folder}/README.md)", index, lesson["id"])
+                self.assertIn(f"/classes/{lesson['id']}.html)", index, lesson["id"])
+
 
 if __name__ == "__main__":
     unittest.main()

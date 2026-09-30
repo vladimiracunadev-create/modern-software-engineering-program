@@ -224,27 +224,60 @@ def part_index(part: dict) -> str:
 
 def classes_index(program: dict) -> str:
     rows = []
+    flat_sections = []
     for part in program["parts"]:
         start = part["lessons"][0]["id"]
         end = part["lessons"][-1]["id"]
+        part_folder = Path(part["path"]).name
         rows.append(
-            f"| {part['id']} | [{part['title']}]({Path(part['path']).name}/README.md) | "
+            f"| {part['id']} | [{part['title']}]({part_folder}/README.md) | "
             f"{part['stage']} | {start}–{end} | `{part['owner']}` |"
+        )
+        lesson_links = []
+        for lesson in part["lessons"]:
+            lesson_folder = Path(lesson["path"]).name
+            scope = "borrador no aprobado" if lesson["number"] <= 180 else "scaffold planificado"
+            lesson_links.append(
+                f"- [{lesson['id']} — {lesson['title']}]({part_folder}/{lesson_folder}/README.md) "
+                f"· [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/{lesson['id']}.html) "
+                f"· `{scope}`"
+            )
+        flat_sections.append(
+            f"## [Parte {part['id']} — {part['title']}]({part_folder}/README.md)\n\n"
+            + "\n".join(lesson_links)
         )
     statuses = Counter(
         lesson["status"] for part in program["parts"] for lesson in part["lessons"]
     )
     status_text = " · ".join(f"{count} `{status}`" for status, count in sorted(statuses.items()))
-    return f"""# Índice de clases
+    return f"""# Índice completo del currículo
 
-> Estado verificable: {status_text}. `GUIDED` significa material pedagógico completo;
-> no implica laboratorio ejecutable ni operación verificada.
+480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
+
+> [!WARNING]
+> Estado verificable: {status_text}. Fase 3 comprende `SE-001`–`SE-180`, pero sus
+> documentos son **borradores no aprobados**, no clases construidas. Las demás
+> entradas son scaffolds planificados. Cada enlace declara su estado.
+
+[← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
+
+## Las 40 partes
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
 
-Generado desde [`../curriculum.yaml`](../curriculum.yaml).
+---
+
+## Índice plano de las 480 clases
+
+Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
+la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
+sin recorrer carpetas manualmente.
+
+{chr(10).join(flat_sections)}
+
+Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.
 """
 
 
@@ -304,6 +337,9 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 La fase 3 fue reabierta después de una auditoría contra el estándar permanente de
 los programas educativos. Los borradores generados no equivalen a clases construidas.
 Una clase solo avanzará a `GUIDED` tras revisión cualitativa completa, clase por clase.
+
+La auditoría reproducible de las carencias actuales está documentada en
+[`docs/PHASE3-CONTENT-AUDIT.md`](docs/PHASE3-CONTENT-AUDIT.md).
 """.replace("2,160", "2.160")
 
 

@@ -24,6 +24,7 @@ REQUIRED = [
     "manifest/repositories.json",
     "docs/PROGRAM-ARCHITECTURE.md",
     "docs/PEDAGOGICAL-STANDARD.md",
+    "docs/PHASE3-CONTENT-AUDIT.md",
     "docs/COVERAGE-MATRIX.md",
     "docs/REPOSITORY-BOUNDARIES.md",
     "docs/PUBLICATION-PLAN.md",

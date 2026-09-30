@@ -445,7 +445,7 @@ def site_page(part: dict, lesson: dict, markdown: str) -> str:
     content, headings = markdown_to_html(markdown)
     toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
     repository_url = f"https://github.com/vladimiracunadev-create/software-engineering-learning-suite/tree/main/{lesson['path']}"
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador pedagógico completo {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> contenido completo del borrador publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p></main><footer>Software Engineering Learning Suite · Fase 3 en reconstrucción</footer></body></html>\n"""
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador estructural {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content"><a class="back" href="../parts/{part['id']}.html">← Parte {part['id']}</a><p class="eyebrow">{lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p></main><footer>Software Engineering Learning Suite · Fase 3 en reconstrucción</footer></body></html>\n"""
 
 
 def expected_files(program: dict) -> dict[Path, str]:
@@ -483,7 +483,7 @@ def main() -> int:
         print("PHASE3_STALE: " + ", ".join(stale[:30]), file=sys.stderr)
         return 1
     action = "PHASE3_CHECK_OK" if args.check else "PHASE3_BUILD_OK"
-    print(f"{action}: 180 reviewed-scope drafts, 360 activity/rubric contracts, 0 classes approved")
+    print(f"{action}: 180 structural drafts, 360 activity/rubric contracts, 0 classes approved")
     return 0
 
 

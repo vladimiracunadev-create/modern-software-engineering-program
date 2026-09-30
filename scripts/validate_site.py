@@ -68,7 +68,7 @@ def main() -> int:
         draft = (SITE / "classes" / f"SE-{number:03d}.html").read_text(encoding="utf-8")
         for marker in ("PLANNED · EN REVISIÓN", "Problema auténtico", "Ejercicios", "Fuentes"):
             if marker not in draft:
-                failures.append(f"phase 3 page lacks full draft content: SE-{number:03d} -> {marker}")
+                failures.append(f"phase 3 page lacks published draft section: SE-{number:03d} -> {marker}")
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1

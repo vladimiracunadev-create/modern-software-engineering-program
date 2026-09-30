@@ -21,3 +21,6 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 La fase 3 fue reabierta después de una auditoría contra el estándar permanente de
 los programas educativos. Los borradores generados no equivalen a clases construidas.
 Una clase solo avanzará a `GUIDED` tras revisión cualitativa completa, clase por clase.
+
+La auditoría reproducible de las carencias actuales está documentada en
+[`docs/PHASE3-CONTENT-AUDIT.md`](docs/PHASE3-CONTENT-AUDIT.md).

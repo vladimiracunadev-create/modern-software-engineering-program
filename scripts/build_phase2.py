@@ -280,7 +280,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
 | Portal definitivo | catálogo navegable de fase 2; contenido pedagógico pendiente |
-| Publicación | GitHub Pages mediante workflow, sujeta a verificación remota |
+| Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado
 

@@ -11,7 +11,7 @@ de computación hasta SPEC, desarrollo asistido por IA y sistemas multiagente.**
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
 [![Estado](https://img.shields.io/badge/fase%202-infraestructura%20lista-2e8b57?style=flat-square)](STATUS.md)
 [![Clases](https://img.shields.io/badge/clases-480%20planificadas-7c5cff?style=flat-square)](curriculum.yaml)
-[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](site/index.html)
+[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![License](https://img.shields.io/badge/license-MIT-3fb950?style=flat-square)](LICENSE)
 
@@ -133,8 +133,9 @@ temporales se revisan antes de publicarse.
 
 La identidad, About, topics, gates y URL de Pages están definidos en
 [docs/PUBLICATION-PLAN.md](docs/PUBLICATION-PLAN.md). El sitio se genera íntegramente
-desde el manifiesto y su publicación solo se considera válida después de comprobar el
-workflow remoto y la respuesta de la URL pública.
+desde el manifiesto. El workflow remoto y la respuesta HTTPS del
+[portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
+fueron verificados el 30 de septiembre de 2026.
 
 ## Filosofía
 

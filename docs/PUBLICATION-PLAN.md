@@ -1,19 +1,19 @@
-# Plan de publicación pública
+# Publicación pública
 
-## Identidad propuesta
+## Identidad activa
 
 - Nombre: `software-engineering-learning-suite`
 - Visibilidad: pública
 - Rama predeterminada: `main`
 - Pages: `https://vladimiracunadev-create.github.io/software-engineering-learning-suite/`
 
-## About propuesto
+## About publicado
 
 > 🧭 software-engineering-learning-suite · 480 clases especificadas · producto, arquitectura, calidad, DevSecOps, SRE, SPEC e IA agéntica · Python + sitio estático · 🐧🍎🪟
 
 La palabra **especificadas** se mantendrá hasta que el contenido exista y sea validado.
 
-## Topics propuestos
+## Topics publicados
 
 `software-engineering`, `software-development`, `computer-science`, `curriculum`,
 `learning-path`, `software-architecture`, `system-design`, `requirements-engineering`,
@@ -21,14 +21,20 @@ La palabra **especificadas** se mantendrá hasta que el contenido exista y sea v
 `spec-driven-development`, `ai-assisted-development`, `coding-agents`, `mcp`,
 `open-source`, `spanish`, `education`.
 
-## Gates antes de publicar
+## Gates de publicación
 
-1. validación local y pruebas verdes;
-2. historial Git inicial sin secretos ni artefactos generados impropios;
-3. remoto público verificado por API;
-4. About releído desde la API en UTF-8;
-5. rama `main` protegida cuando el plan de la cuenta lo permita;
-6. ejecución verde del workflow remoto;
-7. Pages solo se habilita cuando el sitio de la fase correspondiente esté listo.
+- [x] validación local y pruebas verdes;
+- [x] historial Git inicial sin secretos ni artefactos generados impropios;
+- [x] remoto público verificado por API;
+- [x] About releído desde la API en UTF-8;
+- [ ] protección de `main`, pendiente de definir la política de colaboración;
+- [x] ejecución verde del workflow remoto;
+- [x] Pages habilitado únicamente después de validar el sitio generado.
 
-No se publicará una homepage inexistente como si estuviera operativa.
+## Evidencia remota
+
+- Repositorio público: <https://github.com/vladimiracunadev-create/software-engineering-learning-suite>
+- Portal: <https://vladimiracunadev-create.github.io/software-engineering-learning-suite/>
+- Validación multiplataforma: verde en Python 3.11–3.14, Windows y macOS.
+- Pages: artefacto y despliegue en verde.
+- Respuesta del portal: HTTP 200 y catálogo de 480 clases comprobados el 30 de septiembre de 2026.

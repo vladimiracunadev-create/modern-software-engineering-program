@@ -1,0 +1,34 @@
+{
+  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "schema_version": 1,
+  "class_id": "SE-253",
+  "status": "PLANNED",
+  "mode": "class",
+  "environment": "Android Studio, Xcode o Electron según plataforma elegida",
+  "duration_hours": 4,
+  "steps": [
+    "frame-problem",
+    "separate-evidence",
+    "compare-options",
+    "produce-artifact",
+    "inject-safe-failure",
+    "peer-review",
+    "revise"
+  ],
+  "outputs": [
+    "lifecycle.md",
+    "prototype.md",
+    "distribution.md"
+  ],
+  "safety": {
+    "real_personal_data": false,
+    "production_access": false,
+    "secrets": false
+  },
+  "source_ids": [
+    "ANDROID",
+    "APPLE",
+    "ELECTRON",
+    "ISO-25010"
+  ]
+}

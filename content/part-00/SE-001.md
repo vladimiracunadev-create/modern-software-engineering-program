@@ -4,6 +4,19 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Esta primera clase ocurre **antes del lenguaje, el framework y la arquitectura**. La
+pregunta inicial no es “¿cómo lo construimos?”, sino “¿qué realidad intentamos
+cambiar y dónde termina nuestra responsabilidad?”. Sin esa pausa, una solución puede
+ser técnicamente correcta y fracasar como producto.
+
+Abrimos el caso conductor **Campus Abierto**: estudiantes intentan matricularse,
+secretaría aplica reglas, un proveedor procesa pagos y varios sistemas intercambian
+cupos. Hoy producirás el primer artefacto acumulativo, `system-map.md`. En `SE-002`
+usaremos ese mapa para descubrir qué ocurre cuando escala el número de componentes,
+personas y cambios.
+
 ## Prerrequisitos
 
 Puedes comenzar sin programar. Necesitas distinguir una observación de una opinión y representar relaciones con cajas y flechas. Si no has trabajado en un producto digital, usa como caso un sistema de matrícula, una biblioteca o una tienda.

@@ -4,6 +4,17 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Las clases anteriores formularon afirmaciones sobre ciclo de vida, ética, calidad e
+impacto. Ahora auditarás de dónde salen. En Campus Abierto alguien afirma que “cumple
+ISO 25010” porque leyó una página comercial; otra persona cita una edición retirada.
+El problema no es carecer de enlaces, sino confundir autoridad, alcance y evidencia.
+
+Construirás una cadena trazable entre afirmación, pregunta, fuente, pasaje,
+interpretación y límite. En `SE-011` usarás esa cadena junto con todas las lentes
+anteriores para inspeccionar un producto real sin repetir lo que dice su README.
+
 ## Prerrequisitos
 Evidencia, incertidumbre y fuentes de las clases anteriores.
 

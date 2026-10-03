@@ -4,6 +4,20 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+El taller `SE-011` dejó evidencia concreta de cómo observas un producto: qué pudiste
+explicar, qué decisión defendiste y dónde tuviste que declarar un hueco. Esa evidencia
+es la entrada de este proyecto. Empezar desde “quiero aprender X” volvería a ocultar
+capacidades, contexto y criterio de salida.
+
+Cerrarás la parte conectando todos los artefactos que construiste alrededor de
+**Campus Abierto**: fronteras, ciclo de vida, análisis ético, colaboración, evidencia,
+calidad, riesgo, impacto y lectura de fuentes. El
+resultado será un contrato personal revisable que enlaza cada brecha con una práctica
+y una prueba. La Parte 01 podrá entonces aportar fundamentos de computación a una ruta
+que ya sabe por qué los necesita.
+
 ## Prerrequisitos
 Evidencias de `SE-001`–`SE-011` y el diagnóstico en `assessments/diagnostic.md`.
 

@@ -55,6 +55,11 @@ Las doce clases `SE-001`–`SE-012` ya no dependen del generador temático gené
 sus fuentes canónicas están en `content/part-00/` y el portal publica ese texto
 íntegro. Cada clase desarrolla mecanismos propios, ejemplo y contraejemplo,
 práctica, fallo controlado, glosario, transferencia, límites y fuentes próximas.
+La revisión posterior añadió el caso conductor `Campus Abierto`, una activación
+“Antes de empezar” específica, conexiones visibles con la clase anterior y siguiente,
+progreso dentro de la parte y mapas conceptuales renderizados con alternativa textual.
+El portal fue verificado en escritorio y en un viewport móvil de 390 px sin
+desbordamiento horizontal.
 Tras revisar enlaces, contenido, publicación y validadores, la Parte 00 superó el
 gate y sus doce clases avanzaron a `GUIDED`. Esta promoción no atribuye estados
 `EXECUTABLE`, `TESTED` u `OPERABLE` ni se extiende a las demás partes.

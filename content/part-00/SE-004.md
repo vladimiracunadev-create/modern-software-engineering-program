@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Ya sabes ubicar una decisión en el ciclo de vida y asignarle una persona responsable.
+Eso todavía no responde si la decisión es defendible. En Campus Abierto, un modelo de
+priorización reduce el tiempo promedio, pero rechaza con mayor frecuencia a quienes
+estudian y trabajan, y no existe canal de apelación.
+
+La meta de hoy no es etiquetar la situación como “ética” o “no ética”. Construirás un
+análisis que muestre afectados, beneficios, daños, incertidumbre, alternativas y
+reparación. En `SE-005` convertirás esas obligaciones en interfaces de colaboración:
+quién debe participar, quién puede detener y quién revisa.
+
 ## Prerrequisitos
 
 Stakeholders, ciclo de vida y autoridad (`SE-001`–`SE-003`).

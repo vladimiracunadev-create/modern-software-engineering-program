@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Campus Abierto ya tiene responsables y canales de colaboración, pero varias personas
+explican el incidente de forma distinta. Una muestra pequeña culpa a la base de datos;
+otra observación apunta al proveedor de identidad. Tener roles claros no elimina la
+incertidumbre ni convierte una métrica en conclusión.
+
+Esta clase introduce el ciclo pregunta → hipótesis → prueba → observación → decisión
+provisional. Crearás un registro que permita a otra persona refutar tu interpretación.
+En `SE-007` usarás esa disciplina para evitar que “calidad” sea una opinión o una
+colección de indicadores cómodos.
+
 ## Prerrequisitos
 
 Poder formular decisiones y reconocer perspectivas de `SE-001`–`SE-005`.

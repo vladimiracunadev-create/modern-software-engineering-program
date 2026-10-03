@@ -49,6 +49,31 @@ Cada parte debe explicar:
 - proyecto integrador, criterios de salida y pregunta de control por bloque;
 - fuentes de la parte y relación explícita con sus clases.
 
+## Contrato de continuidad y experiencia visual
+
+La clase no se presenta como un archivo aislado. Antes del contenido principal debe
+activar lo aprendido, explicar por qué aparece ahora, anticipar qué evidencia se
+construirá y declarar cómo esa evidencia alimenta la clase siguiente. Cada parte debe
+mantener un caso conductor, proyecto o pregunta profesional que permita revisitar el
+mismo sistema con lentes progresivamente más exigentes.
+
+El portal debe ayudar a orientarse y razonar, no limitarse a decorar Markdown:
+
+- muestra parte, posición, clase anterior, capacidad actual y conexión siguiente;
+- diferencia visualmente estado, explicación, práctica, evidencia, fuentes y límites;
+- transforma diagramas en una representación legible y conserva una alternativa
+  textual o notación fuente accesible;
+- interpreta cada visual dentro del texto: qué relación muestra, por qué importa y
+  dónde deja de ser válida;
+- usa tablas, mapas, secuencias o comparaciones solo cuando reducen carga cognitiva;
+- evita imágenes ornamentales, iconos ambiguos y color como único portador de sentido;
+- conserva lectura cómoda en móvil, teclado, zoom y movimiento reducido;
+- mantiene el contenido íntegro disponible sin depender de JavaScript externo.
+
+Una estética consistente debe reforzar jerarquía, continuidad y atención. No compensa
+contenido superficial, pero una presentación descuidada sí puede impedir aprender de
+contenido correcto.
+
 ## Profundidad y estilo
 
 - La extensión depende del tema; se prohíben cuotas uniformes de palabras.
@@ -78,8 +103,9 @@ La aprobación se realiza clase por clase y luego parte por parte:
 4. fuentes y enlaces verificados;
 5. ausencia de frases genéricas repetidas entre clases;
 6. contenido íntegro visible en GitHub Pages;
-7. validadores, pruebas, encoding y workflows verdes;
-8. commit independiente para la parte.
+7. recorrido, diagramas y navegación comprobados en escritorio y móvil;
+8. validadores, pruebas, encoding y workflows verdes;
+9. commit independiente para la parte.
 
 Solo entonces se cambia `PLANNED` a `GUIDED`. Los estados `EXECUTABLE`, `TESTED`,
 `INTEGRATED` y `OPERABLE` requieren evidencia adicional definida en la arquitectura.

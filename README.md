@@ -51,8 +51,10 @@ deberá desarrollar realmente:
 1. Abre el [índice plano de las 480 clases](classes/README.md).
 2. Haz clic en el título para leer su `README.md` en GitHub.
 3. Usa el enlace **🌐 portal** para comprobar la publicación de la misma clase.
-4. Verifica si declara **borrador no aprobado** o **scaffold planificado**.
-5. Contrasta el material con el [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md).
+4. Verifica si declara **GUIDED**, **borrador no aprobado** o **scaffold planificado**.
+5. En una clase `GUIDED`, comprueba la conexión anterior/siguiente, el mapa visual,
+   la práctica y la evidencia acumulativa.
+6. Contrasta el material con el [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md).
 
 Acceso inmediato: [Parte 00](classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-001 en GitHub](classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [SE-001 en Pages](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-001.html).
 
@@ -207,8 +209,10 @@ estén aprobadas.
 
 El [portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 permite buscar por texto, filtrar por parte y estado, abrir una parte y leer cada
-clase. Cada clase incorpora navegación **anterior / parte / índice / siguiente** al
-inicio y al final, además de su enlace equivalente en GitHub. El
+clase. La Parte 00 añade un caso conductor, ruta de evidencias, progreso visible,
+conexión **vienes de / construyes / conecta con**, índice lateral y diagramas
+renderizados con su notación fuente accesible. Cada clase conserva navegación
+**anterior / parte / índice / siguiente** al inicio y al final, además de su enlace equivalente en GitHub. El
 [índice plano](classes/README.md) conserva acceso directo a las 480 clases y a sus
 480 páginas publicadas.
 

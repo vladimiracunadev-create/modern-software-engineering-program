@@ -4,6 +4,19 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+En `SE-001` delimitaste Campus Abierto como sistema sociotécnico. Ahora conserva ese
+mapa e imagina que pasa de una facultad a veinte, integra nuevos proveedores y cambia
+reglas cada semestre. La dificultad no crece solo porque haya más código: aumentan
+dependencias, estados posibles, coordinación y costo de corregir tarde.
+
+Esta clase explica **por qué aparecieron las prácticas de ingeniería**. No estudiarás
+una cronología para memorizar fechas; construirás una cadena causal que conecte un
+problema de escala con una práctica, su señal de control y aquello que no garantiza.
+Esa cadena prepara `SE-003`, donde distribuiremos responsabilidad durante el ciclo de
+vida completo.
+
 ## Prerrequisitos
 
 Comprender componente, sistema y producto (`SE-001`).

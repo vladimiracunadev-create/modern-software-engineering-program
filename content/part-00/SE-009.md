@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+En `SE-008` hiciste visibles ganadores, pérdidas y riesgos de una decisión. Falta mirar
+efectos que suelen quedar fuera del sprint. Campus Abierto reduce trámites presenciales,
+pero exige dispositivos recientes, transfiere datos innecesarios y concentra guardias
+en pocas personas. La mejora local puede crear deuda humana, social o ambiental.
+
+Analizarás impactos directos, habilitados y sistémicos a lo largo del ciclo de vida.
+No buscarás una etiqueta de “software verde”, sino alternativas y señales que cambien
+el diseño. `SE-010` te dará el método para respaldar estas afirmaciones sin usar una
+bibliografía como decoración.
+
 ## Prerrequisitos
 Stakeholders, ética y trade-offs (`SE-004`, `SE-008`).
 

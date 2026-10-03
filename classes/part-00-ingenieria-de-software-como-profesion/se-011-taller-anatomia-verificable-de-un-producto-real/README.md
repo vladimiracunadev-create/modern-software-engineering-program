@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Hasta aquí estudiaste una lente por vez y la aplicaste a Campus Abierto. El taller
+cambia la dirección: recibirás un producto real y deberás reconstruirlo desde evidencia.
+Necesitarás decidir su frontera, seguir una tarea, ubicar responsabilidades, leer
+fuentes, formular riesgos y distinguir lo observado de lo inferido.
+
+La anatomía resultante debe mostrar una ruta vertical desde la necesidad hasta la
+operación, además de huecos honestos. No ejecutes código desconocido para llenar esos
+huecos. `SE-012` usará esta evidencia integrada para que tu plan profesional parta de
+capacidades demostradas y no de una lista aspiracional de tecnologías.
+
 ## Prerrequisitos
 Clases `SE-001`–`SE-010` y capacidad de leer un repositorio sin ejecutar código desconocido.
 

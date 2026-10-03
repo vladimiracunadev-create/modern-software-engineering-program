@@ -70,6 +70,10 @@ def main() -> int:
         for marker in (maturity_marker, "Problema auténtico", "Ejercicios", "Fuentes"):
             if marker not in draft:
                 failures.append(f"phase 3 page lacks published draft section: SE-{number:03d} -> {marker}")
+        if number <= 12:
+            for marker in ("Antes de empezar", "lesson-progress", "lesson-context", "concept-map"):
+                if marker not in draft:
+                    failures.append(f"guided page lacks pedagogical presentation: SE-{number:03d} -> {marker}")
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1

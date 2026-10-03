@@ -5,6 +5,45 @@
 - **Estado:** 12 clases `GUIDED`, desarrolladas y aprobadas contra el gate pedagógico
 - **Dedicación estimada:** 54 horas entre clases, taller y proyecto
 
+## Antes de comenzar: la historia que conecta la parte
+
+Durante las doce clases trabajarás con **Campus Abierto**, un servicio ficticio de
+matrícula universitaria que combina portal web, reglas académicas, pagos, identidad,
+atención humana y sistemas heredados. El caso no pretende simular una empresa
+completa: ofrece un mismo objeto de estudio para observar cómo cambia una decisión
+cuando ampliamos la mirada.
+
+En `SE-001` dibujarás sus fronteras. Después explicarás por qué sus problemas no se
+resuelven solo programando, distribuirás responsabilidades durante todo el ciclo de
+vida y enfrentarás una decisión que perjudica a un grupo de estudiantes. Las clases
+siguientes añaden colaboración, evidencia, calidad, riesgo e impacto. El taller
+`SE-011` integra esas lentes en un producto real; el proyecto `SE-012` convierte lo
+aprendido en una ruta profesional verificable.
+
+```mermaid
+flowchart LR
+ F[Fronteras] --> V[Ciclo de vida]
+ V --> R[Responsabilidad]
+ R --> E[Evidencia]
+ E --> Q[Calidad y riesgo]
+ Q --> I[Impacto]
+ I --> T[Taller integrador]
+ T --> P[Proyecto profesional]
+```
+
+El recorrido avanza desde **qué estamos cambiando** hasta **qué puedes demostrar que
+sabes decidir**. Cada clase reutiliza y corrige evidencia anterior; no son capítulos
+independientes ni una lista de conceptos.
+
+## Cómo estudiar cada clase
+
+1. Lee “Antes de empezar” para recuperar la decisión anterior y anticipar la nueva.
+2. Intenta responder el problema auténtico antes de leer la explicación.
+3. Usa el mapa visual como hipótesis: explica cada flecha y busca dónde podría fallar.
+4. Produce el artefacto de la práctica; no marques progreso solo por haber leído.
+5. Contrasta el resultado con el reto verificable y solicita una revisión externa.
+6. Conserva la evidencia: será entrada de la clase siguiente y del proyecto final.
+
 ## Propósito profesional
 
 Esta parte enseña a mirar el software como una intervención sociotécnica con ciclo de vida, personas afectadas y consecuencias. Antes de elegir lenguajes o frameworks, el estudiante aprende a delimitar sistemas, razonar con evidencia, reconocer responsabilidades, comparar riesgos y leer fuentes. La salida no es memorizar terminología: es producir decisiones que otra persona pueda inspeccionar y cuestionar.

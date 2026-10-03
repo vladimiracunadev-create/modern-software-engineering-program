@@ -63,6 +63,25 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         self.assertIn("SE-091", page)
         self.assertNotIn("](", page)
 
+    def test_guided_classes_form_a_connected_visual_path(self) -> None:
+        part_page = (ROOT / "site/parts/00.html").read_text(encoding="utf-8")
+        self.assertIn("Caso conductor · Campus Abierto", part_page)
+        self.assertEqual(12, part_page.count('class="route-number"'))
+        for lesson in self.lessons[:12]:
+            readme = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            page = (ROOT / "site/classes" / f"{lesson['id']}.html").read_text(encoding="utf-8")
+            self.assertIn("## Antes de empezar", readme, lesson["id"])
+            self.assertIn("Campus Abierto", readme, lesson["id"])
+            self.assertIn('class="lesson-progress"', page, lesson["id"])
+            self.assertIn('class="lesson-context"', page, lesson["id"])
+            self.assertIn('class="concept-map"', page, lesson["id"])
+
+    def test_portal_reports_current_maturity(self) -> None:
+        home = (ROOT / "site/index.html").read_text(encoding="utf-8")
+        self.assertIn("12</strong><span>clases revisadas", home)
+        self.assertIn("468</strong><span>clases por desarrollar", home)
+        self.assertNotIn("0</strong><span>aprobadas", home)
+
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:
         text = (ROOT / self.lessons[41]["path"] / "README.md").read_text(encoding="utf-8")
         self.assertIn("diagnosticado `SE-041`", text)

@@ -4,6 +4,19 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+El análisis ético de `SE-004` identificó voces que una decisión técnica no puede
+ignorar. Ahora debes incorporarlas al trabajo sin convertir cada decisión en una
+reunión masiva. Campus Abierto sufre un incidente: soporte ve síntomas, datos detecta
+un patrón, seguridad limita accesos y desarrollo conoce el cambio reciente, pero la
+información no cruza las fronteras organizativas.
+
+Diseñarás una red de autoridad, consulta, evidencia y escalamiento. El producto de la
+clase no será un organigrama, sino interfaces de colaboración que puedan funcionar
+bajo presión. `SE-006` preguntará cómo esas personas distinguen convicción de evidencia
+cuando deben escoger una explicación.
+
 ## Prerrequisitos
 
 Responsabilidad y juicio profesional de `SE-003`–`SE-004`.

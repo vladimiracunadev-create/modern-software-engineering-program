@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+En `SE-006` aprendiste que una observación necesita contexto antes de sostener una
+decisión. Aplícalo ahora a Campus Abierto: el equipo muestra cobertura alta y tiempos
+de API aceptables, mientras estudiantes con conexiones lentas abandonan el flujo. Las
+dos afirmaciones pueden ser verdaderas porque observan capas distintas.
+
+Construirás una cadena entre estructura interna, comportamiento del producto y
+resultado en uso. El artefacto principal será un conjunto de escenarios medibles, no
+una lista de adjetivos. `SE-008` tomará esos escenarios y mostrará por qué no todos
+pueden maximizarse al mismo tiempo.
+
 ## Prerrequisitos
 Formular afirmaciones y evidencia (`SE-006`).
 

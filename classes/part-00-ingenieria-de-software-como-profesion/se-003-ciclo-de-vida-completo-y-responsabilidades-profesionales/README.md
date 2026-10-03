@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+La clase anterior mostró que automatizar o modularizar responde a causas concretas,
+pero ninguna práctica aislada sostiene un producto. Vuelve al mapa de Campus Abierto:
+¿quién responde cuando cambia una regla, falla una migración, vence un certificado o
+debe eliminarse información después del retiro?
+
+Aquí transformarás el mapa estático en una **película del ciclo de vida**. Marcarás
+decisiones, handoffs, señales y recuperación desde la necesidad hasta el retiro. Ese
+recorrido hará visible la autoridad que `SE-004` someterá a juicio ético: poder decidir
+también significa responder por consecuencias previsibles.
+
 ## Prerrequisitos
 
 Fronteras y retroalimentación de `SE-001`–`SE-002`.

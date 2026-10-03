@@ -4,6 +4,18 @@
 
 > Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
+## Antes de empezar
+
+Los escenarios de `SE-007` hicieron visible qué significa rapidez, seguridad y
+accesibilidad para Campus Abierto. Ahora aparece el conflicto real: reservar cupos de
+forma estricta reduce sobreventa, pero puede aumentar latencia y dependencia; relajar
+consistencia mejora respuesta, pero cambia quién soporta el error.
+
+Hoy compararás opciones sin esconder pérdidas. Separarás restricciones de preferencias,
+formularás riesgos y declararás qué nueva señal haría revisar la decisión. `SE-009`
+ampliará nuevamente la frontera: algunos costos no recaen en el equipo ni aparecen en
+el tablero operativo.
+
 ## Prerrequisitos
 Escenarios de calidad (`SE-007`) y evidencia (`SE-006`).
 

@@ -494,6 +494,57 @@ def heading_id(value: str) -> str:
     return plain or "seccion"
 
 
+def mermaid_to_visual(source: str) -> str:
+    """Render the small flowchart subset used by lessons without a JS dependency.
+
+    The relation view intentionally favors readable claims over decorative graph
+    layout. The original Mermaid notation remains available as an accessible
+    disclosure for readers who want to inspect or reuse it.
+    """
+    node_labels = {
+        match.group(1): match.group(2).strip('"')
+        for match in re.finditer(r'([A-Za-z][A-Za-z0-9_]*)\[([^]]+)\]', source)
+    }
+    relations: list[tuple[str, str, str]] = []
+    for raw_line in source.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("flowchart"):
+            continue
+        parts = re.split(r"\s*(-->|---)\s*", line)
+        for index in range(0, len(parts) - 2, 2):
+            left_match = re.match(r"([A-Za-z][A-Za-z0-9_]*)", parts[index])
+            right_match = re.match(r"([A-Za-z][A-Za-z0-9_]*)", parts[index + 2])
+            if not left_match or not right_match:
+                continue
+            left_id, right_id = left_match.group(1), right_match.group(1)
+            connector = "→" if parts[index + 1] == "-->" else "—"
+            relation = (
+                node_labels.get(left_id, left_id),
+                connector,
+                node_labels.get(right_id, right_id),
+            )
+            if relation not in relations:
+                relations.append(relation)
+    if not relations:
+        return f'<pre class="mermaid-source"><code>{html.escape(source)}</code></pre>'
+    rows = "".join(
+        '<div class="concept-relation">'
+        f'<span class="concept-node">{html.escape(left)}</span>'
+        f'<span class="concept-arrow" aria-hidden="true">{connector}</span>'
+        f'<span class="concept-node">{html.escape(right)}</span>'
+        "</div>"
+        for left, connector, right in relations
+    )
+    return (
+        '<figure class="concept-map">'
+        '<figcaption><span>Mapa visual</span><strong>Relaciones que debes poder explicar</strong></figcaption>'
+        f'<div class="concept-relations">{rows}</div>'
+        '<details><summary>Ver la notación fuente del diagrama</summary>'
+        f'<pre class="mermaid-source"><code>{html.escape(source)}</code></pre></details>'
+        "</figure>"
+    )
+
+
 def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
     lines = markdown.splitlines()
     output: list[str] = []
@@ -510,8 +561,11 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
                 code_language = line[3:].strip()
                 code_lines = []
             else:
-                css_class = "mermaid-source" if code_language == "mermaid" else "code-block"
-                output.append(f'<pre class="{css_class}"><code>{html.escape(chr(10).join(code_lines))}</code></pre>')
+                source = chr(10).join(code_lines)
+                if code_language == "mermaid":
+                    output.append(mermaid_to_visual(source))
+                else:
+                    output.append(f'<pre class="code-block"><code>{html.escape(source)}</code></pre>')
                 in_code = False
             index += 1
             continue
@@ -607,7 +661,35 @@ def site_page(
         if guided else
         "<strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada."
     )
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content">{navigation}<p class="eyebrow">Fase {phase} · {lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice">{notice}</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Software Engineering Learning Suite · Fase {phase} en reconstrucción</footer></body></html>\n"""
+    lesson_index = next(
+        index for index, item in enumerate(part["lessons"]) if item["id"] == lesson["id"]
+    )
+    progress_items = []
+    for index, item in enumerate(part["lessons"]):
+        state_class = "is-current" if index == lesson_index else "is-complete" if index < lesson_index else ""
+        label = f'{item["id"]}: {item["title"]}'
+        if index == lesson_index:
+            progress_items.append(f'<li><span class="{state_class}" aria-current="step">{html.escape(label)}</span></li>')
+        else:
+            progress_items.append(f'<li><a class="{state_class}" href="{item["id"]}.html" aria-label="{html.escape(label)}">{html.escape(label)}</a></li>')
+    previous_title = previous["title"] if previous else "Inicio del programa"
+    following_title = following["title"] if following else "Cierre del programa"
+    context = (
+        '<div class="lesson-context" aria-label="Conexión curricular">'
+        f'<div class="context-card"><span>Vienes de</span><strong>{html.escape(previous_title)}</strong></div>'
+        f'<div class="context-card"><span>Construyes ahora</span><strong>{html.escape(lesson["title"])}</strong></div>'
+        f'<div class="context-card"><span>Conecta con</span><strong>{html.escape(following_title)}</strong></div>'
+        '</div>'
+    )
+    progress = (
+        '<nav class="lesson-progress" aria-label="Progreso dentro de la parte">'
+        f'<div class="lesson-progress__label"><span>Parte {part["id"]}</span><span>Clase {lesson_index + 1} de {len(part["lessons"])}</span></div>'
+        f'<ol>{"".join(progress_items)}</ol></nav>'
+    )
+    kind_label = {"class": "Clase", "studio": "Taller", "project": "Proyecto"}.get(
+        lesson["kind"], lesson["kind"].capitalize()
+    )
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Fase {phase} · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Una clase de la Parte {part['id']} — {html.escape(part['title'])}. Comprende el mecanismo, úsalo para decidir y conserva evidencia revisable.</p></header>{progress}<div class="notice">{notice}</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article></div><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Software Engineering Learning Suite · Fase {phase} en reconstrucción</footer></body></html>\n"""
 
 
 def expected_files(program: dict) -> dict[Path, str]:

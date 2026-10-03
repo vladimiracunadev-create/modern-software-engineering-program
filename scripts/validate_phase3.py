@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -60,9 +61,30 @@ def main() -> int:
             if expected_marker not in text or "Pendiente de desarrollar" in text:
                 failures.append(f"invalid maturity content: {lesson['id']}")
             if lesson["status"] == "GUIDED":
-                for marker in ("## Antes de empezar", "Campus Abierto"):
+                for marker in (
+                    "## Antes de empezar",
+                    "Campus Abierto",
+                    "## Errores comunes y cómo corregirlos",
+                ):
                     if marker not in text:
                         failures.append(f"missing guided learning connection {lesson['id']}: {marker}")
+                concept_match = re.search(
+                    r"## Conceptos y decisiones\s+(.*?)\s+## Definiciones de trabajo",
+                    text,
+                    re.DOTALL,
+                )
+                if not concept_match or concept_match.group(1).count("### ") < 5:
+                    failures.append(
+                        f"guided class lacks topic-specific deep explanation: {lesson['id']}"
+                    )
+                if not re.search(
+                    r"^## (Caso conductor|Demostración guiada|Integración final)",
+                    text,
+                    re.MULTILINE,
+                ):
+                    failures.append(
+                        f"guided class lacks an integrated worked case: {lesson['id']}"
+                    )
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
                 failures.append(f"missing sections {lesson['id']}: {missing}")

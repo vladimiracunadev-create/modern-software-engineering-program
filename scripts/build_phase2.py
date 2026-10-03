@@ -499,6 +499,33 @@ def part_page(part: dict) -> str:
     else:
         state = "Contenido planificado para una fase posterior."
     if part["id"] == "00":
+        # Publica la fuente editorial íntegra antes del resumen visual. La parte no
+        # debe convertirse en una ficha distinta del programa que se revisa en Git.
+        # El import diferido evita acoplar la generación de las demás partes al
+        # renderer de clases.
+        try:
+            from build_phase3 import markdown_to_html
+        except ModuleNotFoundError:  # import al ejecutar como módulo desde la raíz
+            from scripts.build_phase3 import markdown_to_html
+
+        editorial_source = ROOT / "content/part-00/README.md"
+        editorial_markdown = editorial_source.read_text(encoding="utf-8")
+        for lesson in part["lessons"]:
+            editorial_markdown = editorial_markdown.replace(
+                f"(../../{lesson['path']}/README.md)",
+                f"(../classes/{lesson['id']}.html)",
+            )
+        editorial_markdown = editorial_markdown.replace(
+            "(../../classes/README.md)", "(../index.html)"
+        ).replace(
+            "(../../docs/PEDAGOGICAL-STANDARD.md)",
+            "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/PEDAGOGICAL-STANDARD.md)",
+        )
+        editorial_content, editorial_headings = markdown_to_html(editorial_markdown)
+        editorial_toc = "".join(
+            f'<li><a href="#{anchor}">{html.escape(label)}</a></li>'
+            for anchor, label in editorial_headings
+        )
         route_items = []
         block_labels = {
             0: "Bloque 1 · comprender el objeto y su evolución",
@@ -515,7 +542,7 @@ def part_page(part: dict) -> str:
                 f'<strong><a href="../classes/{lesson["id"]}.html">{verb} · {html.escape(lesson["title"])}</a></strong>'
                 f'<p>{connection}</p></div><span class="route-evidence">Evidencia: {evidence}</span></li>'
             )
-        body = f"""<section class="part-intro"><p class="eyebrow">Caso conductor · Campus Abierto</p><h2>De “hacer software” a ejercer criterio profesional</h2><p>Seguirás un servicio ficticio de matrícula que combina personas, reglas, pagos, identidad y sistemas heredados. Cada clase vuelve sobre el mismo producto con una lente nueva y transforma la evidencia anterior; el recorrido no funciona como doce capítulos aislados.</p><p><strong>Cómo usar la ruta:</strong> entra por el problema, interpreta cada relación del mapa visual, produce el artefacto y llévalo a la clase siguiente. El taller integra las lentes en un producto real y el proyecto convierte la evidencia en una ruta profesional.</p></section><h2>El recorrido y sus evidencias</h2><ol class="route">{''.join(route_items)}</ol>"""
+        body = f"""<section class="part-intro"><p class="eyebrow">Caso conductor · Campus Abierto</p><h2>De “hacer software” a ejercer criterio profesional</h2><p>Seguirás un servicio ficticio de matrícula que combina personas, reglas, pagos, identidad y sistemas heredados. Cada clase vuelve sobre el mismo producto con una lente nueva y transforma la evidencia anterior; el recorrido no funciona como doce capítulos aislados.</p></section><div class="lesson-shell part-shell"><nav class="lesson-toc" aria-label="Contenido de la parte"><strong>En esta parte</strong><ol>{editorial_toc}</ol></nav><article class="lesson-content part-content">{editorial_content}</article></div><h2>Resumen visual del recorrido</h2><p class="section-intro">Después de la explicación completa, esta ruta permite recuperar de un vistazo la acción y la evidencia que encadena cada clase.</p><ol class="route">{''.join(route_items)}</ol>"""
     else:
         body = f'<h2>Clases de la parte</h2><ol class="lesson-list">{items}</ol>'
     domain = "criterio profesional y sistemas sociotécnicos" if part["id"] == "00" else part["owner"]

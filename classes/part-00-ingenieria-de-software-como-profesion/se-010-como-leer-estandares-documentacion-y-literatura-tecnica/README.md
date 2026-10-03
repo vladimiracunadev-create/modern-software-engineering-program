@@ -45,11 +45,93 @@ flowchart LR
 Leer solo el título salta los pasos que sostienen la afirmación.
 
 ## Conceptos y decisiones
-Primero identifica propósito y alcance. Un documento puede definir un modelo sin prescribir implementación. Palabras como shall, should y may tienen funciones distintas cuando el documento las define.
+### 1. Comenzar por la afirmación y la pregunta
 
-Verifica versión, estado y sustitución. ISO 25010:2011 combinaba modelos que en 2023 se separaron entre ISO 25010 e ISO 25019; citar el número sin edición cambia significado.
+Buscar primero una cita favorece encontrar texto que suena compatible. El método
+comienza escribiendo una afirmación suficientemente precisa para poder ser falsa:
+objeto, versión, contexto y alcance. Después se pregunta qué tipo de evidencia podría
+sostenerla. “Los reintentos de este método son seguros bajo esta condición” requiere
+una especificación y una decisión local; “esta estrategia redujo fallos en nuestro
+servicio” requiere observaciones del contexto.
 
-Una fuente primaria describe directamente especificación, experimento o decisión. Una secundaria puede enseñar mejor, pero no debe reemplazarla cuando se afirma conformidad. Autoridad no elimina límites: documentación oficial puede omitir comparaciones o errores conocidos.
+La cadena afirmación → pregunta → fuente evita dos extremos: citar una autoridad que
+no habla del punto y usar una experiencia local como regla universal. También permite
+descubrir que una afirmación mezcla varias proposiciones y necesita fuentes diferentes.
+
+### 2. Tipo de fuente y autoridad sobre el objeto
+
+Un estándar ofrece vocabulario, modelos o requisitos consensuados dentro de un alcance.
+Una especificación define contratos e interoperabilidad. La documentación oficial
+describe comportamiento soportado de un producto o versión. Un artículo de investigación
+aporta método, datos y discusión; un libro o guía secundaria puede explicar y conectar.
+
+“Oficial” no significa universalmente verdadero. El fabricante tiene autoridad sobre
+la interfaz soportada, pero incentivo y alcance limitados al comparar alternativas. Una
+norma puede definir características de calidad sin indicar el umbral adecuado para
+Campus Abierto. Una fuente secundaria puede ser pedagógicamente superior y aun así
+requerir la primaria cuando se afirma conformidad.
+
+La selección se basa en **aptitud para la afirmación**, no en prestigio general. Se
+prefiere la fuente más próxima capaz de sostenerla y se añade contexto cuando el lector
+necesita interpretación.
+
+### 3. Alcance, lenguaje normativo y excepciones
+
+Antes de buscar una frase se leen propósito, alcance, definiciones y estructura. Un
+documento puede ser descriptivo, normativo o ambas cosas en secciones distintas. Los
+términos `shall`, `should` y `may` solo adquieren sentido normativo según las
+convenciones definidas por la propia publicación. Copiar una frase sin condición o
+excepción altera su significado.
+
+También hay que distinguir requisito de ejemplo. Un ejemplo informativo muestra una
+posibilidad; no obliga a implementarla. Una nota puede aclarar sin formar parte del
+requisito. El registro resume el pasaje con sus condiciones y evita reproducir más
+texto del permitido por licencia.
+
+### 4. Edición, vigencia y cadena de sustitución
+
+Los documentos cambian. Se registra número o identificador, edición o versión, fecha,
+estado, errata y documento que sustituye o actualiza. Una referencia histórica puede
+ser correcta aunque esté retirada; el error consiste en presentarla como requisito
+actual sin contexto.
+
+ISO/IEC 25010:2011 combinaba modelos de producto y calidad en uso. La edición de 2023
+sitúa calidad del producto en ISO/IEC 25010 y el modelo de calidad en uso en
+ISO/IEC 25019. Por eso escribir solo “ISO 25010” puede ocultar qué edición y modelo se
+usa. De manera semejante, un RFC puede ser actualizado parcialmente por otros; el
+encabezado y las relaciones forman parte de la lectura.
+
+### 5. Del pasaje a la interpretación y su límite
+
+Una cita no ejecuta el razonamiento. El registro explica qué afirma la fuente, cómo se
+aplica al caso y qué decisión local permanece abierta. ISO puede nombrar una
+característica; el equipo todavía debe seleccionar escenarios y umbrales. Un RFC puede
+permitir reintento; el producto debe gestionar idempotencia y efectos propios.
+
+La **cita de proximidad** se coloca junto a la afirmación sustentada para que el lector
+no adivine qué respalda una bibliografía. Si el estándar completo es de pago y solo se
+consultó su ficha pública, se cita la ficha únicamente para metadatos visibles. No se
+inventa acceso ni se atribuyen cláusulas no leídas.
+
+Contrastar una fuente complementaria ayuda a descubrir límites: errata, evidencia
+empírica, guía de adopción o crítica metodológica. No se crea falsa equivalencia; se
+explica qué pregunta responde cada una.
+
+## Caso conductor: auditar “Campus Abierto cumple ISO 25010”
+
+La afirmación original carece de edición, alcance y evidencia. Se divide en preguntas:
+¿qué modelo se aplicó?, ¿qué características se evaluaron?, ¿con qué escenarios y
+medidas?, ¿quién afirma conformidad? La ficha oficial confirma nombre, edición y
+alcance general; no demuestra evaluación del producto.
+
+La versión corregida dice: “El catálogo de escenarios usa las características del
+modelo de calidad de producto ISO/IEC 25010:2023 como vocabulario. Esta revisión
+interna evaluó únicamente fiabilidad, eficiencia de desempeño y compatibilidad en los
+entornos declarados; no constituye certificación ni evidencia de calidad en uso”. Para
+calidad en uso se enlaza ISO/IEC 25019:2023 y se documenta el método local.
+
+El cambio parece menos grandioso y es profesionalmente más fuerte: otra persona puede
+ver qué procede de la fuente, qué decidió el equipo y qué permanece sin demostrar.
 
 ## Definiciones de trabajo
 - **normativo:** parte que establece requisitos dentro del alcance;
@@ -86,6 +168,16 @@ Sí para lo que el resumen afirma; no para detalles no visibles.
 
 ## Fallo controlado y diagnóstico
 Cita una versión antigua como actual, detecta la sustitución y registra qué conclusiones cambian. No reescribas historia legítima.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| bibliografía extensa al final | no existe relación afirmación–fuente | coloca citas de proximidad y registra el pasaje relevante |
+| “según ISO” sin edición | se omitieron vigencia y alcance | añade identificador, año, modelo usado y límite |
+| resumen comercial respalda una cláusula | se atribuyó contenido no visible | limita la afirmación a metadatos o consulta fuente accesible |
+| documentación oficial se toma como comparación imparcial | autoridad confundida con adecuación | añade evidencia contextual y fuentes complementarias |
+| una cita reemplaza la decisión local | no se hizo interpretación | separa lo prescrito de umbral, método y riesgo elegidos |
 
 ## Entorno y archivos clave
 Navegador, gestor bibliográfico opcional: `source-trace.md`, `currency-check.md`, `claims.md`.

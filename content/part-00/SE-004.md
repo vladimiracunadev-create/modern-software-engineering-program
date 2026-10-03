@@ -53,13 +53,103 @@ El código orienta juicio; no es un algoritmo. Principios pueden entrar en tensi
 
 ## Conceptos y decisiones
 
-La ética aparece cuando una decisión afecta autonomía, seguridad, privacidad, oportunidades o cargas. «El cliente lo pidió» no transfiere toda responsabilidad. ACM e IEEE-CS/ACM exigen interés público, calidad, juicio independiente, revisión y competencia.
+### 1. Legalidad, política y ética responden preguntas diferentes
 
-Evitar daño requiere buscarlo: quién falta en datos, quién no puede usar el canal, qué ocurre al equivocarse y cómo se impugna. Sin queja no hay prueba de ausencia de daño si reclamar es difícil.
+La ley establece obligaciones y prohibiciones en una jurisdicción. Un contrato reparte
+compromisos entre partes. Una política institucional define conducta interna. La ética
+profesional pregunta además qué debe hacer una persona con conocimiento especializado
+cuando una decisión afecta bienestar, autonomía, seguridad, privacidad u oportunidades.
+Que una opción sea legal o solicitada no demuestra que sea responsable; que parezca
+injusta tampoco autoriza a ignorar procesos legales o afirmar hechos sin evidencia.
 
-La gobernanza debe ser proporcional. Un error reversible de recomendación no equivale a un bloqueo financiero. A mayor severidad, escala e irreversibilidad, mayor evidencia, revisión independiente y autoridad de parada.
+Los códigos de ACM y de IEEE-CS/ACM no son algoritmos que produzcan una respuesta
+única. Ofrecen principios y deberes que pueden entrar en tensión: privacidad frente a
+observabilidad, acceso frente a prevención de abuso, obligación con empleador frente a
+interés público. El juicio profesional consiste en hacer visible esa tensión, buscar
+alternativas y justificar por qué una obligación recibe mayor peso en el caso concreto.
 
-Escalar significa registrar hechos, separar inferencias, citar políticas, proponer alternativas y acudir a autoridad. La divulgación externa depende de jurisdicción; esta clase no es asesoría jurídica.
+### 2. El daño debe buscarse más allá de la persona usuaria promedio
+
+Un stakeholder es cualquier persona o grupo capaz de afectar o ser afectado. Incluye a
+quien usa la interfaz, quien queda excluido, quien soporta una decisión, quien trabaja
+para corregirla y quien recibirá efectos futuros. Si solo se consulta a quienes
+completaron el flujo, desaparecen quienes abandonaron, no tenían dispositivo o fueron
+rechazados antes de poder reclamar.
+
+Analizar daño exige preguntar por **distribución**, no solo promedio. Una mejora global
+puede concentrar errores graves en un grupo pequeño. También importan escala,
+severidad, duración, reversibilidad y posibilidad de impugnar. Un mensaje incómodo
+reversible no tiene la misma gobernanza que perder una beca sin explicación, aunque
+ambos afecten al mismo número de personas.
+
+La ausencia de quejas no demuestra ausencia de daño. Reclamar puede ser desconocido,
+costoso, inaccesible o peligroso. Por eso se diseñan señales proactivas, revisión de
+casos y canales de apelación comprensibles. Escuchar es parte del mecanismo de control,
+no una cortesía posterior.
+
+### 3. Deliberar es construir opciones, no elegir entre obedecer o bloquear
+
+Una deliberación defendible sigue una secuencia:
+
+1. describir la decisión y separar observaciones, inferencias e incertidumbre;
+2. identificar afectados, derechos, beneficios, daños e incentivos del equipo;
+3. proponer al menos una alternativa material, incluida la opción de no proceder;
+4. comparar prevención, detección, apelación, reparación y costo desplazado;
+5. definir autoridad, condición de parada y revisión posterior.
+
+El análisis pierde valor si todas las alternativas son variaciones cosméticas de una
+decisión ya tomada. También falla cuando solo enumera principios sin cambiar diseño.
+Una consideración ética se vuelve operativa cuando modifica población, datos,
+automatización, umbral, supervisión, comunicación o derecho de apelación.
+
+### 4. Competencia, honestidad y conflicto de interés
+
+Aceptar una decisión para la que no se posee competencia puede ser un riesgo ético. La
+respuesta no siempre es retirarse: se puede limitar alcance, pedir revisión, realizar
+una prueba o incorporar conocimiento de dominio. Lo irresponsable es presentar certeza
+o autoridad que no se tiene.
+
+Los conflictos de interés deben declararse porque cambian cómo se interpreta el
+juicio. Un equipo evaluado por conversión tiene incentivo para minimizar abandonos
+causados por presión. Una empresa que vende el modelo no es fuente independiente sobre
+su equidad. Declarar el conflicto no invalida automáticamente la evidencia, pero exige
+controles y revisión adecuados.
+
+### 5. Escalamiento, parada y reparación
+
+Escalar profesionalmente significa construir un registro verificable: hechos,
+inferencias, personas afectadas, principios, políticas, opciones, urgencia y respuesta
+solicitada. Un mensaje que acusa sin separar estos elementos dificulta actuar y puede
+dañar a otras personas. La autoridad de parada debe definirse antes de la crisis y ser
+proporcional al impacto.
+
+Cuando el daño ocurre, eliminar la función puede evitar repetición, pero no repara el
+caso pasado. La reparación puede requerir restaurar una oportunidad, corregir datos,
+explicar la decisión, compensar, disculparse o permitir revisión humana. Debe ser
+accesible para quien sufrió el efecto y dejar aprendizaje para rediseñar el sistema.
+La divulgación externa o denuncia depende de hechos y jurisdicción; esta clase enseña
+documentación y escalamiento, no sustituye asesoría jurídica.
+
+## Caso conductor: priorización de solicitudes en Campus Abierto
+
+El modelo ordena solicitudes según probabilidad de completar el proceso. El promedio
+de espera baja, pero estudiantes que trabajan acceden en horarios menos frecuentes y
+quedan sistemáticamente al final. La muestra histórica contiene el mismo patrón, de
+modo que una predicción precisa puede reproducir una distribución injusta.
+
+Las opciones reales no son solo “usar” o “no usar” el modelo:
+
+| Opción | Beneficio buscado | Daño o límite | Control necesario |
+| --- | --- | --- | --- |
+| priorización automática | reducir cola promedio | reproduce exclusión y oculta criterio | no procede sin rediseño y evidencia |
+| apoyo a revisión humana | ordenar información sin decidir | sesgo de automatización | razones visibles, muestreo y autoridad humana |
+| regla transparente de urgencia | criterio discutible y auditable | puede ser menos eficiente | participación, revisión y apelación |
+| orden temporal con capacidad adicional | igualdad procedimental | no resuelve necesidades diferentes | monitoreo por grupo y canal de urgencia |
+
+La decisión provisional adopta una regla transparente, añade un canal de apelación y
+segmenta resultados sin usar datos innecesarios. Se suspende si aparece una diferencia
+grave no explicada o si la revisión no puede responder a tiempo. El caso no queda
+“resuelto éticamente”: queda gobernado con límites, voz y reparación.
 
 ## Definiciones de trabajo
 
@@ -106,6 +196,16 @@ No. El comité revisa; cada profesional conserva obligaciones.
 ## Fallo controlado y diagnóstico
 
 Decide con promedio global y luego segmenta por grupo y severidad. Registra el cambio de conclusión con datos sintéticos.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| “es ético porque cumple la ley” | se confundió mínimo jurídico con deber profesional | analiza daño, interés público y alternativas además del cumplimiento |
+| lista genérica de stakeholders | no se siguió quién recibe beneficio o carga | describe mecanismo, consecuencia y posibilidad de participar o apelar |
+| comité al final del proyecto | la ética se trató como aprobación tardía | incorpora revisión antes de fijar datos, umbrales y automatización |
+| consentimiento como casilla | no existe comprensión u opción real | explica finalidad, minimiza datos y ofrece alternativa sin castigo indebido |
+| retirar la función se presenta como reparación | se atendió el futuro, no el daño ocurrido | diseña corrección individual, explicación y aprendizaje sistémico |
 
 ## Entorno y archivos clave
 

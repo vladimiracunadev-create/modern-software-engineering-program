@@ -48,11 +48,99 @@ flowchart LR
 El recorrido es vertical: una tarea cruza superficies. Inventariar carpetas sin seguir comportamiento produce una anatomía nominal.
 
 ## Conceptos y decisiones
-Empieza por una pregunta, no por archivos. Busca una ruta observable: por ejemplo crear una tarea. Localiza interfaz, contrato, validación, persistencia, respuesta, prueba y señal operativa. Registra saltos que no puedas demostrar.
+### 1. Una anatomía responde una pregunta, no enumera directorios
 
-La evidencia tiene jerarquía contextual. Código y configuración muestran implementación; pruebas muestran ejemplos verificados; documentación muestra intención; historial muestra cambio. Ninguna fuente aislada garantiza comportamiento de producción.
+El inventario “frontend, backend, base de datos” reproduce etiquetas del repositorio.
+Una anatomía explica cómo una persona obtiene un resultado y qué mecanismos lo
+sostienen. Por eso se elige primero una tarea acotada —por ejemplo, crear y recuperar
+una solicitud— y se formula qué se desea verificar.
 
-No ejecutes scripts por confianza. Lee instrucciones, dependencias y efectos; trabaja en copia y usa datos sintéticos. Si no puedes ejecutar, declara revisión estática y no inventes resultados.
+El flujo vertical comienza en la interfaz o punto de entrada, sigue contrato,
+validación, autorización, lógica, persistencia, dependencias y respuesta, y termina en
+prueba, señal operativa y recuperación. No todas las capas existen ni están en el mismo
+repositorio. Un salto se registra como incógnita con la evidencia que permitiría
+resolverla; no se rellena por intuición.
+
+### 2. Cada fuente muestra una perspectiva distinta
+
+La documentación expresa intención y uso esperado. El contrato define una superficie.
+El código y configuración muestran implementación bajo una versión. Las pruebas
+documentan ejemplos que fueron ejecutados en algún entorno. El historial explica
+decisiones y evolución. Un artefacto de construcción indica cómo se empaqueta. Logs y
+métricas pueden mostrar operación real si se tiene acceso autorizado.
+
+Ninguna fuente es una verdad universal. Un README puede estar desactualizado; una
+prueba puede no cubrir configuración de producción; el código puede contener rutas no
+desplegadas; ausencia de evidencia no demuestra ausencia de control. Se triangulan
+fuentes y se clasifica cada hallazgo:
+
+- **observado:** visible directamente en una ruta, salida o fuente citada;
+- **inferido:** explicación razonada desde observaciones y supuestos;
+- **desconocido:** pregunta relevante que la evidencia no responde.
+
+### 3. La revisión debe ser segura antes de ser exhaustiva
+
+Un repositorio es entrada no confiable. Antes de ejecutar se leen instrucciones,
+scripts, dependencias, acceso de red, variables, escritura en disco y necesidad de
+credenciales. Se trabaja en un entorno aislado o copia autorizada, con datos sintéticos
+y privilegio mínimo. No se abren secretos ni se conecta producción para completar un
+ejercicio.
+
+La revisión estática es válida si se declara. “No ejecutado; inferido desde prueba X y
+configuración Y” es mejor que una afirmación ficticia. Si se autoriza ejecutar, se
+conservan comando, versión, entorno, salida y recuperación. El objetivo no es maximizar
+herramientas, sino obtener evidencia proporcional sin crear otro riesgo.
+
+### 4. Seguir una ruta normal y una degradada
+
+El camino feliz muestra cómo se espera producir valor. El degradado revela si el
+sistema conserva una capacidad limitada, comunica estado y permite recuperación.
+Conviene elegir un fallo coherente con la frontera: dependencia lenta, entrada repetida,
+credencial vencida o dato incompatible.
+
+Para cada paso se pregunta: ¿qué contrato se aplica?, ¿qué estado cambia?, ¿puede
+repetirse?, ¿cómo se observa?, ¿qué ve la persona?, ¿quién repara? Esta secuencia
+integra fronteras, ciclo, calidad, riesgo y ética. Un error técnicamente manejado puede
+seguir siendo una mala experiencia si deja incertidumbre o no ofrece apelación.
+
+### 5. Priorizar gaps y preparar una revisión reproducible
+
+Un **gap** no es cualquier ausencia de documentación. Es una pregunta necesaria para
+evaluar la capacidad que no puede resolverse con evidencia disponible. Se prioriza por
+consecuencia, probabilidad razonada, alcance y costo de obtener evidencia. “No conozco
+el color del tablero interno” puede ser desconocido y no relevante; “no sé si repetir
+la solicitud duplica el cobro” cambia la decisión.
+
+El informe enlaza rutas y líneas específicas cuando son estables, explica el método y
+separa recomendaciones de hallazgos. Una revisión cruzada intenta reproducir al menos
+tres afirmaciones. Si requiere la explicación oral del autor, falta trazabilidad.
+
+## Demostración guiada: una solicitud de Campus Abierto
+
+Aunque el taller usa un producto real autorizado, Campus Abierto muestra el método. La
+pregunta es: “¿una confirmación repetida conserva un único cupo y comunica estado?”. Se
+ubica el contrato de confirmación, la clave idempotente, la validación, el cambio de
+estado, la prueba de repetición y la señal de duplicado. Después se busca el camino en
+que el proveedor tarda y la persona consulta el estado.
+
+El README afirma “operación segura”, pero esa frase no basta. La prueba muestra dos
+solicitudes iguales y una escritura; la configuración define expiración; no aparece
+evidencia de conciliación tras el vencimiento. El hallazgo responsable es: “La ruta
+probada evita duplicado dentro de la ventana configurada. No se encontró evidencia
+suficiente para determinar el comportamiento después de expirar; verificar runbook o
+prueba de conciliación”. No se declara una vulnerabilidad ni una garantía total.
+
+## Protocolo completo del taller
+
+1. **Autoriza y acota:** producto, versión, tarea, métodos permitidos y datos.
+2. **Formula preguntas:** capacidad, fallo y decisión que cambiará la revisión.
+3. **Reconoce superficies:** documentación, contrato, entrada, datos, build y operación.
+4. **Traza un flujo normal:** enlaza cada salto y clasifica evidencia.
+5. **Traza un flujo degradado:** observa comunicación, estado y recuperación.
+6. **Audita afirmaciones:** contrasta README, código, prueba y configuración.
+7. **Prioriza gaps:** consecuencia, evidencia necesaria y propietario posible.
+8. **Revisa en cruz:** otra persona reproduce hallazgos y cuestiona inferencias.
+9. **Corrige y entrega:** conserva límites, comandos autorizados y preguntas abiertas.
 
 ## Definiciones de trabajo
 - **flujo vertical:** recorrido completo de una tarea por capas;
@@ -94,6 +182,16 @@ No. Importan relevancia, trazabilidad y capacidad de refutar.
 
 ## Fallo controlado y diagnóstico
 Sigue deliberadamente el README como única fuente y compara con contrato o configuración. Documenta la primera contradicción y corrige el método.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| informe organizado por carpetas | se inventarió estructura sin seguir capacidad | elige tarea y traza flujo vertical normal y degradado |
+| README tratado como prueba | intención confundida con comportamiento | contrasta contrato, implementación, pruebas y configuración |
+| ausencia de archivo se declara defecto | evidencia negativa exagerada | registra gap y evidencia necesaria antes de concluir |
+| se ejecuta instalación por defecto | no se evaluaron efectos ni autorización | comienza estático, inspecciona scripts y aísla ejecución |
+| hallazgo no reproducible | enlaces genéricos y método implícito | cita rutas precisas, versión, pasos y clasificación epistemológica |
 
 ## Entorno y archivos clave
 Editor, Git y navegador. Entrega `review-plan.md`, `system-map.md`, `evidence-map.md`, `gaps.md`, `review.md`. No instales dependencias innecesarias.

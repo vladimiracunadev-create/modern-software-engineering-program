@@ -66,12 +66,18 @@ class PhaseThreeGenerationTests(unittest.TestCase):
     def test_guided_classes_form_a_connected_visual_path(self) -> None:
         part_page = (ROOT / "site/parts/00.html").read_text(encoding="utf-8")
         self.assertIn("Caso conductor · Campus Abierto", part_page)
+        self.assertIn("Guía razonada clase por clase", part_page)
+        self.assertLess(
+            part_page.index("SE-001 — Software, sistemas y productos"),
+            part_page.index("Resumen visual del recorrido"),
+        )
         self.assertEqual(12, part_page.count('class="route-number"'))
         for lesson in self.lessons[:12]:
             readme = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
             page = (ROOT / "site/classes" / f"{lesson['id']}.html").read_text(encoding="utf-8")
             self.assertIn("## Antes de empezar", readme, lesson["id"])
             self.assertIn("Campus Abierto", readme, lesson["id"])
+            self.assertIn("## Errores comunes y cómo corregirlos", readme, lesson["id"])
             self.assertIn('class="lesson-progress"', page, lesson["id"])
             self.assertIn('class="lesson-context"', page, lesson["id"])
             self.assertIn('class="concept-map"', page, lesson["id"])

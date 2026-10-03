@@ -46,11 +46,89 @@ flowchart LR
 Una restricción dura invalida; una preferencia pondera. Confundirlas manipula la decisión.
 
 ## Conceptos y decisiones
-Restricciones pueden ser físicas, legales, contractuales, temporales u organizativas. Deben incluir fuente, vigencia y responsable de reinterpretarlas. «Debe usar tecnología X» puede ser mandato o hábito.
 
-Riesgo no es una lista de cosas malas: describe evento, causa, consecuencia, probabilidad o exposición, señales y respuesta. La precisión numérica falsa es peor que rangos honestos.
+### 1. Restricción, preferencia y supuesto cumplen funciones distintas
 
-Los atributos interactúan. Cifrado puede aumentar costo computacional; caché mejora latencia y complica frescura; redundancia mejora disponibilidad y eleva costo y superficie operativa. El objetivo es una decisión defendible, no maximizar todo.
+Una **restricción** excluye opciones dentro del alcance: una obligación legal, un límite
+físico, una fecha externa o compatibilidad contractual. Debe registrar fuente, vigencia,
+interpretación y autoridad capaz de cambiarla. “Debe usar la tecnología X” puede ser una
+restricción si existe un contrato vigente; también puede ser costumbre o una preferencia
+disfrazada para evitar comparación.
+
+Una **preferencia** permite graduar opciones: menor costo, entrega más rápida o
+familiaridad. Un **supuesto** completa provisionalmente información faltante y exige una
+condición de revisión. Mezclarlos manipula el espacio de decisión: si cada deseo se
+declara innegociable, solo queda la opción elegida de antemano.
+
+### 2. Un riesgo conecta causa, evento incierto y consecuencia
+
+“Caída del sistema” es demasiado general. Un riesgo útil puede decir: “debido a que la
+reserva y el pago se confirman en sistemas distintos, una demora del proveedor puede
+liberar un cupo ya cobrado y exigir reparación manual”. La causa orienta prevención;
+el evento define señales; la consecuencia permite priorizar; la respuesta distribuye
+autoridad.
+
+Probabilidad y consecuencia rara vez se conocen con precisión. Rangos o categorías
+argumentadas son preferibles a multiplicar números inventados. También importan
+velocidad del daño, detectabilidad, población expuesta y acumulación. Un evento poco
+frecuente no se ignora si es catastrófico o afecta derechos.
+
+La **mitigación** reduce probabilidad o impacto antes del evento. La **contingencia**
+indica cómo responder si ocurre. Observabilidad puede mejorar detección sin reducir la
+probabilidad; seguro puede transferir costo financiero sin reparar dignidad o acceso.
+Nombrar el tipo de control evita prometer más de lo que hace.
+
+### 3. Los atributos se relacionan mediante mecanismos, no eslóganes
+
+Caché puede reducir latencia porque evita trabajo repetido, pero introduce copias cuyo
+estado puede quedar antiguo. Cifrado protege confidencialidad bajo ciertas amenazas y
+añade gestión de claves y costo. Redundancia tolera fallos independientes, pero eleva
+superficie operativa y no ayuda si todas las réplicas comparten el mismo defecto.
+
+Un trade-off no significa que toda mejora empeore necesariamente otra cosa. A veces un
+diseño elimina desperdicio y mejora rendimiento, costo y mantenibilidad. La obligación
+es buscar alternativas antes de aceptar una pérdida y, cuando permanece, declarar
+quién la soporta. “CAP”, “seguridad versus usabilidad” o “rápido versus correcto” no
+reemplazan el mecanismo específico del caso.
+
+### 4. Reversibilidad y valor de conservar opciones
+
+Una decisión reversible permite aprender con exposición limitada. Feature flags,
+compatibilidad progresiva o pruebas piloto conservan alternativas si están diseñadas
+para retirarse y no crean estados irreconciliables. Llamar “experimento” a un cambio de
+datos irreversible no lo vuelve reversible.
+
+El **valor de opción** consiste en postergar un compromiso costoso hasta obtener
+información, sin paralizar todo. Puede implementarse con una interfaz estable y dos
+adaptadores, una migración expandir–migrar–contraer o una cohorte pequeña. Mantener
+opciones también cuesta; debe existir un plazo y criterio para cerrarlas.
+
+### 5. Una decisión termina con señales y gobierno, no con una puntuación
+
+Las tablas de decisión ayudan a comparar, pero ponderaciones arbitrarias pueden dar
+apariencia matemática a una preferencia. Los derechos, obligaciones y umbrales de
+seguridad actúan primero como límites; las opciones viables se comparan después. Una
+sensibilidad muestra si pequeños cambios en pesos alteran el resultado.
+
+El registro final incluye contexto, restricciones, opciones descartadas, evidencia,
+riesgos aceptados, mitigaciones, contingencias, propietario, fecha y disparadores de
+revisión. Así una decisión razonable hoy puede cambiar sin reescribir la historia.
+
+## Caso conductor: consistencia de cupos bajo alta demanda
+
+Campus Abierto debe responder rápido sin vender el mismo cupo dos veces. Se comparan
+tres opciones: confirmación síncrona central, reserva temporal con expiración y
+aceptación asincrónica con conciliación. La primera simplifica verdad visible pero
+concentra dependencia; la segunda conserva experiencia rápida y exige relojes,
+idempotencia y recuperación; la tercera absorbe picos, pero traslada incertidumbre a la
+persona si se comunica como confirmación.
+
+La elección adopta reserva temporal porque el negocio tolera una espera breve y puede
+mostrar estado honesto. La condición dura es no comunicar matrícula definitiva antes
+de confirmación. Los riesgos incluyen expiración durante pago, reintento y cola manual.
+Se definen claves idempotentes, estado consultable, conciliación y autoridad de
+suspensión. Si la tasa de compensaciones supera el umbral o el proveedor cambia su
+contrato, se reabre la decisión.
 
 ## Definiciones de trabajo
 - **restricción dura:** condición no negociable dentro del alcance;
@@ -87,6 +165,16 @@ No si la consecuencia es catastrófica o acumulativa.
 
 ## Fallo controlado y diagnóstico
 Marca todas las restricciones como duras y observa que queda una sola opción. Revalida fuente y autoridad de cada una.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| solo existe una opción “viable” | preferencias se presentaron como restricciones | verifica fuente, vigencia y autoridad de cada límite |
+| riesgo escrito como sustantivo | faltan causa y consecuencia | formula cadena causal, señal, mitigación y contingencia |
+| matriz con puntuación precisa y evidencia débil | exactitud aparente | usa rangos, sensibilidad y razonamiento explícito |
+| rollback solo cambia binario | se ignoraron datos y efectos externos | define compensación, compatibilidad y punto de no retorno |
+| decisión sin fecha ni señal | se trató contexto actual como permanente | añade propietario y disparadores verificables de revisión |
 
 ## Entorno y archivos clave
 Markdown u hoja local: `constraints.md`, `risk-register.md`, `tradeoff-table.md`, `decision.md`.

@@ -49,13 +49,115 @@ flowchart LR
 El contrato es adaptativo: evidencia y contexto actualizan brechas. No es una lista infinita de cursos.
 
 ## Conceptos y decisiones
-Una competencia integra conocimiento, ejecución, juicio y responsabilidad. «Conozco Docker» es ambiguo; «puedo construir, inspeccionar y recuperar un contenedor local explicando límites» es observable.
+### 1. Una competencia combina saber, hacer, juzgar y responder
 
-El mapa usa cuatro estados: aún no, puedo reconocer, puedo ejecutar con guía y puedo transferir/defender. Autoevaluar no basta; enlaza un artefacto o declara ausencia. No uses tiempo de experiencia como sustituto de capacidad.
+“Conozco Docker” puede significar reconocer el nombre, repetir un comando o diseñar una
+entrega recuperable. Una competencia observable declara acción, contexto, criterio y
+límite: “puedo construir e inspeccionar una imagen local reproducible, explicar su
+procedencia, ejecutar con privilegio mínimo y recuperar un fallo sin afirmar seguridad
+de producción”. El conocimiento conceptual permite explicar; la ejecución produce un
+resultado; el juicio elige; la responsabilidad reconoce consecuencias.
 
-Una ruta prioriza dependencias y riesgo. Fundamentos pueden preceder herramientas; seguridad, accesibilidad y recuperación no se omiten por especialización. Limitar trabajo en curso mejora feedback.
+El mapa usa cuatro estados que no son rangos personales: **aún no tengo evidencia**,
+**puedo reconocer y explicar**, **puedo ejecutar con guía** y **puedo transferir y
+defender en otro contexto**. Una misma persona puede estar en estados distintos según
+la capacidad. Avanzar requiere evidencia, no autoestima ni años de experiencia.
 
-El contrato personal define ritmo sostenible, apoyo, alternativas ante bloqueo y revisión. No debe exigir datos de salud ni justificar explotación. Descanso y cambio de estrategia son controles, no fracaso moral.
+### 2. El portafolio contiene decisiones, no solo resultados bonitos
+
+Un artefacto demuestra más cuando conserva propósito, contexto, alternativas, método,
+resultado, revisión y límite. El mapa de SE-001 muestra frontera; el caso de SE-004,
+deliberación; el log de SE-006, calidad de inferencia; la anatomía de SE-011, integración.
+Una captura final sin proceso puede probar que algo existió, no quién lo produjo ni qué
+capacidad movilizó.
+
+La convalidación reconoce evidencia previa si otra persona puede evaluarla contra el
+mismo criterio. No obliga a repetir trabajo por obediencia curricular. Tampoco permite
+saltar una obligación transversal porque el artefacto “parece avanzado”: seguridad,
+ética, accesibilidad, fuentes y recuperación se revisan donde sean relevantes.
+
+### 3. Elegir dirección significa elegir problemas y responsabilidades
+
+“Ser backend” es una orientación útil, pero insuficiente para priorizar. Conviene
+describir contextos y responsabilidades: diseñar contratos, conservar integridad de
+datos, diagnosticar operación, evolucionar sin romper consumidores. Esta formulación
+permite identificar fundamentos transferibles y no ata la identidad a una herramienta.
+
+La brecha es la distancia entre evidencia actual y capacidad requerida. Si una persona
+construye APIs, pero nunca migra datos ni recupera un fallo, la brecha no es “aprender
+Kubernetes”: es demostrar evolución y recuperación. La herramienta se elige después,
+como medio apropiado para el experimento.
+
+### 4. Priorizar por dependencia, riesgo y feedback
+
+Una ruta no necesita contener todo el campo. Ordena subcapacidades que habilitan otras,
+reduce riesgos importantes y produce feedback pronto. Los fundamentos suelen preceder
+a una herramienta cuando permiten explicar su comportamiento; una exploración pequeña
+puede precederlos si ayuda a formular preguntas.
+
+El trabajo en curso limitado evita acumular diez cursos sin evidencia. Un experimento
+breve produce un artefacto revisable y una decisión: avanzar, repetir, dividir o cambiar
+estrategia. El criterio de salida no es “sentirme experto”, sino una observación que una
+persona revisora puede verificar.
+
+### 5. Un experimento de aprendizaje puede confirmar o refutar progreso
+
+Cada experimento contiene capacidad, tarea, condiciones, recursos, evidencia esperada,
+criterio, feedback, duración y seguridad. Debe existir un resultado que muestre que la
+estrategia no funcionó. Si siempre termina marcado “completo” por consumir contenido,
+no es experimento.
+
+Por ejemplo: “en dos semanas diseñaré y ejecutaré una migración local compatible hacia
+adelante y atrás con datos sintéticos; otra persona seguirá el runbook y recuperará una
+interrupción; registraré lo que no cubre producción”. El resultado puede revelar que
+falta modelado de datos antes de continuar. Ese hallazgo mejora el mapa; no es fracaso.
+
+### 6. Sostenibilidad y revisión forman parte del contrato
+
+El contrato declara capacidad real, horario, apoyo, accesibilidad, descanso y respuesta
+ante bloqueo. No necesita diagnósticos de salud ni datos privados. Un plan que solo
+funciona sacrificando sueño o acumulando deuda no es profesionalmente sostenible.
+
+La revisión tiene fecha y preguntas: ¿qué evidencia apareció?, ¿qué supuesto cambió?,
+¿qué práctica produjo feedback?, ¿qué debe detenerse? La dirección puede cambiar sin
+invalidar aprendizaje previo. El contrato gobierna una etapa; no fija identidad ni
+promete empleo.
+
+## Integración final de Campus Abierto
+
+El proyecto reúne los artefactos como una cadena, no como carpeta:
+
+| Evidencia previa | Capacidad demostrada | Pregunta de revisión |
+| --- | --- | --- |
+| mapa de fronteras | delimitar sistema y responsabilidad | ¿explica interfaces y afectados? |
+| ciclo y handoff | sostener decisiones en el tiempo | ¿incluye operación, autoridad y retiro? |
+| caso ético y mapa de roles | deliberar y coordinar | ¿cambia diseño y permite reparación? |
+| log de evidencia | razonar bajo incertidumbre | ¿puede refutarse y reproducirse? |
+| escenarios, riesgos e impactos | comparar consecuencias | ¿declara pérdidas, señales y grupos? |
+| trazabilidad de fuentes | fundamentar afirmaciones | ¿edición, pasaje, interpretación y límite? |
+| anatomía del producto | integrar las lentes | ¿otra persona reproduce hallazgos? |
+
+El estudiante selecciona cinco evidencias fuertes y cinco ausencias honestas. Para una
+ruta backend puede reconocer buena formulación de contratos, ejecución guiada de
+pruebas y ausencia de migración operativa. Define tres experimentos encadenados, no
+tres tecnologías independientes. La salida incluye revisión externa y desacuerdos;
+ocultarlos impediría saber qué desarrollar.
+
+## Gate del proyecto final
+
+La parte se considera completada cuando:
+
+1. cada prioridad se vincula con una responsabilidad profesional concreta;
+2. cada brecha compara evidencia actual con criterio requerido;
+3. cada experimento produce un artefacto y una revisión observable;
+4. el plan limita trabajo en curso y cabe en la capacidad declarada;
+5. existen respuesta ante bloqueo, fecha y disparadores de revisión;
+6. seguridad, ética, accesibilidad y recuperación aparecen donde corresponden;
+7. las afirmaciones sobre competencia conservan contexto y límites.
+
+No aprueba una tabla de cursos, una lista de tecnologías ni una promesa de dominar todo.
+El proyecto demuestra capacidad para dirigir el propio aprendizaje con el mismo rigor
+empleado al dirigir una decisión técnica.
 
 ## Definiciones de trabajo
 - **competencia:** capacidad observable en contexto con criterio de calidad;
@@ -98,6 +200,16 @@ No necesariamente. Puedes convalidar evidencia, pero no saltar obligaciones crí
 
 ## Fallo controlado y diagnóstico
 Planifica diez objetivos simultáneos. Estima capacidad, dependencias y feedback; reduce WIP hasta que cada experimento tenga resultado revisable.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| objetivos son nombres de herramientas | se confundió medio con capacidad | añade acción, contexto, criterio, responsabilidad y límite |
+| autoevaluación sin enlaces | familiaridad se tomó como evidencia | vincula artefacto revisable o declara “aún no” |
+| diez objetivos simultáneos | se optimizó cobertura, no feedback | prioriza dependencia y limita trabajo en curso |
+| completar un curso es criterio de salida | consumo confundido con desempeño | exige tarea, evidencia y revisión externa |
+| el plan depende de sobreesfuerzo | se ignoró sostenibilidad humana | ajusta alcance, ritmo, apoyos y recuperación |
 
 ## Entorno y archivos clave
 `diagnostic.md`, `competency-map.md`, `learning-contract.md`, `experiments.md`, `review-log.md`. No incluyas información privada innecesaria.

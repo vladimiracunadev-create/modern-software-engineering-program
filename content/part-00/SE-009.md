@@ -47,11 +47,96 @@ flowchart TD
 Optimizar consumo por transacción puede aumentar consumo total si el servicio induce más uso: efecto rebote.
 
 ## Conceptos y decisiones
-Sostenibilidad significa satisfacer necesidades actuales sin degradar capacidad futura. En software incluye infraestructura, dispositivos, datos, mantenimiento y organización. Medir solo CPU del servidor omite red, cliente y fabricación.
 
-Inclusión no es «usuario promedio». Restricciones de visión, movilidad, idioma, alfabetización, ingreso, conectividad y seguridad cambian interacción. Diseñar alternativa no significa experiencia inferior: conserva el resultado esencial.
+### 1. Sostenibilidad pregunta qué capacidad dejamos disponible mañana
 
-Responsabilidad social exige observar quién obtiene beneficio y quién carga costo. Una función puede ser accesible técnicamente y peligrosa para alguien en contexto de violencia; contexto y amenaza importan.
+Sostener un sistema implica satisfacer una necesidad actual sin degradar de manera
+irresponsable la capacidad futura de personas, organizaciones y ambiente. En software
+esto incluye energía e infraestructura, pero también mantenibilidad, dependencia,
+conocimiento, condiciones laborales, acceso y posibilidad de retirar datos y hardware.
+Una solución eficiente durante una demostración puede ser insostenible si requiere
+guardias permanentes o un proveedor imposible de sustituir.
+
+Las dimensiones se relacionan. Reducir capacidad del servidor puede bajar consumo y
+costo, pero trasladar cómputo y transferencia a dispositivos de personas con menos
+recursos. Conservar compatibilidad prolonga vida de hardware y aumenta superficie de
+pruebas. La decisión no busca una etiqueta “verde”; declara frontera, período,
+beneficiados, cargas y evidencia.
+
+### 2. Impactos directos, habilitados y sistémicos
+
+El impacto **directo** procede de construir y operar: cómputo, red, almacenamiento,
+dispositivos y trabajo. El impacto **habilitado** aparece cuando el software cambia una
+conducta, como sustituir viajes o inducir más consumo. El impacto **sistémico** surge de
+adopción acumulada, incentivos o cambios institucionales, por ejemplo convertir el
+canal digital en única vía y cerrar alternativas presenciales.
+
+Optimizar una transacción no garantiza reducir el total. Si hacerla más barata aumenta
+mucho la demanda, ocurre un efecto rebote. Tampoco todo efecto de segundo orden puede
+predecirse: se formulan hipótesis, se monitorean señales y se conserva capacidad de
+corregir. El análisis responsable no inventa certeza sobre sistemas sociales.
+
+### 3. Accesibilidad, inclusión y equidad no son intercambiables
+
+La accesibilidad elimina barreras para personas con discapacidades y contextos
+diversos; WCAG aporta criterios verificables para contenido web, pero su cumplimiento
+no demuestra que el servicio completo sea inclusivo. La inclusión pregunta quién puede
+participar con dignidad y alcanzar el resultado. La equidad observa si reglas y apoyos
+consideran desigualdades relevantes en vez de ofrecer formalmente lo mismo.
+
+Una interfaz compatible con teclado puede seguir excluyendo si el trámite exige video
+en vivo, conectividad estable, lenguaje experto o respuesta en horario laboral. Diseñar
+una alternativa no significa crear una ruta lenta y estigmatizante. Debe conservar el
+resultado esencial, plazo comparable, privacidad y derecho a recuperación.
+
+Las dimensiones también interactúan con seguridad. Una persona en contexto de
+violencia puede necesitar ocultar historial o notificaciones. Un canal “conveniente”
+puede exponerla. Por eso contexto de uso incluye entorno social, no solo navegador y
+resolución.
+
+### 4. Ciclo de vida ambiental y técnico
+
+La huella no se limita al servidor durante ejecución. Incluye fabricación y renovación
+de dispositivos, transferencia, almacenamiento, copias, entrenamiento o inferencia si
+aplica, y retiro. Sin datos comparables no se atribuyen cifras: se identifica qué medir,
+con qué frontera y qué decisión cambiaría.
+
+La sostenibilidad técnica considera que el software pueda entenderse, adaptarse y
+retirarse. Dependencias sin mantenimiento, formatos cerrados y conocimiento concentrado
+crean obsolescencia. Mantener todo indefinidamente tampoco es sostenible: aumenta
+costo, exposición y carga cognitiva. Políticas de versión, migración y retiro equilibran
+continuidad con reducción de legado.
+
+### 5. Trabajo y organización forman parte del sistema
+
+Una automatización puede reducir tarea repetitiva y simultáneamente trasladar
+excepciones difíciles a personas con menos tiempo y apoyo. Las guardias concentradas,
+interrupciones continuas y metas incompatibles degradan la capacidad futura del equipo.
+La calidad de vida laboral no es un beneficio accesorio: afecta errores, rotación y
+conocimiento operacional.
+
+Responsabilidad social pregunta quién obtiene valor, quién absorbe costo y quién puede
+participar en decidir. Escenarios creados por el equipo son un inicio, no representación
+auténtica de comunidades. Cuando una decisión afecta materialmente a un grupo, se
+necesitan investigación, consentimiento y canales de participación apropiados.
+
+## Caso conductor: una matrícula “solo digital”
+
+Campus Abierto propone eliminar atención presencial porque la tasa global de uso web es
+alta. El análisis descubre hogares con dispositivo compartido, zonas de baja
+conectividad, personas que usan tecnología asistiva y estudiantes que necesitan
+privacidad. Además, el nuevo flujo carga imágenes pesadas, conserva documentos sin
+plazo y exige guardia nocturna durante cada período.
+
+La alternativa combina HTML liviano, reanudación sin pérdida, documentos mínimos,
+confirmación por canal elegible y atención asistida con el mismo plazo. Se prueba el
+resultado completo, no solo la conformidad de la interfaz. Datos temporales tienen
+retención declarada; métricas segmentadas observan finalización y carga sin crear
+vigilancia excesiva; las guardias se rediseñan con automatización y rotación.
+
+El equipo no afirma que la alternativa representa todas las necesidades. Registra
+grupos aún no consultados, impacto que no puede cuantificar y señal que exigiría nueva
+participación. La sostenibilidad se convierte en gobierno continuo, no en un sello.
 
 ## Definiciones de trabajo
 - **impacto directo:** recursos consumidos por construir y operar;
@@ -88,6 +173,16 @@ Puede cambiar prioridades, pero también revela fallos que afectan a muchos.
 
 ## Fallo controlado y diagnóstico
 Evalúa solo servidor y luego amplía a cliente, red, hardware y efecto habilitado. Documenta el cambio de conclusión.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| “digital elimina papel, por tanto es sostenible” | frontera demasiado estrecha | compara ciclo de vida, conducta habilitada y alternativas |
+| promedio de adopción justifica canal único | quienes no acceden quedaron fuera de la muestra | segmenta, investiga abandono y conserva resultado alternativo |
+| accesibilidad se reduce a auditor automático | criterio técnico confundido con uso | prueba tareas y recuperación con contextos representativos |
+| comunidad hipotética presentada como validada | se sustituyó participación por imaginación | declara escenario y plan de consulta, no una conclusión final |
+| eficiencia por transacción es la única métrica | se omitieron volumen y rebote | mide consumo total y cambio de conducta dentro de la frontera |
 
 ## Entorno y archivos clave
 `impact-map.md`, `inclusion-scenarios.md`, `alternatives.md`, `measures.md`.

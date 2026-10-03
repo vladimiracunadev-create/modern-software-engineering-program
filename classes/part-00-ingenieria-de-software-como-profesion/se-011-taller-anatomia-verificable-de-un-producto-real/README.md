@@ -1,209 +1,107 @@
 # SE-011 — Taller: anatomía verificable de un producto real
 
-[← SE-010 — Cómo leer estándares, documentación y literatura técnica](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-011.html) · [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)
+[← SE-010](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-012 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
-
-- Haber completado o diagnosticado `SE-010` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Clases `SE-001`–`SE-010` y capacidad de leer un repositorio sin ejecutar código desconocido.
 
 ## Problema auténtico
-
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: anatomía verificable de un producto real**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Recibes un producto y una descripción comercial. Debes determinar qué hace realmente, para quién, con qué dependencias, evidencia y riesgos. Repetir el README no constituye una revisión.
 
 ## Objetivos observables
-
-Al terminar podrás:
-
-1. explicar Taller y anatomía con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Reconstruirás una anatomía desde evidencia, diferenciarás afirmación de observación, seguirás un flujo vertical y producirás preguntas que puedan cambiar una decisión.
 
 ## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Anatomía | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Verificable | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Producto | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Capa | Evidencia buscada |
+| --- | --- |
+| Propósito | problema, usuarios, resultado y límites |
+| Contrato | entradas, salidas, errores y compatibilidad |
+| Implementación | módulos, datos, dependencias y decisiones |
+| Entrega | build, artefactos, configuración y procedencia |
+| Operación | señales, recuperación, soporte y retiro |
 
 ## Mapa conceptual
-
 ```mermaid
 flowchart LR
-    P["Problema: Taller: anatomía verificable de un producto real"] --> M["Modelo: Taller"]
-    M --> D["Decisión: anatomía"]
-    D --> E["Evidencia: verificable"]
-    E --> R["Revisión: producto"]
-    R -->|nueva información| M
+ U[Usuario] --> X[Interfaz] --> C[Contrato]
+ C --> L[Lógica] --> D[Datos]
+ L --> E[Dependencias]
+ D --> O[Operación]
+ O --> U
+ Q[Fuentes y decisiones] --- C
+ Q --- L
 ```
-
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: anatomía verificable de un producto real**.
+El recorrido es vertical: una tarea cruza superficies. Inventariar carpetas sin seguir comportamiento produce una anatomía nominal.
 
 ## Conceptos y decisiones
+Empieza por una pregunta, no por archivos. Busca una ruta observable: por ejemplo crear una tarea. Localiza interfaz, contrato, validación, persistencia, respuesta, prueba y señal operativa. Registra saltos que no puedas demostrar.
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+La evidencia tiene jerarquía contextual. Código y configuración muestran implementación; pruebas muestran ejemplos verificados; documentación muestra intención; historial muestra cambio. Ninguna fuente aislada garantiza comportamiento de producción.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
-
-### 1. Taller: modelo
-
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: anatomía verificable de un producto real**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 2. Anatomía: mecanismo
-
-En esta clase, **anatomía** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: anatomía verificable de un producto real**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Verificable: evidencia
-
-En esta clase, **verificable** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: anatomía verificable de un producto real**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Producto: decisión
-
-En esta clase, **producto** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: anatomía verificable de un producto real**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+No ejecutes scripts por confianza. Lee instrucciones, dependencias y efectos; trabaja en copia y usa datos sintéticos. Si no puedes ejecutar, declara revisión estática y no inventes resultados.
 
 ## Definiciones de trabajo
+- **flujo vertical:** recorrido completo de una tarea por capas;
+- **punto de entrada:** interfaz que inicia comportamiento;
+- **fuente de verdad:** artefacto autorizado para una afirmación concreta;
+- **evidencia negativa:** ausencia o contradicción relevante, no prueba automática de defecto;
+- **gap:** pregunta necesaria que la evidencia disponible no responde.
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Anatomía:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Verificable:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Producto:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+**Happy path** es recorrido esperado; **degraded path** conserva capacidad limitada; **traceability** conecta necesidad, decisión, implementación y evidencia.
 
 ## Ejemplo mínimo
-
-Registra una sola decisión sobre **Taller: anatomía verificable de un producto real**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El README dice «datos cifrados». La configuración muestra TLS para tránsito, pero no cifrado de almacenamiento. La conclusión correcta delimita lo observado y pregunta por la capa ausente.
 
 ## Ejemplo profesional
-
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: anatomía verificable de un producto real**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+En el producto de referencia, sigue la creación de una solicitud desde OpenAPI hasta requisitos, arquitectura, pruebas y runbook. Si el contrato admite reintento pero no hay idempotencia documentada, registra riesgo, no afirmes defecto ejecutado.
 
 ## Práctica guiada
-
-1. Crea `work/SE-011/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Selecciona el producto de `blueprints/reference-product/` u otro repositorio autorizado.
+2. Declara alcance y método en `review-plan.md`.
+3. Sigue un flujo normal y uno degradado.
+4. Construye `evidence-map.md` con enlaces por afirmación.
+5. Registra cinco gaps y prioriza por consecuencia.
+6. Pide revisión cruzada y corrige inferencias excesivas.
 
 ## Ejercicios
-
-1. **Fundamental:** define Taller y anatomía con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Encuentra una afirmación documentada que el código no basta para confirmar.
+2. Distingue dependencia directa, transitiva y servicio externo.
+3. Explica cómo retirarías una capacidad sin romper consumidores.
 
 ## Reto verificable
-
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-011/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-011/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una segunda persona reproduce tres hallazgos desde tus rutas y clasifica cada uno como hecho, inferencia o incógnita. Ningún enlace puede apuntar solo a la raíz del repositorio.
 
 ## Preguntas frecuentes
+### ¿Debo ejecutar todo?
+No. Ejecuta solo lo autorizado y seguro; declara qué quedó estático.
+### ¿Más archivos significan más evidencia?
+No. Importan relevancia, trazabilidad y capacidad de refutar.
 
-### ¿Basta con definir los términos del título?
+## Fallo controlado y diagnóstico
+Sigue deliberadamente el README como única fuente y compara con contrato o configuración. Documenta la primera contradicción y corrige el método.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+## Entorno y archivos clave
+Editor, Git y navegador. Entrega `review-plan.md`, `system-map.md`, `evidence-map.md`, `gaps.md`, `review.md`. No instales dependencias innecesarias.
 
-### ¿La herramienta recomendada es obligatoria?
+## Seguridad, ética y accesibilidad
+No abras secretos, datos reales ni producción. Examina si la interfaz y soporte contemplan acceso alternativo y recuperación.
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+## Transferencia
+Repite el flujo en un proyecto de otro stack; conserva preguntas y cambia herramientas.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Evaluación y evidencia
+Se evalúan flujo vertical, citas precisas, límites, riesgo y revisión reproducible. Una ficha descriptiva no aprueba.
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+## Fuentes
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), áreas de conocimiento usadas en la inspección.
+- [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/), trazabilidad y revisiones técnicas.
+- [ACM Code of Ethics](https://www.acm.org/code-of-ethics), autorización, competencia y evaluación exhaustiva.
 
 ## Límites y siguiente paso
-
-Esta guía enseña a razonar y producir evidencia sobre **Taller: anatomía verificable de un producto real**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-012`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Es una revisión acotada, no certificación de seguridad ni producción. `SE-012` convierte resultados en un plan profesional verificable.
 
 ---
-
-[← SE-010 — Cómo leer estándares, documentación y literatura técnica](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-011.html) · [SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)
+[← SE-010](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-010-como-leer-estandares-documentacion-y-literatura-tecnica/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-012 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md)

@@ -12,16 +12,16 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
 [![Pages](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml)
-[![Estado](https://img.shields.io/badge/clases%20aprobadas-0%20de%20360-c47f17?style=flat-square)](STATUS.md)
+[![Estado](https://img.shields.io/badge/clases%20GUIDED-12%20de%20480-2ea043?style=flat-square)](STATUS.md)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
 
 > [!CAUTION]
-> **Estado real:** la arquitectura contiene 480 clases, pero hoy hay **0 clases
-> aprobadas** contra el estándar pedagógico. `SE-001`–`SE-360` son borradores
-> estructurales públicos con contenido inicial; `SE-361`–`SE-480` son scaffolds.
+> **Estado real:** la arquitectura contiene 480 clases y hoy hay **12 clases
+> `GUIDED`** aprobadas contra el estándar pedagógico (`SE-001`–`SE-012`).
+> `SE-013`–`SE-360` son borradores estructurales; `SE-361`–`SE-480` son scaffolds.
 > No deben confundirse con material docente terminado.
 
 ## 🎯 Qué es esto
@@ -109,7 +109,7 @@ Las fuentes se mantienen como datos auditables, no como una bibliografía decora
 
 - [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
 - [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
-- [registro de fase 3](sources/phase3.json): fuentes usadas por los 180 borradores en revisión;
+- [registro de fase 3](sources/phase3.json): fuentes usadas por 12 clases `GUIDED` y 168 borradores;
 - [registro de fase 4](sources/phase4.json): fuentes usadas por `SE-181`–`SE-360`;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
 
@@ -120,12 +120,12 @@ interpretación y alcance antes de promoverla a `GUIDED`.
 ## 🗂️ Las 40 partes
 
 Cada parte tiene un README con sus doce clases enlazadas. La fase 3 comprende las
-partes 00–14 y la fase 4 las partes 15–29; todas siguen pendientes de aprobación
-cualitativa clase por clase.
+partes 00–14 y la fase 4 las partes 15–29. La Parte 00 está aprobada; las partes
+01–29 siguen pendientes de revisión cualitativa clase por clase.
 
 | # | Parte | Clases | Foco | Estado | README |
 | ---: | --- | --- | --- | --- | --- |
-| 00 | Ingeniería de software como profesión | SE-001–SE-012 | disciplina, ética, evidencia y calidad | borrador no aprobado | [📘 leer](classes/part-00-ingenieria-de-software-como-profesion/README.md) |
+| 00 | Ingeniería de software como profesión | SE-001–SE-012 | disciplina, ética, evidencia y calidad | `GUIDED` | [📘 leer](classes/part-00-ingenieria-de-software-como-profesion/README.md) |
 | 01 | Computadores y representación de información | SE-013–SE-024 | máquina, datos, memoria y runtimes | borrador no aprobado | [📘 leer](classes/part-01-computadores-y-representacion-de-informacion/README.md) |
 | 02 | Sistemas operativos, terminal y automatización base | SE-025–SE-036 | Windows, Linux, macOS, shells y diagnóstico | borrador no aprobado | [📘 leer](classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) |
 | 03 | Redes, Internet y protocolos | SE-037–SE-048 | TCP/IP, DNS, HTTP, TLS y observación | borrador no aprobado | [📘 leer](classes/part-03-redes-internet-y-protocolos/README.md) |
@@ -200,8 +200,8 @@ evidencia revisable.
 | [Rúbrica transversal](assessments/rubric.md) | criterios comunes de evaluación |
 
 Estos artefactos son una base documental versionada; todavía no constituyen una
-colección de laboratorios ejecutados ni evidencia de que las 360 clases estén
-aprobadas.
+colección de laboratorios ejecutados ni evidencia de que las 468 clases restantes
+estén aprobadas.
 
 ## 🌐 Portal y navegación
 
@@ -272,10 +272,10 @@ infraestructura pública de fase 4 ya está implementada:
 - validadores dedicados de contratos y UTF-8;
 - workflow separado para GitHub Pages.
 - alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
-- 180 borradores estructurales, actividades y rúbricas visibles para revisión;
+- 12 clases `GUIDED` y 168 borradores estructurales de fase 3;
 - fase 4 añadida: 180 borradores, actividades y rúbricas de `SE-181`–`SE-360`;
 - texto íntegro de cada borrador publicado en Pages, no una ficha-resumen;
-- 0 clases `GUIDED` hasta completar revisión cualitativa clase por clase;
+- promoción limitada a las 12 clases revisadas de la Parte 00;
 - instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
 
 `GUIDED` no significa `EXECUTABLE`, `TESTED` u `OPERABLE`; tampoco se concede por
@@ -317,7 +317,7 @@ python -m unittest discover -s tests -v
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       métricas canónicas de estado
-classes/           480 clases; 360 borradores en revisión de fases 3 y 4
+classes/           480 clases; 12 GUIDED, 348 borradores y 120 scaffolds
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
@@ -346,7 +346,7 @@ fueron verificados el 30 de septiembre de 2026.
 | Es | No es todavía |
 | --- | --- |
 | una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
-| 360 borradores ampliados y auditables | 360 clases aprobadas o listas para impartir |
+| 12 clases `GUIDED` y 348 borradores ampliados | 480 clases aprobadas o listas para impartir |
 | un estándar explícito para aceptar contenido | una certificación profesional |
 | un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
 | un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |

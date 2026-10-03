@@ -9,10 +9,10 @@
 
 ## About publicado
 
-> 🧭 software-engineering-learning-suite · 480 clases · 360 borradores públicos con práctica, fuentes y navegación · Python + Pages · 🐧🍎🪟
+> 🧭 software-engineering-learning-suite · 480 clases · 12 GUIDED · 348 borradores públicos · Python + Pages · 🐧🍎🪟
 
 Los conteos de madurez se sincronizan desde `catalog.json`. Mientras dura la
-reconstrucción, ningún borrador se presenta como clase aprobada.
+reconstrucción; solo las doce clases revisadas de la Parte 00 se presentan como aprobadas.
 
 ## Topics publicados
 

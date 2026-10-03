@@ -1,209 +1,126 @@
 # SE-004 — Ética, interés público y consecuencias de las decisiones técnicas
 
-[← SE-003 — Ciclo de vida completo y responsabilidades profesionales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-004.html) · [SE-005 — Roles, especialidades y colaboración interdisciplinaria →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)
+[← SE-003](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-005 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-003` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Stakeholders, ciclo de vida y autoridad (`SE-001`–`SE-003`).
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Ética, interés público y consecuencias de las decisiones técnicas**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un modelo mejora conversión global, pero rechaza más a un grupo pequeño y no ofrece apelación. El encargo parece legal y rentable. ¿Qué obligaciones conserva el equipo?
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Ética y interés con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Identificarás afectados, separarás legalidad de responsabilidad, analizarás distribución de daño y documentarás mitigación, desacuerdo y reparación.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Ética | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Interés | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Público | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Consecuencias | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Tema | Riesgo de omitirlo |
+| --- | --- |
+| Interés público | optimizar solo para cliente |
+| Daño y beneficio | promedios que ocultan grupos |
+| Honestidad | incertidumbre presentada como certeza |
+| Competencia | aceptar autoridad sin capacidad |
+| Reparación | detectar daño sin apelación |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Ética, interés público y consecuencias de las decisiones técnicas"] --> M["Modelo: Ética"]
-    M --> D["Decisión: interés"]
-    D --> E["Evidencia: público"]
-    E --> R["Revisión: consecuencias"]
-    R -->|nueva información| M
+flowchart TD
+ D[Decisión] --> A[Afectados]
+ D --> E[Evidencia e incertidumbre]
+ A --> H[Beneficios y daños]
+ E --> H --> O[Opciones y controles]
+ O --> J[Juicio profesional] --> R[Monitorear y reparar]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Ética, interés público y consecuencias de las decisiones técnicas**.
+El código orienta juicio; no es un algoritmo. Principios pueden entrar en tensión.
 
 ## Conceptos y decisiones
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+La ética aparece cuando una decisión afecta autonomía, seguridad, privacidad, oportunidades o cargas. «El cliente lo pidió» no transfiere toda responsabilidad. ACM e IEEE-CS/ACM exigen interés público, calidad, juicio independiente, revisión y competencia.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
+Evitar daño requiere buscarlo: quién falta en datos, quién no puede usar el canal, qué ocurre al equivocarse y cómo se impugna. Sin queja no hay prueba de ausencia de daño si reclamar es difícil.
 
-### 1. Ética: modelo
+La gobernanza debe ser proporcional. Un error reversible de recomendación no equivale a un bloqueo financiero. A mayor severidad, escala e irreversibilidad, mayor evidencia, revisión independiente y autoridad de parada.
 
-En esta clase, **Ética** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ética, interés público y consecuencias de las decisiones técnicas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 2. Interés: mecanismo
-
-En esta clase, **interés** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ética, interés público y consecuencias de las decisiones técnicas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Público: evidencia
-
-En esta clase, **público** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ética, interés público y consecuencias de las decisiones técnicas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Consecuencias: decisión
-
-En esta clase, **consecuencias** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ética, interés público y consecuencias de las decisiones técnicas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Escalar significa registrar hechos, separar inferencias, citar políticas, proponer alternativas y acudir a autoridad. La divulgación externa depende de jurisdicción; esta clase no es asesoría jurídica.
 
 ## Definiciones de trabajo
 
-- **Ética:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Interés:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Público:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Consecuencias:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
+- **interés público:** bienestar y derechos más allá del contrato inmediato;
+- **daño:** deterioro previsible de seguridad, derechos, oportunidades o dignidad;
+- **conflicto de intereses:** incentivo capaz de sesgar juicio;
+- **apelación:** revisión efectiva de una decisión;
+- **reparación:** corregir o compensar consecuencias.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Consentimiento informado** requiere información comprensible y opción real. **Dark pattern** manipula decisiones. **Whistleblowing** revela irregularidades por canales internos o externos.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Ética, interés público y consecuencias de las decisiones técnicas**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Una casilla de marketing marcada aumenta aceptación, pero no demuestra preferencia libre. Desmarcar y explicar finalidad reduce conversión y mejora autonomía.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Ética, interés público y consecuencias de las decisiones técnicas**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+El equipo segmenta errores, detiene lanzamiento automático y propone uso asistido, revisión humana, razones, apelación y umbral de suspensión. Declara que la muestra no representa todos los contextos.
 
 ## Práctica guiada
 
-1. Crea `work/SE-004/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+Redacta `ethics-case.md` con afectados, derechos, daños, evidencia y conflictos. Compara proceder, proceder con controles y detener. Añade memo de escalamiento y respuesta a una persona afectada.
 
 ## Ejercicios
 
-1. **Fundamental:** define Ética y interés con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Analiza privacidad frente a observabilidad en un incidente.
+2. Da un caso legal pero irresponsable.
+3. Diseña apelación sin lenguaje técnico.
 
 ## Reto verificable
 
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-004/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-004/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una revisión adversarial debe encontrar un stakeholder omitido o confirmar cobertura. La decisión cita evidencia, incertidumbre, principio y condición de parada.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿El código es ley?
+No necesariamente; orienta expectativas. Regulación y contrato se analizan aparte.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿La ética corresponde a un comité?
+No. El comité revisa; cada profesional conserva obligaciones.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Decide con promedio global y luego segmenta por grupo y severidad. Registra el cambio de conclusión con datos sintéticos.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Entorno y archivos clave
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+`ethics-case.md`, `options.md`, `escalation-memo.md`, `appeal-flow.md`.
+
+## Seguridad, ética y accesibilidad
+
+Protege identidades, evita estereotipos y usa lenguaje claro. No simules denuncias reales ni publiques acusaciones.
+
+## Transferencia
+
+Repite para moderación y dispositivo de salud; compara severidad, reversibilidad y autoridad.
+
+## Evaluación y evidencia
+
+Se evalúan afectados, tensiones, alternativas, reparación e incertidumbre. Nombrar ética sin cambiar decisiones no aprueba.
+
+## Fuentes
+
+- [ACM Code of Ethics](https://www.acm.org/code-of-ethics), bienestar, daño, honestidad y privacidad.
+- [Software Engineering Code of Ethics](https://www.computer.org/education/code-of-ethics), obligaciones específicas de la profesión.
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), práctica profesional.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Ética, interés público y consecuencias de las decisiones técnicas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-005`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No reemplaza asesoría jurídica ni investigación con comunidades. `SE-005` distribuye conocimiento y autoridad.
 
 ---
 
-[← SE-003 — Ciclo de vida completo y responsabilidades profesionales](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-004.html) · [SE-005 — Roles, especialidades y colaboración interdisciplinaria →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)
+[← SE-003](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-005 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-005-roles-especialidades-y-colaboracion-interdisciplinaria/README.md)

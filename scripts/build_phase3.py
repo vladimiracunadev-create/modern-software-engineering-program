@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
+EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 13)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -449,7 +450,7 @@ def activity(part: dict, lesson: dict) -> dict:
         "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
         "schema_version": 1,
         "class_id": lesson["id"],
-        "status": "PLANNED",
+        "status": lesson["status"],
         "mode": lesson["kind"],
         "environment": profile["environment"],
         "duration_hours": lesson["estimated_hours"],
@@ -599,7 +600,14 @@ def site_page(
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
     following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
     navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Borrador estructural {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content">{navigation}<p class="eyebrow">Fase {phase} · {lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice"><strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada.</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Software Engineering Learning Suite · Fase {phase} en reconstrucción</footer></body></html>\n"""
+    guided = lesson["status"] == "GUIDED"
+    description = ("Clase guiada" if guided else "Borrador estructural") + f" {lesson['id']}: {lesson['title']}"
+    notice = (
+        "<strong>GUIDED:</strong> clase desarrollada y aprobada contra el estándar pedagógico."
+        if guided else
+        "<strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada."
+    )
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><main class="lesson" id="content">{navigation}<p class="eyebrow">Fase {phase} · {lesson['id']} · {lesson['kind']}</p><h1>{html.escape(lesson['title'])}</h1><div class="notice">{notice}</div><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Software Engineering Learning Suite · Fase {phase} en reconstrucción</footer></body></html>\n"""
 
 
 def expected_files(program: dict) -> dict[Path, str]:
@@ -611,8 +619,22 @@ def expected_files(program: dict) -> dict[Path, str]:
         for lesson in part["lessons"]:
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
-            markdown = lesson_readme(part, lesson, previous, following)
-            result[directory / "README.md"] = markdown
+            if lesson["id"] in EDITORIAL_LESSON_IDS:
+                # Las clases revisadas editorialmente viven como fuentes
+                # explícitas: el generador las publica, pero no vuelve a
+                # sintetizar contenido a partir del título.
+                source = ROOT / "content" / "part-00" / f"{lesson['id']}.md"
+                markdown = source.read_text(encoding="utf-8").replace(
+                    "(../../classes/",
+                    "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/",
+                ).replace(
+                    "(../../docs/",
+                    "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/",
+                )
+                result[directory / "README.md"] = markdown
+            else:
+                markdown = lesson_readme(part, lesson, previous, following)
+                result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = dump_json(activity(part, lesson))
             result[directory / "rubric.json"] = dump_json(rubric(part, lesson))
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(
@@ -639,7 +661,12 @@ def main() -> int:
         print("PHASE3_STALE: " + ", ".join(stale[:30]), file=sys.stderr)
         return 1
     action = "PHASE3_CHECK_OK" if args.check else "PHASE3_BUILD_OK"
-    print(f"{action}: 180 structural drafts, 360 activity/rubric contracts, 0 classes approved")
+    approved = sum(
+        lesson["status"] == "GUIDED"
+        for part in program["parts"] for lesson in part["lessons"]
+        if lesson["number"] <= TARGET_LAST_CLASS
+    )
+    print(f"{action}: {180 - approved} structural drafts, {approved} guided classes, 360 activity/rubric contracts")
     return 0
 
 

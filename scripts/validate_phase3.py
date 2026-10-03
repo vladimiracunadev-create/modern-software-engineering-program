@@ -53,7 +53,11 @@ def main() -> int:
             if not all(path.is_file() for path in (readme, activity_path, rubric_path)):
                 continue
             text = readme.read_text(encoding="utf-8")
-            if "Estado: **PLANNED · BORRADOR EN REVISIÓN**" not in text or "Pendiente de desarrollar" in text:
+            expected_marker = (
+                "Estado: **GUIDED**" if lesson["status"] == "GUIDED"
+                else "Estado: **PLANNED · BORRADOR EN REVISIÓN**"
+            )
+            if expected_marker not in text or "Pendiente de desarrollar" in text:
                 failures.append(f"invalid maturity content: {lesson['id']}")
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
@@ -74,7 +78,7 @@ def main() -> int:
 
             activity = json.loads(activity_path.read_text(encoding="utf-8"))
             rubric = json.loads(rubric_path.read_text(encoding="utf-8"))
-            if activity.get("class_id") != lesson["id"] or activity.get("status") != "PLANNED":
+            if activity.get("class_id") != lesson["id"] or activity.get("status") != lesson["status"]:
                 failures.append(f"activity contract drift: {lesson['id']}")
             if not set(activity.get("source_ids", [])).issubset(source_ids):
                 failures.append(f"unresolved phase 3 source: {lesson['id']}")
@@ -83,7 +87,7 @@ def main() -> int:
             if sum(item.get("max", 0) for item in rubric.get("criteria", [])) != rubric.get("maximum_score"):
                 failures.append(f"rubric score drift: {lesson['id']}")
 
-    if statuses != Counter({"PLANNED": 480}):
+    if statuses != Counter({"GUIDED": 12, "PLANNED": 468}):
         failures.append(f"unexpected maturity counts: {dict(statuses)}")
     if draft_count != 180 or len(hashes) != 180:
         failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
@@ -103,8 +107,8 @@ def main() -> int:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
     print(
-        "PHASE3_STRUCTURE_OK: 180 drafts, "
-        f"{generic_count} still generic, 0 approved, 360 contracts"
+        "PHASE3_STRUCTURE_OK: 168 drafts, "
+        f"{generic_count} still generic, 12 approved, 360 contracts"
     )
     return 0
 

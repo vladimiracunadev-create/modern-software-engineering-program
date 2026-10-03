@@ -1,209 +1,137 @@
 # SE-001 — Software, sistemas y productos: fronteras de la disciplina
 
-← Inicio del programa · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-001.html) · [SE-002 — Historia de la crisis del software a la ingeniería continua →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)
+← Inicio del programa · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-001.html) · [SE-002 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `diagnóstico inicial del programa` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Puedes comenzar sin programar. Necesitas distinguir una observación de una opinión y representar relaciones con cajas y flechas. Si no has trabajado en un producto digital, usa como caso un sistema de matrícula, una biblioteca o una tienda.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Software, sistemas y productos: fronteras de la disciplina**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un equipo recibe «mejorar el sistema de inscripción». Antes de estimar debe saber qué cambia. ¿El software es solo código? ¿El sistema incluye secretaría y procedimientos manuales? ¿El producto termina en la interfaz o incluye soporte, datos y operación? Una frontera mal trazada permite optimizar una pieza mientras el problema persiste fuera de ella.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Software y sistemas con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás delimitar software, sistema, producto, servicio y plataforma; explicar cómo una frontera cambia requisitos y responsabilidad; construir un mapa con actores, elementos e interfaces; y detectar una mejora local que empeora el resultado global.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Software | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Sistemas | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Productos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Fronteras | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Software | instrucciones, datos y configuración producen comportamiento | evita reducir el trabajo a pantallas |
+| Sistema | elementos técnicos y humanos cooperan para una capacidad | revela fallos fuera del código |
+| Producto | una propuesta de valor se sostiene durante un ciclo de vida | conecta técnica con resultados y costos |
+| Frontera | decide qué se modela y quién responde | impide trasladar silenciosamente el riesgo |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Software, sistemas y productos: fronteras de la disciplina"] --> M["Modelo: Software"]
-    M --> D["Decisión: sistemas"]
-    D --> E["Evidencia: productos"]
-    E --> R["Revisión: fronteras"]
-    R -->|nueva información| M
+  N[Necesidad: matricularse] --> S[Sistema sociotécnico]
+  S --> P[Producto de inscripción]
+  P --> W[Software web]
+  P --> O[Operación y soporte]
+  S --> R[Reglas académicas]
+  W --> I[Identidad, pagos, cupos]
+  I --> E[Otros sistemas]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Software, sistemas y productos: fronteras de la disciplina**.
+El software implementa parte de la capacidad, pero la inscripción depende de reglas, personas, datos y sistemas externos. Ninguna frontera es natural: se elige para razonar y debe declararse.
 
 ## Conceptos y decisiones
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+**Software** es un artefacto ejecutable y evolutivo: código, datos necesarios, configuración y documentación operativa colaboran para producir comportamiento. Un repositorio sin entorno ni configuración puede contener código sin constituir un producto reproducible.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
+Un **sistema** combina elementos que interactúan para lograr una capacidad. En un sistema sociotécnico, una cola manual, una política y una persona con autoridad pueden ser tan determinantes como una API. Si la aplicación acepta 500 solicitudes pero secretaría revisa 50 al día, acelerar la interfaz aumenta inventario y demora total.
 
-### 1. Software: modelo
+Un **producto** organiza capacidades para producir valor sostenido a personas concretas. Tiene usuarios, resultados, costos, riesgos, evolución y retiro. Un **servicio** enfatiza provisión continua; una **plataforma** ofrece capacidades reutilizables a otros productos. Autenticación puede ser función para un estudiante, servicio para matrícula y capacidad de plataforma para varios equipos.
 
-En esta clase, **Software** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Software, sistemas y productos: fronteras de la disciplina**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La frontera útil responde: qué resultado debe producirse, qué controla el equipo y qué dependencias gestiona mediante contratos. Ampliarla demasiado vuelve inmanejable el modelo; estrecharla oculta causas. Cambiarla obliga a revisar requisitos, amenazas, métricas y responsables.
 
-### 2. Sistemas: mecanismo
-
-En esta clase, **sistemas** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Software, sistemas y productos: fronteras de la disciplina**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Productos: evidencia
-
-En esta clase, **productos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Software, sistemas y productos: fronteras de la disciplina**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Fronteras: decisión
-
-En esta clase, **fronteras** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Software, sistemas y productos: fronteras de la disciplina**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Contraejemplo: una biblioteca de cifrado puede ser un componente con contrato, no un producto con usuarios finales inventados. En cambio, llamar «componente» a un portal de beneficios no elimina su impacto social.
 
 ## Definiciones de trabajo
 
-- **Software:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Sistemas:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Productos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Fronteras:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
+- **capacidad:** resultado que un sistema produce bajo condiciones declaradas;
+- **componente:** elemento con responsabilidades e interfaces delimitadas;
+- **entorno:** elementos fuera de la frontera que condicionan el comportamiento;
+- **interfaz:** punto de intercambio de información, control o responsabilidad;
+- **stakeholder:** persona o grupo afectado, use o no la interfaz.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Sociotécnico** indica que conducta humana, reglas y tecnología se afectan mutuamente. **Contexto de uso** reúne usuarios, tareas, recursos y entorno. **Propietario** tiene autoridad y obligación de sostener una decisión, no necesariamente escribió el código.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Software, sistemas y productos: fronteras de la disciplina**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Una calculadora tributaria contiene software. El sistema relevante incluye reglas, datos introducidos, navegador y persona que interpreta el resultado. Si el producto promete una declaración correcta, debe gestionar vigencia normativa y casos no cubiertos. El mismo código, con otra frontera, cambia de responsabilidad.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Software, sistemas y productos: fronteras de la disciplina**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+En matrícula, «cupos disponibles» proviene de un legado que actualiza cada quince minutos. Mostrarlo como tiempo real genera decisiones erróneas. Las opciones son ocultarlo, declarar antigüedad o crear reserva transaccional. Si el equipo controla solo visualización, explicita la dependencia; si posee el flujo, diseña consistencia y recuperación.
 
 ## Práctica guiada
 
-1. Crea `work/SE-001/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Elige reservar hora médica, pagar una factura o inscribirse.
+2. Escribe resultado y condición de fracaso en lenguaje de usuario.
+3. Dibuja personas, software, datos, reglas y sistemas externos.
+4. Traza dos fronteras y asigna responsables a sus interfaces.
+5. Identifica una optimización local que empeore el sistema.
+6. Guarda `system-map.md`, `boundaries.md` y `review.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Software y sistemas con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Clasifica navegador, base de datos, mesa de ayuda y política de devolución; explica la dependencia del propósito.
+2. Compara producto, servicio y plataforma usando autenticación.
+3. Externaliza pagos en tu mapa y señala qué responsabilidad no se externaliza.
 
 ## Reto verificable
 
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-001/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-001/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona reconstruye capacidad, fronteras y cinco interfaces solo desde tus archivos y señala un riesgo que cambia al mover la frontera. Si necesita explicación oral para saber quién responde, el mapa no pasa.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Todo sistema contiene software?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede ser manual; aquí interesan sistemas intensivos en software.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿La frontera coincide con el organigrama?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. El organigrama distribuye autoridad; el modelo distribuye responsabilidades causales.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Elimina del mapa la aprobación manual y simula un rechazo. Síntoma: «en revisión» indefinidamente. Causa: no hay estado ni responsable para trabajo manual. Corrige incorporando cola, plazo, escalamiento y estado visible, no un temporizador cosmético.
+
+## Entorno y archivos clave
+
+Markdown y Mermaid, con datos ficticios. Entrega `system-map.md`, `boundaries.md`, `review.md` y un README con fecha y alcance.
+
+## Seguridad, ética y accesibilidad
+
+Incluye actores sin interfaz, datos sensibles y alternativas para personas sin conectividad o con tecnología asistiva. No uses la frontera para declarar fuera de alcance un daño previsible.
+
+## Transferencia
+
+Repite el mapa para un dispositivo médico o un juego sin conexión. Compara interfaces técnicas, organizativas y costo del error.
+
+## Evaluación y evidencia
+
+Se aprueba con fronteras explícitas, interfaces, responsables, un contraejemplo y revisión independiente. Una arquitectura sin capacidad explicada no demuestra comprensión.
+
+## Fuentes
+
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4) sitúa la disciplina y sus áreas.
+- [ISO/IEC/IEEE 12207:2026](https://www.iso.org/standard/90219.html) respalda la visión de ciclo de vida de sistemas, productos y servicios.
+- [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/) relaciona necesidad, stakeholders y sistema.
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) define el modelo de calidad del producto ICT.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Software, sistemas y productos: fronteras de la disciplina**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-002`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El mapa no prueba funcionamiento ni sustituye requisitos. `SE-002` estudia por qué escala y cambio hicieron insuficiente tratar el software como artesanía aislada.
 
 ---
 
-← Inicio del programa · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-001.html) · [SE-002 — Historia de la crisis del software a la ingeniería continua →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)
+← Inicio del programa · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-002 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md)

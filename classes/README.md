@@ -3,7 +3,7 @@
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Estado verificable: 480 `PLANNED`. Fases 3 y 4 comprenden `SE-001`–`SE-360`, pero
+> Estado verificable: 12 `GUIDED` · 468 `PLANNED`. Fases 3 y 4 comprenden `SE-001`–`SE-360`, pero
 > sus documentos son **borradores no aprobados**, no clases construidas.
 > `SE-361`–`SE-480` permanecen como scaffolds. Cada enlace declara su estado.
 

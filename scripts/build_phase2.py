@@ -519,7 +519,18 @@ def build(check: bool) -> tuple[list[str], list[str]]:
     }
     for part in program["parts"]:
         part_dir = ROOT / part["path"]
-        write_generated(part_dir / "README.md", part_index(part), check, stale)
+        editorial_part = ROOT / "content" / f"part-{part['id']}" / "README.md"
+        if editorial_part.is_file():
+            part_markdown = editorial_part.read_text(encoding="utf-8").replace(
+                "(../../classes/",
+                "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/",
+            ).replace(
+                "(../../docs/",
+                "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/",
+            )
+        else:
+            part_markdown = part_index(part)
+        write_generated(part_dir / "README.md", part_markdown, check, stale)
         source_ids = PART_SOURCE_MAP[part["id"]]
         write_generated(ROOT / "site/parts" / f"{part['id']}.html", part_page(part), check, stale)
         for lesson in part["lessons"]:

@@ -1,209 +1,124 @@
 # SE-003 — Ciclo de vida completo y responsabilidades profesionales
 
-[← SE-002 — Historia de la crisis del software a la ingeniería continua](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-003.html) · [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)
+[← SE-002](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-004 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-002` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Fronteras y retroalimentación de `SE-001`–`SE-002`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Ciclo de vida completo y responsabilidades profesionales**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una función se declara terminada al fusionar código. Después nadie vigila comportamiento, actualiza dependencias, atiende incidentes o retira datos. La definición de terminado excluyó responsabilidades previsibles.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Ciclo y vida con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Modelarás desde necesidad hasta retiro, asignarás autoridad sin crear silos y diseñarás transferencias con evidencia y recuperación.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Ciclo | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Vida | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Completo | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Responsabilidades | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Momento | Decisión clave |
+| --- | --- |
+| Concepción | problema y criterio de no construir |
+| Desarrollo | arquitectura, datos, pruebas y suministro |
+| Transición | migración, despliegue y reversión |
+| Operación | niveles de servicio y respuesta |
+| Mantenimiento | compatibilidad y aprendizaje |
+| Retiro | exportación, conservación y eliminación |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Ciclo de vida completo y responsabilidades profesionales"] --> M["Modelo: Ciclo"]
-    M --> D["Decisión: vida"]
-    D --> E["Evidencia: completo"]
-    E --> R["Revisión: responsabilidades"]
-    R -->|nueva información| M
+ N[Necesidad] --> R[Requisitos y riesgos] --> D[Construcción]
+ D --> V[Verificación y validación] --> O[Operación]
+ O --> M[Mantenimiento] --> R
+ O --> T[Retiro]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Ciclo de vida completo y responsabilidades profesionales**.
+Los retornos muestran que operación corrige requisitos y diseño. El gráfico no prescribe fases separadas.
 
 ## Conceptos y decisiones
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+El **ciclo de vida** reúne estados y procesos de un sistema, producto o servicio. Un **modelo** los organiza, pero no elimina responsabilidades. ISO 12207 admite aplicación concurrente, iterativa y recursiva.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
+Responsabilidad sigue al efecto de la decisión. Quien diseña un esquema considera migración y recuperación aunque otra persona opere la base. No todos hacen todo: cada transferencia necesita emisor, receptor, artefacto, aceptación y feedback.
 
-### 1. Ciclo: modelo
-
-En esta clase, **Ciclo** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ciclo de vida completo y responsabilidades profesionales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 2. Vida: mecanismo
-
-En esta clase, **vida** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ciclo de vida completo y responsabilidades profesionales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Completo: evidencia
-
-En esta clase, **completo** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ciclo de vida completo y responsabilidades profesionales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Responsabilidades: decisión
-
-En esta clase, **responsabilidades** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ciclo de vida completo y responsabilidades profesionales**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+RACI aclara autoridad, pero falla si sustituye conversación o asigna resultado sin capacidad. Cada riesgo necesita alguien que decide, contribuyentes y evidencia.
 
 ## Definiciones de trabajo
 
-- **Ciclo:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Vida:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Completo:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Responsabilidades:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
+- **verificación:** conformidad con especificación;
+- **validación:** utilidad en contexto;
+- **transición:** cambio controlado entre configuraciones;
+- **mantenimiento:** corrección, adaptación o mejora posterior;
+- **retiro:** eliminación controlada de capacidad, dependencias y datos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Baseline** es una versión acordada. **Owner** posee autoridad de decisión. **Custodio** conserva un activo bajo reglas sin poseer su propósito.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Ciclo de vida completo y responsabilidades profesionales**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Un script depende de credencial personal y falla cuando la persona se va. El defecto nació en construcción, apareció en operación y se previene con identidad de servicio, rotación y propietario.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Ciclo de vida completo y responsabilidades profesionales**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+Al cambiar proveedor de correo, producto define experiencia; ingeniería adapta contrato; seguridad revisa secretos; soporte comunica; operaciones observa; legal decide conservación. El retiro revoca credenciales antiguas.
 
 ## Práctica guiada
 
-1. Crea `work/SE-003/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+Crea `lifecycle.md`. Para cada momento registra entrada, decisión, evidencia, responsable y salida. Añade dos bucles de feedback y un plan de retiro. Revisa con alguien en rol de operación.
 
 ## Ejercicios
 
-1. **Fundamental:** define Ciclo y vida con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Diferencia desplegado, liberado, adoptado y retirado.
+2. Encuentra responsabilidades ausentes en un ticket que termina en PR fusionado.
+3. Diseña transferencia de una migración con rollback.
 
 ## Reto verificable
 
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-003/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-003/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una persona identifica quién detiene el cambio, con qué evidencia y cómo recupera. Actividad sin dueño o dueño sin autoridad es defecto.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Agile elimina etapas?
+No. Solapa actividades; requisitos, validación, operación y retiro permanecen.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Responsabilidad compartida es difusa?
+No. El resultado puede ser colectivo, pero cada decisión requiere autoridad.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Quita rotación de credenciales y simula salida de una persona. Traza síntoma, dependencia, responsable y recuperación; corrige el sistema, no solo el secreto.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Entorno y archivos clave
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+`lifecycle.md`, `responsibility-matrix.md`, `handoff-checklist.md`, `retirement.md`; sin producción.
+
+## Seguridad, ética y accesibilidad
+
+Incluye abuso, privacidad, accesibilidad y conservación en todas las etapas. El retiro debe ofrecer exportación cuando se pierde una capacidad.
+
+## Transferencia
+
+Compara web, biblioteca y firmware: actualización inmediata, coordinada o físicamente costosa.
+
+## Evaluación y evidencia
+
+Aprueba un mapa con ciclo completo, transferencias, autoridad de parada y recuperación; una lista lineal no basta.
+
+## Fuentes
+
+- [ISO/IEC/IEEE 12207:2026](https://www.iso.org/standard/90219.html), ciclo completo.
+- [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/), expectativas, realización y revisiones.
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), práctica profesional.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Ciclo de vida completo y responsabilidades profesionales**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-004`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El mapa no resuelve conflictos de interés. `SE-004` introduce juicio ético.
 
 ---
 
-[← SE-002 — Historia de la crisis del software a la ingeniería continua](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-003.html) · [SE-004 — Ética, interés público y consecuencias de las decisiones técnicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)
+[← SE-002](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-002-historia-de-la-crisis-del-software-a-la-ingenieria-continua/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-004 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-004-etica-interes-publico-y-consecuencias-de-las-decisiones-tecnicas/README.md)

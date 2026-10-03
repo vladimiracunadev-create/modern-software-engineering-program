@@ -16,11 +16,11 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         cls.lessons = [lesson for part in cls.program["parts"] for lesson in part["lessons"]]
 
     def test_maturity_counts(self) -> None:
-        self.assertEqual(Counter({"PLANNED": 480}), Counter(item["status"] for item in self.lessons))
+        self.assertEqual(Counter({"GUIDED": 12, "PLANNED": 468}), Counter(item["status"] for item in self.lessons))
 
     def test_phase_three_scope_is_first_180_classes(self) -> None:
         target = self.program["phase_3_target"]
-        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 0}, target)
+        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 12}, target)
 
     def test_phase_three_drafts_have_activity_and_rubric(self) -> None:
         for lesson in self.lessons:
@@ -30,10 +30,13 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             self.assertTrue((directory / "activity.yaml").is_file(), lesson["id"])
             self.assertTrue((directory / "rubric.json").is_file(), lesson["id"])
 
-    def test_no_class_claims_guided(self) -> None:
+    def test_only_approved_classes_claim_guided(self) -> None:
         for lesson in self.lessons:
             text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
-            self.assertNotIn("Estado: **GUIDED**", text, lesson["id"])
+            if lesson["status"] == "GUIDED":
+                self.assertIn("Estado: **GUIDED**", text, lesson["id"])
+            else:
+                self.assertNotIn("Estado: **GUIDED**", text, lesson["id"])
 
     def test_phase_three_source_registry_is_primary_or_official(self) -> None:
         sources = json.loads((ROOT / "sources/phase3.json").read_text(encoding="utf-8"))

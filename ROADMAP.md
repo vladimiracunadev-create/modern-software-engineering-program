@@ -43,9 +43,10 @@ las clases continúa correctamente marcado `PLANNED`.
 - fuentes vinculadas a afirmaciones, temario completamente desarrollado y práctica reproducible;
 - un commit independiente por parte, con CI y revisión cualitativa.
 
-Estado verificable: 180 borradores públicos, 0 clases aprobadas y 480 clases
-`PLANNED`. La declaración anterior de 156 clases `GUIDED` fue retirada porque la
-estructura generada no alcanzaba el estándar pedagógico permanente.
+Estado verificable: 12 clases `GUIDED` en la Parte 00, 168 borradores públicos en
+las partes 01–14 y 468 clases `PLANNED` en el programa. La declaración histórica
+de 156 clases `GUIDED` fue retirada porque la estructura generada no alcanzaba el
+estándar pedagógico permanente.
 
 ## Fase 4 — Construcción, superficies y arquitectura — implementada 2026-09-30
 

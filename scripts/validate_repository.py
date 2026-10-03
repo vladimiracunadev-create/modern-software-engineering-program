@@ -115,12 +115,15 @@ def validate_program_blueprint() -> None:
         raise AssertionError("Each part must contain exactly 12 classes")
     if any(part["owner"] not in ALLOWED_OWNERS for part in payload["parts"]):
         raise AssertionError("Every part must use a declared repository owner")
+    expected_guided = {f"SE-{number:03d}" for number in range(1, 13)}
     for part in payload["parts"]:
         kinds = [lesson["kind"] for lesson in part["lessons"]]
         if kinds != ["class"] * 10 + ["studio", "project"]:
             raise AssertionError(f"Part {part['id']} must have ten classes, one studio and one project")
-        if any(lesson["status"] != "PLANNED" for lesson in part["lessons"]):
-            raise AssertionError(f"Unexpected phase 3 maturity in part {part['id']}")
+        for lesson in part["lessons"]:
+            expected_status = "GUIDED" if lesson["id"] in expected_guided else "PLANNED"
+            if lesson["status"] != expected_status:
+                raise AssertionError(f"Unexpected maturity for {lesson['id']}")
     hours = sum(lesson["estimated_hours"] for lesson in lessons)
     if hours != payload["estimated_hours"]:
         raise AssertionError("Estimated hours do not match the class manifest")
@@ -129,12 +132,12 @@ def validate_program_blueprint() -> None:
         "parts": 40,
         "classes": 480,
         "estimated_hours": hours,
-        "class_status": {"PLANNED": 480},
+        "class_status": {"GUIDED": 12, "PLANNED": 468},
         "phase_3_target": {
             "first_class": "SE-001",
             "last_class": "SE-180",
             "classes": 180,
-            "approved": 0,
+            "approved": 12,
         },
         "phase_4_target": {
             "first_class": "SE-181",

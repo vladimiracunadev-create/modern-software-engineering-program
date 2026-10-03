@@ -1,209 +1,100 @@
 # SE-010 — Cómo leer estándares, documentación y literatura técnica
 
-[← SE-009 — Sostenibilidad, inclusión y responsabilidad social](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-010.html) · [SE-011 — Taller: anatomía verificable de un producto real →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)
+[← SE-009](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-011 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
-
-- Haber completado o diagnosticado `SE-009` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Evidencia, incertidumbre y fuentes de las clases anteriores.
 
 ## Problema auténtico
-
-Un equipo que trabaja en una comunidad social debe decidir sobre **Cómo leer estándares, documentación y literatura técnica**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una guía cita un estándar para afirmar algo que el resumen público no contiene y copia un ejemplo obsoleto de documentación. Tener enlace no equivale a respaldo.
 
 ## Objetivos observables
-
-Al terminar podrás:
-
-1. explicar Cómo y leer con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Distinguirás norma, especificación, guía y estudio; localizarás alcance, lenguaje normativo y versión; construirás una cadena afirmación→fuente→pasaje→interpretación→límite.
 
 ## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Cómo | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Leer | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Estándares | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Documentación | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Fuente | Uso responsable |
+| --- | --- |
+| Estándar | vocabulario, requisitos o modelos consensuados |
+| Especificación | contrato preciso e interoperabilidad |
+| Documentación oficial | comportamiento soportado de una versión |
+| Artículo/libro | explicación o evidencia con método y contexto |
 
 ## Mapa conceptual
-
 ```mermaid
 flowchart LR
-    P["Problema: Cómo leer estándares, documentación y literatura técnica"] --> M["Modelo: Cómo"]
-    M --> D["Decisión: leer"]
-    D --> E["Evidencia: estándares"]
-    E --> R["Revisión: documentación"]
-    R -->|nueva información| M
+ A[Afirmación] --> Q[Pregunta]
+ Q --> F[Fuente candidata]
+ F --> V[Versión y autoridad]
+ V --> P[Pasaje y contexto]
+ P --> I[Interpretación]
+ I --> L[Límite]
 ```
-
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Cómo leer estándares, documentación y literatura técnica**.
+Leer solo el título salta los pasos que sostienen la afirmación.
 
 ## Conceptos y decisiones
+Primero identifica propósito y alcance. Un documento puede definir un modelo sin prescribir implementación. Palabras como shall, should y may tienen funciones distintas cuando el documento las define.
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+Verifica versión, estado y sustitución. ISO 25010:2011 combinaba modelos que en 2023 se separaron entre ISO 25010 e ISO 25019; citar el número sin edición cambia significado.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
-
-### 1. Cómo: modelo
-
-En esta clase, **Cómo** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Cómo leer estándares, documentación y literatura técnica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 2. Leer: mecanismo
-
-En esta clase, **leer** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Cómo leer estándares, documentación y literatura técnica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Estándares: evidencia
-
-En esta clase, **estándares** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Cómo leer estándares, documentación y literatura técnica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Documentación: decisión
-
-En esta clase, **documentación** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Cómo leer estándares, documentación y literatura técnica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Una fuente primaria describe directamente especificación, experimento o decisión. Una secundaria puede enseñar mejor, pero no debe reemplazarla cuando se afirma conformidad. Autoridad no elimina límites: documentación oficial puede omitir comparaciones o errores conocidos.
 
 ## Definiciones de trabajo
+- **normativo:** parte que establece requisitos dentro del alcance;
+- **informativo:** explicación o ejemplo no obligatorio;
+- **edición:** versión formal de una publicación;
+- **vigencia:** estado actual, retirado o sustituido;
+- **cita de proximidad:** enlace colocado junto a la afirmación sustentada.
 
-- **Cómo:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Leer:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Estándares:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Documentación:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+**DOI** identifica publicaciones; **ISBN** identifica ediciones de libros; **RFC** es una serie con estados y actualizaciones; **errata** corrige sin necesariamente crear edición nueva.
 
 ## Ejemplo mínimo
-
-Registra una sola decisión sobre **Cómo leer estándares, documentación y literatura técnica**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+«ISO 25010 mide usabilidad» es impreciso: el estándar define un modelo de producto y no ejecuta mediciones. Debe indicarse característica, edición y método de medida elegido.
 
 ## Ejemplo profesional
-
-En la comunidad social, el equipo prepara un cambio relacionado con **Cómo leer estándares, documentación y literatura técnica**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+Para decidir semántica de reintento HTTP, se consulta RFC 9110, se localiza método y condición, se revisan actualizaciones y se documenta qué decisión local no prescribe el RFC.
 
 ## Práctica guiada
-
-1. Crea `work/SE-010/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+Elige una afirmación de `SE-001`–`SE-009`. Crea `source-trace.md` con pregunta, fuente, autoridad, versión, pasaje resumido, interpretación y límite. Busca una fuente contradictoria o complementaria.
 
 ## Ejercicios
-
-1. **Fundamental:** define Cómo y leer con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Clasifica cuatro fuentes del repositorio.
+2. Encuentra una fuente retirada y su reemplazo.
+3. Reescribe una cita decorativa como evidencia de proximidad.
 
 ## Reto verificable
-
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-010/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-010/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Un revisor abre el enlace y debe hallar soporte sin adivinar. Si la fuente es cerrada, cita metadatos y resumen público sin fingir acceso al texto completo.
 
 ## Preguntas frecuentes
+### ¿Oficial significa correcto para mi caso?
+No; significa autoridad sobre un objeto, no adecuación universal.
+### ¿Puedo citar un resumen?
+Sí para lo que el resumen afirma; no para detalles no visibles.
 
-### ¿Basta con definir los términos del título?
+## Fallo controlado y diagnóstico
+Cita una versión antigua como actual, detecta la sustitución y registra qué conclusiones cambian. No reescribas historia legítima.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+## Entorno y archivos clave
+Navegador, gestor bibliográfico opcional: `source-trace.md`, `currency-check.md`, `claims.md`.
 
-### ¿La herramienta recomendada es obligatoria?
+## Seguridad, ética y accesibilidad
+Respeta licencias y límites de cita. No eludas paywalls. Añade título y autoridad para lectores que no puedan abrir el enlace.
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+## Transferencia
+Compara un RFC, una norma ISO y documentación de una biblioteca.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Evaluación y evidencia
+Se exige trazabilidad de afirmación, edición, pasaje, interpretación y límite.
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+## Fuentes
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), cuerpo de conocimiento y referencias.
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) e [ISO/IEC 25019:2023](https://www.iso.org/standard/78177.html), ejemplo de separación entre ediciones.
+- [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), especificación primaria accesible.
 
 ## Límites y siguiente paso
-
-Esta guía enseña a razonar y producir evidencia sobre **Cómo leer estándares, documentación y literatura técnica**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-011`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+La clase no enseña revisión sistemática completa. `SE-011` integra las diez clases en la anatomía de un producto.
 
 ---
-
-[← SE-009 — Sostenibilidad, inclusión y responsabilidad social](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-010.html) · [SE-011 — Taller: anatomía verificable de un producto real →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)
+[← SE-009](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-009-sostenibilidad-inclusion-y-responsabilidad-social/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-011 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-011-taller-anatomia-verificable-de-un-producto-real/README.md)

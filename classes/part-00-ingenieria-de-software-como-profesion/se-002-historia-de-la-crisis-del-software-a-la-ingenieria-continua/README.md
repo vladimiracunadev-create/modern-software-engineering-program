@@ -1,209 +1,125 @@
 # SE-002 — Historia de la crisis del software a la ingeniería continua
 
-[← SE-001 — Software, sistemas y productos: fronteras de la disciplina](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-002.html) · [SE-003 — Ciclo de vida completo y responsabilidades profesionales →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)
+[← SE-001](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-003 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase desarrollada y revisada contra el estándar pedagógico; no implica evidencia de ejecución productiva.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-001` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor de texto, navegador y repositorio Git.
+Comprender componente, sistema y producto (`SE-001`).
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Historia de la crisis del software a la ingeniería continua**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un equipo adopta microservicios, CI o IA porque son modernos. Sin conocer el problema histórico que intentan resolver, conserva las causas originales y añade complejidad. La historia debe explicar mecanismos, no celebrar una cronología.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Historia y crisis con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **informe de decisión profesional** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir una preferencia personal con evidencia suficiente» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Explicarás la llamada crisis del software, relacionarás escala con coordinación y defectos, distinguirás una práctica de una garantía y construirás una cadena causal hasta la ingeniería continua.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Historia | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Crisis | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Software | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Ingeniería | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Tema | Pregunta de control |
+| --- | --- |
+| Crisis | ¿qué dejó de escalar? |
+| Ingeniería | ¿qué hace observables decisiones y calidad? |
+| Iteración | ¿cómo reduce el costo de aprender? |
+| Continuidad | ¿cómo se controla el cambio frecuente? |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Historia de la crisis del software a la ingeniería continua"] --> M["Modelo: Historia"]
-    M --> D["Decisión: crisis"]
-    D --> E["Evidencia: software"]
-    E --> R["Revisión: ingeniería"]
-    R -->|nueva información| M
+ A[Escala y dependencia] --> B[Coordinación difícil]
+ B --> C[Retraso, costo, defectos]
+ C --> D[Modularidad, proceso, revisión]
+ D --> E[Iteración y automatización]
+ E --> F[Entrega y operación continuas]
+ F --> G[Nuevos riesgos]
+ G --> D
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Historia de la crisis del software a la ingeniería continua**.
+Cada respuesta desplaza el cuello de botella. Automatizar compilación no aclara requisitos; desplegar rápido no garantiza recuperación.
 
 ## Conceptos y decisiones
 
-La ingeniería de software coordina producto, proceso y tecnología durante todo el ciclo de vida; su unidad de trabajo es una decisión justificable y sus consecuencias, no únicamente código.
+El informe NATO de 1968 documentó dificultades con sistemas grandes, estimación, interfaces, pruebas y mantenimiento. No hubo un día único en que naciera la disciplina ni una crisis ya resuelta. El cambio fue tratar el desarrollo como actividad que necesita modelos, controles y aprendizaje acumulable.
 
-La pregunta rectora de esta parte es: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** La respuesta debe
-apoyarse en **una decisión revisable, sus fuentes y el impacto sobre personas y sistema**.
+Al crecer un sistema aumentan estados posibles, dependencias, actores y consecuencias. Una práctica ayuda si acorta una cadena causal concreta: control de versiones conserva decisiones; integración continua descubre incompatibilidades temprano; observabilidad reduce incertidumbre operativa.
 
-### 1. Historia: modelo
-
-En esta clase, **Historia** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Historia de la crisis del software a la ingeniería continua**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 2. Crisis: mecanismo
-
-En esta clase, **crisis** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Historia de la crisis del software a la ingeniería continua**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 3. Software: evidencia
-
-En esta clase, **software** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Historia de la crisis del software a la ingeniería continua**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-### 4. Ingeniería: decisión
-
-En esta clase, **ingeniería** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué responsabilidad, frontera profesional o atributo de calidad cambia?» y demostrarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Historia de la crisis del software a la ingeniería continua**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+La evolución no es «cascada mala, ágil bueno». Un enfoque predictivo puede ser adecuado cuando cambiar es extremadamente costoso; uno iterativo ayuda cuando la incertidumbre se reduce con incrementos. Ambos fallan al confundir documentos con conocimiento o velocidad con valor.
 
 ## Definiciones de trabajo
 
-- **Historia:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Crisis:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Software:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
-- **Ingeniería:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante una decisión revisable, sus fuentes y el impacto sobre personas y sistema.
+- **crisis del software:** dificultad persistente para entregar y evolucionar software confiable bajo restricciones;
+- **retroalimentación:** información que llega a tiempo para modificar una decisión;
+- **integración continua:** integrar y verificar cambios con frecuencia;
+- **ingeniería continua:** especificar, construir, observar y corregir de forma sostenida.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Lote** es un grupo grande de cambios validado tarde. **Lead time** mide desde petición hasta disponibilidad. **Deuda** es costo futuro creado por una decisión, no sinónimo de código viejo.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Historia de la crisis del software a la ingeniería continua**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Dos personas editan copias durante un mes. Cada copia funciona; al unirlas, discrepan interfaces. Probar al final detecta el defecto, pero no reduce el mes de divergencia. Integrar diariamente con prueba de contrato cambia el momento del aprendizaje.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Historia de la crisis del software a la ingeniería continua**. Parte de esta pregunta: **¿qué responsabilidad, frontera profesional o atributo de calidad cambia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando una decisión revisable, sus fuentes y el impacto sobre personas y sistema. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `decision.md` y enlaza la evidencia, no solo la conclusión.
+Una institución pasa de dos entregas anuales a despliegues semanales. Una migración irreversible sigue exigiendo ensayo, respaldo y coordinación. Frecuencia no elimina diferencias de riesgo.
 
 ## Práctica guiada
 
-1. Crea `work/SE-002/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el informe de decisión profesional con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+Crea `timeline.md` con cinco hitos: problema, respuesta, evidencia, límite y riesgo nuevo. Analiza una práctica actual en `causal-chain.md`: señal que recibe, demora que reduce y garantía que no ofrece.
 
 ## Ejercicios
 
-1. **Fundamental:** define Historia y crisis con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `decision.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Explica por qué añadir personas puede retrasar trabajo acoplado.
+2. Da un caso donde desplegar menos sea responsable.
+3. Distingue qué resuelven Git, CI y feature flags.
 
 ## Reto verificable
 
-Entrega el **informe de decisión profesional** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **confundir una preferencia personal con evidencia suficiente**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor de texto, navegador y repositorio Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-002/
-├── README.md
-│   ├── decision.md
-│   ├── evidence.md
-│   ├── review.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `decision.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-002/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Defiende una práctica sin usar «moderna» ni «mejor práctica»: conecta causa, mecanismo, señal y límite. Otra persona debe poder refutarla cambiando una condición.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿La crisis terminó?
+No. Mejoraron capacidades y crecieron escala e impacto. Debe indicarse qué riesgo está controlado.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿DevOps es el final?
+No. Reduce separación entre construcción y operación, pero puede acelerar daño sin controles.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Agrupa diez cambios en una entrega y mide aislamiento de un fallo; repite con cambios identificables. Usa solo un repositorio de práctica.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Entorno y archivos clave
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Markdown e historial Git local: `timeline.md`, `causal-chain.md`, `comparison.md`.
+
+## Seguridad, ética y accesibilidad
+
+No uses commits por persona como productividad: incentiva volumen y daña colaboración. La velocidad no justifica omitir revisión de impactos.
+
+## Transferencia
+
+Aplica la cadena a datos o firmware e identifica feedback automatizable y feedback físico o humano.
+
+## Evaluación y evidencia
+
+Se evalúan causalidad, un contraejemplo y límites. Una cronología sin mecanismos no aprueba.
+
+## Fuentes
+
+- [NATO Software Engineering, 1968](https://homepages.cs.ncl.ac.uk/brian.randell/NATO/nato1968.PDF), informe primario.
+- [Fifty Years of Software Engineering](https://eprints.ncl.ac.uk/247869), retrospectiva de Brian Randell.
+- [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), mapa contemporáneo.
+- [ISO/IEC/IEEE 12207:2026](https://www.iso.org/standard/90219.html), procesos sin imponer metodología.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Historia de la crisis del software a la ingeniería continua**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-003`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No se demuestra que una práctica funcione en todo contexto. `SE-003` convierte la historia en responsabilidades de ciclo de vida.
 
 ---
 
-[← SE-001 — Software, sistemas y productos: fronteras de la disciplina](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-002.html) · [SE-003 — Ciclo de vida completo y responsabilidades profesionales →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)
+[← SE-001](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [↑ Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-003 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-003-ciclo-de-vida-completo-y-responsabilidades-profesionales/README.md)

@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 13)}
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 
@@ -620,7 +621,7 @@ def build_payload() -> dict:
                 "title": lesson_title,
                 "kind": kind,
                 "estimated_hours": hours,
-                "status": "PLANNED",
+                "status": "GUIDED" if lesson_id in GUIDED_CLASS_IDS else "PLANNED",
                 "path": f"{part_path}/{lesson_id.lower()}-{lesson_slug}",
             })
             lesson_number += 1
@@ -643,7 +644,7 @@ def build_payload() -> dict:
             "first_class": "SE-001",
             "last_class": f"SE-{PHASE_3_TARGET_END:03d}",
             "classes": PHASE_3_TARGET_END,
-            "approved": 0,
+            "approved": len(GUIDED_CLASS_IDS),
         },
         "phase_4_target": {
             "first_class": f"SE-{PHASE_4_TARGET_START:03d}",

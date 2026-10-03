@@ -2,8 +2,9 @@
 
 ## Resultado
 
-La fase 3 **no está construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`, pero ninguna supera todavía el estándar pedagógico permanente.
+La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
+`SE-001`–`SE-180`: la Parte 00 aporta 12 clases `GUIDED` y las 168 restantes aún
+no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
 
@@ -18,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 0 | requisito ausente |
+| clases con sección `Glosario` | 12 | Parte 00 reconstruida; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 0 | todas permanecen `PLANNED` |
+| clases aprobadas | 12 | Parte 00 aprobada; las otras 168 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -47,6 +48,16 @@ pedagógica integral.
   [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md);
 - reconstruir por parte, con un commit independiente y revisión cualitativa;
 - publicar índices con enlaces directos a GitHub y GitHub Pages.
+
+## Avance editorial de la Parte 00
+
+Las doce clases `SE-001`–`SE-012` ya no dependen del generador temático genérico:
+sus fuentes canónicas están en `content/part-00/` y el portal publica ese texto
+íntegro. Cada clase desarrolla mecanismos propios, ejemplo y contraejemplo,
+práctica, fallo controlado, glosario, transferencia, límites y fuentes próximas.
+Tras revisar enlaces, contenido, publicación y validadores, la Parte 00 superó el
+gate y sus doce clases avanzaron a `GUIDED`. Esta promoción no atribuye estados
+`EXECUTABLE`, `TESTED` u `OPERABLE` ni se extiende a las demás partes.
 
 ## Orden de reconstrucción
 

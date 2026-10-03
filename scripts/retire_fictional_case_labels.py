@@ -1,0 +1,74 @@
+"""Replace opaque fictional case names with descriptive technical labels.
+
+The old aliases are recorded in docs/CASE-LABEL-CORRECTION.md. The migration is
+scoped to one content part at a time so each part can be validated and committed
+independently.
+"""
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+LABELS = {
+    "Pulso": ("analizador local de eventos", "el analizador local de eventos"),
+    "Faro": ("kit de diagnóstico multiplataforma", "el kit de diagnóstico multiplataforma"),
+    "Nexo": ("petición observable de extremo a extremo", "la petición observable de extremo a extremo"),
+    "Atlas": ("modelo de decisión diagnóstica", "el modelo de decisión diagnóstica"),
+    "Brújula": ("CLI diagnóstica", "la CLI diagnóstica"),
+    "Prisma": ("motor de reglas comparado", "el motor de reglas comparado"),
+    "Orbe": ("biblioteca de estructuras y algoritmos", "la biblioteca de estructuras y algoritmos"),
+    "Lupa": ("entorno reproducible de diagnóstico", "el entorno reproducible de diagnóstico"),
+    "Constelación": ("SDK y CLI versionados", "el SDK y la CLI versionados"),
+}
+GENITIVE = {
+    "Pulso": "del analizador local de eventos",
+    "Faro": "del kit de diagnóstico multiplataforma",
+    "Nexo": "de la petición observable de extremo a extremo",
+    "Atlas": "del modelo de decisión diagnóstica",
+    "Brújula": "de la CLI diagnóstica",
+    "Prisma": "del motor de reglas comparado",
+    "Orbe": "de la biblioteca de estructuras y algoritmos",
+    "Lupa": "del entorno reproducible de diagnóstico",
+    "Constelación": "del SDK y la CLI versionados",
+}
+
+
+def replace_labels(text: str) -> str:
+    text = text.replace("Faro-01", "incidente-de-diagnóstico-01")
+    for old, replacement in GENITIVE.items():
+        text = text.replace(f"de **{old}**", f"{replacement.replace('de ', 'de **', 1).replace('del ', 'del **', 1)}**")
+        text = text.replace(f"de `{old}`", f"{replacement}")
+        text = text.replace(f"de {old}", replacement)
+    for old, (display, phrase) in LABELS.items():
+        text = text.replace(f"**{old}**", f"**{display}**")
+        text = text.replace(f"`{old}`", phrase)
+        text = text.replace(f"sobre {old}", f"sobre {phrase}")
+        text = text.replace(f"para {old}", f"para {phrase}")
+        text = text.replace(f"con {old}", f"con {phrase}")
+        text = text.replace(f"en {old}", f"en {phrase}")
+        text = text.replace(f"desde {old}", f"desde {phrase}")
+        text = text.replace(old, phrase[0].upper() + phrase[1:])
+        # Normalize files already migrated by an earlier version of this script.
+        text = text.replace(f"**{phrase}**", f"**{display}**")
+        text = text.replace(f"\n\n{phrase}", f"\n\n{phrase[0].upper() + phrase[1:]}")
+        text = text.replace(f". {phrase}", f". {phrase[0].upper() + phrase[1:]}")
+    return text
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--part", type=int, required=True, choices=range(1, 10))
+    args = parser.parse_args()
+    directory = ROOT / "content" / f"part-{args.part:02d}"
+    for path in sorted(directory.glob("*.md")):
+        before = path.read_text(encoding="utf-8")
+        after = replace_labels(before)
+        if after != before:
+            path.write_text(after, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -36,7 +36,164 @@ El orden del diagrama es causal, no una promesa de implementación literal. Una 
 
 Podrás leer una petición como un sistema de estados y contratos. Dejarás de usar «la red está caída» como explicación suficiente: distinguirás fallo de resolución, ruta, transporte, confianza, semántica, caché o capacidad; diseñarás timeouts y reintentos con límites; y producirás trazas que otra persona pueda revisar sin acceder a secretos ni tráfico ajeno.
 
-## Recorrido clase por clase
+## Guía razonada clase por clase
+
+La guía sigue una sola petición de Nexo y cambia el punto de observación en cada clase.
+No presenta protocolos como vocabulario aislado: explica qué transición realiza cada
+capa, qué garantía ofrece, qué síntoma deja al fallar y qué evidencia alimenta el paso
+siguiente.
+
+### Bloque 1 — Localizar la petición desde el enlace hasta el transporte
+
+#### SE-037 — Modelos OSI y TCP/IP como herramientas de diagnóstico
+
+Las capas son modelos para separar responsabilidades, no una fotografía exacta de todo
+sistema. La clase ubica unidades, identificadores, garantías y puntos de observación de
+Nexo; además muestra cómo encapsulación y desencapsulación permiten que un síntoma de
+aplicación tenga una causa en otra frontera sin que todas las capas estén «caídas».
+
+El estudiante construye una matriz síntoma → capa candidata → observación → hipótesis
+rival. No diagnostica por el nombre de una herramienta. La matriz define dónde mirar el
+primer salto físico y lógico en `SE-038` y permanecerá como índice causal del resto de
+la parte.
+
+#### SE-038 — Ethernet, Wi-Fi, direccionamiento y redes locales
+
+Antes de llegar a Internet, una trama debe alcanzar el siguiente salto dentro de una
+red local. La clase diferencia interfaz, dirección MAC, dirección IP, medio, asociación,
+switching y resolución de vecinos. Señal Wi-Fi alta no implica baja pérdida, y conocer
+una MAC no demuestra que el destino esté en el mismo enlace.
+
+Nexo registra interfaces, estado, MTU y vecino relevante en un laboratorio autorizado,
+comparando un caso sano con uno donde falla el primer salto. El resultado explica el
+alcance local sin capturar tráfico ajeno. `SE-039` extiende el recorrido a prefijos,
+rutas y traducciones entre redes.
+
+#### SE-039 — IPv4, IPv6, subredes, rutas y NAT
+
+Una dirección no determina por sí sola el camino. Prefijo, tabla de rutas, métrica,
+política y siguiente salto intervienen antes de transmitir; NAT puede reescribir campos
+sin convertirse en firewall ni garantía de conectividad. La clase compara IPv4 e IPv6
+sin tratar el segundo como una versión con direcciones más largas.
+
+El estudiante predice una ruta antes de observarla, identifica coincidencia de prefijo
+más específica y registra traducciones solo donde puede verificarlas. Nexo produce un
+mapa de origen, saltos conocidos y fronteras inferidas. Con el camino disponible,
+`SE-040` decide qué garantías deben pertenecer al transporte.
+
+#### SE-040 — TCP, UDP, QUIC y decisiones de transporte
+
+TCP ofrece un flujo ordenado y fiable, no mensajes ni ausencia de latencia; UDP entrega
+datagramas sin esas garantías; QUIC integra seguridad y múltiples flujos sobre UDP. La
+clase relaciona handshake, pérdida, retransmisión, control de congestión y cierre con la
+necesidad de Nexo, evitando elegir por velocidad nominal.
+
+La práctica compara una interacción normal, una pérdida controlada y un timeout. El
+estudiante declara quién reintenta, qué operación puede repetirse y dónde termina el
+deadline. El transporte alcanza direcciones; `SE-041` explica cómo un nombre se convierte
+en candidatos y por qué ese paso puede divergir antes de abrir conexión.
+
+### Bloque 2 — Expresar identidad e intención de aplicación
+
+#### SE-041 — DNS, nombres, resolución y fallos
+
+DNS es un sistema distribuido de datos con autoridad, delegación, caché y vigencia; no
+es una libreta global instantánea. La clase recorre stub resolver, recursión, respuestas
+autoritativas, CNAME, registros A/AAAA, TTL y respuestas negativas. Distingue nombre
+inexistente, ausencia de tipo y fallo temporal.
+
+Nexo conserva consulta, servidor observado, respuesta, TTL y momento, y compara caché
+fría con caliente sin asumir que todos los resolvers siguen la misma ruta. La salida es
+un conjunto de endpoints candidatos y límites de vigencia. `SE-042` usa uno de ellos
+para estudiar la semántica que viaja sobre la conexión.
+
+#### SE-042 — HTTP, semántica, caché y negociación
+
+HTTP define método, destino, representación, estado y metadatos; un `200` no demuestra
+que el resultado sea correcto para el dominio. La clase relaciona seguridad e
+idempotencia de métodos con reintentos, separa autenticación de caché y explica
+validadores, negociación y cuerpos de error.
+
+El estudiante diseña una solicitud de Nexo y predice respuestas para éxito, validación,
+conflicto y dependencia no disponible. Luego compara respuesta fresca, validada y
+servida por caché. Ese contrato necesita saber con quién habla y quién puede observarlo;
+`SE-043` añade autenticación del servidor y protección en tránsito.
+
+#### SE-043 — TLS, certificados y confianza en tránsito
+
+TLS protege un canal bajo parámetros negociados; no garantiza que la aplicación sea
+honesta ni que el endpoint esté autorizado por el negocio. La clase conecta nombre,
+cadena de certificados, almacén de confianza, vigencia, handshake y claves de sesión,
+y explica por qué desactivar verificación transforma un diagnóstico en otro sistema.
+
+Nexo registra versión, nombre verificado, emisor y error sin exponer secretos. La
+práctica contrasta certificado válido, nombre incorrecto y confianza ausente con un
+laboratorio controlado. Como el canal puede terminar antes del origen, `SE-044` ubica
+proxies, balanceadores, gateways y CDN en la cadena de responsabilidad.
+
+#### SE-044 — Proxies, balanceadores, gateways y CDN
+
+Un intermediario puede terminar TLS, reescribir encabezados, seleccionar backend,
+almacenar respuestas o aplicar políticas. La clase distingue proxy directo e inverso,
+balanceo, gateway y CDN por función y punto de control, no por nombres comerciales. Una
+misma respuesta puede provenir de caché, borde u origen.
+
+El estudiante dibuja terminaciones y autoridades de Nexo, sigue un identificador de
+correlación y localiza dónde cambia la respuesta. También declara qué cabeceras son
+confiables solo después de una frontera administrada. `SE-045` estudia qué ocurre cuando
+la conversación persiste y productor y consumidor dejan de avanzar al mismo ritmo.
+
+#### SE-045 — Sockets, conexiones persistentes y tiempo real
+
+Un socket es un endpoint del sistema operativo, no una promesa de mensaje completo. La
+clase diferencia conexión, flujo, framing, half-close, keepalive y liveness de
+aplicación; analiza conexiones HTTP reutilizadas y WebSocket sin llamar «tiempo real» a
+cualquier canal abierto.
+
+Nexo implementa lectura delimitada, cancelación y presupuesto, y reproduce un consumidor
+lento. El estudiante observa colas y cierre sin bucles infinitos ni recursos huérfanos.
+Las señales reunidas aún pueden inducir conclusiones falsas si se miden mal; `SE-046`
+define captura, alcance, reloj y privacidad.
+
+### Bloque 3 — Medir, integrar y recuperar
+
+#### SE-046 — Captura, medición y diagnóstico de tráfico
+
+Capturar paquetes, medir DNS o cronometrar una solicitud son observaciones distintas.
+La clase define punto de captura, dirección, filtros, relojes, pérdida instrumental y
+sesgo; recuerda que cifrado limita el contenido visible y que una captura autorizada
+puede contener identificadores, nombres y cargas sensibles.
+
+El estudiante diseña primero la pregunta y captura después la señal mínima. Alinea
+marcas de aplicación, resolución, transporte y HTTP, separando observado de inferido.
+El resultado es una línea temporal disputable que `SE-047` deberá usar para explicar
+una petición completa y no una colección de pantallazos.
+
+#### SE-047 — Taller: seguir una petición de extremo a extremo
+
+El taller introduce una degradación desconocida entre cliente y servicio local. La
+investigación debe comenzar con predicciones rivales y recorrer configuración, DNS,
+ruta, transporte, TLS, intermediarios y HTTP solo hasta encontrar la primera
+divergencia. Saltar capas por intuición puede corregir el síntoma y perder la causa.
+
+El estudiante entrega dos líneas temporales alineadas —sana y degradada— con evidencia,
+incertidumbre y recuperación. Otra persona debe reconstruir la conclusión. `SE-048`
+convierte ese procedimiento en comportamiento permanente del servicio mediante
+timeouts, resultados tipados, observabilidad y runbook.
+
+#### SE-048 — Proyecto: servicio observable y tolerante a fallos de red
+
+Nexo se cierra como servicio local que comunica éxito, degradación y fallo sin bloquear
+indefinidamente. La clase integra deadlines, reintentos limitados, idempotencia,
+correlación, métricas por fase y redacción. Tolerar un fallo no significa ocultarlo: el
+consumidor debe conocer qué resultado obtuvo y qué parte quedó incompleta.
+
+La aceptación inyecta fallos deterministas de resolución, conexión, confianza, respuesta
+y consumidor lento; luego demuestra recuperación y limpieza. El proyecto declara redes
+y versiones probadas, además de lo no observado. Sus trazas se convierten en la materia
+prima que la Parte 4 transformará en modelos y estrategias contrastables.
+
+## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo a Nexo |
 |---|---|---|

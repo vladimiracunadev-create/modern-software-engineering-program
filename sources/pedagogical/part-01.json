@@ -1,0 +1,330 @@
+{
+  "part": 1,
+  "scope": "SE-013..SE-024",
+  "content_preserved": true,
+  "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "status": "under_qualitative_audit",
+  "classes": [
+    {
+      "class_id": "SE-013",
+      "title": "Arquitectura básica de un computador moderno",
+      "maturity": "PLANNED",
+      "professional_point": "separar arquitectura física, ISA, sistema operativo y runtime antes de atribuir una propiedad a la máquina",
+      "misconception": "confundir ‘64 bits’, núcleos, ISA y versión del sistema como una sola propiedad",
+      "evidence": "machine-map.md con comandos, salidas, capas y dos conclusiones que los datos no permiten",
+      "limit": "las APIs del runtime no demuestran la microarquitectura interna",
+      "sources": [
+        {
+          "title": "RISC-V Unprivileged ISA",
+          "url": "https://docs.riscv.org/reference/isa/unpriv/",
+          "supports": "la ISA como interfaz separada de microarquitectura"
+        },
+        {
+          "title": "Python `platform`",
+          "url": "https://docs.python.org/3/library/platform.html",
+          "supports": " define las etiquetas observables usadas en la práctica"
+        },
+        {
+          "title": "Python `sys`",
+          "url": "https://docs.python.org/3/library/sys.html",
+          "supports": " documenta `byteorder` y propiedades del runtime"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-014",
+      "title": "Bits, bytes, bases numéricas y representación",
+      "maturity": "PLANNED",
+      "professional_point": "interpretar un valor binario solo cuando se declaran base, ancho, signo y orden de bytes",
+      "misconception": "creer que una secuencia de bytes posee signo y orden por sí misma",
+      "evidence": "representations.md con valor↔bits↔bytes, round trips y un desbordamiento explicado",
+      "limit": "los enteros de Python no reproducen un registro de ancho fijo sin imponerlo",
+      "sources": [
+        {
+          "title": "RISC-V ISA Introduction",
+          "url": "https://docs.riscv.org/reference/isa/unpriv/intro.html",
+          "supports": " declara el byte de ocho bits y variantes de ancho"
+        },
+        {
+          "title": "Python integer methods",
+          "url": "https://docs.python.org/3/library/stdtypes.html#int.to_bytes",
+          "supports": " define serialización, orden y signo"
+        },
+        {
+          "title": "Python `struct`",
+          "url": "https://docs.python.org/3/library/struct.html",
+          "supports": " documenta formatos binarios y byte order"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-015",
+      "title": "Texto, Unicode, codificaciones y mojibake",
+      "maturity": "PLANNED",
+      "professional_point": "distinguir carácter, punto de código, unidades de código, bytes y glifo al diagnosticar texto",
+      "misconception": "tratar Unicode como una codificación única o suponer que toda corrupción es reversible",
+      "evidence": "text-lab.md con code points, hex, normalización y un fallo de decodificación reproducible",
+      "limit": "Unicode no determina por sí solo tipografía, shaping ni bidi",
+      "sources": [
+        {
+          "title": "The Unicode Standard 17.0",
+          "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+          "supports": " define modelo y propiedades"
+        },
+        {
+          "title": "Unicode UTF FAQ",
+          "url": "https://www.unicode.org/faq/utf_bom.html",
+          "supports": " explica UTF-8, UTF-16 y BOM"
+        },
+        {
+          "title": "Unicode Normalization Annex #15",
+          "url": "https://www.unicode.org/reports/tr15/",
+          "supports": " define las formas de normalización"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-016",
+      "title": "Enteros, coma flotante, precisión y errores numéricos",
+      "maturity": "PLANNED",
+      "professional_point": "evaluar precisión según representación, propagación del error y tolerancia ligada a la escala",
+      "misconception": "esperar aritmética decimal exacta de coma flotante o elegir epsilon por costumbre",
+      "evidence": "numeric-errors.md con predicción, error absoluto/relativo y contraejemplo inestable",
+      "limit": "el ejercicio no certifica estabilidad de algoritmos científicos completos",
+      "sources": [
+        {
+          "title": "Python Floating-Point Tutorial",
+          "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+          "supports": " explica representación y aproximación"
+        },
+        {
+          "title": "Python `decimal`",
+          "url": "https://docs.python.org/3/library/decimal.html",
+          "supports": " documenta aritmética decimal y contextos"
+        },
+        {
+          "title": "Java Virtual Machine Specification §2.8",
+          "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8",
+          "supports": " ofrece otro contrato IEEE 754 especificado"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-017",
+      "title": "CPU, instrucciones, registros y ciclos de ejecución",
+      "maturity": "PLANNED",
+      "professional_point": "explicar instrucciones como transiciones de estado sin confundir bytecode con ISA",
+      "misconception": "leer la salida de dis como ensamblador o convertir bytecodes en ciclos de CPU",
+      "evidence": "execution-trace.md con estados antes/después y la frontera VM↔ISA",
+      "limit": "sin código nativo y contadores no se afirman instrucciones físicas ni ciclos",
+      "sources": [
+        {
+          "title": "RISC-V Unprivileged ISA",
+          "url": "https://docs.riscv.org/reference/isa/unpriv/",
+          "supports": " define instrucciones y estado arquitectónico"
+        },
+        {
+          "title": "Python `dis`",
+          "url": "https://docs.python.org/3/library/dis.html",
+          "supports": " documenta bytecode específico de CPython y su carácter cambiante"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-018",
+      "title": "Memoria, cachés, almacenamiento y jerarquías",
+      "maturity": "PLANNED",
+      "professional_point": "elegir almacenamiento y acceso por localidad, latencia, capacidad y durabilidad",
+      "misconception": "atribuir una segunda ejecución rápida a una caché concreta o equiparar write con persistencia",
+      "evidence": "hierarchy.md con protocolo frío/caliente, muestras y dos hipótesis rivales",
+      "limit": "sin contadores de hardware se observan efectos agregados, no una caché específica",
+      "sources": [
+        {
+          "title": "Python `tracemalloc`",
+          "url": "https://docs.python.org/3/library/tracemalloc.html",
+          "supports": " define la memoria Python observable"
+        },
+        {
+          "title": "RISC-V memory model",
+          "url": "https://docs.riscv.org/reference/isa/unpriv/rvwmo.html",
+          "supports": " muestra que orden de memoria también es contrato arquitectónico"
+        },
+        {
+          "title": "Python `os`",
+          "url": "https://docs.python.org/3/library/os.html",
+          "supports": " documenta interfaces de archivo y `fsync`"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-019",
+      "title": "Procesos, hilos, interrupciones y entrada/salida",
+      "maturity": "PLANNED",
+      "professional_point": "atribuir concurrencia y espera a procesos, hilos, interrupciones e I/O según su mecanismo",
+      "misconception": "inferir paralelismo de CPU porque dos hilos se solapan",
+      "evidence": "concurrency-observation.md con cronología, tiempos de pared/CPU e hipótesis descartadas",
+      "limit": "scheduler, GIL y primitivas dependen de plataforma e implementación",
+      "sources": [
+        {
+          "title": "Python `threading`",
+          "url": "https://docs.python.org/3/library/threading.html",
+          "supports": " define hilos y restricciones de CPython"
+        },
+        {
+          "title": "Python `time`",
+          "url": "https://docs.python.org/3/library/time.html",
+          "supports": " define relojes de pared y proceso"
+        },
+        {
+          "title": "RISC-V Privileged Architecture",
+          "url": "https://docs.riscv.org/reference/isa/priv/",
+          "supports": " contextualiza interrupciones y niveles privilegiados"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-020",
+      "title": "Compilación, interpretación, bytecode y JIT",
+      "maturity": "PLANNED",
+      "professional_point": "seguir fuente, AST, bytecode, IR y ejecución para localizar la etapa que introduce un fallo",
+      "misconception": "creer que interpretar excluye compilar o que JIT compila todo antes de iniciar",
+      "evidence": "pipeline.md con representaciones, tres etapas de fallo y contraste con otra VM",
+      "limit": "inspeccionar IR no prueba optimizaciones ni código nativo final",
+      "sources": [
+        {
+          "title": "Python `ast`",
+          "url": "https://docs.python.org/3/library/ast.html",
+          "supports": ", [`dis`](https://docs.python.org/3/library/dis.html) y [`py_compile`](https://docs.python.org/3/library/py_compile.html) definen las vistas usadas"
+        },
+        {
+          "title": "LLVM documentation",
+          "url": "https://llvm.org/docs/",
+          "supports": " describe IR, generación y JIT"
+        },
+        {
+          "title": "JVM Specification",
+          "url": "https://docs.oracle.com/javase/specs/",
+          "supports": " ofrece un formato de clase y VM especificados"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-021",
+      "title": "Runtimes, máquinas virtuales y recolección de basura",
+      "maturity": "PLANNED",
+      "professional_point": "razonar sobre carga, memoria y recolección separando especificación de estrategia del runtime",
+      "misconception": "suponer que gc.collect devuelve memoria al sistema o que toda VM recolecta igual",
+      "evidence": "runtime-memory.md con grafo de referencias, snapshots y recolección",
+      "limit": "los resultados de CPython no generalizan a otros runtimes y RSS no equivale a memoria rastreada",
+      "sources": [
+        {
+          "title": "Python `gc`",
+          "url": "https://docs.python.org/3/library/gc.html",
+          "supports": " y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas"
+        },
+        {
+          "title": "JVM Specification, Run-Time Data Areas",
+          "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5",
+          "supports": " distingue contrato y algoritmo no prescrito"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-022",
+      "title": "Rendimiento, consumo energético y límites físicos",
+      "maturity": "PLANNED",
+      "professional_point": "formular afirmaciones de rendimiento y energía con unidad funcional, protocolo, variación y frontera",
+      "misconception": "concluir que más rápido significa menor energía o comparar sin calentamiento",
+      "evidence": "performance-report.md con datos crudos, dispersión, unidad funcional y afirmaciones permitidas",
+      "limit": "sin sensor o modelo validado no se infiere consumo energético",
+      "sources": [
+        {
+          "title": "Python `time`",
+          "url": "https://docs.python.org/3/library/time.html",
+          "supports": " y [`timeit`](https://docs.python.org/3/library/timeit.html) definen los relojes"
+        },
+        {
+          "title": "Software Carbon Intensity",
+          "url": "https://greensoftware.foundation/standards/sci/",
+          "supports": " define frontera, energía, hardware y unidad funcional"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-023",
+      "title": "Taller: observar un programa desde el código hasta la máquina",
+      "maturity": "PLANNED",
+      "professional_point": "integrar las capas del computador en una explicación causal que separe observación, inferencia e hipótesis",
+      "misconception": "elegir una causa a partir de una sola métrica o presentar una captura como explicación",
+      "evidence": "end-to-end-trace.md con mapa fuente→runtime→SO→máquina y vacíos explícitos",
+      "limit": "la traza explica solo el caso y el entorno instrumentados",
+      "sources": [
+        {
+          "title": "Python 3 documentation",
+          "url": "https://docs.python.org/3/",
+          "supports": " sustenta todas las interfaces del taller"
+        },
+        {
+          "title": "Unicode Standard 17.0",
+          "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+          "supports": " sustenta la entrada textual"
+        },
+        {
+          "title": "RISC-V specifications",
+          "url": "https://docs.riscv.org/reference/isa/",
+          "supports": " delimitan lo que una ISA sí describe"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-024",
+      "title": "Proyecto: informe reproducible de comportamiento y recursos",
+      "maturity": "PLANNED",
+      "professional_point": "convertir observaciones en un informe reproducible que otra persona pueda repetir y disputar",
+      "misconception": "confundir reproducibilidad con capturas o correlación con causalidad",
+      "evidence": "protocolo, datos crudos, script, checksum, informe y resultados no validados",
+      "limit": "un procedimiento reproducible no garantiza representatividad ni exactitud física",
+      "sources": [
+        {
+          "title": "Python documentation",
+          "url": "https://docs.python.org/3/",
+          "supports": "las APIs del proyecto"
+        },
+        {
+          "title": "Unicode Standard",
+          "url": "https://www.unicode.org/versions/latest/",
+          "supports": " y [RISC-V specifications](https://docs.riscv.org/reference/isa/) respaldan los contratos elegidos"
+        },
+        {
+          "title": "Software Carbon Intensity",
+          "url": "https://greensoftware.foundation/standards/sci/",
+          "supports": " delimita afirmaciones energéticas si el proyecto las considera"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    }
+  ]
+}

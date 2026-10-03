@@ -1,0 +1,340 @@
+{
+  "part": 3,
+  "scope": "SE-037..SE-048",
+  "content_preserved": true,
+  "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "status": "under_qualitative_audit",
+  "classes": [
+    {
+      "class_id": "SE-037",
+      "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
+      "maturity": "PLANNED",
+      "professional_point": "usar OSI y TCP/IP como modelos de localización de fallos, no como descripción literal del recorrido",
+      "misconception": "asignar cada herramienta a una capa rígida o creer que una capa descarta las demás",
+      "evidence": "layer-hypotheses.md con síntoma, capas candidatas y observación discriminante",
+      "limit": "los modelos simplifican implementaciones que atraviesan capas",
+      "sources": [
+        {
+          "title": "RFC 1122 — Requirements for Internet Hosts: Communication Layers",
+          "url": "https://www.rfc-editor.org/rfc/rfc1122",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 8200 — Internet Protocol, Version 6",
+          "url": "https://www.rfc-editor.org/rfc/rfc8200",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-038",
+      "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
+      "maturity": "PLANNED",
+      "professional_point": "explicar entrega local mediante tramas, direcciones de enlace y resolución de vecinos",
+      "misconception": "confundir dirección MAC con identidad global o ARP con enrutamiento",
+      "evidence": "lan-trace.md con trama, caché de vecino, broadcast y fallo de resolución",
+      "limit": "Wi‑Fi y Ethernet comparten objetivos pero no todos los mecanismos físicos",
+      "sources": [
+        {
+          "title": "RFC 826 — An Ethernet Address Resolution Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc826",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 894 — IP Datagrams over Ethernet Networks",
+          "url": "https://www.rfc-editor.org/rfc/rfc894",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 1122 — Requirements for Internet Hosts: Communication Layers",
+          "url": "https://www.rfc-editor.org/rfc/rfc1122",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-039",
+      "title": "IPv4, IPv6, subredes, rutas y NAT",
+      "maturity": "PLANNED",
+      "professional_point": "decidir entrega directa o por gateway usando prefijos, rutas y traducción de direcciones",
+      "misconception": "creer que NAT es firewall o que una IP privada nunca aparece fuera de una LAN",
+      "evidence": "routing-lab.md con longest-prefix match y transformaciones antes/después de NAT",
+      "limit": "la topología simulada no demuestra políticas del proveedor",
+      "sources": [
+        {
+          "title": "RFC 8200 — Internet Protocol, Version 6",
+          "url": "https://www.rfc-editor.org/rfc/rfc8200",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 1918 — Address Allocation for Private Internets",
+          "url": "https://www.rfc-editor.org/rfc/rfc1918",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 3022 — Traditional IP Network Address Translator",
+          "url": "https://www.rfc-editor.org/rfc/rfc3022",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-040",
+      "title": "TCP, UDP, QUIC y decisiones de transporte",
+      "maturity": "PLANNED",
+      "professional_point": "seleccionar TCP, UDP o QUIC por fiabilidad, orden, latencia y control de congestión",
+      "misconception": "reducir la decisión a ‘TCP seguro, UDP rápido’",
+      "evidence": "transport-decision.md con pérdidas, reordenamiento, handshake y requisito del producto",
+      "limit": "la especificación no predice rendimiento en toda red",
+      "sources": [
+        {
+          "title": "RFC 9293 — Transmission Control Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc9293",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 768 — User Datagram Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc768",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9000 — QUIC",
+          "url": "https://www.rfc-editor.org/rfc/rfc9000",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-041",
+      "title": "DNS, nombres, resolución y fallos",
+      "maturity": "PLANNED",
+      "professional_point": "seguir resolución DNS, delegación, caché y TTL para distinguir ausencia, demora y respuesta obsoleta",
+      "misconception": "tratar DNS como una sola base o asumir que limpiar una caché limpia todas",
+      "evidence": "dns-trace.md con consultas, autoridad, TTL, cachés y fallo inducido",
+      "limit": "una consulta desde un resolver no describe todas las vistas",
+      "sources": [
+        {
+          "title": "RFC 1034 — Domain Names: Concepts and Facilities",
+          "url": "https://www.rfc-editor.org/rfc/rfc1034",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 1035 — Domain Names: Implementation and Specification",
+          "url": "https://www.rfc-editor.org/rfc/rfc1035",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 8499 — DNS Terminology",
+          "url": "https://www.rfc-editor.org/rfc/rfc8499",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-042",
+      "title": "HTTP, semántica, caché y negociación",
+      "maturity": "PLANNED",
+      "professional_point": "razonar sobre HTTP por semántica de método, representación, validación, caché y negociación",
+      "misconception": "equiparar GET con ausencia de efectos o 200 con respuesta no cacheada",
+      "evidence": "http-exchange.md con mensajes crudos, validators y decisión de caché",
+      "limit": "HTTP define semántica; no garantiza conducta correcta de la aplicación",
+      "sources": [
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9111 — HTTP Caching",
+          "url": "https://www.rfc-editor.org/rfc/rfc9111",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-043",
+      "title": "TLS, certificados y confianza en tránsito",
+      "maturity": "PLANNED",
+      "professional_point": "explicar qué autentica y cifra TLS a partir de handshake, cadena y nombre del servicio",
+      "misconception": "creer que el candado prueba que el sitio es confiable o que TLS protege datos ya comprometidos en el endpoint",
+      "evidence": "tls-evidence.md con certificado, SAN, cadena, protocolo y fallo de nombre",
+      "limit": "la inspección del canal no audita la aplicación ni la CA",
+      "sources": [
+        {
+          "title": "RFC 8446 — TLS 1.3",
+          "url": "https://www.rfc-editor.org/rfc/rfc8446",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 5280 — Internet X.509 PKI Certificate and CRL Profile",
+          "url": "https://www.rfc-editor.org/rfc/rfc5280",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-044",
+      "title": "Proxies, balanceadores, gateways y CDN",
+      "maturity": "PLANNED",
+      "professional_point": "mapear cómo proxy, balanceador, gateway y CDN cambian conexiones, metadatos y caché",
+      "misconception": "suponer que el servidor ve directamente al cliente o que todos los intermediarios son transparentes",
+      "evidence": "hop-map.md con terminaciones, headers confiables, caché y punto de fallo",
+      "limit": "el diagrama de una arquitectura no generaliza a todos los proveedores",
+      "sources": [
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9111 — HTTP Caching",
+          "url": "https://www.rfc-editor.org/rfc/rfc9111",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 8446 — TLS 1.3",
+          "url": "https://www.rfc-editor.org/rfc/rfc8446",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-045",
+      "title": "Sockets, conexiones persistentes y tiempo real",
+      "maturity": "PLANNED",
+      "professional_point": "modelar conexiones persistentes y tiempo real por estados, framing, heartbeat y backpressure",
+      "misconception": "confundir conexión abierta con entrega garantizada o ignorar consumidores lentos",
+      "evidence": "connection-state.md con apertura, mensajes, cierre, timeout y cola acotada",
+      "limit": "WebSocket no define semántica de negocio ni recuperación por sí solo",
+      "sources": [
+        {
+          "title": "RFC 9293 — Transmission Control Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc9293",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 6455 — The WebSocket Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc6455",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-046",
+      "title": "Captura, medición y diagnóstico de tráfico",
+      "maturity": "PLANNED",
+      "professional_point": "capturar y medir tráfico con una pregunta previa y distinguir ausencia de evidencia de evidencia de ausencia",
+      "misconception": "filtrar hasta encontrar la hipótesis preferida o interpretar cifrado como falta de tráfico",
+      "evidence": "capture-notes.md con interfaz, filtro, reloj, paquetes y conclusión acotada",
+      "limit": "una captura puede perder paquetes y no revela payload cifrado",
+      "sources": [
+        {
+          "title": "RFC 1122 — Requirements for Internet Hosts: Communication Layers",
+          "url": "https://www.rfc-editor.org/rfc/rfc1122",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9293 — Transmission Control Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc9293",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-047",
+      "title": "Taller: seguir una petición de extremo a extremo",
+      "maturity": "PLANNED",
+      "professional_point": "reconstruir una petición extremo a extremo correlacionando DNS, transporte, TLS y HTTP",
+      "misconception": "narrar capas por separado sin una identidad temporal común",
+      "evidence": "request-timeline.md con timestamps, IDs, saltos y dos hipótesis descartadas",
+      "limit": "la correlación temporal no prueba causalidad sin experimento discriminante",
+      "sources": [
+        {
+          "title": "RFC 1122 — Requirements for Internet Hosts: Communication Layers",
+          "url": "https://www.rfc-editor.org/rfc/rfc1122",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 1034 — Domain Names: Concepts and Facilities",
+          "url": "https://www.rfc-editor.org/rfc/rfc1034",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9293 — Transmission Control Protocol",
+          "url": "https://www.rfc-editor.org/rfc/rfc9293",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-048",
+      "title": "Proyecto: servicio observable y tolerante a fallos de red",
+      "maturity": "PLANNED",
+      "professional_point": "construir un servicio observable que trate timeout, reintento e idempotencia como decisiones de producto",
+      "misconception": "reintentar cualquier fallo y duplicar efectos",
+      "evidence": "servicio, cliente de prueba, fallos inyectados, trazas correlacionadas y matriz de reintentos",
+      "limit": "el proyecto local no demuestra disponibilidad ni tolerancia regional",
+      "sources": [
+        {
+          "title": "RFC 9110 — HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 9111 — HTTP Caching",
+          "url": "https://www.rfc-editor.org/rfc/rfc9111",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        },
+        {
+          "title": "RFC 8446 — TLS 1.3",
+          "url": "https://www.rfc-editor.org/rfc/rfc8446",
+          "supports": "sustenta los mecanismos y límites usados en esta clase"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    }
+  ]
+}

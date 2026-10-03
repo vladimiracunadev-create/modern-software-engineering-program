@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 96
+    "approved": 108
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -1012,7 +1012,7 @@
           "title": "Editores, IDE y servidores de lenguaje",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-097-editores-ide-y-servidores-de-lenguaje"
         },
         {
@@ -1021,7 +1021,7 @@
           "title": "Depuradores, breakpoints y observación de estado",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-098-depuradores-breakpoints-y-observacion-de-estado"
         },
         {
@@ -1030,7 +1030,7 @@
           "title": "Profilers de CPU, memoria, I/O y red",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red"
         },
         {
@@ -1039,7 +1039,7 @@
           "title": "Compiladores, linters, formatters y análisis estático",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico"
         },
         {
@@ -1048,7 +1048,7 @@
           "title": "REPL, notebooks y desarrollo exploratorio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio"
         },
         {
@@ -1057,7 +1057,7 @@
           "title": "Gestores de versiones de runtimes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes"
         },
         {
@@ -1066,7 +1066,7 @@
           "title": "Entornos virtuales y aislamiento de dependencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias"
         },
         {
@@ -1075,7 +1075,7 @@
           "title": "Dev Containers y entornos desechables",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-104-dev-containers-y-entornos-desechables"
         },
         {
@@ -1084,7 +1084,7 @@
           "title": "Reproducción de errores y reducción de casos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos"
         },
         {
@@ -1093,7 +1093,7 @@
           "title": "Ergonomía, accesibilidad y productividad del entorno",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno"
         },
         {
@@ -1102,7 +1102,7 @@
           "title": "Taller: diagnosticar un fallo desconocido",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido"
         },
         {
@@ -1111,7 +1111,7 @@
           "title": "Proyecto: entorno de desarrollo autocontenido",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido"
         }
       ]

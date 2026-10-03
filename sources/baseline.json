@@ -68,6 +68,30 @@
       "used_for": ["actors", "message-passing", "mailboxes", "supervision"]
     },
     {
+      "id": "LSP-318",
+      "title": "Language Server Protocol Specification 3.18",
+      "authority": "Microsoft",
+      "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/",
+      "status": "current",
+      "used_for": ["editors", "language-servers", "diagnostics", "capabilities"]
+    },
+    {
+      "id": "DAP",
+      "title": "Debug Adapter Protocol",
+      "authority": "Microsoft",
+      "url": "https://microsoft.github.io/debug-adapter-protocol/",
+      "status": "living",
+      "used_for": ["debuggers", "breakpoints", "stack-frames", "capabilities"]
+    },
+    {
+      "id": "DEVCONTAINERS",
+      "title": "Development Container Specification",
+      "authority": "Dev Container Specification maintainers",
+      "url": "https://containers.dev/implementors/spec/",
+      "status": "living",
+      "used_for": ["development-environments", "containers", "tooling", "reproducibility"]
+    },
+    {
       "id": "JVM-SE25",
       "title": "The Java Virtual Machine Specification, Java SE 25",
       "authority": "Oracle and JCP",

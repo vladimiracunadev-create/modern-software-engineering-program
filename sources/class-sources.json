@@ -1168,88 +1168,148 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-097": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-098": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-099": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-100": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-101": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-102": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-103": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-104": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-105": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-106": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-107": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-108": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "LSP-318",
+        "DAP",
+        "DEVCONTAINERS",
+        "W3C-WCAG"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-109": {
       "status": "SEEDED_BASELINE",

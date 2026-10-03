@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–07 aportan 96 clases `GUIDED` y las 84 restantes aún
+`SE-001`–`SE-180`: las partes 00–08 aportan 108 clases `GUIDED` y las 72 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 96 | Partes 00–07 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 108 | Partes 00–08 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 96 | Partes 00–07 aprobadas; las otras 84 permanecen `PLANNED` |
+| clases aprobadas | 108 | Partes 00–08 aprobadas; las otras 72 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -147,6 +147,18 @@ persistentes. El taller decide por perfiles de carga y el proyecto entrega una
 biblioteca comparada con propiedades, casos límite y benchmarks interpretados. Tras
 revisión completa, las doce clases avanzaron a `GUIDED` sin convertir mediciones
 locales en promesas universales de rendimiento.
+
+## Avance editorial de la Parte 08
+
+Las clases `SE-097`–`SE-108` se reconstruyeron en `content/part-08/` alrededor de
+`Lupa`, una investigación sobre una regresión de Orbe que solo aparece bajo cierto
+entorno. El recorrido distingue editor, IDE, LSP y DAP; explica breakpoints, frames,
+perfiles de CPU, memoria e I/O, compilación, linters, tipos, REPL, notebooks,
+selección de runtimes, entornos virtuales y Dev Containers. Después reduce el caso,
+incorpora ergonomía y accesibilidad, ejecuta un taller de diagnóstico y entrega un
+entorno autocontenido con bootstrap, doctor, rebuild y limpieza acotada. Las doce
+clases avanzaron a `GUIDED` sin afirmar que un contenedor elimine toda variabilidad
+ni que una herramienta aislada demuestre causalidad.
 
 ## Orden de reconstrucción
 

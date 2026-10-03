@@ -7,9 +7,14 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "IEEE-SWEBOK-4A",
+    "PYTHON-3",
+    "LSP-318",
+    "DAP",
+    "DEVCONTAINERS",
+    "W3C-WCAG"
   ],
   "path": "classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias"
 }

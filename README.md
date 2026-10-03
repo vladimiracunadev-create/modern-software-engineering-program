@@ -12,16 +12,16 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 [![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
 [![Pages](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml)
-[![Estado](https://img.shields.io/badge/clases%20GUIDED-96%20de%20480-2ea043?style=flat-square)](STATUS.md)
+[![Estado](https://img.shields.io/badge/clases%20GUIDED-108%20de%20480-2ea043?style=flat-square)](STATUS.md)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
 
 > [!CAUTION]
-> **Estado real:** la arquitectura contiene 480 clases y hoy hay **96 clases
-> `GUIDED`** aprobadas contra el estándar pedagógico (`SE-001`–`SE-096`).
-> `SE-097`–`SE-360` son borradores estructurales; `SE-361`–`SE-480` son scaffolds.
+> **Estado real:** la arquitectura contiene 480 clases y hoy hay **108 clases
+> `GUIDED`** aprobadas contra el estándar pedagógico (`SE-001`–`SE-108`).
+> `SE-109`–`SE-360` son borradores estructurales; `SE-361`–`SE-480` son scaffolds.
 > No deben confundirse con material docente terminado.
 
 ## 🎯 Qué es esto
@@ -111,7 +111,7 @@ Las fuentes se mantienen como datos auditables, no como una bibliografía decora
 
 - [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
 - [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
-- [registro de fase 3](sources/phase3.json): fuentes usadas por 96 clases `GUIDED` y 84 borradores;
+- [registro de fase 3](sources/phase3.json): fuentes usadas por 108 clases `GUIDED` y 72 borradores;
 - [registro de fase 4](sources/phase4.json): fuentes usadas por `SE-181`–`SE-360`;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
 
@@ -122,8 +122,8 @@ interpretación y alcance antes de promoverla a `GUIDED`.
 ## 🗂️ Las 40 partes
 
 Cada parte tiene un README con sus doce clases enlazadas. La fase 3 comprende las
-partes 00–14 y la fase 4 las partes 15–29. Las partes 00–07 están aprobadas; las
-partes 08–29 siguen pendientes de revisión cualitativa clase por clase.
+partes 00–14 y la fase 4 las partes 15–29. Las partes 00–08 están aprobadas; las
+partes 09–29 siguen pendientes de revisión cualitativa clase por clase.
 
 | # | Parte | Clases | Foco | Estado | README |
 | ---: | --- | --- | --- | --- | --- |
@@ -135,7 +135,7 @@ partes 08–29 siguen pendientes de revisión cualitativa clase por clase.
 | 05 | Fundamentos de programación | SE-061–SE-072 | control, funciones, datos, errores y pruebas | `GUIDED` | [📘 leer](classes/part-05-fundamentos-de-programacion/README.md) |
 | 06 | Paradigmas de programación | SE-073–SE-084 | imperativo, objetos, funcional, lógico y reactivo | `GUIDED` | [📘 leer](classes/part-06-paradigmas-de-programacion/README.md) |
 | 07 | Estructuras de datos y algoritmos | SE-085–SE-096 | colecciones, grafos, diseño y medición | `GUIDED` | [📘 leer](classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
-| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y entornos reproducibles | borrador no aprobado | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y entornos reproducibles | `GUIDED` | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
 | 09 | Bibliotecas, paquetes, SDK y automatización | SE-109–SE-120 | dependencias, SemVer, CLI, plugins y DX | borrador no aprobado | [📘 leer](classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
 | 10 | Descubrimiento y estrategia de producto | SE-121–SE-132 | problema, usuarios, mercado y experimentación | borrador no aprobado | [📘 leer](classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) |
 | 11 | Economía, métricas y decisiones de producto | SE-133–SE-144 | valor, costo, métricas y priorización | borrador no aprobado | [📘 leer](classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
@@ -202,7 +202,7 @@ evidencia revisable.
 | [Rúbrica transversal](assessments/rubric.md) | criterios comunes de evaluación |
 
 Estos artefactos son una base documental versionada; todavía no constituyen una
-colección de laboratorios ejecutados ni evidencia de que las 384 clases restantes
+colección de laboratorios ejecutados ni evidencia de que las 372 clases restantes
 estén aprobadas.
 
 ## 🌐 Portal y navegación
@@ -276,10 +276,10 @@ infraestructura pública de fase 4 ya está implementada:
 - validadores dedicados de contratos y UTF-8;
 - workflow separado para GitHub Pages.
 - alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
-- 96 clases `GUIDED` y 84 borradores estructurales de fase 3;
+- 108 clases `GUIDED` y 72 borradores estructurales de fase 3;
 - fase 4 añadida: 180 borradores, actividades y rúbricas de `SE-181`–`SE-360`;
 - texto íntegro de cada borrador publicado en Pages, no una ficha-resumen;
-- promoción limitada a las 96 clases revisadas de las partes 00–07;
+- promoción limitada a las 108 clases revisadas de las partes 00–08;
 - instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
 
 `GUIDED` no significa `EXECUTABLE`, `TESTED` u `OPERABLE`; tampoco se concede por
@@ -321,7 +321,7 @@ python -m unittest discover -s tests -v
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       métricas canónicas de estado
-classes/           480 clases; 96 GUIDED, 264 borradores y 120 scaffolds
+classes/           480 clases; 108 GUIDED, 252 borradores y 120 scaffolds
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
@@ -350,7 +350,7 @@ fueron verificados el 30 de septiembre de 2026.
 | Es | No es todavía |
 | --- | --- |
 | una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
-| 96 clases `GUIDED` y 264 borradores ampliados | 480 clases aprobadas o listas para impartir |
+| 108 clases `GUIDED` y 252 borradores ampliados | 480 clases aprobadas o listas para impartir |
 | un estándar explícito para aceptar contenido | una certificación profesional |
 | un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
 | un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |

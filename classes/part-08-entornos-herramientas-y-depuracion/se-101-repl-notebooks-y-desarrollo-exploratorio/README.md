@@ -2,207 +2,213 @@
 
 [← SE-100 — Compiladores, linters, formatters y análisis estático](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-101.html) · [SE-102 — Gestores de versiones de runtimes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **REPL, notebooks y desarrollo exploratorio** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar rápidamente sin convertir estado invisible y orden de celdas en evidencia falsa?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-100` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor o IDE, Python 3.11+, Git y contenedor opcional.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **REPL, notebooks y desarrollo exploratorio**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una persona demuestra el fallo en notebook, pero `Run all` no lo reproduce: una celda antigua modificó datos y una importación conserva código previo.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar REPL y notebooks con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **entorno reproducible y sesión de diagnóstico** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «cambiar varias variables a la vez y perder la causa del fallo» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| REPL | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Notebooks | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Desarrollo | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Exploratorio | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: REPL, notebooks y desarrollo exploratorio"] --> M["Modelo: REPL"]
-    M --> D["Decisión: notebooks"]
-    D --> E["Evidencia: desarrollo"]
-    E --> R["Revisión: exploratorio"]
-    R -->|nueva información| M
+    N1[REPL / ciclo de realimentación] --> N2[Notebook / grafo oculto] --> N3[Exploración frente a producto] --> N4[Proveniencia de datos] --> N5[Narrativa / verificación]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **REPL, notebooks y desarrollo exploratorio**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| REPL y ciclo de realimentación | Read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción. | Evidencia o contraejemplo registrado |
+| Notebook y grafo oculto | Visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia. | Evidencia o contraejemplo registrado |
+| Exploración frente a producto | Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership. | Evidencia o contraejemplo registrado |
+| Proveniencia de datos | Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. | Evidencia o contraejemplo registrado |
+| Narrativa y verificación | Una explicación ordena pregunta, método, resultado y límite. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Una herramienta de desarrollo es útil cuando hace observable y reproducible el sistema; depurar exige reducir el caso y cambiar una variable por vez.
+### 1. REPL y ciclo de realimentación
 
-La pregunta rectora de esta parte es: **¿qué estado debe observarse para refutar la hipótesis actual?** La respuesta debe
-apoyarse en **reproducción mínima, versiones, trazas y secuencia de diagnóstico**.
+Read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción. El proceso conserva nombres, imports y mutaciones. Una sesión útil termina convirtiendo la observación en script o prueba que empieza desde estado limpio.
 
-### 1. REPL: modelo
+### 2. Notebook y grafo oculto
 
-En esta clase, **REPL** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué estado debe observarse para refutar la hipótesis actual?» y demostrarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **REPL, notebooks y desarrollo exploratorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia. Salidas persistidas tampoco prueban qué código las produjo. Reiniciar kernel y ejecutar todo revela dependencias; parametrizar separa entrada de estado interactivo.
 
-### 2. Notebooks: mecanismo
+### 3. Exploración frente a producto
 
-En esta clase, **notebooks** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué estado debe observarse para refutar la hipótesis actual?» y demostrarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **REPL, notebooks y desarrollo exploratorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership. Pasar de uno a otro requiere extraer funciones, datos pequeños y un comando reproducible, no desplegar el notebook sin revisión.
 
-### 3. Desarrollo: evidencia
+### 4. Proveniencia de datos
 
-En esta clase, **desarrollo** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué estado debe observarse para refutar la hipótesis actual?» y demostrarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **REPL, notebooks y desarrollo exploratorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. Copiar datos manualmente destruye trazabilidad. Lupa usa fixtures sintéticos guardados y hashes cuando la fuente es externa autorizada.
 
-### 4. Exploratorio: decisión
+### 5. Narrativa y verificación
 
-En esta clase, **exploratorio** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué estado debe observarse para refutar la hipótesis actual?» y demostrarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **REPL, notebooks y desarrollo exploratorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Una explicación ordena pregunta, método, resultado y límite. Output rico puede ocultar stderr o truncamiento. Se conserva también una representación textual accesible y una aserción que haga fallar la conclusión incorrecta.
 
 ## Definiciones de trabajo
 
-- **REPL:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico.
-- **Notebooks:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico.
-- **Desarrollo:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico.
-- **Exploratorio:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante reproducción mínima, versiones, trazas y secuencia de diagnóstico.
+- **repl y ciclo de realimentación:** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
+- **notebook y grafo oculto:** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
+- **exploración frente a producto:** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
+- **proveniencia de datos:** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
+- **narrativa y verificación:** una explicación ordena pregunta, método, resultado y límite.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **REPL, notebooks y desarrollo exploratorio**:
+```text
+>>> from orbe.priority import key
+>>> key({"priority": 5, "arrival": 2})
+(-5, 2)
+>>> # El hallazgo se traslada a una prueba desde proceso limpio.
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **REPL, notebooks y desarrollo exploratorio**. Parte de esta pregunta: **¿qué estado debe observarse para refutar la hipótesis actual?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando reproducción mínima, versiones, trazas y secuencia de diagnóstico. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `environment.md` y enlaza la evidencia, no solo la conclusión.
+En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-101/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el entorno reproducible y sesión de diagnóstico con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define REPL y notebooks con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `environment.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **entorno reproducible y sesión de diagnóstico** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Una técnica o herramienta determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+
+### ¿Más automatización o menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todas las herramientas mencionadas?
+
+No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **cambiar varias variables a la vez y perder la causa del fallo**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Ejecuta celdas fuera de orden hasta que la variable `cases` contiene un fixture antiguo. Reinicia, `Run all`, extrae el caso mínimo a JSON y añade una prueba.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor o IDE, Python 3.11+, Git y contenedor opcional. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-101/
 ├── README.md
-│   ├── environment.md
-│   ├── reproduction.md
-│   ├── diagnosis.md
-├── activity.yaml
-└── rubric.json
+├── lupa/
+│   ├── domain.py
+│   └── se_101.py
+├── fixtures/cases.json
+├── tests/test_se_101.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `environment.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la interfaz se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-101/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
+- [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
+- [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
+- [Python venv](https://docs.python.org/3/library/venv.html) — Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation.
+- [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
+- [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Development Containers Specification** — Dev Container Specification maintainers. [https://containers.dev/implementors/spec/](https://containers.dev/implementors/spec/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **REPL, notebooks y desarrollo exploratorio**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-102`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Un proceso limpio aún puede usar otra versión de runtime. La siguiente clase fija instalación y selección del intérprete sin esconder el mecanismo.
+
+## Glosario
+
+- **repl y ciclo de realimentación:** read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción.
+- **notebook y grafo oculto:** visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia.
+- **exploración frente a producto:** explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership.
+- **proveniencia de datos:** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
+- **narrativa y verificación:** una explicación ordena pregunta, método, resultado y límite.
 
 ---
 

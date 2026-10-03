@@ -1,208 +1,188 @@
 # SE-018 — Memoria, cachés, almacenamiento y jerarquías
 
-[← SE-017 — CPU, instrucciones, registros y ciclos de ejecución](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-018.html) · [SE-019 — Procesos, hilos, interrupciones y entrada/salida →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)
+[← SE-017](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-019 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Las mediciones observan el proceso y no identifican una caché física sin instrumentación adicional.
+
+## Antes de empezar
+
+La traza de `SE-017` trató los accesos como pasos simples. En una máquina real, traer un
+dato puede costar mucho más que operar con él. Pulso procesará colecciones con distinto
+orden para estudiar localidad y conjunto de trabajo sin atribuir causas que la
+biblioteca estándar no mide.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-017` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Instrucciones load/store, medición crítica de `SE-006` y Python 3.11+.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Memoria, cachés, almacenamiento y jerarquías**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un cambio reduce operaciones aritméticas y empeora tiempo porque dispersa accesos y
+aumenta asignaciones. El equipo cuenta instrucciones conceptuales, pero omite la ruta
+de los datos.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Memoria y cachés con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Explicarás jerarquía, latencia, capacidad y persistencia; relacionarás localidad con
+caché; distinguirás memoria virtual y física; medirás un patrón sin sobreatribuir causa.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Memoria | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Cachés | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Almacenamiento | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Jerarquías | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Jerarquía | combina niveles rápidos/pequeños y lentos/grandes | acerca datos con costo razonable |
+| Localidad | reutiliza datos cercanos en tiempo o espacio | hace eficaces cachés y páginas |
+| Memoria virtual | mapea direcciones del proceso | aporta aislamiento y flexibilidad |
+| Persistencia | conserva datos más allá del proceso | cambia garantías de escritura y recuperación |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Memoria, cachés, almacenamiento y jerarquías"] --> M["Modelo: Memoria"]
-    M --> D["Decisión: cachés"]
-    D --> E["Evidencia: almacenamiento"]
-    E --> R["Revisión: jerarquías"]
-    R -->|nueva información| M
+flowchart TD
+ R[Registros] --> C[Cachés]
+ C --> M[Memoria principal]
+ M --> S[Almacenamiento]
+ S --> X[Servicio remoto]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Memoria, cachés, almacenamiento y jerarquías**.
+Al descender suele crecer capacidad y latencia. Es una tendencia, no una tabla de
+tiempos universal; hardware, sistema y carga cambian los valores.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. La jerarquía explota diferencias de costo
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+No existe un único “lugar de memoria”. Registros, cachés, RAM y almacenamiento ofrecen
+combinaciones distintas de latencia, ancho de banda, capacidad, costo y persistencia.
+El sistema mueve copias y mantiene coherencia según contratos. Un acceso lógico puede
+resolverse en varios niveles.
 
-### 1. Memoria: modelo
+### 2. Localidad predice reutilización, no garantiza un hit
 
-En esta clase, **Memoria** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Memoria, cachés, almacenamiento y jerarquías**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Localidad temporal significa volver a datos recientes; espacial, acceder a direcciones
+cercanas. Cachés transfieren líneas, por lo que recorrer datos contiguos suele aprovechar
+espacio. El resultado depende de representación, tamaño, asociatividad, otros procesos
+y prefetch. Medir un patrón no prueba cuál mecanismo dominó.
 
-### 2. Cachés: mecanismo
+### 3. Conjunto de trabajo conecta algoritmo y capacidad
 
-En esta clase, **cachés** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Memoria, cachés, almacenamiento y jerarquías**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El conjunto de trabajo es la información activamente reutilizada durante un intervalo.
+Cuando deja de caber en un nivel, aumentan reemplazos y accesos al siguiente. Reducirlo
+puede mejorar rendimiento más que reducir una operación aislada. Debe medirse con
+tamaños progresivos y múltiples repeticiones.
 
-### 3. Almacenamiento: evidencia
+### 4. Memoria virtual crea un espacio por proceso
 
-En esta clase, **almacenamiento** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Memoria, cachés, almacenamiento y jerarquías**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Las direcciones que ve Pulso son virtuales. El sistema y hardware traducen páginas a
+memoria física o manejan ausencia. Esto permite aislamiento, compartición controlada y
+espacios mayores que RAM, pero un acceso puede provocar page fault. Una dirección
+impresa no revela ubicación física estable.
 
-### 4. Jerarquías: decisión
+### 5. Guardar no siempre significa persistir físicamente
 
-En esta clase, **jerarquías** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Memoria, cachés, almacenamiento y jerarquías**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Bibliotecas y sistema almacenan buffers; el dispositivo puede tener caché. Cerrar,
+vaciar y sincronizar poseen garantías diferentes. Una aplicación debe definir si basta
+entregar datos al sistema o si requiere durabilidad ante fallo, y aceptar el costo.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: recorrer eventos de Pulso
+
+Pulso compara una lista recorrida secuencialmente con índices barajados. El experimento
+mantiene datos y operación, varía orden, prueba varios tamaños y registra distribución.
+La conclusión correcta es “patrón compatible con efectos de localidad bajo este
+entorno”; no “medimos la caché L2”.
 
 ## Definiciones de trabajo
 
-- **Memoria:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Cachés:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Almacenamiento:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Jerarquías:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **latencia:** tiempo hasta completar una operación;
+- **ancho de banda:** cantidad transferida por unidad de tiempo;
+- **localidad:** tendencia de reutilización temporal o espacial;
+- **página:** unidad de mapeo de memoria virtual;
+- **persistencia:** conservación más allá del proceso o fallo definido.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Cache hit/miss** indica si un nivel satisface acceso. **Working set** es conjunto
+activo. **Page fault** requiere intervención para resolver una página.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Memoria, cachés, almacenamiento y jerarquías**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Acceder diez veces al mismo elemento tiene localidad temporal. Recorrer una lista
+contigua tiene espacial; saltar aleatoriamente reduce predictibilidad aunque haga la
+misma suma.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Memoria, cachés, almacenamiento y jerarquías**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un índice acelera búsqueda y aumenta memoria y escrituras. La decisión compara carga
+real y conjunto de trabajo, no asume que “más caché siempre mejora”.
 
 ## Práctica guiada
 
-1. Crea `work/SE-018/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `memory_probe.py` con recorridos secuencial y barajado.
+2. Usa tamaños progresivos, semilla fija y `time.perf_counter_ns()`.
+3. Ejecuta varias rondas y conserva todas las muestras.
+4. Usa `tracemalloc` para pico de asignación Python, etiquetándolo como tal.
+5. Registra procesos de fondo y orden; alterna experimentos para reducir sesgo.
+6. Entrega `hierarchy.md`, `samples.csv`, `analysis.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Memoria y cachés con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Compara latencia y throughput con un ejemplo.
+2. Diseña un algoritmo con mejor localidad sin cambiar resultado.
+3. Explica cuándo `flush` no equivale a durabilidad total.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-018/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-018/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona repite el experimento y obtiene la misma tendencia o explica diferencias
+con evidencia. Debe señalar al menos dos causas alternativas.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Más RAM hace más rápida cualquier aplicación?
+No; ayuda si evita presión relevante, pero no corrige CPU, I/O o algoritmos dominantes.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Puedo medir caché con este script?
+Observas tiempo compatible con varios mecanismos; medir eventos requiere herramientas específicas.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Ejecuta una sola vez el caso secuencial primero. Luego alterna orden y repite. Documenta
+cómo calentamiento y orden cambiaron la inferencia.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| “RAM” para toda jerarquía | niveles confundidos | declara nivel y garantía |
+| tiempo atribuido a caché concreta | instrumento insuficiente | expresa hipótesis y alternativas |
+| promedio único | variación oculta | conserva distribución y contexto |
+| `write()` se presenta como duradero | buffers omitidos | define flush, sync y fallo considerado |
+
+## Entorno y archivos clave
+
+Python 3.11+, `random`, `time`, `tracemalloc`; sin paquetes ni archivos grandes. Elimina muestras al terminar si no se conservan como evidencia.
+
+## Seguridad, ética y accesibilidad
+
+Limita tamaños para no presionar el equipo. Informa unidades y ofrece tabla además de
+gráfico. No conviertas hardware modesto en culpa del usuario sin medir requisitos.
+
+## Transferencia
+
+Repite con lectura de archivo y separa caché de aplicación, sistema y dispositivo como hipótesis.
+
+## Evaluación y evidencia
+
+Se exigen diseño controlado, muestras, causas alternativas y límite instrumental.
+
+## Fuentes
+
+- [Python `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) define la memoria Python observable.
+- [RISC-V memory model](https://docs.riscv.org/reference/isa/unpriv/rvwmo.html) muestra que orden de memoria también es contrato arquitectónico.
+- [Python `os`](https://docs.python.org/3/library/os.html) documenta interfaces de archivo y `fsync`.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Memoria, cachés, almacenamiento y jerarquías**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-019`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No perfila cachés físicas ni NUMA. `SE-019` explica procesos, hilos e I/O que compiten por recursos.
 
 ---
-
-[← SE-017 — CPU, instrucciones, registros y ciclos de ejecución](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-018.html) · [SE-019 — Procesos, hilos, interrupciones y entrada/salida →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)
+[← SE-017](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-019 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)

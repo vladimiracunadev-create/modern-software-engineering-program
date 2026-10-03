@@ -1,208 +1,181 @@
 # SE-019 — Procesos, hilos, interrupciones y entrada/salida
 
-[← SE-018 — Memoria, cachés, almacenamiento y jerarquías](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-019.html) · [SE-020 — Compilación, interpretación, bytecode y JIT →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)
+[← SE-018](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-020 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Introduce mecanismos observables desde usuario; la Parte 02 profundiza administración del sistema operativo.
+
+## Antes de empezar
+
+`SE-018` mostró que acceder a datos tiene jerarquías. Ahora Pulso lee, calcula y escribe
+mientras el sistema comparte CPU y dispositivos con otros programas. Modelarás proceso,
+hilo, llamada al sistema e interrupción sin tratarlos como sinónimos de programa o CPU.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-018` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Estado e instrucciones de `SE-017`, jerarquía de `SE-018`, Python 3.11+.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Procesos, hilos, interrupciones y entrada/salida**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una aplicación “usa varios hilos” y se espera que tarde la mitad. La carga es CPU-bound,
+comparte estado y corre en un runtime con restricciones. Concurrencia fue confundida con paralelismo y rendimiento.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Procesos y hilos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Distinguirás programa, proceso e hilo; explicarás planificación y cambio de contexto;
+seguirás una llamada de I/O; relacionarás interrupciones con eventos; compararás bloqueo y concurrencia.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Procesos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Hilos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Interrupciones | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Entrada | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Proceso | aísla espacio y recursos | contiene fallos y propiedad |
+| Hilo | comparte proceso y mantiene ejecución | habilita concurrencia con riesgos |
+| Planificación | asigna CPU a unidades listas | explica pausas y competencia |
+| I/O e interrupción | coordinan dispositivos y software | separan espera de cálculo |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Procesos, hilos, interrupciones y entrada/salida"] --> M["Modelo: Procesos"]
-    M --> D["Decisión: hilos"]
-    D --> E["Evidencia: interrupciones"]
-    E --> R["Revisión: entrada"]
-    R -->|nueva información| M
+ P[Pulso solicita lectura] --> K[Sistema operativo valida y programa I/O]
+ K --> D[Dispositivo inicia la operación]
+ D --> I[Interrupción o señal de completado]
+ I --> R[Kernel despierta el hilo bloqueado]
+ R --> P2[Pulso recibe los datos]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Procesos, hilos, interrupciones y entrada/salida**.
+El sistema real puede usar polling, DMA, buffers y completado asíncrono. La secuencia
+muestra responsabilidades, no cada transición de hardware.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. Programa es descripción; proceso es ejecución aislada
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+Un archivo de programa puede originar múltiples procesos. Cada proceso posee espacio de
+direcciones virtual, identificador, recursos y estado administrado por el sistema. El
+aislamiento limita acceso accidental, pero no es una frontera de seguridad absoluta sin permisos y controles.
 
-### 1. Procesos: modelo
+### 2. Los hilos comparten y por eso coordinan
 
-En esta clase, **Procesos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, hilos, interrupciones y entrada/salida**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Hilos de un proceso comparten memoria y recursos, pero mantienen pila y estado de
+ejecución propios. Compartir reduce copia y permite trabajo concurrente; introduce
+carreras, orden y necesidad de sincronización. Más hilos agregan overhead y no crean núcleos.
 
-### 2. Hilos: mecanismo
+### 3. Concurrencia y paralelismo responden preguntas distintas
 
-En esta clase, **hilos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, hilos, interrupciones y entrada/salida**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Concurrencia organiza tareas que progresan en intervalos superpuestos. Paralelismo
+ejecuta simultáneamente. I/O concurrente puede aprovechar esperas en un núcleo; cálculo
+paralelo requiere capacidad y runtime apropiados. La métrica debe distinguir latencia de una tarea y throughput total.
 
-### 3. Interrupciones: evidencia
+### 4. Planificación produce pausas legítimas
 
-En esta clase, **interrupciones** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, hilos, interrupciones y entrada/salida**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El sistema decide qué hilo listo usa CPU. Un cambio de contexto conserva estado y carga
+otro; tiene costo y efectos de caché. Tiempo de pared incluye ejecución, espera y
+desplanificación. Tiempo de CPU aproxima trabajo ejecutado por el proceso, no espera externa.
 
-### 4. Entrada: decisión
+### 5. I/O cruza una frontera protegida
 
-En esta clase, **entrada** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, hilos, interrupciones y entrada/salida**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El programa solicita operaciones mediante APIs que llegan a llamadas del sistema. El
+kernel valida y coordina controladores. Dispositivos pueden avisar completado mediante
+interrupciones; DMA puede mover datos sin que la CPU copie cada byte. Una llamada
+bloqueante suspende al hilo hasta una condición, no necesariamente ocupa CPU todo el tiempo.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: leer y resumir eventos
+
+Pulso lee un archivo pequeño, calcula y escribe. Se registran tiempo de pared y CPU. Una
+versión con dos hilos procesa dos archivos sintéticos; el objetivo no es ganar, sino
+explicar qué trabajo se solapa, qué estado se comparte y qué medición refutaría la ventaja.
 
 ## Definiciones de trabajo
 
-- **Procesos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Hilos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Interrupciones:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Entrada:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **proceso:** instancia de ejecución con recursos aislados;
+- **hilo:** secuencia planificable dentro de un proceso;
+- **concurrencia:** composición de progresos superpuestos;
+- **interrupción:** señal que desvía control para atender un evento;
+- **I/O bloqueante:** operación que suspende la unidad llamante hasta progreso.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Context switch** cambia unidad ejecutada. **Syscall** solicita servicio al kernel.
+**DMA** permite transferencias de dispositivo a memoria con intervención acotada de CPU.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Procesos, hilos, interrupciones y entrada/salida**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`time.sleep()` aumenta tiempo de pared casi sin aumentar CPU: el hilo espera. Un bucle
+numérico aumenta ambos y añadir hilos de CPython no garantiza paralelismo de bytecode.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Procesos, hilos, interrupciones y entrada/salida**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un servidor atiende muchas conexiones con I/O asíncrono para evitar un hilo bloqueado
+por conexión. Si el cuello es cálculo, se consideran procesos o trabajo vectorizado, siempre midiendo costos de coordinación.
 
 ## Práctica guiada
 
-1. Crea `work/SE-019/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea dos archivos sintéticos y una versión secuencial de Pulso.
+2. Mide `perf_counter` y `process_time` en lectura y cálculo por separado.
+3. Implementa dos hilos solo para las lecturas y registra timeline.
+4. Protege un contador compartido o evita compartir mediante resultados separados.
+5. Repite, cambia tamaño y registra causas alternativas.
+6. Entrega `io_probe.py`, `timeline.md`, `samples.csv`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Procesos y hilos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Clasifica cuatro estados: ejecutando, listo, bloqueado y terminado.
+2. Da un caso concurrente no paralelo.
+3. Explica por qué una interrupción no es un hilo de aplicación.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-019/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-019/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona reconstruye cuándo Pulso calcula, espera y es planificable. Aprueba si la
+línea temporal no atribuye tiempo de pared completo a CPU.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Un proceso tiene un solo hilo?
+Puede comenzar con uno y crear más; el modelo depende del sistema y runtime.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Asíncrono siempre es más rápido?
+No. Mejora composición de esperas en ciertos contextos y añade complejidad.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Actualiza un contador compartido desde hilos sin contrato. Si el fallo no aparece, no
+concluyas seguridad; explica por qué una carrera depende de intercalado y diseña sincronización o eliminación del estado compartido.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| programa = proceso | archivo confundido con ejecución | distingue descripción e instancia |
+| hilos duplican velocidad | concurrencia = paralelismo | identifica carga, núcleos y runtime |
+| tiempo de pared = CPU | esperas ignoradas | mide pared y CPU por separado |
+| interrupción = excepción de lenguaje | niveles mezclados | ubica señal de hardware/kernel y manejo de runtime |
+
+## Entorno y archivos clave
+
+Python 3.11+, `threading`, `time`, `pathlib`; archivos sintéticos menores de 10 MB. Limpieza explícita del directorio.
+
+## Seguridad, ética y accesibilidad
+
+Limita carga y tamaño. No inspecciones procesos ajenos. Presenta timeline textual además del diagrama.
+
+## Transferencia
+
+Compara threads, procesos y async para un servidor de archivos; identifica propiedad de memoria.
+
+## Evaluación y evidencia
+
+Se exigen timeline, dos relojes, estado compartido explícito y conclusión condicionada.
+
+## Fuentes
+
+- [Python `threading`](https://docs.python.org/3/library/threading.html) define hilos y restricciones de CPython.
+- [Python `time`](https://docs.python.org/3/library/time.html) define relojes de pared y proceso.
+- [RISC-V Privileged Architecture](https://docs.riscv.org/reference/isa/priv/) contextualiza interrupciones y niveles privilegiados.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Procesos, hilos, interrupciones y entrada/salida**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-020`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No administra servicios ni señales del SO; eso corresponde a la Parte 02. `SE-020` abre la traducción del programa.
 
 ---
-
-[← SE-018 — Memoria, cachés, almacenamiento y jerarquías](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-019.html) · [SE-020 — Compilación, interpretación, bytecode y JIT →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)
+[← SE-018](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-020 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 13)}
+EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 25)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -21,6 +21,12 @@ PRODUCTS = [
 
 SOURCES = {
     "SWEBOK-4A": ("SWEBOK Guide v4.0a", "IEEE Computer Society", "https://www.computer.org/education/bodies-of-knowledge/software-engineering"),
+    "RISCV-ISA": ("RISC-V Ratified ISA Specifications", "RISC-V International", "https://docs.riscv.org/reference/isa/"),
+    "UNICODE-17": ("The Unicode Standard 17.0", "Unicode Consortium", "https://www.unicode.org/versions/Unicode17.0.0/"),
+    "PYTHON-3": ("Python 3 Documentation", "Python Software Foundation", "https://docs.python.org/3/"),
+    "JVM-SE25": ("Java Virtual Machine Specification SE 25", "Oracle and JCP", "https://docs.oracle.com/javase/specs/jvms/se25/html/"),
+    "LLVM-DOCS": ("LLVM Documentation", "LLVM Project", "https://llvm.org/docs/"),
+    "GSF-SCI": ("Software Carbon Intensity Specification", "Green Software Foundation", "https://greensoftware.foundation/standards/sci/"),
     "ACM-ETHICS": ("ACM Code of Ethics and Professional Conduct", "ACM", "https://www.acm.org/code-of-ethics"),
     "ISO-25010": ("ISO/IEC 25010:2023", "ISO", "https://www.iso.org/standard/78176.html"),
     "UNICODE": ("The Unicode Standard", "Unicode Consortium", "https://www.unicode.org/standard/standard.html"),
@@ -74,7 +80,7 @@ SOURCES = {
 
 PROFILES = {
     "00": {"artifact": "informe de decisión profesional", "environment": "editor de texto, navegador y repositorio Git", "files": ["decision.md", "evidence.md", "review.md"], "lenses": ["sistema", "ciclo de vida", "evidencia", "responsabilidad"], "failure": "confundir una preferencia personal con evidencia suficiente", "sources": ["SWEBOK-4A", "ACM-ETHICS", "ISO-25010"]},
-    "01": {"artifact": "cuaderno reproducible de representación y recursos", "environment": "Python 3.11+, terminal y herramientas del sistema", "files": ["experiment.py", "observations.md", "results.json"], "lenses": ["representación", "máquina", "medición", "límite"], "failure": "inferir el modelo de la máquina desde una sola observación", "sources": ["UNICODE", "SWEBOK-4A"]},
+    "01": {"artifact": "cuaderno reproducible de representación y recursos", "environment": "Python 3.11+, terminal y herramientas del sistema", "files": ["experiment.py", "observations.md", "results.json"], "lenses": ["representación", "máquina", "medición", "límite"], "failure": "inferir el modelo de la máquina desde una sola observación", "sources": ["RISCV-ISA", "UNICODE-17", "PYTHON-3", "JVM-SE25", "LLVM-DOCS", "GSF-SCI"]},
     "02": {"artifact": "runbook de entorno reproducible", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["bootstrap.ps1", "bootstrap.sh", "runbook.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH"]},
     "03": {"artifact": "traza comentada de una comunicación", "environment": "navegador, curl y utilidades de diagnóstico de red", "files": ["request.txt", "trace.md", "failure-report.md"], "lenses": ["capa", "protocolo", "estado", "observabilidad"], "failure": "atribuir al servidor un fallo que ocurre en resolución, transporte o caché", "sources": ["RFC-8200", "RFC-8446", "RFC-9000", "RFC-9110"]},
     "04": {"artifact": "especificación contrastable de una solución", "environment": "editor, Python opcional y diagramas Mermaid", "files": ["problem.md", "model.md", "checks.md"], "lenses": ["abstracción", "invariante", "algoritmo", "complejidad"], "failure": "resolver un ejemplo y asumir que la solución cubre todo el dominio", "sources": ["MIT-MATH-CS", "SWEBOK-4A"]},
@@ -705,7 +711,7 @@ def expected_files(program: dict) -> dict[Path, str]:
                 # Las clases revisadas editorialmente viven como fuentes
                 # explícitas: el generador las publica, pero no vuelve a
                 # sintetizar contenido a partir del título.
-                source = ROOT / "content" / "part-00" / f"{lesson['id']}.md"
+                source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
                 markdown = source.read_text(encoding="utf-8").replace(
                     "(../../classes/",
                     "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/",

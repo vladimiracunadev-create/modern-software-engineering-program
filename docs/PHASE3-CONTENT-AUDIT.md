@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: la Parte 00 aporta 12 clases `GUIDED` y las 168 restantes aún
+`SE-001`–`SE-180`: las partes 00–01 aportan 24 clases `GUIDED` y las 156 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 12 | Parte 00 reconstruida; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 24 | Partes 00–01 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 12 | Parte 00 aprobada; las otras 168 permanecen `PLANNED` |
+| clases aprobadas | 24 | Partes 00–01 aprobadas; las otras 156 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -43,7 +43,7 @@ pedagógica integral.
 
 - conservar las 180 entradas como borradores públicos para que el defecto sea
   auditable;
-- declarar explícitamente `0` clases aprobadas;
+- conservar `PLANNED` en toda clase que no haya superado el gate completo;
 - no usar `GUIDED` hasta superar
   [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md);
 - reconstruir por parte, con un commit independiente y revisión cualitativa;
@@ -63,6 +63,17 @@ desbordamiento horizontal.
 Tras revisar enlaces, contenido, publicación y validadores, la Parte 00 superó el
 gate y sus doce clases avanzaron a `GUIDED`. Esta promoción no atribuye estados
 `EXECUTABLE`, `TESTED` u `OPERABLE` ni se extiende a las demás partes.
+
+## Avance editorial de la Parte 01
+
+Las clases `SE-013`–`SE-024` fueron reemplazadas por fuentes canónicas en
+`content/part-01/`. El caso conductor `Pulso` conecta representación, Unicode,
+aritmética, CPU, memoria, procesos, traducción, runtime y medición hasta un taller y
+un informe reproducible. Cada clase declara mecanismo, entorno, práctica segura,
+fallo controlado, errores, fuentes y límites instrumentales. El README completo de la
+parte se publica también en Pages. Tras revisión clase por clase y de la progresión
+completa, las doce clases avanzaron a `GUIDED`; no se promovieron a estados que exigen
+ejecución o evidencia productiva.
 
 ## Orden de reconstrucción
 

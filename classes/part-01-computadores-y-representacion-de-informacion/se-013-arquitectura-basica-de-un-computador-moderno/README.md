@@ -1,208 +1,205 @@
 # SE-013 — Arquitectura básica de un computador moderno
 
-[← SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-013.html) · [SE-014 — Bits, bytes, bases numéricas y representación →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)
+[← SE-012](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-014 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase conceptual con observaciones locales; no certifica una arquitectura física.
+
+## Antes de empezar
+
+En `SE-012` convertiste objetivos en evidencia. Ahora comienza la base técnica: antes
+de optimizar o depurar necesitas saber **en qué capa ocurre una afirmación**. Abrimos
+**Pulso**, un programa Python que recibirá `Matrícula confirmada ✓`, producirá un
+resumen y lo guardará. Hoy no lo optimizarás: construirás el mapa que permitirá seguir
+sus datos y decisiones durante toda la parte.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-012` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Parte 00 o capacidad para separar observación e inferencia. Python 3.11+, terminal y un directorio de práctica sin datos reales.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Arquitectura básica de un computador moderno**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un fallo se atribuye a “la CPU” porque el programa tarda. La evidencia disponible solo
+muestra tiempo de pared de un proceso que también espera disco. Sin un modelo de
+capas, el equipo modifica componentes que no causan el síntoma.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Arquitectura y básica con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás distinguir arquitectura, ISA, microarquitectura y organización del sistema;
+seguir entrada, transformación, almacenamiento y salida; ubicar una observación en su
+capa; y declarar qué no puede inferirse desde Python.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Arquitectura | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Básica | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Computador | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Moderno | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Capas y contratos | cada nivel ofrece una interfaz al superior | evita explicaciones que saltan de fuente a transistor |
+| CPU, memoria e I/O | transforman, conservan y comunican estado | permite localizar recursos y esperas |
+| ISA y microarquitectura | contrato visible frente a implementación | evita confundir compatibilidad con rendimiento idéntico |
+| Observación | cada herramienta ve una frontera | limita conclusiones y orienta la siguiente medición |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Arquitectura básica de un computador moderno"] --> M["Modelo: Arquitectura"]
-    M --> D["Decisión: básica"]
-    D --> E["Evidencia: computador"]
-    E --> R["Revisión: moderno"]
-    R -->|nueva información| M
+flowchart TD
+ U[Entrada de Pulso] --> L[Lenguaje y bibliotecas]
+ L --> R[Runtime]
+ R --> O[Sistema operativo]
+ O --> A[ISA]
+ A --> H[Microarquitectura y hardware]
+ H --> O
+ O --> U2[Archivo y salida]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Arquitectura básica de un computador moderno**.
+La flecha descendente representa contratos de ejecución; la ascendente, resultados e
+interrupciones. El mapa no afirma que una línea de Python corresponda a una instrucción.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. Arquitectura es una interfaz observable
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+La arquitectura describe propiedades que un consumidor puede usar sin conocer toda la
+implementación. Una ISA especifica instrucciones, registros y efectos visibles para el
+software de bajo nivel. RISC-V, por ejemplo, separa deliberadamente la ISA de una
+microarquitectura particular. Dos procesadores pueden ejecutar el mismo binario y
+organizar internamente pipeline, cachés o unidades de ejecución de modo distinto.
 
-### 1. Arquitectura: modelo
+### 2. CPU, memoria y dispositivos cooperan
 
-En esta clase, **Arquitectura** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura básica de un computador moderno**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La CPU obtiene y ejecuta instrucciones; los registros conservan estado inmediato; la
+memoria principal mantiene código y datos activos; el almacenamiento preserva datos;
+los dispositivos intercambian información. Interconexiones y controladores coordinan
+movimientos. Esta lista no explica por sí sola un programa: hay que seguir qué dato
+cambia, dónde vive y quién inicia la transición.
 
-### 2. Básica: mecanismo
+### 3. El sistema moderno es una pila de abstracciones
 
-En esta clase, **básica** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura básica de un computador moderno**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Pulso no escribe directamente celdas físicas. El lenguaje define valores; CPython los
+representa como objetos; el sistema operativo ofrece procesos, memoria virtual y
+archivos; la ISA define efectos de instrucciones; el hardware implementa esos efectos.
+Cada capa simplifica y añade costo. Saltarse una capa produce afirmaciones falsas como
+“una variable es un registro” o “guardar un archivo escribe inmediatamente en disco”.
 
-### 3. Computador: evidencia
+### 4. Estado, control y flujo de datos
 
-En esta clase, **computador** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura básica de un computador moderno**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una ejecución puede describirse como estados y transiciones: llegan bytes, se
+decodifican, se crean objetos, se calcula, se solicita una escritura y se informa el
+resultado. El control decide qué transición sigue; el flujo de datos muestra qué valor
+la alimenta. Separarlos ayuda a explicar por qué una espera de I/O detiene un hilo sin
+que la CPU esté calculando esa solicitud.
 
-### 4. Moderno: decisión
+### 5. Observar una capa no revela automáticamente las demás
 
-En esta clase, **moderno** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura básica de un computador moderno**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+`platform.machine()` informa una etiqueta de plataforma que el runtime expone;
+`sys.byteorder` informa el orden nativo que Python observa. No demuestran modelo exacto
+de CPU, tamaño de caché ni frecuencia efectiva. Virtualización, emulación y contenedores
+pueden interponer capas. Una observación correcta se acompaña de su fuente y límite.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: localizar Pulso
+
+Pulso recibe texto por argumentos, lo codifica, calcula longitud y escribe JSON. El
+mapa asigna: semántica al programa, objetos a CPython, proceso y archivo al sistema
+operativo, instrucciones a la ISA y ejecución física al procesador. Si escribir tarda,
+el mapa ofrece hipótesis —serialización, llamada, caché del sistema, dispositivo— sin
+elegir una antes de medir.
 
 ## Definiciones de trabajo
 
-- **Arquitectura:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Básica:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Computador:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Moderno:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **arquitectura:** propiedades e interfaces visibles de un sistema;
+- **ISA:** contrato de instrucciones y estado visible para software de máquina;
+- **microarquitectura:** organización concreta que implementa una ISA;
+- **runtime:** servicios que sostienen un programa durante ejecución;
+- **dispositivo:** componente que intercambia datos o señales con el sistema.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Estado** es información suficiente para explicar una transición. **ABI** es un
+contrato binario que incluye llamadas y representación. **Firmware** es software ligado
+al control de hardware. **Memoria virtual** es el espacio de direcciones que el sistema
+presenta a un proceso.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Arquitectura básica de un computador moderno**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Dos equipos muestran `x86_64`. Comparten una familia de ISA, pero no necesariamente
+cachés, núcleos ni desempeño. La etiqueta permite decidir compatibilidad aproximada; no
+permite predecir tiempo.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Arquitectura básica de un computador moderno**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un servicio consume CPU baja y latencia alta. La traza muestra espera de red. Escalar
+frecuencia de CPU no ataca el mecanismo; reducir rondas, usar concurrencia controlada o
+mejorar la dependencia sí podrían hacerlo.
 
 ## Práctica guiada
 
-1. Crea `work/SE-013/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `work/SE-013/` y registra `python --version` y sistema operativo.
+2. Escribe `probe.py` que imprima `platform.machine()`, `sys.byteorder` y el texto ficticio.
+3. Dibuja `machine-map.md` con las cinco capas y un contrato por frontera.
+4. Marca cada dato como observado, documentado o inferido.
+5. Añade una hipótesis de latencia y una medición que podría refutarla.
+6. Borra solo `work/SE-013/` para recuperar el entorno.
 
 ## Ejercicios
 
-1. **Fundamental:** define Arquitectura y básica con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Explica dónde viven conceptualmente una variable, un objeto y sus bytes.
+2. Compara ISA y microarquitectura con un contraejemplo.
+3. Añade una capa de virtualización y revisa qué observaciones cambian.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-013/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-013/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona debe ubicar cinco afirmaciones de tu informe en su capa y señalar una
+inferencia inválida. Aprueba si el mapa contiene contratos, señales y límites, no solo
+cajas.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Arquitectura es lo mismo que hardware?
+No. Puede describir interfaces del hardware o de un sistema de software.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Python impide aprender la máquina?
+No; permite observar varias capas, siempre que no confundas bytecode con ISA.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Afirma que `platform.machine()` identifica el procesador exacto. Contrasta en
+documentación qué devuelve, registra el síntoma conceptual y corrige la conclusión a
+“etiqueta de arquitectura expuesta por la plataforma”.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| una línea equivale a una instrucción | se saltaron compilador y runtime | traza representaciones intermedias |
+| CPU y computador se usan como sinónimos | se omitieron memoria e I/O | sigue dato y control por componentes |
+| misma ISA implica mismo rendimiento | arquitectura confundida con implementación | mide cada entorno y declara microarquitectura desconocida |
+| diagrama sin contratos | inventario sin mecanismo | anota entrada, salida y responsable de cada frontera |
+
+## Entorno y archivos clave
+
+Python 3.11+, `platform`, `sys`; `probe.py`, `machine-map.md`, `observations.md`. No instala paquetes ni modifica el sistema.
+
+## Seguridad, ética y accesibilidad
+
+No publiques nombres de host, identificadores o rutas privadas. Proporciona texto
+alternativo al diagrama. La etiqueta de arquitectura no justifica excluir dispositivos
+sin medir la capacidad necesaria.
+
+## Transferencia
+
+Aplica el mapa a un navegador o microcontrolador y explica qué capas desaparecen, se combinan o cambian de propietario.
+
+## Evaluación y evidencia
+
+Se exige mapa causal, cinco observaciones trazables, una inferencia refutada y límites.
+
+## Fuentes
+
+- [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) respalda la ISA como interfaz separada de microarquitectura.
+- [Python `platform`](https://docs.python.org/3/library/platform.html) define las etiquetas observables usadas en la práctica.
+- [Python `sys`](https://docs.python.org/3/library/sys.html) documenta `byteorder` y propiedades del runtime.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Arquitectura básica de un computador moderno**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-014`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No se inspeccionan transistores ni instrucciones nativas. `SE-014` abre la representación binaria que atraviesa el mapa.
 
 ---
-
-[← SE-012 — Proyecto: mapa profesional y contrato personal de aprendizaje](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-013.html) · [SE-014 — Bits, bytes, bases numéricas y representación →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)
+[← SE-012](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-014 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)

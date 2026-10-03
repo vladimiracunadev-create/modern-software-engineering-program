@@ -56,10 +56,10 @@ class ProgramBlueprintTests(unittest.TestCase):
             for part in self.payload["parts"]
             for lesson in part["lessons"]
         ]
-        self.assertEqual(["GUIDED"] * 12 + ["PLANNED"] * 468, statuses)
+        self.assertEqual(["GUIDED"] * 24 + ["PLANNED"] * 456, statuses)
         self.assertEqual("PHASE_3_AND_4_REBUILDING", self.payload["status"])
         self.assertEqual(180, self.payload["phase_3_target"]["classes"])
-        self.assertEqual(12, self.payload["phase_3_target"]["approved"])
+        self.assertEqual(24, self.payload["phase_3_target"]["approved"])
         self.assertEqual(180, self.payload["phase_4_target"]["classes"])
         self.assertEqual("SE-181", self.payload["phase_4_target"]["first_class"])
         self.assertEqual("SE-360", self.payload["phase_4_target"]["last_class"])

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -33,7 +34,7 @@ REQUIRED_CLASS_SECTIONS = [
 
 PART_SOURCE_MAP = {
     "00": ["IEEE-SWEBOK-4A", "ACM-IEEE-SE2014"],
-    "01": ["IEEE-SWEBOK-4A"],
+    "01": ["RISCV-ISA", "UNICODE-17", "PYTHON-3", "JVM-SE25", "LLVM-DOCS", "GSF-SCI"],
     "02": ["IEEE-SWEBOK-4A"],
     "03": ["IETF-RFC-9110"],
     "04": ["IEEE-SWEBOK-4A", "ACM-IEEE-SE2014"],
@@ -478,7 +479,7 @@ def site_index(program: dict) -> str:
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>{guided}</strong><span>clases revisadas</span></div><div class="metric"><strong>{planned}</strong><span>clases por desarrollar</span></div></div></header>
 <main id="content"><div class="notice"><strong>Estado verificable:</strong> {guided} clases han superado el gate pedagógico; {public_drafts} borradores públicos siguen en revisión y no se presentan como terminados.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
-<h2>Ruta desarrollada</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · 12 clases guiadas</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto funciona como caso conductor para enlazar fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
+<h2>Rutas desarrolladas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · 12 clases guiadas</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div><div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · 12 clases guiadas</p><h3>Computadores y representación de información</h3><p>Pulso sigue el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Continuar con la Parte 01 →</a></div>
 <h2>Ocho etapas</h2><p class="section-intro">El currículo completo conserva su arquitectura, pero solo una clase cambia de estado cuando su explicación, práctica, fuentes y publicación han sido revisadas.</p><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
@@ -498,23 +499,29 @@ def part_page(part: dict) -> str:
         state = f"Fase {phase} en reconstrucción: doce borradores visibles, todavía sin aprobación pedagógica."
     else:
         state = "Contenido planificado para una fase posterior."
-    if part["id"] == "00":
-        # Publica la fuente editorial íntegra antes del resumen visual. La parte no
-        # debe convertirse en una ficha distinta del programa que se revisa en Git.
-        # El import diferido evita acoplar la generación de las demás partes al
-        # renderer de clases.
+    editorial_source = ROOT / "content" / f"part-{part['id']}" / "README.md"
+    editorial_content = ""
+    editorial_toc = ""
+    if editorial_source.is_file():
+        # Publica toda parte editorial desde la misma fuente revisada que GitHub.
         try:
             from build_phase3 import markdown_to_html
-        except ModuleNotFoundError:  # import al ejecutar como módulo desde la raíz
+        except ModuleNotFoundError:
             from scripts.build_phase3 import markdown_to_html
-
-        editorial_source = ROOT / "content/part-00/README.md"
         editorial_markdown = editorial_source.read_text(encoding="utf-8")
         for lesson in part["lessons"]:
             editorial_markdown = editorial_markdown.replace(
                 f"(../../{lesson['path']}/README.md)",
                 f"(../classes/{lesson['id']}.html)",
+            ).replace(
+                f"(../../{lesson['path']}/)",
+                f"(../classes/{lesson['id']}.html)",
             )
+        editorial_markdown = re.sub(
+            r"\(\.\./\.\./classes/part-(\d{2})-[^/]+/README\.md\)",
+            r"(\1.html)",
+            editorial_markdown,
+        )
         editorial_markdown = editorial_markdown.replace(
             "(../../classes/README.md)", "(../index.html)"
         ).replace(
@@ -526,6 +533,7 @@ def part_page(part: dict) -> str:
             f'<li><a href="#{anchor}">{html.escape(label)}</a></li>'
             for anchor, label in editorial_headings
         )
+    if part["id"] == "00":
         route_items = []
         block_labels = {
             0: "Bloque 1 · comprender el objeto y su evolución",
@@ -543,9 +551,15 @@ def part_page(part: dict) -> str:
                 f'<p>{connection}</p></div><span class="route-evidence">Evidencia: {evidence}</span></li>'
             )
         body = f"""<section class="part-intro"><p class="eyebrow">Caso conductor · Campus Abierto</p><h2>De “hacer software” a ejercer criterio profesional</h2><p>Seguirás un servicio ficticio de matrícula que combina personas, reglas, pagos, identidad y sistemas heredados. Cada clase vuelve sobre el mismo producto con una lente nueva y transforma la evidencia anterior; el recorrido no funciona como doce capítulos aislados.</p></section><div class="lesson-shell part-shell"><nav class="lesson-toc" aria-label="Contenido de la parte"><strong>En esta parte</strong><ol>{editorial_toc}</ol></nav><article class="lesson-content part-content">{editorial_content}</article></div><h2>Resumen visual del recorrido</h2><p class="section-intro">Después de la explicación completa, esta ruta permite recuperar de un vistazo la acción y la evidencia que encadena cada clase.</p><ol class="route">{''.join(route_items)}</ol>"""
+    elif editorial_content:
+        body = f"""<section class="part-intro"><p class="eyebrow">Parte desarrollada · contenido íntegro</p><h2>Un recorrido conectado, no una lista de clases</h2><p>La explicación, el caso conductor, la progresión y los criterios de salida publicados aquí proceden de la fuente editorial revisada de esta parte.</p></section><div class="lesson-shell part-shell"><nav class="lesson-toc" aria-label="Contenido de la parte"><strong>En esta parte</strong><ol>{editorial_toc}</ol></nav><article class="lesson-content part-content">{editorial_content}</article></div>"""
     else:
         body = f'<h2>Clases de la parte</h2><ol class="lesson-list">{items}</ol>'
-    domain = "criterio profesional y sistemas sociotécnicos" if part["id"] == "00" else part["owner"]
+    editorial_domains = {
+        "00": "criterio profesional y sistemas sociotécnicos",
+        "01": "computación, representación y evidencia experimental",
+    }
+    domain = editorial_domains.get(part["id"], part["owner"])
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Parte {part['id']}: {html.escape(part['title'])}"><title>Parte {part['id']} · {html.escape(part['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main id="content"><a class="back" href="../index.html">← Volver al programa</a><p class="eyebrow">Etapa {part['stage']} · Parte {part['id']}</p><h1>{html.escape(part['title'])}</h1><p class="meta">Dominio principal: {html.escape(domain)}</p><div class="notice">{state}</div>{body}</main><footer>Software Engineering Learning Suite</footer></body></html>\n"""
 
 

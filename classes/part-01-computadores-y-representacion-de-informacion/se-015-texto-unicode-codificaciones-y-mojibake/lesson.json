@@ -7,9 +7,14 @@
   "kind": "class",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "RISCV-ISA",
+    "UNICODE-17",
+    "PYTHON-3",
+    "JVM-SE25",
+    "LLVM-DOCS",
+    "GSF-SCI"
   ],
   "path": "classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake"
 }

@@ -2,7 +2,7 @@
   "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-018",
-  "status": "PLANNED",
+  "status": "GUIDED",
   "mode": "class",
   "environment": "Python 3.11+, terminal y herramientas del sistema",
   "duration_hours": 4,
@@ -26,7 +26,11 @@
     "secrets": false
   },
   "source_ids": [
-    "UNICODE",
-    "SWEBOK-4A"
+    "RISCV-ISA",
+    "UNICODE-17",
+    "PYTHON-3",
+    "JVM-SE25",
+    "LLVM-DOCS",
+    "GSF-SCI"
   ]
 }

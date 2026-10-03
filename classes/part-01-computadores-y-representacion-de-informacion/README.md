@@ -1,22 +1,217 @@
 # Parte 01 — Computadores y representación de información
 
 - **Etapa:** A · Fundamentos de la profesión
-- **Dominio técnico principal:** `polyglot-programming-labs`
-- **Estado:** 12 `PLANNED`.
+- **Audiencia:** personas que programan o diseñan software y necesitan explicar qué ocurre debajo del lenguaje
+- **Estado:** 12 clases `GUIDED`, revisadas contra el estándar pedagógico
+- **Dedicación estimada:** 54 horas entre clases, taller y proyecto
 
-| ID | Clase | Tipo | Horas | Estado |
-| --- | --- | --- | ---: | --- |
-| SE-013 | [Arquitectura básica de un computador moderno](se-013-arquitectura-basica-de-un-computador-moderno/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-013.html) | class | 4 | PLANNED |
-| SE-014 | [Bits, bytes, bases numéricas y representación](se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-014.html) | class | 4 | PLANNED |
-| SE-015 | [Texto, Unicode, codificaciones y mojibake](se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-015.html) | class | 4 | PLANNED |
-| SE-016 | [Enteros, coma flotante, precisión y errores numéricos](se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-016.html) | class | 4 | PLANNED |
-| SE-017 | [CPU, instrucciones, registros y ciclos de ejecución](se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-017.html) | class | 4 | PLANNED |
-| SE-018 | [Memoria, cachés, almacenamiento y jerarquías](se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-018.html) | class | 4 | PLANNED |
-| SE-019 | [Procesos, hilos, interrupciones y entrada/salida](se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-019.html) | class | 4 | PLANNED |
-| SE-020 | [Compilación, interpretación, bytecode y JIT](se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-020.html) | class | 4 | PLANNED |
-| SE-021 | [Runtimes, máquinas virtuales y recolección de basura](se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-021.html) | class | 4 | PLANNED |
-| SE-022 | [Rendimiento, consumo energético y límites físicos](se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-022.html) | class | 4 | PLANNED |
-| SE-023 | [Taller: observar un programa desde el código hasta la máquina](se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-023.html) | studio | 6 | PLANNED |
-| SE-024 | [Proyecto: informe reproducible de comportamiento y recursos](se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-024.html) | project | 8 | PLANNED |
+## Antes de comenzar: el caso que conecta la parte
 
-[Volver al índice de clases](../README.md)
+Durante doce clases construirás y observarás **Pulso**, un programa local y pequeño
+que recibe una confirmación ficticia de matrícula, la codifica, calcula estadísticas,
+la conserva y devuelve un resumen. El comportamiento parece sencillo, pero atraviesa
+representación binaria, texto, aritmética, instrucciones, memoria, procesos, I/O,
+compilación y runtime. Cada clase abre una capa sin fingir que la capa inferior deja de
+existir.
+
+```mermaid
+flowchart LR
+ S[Fuente de Pulso] --> R[Representación]
+ R --> T[Traducción y runtime]
+ T --> I[Instrucciones]
+ I --> M[Memoria y CPU]
+ M --> O[Proceso e I/O]
+ O --> E[Medición reproducible]
+ E --> S
+```
+
+El diagrama no dice que la ejecución sea estrictamente lineal. Runtime, sistema
+operativo y hardware cooperan y retroalimentan el resultado. Sirve para localizar qué
+contrato se observa en cada clase y qué inferencias quedan fuera.
+
+## Propósito profesional
+
+Esta parte desarrolla un modelo por capas que permite explicar errores de datos,
+portabilidad y rendimiento sin recurrir a “la máquina hace magia”. La meta no es
+diseñar un procesador ni memorizar una arquitectura particular. Es poder relacionar una
+decisión de software con la representación y los recursos que la hacen posible,
+producir observaciones repetibles y distinguir una interfaz arquitectónica de una
+implementación concreta.
+
+## Resultados acumulativos
+
+Al completar la parte podrás:
+
+1. seguir información desde una intención humana hasta bytes y estados de máquina;
+2. razonar sobre bases, signo, endianess, Unicode y error numérico;
+3. distinguir ISA, microarquitectura, runtime y sistema operativo;
+4. explicar localidad, jerarquía de memoria, proceso, hilo, interrupción e I/O;
+5. comparar compilación, interpretación, bytecode, JIT y gestión automática de memoria;
+6. diseñar mediciones de tiempo y recursos sin extrapolar una observación local;
+7. entregar un informe reproducible que otra persona pueda refutar o extender.
+
+## Prerrequisitos y preparación
+
+Se recomienda completar la [Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md), especialmente evidencia e incertidumbre. Necesitas Python 3.11 o posterior, una terminal y un editor. Las prácticas usan solo biblioteca estándar y datos sintéticos. Registra versión, sistema operativo y arquitectura; nunca ejecutes binarios desconocidos ni cambies configuración del sistema.
+
+## Progresión por bloques
+
+### Bloque 1 — Representar información
+
+`SE-013` ubica las capas del computador. `SE-014` introduce bits, bytes, bases y
+orden. `SE-015` muestra por qué carácter, punto de código y byte no son sinónimos.
+`SE-016` explica rango, precisión y redondeo.
+
+**Pregunta de control:** ¿qué significado pertenece a los bits y cuál lo aporta el
+contrato que los interpreta?
+
+### Bloque 2 — Ejecutar y mover información
+
+`SE-017` sigue instrucciones y registros. `SE-018` introduce localidad y jerarquía de
+memoria. `SE-019` conecta proceso, hilo, interrupción e I/O.
+
+**Pregunta de control:** ¿qué estado cambia, quién inicia el cambio y qué señal permite
+observarlo sin confundir modelo con implementación?
+
+### Bloque 3 — Traducir y administrar la ejecución
+
+`SE-020` recorre fuente, representaciones intermedias y código. `SE-021` estudia
+runtime, máquina virtual, pila, heap y recolección. `SE-022` integra medición,
+rendimiento, energía y límites físicos.
+
+**Pregunta de control:** ¿qué costo fue desplazado del código fuente al compilador,
+runtime, sistema operativo o hardware?
+
+### Bloque 4 — Integrar evidencia
+
+`SE-023` sigue Pulso desde el código hasta señales del proceso. `SE-024` exige un
+informe reproducible con hipótesis rivales, entorno y límites.
+
+**Pregunta de control:** ¿puede otra persona repetir la observación y decir qué no
+demuestra?
+
+## Guía razonada clase por clase
+
+### SE-013 — Arquitectura básica de un computador moderno
+
+Construye el mapa inicial: entrada/salida, CPU, memoria, almacenamiento e interfaces.
+Distingue arquitectura visible para el software de microarquitectura interna. Pulso se
+usa para seguir una solicitud desde el fuente hasta una salida, declarando qué capa
+explica cada transición. Produce `machine-map.md`.
+
+### SE-014 — Bits, bytes, bases numéricas y representación
+
+Explica que un bit no contiene significado por sí solo. El contrato decide si una
+secuencia representa entero, texto, color o instrucción. Se practican conversión
+posicional, signo, rango, endianess y serialización con `int.to_bytes`. Produce un
+cuaderno de conversiones verificadas, no una lista de equivalencias memorizadas.
+
+### SE-015 — Texto, Unicode, codificaciones y mojibake
+
+Separa carácter abstracto, punto de código, unidad de código, secuencia de bytes y
+grafema visible. Pulso recibe `Matrícula ✓`; se inspecciona UTF-8, normalización y el
+mecanismo exacto del mojibake. Produce casos de ida y vuelta y una política de error.
+
+### SE-016 — Enteros, coma flotante, precisión y errores numéricos
+
+Compara enteros de ancho fijo con enteros arbitrarios y explica representación de coma
+flotante, redondeo y valores especiales. Pulso calcula un promedio que parece exacto y
+se decide entre binario, decimal y entero escalado según el dominio. Produce pruebas de
+frontera y un registro de decisión numérica.
+
+### SE-017 — CPU, instrucciones, registros y ciclos de ejecución
+
+Presenta la ISA como contrato software–máquina y la distingue de la implementación.
+Una traza didáctica sigue carga, operación, comparación y salto, mientras pipeline y
+ejecución especulativa se explican como optimizaciones que no cambian el resultado
+arquitectónico correcto. Produce una traza estado por estado.
+
+### SE-018 — Memoria, cachés, almacenamiento y jerarquías
+
+Relaciona latencia, capacidad, costo, persistencia y localidad. Pulso procesa datos
+contiguos y dispersos; la medición controla tamaño y repeticiones sin atribuir a una
+caché concreta lo que Python no permite observar directamente. Produce un mapa de
+jerarquía y un experimento de conjunto de trabajo.
+
+### SE-019 — Procesos, hilos, interrupciones y entrada/salida
+
+Ubica el aislamiento del proceso, el estado compartido entre hilos, la planificación y
+la frontera de llamada al sistema. Pulso pasa de cálculo puro a leer y escribir. Se
+comparan I/O bloqueante y concurrencia sin afirmar paralelismo automático. Produce una
+línea temporal causal.
+
+### SE-020 — Compilación, interpretación, bytecode y JIT
+
+Rompe la falsa oposición compilado–interpretado: un sistema puede traducir en varias
+etapas. Con `ast` y `dis`, Pulso se observa como fuente, árbol y bytecode de CPython;
+esas instrucciones no se confunden con la ISA física. Produce un mapa de traducción con
+artefactos y decisiones por etapa.
+
+### SE-021 — Runtimes, máquinas virtuales y recolección de basura
+
+Explica los servicios que sostienen ejecución: carga, tipos, excepciones, llamadas,
+asignación y memoria automática. Se comparan conteo de referencias y trazado, y se
+separa liberar memoria de cerrar recursos. Pulso mide asignaciones con `tracemalloc` y
+produce un mapa de vida de objetos.
+
+### SE-022 — Rendimiento, consumo energético y límites físicos
+
+Convierte “rápido” en latencia, throughput y trabajo útil bajo condiciones declaradas.
+Se controla calentamiento, ruido y variación; la energía se trata como una frontera de
+medición distinta y no se inventan julios desde tiempo de pared. Produce un protocolo
+de benchmark y un análisis de cuello de botella.
+
+### SE-023 — Taller: observar un programa desde el código hasta la máquina
+
+Integra las diez lentes. El estudiante ejecuta únicamente Pulso, inspecciona bytes,
+AST, bytecode, proceso, tiempo y memoria, y mantiene una columna separada para aquello
+que infiere. Una revisión cruzada intenta reconstruir tres hallazgos.
+
+### SE-024 — Proyecto: informe reproducible de comportamiento y recursos
+
+El proyecto formula una pregunta propia sobre representación o recursos, compara dos
+hipótesis y entrega código mínimo, datos, entorno, resultados y límites. La aprobación
+depende de reproducibilidad y calidad causal, no de obtener un resultado llamativo.
+
+## Resumen operativo del recorrido
+
+| Clase | Evidencia principal |
+| --- | --- |
+| [SE-013](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) | mapa de capas y contratos |
+| [SE-014](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) | cuaderno de representaciones |
+| [SE-015](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) | laboratorio de codificación |
+| [SE-016](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md) | decisión numérica y pruebas límite |
+| [SE-017](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) | traza de instrucciones |
+| [SE-018](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) | mapa y experimento de memoria |
+| [SE-019](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) | línea temporal de proceso e I/O |
+| [SE-020](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) | mapa de traducción |
+| [SE-021](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) | mapa de runtime y objetos |
+| [SE-022](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) | protocolo de medición |
+| [SE-023](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) | dossier de observación vertical |
+| [SE-024](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) | informe reproducible revisado |
+
+## Proyecto integrador y criterio de salida
+
+El dossier final contiene pregunta, programa mínimo, entorno, representaciones
+intermedias, mediciones repetidas, hipótesis alternativas y límites. Otra persona debe
+poder ejecutar el procedimiento con Python compatible y explicar una diferencia. No
+aprueba una captura, un benchmark único ni una descripción de hardware deducida solo
+desde el lenguaje.
+
+## Fuentes de la parte
+
+- [RISC-V Ratified Specifications Library](https://docs.riscv.org/reference/isa/) sustenta la distinción entre ISA e implementación y los ejemplos de instrucciones.
+- [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) sustenta texto, codificación y normalización.
+- [Python 3 documentation](https://docs.python.org/3/) sustenta los experimentos con representación, `ast`, `dis`, `gc`, `timeit` y `tracemalloc`.
+- [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/) aporta una máquina virtual especificada y deja explícitas decisiones de implementación.
+- [LLVM documentation](https://llvm.org/docs/) respalda las etapas de representaciones intermedias, generación y JIT.
+- [Software Carbon Intensity](https://greensoftware.foundation/standards/sci/) aporta una frontera explícita para energía y emisiones sin reducirlas a tiempo de CPU.
+
+## Límites
+
+La parte observa principalmente CPython desde interfaces portables. No enseña diseño
+digital, ensamblador productivo, kernel ni microarquitectura avanzada. Las inferencias
+sobre caché, energía o instrucciones físicas se presentan como hipótesis salvo que una
+herramienta autorizada las mida.
+
+[Volver al índice de clases](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md)

@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 12
+    "approved": 24
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -186,7 +186,7 @@
           "title": "Arquitectura básica de un computador moderno",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno"
         },
         {
@@ -195,7 +195,7 @@
           "title": "Bits, bytes, bases numéricas y representación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion"
         },
         {
@@ -204,7 +204,7 @@
           "title": "Texto, Unicode, codificaciones y mojibake",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake"
         },
         {
@@ -213,7 +213,7 @@
           "title": "Enteros, coma flotante, precisión y errores numéricos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos"
         },
         {
@@ -222,7 +222,7 @@
           "title": "CPU, instrucciones, registros y ciclos de ejecución",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion"
         },
         {
@@ -231,7 +231,7 @@
           "title": "Memoria, cachés, almacenamiento y jerarquías",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias"
         },
         {
@@ -240,7 +240,7 @@
           "title": "Procesos, hilos, interrupciones y entrada/salida",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida"
         },
         {
@@ -249,7 +249,7 @@
           "title": "Compilación, interpretación, bytecode y JIT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit"
         },
         {
@@ -258,7 +258,7 @@
           "title": "Runtimes, máquinas virtuales y recolección de basura",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura"
         },
         {
@@ -267,7 +267,7 @@
           "title": "Rendimiento, consumo energético y límites físicos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos"
         },
         {
@@ -276,7 +276,7 @@
           "title": "Taller: observar un programa desde el código hasta la máquina",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina"
         },
         {
@@ -285,7 +285,7 @@
           "title": "Proyecto: informe reproducible de comportamiento y recursos",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos"
         }
       ]

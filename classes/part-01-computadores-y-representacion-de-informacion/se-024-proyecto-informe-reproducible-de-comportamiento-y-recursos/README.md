@@ -1,208 +1,185 @@
 # SE-024 — Proyecto: informe reproducible de comportamiento y recursos
 
-[← SE-023 — Taller: observar un programa desde el código hasta la máquina](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-024.html) · [SE-025 — Windows, Linux, macOS y sus modelos operativos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)
+[← SE-023](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-025 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Proyecto reproducible local; no constituye benchmark industrial ni caracterización física del equipo.
+
+## Antes de empezar
+
+`SE-023` te dio un protocolo integrado. Ahora elegirás una pregunta acotada y defenderás
+un informe que una persona pueda reproducir, cuestionar y extender. El resultado cierra
+la Parte 01 y se convertirá en insumo de la Parte 02, donde aprenderás a preparar y
+diagnosticar el entorno que hizo posibles las observaciones.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-023` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Dossier de `SE-023`, artefactos `SE-013`–`SE-022`, Git y Python 3.11+.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Proyecto: informe reproducible de comportamiento y recursos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un informe afirma “la opción B usa menos recursos” sin definir carga, equivalencia,
+entorno ni variación. Nadie puede repetirlo y el resultado se usa para decidir hardware.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Proyecto y informe con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Formularás una pregunta contrastable; diseñarás dos hipótesis; construirás un caso
+mínimo; conservarás datos y procedencia; interpretarás incertidumbre; y responderás una revisión adversarial.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Elemento | Función | Por qué importa |
 | --- | --- | --- |
-| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Informe | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Reproducible | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Comportamiento | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Pregunta | delimita variable y decisión | evita medir sin propósito |
+| Diseño | controla carga e invariantes | permite atribución prudente |
+| Evidencia | conserva datos y entorno | hace posible reproducción |
+| Discusión | separa resultado, inferencia y límite | impide generalización indebida |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Proyecto: informe reproducible de comportamiento y recursos"] --> M["Modelo: Proyecto"]
-    M --> D["Decisión: informe"]
-    D --> E["Evidencia: reproducible"]
-    E --> R["Revisión: comportamiento"]
-    R -->|nueva información| M
+ Q[Pregunta] --> H[Hipótesis rivales]
+ H --> D[Diseño]
+ D --> X[Ejecución]
+ X --> R[Resultados]
+ R --> I[Interpretación y límites]
+ I --> V[Revisión]
+ V --> Q
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: informe reproducible de comportamiento y recursos**.
+La revisión vuelve a la pregunta porque puede descubrir que el experimento no la respondía.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. Una buena pregunta conecta mecanismo y decisión
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+“¿Qué es más rápido?” es insuficiente. “Para archivos UTF-8 de 1–20 MB, ¿procesar en
+streaming reduce pico de memoria Python sin aumentar más de 10 % la latencia bajo este
+runtime?” fija carga, métricas y decisión. El umbral debe justificarse por contexto.
 
-### 1. Proyecto: modelo
+### 2. Hipótesis rivales evitan diseñar solo para confirmar
 
-En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: informe reproducible de comportamiento y recursos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La hipótesis principal predice resultado y mecanismo; una rival ofrece explicación
+alternativa, por ejemplo overhead de lectura frente a materialización. Se escribe qué
+observación debilita cada una antes de ejecutar.
 
-### 2. Informe: mecanismo
+### 3. Reproducibilidad requiere procedencia completa
 
-En esta clase, **informe** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: informe reproducible de comportamiento y recursos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Se registran commit, versión, plataforma expuesta, entrada, semilla, comandos, orden,
+repeticiones, salida y limpieza. Los datos crudos se conservan; el resumen se deriva.
+La ausencia de hardware idéntico no invalida reproducción: obliga a comparar patrones y explicar diferencias.
 
-### 3. Reproducible: evidencia
+### 4. Un resultado local no es una ley
 
-En esta clase, **reproducible** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: informe reproducible de comportamiento y recursos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El informe distingue: observamos X; bajo supuestos inferimos Y; no medimos Z. Se discuten
+amenazas como calentamiento, instrumento, representatividad y cambios de runtime. Un
+resultado inconcluso es válido si el método permite comprender por qué.
 
-### 4. Comportamiento: decisión
+### 5. La revisión forma parte del producto
 
-En esta clase, **comportamiento** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: informe reproducible de comportamiento y recursos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La persona revisora intenta ejecutar, cuestiona unidades e identifica afirmaciones que
+exceden evidencia. El autor responde cambiando texto, diseño o conclusión y conserva el
+desacuerdo. Aprobar no significa coincidir, sino que la cadena pueda inspeccionarse.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: opciones de proyecto sobre Pulso
+
+Puedes investigar representación Unicode y tamaño, enteros/float y error, orden de
+acceso y tiempo, materialización/streaming, o arranque/estado estable. Solo eliges una
+pregunta. El resto sirve como control o límite, no como excusa para un informe enciclopédico.
 
 ## Definiciones de trabajo
 
-- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Informe:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Reproducible:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Comportamiento:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **variable independiente:** factor que se cambia deliberadamente;
+- **variable respuesta:** observación comparada;
+- **control:** condición mantenida o referencia;
+- **amenaza a validez:** mecanismo que ofrece otra explicación;
+- **procedencia:** cadena que permite rastrear evidencia.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Raw data** son observaciones sin resumen. **Replication** repite método; **reproduction**
+puede recalcular desde artefactos según convención declarada. Aquí se exige repetir el procedimiento documentado.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proyecto: informe reproducible de comportamiento y recursos**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Pregunta, dos scripts equivalentes, diez muestras por tamaño y un límite explícito
+constituyen mejor informe que cien métricas sin decisión.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Proyecto: informe reproducible de comportamiento y recursos**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un benchmark de librerías publica código, dataset permitido, versiones y resultados.
+Evita nombres promocionales y permite que mantenedores expliquen diferencias.
 
 ## Práctica guiada
 
-1. Crea `work/SE-024/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe `proposal.md` con pregunta, decisión, hipótesis y riesgos.
+2. Obtén revisión antes de ejecutar.
+3. Construye el caso mínimo y pruebas de equivalencia.
+4. Ejecuta con protocolo y guarda datos crudos en CSV/JSON.
+5. Genera tabla resumen desde esos datos, no a mano.
+6. Redacta método, resultados, discusión y límites.
+7. Pide reproducción y registra cambios en `review.md`.
+8. Verifica limpieza y entrega commit identificable.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proyecto y informe con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Refuta una generalización de tu propio resultado.
+2. Cambia una condición y predice antes de medir.
+3. Escribe una decisión responsable si el resultado es inconcluso.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-024/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-024/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Un revisor clona o copia el directorio, ejecuta el comando documentado, obtiene salida
+válida y puede recalcular la tabla. Debe señalar qué afirmación no puede extenderse a producción.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Debo obtener una mejora?
+No. Se evalúa método, explicación y honestidad, no una dirección deseada.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Puedo instalar herramientas?
+No son necesarias. Una herramienta opcional requiere versión, licencia, autorización y alternativa.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Omite deliberadamente la semilla o versión en un primer intento. Registra el fracaso de
+reproducción y corrige el contrato; no borres la evidencia del aprendizaje.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| pregunta amplia | decisión no delimitada | fija carga, variable, métrica y umbral |
+| solo hay resumen | datos crudos ausentes | conserva y deriva automáticamente |
+| variantes no equivalentes | resultado no verificado | prueba invariantes antes de medir |
+| conclusión universal | contexto borrado | añade amenazas, límites y próxima prueba |
+
+## Entorno y archivos clave
+
+`proposal.md`, `src/`, `tests/`, `data/raw.csv`, `report.md`, `review.md`, `cleanup.md`; Python 3.11+ y biblioteca estándar.
+
+## Seguridad, ética y accesibilidad
+
+Datos sintéticos, carga acotada, sin identificadores de dispositivo innecesarios. El
+reporte ofrece tablas y descripciones; respeta licencias y no desacredita proyectos por una prueba local.
+
+## Transferencia
+
+Reformula la pregunta para otro lenguaje o equipo y distingue qué parte del método permanece.
+
+## Evaluación y evidencia
+
+Aprueba con pregunta contrastable, equivalencia, datos crudos, reproducción, revisión y límites. No puntúa cantidad de gráficos.
+
+## Fuentes
+
+- [Python documentation](https://docs.python.org/3/) respalda las APIs del proyecto.
+- [Unicode Standard](https://www.unicode.org/versions/latest/) y [RISC-V specifications](https://docs.riscv.org/reference/isa/) respaldan los contratos elegidos.
+- [Software Carbon Intensity](https://greensoftware.foundation/standards/sci/) delimita afirmaciones energéticas si el proyecto las considera.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proyecto: informe reproducible de comportamiento y recursos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-025`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El proyecto no certifica hardware ni producción. `SE-025` empieza a estudiar cómo el sistema operativo ofrece y gobierna el entorno observado.
 
 ---
-
-[← SE-023 — Taller: observar un programa desde el código hasta la máquina](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-024.html) · [SE-025 — Windows, Linux, macOS y sus modelos operativos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)
+[← SE-023](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-025 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)

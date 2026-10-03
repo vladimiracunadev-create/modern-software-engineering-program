@@ -1,208 +1,185 @@
 # SE-020 — Compilación, interpretación, bytecode y JIT
 
-[← SE-019 — Procesos, hilos, interrupciones y entrada/salida](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-020.html) · [SE-021 — Runtimes, máquinas virtuales y recolección de basura →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)
+[← SE-019](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-021 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Inspecciona CPython 3.11+; su bytecode es detalle de implementación y puede cambiar.
+
+## Antes de empezar
+
+Hasta ahora trataste Pulso como fuente que “se ejecuta”. `SE-017` advirtió que una línea
+no es una instrucción. Esta clase abre las traducciones entre texto, estructura,
+representaciones intermedias y máquina. `SE-021` estudiará los servicios que permanecen activos durante esa ejecución.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-019` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+ISA y bytecode distinguidos en `SE-017`, procesos de `SE-019`, Python 3.11+.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Compilación, interpretación, bytecode y JIT**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+“Python es interpretado y C compilado” se usa para explicar rendimiento. La frase
+oculta que ambos atraviesan etapas, que CPython compila bytecode y que un runtime puede
+compilar en ejecución. La decisión técnica nace de una dicotomía falsa.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Compilación y interpretación con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Seguirás análisis léxico/sintáctico, AST, IR, generación, enlace y carga; distinguirás
+estrategia de traducción y momento; inspeccionarás AST/bytecode; explicarás límites de JIT.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Compilación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Interpretación | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Bytecode | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| JIT | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Frontend | valida sintaxis y produce estructura | separa lenguaje de máquina destino |
+| IR/bytecode | conserva operaciones en formato intermedio | habilita portabilidad y optimización |
+| AOT/JIT | elige cuándo generar código | intercambia arranque, adaptación y costo |
+| Enlace/carga | resuelve dependencias y prepara proceso | explica fallos posteriores a compilar |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Compilación, interpretación, bytecode y JIT"] --> M["Modelo: Compilación"]
-    M --> D["Decisión: interpretación"]
-    D --> E["Evidencia: bytecode"]
-    E --> R["Revisión: JIT"]
-    R -->|nueva información| M
+ S[Fuente] --> A[Tokens y AST]
+ A --> I[IR o bytecode]
+ I --> O[Optimización]
+ O --> C[Código destino]
+ C --> L[Enlace y carga]
+ L --> X[Ejecución]
+ X -->|perfil JIT| O
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Compilación, interpretación, bytecode y JIT**.
+No todos los sistemas usan todas las cajas ni en ese orden. El bucle muestra que un JIT
+puede usar evidencia de ejecución; no garantiza mejor rendimiento.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. El frontend transforma texto en estructura con significado
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+Lexer y parser reconocen unidades y gramática; el AST descarta detalles de superficie y
+conserva estructura. Análisis semántico resuelve nombres, tipos o reglas según lenguaje.
+Un error de sintaxis ocurre antes de ejecutar la rama, aunque algunos entornos difieran en cuándo procesan el archivo.
 
-### 1. Compilación: modelo
+### 2. Una representación intermedia crea una nueva interfaz
 
-En esta clase, **Compilación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compilación, interpretación, bytecode y JIT**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+IR y bytecode permiten analizar y transformar sin atarse inmediatamente a una ISA.
+Pueden ser portables o específicos de versión. El bytecode de CPython está dirigido a
+su máquina virtual y no es contrato estable para persistencia o interoperabilidad.
 
-### 2. Interpretación: mecanismo
+### 3. Optimizar preserva semántica dentro de supuestos
 
-En esta clase, **interpretación** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compilación, interpretación, bytecode y JIT**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Eliminar trabajo, plegar constantes o reasignar registros cambia implementación sin
+cambiar comportamiento permitido. Lenguajes con efectos, reflexión o excepciones
+limitan transformaciones. “Optimizado” no significa menor latencia en toda carga; puede
+aumentar tamaño o tiempo de compilación.
 
-### 3. Bytecode: evidencia
+### 4. Compilar e interpretar describen mecanismos combinables
 
-En esta clase, **bytecode** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compilación, interpretación, bytecode y JIT**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un intérprete ejecuta una representación mediante otro programa. AOT genera artefactos
+antes de ejecutar. Un JIT compila durante ejecución, usando información observada. Una
+VM puede interpretar al inicio y compilar rutas calientes después. La elección considera
+arranque, pico, portabilidad, memoria, depuración y distribución.
 
-### 4. JIT: decisión
+### 5. Enlace y carga completan el camino
 
-En esta clase, **JIT** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compilación, interpretación, bytecode y JIT**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Compilar una unidad no resuelve todas las dependencias. Enlace combina símbolos y
+artefactos; carga mapea código y datos, resuelve bibliotecas y prepara estado. Versiones,
+ABI y rutas pueden fallar aunque el fuente sea correcto. Empaquetado es parte del contrato.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: tres representaciones de Pulso
+
+Se elige una función `summarize(values)`. `ast.dump` muestra la estructura;
+`dis.dis` muestra bytecode del intérprete actual; la ejecución produce resultados. La
+clase no afirma qué código nativo termina ejecutando CPython. Cada artefacto responde una pregunta diferente.
 
 ## Definiciones de trabajo
 
-- **Compilación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Interpretación:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Bytecode:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **JIT:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **AST:** árbol de estructura sintáctica relevante;
+- **IR:** representación diseñada para análisis o traducción;
+- **bytecode:** instrucciones de una máquina virtual;
+- **AOT:** traducción antes de ejecutar;
+- **JIT:** traducción durante ejecución.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Frontend/backend** separan lenguaje fuente y destino. **Linker** resuelve artefactos.
+**Loader** prepara ejecución. **Hot path** es ruta observada con alta actividad.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Compilación, interpretación, bytecode y JIT**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`python -m ast` y `python -m dis` ofrecen vistas diferentes del mismo fuente. Cambiar
+versión puede cambiar bytecode sin cambiar el resultado del lenguaje.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Compilación, interpretación, bytecode y JIT**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Una función JIT tarda al inicio y mejora después de calentamiento. Un benchmark que
+mide una sola llamada favorece AOT; otro que descarta arranque favorece estado estable. Se reportan ambos según uso.
 
 ## Práctica guiada
 
-1. Crea `work/SE-020/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `translation_probe.py` con una función pura de Pulso.
+2. Guarda AST con `ast.dump(..., indent=2)` y bytecode con `dis`.
+3. Modifica una constante y un `if`; compara qué representación cambia.
+4. Genera `.pyc` con `py_compile` en el directorio de práctica.
+5. Registra versión y advierte que `.pyc` no es artefacto portable universal.
+6. Elimina `__pycache__` y documenta limpieza.
 
 ## Ejercicios
 
-1. **Fundamental:** define Compilación y interpretación con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Ubica tres errores en etapa de sintaxis, enlace/carga y ejecución.
+2. Compara AOT y JIT para CLI breve y servidor duradero.
+3. Explica por qué menos bytecode no garantiza menos instrucciones físicas.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-020/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-020/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona reconstruye cuatro etapas con tus artefactos y clasifica cada afirmación
+por representación. Debe detectar una conclusión que el bytecode no permite.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Un lenguaje es compilado o interpretado?
+La especificación y sus implementaciones pueden admitir múltiples estrategias.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿El JIT siempre optimiza?
+No; paga compilación y necesita perfiles representativos, memoria y tiempo de vida suficiente.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Conserva un `.pyc`, cambia versión de intérprete solo si ya está instalada y prueba
+cargarlo. No fuerces compatibilidad: regenera desde fuente y documenta procedencia.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| lenguaje clasificado por una palabra | etapas combinadas ocultas | dibuja traducción real de implementación |
+| bytecode = máquina | niveles confundidos | nombra VM y versión |
+| benchmark ignora calentamiento | JIT/arranque omitido | mide fases por separado |
+| compilar = desplegar | enlace, carga y dependencias omitidos | inventaría artefactos y runtime |
+
+## Entorno y archivos clave
+
+Python 3.11+, `ast`, `dis`, `py_compile`; `translation_probe.py`, `ast.txt`, `bytecode.txt`, `map.md`.
+
+## Seguridad, ética y accesibilidad
+
+Inspecciona solo fuente propio; no cargues bytecode recibido. Publica representaciones textuales y versiones.
+
+## Transferencia
+
+Compara el mapa con JVM o LLVM usando su especificación, sin asumir equivalencia uno a uno.
+
+## Evaluación y evidencia
+
+Se exige mapa por etapas, artefactos versionados, comparación y límite sobre código nativo.
+
+## Fuentes
+
+- [Python `ast`](https://docs.python.org/3/library/ast.html), [`dis`](https://docs.python.org/3/library/dis.html) y [`py_compile`](https://docs.python.org/3/library/py_compile.html) definen las vistas usadas.
+- [LLVM documentation](https://llvm.org/docs/) describe IR, generación y JIT.
+- [JVM Specification](https://docs.oracle.com/javase/specs/) ofrece un formato de clase y VM especificados.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Compilación, interpretación, bytecode y JIT**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-021`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No implementa compilador ni inspecciona código nativo. `SE-021` estudia runtime y memoria automática.
 
 ---
-
-[← SE-019 — Procesos, hilos, interrupciones y entrada/salida](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-020.html) · [SE-021 — Runtimes, máquinas virtuales y recolección de basura →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)
+[← SE-019](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-021 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)

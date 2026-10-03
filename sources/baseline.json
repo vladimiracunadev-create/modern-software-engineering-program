@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-09-30",
+  "verified_on": "2026-10-02",
   "policy": "Prefer primary standards, official specifications and original project documentation. Mark drafts and historical material explicitly.",
   "sources": [
     {
@@ -10,6 +10,54 @@
       "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
       "status": "current",
       "used_for": ["professional-body", "coverage", "curriculum"]
+    },
+    {
+      "id": "RISCV-ISA",
+      "title": "RISC-V Ratified ISA Specifications",
+      "authority": "RISC-V International",
+      "url": "https://docs.riscv.org/reference/isa/",
+      "status": "living",
+      "used_for": ["computer-architecture", "instructions", "memory-model"]
+    },
+    {
+      "id": "UNICODE-17",
+      "title": "The Unicode Standard, Version 17.0",
+      "authority": "Unicode Consortium",
+      "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+      "status": "current",
+      "used_for": ["text", "encoding", "normalization"]
+    },
+    {
+      "id": "PYTHON-3",
+      "title": "Python 3 Documentation",
+      "authority": "Python Software Foundation",
+      "url": "https://docs.python.org/3/",
+      "status": "living",
+      "used_for": ["runtime-observation", "reproducible-labs", "measurement"]
+    },
+    {
+      "id": "JVM-SE25",
+      "title": "The Java Virtual Machine Specification, Java SE 25",
+      "authority": "Oracle and JCP",
+      "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/",
+      "status": "current-stable-reference",
+      "used_for": ["virtual-machines", "runtime-data", "bytecode"]
+    },
+    {
+      "id": "LLVM-DOCS",
+      "title": "LLVM Documentation",
+      "authority": "LLVM Project",
+      "url": "https://llvm.org/docs/",
+      "status": "living",
+      "used_for": ["intermediate-representation", "code-generation", "jit"]
+    },
+    {
+      "id": "GSF-SCI",
+      "title": "Software Carbon Intensity Specification",
+      "authority": "Green Software Foundation",
+      "url": "https://greensoftware.foundation/standards/sci/",
+      "status": "current",
+      "used_for": ["energy-boundary", "carbon-intensity", "functional-unit"]
     },
     {
       "id": "ACM-IEEE-SE2014",

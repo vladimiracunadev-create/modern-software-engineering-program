@@ -1,208 +1,193 @@
 # SE-015 — Texto, Unicode, codificaciones y mojibake
 
-[← SE-014 — Bits, bytes, bases numéricas y representación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-015.html) · [SE-016 — Enteros, coma flotante, precisión y errores numéricos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md)
+[← SE-014](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-016 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Laboratorio con texto sintético; no es una introducción completa a lingüística ni tipografía.
+
+## Antes de empezar
+
+`SE-014` mostró que los bits necesitan un contrato. Ahora Pulso debe conservar
+`Matrícula José ✓`. La pantalla parece mostrar “caracteres”, pero el sistema intercambia
+bytes. Construirás la cadena carácter → punto de código → codificación → bytes y la
+usarás para provocar y reparar mojibake de forma explicada.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-014` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Bits, bytes y hexadecimal de `SE-014`; Python 3.11+; archivos desechables.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Texto, Unicode, codificaciones y mojibake**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un CSV correcto llega como `MatrÃ­cula`. Reemplazar visualmente `Ã­` por `í` puede
+corromper otros datos porque el síntoma procede de decodificar UTF-8 como otra
+codificación y volver a serializar. Se necesita reconstruir la transformación.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Texto y Unicode con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Distinguirás carácter, grafema, punto y unidad de código; explicarás UTF-8; demostrarás
+ida y vuelta; compararás normalizaciones; y diagnosticarás mojibake conservando bytes.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Texto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Unicode | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Codificaciones | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Mojibake | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Modelo Unicode | asigna puntos de código a caracteres abstractos | permite intercambio entre escrituras |
+| UTF-8 | transforma puntos en bytes únicos | sostiene archivos y protocolos modernos |
+| Normalización | compara secuencias equivalentes según forma | evita claves visualmente iguales pero distintas |
+| Mojibake | bytes se decodifican con contrato incorrecto | permite reparar causa, no apariencia |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Texto, Unicode, codificaciones y mojibake"] --> M["Modelo: Texto"]
-    M --> D["Decisión: Unicode"]
-    D --> E["Evidencia: codificaciones"]
-    E --> R["Revisión: mojibake"]
-    R -->|nueva información| M
+ C[Carácter abstracto í] --> P[Punto U+00ED]
+ P --> E[UTF-8]
+ E --> B[Bytes C3 AD]
+ B -->|UTF-8| C
+ B -->|Windows-1252| X[Texto mojibake Ã­]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Texto, Unicode, codificaciones y mojibake**.
+La última flecha muestra el mecanismo del síntoma. El dibujo simplifica grafemas: lo
+visible puede contener varios puntos de código.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. Texto visible no equivale a una unidad técnica
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+Un carácter abstracto pertenece al repertorio Unicode. Un **punto de código** es su
+número. Una **unidad de código** es una unidad de una forma como UTF-16. Un **grafema**
+es una unidad que una persona percibe como carácter y puede reunir varios puntos. Por
+eso `len()` depende del modelo del lenguaje y no siempre cuenta símbolos percibidos.
 
-### 1. Texto: modelo
+### 2. Unicode es repertorio; UTF-8 es una forma de codificación
 
-En esta clase, **Texto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Texto, Unicode, codificaciones y mojibake**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Unicode asigna puntos de código. UTF-8 los transforma en secuencias de uno a cuatro
+bytes y conserva ASCII como bytes iguales. Es reversible para secuencias válidas. El
+orden de bytes del procesador no altera UTF-8 porque se interpreta byte a byte. Un BOM
+en UTF-8 puede actuar como firma, no como indicador de endianess.
 
-### 2. Unicode: mecanismo
+### 3. Codificar y decodificar son operaciones inversas bajo el mismo contrato
 
-En esta clase, **Unicode** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Texto, Unicode, codificaciones y mojibake**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+`text.encode('utf-8')` produce bytes; `data.decode('utf-8')` produce texto. Sin una
+codificación declarada, los bytes no contienen una etiqueta universal. Las políticas
+`strict`, `replace` o `ignore` cambian si el error se detiene, se hace visible o se
+pierde. Ignorar puede ser aceptable en visualización no crítica, pero es peligroso para
+identidades o registros auditables.
 
-### 3. Codificaciones: evidencia
+### 4. Normalización trata equivalencias, no apariencia universal
 
-En esta clase, **codificaciones** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Texto, Unicode, codificaciones y mojibake**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+`é` puede ser U+00E9 o `e` más un acento combinante. NFC y NFD transforman entre formas
+canónicas; NFKC/NFKD aplican compatibilidad y pueden cambiar distinciones significativas.
+Normalizar ayuda a comparar, pero no reemplaza reglas de dominio ni resuelve caracteres
+visualmente similares de escrituras diferentes.
 
-### 4. Mojibake: decisión
+### 5. Mojibake conserva un rastro causal
 
-En esta clase, **mojibake** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Texto, Unicode, codificaciones y mojibake**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si bytes UTF-8 `C3 AD` se decodifican como Windows-1252 aparecen `Ã­`. Si ese texto se
+guarda en UTF-8, nace una segunda capa. Reparar exige conocer o inferir con evidencia la
+cadena; aplicar sustituciones globales puede dañar texto legítimo. Se conserva copia,
+se prueba en muestra y se valida round-trip.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: confirmar una matrícula sin perder el nombre
+
+Pulso serializa JSON con UTF-8 y declara el encoding al abrir archivos. Guarda texto
+normalizado solo si el dominio lo exige y conserva el original cuando la forma importa.
+El laboratorio compara `José`, `Jose\u0301` y `✓`; registra puntos, nombres Unicode,
+bytes y longitud en cada nivel.
 
 ## Definiciones de trabajo
 
-- **Texto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Unicode:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Codificaciones:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Mojibake:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **punto de código:** valor del espacio Unicode;
+- **codificación:** transformación entre texto modelado y unidades binarias;
+- **grafema:** unidad aproximada percibida por una persona;
+- **normalización:** conversión a una forma Unicode definida;
+- **mojibake:** texto ilegible por interpretación incompatible de bytes.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Code unit** es unidad de una forma de codificación. **BOM** es U+FEFF al inicio bajo
+ciertos protocolos. **Replacement character** U+FFFD hace visible una decodificación no
+recuperada.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Texto, Unicode, codificaciones y mojibake**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`'í'.encode('utf-8').hex()` devuelve `c3ad`. Decodificar esos bytes como latin-1 crea
+dos puntos de código; volver a codificar no recupera significado sin conocer el error.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Texto, Unicode, codificaciones y mojibake**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Una importación recibe CSV sin charset. En vez de probar hasta “verse bien”, se obtiene
+metadato del productor, se conserva original, se valida muestra multilingüe y se
+rechazan secuencias inválidas con informe de fila.
 
 ## Práctica guiada
 
-1. Crea `work/SE-015/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `unicode_probe.py` con `unicodedata.name`, `normalize`, `encode` y `decode`.
+2. Inspecciona `Matrícula José ✓` y la forma descompuesta de `é`.
+3. Demuestra UTF-8 → latin-1/Windows-1252 → mojibake sin sobrescribir el original.
+4. Compara NFC, NFD y longitudes; explica qué cambia y qué no.
+5. Prueba `strict` y `replace` con bytes inválidos.
+6. Entrega `text-cases.json`, `observations.md` y procedimiento de recuperación.
 
 ## Ejercicios
 
-1. **Fundamental:** define Texto y Unicode con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Explica por qué “Unicode de 16 bits” es incorrecto.
+2. Diseña un contrato para CSV con encoding y política de error.
+3. Analiza cuándo NFKC dañaría una identidad o código.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-015/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-015/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona debe reconstruir bytes originales de dos casos y decir cuál no puede
+repararse sin información adicional. No aprueba una tabla de reemplazos visuales.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿UTF-8 representa todos los caracteres Unicode?
+Sí, salvo puntos sustitutos que no son valores escalares codificables.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Normalizar arregla mojibake?
+No. Opera sobre texto ya decodificado; el error de encoding requiere reconstruir bytes.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Decodifica bytes UTF-8 con una codificación incompatible. Captura bytes antes y después,
+explica cada transformación y recupera solo desde una copia verificable.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| `len()` se interpreta como caracteres visibles | puntos y grafemas confundidos | declara la unidad que cuentas |
+| texto “arreglado” con reemplazos | se atacó apariencia | reconstruye codificación y conserva original |
+| `errors='ignore'` en datos críticos | pérdida silenciosa | usa `strict` y ruta de cuarentena |
+| normalización universal | dominio no considerado | elige forma y campos con criterio explícito |
+
+## Entorno y archivos clave
+
+Python 3.11+, `unicodedata`, `pathlib`; `unicode_probe.py`, `text-cases.json`, `observations.md`. Limpieza local por directorio.
+
+## Seguridad, ética y accesibilidad
+
+No uses nombres reales. Conservar correctamente una escritura es una cuestión de
+identidad e inclusión. No uses transliteración como sustituto automático del original.
+
+## Transferencia
+
+Repite con emoji compuesto y una escritura no latina; identifica puntos, grafema y bytes.
+
+## Evaluación y evidencia
+
+Se exige cadena reversible, normalización explicada, error controlado y política de entrada.
+
+## Fuentes
+
+- [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) define modelo y propiedades.
+- [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) explica UTF-8, UTF-16 y BOM.
+- [Unicode Normalization Annex #15](https://www.unicode.org/reports/tr15/) define las formas de normalización.
+- [Python Unicode HOWTO](https://docs.python.org/3/howto/unicode.html) respalda el laboratorio.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Texto, Unicode, codificaciones y mojibake**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-016`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubre segmentación completa ni seguridad de identificadores. `SE-016` estudia números y precisión.
 
 ---
-
-[← SE-014 — Bits, bytes, bases numéricas y representación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-015.html) · [SE-016 — Enteros, coma flotante, precisión y errores numéricos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md)
+[← SE-014](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-016 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md)

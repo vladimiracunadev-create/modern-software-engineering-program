@@ -1,208 +1,186 @@
 # SE-021 — Runtimes, máquinas virtuales y recolección de basura
 
-[← SE-020 — Compilación, interpretación, bytecode y JIT](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-021.html) · [SE-022 — Rendimiento, consumo energético y límites físicos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)
+[← SE-020](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-022 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Observa CPython 3.11+ y contrasta con una VM especificada; no generaliza su gestor de memoria a todos los runtimes.
+
+## Antes de empezar
+
+`SE-020` dejó Pulso convertido a AST y bytecode. Esas representaciones necesitan un
+entorno que cargue módulos, cree objetos, maneje llamadas y errores y administre memoria.
+Hoy estudiarás ese runtime. `SE-022` medirá sus costos sin confundirlos con el algoritmo.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-020` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Proceso, pila conceptual, bytecode e incertidumbre de medición (`SE-019`–`SE-020`).
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Runtimes, máquinas virtuales y recolección de basura**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La memoria de un servicio crece y el equipo concluye “el garbage collector tiene una
+fuga”. Puede existir retención alcanzable, caché intencional, fragmentación o memoria
+nativa. Forzar colecciones reduce momentáneamente una señal sin explicar la causa.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Runtimes y máquinas con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Explicarás servicios de runtime, pila y heap; distinguirás especificación de VM e
+implementación; compararás conteo de referencias y trazado; observarás asignación y
+alcanzabilidad; separarás memoria de recursos externos.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Runtimes | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Máquinas | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Virtuales | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Recolección | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Runtime | implementa servicios no escritos en cada programa | sostiene tipos, errores y carga |
+| VM | define una máquina abstracta | desacopla lenguaje y hardware |
+| Pila/heap | separan llamadas y objetos de vida variable | orientan diagnóstico de memoria |
+| Recolección | recupera objetos inalcanzables | intercambia pausas, throughput y memoria |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Runtimes, máquinas virtuales y recolección de basura"] --> M["Modelo: Runtimes"]
-    M --> D["Decisión: máquinas"]
-    D --> E["Evidencia: virtuales"]
-    E --> R["Revisión: recolección"]
-    R -->|nueva información| M
+flowchart TD
+ B[Bytecode de Pulso] --> V[Máquina virtual]
+ V --> S[Pilas y marcos]
+ V --> H[Heap de objetos]
+ H --> G[Gestión automática]
+ V --> N[Servicios del sistema]
+ G --> H
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Runtimes, máquinas virtuales y recolección de basura**.
+El mapa separa áreas lógicas. Una especificación puede no imponer su ubicación física ni algoritmo de GC.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. El runtime hace visible una semántica
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+Un runtime implementa representación de valores, llamadas, excepciones, carga,
+resolución de nombres, asignación y otras convenciones. Puede incluir intérprete, JIT,
+bibliotecas y enlaces nativos. Su trabajo explica por qué dos implementaciones del mismo
+lenguaje pueden tener perfiles distintos sin violar la semántica.
 
-### 1. Runtimes: modelo
+### 2. Una máquina virtual es un contrato abstracto
 
-En esta clase, **Runtimes** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Runtimes, máquinas virtuales y recolección de basura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La JVM especifica tipos, class files, instrucciones y áreas de ejecución, pero deja a la
+implementación políticas como el algoritmo de recolección. CPython tiene una máquina de
+bytecode propia con detalles distintos. “Corre en una VM” no informa automáticamente
+aislamiento de seguridad, portabilidad total ni costo.
 
-### 2. Máquinas: mecanismo
+### 3. Marcos y heap expresan vidas diferentes
 
-En esta clase, **máquinas** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Runtimes, máquinas virtuales y recolección de basura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada llamada crea estado lógico: parámetros, locales, retorno y operandos. Objetos cuya
+vida no coincide con una llamada se asignan en un heap administrado. Optimización puede
+evitar o mover asignaciones, por lo que este modelo orienta razonamiento pero no prueba
+ubicación física de cada valor.
 
-### 3. Virtuales: evidencia
+### 4. Recolectar significa demostrar inalcanzabilidad según un modelo
 
-En esta clase, **virtuales** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Runtimes, máquinas virtuales y recolección de basura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Conteo de referencias recupera cuando el conteo llega a cero, pero ciclos requieren
+otro mecanismo. Un recolector por trazado parte de raíces y marca alcanzables; los demás
+pueden recuperarse. Hipótesis generacionales usan el patrón de que muchos objetos mueren
+jóvenes. Cada estrategia intercambia pausas, memoria, CPU y complejidad.
 
-### 4. Recolección: decisión
+### 5. Memoria automática no administra todos los recursos
 
-En esta clase, **recolección** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Runtimes, máquinas virtuales y recolección de basura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un archivo, socket o transacción tiene vida externa. Que un objeto quede inalcanzable no
+garantiza cierre oportuno. Se usan context managers y cierre explícito. Finalizadores
+pueden ejecutarse tarde o bajo restricciones y no sustituyen propiedad clara.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: objetos temporales de Pulso
+
+Pulso crea miles de diccionarios temporales al parsear eventos. `tracemalloc` compara
+dos versiones: conservar todos en una lista y procesar en streaming. La primera mantiene
+referencias alcanzables; llamar `gc.collect()` no debe liberarlas. El rediseño reduce
+retención y conserva el resultado.
 
 ## Definiciones de trabajo
 
-- **Runtimes:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Máquinas:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Virtuales:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Recolección:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **runtime:** servicios que implementan ejecución de un lenguaje;
+- **máquina virtual:** arquitectura abstracta ejecutada por software o hardware;
+- **raíz:** referencia inicial para un trazado de alcanzabilidad;
+- **objeto alcanzable:** objeto conectado desde raíces según referencias;
+- **finalización:** acción asociada al fin de vida, no garantía de liberación inmediata.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Heap** almacena objetos de vida dinámica. **Frame** representa una llamada. **Pause**
+es intervalo de trabajo del recolector que puede afectar la aplicación.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Runtimes, máquinas virtuales y recolección de basura**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Dos objetos se referencian mutuamente. Quitar nombres externos deja un ciclo: conteo de
+referencias solo no llega a cero; un recolector de ciclos puede detectarlo.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Runtimes, máquinas virtuales y recolección de basura**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un servicio guarda respuestas en una caché sin límite. Los objetos son alcanzables; no
+es fallo del GC. Se define tamaño, expiración, métrica y comportamiento al saturarse.
 
 ## Práctica guiada
 
-1. Crea `work/SE-021/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `runtime_probe.py` con objetos temporales y una versión que los retiene.
+2. Mide instantáneas con `tracemalloc`; registra versión y tamaño de entrada.
+3. Usa `gc.get_count()` y `gc.collect()` solo como observación documentada.
+4. Explica por qué la lista retenida impide liberar.
+5. Abre un archivo con `with` y contrasta vida del recurso con la del objeto.
+6. Entrega `object-lifecycle.md`, `snapshots.txt`, `runtime_probe.py`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Runtimes y máquinas con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Dibuja raíces y objetos de un ciclo.
+2. Compara una pausa corta frecuente con otra larga infrecuente según carga.
+3. Explica por qué una VM no es necesariamente un sandbox.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-021/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-021/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Otra persona identifica qué objetos permanecen alcanzables y reproduce la diferencia de
+pico. Debe proponer dos explicaciones alternativas antes de culpar al GC.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿`del` libera memoria inmediatamente?
+Elimina una referencia; el efecto depende de referencias restantes, runtime y asignador.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿GC elimina fugas?
+Recupera objetos inalcanzables; una referencia olvidada conserva el objeto legítimamente.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Retén objetos en una lista global y fuerza GC. Registra que siguen alcanzables, elimina
+la causa y vuelve a medir. No uses entradas capaces de agotar memoria.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| toda memoria creciente = fuga GC | causas no separadas | inspecciona alcanzabilidad, caché y memoria nativa |
+| `del` = liberación física | niveles confundidos | habla de referencias y política del runtime |
+| finalizador para cerrar recursos | oportunidad no garantizada | usa propiedad y context manager |
+| VM = seguridad | abstracción confundida con aislamiento | evalúa permisos y sandbox real |
+
+## Entorno y archivos clave
+
+Python 3.11+, `gc`, `tracemalloc`; entradas acotadas. Limpieza: cerrar recursos y eliminar `work/SE-021/`.
+
+## Seguridad, ética y accesibilidad
+
+No fuerces agotamiento ni inspecciones datos sensibles en snapshots. Publica tablas textuales y unidades.
+
+## Transferencia
+
+Lee la JVM Specification y separa lo prescrito de la política de un recolector concreto.
+
+## Evaluación y evidencia
+
+Se exigen grafo de alcanzabilidad, medición acotada, manejo de recurso y límites.
+
+## Fuentes
+
+- [Python `gc`](https://docs.python.org/3/library/gc.html) y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas.
+- [JVM Specification, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5) distingue contrato y algoritmo no prescrito.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Runtimes, máquinas virtuales y recolección de basura**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-022`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No perfila memoria nativa ni compara recolectores productivos. `SE-022` diseña mediciones de rendimiento y energía.
 
 ---
-
-[← SE-020 — Compilación, interpretación, bytecode y JIT](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-021.html) · [SE-022 — Rendimiento, consumo energético y límites físicos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)
+[← SE-020](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-022 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)

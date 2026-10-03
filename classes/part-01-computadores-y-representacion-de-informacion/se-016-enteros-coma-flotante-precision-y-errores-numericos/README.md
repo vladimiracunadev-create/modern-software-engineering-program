@@ -1,208 +1,191 @@
 # SE-016 — Enteros, coma flotante, precisión y errores numéricos
 
-[← SE-015 — Texto, Unicode, codificaciones y mojibake](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-016.html) · [SE-017 — CPU, instrucciones, registros y ciclos de ejecución →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md)
+[← SE-015](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-017 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Usa Python para observar modelos numéricos; otros lenguajes tienen rangos y reglas diferentes.
+
+## Antes de empezar
+
+Ya sabes que los bits necesitan interpretación. Pulso calcula el promedio de tiempos y
+un importe ficticio. Si usa el mismo tipo para ambos, puede mostrar `0.30000000000000004`
+o acumular una cantidad incorrecta. Esta clase conecta representación con decisión de
+dominio antes de seguir las operaciones hasta la CPU en `SE-017`.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-015` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, terminal y herramientas del sistema.
+Representación binaria de `SE-014`, Python 3.11+, fracciones y exponentes básicos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Enteros, coma flotante, precisión y errores numéricos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un sistema compara `0.1 + 0.2 == 0.3` y rechaza una conciliación. Redondear la pantalla
+oculta el síntoma, pero no define cómo calcular, comparar ni acumular.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Enteros y coma con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cuaderno reproducible de representación y recursos** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir el modelo de la máquina desde una sola observación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Explicarás rango de enteros fijos, representación binaria aproximada, redondeo, NaN e
+infinito; elegirás entre entero escalado, decimal y float; y diseñarás pruebas de frontera.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Por qué importa |
 | --- | --- | --- |
-| Enteros | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Coma | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Flotante | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Precisión | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Enteros | rango depende de ancho y signo | controla IDs, contadores y overflow |
+| Coma flotante | significando y exponente aproximan reales | permite gran rango con precisión finita |
+| Redondeo | asigna resultados no representables | acumula error y afecta comparaciones |
+| Modelo de dominio | elige representación por invariantes | evita usar float por costumbre |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Enteros, coma flotante, precisión y errores numéricos"] --> M["Modelo: Enteros"]
-    M --> D["Decisión: coma"]
-    D --> E["Evidencia: flotante"]
-    E --> R["Revisión: precisión"]
-    R -->|nueva información| M
+ D[Valor del dominio] --> M{Modelo}
+ M --> I[Entero escalado]
+ M --> F[Binario flotante]
+ M --> C[Decimal]
+ I --> O[Operaciones y límites]
+ F --> O
+ C --> O
+ O --> V[Validación]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Enteros, coma flotante, precisión y errores numéricos**.
+No existe un tipo mejor en absoluto. La decisión depende de rango, exactitud, operaciones, interoperabilidad y costo.
 
 ## Conceptos y decisiones
 
-Un computador representa información mediante estados discretos y ejecuta instrucciones sobre jerarquías con límites de precisión, capacidad, latencia y energía.
+### 1. Los enteros de máquina tienen ancho; Python abstrae ese límite
 
-La pregunta rectora de esta parte es: **¿cómo se representa, transforma y observa la información en cada nivel?** La respuesta debe
-apoyarse en **bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina**.
+En formatos fijos, rango y overflow siguen las reglas de `SE-014`. Python expande sus
+enteros mientras haya memoria, pero al serializar, llamar código nativo o usar una base
+de datos reaparece el ancho. Probar solo en Python puede ocultar incompatibilidad con un
+campo de 32 bits.
 
-### 1. Enteros: modelo
+### 2. Coma flotante distribuye precisión sobre un rango amplio
 
-En esta clase, **Enteros** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Enteros, coma flotante, precisión y errores numéricos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+IEEE 754 representa valores mediante signo, exponente y significando. Entre valores
+representables hay huecos que crecen con la magnitud. `0.1` no tiene expansión binaria
+finita, por lo que se guarda el valor representable más cercano bajo una regla de
+redondeo. La salida corta de Python es una representación decimal conveniente, no los
+bits exactos.
 
-### 2. Coma: mecanismo
+### 3. Error de representación no significa implementación defectuosa
 
-En esta clase, **coma** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Enteros, coma flotante, precisión y errores numéricos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La operación puede ser correctamente redondeada y diferir del número real ideal. Sumar
+muchos términos, restar magnitudes cercanas o mezclar escalas cambia el error. Reordenar
+operaciones puede cambiar el resultado. Para comparar floats se usa una tolerancia
+justificada por escala y dominio; una constante universal crea falsos positivos.
 
-### 3. Flotante: evidencia
+### 4. NaN, infinito y cero con signo requieren política
 
-En esta clase, **flotante** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Enteros, coma flotante, precisión y errores numéricos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+IEEE 754 incluye infinitos, NaN y ceros con signo. NaN no es igual a sí mismo y puede
+propagarse; usarlo como dato faltante sin política mezcla ausencia con resultado
+indefinido. Validar entrada y salida evita que un valor especial atraviese decisiones
+que esperaban números finitos.
 
-### 4. Precisión: decisión
+### 5. Dinero, mediciones y probabilidades piden modelos distintos
 
-En esta clase, **precisión** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿cómo se representa, transforma y observa la información en cada nivel?» y demostrarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Enteros, coma flotante, precisión y errores numéricos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Para dinero, entero en unidad mínima o decimal puede conservar reglas legales; aun así
+se debe fijar redondeo y escala. Float es adecuado para muchas mediciones científicas si
+se modela incertidumbre. Decimal no vuelve exacta una medición incierta ni elimina
+overflow o costo. La representación se elige por invariantes, no por apariencia.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+## Caso conductor: promedio y tarifa de Pulso
+
+Pulso calcula latencia media con float y conserva muestras originales; no usa igualdad
+exacta. Una tarifa ficticia se representa en centavos enteros. El informe declara rango,
+unidad y política de redondeo. Cambiar a Decimal se evalúa por contrato externo, no para
+“arreglar todos los decimales”.
 
 ## Definiciones de trabajo
 
-- **Enteros:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Coma:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Flotante:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
-- **Precisión:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina.
+- **precisión:** cantidad de información significativa representada;
+- **rango:** intervalo de magnitudes disponibles;
+- **redondeo:** selección de un valor representable;
+- **ULP:** distancia local entre valores flotantes consecutivos;
+- **NaN:** valor especial para resultados no numéricos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Glosario
+
+**Significando** contiene dígitos significativos. **Overflow/underflow** exceden rango
+alto o pequeño. **Cancelación** pierde información al restar valores cercanos.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Enteros, coma flotante, precisión y errores numéricos**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`0.1 + 0.2` produce un float cercano a 0.3. `math.isclose` puede comparar mediciones con
+tolerancia; para tres pagos de 10 centavos se prefieren `10 + 10 + 10` centavos.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Enteros, coma flotante, precisión y errores numéricos**. Parte de esta pregunta: **¿cómo se representa, transforma y observa la información en cada nivel?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando bytes, mediciones repetibles y diferencias explicadas entre modelo y máquina. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `experiment.py` y enlaza la evidencia, no solo la conclusión.
+Un contador Java de 32 bits se exporta desde Python. Aunque Python no desborde, el
+contrato sí. Se valida rango antes de serializar y se prueba máximo, máximo+1 y valores negativos.
 
 ## Práctica guiada
 
-1. Crea `work/SE-016/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cuaderno reproducible de representación y recursos con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Usa `float.hex()` y `as_integer_ratio()` para inspeccionar 0.1.
+2. Compara suma repetida, `math.fsum` y Decimal bajo el mismo conjunto.
+3. Modela importe como centavos y tiempo como float con unidad.
+4. Prueba infinito, NaN, -0.0 y límites de serialización de 32 bits.
+5. Registra criterio de comparación y contraejemplo en `numeric-decision.md`.
+6. Entrega `numbers.py`, resultados y limpieza local.
 
 ## Ejercicios
 
-1. **Fundamental:** define Enteros y coma con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `experiment.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Explica por qué imprimir 0.1 no muestra necesariamente todos sus bits.
+2. Diseña tolerancia para una medición y justifica escala.
+3. Compara entero escalado y Decimal al cambiar número de decimales.
 
 ## Reto verificable
 
-Entrega el **cuaderno reproducible de representación y recursos** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **inferir el modelo de la máquina desde una sola observación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, terminal y herramientas del sistema. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-016/
-├── README.md
-│   ├── experiment.py
-│   ├── observations.md
-│   ├── results.json
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `experiment.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-016/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Unicode Standard** — Unicode Consortium. [https://www.unicode.org/standard/standard.html](https://www.unicode.org/standard/standard.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una revisión recibe cinco operaciones y debe predecir cuáles son exactas, aproximadas o
+inválidas bajo tu contrato. Aprueba si las pruebas cubren fronteras y valores especiales.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Nunca debo usar float para dinero?
+La regla depende del contrato, pero binario flotante rara vez conserva exactamente fracciones decimales legales.
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+### ¿Redondear al final elimina el error?
+No; define presentación, pero operaciones previas pueden haber acumulado o amplificado error.
 
-### ¿La herramienta recomendada es obligatoria?
+## Fallo controlado y diagnóstico
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Usa igualdad exacta para `0.1 + 0.2`. Inspecciona ratios, identifica representación y
+reemplaza la comparación o el modelo según el dominio, no solo el literal.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Errores comunes y cómo corregirlos
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+| Síntoma | Causa | Corrección |
+| --- | --- | --- |
+| centavos faltantes | float usado sin política decimal | usa entero escalado o Decimal con redondeo |
+| prueba pasa en Python y falla al integrar | ancho externo omitido | valida rango del contrato |
+| tolerancia fija para toda magnitud | escala ignorada | combina tolerancia relativa y absoluta justificadas |
+| NaN atraviesa el cálculo | valores especiales no validados | define entrada, propagación y rechazo |
+
+## Entorno y archivos clave
+
+Python 3.11+, `math`, `decimal`, `struct`; `numbers.py`, `numeric-decision.md`, `results.json`.
+
+## Seguridad, ética y accesibilidad
+
+Un error numérico puede distribuir dinero, riesgo o acceso de forma desigual. Muestra
+unidad y redondeo en lenguaje comprensible; no uses precisión visual para aparentar certeza.
+
+## Transferencia
+
+Compara el mismo cálculo en una hoja o segundo lenguaje y atribuye diferencias a representación y reglas.
+
+## Evaluación y evidencia
+
+Se exigen bits o ratios observados, decisión por dominio, pruebas límite y explicación de error.
+
+## Fuentes
+
+- [Python Floating-Point Tutorial](https://docs.python.org/3/tutorial/floatingpoint.html) explica representación y aproximación.
+- [Python `decimal`](https://docs.python.org/3/library/decimal.html) documenta aritmética decimal y contextos.
+- [Java Virtual Machine Specification §2.8](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8) ofrece otro contrato IEEE 754 especificado.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Enteros, coma flotante, precisión y errores numéricos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-017`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No es análisis numérico completo. `SE-017` sigue las operaciones desde instrucciones y registros.
 
 ---
-
-[← SE-015 — Texto, Unicode, codificaciones y mojibake](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-016.html) · [SE-017 — CPU, instrucciones, registros y ciclos de ejecución →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md)
+[← SE-015](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [SE-017 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md)

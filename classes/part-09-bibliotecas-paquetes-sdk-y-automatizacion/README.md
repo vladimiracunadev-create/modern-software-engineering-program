@@ -1,6 +1,6 @@
 # Parte 09 — Bibliotecas, paquetes, SDK y automatización
 
-Orbe resolvió estructuras y Lupa hizo reproducible su diagnóstico. Constelación convierte esa capacidad en un paquete con API, SDK y CLI. La parte sigue al consumidor: descubre el producto, instala dependencias, ejecuta un primer caso, automatiza, amplía con plugins y actualiza. Cada paso hace visible compatibilidad, procedencia, error y recuperación.
+La biblioteca de estructuras y algoritmos resolvió estructuras y el entorno reproducible de diagnóstico hizo reproducible su diagnóstico. El producto reutilizable con SDK y CLI convierte esa capacidad en un paquete con API, SDK y CLI. La parte sigue al consumidor: descubre el producto, instala dependencias, ejecuta un primer caso, automatiza, amplía con plugins y actualiza. Cada paso hace visible compatibilidad, procedencia, error y recuperación.
 
 ## Pregunta rectora
 
@@ -8,7 +8,7 @@ Orbe resolvió estructuras y Lupa hizo reproducible su diagnóstico. Constelaci�
 
 ## Antes del recorrido clase por clase
 
-Esta parte sigue a quien consume **Constelación**, no solo a quien la construye. Cada
+Esta parte sigue a quien consume **producto reutilizable con SDK y CLI**, no solo a quien la construye. Cada
 clase hace explícita una frontera pública —API, paquete, CLI, plugin o artefacto— y la
 somete a instalación, error, actualización y retirada. Así se distingue reutilización
 real de código que solo funciona dentro del repositorio original.
@@ -39,7 +39,7 @@ licencias y experiencia mediante evidencia de consumidor.
 ## Prerrequisitos enlazados
 
 - [Parte 4 — Pensamiento computacional](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
-- [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y Brújula.
+- [Parte 5 — Fundamentos de programación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
 ## Bloques y progresión
@@ -51,7 +51,7 @@ licencias y experiencia mediante evidencia de consumidor.
 
 ## Guía razonada clase por clase
 
-Constelación transforma la capacidad de Orbe en un producto reusable. El recorrido
+El producto reutilizable con SDK y CLI transforma la capacidad de la biblioteca de estructuras y algoritmos en un producto reusable. El recorrido
 avanza desde la definición de capas y contratos hasta un release candidato probado por
 un consumidor externo; cada paso conserva compatibilidad, procedencia y recuperación
 como obligaciones, no como documentación posterior.
@@ -65,7 +65,7 @@ repositorio. Una biblioteca es llamada por el consumidor; un framework suele inv
 el control; runtime y plataforma aportan servicios de ejecución; un SDK combina acceso,
 modelos, herramientas y guía para una capacidad externa.
 
-El estudiante dibuja Constelación como capas, marca quién llama a quién y qué debe
+El estudiante dibuja el producto reutilizable con SDK y CLI como capas, marca quién llama a quién y qué debe
 instalar u operar el consumidor. La evidencia incluye un caso donde una capa no se
 justifica. Esa frontera permite que `SE-110` enumere la superficie pública y clasifique
 cambios por su impacto observable.
@@ -77,7 +77,7 @@ comportamiento, errores, formatos, CLI y extensiones; distingue compatibilidad d
 binaria, datos y comportamiento. Agregar un parámetro opcional puede romper wrappers o
 salidas parseadas aunque parezca aditivo.
 
-Constelación publica un inventario de contrato y compara versiones con consumidores de
+El producto reutilizable con SDK y CLI publica un inventario de contrato y compara versiones con consumidores de
 prueba. El estudiante clasifica cambios, escribe migración y rechaza promesas que no
 puede verificar. `SE-111` estudia cómo restricciones de muchas dependencias se resuelven
 en una instalación concreta.
@@ -89,7 +89,7 @@ Declarar rangos no instala versiones: el resolvedor combina restricciones, marca
 garantiza disponibilidad, integridad ni compatibilidad fuera de ellos. La clase diferencia
 dependencia directa, transitiva y opcional.
 
-El estudiante reproduce un conflicto de Constelación, explica por qué no existe solución
+El estudiante reproduce un conflicto del producto reutilizable con SDK y CLI, explica por qué no existe solución
 y genera una instalación fijada con hashes cuando el ecosistema lo permite. La evidencia
 se prueba en más de un entorno. `SE-112` convierte el árbol fuente y su metadata en
 artefactos que puedan instalarse sin el checkout.
@@ -101,7 +101,7 @@ dependencias y contenido. La clase sigue fuente → build → wheel/sdist → í
 instalación, y exige probar el artefacto construido, no el directorio de trabajo. La
 publicación es inmutable y necesita procedencia y recuperación.
 
-Constelación construye artefactos, inspecciona su contenido y los instala en un entorno
+El producto reutilizable con SDK y CLI construye artefactos, inspecciona su contenido y los instala en un entorno
 vacío. El estudiante detecta un archivo omitido o import accidental desde el checkout.
 Con una capacidad instalable, `SE-113` diseña la interfaz de línea de comandos que
 personas y automatizaciones usarán.
@@ -115,7 +115,7 @@ señales. La clase separa datos de diagnóstico, diseña ayuda y errores acciona
 evita que color, prompts o logs rompan tuberías. Cambiar texto parseado puede ser una
 ruptura pública.
 
-El estudiante crea comandos de Constelación para seleccionar y explicar, prueba terminal
+El estudiante crea comandos del producto reutilizable con SDK y CLI para seleccionar y explicar, prueba terminal
 interactiva y redirección, y conserva salida estructurada estable. `SE-114` compone esa
 CLI en tareas repetibles que deben sobrevivir a repetición, interrupción y reanudación.
 
@@ -126,7 +126,7 @@ puede ejecutarse de nuevo. Idempotencia no significa ausencia de efectos: signif
 repetir bajo el mismo objetivo converge sin duplicar ni corromper. La clase trabaja
 temporales, transacciones compensatorias y reanudación.
 
-Constelación automatiza build, verificación e instalación local. El estudiante interrumpe
+El producto reutilizable con SDK y CLI automatiza build, verificación e instalación local. El estudiante interrumpe
 cada fase y demuestra recuperación o limpieza. Los códigos conservan causa. `SE-115`
 abre el producto a extensiones sin entregar a cada plugin acceso implícito e ilimitado.
 
@@ -138,7 +138,7 @@ Un plugin necesita descubrimiento, contrato, ciclo de vida, versión y aislamien
 fallos. Cargar código de terceros dentro del proceso amplía privilegios; un punto de
 extensión estable es una promesa de compatibilidad, no un import dinámico cualquiera.
 
-Constelación define metadata y protocolo de plugin, rechaza incompatibles y conserva un
+El producto reutilizable con SDK y CLI define metadata y protocolo de plugin, rechaza incompatibles y conserva un
 modo seguro sin extensiones. El estudiante prueba fallo al cargar y durante ejecución.
 `SE-116` examina otra forma de extensión: producir código o configuración desde una
 fuente declarativa.
@@ -150,7 +150,7 @@ salidas se editan a mano o el generador no es determinista. La clase compara pla
 introspección y metaprogramación; exige trazabilidad, diff revisable y mensaje de error
 en el nivel que la persona entiende.
 
-El estudiante genera clientes o modelos de Constelación dos veces y comprueba salida
+El estudiante genera clientes o modelos del producto reutilizable con SDK y CLI dos veces y comprueba salida
 idéntica, luego cambia el esquema y revisa el diff. Declara qué archivo se edita y cuál
 se regenera. `SE-117` pregunta si todos los componentes y salidas pueden reutilizarse y
 redistribuirse legalmente, con procedencia verificable.
@@ -162,7 +162,7 @@ compatibilidad de obligaciones, avisos, datos y marcas; usa identificadores SPDX
 prácticas REUSE para conectar archivo, componente y evidencia. Un SBOM describe
 componentes, pero no resuelve automáticamente compatibilidad ni riesgo.
 
-Constelación inventaría dependencias y artefactos generados, conserva textos y atribución
+El producto reutilizable con SDK y CLI inventaría dependencias y artefactos generados, conserva textos y atribución
 y bloquea material sin licencia clara. El estudiante explica una decisión de uso y su
 límite sin dar asesoría jurídica. `SE-118` vuelve al consumidor para medir si todo ese
 contrato puede descubrirse y operarse.
@@ -176,14 +176,14 @@ depuración, extensión, migración y retirada. La clase mide tiempo y bloqueos 
 experiencia a documentación bonita; defaults, tipos, ejemplos y observabilidad forman un
 sistema de aprendizaje del producto.
 
-Una persona que no participó en Constelación sigue el quickstart y piensa en voz alta.
+Una persona que no participó en el producto reutilizable con SDK y CLI sigue el quickstart y piensa en voz alta.
 El estudiante registra fricción, severidad y recuperación, y corrige el contrato o la
 guía según evidencia. `SE-119` somete el paquete completo a build, instalación y uso en
 un proyecto consumidor.
 
 #### SE-119 — Taller: empaquetar una capacidad reusable
 
-El taller parte de la lógica funcional de Orbe y exige separar API pública, CLI, metadata
+El taller parte de la lógica funcional de la biblioteca de estructuras y algoritmos y exige separar API pública, CLI, metadata
 y artefactos. El estudiante construye en un entorno limpio, instala desde wheel y sdist,
 ejecuta un consumidor externo y prueba una versión incompatible o plugin rechazado.
 
@@ -199,7 +199,7 @@ construye artefactos inmutables y prueba consumidores anteriores frente al candi
 
 La aceptación cubre runtime mínimo y máximo, wheel y sdist, ayuda, salida estructurada,
 plugin compatible e incompatible, actualización y rollback. Changelog, hashes,
-procedencia y límites acompañan los resultados. Constelación cierra la etapa con una
+procedencia y límites acompañan los resultados. El producto reutilizable con SDK y CLI cierra la etapa con una
 capacidad consumible; la Parte 10 partirá de problemas y necesidades para decidir qué
 producto merece construirse después.
 
@@ -252,4 +252,4 @@ release candidato solo respalda las combinaciones ejecutadas y conserva rollback
 - [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — identificadores, SBOM y procedencia legible por máquinas; autoridad: Linux Foundation.
 - [REUSE Specification](https://reuse.software/spec-3.3/) — declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación de Constelación se demuestra con el caso, las pruebas y la comparación.
+Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación del producto reutilizable con SDK y CLI se demuestra con el caso, las pruebas y la comparación.

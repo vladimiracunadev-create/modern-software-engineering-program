@@ -2,11 +2,33 @@
 
 [← SE-029](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-031 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md)
 
-> Estado: **GUIDED**. Enseña contratos y adaptadores; no promete equivalencia total entre shells o sistemas.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para preservar intención al portar scripts entre PowerShell y Bash.
+
+**Por qué aparece aquí.** Se sitúa después de **Terminales, shells y composición de comandos** y antes de **Variables de entorno, configuración y secretos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Traducir sintaxis línea por línea ignorando tipos, errores y códigos de salida.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Paired-scripts.md con contrato común, casos límite y tabla de divergencias. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Equivalencia funcional no implica equivalencia de seguridad ni rendimiento.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — About PowerShell](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Faro necesita adaptadores para Windows, Linux y macOS. Traducir comandos palabra por palabra no funciona: PowerShell compone objetos .NET dentro de sus pipelines; Bash compone principalmente flujos de bytes y texto entre procesos. La portabilidad profesional preserva intención y contrato, no apariencia.
+El kit de diagnóstico multiplataforma necesita adaptadores para Windows, Linux y macOS. Traducir comandos palabra por palabra no funciona: PowerShell compone objetos .NET dentro de sus pipelines; Bash compone principalmente flujos de bytes y texto entre procesos. La portabilidad profesional preserva intención y contrato, no apariencia.
 
 ### Resultado de aprendizaje
 
@@ -32,12 +54,11 @@ Podrás comparar modelos de datos y error; separar contrato de adaptador; declar
 | Error | excepciones, estados y flujos propios | detener o degradar con criterio |
 | Adaptador | traduce contrato a capacidades locales | conservar intención sin ocultar diferencias |
 | Matriz de soporte | separa objetivo de evidencia ejecutada | prometer solo lo probado |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart TB
- C[Contrato común de Faro] --> P[Adaptador PowerShell]
+ C[Contrato común del kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
  C --> B[Adaptador Bash]
  P --> W[Capacidades Windows o PowerShell]
  B --> U[Capacidades POSIX o Unix]
@@ -66,11 +87,11 @@ Una guía portable define nombres y valores en un contrato externo —por ejempl
 
 En Bash importan el estado de órdenes, listas condicionales, pipelines y opciones como `errexit`, cuyos límites deben entenderse en contexto. En PowerShell hay errores terminantes y no terminantes, `$?`, excepciones y `$LASTEXITCODE` para programas nativos. Configurar una preferencia global sin comprender la frontera puede cambiar conducta de módulos ajenos.
 
-Faro encapsula cada llamada externa, captura stdout/stderr, verifica estado y convierte el resultado a una estructura común. La política se prueba con fallos inducidos.
+El kit de diagnóstico multiplataforma encapsula cada llamada externa, captura stdout/stderr, verifica estado y convierte el resultado a una estructura común. La política se prueba con fallos inducidos.
 
 ```mermaid
 flowchart TB
-    C[Contrato Faro] --> P[Adaptador PowerShell]
+    C[Contrato el kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
     C --> B[Adaptador Bash]
     P --> W[APIs y herramientas Windows]
     B --> U[APIs y herramientas POSIX]
@@ -107,7 +128,7 @@ Las referencias normativas son el [manual de Bash](https://www.gnu.org/software/
 
 ## Caso conductor: dos adaptadores, un contrato
 
-Faro define una operación `inspect_path` con entrada `path` y salida común: ruta resuelta, existencia, tipo y estado de acceso. La implementación PowerShell usa APIs/cmdlets nativos; la implementación Bash usa herramientas disponibles y evita parsear columnas decorativas.
+El kit de diagnóstico multiplataforma define una operación `inspect_path` con entrada `path` y salida común: ruta resuelta, existencia, tipo y estado de acceso. La implementación PowerShell usa APIs/cmdlets nativos; la implementación Bash usa herramientas disponibles y evita parsear columnas decorativas.
 
 Las pruebas entregan rutas con espacios, ausencia, directorio y acceso limitado. Comparan campos semánticos, no el orden visual. Si una plataforma aporta ACL detallada y otra no, el campo de capacidad explica la diferencia.
 
@@ -166,7 +187,7 @@ Entrega una ruta con espacios y un comodín literal al adaptador. Si se divide o
 
 ## Entorno y archivos clave
 
-`work/SE-030/contract.json`, `faro.ps1`, `faro.sh`, `fixtures/` y `support-matrix.md`. No instala shells ni herramientas globales.
+`work/SE-030/contract.json`, `diagnostic_kit.ps1`, `diagnostic_kit.sh`, `fixtures/` y `support-matrix.md`. No instala shells ni herramientas globales.
 
 ## Seguridad, ética y accesibilidad
 
@@ -190,10 +211,11 @@ No buscamos cubrir toda la sintaxis ni producir scripts idénticos. Aún falta d
 
 ## Fuentes
 
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
-- [Microsoft Learn — About PowerShell](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/)
-- [Microsoft Learn — about_Automatic_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_automatic_variables)
-- [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)
+
+- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
+- [Microsoft Learn — About PowerShell](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Microsoft Learn — about_Automatic_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_automatic_variables) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
 
 ## Glosario
 

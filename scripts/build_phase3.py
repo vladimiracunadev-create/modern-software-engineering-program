@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
+PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -84,7 +84,7 @@ SOURCES = {
 PROFILES = {
     "00": {"artifact": "informe de decisión profesional", "environment": "editor de texto, navegador y repositorio Git", "files": ["decision.md", "evidence.md", "review.md"], "lenses": ["sistema", "ciclo de vida", "evidencia", "responsabilidad"], "failure": "confundir una preferencia personal con evidencia suficiente", "sources": ["SWEBOK-4A", "ACM-ETHICS", "ISO-25010"]},
     "01": {"artifact": "cuaderno reproducible de representación y recursos", "environment": "Python 3.11+, terminal y herramientas del sistema", "files": ["experiment.py", "observations.md", "results.json"], "lenses": ["representación", "máquina", "medición", "límite"], "failure": "inferir el modelo de la máquina desde una sola observación", "sources": ["RISCV-ISA", "UNICODE-17", "PYTHON-3", "JVM-SE25", "LLVM-DOCS", "GSF-SCI"]},
-    "02": {"artifact": "kit de diagnóstico multiplataforma", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["faro.ps1", "faro.sh", "support-matrix.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH", "SYSTEMD", "WSL"]},
+    "02": {"artifact": "kit de diagnóstico multiplataforma", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["diagnostic_kit.ps1", "diagnostic_kit.sh", "support-matrix.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH", "SYSTEMD", "WSL"]},
     "03": {"artifact": "traza comentada de una comunicación", "environment": "navegador, curl y utilidades de diagnóstico de red", "files": ["request.txt", "trace.md", "failure-report.md"], "lenses": ["capa", "protocolo", "estado", "observabilidad"], "failure": "atribuir al servidor un fallo que ocurre en resolución, transporte o caché", "sources": ["RFC-8200", "RFC-8446", "RFC-9000", "RFC-9110"]},
     "04": {"artifact": "especificación contrastable de una solución", "environment": "editor, Python opcional y diagramas Mermaid", "files": ["problem.md", "model.md", "checks.md"], "lenses": ["abstracción", "invariante", "algoritmo", "complejidad"], "failure": "resolver un ejemplo y asumir que la solución cubre todo el dominio", "sources": ["MIT-MATH-CS", "SWEBOK-4A"]},
     "05": {"artifact": "programa pequeño con pruebas y decisiones explicadas", "environment": "Python 3.11+, editor, terminal y Git", "files": ["main.py", "test_main.py", "README.md"], "lenses": ["valor", "control", "función", "prueba"], "failure": "confundir que un ejemplo se ejecute con que sea correcto para el dominio", "sources": ["PYTHON", "RUST", "SWEBOK-4A"]},
@@ -710,10 +710,9 @@ def expected_files(program: dict) -> dict[Path, str]:
         for lesson in part["lessons"]:
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
-            if lesson["id"] in EDITORIAL_LESSON_IDS:
-                # Las clases revisadas editorialmente viven como fuentes
-                # explícitas: el generador las publica, pero no vuelve a
-                # sintetizar contenido a partir del título.
+            if lesson["id"] in PUBLISHED_EDITORIAL_IDS:
+                # Estas clases tienen fuentes editoriales explícitas, incluso
+                # cuando siguen PLANNED. Publicarlas no concede madurez.
                 source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
                 markdown = source.read_text(encoding="utf-8").replace(
                     "(../../classes/",

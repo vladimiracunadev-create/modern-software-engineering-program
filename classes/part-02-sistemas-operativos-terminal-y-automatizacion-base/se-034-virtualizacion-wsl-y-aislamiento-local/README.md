@@ -2,11 +2,34 @@
 
 [← SE-033](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-035 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)
 
-> Estado: **GUIDED**. Compara fronteras locales; no certifica aislamiento de seguridad ni requiere habilitar virtualización.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
+
+**Por qué aparece aquí.** Se sitúa después de **Logs del sistema y diagnóstico de fallos** y antes de **Taller: preparar y reparar un entorno reproducible**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Tratar contenedor como máquina virtual o aislamiento como seguridad absoluta.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Isolation-matrix.md con kernel, filesystem, red, recursos y ruptura simulada. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Un laboratorio local no equivale a una evaluación de aislamiento hostil.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Linux kernel — namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html) | delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Linux kernel — cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html) | delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Docker documentation — storage](https://docs.docker.com/engine/storage/) | delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Faro puede ejecutarse dentro de una máquina virtual, un contenedor o WSL. Ver “Linux” en el informe ya no basta: el kernel, el sistema de archivos, la red y los recursos pueden pertenecer a capas diferentes. Aislamiento no significa independencia absoluta ni constituye por sí solo una frontera de seguridad suficiente.
+El kit de diagnóstico multiplataforma puede ejecutarse dentro de una máquina virtual, un contenedor o WSL. Ver “Linux” en el informe ya no basta: el kernel, el sistema de archivos, la red y los recursos pueden pertenecer a capas diferentes. Aislamiento no significa independencia absoluta ni constituye por sí solo una frontera de seguridad suficiente.
 
 ### Resultado de aprendizaje
 
@@ -18,7 +41,7 @@ Al terminar podrás comparar máquinas virtuales, contenedores y WSL por lo que 
 
 ## Problema auténtico
 
-Faro informa Linux y una ruta `/mnt/c`, mientras la persona afirma usar Windows. Un archivo es lento y `localhost` no alcanza al servicio esperado. El equipo mezcla proceso, kernel, anfitrión y sistemas de archivos como si fueran una sola capa.
+El kit de diagnóstico multiplataforma informa Linux y una ruta `/mnt/c`, mientras la persona afirma usar Windows. Un archivo es lento y `localhost` no alcanza al servicio esperado. El equipo mezcla proceso, kernel, anfitrión y sistemas de archivos como si fueran una sola capa.
 
 ## Objetivos observables
 
@@ -32,7 +55,6 @@ Podrás dibujar fronteras de VM, contenedor y WSL; identificar kernel y recursos
 | Contenedor | aísla procesos sobre kernel compartido | empaquetar espacio de usuario con menor costo |
 | WSL | integra entorno Linux administrado con Windows | ubicar rutas, red y herramientas por capa |
 | Persistencia | separa instancia de volúmenes/montajes | evitar pérdida y cruces inseguros |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -95,7 +117,7 @@ La [documentación de WSL](https://learn.microsoft.com/windows/wsl/) recomienda 
 
 `localhost` nombra la pila de red del contexto actual; según modo de red y versión puede requerir publicación o traducción. CPU y memoria visibles pueden ser límites, no capacidad física completa. El reloj suele provenir del anfitrión con mecanismos de sincronización, pero suspensiones y snapshots complican intervalos.
 
-Faro informa límites observables y evita equipararlos al hardware total.
+El kit de diagnóstico multiplataforma informa límites observables y evita equipararlos al hardware total.
 
 ### Aislamiento no elimina confianza ni persistencia
 
@@ -109,9 +131,9 @@ Montar el socket del motor, ejecutar privilegiado o compartir directorios sensib
 - **montaje:** exposición de un sistema o ruta dentro de otro espacio de nombres;
 - **frontera:** punto donde cambian autoridad, semántica, rendimiento o propiedad.
 
-## Caso conductor: Faro dibuja sus fronteras
+## Caso conductor: el kit de diagnóstico multiplataforma dibuja sus fronteras
 
-Faro detecta señales de entorno sin prometer certeza absoluta y produce un mapa:
+El kit de diagnóstico multiplataforma detecta señales de entorno sin prometer certeza absoluta y produce un mapa:
 
 ```text
 proceso: Linux
@@ -122,7 +144,7 @@ limites: memoria visible, CPUs visibles
 incertidumbre: versión/configuración del motor no accesible
 ```
 
-Si Pulso es lento sobre `/mnt/c`, Faro compara una operación equivalente dentro del sistema Linux antes de atribuir la causa al código. Esa prueba aísla la frontera de almacenamiento; no generaliza a todas las cargas.
+Si el analizador local de eventos es lento sobre `/mnt/c`, el kit de diagnóstico multiplataforma compara una operación equivalente dentro del sistema Linux antes de atribuir la causa al código. Esa prueba aísla la frontera de almacenamiento; no generaliza a todas las cargas.
 
 ## Práctica guiada
 
@@ -202,10 +224,11 @@ No cubrimos orquestación, hardening avanzado ni escapes. Con el modelo de plata
 
 ## Fuentes
 
-- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/)
-- [Linux kernel — namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html)
-- [Linux kernel — cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html)
-- [Docker documentation — storage](https://docs.docker.com/engine/storage/)
+
+- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Linux kernel — namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html) — delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
+- [Linux kernel — cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html) — delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
+- [Docker documentation — storage](https://docs.docker.com/engine/storage/) — delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
 
 ## Glosario
 

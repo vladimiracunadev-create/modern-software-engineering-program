@@ -100,7 +100,7 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-013": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -109,10 +109,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-014": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -121,10 +121,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-015": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -133,10 +133,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-016": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -145,10 +145,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-017": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -157,10 +157,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-018": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -169,10 +169,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-019": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -181,10 +181,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-020": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -193,10 +193,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-021": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -205,10 +205,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-022": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -217,10 +217,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-023": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -229,10 +229,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-024": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -241,10 +241,10 @@
         "LLVM-DOCS",
         "GSF-SCI"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-025": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -253,10 +253,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-026": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -265,10 +265,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-027": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -277,10 +277,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-028": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -289,10 +289,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-029": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -301,10 +301,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-030": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -313,10 +313,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-031": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -325,10 +325,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-032": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -337,10 +337,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-033": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -349,10 +349,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-034": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -361,10 +361,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-035": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -373,10 +373,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-036": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -385,10 +385,10 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-037": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -409,10 +409,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-038": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -433,10 +433,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-039": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -457,10 +457,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-040": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -481,10 +481,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-041": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -505,10 +505,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-042": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -529,10 +529,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-043": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -553,10 +553,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-044": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -577,10 +577,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-045": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -601,10 +601,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-046": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -625,10 +625,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-047": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -649,10 +649,10 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-048": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -673,238 +673,238 @@
         "IETF-RFC-6455",
         "IETF-RFC-8305"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-049": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-050": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-051": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-052": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-053": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-054": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-055": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-056": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-057": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-058": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-059": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-060": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "MIT-TOC-18404"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-061": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-062": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-063": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-064": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-065": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-066": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-067": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-068": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-069": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-070": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-071": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-072": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
         "RUST-BOOK"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-073": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -913,10 +913,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-074": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -925,10 +925,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-075": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -937,10 +937,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-076": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -949,10 +949,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-077": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -961,10 +961,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-078": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -973,10 +973,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-079": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -985,10 +985,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-080": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -997,10 +997,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-081": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1009,10 +1009,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-082": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1021,10 +1021,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-083": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1033,10 +1033,10 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-084": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1045,130 +1045,130 @@
         "REACTIVEX",
         "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-085": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-086": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-087": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-088": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-089": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-090": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-091": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-092": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-093": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-094": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-095": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-096": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
         "MIT-ALG-6006",
         "PYTHON-3"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-097": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1177,10 +1177,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-098": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1189,10 +1189,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-099": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1201,10 +1201,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-100": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1213,10 +1213,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-101": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1225,10 +1225,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-102": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1237,10 +1237,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-103": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1249,10 +1249,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-104": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1261,10 +1261,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-105": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1273,10 +1273,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-106": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1285,10 +1285,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-107": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1297,10 +1297,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-108": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1309,10 +1309,10 @@
         "DEVCONTAINERS",
         "W3C-WCAG"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-109": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1322,10 +1322,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-110": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1335,10 +1335,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-111": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1348,10 +1348,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-112": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1361,10 +1361,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-113": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1374,10 +1374,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-114": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1387,10 +1387,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-115": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1400,10 +1400,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-116": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1413,10 +1413,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-117": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1426,10 +1426,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-118": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1439,10 +1439,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-119": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1452,10 +1452,10 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-120": {
-      "status": "GUIDED_BASELINE",
+      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1465,7 +1465,7 @@
         "SPDX-3",
         "REUSE-33"
       ],
-      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-121": {
       "status": "SEEDED_BASELINE",

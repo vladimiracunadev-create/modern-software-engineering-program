@@ -2,11 +2,33 @@
 
 [← SE-014](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-016 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md)
 
-> Estado: **GUIDED**. Laboratorio con texto sintético; no es una introducción completa a lingüística ni tipografía.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir carácter, punto de código, unidades de código, bytes y glifo al diagnosticar texto.
+
+**Por qué aparece aquí.** Se sitúa después de **Bits, bytes, bases numéricas y representación** y antes de **Enteros, coma flotante, precisión y errores numéricos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Tratar Unicode como una codificación única o suponer que toda corrupción es reversible.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Text-lab.md con code points, hex, normalización y un fallo de decodificación reproducible. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Unicode no determina por sí solo tipografía, shaping ni bidi.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) |  define modelo y propiedades | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) |  explica UTF-8, UTF-16 y BOM | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Unicode Normalization Annex #15](https://www.unicode.org/reports/tr15/) |  define las formas de normalización | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-`SE-014` mostró que los bits necesitan un contrato. Ahora Pulso debe conservar
+`SE-014` mostró que los bits necesitan un contrato. Ahora el analizador local de eventos debe conservar
 `Matrícula José ✓`. La pantalla parece mostrar “caracteres”, pero el sistema intercambia
 bytes. Construirás la cadena carácter → punto de código → codificación → bytes y la
 usarás para provocar y reparar mojibake de forma explicada.
@@ -34,7 +56,6 @@ ida y vuelta; compararás normalizaciones; y diagnosticarás mojibake conservand
 | UTF-8 | transforma puntos en bytes únicos | sostiene archivos y protocolos modernos |
 | Normalización | compara secuencias equivalentes según forma | evita claves visualmente iguales pero distintas |
 | Mojibake | bytes se decodifican con contrato incorrecto | permite reparar causa, no apariencia |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -89,7 +110,7 @@ se prueba en muestra y se valida round-trip.
 
 ## Caso conductor: confirmar una matrícula sin perder el nombre
 
-Pulso serializa JSON con UTF-8 y declara el encoding al abrir archivos. Guarda texto
+El analizador local de eventos serializa JSON con UTF-8 y declara el encoding al abrir archivos. Guarda texto
 normalizado solo si el dominio lo exige y conserva el original cuando la forma importa.
 El laboratorio compara `José`, `Jose\u0301` y `✓`; registra puntos, nombres Unicode,
 bytes y longitud en cada nivel.
@@ -179,6 +200,7 @@ Repite con emoji compuesto y una escritura no latina; identifica puntos, grafema
 Se exige cadena reversible, normalización explicada, error controlado y política de entrada.
 
 ## Fuentes
+
 
 - [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) define modelo y propiedades.
 - [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) explica UTF-8, UTF-16 y BOM.

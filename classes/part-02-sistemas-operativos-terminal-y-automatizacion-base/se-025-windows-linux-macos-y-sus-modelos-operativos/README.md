@@ -2,13 +2,36 @@
 
 [← SE-024](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-026 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md)
 
-> Estado: **GUIDED**. Clase comparativa y diagnóstica; no sustituye documentación específica de versión ni administración autorizada.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para comparar Windows, Linux y macOS por contratos observables y no por estereotipos.
+
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: informe reproducible de comportamiento y recursos** y antes de **Sistemas de archivos, rutas, enlaces y metadatos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Suponer que una orden o ruta portable conserva idéntica semántica.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Os-contracts.md con la misma operación, resultado, diferencia y decisión por plataforma. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Una muestra de versiones no representa todas las ediciones ni configuraciones.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft Learn — Windows documentation](https://learn.microsoft.com/windows/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Linux man-pages project](https://man7.org/linux/man-pages/) | delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Apple Developer Documentation](https://developer.apple.com/documentation/) | delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Pulso ya demostró que un programa atraviesa procesador, memoria y dispositivos. Ahora aparece una dificultad profesional: el mismo código no encuentra la configuración en otro equipo. Decir “es un problema de Windows” o “en Linux sí funciona” no explica nada. Necesitamos identificar qué capa tomó la decisión y qué contrato cambió.
+El analizador local de eventos ya demostró que un programa atraviesa procesador, memoria y dispositivos. Ahora aparece una dificultad profesional: el mismo código no encuentra la configuración en otro equipo. Decir “es un problema de Windows” o “en Linux sí funciona” no explica nada. Necesitamos identificar qué capa tomó la decisión y qué contrato cambió.
 
-En esta clase comienza **Faro**, el kit de diagnóstico que acompañará toda la parte. Su primera versión solo observa: plataforma, arquitectura, versión del sistema, identidad de la sesión y directorios relevantes. No intenta uniformar sistemas distintos; produce una descripción comparable.
+En esta clase comienza **kit de diagnóstico multiplataforma**, el kit de diagnóstico que acompañará toda la parte. Su primera versión solo observa: plataforma, arquitectura, versión del sistema, identidad de la sesión y directorios relevantes. No intenta uniformar sistemas distintos; produce una descripción comparable.
 
 ### Resultado de aprendizaje
 
@@ -16,11 +39,11 @@ Al terminar podrás ubicar un fallo en una capa —aplicación, biblioteca, espa
 
 ## Prerrequisitos
 
-`SE-024`, capacidad para separar observación e inferencia, y acceso no privilegiado a una terminal. Recupera el mapa de arquitectura de Pulso: lenguaje, runtime, sistema operativo, ISA y hardware.
+`SE-024`, capacidad para separar observación e inferencia, y acceso no privilegiado a una terminal. Recupera el mapa de arquitectura del analizador local de eventos: lenguaje, runtime, sistema operativo, ISA y hardware.
 
 ## Problema auténtico
 
-Pulso funciona en el equipo de desarrollo y falla al entregarse. El equipo atribuye el fallo al nombre del sistema operativo, pero todavía no sabe si cambió una API, la arquitectura del binario, una política o una herramienta disponible. La etiqueta de plataforma está ocultando la frontera causal.
+El analizador local de eventos funciona en el equipo de desarrollo y falla al entregarse. El equipo atribuye el fallo al nombre del sistema operativo, pero todavía no sabe si cambió una API, la arquitectura del binario, una política o una herramienta disponible. La etiqueta de plataforma está ocultando la frontera causal.
 
 ## Objetivos observables
 
@@ -34,12 +57,11 @@ Podrás distinguir kernel y espacio de usuario; comparar Windows, Linux y macOS 
 | Protección | separa kernel y procesos de usuario | evitar elevar sin necesidad |
 | API, ABI e ISA | definen contratos en capas distintas | elegir artefacto y diagnóstico correctos |
 | Capacidad observable | comprueba una función disponible | degradar explícitamente sin adivinar por versión |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart TD
- A[Aplicación Faro] --> B[Runtime y bibliotecas]
+ A[Aplicación el kit de diagnóstico multiplataforma] --> B[Runtime y bibliotecas]
  B --> C[API del sistema]
  C --> D[Kernel]
  D --> E[Controladores y recursos]
@@ -47,7 +69,7 @@ flowchart TD
  P --> C
 ```
 
-Las flechas no representan propiedad, sino solicitudes y restricciones. Versión, arquitectura y política pueden alterar más de una frontera; por eso Faro registra contexto antes de culpar una capa.
+Las flechas no representan propiedad, sino solicitudes y restricciones. Versión, arquitectura y política pueden alterar más de una frontera; por eso el kit de diagnóstico multiplataforma registra contexto antes de culpar una capa.
 
 ## Conceptos y decisiones
 
@@ -59,7 +81,7 @@ La abstracción no elimina el hardware. Lo representa con un contrato. Cuando un
 
 ```mermaid
 flowchart TB
-    A[Aplicación Faro] --> B[Biblioteca o runtime]
+    A[Aplicación el kit de diagnóstico multiplataforma] --> B[Biblioteca o runtime]
     B --> C[API del sistema]
     C --> D[Kernel]
     D --> E[Controlador]
@@ -89,7 +111,7 @@ La portabilidad se construye definiendo una intención común y adaptadores por 
 
 Una API define cómo el código fuente solicita una capacidad. Una ABI fija detalles binarios —convención de llamadas, disposición de datos, formato de ejecutable— necesarios para que componentes compilados cooperen. La ISA es el contrato de instrucciones con el procesador.
 
-Un script puede usar una API portable y aun depender de una herramienta ausente. Un binario puede apuntar al sistema correcto pero a otra arquitectura. Faro registra sistema operativo y arquitectura porque “Windows 11” no informa si un artefacto es x86-64 o Arm64.
+Un script puede usar una API portable y aun depender de una herramienta ausente. Un binario puede apuntar al sistema correcto pero a otra arquitectura. El kit de diagnóstico multiplataforma registra sistema operativo y arquitectura porque “Windows 11” no informa si un artefacto es x86-64 o Arm64.
 
 ### Versión, edición y política también forman parte de la plataforma
 
@@ -109,9 +131,9 @@ Comprobar “¿existe esta orden?” o “¿esta API está disponible?” suele 
 - **ABI:** contrato binario entre ejecutable, bibliotecas y plataforma;
 - **capacidad:** operación cuya disponibilidad puede comprobarse sin asumirla por nombre.
 
-## Caso conductor: Faro identifica dónde está
+## Caso conductor: el kit de diagnóstico multiplataforma identifica dónde está
 
-La primera ficha de Faro contiene:
+La primera ficha del kit de diagnóstico multiplataforma contiene:
 
 ```text
 plataforma: windows | linux | macos | desconocida
@@ -123,15 +145,15 @@ directorio_trabajo: ruta resuelta
 observaciones: capacidades ausentes o acceso limitado
 ```
 
-La distinción entre arquitectura del proceso y del sistema importa: una capa de compatibilidad puede ejecutar un proceso x86-64 sobre hardware Arm. Faro no infiere una desde la otra. Si un dato no puede obtenerse sin elevar permisos, registra `no disponible` y explica la razón.
+La distinción entre arquitectura del proceso y del sistema importa: una capa de compatibilidad puede ejecutar un proceso x86-64 sobre hardware Arm. El kit de diagnóstico multiplataforma no infiere una desde la otra. Si un dato no puede obtenerse sin elevar permisos, registra `no disponible` y explica la razón.
 
-Un ejemplo causal: Faro encuentra el archivo de Pulso en macOS, pero el ejecutable descargado no inicia. La clasificación correcta todavía no es “macOS bloquea el programa”. Primero se separan hipótesis: arquitectura incompatible, bit de ejecución ausente, política de procedencia o dependencia dinámica faltante. Cada una requiere evidencia distinta.
+Un ejemplo causal: el kit de diagnóstico multiplataforma encuentra el archivo del analizador local de eventos en macOS, pero el ejecutable descargado no inicia. La clasificación correcta todavía no es “macOS bloquea el programa”. Primero se separan hipótesis: arquitectura incompatible, bit de ejecución ausente, política de procedencia o dependencia dinámica faltante. Cada una requiere evidencia distinta.
 
 ## Práctica guiada
 
 1. Obtén plataforma, versión, arquitectura y shell mediante herramientas documentadas de tu sistema.
 2. Registra cada comando, su código de salida y qué afirmación sustenta.
-3. Dibuja el recorrido de una operación de lectura desde Faro hasta el dispositivo.
+3. Dibuja el recorrido de una operación de lectura desdel kit de diagnóstico multiplataforma hasta el dispositivo.
 4. Formula tres fallos posibles en fronteras distintas y una observación que los discrimine.
 5. Repite la ficha en otro sistema o contrástala con la de un compañero; evita convertir diferencias en errores.
 
@@ -143,7 +165,7 @@ Dos equipos informan “Windows”, pero uno ejecuta un proceso Arm64 y otro x86
 
 ## Ejemplo profesional
 
-Un instalador falla solo en equipos corporativos. La misma versión funciona en un equipo personal. Faro detecta que la API existe y el binario coincide, pero la ejecución está bloqueada por una política. La corrección se dirige al canal autorizado de distribución; recompilar al azar no aborda el mecanismo.
+Un instalador falla solo en equipos corporativos. La misma versión funciona en un equipo personal. El kit de diagnóstico multiplataforma detecta que la API existe y el binario coincide, pero la ejecución está bloqueada por una política. La corrección se dirige al canal autorizado de distribución; recompilar al azar no aborda el mecanismo.
 
 ## Ejercicios
 
@@ -167,7 +189,7 @@ No. Solo abre una rama de contexto; aún deben comprobarse arquitectura, API, pe
 
 ## Fallo controlado y diagnóstico
 
-Configura una comprobación para buscar deliberadamente una orden inexistente. Faro debe clasificar “capacidad ausente”, continuar si es opcional y salir con precondición incumplida si es esencial. Corrige cualquier excepción cruda que no distinga ambos casos.
+Configura una comprobación para buscar deliberadamente una orden inexistente. El kit de diagnóstico multiplataforma debe clasificar “capacidad ausente”, continuar si es opcional y salir con precondición incumplida si es esencial. Corrige cualquier excepción cruda que no distinga ambos casos.
 
 ## Errores comunes y cómo corregirlos
 
@@ -205,10 +227,11 @@ Esta clase no enseña administración profunda de kernels ni promete que una API
 
 ## Fuentes
 
-- [Microsoft Learn — Windows documentation](https://learn.microsoft.com/windows/)
-- [Linux man-pages project](https://man7.org/linux/man-pages/)
-- [Apple Developer Documentation](https://developer.apple.com/documentation/)
-- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
+
+- [Microsoft Learn — Windows documentation](https://learn.microsoft.com/windows/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Linux man-pages project](https://man7.org/linux/man-pages/) — delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos.
+- [Apple Developer Documentation](https://developer.apple.com/documentation/) — delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos.
+- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
 
 ## Glosario
 

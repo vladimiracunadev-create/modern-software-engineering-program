@@ -2,11 +2,32 @@
 
 [← SE-098 — Depuradores, breakpoints y observación de estado](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-098-depuradores-breakpoints-y-observacion-de-estado/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-099.html) · [SE-100 — Compiladores, linters, formatters y análisis estático →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para medir CPU, memoria, I/O y red con el instrumento que corresponde a cada recurso.
+
+**Por qué aparece aquí.** Se sitúa después de **Depuradores, breakpoints y observación de estado** y antes de **Compiladores, linters, formatters y análisis estático**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Usar un único profiler y concluir causa por el mayor porcentaje.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Profile-plan.md con pregunta, instrumento, overhead, datos y optimización verificada. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Un perfil muestral y uno instrumentado tienen sesgos distintos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) | Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) | Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **Profilers de CPU, memoria, I/O y red** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué recurso está realmente saturado y qué herramienta puede atribuirlo?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Profilers de CPU, memoria, I/O y red** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué recurso está realmente saturado y qué herramienta puede atribuirlo?**
 
 ## Prerrequisitos
 
@@ -16,7 +37,7 @@ Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evi
 
 ## Problema auténtico
 
-Orbe se siente lento. El equipo optimiza CPU, pero el perfil revela espera de disco al registrar cada evento y memoria retenida por snapshots antiguos.
+La biblioteca de estructuras y algoritmos se siente lento. El equipo optimiza CPU, pero el perfil revela espera de disco al registrar cada evento y memoria retenida por snapshots antiguos.
 
 ## Objetivos observables
 
@@ -36,12 +57,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Tiempo de pared y CPU | Wall time incluye espera; CPU time cuenta ejecución en procesador. | Evidencia o contraejemplo registrado |
-| Perfil determinista y muestreo | El perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead. | Evidencia o contraejemplo registrado |
-| Asignaciones, retención y pico | Memoria asignada no equivale a memoria retenida ni RSS. | Evidencia o contraejemplo registrado |
-| I/O y red | Trazar duración, bytes y concurrencia por operación separa espera de cómputo. | Evidencia o contraejemplo registrado |
-| Perfil como hipótesis | El perfil señala dónde se observa costo, no por qué. | Evidencia o contraejemplo registrado |
-
+| Tiempo de pared y CPU | Wall time incluye espera; CPU time cuenta ejecución en procesador. | Predicción, traza causal y contraejemplo de **Tiempo de pared y CPU** en `profile-plan.md` |
+| Perfil determinista y muestreo | El perfil determinista registra llamadas y tiempos con detalle, añadiendo overhead. | Predicción, traza causal y contraejemplo de **Perfil determinista y muestreo** en `profile-plan.md` |
+| Asignaciones, retención y pico | Memoria asignada no equivale a memoria retenida ni RSS. | Predicción, traza causal y contraejemplo de **Asignaciones, retención y pico** en `profile-plan.md` |
+| I/O y red | Trazar duración, bytes y concurrencia por operación separa espera de cómputo. | Predicción, traza causal y contraejemplo de **I/O y red** en `profile-plan.md` |
+| Perfil como hipótesis | El perfil señala dónde se observa costo, no por qué. | Predicción, traza causal y contraejemplo de **Perfil como hipótesis** en `profile-plan.md` |
 ## Conceptos y decisiones
 
 ### 1. Tiempo de pared y CPU
@@ -72,12 +92,12 @@ El perfil señala dónde se observa costo, no por qué. Se formula una causa, ca
 - **i/o y red:** trazar duración, bytes y concurrencia por operación separa espera de cómputo.
 - **perfil como hipótesis:** el perfil señala dónde se observa costo, no por qué.
 
-Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
 ```shell
-python -m cProfile -o evidence/cpu.prof -m orbe.benchmark
+python -m cProfile -o evidence/cpu.prof -m algorithm_library.benchmark
 python -X tracemalloc=10 -m unittest tests.test_snapshot
 python -m timeit -r 9 -n 1000 "target()"
 ```
@@ -86,7 +106,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -113,7 +133,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -150,7 +170,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-099/
 ├── README.md
-├── lupa/
+├── diagnostic_environment/
 │   ├── domain.py
 │   └── se_099.py
 ├── fixtures/cases.json
@@ -188,6 +208,8 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
+
 - [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
 - [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
 - [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
@@ -195,7 +217,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

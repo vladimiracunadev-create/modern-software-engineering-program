@@ -64,13 +64,16 @@ def main() -> int:
     catalog = json.loads((SITE / "assets/catalog.json").read_text(encoding="utf-8"))
     if len(catalog.get("classes", [])) != 480:
         failures.append("site catalog does not contain 480 classes")
+    status_by_id = {item["id"]: item["status"] for item in catalog.get("classes", [])}
     for number in range(1, 181):
+        class_id = f"SE-{number:03d}"
         draft = (SITE / "classes" / f"SE-{number:03d}.html").read_text(encoding="utf-8")
-        maturity_marker = "GUIDED" if number <= 120 else "PLANNED · EN REVISIÓN"
+        guided = status_by_id.get(class_id) == "GUIDED"
+        maturity_marker = "GUIDED" if guided else "PLANNED · EN REVISIÓN"
         for marker in (maturity_marker, "Problema auténtico", "Ejercicios", "Fuentes"):
             if marker not in draft:
                 failures.append(f"phase 3 page lacks published draft section: SE-{number:03d} -> {marker}")
-        if number <= 120:
+        if guided:
             for marker in ("Antes de empezar", "lesson-progress", "lesson-context", "concept-map"):
                 if marker not in draft:
                     failures.append(f"guided page lacks pedagogical presentation: SE-{number:03d} -> {marker}")

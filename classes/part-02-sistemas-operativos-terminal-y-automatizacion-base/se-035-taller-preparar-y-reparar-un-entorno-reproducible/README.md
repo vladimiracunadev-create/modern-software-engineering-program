@@ -2,11 +2,34 @@
 
 [← SE-034](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-036 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)
 
-> Estado: **GUIDED**. Taller reversible sobre una carpeta de laboratorio; no interviene configuraciones productivas.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para preparar, romper, diagnosticar y restaurar un entorno desde un runbook verificable.
+
+**Por qué aparece aquí.** Se sitúa después de **Virtualización, WSL y aislamiento local** y antes de **Proyecto: kit de diagnóstico multiplataforma**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Resolver el síntoma cambiando varias variables sin conservar una reproducción.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Runbook.md con estado inicial, fallo, hipótesis, reparación, rollback y repetición limpia. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La reparación demostrada cubre solo las versiones declaradas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft Learn — Sysinternals documentation](https://learn.microsoft.com/sysinternals/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/) | define ciclo de vida, supervisión o consulta de eventos en systemd | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python documentation — subprocess](https://docs.python.org/3/library/subprocess.html) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Este taller integra las clases 25 a 34. Recibirás una copia deliberadamente defectuosa del entorno de Pulso: ruta dependiente del directorio actual, configuración dominada por una variable obsoleta, dependencia incompatible y permisos excesivos aplicados como “solución”. El objetivo no es hacerlo funcionar lo antes posible. Es explicar cada fallo, intervenir con el menor cambio y dejar un procedimiento reproducible.
+Este taller integra las clases 25 a 34. Recibirás una copia deliberadamente defectuosa del entorno del analizador local de eventos: ruta dependiente del directorio actual, configuración dominada por una variable obsoleta, dependencia incompatible y permisos excesivos aplicados como “solución”. El objetivo no es hacerlo funcionar lo antes posible. Es explicar cada fallo, intervenir con el menor cambio y dejar un procedimiento reproducible.
 
 ### Resultado de aprendizaje
 
@@ -14,11 +37,11 @@ Al terminar podrás conducir un diagnóstico completo desde síntoma hasta verif
 
 ## Prerrequisitos
 
-Clases `SE-025`–`SE-034`, carpeta desechable y bitácora. Debes poder ejecutar Faro en solo lectura y explicar sus códigos, configuración y adaptadores.
+Clases `SE-025`–`SE-034`, carpeta desechable y bitácora. Debes poder ejecutar el kit de diagnóstico multiplataforma en solo lectura y explicar sus códigos, configuración y adaptadores.
 
 ## Problema auténtico
 
-El entorno de Pulso acumula cuatro intentos de reparación: ruta absoluta personal, permisos amplios, dependencia global y variable obsoleta. Ahora funciona solo en una sesión y nadie puede atribuir qué cambio produjo qué resultado.
+El entorno del analizador local de eventos acumula cuatro intentos de reparación: ruta absoluta personal, permisos amplios, dependencia global y variable obsoleta. Ahora funciona solo en una sesión y nadie puede atribuir qué cambio produjo qué resultado.
 
 ## Objetivos observables
 
@@ -32,7 +55,6 @@ Podrás estabilizar un escenario; convertir síntomas en afirmaciones; formular 
 | Hipótesis rival | exige pruebas con resultados distintos | evitar la primera explicación cómoda |
 | Cambio mínimo | limita variables y radio de efecto | atribuir resultado y revertir |
 | Regresión | repite contratos vecinos | comprobar que reparar no rompió otra cosa |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -61,7 +83,7 @@ Estabilizar no significa congelar un sistema productivo sin autorización. En es
 
 “No funciona” se transforma en: comando ejecutado, entrada, resultado esperado, resultado observado, código de salida y alcance. Se separa el primer fallo observable de mensajes secundarios.
 
-Una buena hipótesis relaciona mecanismo y evidencia: “la variable `PULSO_CONFIG` tiene mayor precedencia y dirige a una ruta inexistente”. La prueba mínima ejecuta con entorno saneado; reinstalar no discrimina esta causa.
+Una buena hipótesis relaciona mecanismo y evidencia: “la variable `EVENT_ANALYZER_CONFIG` tiene mayor precedencia y dirige a una ruta inexistente”. La prueba mínima ejecuta con entorno saneado; reinstalar no discrimina esta causa.
 
 ### Reducir incertidumbre por capas
 
@@ -90,9 +112,9 @@ Si un cambio no explica el resultado, se revierte antes de probar otro. Acumular
 
 ### Verificar incluye el caso original y casos vecinos
 
-Que Pulso inicie una vez no prueba reparación. Se repite el escenario original desde otro directorio, con configuración ausente y con ruta con espacios. Se comprueba código de salida, stdout/stderr, ausencia del secreto centinela y estado final de permisos.
+Que el analizador local de eventos inicie una vez no prueba reparación. Se repite el escenario original desde otro directorio, con configuración ausente y con ruta con espacios. Se comprueba código de salida, stdout/stderr, ausencia del secreto centinela y estado final de permisos.
 
-La regresión busca que la corrección no haya roto otro contrato. Faro conserva versiones y matriz de plataforma para que otra persona pueda repetir.
+La regresión busca que la corrección no haya roto otro contrato. El kit de diagnóstico multiplataforma conserva versiones y matriz de plataforma para que otra persona pueda repetir.
 
 ### Documentar decisión y riesgo residual
 
@@ -106,12 +128,12 @@ El informe final contiene hechos, causa, corrección, evidencia posterior y lím
 - **cambio mínimo:** intervención acotada que permite atribuir efecto;
 - **regresión:** pérdida de una propiedad previamente satisfecha.
 
-## Caso conductor: incidente Faro-01
+## Caso conductor: incidente incidente-de-diagnóstico-01
 
 Secuencia esperada del taller:
 
-1. Pulso termina con código de precondición ausente.
-2. Faro revela que `PULSO_CONFIG` proviene del entorno y apunta a una ruta relativa.
+1. El analizador local de eventos termina con código de precondición ausente.
+2. El kit de diagnóstico multiplataforma revela que `EVENT_ANALYZER_CONFIG` proviene del entorno y apunta a una ruta relativa.
 3. La ruta cambia con el directorio de trabajo.
 4. Un intento previo otorgó escritura amplia al directorio.
 5. Al corregir la fuente de configuración aparece una dependencia fuera del rango soportado.
@@ -125,7 +147,7 @@ Prepara una carpeta de laboratorio, nunca una instalación real del sistema. Con
 
 | Paso | Hipótesis | Evidencia buscada | Acción | Resultado | Decisión |
 |---|---|---|---|---|---|
-| 1 | La ruta viene del entorno | Configuración efectiva | `Faro config explain` | Variable presente | Probar entorno mínimo |
+| 1 | La ruta viene del entorno | Configuración efectiva | `el kit de diagnóstico multiplataforma config explain` | Variable presente | Probar entorno mínimo |
 
 Luego:
 
@@ -140,7 +162,7 @@ Luego:
 
 ## Ejemplo mínimo
 
-Pulso busca una ruta relativa equivocada. Ejecutarlo desde otra carpeta reproduce el fallo; pasar una ruta absoluta de laboratorio lo evita. La prueba apunta al contexto de resolución, no a permisos ni dependencia.
+El analizador local de eventos busca una ruta relativa equivocada. Ejecutarlo desde otra carpeta reproduce el fallo; pasar una ruta absoluta de laboratorio lo evita. La prueba apunta al contexto de resolución, no a permisos ni dependencia.
 
 ## Ejemplo profesional
 
@@ -202,14 +224,15 @@ El taller se aprueba cuando otra persona puede reproducir el fallo, seguir la ev
 
 ## Límites y siguiente paso
 
-El escenario es local, deliberadamente controlado y no autoriza intervenir equipos de terceros. La clase final convierte el procedimiento en un producto pequeño: el kit Faro, con contrato, adaptadores, pruebas y entrega profesional.
+El escenario es local, deliberadamente controlado y no autoriza intervenir equipos de terceros. La clase final convierte el procedimiento en un producto pequeño: el kit el kit de diagnóstico multiplataforma, con contrato, adaptadores, pruebas y entrega profesional.
 
 ## Fuentes
 
-- [Microsoft Learn — Sysinternals documentation](https://learn.microsoft.com/sysinternals/)
-- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
-- [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/)
-- [Python documentation — subprocess](https://docs.python.org/3/library/subprocess.html)
+
+- [Microsoft Learn — Sysinternals documentation](https://learn.microsoft.com/sysinternals/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/) — define ciclo de vida, supervisión o consulta de eventos en systemd.
+- [Python documentation — subprocess](https://docs.python.org/3/library/subprocess.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 
 ## Glosario
 

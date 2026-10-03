@@ -7,7 +7,7 @@
   "kind": "studio",
   "owner": "suite",
   "estimated_hours": 6,
-  "status": "GUIDED",
+  "status": "PLANNED",
   "source_ids": [
     "IETF-RFC-1122",
     "IETF-RFC-826",

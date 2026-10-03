@@ -2,11 +2,33 @@
 
 [← SE-039 — IPv4, IPv6, subredes, rutas y NAT](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-040.html) · [SE-041 — DNS, nombres, resolución y fallos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para seleccionar TCP, UDP o QUIC por fiabilidad, orden, latencia y control de congestión.
+
+**Por qué aparece aquí.** Se sitúa después de **IPv4, IPv6, subredes, rutas y NAT** y antes de **DNS, nombres, resolución y fallos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Reducir la decisión a ‘TCP seguro, UDP rápido’.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Transport-decision.md con pérdidas, reordenamiento, handshake y requisito del producto. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La especificación no predice rendimiento en toda red.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 768 — User Datagram Protocol](https://www.rfc-editor.org/rfc/rfc768) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia
 
 ## Problema auténtico
 
-Nexo debe enviar eventos pequeños, respuestas de API y actualizaciones interactivas. Elegir TCP, UDP o QUIC por moda puede introducir bloqueo, pérdida silenciosa o complejidad innecesaria. La decisión debe partir de orden, fiabilidad, latencia y despliegue.
+La petición observable de extremo a extremo debe enviar eventos pequeños, respuestas de API y actualizaciones interactivas. Elegir TCP, UDP o QUIC por moda puede introducir bloqueo, pérdida silenciosa o complejidad innecesaria. La decisión debe partir de orden, fiabilidad, latencia y despliegue.
 
 ## Objetivos observables
 
@@ -51,7 +73,6 @@ El ciclo evita el diagnóstico por intuición. La observación se ubica antes de
 | garantía | ¿qué promete el protocolo y qué no? | ejemplo y contraejemplo |
 | diagnóstico | ¿qué prueba separa causas plausibles? | comparación reproducible |
 | operación | ¿cómo falla, se limita y se recupera? | caso sano, degradado y restaurado |
-
 ## Conceptos y decisiones
 
 ### 1. Puertos y demultiplexación
@@ -82,7 +103,7 @@ Un timeout expresa cuánto está dispuesto a esperar el consumidor; no demuestra
 - **RTT:** tiempo de ida y vuelta observado.
 - **idempotencia:** propiedad por la cual repetir una operación conserva el efecto esperado.
 
-Estas definiciones son operativas: precisan el uso dentro de Nexo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
+Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo mínimo
 
@@ -92,7 +113,7 @@ El ejemplo se acepta cuando incluye predicción previa, salida relevante y expli
 
 ## Ejemplo profesional
 
-Nexo usa HTTP sobre transporte confiable para informes y un canal de eventos donde las muestras antiguas pueden descartarse. La ficha de decisión compara orden, pérdida tolerable, movilidad, soporte de proxy, costo operativo y telemetría. QUIC se habilita solo si la ruta y la biblioteca lo soportan; existe fallback medido.
+La petición observable de extremo a extremo usa HTTP sobre transporte confiable para informes y un canal de eventos donde las muestras antiguas pueden descartarse. La ficha de decisión compara orden, pérdida tolerable, movilidad, soporte de proxy, costo operativo y telemetría. QUIC se habilita solo si la ruta y la biblioteca lo soportan; existe fallback medido.
 
 La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
 
@@ -119,7 +140,7 @@ Entrega una traza comentada que permita a otra persona responder: qué se intent
 ## Demostración guiada
 
 1. Predice el primer evento observable y el resultado sano.
-2. Ejecuta una sola petición de Nexo y asigna cada marca a una frontera.
+2. Ejecuta una sola petición de la petición observable de extremo a extremo y asigna cada marca a una frontera.
 3. Introduce el fallo controlado descrito abajo.
 4. Compara por **primera divergencia**, no por cantidad de errores posteriores.
 5. Restaura, repite y conserva evidencia de recuperación.
@@ -196,9 +217,11 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 
 ## Fuentes
 
-- [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 768 — User Datagram Protocol](https://www.rfc-editor.org/rfc/rfc768): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000): sustenta los mecanismos y límites usados en esta clase.
+
+
+- [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 768 — User Datagram Protocol](https://www.rfc-editor.org/rfc/rfc768) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 

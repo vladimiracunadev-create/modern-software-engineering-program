@@ -2,11 +2,33 @@
 
 [← SE-081 — Programación concurrente y actores](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-082.html) · [SE-083 — Taller: una regla de negocio en cinco paradigmas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para seleccionar y combinar paradigmas por fuerzas del problema y costo de adaptación.
+
+**Por qué aparece aquí.** Se sitúa después de **Programación concurrente y actores** y antes de **Taller: una regla de negocio en cinco paradigmas**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Elegir paradigma por moda o forzar uno sobre todas las capas.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Decision-record.md con alternativas, fuerzas, adaptadores y pérdida aceptada. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La matriz orienta una decisión contextual, no produce un ganador universal.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Language Reference](https://docs.python.org/3/reference/) | Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) | Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la evidencia de la clase anterior, añade una decisión propia de **Selección y combinación responsable de paradigmas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo elegir y combinar paradigmas a partir de fuerzas del problema y evidencia?**
+Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Selección y combinación responsable de paradigmas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo elegir y combinar paradigmas a partir de fuerzas del problema y evidencia?**
 
 ## Prerrequisitos
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Fuerzas del problema | La elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo. | Evidencia o contraejemplo registrado |
-| Semántica antes que sintaxis | Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error. | Evidencia o contraejemplo registrado |
-| Fronteras entre modelos | Combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje. | Evidencia o contraejemplo registrado |
-| Costo cognitivo y operativo | Una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene. | Evidencia o contraejemplo registrado |
-| Decisión reversible y experimento | Cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión. | Evidencia o contraejemplo registrado |
-
+| Fuerzas del problema | La elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo. | Predicción, traza causal y contraejemplo de **Fuerzas del problema** en `decision-record.md` |
+| Semántica antes que sintaxis | Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error. | Predicción, traza causal y contraejemplo de **Semántica antes que sintaxis** en `decision-record.md` |
+| Fronteras entre modelos | Combinar modelos exige adaptadores: evento a valor, objeto a registro, resultado a excepción o mensaje. | Predicción, traza causal y contraejemplo de **Fronteras entre modelos** en `decision-record.md` |
+| Costo cognitivo y operativo | Una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene. | Predicción, traza causal y contraejemplo de **Costo cognitivo y operativo** en `decision-record.md` |
+| Decisión reversible y experimento | Cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión. | Predicción, traza causal y contraejemplo de **Decisión reversible y experimento** en `decision-record.md` |
 ## Conceptos y decisiones
 
 ### 1. Fuerzas del problema
@@ -50,7 +71,7 @@ La elección parte de estado, temporalidad, concurrencia, tasa de cambio, audita
 
 ### 2. Semántica antes que sintaxis
 
-Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error. Contar líneas o tokens sin verificar semántica premia omisiones. Prisma usa fixtures comunes y normaliza solo diferencias de presentación.
+Dos implementaciones son comparables si aceptan el mismo dominio y producen resultados equivalentes para normal, límite y error. Contar líneas o tokens sin verificar semántica premia omisiones. El motor de reglas comparado usa fixtures comunes y normaliza solo diferencias de presentación.
 
 ### 3. Fronteras entre modelos
 
@@ -72,7 +93,7 @@ Cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha 
 - **costo cognitivo y operativo:** una solución elegante para especialistas puede ser inoperable para el equipo que la mantiene.
 - **decisión reversible y experimento:** cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión.
 
-Las definiciones son operativas para Prisma. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -88,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Prisma, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -105,7 +126,7 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 ## Ejercicios
 
 1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla de Prisma sin alterar los fixtures anteriores.
+2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
 3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
 4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
@@ -115,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Prisma recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
+El motor de reglas comparado recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
 
 ## Preguntas frecuentes
 
@@ -152,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-082/
 ├── README.md
-├── prisma/
+├── rule_engine/
 │   ├── domain.py
 │   └── se_082.py
 ├── fixtures/cases.json
@@ -190,6 +211,8 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
+
 - [Python Language Reference](https://docs.python.org/3/reference/) — Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation.
 - [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project.
 - [SWI-Prolog Reference Manual](https://www.swi-prolog.org/pldoc/man?section=intro) — Hechos, reglas, unificación, búsqueda y límites operacionales; autoridad: SWI-Prolog project.
@@ -197,7 +220,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Prisma sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

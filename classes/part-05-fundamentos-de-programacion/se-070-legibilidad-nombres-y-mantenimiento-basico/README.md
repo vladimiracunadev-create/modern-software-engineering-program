@@ -2,21 +2,43 @@
 
 [← SE-069 — Pruebas tempranas y diseño por ejemplos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-070.html) · [SE-071 — Taller: transferir una solución entre lenguajes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para evaluar legibilidad por el costo de comprender y cambiar, no por preferencias estéticas.
+
+**Por qué aparece aquí.** Se sitúa después de **Pruebas tempranas y diseño por ejemplos** y antes de **Taller: transferir una solución entre lenguajes**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Aplicar nombres o formato sin mejorar el modelo.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Maintenance-change.md con tarea antes/después, diff y explicación de carga cognitiva. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Una medición local no demuestra mantenibilidad a largo plazo.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Tutorial](https://docs.python.org/3/tutorial/) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Language Reference](https://docs.python.org/3/reference/) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase construye **Brújula**, la implementación incremental de la especificación Atlas. Recupera `SE-069` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
+Esta clase construye la **CLI diagnóstica**, implementación incremental de la especificación del modelo de decisión diagnóstica. Recupera `SE-069` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
 
 ## Prerrequisitos
 
 - Python 3.11 o posterior disponible como `python` o `python3`; registra la versión real.
 - Terminal, editor de texto y Git; no se requieren paquetes externos.
-- Comprender el contrato de Atlas: entradas, resultados, errores e invariantes.
+- Comprender el contrato del modelo de decisión diagnóstica: entradas, resultados, errores e invariantes.
 
 ## Problema auténtico
 
-Brújula pasa pruebas, pero usa nombres crípticos, funciones largas y comentarios que contradicen el código. La legibilidad no es cosmética: determina si una persona puede detectar una regla rota y modificarla con riesgo acotado.
+La CLI diagnóstica pasa pruebas, pero usa nombres crípticos, funciones largas y comentarios que contradicen el código. La legibilidad no es cosmética: determina si una persona puede detectar una regla rota y modificarla con riesgo acotado.
 
 ## Objetivos observables
 
@@ -26,7 +48,7 @@ Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución,
 
 ```mermaid
 flowchart LR
-    S[Especificación Atlas] --> V[Valores y contratos]
+    S[Especificación el modelo de decisión diagnóstica] --> V[Valores y contratos]
     V --> C[Control y transformación]
     C --> E[Efectos en la frontera]
     E --> O[Salida observable]
@@ -76,7 +98,7 @@ Un cambio estructural conserva comportamiento observable. Primero se caracteriza
 - **refactorización:** cambio de estructura que preserva comportamiento.
 - **caracterización:** prueba que captura conducta existente.
 
-Estas definiciones describen el uso concreto en Brújula. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
+Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
 ## Ejemplo mínimo
 
@@ -94,7 +116,7 @@ Ejecuta el fragmento en un archivo, no solo en una conversación interactiva. Co
 
 ## Ejemplo profesional
 
-Brújula adopta vocabulario de Atlas en código y mensajes. El README define convenciones de unidades y errores. Cada refactor mantiene commits pequeños, pruebas verdes y una explicación de qué cambio futuro facilita.
+La CLI diagnóstica adopta vocabulario del modelo de decisión diagnóstica en código y mensajes. El README define convenciones de unidades y errores. Cada refactor mantiene commits pequeños, pruebas verdes y una explicación de qué cambio futuro facilita.
 
 El criterio profesional es que el comportamiento pueda ser consumido, diagnosticado y cambiado sin depender de conocimiento oral ni de estado oculto.
 
@@ -110,13 +132,13 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 ## Ejercicios
 
 1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de Brújula siguiendo el contrato, sin mezclar I/O y cálculo.
+2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
 3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
 4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
 
 ## Reto verificable
 
-Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla de Atlas.
+Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla del modelo de decisión diagnóstica.
 
 ## Demostración guiada
 
@@ -160,13 +182,13 @@ Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, correc
 
 ```text
 work/SE-070/
-├── compass/
+├── diagnostic_cli/
 │   ├── __init__.py
 │   ├── domain.py
 │   ├── cli.py
 │   └── __main__.py
 ├── tests/
-│   └── test_compass.py
+│   └── test_diagnostic_cli.py
 └── README.md
 ```
 
@@ -199,11 +221,12 @@ No se asciende a `EXECUTABLE` o `TESTED` solo por incluir snippets y comandos. E
 
 ## Fuentes
 
-- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): referencia oficial para el mecanismo y los límites explicados.
-- [Python Tutorial](https://docs.python.org/3/tutorial/): referencia oficial para el mecanismo y los límites explicados.
-- [Python Language Reference](https://docs.python.org/3/reference/): referencia oficial para el mecanismo y los límites explicados.
 
-La documentación oficial define el lenguaje y la biblioteca; no demuestra que Brújula cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
+- [Python Tutorial](https://docs.python.org/3/tutorial/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+
+La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 

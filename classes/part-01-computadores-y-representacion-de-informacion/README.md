@@ -7,7 +7,7 @@
 
 ## Antes de comenzar: el caso que conecta la parte
 
-Durante doce clases construirás y observarás **Pulso**, un programa local y pequeño
+Durante doce clases construirás y observarás **analizador local de eventos**, un programa local y pequeño
 que recibe una confirmación ficticia de matrícula, la codifica, calcula estadísticas,
 la conserva y devuelve un resumen. El comportamiento parece sencillo, pero atraviesa
 representación binaria, texto, aritmética, instrucciones, memoria, procesos, I/O,
@@ -16,7 +16,7 @@ existir.
 
 ```mermaid
 flowchart LR
- S[Fuente de Pulso] --> R[Representación]
+ S[Fuente del analizador local de eventos] --> R[Representación]
  R --> T[Traducción y runtime]
  T --> I[Instrucciones]
  I --> M[Memoria y CPU]
@@ -84,7 +84,7 @@ runtime, sistema operativo o hardware?
 
 ### Bloque 4 — Integrar evidencia
 
-`SE-023` sigue Pulso desde el código hasta señales del proceso. `SE-024` exige un
+`SE-023` sigue el analizador local de eventos desde el código hasta señales del proceso. `SE-024` exige un
 informe reproducible con hipótesis rivales, entorno y límites.
 
 **Pregunta de control:** ¿puede otra persona repetir la observación y decir qué no
@@ -92,7 +92,7 @@ demuestra?
 
 ## Guía razonada clase por clase
 
-La parte sigue el mismo dato de Pulso desde su significado hasta el hardware, el runtime
+La parte sigue el mismo dato del analizador local de eventos desde su significado hasta el hardware, el runtime
 y la medición. Cada clase declara qué capa explica una transición, qué observación puede
 respaldarla y qué límite impide convertir un modelo didáctico en una afirmación sobre
 cualquier máquina.
@@ -102,7 +102,7 @@ cualquier máquina.
 #### SE-013 — Arquitectura básica de un computador moderno
 
 Construye el mapa inicial: entrada/salida, CPU, memoria, almacenamiento e interfaces.
-Distingue arquitectura visible para el software de microarquitectura interna. Pulso se
+Distingue arquitectura visible para el software de microarquitectura interna. El analizador local de eventos se
 usa para seguir una solicitud desde el fuente hasta una salida, declarando qué capa
 explica cada transición. Produce `machine-map.md`.
 
@@ -125,7 +125,7 @@ manera uno-a-uno.
 #### SE-015 — Texto, Unicode, codificaciones y mojibake
 
 Separa carácter abstracto, punto de código, unidad de código, secuencia de bytes y
-grafema visible. Pulso recibe `Matrícula ✓`; se inspecciona UTF-8, normalización y el
+grafema visible. El analizador local de eventos recibe `Matrícula ✓`; se inspecciona UTF-8, normalización y el
 mecanismo exacto del mojibake. Produce casos de ida y vuelta y una política de error.
 
 El estudiante reproduce la degradación decodificando con el contrato incorrecto, en
@@ -136,7 +136,7 @@ lleva a cantidades y precisión.
 #### SE-016 — Enteros, coma flotante, precisión y errores numéricos
 
 Compara enteros de ancho fijo con enteros arbitrarios y explica representación de coma
-flotante, redondeo y valores especiales. Pulso calcula un promedio que parece exacto y
+flotante, redondeo y valores especiales. El analizador local de eventos calcula un promedio que parece exacto y
 se decide entre binario, decimal y entero escalado según el dominio. Produce pruebas de
 frontera y un registro de decisión numérica.
 
@@ -161,7 +161,7 @@ esos datos.
 
 #### SE-018 — Memoria, cachés, almacenamiento y jerarquías
 
-Relaciona latencia, capacidad, costo, persistencia y localidad. Pulso procesa datos
+Relaciona latencia, capacidad, costo, persistencia y localidad. El analizador local de eventos procesa datos
 contiguos y dispersos; la medición controla tamaño y repeticiones sin atribuir a una
 caché concreta lo que Python no permite observar directamente. Produce un mapa de
 jerarquía y un experimento de conjunto de trabajo.
@@ -174,11 +174,11 @@ hacer esperar a la ejecución.
 #### SE-019 — Procesos, hilos, interrupciones y entrada/salida
 
 Ubica el aislamiento del proceso, el estado compartido entre hilos, la planificación y
-la frontera de llamada al sistema. Pulso pasa de cálculo puro a leer y escribir. Se
+la frontera de llamada al sistema. El analizador local de eventos pasa de cálculo puro a leer y escribir. Se
 comparan I/O bloqueante y concurrencia sin afirmar paralelismo automático. Produce una
 línea temporal causal.
 
-Pulso registra creación, lectura, espera, escritura y terminación, diferenciando trabajo
+El analizador local de eventos registra creación, lectura, espera, escritura y terminación, diferenciando trabajo
 de CPU de tiempo bloqueado. El estudiante marca qué recursos se comparten y cuáles se
 aíslan. `SE-020` retrocede desde el proceso en marcha para explicar cómo el fuente llegó
 a una forma ejecutable.
@@ -188,7 +188,7 @@ a una forma ejecutable.
 #### SE-020 — Compilación, interpretación, bytecode y JIT
 
 Rompe la falsa oposición compilado–interpretado: un sistema puede traducir en varias
-etapas. Con `ast` y `dis`, Pulso se observa como fuente, árbol y bytecode de CPython;
+etapas. Con `ast` y `dis`, el analizador local de eventos se observa como fuente, árbol y bytecode de CPython;
 esas instrucciones no se confunden con la ISA física. Produce un mapa de traducción con
 artefactos y decisiones por etapa.
 
@@ -201,10 +201,10 @@ durante esa ejecución.
 
 Explica los servicios que sostienen ejecución: carga, tipos, excepciones, llamadas,
 asignación y memoria automática. Se comparan conteo de referencias y trazado, y se
-separa liberar memoria de cerrar recursos. Pulso mide asignaciones con `tracemalloc` y
+separa liberar memoria de cerrar recursos. El analizador local de eventos mide asignaciones con `tracemalloc` y
 produce un mapa de vida de objetos.
 
-Pulso crea referencias, ciclos y recursos externos para distinguir alcanzabilidad de
+El analizador local de eventos crea referencias, ciclos y recursos externos para distinguir alcanzabilidad de
 liberación y liberación de cierre oportuno. La evidencia no promete cuándo ocurrirá una
 colección. `SE-022` transforma todas estas capas en preguntas medibles sobre tiempo,
 trabajo y recursos.
@@ -225,7 +225,7 @@ extremo a extremo.
 
 #### SE-023 — Taller: observar un programa desde el código hasta la máquina
 
-Integra las diez lentes. El estudiante ejecuta únicamente Pulso, inspecciona bytes,
+Integra las diez lentes. El estudiante ejecuta únicamente el analizador local de eventos, inspecciona bytes,
 AST, bytecode, proceso, tiempo y memoria, y mantiene una columna separada para aquello
 que infiere. Una revisión cruzada intenta reconstruir tres hallazgos.
 
@@ -242,7 +242,7 @@ depende de reproducibilidad y calidad causal, no de obtener un resultado llamati
 
 Una segunda persona ejecuta desde un entorno declarado y revisa si los datos permiten la
 conclusión. El informe separa observado, inferido y no medido. Ese hábito prepara la
-Parte 2, donde Pulso se convierte en Faro y el entorno operativo pasa de contexto a
+Parte 2, dondel analizador local de eventos se convierte en el kit de diagnóstico multiplataforma y el entorno operativo pasa de contexto a
 objeto explícito de diagnóstico.
 
 ## Resumen operativo del recorrido

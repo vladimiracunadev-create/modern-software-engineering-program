@@ -7,7 +7,7 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "GUIDED",
+  "status": "PLANNED",
   "source_ids": [
     "POSIX-2024",
     "WINDOWS-DOCS",

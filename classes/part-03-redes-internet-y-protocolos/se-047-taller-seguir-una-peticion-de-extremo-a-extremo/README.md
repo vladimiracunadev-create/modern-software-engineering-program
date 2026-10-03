@@ -2,11 +2,33 @@
 
 [← SE-046 — Captura, medición y diagnóstico de tráfico](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-047.html) · [SE-048 — Proyecto: servicio observable y tolerante a fallos de red →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para reconstruir una petición extremo a extremo correlacionando DNS, transporte, TLS y HTTP.
+
+**Por qué aparece aquí.** Se sitúa después de **Captura, medición y diagnóstico de tráfico** y antes de **Proyecto: servicio observable y tolerante a fallos de red**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Narrar capas por separado sin una identidad temporal común.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Request-timeline.md con timestamps, IDs, saltos y dos hipótesis descartadas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La correlación temporal no prueba causalidad sin experimento discriminante.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RFC 1122 — Requirements for Internet Hosts: Communication Layers](https://www.rfc-editor.org/rfc/rfc1122) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -51,7 +73,6 @@ El ciclo evita el diagnóstico por intuición. La observación se ubica antes de
 | garantía | ¿qué promete el protocolo y qué no? | ejemplo y contraejemplo |
 | diagnóstico | ¿qué prueba separa causas plausibles? | comparación reproducible |
 | operación | ¿cómo falla, se limita y se recupera? | caso sano, degradado y restaurado |
-
 ## Conceptos y decisiones
 
 ### 1. Contrato de observación
@@ -82,7 +103,7 @@ El informe no es una descarga de comandos. Ordena contexto, expectativa, observa
 - **prueba discriminante:** experimento cuyo resultado separa hipótesis.
 - **incertidumbre:** parte relevante que la evidencia disponible no permite determinar.
 
-Estas definiciones son operativas: precisan el uso dentro de Nexo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
+Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo mínimo
 
@@ -92,7 +113,7 @@ El ejemplo se acepta cuando incluye predicción previa, salida relevante y expli
 
 ## Ejemplo profesional
 
-Nexo ejecuta una traza sintética cada cinco minutos desde dos redes. Ante fallo, guarda solo metadatos y los vincula a logs por request ID. El taller compara caso sano y degradado, calcula la primera divergencia y evita concluir desde diferencias posteriores que son consecuencias.
+La petición observable de extremo a extremo ejecuta una traza sintética cada cinco minutos desde dos redes. Ante fallo, guarda solo metadatos y los vincula a logs por request ID. El taller compara caso sano y degradado, calcula la primera divergencia y evita concluir desde diferencias posteriores que son consecuencias.
 
 La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
 
@@ -120,7 +141,7 @@ Entrega una traza comentada que permita a otra persona responder: qué se intent
 ## Demostración guiada
 
 1. Predice el primer evento observable y el resultado sano.
-2. Ejecuta una sola petición de Nexo y asigna cada marca a una frontera.
+2. Ejecuta una sola petición de la petición observable de extremo a extremo y asigna cada marca a una frontera.
 3. Introduce el fallo controlado descrito abajo.
 4. Compara por **primera divergencia**, no por cantidad de errores posteriores.
 5. Restaura, repite y conserva evidencia de recuperación.
@@ -197,11 +218,13 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 
 ## Fuentes
 
-- [RFC 1122 — Requirements for Internet Hosts: Communication Layers](https://www.rfc-editor.org/rfc/rfc1122): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110): sustenta los mecanismos y límites usados en esta clase.
+
+
+- [RFC 1122 — Requirements for Internet Hosts: Communication Layers](https://www.rfc-editor.org/rfc/rfc1122) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 9293 — Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 

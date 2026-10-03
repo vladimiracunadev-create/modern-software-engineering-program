@@ -20,7 +20,7 @@ El contenido y los casos se conservan. Solo cambia la denominación:
 | Prisma | motor de reglas comparado |
 | Orbe | biblioteca de estructuras y algoritmos |
 | Lupa | entorno reproducible de diagnóstico |
-| Constelación | SDK y CLI versionados |
+| Constelación | producto reutilizable con SDK y CLI |
 
 ## Fundamento pedagógico
 
@@ -34,5 +34,6 @@ que sitúa el aprendizaje en el conocimiento previo y el contexto, y con
 a predecir, explicar y contrastar el mecanismo, no a recordar el nombre de un
 caso ficticio.
 
-Esta tabla conserva la trazabilidad histórica sin mantener los alias como
-requisito cognitivo dentro de las clases.
+Esta tabla es el único lugar donde se conservan los alias: sirve como trazabilidad
+histórica de la corrección y no como vocabulario del programa. Un validador impide
+que vuelvan a las clases, a los índices o al portal de las Partes 01–09.

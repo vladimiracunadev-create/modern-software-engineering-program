@@ -2,11 +2,34 @@
 
 [← SE-032](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-034 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)
 
-> Estado: **GUIDED**. Recolecta evidencia minimizada de un laboratorio; no es un procedimiento forense ni autoriza extraer logs de terceros.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad.
+
+**Por qué aparece aquí.** Se sitúa después de **Instalación de software y gestores de paquetes del sistema** y antes de **Virtualización, WSL y aislamiento local**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Buscar una cadena y declarar causa sin línea temporal ni evidencia rival.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Incident-timeline.md con evento, fuente, reloj, hipótesis y dato ausente. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Los logs pueden omitir, retrasar o redactar hechos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft Learn — Event Logging](https://learn.microsoft.com/windows/win32/eventlog/event-logging) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [systemd — journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) | define ciclo de vida, supervisión o consulta de eventos en systemd | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Apple Developer — Logging](https://developer.apple.com/documentation/os/logging) | delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [OpenTelemetry — Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/) | delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Cuando Pulso falla, un archivo de log puede contener miles de líneas y aun no responder qué ocurrió. Registrar más no equivale a observar mejor. Faro necesita relacionar evento, contexto y resultado sin capturar secretos ni convertir una coincidencia temporal en causa.
+Cuando el analizador local de eventos falla, un archivo de log puede contener miles de líneas y aun no responder qué ocurrió. Registrar más no equivale a observar mejor. El kit de diagnóstico multiplataforma necesita relacionar evento, contexto y resultado sin capturar secretos ni convertir una coincidencia temporal en causa.
 
 ### Resultado de aprendizaje
 
@@ -14,11 +37,11 @@ Al terminar podrás diseñar eventos útiles, correlacionar evidencia de varias 
 
 ## Prerrequisitos
 
-`SE-031` para redacción, `SE-028` para ciclo de proceso y una ejecución local de Pulso/Faro. Usa únicamente eventos sintéticos o propios.
+`SE-031` para redacción, `SE-028` para ciclo de proceso y una ejecución local del analizador local de eventos/el kit de diagnóstico multiplataforma. Usa únicamente eventos sintéticos o propios.
 
 ## Problema auténtico
 
-Pulso falla y existen miles de líneas de log. No hay identificador de operación, los relojes difieren y una ruta personal aparece junto a un token. El volumen aumentó; la capacidad de explicar disminuyó.
+El analizador local de eventos falla y existen miles de líneas de log. No hay identificador de operación, los relojes difieren y una ruta personal aparece junto a un token. El volumen aumentó; la capacidad de explicar disminuyó.
 
 ## Objetivos observables
 
@@ -32,7 +55,6 @@ Podrás diseñar eventos estructurados; distinguir logs, métricas y trazas; cor
 | Correlación | relaciona señales de una operación | reconstruir una línea temporal |
 | Tiempo | separa marca de pared y duración monótona | evitar órdenes y duraciones falsas |
 | Minimización | selecciona y redacta antes de persistir | compartir evidencia con menor riesgo |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -64,7 +86,7 @@ Un registro profesional incluye tiempo con zona o referencia inequívoca, severi
 
 ```mermaid
 flowchart LR
-    O[Operación de Pulso] --> A[Eventos de aplicación]
+    O[Operación del analizador local de eventos] --> A[Eventos de aplicación]
     O --> M[Métricas locales]
     O --> X[Código y stderr]
     S[Contexto del sistema] --> C[Correlación temporal]
@@ -81,13 +103,13 @@ La correlación aproxima relaciones; no demuestra causalidad por sí sola. Un id
 
 `DEBUG`, `INFO`, `WARN` y `ERROR` solo son útiles si el equipo define cuándo aplican. Un error recuperado puede ser advertencia para la operación global; una precondición ausente puede ser error sin excepción interna. Todo marcado como error crea fatiga y oculta señales.
 
-Faro conserva un evento estable como `config.read.denied` y una explicación localizada. Las automatizaciones dependen del código, no de frases traducidas.
+El kit de diagnóstico multiplataforma conserva un evento estable como `config.read.denied` y una explicación localizada. Las automatizaciones dependen del código, no de frases traducidas.
 
 ### Tiempo y orden exigen cautela
 
 Relojes pueden diferir, cambiar o tener distinta precisión. El tiempo de pared sirve para ubicar un evento; un reloj monótono es mejor para duraciones dentro de un proceso. En concurrencia, el orden de escritura no necesariamente reproduce el orden causal.
 
-Faro registra inicio, fin y duración con mecanismo apropiado, además de zona para marcas compartidas. Si combina fuentes, declara la incertidumbre de sincronización.
+El kit de diagnóstico multiplataforma registra inicio, fin y duración con mecanismo apropiado, además de zona para marcas compartidas. Si combina fuentes, declara la incertidumbre de sincronización.
 
 ### La captura debe minimizar datos sensibles
 
@@ -109,21 +131,21 @@ Los sistemas ofrecen almacenes diferentes: Windows Event Log, journal de `system
 - **inferencia:** explicación compatible con hechos, aún contrastable;
 - **paquete diagnóstico:** evidencia seleccionada, contextualizada y minimizada para revisión.
 
-## Caso conductor: Faro construye una línea temporal
+## Caso conductor: el kit de diagnóstico multiplataforma construye una línea temporal
 
-Pulso devuelve código `3`: configuración ausente. Faro recoge versión, configuración efectiva redactada, metadatos de la ruta y eventos con el mismo identificador. Descubre que la ruta provino de una variable heredada, no del archivo esperado. Esa relación ya está explicada por la precedencia de SE-031.
+El analizador local de eventos devuelve código `3`: configuración ausente. El kit de diagnóstico multiplataforma recoge versión, configuración efectiva redactada, metadatos de la ruta y eventos con el mismo identificador. Descubre que la ruta provino de una variable heredada, no del archivo esperado. Esa relación ya está explicada por la precedencia de SE-031.
 
 El informe separa:
 
 - **hechos:** variable presente, ruta resuelta, archivo ausente, código 3;
 - **inferencia:** la variable probablemente desvió la búsqueda;
 - **prueba:** ejecutar en un entorno mínimo sin esa variable;
-- **resultado:** Pulso usa el archivo correcto;
+- **resultado:** el analizador local de eventos usa el archivo correcto;
 - **corrección:** eliminar la configuración obsoleta en su ámbito, no codificar otra ruta.
 
 ## Práctica guiada
 
-1. Instrumenta tres etapas de Faro con eventos estructurados y correlación.
+1. Instrumenta tres etapas del kit de diagnóstico multiplataforma con eventos estructurados y correlación.
 2. Induce dos fallos que compartan un síntoma superficial.
 3. Construye una línea temporal con hechos y fuentes.
 4. Formula una prueba que discrimine las causas.
@@ -142,7 +164,7 @@ Un servicio presenta latencia y errores coincidentes con presión de disco. El e
 
 1. Convierte tres mensajes libres en eventos con código estable y campos mínimos.
 2. Distingue hechos e inferencias en una línea temporal dada.
-3. Diseña una política de severidad, retención y redacción para Faro.
+3. Diseña una política de severidad, retención y redacción para el kit de diagnóstico multiplataforma.
 
 ## Reto verificable
 
@@ -198,10 +220,11 @@ No implementamos una plataforma distribuida de observabilidad ni demostramos cau
 
 ## Fuentes
 
-- [Microsoft Learn — Event Logging](https://learn.microsoft.com/windows/win32/eventlog/event-logging)
-- [systemd — journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html)
-- [Apple Developer — Logging](https://developer.apple.com/documentation/os/logging)
-- [OpenTelemetry — Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
+
+- [Microsoft Learn — Event Logging](https://learn.microsoft.com/windows/win32/eventlog/event-logging) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [systemd — journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) — define ciclo de vida, supervisión o consulta de eventos en systemd.
+- [Apple Developer — Logging](https://developer.apple.com/documentation/os/logging) — delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad.
+- [OpenTelemetry — Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/) — delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad.
 
 ## Glosario
 

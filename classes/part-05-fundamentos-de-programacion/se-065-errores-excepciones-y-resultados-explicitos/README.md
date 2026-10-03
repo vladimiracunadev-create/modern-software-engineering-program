@@ -2,21 +2,43 @@
 
 [← SE-064 — Funciones, parámetros, retorno y alcance](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-065.html) · [SE-066 — Colecciones y transformación de datos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir error esperado, excepción, resultado explícito y fallo irrecuperable.
+
+**Por qué aparece aquí.** Se sitúa después de **Funciones, parámetros, retorno y alcance** y antes de **Colecciones y transformación de datos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Capturar toda excepción y continuar sin preservar causa.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Failure-taxonomy.md con propagación, contexto, recuperación y regresión. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Ninguna estrategia única sirve para todas las fronteras.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Tutorial — Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Language Reference](https://docs.python.org/3/reference/) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) | documenta ownership, tipos de error, traits y concurrencia usados como contraste semántico | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase construye **Brújula**, la implementación incremental de la especificación Atlas. Recupera `SE-064` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
+Esta clase construye la **CLI diagnóstica**, implementación incremental de la especificación del modelo de decisión diagnóstica. Recupera `SE-064` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
 
 ## Prerrequisitos
 
 - Python 3.11 o posterior disponible como `python` o `python3`; registra la versión real.
 - Terminal, editor de texto y Git; no se requieren paquetes externos.
-- Comprender el contrato de Atlas: entradas, resultados, errores e invariantes.
+- Comprender el contrato del modelo de decisión diagnóstica: entradas, resultados, errores e invariantes.
 
 ## Problema auténtico
 
-Brújula atrapa `Exception` y continúa con datos incompletos. El usuario recibe éxito aunque el archivo no se leyó. Se deben distinguir errores de entrada, fallos esperados de I/O, defectos de programación y resultados de dominio.
+La CLI diagnóstica atrapa `Exception` y continúa con datos incompletos. El usuario recibe éxito aunque el archivo no se leyó. Se deben distinguir errores de entrada, fallos esperados de I/O, defectos de programación y resultados de dominio.
 
 ## Objetivos observables
 
@@ -26,7 +48,7 @@ Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución,
 
 ```mermaid
 flowchart LR
-    S[Especificación Atlas] --> V[Valores y contratos]
+    S[Especificación el modelo de decisión diagnóstica] --> V[Valores y contratos]
     V --> C[Control y transformación]
     C --> E[Efectos en la frontera]
     E --> O[Salida observable]
@@ -76,7 +98,7 @@ Cuando ausencia o rechazo es parte esperada del dominio, un resultado etiquetado
 - **chaining:** vínculo causal entre excepciones.
 - **resultado explícito:** valor que representa éxito o fallo esperado.
 
-Estas definiciones describen el uso concreto en Brújula. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
+Estas definiciones describen el uso concreto en la CLI diagnóstica. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
 ## Ejemplo mínimo
 
@@ -96,7 +118,7 @@ Ejecuta el fragmento en un archivo, no solo en una conversación interactiva. Co
 
 ## Ejemplo profesional
 
-Brújula devuelve código 2 para uso inválido, 3 para archivo no accesible y 1 para diagnóstico con fallo, reservando 0 para ejecución válida. `stderr` explica el error; `stdout` conserva salida parseable. Los errores internos mantienen traceback en modo debug.
+La CLI diagnóstica devuelve código 2 para uso inválido, 3 para archivo no accesible y 1 para diagnóstico con fallo, reservando 0 para ejecución válida. `stderr` explica el error; `stdout` conserva salida parseable. Los errores internos mantienen traceback en modo debug.
 
 El criterio profesional es que el comportamiento pueda ser consumido, diagnosticado y cambiado sin depender de conocimiento oral ni de estado oculto.
 
@@ -112,13 +134,13 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 ## Ejercicios
 
 1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de Brújula siguiendo el contrato, sin mezclar I/O y cálculo.
+2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
 3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
 4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
 
 ## Reto verificable
 
-Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla de Atlas.
+Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla del modelo de decisión diagnóstica.
 
 ## Demostración guiada
 
@@ -162,13 +184,13 @@ Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, correc
 
 ```text
 work/SE-065/
-├── compass/
+├── diagnostic_cli/
 │   ├── __init__.py
 │   ├── domain.py
 │   ├── cli.py
 │   └── __main__.py
 ├── tests/
-│   └── test_compass.py
+│   └── test_diagnostic_cli.py
 └── README.md
 ```
 
@@ -201,11 +223,12 @@ No se asciende a `EXECUTABLE` o `TESTED` solo por incluir snippets y comandos. E
 
 ## Fuentes
 
-- [Python Tutorial — Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html): referencia oficial para el mecanismo y los límites explicados.
-- [Python Language Reference](https://docs.python.org/3/reference/): referencia oficial para el mecanismo y los límites explicados.
-- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/): referencia oficial para el mecanismo y los límites explicados.
 
-La documentación oficial define el lenguaje y la biblioteca; no demuestra que Brújula cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
+- [Python Tutorial — Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — documenta ownership, tipos de error, traits y concurrencia usados como contraste semántico.
+
+La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 

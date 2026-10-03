@@ -2,12 +2,34 @@
 
 [← SE-017](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-019 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md)
 
-> Estado: **GUIDED**. Las mediciones observan el proceso y no identifican una caché física sin instrumentación adicional.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para elegir almacenamiento y acceso por localidad, latencia, capacidad y durabilidad.
+
+**Por qué aparece aquí.** Se sitúa después de **CPU, instrucciones, registros y ciclos de ejecución** y antes de **Procesos, hilos, interrupciones y entrada/salida**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Atribuir una segunda ejecución rápida a una caché concreta o equiparar write con persistencia.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Hierarchy.md con protocolo frío/caliente, muestras y dos hipótesis rivales. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Sin contadores de hardware se observan efectos agregados, no una caché específica.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) |  define la memoria Python observable | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RISC-V memory model](https://docs.riscv.org/reference/isa/unpriv/rvwmo.html) |  muestra que orden de memoria también es contrato arquitectónico | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `os`](https://docs.python.org/3/library/os.html) |  documenta interfaces de archivo y `fsync` | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
 La traza de `SE-017` trató los accesos como pasos simples. En una máquina real, traer un
-dato puede costar mucho más que operar con él. Pulso procesará colecciones con distinto
+dato puede costar mucho más que operar con él. El analizador local de eventos procesará colecciones con distinto
 orden para estudiar localidad y conjunto de trabajo sin atribuir causas que la
 biblioteca estándar no mide.
 
@@ -34,7 +56,6 @@ caché; distinguirás memoria virtual y física; medirás un patrón sin sobreat
 | Localidad | reutiliza datos cercanos en tiempo o espacio | hace eficaces cachés y páginas |
 | Memoria virtual | mapea direcciones del proceso | aporta aislamiento y flexibilidad |
 | Persistencia | conserva datos más allá del proceso | cambia garantías de escritura y recuperación |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -73,7 +94,7 @@ tamaños progresivos y múltiples repeticiones.
 
 ### 4. Memoria virtual crea un espacio por proceso
 
-Las direcciones que ve Pulso son virtuales. El sistema y hardware traducen páginas a
+Las direcciones que ve el analizador local de eventos son virtuales. El sistema y hardware traducen páginas a
 memoria física o manejan ausencia. Esto permite aislamiento, compartición controlada y
 espacios mayores que RAM, pero un acceso puede provocar page fault. Una dirección
 impresa no revela ubicación física estable.
@@ -84,9 +105,9 @@ Bibliotecas y sistema almacenan buffers; el dispositivo puede tener caché. Cerr
 vaciar y sincronizar poseen garantías diferentes. Una aplicación debe definir si basta
 entregar datos al sistema o si requiere durabilidad ante fallo, y aceptar el costo.
 
-## Caso conductor: recorrer eventos de Pulso
+## Caso conductor: recorrer eventos del analizador local de eventos
 
-Pulso compara una lista recorrida secuencialmente con índices barajados. El experimento
+El analizador local de eventos compara una lista recorrida secuencialmente con índices barajados. El experimento
 mantiene datos y operación, varía orden, prueba varios tamaños y registra distribución.
 La conclusión correcta es “patrón compatible con efectos de localidad bajo este
 entorno”; no “medimos la caché L2”.
@@ -175,6 +196,7 @@ Repite con lectura de archivo y separa caché de aplicación, sistema y disposit
 Se exigen diseño controlado, muestras, causas alternativas y límite instrumental.
 
 ## Fuentes
+
 
 - [Python `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) define la memoria Python observable.
 - [RISC-V memory model](https://docs.riscv.org/reference/isa/unpriv/rvwmo.html) muestra que orden de memoria también es contrato arquitectónico.

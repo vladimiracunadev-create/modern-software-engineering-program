@@ -2,11 +2,33 @@
 
 [← SE-018](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-020 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md)
 
-> Estado: **GUIDED**. Introduce mecanismos observables desde usuario; la Parte 02 profundiza administración del sistema operativo.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para atribuir concurrencia y espera a procesos, hilos, interrupciones e I/O según su mecanismo.
+
+**Por qué aparece aquí.** Se sitúa después de **Memoria, cachés, almacenamiento y jerarquías** y antes de **Compilación, interpretación, bytecode y JIT**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Inferir paralelismo de CPU porque dos hilos se solapan.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Concurrency-observation.md con cronología, tiempos de pared/CPU e hipótesis descartadas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Scheduler, GIL y primitivas dependen de plataforma e implementación.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python `threading`](https://docs.python.org/3/library/threading.html) |  define hilos y restricciones de CPython | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `time`](https://docs.python.org/3/library/time.html) |  define relojes de pared y proceso | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RISC-V Privileged Architecture](https://docs.riscv.org/reference/isa/priv/) |  contextualiza interrupciones y niveles privilegiados | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-`SE-018` mostró que acceder a datos tiene jerarquías. Ahora Pulso lee, calcula y escribe
+`SE-018` mostró que acceder a datos tiene jerarquías. Ahora el analizador local de eventos lee, calcula y escribe
 mientras el sistema comparte CPU y dispositivos con otros programas. Modelarás proceso,
 hilo, llamada al sistema e interrupción sin tratarlos como sinónimos de programa o CPU.
 
@@ -32,16 +54,15 @@ seguirás una llamada de I/O; relacionarás interrupciones con eventos; comparar
 | Hilo | comparte proceso y mantiene ejecución | habilita concurrencia con riesgos |
 | Planificación | asigna CPU a unidades listas | explica pausas y competencia |
 | I/O e interrupción | coordinan dispositivos y software | separan espera de cálculo |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
- P[Pulso solicita lectura] --> K[Sistema operativo valida y programa I/O]
+ P[el analizador local de eventos solicita lectura] --> K[Sistema operativo valida y programa I/O]
  K --> D[Dispositivo inicia la operación]
  D --> I[Interrupción o señal de completado]
  I --> R[Kernel despierta el hilo bloqueado]
- R --> P2[Pulso recibe los datos]
+ R --> P2[el analizador local de eventos recibe los datos]
 ```
 
 El sistema real puede usar polling, DMA, buffers y completado asíncrono. La secuencia
@@ -82,7 +103,7 @@ bloqueante suspende al hilo hasta una condición, no necesariamente ocupa CPU to
 
 ## Caso conductor: leer y resumir eventos
 
-Pulso lee un archivo pequeño, calcula y escribe. Se registran tiempo de pared y CPU. Una
+El analizador local de eventos lee un archivo pequeño, calcula y escribe. Se registran tiempo de pared y CPU. Una
 versión con dos hilos procesa dos archivos sintéticos; el objetivo no es ganar, sino
 explicar qué trabajo se solapa, qué estado se comparte y qué medición refutaría la ventaja.
 
@@ -111,7 +132,7 @@ por conexión. Si el cuello es cálculo, se consideran procesos o trabajo vector
 
 ## Práctica guiada
 
-1. Crea dos archivos sintéticos y una versión secuencial de Pulso.
+1. Crea dos archivos sintéticos y una versión secuencial del analizador local de eventos.
 2. Mide `perf_counter` y `process_time` en lectura y cálculo por separado.
 3. Implementa dos hilos solo para las lecturas y registra timeline.
 4. Protege un contador compartido o evita compartir mediante resultados separados.
@@ -126,7 +147,7 @@ por conexión. Si el cuello es cálculo, se consideran procesos o trabajo vector
 
 ## Reto verificable
 
-Otra persona reconstruye cuándo Pulso calcula, espera y es planificable. Aprueba si la
+Otra persona reconstruye cuándo el analizador local de eventos calcula, espera y es planificable. Aprueba si la
 línea temporal no atribuye tiempo de pared completo a CPU.
 
 ## Preguntas frecuentes
@@ -168,6 +189,7 @@ Compara threads, procesos y async para un servidor de archivos; identifica propi
 Se exigen timeline, dos relojes, estado compartido explícito y conclusión condicionada.
 
 ## Fuentes
+
 
 - [Python `threading`](https://docs.python.org/3/library/threading.html) define hilos y restricciones de CPython.
 - [Python `time`](https://docs.python.org/3/library/time.html) define relojes de pared y proceso.

@@ -2,11 +2,33 @@
 
 [← SE-025](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-027 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)
 
-> Estado: **GUIDED**. Clase de resolución y acceso seguro; no certifica durabilidad ni recuperabilidad de un sistema de archivos concreto.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para razonar sobre identidad de archivos mediante rutas, enlaces, metadatos y resolución.
+
+**Por qué aparece aquí.** Se sitúa después de **Windows, Linux, macOS y sus modelos operativos** y antes de **Usuarios, grupos, permisos y elevación de privilegios**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Equiparar nombre de ruta con identidad o tratar symlink como copia.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Filesystem-fixture.md con árbol temporal, enlaces, permisos y resolución paso a paso. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La semántica exacta depende del sistema de archivos y opciones de montaje.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Open Group — Pathname Resolution](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — Naming Files, Paths, and Namespaces](https://learn.microsoft.com/windows/win32/fileio/naming-a-file) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python documentation — pathlib](https://docs.python.org/3/library/pathlib.html) | define la semántica y los límites de la API de Python utilizada en el experimento | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Faro ya sabe describir la plataforma. Su siguiente tarea parece trivial: encontrar `config.json`. En un equipo funciona con una ruta relativa; en otro, el proceso se inició desde un directorio diferente; en un tercero, la ruta cambia de mayúsculas y apunta a un enlace. La cadena de texto es parecida, pero la resolución no es la misma.
+El kit de diagnóstico multiplataforma ya sabe describir la plataforma. Su siguiente tarea parece trivial: encontrar `config.json`. En un equipo funciona con una ruta relativa; en otro, el proceso se inició desde un directorio diferente; en un tercero, la ruta cambia de mayúsculas y apunta a un enlace. La cadena de texto es parecida, pero la resolución no es la misma.
 
 ### Resultado de aprendizaje
 
@@ -18,7 +40,7 @@ Al terminar podrás explicar cómo se resuelve una ruta, distinguir nombre, cont
 
 ## Problema auténtico
 
-Pulso recibe `config/pulso.json` y funciona solo cuando se inicia desde el repositorio. Un acceso directo, servicio o tarea usa otro directorio y resuelve la misma cadena hacia un objeto distinto. El error se atribuye al archivo, aunque cambió el contexto de resolución.
+El analizador local de eventos recibe `config/event_analyzer.json` y funciona solo cuando se inicia desde el repositorio. Un acceso directo, servicio o tarea usa otro directorio y resuelve la misma cadena hacia un objeto distinto. El error se atribuye al archivo, aunque cambió el contexto de resolución.
 
 ## Objetivos observables
 
@@ -32,7 +54,6 @@ Podrás resolver rutas desde una base explícita; distinguir archivo, directorio
 | Enlaces | introducen nombres alternativos y saltos | contener recorridos y limpiezas |
 | Metadatos | describen tipo, tamaño, tiempos y acceso | contrastar hipótesis sin leer contenido |
 | Actualización | combina apertura, escritura y reemplazo | evitar estados parciales |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -77,7 +98,7 @@ Normalizar `.` y `..` no prueba que el objetivo exista ni que esté permitido. R
 
 En sistemas POSIX, `/` encabeza un árbol único donde pueden montarse otros sistemas. Windows admite volúmenes, rutas UNC y prefijos con reglas propias. Las bibliotecas de rutas de un lenguaje modelan estas diferencias mejor que separadores escritos a mano.
 
-No todo nombre válido en una plataforma lo es en otra. Tampoco debe asumirse sensibilidad o insensibilidad a mayúsculas solo por el nombre del sistema: depende del sistema de archivos y su configuración. Faro prueba el comportamiento que necesita o declara su requisito.
+No todo nombre válido en una plataforma lo es en otra. Tampoco debe asumirse sensibilidad o insensibilidad a mayúsculas solo por el nombre del sistema: depende del sistema de archivos y su configuración. El kit de diagnóstico multiplataforma prueba el comportamiento que necesita o declara su requisito.
 
 ### Enlace simbólico y enlace físico no son copias
 
@@ -89,7 +110,7 @@ Seguir enlaces automáticamente puede escapar del directorio esperado. Una herra
 
 Tamaño, propietario, permisos y tiempos describen el objeto, pero sus significados y granularidad varían. Una marca de modificación no prueba quién cambió un archivo ni que el contenido sea distinto. Para verificar igualdad se puede comparar contenido o una función hash adecuada, considerando costo y amenaza.
 
-Los atributos extendidos, listas de control de acceso y marcas de procedencia también pueden afectar la ejecución sin aparecer en una lectura básica. Faro reporta los campos que sustentan una hipótesis y señala cuando la plataforma no ofrece equivalencia directa.
+Los atributos extendidos, listas de control de acceso y marcas de procedencia también pueden afectar la ejecución sin aparecer en una lectura básica. El kit de diagnóstico multiplataforma reporta los campos que sustentan una hipótesis y señala cuando la plataforma no ofrece equivalencia directa.
 
 ### Abrir un archivo incluye decisiones de concurrencia y durabilidad
 
@@ -109,9 +130,9 @@ Un nombre de archivo y los bytes guardados en él atraviesan capas diferentes. P
 - **metadatos:** propiedades del objeto distintas de su contenido principal;
 - **reemplazo atómico:** transición indivisible para observadores según garantías del sistema concreto.
 
-## Caso conductor: Faro localiza la configuración
+## Caso conductor: el kit de diagnóstico multiplataforma localiza la configuración
 
-Faro define tres ubicaciones: directorio del programa, directorio de configuración del usuario y directorio de trabajo. Nunca las trata como sinónimos. Recibe una opción explícita `--config`; si no existe, consulta una variable documentada; por último usa una ubicación predeterminada de la plataforma.
+El kit de diagnóstico multiplataforma define tres ubicaciones: directorio del programa, directorio de configuración del usuario y directorio de trabajo. Nunca las trata como sinónimos. Recibe una opción explícita `--config`; si no existe, consulta una variable documentada; por último usa una ubicación predeterminada de la plataforma.
 
 Antes de abrir informa: ruta proporcionada, base utilizada, ruta normalizada, existencia, tipo de objeto y si atraviesa un enlace. No imprime el contenido porque puede contener secretos. Si encuentra un directorio donde esperaba un archivo, falla con un mensaje específico y un código distinto de “no existe”.
 
@@ -129,7 +150,7 @@ Entrega una matriz donde cada observación conduce a una decisión, no una colec
 
 ## Ejemplo mínimo
 
-Desde `C:\lab\pulso`, `config\pulso.json` apunta al laboratorio. Desde `C:\Users\ana`, la misma cadena apunta a otra ubicación. Resolver desde el directorio del programa produce una intención distinta a resolver desde el directorio de trabajo; Faro debe nombrar cuál eligió.
+Desde `C:\lab\event_analyzer`, `config\event_analyzer.json` apunta al laboratorio. Desde `C:\Users\ana`, la misma cadena apunta a otra ubicación. Resolver desde el directorio del programa produce una intención distinta a resolver desde el directorio de trabajo; el kit de diagnóstico multiplataforma debe nombrar cuál eligió.
 
 ## Ejemplo profesional
 
@@ -157,7 +178,7 @@ Demuestra igualdad respecto de la función y bytes comparados, no procedencia ni
 
 ## Fallo controlado y diagnóstico
 
-Inicia Faro desde otro directorio y conserva una ruta relativa. Registra el objeto incorrecto, cambia a una base explícita y repite. La corrección debe explicar el contexto; no codificar una ruta personal absoluta.
+Inicia el kit de diagnóstico multiplataforma desde otro directorio y conserva una ruta relativa. Registra el objeto incorrecto, cambia a una base explícita y repite. La corrección debe explicar el contexto; no codificar una ruta personal absoluta.
 
 ## Errores comunes y cómo corregirlos
 
@@ -187,7 +208,7 @@ Se aprueba con resolución reproducible, cuatro fallos controlados, política de
 
 ## Criterio de cierre
 
-Puedes predecir desde qué base se resuelve una ruta, explicar enlaces y metadatos, demostrar fallos controlados y justificar una política de lectura/escritura para Faro en las tres familias de sistema.
+Puedes predecir desde qué base se resuelve una ruta, explicar enlaces y metadatos, demostrar fallos controlados y justificar una política de lectura/escritura para el kit de diagnóstico multiplataforma en las tres familias de sistema.
 
 ## Límites y siguiente paso
 
@@ -195,10 +216,11 @@ No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías
 
 ## Fuentes
 
-- [The Open Group — Pathname Resolution](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16)
-- [Microsoft Learn — Naming Files, Paths, and Namespaces](https://learn.microsoft.com/windows/win32/fileio/naming-a-file)
-- [Python documentation — pathlib](https://docs.python.org/3/library/pathlib.html)
-- [Apple Platform Deployment — File system basics](https://support.apple.com/guide/deployment/intro-to-file-system-apd0b895e8e1/web)
+
+- [The Open Group — Pathname Resolution](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [Microsoft Learn — Naming Files, Paths, and Namespaces](https://learn.microsoft.com/windows/win32/fileio/naming-a-file) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Python documentation — pathlib](https://docs.python.org/3/library/pathlib.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Apple Platform Deployment — File system basics](https://support.apple.com/guide/deployment/intro-to-file-system-apd0b895e8e1/web) — delimita el contrato técnico que debe cumplirse al razonar sobre identidad de archivos mediante rutas, enlaces, metadatos y resolución.
 
 ## Glosario
 

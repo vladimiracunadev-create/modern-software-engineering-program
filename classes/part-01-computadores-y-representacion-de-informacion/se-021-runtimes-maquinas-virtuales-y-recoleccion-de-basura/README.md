@@ -2,11 +2,32 @@
 
 [← SE-020](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-022 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md)
 
-> Estado: **GUIDED**. Observa CPython 3.11+ y contrasta con una VM especificada; no generaliza su gestor de memoria a todos los runtimes.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para razonar sobre carga, memoria y recolección separando especificación de estrategia del runtime.
+
+**Por qué aparece aquí.** Se sitúa después de **Compilación, interpretación, bytecode y JIT** y antes de **Rendimiento, consumo energético y límites físicos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Suponer que gc.collect devuelve memoria al sistema o que toda VM recolecta igual.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Runtime-memory.md con grafo de referencias, snapshots y recolección. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Los resultados de CPython no generalizan a otros runtimes y RSS no equivale a memoria rastreada.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python `gc`](https://docs.python.org/3/library/gc.html) |  y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [JVM Specification, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5) |  distingue contrato y algoritmo no prescrito | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-`SE-020` dejó Pulso convertido a AST y bytecode. Esas representaciones necesitan un
+`SE-020` dejó el analizador local de eventos convertido a AST y bytecode. Esas representaciones necesitan un
 entorno que cargue módulos, cree objetos, maneje llamadas y errores y administre memoria.
 Hoy estudiarás ese runtime. `SE-022` medirá sus costos sin confundirlos con el algoritmo.
 
@@ -34,12 +55,11 @@ alcanzabilidad; separarás memoria de recursos externos.
 | VM | define una máquina abstracta | desacopla lenguaje y hardware |
 | Pila/heap | separan llamadas y objetos de vida variable | orientan diagnóstico de memoria |
 | Recolección | recupera objetos inalcanzables | intercambia pausas, throughput y memoria |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart TD
- B[Bytecode de Pulso] --> V[Máquina virtual]
+ B[Bytecode del analizador local de eventos] --> V[Máquina virtual]
  V --> S[Pilas y marcos]
  V --> H[Heap de objetos]
  H --> G[Gestión automática]
@@ -85,9 +105,9 @@ Un archivo, socket o transacción tiene vida externa. Que un objeto quede inalca
 garantiza cierre oportuno. Se usan context managers y cierre explícito. Finalizadores
 pueden ejecutarse tarde o bajo restricciones y no sustituyen propiedad clara.
 
-## Caso conductor: objetos temporales de Pulso
+## Caso conductor: objetos temporales del analizador local de eventos
 
-Pulso crea miles de diccionarios temporales al parsear eventos. `tracemalloc` compara
+El analizador local de eventos crea miles de diccionarios temporales al parsear eventos. `tracemalloc` compara
 dos versiones: conservar todos en una lista y procesar en streaming. La primera mantiene
 referencias alcanzables; llamar `gc.collect()` no debe liberarlas. El rediseño reduce
 retención y conserva el resultado.
@@ -174,6 +194,7 @@ Lee la JVM Specification y separa lo prescrito de la política de un recolector 
 Se exigen grafo de alcanzabilidad, medición acotada, manejo de recurso y límites.
 
 ## Fuentes
+
 
 - [Python `gc`](https://docs.python.org/3/library/gc.html) y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas.
 - [JVM Specification, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5) distingue contrato y algoritmo no prescrito.

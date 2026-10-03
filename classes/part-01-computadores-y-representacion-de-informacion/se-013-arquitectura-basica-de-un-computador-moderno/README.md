@@ -2,13 +2,35 @@
 
 [← SE-012](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/se-012-proyecto-mapa-profesional-y-contrato-personal-de-aprendizaje/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-014 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md)
 
-> Estado: **GUIDED**. Clase conceptual con observaciones locales; no certifica una arquitectura física.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para separar arquitectura física, ISA, sistema operativo y runtime antes de atribuir una propiedad a la máquina.
+
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: mapa profesional y contrato personal de aprendizaje** y antes de **Bits, bytes, bases numéricas y representación**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Confundir ‘64 bits’, núcleos, ISA y versión del sistema como una sola propiedad.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Machine-map.md con comandos, salidas, capas y dos conclusiones que los datos no permiten. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Las APIs del runtime no demuestran la microarquitectura interna.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) | la ISA como interfaz separada de microarquitectura | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `platform`](https://docs.python.org/3/library/platform.html) |  define las etiquetas observables usadas en la práctica | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `sys`](https://docs.python.org/3/library/sys.html) |  documenta `byteorder` y propiedades del runtime | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
 En `SE-012` convertiste objetivos en evidencia. Ahora comienza la base técnica: antes
-de optimizar o depurar necesitas saber **en qué capa ocurre una afirmación**. Abrimos
-**Pulso**, un programa Python que recibirá `Matrícula confirmada ✓`, producirá un
+de optimizar o depurar necesitas saber **en qué capa ocurre una afirmación**. Abrimos un
+**analizador local de eventos**, un programa Python que recibirá `Matrícula confirmada ✓`, producirá un
 resumen y lo guardará. Hoy no lo optimizarás: construirás el mapa que permitirá seguir
 sus datos y decisiones durante toda la parte.
 
@@ -36,12 +58,11 @@ capa; y declarar qué no puede inferirse desde Python.
 | CPU, memoria e I/O | transforman, conservan y comunican estado | permite localizar recursos y esperas |
 | ISA y microarquitectura | contrato visible frente a implementación | evita confundir compatibilidad con rendimiento idéntico |
 | Observación | cada herramienta ve una frontera | limita conclusiones y orienta la siguiente medición |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart TD
- U[Entrada de Pulso] --> L[Lenguaje y bibliotecas]
+ U[Entrada del analizador local de eventos] --> L[Lenguaje y bibliotecas]
  L --> R[Runtime]
  R --> O[Sistema operativo]
  O --> A[ISA]
@@ -73,7 +94,7 @@ cambia, dónde vive y quién inicia la transición.
 
 ### 3. El sistema moderno es una pila de abstracciones
 
-Pulso no escribe directamente celdas físicas. El lenguaje define valores; CPython los
+El analizador local de eventos no escribe directamente celdas físicas. El lenguaje define valores; CPython los
 representa como objetos; el sistema operativo ofrece procesos, memoria virtual y
 archivos; la ISA define efectos de instrucciones; el hardware implementa esos efectos.
 Cada capa simplifica y añade costo. Saltarse una capa produce afirmaciones falsas como
@@ -94,9 +115,9 @@ que la CPU esté calculando esa solicitud.
 de CPU, tamaño de caché ni frecuencia efectiva. Virtualización, emulación y contenedores
 pueden interponer capas. Una observación correcta se acompaña de su fuente y límite.
 
-## Caso conductor: localizar Pulso
+## Caso conductor: localizar el analizador local de eventos
 
-Pulso recibe texto por argumentos, lo codifica, calcula longitud y escribe JSON. El
+El analizador local de eventos recibe texto por argumentos, lo codifica, calcula longitud y escribe JSON. El
 mapa asigna: semántica al programa, objetos a CPython, proceso y archivo al sistema
 operativo, instrucciones a la ISA y ejecución física al procesador. Si escribir tarda,
 el mapa ofrece hipótesis —serialización, llamada, caché del sistema, dispositivo— sin
@@ -192,6 +213,7 @@ Aplica el mapa a un navegador o microcontrolador y explica qué capas desaparece
 Se exige mapa causal, cinco observaciones trazables, una inferencia refutada y límites.
 
 ## Fuentes
+
 
 - [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) respalda la ISA como interfaz separada de microarquitectura.
 - [Python `platform`](https://docs.python.org/3/library/platform.html) define las etiquetas observables usadas en la práctica.

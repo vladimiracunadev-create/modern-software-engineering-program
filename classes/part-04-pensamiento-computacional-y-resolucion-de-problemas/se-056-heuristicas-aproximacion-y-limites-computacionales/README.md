@@ -2,21 +2,43 @@
 
 [← SE-055 — Complejidad temporal y espacial](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-056.html) · [SE-057 — Modelado de estado, transiciones y eventos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para usar heurísticas y aproximaciones declarando objetivo, garantía y contraejemplo.
+
+**Por qué aparece aquí.** Se sitúa después de **Complejidad temporal y espacial** y antes de **Modelado de estado, transiciones y eventos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Presentar una buena solución observada como óptima.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Heuristic-report.md con baseline, calidad, tiempo y caso adverso. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Sin garantía formal la calidad fuera de la muestra permanece desconocida.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 — Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | aporta definiciones, invariantes y análisis de estructuras y algoritmos usados en la clase | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [MIT 18.404J — Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/) | delimita computabilidad, complejidad y los límites de las soluciones algorítmicas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Atlas**, el planificador de diagnóstico que recibe la evidencia de Nexo y la convierte en una siguiente decisión explicable. Recupera `SE-055`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
+Esta clase continúa el **modelo de decisión diagnóstica**, que convierte la evidencia de la petición observable de extremo a extremo en una siguiente decisión explicable. Recupera `SE-055`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
 
 ## Prerrequisitos
 
 - Poder separar hecho, interpretación, hipótesis y decisión.
 - Manejar tablas, diagramas y pseudocódigo legible; Python es opcional.
-- Trabajar con datos sintéticos del caso Atlas y conservar cada versión en Git.
+- Trabajar con datos sintéticos del caso del modelo de decisión diagnóstica y conservar cada versión en Git.
 
 ## Problema auténtico
 
-Elegir el conjunto mínimo de pruebas que discrimina todas las hipótesis puede explotar combinatoriamente. Atlas necesita responder dentro de un deadline. Fingir optimalidad es deshonesto; enumerar todo puede ser inútil. Se comparan heurística, aproximación, búsqueda acotada y límites computacionales.
+Elegir el conjunto mínimo de pruebas que discrimina todas las hipótesis puede explotar combinatoriamente. El modelo de decisión diagnóstica necesita responder dentro de un deadline. Fingir optimalidad es deshonesto; enumerar todo puede ser inútil. Se comparan heurística, aproximación, búsqueda acotada y límites computacionales.
 
 ## Objetivos observables
 
@@ -45,7 +67,6 @@ El mapa separa el problema de su representación. Los casos no reemplazan reglas
 | regla | ¿qué debe ser cierto? | contrato o invariante |
 | estrategia | ¿qué pasos producen el resultado? | pseudocódigo y traza |
 | límite | ¿dónde falla el argumento? | contraejemplo y caso límite |
-
 ## Conceptos y decisiones
 
 ### 1. Factibilidad y optimización
@@ -76,7 +97,7 @@ Algunos problemas no admiten algoritmo que decida todos los casos; otros son dec
 - **anytime:** procedimiento que mejora una solución válida mientras dispone de recursos.
 - **decidibilidad:** existencia de un algoritmo que termina y responde todos los casos.
 
-Las definiciones fijan el uso en Atlas. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
+Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo mínimo
 
@@ -86,7 +107,7 @@ Antes de resolver, predice el resultado y la propiedad que debería conservarse.
 
 ## Ejemplo profesional
 
-Atlas usa greedy como primera solución, luego búsqueda acotada por 200 ms. Reporta costo de la mejor secuencia, límite inferior disponible y si probó optimalidad. Bajo presión mantiene autorización y cobertura mínima como restricciones duras.
+El modelo de decisión diagnóstica usa greedy como primera solución, luego búsqueda acotada por 200 ms. Reporta costo de la mejor secuencia, límite inferior disponible y si probó optimalidad. Bajo presión mantiene autorización y cobertura mínima como restricciones duras.
 
 La entrega profesional hace visible el costo de simplificar. Incluye al menos una alternativa descartada y la condición que obligaría a revisar la decisión.
 
@@ -102,7 +123,7 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 ## Ejercicios
 
 1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso de Atlas no usado en la explicación.
+2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
 3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
 4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
 
@@ -171,7 +192,7 @@ El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita exp
 
 ## Transferencia
 
-Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres de Atlas. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
 
 ## Evaluación y evidencia
 
@@ -187,11 +208,13 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 
 ## Fuentes
 
-- [MIT 6.006 — Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/): sustenta las definiciones, argumentos y límites usados aquí.
-- [MIT 18.404J — Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/): sustenta las definiciones, argumentos y límites usados aquí.
-- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/): sustenta las definiciones, argumentos y límites usados aquí.
 
-Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo de Atlas. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [MIT 6.006 — Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — aporta definiciones, invariantes y análisis de estructuras y algoritmos usados en la clase.
+- [MIT 18.404J — Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/) — delimita computabilidad, complejidad y los límites de las soluciones algorítmicas.
+- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas.
+
+Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
 
 ## Límites y siguiente paso
 

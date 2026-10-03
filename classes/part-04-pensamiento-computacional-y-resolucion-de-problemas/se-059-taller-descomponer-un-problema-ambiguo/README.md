@@ -2,21 +2,42 @@
 
 [← SE-058 — Resolución sistemática y registro de hipótesis](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-059.html) · [SE-060 — Proyecto: especificación y solución contrastable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para convertir un problema ambiguo en contratos, riesgos, preguntas y evidencia de aceptación.
+
+**Por qué aparece aquí.** Se sitúa después de **Resolución sistemática y registro de hipótesis** y antes de **Proyecto: especificación y solución contrastable**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Empezar por implementar la interpretación más cómoda.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Ambiguity-map.md con actores, términos, decisiones, pruebas y preguntas abiertas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La especificación conserva incertidumbre explícita; no la inventa.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Atlas**, el planificador de diagnóstico que recibe la evidencia de Nexo y la convierte en una siguiente decisión explicable. Recupera `SE-058`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
+Esta clase continúa el **modelo de decisión diagnóstica**, que convierte la evidencia de la petición observable de extremo a extremo en una siguiente decisión explicable. Recupera `SE-058`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
 
 ## Prerrequisitos
 
 - Poder separar hecho, interpretación, hipótesis y decisión.
 - Manejar tablas, diagramas y pseudocódigo legible; Python es opcional.
-- Trabajar con datos sintéticos del caso Atlas y conservar cada versión en Git.
+- Trabajar con datos sintéticos del caso del modelo de decisión diagnóstica y conservar cada versión en Git.
 
 ## Problema auténtico
 
-Una organización pide a Atlas: «haz que el soporte sea inteligente y rápido». No define persona, decisión, datos, tiempo, error tolerable ni daño. El taller no permite saltar a funciones o IA: debe reducir ambigüedad sin inventar necesidades.
+Una organización pide a el modelo de decisión diagnóstica: «haz que el soporte sea inteligente y rápido». No define persona, decisión, datos, tiempo, error tolerable ni daño. El taller no permite saltar a funciones o IA: debe reducir ambigüedad sin inventar necesidades.
 
 ## Objetivos observables
 
@@ -45,7 +66,6 @@ El mapa separa el problema de su representación. Los casos no reemplazan reglas
 | regla | ¿qué debe ser cierto? | contrato o invariante |
 | estrategia | ¿qué pasos producen el resultado? | pseudocódigo y traza |
 | límite | ¿dónde falla el argumento? | contraejemplo y caso límite |
-
 ## Conceptos y decisiones
 
 ### 1. Ambigüedad, incertidumbre y conflicto
@@ -62,7 +82,7 @@ Usuario directo, persona afectada, operador y dueño de datos pueden ser distint
 
 ### 4. Supuestos y preguntas abiertas
 
-Un supuesto se escribe como afirmación que puede cambiar la solución y se asocia a evidencia necesaria. Una pregunta abierta tiene owner y deadline. Atlas no convierte la ausencia de respuesta en aceptación tácita.
+Un supuesto se escribe como afirmación que puede cambiar la solución y se asocia a evidencia necesaria. Una pregunta abierta tiene owner y deadline. El modelo de decisión diagnóstica no convierte la ausencia de respuesta en aceptación tácita.
 
 ### 5. Criterio de salida del taller
 
@@ -76,7 +96,7 @@ El resultado no es una solución detallada. Es un modelo del problema con alcanc
 - **actor:** persona o sistema afectado o participante.
 - **criterio de salida:** condición observable para cerrar una fase.
 
-Las definiciones fijan el uso en Atlas. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
+Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo mínimo
 
@@ -103,7 +123,7 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 ## Ejercicios
 
 1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso de Atlas no usado en la explicación.
+2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
 3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
 4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
 
@@ -172,7 +192,7 @@ El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita exp
 
 ## Transferencia
 
-Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres de Atlas. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
 
 ## Evaluación y evidencia
 
@@ -188,10 +208,12 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 
 ## Fuentes
 
-- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): sustenta las definiciones, argumentos y límites usados aquí.
-- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/): sustenta las definiciones, argumentos y límites usados aquí.
 
-Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo de Atlas. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
+- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas.
+
+Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
 
 ## Límites y siguiente paso
 

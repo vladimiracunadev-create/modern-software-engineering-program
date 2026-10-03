@@ -2,7 +2,29 @@
 
 [← SE-028](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-030 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)
 
-> Estado: **GUIDED**. Composición segura con datos sintéticos; no ejecuta cadenas obtenidas de fuentes no confiables.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para predecir cómo el shell analiza texto, expande argumentos y conecta flujos.
+
+**Por qué aparece aquí.** Se sitúa después de **Procesos, señales, servicios y tareas programadas** y antes de **PowerShell, Bash y portabilidad de scripts**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Pensar que una tubería pasa objetos en todos los shells o que citar es decorativo.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Shell-trace.md con tokens, stdin/stdout/stderr, quoting y resultado en dos shells. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La portabilidad exige declarar shell y versión.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
@@ -32,7 +54,6 @@ Podrás distinguir terminal, shell y programa; seguir análisis y expansión de 
 | Flujos estándar | separan datos y diagnóstico | componer sin contaminar resultados |
 | Pipeline | conecta productor y consumidor | procesar en streaming y propagar fallos |
 | Código de salida | resume resultado para el padre | automatizar decisiones explícitas |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -55,7 +76,7 @@ La terminal transporta interacción; el shell crea la topología; los programas 
 
 La terminal es una interfaz de entrada/salida —hoy normalmente un emulador— conectada a una sesión. El shell es un intérprete y lenguaje que lee órdenes, realiza expansiones y lanza comandos. Dentro de Windows Terminal pueden ejecutarse PowerShell, `cmd` o un shell de WSL; cambiar la ventana no cambia automáticamente la semántica del lenguaje.
 
-Cuando Faro documenta una orden, registra shell y versión. `>` o `$variable` no tienen una interpretación universal.
+Cuando el kit de diagnóstico multiplataforma documenta una orden, registra shell y versión. `>` o `$variable` no tienen una interpretación universal.
 
 ### El análisis ocurre antes de que el programa reciba argumentos
 
@@ -78,7 +99,7 @@ flowchart LR
     B -. exit status .-> S
 ```
 
-Si un programa mezcla advertencias con JSON en stdout, rompe al siguiente consumidor. Faro separa informe estructurado y mensajes operativos.
+Si un programa mezcla advertencias con JSON en stdout, rompe al siguiente consumidor. El kit de diagnóstico multiplataforma separa informe estructurado y mensajes operativos.
 
 ### Un pipeline conecta procesos pero puede ocultar el fallo inicial
 
@@ -90,7 +111,7 @@ El estado final del pipeline depende del shell y su configuración. En Bash, `pi
 
 Por convención, cero representa éxito y otros valores categorías de fallo, aunque el significado preciso pertenece al programa. Un mensaje “ERROR” no cambia por sí solo el código. Una automatización robusta comprueba el estado inmediatamente, conserva contexto y decide si reintenta, degrada o detiene.
 
-Faro define: `0` diagnóstico completo sin hallazgos bloqueantes; `2` uso inválido; `3` precondición ausente; `4` diagnóstico parcial; `5` fallo interno. El texto puede traducirse, pero los significados permanecen documentados.
+El kit de diagnóstico multiplataforma define: `0` diagnóstico completo sin hallazgos bloqueantes; `2` uso inválido; `3` precondición ausente; `4` diagnóstico parcial; `5` fallo interno. El texto puede traducirse, pero los significados permanecen documentados.
 
 ### Composición segura requiere contratos de datos
 
@@ -106,11 +127,11 @@ El [Bash Reference Manual](https://www.gnu.org/software/bash/manual/) y la docum
 - **pipeline:** conexión de salida de una etapa con entrada de otra;
 - **código de salida:** valor discreto con significado documentado para el proceso padre.
 
-## Caso conductor: Faro ofrece un contrato de línea de comandos
+## Caso conductor: el kit de diagnóstico multiplataforma ofrece un contrato de línea de comandos
 
-Faro acepta opciones explícitas, escribe el informe JSON en stdout, envía progreso y advertencias a stderr y termina con códigos documentados. La opción `--human` cambia la representación de salida, no el significado.
+El kit de diagnóstico multiplataforma acepta opciones explícitas, escribe el informe JSON en stdout, envía progreso y advertencias a stderr y termina con códigos documentados. La opción `--human` cambia la representación de salida, no el significado.
 
-Una prueba ejecuta Faro con una ruta que contiene espacios y caracteres no ASCII. Otra induce diagnóstico parcial. El consumidor debe guardar JSON solo si el código y la validación lo permiten. Así se evita un archivo “válido” que en realidad contiene mensajes mezclados.
+Una prueba ejecuta el kit de diagnóstico multiplataforma con una ruta que contiene espacios y caracteres no ASCII. Otra induce diagnóstico parcial. El consumidor debe guardar JSON solo si el código y la validación lo permiten. Así se evita un archivo “válido” que en realidad contiene mensajes mezclados.
 
 ## Práctica guiada
 
@@ -182,7 +203,7 @@ Se exige topología explicada, separación de canales, cinco casos adversos y pr
 
 ## Criterio de cierre
 
-Puedes señalar qué hace la terminal, qué hace el shell y qué recibe el proceso; construir un pipeline que conserva errores; y demostrar el contrato CLI de Faro con casos adversos.
+Puedes señalar qué hace la terminal, qué hace el shell y qué recibe el proceso; construir un pipeline que conserva errores; y demostrar el contrato CLI del kit de diagnóstico multiplataforma con casos adversos.
 
 ## Límites y siguiente paso
 
@@ -190,10 +211,11 @@ No cubrimos interfaces interactivas complejas, pseudo-terminales ni todas las re
 
 ## Fuentes
 
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
-- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/)
-- [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)
-- [Microsoft Learn — about_Pipelines](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_pipelines)
+
+- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
+- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [Microsoft Learn — about_Pipelines](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_pipelines) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 
 ## Glosario
 

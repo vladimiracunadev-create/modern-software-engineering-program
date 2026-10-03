@@ -2,7 +2,7 @@
 
 Una aplicación distribuida no «usa Internet» como una caja única. Antes de recibir una respuesta, el cliente obtiene configuración local, resuelve un nombre, elige dirección y ruta, alcanza un siguiente salto, establece transporte, negocia confianza, atraviesa intermediarios y expresa una intención de aplicación. Cada fase conserva estado, garantías y modos de fallo diferentes. Esta parte enseña a recorrer esa cadena sin convertir una coincidencia temporal en causa.
 
-El caso conductor es **Nexo**, una petición observable que nace como extensión del kit Faro de la Parte 2. Faro ya podía describir plataforma, procesos y configuración; Nexo añade el exterior: explica por qué una petición llegó, por qué no llegó o por qué respondió algo distinto. En cada clase se incorpora una capa de evidencia hasta entregar un servicio local que mide, degrada y se recupera de fallos controlados.
+El caso conductor es una **petición observable de extremo a extremo** que amplía el kit de diagnóstico multiplataforma de la Parte 2. El kit ya podía describir plataforma, procesos y configuración; ahora se añade el exterior para explicar por qué una petición llegó, por qué no llegó o por qué respondió algo distinto. En cada clase se incorpora una capa de evidencia hasta entregar un servicio local que mide, degrada y se recupera de fallos controlados.
 
 ## Pregunta rectora
 
@@ -38,7 +38,7 @@ Podrás leer una petición como un sistema de estados y contratos. Dejarás de u
 
 ## Guía razonada clase por clase
 
-La guía sigue una sola petición de Nexo y cambia el punto de observación en cada clase.
+La guía sigue una sola petición observable de extremo a extremo y cambia el punto de observación en cada clase.
 No presenta protocolos como vocabulario aislado: explica qué transición realiza cada
 capa, qué garantía ofrece, qué síntoma deja al fallar y qué evidencia alimenta el paso
 siguiente.
@@ -49,7 +49,7 @@ siguiente.
 
 Las capas son modelos para separar responsabilidades, no una fotografía exacta de todo
 sistema. La clase ubica unidades, identificadores, garantías y puntos de observación de
-Nexo; además muestra cómo encapsulación y desencapsulación permiten que un síntoma de
+la petición observable de extremo a extremo; además muestra cómo encapsulación y desencapsulación permiten que un síntoma de
 aplicación tenga una causa en otra frontera sin que todas las capas estén «caídas».
 
 El estudiante construye una matriz síntoma → capa candidata → observación → hipótesis
@@ -64,7 +64,7 @@ red local. La clase diferencia interfaz, dirección MAC, dirección IP, medio, a
 switching y resolución de vecinos. Señal Wi-Fi alta no implica baja pérdida, y conocer
 una MAC no demuestra que el destino esté en el mismo enlace.
 
-Nexo registra interfaces, estado, MTU y vecino relevante en un laboratorio autorizado,
+La petición observable de extremo a extremo registra interfaces, estado, MTU y vecino relevante en un laboratorio autorizado,
 comparando un caso sano con uno donde falla el primer salto. El resultado explica el
 alcance local sin capturar tráfico ajeno. `SE-039` extiende el recorrido a prefijos,
 rutas y traducciones entre redes.
@@ -77,7 +77,7 @@ sin convertirse en firewall ni garantía de conectividad. La clase compara IPv4 
 sin tratar el segundo como una versión con direcciones más largas.
 
 El estudiante predice una ruta antes de observarla, identifica coincidencia de prefijo
-más específica y registra traducciones solo donde puede verificarlas. Nexo produce un
+más específica y registra traducciones solo donde puede verificarlas. La petición observable de extremo a extremo produce un
 mapa de origen, saltos conocidos y fronteras inferidas. Con el camino disponible,
 `SE-040` decide qué garantías deben pertenecer al transporte.
 
@@ -86,7 +86,7 @@ mapa de origen, saltos conocidos y fronteras inferidas. Con el camino disponible
 TCP ofrece un flujo ordenado y fiable, no mensajes ni ausencia de latencia; UDP entrega
 datagramas sin esas garantías; QUIC integra seguridad y múltiples flujos sobre UDP. La
 clase relaciona handshake, pérdida, retransmisión, control de congestión y cierre con la
-necesidad de Nexo, evitando elegir por velocidad nominal.
+necesidad de la petición observable de extremo a extremo, evitando elegir por velocidad nominal.
 
 La práctica compara una interacción normal, una pérdida controlada y un timeout. El
 estudiante declara quién reintenta, qué operación puede repetirse y dónde termina el
@@ -102,7 +102,7 @@ es una libreta global instantánea. La clase recorre stub resolver, recursión, 
 autoritativas, CNAME, registros A/AAAA, TTL y respuestas negativas. Distingue nombre
 inexistente, ausencia de tipo y fallo temporal.
 
-Nexo conserva consulta, servidor observado, respuesta, TTL y momento, y compara caché
+La petición observable de extremo a extremo conserva consulta, servidor observado, respuesta, TTL y momento, y compara caché
 fría con caliente sin asumir que todos los resolvers siguen la misma ruta. La salida es
 un conjunto de endpoints candidatos y límites de vigencia. `SE-042` usa uno de ellos
 para estudiar la semántica que viaja sobre la conexión.
@@ -114,7 +114,7 @@ que el resultado sea correcto para el dominio. La clase relaciona seguridad e
 idempotencia de métodos con reintentos, separa autenticación de caché y explica
 validadores, negociación y cuerpos de error.
 
-El estudiante diseña una solicitud de Nexo y predice respuestas para éxito, validación,
+El estudiante diseña una solicitud de la petición observable de extremo a extremo y predice respuestas para éxito, validación,
 conflicto y dependencia no disponible. Luego compara respuesta fresca, validada y
 servida por caché. Ese contrato necesita saber con quién habla y quién puede observarlo;
 `SE-043` añade autenticación del servidor y protección en tránsito.
@@ -126,7 +126,7 @@ honesta ni que el endpoint esté autorizado por el negocio. La clase conecta nom
 cadena de certificados, almacén de confianza, vigencia, handshake y claves de sesión,
 y explica por qué desactivar verificación transforma un diagnóstico en otro sistema.
 
-Nexo registra versión, nombre verificado, emisor y error sin exponer secretos. La
+La petición observable de extremo a extremo registra versión, nombre verificado, emisor y error sin exponer secretos. La
 práctica contrasta certificado válido, nombre incorrecto y confianza ausente con un
 laboratorio controlado. Como el canal puede terminar antes del origen, `SE-044` ubica
 proxies, balanceadores, gateways y CDN en la cadena de responsabilidad.
@@ -138,7 +138,7 @@ almacenar respuestas o aplicar políticas. La clase distingue proxy directo e in
 balanceo, gateway y CDN por función y punto de control, no por nombres comerciales. Una
 misma respuesta puede provenir de caché, borde u origen.
 
-El estudiante dibuja terminaciones y autoridades de Nexo, sigue un identificador de
+El estudiante dibuja terminaciones y autoridades de la petición observable de extremo a extremo, sigue un identificador de
 correlación y localiza dónde cambia la respuesta. También declara qué cabeceras son
 confiables solo después de una frontera administrada. `SE-045` estudia qué ocurre cuando
 la conversación persiste y productor y consumidor dejan de avanzar al mismo ritmo.
@@ -150,7 +150,7 @@ clase diferencia conexión, flujo, framing, half-close, keepalive y liveness de
 aplicación; analiza conexiones HTTP reutilizadas y WebSocket sin llamar «tiempo real» a
 cualquier canal abierto.
 
-Nexo implementa lectura delimitada, cancelación y presupuesto, y reproduce un consumidor
+La petición observable de extremo a extremo implementa lectura delimitada, cancelación y presupuesto, y reproduce un consumidor
 lento. El estudiante observa colas y cierre sin bucles infinitos ni recursos huérfanos.
 Las señales reunidas aún pueden inducir conclusiones falsas si se miden mal; `SE-046`
 define captura, alcance, reloj y privacidad.
@@ -183,7 +183,7 @@ timeouts, resultados tipados, observabilidad y runbook.
 
 #### SE-048 — Proyecto: servicio observable y tolerante a fallos de red
 
-Nexo se cierra como servicio local que comunica éxito, degradación y fallo sin bloquear
+La petición observable de extremo a extremo se cierra como servicio local que comunica éxito, degradación y fallo sin bloquear
 indefinidamente. La clase integra deadlines, reintentos limitados, idempotencia,
 correlación, métricas por fase y redacción. Tolerar un fallo no significa ocultarlo: el
 consumidor debe conocer qué resultado obtuvo y qué parte quedó incompleta.
@@ -195,7 +195,7 @@ prima que la Parte 4 transformará en modelos y estrategias contrastables.
 
 ## Resumen operativo del recorrido
 
-| Clase | Núcleo profesional | Aporte acumulativo a Nexo |
+| Clase | Núcleo profesional | Aporte acumulativo a la petición observable de extremo a extremo |
 |---|---|---|
 | [SE-037](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/) | Modelos OSI y TCP/IP como herramientas de diagnóstico | Convierte las capas en una matriz de diagnóstico |
 | [SE-038](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales/) | Ethernet, Wi-Fi, direccionamiento y redes locales | Explica el primer salto y la red local |
@@ -208,7 +208,7 @@ prima que la Parte 4 transformará en modelos y estrategias contrastables.
 | [SE-045](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/) | Sockets, conexiones persistentes y tiempo real | Gestiona vida útil y presión de conexiones |
 | [SE-046](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/) | Captura, medición y diagnóstico de tráfico | Mide fases con alcance y privacidad |
 | [SE-047](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/) | Taller: seguir una petición de extremo a extremo | Integra una petición extremo a extremo |
-| [SE-048](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/) | Proyecto: servicio observable y tolerante a fallos de red | Entrega Nexo observable y recuperable |
+| [SE-048](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/) | Proyecto: servicio observable y tolerante a fallos de red | Entrega la petición observable de extremo a extremo observable y recuperable |
 
 ## Hilo pedagógico
 
@@ -222,7 +222,7 @@ No se adelanta la solución con una herramienta. Primero se formula la pregunta;
 2. **Bitácora de hipótesis:** hecho, interpretación, alternativa, prueba y decisión.
 3. **Trazas comparadas:** una petición sana y una degradada, alineadas por primera divergencia.
 4. **Matriz de fallos:** DNS, transporte, TLS, HTTP, caché y consumidor lento con recuperación.
-5. **Servicio Nexo:** resultado tipado, deadlines, redacción, correlación, métricas y runbook.
+5. **Servicio la petición observable de extremo a extremo:** resultado tipado, deadlines, redacción, correlación, métricas y runbook.
 
 ## Criterios de aprobación del proyecto
 

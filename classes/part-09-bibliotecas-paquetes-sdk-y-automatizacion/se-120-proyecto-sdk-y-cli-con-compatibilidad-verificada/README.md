@@ -2,11 +2,34 @@
 
 [← SE-119 — Taller: empaquetar una capacidad reusable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-120.html) · [SE-121 — Problemas, síntomas, necesidades y oportunidades →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para entregar SDK y CLI con contrato común y compatibilidad verificada entre versiones.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: empaquetar una capacidad reusable** y antes de **la clase siguiente**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Duplicar lógica entre interfaces o declarar compatibilidad sin consumidor anterior.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Matriz de versiones, artefactos, consumidor de regresión, CLI, SDK y changelog. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La matriz cubre versiones y plataformas declaradas, no compatibilidad universal.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) | Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) | Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) | Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [SPDX Specification 3.0](https://spdx.dev/use/specifications/) | Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: SDK y CLI con compatibilidad verificada** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué conjunto mínimo de artefactos y pruebas sostiene un SDK y CLI listos para consumidores reales?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: SDK y CLI con compatibilidad verificada** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué conjunto mínimo de artefactos y pruebas sostiene un SDK y CLI listos para consumidores reales?**
 
 ## Prerrequisitos
 
@@ -16,7 +39,7 @@ Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupe
 
 ## Problema auténtico
 
-Constelación debe cerrar la etapa de programación con un release candidato: API, CLI, plugin de ejemplo, build reproducible dentro del alcance y compatibilidad entre versión anterior y nueva.
+El producto reutilizable con SDK y CLI debe cerrar la etapa de programación con un release candidato: API, CLI, plugin de ejemplo, build reproducible dentro del alcance y compatibilidad entre versión anterior y nueva.
 
 ## Objetivos observables
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Contrato multicapa | El proyecto publica API Python, CLI y protocolo de plugin con versiones y errores alineados. | Evidencia o contraejemplo registrado |
-| Matriz de compatibilidad | Se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible. | Evidencia o contraejemplo registrado |
-| Release candidate | El RC usa artefactos inmutables, changelog, hashes y guía de migración. | Evidencia o contraejemplo registrado |
-| Supply chain mínima | Dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/SBOM disponible. | Evidencia o contraejemplo registrado |
-| Aceptación desde el consumidor | Una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra. | Evidencia o contraejemplo registrado |
-
+| Contrato multicapa | El proyecto publica API Python, CLI y protocolo de plugin con versiones y errores alineados. | Predicción, traza causal y contraejemplo de **Contrato multicapa** en `matriz de versiones` |
+| Matriz de compatibilidad | Se prueba runtime mínimo/máximo, instalación desde wheel/sdist, consumidor anterior con release nuevo y plugin compatible/incompatible. | Predicción, traza causal y contraejemplo de **Matriz de compatibilidad** en `matriz de versiones` |
+| Release candidate | El RC usa artefactos inmutables, changelog, hashes y guía de migración. | Predicción, traza causal y contraejemplo de **Release candidate** en `matriz de versiones` |
+| Supply chain mínima | Dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/SBOM disponible. | Predicción, traza causal y contraejemplo de **Supply chain mínima** en `matriz de versiones` |
+| Aceptación desde el consumidor | Una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra. | Predicción, traza causal y contraejemplo de **Aceptación desde el consumidor** en `matriz de versiones` |
 ## Conceptos y decisiones
 
 ### 1. Contrato multicapa
@@ -72,7 +94,7 @@ Una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plug
 - **supply chain mínima:** dependencias y licencias se inventarían, fuentes se fijan según política y se genera metadata de procedencia/sbom disponible.
 - **aceptación desde el consumidor:** una persona nueva sigue quickstart, ejecuta caso, interpreta error, instala plugin y migra.
 
-Las definiciones son operativas para Constelación. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -81,14 +103,14 @@ python -m unittest -v
 python -m build
 python tools/verify_artifacts.py dist/
 python tools/compat.py --old 1.4.2 --candidate 1.5.0-rc.1
-constellation self-check --redact
+engineering_sdk self-check --redact
 ```
 
 Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En Constelación, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -115,7 +137,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Constelación empaqueta el motor de Orbe como `constellation`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El producto reutilizable con SDK y CLI empaqueta el motor de la biblioteca de estructuras y algoritmos como `engineering_sdk`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -152,7 +174,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-120/
 ├── README.md
-├── constelación/
+├── engineering_sdk/
 │   ├── domain.py
 │   └── se_120.py
 ├── fixtures/cases.json
@@ -190,6 +212,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) — Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project.
 - [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) — Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority.
 - [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) — Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority.
@@ -197,7 +220,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation.
 - [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Constelación sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del producto reutilizable con SDK y CLI sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

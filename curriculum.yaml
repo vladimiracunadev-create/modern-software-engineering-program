@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 120
+    "approved": 12
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -186,7 +186,7 @@
           "title": "Arquitectura básica de un computador moderno",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno"
         },
         {
@@ -195,7 +195,7 @@
           "title": "Bits, bytes, bases numéricas y representación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion"
         },
         {
@@ -204,7 +204,7 @@
           "title": "Texto, Unicode, codificaciones y mojibake",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake"
         },
         {
@@ -213,7 +213,7 @@
           "title": "Enteros, coma flotante, precisión y errores numéricos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos"
         },
         {
@@ -222,7 +222,7 @@
           "title": "CPU, instrucciones, registros y ciclos de ejecución",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion"
         },
         {
@@ -231,7 +231,7 @@
           "title": "Memoria, cachés, almacenamiento y jerarquías",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias"
         },
         {
@@ -240,7 +240,7 @@
           "title": "Procesos, hilos, interrupciones y entrada/salida",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida"
         },
         {
@@ -249,7 +249,7 @@
           "title": "Compilación, interpretación, bytecode y JIT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit"
         },
         {
@@ -258,7 +258,7 @@
           "title": "Runtimes, máquinas virtuales y recolección de basura",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura"
         },
         {
@@ -267,7 +267,7 @@
           "title": "Rendimiento, consumo energético y límites físicos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos"
         },
         {
@@ -276,7 +276,7 @@
           "title": "Taller: observar un programa desde el código hasta la máquina",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina"
         },
         {
@@ -285,7 +285,7 @@
           "title": "Proyecto: informe reproducible de comportamiento y recursos",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos"
         }
       ]
@@ -304,7 +304,7 @@
           "title": "Windows, Linux, macOS y sus modelos operativos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos"
         },
         {
@@ -313,7 +313,7 @@
           "title": "Sistemas de archivos, rutas, enlaces y metadatos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos"
         },
         {
@@ -322,7 +322,7 @@
           "title": "Usuarios, grupos, permisos y elevación de privilegios",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios"
         },
         {
@@ -331,7 +331,7 @@
           "title": "Procesos, señales, servicios y tareas programadas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas"
         },
         {
@@ -340,7 +340,7 @@
           "title": "Terminales, shells y composición de comandos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos"
         },
         {
@@ -349,7 +349,7 @@
           "title": "PowerShell, Bash y portabilidad de scripts",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts"
         },
         {
@@ -358,7 +358,7 @@
           "title": "Variables de entorno, configuración y secretos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos"
         },
         {
@@ -367,7 +367,7 @@
           "title": "Instalación de software y gestores de paquetes del sistema",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema"
         },
         {
@@ -376,7 +376,7 @@
           "title": "Logs del sistema y diagnóstico de fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos"
         },
         {
@@ -385,7 +385,7 @@
           "title": "Virtualización, WSL y aislamiento local",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local"
         },
         {
@@ -394,7 +394,7 @@
           "title": "Taller: preparar y reparar un entorno reproducible",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible"
         },
         {
@@ -403,7 +403,7 @@
           "title": "Proyecto: kit de diagnóstico multiplataforma",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma"
         }
       ]
@@ -422,7 +422,7 @@
           "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico"
         },
         {
@@ -431,7 +431,7 @@
           "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales"
         },
         {
@@ -440,7 +440,7 @@
           "title": "IPv4, IPv6, subredes, rutas y NAT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat"
         },
         {
@@ -449,7 +449,7 @@
           "title": "TCP, UDP, QUIC y decisiones de transporte",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte"
         },
         {
@@ -458,7 +458,7 @@
           "title": "DNS, nombres, resolución y fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos"
         },
         {
@@ -467,7 +467,7 @@
           "title": "HTTP, semántica, caché y negociación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion"
         },
         {
@@ -476,7 +476,7 @@
           "title": "TLS, certificados y confianza en tránsito",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito"
         },
         {
@@ -485,7 +485,7 @@
           "title": "Proxies, balanceadores, gateways y CDN",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn"
         },
         {
@@ -494,7 +494,7 @@
           "title": "Sockets, conexiones persistentes y tiempo real",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real"
         },
         {
@@ -503,7 +503,7 @@
           "title": "Captura, medición y diagnóstico de tráfico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico"
         },
         {
@@ -512,7 +512,7 @@
           "title": "Taller: seguir una petición de extremo a extremo",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo"
         },
         {
@@ -521,7 +521,7 @@
           "title": "Proyecto: servicio observable y tolerante a fallos de red",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red"
         }
       ]
@@ -540,7 +540,7 @@
           "title": "Descomposición, abstracción y reconocimiento de patrones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones"
         },
         {
@@ -549,7 +549,7 @@
           "title": "Lógica proposicional, predicados e inferencia",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia"
         },
         {
@@ -558,7 +558,7 @@
           "title": "Conjuntos, relaciones, funciones y grafos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos"
         },
         {
@@ -567,7 +567,7 @@
           "title": "Invariantes, precondiciones y poscondiciones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-052-invariantes-precondiciones-y-poscondiciones"
         },
         {
@@ -576,7 +576,7 @@
           "title": "Recursión, inducción y razonamiento estructural",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-053-recursion-induccion-y-razonamiento-estructural"
         },
         {
@@ -585,7 +585,7 @@
           "title": "Algoritmos, corrección y terminación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-054-algoritmos-correccion-y-terminacion"
         },
         {
@@ -594,7 +594,7 @@
           "title": "Complejidad temporal y espacial",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial"
         },
         {
@@ -603,7 +603,7 @@
           "title": "Heurísticas, aproximación y límites computacionales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-056-heuristicas-aproximacion-y-limites-computacionales"
         },
         {
@@ -612,7 +612,7 @@
           "title": "Modelado de estado, transiciones y eventos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-057-modelado-de-estado-transiciones-y-eventos"
         },
         {
@@ -621,7 +621,7 @@
           "title": "Resolución sistemática y registro de hipótesis",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-058-resolucion-sistematica-y-registro-de-hipotesis"
         },
         {
@@ -630,7 +630,7 @@
           "title": "Taller: descomponer un problema ambiguo",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-059-taller-descomponer-un-problema-ambiguo"
         },
         {
@@ -639,7 +639,7 @@
           "title": "Proyecto: especificación y solución contrastable",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable"
         }
       ]
@@ -658,7 +658,7 @@
           "title": "Valores, expresiones, tipos y variables",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-061-valores-expresiones-tipos-y-variables"
         },
         {
@@ -667,7 +667,7 @@
           "title": "Control de flujo y decisiones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones"
         },
         {
@@ -676,7 +676,7 @@
           "title": "Iteración, recursión y recorridos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos"
         },
         {
@@ -685,7 +685,7 @@
           "title": "Funciones, parámetros, retorno y alcance",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance"
         },
         {
@@ -694,7 +694,7 @@
           "title": "Errores, excepciones y resultados explícitos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos"
         },
         {
@@ -703,7 +703,7 @@
           "title": "Colecciones y transformación de datos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos"
         },
         {
@@ -712,7 +712,7 @@
           "title": "Entrada, salida y serialización",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion"
         },
         {
@@ -721,7 +721,7 @@
           "title": "Módulos, interfaces y separación de responsabilidades",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades"
         },
         {
@@ -730,7 +730,7 @@
           "title": "Pruebas tempranas y diseño por ejemplos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos"
         },
         {
@@ -739,7 +739,7 @@
           "title": "Legibilidad, nombres y mantenimiento básico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-070-legibilidad-nombres-y-mantenimiento-basico"
         },
         {
@@ -748,7 +748,7 @@
           "title": "Taller: transferir una solución entre lenguajes",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes"
         },
         {
@@ -757,7 +757,7 @@
           "title": "Proyecto: herramienta de línea de comandos probada",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada"
         }
       ]
@@ -776,7 +776,7 @@
           "title": "Programación imperativa y estado mutable",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-073-programacion-imperativa-y-estado-mutable"
         },
         {
@@ -785,7 +785,7 @@
           "title": "Programación procedural y descomposición funcional",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional"
         },
         {
@@ -794,7 +794,7 @@
           "title": "Orientación a objetos, mensajes y encapsulación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion"
         },
         {
@@ -803,7 +803,7 @@
           "title": "Programación funcional, composición e inmutabilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-076-programacion-funcional-composicion-e-inmutabilidad"
         },
         {
@@ -812,7 +812,7 @@
           "title": "Programación declarativa y basada en reglas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-077-programacion-declarativa-y-basada-en-reglas"
         },
         {
@@ -821,7 +821,7 @@
           "title": "Programación lógica y resolución",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion"
         },
         {
@@ -830,7 +830,7 @@
           "title": "Programación orientada a eventos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-079-programacion-orientada-a-eventos"
         },
         {
@@ -839,7 +839,7 @@
           "title": "Programación reactiva y flujos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-080-programacion-reactiva-y-flujos"
         },
         {
@@ -848,7 +848,7 @@
           "title": "Programación concurrente y actores",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores"
         },
         {
@@ -857,7 +857,7 @@
           "title": "Selección y combinación responsable de paradigmas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas"
         },
         {
@@ -866,7 +866,7 @@
           "title": "Taller: una regla de negocio en cinco paradigmas",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas"
         },
         {
@@ -875,7 +875,7 @@
           "title": "Proyecto: comparación semántica con pruebas comunes",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes"
         }
       ]
@@ -894,7 +894,7 @@
           "title": "Arreglos, listas y secuencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias"
         },
         {
@@ -903,7 +903,7 @@
           "title": "Pilas, colas, deques y prioridades",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades"
         },
         {
@@ -912,7 +912,7 @@
           "title": "Tablas hash, mapas y conjuntos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-087-tablas-hash-mapas-y-conjuntos"
         },
         {
@@ -921,7 +921,7 @@
           "title": "Árboles, tries y estructuras jerárquicas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas"
         },
         {
@@ -930,7 +930,7 @@
           "title": "Grafos y recorridos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos"
         },
         {
@@ -939,7 +939,7 @@
           "title": "Búsqueda, ordenamiento y selección",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion"
         },
         {
@@ -948,7 +948,7 @@
           "title": "Algoritmos voraces y programación dinámica",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica"
         },
         {
@@ -957,7 +957,7 @@
           "title": "Backtracking, divide y vencerás",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras"
         },
         {
@@ -966,7 +966,7 @@
           "title": "Índices, probabilísticas y estructuras persistentes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes"
         },
         {
@@ -975,7 +975,7 @@
           "title": "Complejidad empírica, benchmarks y perfiles",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles"
         },
         {
@@ -984,7 +984,7 @@
           "title": "Taller: elegir por carga y no por costumbre",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre"
         },
         {
@@ -993,7 +993,7 @@
           "title": "Proyecto: biblioteca comparada con casos límite",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite"
         }
       ]
@@ -1012,7 +1012,7 @@
           "title": "Editores, IDE y servidores de lenguaje",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-097-editores-ide-y-servidores-de-lenguaje"
         },
         {
@@ -1021,7 +1021,7 @@
           "title": "Depuradores, breakpoints y observación de estado",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-098-depuradores-breakpoints-y-observacion-de-estado"
         },
         {
@@ -1030,7 +1030,7 @@
           "title": "Profilers de CPU, memoria, I/O y red",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red"
         },
         {
@@ -1039,7 +1039,7 @@
           "title": "Compiladores, linters, formatters y análisis estático",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico"
         },
         {
@@ -1048,7 +1048,7 @@
           "title": "REPL, notebooks y desarrollo exploratorio",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio"
         },
         {
@@ -1057,7 +1057,7 @@
           "title": "Gestores de versiones de runtimes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes"
         },
         {
@@ -1066,7 +1066,7 @@
           "title": "Entornos virtuales y aislamiento de dependencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-103-entornos-virtuales-y-aislamiento-de-dependencias"
         },
         {
@@ -1075,7 +1075,7 @@
           "title": "Dev Containers y entornos desechables",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-104-dev-containers-y-entornos-desechables"
         },
         {
@@ -1084,7 +1084,7 @@
           "title": "Reproducción de errores y reducción de casos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos"
         },
         {
@@ -1093,7 +1093,7 @@
           "title": "Ergonomía, accesibilidad y productividad del entorno",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-106-ergonomia-accesibilidad-y-productividad-del-entorno"
         },
         {
@@ -1102,7 +1102,7 @@
           "title": "Taller: diagnosticar un fallo desconocido",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido"
         },
         {
@@ -1111,7 +1111,7 @@
           "title": "Proyecto: entorno de desarrollo autocontenido",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido"
         }
       ]
@@ -1130,7 +1130,7 @@
           "title": "Biblioteca, framework, runtime, plataforma y SDK",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk"
         },
         {
@@ -1139,7 +1139,7 @@
           "title": "SemVer, compatibilidad y contratos públicos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos"
         },
         {
@@ -1148,7 +1148,7 @@
           "title": "Resolución de dependencias y lockfiles",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles"
         },
         {
@@ -1157,7 +1157,7 @@
           "title": "Paquetes, módulos y publicación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion"
         },
         {
@@ -1166,7 +1166,7 @@
           "title": "CLI, flags, configuración y códigos de salida",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida"
         },
         {
@@ -1175,7 +1175,7 @@
           "title": "Scripting repetible y tareas idempotentes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-114-scripting-repetible-y-tareas-idempotentes"
         },
         {
@@ -1184,7 +1184,7 @@
           "title": "Plugins, extensiones y puntos de integración",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion"
         },
         {
@@ -1193,7 +1193,7 @@
           "title": "Generación de código y metaprogramación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion"
         },
         {
@@ -1202,7 +1202,7 @@
           "title": "Licencias, procedencia y reutilización",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion"
         },
         {
@@ -1211,7 +1211,7 @@
           "title": "Diseño de experiencia para desarrolladores",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores"
         },
         {
@@ -1220,7 +1220,7 @@
           "title": "Taller: empaquetar una capacidad reusable",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable"
         },
         {
@@ -1229,7 +1229,7 @@
           "title": "Proyecto: SDK y CLI con compatibilidad verificada",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "GUIDED",
+          "status": "PLANNED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada"
         }
       ]

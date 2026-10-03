@@ -2,11 +2,32 @@
 
 [← SE-021](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-023 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md)
 
-> Estado: **GUIDED**. Mide tiempo y memoria local; no estima energía o emisiones sin instrumentos y fronteras apropiados.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para formular afirmaciones de rendimiento y energía con unidad funcional, protocolo, variación y frontera.
+
+**Por qué aparece aquí.** Se sitúa después de **Runtimes, máquinas virtuales y recolección de basura** y antes de **Taller: observar un programa desde el código hasta la máquina**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Concluir que más rápido significa menor energía o comparar sin calentamiento.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Performance-report.md con datos crudos, dispersión, unidad funcional y afirmaciones permitidas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Sin sensor o modelo validado no se infiere consumo energético.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python `time`](https://docs.python.org/3/library/time.html) |  y [`timeit`](https://docs.python.org/3/library/timeit.html) definen los relojes | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Software Carbon Intensity](https://greensoftware.foundation/standards/sci/) |  define frontera, energía, hardware y unidad funcional | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Pulso ya tiene representación, ejecución y runtime. Ahora responderás “¿es más
+El analizador local de eventos ya tiene representación, ejecución y runtime. Ahora responderás “¿es más
 eficiente?” sin reducir la pregunta a un cronómetro. Definirás trabajo útil, carga,
 latencia, throughput, recursos y frontera energética. `SE-023` aplicará el protocolo a
 todo el recorrido.
@@ -33,7 +54,6 @@ benchmark repetible; aplicarás razonamiento de cuello de botella; delimitarás 
 | Variación | entorno y calentamiento alteran muestras | obliga a distribuciones y control |
 | Cuello de botella | limita mejora del sistema completo | orienta esfuerzo donde cambia resultado |
 | Energía y carbono | amplían frontera a electricidad y hardware | evita equiparar rapidez con sostenibilidad |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -91,7 +111,7 @@ Movimiento de datos, disipación y paralelismo tienen costos. Frecuencia no crec
 límites térmicos y energéticos. La respuesta de software incluye reducir trabajo,
 reutilizar, elegir representación y evitar transferencias; no asumir que el siguiente hardware resolverá todo.
 
-## Caso conductor: comparar dos parsers de Pulso
+## Caso conductor: comparar dos parsers del analizador local de eventos
 
 Una versión materializa todos los eventos; otra procesa en streaming. Se verifica mismo
 hash y conteo, luego se miden tiempo, CPU y pico Python para tres tamaños. Se declara que
@@ -178,6 +198,7 @@ Diseña el mismo protocolo para una función de red sin ejecutarla contra servic
 Se exige equivalencia, protocolo, muestras, análisis de cuello y frontera energética honesta.
 
 ## Fuentes
+
 
 - [Python `time`](https://docs.python.org/3/library/time.html) y [`timeit`](https://docs.python.org/3/library/timeit.html) definen los relojes.
 - [Software Carbon Intensity](https://greensoftware.foundation/standards/sci/) define frontera, energía, hardware y unidad funcional.

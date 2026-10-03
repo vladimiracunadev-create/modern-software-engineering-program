@@ -2,11 +2,33 @@
 
 [← SE-107 — Taller: diagnosticar un fallo desconocido](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-108.html) · [SE-109 — Biblioteca, framework, runtime, plataforma y SDK →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para entregar un entorno autocontenido que se reconstruya, diagnostique y recupere.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: diagnosticar un fallo desconocido** y antes de **Biblioteca, framework, runtime, plataforma y SDK**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Considerar reproducible un contenedor que depende de cachés o pasos manuales.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Configuración, locks, build limpio, smoke test, SBOM y guía de recuperación. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Autocontenido no significa hermético frente a servicios externos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Development Container Specification](https://containers.dev/implementors/spec/) | Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python venv](https://docs.python.org/3/library/venv.html) | Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) | Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: entorno de desarrollo autocontenido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué evidencia demuestra que un entorno de desarrollo puede reconstruirse, diagnosticarse y eliminarse con seguridad?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: entorno de desarrollo autocontenido** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué evidencia demuestra que un entorno de desarrollo puede reconstruirse, diagnosticarse y eliminarse con seguridad?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evi
 
 ## Problema auténtico
 
-Lupa debe entregarse a otra persona sin exportar el perfil personal del autor. El proyecto integra runtime, dependencias, editor opcional, comandos, fixture, diagnóstico y limpieza.
+El entorno reproducible de diagnóstico debe entregarse a otra persona sin exportar el perfil personal del autor. El proyecto integra runtime, dependencias, editor opcional, comandos, fixture, diagnóstico y limpieza.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Contrato de bootstrap | La guía parte de host soportado y termina en una prueba verde. | Evidencia o contraejemplo registrado |
-| Configuración versionada mínima | Se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor. | Evidencia o contraejemplo registrado |
-| Diagnóstico incorporado | Un comando imprime versiones, ejecutable, plataforma y checks sin secretos. | Evidencia o contraejemplo registrado |
-| Rebuild y prueba cruzada | La aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles. | Evidencia o contraejemplo registrado |
-| Limpieza y recuperación | La guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace. | Evidencia o contraejemplo registrado |
-
+| Contrato de bootstrap | La guía parte de host soportado y termina en una prueba verde. | Predicción, traza causal y contraejemplo de **Contrato de bootstrap** en `configuración` |
+| Configuración versionada mínima | Se versionan manifest, lock cuando aplica, contenedor y configuración compartible del editor. | Predicción, traza causal y contraejemplo de **Configuración versionada mínima** en `configuración` |
+| Diagnóstico incorporado | Un comando imprime versiones, ejecutable, plataforma y checks sin secretos. | Predicción, traza causal y contraejemplo de **Diagnóstico incorporado** en `configuración` |
+| Rebuild y prueba cruzada | La aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles. | Predicción, traza causal y contraejemplo de **Rebuild y prueba cruzada** en `configuración` |
+| Limpieza y recuperación | La guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace. | Predicción, traza causal y contraejemplo de **Limpieza y recuperación** en `configuración` |
 ## Conceptos y decisiones
 
 ### 1. Contrato de bootstrap
@@ -72,7 +93,7 @@ La guía enumera artefactos creados y ofrece eliminación acotada dentro del wor
 - **rebuild y prueba cruzada:** la aceptación elimina entorno, reconstruye sin cache relevante y ejecuta en al menos dos superficies declaradas si están disponibles.
 - **limpieza y recuperación:** la guía enumera artefactos creados y ofrece eliminación acotada dentro del workspace.
 
-Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -87,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -114,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -151,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-108/
 ├── README.md
-├── lupa/
+├── diagnostic_environment/
 │   ├── domain.py
 │   └── se_108.py
 ├── fixtures/cases.json
@@ -189,6 +210,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
 - [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
 - [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
@@ -196,11 +218,11 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La Parte 9 convertirá la capacidad de Orbe en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
+El entorno reduce variabilidad conocida, no congela hardware, red o servicios externos. La Parte 9 convertirá la capacidad de la biblioteca de estructuras y algoritmos en una biblioteca, paquete, SDK y CLI con contratos públicos y compatibilidad verificable.
 
 ## Glosario
 

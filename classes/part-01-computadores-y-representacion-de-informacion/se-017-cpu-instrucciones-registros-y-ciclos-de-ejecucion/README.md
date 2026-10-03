@@ -2,12 +2,33 @@
 
 [← SE-016](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-018 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md)
 
-> Estado: **GUIDED**. Usa una ISA didáctica inspirada en RISC-V; no ejecuta ensamblador desconocido ni modela tiempos de una CPU real.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para explicar instrucciones como transiciones de estado sin confundir bytecode con ISA.
+
+**Por qué aparece aquí.** Se sitúa después de **Enteros, coma flotante, precisión y errores numéricos** y antes de **Memoria, cachés, almacenamiento y jerarquías**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Leer la salida de dis como ensamblador o convertir bytecodes en ciclos de CPU.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Execution-trace.md con estados antes/después y la frontera VM↔ISA. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Sin código nativo y contadores no se afirman instrucciones físicas ni ciclos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) |  define instrucciones y estado arquitectónico | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `dis`](https://docs.python.org/3/library/dis.html) |  documenta bytecode específico de CPython y su carácter cambiante | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
 `SE-016` explicó qué representan los operandos. Ahora seguirás cómo una CPU cambia
-estado al cargar, operar, comparar y saltar. Pulso aporta una suma sencilla; la clase la
+estado al cargar, operar, comparar y saltar. El analizador local de eventos aporta una suma sencilla; la clase la
 convierte en una traza arquitectónica. `SE-018` añadirá el costo de obtener los datos.
 
 ## Prerrequisitos
@@ -34,7 +55,6 @@ pipeline o ciclos.
 | Registros y PC | conservan operandos y próxima instrucción | permiten seguir ejecución |
 | Ciclo de instrucción | obtiene, decodifica y aplica efectos | conecta programa con transiciones |
 | Microarquitectura | solapa y reordena trabajo internamente | explica rendimiento sin cambiar semántica |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -86,7 +106,7 @@ ejecutar operaciones listas antes que otras y retirar resultados de manera que e
 estado visible respete el contrato. Contar instrucciones no basta para predecir ciclos:
 dependencias, memoria, unidades y predicción influyen.
 
-## Caso conductor: sumar dos contadores de Pulso
+## Caso conductor: sumar dos contadores del analizador local de eventos
 
 La traza didáctica usa `LOAD r1,[a]`, `LOAD r2,[b]`, `ADD r3,r1,r2`, `STORE [c],r3`.
 Para cada paso registra PC, registros y memoria afectada. Después marca qué aspectos no
@@ -119,7 +139,7 @@ solo en frecuencia anunciada.
 ## Práctica guiada
 
 1. Crea `trace.md` con ocho posiciones de memoria, cuatro registros y PC.
-2. Ejecuta manualmente la secuencia de Pulso y anota pre/postestado.
+2. Ejecuta manualmente la secuencia del analizador local de eventos y anota pre/postestado.
 3. Añade comparación y salto para manejar contador cero.
 4. Introduce dirección inválida y describe excepción sin inventar manejo del SO.
 5. Compara la traza con `dis.dis` de una función Python y explica por qué no son equivalentes.
@@ -176,6 +196,7 @@ Compara una instrucción RISC-V documentada con bytecode de JVM o Python y delim
 Se exigen traza reproducible, dependencias, excepción y límites de microarquitectura.
 
 ## Fuentes
+
 
 - [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) define instrucciones y estado arquitectónico.
 - [Python `dis`](https://docs.python.org/3/library/dis.html) documenta bytecode específico de CPython y su carácter cambiante.

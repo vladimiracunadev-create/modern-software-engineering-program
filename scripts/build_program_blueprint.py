@@ -9,7 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
+# Only Part 00 retains approval evidence. Parts 01-09 were demoted on
+# 2026-10-03 after the claimed qualitative/source review could not be substantiated.
+GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 13)}
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 

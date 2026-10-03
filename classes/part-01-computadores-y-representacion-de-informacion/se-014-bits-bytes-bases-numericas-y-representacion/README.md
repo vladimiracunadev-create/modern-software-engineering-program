@@ -2,14 +2,36 @@
 
 [← SE-013](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-015 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md)
 
-> Estado: **GUIDED**. Práctica local con enteros pequeños; no modela todos los formatos binarios.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para interpretar un valor binario solo cuando se declaran base, ancho, signo y orden de bytes.
+
+**Por qué aparece aquí.** Se sitúa después de **Arquitectura básica de un computador moderno** y antes de **Texto, Unicode, codificaciones y mojibake**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Creer que una secuencia de bytes posee signo y orden por sí misma.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Representations.md con valor↔bits↔bytes, round trips y un desbordamiento explicado. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Los enteros de Python no reproducen un registro de ancho fijo sin imponerlo.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RISC-V ISA Introduction](https://docs.riscv.org/reference/isa/unpriv/intro.html) |  declara el byte de ocho bits y variantes de ancho | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python integer methods](https://docs.python.org/3/library/stdtypes.html#int.to_bytes) |  define serialización, orden y signo | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `struct`](https://docs.python.org/3/library/struct.html) |  documenta formatos binarios y byte order | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
 `SE-013` localizó capas y contratos. Ahora abrimos el dato que las atraviesa. El byte
 `01000001` puede significar 65, `A`, una máscara o parte de una instrucción: los bits
 aportan estados; el formato aporta significado. Prepararás la serialización numérica de
-Pulso para que `SE-015` pueda explicar texto sin confundirlo con bytes.
+el analizador local de eventos para que `SE-015` pueda explicar texto sin confundirlo con bytes.
 
 ## Prerrequisitos
 
@@ -35,7 +57,6 @@ azar.
 | Base posicional | pesos por potencia | permite leer y verificar representaciones |
 | Signo y rango | reserva patrones para valores | explica overflow e interoperabilidad |
 | Endianess | ordena bytes de valores multibyte | evita decodificaciones incompatibles |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -86,9 +107,9 @@ Un byte no es un carácter. `KB` y `KiB` pueden representar bases distintas seg�
 estándar y producto. Un identificador de 32 bits no tiene el mismo rango que una
 cantidad de 32 bytes. Escribe unidad, ancho y representación cerca del dato.
 
-## Caso conductor: longitud binaria de Pulso
+## Caso conductor: longitud binaria del analizador local de eventos
 
-Pulso agrega un campo `sequence=513`. Se decide serializarlo en dos bytes sin signo y
+El analizador local de eventos agrega un campo `sequence=513`. Se decide serializarlo en dos bytes sin signo y
 big-endian: `02 01`. El lector valida exactamente dos bytes. Si el dominio puede superar
 65535, el contrato debe ampliar ancho o rechazar; truncar silenciosamente cambia la
 identidad.
@@ -177,6 +198,7 @@ Inspecciona un color RGB o un encabezado documentado y separa patrón, formato y
 Se evalúan conversiones justificadas, contrato completo, fronteras y diagnóstico reproducible.
 
 ## Fuentes
+
 
 - [RISC-V ISA Introduction](https://docs.riscv.org/reference/isa/unpriv/intro.html) declara el byte de ocho bits y variantes de ancho.
 - [Python integer methods](https://docs.python.org/3/library/stdtypes.html#int.to_bytes) define serialización, orden y signo.

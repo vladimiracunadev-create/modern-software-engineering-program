@@ -2,11 +2,34 @@
 
 [← SE-114 — Scripting repetible y tareas idempotentes](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-114-scripting-repetible-y-tareas-idempotentes/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-115.html) · [SE-116 — Generación de código y metaprogramación →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para diseñar plugins con descubrimiento, contrato, compatibilidad, aislamiento y confianza explícitos.
+
+**Por qué aparece aquí.** Se sitúa después de **Scripting repetible y tareas idempotentes** y antes de **Generación de código y metaprogramación**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Cargar código encontrado y tratar extensión como configuración.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Plugin-contract.md con entry point, versión incompatible, fallo aislado y procedencia. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Un punto de extensión aumenta superficie de ataque y soporte.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) | Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Standard Library](https://docs.python.org/3/library/index.html) | Argparse, importlib.metadata, subprocess y apis de automatización; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) | Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [PyPA plugin discovery](https://packaging.python.org/en/latest/guides/creating-and-discovering-plugins/) | documenta estrategias de descubrimiento de plugins | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupera la evidencia de la clase anterior, añade una decisión propia de **Plugins, extensiones y puntos de integración** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo ampliar un sistema sin convertir cada extensión en dependencia privilegiada e incompatible?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Plugins, extensiones y puntos de integración** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo ampliar un sistema sin convertir cada extensión en dependencia privilegiada e incompatible?**
 
 ## Prerrequisitos
 
@@ -16,7 +39,7 @@ Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupe
 
 ## Problema auténtico
 
-Constelación carga cualquier módulo encontrado, ejecuta código al importar y permite que un plugin cambie registros internos. Un plugin antiguo rompe el arranque completo.
+El producto reutilizable con SDK y CLI carga cualquier módulo encontrado, ejecuta código al importar y permite que un plugin cambie registros internos. Un plugin antiguo rompe el arranque completo.
 
 ## Objetivos observables
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Punto de extensión | Un extension point define interfaz, lifecycle, errores y compatibilidad. | Evidencia o contraejemplo registrado |
-| Descubrimiento | Entry points o registro explícito enumeran proveedores con metadata. | Evidencia o contraejemplo registrado |
-| Capacidades y aislamiento | El plugin recibe solo servicios necesarios mediante interfaz. | Evidencia o contraejemplo registrado |
-| Versionado del protocolo | Host y plugin negocian versión/capacidades antes de ejecutar. | Evidencia o contraejemplo registrado |
-| Fallo y desactivación | Timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar. | Evidencia o contraejemplo registrado |
-
+| Punto de extensión | Un extension point define interfaz, lifecycle, errores y compatibilidad. | Predicción, traza causal y contraejemplo de **Punto de extensión** en `plugin-contract.md` |
+| Descubrimiento | Entry points o registro explícito enumeran proveedores con metadata. | Predicción, traza causal y contraejemplo de **Descubrimiento** en `plugin-contract.md` |
+| Capacidades y aislamiento | El plugin recibe solo servicios necesarios mediante interfaz. | Predicción, traza causal y contraejemplo de **Capacidades y aislamiento** en `plugin-contract.md` |
+| Versionado del protocolo | Host y plugin negocian versión/capacidades antes de ejecutar. | Predicción, traza causal y contraejemplo de **Versionado del protocolo** en `plugin-contract.md` |
+| Fallo y desactivación | Timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar. | Predicción, traza causal y contraejemplo de **Fallo y desactivación** en `plugin-contract.md` |
 ## Conceptos y decisiones
 
 ### 1. Punto de extensión
@@ -72,7 +94,7 @@ Timeout, excepción o output inválido se atribuyen al plugin y siguen política
 - **versionado del protocolo:** host y plugin negocian versión/capacidades antes de ejecutar.
 - **fallo y desactivación:** timeout, excepción o output inválido se atribuyen al plugin y siguen política: aislar, desactivar o abortar.
 
-Las definiciones son operativas para Constelación. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -91,7 +113,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Constelación, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -118,7 +140,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Constelación empaqueta el motor de Orbe como `constellation`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El producto reutilizable con SDK y CLI empaqueta el motor de la biblioteca de estructuras y algoritmos como `engineering_sdk`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -155,7 +177,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-115/
 ├── README.md
-├── constelación/
+├── engineering_sdk/
 │   ├── domain.py
 │   └── se_115.py
 ├── fixtures/cases.json
@@ -193,6 +215,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) — Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project.
 - [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) — Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority.
 - [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) — Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority.
@@ -200,7 +223,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation.
 - [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Constelación sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del producto reutilizable con SDK y CLI sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

@@ -7,7 +7,7 @@
   "kind": "studio",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 6,
-  "status": "GUIDED",
+  "status": "PLANNED",
   "source_ids": [
     "RISCV-ISA",
     "UNICODE-17",

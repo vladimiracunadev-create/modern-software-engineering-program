@@ -2,11 +2,34 @@
 
 [← SE-112 — Paquetes, módulos y publicación](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-113.html) · [SE-114 — Scripting repetible y tareas idempotentes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-114-scripting-repetible-y-tareas-idempotentes/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para diseñar una CLI como interfaz pública con gramática, streams, códigos de salida y compatibilidad.
+
+**Por qué aparece aquí.** Se sitúa después de **Paquetes, módulos y publicación** y antes de **Scripting repetible y tareas idempotentes**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Imprimir errores en stdout o devolver cero tras un fallo.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Cli-contract.md con help, casos, stdout/stderr, exit codes y automatización. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Argparse resuelve parsing; no diseña por sí solo la experiencia.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Standard Library](https://docs.python.org/3/library/index.html) | Argparse, importlib.metadata, subprocess y apis de automatización; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) | Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python argparse](https://docs.python.org/3/library/argparse.html) | define parsing, ayuda y errores de una CLI | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [POSIX Utility Syntax Guidelines](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap12.html) | define convenciones interoperables de argumentos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupera la evidencia de la clase anterior, añade una decisión propia de **CLI, flags, configuración y códigos de salida** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo diseñar una CLI consumible por personas y automatizaciones sin mezclar datos con diagnóstico?**
+Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**. Recupera la evidencia de la clase anterior, añade una decisión propia de **CLI, flags, configuración y códigos de salida** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo diseñar una CLI consumible por personas y automatizaciones sin mezclar datos con diagnóstico?**
 
 ## Prerrequisitos
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Comandos, argumentos y flags | Un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento. | Evidencia o contraejemplo registrado |
-| Configuración y precedencia | Defaults, archivo, entorno y CLI necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto. | Evidencia o contraejemplo registrado |
-| stdout, stderr y formatos | stdout transporta resultado consumible; stderr contiene diagnóstico. | Evidencia o contraejemplo registrado |
-| Códigos de salida | Cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada. | Evidencia o contraejemplo registrado |
-| Señales, cancelación y atomicidad | Ctrl+C solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable. | Evidencia o contraejemplo registrado |
-
+| Comandos, argumentos y flags | Un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento. | Predicción, traza causal y contraejemplo de **Comandos, argumentos y flags** en `cli-contract.md` |
+| Configuración y precedencia | Defaults, archivo, entorno y CLI necesitan orden documentado y opción de explicar valor efectivo sin revelar secreto. | Predicción, traza causal y contraejemplo de **Configuración y precedencia** en `cli-contract.md` |
+| stdout, stderr y formatos | stdout transporta resultado consumible; stderr contiene diagnóstico. | Predicción, traza causal y contraejemplo de **stdout, stderr y formatos** en `cli-contract.md` |
+| Códigos de salida | Cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada. | Predicción, traza causal y contraejemplo de **Códigos de salida** en `cli-contract.md` |
+| Señales, cancelación y atomicidad | Ctrl+C solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable. | Predicción, traza causal y contraejemplo de **Señales, cancelación y atomicidad** en `cli-contract.md` |
 ## Conceptos y decisiones
 
 ### 1. Comandos, argumentos y flags
@@ -72,13 +94,13 @@ Ctrl+C solicita cancelación y debe limpiar archivos temporales o dejar estado r
 - **códigos de salida:** cero indica éxito contractual; valores no cero clasifican uso inválido, datos rechazados, dependencia fallida o error interno según matriz publicada.
 - **señales, cancelación y atomicidad:** ctrl+c solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable.
 
-Las definiciones son operativas para Constelación. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el producto reutilizable con SDK y CLI. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
 ```shell
-constellation choose --input cases.json --format json
-constellation config explain --redact
+engineering_sdk choose --input cases.json --format json
+engineering_sdk config explain --redact
 # stdout: resultado; stderr: diagnóstico; códigos documentados.
 ```
 
@@ -86,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Constelación, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el producto reutilizable con SDK y CLI, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -113,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Constelación empaqueta el motor de Orbe como `constellation`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El producto reutilizable con SDK y CLI empaqueta el motor de la biblioteca de estructuras y algoritmos como `engineering_sdk`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -150,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-113/
 ├── README.md
-├── constelación/
+├── engineering_sdk/
 │   ├── domain.py
 │   └── se_113.py
 ├── fixtures/cases.json
@@ -188,6 +210,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) — Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project.
 - [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) — Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority.
 - [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) — Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority.
@@ -195,7 +218,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation.
 - [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Constelación sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del producto reutilizable con SDK y CLI sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

@@ -2,11 +2,33 @@
 
 [← SE-092 — Backtracking, divide y vencerás](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-093.html) · [SE-094 — Complejidad empírica, benchmarks y perfiles →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para evaluar índices, estructuras probabilísticas y persistentes por errores permitidos y patrones de actualización.
+
+**Por qué aparece aquí.** Se sitúa después de **Backtracking, divide y vencerás** y antes de **Complejidad empírica, benchmarks y perfiles**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Tratar falsos positivos o structural sharing como detalles gratuitos.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Advanced-structures.md con contrato, tasa de error o sharing y carga adversa. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Los parámetros de laboratorio no generalizan a producción.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Data Model](https://docs.python.org/3/reference/datamodel.html) | Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Índices, probabilísticas y estructuras persistentes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué garantía se intercambia al usar un índice especializado, probabilidad o versiones persistentes?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Índices, probabilísticas y estructuras persistentes** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué garantía se intercambia al usar un índice especializado, probabilidad o versiones persistentes?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe consulta rangos temporales, filtra millones de IDs vistos y necesita conservar snapshots auditables. Una sola tabla hash no satisface rango, memoria y versión al mismo tiempo.
+La biblioteca de estructuras y algoritmos consulta rangos temporales, filtra millones de IDs vistos y necesita conservar snapshots auditables. Una sola tabla hash no satisface rango, memoria y versión al mismo tiempo.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Índices ordenados y consultas de rango | Un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo. | Evidencia o contraejemplo registrado |
-| Bloom filter | Un Bloom filter marca varios bits por elemento. | Evidencia o contraejemplo registrado |
-| Sketches y aproximación | Estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada. | Evidencia o contraejemplo registrado |
-| Estructuras persistentes | Una actualización produce nueva versión compartiendo partes inmutables con la anterior. | Evidencia o contraejemplo registrado |
-| Índice como proyección | Todo índice duplica una vista derivada y puede quedar desincronizado. | Evidencia o contraejemplo registrado |
-
+| Índices ordenados y consultas de rango | Un índice ordenado localiza fronteras y recorre un intervalo sin escanear todo. | Predicción, traza causal y contraejemplo de **Índices ordenados y consultas de rango** en `advanced-structures.md` |
+| Bloom filter | Un Bloom filter marca varios bits por elemento. | Predicción, traza causal y contraejemplo de **Bloom filter** en `advanced-structures.md` |
+| Sketches y aproximación | Estructuras de resumen estiman frecuencia o cardinalidad con memoria acotada. | Predicción, traza causal y contraejemplo de **Sketches y aproximación** en `advanced-structures.md` |
+| Estructuras persistentes | Una actualización produce nueva versión compartiendo partes inmutables con la anterior. | Predicción, traza causal y contraejemplo de **Estructuras persistentes** en `advanced-structures.md` |
+| Índice como proyección | Todo índice duplica una vista derivada y puede quedar desincronizado. | Predicción, traza causal y contraejemplo de **Índice como proyección** en `advanced-structures.md` |
 ## Conceptos y decisiones
 
 ### 1. Índices ordenados y consultas de rango
@@ -62,7 +83,7 @@ Una actualización produce nueva versión compartiendo partes inmutables con la 
 
 ### 5. Índice como proyección
 
-Todo índice duplica una vista derivada y puede quedar desincronizado. Se define quién lo actualiza, cómo se reconstruye y qué ocurre ante fallo parcial. Orbe prueba equivalencia entre consulta indexada y escaneo para fixtures pequeños.
+Todo índice duplica una vista derivada y puede quedar desincronizado. Se define quién lo actualiza, cómo se reconstruye y qué ocurre ante fallo parcial. La biblioteca de estructuras y algoritmos prueba equivalencia entre consulta indexada y escaneo para fixtures pequeños.
 
 ## Definiciones de trabajo
 
@@ -72,7 +93,7 @@ Todo índice duplica una vista derivada y puede quedar desincronizado. Se define
 - **estructuras persistentes:** una actualización produce nueva versión compartiendo partes inmutables con la anterior.
 - **índice como proyección:** todo índice duplica una vista derivada y puede quedar desincronizado.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -88,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -115,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -152,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-093/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_093.py
 ├── fixtures/cases.json
@@ -190,6 +211,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -197,7 +219,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

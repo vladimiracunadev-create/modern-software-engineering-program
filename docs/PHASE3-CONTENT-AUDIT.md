@@ -3,8 +3,9 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–09 aportan 120 clases `GUIDED` y las 60 restantes aún
-no superan el estándar pedagógico permanente.
+`SE-001`–`SE-180`: solo las 12 clases de la Parte 00 conservan estado `GUIDED`.
+Las 168 restantes son borradores públicos `PLANNED` y aún no superan el estándar
+pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
 
@@ -22,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 120 | Partes 00–09 aprobadas; las otras 60 permanecen `PLANNED` |
+| clases aprobadas | 12 | solo la Parte 00; las otras 168 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -49,6 +50,27 @@ pedagógica integral.
 - reconstruir por parte, con un commit independiente y revisión cualitativa;
 - publicar índices con enlaces directos a GitHub y GitHub Pages.
 
+## Corrección de nombres y trazabilidad pedagógica
+
+Las etiquetas ficticias de las Partes 01–09 se retiraron de las clases, índices,
+generadores y portal. No eran conceptos técnicos ni ayudaban a anticipar la función
+del sistema. La equivalencia histórica se conserva únicamente en
+[`CASE-LABEL-CORRECTION.md`](CASE-LABEL-CORRECTION.md), fuera del recorrido educativo.
+
+Las 108 clases de esas partes incorporan un punto profesional específico, el error
+conceptual que busca corregir, una evidencia observable, su límite y una tabla que
+relaciona fuentes con afirmaciones. Los registros de
+[`sources/pedagogical/`](../sources/pedagogical/) declaran explícitamente
+`approval: not_granted`: añadir trazabilidad no equivale a aprobar contenido.
+
+La secuencia activa conocimiento previo y contexto según
+[*How People Learn II*](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures),
+exige explicar y contrastar mecanismos de acuerdo con
+[ICAP](https://icap.education.asu.edu/research), y usa recuperación activa para
+comprobar comprensión duradera, respaldada por el estudio de
+[Roediger y Karpicke](https://pubmed.ncbi.nlm.nih.gov/16507066/). Estas referencias
+fundamentan la actividad pedagógica; no sustituyen las fuentes técnicas de cada clase.
+
 ## Avance editorial de la Parte 00
 
 Las doce clases `SE-001`–`SE-012` ya no dependen del generador temático genérico:
@@ -66,110 +88,105 @@ gate y sus doce clases avanzaron a `GUIDED`. Esta promoción no atribuye estados
 
 ## Avance editorial de la Parte 01
 
-Las clases `SE-013`–`SE-024` fueron reemplazadas por fuentes canónicas en
-`content/part-01/`. El caso conductor `Pulso` conecta representación, Unicode,
-aritmética, CPU, memoria, procesos, traducción, runtime y medición hasta un taller y
-un informe reproducible. Cada clase declara mecanismo, entorno, práctica segura,
-fallo controlado, errores, fuentes y límites instrumentales. El README completo de la
-parte se publica también en Pages. Tras revisión clase por clase y de la progresión
-completa, las doce clases avanzaron a `GUIDED`; no se promovieron a estados que exigen
-ejecución o evidencia productiva.
+Las clases `SE-013`–`SE-024` tienen fuentes canónicas en `content/part-01/`. Un
+analizador local de eventos conecta representación, Unicode, aritmética, CPU, memoria,
+procesos, traducción, runtime y medición hasta un taller y un informe reproducible.
+El contenido se conserva y publica completo, pero las doce clases permanecen
+`PLANNED` hasta una revisión técnica y pedagógica integral.
 
 ## Avance editorial de la Parte 02
 
 Las clases `SE-025`–`SE-036` se reconstruyeron desde fuentes canónicas en
-`content/part-02/`. El caso `Faro` conecta plataforma, sistemas de archivos,
+`content/part-02/`. Un kit de diagnóstico multiplataforma conecta plataforma, sistemas de archivos,
 autorización, procesos, shells, configuración, procedencia, observabilidad y
 virtualización hasta un taller de recuperación y un kit diagnóstico multiplataforma.
 Cada clase desarrolla mecanismos propios, mapa causal, ejemplos, práctica, reto,
-fallo controlado, seguridad, transferencia y fuentes oficiales próximas. La revisión
-completa confirmó el contrato pedagógico y la publicación íntegra en el portal; las
-doce clases avanzaron a `GUIDED` sin atribuir ejecución en plataformas no probadas.
+fallo controlado, seguridad, transferencia y fuentes oficiales próximas. PowerShell
+contrasta semántica de objetos, errores, quoting, entorno y códigos de salida con Bash;
+no se presenta como un curso independiente de cmdlets. Las doce clases permanecen
+`PLANNED` sin atribuir ejecución en plataformas no probadas.
 
 ## Avance editorial de la Parte 03
 
 Las clases `SE-037`–`SE-048` se reconstruyeron como fuentes canónicas en
-`content/part-03/`. El caso `Nexo` sigue una petición desde la red local hasta IP,
+`content/part-03/`. Una petición observable se sigue desde la red local hasta IP,
 transporte, DNS, HTTP, TLS, intermediarios y conexiones persistentes; después la
 mide, la integra en un taller de extremo a extremo y la convierte en un servicio
 observable con recuperación controlada. Cada clase desarrolla cinco mecanismos
 propios, contrasta una hipótesis rival, exige primera divergencia y conserva el caso
 sano, degradado y restaurado. Las fuentes RFC se enlazan junto al mecanismo que
-sustentan, y las prácticas limitan captura, privilegios y datos sensibles. Tras la
-revisión completa de clases, progresión, enlaces y publicación, las doce clases
-avanzaron a `GUIDED` sin afirmar que los laboratorios se ejecutaron en redes de
-producción.
+sustentan, y las prácticas limitan captura, privilegios y datos sensibles. Las doce
+clases permanecen `PLANNED` y no afirman que los laboratorios se ejecutaron en redes
+de producción.
 
 ## Avance editorial de la Parte 04
 
 Las clases `SE-049`–`SE-060` se reconstruyeron en `content/part-04/` alrededor de
-`Atlas`, un planificador que transforma las trazas de Nexo en decisiones
+un modelo de decisión diagnóstica que transforma trazas de red en decisiones
 contrastables. La progresión conecta descomposición, lógica, conjuntos, relaciones,
 grafos, contratos, inducción, corrección, terminación, complejidad, heurísticas,
 máquinas de estado y registro de hipótesis. Cada clase contiene un contraejemplo y
 exige distinguir ejemplos empíricos de argumentos generales; el proyecto termina en
-una matriz problema–regla–caso–evidencia lista para implementar. Tras revisar las
-doce clases y la publicación íntegra de la parte, avanzaron a `GUIDED` sin atribuir
-ejecución a los modelos o pruebas de papel.
+una matriz problema–regla–caso–evidencia lista para implementar. Las doce clases
+permanecen `PLANNED` sin atribuir ejecución a los modelos o pruebas de papel.
 
 ## Avance editorial de la Parte 05
 
 Las clases `SE-061`–`SE-072` se reconstruyeron en `content/part-05/` como una
-implementación incremental de Atlas llamada `Brújula`. El recorrido desarrolla
+implementación incremental del modelo de decisión mediante una CLI diagnóstica. El recorrido desarrolla
 valores, control, iteración, funciones, resultados de error, colecciones, I/O,
 serialización, módulos, pruebas y legibilidad; el taller contrasta Python con Rust y
 el proyecto integra una CLI con contratos de streams y códigos de salida. Cada clase
-incluye código explicado, predicción previa, fallo controlado y caso de regresión,
-pero la promoción se limita a `GUIDED`: los snippets no se presentan como un paquete
-publicado ni como evidencia automática de ejecución multiplataforma. Tras revisar
-contenido, progresión, fuentes oficiales y portal, las doce clases superaron el gate.
+incluye código explicado, predicción previa, fallo controlado y caso de regresión. Los
+snippets no se presentan como un paquete publicado ni como evidencia automática de
+ejecución multiplataforma. Las doce clases permanecen `PLANNED`.
 
 ## Avance editorial de la Parte 06
 
 Las clases `SE-073`–`SE-084` se reconstruyeron en `content/part-06/` alrededor de
-`Prisma`, un motor que expresa el mismo contrato mediante modelos imperativos,
+un motor de reglas comparado que expresa el mismo contrato mediante modelos imperativos,
 procedurales, orientados a objetos, funcionales, declarativos, lógicos, orientados a
 eventos, reactivos y de actores. Las clases explican estado, control, composición,
 unificación, backpressure, cancelación y aislamiento con contraejemplos propios. El
 taller fija fixtures comunes y el proyecto termina con corpus, propiedades, trazas e
-informe de decisión contextual. Tras revisar las doce clases, sus fuentes primarias,
-la continuidad y la publicación íntegra, avanzaron a `GUIDED` sin declarar un
+informe de decisión contextual. Las doce clases permanecen `PLANNED` sin declarar un
 paradigma ganador universal ni atribuir benchmarks no ejecutados.
 
 ## Avance editorial de la Parte 07
 
 Las clases `SE-085`–`SE-096` se reconstruyeron en `content/part-07/` alrededor de
-`Orbe`, un motor de priorización que obliga a elegir representación desde operaciones
+una biblioteca de estructuras y algoritmos que obliga a elegir representación desde operaciones
 e invariantes. El recorrido conecta secuencias, colas, heaps, hashing, árboles,
 tries, grafos, búsqueda, ordenamiento, selección, estrategias voraces, programación
 dinámica, backtracking, divide y vencerás, índices, estructuras probabilísticas y
 persistentes. El taller decide por perfiles de carga y el proyecto entrega una
-biblioteca comparada con propiedades, casos límite y benchmarks interpretados. Tras
-revisión completa, las doce clases avanzaron a `GUIDED` sin convertir mediciones
-locales en promesas universales de rendimiento.
+biblioteca comparada con propiedades, casos límite y benchmarks interpretados. Las
+doce clases permanecen `PLANNED` sin convertir mediciones locales en promesas
+universales de rendimiento.
 
 ## Avance editorial de la Parte 08
 
 Las clases `SE-097`–`SE-108` se reconstruyeron en `content/part-08/` alrededor de
-`Lupa`, una investigación sobre una regresión de Orbe que solo aparece bajo cierto
-entorno. El recorrido distingue editor, IDE, LSP y DAP; explica breakpoints, frames,
+un entorno reproducible para investigar una regresión de la biblioteca de algoritmos
+que solo aparece bajo cierta configuración. El recorrido distingue editor, IDE, LSP y DAP; explica breakpoints, frames,
 perfiles de CPU, memoria e I/O, compilación, linters, tipos, REPL, notebooks,
 selección de runtimes, entornos virtuales y Dev Containers. Después reduce el caso,
 incorpora ergonomía y accesibilidad, ejecuta un taller de diagnóstico y entrega un
 entorno autocontenido con bootstrap, doctor, rebuild y limpieza acotada. Las doce
-clases avanzaron a `GUIDED` sin afirmar que un contenedor elimine toda variabilidad
+clases permanecen `PLANNED` sin afirmar que un contenedor elimine toda variabilidad
 ni que una herramienta aislada demuestre causalidad.
 
 ## Avance editorial de la Parte 09
 
 Las clases `SE-109`–`SE-120` se reconstruyeron en `content/part-09/` alrededor de
-`Constelación`, la conversión de Orbe y su entorno Lupa en un producto reusable. El
+la conversión de la biblioteca de algoritmos y su entorno reproducible en un producto
+reutilizable con SDK y CLI. El
 recorrido delimita biblioteca, framework, runtime, plataforma y SDK; desarrolla API
 pública, SemVer, resolución, lockfiles, build y publicación; después integra CLI,
 configuración, códigos de salida, automatización idempotente, plugins, generación,
 licencias SPDX/REUSE y diseño de experiencia para desarrolladores. El taller consume
 el artefacto fuera del checkout y el proyecto prueba un SDK+CLI entre versiones. Las
-doce clases avanzaron a `GUIDED` sin presentar SemVer, lockfiles, contenedores o SBOM
+doce clases permanecen `PLANNED` sin presentar SemVer, lockfiles, contenedores o SBOM
 como garantías automáticas de compatibilidad, reproducibilidad o cumplimiento.
 
 ## Orden de reconstrucción

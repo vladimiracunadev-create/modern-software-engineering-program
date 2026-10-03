@@ -16,11 +16,11 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         cls.lessons = [lesson for part in cls.program["parts"] for lesson in part["lessons"]]
 
     def test_maturity_counts(self) -> None:
-        self.assertEqual(Counter({"GUIDED": 120, "PLANNED": 360}), Counter(item["status"] for item in self.lessons))
+        self.assertEqual(Counter({"GUIDED": 12, "PLANNED": 468}), Counter(item["status"] for item in self.lessons))
 
     def test_phase_three_scope_is_first_180_classes(self) -> None:
         target = self.program["phase_3_target"]
-        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 120}, target)
+        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 12}, target)
 
     def test_phase_three_drafts_have_activity_and_rubric(self) -> None:
         for lesson in self.lessons:
@@ -72,21 +72,21 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             part_page.index("Resumen visual del recorrido"),
         )
         self.assertEqual(12, part_page.count('class="route-number"'))
-        part_one_page = (ROOT / "site/parts/01.html").read_text(encoding="utf-8")
-        self.assertIn("Pulso", part_one_page)
-        self.assertIn("Guía razonada clase por clase", part_one_page)
-        part_two_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
-        self.assertIn("Faro", part_two_page)
-        self.assertIn("Guía razonada clase por clase", part_two_page)
-        part_three_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
-        self.assertIn("Nexo", part_three_page)
-        self.assertIn("Guía razonada clase por clase", part_three_page)
-        part_four_page = (ROOT / "site/parts/04.html").read_text(encoding="utf-8")
-        self.assertIn("Atlas", part_four_page)
-        self.assertIn("Guía razonada clase por clase", part_four_page)
-        part_five_page = (ROOT / "site/parts/05.html").read_text(encoding="utf-8")
-        self.assertIn("Brújula", part_five_page)
-        self.assertIn("Guía razonada clase por clase", part_five_page)
+        part_labels = {
+            "01": "analizador local de eventos",
+            "02": "kit de diagnóstico multiplataforma",
+            "03": "petición observable de extremo a extremo",
+            "04": "modelo de decisión diagnóstica",
+            "05": "CLI diagnóstica",
+            "06": "motor de reglas comparado",
+            "07": "biblioteca de estructuras y algoritmos",
+            "08": "entorno reproducible de diagnóstico",
+            "09": "producto reutilizable con SDK y CLI",
+        }
+        for part_id, label in part_labels.items():
+            part_page = (ROOT / "site/parts" / f"{part_id}.html").read_text(encoding="utf-8")
+            self.assertIn(label, part_page)
+            self.assertIn("Guía razonada clase por clase", part_page)
         for part in self.program["parts"][:10]:
             part_page = (ROOT / "site/parts" / f"{part['id']}.html").read_text(encoding="utf-8")
             self.assertIn("Guía razonada clase por clase", part_page, part["id"])
@@ -100,7 +100,8 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             readme = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
             page = (ROOT / "site/classes" / f"{lesson['id']}.html").read_text(encoding="utf-8")
             self.assertIn("## Antes de empezar", readme, lesson["id"])
-            expected_case = "Campus Abierto" if index < 12 else "Pulso" if index < 24 else "Faro" if index < 36 else "Nexo" if index < 48 else "Atlas" if index < 60 else "Brújula" if index < 72 else "Prisma" if index < 84 else "Orbe" if index < 96 else "Lupa" if index < 108 else "Constelación"
+            part_number = index // 12
+            expected_case = "Campus Abierto" if part_number == 0 else part_labels[f"{part_number:02d}"]
             self.assertIn(expected_case, readme, lesson["id"])
             self.assertIn("## Errores comunes y cómo corregirlos", readme, lesson["id"])
             self.assertIn('class="lesson-progress"', page, lesson["id"])
@@ -109,8 +110,8 @@ class PhaseThreeGenerationTests(unittest.TestCase):
 
     def test_portal_reports_current_maturity(self) -> None:
         home = (ROOT / "site/index.html").read_text(encoding="utf-8")
-        self.assertIn("120</strong><span>clases revisadas", home)
-        self.assertIn("360</strong><span>clases por desarrollar", home)
+        self.assertIn("12</strong><span>clases revisadas", home)
+        self.assertIn("468</strong><span>clases por desarrollar", home)
         self.assertNotIn("0</strong><span>aprobadas", home)
 
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:

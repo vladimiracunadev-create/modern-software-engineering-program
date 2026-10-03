@@ -2,11 +2,34 @@
 
 [← SE-095 — Taller: elegir por carga y no por costumbre](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-096.html) · [SE-097 — Editores, IDE y servidores de lenguaje →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-097-editores-ide-y-servidores-de-lenguaje/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para entregar una biblioteca con contratos, casos límite y comparaciones de costo.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: elegir por carga y no por costumbre** y antes de **Editores, IDE y servidores de lenguaje**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Considerar correcta una API porque sus ejemplos pasan.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Biblioteca, pruebas de propiedades, benchmarks, documentación y límites. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La evidencia local no certifica seguridad ni rendimiento universal.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Data Model](https://docs.python.org/3/reference/datamodel.html) | Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) | Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: biblioteca comparada con casos límite** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo entregar una biblioteca comparada cuya corrección y rendimiento puedan discutirse con evidencia?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: biblioteca comparada con casos límite** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo entregar una biblioteca comparada cuya corrección y rendimiento puedan discutirse con evidencia?**
 
 ## Prerrequisitos
 
@@ -16,7 +39,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe necesita una interfaz reusable de backlog con implementaciones para historial, prioridad e identidad. El proyecto debe impedir que una optimización cambie desempate o pierda casos límite.
+La biblioteca de estructuras y algoritmos necesita una interfaz reusable de backlog con implementaciones para historial, prioridad e identidad. El proyecto debe impedir que una optimización cambie desempate o pierda casos límite.
 
 ## Objetivos observables
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Contrato de la biblioteca | La API define tipos, operaciones, errores, orden y complejidad esperada. | Evidencia o contraejemplo registrado |
-| Invariantes y pruebas de propiedades | Cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política. | Evidencia o contraejemplo registrado |
-| Casos límite y oráculo | Vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus. | Evidencia o contraejemplo registrado |
-| Benchmark versionado | El runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados. | Evidencia o contraejemplo registrado |
-| Informe y decisión | El README guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga. | Evidencia o contraejemplo registrado |
-
+| Contrato de la biblioteca | La API define tipos, operaciones, errores, orden y complejidad esperada. | Predicción, traza causal y contraejemplo de **Contrato de la biblioteca** en `biblioteca` |
+| Invariantes y pruebas de propiedades | Cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política. | Predicción, traza causal y contraejemplo de **Invariantes y pruebas de propiedades** en `biblioteca` |
+| Casos límite y oráculo | Vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus. | Predicción, traza causal y contraejemplo de **Casos límite y oráculo** en `biblioteca` |
+| Benchmark versionado | El runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados. | Predicción, traza causal y contraejemplo de **Benchmark versionado** en `biblioteca` |
+| Informe y decisión | El README guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga. | Predicción, traza causal y contraejemplo de **Informe y decisión** en `biblioteca` |
 ## Conceptos y decisiones
 
 ### 1. Contrato de la biblioteca
@@ -72,13 +94,13 @@ El README guía a consumidor, el informe explica mecanismos y la matriz recomien
 - **benchmark versionado:** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
 - **informe y decisión:** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
 ```python
 python -m unittest -v
-python -m orbe.benchmark --sizes 100,1000,10000 --repeat 9 --output evidence/results.json
+python -m algorithm_library.benchmark --sizes 100,1000,10000 --repeat 9 --output evidence/results.json
 # El runner valida equivalencia antes de registrar tiempos.
 ```
 
@@ -86,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -113,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -150,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-096/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_096.py
 ├── fixtures/cases.json
@@ -188,6 +210,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -195,11 +218,11 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La Parte 8 tomará un fallo y una regresión de Orbe para construir un entorno de diagnóstico reproducible.
+La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La Parte 8 tomará un fallo y una regresión de la biblioteca de estructuras y algoritmos para construir un entorno de diagnóstico reproducible.
 
 ## Glosario
 

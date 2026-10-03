@@ -2,11 +2,34 @@
 
 [← SE-100 — Compiladores, linters, formatters y análisis estático](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-100-compiladores-linters-formatters-y-analisis-estatico/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-101.html) · [SE-102 — Gestores de versiones de runtimes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-102-gestores-de-versiones-de-runtimes/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para usar REPL y notebooks para explorar conservando orden, estado y transición a artefactos reproducibles.
+
+**Por qué aparece aquí.** Se sitúa después de **Compiladores, linters, formatters y análisis estático** y antes de **Gestores de versiones de runtimes**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Creer que celdas visibles documentan el orden ejecutado.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Exploration-log.md con kernel limpio, orden, dependencia oculta y script extraído. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Una sesión interactiva no es por sí sola un pipeline reproducible.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) | Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python venv](https://docs.python.org/3/library/venv.html) | Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python interactive mode](https://docs.python.org/3/tutorial/interpreter.html) | documenta el modo interactivo y su estado de sesión | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Jupyter messaging protocol](https://jupyter-client.readthedocs.io/en/stable/messaging.html) | define mensajes y canales entre cliente y kernel | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **REPL, notebooks y desarrollo exploratorio** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar rápidamente sin convertir estado invisible y orden de celdas en evidencia falsa?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **REPL, notebooks y desarrollo exploratorio** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo explorar rápidamente sin convertir estado invisible y orden de celdas en evidencia falsa?**
 
 ## Prerrequisitos
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| REPL y ciclo de realimentación | Read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción. | Evidencia o contraejemplo registrado |
-| Notebook y grafo oculto | Visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia. | Evidencia o contraejemplo registrado |
-| Exploración frente a producto | Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership. | Evidencia o contraejemplo registrado |
-| Proveniencia de datos | Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. | Evidencia o contraejemplo registrado |
-| Narrativa y verificación | Una explicación ordena pregunta, método, resultado y límite. | Evidencia o contraejemplo registrado |
-
+| REPL y ciclo de realimentación | Read-eval-print permite probar expresiones y observar tipos o invariantes con baja fricción. | Predicción, traza causal y contraejemplo de **REPL y ciclo de realimentación** en `exploration-log.md` |
+| Notebook y grafo oculto | Visualmente las celdas tienen orden, pero pueden ejecutarse en otra secuencia. | Predicción, traza causal y contraejemplo de **Notebook y grafo oculto** en `exploration-log.md` |
+| Exploración frente a producto | Explorar tolera caminos muertos y visualización provisional; producto necesita interfaz, pruebas y ownership. | Predicción, traza causal y contraejemplo de **Exploración frente a producto** en `exploration-log.md` |
+| Proveniencia de datos | Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. | Predicción, traza causal y contraejemplo de **Proveniencia de datos** en `exploration-log.md` |
+| Narrativa y verificación | Una explicación ordena pregunta, método, resultado y límite. | Predicción, traza causal y contraejemplo de **Narrativa y verificación** en `exploration-log.md` |
 ## Conceptos y decisiones
 
 ### 1. REPL y ciclo de realimentación
@@ -58,7 +80,7 @@ Explorar tolera caminos muertos y visualización provisional; producto necesita 
 
 ### 4. Proveniencia de datos
 
-Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. Copiar datos manualmente destruye trazabilidad. Lupa usa fixtures sintéticos guardados y hashes cuando la fuente es externa autorizada.
+Toda tabla o gráfico debe indicar origen, transformación, versión y filtros. Copiar datos manualmente destruye trazabilidad. El entorno reproducible de diagnóstico usa fixtures sintéticos guardados y hashes cuando la fuente es externa autorizada.
 
 ### 5. Narrativa y verificación
 
@@ -72,12 +94,12 @@ Una explicación ordena pregunta, método, resultado y límite. Output rico pued
 - **proveniencia de datos:** toda tabla o gráfico debe indicar origen, transformación, versión y filtros.
 - **narrativa y verificación:** una explicación ordena pregunta, método, resultado y límite.
 
-Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
 ```text
->>> from orbe.priority import key
+>>> from algorithm_library.priority import key
 >>> key({"priority": 5, "arrival": 2})
 (-5, 2)
 >>> # El hallazgo se traslada a una prueba desde proceso limpio.
@@ -87,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -114,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -151,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-101/
 ├── README.md
-├── lupa/
+├── diagnostic_environment/
 │   ├── domain.py
 │   └── se_101.py
 ├── fixtures/cases.json
@@ -189,6 +211,8 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
+
 - [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
 - [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
 - [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
@@ -196,7 +220,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

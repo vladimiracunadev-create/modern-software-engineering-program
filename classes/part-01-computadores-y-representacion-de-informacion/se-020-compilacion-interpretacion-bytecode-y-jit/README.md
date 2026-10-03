@@ -2,11 +2,33 @@
 
 [← SE-019](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-021 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md)
 
-> Estado: **GUIDED**. Inspecciona CPython 3.11+; su bytecode es detalle de implementación y puede cambiar.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para seguir fuente, AST, bytecode, IR y ejecución para localizar la etapa que introduce un fallo.
+
+**Por qué aparece aquí.** Se sitúa después de **Procesos, hilos, interrupciones y entrada/salida** y antes de **Runtimes, máquinas virtuales y recolección de basura**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Creer que interpretar excluye compilar o que JIT compila todo antes de iniciar.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Pipeline.md con representaciones, tres etapas de fallo y contraste con otra VM. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Inspeccionar IR no prueba optimizaciones ni código nativo final.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python `ast`](https://docs.python.org/3/library/ast.html) | , [`dis`](https://docs.python.org/3/library/dis.html) y [`py_compile`](https://docs.python.org/3/library/py_compile.html) definen las vistas usadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [LLVM documentation](https://llvm.org/docs/) |  describe IR, generación y JIT | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [JVM Specification](https://docs.oracle.com/javase/specs/) |  ofrece un formato de clase y VM especificados | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Hasta ahora trataste Pulso como fuente que “se ejecuta”. `SE-017` advirtió que una línea
+Hasta ahora trataste el analizador local de eventos como fuente que “se ejecuta”. `SE-017` advirtió que una línea
 no es una instrucción. Esta clase abre las traducciones entre texto, estructura,
 representaciones intermedias y máquina. `SE-021` estudiará los servicios que permanecen activos durante esa ejecución.
 
@@ -33,7 +55,6 @@ estrategia de traducción y momento; inspeccionarás AST/bytecode; explicarás l
 | IR/bytecode | conserva operaciones en formato intermedio | habilita portabilidad y optimización |
 | AOT/JIT | elige cuándo generar código | intercambia arranque, adaptación y costo |
 | Enlace/carga | resuelve dependencias y prepara proceso | explica fallos posteriores a compilar |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -84,7 +105,7 @@ Compilar una unidad no resuelve todas las dependencias. Enlace combina símbolos
 artefactos; carga mapea código y datos, resuelve bibliotecas y prepara estado. Versiones,
 ABI y rutas pueden fallar aunque el fuente sea correcto. Empaquetado es parte del contrato.
 
-## Caso conductor: tres representaciones de Pulso
+## Caso conductor: tres representaciones del analizador local de eventos
 
 Se elige una función `summarize(values)`. `ast.dump` muestra la estructura;
 `dis.dis` muestra bytecode del intérprete actual; la ejecución produce resultados. La
@@ -115,7 +136,7 @@ mide una sola llamada favorece AOT; otro que descarta arranque favorece estado e
 
 ## Práctica guiada
 
-1. Crea `translation_probe.py` con una función pura de Pulso.
+1. Crea `translation_probe.py` con una función pura del analizador local de eventos.
 2. Guarda AST con `ast.dump(..., indent=2)` y bytecode con `dis`.
 3. Modifica una constante y un `if`; compara qué representación cambia.
 4. Genera `.pyc` con `py_compile` en el directorio de práctica.
@@ -172,6 +193,7 @@ Compara el mapa con JVM o LLVM usando su especificación, sin asumir equivalenci
 Se exige mapa por etapas, artefactos versionados, comparación y límite sobre código nativo.
 
 ## Fuentes
+
 
 - [Python `ast`](https://docs.python.org/3/library/ast.html), [`dis`](https://docs.python.org/3/library/dis.html) y [`py_compile`](https://docs.python.org/3/library/py_compile.html) definen las vistas usadas.
 - [LLVM documentation](https://llvm.org/docs/) describe IR, generación y JIT.

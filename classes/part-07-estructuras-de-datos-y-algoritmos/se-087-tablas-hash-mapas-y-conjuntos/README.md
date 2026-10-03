@@ -2,11 +2,33 @@
 
 [← SE-086 — Pilas, colas, deques y prioridades](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-087.html) · [SE-088 — Árboles, tries y estructuras jerárquicas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para diseñar tablas hash, mapas y conjuntos con igualdad, hash, colisiones y mutabilidad coherentes.
+
+**Por qué aparece aquí.** Se sitúa después de **Pilas, colas, deques y prioridades** y antes de **Árboles, tries y estructuras jerárquicas**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Suponer acceso O(1) incondicional o usar claves mutables.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Hash-contract.md con igualdad/hash, colisión y degradación observada. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** El promedio esperado no es garantía de peor caso.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Data Model](https://docs.python.org/3/reference/datamodel.html) | Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Tablas hash, mapas y conjuntos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué exige una búsqueda por clave para seguir siendo correcta y predecible?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Tablas hash, mapas y conjuntos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué exige una búsqueda por clave para seguir siendo correcta y predecible?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe necesita deduplicar eventos y encontrar un caso por ID. Recorrer la lista escala linealmente; un diccionario acelera el caso esperado, pero una clave mutable vuelve entradas inalcanzables.
+La biblioteca de estructuras y algoritmos necesita deduplicar eventos y encontrar un caso por ID. Recorrer la lista escala linealmente; un diccionario acelera el caso esperado, pero una clave mutable vuelve entradas inalcanzables.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Mapa y conjunto | Un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado. | Evidencia o contraejemplo registrado |
-| Función hash y buckets | El hash transforma una clave en un entero usado para elegir ubicación. | Evidencia o contraejemplo registrado |
-| Igualdad y estabilidad | Si dos claves son iguales deben compartir hash. | Evidencia o contraejemplo registrado |
-| Factor de carga y crecimiento | Al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye. | Evidencia o contraejemplo registrado |
-| Orden e iteración | Python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones. | Evidencia o contraejemplo registrado |
-
+| Mapa y conjunto | Un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado. | Predicción, traza causal y contraejemplo de **Mapa y conjunto** en `hash-contract.md` |
+| Función hash y buckets | El hash transforma una clave en un entero usado para elegir ubicación. | Predicción, traza causal y contraejemplo de **Función hash y buckets** en `hash-contract.md` |
+| Igualdad y estabilidad | Si dos claves son iguales deben compartir hash. | Predicción, traza causal y contraejemplo de **Igualdad y estabilidad** en `hash-contract.md` |
+| Factor de carga y crecimiento | Al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye. | Predicción, traza causal y contraejemplo de **Factor de carga y crecimiento** en `hash-contract.md` |
+| Orden e iteración | Python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones. | Predicción, traza causal y contraejemplo de **Orden e iteración** en `hash-contract.md` |
 ## Conceptos y decisiones
 
 ### 1. Mapa y conjunto
@@ -72,7 +93,7 @@ Python garantiza orden de inserción en `dict`, pero `set` no promete orden esta
 - **factor de carga y crecimiento:** al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y redistribuye.
 - **orden e iteración:** python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -87,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -114,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -151,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-087/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_087.py
 ├── fixtures/cases.json
@@ -189,6 +210,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -196,7 +218,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

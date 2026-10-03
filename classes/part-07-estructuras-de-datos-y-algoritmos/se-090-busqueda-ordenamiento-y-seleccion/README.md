@@ -2,11 +2,33 @@
 
 [← SE-089 — Grafos y recorridos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-090.html) · [SE-091 — Algoritmos voraces y programación dinámica →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para seleccionar búsqueda, ordenamiento y selección por precondiciones y estabilidad.
+
+**Por qué aparece aquí.** Se sitúa después de **Grafos y recorridos** y antes de **Algoritmos voraces y programación dinámica**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Comparar solo tiempo final o ignorar que los datos ya están ordenados.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Algorithm-comparison.md con entradas, comparaciones, estabilidad y umbral. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Un microbenchmark no reemplaza análisis de crecimiento.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Standard Library](https://docs.python.org/3/library/index.html) | Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) | Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Búsqueda, ordenamiento y selección** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué precondición permite buscar, ordenar o seleccionar con una garantía concreta?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Búsqueda, ordenamiento y selección** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué precondición permite buscar, ordenar o seleccionar con una garantía concreta?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe ordena todo el backlog para mostrar los cinco casos principales. La salida es correcta, pero paga más trabajo que el necesario y un comparador no transitivo cambia resultados.
+La biblioteca de estructuras y algoritmos ordena todo el backlog para mostrar los cinco casos principales. La salida es correcta, pero paga más trabajo que el necesario y un comparador no transitivo cambia resultados.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Búsqueda lineal y binaria | La búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice. | Evidencia o contraejemplo registrado |
-| Contrato de comparación | Ordenar requiere una relación consistente, normalmente total o una clave total derivada. | Evidencia o contraejemplo registrado |
-| Estabilidad | Un sort estable conserva orden relativo entre claves iguales. | Evidencia o contraejemplo registrado |
-| Familias de ordenamiento | Merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos. | Evidencia o contraejemplo registrado |
-| Selección parcial | Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado. | Evidencia o contraejemplo registrado |
-
+| Búsqueda lineal y binaria | La búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice. | Predicción, traza causal y contraejemplo de **Búsqueda lineal y binaria** en `algorithm-comparison.md` |
+| Contrato de comparación | Ordenar requiere una relación consistente, normalmente total o una clave total derivada. | Predicción, traza causal y contraejemplo de **Contrato de comparación** en `algorithm-comparison.md` |
+| Estabilidad | Un sort estable conserva orden relativo entre claves iguales. | Predicción, traza causal y contraejemplo de **Estabilidad** en `algorithm-comparison.md` |
+| Familias de ordenamiento | Merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos. | Predicción, traza causal y contraejemplo de **Familias de ordenamiento** en `algorithm-comparison.md` |
+| Selección parcial | Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado. | Predicción, traza causal y contraejemplo de **Selección parcial** en `algorithm-comparison.md` |
 ## Conceptos y decisiones
 
 ### 1. Búsqueda lineal y binaria
@@ -72,7 +93,7 @@ Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado. Qui
 - **familias de ordenamiento:** merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de pivote y puede degradar; heapsort acota tiempo y opera con otros compromisos.
 - **selección parcial:** para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -87,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -114,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -151,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-090/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_090.py
 ├── fixtures/cases.json
@@ -189,6 +210,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -196,7 +218,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

@@ -2,11 +2,32 @@
 
 [← SE-105 — Reproducción de errores y reducción de casos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-106.html) · [SE-107 — Taller: diagnosticar un fallo desconocido →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para evaluar productividad del entorno junto con teclado, zoom, contraste, movimiento y carga cognitiva.
+
+**Por qué aparece aquí.** Se sitúa después de **Reproducción de errores y reducción de casos** y antes de **Taller: diagnosticar un fallo desconocido**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Optimizar atajos para una persona y llamarlo ergonomía universal.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Accessibility-check.md con tareas, barreras, ajustes y verificación por teclado. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La revisión básica no sustituye auditoría especializada ni pruebas con usuarios.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) | Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) | Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **Ergonomía, accesibilidad y productividad del entorno** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo reducir fricción sin imponer una única capacidad física, interfaz o estilo de trabajo?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Ergonomía, accesibilidad y productividad del entorno** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo reducir fricción sin imponer una única capacidad física, interfaz o estilo de trabajo?**
 
 ## Prerrequisitos
 
@@ -16,7 +37,7 @@ Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evi
 
 ## Problema auténtico
 
-El entorno de Lupa requiere atajos no documentados, color rojo/verde y texto diminuto; una sesión larga de depuración produce errores y excluye a quien usa teclado o lector de pantalla.
+El entorno del entorno reproducible de diagnóstico requiere atajos no documentados, color rojo/verde y texto diminuto; una sesión larga de depuración produce errores y excluye a quien usa teclado o lector de pantalla.
 
 ## Objetivos observables
 
@@ -36,12 +57,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Ergonomía y carga | Postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal. | Evidencia o contraejemplo registrado |
-| Teclado y foco | Todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico. | Evidencia o contraejemplo registrado |
-| Color, texto y movimiento | Color refuerza pero no porta solo error o estado. | Evidencia o contraejemplo registrado |
-| Salida accesible | Trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros. | Evidencia o contraejemplo registrado |
-| Automatización y agencia | Automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable. | Evidencia o contraejemplo registrado |
-
+| Ergonomía y carga | Postura, pausas, repetición y legibilidad influyen en fatiga y errores, pero no existe configuración corporal universal. | Predicción, traza causal y contraejemplo de **Ergonomía y carga** en `accessibility-check.md` |
+| Teclado y foco | Todas las acciones esenciales necesitan ruta por teclado con foco visible y orden lógico. | Predicción, traza causal y contraejemplo de **Teclado y foco** en `accessibility-check.md` |
+| Color, texto y movimiento | Color refuerza pero no porta solo error o estado. | Predicción, traza causal y contraejemplo de **Color, texto y movimiento** en `accessibility-check.md` |
+| Salida accesible | Trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros. | Predicción, traza causal y contraejemplo de **Salida accesible** en `accessibility-check.md` |
+| Automatización y agencia | Automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable. | Predicción, traza causal y contraejemplo de **Automatización y agencia** en `accessibility-check.md` |
 ## Conceptos y decisiones
 
 ### 1. Ergonomía y carga
@@ -72,7 +92,7 @@ Automatizar formato, prueba o navegación reduce repetición, pero debe ser pred
 - **salida accesible:** trazas y diagnósticos requieren texto seleccionable, orden de lectura y niveles claros.
 - **automatización y agencia:** automatizar formato, prueba o navegación reduce repetición, pero debe ser predecible, reversible y explicable.
 
-Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -89,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -116,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -153,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-106/
 ├── README.md
-├── lupa/
+├── diagnostic_environment/
 │   ├── domain.py
 │   └── se_106.py
 ├── fixtures/cases.json
@@ -191,6 +211,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
 - [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
 - [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
@@ -198,7 +219,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

@@ -2,21 +2,42 @@
 
 [← SE-048 — Proyecto: servicio observable y tolerante a fallos de red](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-049.html) · [SE-050 — Lógica proposicional, predicados e inferencia →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para descomponer un problema por responsabilidades y contratos sin perder restricciones transversales.
+
+**Por qué aparece aquí.** Se sitúa después de **Proyecto: servicio observable y tolerante a fallos de red** y antes de **Lógica proposicional, predicados e inferencia**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Convertir descomposición en una lista arbitraria de tareas.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Problem-tree.md con fronteras, dependencias, invariantes y una descomposición alternativa. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Ninguna partición elimina coordinación; solo cambia dónde ocurre.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Atlas**, el planificador de diagnóstico que recibe la evidencia de Nexo y la convierte en una siguiente decisión explicable. Recupera `SE-048`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
+Esta clase continúa el **modelo de decisión diagnóstica**, que convierte la evidencia de la petición observable de extremo a extremo en una siguiente decisión explicable. Recupera `SE-048`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
 
 ## Prerrequisitos
 
 - Poder separar hecho, interpretación, hipótesis y decisión.
 - Manejar tablas, diagramas y pseudocódigo legible; Python es opcional.
-- Trabajar con datos sintéticos del caso Atlas y conservar cada versión en Git.
+- Trabajar con datos sintéticos del caso del modelo de decisión diagnóstica y conservar cada versión en Git.
 
 ## Problema auténtico
 
-Nexo entrega cientos de señales de un incidente. Atlas debe convertir «la conexión falla a veces» en subproblemas comprobables sin asumir de antemano que DNS, red o servidor son culpables. Una descomposición mala divide por equipos o herramientas, pero no por decisiones ni dependencias.
+La petición observable de extremo a extremo entrega cientos de señales de un incidente. El modelo de decisión diagnóstica debe convertir «la conexión falla a veces» en subproblemas comprobables sin asumir de antemano que DNS, red o servidor son culpables. Una descomposición mala divide por equipos o herramientas, pero no por decisiones ni dependencias.
 
 ## Objetivos observables
 
@@ -45,7 +66,6 @@ El mapa separa el problema de su representación. Los casos no reemplazan reglas
 | regla | ¿qué debe ser cierto? | contrato o invariante |
 | estrategia | ¿qué pasos producen el resultado? | pseudocódigo y traza |
 | límite | ¿dónde falla el argumento? | contraejemplo y caso límite |
-
 ## Conceptos y decisiones
 
 ### 1. Descomponer por resultados
@@ -62,7 +82,7 @@ Un patrón conecta estructura y consecuencia repetidas: resolver–conectar–ne
 
 ### 4. Interfaces entre subproblemas
 
-Cada bloque especifica precondición, entrada, salida, error y owner. Si una etapa produce «red OK» sin definición, la siguiente recibe una opinión. Atlas usa resultados tipados como `DNS_TIMEOUT` o `TLS_NAME_MISMATCH`, acompañados de evidencia y confianza.
+Cada bloque especifica precondición, entrada, salida, error y owner. Si una etapa produce «red OK» sin definición, la siguiente recibe una opinión. El modelo de decisión diagnóstica usa resultados tipados como `DNS_TIMEOUT` o `TLS_NAME_MISMATCH`, acompañados de evidencia y confianza.
 
 ### 5. Recomposición y criterio de completitud
 
@@ -76,7 +96,7 @@ Resolver partes no garantiza resolver el todo. La recomposición revisa dependen
 - **interfaz:** contrato entre subproblemas.
 - **recomposición:** integración y revisión de propiedades del conjunto.
 
-Las definiciones fijan el uso en Atlas. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
+Las definiciones fijan el uso en el modelo de decisión diagnóstica. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo mínimo
 
@@ -86,7 +106,7 @@ Antes de resolver, predice el resultado y la propiedad que debería conservarse.
 
 ## Ejemplo profesional
 
-Atlas representa el diagnóstico como un grafo: nodos de observación, hipótesis y prueba; aristas de dependencia. Una política impide ejecutar una prueba si falta autorización o si otra prueba barata ya descarta su rama. El grafo puede cambiar sin alterar el contrato del informe.
+El modelo de decisión diagnóstica representa el diagnóstico como un grafo: nodos de observación, hipótesis y prueba; aristas de dependencia. Una política impide ejecutar una prueba si falta autorización o si otra prueba barata ya descarta su rama. El grafo puede cambiar sin alterar el contrato del informe.
 
 La entrega profesional hace visible el costo de simplificar. Incluye al menos una alternativa descartada y la condición que obligaría a revisar la decisión.
 
@@ -102,7 +122,7 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 ## Ejercicios
 
 1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso de Atlas no usado en la explicación.
+2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
 3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
 4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
 
@@ -171,7 +191,7 @@ El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita exp
 
 ## Transferencia
 
-Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres de Atlas. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
 
 ## Evaluación y evidencia
 
@@ -187,10 +207,12 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 
 ## Fuentes
 
-- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): sustenta las definiciones, argumentos y límites usados aquí.
-- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/): sustenta las definiciones, argumentos y límites usados aquí.
 
-Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo de Atlas. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
+- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas.
+
+Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
 
 ## Límites y siguiente paso
 

@@ -7,7 +7,7 @@
   "kind": "studio",
   "owner": "suite",
   "estimated_hours": 6,
-  "status": "GUIDED",
+  "status": "PLANNED",
   "source_ids": [
     "POSIX-2024",
     "WINDOWS-DOCS",

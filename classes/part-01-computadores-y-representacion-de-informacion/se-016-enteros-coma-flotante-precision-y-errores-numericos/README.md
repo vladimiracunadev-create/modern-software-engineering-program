@@ -2,11 +2,33 @@
 
 [← SE-015](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-017 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md)
 
-> Estado: **GUIDED**. Usa Python para observar modelos numéricos; otros lenguajes tienen rangos y reglas diferentes.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para evaluar precisión según representación, propagación del error y tolerancia ligada a la escala.
+
+**Por qué aparece aquí.** Se sitúa después de **Texto, Unicode, codificaciones y mojibake** y antes de **CPU, instrucciones, registros y ciclos de ejecución**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Esperar aritmética decimal exacta de coma flotante o elegir epsilon por costumbre.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Numeric-errors.md con predicción, error absoluto/relativo y contraejemplo inestable. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** El ejercicio no certifica estabilidad de algoritmos científicos completos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Floating-Point Tutorial](https://docs.python.org/3/tutorial/floatingpoint.html) |  explica representación y aproximación | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python `decimal`](https://docs.python.org/3/library/decimal.html) |  documenta aritmética decimal y contextos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Java Virtual Machine Specification §2.8](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8) |  ofrece otro contrato IEEE 754 especificado | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Ya sabes que los bits necesitan interpretación. Pulso calcula el promedio de tiempos y
+Ya sabes que los bits necesitan interpretación. El analizador local de eventos calcula el promedio de tiempos y
 un importe ficticio. Si usa el mismo tipo para ambos, puede mostrar `0.30000000000000004`
 o acumular una cantidad incorrecta. Esta clase conecta representación con decisión de
 dominio antes de seguir las operaciones hasta la CPU en `SE-017`.
@@ -33,7 +55,6 @@ infinito; elegirás entre entero escalado, decimal y float; y diseñarás prueba
 | Coma flotante | significando y exponente aproximan reales | permite gran rango con precisión finita |
 | Redondeo | asigna resultados no representables | acumula error y afecta comparaciones |
 | Modelo de dominio | elige representación por invariantes | evita usar float por costumbre |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -88,9 +109,9 @@ se debe fijar redondeo y escala. Float es adecuado para muchas mediciones cient�
 se modela incertidumbre. Decimal no vuelve exacta una medición incierta ni elimina
 overflow o costo. La representación se elige por invariantes, no por apariencia.
 
-## Caso conductor: promedio y tarifa de Pulso
+## Caso conductor: promedio y tarifa del analizador local de eventos
 
-Pulso calcula latencia media con float y conserva muestras originales; no usa igualdad
+El analizador local de eventos calcula latencia media con float y conserva muestras originales; no usa igualdad
 exacta. Una tarifa ficticia se representa en centavos enteros. El informe declara rango,
 unidad y política de redondeo. Cambiar a Decimal se evalúa por contrato externo, no para
 “arreglar todos los decimales”.
@@ -178,6 +199,7 @@ Compara el mismo cálculo en una hoja o segundo lenguaje y atribuye diferencias 
 Se exigen bits o ratios observados, decisión por dominio, pruebas límite y explicación de error.
 
 ## Fuentes
+
 
 - [Python Floating-Point Tutorial](https://docs.python.org/3/tutorial/floatingpoint.html) explica representación y aproximación.
 - [Python `decimal`](https://docs.python.org/3/library/decimal.html) documenta aritmética decimal y contextos.

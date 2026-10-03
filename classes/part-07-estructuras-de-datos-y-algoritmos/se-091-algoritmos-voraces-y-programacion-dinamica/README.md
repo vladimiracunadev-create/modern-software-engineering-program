@@ -2,11 +2,33 @@
 
 [← SE-090 — Búsqueda, ordenamiento y selección](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-091.html) · [SE-092 — Backtracking, divide y vencerás →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir elección voraz de subproblemas solapados y justificar optimalidad.
+
+**Por qué aparece aquí.** Se sitúa después de **Búsqueda, ordenamiento y selección** y antes de **Backtracking, divide y vencerás**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Llamar dinámica a cualquier caché o asumir que una elección local es globalmente óptima.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Strategy-proof.md con recurrencia, propiedad voraz y contraejemplo. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La corrección depende de la estructura del problema.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) | Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Algoritmos voraces y programación dinámica** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuándo una elección local es segura y cuándo debe conservarse historia de subproblemas?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Algoritmos voraces y programación dinámica** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cuándo una elección local es segura y cuándo debe conservarse historia de subproblemas?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe asigna capacidad limitada a casos con valor y costo. Elegir siempre la mayor prioridad parece correcto, pero bloquea una combinación de casos pequeños con mayor valor total.
+La biblioteca de estructuras y algoritmos asigna capacidad limitada a casos con valor y costo. Elegir siempre la mayor prioridad parece correcto, pero bloquea una combinación de casos pequeños con mayor valor total.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Estrategia voraz | Un algoritmo voraz toma la mejor opción local y no retrocede. | Evidencia o contraejemplo registrado |
-| Contraejemplo mínimo | Cuando se propone una regla local, se busca la entrada más pequeña que la rompe. | Evidencia o contraejemplo registrado |
-| Subproblemas superpuestos | Programación dinámica identifica estados que reaparecen y guarda sus soluciones. | Evidencia o contraejemplo registrado |
-| Memoización y tabulación | Memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias. | Evidencia o contraejemplo registrado |
-| Reconstrucción de la solución | El valor óptimo no basta si se necesita explicar qué casos se eligieron. | Evidencia o contraejemplo registrado |
-
+| Estrategia voraz | Un algoritmo voraz toma la mejor opción local y no retrocede. | Predicción, traza causal y contraejemplo de **Estrategia voraz** en `strategy-proof.md` |
+| Contraejemplo mínimo | Cuando se propone una regla local, se busca la entrada más pequeña que la rompe. | Predicción, traza causal y contraejemplo de **Contraejemplo mínimo** en `strategy-proof.md` |
+| Subproblemas superpuestos | Programación dinámica identifica estados que reaparecen y guarda sus soluciones. | Predicción, traza causal y contraejemplo de **Subproblemas superpuestos** en `strategy-proof.md` |
+| Memoización y tabulación | Memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias. | Predicción, traza causal y contraejemplo de **Memoización y tabulación** en `strategy-proof.md` |
+| Reconstrucción de la solución | El valor óptimo no basta si se necesita explicar qué casos se eligieron. | Predicción, traza causal y contraejemplo de **Reconstrucción de la solución** en `strategy-proof.md` |
 ## Conceptos y decisiones
 
 ### 1. Estrategia voraz
@@ -50,7 +71,7 @@ Un algoritmo voraz toma la mejor opción local y no retrocede. Para ser correcto
 
 ### 2. Contraejemplo mínimo
 
-Cuando se propone una regla local, se busca la entrada más pequeña que la rompe. Un contraejemplo no solo refuta: muestra qué interacción faltaba en el modelo. Orbe conserva esos casos como pruebas y no los llama edge cases irrelevantes.
+Cuando se propone una regla local, se busca la entrada más pequeña que la rompe. Un contraejemplo no solo refuta: muestra qué interacción faltaba en el modelo. La biblioteca de estructuras y algoritmos conserva esos casos como pruebas y no los llama edge cases irrelevantes.
 
 ### 3. Subproblemas superpuestos
 
@@ -72,7 +93,7 @@ El valor óptimo no basta si se necesita explicar qué casos se eligieron. Guard
 - **memoización y tabulación:** memoización resuelve bajo demanda con recursión; tabulación llena estados en un orden que satisface dependencias.
 - **reconstrucción de la solución:** el valor óptimo no basta si se necesita explicar qué casos se eligieron.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -86,7 +107,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -113,7 +134,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -150,7 +171,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-091/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_091.py
 ├── fixtures/cases.json
@@ -188,6 +209,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -195,7 +217,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

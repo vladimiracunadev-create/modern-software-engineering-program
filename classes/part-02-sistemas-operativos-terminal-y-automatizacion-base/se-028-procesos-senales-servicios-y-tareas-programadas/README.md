@@ -2,11 +2,33 @@
 
 [← SE-027](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-029 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)
 
-> Estado: **GUIDED**. Observa procesos propios en laboratorio; no autoriza terminar procesos o servicios ajenos.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para modelar ciclo de vida, señales, supervisión y reinicio de procesos y servicios.
+
+**Por qué aparece aquí.** Se sitúa después de **Usuarios, grupos, permisos y elevación de privilegios** y antes de **Terminales, shells y composición de comandos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Tratar proceso, daemon, servicio y tarea programada como sinónimos.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Lifecycle.md con estados, señal, código de salida, política de reinicio y fallo controlado. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Los administradores de servicios difieren y no se infiere disponibilidad distribuida.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Open Group — Process Concepts](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) | define ciclo de vida, supervisión o consulta de eventos en systemd | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — Services](https://learn.microsoft.com/windows/win32/services/services) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Una aplicación instalada no está “corriendo” de forma permanente. El sistema crea procesos, asigna recursos, los planifica y finalmente recupera su estado. Cuando Pulso queda bloqueado, Faro debe distinguir espera legítima, consumo de CPU, dependencia externa y terminación defectuosa.
+Una aplicación instalada no está “corriendo” de forma permanente. El sistema crea procesos, asigna recursos, los planifica y finalmente recupera su estado. Cuando el analizador local de eventos queda bloqueado, el kit de diagnóstico multiplataforma debe distinguir espera legítima, consumo de CPU, dependencia externa y terminación defectuosa.
 
 ### Resultado de aprendizaje
 
@@ -18,7 +40,7 @@ Al terminar podrás describir el ciclo de vida de un proceso, interpretar relaci
 
 ## Problema auténtico
 
-Pulso no responde y el equipo propone terminarlo. La CPU está casi inactiva, pero nadie sabe si espera entrada, un bloqueo o un servicio externo. El PID fue copiado hace minutos y podría identificar otra instancia.
+El analizador local de eventos no responde y el equipo propone terminarlo. La CPU está casi inactiva, pero nadie sabe si espera entrada, un bloqueo o un servicio externo. El PID fue copiado hace minutos y podría identificar otra instancia.
 
 ## Objetivos observables
 
@@ -32,7 +54,6 @@ Podrás distinguir programa, proceso e hilo; interpretar estados de ejecución y
 | Planificación | alterna unidades listas y esperas | separar consumo de progreso |
 | Terminación | comunica solicitud y resultado | cerrar sin corromper estado |
 | Supervisión | inicia, reinicia y limita servicios | recuperar sin bucles infinitos |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -62,7 +83,7 @@ El sistema carga el ejecutable y bibliotecas, prepara memoria y recursos inicial
 
 En modelos POSIX, `fork` y `exec` explican conceptualmente la separación entre crear y reemplazar una imagen de proceso, aunque lenguajes de alto nivel ofrezcan una sola API. Windows usa su familia de creación con parámetros y objetos propios. En ambos casos se deciden argumentos, entorno, directorio, flujos estándar y manejadores heredables.
 
-Una herencia accidental mantiene archivos o pipes abiertos y puede impedir la terminación. Faro registra quién inició a Pulso y qué recursos relevantes permanecen abiertos, sin pretender inspeccionar memoria privada.
+Una herencia accidental mantiene archivos o pipes abiertos y puede impedir la terminación. El kit de diagnóstico multiplataforma registra quién inició a el analizador local de eventos y qué recursos relevantes permanecen abiertos, sin pretender inspeccionar memoria privada.
 
 ### El planificador distribuye tiempo, no promete orden
 
@@ -89,7 +110,7 @@ stateDiagram-v2
     Finalizado --> [*]
 ```
 
-Este modelo es deliberadamente conceptual: los estados y nombres reales varían. Sirve para preguntar si Pulso progresa, espera o terminó, no para adivinar internals del kernel.
+Este modelo es deliberadamente conceptual: los estados y nombres reales varían. Sirve para preguntar si el analizador local de eventos progresa, espera o terminó, no para adivinar internals del kernel.
 
 ### Un servicio añade supervisión y política de ciclo de vida
 
@@ -109,11 +130,11 @@ Tareas programadas pueden omitirse, duplicarse o coincidir si una ejecución dur
 - **servicio:** proceso gestionado por un supervisor y una política de ciclo de vida;
 - **idempotencia:** propiedad por la que repetir una operación no multiplica su efecto previsto.
 
-## Caso conductor: Faro observa a Pulso bloqueado
+## Caso conductor: el kit de diagnóstico multiplataforma observa a el analizador local de eventos bloqueado
 
-Faro recibe un identificador o criterio explícito y produce una línea temporal de muestras: estado observable, CPU, memoria, tiempo de inicio, proceso padre y resultado final. Primero verifica que el proceso corresponde al esperado; nombre y PID aislados no bastan.
+El kit de diagnóstico multiplataforma recibe un identificador o criterio explícito y produce una línea temporal de muestras: estado observable, CPU, memoria, tiempo de inicio, proceso padre y resultado final. Primero verifica que el proceso corresponde al esperado; nombre y PID aislados no bastan.
 
-Si Pulso espera un archivo bloqueado, Faro no concluye “está colgado” por CPU baja. Correlaciona la espera con logs y recursos. La acción propuesta escala: esperar con plazo, solicitar cierre cooperativo y, solo como último recurso, terminación forzada documentando posible pérdida de estado.
+Si el analizador local de eventos espera un archivo bloqueado, el kit de diagnóstico multiplataforma no concluye “está colgado” por CPU baja. Correlaciona la espera con logs y recursos. La acción propuesta escala: esperar con plazo, solicitar cierre cooperativo y, solo como último recurso, terminación forzada documentando posible pérdida de estado.
 
 ## Práctica guiada
 
@@ -193,10 +214,11 @@ No hacemos depuración de kernel ni análisis forense de memoria. La observabili
 
 ## Fuentes
 
-- [The Open Group — Process Concepts](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html)
-- [Microsoft Learn — Processes and Threads](https://learn.microsoft.com/windows/win32/procthread/processes-and-threads)
-- [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html)
-- [Microsoft Learn — Services](https://learn.microsoft.com/windows/win32/services/services)
+
+- [The Open Group — Process Concepts](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [Microsoft Learn — Processes and Threads](https://learn.microsoft.com/windows/win32/procthread/processes-and-threads) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) — define ciclo de vida, supervisión o consulta de eventos en systemd.
+- [Microsoft Learn — Services](https://learn.microsoft.com/windows/win32/services/services) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 
 ## Glosario
 

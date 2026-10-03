@@ -2,7 +2,7 @@
   "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-117",
-  "status": "GUIDED",
+  "status": "PLANNED",
   "mode": "class",
   "environment": "Python 3.11+, entorno virtual y Git",
   "duration_hours": 4,

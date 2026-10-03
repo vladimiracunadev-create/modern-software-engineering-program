@@ -2,11 +2,35 @@
 
 [← SE-035](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-037 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)
 
-> Estado: **GUIDED**. Proyecto educativo local de solo lectura; no es soporte remoto, herramienta forense ni producto de seguridad certificado.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: preparar y reparar un entorno reproducible** y antes de **Modelos OSI y TCP/IP como herramientas de diagnóstico**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Coleccionar datos sin pregunta diagnóstica o exponer secretos en el reporte.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Kit ejecutable, fixtures, salidas redactadas y comparación en dos plataformas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La ausencia de hallazgo no demuestra salud del sistema.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-La Parte 2 concluye con una entrega, no con un cuestionario. Construirás **Faro**, un kit local que describe el entorno de Pulso, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
+La Parte 2 concluye con una entrega, no con un cuestionario. Construirás **kit de diagnóstico multiplataforma**, un kit local que describe el entorno del analizador local de eventos, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
 
 ### Resultado de aprendizaje
 
@@ -32,13 +56,12 @@ Podrás definir un contrato versionado; separar núcleo y adaptadores; construir
 | Núcleo/adaptador | aísla intención de detalles locales | portar sin copiar errores |
 | Solo lectura | limita efectos predeterminados | ejecutar diagnóstico con menor riesgo |
 | Matriz y evidencia | separa diseño de ejecución | declarar soporte honesto |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart TB
  U[Persona operadora] --> CLI[Contrato CLI]
- CLI --> C[Núcleo Faro]
+ CLI --> C[Núcleo el kit de diagnóstico multiplataforma]
  C --> P[Adaptador PowerShell]
  C --> B[Adaptador Bash]
  P --> N[Modelo normalizado]
@@ -65,7 +88,7 @@ PowerShell y Bash implementan capacidades con herramientas documentadas. Cada ad
 
 ```mermaid
 flowchart TB
-    CLI[Contrato CLI] --> CORE[Núcleo Faro]
+    CLI[Contrato CLI] --> CORE[Núcleo el kit de diagnóstico multiplataforma]
     CORE --> CFG[Configuración y redacción]
     CORE --> WIN[Adaptador Windows/PowerShell]
     CORE --> POSIX[Adaptador Linux-macOS/Bash]
@@ -81,7 +104,7 @@ El diagrama obliga a distinguir modelo común y detalle específico. Es aceptabl
 
 ### El modo predeterminado es de solo lectura
 
-Faro observa y propone. Cualquier reparación opcional exige una orden separada, vista previa, confirmación apropiada y reversión documentada. Para este proyecto basta con generar un plan; no se requiere modificar permisos, instalar paquetes ni terminar procesos.
+El kit de diagnóstico multiplataforma observa y propone. Cualquier reparación opcional exige una orden separada, vista previa, confirmación apropiada y reversión documentada. Para este proyecto basta con generar un plan; no se requiere modificar permisos, instalar paquetes ni terminar procesos.
 
 Esto reduce riesgo y vuelve las pruebas repetibles.
 
@@ -100,7 +123,7 @@ Cada hallazgo contiene:
 }
 ```
 
-Los campos sensibles se omiten o redactan antes de serializar. El informe incluye versión del esquema y de Faro para interpretación futura.
+Los campos sensibles se omiten o redactan antes de serializar. El informe incluye versión del esquema y del kit de diagnóstico multiplataforma para interpretación futura.
 
 ### Las pruebas demuestran contratos y degradación
 
@@ -130,9 +153,9 @@ Un ejemplo reproducible usa datos ficticios y genera un informe esperado. La doc
 - **hallazgo:** relación estructurada entre evidencia, interpretación y siguiente prueba;
 - **matriz real:** registro que diferencia diseñado, ejecutado, aprobado y no soportado.
 
-## Caso conductor: demostración final de Faro
+## Caso conductor: demostración final del kit de diagnóstico multiplataforma
 
-La demostración parte de un entorno con dos defectos: variable obsoleta y dependencia incompatible. La persona evaluadora ejecuta Faro sin conocerlos. El kit:
+La demostración parte de un entorno con dos defectos: variable obsoleta y dependencia incompatible. La persona evaluadora ejecuta el kit de diagnóstico multiplataforma sin conocerlos. El kit:
 
 1. identifica plataforma y capacidades;
 2. muestra configuración efectiva con secreto redactado;
@@ -147,7 +170,7 @@ La demostración se repite desde otro directorio para probar que las rutas no de
 
 ## Ejemplo mínimo
 
-`faro inspect --path laboratorio` produce JSON válido en stdout, progreso en stderr y código cero. Con ruta ausente produce un hallazgo estructurado y código de precondición, sin traza interna ni modificación.
+`diagnostic_kit inspect --path laboratorio` produce JSON válido en stdout, progreso en stderr y código cero. Con ruta ausente produce un hallazgo estructurado y código de precondición, sin traza interna ni modificación.
 
 ## Ejemplo profesional
 
@@ -184,13 +207,13 @@ No. Observar puede revelar información o consumir recursos; minimización y aut
 
 ## Fallo controlado y diagnóstico
 
-Retira una capacidad opcional del fixture. Faro debe emitir diagnóstico parcial, mantener esquema válido y explicar degradación. Corrige cualquier éxito silencioso o excepción no estructurada.
+Retira una capacidad opcional del fixture. El kit de diagnóstico multiplataforma debe emitir diagnóstico parcial, mantener esquema válido y explicar degradación. Corrige cualquier éxito silencioso o excepción no estructurada.
 
 ## Plan de trabajo y entregables
 
 ### Hito 1 — Contrato antes del código
 
-Entrega esquema de entrada/salida, códigos, matriz objetivo y modelo de amenazas básico. Revisión: otra persona puede anticipar qué hará Faro y qué nunca hará.
+Entrega esquema de entrada/salida, códigos, matriz objetivo y modelo de amenazas básico. Revisión: otra persona puede anticipar qué hará el kit de diagnóstico multiplataforma y qué nunca hará.
 
 ### Hito 2 — Núcleo y un adaptador
 
@@ -224,7 +247,7 @@ No se compensa una filtración de secreto o una modificación no declarada con m
 
 | Síntoma | Causa conceptual | Corrección |
 |---|---|---|
-| Faro se convierte en un script de cien comandos | No existe modelo ni contrato | Separar capacidades, adaptadores y decisiones |
+| el kit de diagnóstico multiplataforma se convierte en un script de cien comandos | No existe modelo ni contrato | Separar capacidades, adaptadores y decisiones |
 | El JSON cambia entre plataformas sin versión | Se mezcló detalle con esquema común | Versionar esquema y aislar `platform_details` |
 | La demo necesita editar el código | Configuración y entrega no están resueltas | Definir interfaz, ejemplos y precedencia |
 | La matriz marca sistemas no ejecutados | Se confundió intención con evidencia | Publicar estado diseñado/probado por celda |
@@ -248,19 +271,20 @@ Se evalúan contrato, modelo causal, portabilidad demostrada, seguridad, recuper
 
 ## Criterio de cierre
 
-La Parte 2 queda completada cuando Faro puede ser ejecutado por otra persona, explica al menos dos fallos independientes, conserva contratos en PowerShell y Bash, no expone el secreto centinela, deja el entorno limpio y publica exactamente qué plataformas y escenarios fueron probados.
+La Parte 2 queda completada cuando el kit de diagnóstico multiplataforma puede ser ejecutado por otra persona, explica al menos dos fallos independientes, conserva contratos en PowerShell y Bash, no expone el secreto centinela, deja el entorno limpio y publica exactamente qué plataformas y escenarios fueron probados.
 
 ## Límites y siguiente paso
 
-Faro es un kit educativo local, no un agente de soporte remoto, herramienta forense ni producto de seguridad certificado. No ejecuta reparaciones privilegiadas. La siguiente parte del programa utilizará este entorno reproducible para estudiar redes: nombres, direcciones, transporte y fallos entre procesos que ya no comparten una sola máquina.
+El kit de diagnóstico multiplataforma es un kit educativo local, no un agente de soporte remoto, herramienta forense ni producto de seguridad certificado. No ejecuta reparaciones privilegiadas. La siguiente parte del programa utilizará este entorno reproducible para estudiar redes: nombres, direcciones, transporte y fallos entre procesos que ya no comparten una sola máquina.
 
 ## Fuentes
 
-- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
-- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/)
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
-- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/)
-- [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)
+
+- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
+- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente.
 
 ## Glosario
 

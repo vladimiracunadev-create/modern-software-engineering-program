@@ -2,11 +2,33 @@
 
 [← SE-085 — Arreglos, listas y secuencias](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-086.html) · [SE-087 — Tablas hash, mapas y conjuntos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-087-tablas-hash-mapas-y-conjuntos/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para usar pila, cola, deque o prioridad según la disciplina de extracción requerida.
+
+**Por qué aparece aquí.** Se sitúa después de **Arreglos, listas y secuencias** y antes de **Tablas hash, mapas y conjuntos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Elegir por API disponible sin preservar orden e igualdad de prioridad.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Queue-model.md con operaciones, invariante, empate y caso vacío. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La estructura no define por sí sola concurrencia ni persistencia.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) | Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Standard Library](https://docs.python.org/3/library/index.html) | Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Data Model](https://docs.python.org/3/reference/datamodel.html) | Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Pilas, colas, deques y prioridades** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia el comportamiento cuando la estructura impone LIFO, FIFO o prioridad?**
+Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Pilas, colas, deques y prioridades** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia el comportamiento cuando la estructura impone LIFO, FIFO o prioridad?**
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evi
 
 ## Problema auténtico
 
-Orbe mezcla trabajo urgente, reintentos y navegación de historial en una lista. El mismo método inserta en posiciones distintas y nadie puede afirmar qué caso saldrá después.
+La biblioteca de estructuras y algoritmos mezcla trabajo urgente, reintentos y navegación de historial en una lista. El mismo método inserta en posiciones distintas y nadie puede afirmar qué caso saldrá después.
 
 ## Objetivos observables
 
@@ -36,12 +58,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Pila y disciplina LIFO | Una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir. | Evidencia o contraejemplo registrado |
-| Cola y disciplina FIFO | Una cola conserva llegada entre elementos de la misma clase. | Evidencia o contraejemplo registrado |
-| Deque y ventanas | La cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos. | Evidencia o contraejemplo registrado |
-| Heap y prioridad parcial | Un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada. | Evidencia o contraejemplo registrado |
-| Starvation y envejecimiento | Prioridad estricta puede posponer indefinidamente trabajo bajo. | Evidencia o contraejemplo registrado |
-
+| Pila y disciplina LIFO | Una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir. | Predicción, traza causal y contraejemplo de **Pila y disciplina LIFO** en `queue-model.md` |
+| Cola y disciplina FIFO | Una cola conserva llegada entre elementos de la misma clase. | Predicción, traza causal y contraejemplo de **Cola y disciplina FIFO** en `queue-model.md` |
+| Deque y ventanas | La cola doble inserta y retira en ambos extremos; sirve para ventanas deslizantes y work stealing bajo contratos específicos. | Predicción, traza causal y contraejemplo de **Deque y ventanas** en `queue-model.md` |
+| Heap y prioridad parcial | Un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada. | Predicción, traza causal y contraejemplo de **Heap y prioridad parcial** en `queue-model.md` |
+| Starvation y envejecimiento | Prioridad estricta puede posponer indefinidamente trabajo bajo. | Predicción, traza causal y contraejemplo de **Starvation y envejecimiento** en `queue-model.md` |
 ## Conceptos y decisiones
 
 ### 1. Pila y disciplina LIFO
@@ -72,7 +93,7 @@ Prioridad estricta puede posponer indefinidamente trabajo bajo. Aging aumenta pr
 - **heap y prioridad parcial:** un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre padre e hijos; no mantiene toda la colección ordenada.
 - **starvation y envejecimiento:** prioridad estricta puede posponer indefinidamente trabajo bajo.
 
-Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para la biblioteca de estructuras y algoritmos. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -88,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En la biblioteca de estructuras y algoritmos, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -115,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+La biblioteca de estructuras y algoritmos recibe casos del motor de reglas comparado, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -152,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-086/
 ├── README.md
-├── orbe/
+├── algorithm_library/
 │   ├── domain.py
 │   └── se_086.py
 ├── fixtures/cases.json
@@ -190,6 +211,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
 - [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
 - [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
 - [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
@@ -197,7 +219,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

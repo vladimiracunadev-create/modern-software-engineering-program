@@ -2,11 +2,34 @@
 
 [← SE-026](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-028 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)
 
-> Estado: **GUIDED**. Laboratorio de mínimo privilegio con datos ficticios; no autoriza modificar controles de equipos administrados.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para explicar autorización como evaluación de identidad, pertenencia, ACL y elevación.
+
+**Por qué aparece aquí.** Se sitúa después de **Sistemas de archivos, rutas, enlaces y metadatos** y antes de **Procesos, señales, servicios y tareas programadas**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Creer que ser propietario implica acceso efectivo o que elevar corrige diseño de permisos.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Access-matrix.md con sujeto, objeto, regla, resultado y recuperación. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** El laboratorio local no modela políticas corporativas completas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Open Group — File Access Permissions](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_05) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Microsoft Learn — How User Account Control works](https://learn.microsoft.com/windows/security/application-security/application-control/user-account-control/how-it-works) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) | delimita el contrato técnico que debe cumplirse al explicar autorización como evaluación de identidad, pertenencia, ACL y elevación | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Faro encontró la configuración correcta, pero no puede leerla. Cambiar permisos a “todos” haría desaparecer el síntoma y crearía un problema mayor. El diagnóstico profesional pregunta: ¿qué identidad realiza la operación?, ¿qué autoridad posee?, ¿qué regla se aplicó?, ¿qué mínimo cambio sería suficiente?
+El kit de diagnóstico multiplataforma encontró la configuración correcta, pero no puede leerla. Cambiar permisos a “todos” haría desaparecer el síntoma y crearía un problema mayor. El diagnóstico profesional pregunta: ¿qué identidad realiza la operación?, ¿qué autoridad posee?, ¿qué regla se aplicó?, ¿qué mínimo cambio sería suficiente?
 
 ### Resultado de aprendizaje
 
@@ -18,7 +41,7 @@ Al terminar podrás razonar sobre autenticación, autorización, propiedad, perm
 
 ## Problema auténtico
 
-Faro recibe “acceso denegado”. Un intento previo abrió permisos para todos y el síntoma desapareció, pero ahora cualquier proceso local puede modificar la configuración. Se reparó disponibilidad destruyendo la política de acceso.
+El kit de diagnóstico multiplataforma recibe “acceso denegado”. Un intento previo abrió permisos para todos y el síntoma desapareció, pero ahora cualquier proceso local puede modificar la configuración. Se reparó disponibilidad destruyendo la política de acceso.
 
 ## Objetivos observables
 
@@ -32,7 +55,6 @@ Podrás modelar una decisión como sujeto–acción–objeto–política; interp
 | Autorización | evalúa acción sobre objeto bajo reglas | explicar la denegación |
 | ACL y permisos | expresan derechos e herencia | corregir sin acceso universal |
 | Elevación | crea un contexto más poderoso | reservarla para una necesidad explícita |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -45,7 +67,7 @@ flowchart LR
  D --> R[Evidencia y corrección mínima]
 ```
 
-La decisión no vive solo en el archivo. La identidad del proceso, cada directorio padre y reglas adicionales pueden cambiar el resultado; por eso Faro conserva el conjunto causal.
+La decisión no vive solo en el archivo. La identidad del proceso, cada directorio padre y reglas adicionales pueden cambiar el resultado; por eso el kit de diagnóstico multiplataforma conserva el conjunto causal.
 
 ## Conceptos y decisiones
 
@@ -53,7 +75,7 @@ La decisión no vive solo en el archivo. La identidad del proceso, cada director
 
 La autenticación vincula una sesión con una identidad. La autorización decide si esa identidad puede realizar una acción sobre un recurso. Conocer el nombre del usuario no basta: importan grupos, credenciales, token o contexto efectivo, propietario del objeto y política aplicable.
 
-Un proceso hereda un contexto de seguridad al iniciarse. Cambiar de identidad o elevar autoridad crea otro contexto; no corrige la lógica del programa. Faro registra identidad efectiva y operación fallida sin exponer identificadores más allá de lo necesario.
+Un proceso hereda un contexto de seguridad al iniciarse. Cambiar de identidad o elevar autoridad crea otro contexto; no corrige la lógica del programa. El kit de diagnóstico multiplataforma registra identidad efectiva y operación fallida sin exponer identificadores más allá de lo necesario.
 
 ### El control de acceso evalúa sujeto, acción, objeto y política
 
@@ -81,11 +103,11 @@ El permiso efectivo puede depender de identidad efectiva, grupos suplementarios,
 
 En Windows, el proceso opera con un token que representa usuario, grupos y privilegios. Los objetos pueden tener propietarios y listas de control de acceso con entradas de permitir o denegar e herencia. La evaluación no se traduce correctamente a tres dígitos octales.
 
-UAC separa el uso cotidiano de un token elevado; aceptar una elevación amplía la autoridad del proceso completo. La documentación de [Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control) detalla el modelo. Faro evita “traducir” ACL de Windows a permisos POSIX como si fueran equivalentes.
+UAC separa el uso cotidiano de un token elevado; aceptar una elevación amplía la autoridad del proceso completo. La documentación de [Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control) detalla el modelo. El kit de diagnóstico multiplataforma evita “traducir” ACL de Windows a permisos POSIX como si fueran equivalentes.
 
 ### Mínimo privilegio reduce impacto y mejora el diagnóstico
 
-Un programa debe solicitar solo la autoridad necesaria y durante el tiempo necesario. Si Faro puede leer estado con permisos normales, no debe ejecutarse elevado “por si acaso”. La elevación también puede cambiar directorio personal, variables, mapeos de red o acceso a la sesión, generando un contexto diferente del fallo original.
+Un programa debe solicitar solo la autoridad necesaria y durante el tiempo necesario. Si el kit de diagnóstico multiplataforma puede leer estado con permisos normales, no debe ejecutarse elevado “por si acaso”. La elevación también puede cambiar directorio personal, variables, mapeos de red o acceso a la sesión, generando un contexto diferente del fallo original.
 
 Un buen flujo intenta una operación segura, captura la denegación exacta y explica qué capacidad falta. Solo propone elevación si el objetivo la requiere por diseño y ofrece una acción acotada.
 
@@ -105,9 +127,9 @@ Restringir un archivo no impide que un proceso autorizado imprima su contenido e
 - **elevación:** cambio a un contexto con más autoridad;
 - **mínimo privilegio:** autoridad mínima, acotada en acción, alcance y duración.
 
-## Caso conductor: Faro explica una denegación
+## Caso conductor: el kit de diagnóstico multiplataforma explica una denegación
 
-Faro intenta leer la configuración de Pulso con una operación no destructiva. Ante una denegación registra:
+El kit de diagnóstico multiplataforma intenta leer la configuración del analizador local de eventos con una operación no destructiva. Ante una denegación registra:
 
 - identidad efectiva y grupos relevantes, redactados si el informe se comparte;
 - acción exacta y objeto resuelto;
@@ -198,10 +220,11 @@ No cubrimos administración empresarial de identidades, dominios, SELinux, AppAr
 
 ## Fuentes
 
-- [The Open Group — File Access Permissions](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_05)
-- [Microsoft Learn — Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control)
-- [Microsoft Learn — How User Account Control works](https://learn.microsoft.com/windows/security/application-security/application-control/user-account-control/how-it-works)
-- [Apple Platform Security](https://support.apple.com/guide/security/welcome/web)
+
+- [The Open Group — File Access Permissions](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_05) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [Microsoft Learn — Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Microsoft Learn — How User Account Control works](https://learn.microsoft.com/windows/security/application-security/application-control/user-account-control/how-it-works) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [Apple Platform Security](https://support.apple.com/guide/security/welcome/web) — delimita el contrato técnico que debe cumplirse al explicar autorización como evaluación de identidad, pertenencia, ACL y elevación.
 
 ## Glosario
 

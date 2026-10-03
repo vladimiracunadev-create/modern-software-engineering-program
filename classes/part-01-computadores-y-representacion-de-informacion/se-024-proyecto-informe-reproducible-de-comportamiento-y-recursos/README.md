@@ -2,7 +2,29 @@
 
 [← SE-023](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-025 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md)
 
-> Estado: **GUIDED**. Proyecto reproducible local; no constituye benchmark industrial ni caracterización física del equipo.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para convertir observaciones en un informe reproducible que otra persona pueda repetir y disputar.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: observar un programa desde el código hasta la máquina** y antes de **Windows, Linux, macOS y sus modelos operativos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Confundir reproducibilidad con capturas o correlación con causalidad.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Protocolo, datos crudos, script, checksum, informe y resultados no validados. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Un procedimiento reproducible no garantiza representatividad ni exactitud física.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python documentation](https://docs.python.org/3/) | las APIs del proyecto | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Unicode Standard](https://www.unicode.org/versions/latest/) |  y [RISC-V specifications](https://docs.riscv.org/reference/isa/) respaldan los contratos elegidos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Software Carbon Intensity](https://greensoftware.foundation/standards/sci/) |  delimita afirmaciones energéticas si el proyecto las considera | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
@@ -33,7 +55,6 @@ mínimo; conservarás datos y procedencia; interpretarás incertidumbre; y respo
 | Diseño | controla carga e invariantes | permite atribución prudente |
 | Evidencia | conserva datos y entorno | hace posible reproducción |
 | Discusión | separa resultado, inferencia y límite | impide generalización indebida |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -81,7 +102,7 @@ La persona revisora intenta ejecutar, cuestiona unidades e identifica afirmacion
 exceden evidencia. El autor responde cambiando texto, diseño o conclusión y conserva el
 desacuerdo. Aprobar no significa coincidir, sino que la cadena pueda inspeccionarse.
 
-## Caso conductor: opciones de proyecto sobre Pulso
+## Caso conductor: opciones de proyecto sobre el analizador local de eventos
 
 Puedes investigar representación Unicode y tamaño, enteros/float y error, orden de
 acceso y tiempo, materialización/streaming, o arranque/estado estable. Solo eliges una
@@ -172,6 +193,7 @@ Reformula la pregunta para otro lenguaje o equipo y distingue qué parte del mé
 Aprueba con pregunta contrastable, equivalencia, datos crudos, reproducción, revisión y límites. No puntúa cantidad de gráficos.
 
 ## Fuentes
+
 
 - [Python documentation](https://docs.python.org/3/) respalda las APIs del proyecto.
 - [Unicode Standard](https://www.unicode.org/versions/latest/) y [RISC-V specifications](https://docs.riscv.org/reference/isa/) respaldan los contratos elegidos.

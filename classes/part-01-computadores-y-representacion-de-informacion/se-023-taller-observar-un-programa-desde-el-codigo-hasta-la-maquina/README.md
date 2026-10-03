@@ -2,12 +2,34 @@
 
 [← SE-022](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) · [↑ Parte 01](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-024 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md)
 
-> Estado: **GUIDED**. Taller local y seguro; “hasta la máquina” significa hasta interfaces observables, no acceso a señales físicas.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para integrar las capas del computador en una explicación causal que separe observación, inferencia e hipótesis.
+
+**Por qué aparece aquí.** Se sitúa después de **Rendimiento, consumo energético y límites físicos** y antes de **Proyecto: informe reproducible de comportamiento y recursos**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Elegir una causa a partir de una sola métrica o presentar una captura como explicación.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** End-to-end-trace.md con mapa fuente→runtime→SO→máquina y vacíos explícitos. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La traza explica solo el caso y el entorno instrumentados.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python 3 documentation](https://docs.python.org/3/) |  sustenta todas las interfaces del taller | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) |  sustenta la entrada textual | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RISC-V specifications](https://docs.riscv.org/reference/isa/) |  delimitan lo que una ISA sí describe | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
 Las clases anteriores abrieron una capa por vez. El taller vuelve a cerrar el sistema:
-seguirás una ejecución de Pulso desde caracteres y bytes hasta AST, bytecode, proceso,
+seguirás una ejecución del analizador local de eventos desde caracteres y bytes hasta AST, bytecode, proceso,
 tiempo y memoria. La disciplina central es separar evidencia directa de interpretación.
 El dossier será la entrada de `SE-024`.
 
@@ -34,13 +56,12 @@ cada afirmación a evidencia; formularás hipótesis rivales; y entregarás limp
 | Traducción | fuente, AST y bytecode | muestra transformaciones del runtime |
 | Ejecución | proceso, CPU/pared y salida | conecta trabajo con entorno |
 | Recursos | asignación y archivos | descubre costos y persistencia |
-
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
  T[Texto] --> B[Bytes]
- B --> P[Objetos de Pulso]
+ B --> P[Objetos del analizador local de eventos]
  P --> A[AST y bytecode]
  A --> X[Proceso]
  X --> R[Tiempo y memoria]
@@ -82,9 +103,9 @@ El README declara preparación, comando, salidas, limpieza y versiones. Un scrip
 es reproducible si sus efectos son conocidos y acotados. La revisión cruzada ejecuta en
 un segundo entorno o, si no puede, inspecciona pasos y explica el límite.
 
-## Caso conductor: protocolo integrado de Pulso
+## Caso conductor: protocolo integrado del analizador local de eventos
 
-La entrada canónica es JSON UTF-8 con texto multilingüe y valores límite. Pulso valida,
+La entrada canónica es JSON UTF-8 con texto multilingüe y valores límite. El analizador local de eventos valida,
 normaliza según contrato, calcula un resumen y escribe salida temporal. Se captura
 representación, AST/bytecode de la función, identificador del proceso, tiempos y pico
 Python. El dossier enlaza cada observación a archivo y comando.
@@ -114,7 +135,7 @@ puede repetir y decidir; una captura de “antes/después” no ofrece ese contr
 
 ## Práctica guiada
 
-1. Crea `work/SE-023/` con `input.json`, `pulso.py` y `README.md`.
+1. Crea `work/SE-023/` con `input.json`, `event_analyzer.py` y `README.md`.
 2. Valida puntos de código, bytes y hash esperado.
 3. Guarda AST y bytecode de la función principal.
 4. Ejecuta variantes materializada y streaming con protocolo de `SE-022`.
@@ -158,7 +179,7 @@ ambigüedad y corrige el contrato sin ocultar el intento fallido.
 
 ## Entorno y archivos clave
 
-Python 3.11+, biblioteca estándar. `pulso.py`, `input.json`, `evidence-map.md`, `samples.csv`, `review.md`, `cleanup.py`.
+Python 3.11+, biblioteca estándar. `event_analyzer.py`, `input.json`, `evidence-map.md`, `samples.csv`, `review.md`, `cleanup.py`.
 
 ## Seguridad, ética y accesibilidad
 
@@ -173,6 +194,7 @@ Aplica el protocolo a una CLI propia de otro lenguaje y sustituye instrumentos m
 Se exigen ruta completa, invariantes, evidencia trazable, revisión cruzada y recuperación segura.
 
 ## Fuentes
+
 
 - [Python 3 documentation](https://docs.python.org/3/) sustenta todas las interfaces del taller.
 - [Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) sustenta la entrada textual.

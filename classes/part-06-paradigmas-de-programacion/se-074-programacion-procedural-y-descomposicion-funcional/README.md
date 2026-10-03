@@ -2,11 +2,32 @@
 
 [← SE-073 — Programación imperativa y estado mutable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-073-programacion-imperativa-y-estado-mutable/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-074.html) · [SE-075 — Orientación a objetos, mensajes y encapsulación →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para descomponer procedimientos por contratos y efectos, no solo por longitud.
+
+**Por qué aparece aquí.** Se sitúa después de **Programación imperativa y estado mutable** y antes de **Orientación a objetos, mensajes y encapsulación**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Extraer funciones que comparten estado implícito y llamar a eso modularidad.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Procedure-contracts.md con entradas, salidas, efectos y orden permitido. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** La descomposición procedural no elimina acoplamiento de datos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Python Language Reference](https://docs.python.org/3/reference/) | Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación procedural y descomposición funcional** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Dónde cortar un procedimiento para que cada paso tenga un contrato comprobable?**
+Esta clase continúa el **motor de reglas comparado de la Parte 06**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación procedural y descomposición funcional** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Dónde cortar un procedimiento para que cada paso tenga un contrato comprobable?**
 
 ## Prerrequisitos
 
@@ -16,7 +37,7 @@ Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la e
 
 ## Problema auténtico
 
-El prototipo de Prisma valida, puntúa, selecciona y formatea dentro de una función extensa. Reutilizar la regla desde una API obliga a ejecutar también salida de terminal y las pruebas solo pueden observar el resultado final.
+El prototipo del motor de reglas comparado valida, puntúa, selecciona y formatea dentro de una función extensa. Reutilizar la regla desde una API obliga a ejecutar también salida de terminal y las pruebas solo pueden observar el resultado final.
 
 ## Objetivos observables
 
@@ -36,12 +57,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Procedimiento y contrato | Un procedimiento agrupa una secuencia bajo un nombre y una interfaz. | Evidencia o contraejemplo registrado |
-| Descomposición por responsabilidad | Separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás. | Evidencia o contraejemplo registrado |
-| Flujo de datos y dependencias | Los parámetros hacen visibles entradas; el retorno hace visible el resultado. | Evidencia o contraejemplo registrado |
-| Efectos en los bordes | El núcleo calcula una recomendación y los adaptadores leen JSON o escriben texto. | Evidencia o contraejemplo registrado |
-| Composición y nivel de abstracción | Una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar. | Evidencia o contraejemplo registrado |
-
+| Procedimiento y contrato | Un procedimiento agrupa una secuencia bajo un nombre y una interfaz. | Predicción, traza causal y contraejemplo de **Procedimiento y contrato** en `procedure-contracts.md` |
+| Descomposición por responsabilidad | Separar parseo, validación, decisión y presentación permite cambiar una razón sin arrastrar las demás. | Predicción, traza causal y contraejemplo de **Descomposición por responsabilidad** en `procedure-contracts.md` |
+| Flujo de datos y dependencias | Los parámetros hacen visibles entradas; el retorno hace visible el resultado. | Predicción, traza causal y contraejemplo de **Flujo de datos y dependencias** en `procedure-contracts.md` |
+| Efectos en los bordes | El núcleo calcula una recomendación y los adaptadores leen JSON o escriben texto. | Predicción, traza causal y contraejemplo de **Efectos en los bordes** en `procedure-contracts.md` |
+| Composición y nivel de abstracción | Una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar. | Predicción, traza causal y contraejemplo de **Composición y nivel de abstracción** en `procedure-contracts.md` |
 ## Conceptos y decisiones
 
 ### 1. Procedimiento y contrato
@@ -72,7 +92,7 @@ Una función coordinadora debe leerse como una historia del dominio: validar, ev
 - **efectos en los bordes:** el núcleo calcula una recomendación y los adaptadores leen json o escriben texto.
 - **composición y nivel de abstracción:** una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar.
 
-Las definiciones son operativas para Prisma. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el motor de reglas comparado. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
@@ -89,7 +109,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Prisma, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el motor de reglas comparado, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -106,7 +126,7 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 ## Ejercicios
 
 1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla de Prisma sin alterar los fixtures anteriores.
+2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
 3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
 4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
@@ -116,7 +136,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Prisma recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
+El motor de reglas comparado recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
 
 ## Preguntas frecuentes
 
@@ -153,7 +173,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-074/
 ├── README.md
-├── prisma/
+├── rule_engine/
 │   ├── domain.py
 │   └── se_074.py
 ├── fixtures/cases.json
@@ -191,6 +211,8 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
+
 - [Python Language Reference](https://docs.python.org/3/reference/) — Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation.
 - [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project.
 - [SWI-Prolog Reference Manual](https://www.swi-prolog.org/pldoc/man?section=intro) — Hechos, reglas, unificación, búsqueda y límites operacionales; autoridad: SWI-Prolog project.
@@ -198,7 +220,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Prisma sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

@@ -25,6 +25,18 @@ APPROVAL_SECTIONS = [
     "## Preguntas frecuentes",
 ]
 GENERIC_SENTENCE = "La respuesta profesional separa hechos, inferencias y preferencias"
+RETIRED_CASE_LABELS = re.compile(
+    r"\b(?:Pulso|Faro|Nexo|Atlas|Brújula|Compass|Prisma|Orbe|Lupa|Constelación|Constellation)\b",
+    re.IGNORECASE,
+)
+PEDAGOGICAL_TRACEABILITY = (
+    "## Punto profesional y fundamento pedagógico",
+    "**Punto profesional.**",
+    "**Error conceptual que debe corregir.**",
+    "**Evidencia de aprendizaje.**",
+    "**Límite de la conclusión.**",
+    "### Trazabilidad fuente → afirmación",
+)
 
 
 def main() -> int:
@@ -55,7 +67,10 @@ def main() -> int:
                 continue
             text = readme.read_text(encoding="utf-8")
             expected_marker = (
-                "Estado: **GUIDED**" if lesson["status"] == "GUIDED"
+                "Estado: **GUIDED**"
+                if lesson["status"] == "GUIDED"
+                else "Estado: **PLANNED**"
+                if lesson["number"] <= 120
                 else "Estado: **PLANNED · BORRADOR EN REVISIÓN**"
             )
             if expected_marker not in text or "Pendiente de desarrollar" in text:
@@ -83,6 +98,19 @@ def main() -> int:
                 ):
                     failures.append(
                         f"guided class lacks an integrated worked case: {lesson['id']}"
+                    )
+            if 13 <= lesson["number"] <= 120:
+                missing_traceability = [
+                    marker for marker in PEDAGOGICAL_TRACEABILITY if marker not in text
+                ]
+                if missing_traceability:
+                    failures.append(
+                        f"missing pedagogical traceability {lesson['id']}: {missing_traceability}"
+                    )
+                retired = RETIRED_CASE_LABELS.search(text)
+                if retired:
+                    failures.append(
+                        f"retired fictional label in {lesson['id']}: {retired.group(0)}"
                     )
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
@@ -112,10 +140,24 @@ def main() -> int:
             if sum(item.get("max", 0) for item in rubric.get("criteria", [])) != rubric.get("maximum_score"):
                 failures.append(f"rubric score drift: {lesson['id']}")
 
-    if statuses != Counter({"GUIDED": 120, "PLANNED": 360}):
+    if statuses != Counter({"GUIDED": 12, "PLANNED": 468}):
         failures.append(f"unexpected maturity counts: {dict(statuses)}")
     if draft_count != 180 or len(hashes) != 180:
         failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
+
+    for part_number in range(1, 10):
+        audit_path = ROOT / "sources" / "pedagogical" / f"part-{part_number:02d}.json"
+        if not audit_path.is_file():
+            failures.append(f"missing pedagogical audit: {audit_path.relative_to(ROOT)}")
+            continue
+        pedagogical_audit = json.loads(audit_path.read_text(encoding="utf-8"))
+        audited_classes = pedagogical_audit.get("classes", [])
+        if pedagogical_audit.get("status") != "under_qualitative_audit":
+            failures.append(f"invalid pedagogical status: part-{part_number:02d}")
+        if any(item.get("approval") != "not_granted" for item in audited_classes):
+            failures.append(f"invalid pedagogical approval: part-{part_number:02d}")
+        if len(audited_classes) != 12:
+            failures.append(f"invalid pedagogical class count: part-{part_number:02d}")
 
     audit = (ROOT / "docs/PHASE3-CONTENT-AUDIT.md").read_text(encoding="utf-8")
     audit_claims = {
@@ -132,8 +174,8 @@ def main() -> int:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
     print(
-        "PHASE3_STRUCTURE_OK: 60 drafts, "
-        f"{generic_count} still generic, 120 approved, 360 contracts"
+        "PHASE3_STRUCTURE_OK: 168 drafts, "
+        f"{generic_count} still generic, 12 approved, 360 contracts"
     )
     return 0
 

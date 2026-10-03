@@ -2,11 +2,33 @@
 
 [← SE-047 — Taller: seguir una petición de extremo a extremo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-048.html) · [SE-049 — Descomposición, abstracción y reconocimiento de patrones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para construir un servicio observable que trate timeout, reintento e idempotencia como decisiones de producto.
+
+**Por qué aparece aquí.** Se sitúa después de **Taller: seguir una petición de extremo a extremo** y antes de **Descomposición, abstracción y reconocimiento de patrones**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Reintentar cualquier fallo y duplicar efectos.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Servicio, cliente de prueba, fallos inyectados, trazas correlacionadas y matriz de reintentos. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** El proyecto local no demuestra disponibilidad ni tolerancia regional.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446) | define la semántica normativa del protocolo nombrado en el título y sus límites interoperables | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
+Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
@@ -16,7 +38,7 @@ Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia
 
 ## Problema auténtico
 
-El proyecto integra Nexo como servicio local: recibe una URL autorizada, ejecuta comprobaciones acotadas y genera una traza comentada. Debe sobrevivir DNS lento, puerto cerrado, certificado inválido, 503, respuesta obsoleta y cliente lento sin filtrar secretos ni quedar bloqueado.
+El proyecto integra la petición observable de extremo a extremo como servicio local: recibe una URL autorizada, ejecuta comprobaciones acotadas y genera una traza comentada. Debe sobrevivir DNS lento, puerto cerrado, certificado inválido, 503, respuesta obsoleta y cliente lento sin filtrar secretos ni quedar bloqueado.
 
 ## Objetivos observables
 
@@ -51,12 +73,11 @@ El ciclo evita el diagnóstico por intuición. La observación se ubica antes de
 | garantía | ¿qué promete el protocolo y qué no? | ejemplo y contraejemplo |
 | diagnóstico | ¿qué prueba separa causas plausibles? | comparación reproducible |
 | operación | ¿cómo falla, se limita y se recupera? | caso sano, degradado y restaurado |
-
 ## Conceptos y decisiones
 
 ### 1. Contrato y frontera de seguridad
 
-Nexo acepta solo esquemas y destinos permitidos, rechaza direcciones locales o metadatos cuando opera como servicio compartido y limita redirecciones. La validación evita convertir la herramienta en SSRF. El informe redacta credenciales, query sensible y direcciones privadas.
+La petición observable de extremo a extremo acepta solo esquemas y destinos permitidos, rechaza direcciones locales o metadatos cuando opera como servicio compartido y limita redirecciones. La validación evita convertir la herramienta en SSRF. El informe redacta credenciales, query sensible y direcciones privadas.
 
 ### 2. Presupuesto y deadline
 
@@ -82,7 +103,7 @@ Un servicio tolerante a fallos no promete éxito universal. Puede servir último
 - **circuit breaker:** control que limita llamadas a una dependencia degradada.
 - **SSRF:** abuso que induce a un servidor a solicitar destinos no autorizados.
 
-Estas definiciones son operativas: precisan el uso dentro de Nexo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
+Estas definiciones son operativas: precisan el uso dentro de la petición observable de extremo a extremo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo mínimo
 
@@ -120,7 +141,7 @@ Entrega una traza comentada que permita a otra persona responder: qué se intent
 ## Demostración guiada
 
 1. Predice el primer evento observable y el resultado sano.
-2. Ejecuta una sola petición de Nexo y asigna cada marca a una frontera.
+2. Ejecuta una sola petición de la petición observable de extremo a extremo y asigna cada marca a una frontera.
 3. Introduce el fallo controlado descrito abajo.
 4. Compara por **primera divergencia**, no por cantidad de errores posteriores.
 5. Restaura, repite y conserva evidencia de recuperación.
@@ -197,11 +218,13 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 
 ## Fuentes
 
-- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000): sustenta los mecanismos y límites usados en esta clase.
-- [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034): sustenta los mecanismos y límites usados en esta clase.
+
+
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 

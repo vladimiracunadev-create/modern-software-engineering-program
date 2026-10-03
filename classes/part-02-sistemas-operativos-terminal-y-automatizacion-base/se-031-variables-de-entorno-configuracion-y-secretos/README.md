@@ -2,11 +2,33 @@
 
 [← SE-030](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-032 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)
 
-> Estado: **GUIDED**. Usa secretos centinela ficticios; no manipula credenciales reales ni sustituye un sistema de gestión de secretos.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para diseñar precedencia de configuración y tratamiento de secretos con frontera explícita.
+
+**Por qué aparece aquí.** Se sitúa después de **PowerShell, Bash y portabilidad de scripts** y antes de **Instalación de software y gestores de paquetes del sistema**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Guardar secretos en variables o archivos sin considerar herencia, logs y repositorio.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Configuration-map.md con fuentes, precedencia, redacción y rotación simulada. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** No se usan secretos reales ni se certifica un gestor externo.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft Learn — about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Open Group — Environment Variables](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [OWASP — Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | delimita el contrato técnico que debe cumplirse al diseñar precedencia de configuración y tratamiento de secretos con frontera explícita | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Los adaptadores de Faro ya comparten un contrato, pero necesitan saber qué inspeccionar y cómo comportarse. Introducir valores directamente en el código impide reutilizarlo; cargar todo desde variables de entorno vuelve invisible la procedencia; guardar credenciales junto con configuración las expone. Configurar es diseñar una interfaz operativa.
+Los adaptadores del kit de diagnóstico multiplataforma ya comparten un contrato, pero necesitan saber qué inspeccionar y cómo comportarse. Introducir valores directamente en el código impide reutilizarlo; cargar todo desde variables de entorno vuelve invisible la procedencia; guardar credenciales junto con configuración las expone. Configurar es diseñar una interfaz operativa.
 
 ### Resultado de aprendizaje
 
@@ -14,11 +36,11 @@ Al terminar podrás definir una precedencia de configuración, validar valores a
 
 ## Prerrequisitos
 
-`SE-030`, contrato CLI de Faro y uso de datos ficticios. Crea un secreto centinela que no tenga valor real y pueda buscarse de extremo a extremo.
+`SE-030`, contrato CLI del kit de diagnóstico multiplataforma y uso de datos ficticios. Crea un secreto centinela que no tenga valor real y pueda buscarse de extremo a extremo.
 
 ## Problema auténtico
 
-El archivo de configuración parece correcto, pero Faro usa otra ruta. Una variable heredada tiene mayor precedencia y nadie puede ver la configuración efectiva. Al activar depuración, el equipo imprime todo el entorno y expone un token.
+El archivo de configuración parece correcto, pero el kit de diagnóstico multiplataforma usa otra ruta. Una variable heredada tiene mayor precedencia y nadie puede ver la configuración efectiva. Al activar depuración, el equipo imprime todo el entorno y expone un token.
 
 ## Objetivos observables
 
@@ -32,7 +54,6 @@ Podrás diseñar esquema y precedencia; distinguir ausente, vacío y valor invá
 | Validación | aplica tipo, rango y relaciones | fallar antes de producir efectos |
 | Herencia | propaga entorno a procesos hijos | limitar exposición y sorpresas |
 | Secreto | exige ciclo de vida y redacción | diagnosticar sin divulgar autoridad |
-
 ## Mapa conceptual
 
 ```mermaid
@@ -57,7 +78,7 @@ Cada opción necesita nombre, tipo, valor predeterminado, rango, sensibilidad, f
 
 ### La precedencia debe ser determinista y observable
 
-Faro adopta una cadena explícita:
+El kit de diagnóstico multiplataforma adopta una cadena explícita:
 
 ```mermaid
 flowchart LR
@@ -74,13 +95,13 @@ La fuente de mayor precedencia reemplaza solo campos definidos. El programa info
 
 Las variables de entorno son pares de nombres y valores que normalmente se heredan al crear procesos. Pueden distinguir mayúsculas según plataforma y toda entrada llega como texto. Ausente, vacío, `false` y `0` requieren reglas explícitas.
 
-Un proceso hijo puede recibir más variables de las necesarias. Faro construye un entorno mínimo al invocar herramientas y nunca vuelca el entorno completo en diagnóstico. Las variables son útiles para configuración efímera, pero no constituyen por sí solas un almacén seguro.
+Un proceso hijo puede recibir más variables de las necesarias. El kit de diagnóstico multiplataforma construye un entorno mínimo al invocar herramientas y nunca vuelca el entorno completo en diagnóstico. Las variables son útiles para configuración efímera, pero no constituyen por sí solas un almacén seguro.
 
 ### Validar configuración es comprobar semántica, no solo sintaxis
 
 Un JSON bien formado puede contener una ruta inexistente, un plazo negativo o combinaciones incompatibles. La validación ocurre antes de iniciar efectos y produce mensajes que señalan campo, regla y procedencia. Los valores desconocidos pueden tratarse como error para detectar errores tipográficos, salvo que el esquema diseñe extensiones.
 
-Faro distingue error de uso, configuración inválida y recurso inaccesible porque requieren respuestas diferentes.
+El kit de diagnóstico multiplataforma distingue error de uso, configuración inválida y recurso inaccesible porque requieren respuestas diferentes.
 
 ### Un secreto es información cuyo uso debe controlarse
 
@@ -94,7 +115,7 @@ Un archivo `config.example.json` documenta nombres y valores ficticios. El archi
 
 ### La configuración efectiva debe poder explicarse
 
-Faro ofrece `config explain`: muestra valor no sensible o `<redactado>`, procedencia, regla aplicada y advertencias. Así una persona puede descubrir que `FARO_TIMEOUT` reemplazó el archivo sin imprimir ninguna credencial.
+El kit de diagnóstico multiplataforma ofrece `config explain`: muestra valor no sensible o `<redactado>`, procedencia, regla aplicada y advertencias. Así una persona puede descubrir que `DIAGNOSTIC_KIT_TIMEOUT` reemplazó el archivo sin imprimir ninguna credencial.
 
 La documentación [about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables) y el estándar [`environ`](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/stdlib.h.html) describen mecanismos; la política de secretos debe adaptarse al riesgo y plataforma.
 
@@ -106,12 +127,12 @@ La documentación [about_Environment_Variables](https://learn.microsoft.com/powe
 - **secreto centinela:** valor ficticio reconocible usado para comprobar filtraciones;
 - **redacción:** transformación previa a salida que oculta información sensible.
 
-## Caso conductor: Faro carga sin filtrar
+## Caso conductor: el kit de diagnóstico multiplataforma carga sin filtrar
 
-El kit define un esquema con `target_path`, `timeout_seconds`, `output_format` y un token opcional para una integración futura. El token nunca aparece en el informe. Faro carga las capas, valida tipos y rangos, y genera una vista efectiva:
+El kit define un esquema con `target_path`, `timeout_seconds`, `output_format` y un token opcional para una integración futura. El token nunca aparece en el informe. El kit de diagnóstico multiplataforma carga las capas, valida tipos y rangos, y genera una vista efectiva:
 
 ```text
-target_path = C:\laboratorio\pulso   (cli)
+target_path = C:\laboratorio\event_analyzer   (cli)
 timeout_seconds = 10                 (archivo)
 output_format = json                 (predeterminado)
 integration_token = <redactado>      (almacén/entorno)
@@ -131,7 +152,7 @@ Trabaja con valores ficticios; no uses credenciales personales.
 
 ## Ejemplo mínimo
 
-El archivo declara `timeout=10`, el entorno `FARO_TIMEOUT=0` y la CLI no lo cambia. La procedencia muestra entorno, pero la validación rechaza cero. La ejecución no sustituye silenciosamente otro valor ni inicia trabajo parcial.
+El archivo declara `timeout=10`, el entorno `DIAGNOSTIC_KIT_TIMEOUT=0` y la CLI no lo cambia. La procedencia muestra entorno, pero la validación rechaza cero. La ejecución no sustituye silenciosamente otro valor ni inicia trabajo parcial.
 
 ## Ejemplo profesional
 
@@ -139,7 +160,7 @@ Un servicio rota un token en un almacén, pero un volcado de entorno conserva el
 
 ## Ejercicios
 
-1. Define tipo, fuente y regla para cuatro opciones de Faro.
+1. Define tipo, fuente y regla para cuatro opciones del kit de diagnóstico multiplataforma.
 2. Diseña casos para ausente, vacío, booleano ambiguo y campo desconocido.
 3. Traza un secreto desde ingreso hasta descarte e identifica cuatro fugas posibles.
 
@@ -193,14 +214,15 @@ Puedes reconstruir la configuración efectiva, demostrar validación temprana y 
 
 ## Límites y siguiente paso
 
-No diseñamos una infraestructura empresarial de secretos ni garantizamos borrado físico de memoria. Faro también depende de herramientas instaladas; la siguiente clase analiza gestores de paquetes, procedencia y reversibilidad.
+No diseñamos una infraestructura empresarial de secretos ni garantizamos borrado físico de memoria. El kit de diagnóstico multiplataforma también depende de herramientas instaladas; la siguiente clase analiza gestores de paquetes, procedencia y reversibilidad.
 
 ## Fuentes
 
-- [Microsoft Learn — about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables)
-- [The Open Group — Environment Variables](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html)
-- [OWASP — Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
-- [Python documentation — configparser](https://docs.python.org/3/library/configparser.html)
+
+- [Microsoft Learn — about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
+- [The Open Group — Environment Variables](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
+- [OWASP — Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) — delimita el contrato técnico que debe cumplirse al diseñar precedencia de configuración y tratamiento de secretos con frontera explícita.
+- [Python documentation — configparser](https://docs.python.org/3/library/configparser.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 
 ## Glosario
 

@@ -2,11 +2,34 @@
 
 [← SE-099 — Profilers de CPU, memoria, I/O y red](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-099-profilers-de-cpu-memoria-i-o-y-red/README.md) · [↑ Parte 08](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-100.html) · [SE-101 — REPL, notebooks y desarrollo exploratorio →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-101-repl-notebooks-y-desarrollo-exploratorio/README.md)
 
-> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica.
+
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para separar compilación, formato, lint y análisis estático por la propiedad que verifican.
+
+**Por qué aparece aquí.** Se sitúa después de **Profilers de CPU, memoria, I/O y red** y antes de **REPL, notebooks y desarrollo exploratorio**: convierte el conocimiento anterior en una decisión observable que la clase siguiente podrá reutilizar. La continuidad se comprueba en el artefacto, no por compartir vocabulario.
+
+**Error conceptual que debe corregir.** Tratar cero advertencias como prueba de corrección.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** Static-analysis.md con hallazgo real, falso positivo, configuración y límite. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** El análisis estático aproxima comportamientos y no ejecuta todos los caminos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) | Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) | Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Python ast](https://docs.python.org/3/library/ast.html) | define el árbol sintáctico que un análisis puede inspeccionar | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Ruff documentation](https://docs.astral.sh/ruff/) | documenta alcance, reglas y configuración del linter | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evidencia de la clase anterior, añade una decisión propia de **Compiladores, linters, formatters y análisis estático** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué garantía aporta cada herramienta estática y qué no puede concluir sin ejecutar?**
+Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**. Recupera la evidencia de la clase anterior, añade una decisión propia de **Compiladores, linters, formatters y análisis estático** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué garantía aporta cada herramienta estática y qué no puede concluir sin ejecutar?**
 
 ## Prerrequisitos
 
@@ -16,7 +39,7 @@ Esta clase continúa **Lupa**, el caso conductor de la Parte 08. Recupera la evi
 
 ## Problema auténtico
 
-Lupa reúne mensajes de compilador, formatter, linter y type checker bajo `errores`. El equipo ignora todos porque algunos son estilo, perdiendo una incompatibilidad de tipo real.
+El entorno reproducible de diagnóstico reúne mensajes de compilador, formatter, linter y type checker bajo `errores`. El equipo ignora todos porque algunos son estilo, perdiendo una incompatibilidad de tipo real.
 
 ## Objetivos observables
 
@@ -36,12 +59,11 @@ El mapa se lee como una cadena de razonamiento, no como fases obligatorias del r
 
 | Tema | Por qué cambia una decisión profesional | Evidencia mínima |
 |---|---|---|
-| Compilación y front-end | El compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable. | Evidencia o contraejemplo registrado |
-| Formatter | Un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo. | Evidencia o contraejemplo registrado |
-| Linter | Un linter detecta patrones, APIs riesgosas o convenciones. | Evidencia o contraejemplo registrado |
-| Tipos y flujo | El análisis de tipos aproxima valores posibles sin ejecutar todas las rutas. | Evidencia o contraejemplo registrado |
-| Análisis estático y límites | Análisis de datos, taint o control explora modelos conservadores. | Evidencia o contraejemplo registrado |
-
+| Compilación y front-end | El compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable. | Predicción, traza causal y contraejemplo de **Compilación y front-end** en `static-analysis.md` |
+| Formatter | Un formatter transforma presentación bajo reglas deterministas y reduce discusiones de estilo. | Predicción, traza causal y contraejemplo de **Formatter** en `static-analysis.md` |
+| Linter | Un linter detecta patrones, APIs riesgosas o convenciones. | Predicción, traza causal y contraejemplo de **Linter** en `static-analysis.md` |
+| Tipos y flujo | El análisis de tipos aproxima valores posibles sin ejecutar todas las rutas. | Predicción, traza causal y contraejemplo de **Tipos y flujo** en `static-analysis.md` |
+| Análisis estático y límites | Análisis de datos, taint o control explora modelos conservadores. | Predicción, traza causal y contraejemplo de **Análisis estático y límites** en `static-analysis.md` |
 ## Conceptos y decisiones
 
 ### 1. Compilación y front-end
@@ -72,12 +94,12 @@ Análisis de datos, taint o control explora modelos conservadores. Puede reporta
 - **tipos y flujo:** el análisis de tipos aproxima valores posibles sin ejecutar todas las rutas.
 - **análisis estático y límites:** análisis de datos, taint o control explora modelos conservadores.
 
-Las definiciones son operativas para Lupa. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
+Las definiciones son operativas para el entorno reproducible de diagnóstico. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
 ```shell
-python -m compileall -q orbe tests
+python -m compileall -q algorithm_library tests
 python -m unittest -v
 # Si el proyecto declara herramientas: ejecutar versiones fijadas de formatter, linter y type checker.
 ```
@@ -86,7 +108,7 @@ Antes de ejecutar, predice estado, resultado y error. Después registra versión
 
 ## Ejemplo profesional
 
-En Lupa, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+En el entorno reproducible de diagnóstico, una investigación conserva síntoma, entorno, reproducción, hipótesis, observaciones, causa, corrección y regresión. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
 
 Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
@@ -113,7 +135,7 @@ Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otr
 
 ## Caso conductor
 
-Lupa parte de una inversión de empates en Orbe, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+El entorno reproducible de diagnóstico parte de una inversión de empates en la biblioteca de estructuras y algoritmos, captura versión y entrada mínima, compara un entorno sano con uno afectado y conserva la primera divergencia observable. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
 
 ## Preguntas frecuentes
 
@@ -150,7 +172,7 @@ Registra síntoma, entrada mínima, hipótesis, observación que descarta cada h
 ```text
 work/SE-100/
 ├── README.md
-├── lupa/
+├── diagnostic_environment/
 │   ├── domain.py
 │   └── se_100.py
 ├── fixtures/cases.json
@@ -188,6 +210,8 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 
 ## Fuentes
 
+
+
 - [Language Server Protocol 3.18](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/) — Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft.
 - [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) — Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft.
 - [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation.
@@ -195,7 +219,7 @@ Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requiere
 - [Development Container Specification](https://containers.dev/implementors/spec/) — Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Lupa sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 

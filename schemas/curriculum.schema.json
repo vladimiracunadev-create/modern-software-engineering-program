@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/curriculum.schema.json",
-  "title": "Software Engineering Learning Suite curriculum",
+  "title": "Currículo del Programa de Ingeniería de Software Moderna",
   "type": "object",
   "required": ["schema_version", "program", "baseline_date", "status", "part_count", "class_count", "estimated_hours", "stages", "parts"],
   "properties": {

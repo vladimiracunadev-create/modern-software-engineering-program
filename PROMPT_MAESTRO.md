@@ -1,4 +1,4 @@
-# Prompt maestro — Software Engineering Learning Suite
+# Prompt maestro — Programa de Ingeniería de Software Moderna
 
 ## Rol
 

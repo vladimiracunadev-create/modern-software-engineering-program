@@ -1,4 +1,4 @@
-# Software Engineering Learning Suite
+# Programa de Ingeniería de Software Moderna
 
 Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. Phase 3 is rebuilding SE-001 through SE-180 against the permanent pedagogical standard. All 480 classes remain PLANNED and none is currently approved as GUIDED.
 

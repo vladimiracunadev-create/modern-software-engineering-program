@@ -38,6 +38,14 @@ class PhaseTwoGenerationTests(unittest.TestCase):
         self.assertTrue((ROOT / "site/index.html").is_file())
         self.assertTrue((ROOT / "site/classes/SE-480.html").is_file())
 
+    def test_site_uses_current_program_name(self) -> None:
+        current_name = "Programa de Ingeniería de Software Moderna"
+        retired_name = "Software Engineering Learning Suite"
+        for page in (ROOT / "site").rglob("*.html"):
+            text = page.read_text(encoding="utf-8")
+            self.assertIn(current_name, text, page.relative_to(ROOT))
+            self.assertNotIn(retired_name, text, page.relative_to(ROOT))
+
     def test_web_catalog_matches_manifest(self) -> None:
         catalog = json.loads((ROOT / "site/assets/catalog.json").read_text(encoding="utf-8"))
         self.assertEqual(480, len(catalog["classes"]))

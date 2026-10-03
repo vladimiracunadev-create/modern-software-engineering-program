@@ -9,6 +9,8 @@ from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+PROGRAM_NAME = "Programa de Ingeniería de Software Moderna"
+RETIRED_PROGRAM_NAME = "Software Engineering Learning Suite"
 
 
 class LinkParser(HTMLParser):
@@ -39,9 +41,14 @@ def main() -> int:
     if len(pages) != 521:
         failures.append(f"expected 521 HTML pages, found {len(pages)}")
     for page in pages:
+        page_text = page.read_text(encoding="utf-8")
         parser = LinkParser()
-        parser.feed(page.read_text(encoding="utf-8"))
+        parser.feed(page_text)
         name = page.relative_to(SITE).as_posix()
+        if PROGRAM_NAME not in page_text:
+            failures.append(f"current program name missing: {name}")
+        if RETIRED_PROGRAM_NAME in page_text:
+            failures.append(f"retired program name present: {name}")
         if parser.language != "es":
             failures.append(f"missing lang=es: {name}")
         if not parser.has_main or not parser.has_title:

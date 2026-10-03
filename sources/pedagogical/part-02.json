@@ -1,0 +1,385 @@
+{
+  "part": 2,
+  "scope": "SE-025..SE-036",
+  "content_preserved": true,
+  "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "status": "under_qualitative_audit",
+  "classes": [
+    {
+      "class_id": "SE-025",
+      "title": "Windows, Linux, macOS y sus modelos operativos",
+      "maturity": "PLANNED",
+      "professional_point": "comparar Windows, Linux y macOS por contratos observables y no por estereotipos",
+      "misconception": "suponer que una orden o ruta portable conserva idéntica semántica",
+      "evidence": "os-contracts.md con la misma operación, resultado, diferencia y decisión por plataforma",
+      "limit": "una muestra de versiones no representa todas las ediciones ni configuraciones",
+      "sources": [
+        {
+          "title": "Microsoft Learn — Windows documentation",
+          "url": "https://learn.microsoft.com/windows/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Linux man-pages project",
+          "url": "https://man7.org/linux/man-pages/",
+          "supports": "delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos"
+        },
+        {
+          "title": "Apple Developer Documentation",
+          "url": "https://developer.apple.com/documentation/",
+          "supports": "delimita el contrato técnico que debe cumplirse al comparar Windows, Linux y macOS por contratos observables y no por estereotipos"
+        },
+        {
+          "title": "The Open Group Base Specifications, Issue 8",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-026",
+      "title": "Sistemas de archivos, rutas, enlaces y metadatos",
+      "maturity": "PLANNED",
+      "professional_point": "razonar sobre identidad de archivos mediante rutas, enlaces, metadatos y resolución",
+      "misconception": "equiparar nombre de ruta con identidad o tratar symlink como copia",
+      "evidence": "filesystem-fixture.md con árbol temporal, enlaces, permisos y resolución paso a paso",
+      "limit": "la semántica exacta depende del sistema de archivos y opciones de montaje",
+      "sources": [
+        {
+          "title": "The Open Group — Pathname Resolution",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "Microsoft Learn — Naming Files, Paths, and Namespaces",
+          "url": "https://learn.microsoft.com/windows/win32/fileio/naming-a-file",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Python documentation — pathlib",
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-027",
+      "title": "Usuarios, grupos, permisos y elevación de privilegios",
+      "maturity": "PLANNED",
+      "professional_point": "explicar autorización como evaluación de identidad, pertenencia, ACL y elevación",
+      "misconception": "creer que ser propietario implica acceso efectivo o que elevar corrige diseño de permisos",
+      "evidence": "access-matrix.md con sujeto, objeto, regla, resultado y recuperación",
+      "limit": "el laboratorio local no modela políticas corporativas completas",
+      "sources": [
+        {
+          "title": "The Open Group — File Access Permissions",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_05",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "Microsoft Learn — Access Control",
+          "url": "https://learn.microsoft.com/windows/win32/secauthz/access-control",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Microsoft Learn — How User Account Control works",
+          "url": "https://learn.microsoft.com/windows/security/application-security/application-control/user-account-control/how-it-works",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Apple Platform Security",
+          "url": "https://support.apple.com/guide/security/welcome/web",
+          "supports": "delimita el contrato técnico que debe cumplirse al explicar autorización como evaluación de identidad, pertenencia, ACL y elevación"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-028",
+      "title": "Procesos, señales, servicios y tareas programadas",
+      "maturity": "PLANNED",
+      "professional_point": "modelar ciclo de vida, señales, supervisión y reinicio de procesos y servicios",
+      "misconception": "tratar proceso, daemon, servicio y tarea programada como sinónimos",
+      "evidence": "lifecycle.md con estados, señal, código de salida, política de reinicio y fallo controlado",
+      "limit": "los administradores de servicios difieren y no se infiere disponibilidad distribuida",
+      "sources": [
+        {
+          "title": "The Open Group — Process Concepts",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "systemd.service",
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html",
+          "supports": "define ciclo de vida, supervisión o consulta de eventos en systemd"
+        },
+        {
+          "title": "Microsoft Learn — Services",
+          "url": "https://learn.microsoft.com/windows/win32/services/services",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-029",
+      "title": "Terminales, shells y composición de comandos",
+      "maturity": "PLANNED",
+      "professional_point": "predecir cómo el shell analiza texto, expande argumentos y conecta flujos",
+      "misconception": "pensar que una tubería pasa objetos en todos los shells o que citar es decorativo",
+      "evidence": "shell-trace.md con tokens, stdin/stdout/stderr, quoting y resultado en dos shells",
+      "limit": "la portabilidad exige declarar shell y versión",
+      "sources": [
+        {
+          "title": "GNU Bash Reference Manual",
+          "url": "https://www.gnu.org/software/bash/manual/",
+          "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
+        },
+        {
+          "title": "Microsoft Learn — PowerShell documentation",
+          "url": "https://learn.microsoft.com/powershell/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "The Open Group — Shell Command Language",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-030",
+      "title": "PowerShell, Bash y portabilidad de scripts",
+      "maturity": "PLANNED",
+      "professional_point": "preservar intención al portar scripts entre PowerShell y Bash",
+      "misconception": "traducir sintaxis línea por línea ignorando tipos, errores y códigos de salida",
+      "evidence": "paired-scripts.md con contrato común, casos límite y tabla de divergencias",
+      "limit": "equivalencia funcional no implica equivalencia de seguridad ni rendimiento",
+      "sources": [
+        {
+          "title": "GNU Bash Reference Manual",
+          "url": "https://www.gnu.org/software/bash/manual/",
+          "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
+        },
+        {
+          "title": "Microsoft Learn — About PowerShell",
+          "url": "https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "The Open Group — Shell Command Language",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-031",
+      "title": "Variables de entorno, configuración y secretos",
+      "maturity": "PLANNED",
+      "professional_point": "diseñar precedencia de configuración y tratamiento de secretos con frontera explícita",
+      "misconception": "guardar secretos en variables o archivos sin considerar herencia, logs y repositorio",
+      "evidence": "configuration-map.md con fuentes, precedencia, redacción y rotación simulada",
+      "limit": "no se usan secretos reales ni se certifica un gestor externo",
+      "sources": [
+        {
+          "title": "Microsoft Learn — about_Environment_Variables",
+          "url": "https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "The Open Group — Environment Variables",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "OWASP — Secrets Management Cheat Sheet",
+          "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+          "supports": "delimita el contrato técnico que debe cumplirse al diseñar precedencia de configuración y tratamiento de secretos con frontera explícita"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-032",
+      "title": "Instalación de software y gestores de paquetes del sistema",
+      "maturity": "PLANNED",
+      "professional_point": "distinguir paquetes del sistema, del lenguaje y artefactos descargados por procedencia y alcance",
+      "misconception": "mezclar gestores o ejecutar instalaciones sin plan de reversión",
+      "evidence": "software-inventory.md con origen, versión, checksum o firma, alcance y rollback",
+      "limit": "la presencia de firma no prueba ausencia de vulnerabilidades",
+      "sources": [
+        {
+          "title": "Microsoft Learn — WinGet",
+          "url": "https://learn.microsoft.com/windows/package-manager/winget/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Debian Administrator's Handbook — APT",
+          "url": "https://www.debian.org/doc/manuals/debian-handbook/apt.en.html",
+          "supports": "delimita el contrato técnico que debe cumplirse al distinguir paquetes del sistema, del lenguaje y artefactos descargados por procedencia y alcance"
+        },
+        {
+          "title": "Homebrew Documentation",
+          "url": "https://docs.brew.sh/",
+          "supports": "delimita el contrato técnico que debe cumplirse al distinguir paquetes del sistema, del lenguaje y artefactos descargados por procedencia y alcance"
+        },
+        {
+          "title": "Python Packaging User Guide",
+          "url": "https://packaging.python.org/en/latest/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-033",
+      "title": "Logs del sistema y diagnóstico de fallos",
+      "maturity": "PLANNED",
+      "professional_point": "usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad",
+      "misconception": "buscar una cadena y declarar causa sin línea temporal ni evidencia rival",
+      "evidence": "incident-timeline.md con evento, fuente, reloj, hipótesis y dato ausente",
+      "limit": "los logs pueden omitir, retrasar o redactar hechos",
+      "sources": [
+        {
+          "title": "Microsoft Learn — Event Logging",
+          "url": "https://learn.microsoft.com/windows/win32/eventlog/event-logging",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "systemd — journalctl",
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/journalctl.html",
+          "supports": "define ciclo de vida, supervisión o consulta de eventos en systemd"
+        },
+        {
+          "title": "Apple Developer — Logging",
+          "url": "https://developer.apple.com/documentation/os/logging",
+          "supports": "delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad"
+        },
+        {
+          "title": "OpenTelemetry — Logs data model",
+          "url": "https://opentelemetry.io/docs/specs/otel/logs/data-model/",
+          "supports": "delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-034",
+      "title": "Virtualización, WSL y aislamiento local",
+      "maturity": "PLANNED",
+      "professional_point": "distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan",
+      "misconception": "tratar contenedor como máquina virtual o aislamiento como seguridad absoluta",
+      "evidence": "isolation-matrix.md con kernel, filesystem, red, recursos y ruptura simulada",
+      "limit": "un laboratorio local no equivale a una evaluación de aislamiento hostil",
+      "sources": [
+        {
+          "title": "Microsoft Learn — WSL documentation",
+          "url": "https://learn.microsoft.com/windows/wsl/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "Linux kernel — namespaces",
+          "url": "https://man7.org/linux/man-pages/man7/namespaces.7.html",
+          "supports": "delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan"
+        },
+        {
+          "title": "Linux kernel — cgroup v2",
+          "url": "https://docs.kernel.org/admin-guide/cgroup-v2.html",
+          "supports": "delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan"
+        },
+        {
+          "title": "Docker documentation — storage",
+          "url": "https://docs.docker.com/engine/storage/",
+          "supports": "delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-035",
+      "title": "Taller: preparar y reparar un entorno reproducible",
+      "maturity": "PLANNED",
+      "professional_point": "preparar, romper, diagnosticar y restaurar un entorno desde un runbook verificable",
+      "misconception": "resolver el síntoma cambiando varias variables sin conservar una reproducción",
+      "evidence": "runbook.md con estado inicial, fallo, hipótesis, reparación, rollback y repetición limpia",
+      "limit": "la reparación demostrada cubre solo las versiones declaradas",
+      "sources": [
+        {
+          "title": "Microsoft Learn — Sysinternals documentation",
+          "url": "https://learn.microsoft.com/sysinternals/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "The Open Group Base Specifications, Issue 8",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "systemd manual pages",
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/",
+          "supports": "define ciclo de vida, supervisión o consulta de eventos en systemd"
+        },
+        {
+          "title": "Python documentation — subprocess",
+          "url": "https://docs.python.org/3/library/subprocess.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-036",
+      "title": "Proyecto: kit de diagnóstico multiplataforma",
+      "maturity": "PLANNED",
+      "professional_point": "entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente",
+      "misconception": "coleccionar datos sin pregunta diagnóstica o exponer secretos en el reporte",
+      "evidence": "kit ejecutable, fixtures, salidas redactadas y comparación en dos plataformas",
+      "limit": "la ausencia de hallazgo no demuestra salud del sistema",
+      "sources": [
+        {
+          "title": "The Open Group Base Specifications, Issue 8",
+          "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+          "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
+        },
+        {
+          "title": "Microsoft Learn — PowerShell documentation",
+          "url": "https://learn.microsoft.com/powershell/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "GNU Bash Reference Manual",
+          "url": "https://www.gnu.org/software/bash/manual/",
+          "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
+        },
+        {
+          "title": "Microsoft Learn — WSL documentation",
+          "url": "https://learn.microsoft.com/windows/wsl/",
+          "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
+        },
+        {
+          "title": "OWASP — Logging Cheat Sheet",
+          "url": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+          "supports": "delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    }
+  ]
+}

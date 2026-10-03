@@ -141,6 +141,18 @@ PROFILES = {
 
 
 PREFERRED_SOURCE_KEYWORDS = {
+    25: ("Windows documentation", "man-pages", "Apple Developer", "Open Group"),
+    26: ("Pathname Resolution", "Naming Files", "pathlib"),
+    27: ("File Access", "Access Control", "User Account Control", "Apple Platform"),
+    28: ("Process Concepts", "systemd.service", "Services"),
+    29: ("Bash", "PowerShell", "Open Group"),
+    30: ("Bash", "PowerShell", "Open Group"),
+    31: ("Environment_Variables", "Environment Variables", "OWASP"),
+    32: ("WinGet", "APT", "Homebrew", "Packaging"),
+    33: ("Event Logging", "journalctl", "Apple Developer", "OpenTelemetry"),
+    34: ("WSL", "namespaces", "cgroup", "Docker"),
+    35: ("Sysinternals", "Open Group", "systemd", "subprocess"),
+    36: ("Open Group", "PowerShell", "Bash", "WSL", "OWASP"),
     73: ("Python Language", "Rust", "SWEBOK"), 74: ("Python Language", "SWEBOK"),
     75: ("Python Language", "Rust", "SWEBOK"), 76: ("Python Language", "Rust", "SWEBOK"),
     77: ("SWI-Prolog", "SWEBOK"), 78: ("SWI-Prolog", "SWEBOK"),

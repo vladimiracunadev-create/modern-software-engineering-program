@@ -224,6 +224,43 @@ def validate_phase2_outputs() -> None:
         raise AssertionError(f"Expected 360 phase 3-4 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
 
+def validate_guided_part_guides() -> None:
+    """Reject a GUIDED part whose overview collapses back into a class table."""
+    program = read_json("curriculum.yaml")
+    for part in program["parts"]:
+        if not all(lesson["status"] == "GUIDED" for lesson in part["lessons"]):
+            continue
+        source = ROOT / "content" / f"part-{part['id']}" / "README.md"
+        if not source.is_file():
+            raise AssertionError(f"Part {part['id']} has no editorial source")
+        text = source.read_text(encoding="utf-8")
+        guide_heading = "## Guía razonada clase por clase"
+        summary_heading = "## Resumen operativo del recorrido"
+        if guide_heading not in text or summary_heading not in text:
+            raise AssertionError(f"Part {part['id']} must contain a reasoned guide followed by an operational summary")
+        guide_start = text.index(guide_heading) + len(guide_heading)
+        summary_start = text.index(summary_heading)
+        if summary_start <= guide_start:
+            raise AssertionError(f"Part {part['id']} places its operational summary before the reasoned guide")
+        guide = text[guide_start:summary_start]
+        matches = list(re.finditer(r"^#### (SE-\d{3}) — .+$", guide, re.MULTILINE))
+        expected_ids = [lesson["id"] for lesson in part["lessons"]]
+        found_ids = [match.group(1) for match in matches]
+        if found_ids != expected_ids:
+            raise AssertionError(f"Part {part['id']} reasoned guide covers {found_ids}, expected {expected_ids}")
+        for index, match in enumerate(matches):
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(guide)
+            body = guide[match.end():end]
+            paragraphs = [
+                paragraph for paragraph in re.split(r"\n\s*\n", body)
+                if paragraph.strip() and not paragraph.lstrip().startswith("#")
+            ]
+            if len(paragraphs) < 2:
+                raise AssertionError(f"{match.group(1)} needs at least two explanatory paragraphs in its part guide")
+            if index + 1 < len(matches) and f"`{expected_ids[index + 1]}`" not in body:
+                raise AssertionError(f"{match.group(1)} must explain its connection to {expected_ids[index + 1]}")
+
+
 def validate_blueprint() -> None:
     contract = (ROOT / "blueprints/reference-product/api/openapi.yaml").read_text(encoding="utf-8")
     for token in ("openapi: 3.1.0", "/students/{studentId}/progress:", "Idempotency-Key"):
@@ -294,6 +331,7 @@ def main() -> int:
         validate_relative_links()
         validate_sources()
         validate_phase2_outputs()
+        validate_guided_part_guides()
         validate_blueprint()
         validate_portal()
         validate_workflows(args.strict)

@@ -120,7 +120,7 @@ def write_generated(path: Path, content: str, check: bool, stale: list[str]) -> 
 
 def repository_class_url(lesson: dict) -> str:
     return (
-        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        "https://github.com/vladimiracunadev-create/modern-software-engineering-program/"
         f"blob/main/{lesson['path']}/README.md"
     )
 
@@ -135,7 +135,7 @@ def class_navigation(part: dict, lesson: dict, previous: dict | None, following:
         if following else "Fin del programa →"
     )
     portal = (
-        "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/"
+        "https://vladimiracunadev-create.github.io/modern-software-engineering-program/"
         f"classes/{lesson['id']}.html"
     )
     return (
@@ -255,7 +255,7 @@ def part_index(part: dict) -> str:
         folder = Path(lesson["path"]).name
         rows.append(
             f"| {lesson['id']} | [{lesson['title']}]({folder}/README.md) · "
-            f"[🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/{lesson['id']}.html) | "
+            f"[🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/{lesson['id']}.html) | "
             f"{lesson['kind']} | {lesson['estimated_hours']} | {lesson['status']} |"
         )
     statuses = Counter(lesson["status"] for lesson in part["lessons"])
@@ -296,7 +296,7 @@ def classes_index(program: dict) -> str:
                 scope = "scaffold planificado"
             lesson_links.append(
                 f"- [{lesson['id']} — {lesson['title']}]({part_folder}/{lesson_folder}/README.md) "
-                f"· [🌐 portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/{lesson['id']}.html) "
+                f"· [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/{lesson['id']}.html) "
                 f"· `{scope}`"
             )
         flat_sections.append(
@@ -317,7 +317,7 @@ def classes_index(program: dict) -> str:
 > **borradores no aprobados**.
 > `SE-361`–`SE-480` permanecen como scaffolds. Cada enlace declara su estado.
 
-[← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
+[← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
 ## Las 40 partes
 
@@ -547,7 +547,7 @@ def part_page(part: dict) -> str:
             "(../../classes/README.md)", "(../index.html)"
         ).replace(
             "(../../docs/PEDAGOGICAL-STANDARD.md)",
-            "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/PEDAGOGICAL-STANDARD.md)",
+            "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/PEDAGOGICAL-STANDARD.md)",
         )
         editorial_content, editorial_headings = markdown_to_html(editorial_markdown)
         editorial_toc = "".join(
@@ -663,10 +663,10 @@ def build(check: bool) -> tuple[list[str], list[str]]:
         if editorial_part.is_file():
             part_markdown = editorial_part.read_text(encoding="utf-8").replace(
                 "(../../classes/",
-                "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/",
+                "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/",
             ).replace(
                 "(../../docs/",
-                "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/",
+                "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/",
             )
         else:
             part_markdown = part_index(part)

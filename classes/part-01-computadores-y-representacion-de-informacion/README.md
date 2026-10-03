@@ -52,7 +52,7 @@ Al completar la parte podrás:
 
 ## Prerrequisitos y preparación
 
-Se recomienda completar la [Parte 00](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md), especialmente evidencia e incertidumbre. Necesitas Python 3.11 o posterior, una terminal y un editor. Las prácticas usan solo biblioteca estándar y datos sintéticos. Registra versión, sistema operativo y arquitectura; nunca ejecutes binarios desconocidos ni cambies configuración del sistema.
+Se recomienda completar la [Parte 00](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md), especialmente evidencia e incertidumbre. Necesitas Python 3.11 o posterior, una terminal y un editor. Las prácticas usan solo biblioteca estándar y datos sintéticos. Registra versión, sistema operativo y arquitectura; nunca ejecutes binarios desconocidos ni cambies configuración del sistema.
 
 ## Progresión por bloques
 
@@ -249,18 +249,18 @@ objeto explícito de diagnóstico.
 
 | Clase | Evidencia principal |
 | --- | --- |
-| [SE-013](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) | mapa de capas y contratos |
-| [SE-014](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) | cuaderno de representaciones |
-| [SE-015](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) | laboratorio de codificación |
-| [SE-016](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md) | decisión numérica y pruebas límite |
-| [SE-017](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) | traza de instrucciones |
-| [SE-018](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) | mapa y experimento de memoria |
-| [SE-019](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) | línea temporal de proceso e I/O |
-| [SE-020](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) | mapa de traducción |
-| [SE-021](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) | mapa de runtime y objetos |
-| [SE-022](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) | protocolo de medición |
-| [SE-023](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) | dossier de observación vertical |
-| [SE-024](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) | informe reproducible revisado |
+| [SE-013](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-013-arquitectura-basica-de-un-computador-moderno/README.md) | mapa de capas y contratos |
+| [SE-014](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-014-bits-bytes-bases-numericas-y-representacion/README.md) | cuaderno de representaciones |
+| [SE-015](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) | laboratorio de codificación |
+| [SE-016](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-016-enteros-coma-flotante-precision-y-errores-numericos/README.md) | decisión numérica y pruebas límite |
+| [SE-017](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) | traza de instrucciones |
+| [SE-018](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-018-memoria-caches-almacenamiento-y-jerarquias/README.md) | mapa y experimento de memoria |
+| [SE-019](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-019-procesos-hilos-interrupciones-y-entrada-salida/README.md) | línea temporal de proceso e I/O |
+| [SE-020](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-020-compilacion-interpretacion-bytecode-y-jit/README.md) | mapa de traducción |
+| [SE-021](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-021-runtimes-maquinas-virtuales-y-recoleccion-de-basura/README.md) | mapa de runtime y objetos |
+| [SE-022](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-022-rendimiento-consumo-energetico-y-limites-fisicos/README.md) | protocolo de medición |
+| [SE-023](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-023-taller-observar-un-programa-desde-el-codigo-hasta-la-maquina/README.md) | dossier de observación vertical |
+| [SE-024](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-01-computadores-y-representacion-de-informacion/se-024-proyecto-informe-reproducible-de-comportamiento-y-recursos/README.md) | informe reproducible revisado |
 
 ## Proyecto integrador y criterio de salida
 
@@ -286,4 +286,4 @@ digital, ensamblador productivo, kernel ni microarquitectura avanzada. Las infer
 sobre caché, energía o instrucciones físicas se presentan como hipótesis salvo que una
 herramienta autorizada las mida.
 
-[Volver al índice de clases](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md)
+[Volver al índice de clases](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md)

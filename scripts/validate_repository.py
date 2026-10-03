@@ -83,7 +83,7 @@ def validate_manifest() -> None:
         "polyglot-programming-labs",
         "database-systems-labs",
         "framework-ecosystems-labs",
-        "software-engineering-learning-suite",
+        "modern-software-engineering-program",
     }
     if set(names) != expected or len(names) != len(set(names)):
         raise AssertionError("Repository manifest does not match the four-part suite")

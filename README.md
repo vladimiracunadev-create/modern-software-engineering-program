@@ -6,15 +6,15 @@ Currículo abierto en español para comprender, construir, probar, entregar, ope
 y evolucionar software. Recorre computación, programación, producto, requisitos,
 arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por IA.
 
-[📚 480 clases](classes/README.md) · [🧭 Rutas](#-rutas-sugeridas) · [🧪 Práctica](#-práctica-y-producto-transversal) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [📐 Estándar](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
+[📚 480 clases](classes/README.md) · [🧭 Rutas](#-rutas-sugeridas) · [🧪 Práctica](#-práctica-y-producto-transversal) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
 ---
 
-[![Validate](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/validate.yml)
-[![Pages](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/actions/workflows/pages.yml)
+[![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
+[![Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
 [![Estado](https://img.shields.io/badge/clases%20GUIDED-12%20de%20480-2ea043?style=flat-square)](STATUS.md)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
-[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
+[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
 
@@ -56,7 +56,7 @@ deberá desarrollar realmente:
    la práctica y la evidencia acumulativa.
 6. Contrasta el material con el [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md).
 
-Acceso inmediato: [Parte 00](classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-001 en GitHub](classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [SE-001 en Pages](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-001.html).
+Acceso inmediato: [Parte 00](classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-001 en GitHub](classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [SE-001 en Pages](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-001.html).
 
 ## 🔗 Familia de programas
 
@@ -68,7 +68,7 @@ especializados para profundizar lenguajes, datos y frameworks.
 | `polyglot-programming-labs` | lenguajes, algoritmos y paradigmas | comportamiento y pruebas comunes |
 | `database-systems-labs` | datos, motores y recuperación | dominio, carga y garantías |
 | `framework-ecosystems-labs` | interfaces, frameworks y plataformas | contrato y atributos equivalentes |
-| `software-engineering-learning-suite` | producto y ciclo de vida completo | resultado operable y defendible |
+| `modern-software-engineering-program` | producto y ciclo de vida completo | resultado operable y defendible |
 
 Las fronteras y reglas antiduplicación están en
 [docs/REPOSITORY-BOUNDARIES.md](docs/REPOSITORY-BOUNDARIES.md).
@@ -208,7 +208,7 @@ estén aprobadas.
 
 ## 🌐 Portal y navegación
 
-El [portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
+El [portal público](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 permite buscar por texto, filtrar por parte y estado, abrir una parte y leer cada
 clase. La Parte 00 añade un caso conductor, ruta de evidencias, progreso visible,
 conexión **vienes de / construyes / conecta con**, índice lateral y diagramas
@@ -343,7 +343,7 @@ tests/             pruebas estructurales
 La identidad, About, topics, gates y URL de Pages están definidos en
 [docs/PUBLICATION-PLAN.md](docs/PUBLICATION-PLAN.md). El sitio se genera íntegramente
 desde el manifiesto. El workflow remoto y la respuesta HTTPS del
-[portal público](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/)
+[portal público](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 fueron verificados el 30 de septiembre de 2026.
 
 ## 🎯 Qué es y qué no es este programa
@@ -384,4 +384,4 @@ Las fuentes, estándares, marcas y tecnologías externas conservan sus propios t
 Hecho para aprender ingeniería de software de principio a fin, con práctica,
 evidencia y límites explícitos.
 
-[⬆️ Volver al inicio](#-programa-de-ingeniería-de-software-moderna) · [📚 Abrir las 480 clases](classes/README.md) · [🌐 Entrar al portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/) · [👤 Vladimir Acuña](https://github.com/vladimiracunadev-create)
+[⬆️ Volver al inicio](#-programa-de-ingeniería-de-software-moderna) · [📚 Abrir las 480 clases](classes/README.md) · [🌐 Entrar al portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [👤 Vladimir Acuña](https://github.com/vladimiracunadev-create)

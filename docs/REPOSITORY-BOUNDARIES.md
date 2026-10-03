@@ -11,7 +11,7 @@ incluir un ejemplo mínimo autocontenido, pero no copiará cursos completos ajen
 | `polyglot-programming-labs` | lenguajes, paradigmas, algoritmos y equivalencia | soluciones comparadas y pruebas comunes |
 | `database-systems-labs` | modelado, motores, consultas y operación de datos | modelos, cargas, migraciones y recuperación |
 | `framework-ecosystems-labs` | frameworks, UI, APIs y plataformas | adaptadores y fragmentos verticales |
-| `software-engineering-learning-suite` | producto, requisitos, arquitectura, calidad, seguridad, entrega, operación, IA y liderazgo | contrato transversal y portafolio |
+| `modern-software-engineering-program` | producto, requisitos, arquitectura, calidad, seguridad, entrega, operación, IA y liderazgo | contrato transversal y portafolio |
 
 ## Unidad de integración
 

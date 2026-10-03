@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "$id": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
   "title": "Guided class rubric",
   "type": "object",
   "required": ["schema_version", "class_id", "passing_score", "maximum_score", "criteria"],
   "properties": {
-    "$schema": {"const": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json"},
+    "$schema": {"const": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json"},
     "schema_version": {"const": 1},
     "class_id": {"pattern": "^SE-[0-9]{3}$"},
     "passing_score": {"const": 12},

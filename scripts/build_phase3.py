@@ -176,7 +176,7 @@ def display_term(term: str) -> str:
 def source_catalog(program: dict) -> dict:
     used = sorted({source for part in program["parts"] if part["lessons"][-1]["number"] <= TARGET_LAST_CLASS for source in PROFILES[part["id"]]["sources"]})
     return {
-        "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/activity.schema.json",
+        "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/activity.schema.json",
         "schema_version": 1,
         "verified_on": VERIFIED_ON,
         "scope": "Fase 3 en reconstrucción: SE-001 a SE-180",
@@ -201,7 +201,7 @@ def context(program: dict) -> dict[str, tuple[dict, dict, dict | None, dict | No
 
 def repository_class_url(lesson: dict) -> str:
     return (
-        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        "https://github.com/vladimiracunadev-create/modern-software-engineering-program/"
         f"blob/main/{lesson['path']}/README.md"
     )
 
@@ -216,15 +216,15 @@ def lesson_navigation(part: dict, lesson: dict, previous: dict | None, following
         if following else "Fin del programa →"
     )
     portal = (
-        "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/"
+        "https://vladimiracunadev-create.github.io/modern-software-engineering-program/"
         f"classes/{lesson['id']}.html"
     )
     part_url = (
-        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        "https://github.com/vladimiracunadev-create/modern-software-engineering-program/"
         f"blob/main/{part['path']}/README.md"
     )
     index_url = (
-        "https://github.com/vladimiracunadev-create/software-engineering-learning-suite/"
+        "https://github.com/vladimiracunadev-create/modern-software-engineering-program/"
         "blob/main/classes/README.md"
     )
     return (
@@ -456,7 +456,7 @@ Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; n
 def activity(part: dict, lesson: dict) -> dict:
     profile = PROFILES[part["id"]]
     return {
-        "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+        "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
         "schema_version": 1,
         "class_id": lesson["id"],
         "status": lesson["status"],
@@ -659,7 +659,7 @@ def site_page(
     content, headings = markdown_to_html(markdown)
     phase = 3 if lesson["number"] <= 180 else 4
     toc = "".join(f'<li><a href="#{anchor}">{html.escape(label)}</a></li>' for anchor, label in headings)
-    repository_url = f"https://github.com/vladimiracunadev-create/software-engineering-learning-suite/tree/main/{lesson['path']}"
+    repository_url = f"https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/{lesson['path']}"
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
     following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
     navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
@@ -716,13 +716,13 @@ def expected_files(program: dict) -> dict[Path, str]:
                 source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
                 markdown = source.read_text(encoding="utf-8").replace(
                     "(../../classes/",
-                    "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/",
+                    "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/",
                 ).replace(
                     "(../../docs/",
-                    "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/",
+                    "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/",
                 ).replace(
                     "(../../site/",
-                    "(https://vladimiracunadev-create.github.io/software-engineering-learning-suite/",
+                    "(https://vladimiracunadev-create.github.io/modern-software-engineering-program/",
                 )
                 result[directory / "README.md"] = markdown
             else:

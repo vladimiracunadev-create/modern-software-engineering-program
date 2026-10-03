@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verified_on": "2026-09-30",
-  "suite": "software-engineering-learning-suite",
+  "suite": "modern-software-engineering-program",
   "repositories": [
     {
       "name": "polyglot-programming-labs",
@@ -25,7 +25,7 @@
       "integration_contract": ["OpenAPI contracts", "acceptance tests", "runtime evidence"]
     },
     {
-      "name": "software-engineering-learning-suite",
+      "name": "modern-software-engineering-program",
       "role": "lifecycle-and-product-integration",
       "comparison_unit": "same product outcome across the full lifecycle",
       "owned_topics": ["requirements", "architecture", "quality", "security", "delivery", "operations", "product", "leadership"],

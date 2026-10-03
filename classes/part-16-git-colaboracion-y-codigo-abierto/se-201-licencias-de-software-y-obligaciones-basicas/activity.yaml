@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
+  "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-201",
   "status": "PLANNED",

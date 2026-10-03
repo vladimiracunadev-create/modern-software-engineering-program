@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/curriculum.schema.json",
+  "$id": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/curriculum.schema.json",
   "title": "Software Engineering Learning Suite curriculum",
   "type": "object",
   "required": ["schema_version", "program", "baseline_date", "status", "part_count", "class_count", "estimated_hours", "stages", "parts"],
   "properties": {
     "schema_version": {"const": 1},
-    "program": {"const": "software-engineering-learning-suite"},
+    "program": {"const": "modern-software-engineering-program"},
     "status": {"enum": ["PHASE_1_SPECIFIED", "PHASE_3_REBUILDING", "PHASE_3_GUIDED"]},
     "part_count": {"const": 40},
     "class_count": {"const": 480},

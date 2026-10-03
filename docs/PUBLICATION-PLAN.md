@@ -2,18 +2,18 @@
 
 ## Identidad activa
 
-- Nombre: `software-engineering-learning-suite`
+- Nombre: `modern-software-engineering-program`
 - Visibilidad: pública
 - Rama predeterminada: `main`
-- Pages: `https://vladimiracunadev-create.github.io/software-engineering-learning-suite/`
+- Pages: `https://vladimiracunadev-create.github.io/modern-software-engineering-program/`
 
 ## About publicado
 
-> 🧭 Programa de Ingeniería de Software Moderna · 480 clases, 40 partes y 8 etapas · 12 clases guiadas · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
+> 🧭 Programa de Ingeniería de Software Moderna · 480 clases, 40 partes y 8 etapas · aprendizaje conectado, práctica, evidencia y fuentes · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
 
-La descripción no repite el nombre que GitHub ya muestra. Los conteos de madurez se
-sincronizan desde `catalog.json`: durante la reconstrucción, solo las doce clases
-revisadas de la Parte 00 se presentan como guiadas.
+La descripción no repite el nombre que GitHub ya muestra ni usa el estado interno de
+madurez como identidad. Las 480 clases siguen el mismo estándar pedagógico; su avance
+verificado se mantiene por separado en `catalog.json` y `STATUS.md`.
 
 ## Topics publicados
 
@@ -35,8 +35,8 @@ revisadas de la Parte 00 se presentan como guiadas.
 
 ## Evidencia remota
 
-- Repositorio público: <https://github.com/vladimiracunadev-create/software-engineering-learning-suite>
-- Portal: <https://vladimiracunadev-create.github.io/software-engineering-learning-suite/>
+- Repositorio público: <https://github.com/vladimiracunadev-create/modern-software-engineering-program>
+- Portal: <https://vladimiracunadev-create.github.io/modern-software-engineering-program/>
 - Validación multiplataforma: verde en Python 3.11–3.14, Windows y macOS.
 - Pages: artefacto y despliegue en verde.
 - Respuesta del portal: HTTP 200 y catálogo de 480 clases comprobados el 3 de octubre de 2026.

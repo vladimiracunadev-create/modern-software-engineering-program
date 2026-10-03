@@ -7,9 +7,11 @@
   "kind": "class",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "IEEE-SWEBOK-4A",
+    "PYTHON-3",
+    "RUST-BOOK"
   ],
   "path": "classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance"
 }

@@ -2,206 +2,231 @@
 
 [← SE-071 — Taller: transferir una solución entre lenguajes](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-072.html) · [SE-073 — Programación imperativa y estado mutable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-073-programacion-imperativa-y-estado-mutable/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase construye **Brújula**, la implementación incremental de la especificación Atlas. Recupera `SE-071` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-071` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, editor, terminal y Git.
+- Python 3.11 o posterior disponible como `python` o `python3`; registra la versión real.
+- Terminal, editor de texto y Git; no se requieren paquetes externos.
+- Comprender el contrato de Atlas: entradas, resultados, errores e invariantes.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Proyecto: herramienta de línea de comandos probada**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El proyecto entrega Brújula como CLI probada. Lee la especificación de Atlas, selecciona la siguiente prueba autorizada y emite una explicación. Debe comportarse bien con ayuda, entrada inválida, archivos, pipes, cancelación y códigos de salida; un script que funciona solo desde el IDE no alcanza.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Proyecto y herramienta con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **programa pequeño con pruebas y decisiones explicadas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir que un ejemplo se ejecute con que sea correcto para el dominio» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Herramienta | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Línea | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Comandos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución, implementar un caso normal y sus fronteras, diagnosticar un fallo controlado, proteger el comportamiento con evidencia y separar lo transferible de lo específico de Python.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Proyecto: herramienta de línea de comandos probada"] --> M["Modelo: Proyecto"]
-    M --> D["Decisión: herramienta"]
-    D --> E["Evidencia: línea"]
-    E --> R["Revisión: comandos"]
-    R -->|nueva información| M
+    S[Especificación Atlas] --> V[Valores y contratos]
+    V --> C[Control y transformación]
+    C --> E[Efectos en la frontera]
+    E --> O[Salida observable]
+    O --> T[Prueba y diagnóstico]
+    T -->|defecto o caso nuevo| S
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: herramienta de línea de comandos probada**.
+El código no reemplaza la especificación: la materializa bajo reglas concretas del lenguaje y del entorno. La pregunta de esta clase es: **¿Puede otra persona instalar, usar, automatizar, diagnosticar y mantener la herramienta?**
+
+## Temas y por qué importan
+
+| Lente | Pregunta | Evidencia |
+|---|---|---|
+| valor | ¿qué representa y qué tipo tiene? | ejemplo inspeccionable |
+| control | ¿qué camino o repetición ocurre? | traza de estados |
+| contrato | ¿qué acepta, retorna y rechaza? | casos frontera |
+| efecto | ¿qué cambia fuera del cálculo? | archivo o stream controlado |
+| mantenimiento | ¿cómo se detecta una regresión? | prueba y diff enfocado |
 
 ## Conceptos y decisiones
 
-Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio.
+### 1. Contrato CLI
 
-La pregunta rectora de esta parte es: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** La respuesta debe
-apoyarse en **ejemplos ejecutables, pruebas y salidas reproducibles**.
+Nombre, subcomandos, opciones, stdin/stdout/stderr y códigos de salida son interfaz pública. `--help` incluye propósito y ejemplos; argumentos inválidos fallan antes de modificar estado. La salida humana y JSON se seleccionan explícitamente.
 
-### 1. Proyecto: modelo
+### 2. Arquitectura de Brújula
 
-En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: herramienta de línea de comandos probada**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+`domain.py` conserva reglas puras; `json_io.py` valida frontera; `cli.py` traduce argumentos y errores; `__main__.py` compone. El núcleo no conoce terminal ni rutas. Esa separación permite usarlo después como biblioteca.
 
-### 2. Herramienta: mecanismo
+### 3. Validación y seguridad
 
-En esta clase, **herramienta** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: herramienta de línea de comandos probada**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Se limita tamaño, cantidad y profundidad; rutas se tratan como datos y no se concatenan en shell. Los mensajes redactan contenido sensible. La herramienta no ejecuta la prueba recomendada: produce un plan para revisión humana, manteniendo autorización como invariante.
 
-### 3. Línea: evidencia
+### 4. Pruebas de consumidor
 
-En esta clase, **línea** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: herramienta de línea de comandos probada**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Las unitarias cubren dominio; integración ejecuta `python -m compass` con archivos temporales y captura streams/códigos. Casos incluyen ayuda, normal, sin elegibles, JSON malformado, duplicado, permiso simulado y salida existente.
 
-### 4. Comandos: decisión
+### 5. Entrega y operación
 
-En esta clase, **comandos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: herramienta de línea de comandos probada**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+README declara Python soportado, ejecución, formatos, ejemplos, limitaciones y limpieza. Una versión se identifica en `--version`. El proyecto no afirma paquete publicado si solo vive en repositorio. La demostración incluye caso sano, fallo y recuperación.
 
 ## Definiciones de trabajo
 
-- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Herramienta:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Línea:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Comandos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **CLI:** interfaz consumida mediante argumentos y streams.
+- **código de salida:** entero que comunica resultado al proceso llamador.
+- **stdout:** stream de resultado normal.
+- **stderr:** stream de diagnóstico.
+- **dry-run:** modo que valida y explica sin aplicar efectos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Estas definiciones describen el uso concreto en Brújula. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proyecto: herramienta de línea de comandos probada**:
+```python
+# compass/cli.py
+import argparse
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+def parser() -> argparse.ArgumentParser:
+    value = argparse.ArgumentParser(prog="compass", description="Choose the next authorized diagnostic test")
+    value.add_argument("--input", required=True)
+    value.add_argument("--format", choices=("text", "json"), default="text")
+    return value
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+def main(argv=None) -> int:
+    args = parser().parse_args(argv)
+    # load → validate → choose → present
+    return 0
+```
+
+Define la matriz comando/entrada/salida/código para ayuda, ejecución válida, sin opción elegible, archivo ausente y JSON inválido. Automatiza al menos esos cinco casos.
+
+Ejecuta el fragmento en un archivo, no solo en una conversación interactiva. Conserva comando, versión, salida y explicación de cada línea relevante.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Proyecto: herramienta de línea de comandos probada**. Parte de esta pregunta: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando ejemplos ejecutables, pruebas y salidas reproducibles. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `main.py` y enlaza la evidencia, no solo la conclusión.
+Brújula acepta un paquete de Atlas, genera recomendación y explica cobertura/costo. `--dry-run` valida sin escribir; JSON va a stdout y diagnóstico a stderr. La entrega incluye 12+ pruebas, fixtures pequeños, README y evidencia reproducible en Windows y Unix o una matriz honesta de lo no ejecutado.
+
+El criterio profesional es que el comportamiento pueda ser consumido, diagnosticado y cambiado sin depender de conocimiento oral ni de estado oculto.
 
 ## Práctica guiada
 
-1. Crea `work/SE-072/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el programa pequeño con pruebas y decisiones explicadas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. congela contrato CLI.
+2. implementa núcleo y adaptadores.
+3. añade límites y códigos.
+4. prueba como proceso consumidor.
+5. ejecuta caso sano, fallo y recuperación.
+6. entrega a una persona sin contexto.
+7. ejecuta `python -m unittest -v` cuando existan pruebas y registra el resultado exacto.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proyecto y herramienta con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `main.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
+2. **Construcción:** añade un caso de Brújula siguiendo el contrato, sin mezclar I/O y cálculo.
+3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
+4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
 
 ## Reto verificable
 
-Entrega el **programa pequeño con pruebas y decisiones explicadas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla de Atlas.
+
+## Demostración guiada
+
+1. Escribe la entrada y la salida esperada antes del código.
+2. Ejecuta el caso mínimo y observa valores intermedios sin dejar prints permanentes en el núcleo.
+3. Añade el caso frontera que obligue a decidir, no solo a teclear.
+4. Introduce el fallo descrito abajo y confirma que la evidencia lo detecta.
+5. Corrige, ejecuta toda la suite y revisa el diff por efectos no deseados.
+
+## Preguntas frecuentes
+
+### ¿Que el programa se ejecute significa que está correcto?
+
+No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+
+### ¿Debo memorizar toda la sintaxis?
+
+No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+
+### ¿Las anotaciones de tipo validan JSON?
+
+No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **confundir que un ejemplo se ejecute con que sea correcto para el dominio**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Haz que la CLI imprima un traceback y retorne 0 ante JSON inválido. Añade traducción de frontera, mensaje accionable en stderr y código no cero; conserva traceback solo bajo `--debug`.
+
+Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+|---|---|---|
+| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
+| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
+| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
+| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
+| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
 
 ## Entorno y archivos clave
 
-Entorno de referencia: Python 3.11+, editor, terminal y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
 ```text
 work/SE-072/
-├── README.md
-│   ├── main.py
-│   ├── test_main.py
-│   ├── README.md
-├── activity.yaml
-└── rubric.json
+├── compass/
+│   ├── __init__.py
+│   ├── domain.py
+│   ├── cli.py
+│   └── __main__.py
+├── tests/
+│   └── test_compass.py
+└── README.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `main.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;
+- limita tamaño, profundidad y tiempo de entradas no confiables;
+- separa stdout parseable de stderr y redacta datos sensibles;
+- ofrece mensajes accionables y no dependas solo de color;
+- preserva autorización como regla del núcleo, no como checkbox de UI;
+- no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | predicción y explicación de ejecución |
+| comportamiento | normal, límite e inválido según contrato |
+| diseño | cálculo separado de efectos y dependencias visibles |
+| diagnóstico | fallo mínimo, causa y regresión |
+| reproducibilidad | versión, comandos y salidas desde checkout limpio |
 
-Entrega el directorio `work/SE-072/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+No se asciende a `EXECUTABLE` o `TESTED` solo por incluir snippets y comandos. Esos estados requieren artefactos ejecutados y evidencia verificable más allá de esta guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python `argparse` documentation](https://docs.python.org/3/library/argparse.html): referencia oficial para el mecanismo y los límites explicados.
+- [Python `unittest` documentation](https://docs.python.org/3/library/unittest.html): referencia oficial para el mecanismo y los límites explicados.
+- [Python `json` documentation](https://docs.python.org/3/library/json.html): referencia oficial para el mecanismo y los límites explicados.
+- [Python `pathlib` documentation](https://docs.python.org/3/library/pathlib.html): referencia oficial para el mecanismo y los límites explicados.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): referencia oficial para el mecanismo y los límites explicados.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+La documentación oficial define el lenguaje y la biblioteca; no demuestra que Brújula cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proyecto: herramienta de línea de comandos probada**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-073`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El proyecto demuestra fundamentos y un contrato local; no publica paquete, no ejecuta diagnósticos reales ni certifica seguridad productiva. La Parte 6 comparará paradigmas para evolucionar el mismo comportamiento.
+
+## Glosario
+
+- **CLI:** interfaz consumida mediante argumentos y streams.
+- **código de salida:** entero que comunica resultado al proceso llamador.
+- **stdout:** stream de resultado normal.
+- **stderr:** stream de diagnóstico.
+- **dry-run:** modo que valida y explica sin aplicar efectos.
 
 ---
 

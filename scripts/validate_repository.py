@@ -115,7 +115,7 @@ def validate_program_blueprint() -> None:
         raise AssertionError("Each part must contain exactly 12 classes")
     if any(part["owner"] not in ALLOWED_OWNERS for part in payload["parts"]):
         raise AssertionError("Every part must use a declared repository owner")
-    expected_guided = {f"SE-{number:03d}" for number in range(1, 61)}
+    expected_guided = {f"SE-{number:03d}" for number in range(1, 73)}
     for part in payload["parts"]:
         kinds = [lesson["kind"] for lesson in part["lessons"]]
         if kinds != ["class"] * 10 + ["studio", "project"]:
@@ -132,12 +132,12 @@ def validate_program_blueprint() -> None:
         "parts": 40,
         "classes": 480,
         "estimated_hours": hours,
-        "class_status": {"GUIDED": 60, "PLANNED": 420},
+        "class_status": {"GUIDED": 72, "PLANNED": 408},
         "phase_3_target": {
             "first_class": "SE-001",
             "last_class": "SE-180",
             "classes": 180,
-            "approved": 60,
+            "approved": 72,
         },
         "phase_4_target": {
             "first_class": "SE-181",

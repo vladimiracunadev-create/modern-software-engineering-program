@@ -2,206 +2,220 @@
 
 [← SE-060 — Proyecto: especificación y solución contrastable](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-061.html) · [SE-062 — Control de flujo y decisiones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase construye **Brújula**, la implementación incremental de la especificación Atlas. Recupera `SE-060` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-060` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, editor, terminal y Git.
+- Python 3.11 o posterior disponible como `python` o `python3`; registra la versión real.
+- Terminal, editor de texto y Git; no se requieren paquetes externos.
+- Comprender el contrato de Atlas: entradas, resultados, errores e invariantes.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Valores, expresiones, tipos y variables**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La especificación de Atlas llega a implementación como Brújula. El primer prototipo mezcla milisegundos con segundos, texto con números y `None` con una medición real. Python ejecuta varias combinaciones, pero ejecución no equivale a significado correcto.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Valores y expresiones con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **programa pequeño con pruebas y decisiones explicadas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir que un ejemplo se ejecute con que sea correcto para el dominio» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Valores | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Expresiones | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Tipos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Variables | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución, implementar un caso normal y sus fronteras, diagnosticar un fallo controlado, proteger el comportamiento con evidencia y separar lo transferible de lo específico de Python.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Valores, expresiones, tipos y variables"] --> M["Modelo: Valores"]
-    M --> D["Decisión: expresiones"]
-    D --> E["Evidencia: tipos"]
-    E --> R["Revisión: variables"]
-    R -->|nueva información| M
+    S[Especificación Atlas] --> V[Valores y contratos]
+    V --> C[Control y transformación]
+    C --> E[Efectos en la frontera]
+    E --> O[Salida observable]
+    O --> T[Prueba y diagnóstico]
+    T -->|defecto o caso nuevo| S
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Valores, expresiones, tipos y variables**.
+El código no reemplaza la especificación: la materializa bajo reglas concretas del lenguaje y del entorno. La pregunta de esta clase es: **¿Qué valor existe, qué operaciones admite y qué nombre conserva su intención?**
+
+## Temas y por qué importan
+
+| Lente | Pregunta | Evidencia |
+|---|---|---|
+| valor | ¿qué representa y qué tipo tiene? | ejemplo inspeccionable |
+| control | ¿qué camino o repetición ocurre? | traza de estados |
+| contrato | ¿qué acepta, retorna y rechaza? | casos frontera |
+| efecto | ¿qué cambia fuera del cálculo? | archivo o stream controlado |
+| mantenimiento | ¿cómo se detecta una regresión? | prueba y diff enfocado |
 
 ## Conceptos y decisiones
 
-Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio.
+### 1. Valores y representación
 
-La pregunta rectora de esta parte es: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** La respuesta debe
-apoyarse en **ejemplos ejecutables, pruebas y salidas reproducibles**.
+Un valor es información concreta interpretada según un tipo: `800`, `800.0` y `'800'` no son intercambiables. Enteros de Python tienen precisión arbitraria práctica limitada por memoria; `float` aproxima números binarios y no representa exactamente muchos decimales. Unidades y dominio no vienen incluidos en el tipo incorporado.
 
-### 1. Valores: modelo
+### 2. Expresiones y evaluación
 
-En esta clase, **Valores** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Valores, expresiones, tipos y variables**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una expresión combina literales, nombres, operadores y llamadas para producir un valor. Precedencia decide agrupación, pero paréntesis comunican intención. Operadores pueden tener semántica distinta por tipo: `+` suma números y concatena secuencias. Se evita depender de coerciones imaginadas.
 
-### 2. Expresiones: mecanismo
+### 3. Tipos y operaciones válidas
 
-En esta clase, **expresiones** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Valores, expresiones, tipos y variables**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El tipo determina representación y protocolo de operaciones. `bool` modela dos valores, pero no sirve para distinguir desconocido de falso. `None` expresa ausencia, no cero ni cadena vacía. El tipado dinámico comprueba muchas operaciones al ejecutar; anotaciones ayudan a herramientas, pero no validan datos externas por sí solas.
 
-### 3. Tipos: evidencia
+### 4. Nombres, enlace y mutabilidad
 
-En esta clase, **tipos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Valores, expresiones, tipos y variables**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una asignación enlaza un nombre a un objeto; no copia necesariamente el objeto. Reasignar un entero cambia el enlace; modificar una lista compartida cambia el objeto visto por todos sus alias. Llamar `timeout_seconds` al nombre hace visible una unidad que `t` oculta.
 
-### 4. Variables: decisión
+### 5. Conversión y validación
 
-En esta clase, **variables** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Valores, expresiones, tipos y variables**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+`int(texto)` convierte si el formato es válido y puede fallar; no debe dispersarse por la lógica. Primero se valida el dato en la frontera, después el núcleo trabaja con valores ya interpretados. Convertir `bool('false')` produce `True` porque la cadena no está vacía: un contraejemplo clásico de conversión semánticamente incorrecta.
 
 ## Definiciones de trabajo
 
-- **Valores:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Expresiones:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Tipos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Variables:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **valor:** dato concreto manipulable por el programa.
+- **tipo:** conjunto de valores y operaciones asociadas.
+- **expresión:** combinación evaluable que produce un valor.
+- **enlace:** asociación entre un nombre y un objeto.
+- **mutabilidad:** capacidad de cambiar un objeto conservando identidad.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Estas definiciones describen el uso concreto en Brújula. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Valores, expresiones, tipos y variables**:
+```python
+timeout_ms = 800
+elapsed_ms = 615.4
+phase = "tls"
+within_budget = elapsed_ms <= timeout_ms
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+print({"phase": phase, "elapsed_ms": elapsed_ms, "ok": within_budget})
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Evalúa `0.1 + 0.2`, `bool('false')`, `3 / 2`, `3 // 2` y `'3' * 2`. Antes de ejecutar predice valor y tipo; después explica qué interpretación sería peligrosa en Brújula.
+
+Ejecuta el fragmento en un archivo, no solo en una conversación interactiva. Conserva comando, versión, salida y explicación de cada línea relevante.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Valores, expresiones, tipos y variables**. Parte de esta pregunta: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando ejemplos ejecutables, pruebas y salidas reproducibles. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `main.py` y enlaza la evidencia, no solo la conclusión.
+Brújula mantiene `duration_ms` como número no negativo y `outcome` como texto de un conjunto validado. La entrada textual se convierte una sola vez. El informe conserva la unidad en el nombre y en JSON para impedir que una persona trate 800 ms como 800 s.
+
+El criterio profesional es que el comportamiento pueda ser consumido, diagnosticado y cambiado sin depender de conocimiento oral ni de estado oculto.
 
 ## Práctica guiada
 
-1. Crea `work/SE-061/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el programa pequeño con pruebas y decisiones explicadas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. crea valores válidos y límite para una observación.
+2. predice cinco expresiones y comprueba con `type`.
+3. demuestra aliasing con dos nombres para una lista.
+4. centraliza una conversión de texto a milisegundos.
+5. rechaza negativo, vacío y formato no numérico.
+6. ejecuta `python -m unittest -v` cuando existan pruebas y registra el resultado exacto.
 
 ## Ejercicios
 
-1. **Fundamental:** define Valores y expresiones con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `main.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
+2. **Construcción:** añade un caso de Brújula siguiendo el contrato, sin mezclar I/O y cálculo.
+3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
+4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
 
 ## Reto verificable
 
-Entrega el **programa pequeño con pruebas y decisiones explicadas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla de Atlas.
+
+## Demostración guiada
+
+1. Escribe la entrada y la salida esperada antes del código.
+2. Ejecuta el caso mínimo y observa valores intermedios sin dejar prints permanentes en el núcleo.
+3. Añade el caso frontera que obligue a decidir, no solo a teclear.
+4. Introduce el fallo descrito abajo y confirma que la evidencia lo detecta.
+5. Corrige, ejecuta toda la suite y revisa el diff por efectos no deseados.
+
+## Preguntas frecuentes
+
+### ¿Que el programa se ejecute significa que está correcto?
+
+No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+
+### ¿Debo memorizar toda la sintaxis?
+
+No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+
+### ¿Las anotaciones de tipo validan JSON?
+
+No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **confundir que un ejemplo se ejecute con que sea correcto para el dominio**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Usa `if bool(value):` para interpretar el argumento `--enabled false`. Observa que queda verdadero. Define un parser explícito que acepte valores documentados y rechace el resto.
+
+Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+|---|---|---|
+| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
+| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
+| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
+| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
+| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
 
 ## Entorno y archivos clave
 
-Entorno de referencia: Python 3.11+, editor, terminal y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
 ```text
 work/SE-061/
-├── README.md
-│   ├── main.py
-│   ├── test_main.py
-│   ├── README.md
-├── activity.yaml
-└── rubric.json
+├── compass/
+│   ├── __init__.py
+│   ├── domain.py
+│   ├── cli.py
+│   └── __main__.py
+├── tests/
+│   └── test_compass.py
+└── README.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `main.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;
+- limita tamaño, profundidad y tiempo de entradas no confiables;
+- separa stdout parseable de stderr y redacta datos sensibles;
+- ofrece mensajes accionables y no dependas solo de color;
+- preserva autorización como regla del núcleo, no como checkbox de UI;
+- no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | predicción y explicación de ejecución |
+| comportamiento | normal, límite e inválido según contrato |
+| diseño | cálculo separado de efectos y dependencias visibles |
+| diagnóstico | fallo mínimo, causa y regresión |
+| reproducibilidad | versión, comandos y salidas desde checkout limpio |
 
-Entrega el directorio `work/SE-061/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+No se asciende a `EXECUTABLE` o `TESTED` solo por incluir snippets y comandos. Esos estados requieren artefactos ejecutados y evidencia verificable más allá de esta guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python Tutorial](https://docs.python.org/3/tutorial/): referencia oficial para el mecanismo y los límites explicados.
+- [Python Language Reference](https://docs.python.org/3/reference/): referencia oficial para el mecanismo y los límites explicados.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+La documentación oficial define el lenguaje y la biblioteca; no demuestra que Brújula cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Valores, expresiones, tipos y variables**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-062`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Los tipos incorporados no expresan todas las reglas del dominio ni eliminan precisión finita. La siguiente clase usa condiciones para elegir comportamiento sin perder casos.
+
+## Glosario
+
+- **valor:** dato concreto manipulable por el programa.
+- **tipo:** conjunto de valores y operaciones asociadas.
+- **expresión:** combinación evaluable que produce un valor.
+- **enlace:** asociación entre un nombre y un objeto.
+- **mutabilidad:** capacidad de cambiar un objeto conservando identidad.
 
 ---
 

@@ -167,6 +167,13 @@
       "status": "verified"
     },
     {
+      "id": "RUST",
+      "title": "The Rust Programming Language",
+      "authority": "Rust project",
+      "url": "https://doc.rust-lang.org/stable/book/",
+      "status": "verified"
+    },
+    {
       "id": "SEMVER",
       "title": "Semantic Versioning 2.0.0",
       "authority": "Semantic Versioning project",
@@ -264,6 +271,7 @@
     ],
     "05": [
       "PYTHON",
+      "RUST",
       "SWEBOK-4A"
     ],
     "06": [

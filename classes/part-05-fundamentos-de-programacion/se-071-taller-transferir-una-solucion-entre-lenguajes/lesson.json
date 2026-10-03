@@ -7,9 +7,11 @@
   "kind": "studio",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 6,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "IEEE-SWEBOK-4A",
+    "PYTHON-3",
+    "RUST-BOOK"
   ],
   "path": "classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes"
 }

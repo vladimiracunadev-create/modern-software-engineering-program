@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 61)}
+EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 73)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -54,6 +54,7 @@ SOURCES = {
     "KANBAN": ("The Kanban Guide", "Kanban Guides", "https://kanbanguides.org/english/"),
     "GIT": ("Git documentation", "Git project", "https://git-scm.com/docs"),
     "PYTHON": ("Python 3 documentation", "Python Software Foundation", "https://docs.python.org/3/"),
+    "RUST": ("The Rust Programming Language", "Rust project", "https://doc.rust-lang.org/stable/book/"),
     "DEVCONTAINERS": ("Development Containers Specification", "Dev Container Specification maintainers", "https://containers.dev/implementors/spec/"),
     "SEMVER": ("Semantic Versioning 2.0.0", "Semantic Versioning project", "https://semver.org/"),
     "SPDX": ("SPDX License List", "Linux Foundation", "https://spdx.org/licenses/"),
@@ -86,7 +87,7 @@ PROFILES = {
     "02": {"artifact": "kit de diagnóstico multiplataforma", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["faro.ps1", "faro.sh", "support-matrix.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH", "SYSTEMD", "WSL"]},
     "03": {"artifact": "traza comentada de una comunicación", "environment": "navegador, curl y utilidades de diagnóstico de red", "files": ["request.txt", "trace.md", "failure-report.md"], "lenses": ["capa", "protocolo", "estado", "observabilidad"], "failure": "atribuir al servidor un fallo que ocurre en resolución, transporte o caché", "sources": ["RFC-8200", "RFC-8446", "RFC-9000", "RFC-9110"]},
     "04": {"artifact": "especificación contrastable de una solución", "environment": "editor, Python opcional y diagramas Mermaid", "files": ["problem.md", "model.md", "checks.md"], "lenses": ["abstracción", "invariante", "algoritmo", "complejidad"], "failure": "resolver un ejemplo y asumir que la solución cubre todo el dominio", "sources": ["MIT-MATH-CS", "SWEBOK-4A"]},
-    "05": {"artifact": "programa pequeño con pruebas y decisiones explicadas", "environment": "Python 3.11+, editor, terminal y Git", "files": ["main.py", "test_main.py", "README.md"], "lenses": ["valor", "control", "función", "prueba"], "failure": "confundir que un ejemplo se ejecute con que sea correcto para el dominio", "sources": ["PYTHON", "SWEBOK-4A"]},
+    "05": {"artifact": "programa pequeño con pruebas y decisiones explicadas", "environment": "Python 3.11+, editor, terminal y Git", "files": ["main.py", "test_main.py", "README.md"], "lenses": ["valor", "control", "función", "prueba"], "failure": "confundir que un ejemplo se ejecute con que sea correcto para el dominio", "sources": ["PYTHON", "RUST", "SWEBOK-4A"]},
     "06": {"artifact": "comparación semántica entre paradigmas", "environment": "Python 3.11+ y un segundo lenguaje elegido", "files": ["case.md", "implementation-a.py", "comparison.md"], "lenses": ["estado", "composición", "efecto", "modelo"], "failure": "forzar un paradigma por moda aunque complique el problema", "sources": ["PYTHON", "SWEBOK-4A"]},
     "07": {"artifact": "implementación medida con casos límite", "environment": "Python 3.11+, unittest y temporizador monotónico", "files": ["algorithm.py", "test_algorithm.py", "benchmark.md"], "lenses": ["estructura", "invariante", "complejidad", "carga"], "failure": "elegir una estructura por costumbre sin medir la carga relevante", "sources": ["MIT-MATH-CS", "PYTHON", "SWEBOK-4A"]},
     "08": {"artifact": "entorno reproducible y sesión de diagnóstico", "environment": "editor o IDE, Python 3.11+, Git y contenedor opcional", "files": ["environment.md", "reproduction.md", "diagnosis.md"], "lenses": ["observación", "reproducción", "aislamiento", "diagnóstico"], "failure": "cambiar varias variables a la vez y perder la causa del fallo", "sources": ["PYTHON", "DEVCONTAINERS", "SWEBOK-4A"]},

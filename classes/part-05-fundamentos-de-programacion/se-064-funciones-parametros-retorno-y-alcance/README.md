@@ -2,206 +2,219 @@
 
 [← SE-063 — Iteración, recursión y recorridos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos/README.md) · [↑ Parte 05](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-064.html) · [SE-065 — Errores, excepciones y resultados explícitos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase construye **Brújula**, la implementación incremental de la especificación Atlas. Recupera `SE-063` y convierte una regla ya modelada en comportamiento ejecutable o comprobable. Trabaja en cambios pequeños: predicción, código, ejecución, evidencia y explicación. Ejecutar sin poder explicar el resultado no completa la práctica.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-063` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, editor, terminal y Git.
+- Python 3.11 o posterior disponible como `python` o `python3`; registra la versión real.
+- Terminal, editor de texto y Git; no se requieren paquetes externos.
+- Comprender el contrato de Atlas: entradas, resultados, errores e invariantes.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Funciones, parámetros, retorno y alcance**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El prototipo de Brújula contiene un bloque que lee argumentos, clasifica, imprime y modifica una lista global. No puede probarse en aislamiento ni reutilizarse. Las funciones deben separar cálculo, coordinación y efectos mediante contratos pequeños.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Funciones y parámetros con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **programa pequeño con pruebas y decisiones explicadas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «confundir que un ejemplo se ejecute con que sea correcto para el dominio» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Funciones | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Parámetros | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Retorno | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Alcance | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar el mecanismo del lenguaje, predecir una ejecución, implementar un caso normal y sus fronteras, diagnosticar un fallo controlado, proteger el comportamiento con evidencia y separar lo transferible de lo específico de Python.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Funciones, parámetros, retorno y alcance"] --> M["Modelo: Funciones"]
-    M --> D["Decisión: parámetros"]
-    D --> E["Evidencia: retorno"]
-    E --> R["Revisión: alcance"]
-    R -->|nueva información| M
+    S[Especificación Atlas] --> V[Valores y contratos]
+    V --> C[Control y transformación]
+    C --> E[Efectos en la frontera]
+    E --> O[Salida observable]
+    O --> T[Prueba y diagnóstico]
+    T -->|defecto o caso nuevo| S
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Funciones, parámetros, retorno y alcance**.
+El código no reemplaza la especificación: la materializa bajo reglas concretas del lenguaje y del entorno. La pregunta de esta clase es: **¿Qué promete una función y qué información debe permanecer fuera de su implementación?**
+
+## Temas y por qué importan
+
+| Lente | Pregunta | Evidencia |
+|---|---|---|
+| valor | ¿qué representa y qué tipo tiene? | ejemplo inspeccionable |
+| control | ¿qué camino o repetición ocurre? | traza de estados |
+| contrato | ¿qué acepta, retorna y rechaza? | casos frontera |
+| efecto | ¿qué cambia fuera del cálculo? | archivo o stream controlado |
+| mantenimiento | ¿cómo se detecta una regresión? | prueba y diff enfocado |
 
 ## Conceptos y decisiones
 
-Programar transforma entradas y estado mediante reglas explícitas; la legibilidad, los tipos y las pruebas hacen observable si el comportamiento coincide con los ejemplos del dominio.
+### 1. Definición, llamada y retorno
 
-La pregunta rectora de esta parte es: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** La respuesta debe
-apoyarse en **ejemplos ejecutables, pruebas y salidas reproducibles**.
+`def` crea una función; la llamada enlaza argumentos a parámetros y ejecuta un nuevo marco. `return` termina y entrega un valor; sin `return` explícito devuelve `None`. Imprimir un resultado no equivale a retornarlo: impide composición y pruebas simples.
 
-### 1. Funciones: modelo
+### 2. Parámetros y argumentos
 
-En esta clase, **Funciones** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Funciones, parámetros, retorno y alcance**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Parámetros posicionales comunican datos esenciales; keyword-only hacen visibles opciones; defaults se evalúan al definir la función. Un default mutable como `items=[]` se comparte entre llamadas. Se usa `None` y se crea la colección dentro.
 
-### 2. Parámetros: mecanismo
+### 3. Alcance y resolución de nombres
 
-En esta clase, **parámetros** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Funciones, parámetros, retorno y alcance**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Python resuelve nombres en ámbitos local, envolvente, global y builtins. Leer global oculta una dependencia; modificarlo exige `global` y aumenta acoplamiento. Brújula pasa configuración y reloj como argumentos para repetir pruebas.
 
-### 3. Retorno: evidencia
+### 4. Pureza práctica y efectos
 
-En esta clase, **retorno** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Funciones, parámetros, retorno y alcance**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una función pura depende de argumentos y retorna sin cambiar exterior; es fácil de razonar. Leer archivo, tiempo o red es efecto. No todos los efectos son malos: se aíslan en adaptadores y el núcleo recibe valores. Así el cálculo se prueba sin red ni disco.
 
-### 4. Alcance: decisión
+### 5. Contrato y cohesión
 
-En esta clase, **alcance** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento debe producirse para entradas normales, límites y errores?» y demostrarse mediante ejemplos ejecutables, pruebas y salidas reproducibles. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Funciones, parámetros, retorno y alcance**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Nombre, tipos, docstring, precondiciones y resultados forman el contrato. Una función cohesiva responde una pregunta a un nivel. Demasiados booleanos suelen indicar políticas mezcladas; se prefiere un objeto de opciones o funciones distintas.
 
 ## Definiciones de trabajo
 
-- **Funciones:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Parámetros:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Retorno:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
-- **Alcance:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante ejemplos ejecutables, pruebas y salidas reproducibles.
+- **parámetro:** nombre local declarado por una función.
+- **argumento:** valor suministrado en una llamada.
+- **retorno:** valor entregado al llamador.
+- **alcance:** región donde un nombre se resuelve.
+- **efecto:** interacción observable fuera del valor retornado.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Estas definiciones describen el uso concreto en Brújula. Cuando Python permita varias conductas, el contrato del programa elige una y la hace visible con validación y pruebas.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Funciones, parámetros, retorno y alcance**:
+```python
+def classify(duration_ms: float, *, budget_ms: float) -> str:
+    # Clasifica una duración ya validada.
+    if duration_ms < 0 or budget_ms <= 0:
+        raise ValueError("durations must be valid")
+    return "slow" if duration_ms > budget_ms else "healthy
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+Transforma un bloque que lee `input`, clasifica e imprime en `parse`, `classify` y `present`. Ejecuta `classify` con 0, límite y límite+1 sin interacción.
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Ejecuta el fragmento en un archivo, no solo en una conversación interactiva. Conserva comando, versión, salida y explicación de cada línea relevante.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Funciones, parámetros, retorno y alcance**. Parte de esta pregunta: **¿qué comportamiento debe producirse para entradas normales, límites y errores?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando ejemplos ejecutables, pruebas y salidas reproducibles. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `main.py` y enlaza la evidencia, no solo la conclusión.
+El núcleo de Brújula recibe observaciones y política y retorna un resultado estructurado. La CLI traduce argumentos y códigos de salida. Un reloj inyectado permite probar deadlines sin esperar tiempo real.
+
+El criterio profesional es que el comportamiento pueda ser consumido, diagnosticado y cambiado sin depender de conocimiento oral ni de estado oculto.
 
 ## Práctica guiada
 
-1. Crea `work/SE-064/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el programa pequeño con pruebas y decisiones explicadas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. marca cálculo y efectos en un bloque.
+2. extrae una función con retorno.
+3. haz opcional un parámetro solo si tiene default seguro.
+4. elimina lectura global.
+5. escribe contrato y tres llamadas frontera.
+6. ejecuta `python -m unittest -v` cuando existan pruebas y registra el resultado exacto.
 
 ## Ejercicios
 
-1. **Fundamental:** define Funciones y parámetros con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `main.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
+2. **Construcción:** añade un caso de Brújula siguiendo el contrato, sin mezclar I/O y cálculo.
+3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
+4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
 
 ## Reto verificable
 
-Entrega el **programa pequeño con pruebas y decisiones explicadas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo controlado y explicación. Otra persona debe poder ejecutar los comandos desde un checkout limpio y relacionar cada salida con una regla de Atlas.
+
+## Demostración guiada
+
+1. Escribe la entrada y la salida esperada antes del código.
+2. Ejecuta el caso mínimo y observa valores intermedios sin dejar prints permanentes en el núcleo.
+3. Añade el caso frontera que obligue a decidir, no solo a teclear.
+4. Introduce el fallo descrito abajo y confirma que la evidencia lo detecta.
+5. Corrige, ejecuta toda la suite y revisa el diff por efectos no deseados.
+
+## Preguntas frecuentes
+
+### ¿Que el programa se ejecute significa que está correcto?
+
+No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+
+### ¿Debo memorizar toda la sintaxis?
+
+No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+
+### ¿Las anotaciones de tipo validan JSON?
+
+No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **confundir que un ejemplo se ejecute con que sea correcto para el dominio**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Define `def add(item, items=[])` y llama dos veces. Observa estado compartido. Cambia default a `None`, crea una lista nueva y prueba identidad entre resultados.
+
+Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+|---|---|---|
+| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
+| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
+| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
+| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
+| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
 
 ## Entorno y archivos clave
 
-Entorno de referencia: Python 3.11+, editor, terminal y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
 ```text
 work/SE-064/
-├── README.md
-│   ├── main.py
-│   ├── test_main.py
-│   ├── README.md
-├── activity.yaml
-└── rubric.json
+├── compass/
+│   ├── __init__.py
+│   ├── domain.py
+│   ├── cli.py
+│   └── __main__.py
+├── tests/
+│   └── test_compass.py
+└── README.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `main.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;
+- limita tamaño, profundidad y tiempo de entradas no confiables;
+- separa stdout parseable de stderr y redacta datos sensibles;
+- ofrece mensajes accionables y no dependas solo de color;
+- preserva autorización como regla del núcleo, no como checkbox de UI;
+- no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | predicción y explicación de ejecución |
+| comportamiento | normal, límite e inválido según contrato |
+| diseño | cálculo separado de efectos y dependencias visibles |
+| diagnóstico | fallo mínimo, causa y regresión |
+| reproducibilidad | versión, comandos y salidas desde checkout limpio |
 
-Entrega el directorio `work/SE-064/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+No se asciende a `EXECUTABLE` o `TESTED` solo por incluir snippets y comandos. Esos estados requieren artefactos ejecutados y evidencia verificable más allá de esta guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python Tutorial](https://docs.python.org/3/tutorial/): referencia oficial para el mecanismo y los límites explicados.
+- [Python Language Reference](https://docs.python.org/3/reference/): referencia oficial para el mecanismo y los límites explicados.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+La documentación oficial define el lenguaje y la biblioteca; no demuestra que Brújula cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Funciones, parámetros, retorno y alcance**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-065`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Funciones no sustituyen un diseño de módulos ni validación de fronteras. La próxima clase convierte fallos esperados e inesperados en contratos de error.
+
+## Glosario
+
+- **parámetro:** nombre local declarado por una función.
+- **argumento:** valor suministrado en una llamada.
+- **retorno:** valor entregado al llamador.
+- **alcance:** región donde un nombre se resuelve.
+- **efecto:** interacción observable fuera del valor retornado.
 
 ---
 

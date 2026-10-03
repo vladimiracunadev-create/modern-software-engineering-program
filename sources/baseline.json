@@ -36,6 +36,14 @@
       "used_for": ["runtime-observation", "reproducible-labs", "measurement"]
     },
     {
+      "id": "RUST-BOOK",
+      "title": "The Rust Programming Language",
+      "authority": "Rust project",
+      "url": "https://doc.rust-lang.org/stable/book/",
+      "status": "living",
+      "used_for": ["language-transfer", "ownership", "error-handling", "testing"]
+    },
+    {
       "id": "JVM-SE25",
       "title": "The Java Virtual Machine Specification, Java SE 25",
       "authority": "Oracle and JCP",

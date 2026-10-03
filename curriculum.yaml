@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 60
+    "approved": 72
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -658,7 +658,7 @@
           "title": "Valores, expresiones, tipos y variables",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-061-valores-expresiones-tipos-y-variables"
         },
         {
@@ -667,7 +667,7 @@
           "title": "Control de flujo y decisiones",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones"
         },
         {
@@ -676,7 +676,7 @@
           "title": "Iteración, recursión y recorridos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-063-iteracion-recursion-y-recorridos"
         },
         {
@@ -685,7 +685,7 @@
           "title": "Funciones, parámetros, retorno y alcance",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-064-funciones-parametros-retorno-y-alcance"
         },
         {
@@ -694,7 +694,7 @@
           "title": "Errores, excepciones y resultados explícitos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-065-errores-excepciones-y-resultados-explicitos"
         },
         {
@@ -703,7 +703,7 @@
           "title": "Colecciones y transformación de datos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-066-colecciones-y-transformacion-de-datos"
         },
         {
@@ -712,7 +712,7 @@
           "title": "Entrada, salida y serialización",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-067-entrada-salida-y-serializacion"
         },
         {
@@ -721,7 +721,7 @@
           "title": "Módulos, interfaces y separación de responsabilidades",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-068-modulos-interfaces-y-separacion-de-responsabilidades"
         },
         {
@@ -730,7 +730,7 @@
           "title": "Pruebas tempranas y diseño por ejemplos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos"
         },
         {
@@ -739,7 +739,7 @@
           "title": "Legibilidad, nombres y mantenimiento básico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-070-legibilidad-nombres-y-mantenimiento-basico"
         },
         {
@@ -748,7 +748,7 @@
           "title": "Taller: transferir una solución entre lenguajes",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-071-taller-transferir-una-solucion-entre-lenguajes"
         },
         {
@@ -757,7 +757,7 @@
           "title": "Proyecto: herramienta de línea de comandos probada",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada"
         }
       ]

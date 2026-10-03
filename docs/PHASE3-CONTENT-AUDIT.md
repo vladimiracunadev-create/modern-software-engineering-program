@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–04 aportan 60 clases `GUIDED` y las 120 restantes aún
+`SE-001`–`SE-180`: las partes 00–05 aportan 72 clases `GUIDED` y las 108 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 60 | Partes 00–04 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 72 | Partes 00–05 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 60 | Partes 00–04 aprobadas; las otras 120 permanecen `PLANNED` |
+| clases aprobadas | 72 | Partes 00–05 aprobadas; las otras 108 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -111,6 +111,18 @@ exige distinguir ejemplos empíricos de argumentos generales; el proyecto termin
 una matriz problema–regla–caso–evidencia lista para implementar. Tras revisar las
 doce clases y la publicación íntegra de la parte, avanzaron a `GUIDED` sin atribuir
 ejecución a los modelos o pruebas de papel.
+
+## Avance editorial de la Parte 05
+
+Las clases `SE-061`–`SE-072` se reconstruyeron en `content/part-05/` como una
+implementación incremental de Atlas llamada `Brújula`. El recorrido desarrolla
+valores, control, iteración, funciones, resultados de error, colecciones, I/O,
+serialización, módulos, pruebas y legibilidad; el taller contrasta Python con Rust y
+el proyecto integra una CLI con contratos de streams y códigos de salida. Cada clase
+incluye código explicado, predicción previa, fallo controlado y caso de regresión,
+pero la promoción se limita a `GUIDED`: los snippets no se presentan como un paquete
+publicado ni como evidencia automática de ejecución multiplataforma. Tras revisar
+contenido, progresión, fuentes oficiales y portal, las doce clases superaron el gate.
 
 ## Orden de reconstrucción
 

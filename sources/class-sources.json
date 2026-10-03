@@ -676,100 +676,124 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-049": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-050": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-051": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-052": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-053": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-054": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-055": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-056": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-057": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-058": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-059": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-060": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
-        "ACM-IEEE-SE2014"
+        "MIT-MATH-CS",
+        "MIT-ALG-6006",
+        "MIT-TOC-18404"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-061": {
       "status": "SEEDED_BASELINE",

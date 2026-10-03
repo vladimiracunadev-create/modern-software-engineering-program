@@ -66,11 +66,11 @@ def main() -> int:
         failures.append("site catalog does not contain 480 classes")
     for number in range(1, 181):
         draft = (SITE / "classes" / f"SE-{number:03d}.html").read_text(encoding="utf-8")
-        maturity_marker = "GUIDED" if number <= 48 else "PLANNED · EN REVISIÓN"
+        maturity_marker = "GUIDED" if number <= 60 else "PLANNED · EN REVISIÓN"
         for marker in (maturity_marker, "Problema auténtico", "Ejercicios", "Fuentes"):
             if marker not in draft:
                 failures.append(f"phase 3 page lacks published draft section: SE-{number:03d} -> {marker}")
-        if number <= 48:
+        if number <= 60:
             for marker in ("Antes de empezar", "lesson-progress", "lesson-context", "concept-map"):
                 if marker not in draft:
                     failures.append(f"guided page lacks pedagogical presentation: SE-{number:03d} -> {marker}")

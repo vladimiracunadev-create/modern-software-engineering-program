@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–03 aportan 48 clases `GUIDED` y las 132 restantes aún
+`SE-001`–`SE-180`: las partes 00–04 aportan 60 clases `GUIDED` y las 120 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 48 | Partes 00–03 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 60 | Partes 00–04 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 48 | Partes 00–03 aprobadas; las otras 132 permanecen `PLANNED` |
+| clases aprobadas | 60 | Partes 00–04 aprobadas; las otras 120 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -99,6 +99,18 @@ sustentan, y las prácticas limitan captura, privilegios y datos sensibles. Tras
 revisión completa de clases, progresión, enlaces y publicación, las doce clases
 avanzaron a `GUIDED` sin afirmar que los laboratorios se ejecutaron en redes de
 producción.
+
+## Avance editorial de la Parte 04
+
+Las clases `SE-049`–`SE-060` se reconstruyeron en `content/part-04/` alrededor de
+`Atlas`, un planificador que transforma las trazas de Nexo en decisiones
+contrastables. La progresión conecta descomposición, lógica, conjuntos, relaciones,
+grafos, contratos, inducción, corrección, terminación, complejidad, heurísticas,
+máquinas de estado y registro de hipótesis. Cada clase contiene un contraejemplo y
+exige distinguir ejemplos empíricos de argumentos generales; el proyecto termina en
+una matriz problema–regla–caso–evidencia lista para implementar. Tras revisar las
+doce clases y la publicación íntegra de la parte, avanzaron a `GUIDED` sin atribuir
+ejecución a los modelos o pruebas de papel.
 
 ## Orden de reconstrucción
 

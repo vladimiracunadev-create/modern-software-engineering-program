@@ -7,10 +7,12 @@
   "kind": "project",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 8,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
     "IEEE-SWEBOK-4A",
-    "ACM-IEEE-SE2014"
+    "MIT-MATH-CS",
+    "MIT-ALG-6006",
+    "MIT-TOC-18404"
   ],
   "path": "classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-060-proyecto-especificacion-y-solucion-contrastable"
 }

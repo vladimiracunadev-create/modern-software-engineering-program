@@ -2,206 +2,207 @@
 
 [← SE-049 — Descomposición, abstracción y reconocimiento de patrones](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-050.html) · [SE-051 — Conjuntos, relaciones, funciones y grafos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-051-conjuntos-relaciones-funciones-y-grafos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Atlas**, el planificador de diagnóstico que recibe la evidencia de Nexo y la convierte en una siguiente decisión explicable. Recupera `SE-049`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-049` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor, Python opcional y diagramas Mermaid.
+- Poder separar hecho, interpretación, hipótesis y decisión.
+- Manejar tablas, diagramas y pseudocódigo legible; Python es opcional.
+- Trabajar con datos sintéticos del caso Atlas y conservar cada versión en Git.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Lógica proposicional, predicados e inferencia**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Atlas recibe reglas como «si DNS falla, la petición no llega al servidor» y «si la petición no llegó, DNS falló». La segunda frase invierte una implicación y produce un diagnóstico falso. El sistema necesita lógica suficiente para detectar inferencias inválidas y condiciones incompletas.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Lógica y proposicional con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **especificación contrastable de una solución** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «resolver un ejemplo y asumir que la solución cubre todo el dominio» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Lógica | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Proposicional | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Predicados | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Inferencia | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al finalizar podrás explicar el mecanismo con ejemplo y contraejemplo; construir un modelo con dominio y límites; derivar una prueba que pueda refutarlo; comparar al menos dos representaciones; y entregar una decisión cuya evidencia pueda revisar otra persona.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Lógica proposicional, predicados e inferencia"] --> M["Modelo: Lógica"]
-    M --> D["Decisión: proposicional"]
-    D --> E["Evidencia: predicados"]
-    E --> R["Revisión: inferencia"]
-    R -->|nueva información| M
+    P[Problema situado] --> A[Abstracción explícita]
+    A --> R[Reglas e invariantes]
+    R --> S[Solución o estrategia]
+    S --> C[Casos y contraejemplos]
+    C --> E[Evidencia de aceptación]
+    E -->|modelo insuficiente| A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Lógica proposicional, predicados e inferencia**.
+El mapa separa el problema de su representación. Los casos no reemplazan reglas; las reglas no prueban que el problema esté bien encuadrado. La pregunta de esta clase es: **¿La conclusión se sigue de las premisas o solo parece razonable?**
+
+## Temas y por qué importan
+
+| Lente | Pregunta | Evidencia |
+|---|---|---|
+| dominio | ¿qué entradas y estados existen? | vocabulario y particiones |
+| estructura | ¿qué relaciones se conservan? | modelo interpretado |
+| regla | ¿qué debe ser cierto? | contrato o invariante |
+| estrategia | ¿qué pasos producen el resultado? | pseudocódigo y traza |
+| límite | ¿dónde falla el argumento? | contraejemplo y caso límite |
 
 ## Conceptos y decisiones
 
-Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio.
+### 1. Proposición y valor de verdad
 
-La pregunta rectora de esta parte es: **¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?** La respuesta debe
-apoyarse en **casos límite, contraejemplos, argumento de terminación y costo medido o acotado**.
+Una proposición es una afirmación evaluable como verdadera o falsa bajo una interpretación. «La red es mala» no tiene criterio; `dns_outcome = timeout` sí. La negación debe abarcar una afirmación definida: no observar respuesta no equivale automáticamente a observar ausencia.
 
-### 1. Lógica: modelo
+### 2. Conectivos e implicación
 
-En esta clase, **Lógica** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Lógica proposicional, predicados e inferencia**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Conjunción exige ambas condiciones; disyunción inclusiva acepta una o ambas; implicación `P → Q` solo excluye P verdadera con Q falsa. La implicación no afirma causalidad. Su contraposición es equivalente; su conversa no lo es.
 
-### 2. Proposicional: mecanismo
+### 3. Predicados y cuantificadores
 
-En esta clase, **proposicional** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Lógica proposicional, predicados e inferencia**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un predicado depende de variables: `responde(host, prueba)`. `para todo` exige cubrir el dominio declarado; `existe` se demuestra con un testigo. Pasar de «falló en un cliente» a «falla para todos» cambia el cuantificador sin evidencia.
 
-### 3. Predicados: evidencia
+### 4. Reglas de inferencia
 
-En esta clase, **predicados** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Lógica proposicional, predicados e inferencia**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Modus ponens aplica P y P→Q para obtener Q; modus tollens usa P→Q y no Q para obtener no P. Afirmar el consecuente y negar el antecedente son errores frecuentes. Atlas almacena premisas junto a fuente y momento, porque una regla válida con una premisa obsoleta produce una conclusión inútil.
 
-### 4. Inferencia: decisión
+### 5. Lógica de tres estados operativos
 
-En esta clase, **inferencia** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Lógica proposicional, predicados e inferencia**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+En diagnóstico a menudo existe desconocido además de verdadero/falso. Desconocido no debe colapsar a falso. Atlas distingue `sí`, `no` y `sin evidencia`, y define cómo cada operador propaga incertidumbre para no cerrar una rama prematuramente.
 
 ## Definiciones de trabajo
 
-- **Lógica:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Proposicional:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Predicados:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Inferencia:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+- **proposición:** afirmación con valor de verdad bajo una interpretación.
+- **predicado:** afirmación parametrizada.
+- **implicación:** relación lógica que excluye antecedente verdadero y consecuente falso.
+- **cuantificador:** operador sobre elementos de un dominio.
+- **inferencia:** derivación de una conclusión desde premisas.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones fijan el uso en Atlas. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Lógica proposicional, predicados e inferencia**:
+Formaliza: «si DNS resolvió y el puerto aceptó, entonces puede iniciarse TLS». Construye una tabla con cuatro combinaciones y explica por qué TLS ausente no identifica cuál antecedente falló.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de resolver, predice el resultado y la propiedad que debería conservarse. Después marca qué parte del resultado procede de la regla y cuál depende del ejemplo.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Lógica proposicional, predicados e inferencia**. Parte de esta pregunta: **¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando casos límite, contraejemplos, argumento de terminación y costo medido o acotado. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `problem.md` y enlaza la evidencia, no solo la conclusión.
+Las reglas de Atlas no disparan acciones destructivas. Una conclusión incluye las premisas usadas, su vigencia y nivel de evidencia. Si falta una premisa, propone una prueba; si dos reglas concluyen estados incompatibles, eleva el conflicto en lugar de escoger silenciosamente.
+
+La entrega profesional hace visible el costo de simplificar. Incluye al menos una alternativa descartada y la condición que obligaría a revisar la decisión.
 
 ## Práctica guiada
 
-1. Crea `work/SE-050/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el especificación contrastable de una solución con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. convierte cinco frases ambiguas en proposiciones.
+2. identifica antecedente y consecuente.
+3. construye tabla de verdad de una regla compuesta.
+4. encuentra una conversa inválida en un diagnóstico.
+5. añade desconocido y define el comportamiento de la regla.
+6. solicita una revisión adversarial y corrige el modelo sin borrar la versión que falló.
 
 ## Ejercicios
 
-1. **Fundamental:** define Lógica y proposicional con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `problem.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
+2. **Construcción:** aplica el mecanismo a un caso de Atlas no usado en la explicación.
+3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
+4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
 
 ## Reto verificable
 
-Entrega el **especificación contrastable de una solución** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder reconstruir dominio, supuestos, regla, resultado y límite; además debe encontrar qué caso refutaría la solución sin preguntarte oralmente.
 
-## Fallo controlado y diagnóstico
+## Demostración guiada
 
-Provoca de forma segura este fallo: **resolver un ejemplo y asumir que la solución cubre todo el dominio**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor, Python opcional y diagramas Mermaid. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-050/
-├── README.md
-│   ├── problem.md
-│   ├── model.md
-│   ├── checks.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `problem.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-050/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **Mathematics for Computer Science** — MIT OpenCourseWare. [https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+1. Declara el dominio y selecciona un caso pequeño calculable a mano.
+2. Ejecuta la estrategia paso a paso y conserva estados intermedios.
+3. Comprueba el resultado contra la definición, no contra intuición.
+4. Introduce el fallo controlado y localiza la primera regla violada.
+5. Repara el modelo y repite el caso original y el contraejemplo.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Formal significa usar símbolos difíciles?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Un conjunto grande de pruebas demuestra corrección?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+### ¿Puedo implementar antes de especificar todo?
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+
+## Fallo controlado y diagnóstico
+
+Implementa deliberadamente `si no hay HTTP, entonces DNS falló`. Contradícela con un puerto cerrado y muestra que la conclusión no se sigue. Reemplázala por reglas que preserven alternativas.
+
+Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+|---|---|---|
+| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
+| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
+| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
+| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
+| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+
+## Entorno y archivos clave
+
+```text
+work/SE-050/
+├── problem.md     # contexto, dominio, supuestos y exclusiones
+├── model.md       # definiciones, reglas, diagrama y estrategia
+├── checks.md      # ejemplos, contraejemplos y aceptación
+└── review.md      # objeciones y revisión del modelo
+```
+
+El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
+
+## Seguridad, ética y accesibilidad
+
+- usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;
+- trata autorización y privacidad como invariantes, no como pasos opcionales;
+- registra a quién perjudica un falso positivo, falso negativo o prioridad automática;
+- ofrece tablas y texto alternativo para diagramas y símbolos;
+- define mecanismo de revisión humana y apelación para recomendaciones;
+- no uses un modelo parcial para justificar una decisión irreversible.
+
+## Transferencia
+
+Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres de Atlas. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+
+## Evaluación y evidencia
+
+| Criterio | Para aprobar |
+|---|---|
+| precisión | dominio, términos y cuantificadores explícitos |
+| mecanismo | pasos y relaciones explican el resultado |
+| corrección | invariantes, casos o argumento adecuados a la afirmación |
+| límites | contraejemplo, costo y supuestos visibles |
+| revisión | trazabilidad y objeciones preservadas |
+
+Completar archivos no concede aprobación. La evidencia debe sostener la afirmación exacta, y la revisión de otra persona debe poder contradecirla.
+
+## Fuentes
+
+- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/): sustenta las definiciones, argumentos y límites usados aquí.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): sustenta las definiciones, argumentos y límites usados aquí.
+
+Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo de Atlas. Cada aplicación se sostiene con el artefacto y sus casos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Lógica proposicional, predicados e inferencia**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-051`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+La lógica valida forma, no verdad de premisas ni causalidad. La siguiente clase modela dominios, asociaciones y rutas mediante conjuntos, relaciones, funciones y grafos.
+
+## Glosario
+
+- **proposición:** afirmación con valor de verdad bajo una interpretación.
+- **predicado:** afirmación parametrizada.
+- **implicación:** relación lógica que excluye antecedente verdadero y consecuente falso.
+- **cuantificador:** operador sobre elementos de un dominio.
+- **inferencia:** derivación de una conclusión desde premisas.
 
 ---
 

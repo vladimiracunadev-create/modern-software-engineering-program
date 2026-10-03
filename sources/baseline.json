@@ -252,6 +252,30 @@
       "used_for": ["curriculum", "learning-outcomes"]
     },
     {
+      "id": "MIT-MATH-CS",
+      "title": "Mathematics for Computer Science",
+      "authority": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+      "status": "stable-course-reference",
+      "used_for": ["logic", "proof", "sets", "graphs", "state-machines"]
+    },
+    {
+      "id": "MIT-ALG-6006",
+      "title": "Introduction to Algorithms 6.006",
+      "authority": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/",
+      "status": "stable-course-reference",
+      "used_for": ["algorithms", "correctness", "complexity", "problem-modeling"]
+    },
+    {
+      "id": "MIT-TOC-18404",
+      "title": "Theory of Computation 18.404J",
+      "authority": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/",
+      "status": "stable-course-reference",
+      "used_for": ["decidability", "complexity", "computational-limits"]
+    },
+    {
       "id": "ISO-25010-2023",
       "title": "ISO/IEC 25010:2023 Systems and software Quality Requirements and Evaluation",
       "authority": "ISO",

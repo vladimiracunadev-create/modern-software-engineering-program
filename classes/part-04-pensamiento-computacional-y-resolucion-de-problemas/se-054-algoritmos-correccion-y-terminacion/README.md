@@ -2,206 +2,208 @@
 
 [← SE-053 — Recursión, inducción y razonamiento estructural](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-053-recursion-induccion-y-razonamiento-estructural/README.md) · [↑ Parte 04](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-054.html) · [SE-055 — Complejidad temporal y espacial →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-055-complejidad-temporal-y-espacial/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Atlas**, el planificador de diagnóstico que recibe la evidencia de Nexo y la convierte en una siguiente decisión explicable. Recupera `SE-053`: escribe qué artefacto dejó, qué supuesto permanece abierto y qué propiedad debe sobrevivir al nuevo modelo. La matemática se usa para restringir interpretaciones y encontrar errores; no como ornamentación.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-053` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor, Python opcional y diagramas Mermaid.
+- Poder separar hecho, interpretación, hipótesis y decisión.
+- Manejar tablas, diagramas y pseudocódigo legible; Python es opcional.
+- Trabajar con datos sintéticos del caso Atlas y conservar cada versión en Git.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Algoritmos, corrección y terminación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Atlas encuentra una secuencia de pruebas en los ejemplos, pero eso no demuestra que siempre conserve hipótesis correctas ni que termine. El equipo debe separar especificación, corrección parcial, terminación y corrección total.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Algoritmos y corrección con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **especificación contrastable de una solución** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «resolver un ejemplo y asumir que la solución cubre todo el dominio» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Algoritmos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Corrección | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Terminación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Abstracción | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al finalizar podrás explicar el mecanismo con ejemplo y contraejemplo; construir un modelo con dominio y límites; derivar una prueba que pueda refutarlo; comparar al menos dos representaciones; y entregar una decisión cuya evidencia pueda revisar otra persona.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Algoritmos, corrección y terminación"] --> M["Modelo: Algoritmos"]
-    M --> D["Decisión: corrección"]
-    D --> E["Evidencia: terminación"]
-    E --> R["Revisión: abstracción"]
-    R -->|nueva información| M
+    P[Problema situado] --> A[Abstracción explícita]
+    A --> R[Reglas e invariantes]
+    R --> S[Solución o estrategia]
+    S --> C[Casos y contraejemplos]
+    C --> E[Evidencia de aceptación]
+    E -->|modelo insuficiente| A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Algoritmos, corrección y terminación**.
+El mapa separa el problema de su representación. Los casos no reemplazan reglas; las reglas no prueban que el problema esté bien encuadrado. La pregunta de esta clase es: **¿Por qué el procedimiento termina y satisface el contrato para toda entrada válida?**
+
+## Temas y por qué importan
+
+| Lente | Pregunta | Evidencia |
+|---|---|---|
+| dominio | ¿qué entradas y estados existen? | vocabulario y particiones |
+| estructura | ¿qué relaciones se conservan? | modelo interpretado |
+| regla | ¿qué debe ser cierto? | contrato o invariante |
+| estrategia | ¿qué pasos producen el resultado? | pseudocódigo y traza |
+| límite | ¿dónde falla el argumento? | contraejemplo y caso límite |
 
 ## Conceptos y decisiones
 
-Resolver un problema exige modelar entradas, salidas, estado, invariantes y costo; un ejemplo favorable no demuestra corrección para todo el dominio.
+### 1. Problema, instancia y algoritmo
 
-La pregunta rectora de esta parte es: **¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?** La respuesta debe
-apoyarse en **casos límite, contraejemplos, argumento de terminación y costo medido o acotado**.
+El problema define entradas válidas y salidas aceptables; una instancia es un caso concreto; el algoritmo es un procedimiento finito y no ambiguo. Un programa incorpora representación, errores y recursos. Confundirlos hace que una limitación de implementación parezca imposibilidad del problema.
 
-### 1. Algoritmos: modelo
+### 2. Corrección parcial
 
-En esta clase, **Algoritmos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Algoritmos, corrección y terminación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si el algoritmo termina, la salida satisface la poscondición. Para un bucle se demuestra que el invariante inicia, se preserva y junto con la condición de salida implica el resultado. Probar cinco casos aporta evidencia, no universalidad.
 
-### 2. Corrección: mecanismo
+### 3. Terminación
 
-En esta clase, **corrección** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Algoritmos, corrección y terminación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una variante toma valores en un orden bien fundado y disminuye en cada iteración. `pendientes` puede servir si ningún paso vuelve a insertar indefinidamente. Un timeout detiene una ejecución, pero no demuestra que el algoritmo termine para cualquier entrada.
 
-### 3. Terminación: evidencia
+### 4. Corrección total
 
-En esta clase, **terminación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Algoritmos, corrección y terminación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Combina corrección parcial y terminación. También requiere que operaciones primitivas cumplan sus contratos. Un argumento informal debe declarar dominio y supuestos; si el grafo es finito y acíclico, eso forma parte de la precondición.
 
-### 4. Abstracción: decisión
+### 5. Refinamiento y trazabilidad
 
-En esta clase, **abstracción** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?» y demostrarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Algoritmos, corrección y terminación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Se parte de una especificación abstracta y se eligen pasos que la preservan. Cada optimización debe mantener invariantes y salida observable. Atlas vincula requisitos con lemas, casos límite y pruebas, de modo que cambiar una regla revele qué argumento revisar.
 
 ## Definiciones de trabajo
 
-- **Algoritmos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Corrección:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Terminación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
-- **Abstracción:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, contraejemplos, argumento de terminación y costo medido o acotado.
+- **algoritmo:** procedimiento finito y no ambiguo para un problema.
+- **corrección parcial:** si termina, satisface la especificación.
+- **terminación:** propiedad de finalizar para toda entrada del dominio.
+- **variante:** medida bien fundada que disminuye.
+- **corrección total:** corrección parcial más terminación.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones fijan el uso en Atlas. Si una fuente usa otra convención, documenta la traducción. Una palabra definida no equivale a una propiedad demostrada.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Algoritmos, corrección y terminación**:
+Especifica búsqueda lineal de una prueba con cierto tag. Declara invariante sobre el prefijo revisado y variante `n-i`; demuestra resultado encontrado o ausencia al terminar.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de resolver, predice el resultado y la propiedad que debería conservarse. Después marca qué parte del resultado procede de la regla y cuál depende del ejemplo.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Algoritmos, corrección y terminación**. Parte de esta pregunta: **¿qué debe mantenerse verdadero y bajo qué conjunto de entradas?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando casos límite, contraejemplos, argumento de terminación y costo medido o acotado. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `problem.md` y enlaza la evidencia, no solo la conclusión.
+El planificador de Atlas selecciona el nodo autorizado de menor costo entre candidatos. El argumento prueba que nunca retorna fuera del conjunto elegible y que elimina un candidato por paso. Las pruebas cubren empate, vacío, costo límite y datos inválidos.
+
+La entrega profesional hace visible el costo de simplificar. Incluye al menos una alternativa descartada y la condición que obligaría a revisar la decisión.
 
 ## Práctica guiada
 
-1. Crea `work/SE-054/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el especificación contrastable de una solución con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. separa problema de implementación.
+2. declara pre y poscondición.
+3. formula invariante.
+4. elige variante bien fundada.
+5. mapea cada parte del argumento a un caso de prueba.
+6. solicita una revisión adversarial y corrige el modelo sin borrar la versión que falló.
 
 ## Ejercicios
 
-1. **Fundamental:** define Algoritmos y corrección con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `problem.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
+2. **Construcción:** aplica el mecanismo a un caso de Atlas no usado en la explicación.
+3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
+4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
 
 ## Reto verificable
 
-Entrega el **especificación contrastable de una solución** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder reconstruir dominio, supuestos, regla, resultado y límite; además debe encontrar qué caso refutaría la solución sin preguntarte oralmente.
 
-## Fallo controlado y diagnóstico
+## Demostración guiada
 
-Provoca de forma segura este fallo: **resolver un ejemplo y asumir que la solución cubre todo el dominio**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: editor, Python opcional y diagramas Mermaid. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-054/
-├── README.md
-│   ├── problem.md
-│   ├── model.md
-│   ├── checks.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `problem.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-054/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **Mathematics for Computer Science** — MIT OpenCourseWare. [https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+1. Declara el dominio y selecciona un caso pequeño calculable a mano.
+2. Ejecuta la estrategia paso a paso y conserva estados intermedios.
+3. Comprueba el resultado contra la definición, no contra intuición.
+4. Introduce el fallo controlado y localiza la primera regla violada.
+5. Repara el modelo y repite el caso original y el contraejemplo.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Formal significa usar símbolos difíciles?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Un conjunto grande de pruebas demuestra corrección?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+### ¿Puedo implementar antes de especificar todo?
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+
+## Fallo controlado y diagnóstico
+
+Permite que una prueba fallida se reinserte sin reducir intentos. El invariante puede conservarse y aun así no terminar. Añade presupuesto decreciente y explica por qué llega a cero.
+
+Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa | Corrección |
+|---|---|---|
+| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
+| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
+| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
+| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
+| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+
+## Entorno y archivos clave
+
+```text
+work/SE-054/
+├── problem.md     # contexto, dominio, supuestos y exclusiones
+├── model.md       # definiciones, reglas, diagrama y estrategia
+├── checks.md      # ejemplos, contraejemplos y aceptación
+└── review.md      # objeciones y revisión del modelo
+```
+
+El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
+
+## Seguridad, ética y accesibilidad
+
+- usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;
+- trata autorización y privacidad como invariantes, no como pasos opcionales;
+- registra a quién perjudica un falso positivo, falso negativo o prioridad automática;
+- ofrece tablas y texto alternativo para diagramas y símbolos;
+- define mecanismo de revisión humana y apelación para recomendaciones;
+- no uses un modelo parcial para justificar una decisión irreversible.
+
+## Transferencia
+
+Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres de Atlas. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
+
+## Evaluación y evidencia
+
+| Criterio | Para aprobar |
+|---|---|
+| precisión | dominio, términos y cuantificadores explícitos |
+| mecanismo | pasos y relaciones explican el resultado |
+| corrección | invariantes, casos o argumento adecuados a la afirmación |
+| límites | contraejemplo, costo y supuestos visibles |
+| revisión | trazabilidad y objeciones preservadas |
+
+Completar archivos no concede aprobación. La evidencia debe sostener la afirmación exacta, y la revisión de otra persona debe poder contradecirla.
+
+## Fuentes
+
+- [MIT 6.006 — Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/): sustenta las definiciones, argumentos y límites usados aquí.
+- [MIT 6.042J — Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/): sustenta las definiciones, argumentos y límites usados aquí.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): sustenta las definiciones, argumentos y límites usados aquí.
+
+Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo de Atlas. Cada aplicación se sostiene con el artefacto y sus casos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Algoritmos, corrección y terminación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-055`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Una demostración depende de un modelo preciso y no garantiza rendimiento adecuado. La siguiente clase analiza recursos conforme crece la entrada.
+
+## Glosario
+
+- **algoritmo:** procedimiento finito y no ambiguo para un problema.
+- **corrección parcial:** si termina, satisface la especificación.
+- **terminación:** propiedad de finalizar para toda entrada del dominio.
+- **variante:** medida bien fundada que disminuye.
+- **corrección total:** corrección parcial más terminación.
 
 ---
 

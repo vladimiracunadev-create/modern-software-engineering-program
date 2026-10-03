@@ -40,6 +40,7 @@ GENITIVE = {
 def replace_labels(text: str) -> str:
     text = text.replace("Faro-01", "incidente-de-diagnóstico-01")
     for old, replacement in GENITIVE.items():
+        text = text.replace(f"caso {old}", f"caso {replacement}")
         text = text.replace(f"de **{old}**", f"{replacement.replace('de ', 'de **', 1).replace('del ', 'del **', 1)}**")
         text = text.replace(f"de `{old}`", f"{replacement}")
         text = text.replace(f"de {old}", replacement)
@@ -72,9 +73,12 @@ def replace_labels(text: str) -> str:
             "Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**.",
         "Esta clase continúa **SDK y CLI versionados**, el caso conductor de la Parte 09.":
             "Esta clase continúa el **SDK y la CLI versionados de la Parte 09**.",
+        "Esta clase continúa **modelo de decisión diagnóstica**, el planificador de diagnóstico que recibe la evidencia de la petición observable de extremo a extremo y la convierte en una siguiente decisión explicable.":
+            "Esta clase continúa el **modelo de decisión diagnóstica**, que convierte la evidencia de la petición observable de extremo a extremo en una siguiente decisión explicable.",
     }
     for before, after in continuity.items():
         text = text.replace(before, after)
+    text = text.replace("caso el modelo de decisión diagnóstica", "caso del modelo de decisión diagnóstica")
     return text
 
 

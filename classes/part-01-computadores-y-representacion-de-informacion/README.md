@@ -92,86 +92,158 @@ demuestra?
 
 ## Guía razonada clase por clase
 
-### SE-013 — Arquitectura básica de un computador moderno
+La parte sigue el mismo dato de Pulso desde su significado hasta el hardware, el runtime
+y la medición. Cada clase declara qué capa explica una transición, qué observación puede
+respaldarla y qué límite impide convertir un modelo didáctico en una afirmación sobre
+cualquier máquina.
+
+### Bloque 1 — Representar información sin perder significado
+
+#### SE-013 — Arquitectura básica de un computador moderno
 
 Construye el mapa inicial: entrada/salida, CPU, memoria, almacenamiento e interfaces.
 Distingue arquitectura visible para el software de microarquitectura interna. Pulso se
 usa para seguir una solicitud desde el fuente hasta una salida, declarando qué capa
 explica cada transición. Produce `machine-map.md`.
 
-### SE-014 — Bits, bytes, bases numéricas y representación
+El estudiante anota qué conoce por interfaz y qué solo infiere de la implementación. El
+mapa evita que «la CPU hizo» sustituya una cadena causal. `SE-014` entra en la unidad más
+pequeña del recorrido y pregunta qué convierte patrones binarios en información.
+
+#### SE-014 — Bits, bytes, bases numéricas y representación
 
 Explica que un bit no contiene significado por sí solo. El contrato decide si una
 secuencia representa entero, texto, color o instrucción. Se practican conversión
 posicional, signo, rango, endianess y serialización con `int.to_bytes`. Produce un
 cuaderno de conversiones verificadas, no una lista de equivalencias memorizadas.
 
-### SE-015 — Texto, Unicode, codificaciones y mojibake
+La práctica predice bytes antes de inspeccionarlos y comprueba ida y vuelta, rango y
+orden. Un mismo patrón produce interpretaciones distintas bajo contratos distintos.
+`SE-015` aplica ese principio al texto, donde carácter visible y bytes no coinciden de
+manera uno-a-uno.
+
+#### SE-015 — Texto, Unicode, codificaciones y mojibake
 
 Separa carácter abstracto, punto de código, unidad de código, secuencia de bytes y
 grafema visible. Pulso recibe `Matrícula ✓`; se inspecciona UTF-8, normalización y el
 mecanismo exacto del mojibake. Produce casos de ida y vuelta y una política de error.
 
-### SE-016 — Enteros, coma flotante, precisión y errores numéricos
+El estudiante reproduce la degradación decodificando con el contrato incorrecto, en
+lugar de tratarla como caracteres mágicos. También prueba normalización y grafemas que
+ocupan varios puntos de código. `SE-016` conserva la pregunta por representación y la
+lleva a cantidades y precisión.
+
+#### SE-016 — Enteros, coma flotante, precisión y errores numéricos
 
 Compara enteros de ancho fijo con enteros arbitrarios y explica representación de coma
 flotante, redondeo y valores especiales. Pulso calcula un promedio que parece exacto y
 se decide entre binario, decimal y entero escalado según el dominio. Produce pruebas de
 frontera y un registro de decisión numérica.
 
-### SE-017 — CPU, instrucciones, registros y ciclos de ejecución
+La evidencia incluye desbordamiento conceptual, acumulación de redondeo y comparación
+inadecuada. No se declara «float impreciso» como regla absoluta: se relacionan rango,
+error y dominio. `SE-017` observa cómo esas operaciones se expresan en el contrato de
+instrucciones de una máquina.
+
+### Bloque 2 — Seguir la ejecución y el movimiento de datos
+
+#### SE-017 — CPU, instrucciones, registros y ciclos de ejecución
 
 Presenta la ISA como contrato software–máquina y la distingue de la implementación.
 Una traza didáctica sigue carga, operación, comparación y salto, mientras pipeline y
 ejecución especulativa se explican como optimizaciones que no cambian el resultado
 arquitectónico correcto. Produce una traza estado por estado.
 
-### SE-018 — Memoria, cachés, almacenamiento y jerarquías
+Cada paso declara registros y memoria antes y después, evitando confundir bytecode con
+instrucciones físicas. El modelo explica semántica visible, no tiempos exactos de una
+microarquitectura. `SE-018` amplía la traza hacia la jerarquía que alimenta y conserva
+esos datos.
+
+#### SE-018 — Memoria, cachés, almacenamiento y jerarquías
 
 Relaciona latencia, capacidad, costo, persistencia y localidad. Pulso procesa datos
 contiguos y dispersos; la medición controla tamaño y repeticiones sin atribuir a una
 caché concreta lo que Python no permite observar directamente. Produce un mapa de
 jerarquía y un experimento de conjunto de trabajo.
 
-### SE-019 — Procesos, hilos, interrupciones y entrada/salida
+El estudiante predice qué patrón favorece localidad y contrasta la tendencia, registrando
+ruido y entorno. No atribuye la diferencia a un nivel de caché sin contadores adecuados.
+`SE-019` incorpora procesos, planificación y operaciones de entrada/salida que pueden
+hacer esperar a la ejecución.
+
+#### SE-019 — Procesos, hilos, interrupciones y entrada/salida
 
 Ubica el aislamiento del proceso, el estado compartido entre hilos, la planificación y
 la frontera de llamada al sistema. Pulso pasa de cálculo puro a leer y escribir. Se
 comparan I/O bloqueante y concurrencia sin afirmar paralelismo automático. Produce una
 línea temporal causal.
 
-### SE-020 — Compilación, interpretación, bytecode y JIT
+Pulso registra creación, lectura, espera, escritura y terminación, diferenciando trabajo
+de CPU de tiempo bloqueado. El estudiante marca qué recursos se comparten y cuáles se
+aíslan. `SE-020` retrocede desde el proceso en marcha para explicar cómo el fuente llegó
+a una forma ejecutable.
+
+### Bloque 3 — Traducir, administrar y medir la ejecución
+
+#### SE-020 — Compilación, interpretación, bytecode y JIT
 
 Rompe la falsa oposición compilado–interpretado: un sistema puede traducir en varias
 etapas. Con `ast` y `dis`, Pulso se observa como fuente, árbol y bytecode de CPython;
 esas instrucciones no se confunden con la ISA física. Produce un mapa de traducción con
 artefactos y decisiones por etapa.
 
-### SE-021 — Runtimes, máquinas virtuales y recolección de basura
+La comparación muestra que traducción anticipada y ejecución por un runtime pueden
+coexistir. El estudiante conserva versión y artefacto, y señala qué optimización no
+observó. `SE-021` estudia los servicios que mantienen tipos, llamadas, errores y memoria
+durante esa ejecución.
+
+#### SE-021 — Runtimes, máquinas virtuales y recolección de basura
 
 Explica los servicios que sostienen ejecución: carga, tipos, excepciones, llamadas,
 asignación y memoria automática. Se comparan conteo de referencias y trazado, y se
 separa liberar memoria de cerrar recursos. Pulso mide asignaciones con `tracemalloc` y
 produce un mapa de vida de objetos.
 
-### SE-022 — Rendimiento, consumo energético y límites físicos
+Pulso crea referencias, ciclos y recursos externos para distinguir alcanzabilidad de
+liberación y liberación de cierre oportuno. La evidencia no promete cuándo ocurrirá una
+colección. `SE-022` transforma todas estas capas en preguntas medibles sobre tiempo,
+trabajo y recursos.
+
+#### SE-022 — Rendimiento, consumo energético y límites físicos
 
 Convierte “rápido” en latencia, throughput y trabajo útil bajo condiciones declaradas.
 Se controla calentamiento, ruido y variación; la energía se trata como una frontera de
 medición distinta y no se inventan julios desde tiempo de pared. Produce un protocolo
 de benchmark y un análisis de cuello de botella.
 
-### SE-023 — Taller: observar un programa desde el código hasta la máquina
+El estudiante formula una hipótesis, controla carga y entorno, reporta distribución y
+declara qué señal energética no tiene disponible. Optimizar sin perfil se rechaza.
+`SE-023` reunirá representación, traducción, proceso y recursos en una observación de
+extremo a extremo.
+
+### Bloque 4 — Integrar observaciones y sostener una conclusión
+
+#### SE-023 — Taller: observar un programa desde el código hasta la máquina
 
 Integra las diez lentes. El estudiante ejecuta únicamente Pulso, inspecciona bytes,
 AST, bytecode, proceso, tiempo y memoria, y mantiene una columna separada para aquello
 que infiere. Una revisión cruzada intenta reconstruir tres hallazgos.
 
-### SE-024 — Proyecto: informe reproducible de comportamiento y recursos
+El taller alinea artefactos en una sola historia y obliga a citar la herramienta o
+interfaz que sustenta cada observación. Una contradicción no se oculta: genera una nueva
+hipótesis. `SE-024` convierte esa práctica guiada en una investigación pequeña elegida y
+defendida por el estudiante.
+
+#### SE-024 — Proyecto: informe reproducible de comportamiento y recursos
 
 El proyecto formula una pregunta propia sobre representación o recursos, compara dos
 hipótesis y entrega código mínimo, datos, entorno, resultados y límites. La aprobación
 depende de reproducibilidad y calidad causal, no de obtener un resultado llamativo.
+
+Una segunda persona ejecuta desde un entorno declarado y revisa si los datos permiten la
+conclusión. El informe separa observado, inferido y no medido. Ese hábito prepara la
+Parte 2, donde Pulso se convierte en Faro y el entorno operativo pasa de contexto a
+objeto explícito de diagnóstico.
 
 ## Resumen operativo del recorrido
 

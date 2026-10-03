@@ -904,88 +904,148 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-073": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-074": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-075": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-076": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-077": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-078": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-079": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-080": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-081": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-082": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-083": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-084": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "RUST-BOOK",
+        "SWI-PROLOG",
+        "REACTIVEX",
+        "ERLANG-PROCESSES"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-085": {
       "status": "SEEDED_BASELINE",

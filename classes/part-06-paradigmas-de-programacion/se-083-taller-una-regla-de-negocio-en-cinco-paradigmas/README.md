@@ -2,206 +2,214 @@
 
 [← SE-082 — Selección y combinación responsable de paradigmas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-083.html) · [SE-084 — Proyecto: comparación semántica con pruebas comunes →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la evidencia de la clase anterior, añade una decisión propia de **Taller: una regla de negocio en cinco paradigmas** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué diferencias reales aparecen al implementar la misma regla en cinco modelos?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-082` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+ y un segundo lenguaje elegido.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: una regla de negocio en cinco paradigmas**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo discute paradigmas con ejemplos distintos. Prisma fija un solo contrato: dada evidencia autorizada, devolver acción, explicación o error; luego compara imperativo, objetos, funcional, reglas y eventos.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Taller y regla con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **comparación semántica entre paradigmas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «forzar un paradigma por moda aunque complique el problema» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Regla | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Negocio | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Cinco | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Taller: una regla de negocio en cinco paradigmas"] --> M["Modelo: Taller"]
-    M --> D["Decisión: regla"]
-    D --> E["Evidencia: negocio"]
-    E --> R["Revisión: cinco"]
-    R -->|nueva información| M
+    N1[Fixture semántico común] --> N2[Implementaciones idiomáticas] --> N3[Trazas comparables] --> N4[Cambio dirigido] --> N5[Retrospectiva basada en evidencia]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: una regla de negocio en cinco paradigmas**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Fixture semántico común | El taller comienza por entradas y salidas canónicas, no por código. | Evidencia o contraejemplo registrado |
+| Implementaciones idiomáticas | Equivalencia no exige traducir línea por línea. | Evidencia o contraejemplo registrado |
+| Trazas comparables | Se registra entrada normalizada, reglas consideradas, decisión, error y efectos. | Evidencia o contraejemplo registrado |
+| Cambio dirigido | Después de lograr equivalencia se introduce una regla nueva y se observa el diff. | Evidencia o contraejemplo registrado |
+| Retrospectiva basada en evidencia | La conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.
+### 1. Fixture semántico común
 
-La pregunta rectora de esta parte es: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** La respuesta debe
-apoyarse en **implementaciones equivalentes, pruebas comunes y comparación de compromisos**.
+El taller comienza por entradas y salidas canónicas, no por código. Cada implementación debe cubrir autorización falsa, evidencia vacía, empate y dato inválido. Si un modelo no puede representar un caso, esa imposibilidad es un hallazgo y no se elimina del fixture.
 
-### 1. Taller: modelo
+### 2. Implementaciones idiomáticas
 
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Equivalencia no exige traducir línea por línea. Cada versión usa el mecanismo propio: transición explícita, objeto que protege invariantes, composición de valores, tabla de reglas o evento correlacionado. Aun así, no puede inventar una política distinta para lucir mejor.
 
-### 2. Regla: mecanismo
+### 3. Trazas comparables
 
-En esta clase, **regla** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Se registra entrada normalizada, reglas consideradas, decisión, error y efectos. La traza debe ser estable y no revelar detalles internos irrelevantes. Comparar solo el resultado final oculta por qué dos programas coinciden por accidente.
 
-### 3. Negocio: evidencia
+### 4. Cambio dirigido
 
-En esta clase, **negocio** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Después de lograr equivalencia se introduce una regla nueva y se observa el diff. El objetivo es medir superficie de cambio, no velocidad de tecleo. Una solución que exige tocar cinco lugares revela dispersión aunque conserve el resultado.
 
-### 4. Cinco: decisión
+### 5. Retrospectiva basada en evidencia
 
-En esta clase, **cinco** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: una regla de negocio en cinco paradigmas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+La conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos. `Me gustó más` puede registrarse como preferencia, no como evidencia. Las diferencias del lenguaje y librerías quedan separadas de las del paradigma.
 
 ## Definiciones de trabajo
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Regla:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Negocio:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Cinco:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **fixture semántico común:** el taller comienza por entradas y salidas canónicas, no por código.
+- **implementaciones idiomáticas:** equivalencia no exige traducir línea por línea.
+- **trazas comparables:** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
+- **cambio dirigido:** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
+- **retrospectiva basada en evidencia:** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Prisma. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Taller: una regla de negocio en cinco paradigmas**:
+```python
+cases = [
+    ({"authorized": True, "latency_ms": 900}, {"action": "inspect-transport"}),
+    ({"authorized": False, "latency_ms": 900}, {"error": "not-authorized"}),
+    ({"authorized": True}, {"error": "insufficient-evidence"}),
+]
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: una regla de negocio en cinco paradigmas**. Parte de esta pregunta: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando implementaciones equivalentes, pruebas comunes y comparación de compromisos. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `case.md` y enlaza la evidencia, no solo la conclusión.
+En Prisma, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-083/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el comparación semántica entre paradigmas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Taller y regla con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `case.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una regla de Prisma sin alterar los fixtures anteriores.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **comparación semántica entre paradigmas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Prisma recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Un paradigma determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+
+### ¿Menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todos los lenguajes mencionados?
+
+No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **forzar un paradigma por moda aunque complique el problema**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Permite que la versión basada en eventos responda antes de validar autorización. El fixture de resultado puede pasar por orden favorable; añade traza causal y ejecuta autorización tardía para revelar el defecto.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+ y un segundo lenguaje elegido. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-083/
 ├── README.md
-│   ├── case.md
-│   ├── implementation-a.py
-│   ├── comparison.md
-├── activity.yaml
-└── rubric.json
+├── prisma/
+│   ├── domain.py
+│   └── se_083.py
+├── fixtures/cases.json
+├── tests/test_se_083.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `case.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la sintaxis se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-083/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python Language Reference](https://docs.python.org/3/reference/) — Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation.
+- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project.
+- [SWI-Prolog Reference Manual](https://www.swi-prolog.org/pldoc/man?section=intro) — Hechos, reglas, unificación, búsqueda y límites operacionales; autoridad: SWI-Prolog project.
+- [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
+- [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Prisma sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Taller: una regla de negocio en cinco paradigmas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-084`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El taller compara un cambio y una carga pequeña; no demuestra mantenibilidad a largo plazo. El proyecto siguiente amplía pruebas, criterios y reporte para una comparación defendible.
+
+## Glosario
+
+- **fixture semántico común:** el taller comienza por entradas y salidas canónicas, no por código.
+- **implementaciones idiomáticas:** equivalencia no exige traducir línea por línea.
+- **trazas comparables:** se registra entrada normalizada, reglas consideradas, decisión, error y efectos.
+- **cambio dirigido:** después de lograr equivalencia se introduce una regla nueva y se observa el diff.
+- **retrospectiva basada en evidencia:** la conclusión relaciona claridad, pruebas, diagnóstico y costo de cambio con artefactos concretos.
 
 ---
 

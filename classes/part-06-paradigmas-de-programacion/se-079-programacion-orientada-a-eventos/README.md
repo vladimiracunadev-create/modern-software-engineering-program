@@ -2,206 +2,214 @@
 
 [← SE-078 — Programación lógica y resolución](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-079.html) · [SE-080 — Programación reactiva y flujos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-080-programacion-reactiva-y-flujos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación orientada a eventos** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo conservar causalidad y control cuando el flujo lo inicia un evento externo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-078` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+ y un segundo lenguaje elegido.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Programación orientada a eventos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Prisma recibe observaciones desde terminal, archivo y temporizador. Los callbacks escriben el mismo estado y una notificación tardía revive una evaluación que ya fue cerrada.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Programación y orientada con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **comparación semántica entre paradigmas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «forzar un paradigma por moda aunque complique el problema» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Programación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Orientada | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Eventos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Estado | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Programación orientada a eventos"] --> M["Modelo: Programación"]
-    M --> D["Decisión: orientada"]
-    D --> E["Evidencia: eventos"]
-    E --> R["Revisión: estado"]
-    R -->|nueva información| M
+    N1[Evento, productor / manejador] --> N2[Bucle de eventos / cola] --> N3[Callbacks, promesas / corrutinas] --> N4[Orden, duplicados e idempotencia] --> N5[Cancelación / ciclo de vida]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Programación orientada a eventos**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Evento, productor y manejador | Un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos. | Evidencia o contraejemplo registrado |
+| Bucle de eventos y cola | El runtime extrae eventos de una cola y ejecuta manejadores. | Evidencia o contraejemplo registrado |
+| Callbacks, promesas y corrutinas | Son formas distintas de expresar continuación. | Evidencia o contraejemplo registrado |
+| Orden, duplicados e idempotencia | La llegada no garantiza necesariamente el orden de producción y un evento puede repetirse. | Evidencia o contraejemplo registrado |
+| Cancelación y ciclo de vida | Suscribirse crea una obligación de cancelar o desconectar. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.
+### 1. Evento, productor y manejador
 
-La pregunta rectora de esta parte es: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** La respuesta debe
-apoyarse en **implementaciones equivalentes, pruebas comunes y comparación de compromisos**.
+Un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos. El productor no debería asumir qué consumidores existen. Un manejador transforma el evento o solicita un efecto, y debe declarar si puede repetirse.
 
-### 1. Programación: modelo
+### 2. Bucle de eventos y cola
 
-En esta clase, **Programación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación orientada a eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El runtime extrae eventos de una cola y ejecuta manejadores. Un manejador bloqueante retrasa todos los siguientes en un bucle de un solo hilo. Delegar trabajo permite avanzar, pero introduce concurrencia, orden parcial y necesidad de correlación.
 
-### 2. Orientada: mecanismo
+### 3. Callbacks, promesas y corrutinas
 
-En esta clase, **orientada** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación orientada a eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Son formas distintas de expresar continuación. `async/await` mejora lectura secuencial, pero no vuelve síncrono el sistema ni elimina cancelación. Una corrutina que no cede o una promesa ignorada puede bloquear o perder fallos tanto como un callback mal diseñado.
 
-### 3. Eventos: evidencia
+### 4. Orden, duplicados e idempotencia
 
-En esta clase, **eventos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación orientada a eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La llegada no garantiza necesariamente el orden de producción y un evento puede repetirse. Un manejador idempotente reconoce la identidad o hace que repetir produzca el mismo estado observable. Descartar duplicados sin ventana ni almacenamiento definido también puede perder trabajo legítimo.
 
-### 4. Estado: decisión
+### 5. Cancelación y ciclo de vida
 
-En esta clase, **estado** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación orientada a eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Suscribirse crea una obligación de cancelar o desconectar. Una tarea cerrada no debe aceptar eventos tardíos. Prisma usa un token o estado terminal, propaga cancelación y espera limpieza; matar el proceso no es estrategia de lifecycle.
 
 ## Definiciones de trabajo
 
-- **Programación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Orientada:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Eventos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Estado:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **evento, productor y manejador:** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
+- **bucle de eventos y cola:** el runtime extrae eventos de una cola y ejecuta manejadores.
+- **callbacks, promesas y corrutinas:** son formas distintas de expresar continuación.
+- **orden, duplicados e idempotencia:** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
+- **cancelación y ciclo de vida:** suscribirse crea una obligación de cancelar o desconectar.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Prisma. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Programación orientada a eventos**:
+```python
+async def on_observation(event, state):
+    if state.closed or event.id in state.seen:
+        return state
+    decision = choose_next(event.payload)
+    return state.record(event.id, decision)
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Programación orientada a eventos**. Parte de esta pregunta: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando implementaciones equivalentes, pruebas comunes y comparación de compromisos. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `case.md` y enlaza la evidencia, no solo la conclusión.
+En Prisma, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-079/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el comparación semántica entre paradigmas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Programación y orientada con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `case.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una regla de Prisma sin alterar los fixtures anteriores.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **comparación semántica entre paradigmas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Prisma recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Un paradigma determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+
+### ¿Menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todos los lenguajes mencionados?
+
+No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **forzar un paradigma por moda aunque complique el problema**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Programa dos callbacks: cerrar evaluación y registrar observación. Invierte su orden y reproduce la resurrección. Añade estado terminal e identidad de evento; prueba ambas intercalaciones.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+ y un segundo lenguaje elegido. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-079/
 ├── README.md
-│   ├── case.md
-│   ├── implementation-a.py
-│   ├── comparison.md
-├── activity.yaml
-└── rubric.json
+├── prisma/
+│   ├── domain.py
+│   └── se_079.py
+├── fixtures/cases.json
+├── tests/test_se_079.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `case.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la sintaxis se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-079/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python Language Reference](https://docs.python.org/3/reference/) — Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation.
+- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project.
+- [SWI-Prolog Reference Manual](https://www.swi-prolog.org/pldoc/man?section=intro) — Hechos, reglas, unificación, búsqueda y límites operacionales; autoridad: SWI-Prolog project.
+- [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
+- [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Prisma sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Programación orientada a eventos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-080`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+La orientación a eventos organiza reacciones discretas, pero no compone necesariamente flujos largos, presión ni transformación continua. La siguiente clase modela secuencias observables.
+
+## Glosario
+
+- **evento, productor y manejador:** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
+- **bucle de eventos y cola:** el runtime extrae eventos de una cola y ejecuta manejadores.
+- **callbacks, promesas y corrutinas:** son formas distintas de expresar continuación.
+- **orden, duplicados e idempotencia:** la llegada no garantiza necesariamente el orden de producción y un evento puede repetirse.
+- **cancelación y ciclo de vida:** suscribirse crea una obligación de cancelar o desconectar.
 
 ---
 

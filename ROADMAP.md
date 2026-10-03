@@ -43,8 +43,8 @@ las clases continúa correctamente marcado `PLANNED`.
 - fuentes vinculadas a afirmaciones, temario completamente desarrollado y práctica reproducible;
 - un commit independiente por parte, con CI y revisión cualitativa.
 
-Estado verificable: 72 clases `GUIDED` en las partes 00–05, 108 borradores públicos en
-las partes 06–14 y 408 clases `PLANNED` en el programa. La declaración histórica
+Estado verificable: 84 clases `GUIDED` en las partes 00–06, 96 borradores públicos en
+las partes 07–14 y 396 clases `PLANNED` en el programa. La declaración histórica
 de 156 clases `GUIDED` fue retirada porque la estructura generada no alcanzaba el
 estándar pedagógico permanente.
 

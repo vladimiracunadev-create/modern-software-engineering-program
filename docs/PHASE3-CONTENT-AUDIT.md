@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–05 aportan 72 clases `GUIDED` y las 108 restantes aún
+`SE-001`–`SE-180`: las partes 00–06 aportan 84 clases `GUIDED` y las 96 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 72 | Partes 00–05 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 84 | Partes 00–06 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 72 | Partes 00–05 aprobadas; las otras 108 permanecen `PLANNED` |
+| clases aprobadas | 84 | Partes 00–06 aprobadas; las otras 96 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -123,6 +123,18 @@ incluye código explicado, predicción previa, fallo controlado y caso de regres
 pero la promoción se limita a `GUIDED`: los snippets no se presentan como un paquete
 publicado ni como evidencia automática de ejecución multiplataforma. Tras revisar
 contenido, progresión, fuentes oficiales y portal, las doce clases superaron el gate.
+
+## Avance editorial de la Parte 06
+
+Las clases `SE-073`–`SE-084` se reconstruyeron en `content/part-06/` alrededor de
+`Prisma`, un motor que expresa el mismo contrato mediante modelos imperativos,
+procedurales, orientados a objetos, funcionales, declarativos, lógicos, orientados a
+eventos, reactivos y de actores. Las clases explican estado, control, composición,
+unificación, backpressure, cancelación y aislamiento con contraejemplos propios. El
+taller fija fixtures comunes y el proyecto termina con corpus, propiedades, trazas e
+informe de decisión contextual. Tras revisar las doce clases, sus fuentes primarias,
+la continuidad y la publicación íntegra, avanzaron a `GUIDED` sin declarar un
+paradigma ganador universal ni atribuir benchmarks no ejecutados.
 
 ## Orden de reconstrucción
 

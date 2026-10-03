@@ -7,9 +7,14 @@
   "kind": "project",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 8,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "IEEE-SWEBOK-4A",
+    "PYTHON-3",
+    "RUST-BOOK",
+    "SWI-PROLOG",
+    "REACTIVEX",
+    "ERLANG-PROCESSES"
   ],
   "path": "classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes"
 }

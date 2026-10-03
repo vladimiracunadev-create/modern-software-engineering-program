@@ -44,6 +44,30 @@
       "used_for": ["language-transfer", "ownership", "error-handling", "testing"]
     },
     {
+      "id": "SWI-PROLOG",
+      "title": "SWI-Prolog Reference Manual",
+      "authority": "SWI-Prolog project",
+      "url": "https://www.swi-prolog.org/pldoc/man?section=intro",
+      "status": "living",
+      "used_for": ["logic-programming", "unification", "resolution", "constraints"]
+    },
+    {
+      "id": "REACTIVEX",
+      "title": "ReactiveX Observable Contract",
+      "authority": "ReactiveX project",
+      "url": "https://reactivex.io/documentation/contract.html",
+      "status": "living",
+      "used_for": ["reactive-programming", "observables", "stream-contracts", "backpressure"]
+    },
+    {
+      "id": "ERLANG-PROCESSES",
+      "title": "Erlang System Documentation: Processes",
+      "authority": "Erlang/OTP project",
+      "url": "https://www.erlang.org/doc/system/ref_man_processes.html",
+      "status": "living",
+      "used_for": ["actors", "message-passing", "mailboxes", "supervision"]
+    },
+    {
       "id": "JVM-SE25",
       "title": "The Java Virtual Machine Specification, Java SE 25",
       "authority": "Oracle and JCP",

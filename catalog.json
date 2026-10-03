@@ -7,14 +7,14 @@
   "classes": 480,
   "estimated_hours": 2160,
   "class_status": {
-    "GUIDED": 72,
-    "PLANNED": 408
+    "GUIDED": 84,
+    "PLANNED": 396
   },
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 72
+    "approved": 84
   },
   "phase_4_target": {
     "first_class": "SE-181",

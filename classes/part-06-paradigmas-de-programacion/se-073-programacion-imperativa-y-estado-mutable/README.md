@@ -2,206 +2,214 @@
 
 [← SE-072 — Proyecto: herramienta de línea de comandos probada](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-05-fundamentos-de-programacion/se-072-proyecto-herramienta-de-linea-de-comandos-probada/README.md) · [↑ Parte 06](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-073.html) · [SE-074 — Programación procedural y descomposición funcional →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Prisma**, el caso conductor de la Parte 06. Recupera la evidencia de la clase anterior, añade una decisión propia de **Programación imperativa y estado mutable** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo cambia una decisión cuando el estado se modifica paso a paso?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-072` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+ y un segundo lenguaje elegido.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Programación imperativa y estado mutable**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Prisma acumula observaciones en una estructura compartida. Dos ramas actualizan prioridad y autorización; el resultado depende del orden y un retorno temprano deja el contador incoherente.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Programación y imperativa con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **comparación semántica entre paradigmas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «forzar un paradigma por moda aunque complique el problema» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Programación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Imperativa | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Estado | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Mutable | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Programación imperativa y estado mutable"] --> M["Modelo: Programación"]
-    M --> D["Decisión: imperativa"]
-    D --> E["Evidencia: estado"]
-    E --> R["Revisión: mutable"]
-    R -->|nueva información| M
+    N1[Estado como memoria de la ejecución] --> N2[Comandos, expresiones / secuencia] --> N3[Asignación, aliasing / mutación] --> N4[Invariantes alrededor de transiciones] --> N5[Estado local, compartido / persistente]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Programación imperativa y estado mutable**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Estado como memoria de la ejecución | Una variable mutable conserva información entre instrucciones. | Evidencia o contraejemplo registrado |
+| Comandos, expresiones y secuencia | Un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles. | Evidencia o contraejemplo registrado |
+| Asignación, aliasing y mutación | Dos nombres pueden referirse al mismo objeto mutable. | Evidencia o contraejemplo registrado |
+| Invariantes alrededor de transiciones | La disciplina no consiste en prohibir mutación, sino en acotarla. | Evidencia o contraejemplo registrado |
+| Estado local, compartido y persistente | El estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Un paradigma organiza estado, control y composición; ninguno es universal y una solución puede combinar modelos si conserva semántica comprensible.
+### 1. Estado como memoria de la ejecución
 
-La pregunta rectora de esta parte es: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** La respuesta debe
-apoyarse en **implementaciones equivalentes, pruebas comunes y comparación de compromisos**.
+Una variable mutable conserva información entre instrucciones. El mecanismo es temporal: leer obtiene el valor actual, asignar lo reemplaza y la siguiente instrucción observa la nueva versión. Esa comodidad exige identificar propietario, vida útil e invariante; de otro modo el resultado depende de un orden que el nombre de la función no revela.
 
-### 1. Programación: modelo
+### 2. Comandos, expresiones y secuencia
 
-En esta clase, **Programación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación imperativa y estado mutable**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles. La secuencia impone un antes y un después. Reordenar dos comandos solo es seguro cuando no comparten dependencias ni efectos, una condición que debe demostrarse y no asumirse.
 
-### 2. Imperativa: mecanismo
+### 3. Asignación, aliasing y mutación
 
-En esta clase, **imperativa** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación imperativa y estado mutable**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Dos nombres pueden referirse al mismo objeto mutable. Modificar mediante un alias cambia lo visto por el otro sin que exista una nueva asignación local. Copia superficial, copia profunda e inmutabilidad resuelven problemas distintos; copiar indiscriminadamente también puede romper identidad o elevar el costo.
 
-### 3. Estado: evidencia
+### 4. Invariantes alrededor de transiciones
 
-En esta clase, **estado** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación imperativa y estado mutable**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La disciplina no consiste en prohibir mutación, sino en acotarla. Antes de una transición se comprueban precondiciones; después deben sostenerse invariantes como prioridad no negativa y autorización preservada. Una función que deja estado intermedio observable rompe el razonamiento incluso si luego intenta repararlo.
 
-### 4. Mutable: decisión
+### 5. Estado local, compartido y persistente
 
-En esta clase, **mutable** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?» y demostrarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Programación imperativa y estado mutable**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+El estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso. Tratarlos como equivalentes oculta concurrencia, fallos parciales y recuperación. Prisma empieza con estado local y documenta explícitamente cuándo una frontera obliga a otro modelo.
 
 ## Definiciones de trabajo
 
-- **Programación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Imperativa:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Estado:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
-- **Mutable:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante implementaciones equivalentes, pruebas comunes y comparación de compromisos.
+- **estado como memoria de la ejecución:** una variable mutable conserva información entre instrucciones.
+- **comandos, expresiones y secuencia:** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
+- **asignación, aliasing y mutación:** dos nombres pueden referirse al mismo objeto mutable.
+- **invariantes alrededor de transiciones:** la disciplina no consiste en prohibir mutación, sino en acotarla.
+- **estado local, compartido y persistente:** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Prisma. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Programación imperativa y estado mutable**:
+```python
+state = {"score": 2, "authorized": True}
+state["score"] += 3
+if state["authorized"] and state["score"] >= 5:
+    state["next"] = "inspect-transport"
+assert state == {"score": 5, "authorized": True, "next": "inspect-transport"}
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Programación imperativa y estado mutable**. Parte de esta pregunta: **¿qué modelo vuelve más explícitas las reglas, efectos y cambios de estado?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando implementaciones equivalentes, pruebas comunes y comparación de compromisos. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `case.md` y enlaza la evidencia, no solo la conclusión.
+En Prisma, una recomendación contiene acción, evidencia usada, versión de política y explicación. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si devuelve una cadena: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-073/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el comparación semántica entre paradigmas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Programación y imperativa con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `case.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una regla de Prisma sin alterar los fixtures anteriores.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **comparación semántica entre paradigmas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Prisma recibe una observación autorizada, evalúa reglas y devuelve una recomendación explicable. En esta clase, ejecuta el caso `latency_ms=900`, el límite `latency_ms=800`, el contraejemplo `authorized=false` y una entrada incompleta. Cambia después una sola regla y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta la comparación final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Un paradigma determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+
+### ¿Menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todos los lenguajes mencionados?
+
+No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **forzar un paradigma por moda aunque complique el problema**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Introduce un retorno después de incrementar `score` pero antes de registrar `next`. La salida parece un rechazo normal, aunque el estado quedó parcialmente modificado. Captura el estado antes/después, formula la invariante y mueve la transición a una operación atómica a nivel del dominio.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+ y un segundo lenguaje elegido. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-073/
 ├── README.md
-│   ├── case.md
-│   ├── implementation-a.py
-│   ├── comparison.md
-├── activity.yaml
-└── rubric.json
+├── prisma/
+│   ├── domain.py
+│   └── se_073.py
+├── fixtures/cases.json
+├── tests/test_se_073.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `case.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la sintaxis se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-073/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Python Language Reference](https://docs.python.org/3/reference/) — Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation.
+- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/) — Ownership, enums, traits, errores y concurrencia sin carreras de datos; autoridad: Rust project.
+- [SWI-Prolog Reference Manual](https://www.swi-prolog.org/pldoc/man?section=intro) — Hechos, reglas, unificación, búsqueda y límites operacionales; autoridad: SWI-Prolog project.
+- [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
+- [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Prisma sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Programación imperativa y estado mutable**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-074`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+La ejecución secuencial no explica por sí sola concurrencia, persistencia ni consistencia distribuida. La siguiente clase reduce superficie mutable mediante procedimientos con contratos estrechos.
+
+## Glosario
+
+- **estado como memoria de la ejecución:** una variable mutable conserva información entre instrucciones.
+- **comandos, expresiones y secuencia:** un comando produce un efecto; una expresión produce un valor, aunque algunos lenguajes permiten mezclar ambos papeles.
+- **asignación, aliasing y mutación:** dos nombres pueden referirse al mismo objeto mutable.
+- **invariantes alrededor de transiciones:** la disciplina no consiste en prohibir mutación, sino en acotarla.
+- **estado local, compartido y persistente:** el estado local desaparece al terminar la activación; el compartido puede ser observado por varios componentes; el persistente sobrevive al proceso.
 
 ---
 

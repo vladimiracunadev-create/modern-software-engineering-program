@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 72
+    "approved": 84
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -776,7 +776,7 @@
           "title": "Programación imperativa y estado mutable",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-073-programacion-imperativa-y-estado-mutable"
         },
         {
@@ -785,7 +785,7 @@
           "title": "Programación procedural y descomposición funcional",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-074-programacion-procedural-y-descomposicion-funcional"
         },
         {
@@ -794,7 +794,7 @@
           "title": "Orientación a objetos, mensajes y encapsulación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-075-orientacion-a-objetos-mensajes-y-encapsulacion"
         },
         {
@@ -803,7 +803,7 @@
           "title": "Programación funcional, composición e inmutabilidad",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-076-programacion-funcional-composicion-e-inmutabilidad"
         },
         {
@@ -812,7 +812,7 @@
           "title": "Programación declarativa y basada en reglas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-077-programacion-declarativa-y-basada-en-reglas"
         },
         {
@@ -821,7 +821,7 @@
           "title": "Programación lógica y resolución",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-078-programacion-logica-y-resolucion"
         },
         {
@@ -830,7 +830,7 @@
           "title": "Programación orientada a eventos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-079-programacion-orientada-a-eventos"
         },
         {
@@ -839,7 +839,7 @@
           "title": "Programación reactiva y flujos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-080-programacion-reactiva-y-flujos"
         },
         {
@@ -848,7 +848,7 @@
           "title": "Programación concurrente y actores",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-081-programacion-concurrente-y-actores"
         },
         {
@@ -857,7 +857,7 @@
           "title": "Selección y combinación responsable de paradigmas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-082-seleccion-y-combinacion-responsable-de-paradigmas"
         },
         {
@@ -866,7 +866,7 @@
           "title": "Taller: una regla de negocio en cinco paradigmas",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-083-taller-una-regla-de-negocio-en-cinco-paradigmas"
         },
         {
@@ -875,7 +875,7 @@
           "title": "Proyecto: comparación semántica con pruebas comunes",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-06-paradigmas-de-programacion/se-084-proyecto-comparacion-semantica-con-pruebas-comunes"
         }
       ]

@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | 84 `GUIDED`; 276 borradores de fases 3–4; 120 scaffolds |
+| Clases | 480 | 96 `GUIDED`; 264 borradores de fases 3–4; 120 scaffolds |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 

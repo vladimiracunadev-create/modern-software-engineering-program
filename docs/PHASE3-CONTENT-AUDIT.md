@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–06 aportan 84 clases `GUIDED` y las 96 restantes aún
+`SE-001`–`SE-180`: las partes 00–07 aportan 96 clases `GUIDED` y las 84 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 84 | Partes 00–06 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 96 | Partes 00–07 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 84 | Partes 00–06 aprobadas; las otras 96 permanecen `PLANNED` |
+| clases aprobadas | 96 | Partes 00–07 aprobadas; las otras 84 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -135,6 +135,18 @@ taller fija fixtures comunes y el proyecto termina con corpus, propiedades, traz
 informe de decisión contextual. Tras revisar las doce clases, sus fuentes primarias,
 la continuidad y la publicación íntegra, avanzaron a `GUIDED` sin declarar un
 paradigma ganador universal ni atribuir benchmarks no ejecutados.
+
+## Avance editorial de la Parte 07
+
+Las clases `SE-085`–`SE-096` se reconstruyeron en `content/part-07/` alrededor de
+`Orbe`, un motor de priorización que obliga a elegir representación desde operaciones
+e invariantes. El recorrido conecta secuencias, colas, heaps, hashing, árboles,
+tries, grafos, búsqueda, ordenamiento, selección, estrategias voraces, programación
+dinámica, backtracking, divide y vencerás, índices, estructuras probabilísticas y
+persistentes. El taller decide por perfiles de carga y el proyecto entrega una
+biblioteca comparada con propiedades, casos límite y benchmarks interpretados. Tras
+revisión completa, las doce clases avanzaron a `GUIDED` sin convertir mediciones
+locales en promesas universales de rendimiento.
 
 ## Orden de reconstrucción
 

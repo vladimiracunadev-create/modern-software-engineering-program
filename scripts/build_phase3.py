@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 85)}
+EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 97)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",

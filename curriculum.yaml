@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 84
+    "approved": 96
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -894,7 +894,7 @@
           "title": "Arreglos, listas y secuencias",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-085-arreglos-listas-y-secuencias"
         },
         {
@@ -903,7 +903,7 @@
           "title": "Pilas, colas, deques y prioridades",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-086-pilas-colas-deques-y-prioridades"
         },
         {
@@ -912,7 +912,7 @@
           "title": "Tablas hash, mapas y conjuntos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-087-tablas-hash-mapas-y-conjuntos"
         },
         {
@@ -921,7 +921,7 @@
           "title": "Árboles, tries y estructuras jerárquicas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-088-arboles-tries-y-estructuras-jerarquicas"
         },
         {
@@ -930,7 +930,7 @@
           "title": "Grafos y recorridos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-089-grafos-y-recorridos"
         },
         {
@@ -939,7 +939,7 @@
           "title": "Búsqueda, ordenamiento y selección",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-090-busqueda-ordenamiento-y-seleccion"
         },
         {
@@ -948,7 +948,7 @@
           "title": "Algoritmos voraces y programación dinámica",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica"
         },
         {
@@ -957,7 +957,7 @@
           "title": "Backtracking, divide y vencerás",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-092-backtracking-divide-y-venceras"
         },
         {
@@ -966,7 +966,7 @@
           "title": "Índices, probabilísticas y estructuras persistentes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-093-indices-probabilisticas-y-estructuras-persistentes"
         },
         {
@@ -975,7 +975,7 @@
           "title": "Complejidad empírica, benchmarks y perfiles",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-094-complejidad-empirica-benchmarks-y-perfiles"
         },
         {
@@ -984,7 +984,7 @@
           "title": "Taller: elegir por carga y no por costumbre",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre"
         },
         {
@@ -993,7 +993,7 @@
           "title": "Proyecto: biblioteca comparada con casos límite",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-096-proyecto-biblioteca-comparada-con-casos-limite"
         }
       ]

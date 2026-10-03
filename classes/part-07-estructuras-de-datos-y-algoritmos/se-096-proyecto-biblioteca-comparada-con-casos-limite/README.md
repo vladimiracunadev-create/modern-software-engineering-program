@@ -2,207 +2,212 @@
 
 [← SE-095 — Taller: elegir por carga y no por costumbre](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/se-095-taller-elegir-por-carga-y-no-por-costumbre/README.md) · [↑ Parte 07](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-07-estructuras-de-datos-y-algoritmos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-096.html) · [SE-097 — Editores, IDE y servidores de lenguaje →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-097-editores-ide-y-servidores-de-lenguaje/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Orbe**, el caso conductor de la Parte 07. Recupera la evidencia de la clase anterior, añade una decisión propia de **Proyecto: biblioteca comparada con casos límite** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Cómo entregar una biblioteca comparada cuya corrección y rendimiento puedan discutirse con evidencia?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-095` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, unittest y temporizador monotónico.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Proyecto: biblioteca comparada con casos límite**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Orbe necesita una interfaz reusable de backlog con implementaciones para historial, prioridad e identidad. El proyecto debe impedir que una optimización cambie desempate o pierda casos límite.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Proyecto y biblioteca con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **implementación medida con casos límite** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «elegir una estructura por costumbre sin medir la carga relevante» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Biblioteca | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Comparada | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Casos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Proyecto: biblioteca comparada con casos límite"] --> M["Modelo: Proyecto"]
-    M --> D["Decisión: biblioteca"]
-    D --> E["Evidencia: comparada"]
-    E --> R["Revisión: casos"]
-    R -->|nueva información| M
+    N1[Contrato de la biblioteca] --> N2[Invariantes / pruebas de propiedades] --> N3[Casos límite / oráculo] --> N4[Benchmark versionado] --> N5[Informe / decisión]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: biblioteca comparada con casos límite**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Contrato de la biblioteca | La API define tipos, operaciones, errores, orden y complejidad esperada. | Evidencia o contraejemplo registrado |
+| Invariantes y pruebas de propiedades | Cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política. | Evidencia o contraejemplo registrado |
+| Casos límite y oráculo | Vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus. | Evidencia o contraejemplo registrado |
+| Benchmark versionado | El runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados. | Evidencia o contraejemplo registrado |
+| Informe y decisión | El README guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Una estructura de datos define operaciones y costos; un algoritmo debe preservar invariantes, terminar y comportarse dentro de límites de tiempo y espacio adecuados a la carga.
+### 1. Contrato de la biblioteca
 
-La pregunta rectora de esta parte es: **¿qué operaciones dominan la carga y qué garantía necesita cada una?** La respuesta debe
-apoyarse en **casos límite, pruebas de propiedades, complejidad y medición empírica**.
+La API define tipos, operaciones, errores, orden y complejidad esperada. Exponer la estructura interna impide sustituirla. Las garantías de costo se expresan con supuestos y no como promesa absoluta de latencia.
 
-### 1. Proyecto: modelo
+### 2. Invariantes y pruebas de propiedades
 
-En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: biblioteca comparada con casos límite**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política. Ejemplos concretos facilitan diagnóstico; propiedades exploran combinaciones.
 
-### 2. Biblioteca: mecanismo
+### 3. Casos límite y oráculo
 
-En esta clase, **biblioteca** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: biblioteca comparada con casos límite**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus. Una implementación simple sirve como oráculo para tamaños pequeños. La comparación falla fuerte ante divergencia y conserva la secuencia mínima.
 
-### 3. Comparada: evidencia
+### 4. Benchmark versionado
 
-En esta clase, **comparada** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: biblioteca comparada con casos límite**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados. Los umbrales evitan promesas frágiles entre máquinas; se comparan tendencias o presupuestos cuando son defendibles.
 
-### 4. Casos: decisión
+### 5. Informe y decisión
 
-En esta clase, **casos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué operaciones dominan la carga y qué garantía necesita cada una?» y demostrarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: biblioteca comparada con casos límite**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+El README guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga. Se declara qué no se midió: concurrencia, producción, otros runtimes o datasets. La honestidad del límite es parte de la entrega.
 
 ## Definiciones de trabajo
 
-- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
-- **Biblioteca:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
-- **Comparada:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
-- **Casos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante casos límite, pruebas de propiedades, complejidad y medición empírica.
+- **contrato de la biblioteca:** la api define tipos, operaciones, errores, orden y complejidad esperada.
+- **invariantes y pruebas de propiedades:** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
+- **casos límite y oráculo:** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
+- **benchmark versionado:** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
+- **informe y decisión:** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Orbe. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proyecto: biblioteca comparada con casos límite**:
+```python
+python -m unittest -v
+python -m orbe.benchmark --sizes 100,1000,10000 --repeat 9 --output evidence/results.json
+# El runner valida equivalencia antes de registrar tiempos.
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Proyecto: biblioteca comparada con casos límite**. Parte de esta pregunta: **¿qué operaciones dominan la carga y qué garantía necesita cada una?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando casos límite, pruebas de propiedades, complejidad y medición empírica. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `algorithm.py` y enlaza la evidencia, no solo la conclusión.
+En Orbe, un caso conserva identidad, prioridad, dependencias, instante de llegada y estado de resolución. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-096/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el implementación medida con casos límite con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proyecto y biblioteca con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `algorithm.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **implementación medida con casos límite** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Orbe recibe casos de Prisma, mantiene una frontera de trabajo priorizada y explica por qué el siguiente caso es elegible. Ejecuta una carga pequeña trazable, duplicados, prioridades iguales y una dependencia ausente. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Un paradigma determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+
+### ¿Menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todos los lenguajes mencionados?
+
+No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **elegir una estructura por costumbre sin medir la carga relevante**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Optimiza la extracción y rompe estabilidad de empates. Una prueba basada solo en conjunto pasa; añade secuencia esperada y propiedad de orden estable antes de aceptar la mejora.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, unittest y temporizador monotónico. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-096/
 ├── README.md
-│   ├── algorithm.py
-│   ├── test_algorithm.py
-│   ├── benchmark.md
-├── activity.yaml
-└── rubric.json
+├── orbe/
+│   ├── domain.py
+│   └── se_096.py
+├── fixtures/cases.json
+├── tests/test_se_096.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `algorithm.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la sintaxis se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-096/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [MIT 6.006 Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — Estructuras, algoritmos, corrección y análisis de complejidad; autoridad: MIT OpenCourseWare.
+- [Python Data Model](https://docs.python.org/3/reference/datamodel.html) — Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation.
+- [Python Standard Library](https://docs.python.org/3/library/index.html) — Deque, heapq, bisect, graphlib y contenedores disponibles; autoridad: Python Software Foundation.
+- [Python Debugging and Profiling](https://docs.python.org/3/library/debug.html) — Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation.
+- [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-- **Mathematics for Computer Science** — MIT OpenCourseWare. [https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Orbe sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proyecto: biblioteca comparada con casos límite**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-097`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+La biblioteca demuestra comportamiento en el corpus y protocolo declarados, no superioridad universal. La Parte 8 tomará un fallo y una regresión de Orbe para construir un entorno de diagnóstico reproducible.
+
+## Glosario
+
+- **contrato de la biblioteca:** la api define tipos, operaciones, errores, orden y complejidad esperada.
+- **invariantes y pruebas de propiedades:** cada implementación declara invariantes y prueba secuencias generadas: insertar-extraer conserva elementos, prioridad nunca aumenta incorrectamente y duplicado sigue política.
+- **casos límite y oráculo:** vacío, uno, empates, duplicados, extremos y datos inválidos forman el corpus.
+- **benchmark versionado:** el runner separa preparación y operación, verifica outputs, registra entorno y emite datos estructurados.
+- **informe y decisión:** el readme guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga.
 
 ---
 

@@ -7,10 +7,12 @@
   "kind": "class",
   "owner": "polyglot-programming-labs",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
     "IEEE-SWEBOK-4A",
-    "ACM-IEEE-SE2014"
+    "MIT-MATH-CS",
+    "MIT-ALG-6006",
+    "PYTHON-3"
   ],
   "path": "classes/part-07-estructuras-de-datos-y-algoritmos/se-091-algoritmos-voraces-y-programacion-dinamica"
 }

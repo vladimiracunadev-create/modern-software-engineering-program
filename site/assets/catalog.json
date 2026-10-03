@@ -1017,7 +1017,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-085.html"
     },
@@ -1029,7 +1029,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-086.html"
     },
@@ -1041,7 +1041,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-087.html"
     },
@@ -1053,7 +1053,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-088.html"
     },
@@ -1065,7 +1065,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-089.html"
     },
@@ -1077,7 +1077,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-090.html"
     },
@@ -1089,7 +1089,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-091.html"
     },
@@ -1101,7 +1101,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-092.html"
     },
@@ -1113,7 +1113,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-093.html"
     },
@@ -1125,7 +1125,7 @@
       "stage": "B",
       "kind": "class",
       "hours": 4,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-094.html"
     },
@@ -1137,7 +1137,7 @@
       "stage": "B",
       "kind": "studio",
       "hours": 6,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-095.html"
     },
@@ -1149,7 +1149,7 @@
       "stage": "B",
       "kind": "project",
       "hours": 8,
-      "status": "PLANNED",
+      "status": "GUIDED",
       "phase": 3,
       "url": "classes/SE-096.html"
     },

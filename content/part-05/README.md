@@ -36,7 +36,159 @@ El flujo no autoriza una gran implementación al final. Cada paso debe ejecutar 
 
 Podrás predecir cómo Python evalúa expresiones y control, diseñar funciones con dependencias visibles, tratar errores sin ocultar defectos, elegir colecciones por operaciones, validar JSON, separar módulos, escribir pruebas de consumidor y entregar una CLI con streams y códigos de salida coherentes.
 
-## Recorrido clase por clase
+## Guía razonada clase por clase
+
+Brújula materializa la especificación de Atlas sin reducir programación a sintaxis. En
+cada clase aparece una decisión concreta de representación, control o frontera; se
+explica el mecanismo, se prueba un fallo y se deja un componente que la siguiente clase
+debe usar o proteger.
+
+### Bloque 1 — Expresar valores, decisiones y repetición
+
+#### SE-061 — Valores, expresiones, tipos y variables
+
+El programa empieza por decidir qué representa cada valor. La clase separa valor,
+representación, expresión, nombre y tipo; muestra que una variable no es una caja
+universal y que conversiones implícitas pueden ocultar pérdida o estados inválidos.
+
+Brújula define tipos y validaciones para observaciones, prioridad y autorización. El
+estudiante predice expresiones, prueba fronteras y evita usar cadenas como sustituto de
+todo el dominio. Esos valores alimentan decisiones que `SE-062` hará explícitas.
+
+#### SE-062 — Control de flujo y decisiones
+
+Una condición selecciona caminos bajo una regla; su orden puede cambiar el resultado
+cuando los casos se solapan. La clase trabaja booleanos, cortocircuito, guard clauses,
+ramas exhaustivas y tablas de decisión, distinguiendo «no coincide» de entrada inválida.
+
+El estudiante implementa la política de Brújula y demuestra qué regla ganó en límites y
+empates. La evidencia incluye una tabla que precede al código. Cuando la misma decisión
+debe aplicarse a muchas observaciones o a una estructura anidada, `SE-063` introduce
+iteración, recursión y progreso.
+
+#### SE-063 — Iteración, recursión y recorridos
+
+Repetir exige invariante, progreso y condición de salida. La clase compara bucles,
+iteradores y recursión, explica por qué modificar una colección durante el recorrido
+puede omitir elementos y por qué un grafo necesita visitados aunque la función parezca
+correcta sobre un árbol.
+
+Brújula recorre observaciones y dependencias hasta encontrar la primera divergencia. El
+estudiante traza estado, reproduce no terminación y establece límites. La regla repetida
+necesita una unidad con entradas, salida y efectos claros; `SE-064` la encapsula en
+funciones.
+
+#### SE-064 — Funciones, parámetros, retorno y alcance
+
+Una función no es reutilizable por tener nombre: debe declarar contrato, dependencias y
+efectos. La clase distingue parámetros de argumentos, retorno de impresión, alcance de
+vida útil y cierre de captura accidental. Valores predeterminados mutables muestran cómo
+una decisión pequeña conserva estado entre llamadas.
+
+El estudiante separa cálculo puro de observación e I/O y prueba la función de selección
+sin terminal. Brújula obtiene una interfaz que permite sustituir datos y registrar
+errores. `SE-065` diseña esos fallos como resultados comprensibles en lugar de capturar
+cualquier excepción.
+
+### Bloque 2 — Diseñar fronteras de datos y efectos
+
+#### SE-065 — Errores, excepciones y resultados explícitos
+
+Un error de entrada esperable, una dependencia no disponible y un defecto interno no
+requieren la misma respuesta. La clase explica propagación, captura específica, causa,
+limpieza y resultados tipados. Atrapar todo y continuar puede convertir corrupción en
+aparente éxito.
+
+Brújula clasifica sus fallos, conserva contexto seguro y decide qué puede recuperar. El
+estudiante prueba ruta feliz, entrada inválida y fallo de I/O, verificando mensaje y
+código de salida. Esos resultados operan sobre conjuntos de datos que `SE-066` organiza
+según sus operaciones dominantes.
+
+#### SE-066 — Colecciones y transformación de datos
+
+Lista, tupla, conjunto y diccionario ofrecen contratos diferentes de orden, unicidad,
+identidad y búsqueda. La clase evita elegir por costumbre: parte de operaciones,
+invariantes y tamaño. También separa transformar de mutar para poder razonar sobre
+aliasing y orden.
+
+El estudiante modela observaciones de Brújula, elimina duplicados sin perder procedencia
+y construye un pipeline que conserva errores. Pruebas de orden, empate y ausencia hacen
+visible la elección. `SE-067` lleva esas colecciones a través de archivos y JSON, donde
+la representación deja de ser un objeto en memoria.
+
+#### SE-067 — Entrada, salida y serialización
+
+Leer y escribir cruza una frontera falible: encoding, formato, esquema, tamaño,
+permisos y escritura parcial importan. La clase distingue serialización de significado,
+valida antes de usar y explica escritura atómica mediante archivo temporal y reemplazo
+cuando el sistema lo permite.
+
+Brújula acepta `stdin` o archivo y emite JSON estable separado de diagnósticos. El
+estudiante reproduce texto inválido, campo ausente y salida interrumpida, y limpia
+temporales. `SE-068` evita que estas decisiones contaminen la lógica al separar módulos,
+interfaces y adaptadores.
+
+#### SE-068 — Módulos, interfaces y separación de responsabilidades
+
+Dividir por cantidad de líneas no crea arquitectura. La clase separa dominio, puertos y
+adaptadores; analiza importaciones, dependencias y superficie pública, y muestra cómo un
+módulo «utilidades» puede convertirse en acoplamiento sin propietario.
+
+El estudiante organiza Brújula para que la política no conozca terminal ni sistema de
+archivos. Una prueba sustituye el adaptador y confirma dirección de dependencia. Con
+fronteras estables, `SE-069` puede diseñar ejemplos antes del cambio y convertirlos en
+protección contra regresiones.
+
+### Bloque 3 — Proteger cambio y transferir comprensión
+
+#### SE-069 — Pruebas tempranas y diseño por ejemplos
+
+Una prueba no demuestra ausencia de defectos; concreta un comportamiento bajo datos y
+entorno. La clase construye ejemplos normales, límite, inválidos y de regresión,
+distingue unidad de integración y evita verificar detalles internos que impidan
+refactorizar.
+
+Brújula obtiene una suite que cubre reglas, errores y CLI. El estudiante observa fallar
+la prueba por la razón esperada antes de corregir. `SE-070` usa esa red para mejorar
+nombres y estructura sin cambiar la conducta visible.
+
+#### SE-070 — Legibilidad, nombres y mantenimiento básico
+
+Legibilidad es reducción de ambigüedad para quien debe cambiar el sistema, no una
+preferencia estética universal. La clase relaciona nombres, tamaño, cohesión,
+duplicación, comentarios y complejidad; un comentario que repite código no compensa una
+regla oculta.
+
+El estudiante refactoriza Brújula en pasos pequeños, ejecuta pruebas y registra por qué
+cada cambio mejora una tarea futura. También conserva una versión donde el refactor
+rompe semántica para explicar el límite. `SE-071` comprueba si la comprensión sobrevive
+al cambiar de lenguaje.
+
+#### SE-071 — Taller: transferir una solución entre lenguajes
+
+Traducir palabra por palabra conserva sintaxis aparente y puede cambiar ownership,
+errores, enteros o colecciones. El taller fija primero el contrato observable de
+Brújula, implementa una porción en Python y Rust y compara representaciones, fallos y
+costos de adaptación.
+
+Las mismas fixtures deben producir resultados equivalentes, pero no se exige arquitectura
+idéntica. El estudiante explica cada diferencia y evita benchmarks sin control. La
+experiencia revela qué decisiones pertenecen al problema y cuáles al lenguaje;
+`SE-072` reúne esas decisiones en una CLI entregable.
+
+#### SE-072 — Proyecto: herramienta de línea de comandos probada
+
+El proyecto integra dominio, adaptadores, configuración, serialización, errores y
+pruebas en una CLI que otra persona puede instalar y comprender. Salida de datos y
+diagnóstico permanecen separados; ayuda, códigos y limpieza forman parte del contrato,
+no de la decoración final.
+
+La aceptación parte de un checkout limpio y prueba éxito, entrada inválida, dependencia
+fallida y repetición. El informe declara plataformas verificadas y límites. Brújula deja
+una regla estable que la Parte 6 expresará mediante paradigmas distintos para comparar
+semántica, no familiaridad.
+
+## Resumen operativo del recorrido
 
 | Clase | Núcleo profesional | Aporte acumulativo a Brújula |
 |---|---|---|

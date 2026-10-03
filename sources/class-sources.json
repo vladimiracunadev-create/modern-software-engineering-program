@@ -1312,88 +1312,160 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-109": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-110": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-111": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-112": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-113": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-114": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-115": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-116": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-117": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-118": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-119": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-120": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "IEEE-SWEBOK-4A",
+        "PYTHON-3",
+        "SEMVER-2",
+        "PYPA-SPECS",
+        "PYLOCK",
+        "SPDX-3",
+        "REUSE-33"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-121": {
       "status": "SEEDED_BASELINE",

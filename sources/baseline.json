@@ -92,6 +92,46 @@
       "used_for": ["development-environments", "containers", "tooling", "reproducibility"]
     },
     {
+      "id": "SEMVER-2",
+      "title": "Semantic Versioning 2.0.0",
+      "authority": "Semantic Versioning project",
+      "url": "https://semver.org/spec/v2.0.0.html",
+      "status": "current",
+      "used_for": ["public-api", "versioning", "compatibility", "prereleases"]
+    },
+    {
+      "id": "PYPA-SPECS",
+      "title": "Python Packaging Specifications",
+      "authority": "Python Packaging Authority",
+      "url": "https://packaging.python.org/en/latest/specifications/",
+      "status": "living",
+      "used_for": ["packages", "metadata", "dependencies", "publishing"]
+    },
+    {
+      "id": "PYLOCK",
+      "title": "pylock.toml Specification",
+      "authority": "Python Packaging Authority",
+      "url": "https://packaging.python.org/en/latest/specifications/pylock-toml/",
+      "status": "current",
+      "used_for": ["lockfiles", "dependency-resolution", "reproducible-installation"]
+    },
+    {
+      "id": "SPDX-3",
+      "title": "SPDX Specification 3.0",
+      "authority": "Linux Foundation",
+      "url": "https://spdx.dev/use/specifications/",
+      "status": "current",
+      "used_for": ["licenses", "sbom", "provenance", "machine-readable-metadata"]
+    },
+    {
+      "id": "REUSE-33",
+      "title": "REUSE Specification 3.3",
+      "authority": "Free Software Foundation Europe",
+      "url": "https://reuse.software/spec-3.3/",
+      "status": "current",
+      "used_for": ["licensing", "copyright", "file-level-metadata", "compliance"]
+    },
+    {
       "id": "JVM-SE25",
       "title": "The Java Virtual Machine Specification, Java SE 25",
       "authority": "Oracle and JCP",

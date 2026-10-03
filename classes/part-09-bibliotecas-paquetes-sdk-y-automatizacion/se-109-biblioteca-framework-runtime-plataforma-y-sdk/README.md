@@ -2,208 +2,215 @@
 
 [← SE-108 — Proyecto: entorno de desarrollo autocontenido](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-109.html) · [SE-110 — SemVer, compatibilidad y contratos públicos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupera la evidencia de la clase anterior, añade una decisión propia de **Biblioteca, framework, runtime, plataforma y SDK** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué papel cumple cada capa reusable y quién controla el flujo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-108` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, entorno virtual y Git.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Biblioteca, framework, runtime, plataforma y SDK**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Constelación se anuncia a la vez como biblioteca, framework, SDK y plataforma. Los consumidores no saben qué instalar, quién inicia el proceso ni qué parte es contrato estable.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Biblioteca y framework con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete y CLI con contrato público** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «romper consumidores mediante un cambio presentado como compatible» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Biblioteca | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Framework | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Runtime | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Plataforma | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Biblioteca, framework, runtime, plataforma y SDK"] --> M["Modelo: Biblioteca"]
-    M --> D["Decisión: framework"]
-    D --> E["Evidencia: runtime"]
-    E --> R["Revisión: plataforma"]
-    R -->|nueva información| M
+    N1[Biblioteca] --> N2[Framework e inversión de control] --> N3[Runtime] --> N4[Plataforma] --> N5[SDK]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Biblioteca, framework, runtime, plataforma y SDK**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Biblioteca | Una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone. | Evidencia o contraejemplo registrado |
+| Framework e inversión de control | Un framework define estructura y llama código del usuario en puntos de extensión. | Evidencia o contraejemplo registrado |
+| Runtime | El runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib. | Evidencia o contraejemplo registrado |
+| Plataforma | Una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan. | Evidencia o contraejemplo registrado |
+| SDK | Un SDK reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia.
+### 1. Biblioteca
 
-La pregunta rectora de esta parte es: **¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?** La respuesta debe
-apoyarse en **contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida**.
+Una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone. El consumidor conserva el flujo principal. Una biblioteca puede traer efectos o runtime, pero debe declarar inicialización, thread safety y ciclo de vida en su API.
 
-### 1. Biblioteca: modelo
+### 2. Framework e inversión de control
 
-En esta clase, **Biblioteca** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Biblioteca, framework, runtime, plataforma y SDK**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un framework define estructura y llama código del usuario en puntos de extensión. Esa inversión permite convenciones y lifecycle común, pero aumenta acoplamiento. Usar una utilidad del framework no convierte automáticamente todo el producto en framework.
 
-### 2. Framework: mecanismo
+### 3. Runtime
 
-En esta clase, **framework** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Biblioteca, framework, runtime, plataforma y SDK**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib. Es una dependencia operacional distinta del paquete. Versiones compatibles deben incluir implementación y plataforma cuando afectan ABI o comportamiento.
 
-### 3. Runtime: evidencia
+### 4. Plataforma
 
-En esta clase, **runtime** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Biblioteca, framework, runtime, plataforma y SDK**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan. No es solo un conjunto de librerías ni una marca. Ownership, SLO, autenticación, cuotas y soporte forman parte de su producto.
 
-### 4. Plataforma: decisión
+### 5. SDK
 
-En esta clase, **plataforma** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Biblioteca, framework, runtime, plataforma y SDK**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Un SDK reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación. Debe representar el contrato remoto sin ocultar timeout, paginación o error. Puede incluir biblioteca y CLI, pero su promesa es experiencia coherente.
 
 ## Definiciones de trabajo
 
-- **Biblioteca:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Framework:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Runtime:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Plataforma:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+- **biblioteca:** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
+- **framework e inversión de control:** un framework define estructura y llama código del usuario en puntos de extensión.
+- **runtime:** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
+- **plataforma:** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
+- **sdk:** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Constelación. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Biblioteca, framework, runtime, plataforma y SDK**:
+```python
+from constellation import choose_next
+result = choose_next(cases, policy=policy)
+if result.is_error:
+    handle(result.error)
+else:
+    print(result.action)
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Biblioteca, framework, runtime, plataforma y SDK**. Parte de esta pregunta: **¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `pyproject.toml` y enlaza la evidencia, no solo la conclusión.
+En Constelación, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-109/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete y CLI con contrato público con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Biblioteca y framework con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `pyproject.toml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una capacidad pública y prueba el comportamiento desde un proyecto consumidor.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **paquete y CLI con contrato público** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Constelación empaqueta el motor de Orbe como `constellation`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Una técnica o herramienta determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+
+### ¿Más automatización o menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todas las herramientas mencionadas?
+
+No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **romper consumidores mediante un cambio presentado como compatible**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Haz que importar la biblioteca lea configuración y se conecte a red. Una prueba de descubrimiento falla sin credenciales. Mueve efectos a cliente/main y documenta lifecycle.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, entorno virtual y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-109/
 ├── README.md
-│   ├── pyproject.toml
-│   ├── cli.py
-│   ├── compatibility.md
-├── activity.yaml
-└── rubric.json
+├── constelación/
+│   ├── domain.py
+│   └── se_109.py
+├── fixtures/cases.json
+├── tests/test_se_109.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `pyproject.toml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la interfaz se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-109/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) — Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project.
+- [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) — Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority.
+- [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) — Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority.
+- [Python Standard Library](https://docs.python.org/3/library/index.html) — Argparse, importlib.metadata, subprocess y apis de automatización; autoridad: Python Software Foundation.
+- [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation.
+- [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Semantic Versioning 2.0.0** — Semantic Versioning project. [https://semver.org/](https://semver.org/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SPDX License List** — Linux Foundation. [https://spdx.org/licenses/](https://spdx.org/licenses/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Constelación sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Biblioteca, framework, runtime, plataforma y SDK**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-110`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Nombrar el producto no define qué cambios son compatibles. La siguiente clase delimita API pública y usa SemVer como comunicación, no como garantía automática.
+
+## Glosario
+
+- **biblioteca:** una biblioteca ofrece funciones o tipos que el programa consumidor llama y compone.
+- **framework e inversión de control:** un framework define estructura y llama código del usuario en puntos de extensión.
+- **runtime:** el runtime ejecuta o soporta programas mediante memoria, carga, garbage collection, event loop o stdlib.
+- **plataforma:** una plataforma combina capacidades, políticas, interfaces y operación para que otros construyan.
+- **sdk:** un sdk reduce fricción para integrar una capacidad: cliente, modelos, autenticación, ejemplos, tooling y documentación.
 
 ---
 

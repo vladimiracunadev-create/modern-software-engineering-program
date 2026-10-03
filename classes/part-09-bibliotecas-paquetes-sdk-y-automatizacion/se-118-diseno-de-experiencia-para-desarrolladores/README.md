@@ -2,208 +2,214 @@
 
 [← SE-117 — Licencias, procedencia y reutilización](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion/README.md) · [↑ Parte 09](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-118.html) · [SE-119 — Taller: empaquetar una capacidad reusable →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Constelación**, el caso conductor de la Parte 09. Recupera la evidencia de la clase anterior, añade una decisión propia de **Diseño de experiencia para desarrolladores** y deja un artefacto que la clase siguiente deberá consumir. La pregunta activa es: **¿Qué fricción encuentra una persona desde el primer contacto hasta diagnosticar y migrar?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-117` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, entorno virtual y Git.
+- Haber completado la clase anterior o reconstruir su contrato y evidencia.
+- Python 3.11 o posterior, terminal, editor y Git; un segundo runtime es opcional y debe declararse.
+- Trabajar con fixtures sintéticos: ninguna observación necesita datos de una persona o sistema real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Diseño de experiencia para desarrolladores**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La API de Constelación es correcta, pero el quickstart omite autenticación, el ejemplo usa una versión antigua y los errores exponen stack traces sin acción sugerida.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Diseño y experiencia con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete y CLI con contrato público** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «romper consumidores mediante un cambio presentado como compatible» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Diseño | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Experiencia | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Desarrolladores | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Contrato | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+Al terminar podrás explicar los cinco mecanismos de esta clase, predecir su comportamiento antes de ejecutar, construir un caso normal y uno límite, diagnosticar el fallo controlado, comparar una alternativa y entregar evidencia que otra persona pueda reproducir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Diseño de experiencia para desarrolladores"] --> M["Modelo: Diseño"]
-    M --> D["Decisión: experiencia"]
-    D --> E["Evidencia: desarrolladores"]
-    E --> R["Revisión: contrato"]
-    R -->|nueva información| M
+    N1[Journey de desarrollador] --> N2[Time to first success] --> N3[Diseño de errores] --> N4[Documentación ejecutable] --> N5[Feedback, telemetría / privacidad]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Diseño de experiencia para desarrolladores**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias del runtime. La flecha de retorno indica que un fallo o cambio de requisito obliga a revisar el modelo inicial; no autoriza a parchear solo la última salida.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Journey de desarrollador | La experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar. | Evidencia o contraejemplo registrado |
+| Time to first success | Un camino mínimo debe producir resultado significativo con precondiciones explícitas. | Evidencia o contraejemplo registrado |
+| Diseño de errores | Un error útil identifica qué falló, contexto seguro, acción y referencia estable. | Evidencia o contraejemplo registrado |
+| Documentación ejecutable | Ejemplos se prueban contra versión publicada y usan datos sintéticos. | Evidencia o contraejemplo registrado |
+| Feedback, telemetría y privacidad | Issues, soporte y telemetría pueden revelar fricción. | Evidencia o contraejemplo registrado |
 
 ## Conceptos y decisiones
 
-Una biblioteca, paquete, SDK o CLI publica un contrato que otros integran; versionado, dependencias, licencias y errores forman parte de esa experiencia.
+### 1. Journey de desarrollador
 
-La pregunta rectora de esta parte es: **¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?** La respuesta debe
-apoyarse en **contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida**.
+La experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar. Optimizar solo el quickstart oculta mantenimiento. Cada etapa tiene tarea, tiempo, error y evidencia.
 
-### 1. Diseño: modelo
+### 2. Time to first success
 
-En esta clase, **Diseño** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño de experiencia para desarrolladores**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un camino mínimo debe producir resultado significativo con precondiciones explícitas. Reducir pasos mediante magia oculta puede empeorar diagnóstico. Se mide con usuario o entorno nuevo y se registra dónde solicita contexto no documentado.
 
-### 2. Experiencia: mecanismo
+### 3. Diseño de errores
 
-En esta clase, **experiencia** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño de experiencia para desarrolladores**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un error útil identifica qué falló, contexto seguro, acción y referencia estable. No filtra secretos ni exige buscar texto cambiante. Tipos de excepción, códigos y documentación deben contar la misma clasificación.
 
-### 3. Desarrolladores: evidencia
+### 4. Documentación ejecutable
 
-En esta clase, **desarrolladores** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño de experiencia para desarrolladores**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Ejemplos se prueban contra versión publicada y usan datos sintéticos. Tutorial, how-to, explicación y referencia resuelven necesidades distintas. Copiar snippets sin imports o cleanup convierte documentación en deuda.
 
-### 4. Contrato: decisión
+### 5. Feedback, telemetría y privacidad
 
-En esta clase, **contrato** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?» y demostrarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño de experiencia para desarrolladores**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Issues, soporte y telemetría pueden revelar fricción. Telemetría debe tener propósito, minimización, consentimiento o base adecuada, retención y opt-out. No se usa vigilancia para suplir investigación con personas.
 
 ## Definiciones de trabajo
 
-- **Diseño:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Experiencia:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Desarrolladores:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
-- **Contrato:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida.
+- **journey de desarrollador:** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
+- **time to first success:** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
+- **diseño de errores:** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
+- **documentación ejecutable:** ejemplos se prueban contra versión publicada y usan datos sintéticos.
+- **feedback, telemetría y privacidad:** issues, soporte y telemetría pueden revelar fricción.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para Constelación. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Diseño de experiencia para desarrolladores**:
+```text
+| Etapa | tarea | evidencia | guardrail |
+|---|---|---|---|
+| instalar | entorno limpio | comando y tiempo | sin globales |
+| primer éxito | elegir caso | salida esperada | datos sintéticos |
+| recuperar | plugin inválido | error accionable | sin secretos |
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Antes de ejecutar, predice estado, resultado y error. Después registra versión, comando y salida. Si el fragmento es pseudocódigo o pertenece a otro lenguaje, etiquétalo como tal y no afirmes que fue ejecutado.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Diseño de experiencia para desarrolladores**. Parte de esta pregunta: **¿qué promete la interfaz y cómo sabrá un consumidor que el cambio es compatible?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando contrato documentado, pruebas desde el consumidor, lockfile o resolución explicada y códigos de salida. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `pyproject.toml` y enlaza la evidencia, no solo la conclusión.
+En Constelación, un release contiene contrato público, artefactos inmutables, dependencias, procedencia, ejemplos, errores y ruta de migración. La implementación de esta clase debe conservar ese contrato aunque cambie la forma interna. El caso profesional no pregunta únicamente si produce una salida: pregunta quién puede producirla, qué estado observa, cómo falla y qué rastro permite disputar una decisión incorrecta.
+
+Compara el caso normal con autorización falsa, evidencia incompleta, empate y repetición. Un mecanismo es apropiado cuando esas diferencias quedan visibles y localizadas; es peligroso cuando dependen de orden accidental, estado oculto o una convención que el consumidor no puede conocer.
 
 ## Práctica guiada
 
-1. Crea `work/SE-118/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete y CLI con contrato público con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de entrada y salida antes de escribir implementación.
+2. Predice el caso normal y un límite; identifica la invariante que no puede romperse.
+3. Implementa la versión mínima sin I/O dentro del núcleo.
+4. Ejecuta el caso y conserva comando, versión y salida bajo `evidence/`.
+5. Introduce el fallo controlado, reduce la reproducción y formula dos hipótesis rivales.
+6. Corrige la causa, añade regresión y ejecuta el conjunto completo.
+7. Compara con otro paradigma o lenguaje indicando qué semántica se preserva.
 
 ## Ejercicios
 
-1. **Fundamental:** define Diseño y experiencia con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `pyproject.toml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
+2. **Construcción:** añade una capacidad pública y prueba el comportamiento desde un proyecto consumidor.
+3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
+4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
 
 ## Reto verificable
 
-Entrega el **paquete y CLI con contrato público** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega implementación, fixtures, pruebas y un informe corto. Se aprueba si otra persona ejecuta desde checkout limpio, obtiene los mismos resultados y puede relacionar cada rama o transformación con una regla del dominio. No se aprueba por cantidad de archivos ni por usar la sintaxis característica del paradigma.
+
+## Caso conductor
+
+Constelación empaqueta el motor de Orbe como `constellation`, expone `choose_next`, una CLI y un punto de extensión. Ejecuta instalación limpia, entrada válida, configuración ausente, plugin incompatible y actualización entre dos versiones. Cambia después una sola regla o condición y revisa qué archivos, pruebas y trazas debieron modificarse. Esa superficie de cambio alimenta el proyecto final de la parte.
+
+## Preguntas frecuentes
+
+### ¿Una técnica o herramienta determina toda la arquitectura?
+
+No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+
+### ¿Más automatización o menos líneas significan una solución mejor?
+
+No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+
+### ¿Debo instalar todas las herramientas mencionadas?
+
+No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **romper consumidores mediante un cambio presentado como compatible**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Prueba el quickstart en checkout del mantenedor y pasa por imports locales. Ejecútalo en proyecto consumidor vacío usando el artefacto construido.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
+| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
+| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
+| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
+| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, entorno virtual y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-118/
 ├── README.md
-│   ├── pyproject.toml
-│   ├── cli.py
-│   ├── compatibility.md
-├── activity.yaml
-└── rubric.json
+├── constelación/
+│   ├── domain.py
+│   └── se_118.py
+├── fixtures/cases.json
+├── tests/test_se_118.py
+└── evidence/diagnosis.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `pyproject.toml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita dependencias externas cuando la biblioteca estándar permita observar el mecanismo; si agregas una, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la autorización forma parte del dominio y no se infiere por ausencia de rechazo;
+- no uses `eval`, reglas descargadas ni serialización insegura;
+- limita colas, recursión, tamaño de entrada y tiempo de evaluación;
+- redacta trazas y conserva una explicación textual además de color o animación;
+- una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
+- respeta licencias de ejemplos y atribuye adaptaciones.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compara representación de ausencia, error, mutabilidad, orden y cancelación. La transferencia está lograda cuando el contrato se conserva y las diferencias están explicadas, no cuando la interfaz se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de los cinco mecanismos |
+| corrección | normal, límite, inválido y contraejemplo |
+| diseño | estado, efectos y contrato localizables |
+| diagnóstico | reproducción mínima y regresión |
+| transferencia | comparación semántica, no estética |
+| reproducibilidad | versiones, comandos, salida y límites |
 
-Entrega el directorio `work/SE-118/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+Los snippets no elevan la clase a `EXECUTABLE` o `TESTED`: esos estados requieren artefactos versionados y ejecuciones verificadas fuera de la guía.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) — Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project.
+- [Python Packaging User Guide: Specifications](https://packaging.python.org/en/latest/specifications/) — Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority.
+- [pylock.toml Specification](https://packaging.python.org/en/latest/specifications/pylock-toml/) — Lock files para instalaciones reproducibles y selección por entorno; autoridad: Python Packaging Authority.
+- [Python Standard Library](https://docs.python.org/3/library/index.html) — Argparse, importlib.metadata, subprocess y apis de automatización; autoridad: Python Software Foundation.
+- [SPDX Specification 3.0](https://spdx.dev/use/specifications/) — Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation.
+- [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Semantic Versioning 2.0.0** — Semantic Versioning project. [https://semver.org/](https://semver.org/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SPDX License List** — Linux Foundation. [https://spdx.org/licenses/](https://spdx.org/licenses/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de Constelación sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Diseño de experiencia para desarrolladores**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-119`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Una evaluación interna de DX no sustituye investigación diversa ni soporte real. El taller siguiente empaqueta una capacidad y obliga a consumirla fuera del repositorio.
+
+## Glosario
+
+- **journey de desarrollador:** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
+- **time to first success:** un camino mínimo debe producir resultado significativo con precondiciones explícitas.
+- **diseño de errores:** un error útil identifica qué falló, contexto seguro, acción y referencia estable.
+- **documentación ejecutable:** ejemplos se prueban contra versión publicada y usan datos sintéticos.
+- **feedback, telemetría y privacidad:** issues, soporte y telemetría pueden revelar fricción.
 
 ---
 

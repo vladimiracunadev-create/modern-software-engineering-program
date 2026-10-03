@@ -7,9 +7,15 @@
   "kind": "project",
   "owner": "suite",
   "estimated_hours": 8,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "IEEE-SWEBOK-4A",
+    "PYTHON-3",
+    "SEMVER-2",
+    "PYPA-SPECS",
+    "PYLOCK",
+    "SPDX-3",
+    "REUSE-33"
   ],
   "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada"
 }

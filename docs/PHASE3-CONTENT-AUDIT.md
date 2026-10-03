@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–08 aportan 108 clases `GUIDED` y las 72 restantes aún
+`SE-001`–`SE-180`: las partes 00–09 aportan 120 clases `GUIDED` y las 60 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 108 | Partes 00–08 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 108 | Partes 00–08 aprobadas; las otras 72 permanecen `PLANNED` |
+| clases aprobadas | 120 | Partes 00–09 aprobadas; las otras 60 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -159,6 +159,18 @@ incorpora ergonomía y accesibilidad, ejecuta un taller de diagnóstico y entreg
 entorno autocontenido con bootstrap, doctor, rebuild y limpieza acotada. Las doce
 clases avanzaron a `GUIDED` sin afirmar que un contenedor elimine toda variabilidad
 ni que una herramienta aislada demuestre causalidad.
+
+## Avance editorial de la Parte 09
+
+Las clases `SE-109`–`SE-120` se reconstruyeron en `content/part-09/` alrededor de
+`Constelación`, la conversión de Orbe y su entorno Lupa en un producto reusable. El
+recorrido delimita biblioteca, framework, runtime, plataforma y SDK; desarrolla API
+pública, SemVer, resolución, lockfiles, build y publicación; después integra CLI,
+configuración, códigos de salida, automatización idempotente, plugins, generación,
+licencias SPDX/REUSE y diseño de experiencia para desarrolladores. El taller consume
+el artefacto fuera del checkout y el proyecto prueba un SDK+CLI entre versiones. Las
+doce clases avanzaron a `GUIDED` sin presentar SemVer, lockfiles, contenedores o SBOM
+como garantías automáticas de compatibilidad, reproducibilidad o cumplimiento.
 
 ## Orden de reconstrucción
 

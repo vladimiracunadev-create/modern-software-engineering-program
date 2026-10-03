@@ -112,7 +112,7 @@ def main() -> int:
             if sum(item.get("max", 0) for item in rubric.get("criteria", [])) != rubric.get("maximum_score"):
                 failures.append(f"rubric score drift: {lesson['id']}")
 
-    if statuses != Counter({"GUIDED": 108, "PLANNED": 372}):
+    if statuses != Counter({"GUIDED": 120, "PLANNED": 360}):
         failures.append(f"unexpected maturity counts: {dict(statuses)}")
     if draft_count != 180 or len(hashes) != 180:
         failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
@@ -132,8 +132,8 @@ def main() -> int:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
     print(
-        "PHASE3_STRUCTURE_OK: 72 drafts, "
-        f"{generic_count} still generic, 108 approved, 360 contracts"
+        "PHASE3_STRUCTURE_OK: 60 drafts, "
+        f"{generic_count} still generic, 120 approved, 360 contracts"
     )
     return 0
 

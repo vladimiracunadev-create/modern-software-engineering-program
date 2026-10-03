@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 108
+    "approved": 120
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -1130,7 +1130,7 @@
           "title": "Biblioteca, framework, runtime, plataforma y SDK",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-109-biblioteca-framework-runtime-plataforma-y-sdk"
         },
         {
@@ -1139,7 +1139,7 @@
           "title": "SemVer, compatibilidad y contratos públicos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos"
         },
         {
@@ -1148,7 +1148,7 @@
           "title": "Resolución de dependencias y lockfiles",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles"
         },
         {
@@ -1157,7 +1157,7 @@
           "title": "Paquetes, módulos y publicación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion"
         },
         {
@@ -1166,7 +1166,7 @@
           "title": "CLI, flags, configuración y códigos de salida",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-113-cli-flags-configuracion-y-codigos-de-salida"
         },
         {
@@ -1175,7 +1175,7 @@
           "title": "Scripting repetible y tareas idempotentes",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-114-scripting-repetible-y-tareas-idempotentes"
         },
         {
@@ -1184,7 +1184,7 @@
           "title": "Plugins, extensiones y puntos de integración",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-115-plugins-extensiones-y-puntos-de-integracion"
         },
         {
@@ -1193,7 +1193,7 @@
           "title": "Generación de código y metaprogramación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-116-generacion-de-codigo-y-metaprogramacion"
         },
         {
@@ -1202,7 +1202,7 @@
           "title": "Licencias, procedencia y reutilización",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-117-licencias-procedencia-y-reutilizacion"
         },
         {
@@ -1211,7 +1211,7 @@
           "title": "Diseño de experiencia para desarrolladores",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores"
         },
         {
@@ -1220,7 +1220,7 @@
           "title": "Taller: empaquetar una capacidad reusable",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-119-taller-empaquetar-una-capacidad-reusable"
         },
         {
@@ -1229,7 +1229,7 @@
           "title": "Proyecto: SDK y CLI con compatibilidad verificada",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada"
         }
       ]

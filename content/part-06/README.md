@@ -1,6 +1,6 @@
 # Parte 06 — Paradigmas de programación
 
-Brújula ya ejecuta una regla, pero una única implementación puede ocultar decisiones accidentales del lenguaje. Prisma toma el mismo dominio —seleccionar la siguiente prueba autorizada— y lo expresa con modelos distintos. La comparación no premia el código más corto: exige equivalencia observable, límites explícitos y una explicación de qué cambio futuro facilita o dificulta cada representación.
+La CLI diagnóstica ya ejecuta una regla, pero una única implementación puede ocultar decisiones accidentales del lenguaje. El motor de reglas comparado toma el mismo dominio —seleccionar la siguiente prueba autorizada— y lo expresa con modelos distintos. La comparación no premia el código más corto: exige equivalencia observable, límites explícitos y una explicación de qué cambio futuro facilita o dificulta cada representación.
 
 ## Pregunta rectora
 
@@ -8,7 +8,7 @@ Brújula ya ejecuta una regla, pero una única implementación puede ocultar dec
 
 ## Antes del recorrido clase por clase
 
-Esta parte no presenta paradigmas como etiquetas ni como una competencia de sintaxis. Cada clase vuelve sobre **Prisma**, mantiene un contrato común y cambia deliberadamente el modelo de estado, control, composición o tiempo. Así puede distinguirse una diferencia semántica de una diferencia accidental del lenguaje.
+Esta parte no presenta paradigmas como etiquetas ni como una competencia de sintaxis. Cada clase vuelve sobre **motor de reglas comparado**, mantiene un contrato común y cambia deliberadamente el modelo de estado, control, composición o tiempo. Así puede distinguirse una diferencia semántica de una diferencia accidental del lenguaje.
 
 ```mermaid
 flowchart LR
@@ -33,7 +33,7 @@ Al finalizar podrás justificar una combinación, señalar adaptadores y pérdid
 ## Prerrequisitos enlazados
 
 - [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
-- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y Brújula.
+- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
 ## Bloques y progresión
@@ -45,7 +45,7 @@ Al finalizar podrás justificar una combinación, señalar adaptadores y pérdid
 
 ## Guía razonada clase por clase
 
-Prisma mantiene una regla, un corpus y un contrato observables para que la comparación
+El motor de reglas comparado mantiene una regla, un corpus y un contrato observables para que la comparación
 sea justa. Cada clase cambia dónde vive el estado, quién controla el flujo o cómo se
 expresan efectos y fallos; después obliga a explicar la consecuencia y entrega evidencia
 que la implementación siguiente debe conservar.
@@ -54,7 +54,7 @@ que la implementación siguiente debe conservar.
 
 #### SE-073 — Programación imperativa y estado mutable
 
-Prisma comienza como una secuencia de comandos que actualiza prioridad, autorización y
+El motor de reglas comparado comienza como una secuencia de comandos que actualiza prioridad, autorización y
 siguiente prueba. La clase hace visible el tiempo: asignación, aliasing y retorno
 temprano pueden dejar un estado intermedio que otro paso observa. Mutar no es el defecto;
 el problema es no declarar propietario, vida útil e invariante.
@@ -71,7 +71,7 @@ fragmentado, no modular. La clase descompone por transformación coherente, defi
 entradas, salidas y efectos, y distingue coordinación de cálculo. El orden sigue siendo
 imperativo, pero cada paso gana una frontera verificable.
 
-Prisma separa validación, puntuación, autorización y selección; las pruebas sustituyen
+El motor de reglas comparado separa validación, puntuación, autorización y selección; las pruebas sustituyen
 una etapa y observan su contrato. El estudiante compara cohesión y acoplamiento antes y
 después. Cuando los datos poseen identidad y deben proteger invariantes durante varias
 operaciones, `SE-075` evalúa encapsulación y mensajes.
@@ -83,7 +83,7 @@ identidad, qué comportamiento puede modificarla y qué representación debe que
 Herencia no se presenta como reutilización gratuita: puede acoplar invariantes y romper
 sustituibilidad.
 
-Prisma modela casos y política como colaboradores, prueba mensajes y evita exponer
+El motor de reglas comparado modela casos y política como colaboradores, prueba mensajes y evita exponer
 colecciones mutables. El estudiante compara composición con herencia y construye un
 contraejemplo de objeto anémico. `SE-076` elimina identidad accidental para observar la
 misma regla como composición de valores y efectos aislados.
@@ -95,7 +95,7 @@ aplicación real todavía lee, escribe y falla. La clase trabaja funciones puras
 inmutabilidad, funciones de orden superior y composición, y ubica efectos en fronteras
 en lugar de negar su existencia.
 
-Prisma produce una nueva decisión sin modificar el caso original y usa propiedades para
+El motor de reglas comparado produce una nueva decisión sin modificar el caso original y usa propiedades para
 comprobar determinismo e idempotencia donde corresponden. Se mide también el costo de
 copias y estructuras. `SE-077` eleva el nivel: declara relaciones y deja que otro
 mecanismo elija el orden de ejecución.
@@ -109,7 +109,7 @@ evaluarla. La clase separa semántica declarada de estrategia operacional, estud
 prioridad, conflicto y explicación, y muestra que escribir condiciones como datos no
 elimina orden, costo ni ambigüedad.
 
-Prisma externaliza reglas de elegibilidad y conserva la traza de cuál se activó. El
+El motor de reglas comparado externaliza reglas de elegibilidad y conserva la traza de cuál se activó. El
 estudiante prueba solapamiento, ausencia y actualización de reglas. `SE-078` profundiza
 la separación mediante hechos, variables, unificación y resolución, donde una consulta
 puede producir varias respuestas.
@@ -121,7 +121,7 @@ explore alternativas. La clase explica hechos, reglas, variables, sustituciones,
 backtracking y el efecto operacional del orden; una consulta que termina en un corpus
 pequeño puede divergir al reordenar reglas o ampliar datos.
 
-El estudiante expresa autorización y dependencia de Prisma, sigue un árbol de resolución
+El estudiante expresa autorización y dependencia del motor de reglas comparado, sigue un árbol de resolución
 y limita una búsqueda recursiva. La evidencia distingue verdad lógica de comportamiento
 del motor. `SE-079` cambia el origen del control: la decisión ya no empieza por una
 llamada directa, sino por eventos que llegan en el tiempo.
@@ -135,7 +135,7 @@ ser parte del dominio. La clase diferencia evento de comando y estado, diseña h
 pequeños y observa colas, correlación y reentrada. Publicar no garantiza que alguien
 procese ni que lo haga una sola vez.
 
-Prisma reacciona a observación añadida, autorización revocada y tiempo agotado. El
+El motor de reglas comparado reacciona a observación añadida, autorización revocada y tiempo agotado. El
 estudiante reproduce un evento duplicado y conserva causalidad mediante identificadores
 e idempotencia. `SE-080` representa la secuencia completa como flujo con terminación,
 error, cancelación y diferencia de ritmos.
@@ -147,7 +147,7 @@ explica operadores como transformaciones, suscripción, evaluación diferida, pr
 cancelación. Una cadena compacta puede ocultar dónde se perdió un evento o qué scheduler
 introdujo concurrencia.
 
-Prisma filtra observaciones autorizadas, calcula prioridades y cancela al vencer el
+El motor de reglas comparado filtra observaciones autorizadas, calcula prioridades y cancela al vencer el
 presupuesto. El estudiante usa pruebas temporales y reproduce un consumidor lento. Si
 varias unidades deben conservar estado independiente mientras procesan mensajes,
 `SE-081` introduce actores y supervisión.
@@ -159,7 +159,7 @@ memoria mutable compartida directa, pero no elimina carreras lógicas, buzones c
 ni fallos distribuidos. La clase distingue concurrencia de paralelismo y estudia
 ordenamiento, supervisión, enlaces y reinicio.
 
-Prisma asigna un actor por caso y otro para política. El estudiante provoca mensajes
+El motor de reglas comparado asigna un actor por caso y otro para política. El estudiante provoca mensajes
 fuera de orden y caída de un actor, luego observa recuperación y pérdida posible. La
 comparación revela fuerzas incompatibles que `SE-082` debe combinar sin crear una
 arquitectura de paradigmas ornamentales.
@@ -173,7 +173,7 @@ matriz de fuerzas: cambio dominante, estado, tiempo, explicabilidad, fallos, eco
 costo de integración. Combinar modelos añade adaptadores y pérdidas semánticas que deben
 ser más baratos que el problema resuelto.
 
-El estudiante propone dos arquitecturas de Prisma, identifica fronteras y define una
+El estudiante propone dos arquitecturas del motor de reglas comparado, identifica fronteras y define una
 condición que haría revertir la elección. La decisión se sostiene con el corpus común,
 no con preferencia personal. `SE-083` somete cinco modelos a la misma regla y a una
 revisión cruzada.
@@ -192,7 +192,7 @@ reproducible, con límites declarados.
 
 #### SE-084 — Proyecto: comparación semántica con pruebas comunes
 
-El proyecto entrega al menos dos implementaciones completas de Prisma junto a contrato,
+El proyecto entrega al menos dos implementaciones completas del motor de reglas comparado junto a contrato,
 corpus, propiedades, trazas y entorno. No se puntúa cantidad de paradigmas: se evalúa si
 la comparación distingue semántica, lenguaje, runtime y experiencia del equipo.
 
@@ -247,4 +247,4 @@ El proyecto **SE-084** entrega un corpus versionado, al menos dos implementacion
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
 
-Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación de Prisma se demuestra con el caso, las pruebas y la comparación.
+Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación del motor de reglas comparado se demuestra con el caso, las pruebas y la comparación.

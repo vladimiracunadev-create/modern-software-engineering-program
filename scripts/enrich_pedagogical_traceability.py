@@ -282,6 +282,32 @@ def strengthen_source_bullets(text: str, class_id: int) -> str:
     return prefix + "## Fuentes\n" + "\n".join(updated) + ("\n" if block.endswith("\n") else "")
 
 
+def strengthen_topic_evidence(text: str, class_id: int) -> str:
+    marker = "## Temas y por qué importan"
+    if marker not in text:
+        return text
+    prefix, remainder = text.split(marker, 1)
+    boundary = re.search(r"\n## ", remainder)
+    if not boundary:
+        return text
+    table = remainder[: boundary.start()]
+    suffix = remainder[boundary.start() :]
+    artifact = PROFILES[class_id][2].split(" con ", 1)[0].split(",", 1)[0]
+    rewritten = []
+    for line in table.splitlines():
+        if "Evidencia o contraejemplo registrado" not in line or not line.startswith("|"):
+            rewritten.append(line)
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 3:
+            rewritten.append(line)
+            continue
+        topic = cells[0]
+        cells[2] = f"Predicción, traza causal y contraejemplo de **{topic}** en `{artifact}`"
+        rewritten.append("| " + " | ".join(cells) + " |")
+    return prefix + marker + "\n".join(rewritten) + suffix
+
+
 def build_section(class_id: int, title: str, previous: str, following: str, sources: list[tuple[str, str, str]]) -> str:
     point, misconception, evidence, limit = PROFILES[class_id]
     rows = "\n".join(
@@ -355,6 +381,7 @@ def enrich_part(part: int) -> None:
         )
         text = text[: insertion + 2] + section + text[insertion + 2 :]
         text = strengthen_source_bullets(text, class_id)
+        text = strengthen_topic_evidence(text, class_id)
         if text.count(SECTION) != 1 or "**PLANNED**" not in text:
             raise SystemExit(f"{path}: postcondition failed")
         path.write_text(text, encoding="utf-8", newline="\n")

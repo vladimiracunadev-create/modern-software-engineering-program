@@ -1,6 +1,6 @@
 # Parte 07 — Estructuras de datos y algoritmos
 
-Prisma acordó una semántica; Orbe debe ejecutarla sobre miles de casos que llegan, cambian de prioridad, se relacionan y expiran. Esta parte evita el catálogo de estructuras: cada clase modifica el mismo motor de priorización y obliga a explicar operaciones, invariantes, costo teórico, comportamiento empírico y condición en que la elección deja de servir.
+El motor de reglas comparado acordó una semántica; la biblioteca de estructuras y algoritmos debe ejecutarla sobre miles de casos que llegan, cambian de prioridad, se relacionan y expiran. Esta parte evita el catálogo de estructuras: cada clase modifica el mismo motor de priorización y obliga a explicar operaciones, invariantes, costo teórico, comportamiento empírico y condición en que la elección deja de servir.
 
 ## Pregunta rectora
 
@@ -9,7 +9,7 @@ Prisma acordó una semántica; Orbe debe ejecutarla sobre miles de casos que lle
 ## Antes del recorrido clase por clase
 
 Esta parte no presenta estructuras como un catálogo de nombres ni confunde complejidad
-asintótica con rendimiento observado. Cada clase vuelve sobre **Orbe**, declara la carga
+asintótica con rendimiento observado. Cada clase vuelve sobre **biblioteca de estructuras y algoritmos**, declara la carga
 y sus operaciones dominantes, protege invariantes y contrasta predicción con medición.
 Así puede distinguirse una elección estructural de una coincidencia de benchmark.
 
@@ -39,7 +39,7 @@ recursos invalida tu recomendación.
 ## Prerrequisitos enlazados
 
 - [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
-- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y Brújula.
+- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
 ## Bloques y progresión
@@ -51,7 +51,7 @@ recursos invalida tu recomendación.
 
 ## Guía razonada clase por clase
 
-Orbe mantiene casos, operaciones y criterios de corrección estables mientras cambia la
+La biblioteca de estructuras y algoritmos mantiene casos, operaciones y criterios de corrección estables mientras cambia la
 representación. Cada clase explica qué operación mejora, cuál se encarece, qué invariante
 sostiene la estructura y qué evidencia permite abandonar la elección cuando cambia la
 carga.
@@ -64,7 +64,7 @@ Una secuencia promete orden e iteración, pero su representación decide costo d
 inserción y localidad. La clase compara almacenamiento contiguo, arreglo dinámico y
 nodos enlazados sin atribuir a la interfaz propiedades de una implementación concreta.
 
-El estudiante caracteriza el flujo de casos de Orbe, predice operaciones dominantes y
+El estudiante caracteriza el flujo de casos de la biblioteca de estructuras y algoritmos, predice operaciones dominantes y
 mide recorridos e inserciones con tamaños crecientes. La evidencia incluye un escenario
 donde cada alternativa pierde. `SE-086` añade políticas de extracción —LIFO, FIFO y
 prioridad— que convierten orden en comportamiento del sistema.
@@ -76,7 +76,7 @@ elemento prioritario, no orden total. La clase relaciona estas propiedades con u
 trabajo pendiente, ventanas y planificación, y hace explícita la regla de desempate para
 evitar resultados dependientes de detalles internos.
 
-Orbe encola casos, actualiza prioridad y reproduce starvation. El estudiante registra
+La biblioteca de estructuras y algoritmos encola casos, actualiza prioridad y reproduce starvation. El estudiante registra
 invariante, costo y política de equidad. Para encontrar un caso por identidad sin
 recorrer toda la cola, `SE-087` introduce mapas, conjuntos y el contrato de igualdad y
 hash.
@@ -88,7 +88,7 @@ hash estable y estrategia de colisión. La clase diferencia mapa de conjunto y e
 promedio frente a peor caso, redimensionamiento y riesgo de usar objetos mutables como
 clave.
 
-El estudiante indexa casos de Orbe y prueba duplicados, colisiones controladas y claves
+El estudiante indexa casos de la biblioteca de estructuras y algoritmos y prueba duplicados, colisiones controladas y claves
 ausentes. La evidencia separa pertenencia de orden. Cuando la consulta depende de
 prefijos o jerarquías, `SE-088` usa árboles y tries con invariantes más fuertes.
 
@@ -100,7 +100,7 @@ Un árbol expresa una jerarquía; un árbol de búsqueda añade orden y un trie 
 prefijos. La clase explica raíz, subárbol, balance, rotaciones y recorridos, y muestra
 cómo una inserción adversarial degrada un BST no balanceado hasta comportarse como lista.
 
-Orbe organiza categorías y comandos por prefijo. El estudiante verifica invariante,
+La biblioteca de estructuras y algoritmos organiza categorías y comandos por prefijo. El estudiante verifica invariante,
 serializa sin perder estructura y compara profundidad. Dependencias con múltiples rutas
 y ciclos ya no caben en una jerarquía; `SE-089` generaliza el modelo a grafos.
 
@@ -110,7 +110,7 @@ Un grafo representa relaciones arbitrarias mediante vértices y aristas; la elec
 entre lista y matriz de adyacencia depende de densidad y consultas. La clase compara BFS
 y DFS, mantiene visitados y reconstruye causa del camino, no solo alcance.
 
-Orbe modela propagación entre servicios y busca la primera dependencia alcanzable. El
+La biblioteca de estructuras y algoritmos modela propagación entre servicios y busca la primera dependencia alcanzable. El
 estudiante prueba ciclos, componentes y rutas inexistentes, registrando distancia y
 predecesor. `SE-090` estudia cuándo ordenar, buscar o seleccionar evita trabajo y qué
 precondición exige cada algoritmo.
@@ -122,7 +122,7 @@ una única consulta. La clase distingue estabilidad, clave, comparación total, 
 `top-k` y búsqueda lineal, y muestra cómo valores especiales o comparadores incoherentes
 rompen garantías.
 
-El estudiante compara consultas de Orbe bajo distintas frecuencias y prueba empates.
+El estudiante compara consultas de la biblioteca de estructuras y algoritmos bajo distintas frecuencias y prueba empates.
 Entrega una decisión que incluye costo de preparar y mantener el orden. Cuando la
 solución depende de una secuencia de elecciones y no solo de ordenar datos, `SE-091`
 contrasta voracidad y programación dinámica.
@@ -136,7 +136,7 @@ lo justifica. La programación dinámica conserva resultados de subproblemas sup
 y necesita estado suficiente. La clase exige argumento o contraejemplo, no confianza en
 que un ejemplo pequeño funcionó.
 
-Orbe asigna un presupuesto de pruebas. El estudiante construye un caso donde la elección
+La biblioteca de estructuras y algoritmos asigna un presupuesto de pruebas. El estudiante construye un caso donde la elección
 local falla, formula recurrencia y compara memoria. `SE-092` estudia problemas donde hay
 que explorar alternativas o dividir instancias independientes.
 
@@ -147,7 +147,7 @@ rama no sirve; divide y vencerás resuelve subproblemas independientes y combina
 clase separa ambos mecanismos y hace visibles profundidad, factor de ramificación y
 presupuesto.
 
-El estudiante programa una selección restringida en Orbe, ordena decisiones para podar
+El estudiante programa una selección restringida en la biblioteca de estructuras y algoritmos, ordena decisiones para podar
 y registra soluciones incompletas al agotar tiempo. Después contrasta con una
 descomposición independiente. `SE-093` amplía el repertorio con índices probabilísticos
 y estructuras que conservan versiones.
@@ -159,7 +159,7 @@ acepta falsos positivos controlados, no falsos negativos bajo su contrato; una
 estructura persistente conserva versiones compartiendo partes. La clase explicita qué
 garantía se intercambia en cada caso.
 
-Orbe usa un filtro para evitar búsquedas costosas y snapshots para comparar decisiones.
+La biblioteca de estructuras y algoritmos usa un filtro para evitar búsquedas costosas y snapshots para comparar decisiones.
 El estudiante mide tasa observada, prueba borrado o reconstrucción y calcula memoria.
 Estas estructuras prometen costos que `SE-094` debe comprobar con un experimento y un
 perfil representativos.
@@ -173,7 +173,7 @@ memoria dentro de esa ejecución. La clase controla calentamiento, generación d
 repetición y variación, separa construcción de consulta y evita inferir complejidad
 universal desde pocos puntos.
 
-El estudiante contrasta predicciones de Orbe con curvas y perfiles, busca el cuello de
+El estudiante contrasta predicciones de la biblioteca de estructuras y algoritmos con curvas y perfiles, busca el cuello de
 botella y registra versiones. El informe incluye una medición que no permite decidir.
 `SE-095` usa toda esa evidencia para escoger por carga y no por familiaridad.
 
@@ -190,7 +190,7 @@ las alternativas y su evidencia como biblioteca comparable por otra persona.
 
 #### SE-096 — Proyecto: biblioteca comparada con casos límite
 
-El proyecto entrega implementaciones intercambiables de operaciones de Orbe, una API
+El proyecto entrega implementaciones intercambiables de operaciones de la biblioteca de estructuras y algoritmos, una API
 común, propiedades, corpus de cargas y mediciones reproducibles. No busca demostrar que
 una estructura es superior, sino permitir elegir con corrección bajo condiciones
 declaradas.
@@ -198,7 +198,7 @@ declaradas.
 La aceptación cubre vacío, duplicado, empate, actualización, ciclo y escala; separa
 resultados funcionales de rendimiento. El informe declara plataformas y variabilidad.
 La regresión de prioridades empatadas que aparece al cambiar entorno será el síntoma que
-la Parte 8 investigará con Lupa.
+la Parte 8 investigará con el entorno reproducible de diagnóstico.
 
 ## Resumen operativo del recorrido
 
@@ -249,4 +249,4 @@ perfiles de operaciones distintos y declara el punto en que la decisión debe re
 - [Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación de Orbe se demuestra con el caso, las pruebas y la comparación.
+Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación de la biblioteca de estructuras y algoritmos se demuestra con el caso, las pruebas y la comparación.

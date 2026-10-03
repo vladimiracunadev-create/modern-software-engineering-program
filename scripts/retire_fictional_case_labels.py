@@ -22,7 +22,7 @@ LABELS = {
     "Prisma": ("motor de reglas comparado", "el motor de reglas comparado"),
     "Orbe": ("biblioteca de estructuras y algoritmos", "la biblioteca de estructuras y algoritmos"),
     "Lupa": ("entorno reproducible de diagnóstico", "el entorno reproducible de diagnóstico"),
-    "Constelación": ("SDK y CLI versionados", "el SDK y la CLI versionados"),
+    "Constelación": ("producto reutilizable con SDK y CLI", "el producto reutilizable con SDK y CLI"),
 }
 GENITIVE = {
     "Pulso": "del analizador local de eventos",
@@ -33,7 +33,7 @@ GENITIVE = {
     "Prisma": "del motor de reglas comparado",
     "Orbe": "de la biblioteca de estructuras y algoritmos",
     "Lupa": "del entorno reproducible de diagnóstico",
-    "Constelación": "del SDK y la CLI versionados",
+    "Constelación": "del producto reutilizable con SDK y CLI",
 }
 CODE_ALIASES = {
     "pulso": "event_analyzer",
@@ -51,6 +51,11 @@ CODE_ALIASES = {
 
 
 def replace_labels(text: str) -> str:
+    text = text.replace("el **SDK y la CLI versionados de la Parte 09**", "el **producto reutilizable con SDK y CLI de la Parte 09**")
+    text = text.replace("**SDK y CLI versionados**", "**producto reutilizable con SDK y CLI**")
+    text = text.replace("El SDK y la CLI versionados", "El producto reutilizable con SDK y CLI")
+    text = text.replace("el SDK y la CLI versionados", "el producto reutilizable con SDK y CLI")
+    text = text.replace("del SDK y la CLI versionados", "del producto reutilizable con SDK y CLI")
     text = text.replace("Faro-01", "incidente-de-diagnóstico-01")
     for old, replacement in GENITIVE.items():
         text = text.replace(f"caso {old}", f"caso {replacement}")
@@ -84,8 +89,8 @@ def replace_labels(text: str) -> str:
             "Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**.",
         "Esta clase continúa **entorno reproducible de diagnóstico**, el caso conductor de la Parte 08.":
             "Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**.",
-        "Esta clase continúa **SDK y CLI versionados**, el caso conductor de la Parte 09.":
-            "Esta clase continúa el **SDK y la CLI versionados de la Parte 09**.",
+        "Esta clase continúa **producto reutilizable con SDK y CLI**, el caso conductor de la Parte 09.":
+            "Esta clase continúa el **producto reutilizable con SDK y CLI de la Parte 09**.",
         "Esta clase continúa **modelo de decisión diagnóstica**, el planificador de diagnóstico que recibe la evidencia de la petición observable de extremo a extremo y la convierte en una siguiente decisión explicable.":
             "Esta clase continúa el **modelo de decisión diagnóstica**, que convierte la evidencia de la petición observable de extremo a extremo en una siguiente decisión explicable.",
     }

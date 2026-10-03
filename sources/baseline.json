@@ -60,6 +60,54 @@
       "used_for": ["energy-boundary", "carbon-intensity", "functional-unit"]
     },
     {
+      "id": "POSIX-2024",
+      "title": "The Open Group Base Specifications, Issue 8",
+      "authority": "The Open Group and IEEE",
+      "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+      "status": "current",
+      "used_for": ["processes", "files", "permissions", "shell"]
+    },
+    {
+      "id": "WINDOWS-DOCS",
+      "title": "Windows Documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/windows/",
+      "status": "living",
+      "used_for": ["windows", "processes", "access-control", "services"]
+    },
+    {
+      "id": "POWERSHELL-DOCS",
+      "title": "PowerShell Documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/powershell/",
+      "status": "living",
+      "used_for": ["powershell", "pipelines", "environment", "automation"]
+    },
+    {
+      "id": "BASH-MANUAL",
+      "title": "GNU Bash Reference Manual",
+      "authority": "GNU Project",
+      "url": "https://www.gnu.org/software/bash/manual/",
+      "status": "living",
+      "used_for": ["bash", "shell", "pipelines", "automation"]
+    },
+    {
+      "id": "SYSTEMD-MAN",
+      "title": "systemd Manual Pages",
+      "authority": "systemd project",
+      "url": "https://www.freedesktop.org/software/systemd/man/latest/",
+      "status": "living",
+      "used_for": ["services", "journaling", "process-supervision"]
+    },
+    {
+      "id": "WSL-DOCS",
+      "title": "Windows Subsystem for Linux Documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/windows/wsl/",
+      "status": "living",
+      "used_for": ["wsl", "virtualization", "filesystem-boundaries"]
+    },
+    {
       "id": "ACM-IEEE-SE2014",
       "title": "Software Engineering 2014 Curriculum Guidelines",
       "authority": "ACM and IEEE Computer Society",

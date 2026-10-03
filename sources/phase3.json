@@ -188,6 +188,13 @@
       "status": "verified"
     },
     {
+      "id": "SYSTEMD",
+      "title": "systemd Manual Pages",
+      "authority": "systemd project",
+      "url": "https://www.freedesktop.org/software/systemd/man/latest/",
+      "status": "verified"
+    },
+    {
       "id": "UNICODE-17",
       "title": "The Unicode Standard 17.0",
       "authority": "Unicode Consortium",
@@ -214,6 +221,13 @@
       "authority": "Microsoft",
       "url": "https://learn.microsoft.com/windows/",
       "status": "verified"
+    },
+    {
+      "id": "WSL",
+      "title": "Windows Subsystem for Linux Documentation",
+      "authority": "Microsoft",
+      "url": "https://learn.microsoft.com/windows/wsl/",
+      "status": "verified"
     }
   ],
   "parts": {
@@ -234,7 +248,9 @@
       "POSIX",
       "WINDOWS",
       "POWERSHELL",
-      "BASH"
+      "BASH",
+      "SYSTEMD",
+      "WSL"
     ],
     "03": [
       "RFC-8200",

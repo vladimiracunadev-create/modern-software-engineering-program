@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–01 aportan 24 clases `GUIDED` y las 156 restantes aún
+`SE-001`–`SE-180`: las partes 00–02 aportan 36 clases `GUIDED` y las 144 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -12,17 +12,17 @@ Esta auditoría distingue tres hechos:
 2. existen borradores estructurales, actividades y rúbricas generadas;
 3. esos artefactos no equivalen a clases desarrolladas ni aprobadas.
 
-## Evidencia observada el 2026-09-30
+## Evidencia observada el 2026-10-03
 
 | Comprobación | Resultado | Interpretación |
 | --- | ---: | --- |
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 24 | Partes 00–01 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 36 | Partes 00–02 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 24 | Partes 00–01 aprobadas; las otras 156 permanecen `PLANNED` |
+| clases aprobadas | 36 | Partes 00–02 aprobadas; las otras 144 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -74,6 +74,17 @@ fallo controlado, errores, fuentes y límites instrumentales. El README completo
 parte se publica también en Pages. Tras revisión clase por clase y de la progresión
 completa, las doce clases avanzaron a `GUIDED`; no se promovieron a estados que exigen
 ejecución o evidencia productiva.
+
+## Avance editorial de la Parte 02
+
+Las clases `SE-025`–`SE-036` se reconstruyeron desde fuentes canónicas en
+`content/part-02/`. El caso `Faro` conecta plataforma, sistemas de archivos,
+autorización, procesos, shells, configuración, procedencia, observabilidad y
+virtualización hasta un taller de recuperación y un kit diagnóstico multiplataforma.
+Cada clase desarrolla mecanismos propios, mapa causal, ejemplos, práctica, reto,
+fallo controlado, seguridad, transferencia y fuentes oficiales próximas. La revisión
+completa confirmó el contrato pedagógico y la publicación íntegra en el portal; las
+doce clases avanzaron a `GUIDED` sin atribuir ejecución en plataformas no probadas.
 
 ## Orden de reconstrucción
 

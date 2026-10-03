@@ -8,4 +8,6 @@ a:hover{color:#b44231}a:focus-visible,input:focus-visible,select:focus-visible,s
 .lesson-progress ol{grid-template-columns:repeat(12,minmax(0,1fr));min-width:0}.lesson-progress li{min-width:0;overflow:hidden}.lesson-progress a,.lesson-progress span{overflow:hidden}
 .context-card{min-width:0}.lesson-content>p:first-child+.callout{display:none}
 .route li.route-block{display:block;margin:2.5rem 0 1rem;padding:0 0 0 4rem;color:var(--coral)}
-@media(max-width:520px){body{overflow-x:hidden}.class-nav{grid-template-columns:1fr 1fr}.lesson-hero h1{overflow-wrap:anywhere}.lesson-progress{max-width:100%;overflow:hidden}}
+html,body{max-width:100%;overflow-x:hidden}.lesson,.lesson-hero,.lesson-context,.lesson-shell,.lesson-content,.context-card{min-width:0;max-width:100%}
+.lesson-hero h1,.lesson-hero p,.context-card strong,.notice,.class-nav a{overflow-wrap:anywhere;word-break:break-word}
+@media(max-width:520px){main{width:calc(100% - 1rem);padding-top:1rem}.class-nav{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.lesson-hero{padding:1.35rem}.lesson-hero h1{font-size:clamp(2rem,10.5vw,2.35rem);line-height:1.05;text-wrap:wrap}.lesson-hero p{font-size:.98rem}.lesson-progress{max-width:100%;overflow:hidden}}

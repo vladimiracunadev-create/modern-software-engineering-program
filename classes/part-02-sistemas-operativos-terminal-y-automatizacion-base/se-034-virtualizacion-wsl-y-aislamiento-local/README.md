@@ -1,210 +1,219 @@
 # SE-034 — Virtualización, WSL y aislamiento local
 
-[← SE-033 — Logs del sistema y diagnóstico de fallos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-034.html) · [SE-035 — Taller: preparar y reparar un entorno reproducible →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)
+[← SE-033](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-035 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Compara fronteras locales; no certifica aislamiento de seguridad ni requiere habilitar virtualización.
+
+## Antes de empezar
+
+Faro puede ejecutarse dentro de una máquina virtual, un contenedor o WSL. Ver “Linux” en el informe ya no basta: el kernel, el sistema de archivos, la red y los recursos pueden pertenecer a capas diferentes. Aislamiento no significa independencia absoluta ni constituye por sí solo una frontera de seguridad suficiente.
+
+### Resultado de aprendizaje
+
+Al terminar podrás comparar máquinas virtuales, contenedores y WSL por lo que virtualizan, comparten y traducen, y predecir consecuencias sobre rutas, procesos, red y rendimiento.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-033` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-025` a `SE-033`: plataforma, rutas, procesos y evidencia. La clase no requiere habilitar virtualización; puede trabajarse con un entorno ya disponible o un modelo documentado.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Virtualización, WSL y aislamiento local**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Faro informa Linux y una ruta `/mnt/c`, mientras la persona afirma usar Windows. Un archivo es lento y `localhost` no alcanza al servicio esperado. El equipo mezcla proceso, kernel, anfitrión y sistemas de archivos como si fueran una sola capa.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Virtualización y WSL con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás dibujar fronteras de VM, contenedor y WSL; identificar kernel y recursos compartidos; explicar persistencia y montajes; probar una consecuencia de cruzar capas; y limitar afirmaciones de aislamiento.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Virtualización | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| WSL | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Aislamiento | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Local | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| VM | virtualiza hardware para un kernel invitado | reproducir otro sistema con frontera fuerte distinta |
+| Contenedor | aísla procesos sobre kernel compartido | empaquetar espacio de usuario con menor costo |
+| WSL | integra entorno Linux administrado con Windows | ubicar rutas, red y herramientas por capa |
+| Persistencia | separa instancia de volúmenes/montajes | evitar pérdida y cruces inseguros |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Virtualización, WSL y aislamiento local"] --> M["Modelo: Virtualización"]
-    M --> D["Decisión: WSL"]
-    D --> E["Evidencia: aislamiento"]
-    E --> R["Revisión: local"]
-    R -->|nueva información| M
+flowchart TB
+ A[Aplicación] --> U[Espacio de usuario]
+ U --> K{Kernel usado}
+ K -->|Nativo| H[Hardware anfitrión]
+ K -->|Invitado| V[Hipervisor o VM administrada]
+ V --> H
+ M[Montajes y red] --> U
+ M --> X[Recursos externos o del anfitrión]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Virtualización, WSL y aislamiento local**.
+La aplicación puede ver un sistema distinto del anfitrión. Montajes y red cruzan fronteras; deben modelarse aparte de la etiqueta del proceso.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Virtualizar es presentar una interfaz lógica respaldada por otra capa
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Un hipervisor presenta CPU, memoria y dispositivos virtuales a un sistema invitado. El invitado ejecuta su propio kernel y gestiona sus procesos. El anfitrión conserva recursos físicos y una capa de control. Esto ofrece una frontera distinta a ejecutar otro proceso directamente, pero configuración, integraciones y vulnerabilidades todavía importan.
 
-### 1. Virtualización: modelo
+Una VM completa consume más recursos que un proceso aislado y puede reproducir un sistema diferente con mayor fidelidad. Una instantánea captura cierto estado de discos/memoria según la herramienta; no sustituye backup ni garantiza consistencia de aplicaciones.
 
-En esta clase, **Virtualización** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Virtualización, WSL y aislamiento local**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Los contenedores aíslan procesos compartiendo kernel
 
-### 2. WSL: mecanismo
+En el modelo común de Linux, namespaces ofrecen vistas separadas de procesos, red, montajes y otras identidades; cgroups contabilizan y limitan recursos. La imagen aporta espacio de usuario, no otro kernel. Por eso una imagen Linux no ejecuta directamente sobre cualquier kernel sin una capa intermedia.
 
-En esta clase, **WSL** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Virtualización, WSL y aislamiento local**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart TB
+    subgraph VM[Máquina virtual]
+      APP1[Aplicación] --> G1[Kernel invitado]
+    end
+    G1 --> H[Hipervisor/anfitrión]
+    subgraph CT[Contenedor]
+      APP2[Aplicación aislada] --> K[Kernel compartido]
+    end
+    K --> H
+    subgraph W[WSL 2]
+      APP3[Proceso Linux] --> LK[Kernel Linux administrado]
+      LK --> WH[Integración con Windows]
+    end
+    WH --> H
+```
 
-### 3. Aislamiento: evidencia
+El diagrama compara fronteras, no calidad. La implementación concreta puede añadir sandboxing, VM ligera o políticas adicionales.
 
-En esta clase, **aislamiento** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Virtualización, WSL y aislamiento local**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Una imagen es plantilla; un contenedor es instancia
 
-### 4. Local: decisión
+La imagen agrupa capas inmutables de referencia y metadatos. Al ejecutar se agrega estado escribible y montajes. Guardar datos importantes solo en la capa efímera los ata al ciclo de vida de esa instancia. Los volúmenes y bind mounts cruzan la frontera y necesitan permisos, backup y ruta explícita.
 
-En esta clase, **local** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Virtualización, WSL y aislamiento local**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Fijar una etiqueta como `latest` no fija identidad. Para reproducibilidad se registra digest o versión y el archivo de construcción. Aun así, servicios externos y arquitectura pueden variar.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### WSL integra dos mundos con costos y semánticas visibles
+
+WSL permite ejecutar entornos Linux en Windows; WSL 2 usa un kernel Linux dentro de una máquina virtual administrada e integra archivos, red y lanzamiento entre sistemas. Una ruta de Windows montada en Linux atraviesa una frontera distinta a un archivo dentro del sistema de archivos Linux de WSL.
+
+La [documentación de WSL](https://learn.microsoft.com/windows/wsl/) recomienda considerar dónde se almacenan los archivos según las herramientas usadas. Rendimiento, permisos, sensibilidad a mayúsculas y observación de cambios pueden diferir al cruzar la frontera.
+
+### Red, tiempo y recursos deben mapearse por capa
+
+`localhost` nombra la pila de red del contexto actual; según modo de red y versión puede requerir publicación o traducción. CPU y memoria visibles pueden ser límites, no capacidad física completa. El reloj suele provenir del anfitrión con mecanismos de sincronización, pero suspensiones y snapshots complican intervalos.
+
+Faro informa límites observables y evita equipararlos al hardware total.
+
+### Aislamiento no elimina confianza ni persistencia
+
+Montar el socket del motor, ejecutar privilegiado o compartir directorios sensibles perfora fronteras. Una imagen puede contener software malicioso; un contenedor no lo vuelve inocuo. Se usa mínimo privilegio, orígenes verificados, capacidades limitadas y datos ficticios en el laboratorio.
 
 ## Definiciones de trabajo
 
-- **Virtualización:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **WSL:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Aislamiento:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Local:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **anfitrión:** sistema que posee o administra recursos físicos;
+- **invitado:** sistema operativo ejecutado sobre hardware virtualizado;
+- **contenedor:** conjunto de procesos con vistas y límites que suele compartir kernel;
+- **montaje:** exposición de un sistema o ruta dentro de otro espacio de nombres;
+- **frontera:** punto donde cambian autoridad, semántica, rendimiento o propiedad.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro dibuja sus fronteras
 
-## Ejemplo mínimo
+Faro detecta señales de entorno sin prometer certeza absoluta y produce un mapa:
 
-Registra una sola decisión sobre **Virtualización, WSL y aislamiento local**:
+```text
+proceso: Linux
+kernel: Linux bajo WSL 2 (evidencia disponible)
+anfitrion: Windows (integración detectada)
+ruta_objetivo: /mnt/c/... (cruza a volumen Windows)
+limites: memoria visible, CPUs visibles
+incertidumbre: versión/configuración del motor no accesible
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la comunidad social, el equipo prepara un cambio relacionado con **Virtualización, WSL y aislamiento local**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Si Pulso es lento sobre `/mnt/c`, Faro compara una operación equivalente dentro del sistema Linux antes de atribuir la causa al código. Esa prueba aísla la frontera de almacenamiento; no generaliza a todas las cargas.
 
 ## Práctica guiada
 
-1. Crea `work/SE-034/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja proceso, kernel, almacenamiento y anfitrión para ejecución nativa, VM, contenedor o WSL disponible.
+2. Identifica qué recursos se comparten y cuáles se virtualizan.
+3. Compara una operación pequeña a ambos lados de una frontera de archivos.
+4. Detén y recrea la instancia; registra qué estado persiste.
+5. Revisa montajes, publicación de puertos y privilegios antes de ejecutar.
+
+Si no tienes virtualización disponible, trabaja con evidencia documental y manifiestos; no afirmes haber ejecutado la prueba.
+
+## Ejemplo mínimo
+
+Dentro de un contenedor, PID 1 no es necesariamente el PID 1 del anfitrión. La vista está aislada; el kernel subyacente puede ser el mismo. Esa pareja muestra aislamiento de espacio de nombres sin kernel invitado.
+
+## Ejemplo profesional
+
+Un repositorio se compila en WSL sobre `/mnt/c` y las operaciones de muchos archivos son lentas. Una prueba equivalente dentro del sistema de archivos Linux mejora. El equipo mueve el árbol activo y conserva interoperabilidad solo para artefactos necesarios, documentando el costo de frontera.
 
 ## Ejercicios
 
-1. **Fundamental:** define Virtualización y WSL con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Dibuja proceso, kernel y almacenamiento para nativo, VM, contenedor y WSL 2.
+2. Clasifica qué persiste al borrar una instancia en tres configuraciones.
+3. Explica por qué publicar un puerto y usar `localhost` depende del contexto.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-034/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-034/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Construye un mapa de una ejecución real o documental con seis observaciones y tres incógnitas. Prueba una consecuencia de almacenamiento o red y evita extrapolarla a todo rendimiento.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Un contenedor es una VM pequeña?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No en el modelo común: comparte kernel y aísla procesos; algunas plataformas añaden una VM debajo.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Una snapshot reemplaza un backup?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Puede depender del mismo almacenamiento y capturar estado inconsistente; recuperación debe probarse por separado.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Guarda un archivo solo en la capa efímera de un entorno desechable y recrea la instancia. Registra la pérdida, añade un volumen de laboratorio y repite. Explica persistencia sin afirmar que el volumen ya tiene backup.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| “Está aislado porque está en un contenedor” | Se ignoraron kernel, montajes y privilegios compartidos | Enumerar fronteras y capacidades efectivas |
+| Los datos desaparecen al recrear | Se confundió capa escribible con almacenamiento persistente | Definir volumen y probar ciclo de vida |
+| `localhost` apunta al lugar inesperado | No se identificó la pila de red actual | Mapear procesos y puertos por contexto |
+| Una carga en WSL es lenta | Cruza repetidamente el límite de sistemas de archivos | Medir en ambas ubicaciones y elegir según herramienta |
+| Una snapshot se usa como backup | Se confundió estado operativo con copia independiente | Diseñar backup y restauración verificables |
+
+## Entorno y archivos clave
+
+Mapa en `work/SE-034/boundaries.md`, manifiesto o configuración inspeccionada y `experiment.md`. Si ejecutas, usa imágenes y datos ficticios autorizados.
+
+## Seguridad, ética y accesibilidad
+
+No habilites modo privilegiado, sockets administrativos ni montajes personales. Describe los diagramas en texto y marca explícitamente qué capas son inferidas.
+
+## Transferencia
+
+Aplica las fronteras a un runner de CI hospedado. Señala qué controla el repositorio, el proveedor y el job, y dónde persistiría un artefacto.
+
+## Evaluación y evidencia
+
+Se exige mapa por capas, recursos compartidos, prueba acotada, persistencia demostrada o diseñada y límites de seguridad. Decir “está aislado” sin enumerar fronteras no aprueba.
+
+## Criterio de cierre
+
+Puedes dibujar las capas reales de tu ejecución, explicar recursos compartidos y demostrar al menos una consecuencia observable de cruzar una frontera, sin exagerar garantías de seguridad.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Virtualización, WSL y aislamiento local**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-035`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubrimos orquestación, hardening avanzado ni escapes. Con el modelo de plataforma completo, la próxima clase integra los mecanismos en una reparación controlada de un entorno defectuoso.
+
+## Fuentes
+
+- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/)
+- [Linux kernel — namespaces](https://man7.org/linux/man-pages/man7/namespaces.7.html)
+- [Linux kernel — cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html)
+- [Docker documentation — storage](https://docs.docker.com/engine/storage/)
+
+## Glosario
+
+- **Bind mount:** exposición de una ruta del anfitrión dentro de otro contexto.
+- **Contenedor:** conjunto de procesos aislados que normalmente comparte kernel.
+- **Hipervisor:** capa que administra máquinas virtuales y recursos virtualizados.
+- **Imagen:** plantilla de sistema de archivos y metadatos para crear instancias.
+- **Namespace:** mecanismo que proporciona a procesos una vista aislada de un recurso del kernel.
 
 ---
-
-[← SE-033 — Logs del sistema y diagnóstico de fallos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-034.html) · [SE-035 — Taller: preparar y reparar un entorno reproducible →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)
+[← SE-033](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-035 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md)

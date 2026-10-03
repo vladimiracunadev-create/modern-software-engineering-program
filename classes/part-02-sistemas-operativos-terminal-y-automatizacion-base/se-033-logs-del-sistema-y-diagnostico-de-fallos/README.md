@@ -1,210 +1,215 @@
 # SE-033 — Logs del sistema y diagnóstico de fallos
 
-[← SE-032 — Instalación de software y gestores de paquetes del sistema](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-033.html) · [SE-034 — Virtualización, WSL y aislamiento local →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)
+[← SE-032](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-034 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Recolecta evidencia minimizada de un laboratorio; no es un procedimiento forense ni autoriza extraer logs de terceros.
+
+## Antes de empezar
+
+Cuando Pulso falla, un archivo de log puede contener miles de líneas y aun no responder qué ocurrió. Registrar más no equivale a observar mejor. Faro necesita relacionar evento, contexto y resultado sin capturar secretos ni convertir una coincidencia temporal en causa.
+
+### Resultado de aprendizaje
+
+Al terminar podrás diseñar eventos útiles, correlacionar evidencia de varias fuentes y producir un paquete diagnóstico minimizado que separa hechos, inferencias y acciones.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-032` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-031` para redacción, `SE-028` para ciclo de proceso y una ejecución local de Pulso/Faro. Usa únicamente eventos sintéticos o propios.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Logs del sistema y diagnóstico de fallos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Pulso falla y existen miles de líneas de log. No hay identificador de operación, los relojes difieren y una ruta personal aparece junto a un token. El volumen aumentó; la capacidad de explicar disminuyó.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Logs y sistema con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás diseñar eventos estructurados; distinguir logs, métricas y trazas; correlacionar con incertidumbre temporal; separar hecho e inferencia; y exportar evidencia minimizada sin el secreto centinela.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Logs | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Sistema | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Diagnóstico | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Fallos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Evento estructurado | conserva código, tiempo, componente y campos | consultar sin parsear frases |
+| Correlación | relaciona señales de una operación | reconstruir una línea temporal |
+| Tiempo | separa marca de pared y duración monótona | evitar órdenes y duraciones falsas |
+| Minimización | selecciona y redacta antes de persistir | compartir evidencia con menor riesgo |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Logs del sistema y diagnóstico de fallos"] --> M["Modelo: Logs"]
-    M --> D["Decisión: sistema"]
-    D --> E["Evidencia: diagnóstico"]
-    E --> R["Revisión: fallos"]
-    R -->|nueva información| M
+ O[Operación] --> L[Logs estructurados]
+ O --> M[Métricas]
+ O --> X[Estado y stderr]
+ C[Contexto de plataforma] --> T[Línea temporal]
+ L --> T
+ M --> T
+ X --> T
+ T --> H[Hipótesis rivales]
+ H --> P[Prueba discriminante]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Logs del sistema y diagnóstico de fallos**.
+Las señales convergen en una hipótesis, no en una certeza automática. La prueba siguiente debe poder cambiar la conclusión.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Observabilidad permite inferir estado desde salidas
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Un sistema es más observable cuando sus señales permiten responder preguntas sobre su comportamiento. Logs describen eventos; métricas agregan medidas; trazas relacionan pasos de una operación. En un diagnóstico local también importan códigos de salida, configuración efectiva, versión y estado del sistema.
 
-### 1. Logs: modelo
+Ninguna señal aislada es verdad completa. Un log registra lo que el programa alcanzó a emitir; un cierre abrupto puede dejar eventos pendientes.
 
-En esta clase, **Logs** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Logs del sistema y diagnóstico de fallos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Un evento útil tiene estructura y propósito
 
-### 2. Sistema: mecanismo
+Un registro profesional incluye tiempo con zona o referencia inequívoca, severidad, componente, evento estable, correlación y campos relevantes. El mensaje humano complementa, no sustituye, la estructura.
 
-En esta clase, **sistema** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Logs del sistema y diagnóstico de fallos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart LR
+    O[Operación de Pulso] --> A[Eventos de aplicación]
+    O --> M[Métricas locales]
+    O --> X[Código y stderr]
+    S[Contexto del sistema] --> C[Correlación temporal]
+    A --> C
+    M --> C
+    X --> C
+    C --> H[Hipótesis contrastables]
+    H --> P[Prueba mínima siguiente]
+```
 
-### 3. Diagnóstico: evidencia
+La correlación aproxima relaciones; no demuestra causalidad por sí sola. Un identificador de operación une eventos mejor que buscar textos parecidos.
 
-En esta clase, **diagnóstico** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Logs del sistema y diagnóstico de fallos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Severidad representa impacto operativo, no emoción
 
-### 4. Fallos: decisión
+`DEBUG`, `INFO`, `WARN` y `ERROR` solo son útiles si el equipo define cuándo aplican. Un error recuperado puede ser advertencia para la operación global; una precondición ausente puede ser error sin excepción interna. Todo marcado como error crea fatiga y oculta señales.
 
-En esta clase, **fallos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Logs del sistema y diagnóstico de fallos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Faro conserva un evento estable como `config.read.denied` y una explicación localizada. Las automatizaciones dependen del código, no de frases traducidas.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Tiempo y orden exigen cautela
+
+Relojes pueden diferir, cambiar o tener distinta precisión. El tiempo de pared sirve para ubicar un evento; un reloj monótono es mejor para duraciones dentro de un proceso. En concurrencia, el orden de escritura no necesariamente reproduce el orden causal.
+
+Faro registra inicio, fin y duración con mecanismo apropiado, además de zona para marcas compartidas. Si combina fuentes, declara la incertidumbre de sincronización.
+
+### La captura debe minimizar datos sensibles
+
+Logs pueden revelar rutas personales, argumentos, nombres de usuario, tokens o contenido. La política define campos permitidos, redacción, retención, acceso y eliminación. Recolectar todo “por si acaso” aumenta riesgo y ruido.
+
+La redacción debe ocurrir antes de serializar. Los valores secretos centinela de SE-031 vuelven a usarse para probar que no aparecen en eventos ni archivos comprimidos.
+
+### Diagnosticar es iterar hipótesis, no buscar una línea roja
+
+El flujo profesional define el síntoma, construye una línea temporal, formula causas alternativas y elige una prueba que las distinga. La bitácora conserva resultados negativos porque reducen el espacio de búsqueda.
+
+Los sistemas ofrecen almacenes diferentes: Windows Event Log, journal de `systemd`, Unified Logging de Apple y archivos de aplicación. Sus filtros y permisos no son equivalentes. Se consulta documentación oficial como [Windows Event Log](https://learn.microsoft.com/windows/win32/eventlog/event-logging), [`journalctl`](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) y [Apple Unified Logging](https://developer.apple.com/documentation/os/logging).
 
 ## Definiciones de trabajo
 
-- **Logs:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Sistema:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Diagnóstico:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Fallos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **evento:** observación estructurada con significado estable;
+- **correlación:** relación explícita entre señales de una operación;
+- **hecho:** observación respaldada por una fuente identificable;
+- **inferencia:** explicación compatible con hechos, aún contrastable;
+- **paquete diagnóstico:** evidencia seleccionada, contextualizada y minimizada para revisión.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro construye una línea temporal
 
-## Ejemplo mínimo
+Pulso devuelve código `3`: configuración ausente. Faro recoge versión, configuración efectiva redactada, metadatos de la ruta y eventos con el mismo identificador. Descubre que la ruta provino de una variable heredada, no del archivo esperado. Esa relación ya está explicada por la precedencia de SE-031.
 
-Registra una sola decisión sobre **Logs del sistema y diagnóstico de fallos**:
+El informe separa:
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la servicio financiero, el equipo prepara un cambio relacionado con **Logs del sistema y diagnóstico de fallos**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+- **hechos:** variable presente, ruta resuelta, archivo ausente, código 3;
+- **inferencia:** la variable probablemente desvió la búsqueda;
+- **prueba:** ejecutar en un entorno mínimo sin esa variable;
+- **resultado:** Pulso usa el archivo correcto;
+- **corrección:** eliminar la configuración obsoleta en su ámbito, no codificar otra ruta.
 
 ## Práctica guiada
 
-1. Crea `work/SE-033/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Instrumenta tres etapas de Faro con eventos estructurados y correlación.
+2. Induce dos fallos que compartan un síntoma superficial.
+3. Construye una línea temporal con hechos y fuentes.
+4. Formula una prueba que discrimine las causas.
+5. Exporta solo la evidencia necesaria y busca el secreto centinela.
+6. Pide a otra persona reconstruir tu conclusión desde el paquete.
+
+## Ejemplo mínimo
+
+Dos eventos comparten `operation_id=abc`: inicio y `config.read.denied`. Ordenarlos por tiempo y código permite afirmar que pertenecen a la operación; no demuestra todavía que la ACL sea la causa.
+
+## Ejemplo profesional
+
+Un servicio presenta latencia y errores coincidentes con presión de disco. El equipo compara operaciones con y sin presión y conserva una hipótesis rival de dependencia externa. La correlación orienta el experimento; no se publica como causalidad cerrada.
 
 ## Ejercicios
 
-1. **Fundamental:** define Logs y sistema con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Convierte tres mensajes libres en eventos con código estable y campos mínimos.
+2. Distingue hechos e inferencias en una línea temporal dada.
+3. Diseña una política de severidad, retención y redacción para Faro.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-033/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-033/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Entrega un paquete con dos causas superficiales iguales pero evidencia discriminante. Otra persona debe identificar la causa correcta y no encontrar el secreto centinela.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Más detalle de log siempre ayuda?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede aumentar ruido, costo y exposición. Cada campo debe responder una pregunta operacional.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿El evento inmediatamente anterior causó el fallo?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No necesariamente. Proximidad temporal es evidencia para explorar, no prueba causal.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Emite eventos sin correlación para dos ejecuciones simultáneas y demuestra la ambigüedad. Añade un identificador por operación, repite y documenta qué preguntas ahora sí pueden responderse.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Hay mucho log pero no se relacionan eventos | Faltan identificadores y estructura | Añadir eventos estables y correlación por operación |
+| Se culpa al evento anterior | Se confundió proximidad con causalidad | Formular alternativas y diseñar una prueba discriminante |
+| Un archivo compartido expone rutas y tokens | Se recolectó sin política | Minimizar, redactar antes de escribir y revisar el paquete final |
+| Duraciones negativas o extrañas | Se usó reloj de pared para medir intervalos | Usar reloj monótono para duración |
+| El diagnóstico depende de buscar texto traducido | No hay códigos estables | Separar identificador estructurado y mensaje humano |
+
+## Entorno y archivos clave
+
+`work/SE-033/events.jsonl`, `timeline.md`, `diagnostic-package/` y política de redacción. El paquete usa datos ficticios y tamaño limitado.
+
+## Seguridad, ética y accesibilidad
+
+Recoge solo señales autorizadas y propias. Redacta antes de escribir, define retención y acompaña gráficos o severidades con texto y códigos estables.
+
+## Transferencia
+
+Aplica la bitácora a una investigación de fallo de red sin inspeccionar contenido personal. Indica qué nueva señal solicitarías y con qué autoridad.
+
+## Evaluación y evidencia
+
+Se exige esquema de evento, línea temporal, dos hipótesis, prueba discriminante, redacción comprobada y límite temporal. Buscar una palabra “error” no constituye diagnóstico.
+
+## Criterio de cierre
+
+Puedes producir una línea temporal reproducible, distinguir hecho de inferencia, y entregar evidencia suficiente para contrastar una hipótesis sin revelar el secreto centinela.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Logs del sistema y diagnóstico de fallos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-034`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No implementamos una plataforma distribuida de observabilidad ni demostramos causalidad completa. En entornos virtualizados o WSL, una señal puede provenir de otra capa. La siguiente clase delimita qué está aislado y qué sigue compartido.
+
+## Fuentes
+
+- [Microsoft Learn — Event Logging](https://learn.microsoft.com/windows/win32/eventlog/event-logging)
+- [systemd — journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html)
+- [Apple Developer — Logging](https://developer.apple.com/documentation/os/logging)
+- [OpenTelemetry — Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/)
+
+## Glosario
+
+- **Correlación:** atributo que permite relacionar señales de una misma operación.
+- **Evento:** registro estructurado de algo observado en un momento.
+- **Métrica:** medida numérica agregable a lo largo del tiempo.
+- **Observabilidad:** capacidad de inferir estado interno a partir de salidas disponibles.
+- **Traza:** representación del recorrido de una operación por etapas relacionadas.
 
 ---
-
-[← SE-032 — Instalación de software y gestores de paquetes del sistema](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-033.html) · [SE-034 — Virtualización, WSL y aislamiento local →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)
+[← SE-032](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-034 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md)

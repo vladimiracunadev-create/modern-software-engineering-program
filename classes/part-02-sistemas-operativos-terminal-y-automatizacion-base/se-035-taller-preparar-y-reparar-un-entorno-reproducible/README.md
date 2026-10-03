@@ -1,210 +1,223 @@
 # SE-035 — Taller: preparar y reparar un entorno reproducible
 
-[← SE-034 — Virtualización, WSL y aislamiento local](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-035.html) · [SE-036 — Proyecto: kit de diagnóstico multiplataforma →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)
+[← SE-034](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-036 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Taller reversible sobre una carpeta de laboratorio; no interviene configuraciones productivas.
+
+## Antes de empezar
+
+Este taller integra las clases 25 a 34. Recibirás una copia deliberadamente defectuosa del entorno de Pulso: ruta dependiente del directorio actual, configuración dominada por una variable obsoleta, dependencia incompatible y permisos excesivos aplicados como “solución”. El objetivo no es hacerlo funcionar lo antes posible. Es explicar cada fallo, intervenir con el menor cambio y dejar un procedimiento reproducible.
+
+### Resultado de aprendizaje
+
+Al terminar podrás conducir un diagnóstico completo desde síntoma hasta verificación y reversión, conservando evidencia y evitando reparaciones destructivas.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-034` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+Clases `SE-025`–`SE-034`, carpeta desechable y bitácora. Debes poder ejecutar Faro en solo lectura y explicar sus códigos, configuración y adaptadores.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: preparar y reparar un entorno reproducible**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El entorno de Pulso acumula cuatro intentos de reparación: ruta absoluta personal, permisos amplios, dependencia global y variable obsoleta. Ahora funciona solo en una sesión y nadie puede atribuir qué cambio produjo qué resultado.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Taller y preparar con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás estabilizar un escenario; convertir síntomas en afirmaciones; formular hipótesis rivales; aplicar un cambio mínimo; verificar regresión; y entregar reversión con riesgo residual explícito.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Preparar | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Reparar | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Entorno | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Captura inicial | conserva estado antes de intervenir | reproducir y comparar |
+| Hipótesis rival | exige pruebas con resultados distintos | evitar la primera explicación cómoda |
+| Cambio mínimo | limita variables y radio de efecto | atribuir resultado y revertir |
+| Regresión | repite contratos vecinos | comprobar que reparar no rompió otra cosa |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Taller: preparar y reparar un entorno reproducible"] --> M["Modelo: Taller"]
-    M --> D["Decisión: preparar"]
-    D --> E["Evidencia: reparar"]
-    E --> R["Revisión: entorno"]
-    R -->|nueva información| M
+flowchart TD
+ S[Síntoma reproducido] --> E[Evidencia inicial]
+ E --> H[Hipótesis rivales]
+ H --> P[Prueba discriminante]
+ P --> C{¿Causa confirmada?}
+ C -- No --> H
+ C -- Sí --> M[Cambio mínimo reversible]
+ M --> V[Verificación y regresión]
+ V --> D[Documentación y limpieza]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: preparar y reparar un entorno reproducible**.
+El ciclo puede repetirse varias veces. Cada iteración cambia una sola variable relevante y conserva el resultado negativo como evidencia.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Estabilizar el escenario antes de intervenir
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Se registra plataforma, versión, arquitectura, shell, hora de inicio y síntoma exacto. Luego se copia el laboratorio o se usa un entorno desechable. No se actualiza, reinstala o elimina nada antes de capturar el estado que permite reproducir.
 
-### 1. Taller: modelo
+Estabilizar no significa congelar un sistema productivo sin autorización. En este taller los datos son ficticios y el entorno está acotado.
 
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: preparar y reparar un entorno reproducible**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Convertir el síntoma en una afirmación comprobable
 
-### 2. Preparar: mecanismo
+“No funciona” se transforma en: comando ejecutado, entrada, resultado esperado, resultado observado, código de salida y alcance. Se separa el primer fallo observable de mensajes secundarios.
 
-En esta clase, **preparar** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: preparar y reparar un entorno reproducible**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una buena hipótesis relaciona mecanismo y evidencia: “la variable `PULSO_CONFIG` tiene mayor precedencia y dirige a una ruta inexistente”. La prueba mínima ejecuta con entorno saneado; reinstalar no discrimina esta causa.
 
-### 3. Reparar: evidencia
+### Reducir incertidumbre por capas
 
-En esta clase, **reparar** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: preparar y reparar un entorno reproducible**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart TD
+    S[Síntoma reproducido] --> P[Plataforma y capacidad]
+    P --> R[Ruta, tipo y metadatos]
+    R --> A[Identidad y autorización]
+    A --> C[Configuración efectiva]
+    C --> D[Dependencias y procedencia]
+    D --> X[Proceso, flujos y salida]
+    X --> H{Hipótesis confirmada?}
+    H -- No --> T[Nueva prueba discriminante]
+    T --> P
+    H -- Sí --> M[Cambio mínimo reversible]
+    M --> V[Verificación y regresión]
+```
 
-### 4. Entorno: decisión
+El orden se ajusta a la evidencia, pero impide saltar a una única explicación favorita.
 
-En esta clase, **entorno** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: preparar y reparar un entorno reproducible**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Aplicar un cambio mínimo y registrar su radio de efecto
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Cada intervención declara archivos, usuarios y procesos afectados; autoridad requerida; reversión; y señal de éxito. Se prefiere corregir configuración del proyecto antes que una variable global, o restaurar permiso mínimo antes que abrir acceso general.
+
+Si un cambio no explica el resultado, se revierte antes de probar otro. Acumular intentos impide atribuir causalidad.
+
+### Verificar incluye el caso original y casos vecinos
+
+Que Pulso inicie una vez no prueba reparación. Se repite el escenario original desde otro directorio, con configuración ausente y con ruta con espacios. Se comprueba código de salida, stdout/stderr, ausencia del secreto centinela y estado final de permisos.
+
+La regresión busca que la corrección no haya roto otro contrato. Faro conserva versiones y matriz de plataforma para que otra persona pueda repetir.
+
+### Documentar decisión y riesgo residual
+
+El informe final contiene hechos, causa, corrección, evidencia posterior y límites. Si solo se mitigó el síntoma, se dice. Si no se reprodujo en macOS, no se marca esa plataforma como validada.
 
 ## Definiciones de trabajo
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Preparar:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Reparar:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Entorno:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **estado inicial:** conjunto mínimo de condiciones antes de intervenir;
+- **hipótesis rival:** explicación alternativa compatible con el síntoma;
+- **prueba discriminante:** observación cuyo resultado separa hipótesis;
+- **cambio mínimo:** intervención acotada que permite atribuir efecto;
+- **regresión:** pérdida de una propiedad previamente satisfecha.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: incidente Faro-01
 
-## Ejemplo mínimo
+Secuencia esperada del taller:
 
-Registra una sola decisión sobre **Taller: preparar y reparar un entorno reproducible**:
+1. Pulso termina con código de precondición ausente.
+2. Faro revela que `PULSO_CONFIG` proviene del entorno y apunta a una ruta relativa.
+3. La ruta cambia con el directorio de trabajo.
+4. Un intento previo otorgó escritura amplia al directorio.
+5. Al corregir la fuente de configuración aparece una dependencia fuera del rango soportado.
+6. Se crea un entorno de proyecto con versión fijada, se restaura mínimo privilegio y se ejecutan pruebas.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: preparar y reparar un entorno reproducible**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Hay más de un fallo para evitar que la primera corrección se confunda con cierre completo.
 
 ## Práctica guiada
 
-1. Crea `work/SE-035/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+Prepara una carpeta de laboratorio, nunca una instalación real del sistema. Conserva una bitácora con esta estructura:
+
+| Paso | Hipótesis | Evidencia buscada | Acción | Resultado | Decisión |
+|---|---|---|---|---|---|
+| 1 | La ruta viene del entorno | Configuración efectiva | `Faro config explain` | Variable presente | Probar entorno mínimo |
+
+Luego:
+
+1. reproduce sin modificar;
+2. captura ficha de plataforma;
+3. traza ruta y permisos;
+4. explica precedencia;
+5. verifica dependencia y procedencia;
+6. aplica cambios de uno en uno;
+7. ejecuta matriz de regresión;
+8. revierte el laboratorio y demuestra limpieza.
+
+## Ejemplo mínimo
+
+Pulso busca una ruta relativa equivocada. Ejecutarlo desde otra carpeta reproduce el fallo; pasar una ruta absoluta de laboratorio lo evita. La prueba apunta al contexto de resolución, no a permisos ni dependencia.
+
+## Ejemplo profesional
+
+Una dependencia incompatible aparece después de corregir configuración. El equipo no deshace la primera conclusión: registra dos causas encadenadas, aísla la versión por proyecto y prueba ambos escenarios por separado.
 
 ## Ejercicios
 
-1. **Fundamental:** define Taller y preparar con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Reescribe “no funciona” como resultado esperado/observado y alcance.
+2. Propón dos hipótesis para acceso denegado y una prueba que las separe.
+3. Diseña una matriz de regresión para ruta, configuración y dependencia.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-035/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-035/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Entrega el laboratorio defectuoso y tu bitácora a otra persona. Debe reproducir, reparar con tus decisiones y volver al estado limpio sin instrucciones orales.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Reinstalar puede ser una prueba válida?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+Solo si discrimina una hipótesis y conserva evidencia; normalmente cambia demasiadas variables para ser el primer paso.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Una mitigación equivale a corregir la causa?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Puede reducir impacto mientras la causa permanece; el informe debe distinguirlas.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Aplica deliberadamente dos cambios a la vez y observa que no puedes atribuir el éxito. Revierte ambos, repite uno por uno y corrige la bitácora con esa limitación.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Se borra y reinstala al comienzo | Se destruyó evidencia antes de formular hipótesis | Capturar y reproducir primero |
+| Varias cosas cambian a la vez | No puede atribuirse el resultado | Un cambio mínimo, medir y revertir si no explica |
+| Se repara solo el caso feliz | No se verificaron contratos vecinos | Ejecutar una matriz de regresión adversa |
+| El informe enumera comandos sin razonamiento | Falta relación causal | Registrar hipótesis, evidencia y decisión por paso |
+| Se declara soporte en tres sistemas | Solo se probó uno | Separar diseño esperado de evidencia ejecutada |
+
+## Entorno y archivos clave
+
+`work/SE-035/broken-environment/`, `baseline.json`, `diagnostic-log.md`, `regression.md` y `cleanup.md`. Todo debe poder borrarse sin afectar configuración global.
+
+## Seguridad, ética y accesibilidad
+
+No uses un equipo productivo ni datos reales. Declara toda acción que modifica estado, proporciona alternativa manual legible y evita que la guía dependa solo de capturas.
+
+## Transferencia
+
+Aplica el ciclo a un fallo de CI: conserva ejecución, formula hipótesis de entorno/código, cambia una variable y distingue mitigación de corrección.
+
+## Evaluación y evidencia
+
+Se exige reproducción, hipótesis rivales, pruebas discriminantes, cambios unitarios, regresión, reversión y revisión independiente. Velocidad sin trazabilidad no mejora la calificación.
+
+## Criterio de cierre
+
+El taller se aprueba cuando otra persona puede reproducir el fallo, seguir la evidencia, comprender la causa, aplicar la corrección mínima, ejecutar regresión y revertir el laboratorio usando tu documentación.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Taller: preparar y reparar un entorno reproducible**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-036`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El escenario es local, deliberadamente controlado y no autoriza intervenir equipos de terceros. La clase final convierte el procedimiento en un producto pequeño: el kit Faro, con contrato, adaptadores, pruebas y entrega profesional.
+
+## Fuentes
+
+- [Microsoft Learn — Sysinternals documentation](https://learn.microsoft.com/sysinternals/)
+- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
+- [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/)
+- [Python documentation — subprocess](https://docs.python.org/3/library/subprocess.html)
+
+## Glosario
+
+- **Hipótesis discriminante:** explicación cuya prueba produce resultados diferentes frente a alternativas.
+- **Radio de efecto:** recursos, personas o procesos que un cambio puede afectar.
+- **Regresión:** fallo introducido en una capacidad previamente válida.
+- **Reproducción:** procedimiento capaz de volver a mostrar el comportamiento bajo condiciones declaradas.
+- **Reversión:** retorno verificable al estado anterior o a uno seguro definido.
 
 ---
-
-[← SE-034 — Virtualización, WSL y aislamiento local](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-035.html) · [SE-036 — Proyecto: kit de diagnóstico multiplataforma →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)
+[← SE-034](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-036 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma/README.md)

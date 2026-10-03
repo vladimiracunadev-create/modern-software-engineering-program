@@ -1,210 +1,210 @@
 # SE-028 — Procesos, señales, servicios y tareas programadas
 
-[← SE-027 — Usuarios, grupos, permisos y elevación de privilegios](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-028.html) · [SE-029 — Terminales, shells y composición de comandos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)
+[← SE-027](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-029 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Observa procesos propios en laboratorio; no autoriza terminar procesos o servicios ajenos.
+
+## Antes de empezar
+
+Una aplicación instalada no está “corriendo” de forma permanente. El sistema crea procesos, asigna recursos, los planifica y finalmente recupera su estado. Cuando Pulso queda bloqueado, Faro debe distinguir espera legítima, consumo de CPU, dependencia externa y terminación defectuosa.
+
+### Resultado de aprendizaje
+
+Al terminar podrás describir el ciclo de vida de un proceso, interpretar relaciones padre-hijo, terminación y servicios, y diagnosticar sin asumir que matar un proceso corrige la causa.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-027` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-027`, nociones de proceso e I/O de `SE-019`, y permiso para ejecutar únicamente procesos de laboratorio. No se requiere administrar servicios reales.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Procesos, señales, servicios y tareas programadas**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Pulso no responde y el equipo propone terminarlo. La CPU está casi inactiva, pero nadie sabe si espera entrada, un bloqueo o un servicio externo. El PID fue copiado hace minutos y podría identificar otra instancia.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Procesos y señales con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás distinguir programa, proceso e hilo; interpretar estados de ejecución y espera; explicar terminación cooperativa y forzada; diseñar una política de servicio; y modelar tareas repetibles sin asumir “exactamente una vez”.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Procesos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Señales | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Servicios | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Tareas | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Proceso | encapsula ejecución, identidad y recursos | identificar la instancia correcta |
+| Planificación | alterna unidades listas y esperas | separar consumo de progreso |
+| Terminación | comunica solicitud y resultado | cerrar sin corromper estado |
+| Supervisión | inicia, reinicia y limita servicios | recuperar sin bucles infinitos |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Procesos, señales, servicios y tareas programadas"] --> M["Modelo: Procesos"]
-    M --> D["Decisión: señales"]
-    D --> E["Evidencia: servicios"]
-    E --> R["Revisión: tareas"]
-    R -->|nueva información| M
+ P[Programa] --> C[Proceso creado]
+ C --> L[Listo]
+ L --> X[Ejecutando]
+ X --> W[Esperando I/O o evento]
+ W --> L
+ X --> T[Terminación cooperativa]
+ T --> F[Salida y recursos recuperados]
+ S[Supervisor] --> C
+ F --> S
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Procesos, señales, servicios y tareas programadas**.
+El ciclo distingue “no usa CPU” de “no progresa”. El supervisor observa resultados y decide bajo una política; no debe reiniciar indefinidamente un fallo determinista.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Programa y proceso pertenecen a niveles diferentes
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Un programa es un artefacto con instrucciones y datos. Un proceso es una instancia en ejecución con espacio de direcciones, identificador, credenciales, descriptores o manejadores, entorno y estado planificable. Varias instancias pueden ejecutar el mismo programa sin compartir todo su estado.
 
-### 1. Procesos: modelo
+El sistema carga el ejecutable y bibliotecas, prepara memoria y recursos iniciales, crea un hilo de ejecución y lo presenta al planificador. El identificador de proceso es temporal; reutilizarlo como identidad duradera es un error.
 
-En esta clase, **Procesos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, señales, servicios y tareas programadas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Crear un proceso establece herencia y fronteras
 
-### 2. Señales: mecanismo
+En modelos POSIX, `fork` y `exec` explican conceptualmente la separación entre crear y reemplazar una imagen de proceso, aunque lenguajes de alto nivel ofrezcan una sola API. Windows usa su familia de creación con parámetros y objetos propios. En ambos casos se deciden argumentos, entorno, directorio, flujos estándar y manejadores heredables.
 
-En esta clase, **señales** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, señales, servicios y tareas programadas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una herencia accidental mantiene archivos o pipes abiertos y puede impedir la terminación. Faro registra quién inició a Pulso y qué recursos relevantes permanecen abiertos, sin pretender inspeccionar memoria privada.
 
-### 3. Servicios: evidencia
+### El planificador distribuye tiempo, no promete orden
 
-En esta clase, **servicios** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, señales, servicios y tareas programadas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los hilos listos compiten por procesadores. Prioridades, afinidad, carga y políticas influyen, pero el orden observado una vez no es un contrato. Un proceso con 0 % de CPU puede estar esperando entrada; uno con uso alto puede progresar correctamente o girar en un bucle.
 
-### 4. Tareas: decisión
+Muestrear CPU, memoria y espera a lo largo del tiempo aporta más que una captura. La medición altera algo el sistema y debe interpretarse junto con trabajo solicitado y duración.
 
-En esta clase, **tareas** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Procesos, señales, servicios y tareas programadas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Señales, eventos y códigos de salida comunican finalización
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+POSIX define señales que notifican eventos; algunas pueden capturarse para limpiar, otras no. Windows ofrece eventos, mensajes, objetos sincronizables y mecanismos de control con semánticas diferentes. “Enviar SIGTERM en Windows” no es una descripción portable.
+
+La terminación cooperativa permite dejar de aceptar trabajo, finalizar operaciones y liberar recursos. La terminación forzada reduce esa oportunidad. El código de salida comunica una categoría de resultado al proceso padre; no sustituye un diagnóstico detallado, pero forma parte del contrato.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Creado
+    Creado --> Listo
+    Listo --> Ejecutando
+    Ejecutando --> Esperando: E/S o sincronización
+    Esperando --> Listo: evento disponible
+    Ejecutando --> Listo: replanificación
+    Ejecutando --> Terminando: salida o solicitud
+    Terminando --> Finalizado: recursos recuperados
+    Finalizado --> [*]
+```
+
+Este modelo es deliberadamente conceptual: los estados y nombres reales varían. Sirve para preguntar si Pulso progresa, espera o terminó, no para adivinar internals del kernel.
+
+### Un servicio añade supervisión y política de ciclo de vida
+
+Un servicio o daemon suele ejecutarse sin una sesión interactiva y es gestionado por un supervisor como Windows Service Control Manager, `systemd` u otro sistema de inicio. El supervisor define inicio, dependencias, identidad, reinicio, límites y captura de logs.
+
+Reiniciar siempre puede crear un bucle que oculte un fallo persistente. Una política profesional distingue fallos transitorios, limita reintentos y conserva evidencia. Las páginas de [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) y la documentación de [Windows Services](https://learn.microsoft.com/windows/win32/services/services) describen contratos concretos.
+
+### Un planificador temporal no garantiza exactamente una vez
+
+Tareas programadas pueden omitirse, duplicarse o coincidir si una ejecución dura más que el intervalo. La tarea debe definir zona horaria, comportamiento tras suspensión, concurrencia y reintentos. Cuando el efecto no tolera repetición, se diseña idempotencia o deduplicación; el calendario solo decide intentos.
 
 ## Definiciones de trabajo
 
-- **Procesos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Señales:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Servicios:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Tareas:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **proceso:** instancia de un programa con contexto y recursos administrados;
+- **hilo:** flujo de ejecución planificable dentro de un proceso;
+- **espera:** estado en que el progreso depende de un evento o recurso;
+- **servicio:** proceso gestionado por un supervisor y una política de ciclo de vida;
+- **idempotencia:** propiedad por la que repetir una operación no multiplica su efecto previsto.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro observa a Pulso bloqueado
 
-## Ejemplo mínimo
+Faro recibe un identificador o criterio explícito y produce una línea temporal de muestras: estado observable, CPU, memoria, tiempo de inicio, proceso padre y resultado final. Primero verifica que el proceso corresponde al esperado; nombre y PID aislados no bastan.
 
-Registra una sola decisión sobre **Procesos, señales, servicios y tareas programadas**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la comunidad social, el equipo prepara un cambio relacionado con **Procesos, señales, servicios y tareas programadas**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Si Pulso espera un archivo bloqueado, Faro no concluye “está colgado” por CPU baja. Correlaciona la espera con logs y recursos. La acción propuesta escala: esperar con plazo, solicitar cierre cooperativo y, solo como último recurso, terminación forzada documentando posible pérdida de estado.
 
 ## Práctica guiada
 
-1. Crea `work/SE-028/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Ejecuta un proceso corto, uno que espere entrada y uno que consuma CPU en un laboratorio controlado.
+2. Observa padre, inicio, uso y salida durante varias muestras.
+3. Solicita terminación cooperativa al proceso preparado para ella.
+4. Compara evidencia y efectos con una terminación forzada.
+5. Diseña una unidad de servicio o tarea en pseudoconfiguración: identidad, dependencias, reintentos y logs.
+
+No termines procesos ajenos ni servicios del sistema.
+
+## Ejemplo mínimo
+
+Un proceso que lee desde entrada estándar muestra CPU baja. Al proporcionar la línea, continúa y termina con cero. No estaba colgado: esperaba una precondición observable.
+
+## Ejemplo profesional
+
+Un servicio reinicia cada segundo porque la configuración es inválida. Limitar reintentos y conservar el primer error evita saturación; corregir la configuración resuelve la causa. Aumentar prioridad o matar instancias repetidamente no lo hace.
 
 ## Ejercicios
 
-1. **Fundamental:** define Procesos y señales con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Clasifica tres procesos como listos, ejecutando o esperando a partir de evidencia temporal.
+2. Diseña códigos de salida para uso inválido, dependencia ausente y fallo interno.
+3. Especifica una tarea diaria que evite solapamiento y tolere repetición.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-028/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-028/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Entrega una línea temporal de un proceso de laboratorio con al menos cuatro muestras, una solicitud cooperativa y el estado final. Otra persona debe distinguir espera de consumo sin ver tu código.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Un proceso con CPU alta está necesariamente fallando?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede ejecutar trabajo útil. Se compara consumo con progreso y objetivo.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Un reinicio automático siempre mejora disponibilidad?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Frente a fallos persistentes puede crear un bucle, perder evidencia y aumentar impacto.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Ejecuta un proceso que espere entrada con plazo. Primero diagnostícalo erróneamente como “colgado”; luego usa estado, flujos y progreso para refutar esa conclusión. Solicita cierre cooperativo y registra el código final.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Se mata un PID copiado minutos antes | El PID se trató como identidad permanente | Revalidar ejecutable, propietario e inicio antes de actuar |
+| CPU baja se interpreta como bloqueo | Se ignoró espera útil | Correlacionar estado, tiempo, E/S y progreso funcional |
+| El servicio reinicia sin límite | Se sustituyó recuperación por repetición | Clasificar fallo, aplicar espera creciente y cortar el bucle |
+| El hijo no recibe EOF | Conserva un extremo del pipe heredado | Controlar herencia y cerrar descriptores no usados |
+| Una tarea duplica efectos | Se asumió ejecución exactamente una vez | Diseñar idempotencia, exclusión o deduplicación |
+
+## Entorno y archivos clave
+
+Scripts pequeños en `work/SE-028/`, `timeline.csv`, `service-policy.md`. Solo procesos iniciados por la práctica y sin cambios en servicios del sistema.
+
+## Seguridad, ética y accesibilidad
+
+No enumeres ni termines procesos de otras personas. Redacta argumentos sensibles y explica estados con texto, no solo color o animación.
+
+## Transferencia
+
+Aplica el ciclo a un trabajador de cola. Explica qué representa reintento, reconocimiento, deduplicación y apagado cooperativo.
+
+## Evaluación y evidencia
+
+Se exige línea temporal, identidad revalidada, cierre cooperativo, política de servicio/tarea y límites. Una captura del administrador de tareas no demuestra la causa.
+
+## Criterio de cierre
+
+Puedes explicar creación, planificación, espera y terminación; distinguir proceso interactivo, servicio y tarea; y justificar una intervención gradual con evidencia del estado real.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Procesos, señales, servicios y tareas programadas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-029`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No hacemos depuración de kernel ni análisis forense de memoria. La observabilidad disponible depende de permisos y plataforma. La próxima clase estudia la interfaz más común para coordinar procesos: terminal, shell, flujos y códigos de salida.
+
+## Fuentes
+
+- [The Open Group — Process Concepts](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html)
+- [Microsoft Learn — Processes and Threads](https://learn.microsoft.com/windows/win32/procthread/processes-and-threads)
+- [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html)
+- [Microsoft Learn — Services](https://learn.microsoft.com/windows/win32/services/services)
+
+## Glosario
+
+- **Código de salida:** valor con el que un proceso comunica una categoría de resultado.
+- **Daemon/servicio:** proceso no interactivo administrado bajo una política de ciclo de vida.
+- **Hilo:** flujo planificable de ejecución dentro de un proceso.
+- **PID:** identificador temporal asignado a un proceso.
+- **Terminación cooperativa:** solicitud que permite al programa cerrar ordenadamente.
 
 ---
-
-[← SE-027 — Usuarios, grupos, permisos y elevación de privilegios](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-028.html) · [SE-029 — Terminales, shells y composición de comandos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)
+[← SE-027](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-029 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos/README.md)

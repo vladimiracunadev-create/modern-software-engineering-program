@@ -1,210 +1,214 @@
 # SE-031 — Variables de entorno, configuración y secretos
 
-[← SE-030 — PowerShell, Bash y portabilidad de scripts](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-031.html) · [SE-032 — Instalación de software y gestores de paquetes del sistema →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)
+[← SE-030](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-032 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Usa secretos centinela ficticios; no manipula credenciales reales ni sustituye un sistema de gestión de secretos.
+
+## Antes de empezar
+
+Los adaptadores de Faro ya comparten un contrato, pero necesitan saber qué inspeccionar y cómo comportarse. Introducir valores directamente en el código impide reutilizarlo; cargar todo desde variables de entorno vuelve invisible la procedencia; guardar credenciales junto con configuración las expone. Configurar es diseñar una interfaz operativa.
+
+### Resultado de aprendizaje
+
+Al terminar podrás definir una precedencia de configuración, validar valores antes de usarlos y mantener secretos fuera de código, argumentos, informes y registros.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-030` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-030`, contrato CLI de Faro y uso de datos ficticios. Crea un secreto centinela que no tenga valor real y pueda buscarse de extremo a extremo.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Variables de entorno, configuración y secretos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El archivo de configuración parece correcto, pero Faro usa otra ruta. Una variable heredada tiene mayor precedencia y nadie puede ver la configuración efectiva. Al activar depuración, el equipo imprime todo el entorno y expone un token.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Variables y entorno con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás diseñar esquema y precedencia; distinguir ausente, vacío y valor inválido; explicar herencia del entorno; redactar secretos antes de serializar; y demostrar qué configuración efectiva gobernó una ejecución.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Variables | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Entorno | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Configuración | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Secretos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Precedencia | combina fuentes en orden determinista | reconstruir por qué ganó un valor |
+| Validación | aplica tipo, rango y relaciones | fallar antes de producir efectos |
+| Herencia | propaga entorno a procesos hijos | limitar exposición y sorpresas |
+| Secreto | exige ciclo de vida y redacción | diagnosticar sin divulgar autoridad |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Variables de entorno, configuración y secretos"] --> M["Modelo: Variables"]
-    M --> D["Decisión: entorno"]
-    D --> E["Evidencia: configuración"]
-    E --> R["Revisión: secretos"]
-    R -->|nueva información| M
+ D[Predeterminados seguros] --> F[Archivo]
+ F --> E[Entorno]
+ E --> C[CLI]
+ C --> V[Validar esquema y semántica]
+ V --> X[Configuración efectiva]
+ X --> R[Informe con procedencia y redacción]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Variables de entorno, configuración y secretos**.
+La precedencia explica el origen; la validación decide si el resultado es admisible. La redacción ocurre antes de cualquier salida, no como limpieza posterior.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Configuración separa decisiones de despliegue del programa
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Una opción configurable representa una decisión que puede variar sin recompilar: ruta de trabajo, nivel de detalle o plazo de espera. No toda constante debe volverse configurable; demasiadas opciones amplían estados, pruebas y combinaciones inválidas.
 
-### 1. Variables: modelo
+Cada opción necesita nombre, tipo, valor predeterminado, rango, sensibilidad, fuente permitida y momento de aplicación. “Lee un `.env`” es una técnica, no un modelo completo.
 
-En esta clase, **Variables** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Variables de entorno, configuración y secretos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### La precedencia debe ser determinista y observable
 
-### 2. Entorno: mecanismo
+Faro adopta una cadena explícita:
 
-En esta clase, **entorno** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Variables de entorno, configuración y secretos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart LR
+    D[Valores seguros por defecto] --> F[Archivo de configuración]
+    F --> E[Variables de entorno]
+    E --> C[Opciones CLI]
+    C --> V[Validación y configuración efectiva]
+    V --> R[Informe con procedencia, secretos redactados]
+```
 
-### 3. Configuración: evidencia
+La fuente de mayor precedencia reemplaza solo campos definidos. El programa informa de dónde provino cada valor no sensible. Una cadena silenciosa genera incidentes donde una variable olvidada domina al archivo esperado.
 
-En esta clase, **configuración** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Variables de entorno, configuración y secretos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### El entorno es heredado por procesos y carece de tipado
 
-### 4. Secretos: decisión
+Las variables de entorno son pares de nombres y valores que normalmente se heredan al crear procesos. Pueden distinguir mayúsculas según plataforma y toda entrada llega como texto. Ausente, vacío, `false` y `0` requieren reglas explícitas.
 
-En esta clase, **secretos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Variables de entorno, configuración y secretos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un proceso hijo puede recibir más variables de las necesarias. Faro construye un entorno mínimo al invocar herramientas y nunca vuelca el entorno completo en diagnóstico. Las variables son útiles para configuración efímera, pero no constituyen por sí solas un almacén seguro.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Validar configuración es comprobar semántica, no solo sintaxis
+
+Un JSON bien formado puede contener una ruta inexistente, un plazo negativo o combinaciones incompatibles. La validación ocurre antes de iniciar efectos y produce mensajes que señalan campo, regla y procedencia. Los valores desconocidos pueden tratarse como error para detectar errores tipográficos, salvo que el esquema diseñe extensiones.
+
+Faro distingue error de uso, configuración inválida y recurso inaccesible porque requieren respuestas diferentes.
+
+### Un secreto es información cuyo uso debe controlarse
+
+Tokens, claves y contraseñas no se protegen solo renombrándolos. Deben obtenerse de un almacén apropiado cuando exista, limitarse en alcance y duración, rotarse y no registrarse. Pasarlos como argumento puede hacerlos visibles en historial o inspección de procesos; guardarlos en un repositorio conserva copias incluso después de borrar la línea actual.
+
+La aplicación debe manejar el secreto como valor sensible desde su ingreso hasta su descarte. Una máscara parcial puede seguir revelando longitud o fragmentos; un hash permite correlación y también puede ser sensible. La política de redacción responde al propósito del informe.
+
+### Plantillas y archivos de ejemplo enseñan sin publicar valores reales
+
+Un archivo `config.example.json` documenta nombres y valores ficticios. El archivo real se excluye del control de versiones, pero ignorarlo no revoca un secreto ya comprometido. Si se detecta exposición, se rota la credencial y se investiga el alcance; reescribir historial es una decisión adicional, no la única corrección.
+
+### La configuración efectiva debe poder explicarse
+
+Faro ofrece `config explain`: muestra valor no sensible o `<redactado>`, procedencia, regla aplicada y advertencias. Así una persona puede descubrir que `FARO_TIMEOUT` reemplazó el archivo sin imprimir ninguna credencial.
+
+La documentación [about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables) y el estándar [`environ`](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/stdlib.h.html) describen mecanismos; la política de secretos debe adaptarse al riesgo y plataforma.
 
 ## Definiciones de trabajo
 
-- **Variables:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Entorno:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Configuración:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Secretos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **esquema:** contrato de nombres, tipos, restricciones y sensibilidad;
+- **precedencia:** orden que determina qué fuente gana por campo;
+- **configuración efectiva:** valores resultantes junto con su procedencia;
+- **secreto centinela:** valor ficticio reconocible usado para comprobar filtraciones;
+- **redacción:** transformación previa a salida que oculta información sensible.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro carga sin filtrar
 
-## Ejemplo mínimo
+El kit define un esquema con `target_path`, `timeout_seconds`, `output_format` y un token opcional para una integración futura. El token nunca aparece en el informe. Faro carga las capas, valida tipos y rangos, y genera una vista efectiva:
 
-Registra una sola decisión sobre **Variables de entorno, configuración y secretos**:
+```text
+target_path = C:\laboratorio\pulso   (cli)
+timeout_seconds = 10                 (archivo)
+output_format = json                 (predeterminado)
+integration_token = <redactado>      (almacén/entorno)
+```
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Variables de entorno, configuración y secretos**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Una prueba inyecta deliberadamente el texto del token y busca que no aparezca en stdout, stderr, archivo ni excepción. No se declara “seguro” solo por pasar esta prueba; se declara la propiedad concreta verificada.
 
 ## Práctica guiada
 
-1. Crea `work/SE-031/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Especifica esquema y precedencia de cuatro opciones.
+2. Implementa carga separada de resolución para poder probar ambas.
+3. Cubre ausente, vacío, tipo inválido, valor fuera de rango y opción desconocida.
+4. Añade un valor centinela secreto y verifica redacción en todas las salidas.
+5. Documenta cómo rotar el secreto si se expone.
+
+Trabaja con valores ficticios; no uses credenciales personales.
+
+## Ejemplo mínimo
+
+El archivo declara `timeout=10`, el entorno `FARO_TIMEOUT=0` y la CLI no lo cambia. La procedencia muestra entorno, pero la validación rechaza cero. La ejecución no sustituye silenciosamente otro valor ni inicia trabajo parcial.
+
+## Ejemplo profesional
+
+Un servicio rota un token en un almacén, pero un volcado de entorno conserva el anterior. La corrección elimina volcados generales, construye un entorno mínimo para hijos y prueba el centinela en excepciones y paquetes diagnósticos.
 
 ## Ejercicios
 
-1. **Fundamental:** define Variables y entorno con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Define tipo, fuente y regla para cuatro opciones de Faro.
+2. Diseña casos para ausente, vacío, booleano ambiguo y campo desconocido.
+3. Traza un secreto desde ingreso hasta descarte e identifica cuatro fugas posibles.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-031/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-031/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Ejecuta doce combinaciones de fuentes y produce una tabla de valor efectivo/procedencia. El secreto centinela no debe aparecer en stdout, stderr, logs ni archivo final.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Una variable de entorno es un almacén seguro?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No por sí sola. Puede heredarse, inspeccionarse o registrarse; su riesgo depende de plataforma y proceso.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Ignorar `.env` en Git resuelve una exposición anterior?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Debe rotarse la credencial y evaluarse historial y copias.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Introduce un token centinela y fuerza una excepción de validación. Busca el valor en todas las salidas. Si aparece, centraliza representación segura y repite hasta demostrar la propiedad acotada.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Cambiar el archivo no cambia la ejecución | Una variable de mayor precedencia quedó activa | Mostrar configuración efectiva y procedencia |
+| `false` se interpreta como verdadero | Se convirtió texto por presencia | Definir y validar un vocabulario booleano |
+| El token aparece en una excepción | La redacción se aplicó solo al log normal | Centralizar serialización segura y probar fallos |
+| Se borró un secreto del último commit y se da por resuelto | Se ignoraron copias e historial | Revocar/rotar primero y evaluar exposición |
+| Cada opción puede venir de cualquier fuente | No se controló la superficie operativa | Limitar fuentes y documentar precedencia por campo |
+
+## Entorno y archivos clave
+
+`work/SE-031/config.example.json`, `config.local.json` ignorado, `config-report.json` y pruebas. Solo valores ficticios y carpeta desechable.
+
+## Seguridad, ética y accesibilidad
+
+No uses credenciales reales. Mensajes de validación deben nombrar el campo y regla sin repetir el valor sensible; ofrece ejemplos copiables y legibles por tecnología asistiva.
+
+## Transferencia
+
+Aplica precedencia y redacción a una aplicación web con configuración por despliegue. Identifica qué valores requieren reinicio y cuáles pueden cambiar dinámicamente.
+
+## Evaluación y evidencia
+
+Se exige esquema, matriz de precedencia, pruebas negativas, secreto centinela ausente y límites. Ocultar solo el campo llamado `password` no demuestra protección.
+
+## Criterio de cierre
+
+Puedes reconstruir la configuración efectiva, demostrar validación temprana y comprobar que un secreto centinela no aparece en las salidas previstas, declarando todavía los límites de esa comprobación.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Variables de entorno, configuración y secretos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-032`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No diseñamos una infraestructura empresarial de secretos ni garantizamos borrado físico de memoria. Faro también depende de herramientas instaladas; la siguiente clase analiza gestores de paquetes, procedencia y reversibilidad.
+
+## Fuentes
+
+- [Microsoft Learn — about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables)
+- [The Open Group — Environment Variables](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html)
+- [OWASP — Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)
+- [Python documentation — configparser](https://docs.python.org/3/library/configparser.html)
+
+## Glosario
+
+- **Configuración efectiva:** resultado final tras aplicar fuentes, precedencia y validación.
+- **Precedencia:** orden determinista para resolver valores de múltiples fuentes.
+- **Redacción:** sustitución deliberada de datos sensibles en una representación.
+- **Rotación:** reemplazo de una credencial y retiro de la anterior.
+- **Secreto:** dato cuya divulgación permite o facilita una acción no autorizada.
 
 ---
-
-[← SE-030 — PowerShell, Bash y portabilidad de scripts](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-031.html) · [SE-032 — Instalación de software y gestores de paquetes del sistema →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)
+[← SE-030](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-032 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema/README.md)

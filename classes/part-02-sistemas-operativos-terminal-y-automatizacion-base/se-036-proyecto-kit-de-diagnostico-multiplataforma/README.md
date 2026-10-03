@@ -1,210 +1,274 @@
 # SE-036 — Proyecto: kit de diagnóstico multiplataforma
 
-[← SE-035 — Taller: preparar y reparar un entorno reproducible](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-036.html) · [SE-037 — Modelos OSI y TCP/IP como herramientas de diagnóstico →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)
+[← SE-035](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-037 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Proyecto educativo local de solo lectura; no es soporte remoto, herramienta forense ni producto de seguridad certificado.
+
+## Antes de empezar
+
+La Parte 2 concluye con una entrega, no con un cuestionario. Construirás **Faro**, un kit local que describe el entorno de Pulso, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
+
+### Resultado de aprendizaje
+
+Al terminar podrás entregar una herramienta multiplataforma con contrato explícito, adaptadores probados, diagnóstico causal, documentación operativa y límites honestos.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-035` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+Parte 2 completa y evidencias de `SE-035`. Debes contar con una plataforma ejecutable; las demás pueden permanecer diseñadas si no existe acceso, siempre que la matriz lo diga.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Proyecto: kit de diagnóstico multiplataforma**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Los diagnósticos anteriores viven en comandos y notas personales. Otra persona no sabe qué ejecutar, qué datos comparte, cómo interpretar un código ni si la herramienta modifica el equipo. El conocimiento existe, pero aún no es un producto operable.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Proyecto y kit con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás definir un contrato versionado; separar núcleo y adaptadores; construir modo de solo lectura; probar degradación y redacción; publicar matriz real; y conducir una demostración reproducible por terceros.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Kit | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Diagnóstico | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Multiplataforma | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Contrato versionado | estabiliza entradas, salidas y estados | permitir consumidores y evolución |
+| Núcleo/adaptador | aísla intención de detalles locales | portar sin copiar errores |
+| Solo lectura | limita efectos predeterminados | ejecutar diagnóstico con menor riesgo |
+| Matriz y evidencia | separa diseño de ejecución | declarar soporte honesto |
 
 ## Mapa conceptual
 
 ```mermaid
-flowchart LR
-    P["Problema: Proyecto: kit de diagnóstico multiplataforma"] --> M["Modelo: Proyecto"]
-    M --> D["Decisión: kit"]
-    D --> E["Evidencia: diagnóstico"]
-    E --> R["Revisión: multiplataforma"]
-    R -->|nueva información| M
+flowchart TB
+ U[Persona operadora] --> CLI[Contrato CLI]
+ CLI --> C[Núcleo Faro]
+ C --> P[Adaptador PowerShell]
+ C --> B[Adaptador Bash]
+ P --> N[Modelo normalizado]
+ B --> N
+ N --> R[Informe redactado]
+ T[Pruebas de contrato] --> CLI
+ T --> P
+ T --> B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: kit de diagnóstico multiplataforma**.
+La persona interactúa con un contrato estable. Los adaptadores observan plataformas, el núcleo interpreta y el informe separa evidencia, inferencia y recomendación.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Un núcleo común expresa intención
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+El núcleo define operaciones independientes de shell: describir plataforma, resolver una ruta, validar configuración, comprobar una dependencia, observar un proceso propio y construir informe. También define esquema de salida, códigos y política de redacción.
 
-### 1. Proyecto: modelo
+No contiene comandos concatenados ni rutas globales. Recibe resultados de adaptadores y decide qué significan bajo el contrato.
 
-En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: kit de diagnóstico multiplataforma**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Los adaptadores contienen diferencias de plataforma
 
-### 2. Kit: mecanismo
+PowerShell y Bash implementan capacidades con herramientas documentadas. Cada adaptador informa `supported`, `unavailable` o `failed`, junto con evidencia segura. Una capacidad ausente no se convierte en dato inventado.
 
-En esta clase, **kit** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: kit de diagnóstico multiplataforma**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart TB
+    CLI[Contrato CLI] --> CORE[Núcleo Faro]
+    CORE --> CFG[Configuración y redacción]
+    CORE --> WIN[Adaptador Windows/PowerShell]
+    CORE --> POSIX[Adaptador Linux-macOS/Bash]
+    WIN --> MODEL[Modelo común + detalles de plataforma]
+    POSIX --> MODEL
+    MODEL --> REPORT[Informe JSON o humano]
+    TESTS[Pruebas de contrato] --> CLI
+    TESTS --> WIN
+    TESTS --> POSIX
+```
 
-### 3. Diagnóstico: evidencia
+El diagrama obliga a distinguir modelo común y detalle específico. Es aceptable que una plataforma aporte menos datos; no lo es ocultarlo.
 
-En esta clase, **diagnóstico** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: kit de diagnóstico multiplataforma**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### El modo predeterminado es de solo lectura
 
-### 4. Multiplataforma: decisión
+Faro observa y propone. Cualquier reparación opcional exige una orden separada, vista previa, confirmación apropiada y reversión documentada. Para este proyecto basta con generar un plan; no se requiere modificar permisos, instalar paquetes ni terminar procesos.
 
-En esta clase, **multiplataforma** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: kit de diagnóstico multiplataforma**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Esto reduce riesgo y vuelve las pruebas repetibles.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### El informe separa evidencia, inferencia y recomendación
+
+Cada hallazgo contiene:
+
+```json
+{
+  "code": "config.path.missing",
+  "severity": "error",
+  "evidence": {"source": "environment", "exists": false},
+  "interpretation": "La ruta efectiva no existe",
+  "next_test": "Ejecutar con un entorno mínimo",
+  "remediation": "Corregir la fuente de configuración en su ámbito"
+}
+```
+
+Los campos sensibles se omiten o redactan antes de serializar. El informe incluye versión del esquema y de Faro para interpretación futura.
+
+### Las pruebas demuestran contratos y degradación
+
+El conjunto mínimo cubre:
+
+- ruta existente, ausente, con espacios y tipo incorrecto;
+- precedencia de configuración y valores inválidos;
+- dependencia compatible, incompatible y opcional ausente;
+- códigos de salida y separación stdout/stderr;
+- secreto centinela ausente de todas las salidas;
+- capacidad no disponible reportada como diagnóstico parcial;
+- ejecución desde un directorio distinto al proyecto.
+
+Las pruebas específicas de plataforma se etiquetan. Un workflow que no ejecuta macOS no prueba macOS; el README muestra matriz real.
+
+### La entrega incluye operación y mantenimiento
+
+El repositorio del proyecto contiene inicio rápido, requisitos, arquitectura, esquema, códigos de salida, matriz, amenazas básicas, procedimiento de diagnóstico y limpieza. Las dependencias están fijadas dentro de límites razonados y su actualización tiene un procedimiento.
+
+Un ejemplo reproducible usa datos ficticios y genera un informe esperado. La documentación enlaza a fuentes oficiales cerca de las decisiones sensibles.
 
 ## Definiciones de trabajo
 
-- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Kit:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Diagnóstico:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Multiplataforma:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **contrato versionado:** interfaz observable cuya evolución se declara;
+- **núcleo:** reglas de interpretación independientes de comandos locales;
+- **adaptador:** implementación de capacidades para una plataforma;
+- **hallazgo:** relación estructurada entre evidencia, interpretación y siguiente prueba;
+- **matriz real:** registro que diferencia diseñado, ejecutado, aprobado y no soportado.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: demostración final de Faro
+
+La demostración parte de un entorno con dos defectos: variable obsoleta y dependencia incompatible. La persona evaluadora ejecuta Faro sin conocerlos. El kit:
+
+1. identifica plataforma y capacidades;
+2. muestra configuración efectiva con secreto redactado;
+3. resuelve la ruta y explica que no existe;
+4. comprueba la versión de dependencia;
+5. emite dos hallazgos independientes;
+6. propone pruebas, no cambios automáticos;
+7. sale con estado de precondición fallida;
+8. tras corregir cada causa, genera un informe limpio.
+
+La demostración se repite desde otro directorio para probar que las rutas no dependen de la sesión accidental.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proyecto: kit de diagnóstico multiplataforma**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`faro inspect --path laboratorio` produce JSON válido en stdout, progreso en stderr y código cero. Con ruta ausente produce un hallazgo estructurado y código de precondición, sin traza interna ni modificación.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Proyecto: kit de diagnóstico multiplataforma**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Un equipo de soporte recibe un paquete diagnóstico de otra plataforma. La versión del esquema, procedencia de campos y límites le permiten revisar sin pedir el entorno completo. La matriz indica que macOS fue diseñado pero no ejecutado, evitando una promesa falsa.
 
 ## Práctica guiada
 
-1. Crea `work/SE-036/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Revisa el contrato antes de implementar y congela fixtures.
+2. Completa una ruta vertical en la plataforma disponible.
+3. Añade el segundo adaptador o un doble claramente marcado.
+4. Ejecuta fallos de ruta, configuración, dependencia y capacidad ausente.
+5. Busca el secreto centinela en todos los artefactos.
+6. Entrega a otra persona y corrige fricciones observadas.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proyecto y kit con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Diseña una migración de esquema compatible o una ruptura explícita.
+2. Explica qué queda en el núcleo y qué pertenece a `platform_details`.
+3. Define cuándo un diagnóstico parcial debe terminar con código distinto de cero.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-036/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-036/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una persona sin contexto debe ejecutar la demo, identificar dos fallos, aplicar correcciones manuales y generar un informe limpio usando solo el README. Registra tiempo, dudas y cambios de documentación.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Dos scripts separados ya son un diseño multiplataforma?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Necesitan contrato común, pruebas comparables y diferencias declaradas.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Solo lectura significa riesgo cero?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Observar puede revelar información o consumir recursos; minimización y autorización siguen siendo necesarias.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Retira una capacidad opcional del fixture. Faro debe emitir diagnóstico parcial, mantener esquema válido y explicar degradación. Corrige cualquier éxito silencioso o excepción no estructurada.
+
+## Plan de trabajo y entregables
+
+### Hito 1 — Contrato antes del código
+
+Entrega esquema de entrada/salida, códigos, matriz objetivo y modelo de amenazas básico. Revisión: otra persona puede anticipar qué hará Faro y qué nunca hará.
+
+### Hito 2 — Núcleo y un adaptador
+
+Implementa la ruta vertical completa en una plataforma: invocación, observación, normalización, hallazgo e informe. Revisión: casos felices y adversos automatizados.
+
+### Hito 3 — Segundo adaptador
+
+Implementa el otro shell conservando semántica. Revisión: mismas pruebas de contrato, más divergencias documentadas. Si no hay acceso a otra plataforma, la entrega se marca “diseñada, no ejecutada” y se aporta un plan verificable.
+
+### Hito 4 — Seguridad y recuperación
+
+Prueba redacción, límites de tamaño, temporales, interrupción y limpieza. Revisión: ninguna prueba deja estado global y el secreto centinela no aparece.
+
+### Hito 5 — Entrega reproducible
+
+Una segunda persona sigue el README desde cero, ejecuta la demostración y registra fricciones. Se corrige la documentación y se publica la evidencia final.
+
+## Rúbrica de evaluación
+
+| Dimensión | Insuficiente | Competente | Profesional |
+|---|---|---|---|
+| Modelo causal | Lista comandos | Relaciona hallazgos con mecanismos | Distingue alternativas y límites |
+| Portabilidad | Afirma compatibilidad | Define adaptadores y matriz | Aporta pruebas cruzadas y degradación explícita |
+| Seguridad | Imprime entorno/datos | Redacta campos conocidos | Minimiza desde el diseño y prueba filtraciones |
+| Operación | Solo caso feliz | Códigos y errores útiles | Recuperación, limpieza y evidencia reproducible |
+| Documentación | Pasos sin contexto | Contrato y requisitos claros | Una tercera persona reproduce y audita |
+
+No se compensa una filtración de secreto o una modificación no declarada con más funcionalidades.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Faro se convierte en un script de cien comandos | No existe modelo ni contrato | Separar capacidades, adaptadores y decisiones |
+| El JSON cambia entre plataformas sin versión | Se mezcló detalle con esquema común | Versionar esquema y aislar `platform_details` |
+| La demo necesita editar el código | Configuración y entrega no están resueltas | Definir interfaz, ejemplos y precedencia |
+| La matriz marca sistemas no ejecutados | Se confundió intención con evidencia | Publicar estado diseñado/probado por celda |
+| La herramienta “repara” por defecto | Se amplió el riesgo sin necesidad | Mantener solo lectura y plan explícito |
+
+## Entorno y archivos clave
+
+Repositorio del proyecto con `src/`, `adapters/`, `tests/`, `fixtures/`, `schema/`, `README.md`, `SECURITY.md` y `support-matrix.md`. Los artefactos se generan bajo `work/SE-036/`.
+
+## Seguridad, ética y accesibilidad
+
+Solo datos ficticios en ejemplos, redacción previa a salida, límites de tamaño y ningún cambio privilegiado. La CLI y documentación deben ser navegables, legibles y no depender de color.
+
+## Transferencia
+
+Extiende el contrato para diagnosticar una llamada de red en la Parte 3. Identifica qué nuevos datos requieren consentimiento y qué adaptadores deben cambiar.
+
+## Evaluación y evidencia
+
+Se evalúan contrato, modelo causal, portabilidad demostrada, seguridad, recuperación y documentación. Una funcionalidad sin prueba o un soporte no ejecutado se registra como deuda, no como completado.
+
+## Criterio de cierre
+
+La Parte 2 queda completada cuando Faro puede ser ejecutado por otra persona, explica al menos dos fallos independientes, conserva contratos en PowerShell y Bash, no expone el secreto centinela, deja el entorno limpio y publica exactamente qué plataformas y escenarios fueron probados.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proyecto: kit de diagnóstico multiplataforma**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-037`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Faro es un kit educativo local, no un agente de soporte remoto, herramienta forense ni producto de seguridad certificado. No ejecuta reparaciones privilegiadas. La siguiente parte del programa utilizará este entorno reproducible para estudiar redes: nombres, direcciones, transporte y fallos entre procesos que ya no comparten una sola máquina.
+
+## Fuentes
+
+- [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
+- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/)
+- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
+- [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/)
+- [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)
+
+## Glosario
+
+- **Capacidad:** operación comprobable que una plataforma ofrece al adaptador.
+- **Degradación explícita:** reducción funcional informada en datos, mensajes y estado.
+- **Matriz de soporte:** tabla que separa plataformas objetivo de escenarios efectivamente probados.
+- **Solo lectura:** modo que observa sin cambiar deliberadamente el estado inspeccionado.
+- **Versión de esquema:** identificador que permite interpretar la estructura de un informe.
 
 ---
-
-[← SE-035 — Taller: preparar y reparar un entorno reproducible](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-036.html) · [SE-037 — Modelos OSI y TCP/IP como herramientas de diagnóstico →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)
+[← SE-035](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-037 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico/README.md)

@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 24
+    "approved": 36
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -304,7 +304,7 @@
           "title": "Windows, Linux, macOS y sus modelos operativos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos"
         },
         {
@@ -313,7 +313,7 @@
           "title": "Sistemas de archivos, rutas, enlaces y metadatos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos"
         },
         {
@@ -322,7 +322,7 @@
           "title": "Usuarios, grupos, permisos y elevación de privilegios",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios"
         },
         {
@@ -331,7 +331,7 @@
           "title": "Procesos, señales, servicios y tareas programadas",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas"
         },
         {
@@ -340,7 +340,7 @@
           "title": "Terminales, shells y composición de comandos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-029-terminales-shells-y-composicion-de-comandos"
         },
         {
@@ -349,7 +349,7 @@
           "title": "PowerShell, Bash y portabilidad de scripts",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts"
         },
         {
@@ -358,7 +358,7 @@
           "title": "Variables de entorno, configuración y secretos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos"
         },
         {
@@ -367,7 +367,7 @@
           "title": "Instalación de software y gestores de paquetes del sistema",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-032-instalacion-de-software-y-gestores-de-paquetes-del-sistema"
         },
         {
@@ -376,7 +376,7 @@
           "title": "Logs del sistema y diagnóstico de fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos"
         },
         {
@@ -385,7 +385,7 @@
           "title": "Virtualización, WSL y aislamiento local",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-034-virtualizacion-wsl-y-aislamiento-local"
         },
         {
@@ -394,7 +394,7 @@
           "title": "Taller: preparar y reparar un entorno reproducible",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-035-taller-preparar-y-reparar-un-entorno-reproducible"
         },
         {
@@ -403,7 +403,7 @@
           "title": "Proyecto: kit de diagnóstico multiplataforma",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-036-proyecto-kit-de-diagnostico-multiplataforma"
         }
       ]

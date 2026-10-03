@@ -244,88 +244,148 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-025": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-026": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-027": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-028": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-029": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-030": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-031": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-032": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-033": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-034": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-035": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-036": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IEEE-SWEBOK-4A"
+        "POSIX-2024",
+        "WINDOWS-DOCS",
+        "POWERSHELL-DOCS",
+        "BASH-MANUAL",
+        "SYSTEMD-MAN",
+        "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-037": {
       "status": "SEEDED_BASELINE",

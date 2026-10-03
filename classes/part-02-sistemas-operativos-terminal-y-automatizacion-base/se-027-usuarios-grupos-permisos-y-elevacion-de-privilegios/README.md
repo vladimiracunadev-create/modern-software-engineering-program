@@ -1,210 +1,215 @@
 # SE-027 — Usuarios, grupos, permisos y elevación de privilegios
 
-[← SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-027.html) · [SE-028 — Procesos, señales, servicios y tareas programadas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)
+[← SE-026](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-028 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Laboratorio de mínimo privilegio con datos ficticios; no autoriza modificar controles de equipos administrados.
+
+## Antes de empezar
+
+Faro encontró la configuración correcta, pero no puede leerla. Cambiar permisos a “todos” haría desaparecer el síntoma y crearía un problema mayor. El diagnóstico profesional pregunta: ¿qué identidad realiza la operación?, ¿qué autoridad posee?, ¿qué regla se aplicó?, ¿qué mínimo cambio sería suficiente?
+
+### Resultado de aprendizaje
+
+Al terminar podrás razonar sobre autenticación, autorización, propiedad, permisos y elevación sin reducir el problema a “ejecuta como administrador”.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-026` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-026`, una carpeta desechable y una cuenta sin privilegios administrativos para la práctica. Debes poder distinguir ruta, objeto y metadatos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Usuarios, grupos, permisos y elevación de privilegios**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Faro recibe “acceso denegado”. Un intento previo abrió permisos para todos y el síntoma desapareció, pero ahora cualquier proceso local puede modificar la configuración. Se reparó disponibilidad destruyendo la política de acceso.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Usuarios y grupos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás modelar una decisión como sujeto–acción–objeto–política; interpretar permisos POSIX y ACL de Windows sin traducirlos falsamente; justificar mínimo privilegio; y proponer una corrección reversible con menor autoridad.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Usuarios | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Grupos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Permisos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Elevación | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Identidad efectiva | acompaña al proceso que solicita | saber quién actúa realmente |
+| Autorización | evalúa acción sobre objeto bajo reglas | explicar la denegación |
+| ACL y permisos | expresan derechos e herencia | corregir sin acceso universal |
+| Elevación | crea un contexto más poderoso | reservarla para una necesidad explícita |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Usuarios, grupos, permisos y elevación de privilegios"] --> M["Modelo: Usuarios"]
-    M --> D["Decisión: grupos"]
-    D --> E["Evidencia: permisos"]
-    E --> R["Revisión: elevación"]
-    R -->|nueva información| M
+ S[Sujeto: proceso e identidad] --> E[Evaluación]
+ A[Acción solicitada] --> E
+ O[Objeto resuelto] --> E
+ P[Permisos, ACL y política] --> E
+ E --> D{Permitir o denegar}
+ D --> R[Evidencia y corrección mínima]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Usuarios, grupos, permisos y elevación de privilegios**.
+La decisión no vive solo en el archivo. La identidad del proceso, cada directorio padre y reglas adicionales pueden cambiar el resultado; por eso Faro conserva el conjunto causal.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Identidad y autoridad no son lo mismo
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+La autenticación vincula una sesión con una identidad. La autorización decide si esa identidad puede realizar una acción sobre un recurso. Conocer el nombre del usuario no basta: importan grupos, credenciales, token o contexto efectivo, propietario del objeto y política aplicable.
 
-### 1. Usuarios: modelo
+Un proceso hereda un contexto de seguridad al iniciarse. Cambiar de identidad o elevar autoridad crea otro contexto; no corrige la lógica del programa. Faro registra identidad efectiva y operación fallida sin exponer identificadores más allá de lo necesario.
 
-En esta clase, **Usuarios** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Usuarios, grupos, permisos y elevación de privilegios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### El control de acceso evalúa sujeto, acción, objeto y política
 
-### 2. Grupos: mecanismo
+Una explicación útil tiene cuatro piezas:
 
-En esta clase, **grupos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Usuarios, grupos, permisos y elevación de privilegios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart LR
+    S[Sujeto: proceso e identidad] --> P[Motor de autorización]
+    A[Acción: leer, escribir, ejecutar] --> P
+    O[Objeto: archivo, proceso, servicio] --> P
+    R[Reglas: permisos, ACL, política] --> P
+    P --> D{Permitir o denegar}
+    D --> E[Evidencia y auditoría]
+```
 
-### 3. Permisos: evidencia
+El mismo usuario puede leer un archivo y no modificar su directorio. Poder modificar el directorio puede permitir reemplazar una entrada aunque el archivo tenga otros permisos. Por eso “tengo permiso sobre el archivo” es una afirmación incompleta.
 
-En esta clase, **permisos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Usuarios, grupos, permisos y elevación de privilegios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### POSIX combina propietario, grupo y otros; las ACL amplían el modelo
 
-### 4. Elevación: decisión
+Los bits clásicos expresan lectura, escritura y ejecución para propietario, grupo y otros. En un directorio, estos bits tienen semánticas distintas de un archivo: lectura enumera nombres, escritura modifica entradas y ejecución permite atravesar la ruta. Bits especiales y ACL agregan reglas que requieren análisis adicional.
 
-En esta clase, **elevación** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Usuarios, grupos, permisos y elevación de privilegios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El permiso efectivo puede depender de identidad efectiva, grupos suplementarios, máscara de ACL y de cada directorio padre. `chmod 777` ignora intención y amplía autoridad indiscriminadamente.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Windows usa tokens, descriptores de seguridad y ACL
+
+En Windows, el proceso opera con un token que representa usuario, grupos y privilegios. Los objetos pueden tener propietarios y listas de control de acceso con entradas de permitir o denegar e herencia. La evaluación no se traduce correctamente a tres dígitos octales.
+
+UAC separa el uso cotidiano de un token elevado; aceptar una elevación amplía la autoridad del proceso completo. La documentación de [Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control) detalla el modelo. Faro evita “traducir” ACL de Windows a permisos POSIX como si fueran equivalentes.
+
+### Mínimo privilegio reduce impacto y mejora el diagnóstico
+
+Un programa debe solicitar solo la autoridad necesaria y durante el tiempo necesario. Si Faro puede leer estado con permisos normales, no debe ejecutarse elevado “por si acaso”. La elevación también puede cambiar directorio personal, variables, mapeos de red o acceso a la sesión, generando un contexto diferente del fallo original.
+
+Un buen flujo intenta una operación segura, captura la denegación exacta y explica qué capacidad falta. Solo propone elevación si el objetivo la requiere por diseño y ofrece una acción acotada.
+
+### Permiso denegado puede proteger otra frontera
+
+La causa no siempre es el modo del archivo. Puede intervenir una ACL, política de ejecución, sandbox, control de aplicaciones, atributo de procedencia, recurso bloqueado o montaje de solo lectura. La corrección comienza por clasificar la frontera, no por desactivar controles.
+
+### Los secretos exigen permisos y también disciplina de uso
+
+Restringir un archivo no impide que un proceso autorizado imprima su contenido en logs, lo pase como argumento visible o lo herede a un proceso hijo. La protección combina almacenamiento, acceso mínimo, redacción, rotación y ciclo de vida. La clase SE-031 desarrollará esta cadena.
 
 ## Definiciones de trabajo
 
-- **Usuarios:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Grupos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Permisos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Elevación:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **sujeto:** proceso y contexto de identidad que solicita una acción;
+- **objeto:** recurso sobre el que se evalúa la solicitud;
+- **permiso efectivo:** autoridad resultante después de reglas, grupos, herencia y contexto;
+- **elevación:** cambio a un contexto con más autoridad;
+- **mínimo privilegio:** autoridad mínima, acotada en acción, alcance y duración.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro explica una denegación
 
-## Ejemplo mínimo
+Faro intenta leer la configuración de Pulso con una operación no destructiva. Ante una denegación registra:
 
-Registra una sola decisión sobre **Usuarios, grupos, permisos y elevación de privilegios**:
+- identidad efectiva y grupos relevantes, redactados si el informe se comparte;
+- acción exacta y objeto resuelto;
+- propietario, permisos o ACL que sea seguro consultar;
+- directorio padre que podría impedir el recorrido;
+- hipótesis y prueba mínima siguiente.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la servicio financiero, el equipo prepara un cambio relacionado con **Usuarios, grupos, permisos y elevación de privilegios**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+No cambia permisos automáticamente. Si el archivo pertenece a otra cuenta, distingue entre un error de instalación y un recurso deliberadamente compartido. Si la corrección propuesta es “cambiar propietario”, declara qué procesos podrían dejar de acceder.
 
 ## Práctica guiada
 
-1. Crea `work/SE-027/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+En un directorio de laboratorio:
+
+1. crea un archivo legible y otro restringido;
+2. observa identidad real y efectiva;
+3. compara permiso de archivo y permisos de sus directorios padre;
+4. provoca una denegación y conserva su mensaje/código;
+5. propone tres correcciones, ordénalas por autoridad añadida y elige la mínima;
+6. revierte todos los cambios y demuestra el estado final.
+
+No uses carpetas del sistema ni datos personales. La reversión es parte de la evidencia.
+
+## Ejemplo mínimo
+
+Un archivo permite lectura al propietario, pero su directorio padre niega atravesar la ruta. Mirar solo el archivo sugiere acceso; evaluar el recorrido completo explica la denegación.
+
+## Ejemplo profesional
+
+Un servicio fue instalado por una cuenta administrativa y su configuración quedó inaccesible a la identidad de servicio. En vez de ejecutar el servicio como administrador, se asigna lectura al sujeto específico sobre el objeto específico y se valida que no obtuvo escritura ni acceso a otros secretos.
 
 ## Ejercicios
 
-1. **Fundamental:** define Usuarios y grupos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Modela tres operaciones con la cuádrupla sujeto, acción, objeto y política.
+2. Explica por qué `chmod 777` y “Control total para Todos” no son diagnósticos.
+3. Compara el contexto antes y después de elevar: perfil, entorno, rutas y recursos de sesión.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-027/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-027/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Provoca una denegación en laboratorio y presenta dos correcciones posibles ordenadas por autoridad añadida. Aplica y revierte únicamente la mínima, demostrando el estado final.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Ser propietario concede siempre todas las acciones?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. La semántica depende del objeto y plataforma; políticas adicionales o montajes pueden restringir incluso al propietario.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Elevar confirma que faltaban permisos?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Solo indica que un contexto distinto logró la operación; también pudo cambiar rutas, variables o recursos. Hay que aislar el mecanismo.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Intenta leer un archivo de laboratorio sin permiso y captura el error exacto. Luego comprueba directorios padre y contexto efectivo. Corrige el único derecho necesario y revierte; no desactives controles globales.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| “Funciona como administrador” se declara solución | Se ocultó la regla que denegó acceso | Reproducir sin elevar e identificar capacidad mínima |
+| Se aplica acceso universal | Se confunde disponibilidad con autorización | Definir quién necesita qué acción y limitar alcance |
+| Se revisa solo el archivo | Se ignoran directorios padre, ACL o montaje | Trazar la ruta completa y la política efectiva |
+| Un script elevado usa otra configuración | Cambió el contexto de identidad | Registrar identidad, HOME/perfil y ruta antes y después |
+| El informe publica usuarios o ACL completas | Se confundió evidencia con exposición | Minimizar y redactar datos sin perder la relación causal |
+
+## Entorno y archivos clave
+
+`work/SE-027/`, dos archivos ficticios y `access-report.md`. Usa únicamente recursos propios; documenta comandos equivalentes sin forzar una traducción entre ACL y bits POSIX.
+
+## Seguridad, ética y accesibilidad
+
+No practiques sobre cuentas, servicios o datos de terceros. La salida debe explicar la acción negada en texto claro, no solo mediante un código o color.
+
+## Transferencia
+
+Aplica el modelo a una base de datos o repositorio Git. Identifica sujeto, acción, objeto y política aunque el mecanismo no sean permisos de archivo.
+
+## Evaluación y evidencia
+
+Se exige denegación reproducida, explicación efectiva, corrección mínima, verificación negativa y reversión. “Funcionó como administrador” cuenta como síntoma, no como solución.
+
+## Criterio de cierre
+
+Puedes explicar una decisión de acceso como relación entre sujeto, acción, objeto y política; comparar modelos sin falsas equivalencias; y proponer una corrección reversible que no amplíe privilegios innecesariamente.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Usuarios, grupos, permisos y elevación de privilegios**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-028`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubrimos administración empresarial de identidades, dominios, SELinux, AppArmor ni todos los detalles de ACL. El contexto de seguridad pertenece a un proceso en ejecución. La siguiente clase estudia cómo nacen, se planifican, coordinan y terminan esos procesos.
+
+## Fuentes
+
+- [The Open Group — File Access Permissions](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_05)
+- [Microsoft Learn — Access Control](https://learn.microsoft.com/windows/win32/secauthz/access-control)
+- [Microsoft Learn — How User Account Control works](https://learn.microsoft.com/windows/security/application-security/application-control/user-account-control/how-it-works)
+- [Apple Platform Security](https://support.apple.com/guide/security/welcome/web)
+
+## Glosario
+
+- **ACL:** lista de reglas que asocia identidades o grupos con derechos sobre un objeto.
+- **Autenticación:** proceso de establecer una identidad.
+- **Autorización:** decisión sobre una acción solicitada por una identidad.
+- **Elevación:** ejecución con un contexto de autoridad mayor al habitual.
+- **Mínimo privilegio:** principio de conceder la menor autoridad suficiente, con alcance y duración acotados.
 
 ---
-
-[← SE-026 — Sistemas de archivos, rutas, enlaces y metadatos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-027.html) · [SE-028 — Procesos, señales, servicios y tareas programadas →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)
+[← SE-026](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-028 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md)

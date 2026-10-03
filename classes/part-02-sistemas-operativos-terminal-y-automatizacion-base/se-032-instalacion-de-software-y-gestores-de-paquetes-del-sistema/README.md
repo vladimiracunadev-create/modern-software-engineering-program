@@ -1,210 +1,205 @@
 # SE-032 — Instalación de software y gestores de paquetes del sistema
 
-[← SE-031 — Variables de entorno, configuración y secretos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-032.html) · [SE-033 — Logs del sistema y diagnóstico de fallos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)
+[← SE-031](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-033 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Analiza planes de instalación en laboratorio; no autoriza instalar software ni agregar repositorios al sistema del usuario.
+
+## Antes de empezar
+
+Faro necesita herramientas auxiliares. “Instala la última versión” parece sencillo hasta que aparecen varios gestores, repositorios, ámbitos y rutas. Instalar modifica estado y añade confianza en publicadores y mecanismos de actualización. La pregunta profesional no es solo cómo instalar, sino qué se instala, desde dónde, para quién y cómo se revierte.
+
+### Resultado de aprendizaje
+
+Al terminar podrás evaluar una instalación por identidad, procedencia, integridad, alcance, resolución de dependencias y camino de desinstalación.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-031` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-031`, un entorno desechable o modo de simulación y permiso explícito para cualquier instalación real. La práctica puede completarse solo con inspección documental si no existe un entorno seguro.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Instalación de software y gestores de paquetes del sistema**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Faro requiere una herramienta y una guía recomienda “instala el paquete del mismo nombre”. Existen homónimos en varios registros, el comando solicita elevación y ejecuta scripts. La instrucción omite identidad, origen, alcance y reversión.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Instalación y software con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás describir paquete y grafo de dependencias; verificar procedencia disponible; elegir alcance; revisar un plan antes de aplicar; y demostrar qué revierte y qué permanece tras desinstalar.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Instalación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Software | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Gestores | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Paquetes | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Identidad de paquete | combina nombre, ecosistema, origen y versión | evitar homónimos y confusión |
+| Resolución | satisface restricciones de un grafo | anticipar cambios transitivos |
+| Procedencia | relaciona artefacto con publicador y canal | fundamentar confianza disponible |
+| Reversibilidad | inventaría efectos y estado | recuperar sin fingir limpieza total |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Instalación de software y gestores de paquetes del sistema"] --> M["Modelo: Instalación"]
-    M --> D["Decisión: software"]
-    D --> E["Evidencia: gestores"]
-    E --> R["Revisión: paquetes"]
-    R -->|nueva información| M
+ M[Manifiesto] --> G[Grafo de dependencias]
+ R[Repositorio y publicador] --> G
+ G --> P[Plan resuelto]
+ P --> V[Verificar origen e integridad]
+ V --> A[Aplicar en alcance mínimo]
+ A --> T[Probar]
+ T --> U[Actualizar, retirar o revertir]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Instalación de software y gestores de paquetes del sistema**.
+La verificación ocurre antes del cambio y la reversión se diseña antes de necesitarla. Un lockfile fija resoluciones, pero no convierte el origen en confiable.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Un paquete combina artefactos, metadatos y relaciones
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+Un gestor no descarga únicamente un ejecutable. Interpreta nombre, versión, arquitectura, dependencias, conflictos, scripts y fuente. Luego resuelve un conjunto compatible e instala bajo reglas de alcance. La identidad debe incluir ecosistema y origen; el mismo nombre en otro registro puede no representar el mismo proyecto.
 
-### 1. Instalación: modelo
+Faro inventaría cada dependencia con gestor, repositorio, versión solicitada y resuelta, arquitectura, alcance y método de actualización.
 
-En esta clase, **Instalación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Instalación de software y gestores de paquetes del sistema**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Resolver dependencias es satisfacer restricciones globales
 
-### 2. Software: mecanismo
+Cada paquete expresa rangos y relaciones. El gestor busca una solución conjunta; actualizar uno puede cambiar otros. Un archivo de bloqueo conserva resoluciones para reproducibilidad, pero no garantiza disponibilidad futura, ausencia de vulnerabilidades ni equivalencia entre plataformas.
 
-En esta clase, **software** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Instalación de software y gestores de paquetes del sistema**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart LR
+    M[Manifiesto y restricciones] --> R[Resolver grafo]
+    I[Índices firmados o metadatos] --> R
+    R --> L[Bloqueo o plan]
+    L --> V[Verificar procedencia e integridad]
+    V --> A[Aplicar en alcance elegido]
+    A --> T[Probar]
+    T --> U[Actualizar o revertir]
+```
 
-### 3. Gestores: evidencia
+Guardar el plan antes de aplicar permite revisar cambios inesperados.
 
-En esta clase, **gestores** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Instalación de software y gestores de paquetes del sistema**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Procedencia responde quién publicó y por qué confiamos
 
-### 4. Paquetes: decisión
+TLS protege el transporte en cierto tramo, no prueba por sí solo que el paquete sea el esperado. Firmas, hashes, repositorios configurados, identidades de publicador y metadatos verificables aportan señales distintas. Un hash copiado del mismo sitio comprometido tiene un modelo de confianza limitado.
 
-En esta clase, **paquetes** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Instalación de software y gestores de paquetes del sistema**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Se prefiere documentación oficial del proyecto y del gestor. Ejecutar directamente un script remoto canalizado al shell reduce la oportunidad de inspección, fijación y auditoría.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Alcance determina a quién y qué afecta
+
+Una instalación puede ser del sistema, usuario, proyecto o entorno aislado. El alcance global simplifica descubrimiento pero aumenta conflictos y autoridad requerida. Un entorno por proyecto mejora reproducibilidad, aunque consume espacio y aún depende del runtime base.
+
+Faro prefiere dependencias del proyecto o herramientas ya provistas por el sistema. No eleva privilegios para evitar comprender una ruta.
+
+### Instalar puede ejecutar código
+
+Ganchos previos/posteriores y compilación nativa pueden ejecutarse durante la instalación. Revisar el nombre del paquete no basta. En automatización se limita origen, permisos, acceso de red y se conserva log. Para software sensible pueden requerirse artefactos preconstruidos, verificación adicional o entorno aislado.
+
+### Reversibilidad se diseña antes del cambio
+
+Desinstalar un paquete no siempre revierte configuración, servicios, datos o variables. Antes de aplicar se captura estado relevante, se usa modo de simulación cuando existe y se define qué conservar. Un rollback de paquete puede ser incompatible con datos migrados.
+
+Los gestores oficiales —[WinGet](https://learn.microsoft.com/windows/package-manager/winget/), [APT](https://www.debian.org/doc/manuals/debian-handbook/apt.en.html) y [Homebrew](https://docs.brew.sh/)— tienen modelos diferentes. Faro documenta adaptadores; no presenta comandos como intercambiables.
 
 ## Definiciones de trabajo
 
-- **Instalación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Software:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Gestores:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Paquetes:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **paquete:** artefactos, metadatos y acciones administradas como una unidad;
+- **dependencia transitiva:** componente requerido a través de otra dependencia;
+- **procedencia:** evidencia sobre origen y cadena de publicación;
+- **alcance:** conjunto de usuarios, proyectos o sistema afectado;
+- **reversibilidad:** capacidad demostrada de retirar cambios o volver a un estado definido.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro verifica sus dependencias
 
-## Ejemplo mínimo
+El kit requiere un runtime con versión mínima y opcionalmente una herramienta de compresión. Antes de sugerir instalación, detecta capacidad y versión. Si falta lo opcional, produce un informe sin comprimir y marca modo degradado. Si falta lo esencial, entrega instrucciones específicas verificadas, pero no instala automáticamente.
 
-Registra una sola decisión sobre **Instalación de software y gestores de paquetes del sistema**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la comercio responsable, el equipo prepara un cambio relacionado con **Instalación de software y gestores de paquetes del sistema**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+El manifiesto fija dependencias de biblioteca; el informe registra resolución y origen sin afirmar que ello certifica seguridad. Una prueba crea un entorno limpio, instala, ejecuta, desinstala y comprueba qué archivos quedan.
 
 ## Práctica guiada
 
-1. Crea `work/SE-032/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Elige una dependencia no privilegiada de laboratorio.
+2. Localiza su fuente oficial y explica la cadena de confianza disponible.
+3. Obtén el plan o simulación antes de instalar.
+4. Instala en el alcance más estrecho posible y verifica versión/origen.
+5. Desinstala y compara el estado anterior y posterior.
+6. Redacta instrucciones alternativas para otra plataforma sin asumir equivalencia.
+
+No agregues repositorios o gestores al sistema real solo para completar la práctica.
+
+## Ejemplo mínimo
+
+Un manifiesto pide `tool >=2,<3` y el gestor resuelve `2.7` más dos dependencias. El informe distingue restricción de versión resuelta y conserva el plan. Copiar solo `2.7` pierde el grafo y origen.
+
+## Ejemplo profesional
+
+Una actualización global rompe dos proyectos. El equipo migra la herramienta a entornos por proyecto, fija resoluciones y prueba desinstalación. Documenta que quedan cachés y datos, en vez de afirmar una reversión perfecta.
 
 ## Ejercicios
 
-1. **Fundamental:** define Instalación y software con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Construye un grafo con dependencia directa, transitiva y conflicto.
+2. Evalúa qué prueba una firma, un hash y TLS, y qué no.
+3. Compara alcance de sistema, usuario y proyecto para Faro.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-032/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-032/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Produce un plan de instalación sin aplicarlo: identidad completa, fuentes, dependencias, scripts, alcance, cambios y reversión. Otra persona debe poder rechazarlo antes de ejecutar.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Estar en un repositorio oficial vuelve seguro un paquete?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Aporta una cadena de distribución y controles concretos, no garantía absoluta de comportamiento.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Un lockfile hace reproducible cualquier instalación?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Fija parte de la resolución; runtime, plataforma, disponibilidad y servicios externos pueden variar.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Usa simulación o un fixture con dos paquetes homónimos de orígenes ficticios. Faro debe rechazar la identidad ambigua antes de instalar y explicar qué dato falta.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Se instala un paquete homónimo | Se confió solo en el nombre | Verificar ecosistema, publicador, URL y firma/metadatos |
+| Una actualización rompe otro proyecto | Se usó alcance global sin control de resolución | Aislar por proyecto y conservar manifiesto/bloqueo |
+| La automatización ejecuta un script remoto | Se priorizó comodidad sobre inspección | Descargar desde fuente verificada, inspeccionar y fijar artefacto |
+| Desinstalar deja un servicio activo | Se confundió paquete con todos sus efectos | Inventariar scripts, datos y servicios; probar reversión |
+| Un lockfile se presenta como garantía total | Se ignoraron origen, runtime y plataforma | Documentar qué fija y qué permanece variable |
+
+## Entorno y archivos clave
+
+Entorno virtual o contenedor desechable, `manifest`, `lock`, `install-plan.md` y `reversal-report.md`. No eleva ni agrega fuentes al host.
+
+## Seguridad, ética y accesibilidad
+
+No canalices scripts remotos al shell ni publiques tokens de registro. Presenta el plan en formato textual legible y señala con palabras los cambios de riesgo.
+
+## Transferencia
+
+Aplica el análisis a una imagen de contenedor o extensión de editor. Compara identidad, origen, ejecución durante instalación y camino de retiro.
+
+## Evaluación y evidencia
+
+Se exige grafo, plan previo, justificación de procedencia y alcance, prueba de retiro o simulación honesta y estado residual. Instalar correctamente no basta.
+
+## Criterio de cierre
+
+Puedes presentar un plan de instalación verificable, justificar origen y alcance, y demostrar instalación/desinstalación en laboratorio con diferencias remanentes declaradas.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Instalación de software y gestores de paquetes del sistema**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-033`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No realizamos auditoría completa de cadena de suministro ni declaramos seguro un paquete por estar firmado. Incluso una instalación correcta puede fallar; la siguiente clase desarrolla logs y observabilidad para reconstruir qué ocurrió.
+
+## Fuentes
+
+- [Microsoft Learn — WinGet](https://learn.microsoft.com/windows/package-manager/winget/)
+- [Debian Administrator's Handbook — APT](https://www.debian.org/doc/manuals/debian-handbook/apt.en.html)
+- [Homebrew Documentation](https://docs.brew.sh/)
+- [Python Packaging User Guide](https://packaging.python.org/en/latest/)
+
+## Glosario
+
+- **Dependencia:** componente requerido bajo una relación y restricción declaradas.
+- **Lockfile:** registro de resoluciones concretas para repetir una instalación.
+- **Procedencia:** evidencia sobre origen y cadena de publicación de un artefacto.
+- **Repositorio de paquetes:** servicio e índice desde el que un gestor obtiene metadatos y artefactos.
+- **Transacción:** conjunto de cambios tratado como una unidad según garantías del gestor.
 
 ---
-
-[← SE-031 — Variables de entorno, configuración y secretos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-032.html) · [SE-033 — Logs del sistema y diagnóstico de fallos →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)
+[← SE-031](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-031-variables-de-entorno-configuracion-y-secretos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-033 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos/README.md)

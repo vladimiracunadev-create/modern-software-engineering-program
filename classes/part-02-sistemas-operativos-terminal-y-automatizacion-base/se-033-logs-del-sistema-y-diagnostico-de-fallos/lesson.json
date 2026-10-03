@@ -7,9 +7,14 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IEEE-SWEBOK-4A"
+    "POSIX-2024",
+    "WINDOWS-DOCS",
+    "POWERSHELL-DOCS",
+    "BASH-MANUAL",
+    "SYSTEMD-MAN",
+    "WSL-DOCS"
   ],
   "path": "classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-033-logs-del-sistema-y-diagnostico-de-fallos"
 }

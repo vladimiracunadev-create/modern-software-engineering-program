@@ -1,210 +1,207 @@
 # SE-029 — Terminales, shells y composición de comandos
 
-[← SE-028 — Procesos, señales, servicios y tareas programadas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-029.html) · [SE-030 — PowerShell, Bash y portabilidad de scripts →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)
+[← SE-028](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-030 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Composición segura con datos sintéticos; no ejecuta cadenas obtenidas de fuentes no confiables.
+
+## Antes de empezar
+
+Hasta ahora usamos comandos como instrumentos de observación. Pero una línea de terminal contiene varias capas: la terminal transporta interacción; el shell analiza sintaxis, expande valores y conecta procesos; cada programa interpreta sus propios argumentos. Confundirlas produce errores de comillas, tuberías y manejo de fallos.
+
+### Resultado de aprendizaje
+
+Al terminar podrás construir un pipeline con contratos explícitos de entrada, salida, error y estado, y explicar qué parte interpreta cada carácter.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-028` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-028`, manejo básico de una terminal y capacidad para crear procesos de laboratorio. Recupera la diferencia entre texto, bytes y codificación de `SE-015`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Terminales, shells y composición de comandos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una automatización genera JSON, pero el archivo contiene mensajes de progreso y el pipeline informa éxito aunque la primera etapa falló. La consola “se veía bien”; sus canales y estados no tenían contrato.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Terminales y shells con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás distinguir terminal, shell y programa; seguir análisis y expansión de argumentos; separar stdin/stdout/stderr; conservar fallos en pipelines; y diseñar una CLI componible con códigos documentados.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Terminales | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Shells | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Composición | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Comandos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Análisis del shell | convierte texto en invocaciones y redirecciones | proteger argumentos y evitar reevaluación |
+| Flujos estándar | separan datos y diagnóstico | componer sin contaminar resultados |
+| Pipeline | conecta productor y consumidor | procesar en streaming y propagar fallos |
+| Código de salida | resume resultado para el padre | automatizar decisiones explícitas |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Terminales, shells y composición de comandos"] --> M["Modelo: Terminales"]
-    M --> D["Decisión: shells"]
-    D --> E["Evidencia: composición"]
-    E --> R["Revisión: comandos"]
-    R -->|nueva información| M
+ U[Persona o script] --> T[Terminal]
+ T --> S[Shell analiza y expande]
+ S --> A[Proceso A]
+ A -- stdout --> B[Proceso B]
+ A -- stderr --> D[Diagnóstico]
+ B -- stdout --> R[Resultado]
+ A -. estado .-> S
+ B -. estado .-> S
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Terminales, shells y composición de comandos**.
+La terminal transporta interacción; el shell crea la topología; los programas interpretan argumentos. Los flujos llevan datos, mientras los estados gobiernan decisiones.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Terminal y shell no son sinónimos
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+La terminal es una interfaz de entrada/salida —hoy normalmente un emulador— conectada a una sesión. El shell es un intérprete y lenguaje que lee órdenes, realiza expansiones y lanza comandos. Dentro de Windows Terminal pueden ejecutarse PowerShell, `cmd` o un shell de WSL; cambiar la ventana no cambia automáticamente la semántica del lenguaje.
 
-### 1. Terminales: modelo
+Cuando Faro documenta una orden, registra shell y versión. `>` o `$variable` no tienen una interpretación universal.
 
-En esta clase, **Terminales** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Terminales, shells y composición de comandos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### El análisis ocurre antes de que el programa reciba argumentos
 
-### 2. Shells: mecanismo
+El shell separa tokens, procesa comillas, variables, comodines y redirecciones según sus reglas. El programa recibe una colección de argumentos ya construida —con diferencias de plataforma en cómo se materializa— y no ve necesariamente el texto original.
 
-En esta clase, **shells** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Terminales, shells y composición de comandos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Las comillas no “viajan” siempre al programa: protegen espacios o inhiben expansiones durante el análisis. Construir una orden completa como una cadena y evaluarla de nuevo crea una segunda interpretación y aumenta errores e inyección. Las API de procesos que reciben lista de argumentos evitan esa ambigüedad.
 
-### 3. Composición: evidencia
+### Entrada, salida y error son canales con propósitos distintos
 
-En esta clase, **composición** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Terminales, shells y composición de comandos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un proceso suele recibir entrada estándar y producir salida estándar y error estándar. La salida puede reservarse para datos componibles; el error, para diagnóstico humano. Redirigir o combinar canales cambia quién los consume.
 
-### 4. Comandos: decisión
+```mermaid
+flowchart LR
+    I[stdin: datos] --> A[Comando A]
+    A -- stdout --> B[Comando B]
+    A -- stderr --> L[Diagnóstico]
+    B -- stdout --> R[Resultado]
+    B -- stderr --> L
+    A -. exit status .-> S[Decisión del shell]
+    B -. exit status .-> S
+```
 
-En esta clase, **comandos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Terminales, shells y composición de comandos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si un programa mezcla advertencias con JSON en stdout, rompe al siguiente consumidor. Faro separa informe estructurado y mensajes operativos.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Un pipeline conecta procesos pero puede ocultar el fallo inicial
+
+La salida de un proceso alimenta la entrada del siguiente. Cada etapa puede almacenar, transformar o filtrar, y la presión de retorno limita a un productor rápido cuando el consumidor no alcanza. Leer toda la salida antes de consumir puede agotar memoria; no leer un pipe lleno puede bloquear procesos.
+
+El estado final del pipeline depende del shell y su configuración. En Bash, `pipefail` modifica qué fallos se propagan; en PowerShell, el pipeline transporta objetos dentro del entorno PowerShell y texto al cruzar a procesos nativos. Por eso debe verificarse la semántica, no extrapolarla.
+
+### Los códigos de salida son una interfaz pequeña pero crítica
+
+Por convención, cero representa éxito y otros valores categorías de fallo, aunque el significado preciso pertenece al programa. Un mensaje “ERROR” no cambia por sí solo el código. Una automatización robusta comprueba el estado inmediatamente, conserva contexto y decide si reintenta, degrada o detiene.
+
+Faro define: `0` diagnóstico completo sin hallazgos bloqueantes; `2` uso inválido; `3` precondición ausente; `4` diagnóstico parcial; `5` fallo interno. El texto puede traducirse, pero los significados permanecen documentados.
+
+### Composición segura requiere contratos de datos
+
+Texto delimitado por espacios es frágil ante nombres con espacios, saltos de línea o codificaciones distintas. Para datos estructurados se elige un formato y codificación, se valida el esquema y se limita tamaño. JSON no soluciona autenticidad ni secreto; solo representa estructura.
+
+El [Bash Reference Manual](https://www.gnu.org/software/bash/manual/) y la documentación de [PowerShell](https://learn.microsoft.com/powershell/) son fuentes de sus respectivas semánticas. POSIX cubre una base compartida de utilidades y shell, pero no convierte extensiones en portables.
 
 ## Definiciones de trabajo
 
-- **Terminales:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Shells:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Composición:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Comandos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **terminal:** interfaz que transporta entrada y salida de una sesión;
+- **shell:** lenguaje que analiza órdenes y coordina procesos;
+- **argumento:** valor entregado a un programa tras la interpretación correspondiente;
+- **pipeline:** conexión de salida de una etapa con entrada de otra;
+- **código de salida:** valor discreto con significado documentado para el proceso padre.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro ofrece un contrato de línea de comandos
 
-## Ejemplo mínimo
+Faro acepta opciones explícitas, escribe el informe JSON en stdout, envía progreso y advertencias a stderr y termina con códigos documentados. La opción `--human` cambia la representación de salida, no el significado.
 
-Registra una sola decisión sobre **Terminales, shells y composición de comandos**:
-
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la control de agentes, el equipo prepara un cambio relacionado con **Terminales, shells y composición de comandos**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+Una prueba ejecuta Faro con una ruta que contiene espacios y caracteres no ASCII. Otra induce diagnóstico parcial. El consumidor debe guardar JSON solo si el código y la validación lo permiten. Así se evita un archivo “válido” que en realidad contiene mensajes mezclados.
 
 ## Práctica guiada
 
-1. Crea `work/SE-029/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe un productor que emita tres registros y una advertencia separada.
+2. Conecta un consumidor que valide y cuente registros.
+3. Induce un fallo en la primera etapa y observa estado con y sin política de propagación.
+4. Prueba argumento vacío, espacio, comodín literal y texto Unicode.
+5. Documenta quién interpreta cada elemento y cuál es el contrato observable.
+
+La práctica debe tener pruebas negativas; un único ejemplo feliz no demuestra un contrato.
+
+## Ejemplo mínimo
+
+Un productor escribe `42` en stdout, una advertencia en stderr y termina con cero. Redirigir stdout conserva un archivo limpio; redirigir ambos mezcla propósitos. El consumidor valida `42` y no analiza la advertencia.
+
+## Ejemplo profesional
+
+Un pipeline de exportación transforma miles de registros. La etapa inicial falla tras diez, pero la última herramienta termina correctamente con entrada parcial. La política de propagación detiene la entrega y conserva stderr correlacionado; éxito visual del último comando deja de ser el criterio.
 
 ## Ejercicios
 
-1. **Fundamental:** define Terminales y shells con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Indica qué componente interpreta comillas, comodines y una opción del programa.
+2. Diseña códigos para éxito, uso inválido, parcial y fallo interno.
+3. Explica cómo un pipe lleno puede bloquear al productor.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-029/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-029/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Construye productor y consumidor que soporten espacios, texto Unicode y un fallo inducido en la primera etapa. El archivo de datos debe seguir siendo válido y el estado final no puede indicar éxito falso.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿stderr significa siempre error fatal?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Es un canal de diagnóstico; la severidad y el resultado los define el contrato junto con el código.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Citar una cadena la vuelve segura en todos los shells?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+No. Las reglas varían y evaluar otra vez reabre interpretación. Es preferible pasar colecciones de argumentos mediante APIs.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Haz que el productor falle después de emitir un registro. Observa qué archivo y estado deja el pipeline, activa la política adecuada y repite. Documenta qué cambió y qué shell lo interpretó.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| Un archivo JSON contiene mensajes de progreso | stdout y stderr no tienen roles definidos | Reservar stdout para datos y stderr para diagnóstico |
+| Una ruta con espacios se divide | El shell interpretó una cadena sin protección | Pasar argumentos como colección o citar según el shell |
+| Falla la primera etapa y el script sigue | Solo se observó el último estado | Activar/comprobar la política apropiada y probar cada etapa crítica |
+| Se invoca `eval` para montar comandos | Se introdujo una segunda interpretación | Usar funciones y listas de argumentos |
+| Un pipeline grande se bloquea | No se consumen ambos flujos o se almacena todo | Procesar en streaming y drenar canales |
+
+## Entorno y archivos clave
+
+`work/SE-029/producer`, `consumer`, `result.jsonl`, `diagnostic.log` y `contract.md`. Usa solo datos ficticios y límites pequeños.
+
+## Seguridad, ética y accesibilidad
+
+No conviertas entradas en código ni incluyas secretos en argumentos. Mensajes y estados deben ser comprensibles sin color y stdout debe ofrecer formato documentado.
+
+## Transferencia
+
+Traslada el contrato a una API HTTP: cuerpo, canal de diagnóstico, estado y reintento. Señala qué analogías dejan de funcionar.
+
+## Evaluación y evidencia
+
+Se exige topología explicada, separación de canales, cinco casos adversos y propagación comprobada. Una línea de shell que solo funciona con un nombre simple no aprueba.
+
+## Criterio de cierre
+
+Puedes señalar qué hace la terminal, qué hace el shell y qué recibe el proceso; construir un pipeline que conserva errores; y demostrar el contrato CLI de Faro con casos adversos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Terminales, shells y composición de comandos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-030`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubrimos interfaces interactivas complejas, pseudo-terminales ni todas las reglas de cada shell. La siguiente clase compara PowerShell y Bash para decidir qué lógica puede compartirse y qué necesita adaptadores explícitos.
+
+## Fuentes
+
+- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
+- [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/)
+- [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html)
+- [Microsoft Learn — about_Pipelines](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_pipelines)
+
+## Glosario
+
+- **Pipeline:** composición donde la salida de una etapa alimenta la entrada de otra.
+- **Redirección:** cambio del origen o destino de un flujo.
+- **Shell:** intérprete y lenguaje para lanzar y coordinar procesos.
+- **stderr:** canal convencional de diagnóstico.
+- **stdout:** canal convencional de resultados o datos.
 
 ---
-
-[← SE-028 — Procesos, señales, servicios y tareas programadas](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-029.html) · [SE-030 — PowerShell, Bash y portabilidad de scripts →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)
+[← SE-028](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-028-procesos-senales-servicios-y-tareas-programadas/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-030 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-030-powershell-bash-y-portabilidad-de-scripts/README.md)

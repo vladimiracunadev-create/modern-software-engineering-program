@@ -2,7 +2,7 @@
   "$schema": "https://vladimiracunadev-create.github.io/software-engineering-learning-suite/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-027",
-  "status": "PLANNED",
+  "status": "GUIDED",
   "mode": "class",
   "environment": "PowerShell 7 y Bash en Windows, macOS o Linux",
   "duration_hours": 4,
@@ -16,9 +16,9 @@
     "revise"
   ],
   "outputs": [
-    "bootstrap.ps1",
-    "bootstrap.sh",
-    "runbook.md"
+    "faro.ps1",
+    "faro.sh",
+    "support-matrix.md"
   ],
   "safety": {
     "real_personal_data": false,
@@ -29,6 +29,8 @@
     "POSIX",
     "WINDOWS",
     "POWERSHELL",
-    "BASH"
+    "BASH",
+    "SYSTEMD",
+    "WSL"
   ]
 }

@@ -1,210 +1,212 @@
 # SE-026 — Sistemas de archivos, rutas, enlaces y metadatos
 
-[← SE-025 — Windows, Linux, macOS y sus modelos operativos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-026.html) · [SE-027 — Usuarios, grupos, permisos y elevación de privilegios →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)
+[← SE-025](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-027 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED**. Clase de resolución y acceso seguro; no certifica durabilidad ni recuperabilidad de un sistema de archivos concreto.
+
+## Antes de empezar
+
+Faro ya sabe describir la plataforma. Su siguiente tarea parece trivial: encontrar `config.json`. En un equipo funciona con una ruta relativa; en otro, el proceso se inició desde un directorio diferente; en un tercero, la ruta cambia de mayúsculas y apunta a un enlace. La cadena de texto es parecida, pero la resolución no es la misma.
+
+### Resultado de aprendizaje
+
+Al terminar podrás explicar cómo se resuelve una ruta, distinguir nombre, contenido y metadatos, y diseñar operaciones de archivo que sean explícitas, seguras y verificables.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-025` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de PowerShell 7 y Bash en Windows, macOS o Linux.
+`SE-025`, distinción entre texto y bytes de `SE-015`, y una carpeta desechable. Debes poder identificar directorio de trabajo y plataforma sin elevar permisos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Sistemas de archivos, rutas, enlaces y metadatos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Pulso recibe `config/pulso.json` y funciona solo cuando se inicia desde el repositorio. Un acceso directo, servicio o tarea usa otro directorio y resuelve la misma cadena hacia un objeto distinto. El error se atribuye al archivo, aunque cambió el contexto de resolución.
 
 ## Objetivos observables
 
-Al terminar podrás:
-
-1. explicar Sistemas y archivos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **runbook de entorno reproducible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «automatizar una operación destructiva sin precondiciones ni rollback» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
+Podrás resolver rutas desde una base explícita; distinguir archivo, directorio y enlace; interpretar metadatos con límites; diseñar actualización segura; y demostrar por qué concatenar cadenas no modela un sistema de archivos.
 
 ## Temas y por qué importan
 
-| Tema | Función en la clase | Por qué importa |
+| Tema | Mecanismo | Decisión habilitada |
 | --- | --- | --- |
-| Sistemas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Archivos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Rutas | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Enlaces | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+| Espacio de nombres | vincula rutas con objetos | localizar sin depender de la sesión |
+| Enlaces | introducen nombres alternativos y saltos | contener recorridos y limpiezas |
+| Metadatos | describen tipo, tamaño, tiempos y acceso | contrastar hipótesis sin leer contenido |
+| Actualización | combina apertura, escritura y reemplazo | evitar estados parciales |
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Sistemas de archivos, rutas, enlaces y metadatos"] --> M["Modelo: Sistemas"]
-    M --> D["Decisión: archivos"]
-    D --> E["Evidencia: rutas"]
-    E --> R["Revisión: enlaces"]
-    R -->|nueva información| M
+ I[Ruta recibida] --> B[Base explícita]
+ B --> N[Normalización]
+ N --> L[Resolución de enlaces]
+ L --> M[Tipo y metadatos]
+ M --> O[Operación declarada]
+ O --> V[Verificación posterior]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Sistemas de archivos, rutas, enlaces y metadatos**.
+La cadena se interpreta antes de abrir. Normalizar no autoriza; resolver no garantiza existencia; abrir no garantiza durabilidad. Cada flecha añade una condición distinta.
 
 ## Conceptos y decisiones
 
-El sistema operativo arbitra procesos, memoria, archivos, dispositivos e identidades; la automatización segura hace explícitos precondiciones, permisos, efectos y recuperación.
+### Un sistema de archivos crea un espacio de nombres sobre almacenamiento
 
-La pregunta rectora de esta parte es: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** La respuesta debe
-apoyarse en **estado anterior y posterior, logs, códigos de salida y procedimiento de rollback**.
+El archivo que una aplicación percibe no es simplemente “un bloque del disco”. El sistema de archivos relaciona nombres con objetos, organiza directorios y conserva metadatos como tipo, tamaño, marcas temporales y permisos. El kernel traduce operaciones de alto nivel a la implementación montada y, finalmente, al dispositivo o servicio remoto.
 
-### 1. Sistemas: modelo
+La abstracción permite que distintas tecnologías presenten operaciones semejantes, pero no garantiza idénticas reglas de nombres, sensibilidad a mayúsculas, durabilidad o bloqueo.
 
-En esta clase, **Sistemas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Sistemas de archivos, rutas, enlaces y metadatos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Una ruta se interpreta desde un contexto
 
-### 2. Archivos: mecanismo
+Una ruta absoluta parte de una raíz o volumen definido por la plataforma. Una ruta relativa parte del directorio de trabajo del proceso, no necesariamente del directorio donde está el script. Ese detalle causa muchos “funciona en mi máquina”.
 
-En esta clase, **archivos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Sistemas de archivos, rutas, enlaces y metadatos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+```mermaid
+flowchart LR
+    A[Ruta recibida] --> B{¿Absoluta?}
+    B -- No --> C[Combinar con directorio base explícito]
+    B -- Sí --> D[Conservar raíz o volumen]
+    C --> E[Normalizar componentes]
+    D --> E
+    E --> F[Resolver enlaces según la operación]
+    F --> G[Comprobar tipo y metadatos]
+    G --> H[Abrir con modo declarado]
+```
 
-### 3. Rutas: evidencia
+Normalizar `.` y `..` no prueba que el objetivo exista ni que esté permitido. Resolver una ruta es una operación semántica; concatenar cadenas con `/` o `\` es apenas manipulación textual.
 
-En esta clase, **rutas** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Sistemas de archivos, rutas, enlaces y metadatos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+### Windows y POSIX modelan raíces de forma diferente
 
-### 4. Enlaces: decisión
+En sistemas POSIX, `/` encabeza un árbol único donde pueden montarse otros sistemas. Windows admite volúmenes, rutas UNC y prefijos con reglas propias. Las bibliotecas de rutas de un lenguaje modelan estas diferencias mejor que separadores escritos a mano.
 
-En esta clase, **enlaces** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?» y demostrarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Sistemas de archivos, rutas, enlaces y metadatos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+No todo nombre válido en una plataforma lo es en otra. Tampoco debe asumirse sensibilidad o insensibilidad a mayúsculas solo por el nombre del sistema: depende del sistema de archivos y su configuración. Faro prueba el comportamiento que necesita o declara su requisito.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Enlace simbólico y enlace físico no son copias
+
+Un enlace simbólico almacena una referencia que puede quedar colgante si cambia el objetivo. Un enlace físico agrega otro nombre a un mismo objeto subyacente y suele estar limitado al mismo sistema de archivos. Borrar un nombre no necesariamente borra los datos si quedan otros enlaces o descriptores abiertos.
+
+Seguir enlaces automáticamente puede escapar del directorio esperado. Una herramienta que limpia archivos debe resolver y validar el destino antes de modificarlo; comparar prefijos de texto no basta frente a `..`, enlaces y diferencias de normalización.
+
+### Metadatos y contenido cambian de manera independiente
+
+Tamaño, propietario, permisos y tiempos describen el objeto, pero sus significados y granularidad varían. Una marca de modificación no prueba quién cambió un archivo ni que el contenido sea distinto. Para verificar igualdad se puede comparar contenido o una función hash adecuada, considerando costo y amenaza.
+
+Los atributos extendidos, listas de control de acceso y marcas de procedencia también pueden afectar la ejecución sin aparecer en una lectura básica. Faro reporta los campos que sustentan una hipótesis y señala cuando la plataforma no ofrece equivalencia directa.
+
+### Abrir un archivo incluye decisiones de concurrencia y durabilidad
+
+Leer, crear, truncar, agregar y reemplazar son modos distintos. Dos procesos pueden observar estados intermedios si una actualización se hace directamente sobre el archivo final. Un patrón común es escribir en un archivo temporal del mismo sistema, sincronizar cuando la garantía lo exige y reemplazar atómicamente; aun así, atomicidad y persistencia dependen del contrato documentado.
+
+La especificación de [POSIX](https://pubs.opengroup.org/onlinepubs/9799919799/) y la documentación de [nombres y rutas de Windows](https://learn.microsoft.com/windows/win32/fileio/naming-a-file) ofrecen los contratos que deben verificarse, no memorizarse por analogía.
+
+### Codificación del nombre no es codificación del contenido
+
+Un nombre de archivo y los bytes guardados en él atraviesan capas diferentes. Poder abrir `inscripción.txt` no significa que el texto sea UTF-8; y decodificar el contenido no garantiza que dos formas Unicode del nombre se comparen igual. Esta separación recupera lo aprendido en SE-015.
 
 ## Definiciones de trabajo
 
-- **Sistemas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Archivos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Rutas:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
-- **Enlaces:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante estado anterior y posterior, logs, códigos de salida y procedimiento de rollback.
+- **ruta:** expresión interpretada bajo reglas y una base;
+- **entrada de directorio:** asociación entre un nombre y un objeto del sistema de archivos;
+- **resolución:** proceso de recorrer componentes, montajes y enlaces;
+- **metadatos:** propiedades del objeto distintas de su contenido principal;
+- **reemplazo atómico:** transición indivisible para observadores según garantías del sistema concreto.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+## Caso conductor: Faro localiza la configuración
 
-## Ejemplo mínimo
+Faro define tres ubicaciones: directorio del programa, directorio de configuración del usuario y directorio de trabajo. Nunca las trata como sinónimos. Recibe una opción explícita `--config`; si no existe, consulta una variable documentada; por último usa una ubicación predeterminada de la plataforma.
 
-Registra una sola decisión sobre **Sistemas de archivos, rutas, enlaces y metadatos**:
+Antes de abrir informa: ruta proporcionada, base utilizada, ruta normalizada, existencia, tipo de objeto y si atraviesa un enlace. No imprime el contenido porque puede contener secretos. Si encuentra un directorio donde esperaba un archivo, falla con un mensaje específico y un código distinto de “no existe”.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
-
-## Ejemplo profesional
-
-En la comercio responsable, el equipo prepara un cambio relacionado con **Sistemas de archivos, rutas, enlaces y metadatos**. Parte de esta pregunta: **¿qué recurso administra el sistema y bajo qué identidad ocurre el cambio?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando estado anterior y posterior, logs, códigos de salida y procedimiento de rollback. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `bootstrap.ps1` y enlaza la evidencia, no solo la conclusión.
+El mecanismo evita una trampa: cambiar automáticamente a cualquier archivo de nombre parecido haría que el programa “funcione” con configuración equivocada.
 
 ## Práctica guiada
 
-1. Crea `work/SE-026/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el runbook de entorno reproducible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea un árbol de laboratorio con archivo, subdirectorio, ruta con espacios y enlace simbólico si la plataforma lo permite.
+2. Ejecuta la misma resolución desde dos directorios de trabajo.
+3. Registra ruta textual, ruta resuelta, tipo, tamaño y permisos observables.
+4. Diseña una escritura segura: temporal, validación y reemplazo.
+5. Prueba los fallos `ausente`, `tipo incorrecto`, `sin permiso` y `enlace fuera del árbol` sin usar datos reales.
+
+Entrega una matriz donde cada observación conduce a una decisión, no una colección de comandos.
+
+## Ejemplo mínimo
+
+Desde `C:\lab\pulso`, `config\pulso.json` apunta al laboratorio. Desde `C:\Users\ana`, la misma cadena apunta a otra ubicación. Resolver desde el directorio del programa produce una intención distinta a resolver desde el directorio de trabajo; Faro debe nombrar cuál eligió.
+
+## Ejemplo profesional
+
+Un actualizador escribe sobre el archivo final y se interrumpe, dejando JSON truncado. El equipo cambia a temporal en el mismo volumen, valida el contenido y reemplaza según la garantía documentada. Mantiene copia o recuperación porque atomicidad no equivale a persistencia ante toda falla.
 
 ## Ejercicios
 
-1. **Fundamental:** define Sistemas y archivos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `bootstrap.ps1` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. Predice el resultado de tres rutas relativas bajo dos directorios de trabajo.
+2. Explica cómo un enlace puede escapar de un árbol aunque la cadena inicial comience dentro.
+3. Diseña casos para archivo ausente, directorio inesperado y nombre Unicode normalizado de manera distinta.
 
 ## Reto verificable
 
-Entrega el **runbook de entorno reproducible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
-
-## Fallo controlado y diagnóstico
-
-Provoca de forma segura este fallo: **automatizar una operación destructiva sin precondiciones ni rollback**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
-
-## Entorno y archivos clave
-
-Entorno de referencia: PowerShell 7 y Bash en Windows, macOS o Linux. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-026/
-├── README.md
-│   ├── bootstrap.ps1
-│   ├── bootstrap.sh
-│   ├── runbook.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `bootstrap.ps1` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-026/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **The Open Group Base Specifications** — The Open Group. [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Windows developer documentation** — Microsoft. [https://learn.microsoft.com/windows/](https://learn.microsoft.com/windows/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **PowerShell documentation** — Microsoft. [https://learn.microsoft.com/powershell/](https://learn.microsoft.com/powershell/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Bash Reference Manual** — GNU Project. [https://www.gnu.org/software/bash/manual/](https://www.gnu.org/software/bash/manual/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Construye un resolvedor de solo lectura que produzca ruta de entrada, base, ruta final, tipo y límite. Debe rechazar de forma explicable un enlace que salga del laboratorio.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Una ruta absoluta siempre es segura?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede apuntar fuera del alcance, atravesar enlaces o pertenecer a un recurso remoto; solo elimina una ambigüedad de base.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Comparar hashes demuestra que dos archivos son legítimos?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Demuestra igualdad respecto de la función y bytes comparados, no procedencia ni autorización.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+## Fallo controlado y diagnóstico
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Inicia Faro desde otro directorio y conserva una ruta relativa. Registra el objeto incorrecto, cambia a una base explícita y repite. La corrección debe explicar el contexto; no codificar una ruta personal absoluta.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa conceptual | Corrección |
+|---|---|---|
+| El archivo se busca en lugares distintos | Se confundió directorio del script con directorio de trabajo | Elegir una base explícita y mostrarla en diagnóstico |
+| Una ruta portable se construye reemplazando `/` | Se trataron rutas como cadenas | Usar la biblioteca de rutas y probar raíces, volúmenes y UNC |
+| La limpieza borra fuera del directorio | Se validó un prefijo textual antes de resolver enlaces | Resolver, comparar objetos/caminos canónicos y negar ambigüedad |
+| Una actualización deja JSON incompleto | Se escribió directamente sobre el destino | Escribir, validar y reemplazar con la garantía documentada |
+| Dos nombres visualmente iguales no coinciden | Se ignoró normalización Unicode o reglas del sistema | Registrar unidades exactas y evitar renombrados automáticos destructivos |
+
+## Entorno y archivos clave
+
+Carpeta `work/SE-026/` con `config/`, enlaces de laboratorio y contenido ficticio; `path-report.json`, `write-plan.md`. No uses directorios del sistema.
+
+## Seguridad, ética y accesibilidad
+
+No sigas ni borres enlaces fuera del laboratorio. Redacta rutas personales. Ofrece rutas copiables y mensajes que no dependan solo de color o iconos.
+
+## Transferencia
+
+Compara un volumen local con una carpeta sincronizada o montaje de red. Enumera qué garantías de bloqueo, tiempo y disponibilidad no puedes trasladar.
+
+## Evaluación y evidencia
+
+Se aprueba con resolución reproducible, cuatro fallos controlados, política de escritura razonada y reversión limpia. Una lista de separadores de ruta no es evidencia suficiente.
+
+## Criterio de cierre
+
+Puedes predecir desde qué base se resuelve una ruta, explicar enlaces y metadatos, demostrar fallos controlados y justificar una política de lectura/escritura para Faro en las tres familias de sistema.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Sistemas de archivos, rutas, enlaces y metadatos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-027`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubrimos recuperación forense, sistemas distribuidos ni todas las garantías de cada sistema de archivos. Una ruta resoluble todavía puede estar prohibida. La próxima clase incorpora identidad, grupos, permisos y elevación para explicar esa decisión.
+
+## Fuentes
+
+- [The Open Group — Pathname Resolution](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html#tag_04_16)
+- [Microsoft Learn — Naming Files, Paths, and Namespaces](https://learn.microsoft.com/windows/win32/fileio/naming-a-file)
+- [Python documentation — pathlib](https://docs.python.org/3/library/pathlib.html)
+- [Apple Platform Deployment — File system basics](https://support.apple.com/guide/deployment/intro-to-file-system-apd0b895e8e1/web)
+
+## Glosario
+
+- **Directorio de trabajo:** base que el proceso usa para interpretar rutas relativas.
+- **Enlace simbólico:** objeto que referencia otra ruta y puede quedar sin destino.
+- **Metadatos:** información que describe un objeto sin ser su contenido principal.
+- **Ruta canónica:** representación resuelta bajo reglas concretas; no implica autorización.
+- **Volumen:** unidad lógica con espacio de nombres y sistema de archivos asociados.
 
 ---
-
-[← SE-025 — Windows, Linux, macOS y sus modelos operativos](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-026.html) · [SE-027 — Usuarios, grupos, permisos y elevación de privilegios →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)
+[← SE-025](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/README.md) · [↑ Parte 02](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [SE-027 →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-027-usuarios-grupos-permisos-y-elevacion-de-privilegios/README.md)

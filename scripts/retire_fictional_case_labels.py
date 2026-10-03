@@ -8,6 +8,7 @@ independently.
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 
@@ -50,11 +51,16 @@ def replace_labels(text: str) -> str:
         text = text.replace(f"con {old}", f"con {phrase}")
         text = text.replace(f"en {old}", f"en {phrase}")
         text = text.replace(f"desde {old}", f"desde {phrase}")
-        text = text.replace(old, phrase[0].upper() + phrase[1:])
+        text = text.replace(old, phrase)
         # Normalize files already migrated by an earlier version of this script.
         text = text.replace(f"**{phrase}**", f"**{display}**")
-        text = text.replace(f"\n\n{phrase}", f"\n\n{phrase[0].upper() + phrase[1:]}")
-        text = text.replace(f". {phrase}", f". {phrase[0].upper() + phrase[1:]}")
+        capital = phrase[0].upper() + phrase[1:]
+        text = text.replace(capital, phrase)
+        text = re.sub(
+            rf"(^|[.!?]\s+|\n\n)({re.escape(phrase)})",
+            lambda match: match.group(1) + capital,
+            text,
+        )
     return text
 
 

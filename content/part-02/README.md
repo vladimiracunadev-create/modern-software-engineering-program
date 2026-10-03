@@ -2,7 +2,7 @@
 
 Un programa no se ejecuta “en el computador” de manera abstracta. Se ejecuta como un proceso, bajo una identidad, con permisos concretos, dentro de un sistema de archivos, atendiendo reglas del sistema operativo y dependiendo de una configuración reproducible. Esta parte convierte ese entorno —que suele permanecer invisible hasta que algo falla— en un objeto de razonamiento técnico.
 
-El recorrido continúa el caso **Pulso** de la Parte 1 y lo transforma en **Faro**, un kit local de diagnóstico multiplataforma. Faro no repara el equipo a ciegas: observa, explica qué encontró, diferencia hechos de hipótesis y propone acciones reversibles. Esa decisión conecta todas las clases. Cada concepto nuevo se incorpora al mismo sistema hasta producir, en la clase final, un diagnóstico ejecutable y auditable en Windows, Linux y macOS.
+El recorrido continúa el **analizador local de eventos** de la Parte 1 y lo transforma en un **kit de diagnóstico multiplataforma**. El kit no repara el equipo a ciegas: observa, explica qué encontró, diferencia hechos de hipótesis y propone acciones reversibles. Esa decisión conecta todas las clases. Cada concepto nuevo se incorpora al mismo sistema hasta producir, en la clase final, un diagnóstico ejecutable y auditable en Windows, Linux y macOS.
 
 ## Pregunta rectora
 
@@ -21,9 +21,9 @@ Al finalizar podrás:
 - construir evidencia diagnóstica útil, minimizada y segura;
 - entregar un kit multiplataforma que falla de forma comprensible.
 
-## Caso conductor: Faro
+## Caso conductor: el kit de diagnóstico multiplataforma
 
-Faro comienza con un incidente deliberadamente pequeño: Pulso funciona en el equipo de quien lo creó, pero falla al entregarlo a otra persona. La causa no está necesariamente en su lógica. Puede ser una ruta asumida, una variable ausente, un permiso distinto, una versión incompatible o un proceso que conserva un recurso.
+El kit de diagnóstico multiplataforma comienza con un incidente deliberadamente pequeño: el analizador local de eventos funciona en el equipo de quien lo creó, pero falla al entregarlo a otra persona. La causa no está necesariamente en su lógica. Puede ser una ruta asumida, una variable ausente, un permiso distinto, una versión incompatible o un proceso que conserva un recurso.
 
 En cada clase se añade una capacidad al kit:
 
@@ -44,7 +44,7 @@ El diagrama no representa una receta rígida. Representa un orden de reducción 
 ## Guía razonada clase por clase
 
 La tabla final permite localizar cada material, pero primero hace falta comprender la
-transformación que produce. En cada paso se explican el fallo que Faro debe distinguir,
+transformación que produce. En cada paso se explican el fallo que el kit de diagnóstico multiplataforma debe distinguir,
 el mecanismo del sistema operativo que lo causa, la evidencia que se conserva y la
 pregunta que queda abierta para la clase siguiente.
 
@@ -52,7 +52,7 @@ pregunta que queda abierta para la clase siguiente.
 
 #### SE-025 — Windows, Linux, macOS y sus modelos operativos
 
-Faro comienza rechazando la idea de que «el sistema operativo» sea solo un nombre y
+El kit de diagnóstico multiplataforma comienza rechazando la idea de que «el sistema operativo» sea solo un nombre y
 una versión. Kernel, espacio de usuario, distribución, arquitectura, sesión y políticas
 de administración pueden variar de forma independiente. La clase enseña qué abstrae el
 sistema, qué expone a una aplicación y por qué dos equipos aparentemente iguales no
@@ -65,7 +65,7 @@ un permiso fuera de su sistema real y se convierte en la entrada de `SE-026`.
 
 #### SE-026 — Sistemas de archivos, rutas, enlaces y metadatos
 
-Con la plataforma identificada, Faro debe encontrar recursos sin asumir separadores,
+Con la plataforma identificada, el kit de diagnóstico multiplataforma debe encontrar recursos sin asumir separadores,
 mayúsculas, directorio actual ni estructura personal. La clase distingue nombre, ruta,
 objeto, enlace y metadato; explica resolución componente por componente y muestra cómo
 normalizar una cadena puede cambiar su apariencia sin demostrar que el destino existe o
@@ -83,7 +83,7 @@ qué componente de la ruta la impidió. La clase relaciona sujeto, recurso, oper
 política; diferencia autenticación de autorización y permisos del archivo de los de sus
 directorios, ACL y controles adicionales del sistema.
 
-Faro registra identidad y comprobaciones relevantes sin intentar elevarse de forma
+El kit de diagnóstico multiplataforma registra identidad y comprobaciones relevantes sin intentar elevarse de forma
 automática. El estudiante reproduce un caso permitido y otro denegado, localiza la
 primera frontera y propone la corrección de menor privilegio, con reversión. La pregunta
 siguiente ya no es quién puede iniciar el programa, sino cómo vive y termina en
@@ -96,7 +96,7 @@ supervisa. La clase sigue creación, identidad, recursos, estados, relación pad
 salida y terminación; contrasta señales cooperativas, terminación forzada y gestores de
 servicio sin fingir una semántica idéntica entre plataformas.
 
-El estudiante construye una línea temporal de Faro, distingue PID de identidad estable
+El estudiante construye una línea temporal del kit de diagnóstico multiplataforma, distingue PID de identidad estable
 y comprueba qué ocurre al interrumpirlo o dejar un recurso abierto. Conserva código de
 salida y limpieza como evidencia. Esa vida observable necesita una interfaz de control
 reproducible, que `SE-029` modela mediante terminal y shell.
@@ -111,7 +111,7 @@ redirecciones en ensayo y error. La clase explica `stdin`, `stdout`, `stderr`, e
 salida y composición, y muestra por qué una tubería transporta bytes o registros pero no
 preserva por sí sola el significado del dato.
 
-Faro define un contrato por comando: entradas, salida de datos, diagnóstico, efectos y
+El kit de diagnóstico multiplataforma define un contrato por comando: entradas, salida de datos, diagnóstico, efectos y
 fallos. El laboratorio prueba un caso sano y uno donde una etapa intermedia falla, sin
 ocultar el error tras la última orden. Ese contrato común permite que `SE-030` compare
 PowerShell y Bash por semántica y no por traducción literal de sintaxis.
@@ -136,7 +136,7 @@ argumentos; exige validar tipo, rango y combinación, y separa ausencia, vacío 
 inválido. También explica por qué imprimir el entorno completo durante un fallo puede
 convertir diagnóstico en filtración.
 
-Faro incorpora un cargador que indica la fuente efectiva de cada opción sin revelar el
+El kit de diagnóstico multiplataforma incorpora un cargador que indica la fuente efectiva de cada opción sin revelar el
 valor sensible. Los casos prueban precedencia, error temprano y redacción. Con el
 contrato de configuración visible, `SE-032` puede estudiar de dónde provienen el
 runtime y las herramientas que esa configuración intenta ejecutar.
@@ -149,7 +149,7 @@ de sistema y usuario, origen, firma o checksum, resolución de dependencias, act
 y desinstalación. Un comando popular no sustituye una decisión sobre confianza y
 reversibilidad.
 
-El estudiante crea un manifiesto de herramientas de Faro con fuente, versión, motivo,
+El estudiante crea un manifiesto de herramientas del kit de diagnóstico multiplataforma con fuente, versión, motivo,
 alcance y procedimiento de retirada. La práctica inspecciona antes de modificar y evita
 instaladores remotos ejecutados a ciegas. Ese inventario da contexto a los registros que
 `SE-033` usará para reconstruir un fallo.
@@ -163,7 +163,7 @@ política de retención; no es la causa misma. La clase correlaciona eventos por
 identificador, separa síntoma de hipótesis y advierte que ausencia de registro puede
 significar que el componente no arrancó, no tuvo permiso o escribió en otro destino.
 
-Faro reúne un paquete mínimo con contexto, pasos, eventos pertinentes y redacción de
+El kit de diagnóstico multiplataforma reúne un paquete mínimo con contexto, pasos, eventos pertinentes y redacción de
 datos sensibles. El estudiante alinea una ejecución sana y una fallida hasta localizar
 la primera divergencia. Si el proceso ocurre dentro de una frontera virtual, esa
 evidencia cambia de alcance; `SE-034` hace explícito qué está aislado y qué sigue
@@ -177,7 +177,7 @@ identidad y recursos. La clase razona sobre esas fronteras y evita atribuir segu
 reproducibilidad total a una etiqueta de aislamiento.
 
 El estudiante compara una ejecución nativa y otra aislada, registra kernel observado,
-montajes, red y límites, y demuestra al menos un recurso compartido. Faro usa esa
+montajes, red y límites, y demuestra al menos un recurso compartido. El kit de diagnóstico multiplataforma usa esa
 información para explicar diferencias sin ocultarlas. `SE-035` integra todo el modelo en
 una reparación que preserve causa, evidencia y posibilidad de volver atrás.
 
@@ -197,7 +197,7 @@ componentes que `SE-036` debe empaquetar como producto coherente.
 
 #### SE-036 — Proyecto: kit de diagnóstico multiplataforma
 
-La clase final convierte piezas aisladas en **Faro**: una herramienta que detecta su
+La clase final convierte piezas aisladas en **kit de diagnóstico multiplataforma**: una herramienta que detecta su
 entorno, valida precondiciones, observa sin privilegios innecesarios y produce un informe
 comprensible. El proyecto debe distinguir no soportado, configuración inválida, fallo
 de dependencia y error interno; devolver un único “falló” destruiría la capacidad de
@@ -210,7 +210,7 @@ la petición observable que la Parte 3 seguirá fuera del equipo local.
 
 ## Resumen operativo del recorrido
 
-| Clase | Pregunta profesional | Aporte concreto a Faro |
+| Clase | Pregunta profesional | Aporte concreto a el kit de diagnóstico multiplataforma |
 |---|---|---|
 | [SE-025](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/) | ¿Qué abstrae realmente un sistema operativo? | Inventario de plataforma, kernel, arquitectura y sesión |
 | [SE-026](../../classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/) | ¿Por qué una ruta válida en un equipo falla en otro? | Resolución de rutas y metadatos sin supuestos ocultos |
@@ -238,7 +238,7 @@ La parte no se aprueba por completar lecturas. Se evalúan cuatro evidencias con
 1. **Mapa del entorno:** fronteras entre hardware, kernel, servicios, shell, proceso y recursos.
 2. **Bitácora diagnóstica:** hipótesis contrastables, comandos utilizados, salidas pertinentes y descarte de alternativas.
 3. **Adaptadores de plataforma:** implementaciones PowerShell y Bash que respetan un contrato compartido.
-4. **Kit Faro:** ejecución segura, informe legible, pruebas reproducibles y declaración honesta de límites.
+4. **Kit el kit de diagnóstico multiplataforma:** ejecución segura, informe legible, pruebas reproducibles y declaración honesta de límites.
 
 ## Criterio de calidad
 
@@ -256,4 +256,4 @@ Las clases enlazan la fuente específica junto a cada mecanismo. El bloque se ap
 - [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/)
 - [Windows Subsystem for Linux documentation](https://learn.microsoft.com/windows/wsl/)
 
-Estas fuentes describen contratos y comportamientos; no eliminan las diferencias entre versiones, distribuciones, políticas corporativas o equipos administrados. Faro debe registrar esas diferencias, no ocultarlas.
+Estas fuentes describen contratos y comportamientos; no eliminan las diferencias entre versiones, distribuciones, políticas corporativas o equipos administrados. El kit de diagnóstico multiplataforma debe registrar esas diferencias, no ocultarlas.

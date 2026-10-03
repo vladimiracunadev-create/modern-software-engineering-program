@@ -9,10 +9,11 @@
 
 ## About publicado
 
-> 🧭 software-engineering-learning-suite · 480 clases · 120 GUIDED · 240 borradores públicos · Python + Pages · 🐧🍎🪟
+> 🧭 Programa de Ingeniería de Software Moderna · 480 clases, 40 partes y 8 etapas · 12 clases guiadas · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
 
-Los conteos de madurez se sincronizan desde `catalog.json`. Mientras dura la
-reconstrucción; solo las ciento veinte clases revisadas de las partes 00–09 se presentan como aprobadas.
+La descripción no repite el nombre que GitHub ya muestra. Los conteos de madurez se
+sincronizan desde `catalog.json`: durante la reconstrucción, solo las doce clases
+revisadas de la Parte 00 se presentan como guiadas.
 
 ## Topics publicados
 
@@ -38,4 +39,4 @@ reconstrucción; solo las ciento veinte clases revisadas de las partes 00–09 s
 - Portal: <https://vladimiracunadev-create.github.io/software-engineering-learning-suite/>
 - Validación multiplataforma: verde en Python 3.11–3.14, Windows y macOS.
 - Pages: artefacto y despliegue en verde.
-- Respuesta del portal: HTTP 200 y catálogo de 480 clases comprobados el 30 de septiembre de 2026.
+- Respuesta del portal: HTTP 200 y catálogo de 480 clases comprobados el 3 de octubre de 2026.

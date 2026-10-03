@@ -35,6 +35,19 @@ GENITIVE = {
     "Lupa": "del entorno reproducible de diagnóstico",
     "Constelación": "del SDK y la CLI versionados",
 }
+CODE_ALIASES = {
+    "pulso": "event_analyzer",
+    "faro": "diagnostic_kit",
+    "nexo": "observable_request",
+    "atlas": "decision_model",
+    "brújula": "diagnostic_cli",
+    "compass": "diagnostic_cli",
+    "prisma": "rule_engine",
+    "orbe": "algorithm_library",
+    "lupa": "diagnostic_environment",
+    "constelación": "engineering_sdk",
+    "constellation": "engineering_sdk",
+}
 
 
 def replace_labels(text: str) -> str:
@@ -79,6 +92,18 @@ def replace_labels(text: str) -> str:
     for before, after in continuity.items():
         text = text.replace(before, after)
     text = text.replace("caso el modelo de decisión diagnóstica", "caso del modelo de decisión diagnóstica")
+    text = text.replace(
+        "Esta clase construye **CLI diagnóstica**, la implementación incremental de la especificación el modelo de decisión diagnóstica.",
+        "Esta clase construye la **CLI diagnóstica**, implementación incremental de la especificación del modelo de decisión diagnóstica.",
+    )
+    text = text.replace("especificación el modelo de decisión diagnóstica", "especificación del modelo de decisión diagnóstica")
+    text = text.replace("CLI la CLI diagnóstica", "CLI diagnóstica")
+    text = text.replace("como **CLI diagnóstica**", "como una **CLI diagnóstica**")
+    for old, new in CODE_ALIASES.items():
+        text = text.replace(old.upper(), new.upper())
+        text = text.replace(old, new)
+        text = re.sub(rf"\b{re.escape(old.upper())}\b", new.upper(), text)
+        text = re.sub(rf"\b{re.escape(old)}\b", new, text, flags=re.IGNORECASE)
     return text
 
 

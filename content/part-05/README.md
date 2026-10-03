@@ -1,6 +1,6 @@
 # Parte 5 — Fundamentos de programación
 
-Programar no es traducir frases a sintaxis. Es construir un sistema de valores, decisiones y efectos que mantenga el contrato del problema ante entradas normales, límites y fallos. Esta parte implementa la especificación Atlas como **Brújula**, una herramienta de línea de comandos que recomienda la siguiente prueba autorizada y explica su decisión.
+Programar no es traducir frases a sintaxis. Es construir un sistema de valores, decisiones y efectos que mantenga el contrato del problema ante entradas normales, límites y fallos. Esta parte implementa la especificación del modelo de decisión diagnóstica como una **CLI diagnóstica**, una herramienta de línea de comandos que recomienda la siguiente prueba autorizada y explica su decisión.
 
 Python es el lenguaje principal porque permite observar rápidamente cada mecanismo con biblioteca estándar. No se presenta como lenguaje universal: la clase 71 traslada el núcleo a Rust para distinguir semántica del problema de facilidades accidentales del lenguaje.
 
@@ -12,21 +12,21 @@ Python es el lenguaje principal porque permite observar rápidamente cada mecani
 
 Cada clase añade una capacidad al mismo programa y conserva cuatro capas:
 
-1. **dominio:** valores y reglas que vienen de Atlas;
+1. **dominio:** valores y reglas que vienen del modelo de decisión diagnóstica;
 2. **núcleo:** funciones y transformaciones sin I/O;
 3. **fronteras:** CLI, archivos, JSON, errores y códigos de salida;
 4. **evidencia:** ejemplos, pruebas, fallos y comandos reproducibles.
 
 ```mermaid
 flowchart LR
-    A[Especificación Atlas] --> B[Valores y control]
+    A[Especificación el modelo de decisión diagnóstica] --> B[Valores y control]
     B --> C[Funciones y resultados]
     C --> D[Colecciones y transformaciones]
     D --> E[I/O y serialización]
     E --> F[Módulos e interfaces]
     F --> G[Pruebas y legibilidad]
     G --> H[Transferencia entre lenguajes]
-    H --> I[CLI Brújula]
+    H --> I[CLI diagnóstica]
     I -->|regresión o caso nuevo| A
 ```
 
@@ -38,7 +38,7 @@ Podrás predecir cómo Python evalúa expresiones y control, diseñar funciones 
 
 ## Guía razonada clase por clase
 
-Brújula materializa la especificación de Atlas sin reducir programación a sintaxis. En
+La CLI diagnóstica materializa la especificación del modelo de decisión diagnóstica sin reducir programación a sintaxis. En
 cada clase aparece una decisión concreta de representación, control o frontera; se
 explica el mecanismo, se prueba un fallo y se deja un componente que la siguiente clase
 debe usar o proteger.
@@ -51,7 +51,7 @@ El programa empieza por decidir qué representa cada valor. La clase separa valo
 representación, expresión, nombre y tipo; muestra que una variable no es una caja
 universal y que conversiones implícitas pueden ocultar pérdida o estados inválidos.
 
-Brújula define tipos y validaciones para observaciones, prioridad y autorización. El
+La CLI diagnóstica define tipos y validaciones para observaciones, prioridad y autorización. El
 estudiante predice expresiones, prueba fronteras y evita usar cadenas como sustituto de
 todo el dominio. Esos valores alimentan decisiones que `SE-062` hará explícitas.
 
@@ -61,7 +61,7 @@ Una condición selecciona caminos bajo una regla; su orden puede cambiar el resu
 cuando los casos se solapan. La clase trabaja booleanos, cortocircuito, guard clauses,
 ramas exhaustivas y tablas de decisión, distinguiendo «no coincide» de entrada inválida.
 
-El estudiante implementa la política de Brújula y demuestra qué regla ganó en límites y
+El estudiante implementa la política de la CLI diagnóstica y demuestra qué regla ganó en límites y
 empates. La evidencia incluye una tabla que precede al código. Cuando la misma decisión
 debe aplicarse a muchas observaciones o a una estructura anidada, `SE-063` introduce
 iteración, recursión y progreso.
@@ -73,7 +73,7 @@ iteradores y recursión, explica por qué modificar una colección durante el re
 puede omitir elementos y por qué un grafo necesita visitados aunque la función parezca
 correcta sobre un árbol.
 
-Brújula recorre observaciones y dependencias hasta encontrar la primera divergencia. El
+La CLI diagnóstica recorre observaciones y dependencias hasta encontrar la primera divergencia. El
 estudiante traza estado, reproduce no terminación y establece límites. La regla repetida
 necesita una unidad con entradas, salida y efectos claros; `SE-064` la encapsula en
 funciones.
@@ -86,7 +86,7 @@ vida útil y cierre de captura accidental. Valores predeterminados mutables mues
 una decisión pequeña conserva estado entre llamadas.
 
 El estudiante separa cálculo puro de observación e I/O y prueba la función de selección
-sin terminal. Brújula obtiene una interfaz que permite sustituir datos y registrar
+sin terminal. La CLI diagnóstica obtiene una interfaz que permite sustituir datos y registrar
 errores. `SE-065` diseña esos fallos como resultados comprensibles en lugar de capturar
 cualquier excepción.
 
@@ -99,7 +99,7 @@ requieren la misma respuesta. La clase explica propagación, captura específica
 limpieza y resultados tipados. Atrapar todo y continuar puede convertir corrupción en
 aparente éxito.
 
-Brújula clasifica sus fallos, conserva contexto seguro y decide qué puede recuperar. El
+La CLI diagnóstica clasifica sus fallos, conserva contexto seguro y decide qué puede recuperar. El
 estudiante prueba ruta feliz, entrada inválida y fallo de I/O, verificando mensaje y
 código de salida. Esos resultados operan sobre conjuntos de datos que `SE-066` organiza
 según sus operaciones dominantes.
@@ -111,7 +111,7 @@ identidad y búsqueda. La clase evita elegir por costumbre: parte de operaciones
 invariantes y tamaño. También separa transformar de mutar para poder razonar sobre
 aliasing y orden.
 
-El estudiante modela observaciones de Brújula, elimina duplicados sin perder procedencia
+El estudiante modela observaciones de la CLI diagnóstica, elimina duplicados sin perder procedencia
 y construye un pipeline que conserva errores. Pruebas de orden, empate y ausencia hacen
 visible la elección. `SE-067` lleva esas colecciones a través de archivos y JSON, donde
 la representación deja de ser un objeto en memoria.
@@ -123,7 +123,7 @@ permisos y escritura parcial importan. La clase distingue serialización de sign
 valida antes de usar y explica escritura atómica mediante archivo temporal y reemplazo
 cuando el sistema lo permite.
 
-Brújula acepta `stdin` o archivo y emite JSON estable separado de diagnósticos. El
+La CLI diagnóstica acepta `stdin` o archivo y emite JSON estable separado de diagnósticos. El
 estudiante reproduce texto inválido, campo ausente y salida interrumpida, y limpia
 temporales. `SE-068` evita que estas decisiones contaminen la lógica al separar módulos,
 interfaces y adaptadores.
@@ -134,7 +134,7 @@ Dividir por cantidad de líneas no crea arquitectura. La clase separa dominio, p
 adaptadores; analiza importaciones, dependencias y superficie pública, y muestra cómo un
 módulo «utilidades» puede convertirse en acoplamiento sin propietario.
 
-El estudiante organiza Brújula para que la política no conozca terminal ni sistema de
+El estudiante organiza la CLI diagnóstica para que la política no conozca terminal ni sistema de
 archivos. Una prueba sustituye el adaptador y confirma dirección de dependencia. Con
 fronteras estables, `SE-069` puede diseñar ejemplos antes del cambio y convertirlos en
 protección contra regresiones.
@@ -148,7 +148,7 @@ entorno. La clase construye ejemplos normales, límite, inválidos y de regresi�
 distingue unidad de integración y evita verificar detalles internos que impidan
 refactorizar.
 
-Brújula obtiene una suite que cubre reglas, errores y CLI. El estudiante observa fallar
+La CLI diagnóstica obtiene una suite que cubre reglas, errores y CLI. El estudiante observa fallar
 la prueba por la razón esperada antes de corregir. `SE-070` usa esa red para mejorar
 nombres y estructura sin cambiar la conducta visible.
 
@@ -159,7 +159,7 @@ preferencia estética universal. La clase relaciona nombres, tamaño, cohesión,
 duplicación, comentarios y complejidad; un comentario que repite código no compensa una
 regla oculta.
 
-El estudiante refactoriza Brújula en pasos pequeños, ejecuta pruebas y registra por qué
+El estudiante refactoriza la CLI diagnóstica en pasos pequeños, ejecuta pruebas y registra por qué
 cada cambio mejora una tarea futura. También conserva una versión donde el refactor
 rompe semántica para explicar el límite. `SE-071` comprueba si la comprensión sobrevive
 al cambiar de lenguaje.
@@ -168,7 +168,7 @@ al cambiar de lenguaje.
 
 Traducir palabra por palabra conserva sintaxis aparente y puede cambiar ownership,
 errores, enteros o colecciones. El taller fija primero el contrato observable de
-Brújula, implementa una porción en Python y Rust y compara representaciones, fallos y
+la CLI diagnóstica, implementa una porción en Python y Rust y compara representaciones, fallos y
 costos de adaptación.
 
 Las mismas fixtures deben producir resultados equivalentes, pero no se exige arquitectura
@@ -184,13 +184,13 @@ diagnóstico permanecen separados; ayuda, códigos y limpieza forman parte del c
 no de la decoración final.
 
 La aceptación parte de un checkout limpio y prueba éxito, entrada inválida, dependencia
-fallida y repetición. El informe declara plataformas verificadas y límites. Brújula deja
+fallida y repetición. El informe declara plataformas verificadas y límites. La CLI diagnóstica deja
 una regla estable que la Parte 6 expresará mediante paradigmas distintos para comparar
 semántica, no familiaridad.
 
 ## Resumen operativo del recorrido
 
-| Clase | Núcleo profesional | Aporte acumulativo a Brújula |
+| Clase | Núcleo profesional | Aporte acumulativo a la CLI diagnóstica |
 |---|---|---|
 | [SE-061](../../classes/part-05-fundamentos-de-programacion/se-061-valores-expresiones-tipos-y-variables/) | Valores, expresiones, tipos y variables | Fija significado de valores y tipos |
 | [SE-062](../../classes/part-05-fundamentos-de-programacion/se-062-control-de-flujo-y-decisiones/) | Control de flujo y decisiones | Cubre decisiones y fronteras |
@@ -217,11 +217,11 @@ Las clases 61 a 64 construyen el núcleo del lenguaje: valores, decisiones, reco
 4. adaptador JSON con límites y escritura recuperable;
 5. suite de dominio y CLI con regresiones;
 6. comparación Python/Rust basada en fixtures comunes;
-7. Brújula operable desde `python -m compass`, con README y matriz de códigos.
+7. La CLI diagnóstica operable desde `python -m diagnostic_cli`, con README y matriz de códigos.
 
 ## Criterios de aprobación del proyecto
 
-- la CLI implementa el contrato de Atlas y no inventa reglas;
+- la CLI implementa el contrato del modelo de decisión diagnóstica y no inventa reglas;
 - ayuda, stdout, stderr y códigos de salida son coherentes;
 - el núcleo no realiza I/O y puede probarse en aislamiento;
 - entrada externa se limita, parsea y valida antes del dominio;

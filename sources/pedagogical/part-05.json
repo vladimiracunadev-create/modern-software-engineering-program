@@ -1,0 +1,325 @@
+{
+  "part": 5,
+  "scope": "SE-061..SE-072",
+  "content_preserved": true,
+  "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "status": "under_qualitative_audit",
+  "classes": [
+    {
+      "class_id": "SE-061",
+      "title": "Valores, expresiones, tipos y variables",
+      "maturity": "PLANNED",
+      "professional_point": "explicar valores, tipos, expresiones y nombres por su semántica y ciclo de vida",
+      "misconception": "tratar variable como caja idéntica en todos los lenguajes",
+      "evidence": "value-trace.md con tipo, identidad, enlace, mutación y liberación",
+      "limit": "la traza de Python no define la semántica de otros lenguajes",
+      "sources": [
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-062",
+      "title": "Control de flujo y decisiones",
+      "maturity": "PLANNED",
+      "professional_point": "diseñar control de flujo desde decisiones del dominio y caminos verificables",
+      "misconception": "anidar condicionales hasta que las reglas quedan implícitas",
+      "evidence": "decision-table.md enlazada a caminos, casos límite y ramas inalcanzables",
+      "limit": "cubrir ramas no equivale a cubrir combinaciones semánticas",
+      "sources": [
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-063",
+      "title": "Iteración, recursión y recorridos",
+      "maturity": "PLANNED",
+      "professional_point": "elegir iteración, recursión o recorrido manteniendo una invariante explícita",
+      "misconception": "reescribir un bucle como recursión sin medida de progreso",
+      "evidence": "traversal.md con invariante, traza, caso vacío y comparación de pila",
+      "limit": "equivalencia de resultado no implica igual consumo de recursos",
+      "sources": [
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Tutorial — Data Structures",
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-064",
+      "title": "Funciones, parámetros, retorno y alcance",
+      "maturity": "PLANNED",
+      "professional_point": "usar funciones como contratos con parámetros, retorno, efectos y alcance localizables",
+      "misconception": "confundir paso de argumentos con copia universal o depender de variables globales ocultas",
+      "evidence": "call-contract.md con frame, aliasing, efecto y caso inválido",
+      "limit": "el modelo de llamadas depende del lenguaje y runtime declarados",
+      "sources": [
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-065",
+      "title": "Errores, excepciones y resultados explícitos",
+      "maturity": "PLANNED",
+      "professional_point": "distinguir error esperado, excepción, resultado explícito y fallo irrecuperable",
+      "misconception": "capturar toda excepción y continuar sin preservar causa",
+      "evidence": "failure-taxonomy.md con propagación, contexto, recuperación y regresión",
+      "limit": "ninguna estrategia única sirve para todas las fronteras",
+      "sources": [
+        {
+          "title": "Python Tutorial — Errors and Exceptions",
+          "url": "https://docs.python.org/3/tutorial/errors.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "The Rust Programming Language",
+          "url": "https://doc.rust-lang.org/stable/book/",
+          "supports": "documenta ownership, tipos de error, traits y concurrencia usados como contraste semántico"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-066",
+      "title": "Colecciones y transformación de datos",
+      "maturity": "PLANNED",
+      "professional_point": "seleccionar colecciones y transformaciones según orden, unicidad, acceso, memoria y mutabilidad",
+      "misconception": "encadenar transformaciones sin observar pérdidas de información o aliasing",
+      "evidence": "collection-pipeline.md con entradas, invariantes, complejidad y contraejemplo",
+      "limit": "la biblioteca puede cambiar constantes y detalles internos",
+      "sources": [
+        {
+          "title": "Python Tutorial — Data Structures",
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-067",
+      "title": "Entrada, salida y serialización",
+      "maturity": "PLANNED",
+      "professional_point": "tratar entrada, salida y serialización como fronteras que validan y preservan significado",
+      "misconception": "confiar en datos parseables o asumir que JSON conserva todos los tipos",
+      "evidence": "boundary-fixtures.md con válido, límite, inválido, round trip y error",
+      "limit": "serializar no autentica ni cifra los datos",
+      "sources": [
+        {
+          "title": "Python Tutorial — Input and Output",
+          "url": "https://docs.python.org/3/tutorial/inputoutput.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python `json` documentation",
+          "url": "https://docs.python.org/3/library/json.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python `pathlib` documentation",
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-068",
+      "title": "Módulos, interfaces y separación de responsabilidades",
+      "maturity": "PLANNED",
+      "professional_point": "separar módulos por responsabilidades y contratos estables, no por tamaño de archivo",
+      "misconception": "crear módulos que solo redistribuyen dependencias o exponen internals",
+      "evidence": "dependency-map.md con API, consumidores, ciclo roto y prueba contractual",
+      "limit": "modularidad local no garantiza arquitectura mantenible",
+      "sources": [
+        {
+          "title": "Python Tutorial — Modules",
+          "url": "https://docs.python.org/3/tutorial/modules.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "SWEBOK Guide v4.0a",
+          "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+          "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-069",
+      "title": "Pruebas tempranas y diseño por ejemplos",
+      "maturity": "PLANNED",
+      "professional_point": "usar ejemplos para descubrir particiones y propiedades antes de fijar implementación",
+      "misconception": "escribir pruebas que solo confirman casos felices ya conocidos",
+      "evidence": "test-design.md con particiones, límites, propiedad y mutación que la suite detecta",
+      "limit": "una suite finita reduce riesgo; no prueba ausencia de defectos",
+      "sources": [
+        {
+          "title": "Python `unittest` documentation",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "SWEBOK Guide v4.0a",
+          "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+          "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
+        },
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-070",
+      "title": "Legibilidad, nombres y mantenimiento básico",
+      "maturity": "PLANNED",
+      "professional_point": "evaluar legibilidad por el costo de comprender y cambiar, no por preferencias estéticas",
+      "misconception": "aplicar nombres o formato sin mejorar el modelo",
+      "evidence": "maintenance-change.md con tarea antes/después, diff y explicación de carga cognitiva",
+      "limit": "una medición local no demuestra mantenibilidad a largo plazo",
+      "sources": [
+        {
+          "title": "SWEBOK Guide v4.0a",
+          "url": "https://www.computer.org/education/bodies-of-knowledge/software-engineering",
+          "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
+        },
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python Language Reference",
+          "url": "https://docs.python.org/3/reference/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-071",
+      "title": "Taller: transferir una solución entre lenguajes",
+      "maturity": "PLANNED",
+      "professional_point": "transferir una solución entre lenguajes preservando contrato y haciendo visibles diferencias semánticas",
+      "misconception": "traducir sintaxis y declarar equivalencia",
+      "evidence": "semantic-contrast.md con ausencia, error, mutabilidad, orden y pruebas comunes",
+      "limit": "una comparación de dos lenguajes no establece superioridad general",
+      "sources": [
+        {
+          "title": "The Rust Programming Language",
+          "url": "https://doc.rust-lang.org/stable/book/",
+          "supports": "documenta ownership, tipos de error, traits y concurrencia usados como contraste semántico"
+        },
+        {
+          "title": "Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python `unittest` documentation",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-072",
+      "title": "Proyecto: herramienta de línea de comandos probada",
+      "maturity": "PLANNED",
+      "professional_point": "integrar CLI, validación, archivos, pruebas y diagnóstico en una herramienta reproducible",
+      "misconception": "aceptar una salida correcta sin contrato de errores ni códigos de retorno",
+      "evidence": "CLI, fixtures, pruebas, help, códigos de salida y ejecución desde checkout limpio",
+      "limit": "el proyecto no se considera distribuible ni compatible fuera de versiones declaradas",
+      "sources": [
+        {
+          "title": "Python `argparse` documentation",
+          "url": "https://docs.python.org/3/library/argparse.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python `unittest` documentation",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        },
+        {
+          "title": "Python `json` documentation",
+          "url": "https://docs.python.org/3/library/json.html",
+          "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    }
+  ]
+}

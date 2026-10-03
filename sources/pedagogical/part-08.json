@@ -1,0 +1,330 @@
+{
+  "part": 8,
+  "scope": "SE-097..SE-108",
+  "content_preserved": true,
+  "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "status": "under_qualitative_audit",
+  "classes": [
+    {
+      "class_id": "SE-097",
+      "title": "Editores, IDE y servidores de lenguaje",
+      "maturity": "PLANNED",
+      "professional_point": "entender editor, IDE y servidor de lenguaje como componentes con protocolos y capacidades negociadas",
+      "misconception": "atribuir al editor análisis que realmente ejecuta otra herramienta",
+      "evidence": "tooling-map.md con proceso, mensaje LSP, capacidad y modo degradado",
+      "limit": "soportar el protocolo no implica soportar todas las capacidades",
+      "sources": [
+        {
+          "title": "Language Server Protocol 3.18",
+          "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/",
+          "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
+        },
+        {
+          "title": "Debug Adapter Protocol",
+          "url": "https://microsoft.github.io/debug-adapter-protocol/",
+          "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-098",
+      "title": "Depuradores, breakpoints y observación de estado",
+      "maturity": "PLANNED",
+      "professional_point": "observar ejecución con breakpoints, frames y variables sin confundir observación con ausencia de perturbación",
+      "misconception": "cambiar estado desde el depurador y tratar la corrida como equivalente",
+      "evidence": "debug-session.md con hipótesis, breakpoint, stack, variable y efecto observado",
+      "limit": "el depurador puede alterar temporización y comportamiento concurrente",
+      "sources": [
+        {
+          "title": "Debug Adapter Protocol",
+          "url": "https://microsoft.github.io/debug-adapter-protocol/",
+          "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
+        },
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-099",
+      "title": "Profilers de CPU, memoria, I/O y red",
+      "maturity": "PLANNED",
+      "professional_point": "medir CPU, memoria, I/O y red con el instrumento que corresponde a cada recurso",
+      "misconception": "usar un único profiler y concluir causa por el mayor porcentaje",
+      "evidence": "profile-plan.md con pregunta, instrumento, overhead, datos y optimización verificada",
+      "limit": "un perfil muestral y uno instrumentado tienen sesgos distintos",
+      "sources": [
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Debug Adapter Protocol",
+          "url": "https://microsoft.github.io/debug-adapter-protocol/",
+          "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-100",
+      "title": "Compiladores, linters, formatters y análisis estático",
+      "maturity": "PLANNED",
+      "professional_point": "separar compilación, formato, lint y análisis estático por la propiedad que verifican",
+      "misconception": "tratar cero advertencias como prueba de corrección",
+      "evidence": "static-analysis.md con hallazgo real, falso positivo, configuración y límite",
+      "limit": "el análisis estático aproxima comportamientos y no ejecuta todos los caminos",
+      "sources": [
+        {
+          "title": "Language Server Protocol 3.18",
+          "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/",
+          "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
+        },
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Python ast",
+          "url": "https://docs.python.org/3/library/ast.html",
+          "supports": "define el árbol sintáctico que un análisis puede inspeccionar"
+        },
+        {
+          "title": "Ruff documentation",
+          "url": "https://docs.astral.sh/ruff/",
+          "supports": "documenta alcance, reglas y configuración del linter"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-101",
+      "title": "REPL, notebooks y desarrollo exploratorio",
+      "maturity": "PLANNED",
+      "professional_point": "usar REPL y notebooks para explorar conservando orden, estado y transición a artefactos reproducibles",
+      "misconception": "creer que celdas visibles documentan el orden ejecutado",
+      "evidence": "exploration-log.md con kernel limpio, orden, dependencia oculta y script extraído",
+      "limit": "una sesión interactiva no es por sí sola un pipeline reproducible",
+      "sources": [
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Python venv",
+          "url": "https://docs.python.org/3/library/venv.html",
+          "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Python interactive mode",
+          "url": "https://docs.python.org/3/tutorial/interpreter.html",
+          "supports": "documenta el modo interactivo y su estado de sesión"
+        },
+        {
+          "title": "Jupyter messaging protocol",
+          "url": "https://jupyter-client.readthedocs.io/en/stable/messaging.html",
+          "supports": "define mensajes y canales entre cliente y kernel"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-102",
+      "title": "Gestores de versiones de runtimes",
+      "maturity": "PLANNED",
+      "professional_point": "fijar y cambiar versiones de runtimes haciendo visible la resolución efectiva",
+      "misconception": "confundir gestor de versiones con entorno de dependencias",
+      "evidence": "runtime-resolution.md con archivo de versión, PATH, ejecutable y prueba en dos versiones",
+      "limit": "instalar una versión no garantiza compatibilidad de dependencias",
+      "sources": [
+        {
+          "title": "Python venv",
+          "url": "https://docs.python.org/3/library/venv.html",
+          "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Development Container Specification",
+          "url": "https://containers.dev/implementors/spec/",
+          "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
+        },
+        {
+          "title": "pyenv",
+          "url": "https://github.com/pyenv/pyenv",
+          "supports": "documenta selección de intérprete mediante shims y archivos de versión"
+        },
+        {
+          "title": "rustup",
+          "url": "https://rust-lang.github.io/rustup/",
+          "supports": "documenta toolchains y selección de versiones"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-103",
+      "title": "Entornos virtuales y aislamiento de dependencias",
+      "maturity": "PLANNED",
+      "professional_point": "aislar dependencias y explicar qué comparte un entorno virtual con el sistema",
+      "misconception": "tratar venv como contenedor o lockfile",
+      "evidence": "environment-audit.md con intérprete, rutas, paquetes, recreación y contaminación inducida",
+      "limit": "el entorno virtual no aísla kernel, red ni bibliotecas del sistema",
+      "sources": [
+        {
+          "title": "Python venv",
+          "url": "https://docs.python.org/3/library/venv.html",
+          "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Development Container Specification",
+          "url": "https://containers.dev/implementors/spec/",
+          "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-104",
+      "title": "Dev Containers y entornos desechables",
+      "maturity": "PLANNED",
+      "professional_point": "declarar un entorno de desarrollo desechable por imagen, features, mounts y ciclo de vida",
+      "misconception": "confundir reconstrucción con estado persistente o imagen con configuración completa",
+      "evidence": "devcontainer-evidence.md con build, create, post-create, rebuild y limpieza",
+      "limit": "la reproducibilidad depende también de imágenes y registros externos",
+      "sources": [
+        {
+          "title": "Development Container Specification",
+          "url": "https://containers.dev/implementors/spec/",
+          "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
+        },
+        {
+          "title": "Python venv",
+          "url": "https://docs.python.org/3/library/venv.html",
+          "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-105",
+      "title": "Reproducción de errores y reducción de casos",
+      "maturity": "PLANNED",
+      "professional_point": "reducir un fallo conservando la condición causal y descartando ruido",
+      "misconception": "eliminar pasos hasta que desaparece también el defecto",
+      "evidence": "minimal-reproduction.md con condición, reducción, hipótesis y prueba de regresión",
+      "limit": "un caso mínimo puede ocultar interacciones necesarias en producción",
+      "sources": [
+        {
+          "title": "Debug Adapter Protocol",
+          "url": "https://microsoft.github.io/debug-adapter-protocol/",
+          "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
+        },
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Delta Debugging",
+          "url": "https://doi.org/10.1109/TSE.2002.1039487",
+          "supports": "formaliza reducción sistemática de causas relevantes"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-106",
+      "title": "Ergonomía, accesibilidad y productividad del entorno",
+      "maturity": "PLANNED",
+      "professional_point": "evaluar productividad del entorno junto con teclado, zoom, contraste, movimiento y carga cognitiva",
+      "misconception": "optimizar atajos para una persona y llamarlo ergonomía universal",
+      "evidence": "accessibility-check.md con tareas, barreras, ajustes y verificación por teclado",
+      "limit": "la revisión básica no sustituye auditoría especializada ni pruebas con usuarios",
+      "sources": [
+        {
+          "title": "Web Content Accessibility Guidelines 2.2",
+          "url": "https://www.w3.org/TR/WCAG22/",
+          "supports": "Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C"
+        },
+        {
+          "title": "Language Server Protocol 3.18",
+          "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/",
+          "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-107",
+      "title": "Taller: diagnosticar un fallo desconocido",
+      "maturity": "PLANNED",
+      "professional_point": "diagnosticar un fallo desconocido desde síntoma hasta causa usando instrumentos elegidos por hipótesis",
+      "misconception": "abrir todas las herramientas sin una pregunta discriminante",
+      "evidence": "diagnosis.md con reproducción, hipótesis rivales, evidencia, causa y recuperación",
+      "limit": "resolver el caso no demuestra que no existan causas adicionales",
+      "sources": [
+        {
+          "title": "Debug Adapter Protocol",
+          "url": "https://microsoft.github.io/debug-adapter-protocol/",
+          "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
+        },
+        {
+          "title": "Python Debugging and Profiling",
+          "url": "https://docs.python.org/3/library/debug.html",
+          "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Development Container Specification",
+          "url": "https://containers.dev/implementors/spec/",
+          "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    },
+    {
+      "class_id": "SE-108",
+      "title": "Proyecto: entorno de desarrollo autocontenido",
+      "maturity": "PLANNED",
+      "professional_point": "entregar un entorno autocontenido que se reconstruya, diagnostique y recupere",
+      "misconception": "considerar reproducible un contenedor que depende de cachés o pasos manuales",
+      "evidence": "configuración, locks, build limpio, smoke test, SBOM y guía de recuperación",
+      "limit": "autocontenido no significa hermético frente a servicios externos",
+      "sources": [
+        {
+          "title": "Development Container Specification",
+          "url": "https://containers.dev/implementors/spec/",
+          "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
+        },
+        {
+          "title": "Python venv",
+          "url": "https://docs.python.org/3/library/venv.html",
+          "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
+        },
+        {
+          "title": "Language Server Protocol 3.18",
+          "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification/",
+          "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
+        }
+      ],
+      "reviewed_on": "2026-10-03",
+      "approval": "not_granted"
+    }
+  ]
+}

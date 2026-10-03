@@ -1,6 +1,6 @@
 # Parte 08 — Entornos, herramientas y depuración
 
-Orbe ya tiene invariantes, pruebas y benchmarks, pero una regresión aparece solo en un entorno: prioridades empatadas cambian de orden tras actualizar el runtime. Lupa construye una investigación completa. Cada herramienta se introduce por la señal que aporta, su costo de observación y su límite; el objetivo no es coleccionar extensiones, sino explicar la causa y dejar un entorno que otra persona pueda reconstruir.
+La biblioteca de estructuras y algoritmos ya tiene invariantes, pruebas y benchmarks, pero una regresión aparece solo en un entorno: prioridades empatadas cambian de orden tras actualizar el runtime. El entorno reproducible de diagnóstico construye una investigación completa. Cada herramienta se introduce por la señal que aporta, su costo de observación y su límite; el objetivo no es coleccionar extensiones, sino explicar la causa y dejar un entorno que otra persona pueda reconstruir.
 
 ## Pregunta rectora
 
@@ -9,7 +9,7 @@ Orbe ya tiene invariantes, pruebas y benchmarks, pero una regresión aparece sol
 ## Antes del recorrido clase por clase
 
 Esta parte no presenta herramientas como una lista de instalaciones. Cada clase vuelve
-sobre **Lupa**, formula una hipótesis, elige la señal menos invasiva que puede refutarla
+sobre **entorno reproducible de diagnóstico**, formula una hipótesis, elige la señal menos invasiva que puede refutarla
 y conserva el entorno de la observación. Así se distingue una causa reproducible de una
 coincidencia introducida por editor, runtime, dependencia o instrumento.
 
@@ -39,7 +39,7 @@ accesibilidad y limpieza verificables.
 ## Prerrequisitos enlazados
 
 - [Parte 4 — Pensamiento computacional](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/): modelado, invariantes, corrección y complejidad.
-- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y Brújula.
+- [Parte 5 — Fundamentos de programación](../../classes/part-05-fundamentos-de-programacion/): valores, control, funciones, errores, pruebas y la CLI diagnóstica.
 - Python 3.11+, Git y terminal; runtimes adicionales son opcionales y deben declararse.
 
 ## Bloques y progresión
@@ -51,7 +51,7 @@ accesibilidad y limpieza verificables.
 
 ## Guía razonada clase por clase
 
-Lupa investiga una regresión de Orbe que solo aparece bajo una combinación concreta de
+El entorno reproducible de diagnóstico investiga una regresión de la biblioteca de estructuras y algoritmos que solo aparece bajo una combinación concreta de
 runtime y dependencias. El recorrido va desde la interpretación del workspace hasta un
 entorno autocontenido; cada herramienta entra porque responde una pregunta y sale del
 camino cuando altera demasiado el fenómeno.
@@ -77,7 +77,7 @@ frames, variables y flujo en un punto preciso. La clase distingue depurador, ada
 runtime; trabaja breakpoints condicionales, stepping, watchpoints cuando existen y
 excepciones, sin convertir la pausa final en causa.
 
-Lupa compara una ejecución correcta y otra degradada hasta el primer estado distinto.
+El entorno reproducible de diagnóstico compara una ejecución correcta y otra degradada hasta el primer estado distinto.
 El estudiante registra expresión, frame y condición, y limita datos sensibles. Si el
 síntoma es costo o acumulación y no un valor incorrecto, `SE-099` cambia de instrumento
 a perfiles de recursos.
@@ -89,7 +89,7 @@ parecidos y requieren señales distintas. La clase compara muestreo e instrument
 tiempo de pared y CPU, asignación y retención, y advierte que el profiler añade costo y
 solo describe la carga observada.
 
-El estudiante perfila Orbe con corpus fijo, separa preparación de operación y atribuye
+El estudiante perfila la biblioteca de estructuras y algoritmos con corpus fijo, separa preparación de operación y atribuye
 el cuello a una función o frontera. Repite sin instrumento para estimar perturbación.
 `SE-100` pregunta qué defectos pueden detectarse antes de ejecutar y qué garantías no
 ofrece el análisis estático.
@@ -103,7 +103,7 @@ clase separa error de sintaxis, incompatibilidad de tipos, regla de estilo y pro
 semántica aproximada; un reporte limpio no demuestra comportamiento correcto ni ausencia
 de vulnerabilidades.
 
-Lupa fija versiones y configuración, ejecuta cada herramienta por separado y relaciona
+El entorno reproducible de diagnóstico fija versiones y configuración, ejecuta cada herramienta por separado y relaciona
 un diagnóstico con el defecto que previene. El estudiante conserva también un falso
 positivo o límite. `SE-101` permite explorar hipótesis rápidamente, pero exige volver
 explícitos orden y estado.
@@ -115,7 +115,7 @@ de celdas pueden producir un resultado imposible desde inicio limpio. La clase d
 exploración de evidencia final, registra semillas y datos y convierte descubrimientos en
 scripts y pruebas.
 
-El estudiante reproduce la anomalía de Lupa en una sesión, reinicia y ejecuta de arriba
+El estudiante reproduce la anomalía del entorno reproducible de diagnóstico en una sesión, reinicia y ejecuta de arriba
 abajo; cualquier diferencia se trata como señal. El resultado es un caso exportado y
 autónomo. `SE-102` fija el runtime para que esa reproducción no dependa de cuál ejecutable
 apareció primero en `PATH`.
@@ -128,7 +128,7 @@ Instalar varias versiones no garantiza que shell, editor, CI y tareas usen la mi
 clase explica descubrimiento, shims, archivos de selección, arquitectura y precedencia
 de `PATH`; diferencia versión solicitada, resuelta y realmente ejecutada.
 
-Lupa añade un manifiesto y un autochequeo que imprime ruta y versión, y prueba entrada
+El entorno reproducible de diagnóstico añade un manifiesto y un autochequeo que imprime ruta y versión, y prueba entrada
 desde terminal e IDE. La evidencia evita depender del gestor concreto. `SE-103` aísla
 las dependencias del proyecto sin prometer aislamiento del sistema completo.
 
@@ -139,7 +139,7 @@ bibliotecas del sistema y, según configuración, cachés o variables. La clase 
 creación, activación como conveniencia, ejecución por ruta, resolución y descarte. Copiar
 un entorno no sustituye declarar cómo reconstruirlo.
 
-El estudiante crea Lupa desde cero, instala dependencias fijadas y demuestra que una
+El estudiante crea el entorno reproducible de diagnóstico desde cero, instala dependencias fijadas y demuestra que una
 versión distinta reproduce la regresión. Luego elimina y reconstruye. `SE-104` amplía la
 captura a herramientas y sistema de usuario mediante un contenedor de desarrollo.
 
@@ -150,7 +150,7 @@ pero builds no fijados, secretos y volúmenes pueden reintroducir estado. La cla
 explica frontera host–contenedor, caché, UID, red y privilegios; «contenedor» no equivale
 a sandbox hostil.
 
-Lupa construye desde checkout limpio con versiones identificables, sin incrustar
+El entorno reproducible de diagnóstico construye desde checkout limpio con versiones identificables, sin incrustar
 credenciales, y verifica eliminación. El estudiante compara resultado local y contenido
 y registra lo compartido. Con el entorno capturado, `SE-105` reduce el caso hasta separar
 causa de coincidencia.
@@ -164,7 +164,7 @@ eliminar variables de manera controlada. La clase define firma del fallo, fixtur
 automatización y primera divergencia; usa reducción sistemática y restaura elementos para
 comprobar causalidad.
 
-El estudiante transforma la regresión de Orbe en un caso mínimo con comando y resultado
+El estudiante transforma la regresión de la biblioteca de estructuras y algoritmos en un caso mínimo con comando y resultado
 esperado. Una variante que ya no reproduce documenta el límite. `SE-106` revisa si el
 entorno y la evidencia pueden ser usados por personas con capacidades y formas de
 interacción distintas.
@@ -176,7 +176,7 @@ examina teclado, foco, contraste, movimiento, zoom, lectores, carga cognitiva y
 personalización; una automatización que oculta su estado puede reducir pulsaciones y
 empeorar diagnóstico o accesibilidad.
 
-Lupa documenta rutas equivalentes por CLI e interfaz, estados de foco y comandos
+El entorno reproducible de diagnóstico documenta rutas equivalentes por CLI e interfaz, estados de foco y comandos
 observables. El estudiante prueba navegación por teclado y recuperación de errores, sin
 declarar conformidad universal. `SE-107` integra herramientas y criterios frente a un
 fallo no anunciado.
@@ -195,7 +195,7 @@ desechable.
 
 #### SE-108 — Proyecto: entorno de desarrollo autocontenido
 
-El proyecto entrega Lupa como contrato de incorporación y diagnóstico: runtime,
+El proyecto entrega el entorno reproducible de diagnóstico como contrato de incorporación y diagnóstico: runtime,
 dependencias, herramientas, configuración mínima, corpus y comandos de prueba. Debe
 reconstruirse desde checkout limpio, fallar con mensajes útiles y eliminarse sin dejar
 secretos ni procesos.
@@ -254,4 +254,4 @@ checkout limpio. El entorno se considera desechable: debe poder reconstruirse y 
 - [Development Container Specification](https://containers.dev/implementors/spec/) — configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
-Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación de Lupa se demuestra con el caso, las pruebas y la comparación.
+Las fuentes se vinculan también dentro de cada clase. Definen semántica y mecanismos; la adecuación del entorno reproducible de diagnóstico se demuestra con el caso, las pruebas y la comparación.

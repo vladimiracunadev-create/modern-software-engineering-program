@@ -170,7 +170,7 @@ PREFERRED_SOURCE_KEYWORDS = {
     99: ("Debugging", "Debug Adapter"), 100: ("Language Server", "Debugging"),
     101: ("Debugging", "venv"), 102: ("venv", "Development Container"),
     103: ("venv", "Development Container"), 104: ("Development Container", "venv"),
-    105: ("Debug Adapter", "Debugging"), 106: ("WCAG", "Language Server"),
+    105: ("Debug Adapter", "Debugging"), 106: ("Web Content Accessibility", "Language Server"),
     107: ("Debug Adapter", "Debugging", "Development Container"),
     108: ("Development Container", "venv", "Language Server"),
     109: ("Packaging", "Standard Library", "Semantic"), 110: ("Semantic", "Packaging"),

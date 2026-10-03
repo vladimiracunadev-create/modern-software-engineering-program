@@ -388,88 +388,292 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-037": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-038": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-039": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-040": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-041": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-042": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-043": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-044": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-045": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-046": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-047": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-048": {
-      "status": "SEEDED_BASELINE",
+      "status": "GUIDED_BASELINE",
       "source_ids": [
-        "IETF-RFC-9110"
+        "IETF-RFC-1122",
+        "IETF-RFC-826",
+        "IETF-RFC-894",
+        "IETF-RFC-1918",
+        "IETF-RFC-3022",
+        "IETF-RFC-8200",
+        "IETF-RFC-9293",
+        "IETF-RFC-768",
+        "IETF-RFC-9000",
+        "IETF-RFC-1034",
+        "IETF-RFC-1035",
+        "IETF-RFC-8499",
+        "IETF-RFC-9110",
+        "IETF-RFC-9111",
+        "IETF-RFC-8446",
+        "IETF-RFC-5280",
+        "IETF-RFC-6455",
+        "IETF-RFC-8305"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-049": {
       "status": "SEEDED_BASELINE",

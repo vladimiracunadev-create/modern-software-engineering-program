@@ -108,6 +108,142 @@
       "used_for": ["wsl", "virtualization", "filesystem-boundaries"]
     },
     {
+      "id": "IETF-RFC-1122",
+      "title": "Requirements for Internet Hosts — Communication Layers",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc1122",
+      "status": "internet-standard-historical",
+      "used_for": ["internet-architecture", "protocol-layers", "diagnostics"]
+    },
+    {
+      "id": "IETF-RFC-826",
+      "title": "An Ethernet Address Resolution Protocol",
+      "authority": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc826",
+      "status": "current-with-updates",
+      "used_for": ["arp", "local-networks", "address-resolution"]
+    },
+    {
+      "id": "IETF-RFC-894",
+      "title": "A Standard for the Transmission of IP Datagrams over Ethernet Networks",
+      "authority": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc894",
+      "status": "internet-standard-historical",
+      "used_for": ["ethernet", "ip-encapsulation", "local-networks"]
+    },
+    {
+      "id": "IETF-RFC-1918",
+      "title": "Address Allocation for Private Internets",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc1918",
+      "status": "best-current-practice",
+      "used_for": ["ipv4", "private-addresses", "network-design"]
+    },
+    {
+      "id": "IETF-RFC-3022",
+      "title": "Traditional IP Network Address Translator",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc3022",
+      "status": "informational",
+      "used_for": ["nat", "ipv4", "address-translation"]
+    },
+    {
+      "id": "IETF-RFC-8200",
+      "title": "Internet Protocol, Version 6 (IPv6) Specification",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8200",
+      "status": "internet-standard-current-with-updates",
+      "used_for": ["ipv6", "routing", "packet-format"]
+    },
+    {
+      "id": "IETF-RFC-9293",
+      "title": "Transmission Control Protocol (TCP)",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9293",
+      "status": "internet-standard-current",
+      "used_for": ["tcp", "transport", "reliability"]
+    },
+    {
+      "id": "IETF-RFC-768",
+      "title": "User Datagram Protocol",
+      "authority": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc768",
+      "status": "internet-standard-historical",
+      "used_for": ["udp", "transport", "datagrams"]
+    },
+    {
+      "id": "IETF-RFC-9000",
+      "title": "QUIC: A UDP-Based Multiplexed and Secure Transport",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9000",
+      "status": "proposed-standard-current",
+      "used_for": ["quic", "transport", "multiplexing"]
+    },
+    {
+      "id": "IETF-RFC-1034",
+      "title": "Domain Names — Concepts and Facilities",
+      "authority": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc1034",
+      "status": "internet-standard-current-with-updates",
+      "used_for": ["dns", "names", "resolution"]
+    },
+    {
+      "id": "IETF-RFC-1035",
+      "title": "Domain Names — Implementation and Specification",
+      "authority": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc1035",
+      "status": "internet-standard-current-with-updates",
+      "used_for": ["dns", "resource-records", "resolution"]
+    },
+    {
+      "id": "IETF-RFC-8499",
+      "title": "DNS Terminology",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8499",
+      "status": "best-current-practice",
+      "used_for": ["dns", "terminology", "operations"]
+    },
+    {
+      "id": "IETF-RFC-9111",
+      "title": "HTTP Caching",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc9111",
+      "status": "internet-standard-current",
+      "used_for": ["http", "caching", "validation"]
+    },
+    {
+      "id": "IETF-RFC-8446",
+      "title": "The Transport Layer Security (TLS) Protocol Version 1.3",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8446",
+      "status": "proposed-standard-current-with-updates",
+      "used_for": ["tls", "transport-security", "handshake"]
+    },
+    {
+      "id": "IETF-RFC-5280",
+      "title": "Internet X.509 Public Key Infrastructure Certificate and CRL Profile",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc5280",
+      "status": "proposed-standard-current-with-updates",
+      "used_for": ["x509", "certificates", "trust-path"]
+    },
+    {
+      "id": "IETF-RFC-6455",
+      "title": "The WebSocket Protocol",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc6455",
+      "status": "proposed-standard-current",
+      "used_for": ["websocket", "persistent-connections", "real-time"]
+    },
+    {
+      "id": "IETF-RFC-8305",
+      "title": "Happy Eyeballs Version 2",
+      "authority": "IETF",
+      "url": "https://www.rfc-editor.org/rfc/rfc8305",
+      "status": "proposed-standard-current",
+      "used_for": ["ipv4", "ipv6", "connection-establishment"]
+    },
+    {
       "id": "ACM-IEEE-SE2014",
       "title": "Software Engineering 2014 Curriculum Guidelines",
       "authority": "ACM and IEEE Computer Society",

@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 37)}
+GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 49)}
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 

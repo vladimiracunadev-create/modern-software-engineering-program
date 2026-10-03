@@ -16,11 +16,11 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         cls.lessons = [lesson for part in cls.program["parts"] for lesson in part["lessons"]]
 
     def test_maturity_counts(self) -> None:
-        self.assertEqual(Counter({"GUIDED": 36, "PLANNED": 444}), Counter(item["status"] for item in self.lessons))
+        self.assertEqual(Counter({"GUIDED": 48, "PLANNED": 432}), Counter(item["status"] for item in self.lessons))
 
     def test_phase_three_scope_is_first_180_classes(self) -> None:
         target = self.program["phase_3_target"]
-        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 36}, target)
+        self.assertEqual({"first_class": "SE-001", "last_class": "SE-180", "classes": 180, "approved": 48}, target)
 
     def test_phase_three_drafts_have_activity_and_rubric(self) -> None:
         for lesson in self.lessons:
@@ -78,11 +78,14 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         part_two_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
         self.assertIn("Faro", part_two_page)
         self.assertIn("Recorrido clase por clase", part_two_page)
-        for index, lesson in enumerate(self.lessons[:36]):
+        part_three_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
+        self.assertIn("Nexo", part_three_page)
+        self.assertIn("Recorrido clase por clase", part_three_page)
+        for index, lesson in enumerate(self.lessons[:48]):
             readme = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
             page = (ROOT / "site/classes" / f"{lesson['id']}.html").read_text(encoding="utf-8")
             self.assertIn("## Antes de empezar", readme, lesson["id"])
-            expected_case = "Campus Abierto" if index < 12 else "Pulso" if index < 24 else "Faro"
+            expected_case = "Campus Abierto" if index < 12 else "Pulso" if index < 24 else "Faro" if index < 36 else "Nexo"
             self.assertIn(expected_case, readme, lesson["id"])
             self.assertIn("## Errores comunes y cómo corregirlos", readme, lesson["id"])
             self.assertIn('class="lesson-progress"', page, lesson["id"])
@@ -91,13 +94,13 @@ class PhaseThreeGenerationTests(unittest.TestCase):
 
     def test_portal_reports_current_maturity(self) -> None:
         home = (ROOT / "site/index.html").read_text(encoding="utf-8")
-        self.assertIn("36</strong><span>clases revisadas", home)
-        self.assertIn("444</strong><span>clases por desarrollar", home)
+        self.assertIn("48</strong><span>clases revisadas", home)
+        self.assertIn("432</strong><span>clases por desarrollar", home)
         self.assertNotIn("0</strong><span>aprobadas", home)
 
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:
         text = (ROOT / self.lessons[41]["path"] / "README.md").read_text(encoding="utf-8")
-        self.assertIn("diagnosticado `SE-041`", text)
+        self.assertIn("`SE-041`", text)
         self.assertNotIn("{'id':", text)
 
 

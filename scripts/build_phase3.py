@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 VERIFIED_ON = "2026-09-30"
-EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 37)}
+EDITORIAL_LESSON_IDS = {f"SE-{number:03d}" for number in range(1, 49)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -720,6 +720,9 @@ def expected_files(program: dict) -> dict[Path, str]:
                 ).replace(
                     "(../../docs/",
                     "(https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/docs/",
+                ).replace(
+                    "(../../site/",
+                    "(https://vladimiracunadev-create.github.io/software-engineering-learning-suite/",
                 )
                 result[directory / "README.md"] = markdown
             else:

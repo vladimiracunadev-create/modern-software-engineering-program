@@ -8,7 +8,7 @@
     "first_class": "SE-001",
     "last_class": "SE-180",
     "classes": 180,
-    "approved": 36
+    "approved": 48
   },
   "phase_4_target": {
     "first_class": "SE-181",
@@ -422,7 +422,7 @@
           "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-037-modelos-osi-y-tcp-ip-como-herramientas-de-diagnostico"
         },
         {
@@ -431,7 +431,7 @@
           "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-038-ethernet-wi-fi-direccionamiento-y-redes-locales"
         },
         {
@@ -440,7 +440,7 @@
           "title": "IPv4, IPv6, subredes, rutas y NAT",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-039-ipv4-ipv6-subredes-rutas-y-nat"
         },
         {
@@ -449,7 +449,7 @@
           "title": "TCP, UDP, QUIC y decisiones de transporte",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-040-tcp-udp-quic-y-decisiones-de-transporte"
         },
         {
@@ -458,7 +458,7 @@
           "title": "DNS, nombres, resolución y fallos",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-041-dns-nombres-resolucion-y-fallos"
         },
         {
@@ -467,7 +467,7 @@
           "title": "HTTP, semántica, caché y negociación",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-042-http-semantica-cache-y-negociacion"
         },
         {
@@ -476,7 +476,7 @@
           "title": "TLS, certificados y confianza en tránsito",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito"
         },
         {
@@ -485,7 +485,7 @@
           "title": "Proxies, balanceadores, gateways y CDN",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-044-proxies-balanceadores-gateways-y-cdn"
         },
         {
@@ -494,7 +494,7 @@
           "title": "Sockets, conexiones persistentes y tiempo real",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real"
         },
         {
@@ -503,7 +503,7 @@
           "title": "Captura, medición y diagnóstico de tráfico",
           "kind": "class",
           "estimated_hours": 4,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico"
         },
         {
@@ -512,7 +512,7 @@
           "title": "Taller: seguir una petición de extremo a extremo",
           "kind": "studio",
           "estimated_hours": 6,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo"
         },
         {
@@ -521,7 +521,7 @@
           "title": "Proyecto: servicio observable y tolerante a fallos de red",
           "kind": "project",
           "estimated_hours": 8,
-          "status": "PLANNED",
+          "status": "GUIDED",
           "path": "classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red"
         }
       ]

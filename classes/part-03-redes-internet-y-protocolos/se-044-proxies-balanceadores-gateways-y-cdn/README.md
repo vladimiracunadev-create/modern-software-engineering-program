@@ -2,208 +2,217 @@
 
 [← SE-043 — TLS, certificados y confianza en tránsito](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-043-tls-certificados-y-confianza-en-transito/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-044.html) · [SE-045 — Sockets, conexiones persistentes y tiempo real →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-043` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de navegador, curl y utilidades de diagnóstico de red.
+- Haber completado `SE-043` o poder explicar su evidencia principal.
+- Trabajar solo contra `localhost`, una red propia o un destino con autorización expresa.
+- Disponer de navegador, `curl` y herramientas equivalentes del sistema; registra versiones y plataforma.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Proxies, balanceadores, gateways y CDN**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Nexo responde distinto según región. La petición atraviesa proxy de salida, CDN, balanceador y gateway. Llamarlos a todos «proxy» oculta propiedad, terminación TLS, caché, afinidad y encabezados de procedencia.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Proxies y balanceadores con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **traza comentada de una comunicación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «atribuir al servidor un fallo que ocurre en resolución, transporte o caché» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Proxies | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Balanceadores | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Gateways | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| CDN | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. distinguir forward proxy, reverse proxy, gateway, balanceador y CDN;
+2. mapear terminaciones y cambios de identidad por salto;
+3. explicar selección de backend, health checks y afinidad;
+4. diagnosticar caché y errores generados por intermediarios;
+5. comunicar límites y una siguiente prueba sin presentar inferencias como hechos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Proxies, balanceadores, gateways y CDN"] --> M["Modelo: Proxies"]
-    M --> D["Decisión: balanceadores"]
-    D --> E["Evidencia: gateways"]
-    E --> R["Revisión: CDN"]
-    R -->|nueva información| M
+    I[Intento de comunicación] --> O[Observación localizada]
+    O --> H[Hipótesis y alternativa]
+    H --> P[Prueba discriminante]
+    P --> D[Decisión reversible]
+    D --> E[Evidencia para la siguiente clase]
+    P -->|no separa hipótesis| H
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proxies, balanceadores, gateways y CDN**.
+El ciclo evita el diagnóstico por intuición. La observación se ubica antes de interpretarse; la prueba debe producir resultados diferentes bajo hipótesis rivales; la decisión conserva una salida de recuperación. En esta clase la pregunta rectora es: **¿Qué intermediario tomó qué decisión y qué identidad observó cada salto?**
+
+## Temas y por qué importan
+
+| Núcleo | Pregunta de trabajo | Evidencia esperada |
+|---|---|---|
+| alcance | ¿dónde es válido este identificador o estado? | mapa de fronteras |
+| mecanismo | ¿qué entrada produce qué transición? | secuencia comentada |
+| garantía | ¿qué promete el protocolo y qué no? | ejemplo y contraejemplo |
+| diagnóstico | ¿qué prueba separa causas plausibles? | comparación reproducible |
+| operación | ¿cómo falla, se limita y se recupera? | caso sano, degradado y restaurado |
 
 ## Conceptos y decisiones
 
-Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes.
+### 1. Proxy directo y proxy inverso
 
-La pregunta rectora de esta parte es: **¿en qué capa se define el comportamiento y en cuál aparece el síntoma?** La respuesta debe
-apoyarse en **mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno**.
+El cliente elige o recibe política para un forward proxy que actúa hacia destinos. Un reverse proxy recibe en nombre del origen y selecciona servicios internos. La misma tecnología puede cumplir ambos roles; lo que importa es quién la configura, a qué lado representa y qué autoridad tiene.
 
-### 1. Proxies: modelo
+### 2. Balanceo y salud
 
-En esta clase, **Proxies** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proxies, balanceadores, gateways y CDN**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Round robin, menor carga o hashing son políticas de selección, no garantías de igualdad. Un health check confirma una ruta específica bajo un umbral; puede declarar sano un proceso incapaz de atender la operación real o expulsar todos los backends por una dependencia compartida.
 
-### 2. Balanceadores: mecanismo
+### 3. Gateway y traducción de protocolo
 
-En esta clase, **balanceadores** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proxies, balanceadores, gateways y CDN**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un gateway cruza contratos: autentica, aplica cuotas o traduce HTTP a otro protocolo. Cada transformación puede perder semántica o crear un nuevo timeout. Debe declarar qué cabeceras acepta, elimina y genera, y cómo correlaciona errores.
 
-### 3. Gateways: evidencia
+### 4. CDN y borde
 
-En esta clase, **gateways** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proxies, balanceadores, gateways y CDN**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una CDN acerca caché y cómputo al consumidor. El punto de presencia puede responder sin contactar al origen, revalidar o fallar por política regional. `Age`, `Via`, identificadores de caché y logs de borde ayudan, pero son específicos del proveedor y no reemplazan un modelo.
 
-### 4. CDN: decisión
+### 5. Identidad, TLS y cabeceras reenviadas
 
-En esta clase, **CDN** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proxies, balanceadores, gateways y CDN**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Cada terminación ve una dirección de par diferente. Cabeceras como `Forwarded` o equivalentes solo son confiables si un perímetro elimina valores aportados por el cliente y agrega los suyos. De lo contrario, autorización y auditoría pueden aceptar identidad falsificada.
 
 ## Definiciones de trabajo
 
-- **Proxies:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **Balanceadores:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **Gateways:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **CDN:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+- **forward proxy:** intermediario que actúa por clientes hacia destinos.
+- **reverse proxy:** intermediario que actúa frente a uno o más orígenes.
+- **balanceador:** selector de un destino entre instancias elegibles.
+- **CDN:** red de borde que distribuye y puede almacenar contenido.
+- **health check:** prueba acotada usada para decidir elegibilidad de una instancia.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Estas definiciones son operativas: precisan el uso dentro de Nexo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proxies, balanceadores, gateways y CDN**:
+Dibuja cliente → proxy → balanceador → dos backends. Marca en cada enlace quién inicia conexión, dónde termina TLS, qué Host se conserva y qué dirección ve el receptor.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El ejemplo se acepta cuando incluye predicción previa, salida relevante y explicación de qué hipótesis descarta. Copiar una salida sin interpretación no demuestra comprensión.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Proxies, balanceadores, gateways y CDN**. Parte de esta pregunta: **¿en qué capa se define el comportamiento y en cuál aparece el síntoma?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `request.txt` y enlaza la evidencia, no solo la conclusión.
+Nexo asigna un identificador de correlación en el primer componente confiable y lo propaga. El origen indica si la respuesta vino de caché y qué backend atendió sin exponer topología sensible al público. Los timeouts decrecen hacia dentro para que el gateway pueda responder antes del deadline del cliente.
+
+La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
 
 ## Práctica guiada
 
-1. Crea `work/SE-044/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el traza comentada de una comunicación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. construye dos backends locales que revelen solo un ID.
+2. configura un reverse proxy local.
+3. observa distribución y retirada por health check.
+4. añade caché a una ruta segura y comprueba hit/miss.
+5. prueba una cabecera de cliente falsificada y demuestra que el perímetro la reemplaza.
+6. entrega `trace.md` con comandos redactados, marcas de tiempo y condiciones de repetición.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proxies y balanceadores con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `request.txt` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
+2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
+3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
+4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
 
 ## Reto verificable
 
-Entrega el **traza comentada de una comunicación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega una traza comentada que permita a otra persona responder: qué se intentó, qué frontera se observó, qué garantía aplicaba, qué falló, qué alternativa fue descartada y cómo se restauró el estado. La persona revisora debe poder repetir al menos una prueba sin instrucciones orales.
 
-## Fallo controlado y diagnóstico
+## Demostración guiada
 
-Provoca de forma segura este fallo: **atribuir al servidor un fallo que ocurre en resolución, transporte o caché**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+1. Predice el primer evento observable y el resultado sano.
+2. Ejecuta una sola petición de Nexo y asigna cada marca a una frontera.
+3. Introduce el fallo controlado descrito abajo.
+4. Compara por **primera divergencia**, no por cantidad de errores posteriores.
+5. Restaura, repite y conserva evidencia de recuperación.
 
-## Entorno y archivos clave
-
-Entorno de referencia: navegador, curl y utilidades de diagnóstico de red. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-044/
-├── README.md
-│   ├── request.txt
-│   ├── trace.md
-│   ├── failure-report.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `request.txt` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-044/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **Internet Protocol, Version 6** — IETF. [https://www.rfc-editor.org/rfc/rfc8200](https://www.rfc-editor.org/rfc/rfc8200) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Transport Layer Security Protocol Version 1.3** — IETF. [https://www.rfc-editor.org/rfc/rfc8446](https://www.rfc-editor.org/rfc/rfc8446) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **QUIC: A UDP-Based Multiplexed and Secure Transport** — IETF. [https://www.rfc-editor.org/rfc/rfc9000](https://www.rfc-editor.org/rfc/rfc9000) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **HTTP Semantics** — IETF. [https://www.rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una demostración que no incluye restauración solo prueba cómo romper el laboratorio.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Una respuesta a `ping` demuestra que el servicio funciona?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Puedo concluir desde una única captura?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+### ¿Debo usar exactamente las mismas herramientas?
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+
+## Fallo controlado y diagnóstico
+
+Marca un backend como sano en `/health` mientras falla la dependencia usada por `/report`. Registra el falso positivo y diseña readiness separada de liveness sin convertir la prueba en una llamada destructiva.
+
+Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
+
+## Errores comunes y cómo corregirlos
+
+| Error | Por qué falla | Corrección |
+|---|---|---|
+| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
+| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
+| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
+| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
+| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+
+## Entorno y archivos clave
+
+```text
+work/SE-044/
+├── README.md          # alcance, autorización y reproducción
+├── request.txt        # petición sin credenciales
+├── trace.md           # línea temporal y evidencias
+├── failure-report.md  # hipótesis, prueba y recuperación
+└── diagram.mmd        # mapa accesible acompañado de texto
+```
+
+Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
+
+## Seguridad, ética y accesibilidad
+
+- captura únicamente tráfico propio o autorizado y durante la ventana mínima;
+- redacta cookies, tokens, query strings, IP privadas y nombres de personas;
+- no desactives TLS, firewall o aislamiento como solución permanente;
+- acompaña color y diagramas con orden, etiquetas y una explicación textual;
+- ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
+- considera que telemetría e IP pueden identificar o perfilar personas.
+
+## Transferencia
+
+Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
+
+## Evaluación y evidencia
+
+| Criterio | Evidencia mínima | Señal de dominio |
+|---|---|---|
+| modelo causal | mapa con fronteras y unidades correctas | explica interacción y fugas del modelo |
+| protocolo | garantía y límite apoyados en fuente | distingue semántica de implementación |
+| diagnóstico | hipótesis rival y prueba discriminante | encuentra primera divergencia |
+| reproducibilidad | contexto, comandos y salida redactada | otra persona repite el resultado |
+| responsabilidad | autorización, minimización y rollback | reduce riesgo sin borrar evidencia |
+
+La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sostiene las conclusiones y declara lo que todavía no puede saberse.
+
+## Fuentes
+
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446): sustenta los mecanismos y límites usados en esta clase.
+
+Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proxies, balanceadores, gateways y CDN**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-045`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+No cubre configuración de un proveedor concreto ni DDoS. Más intermediarios aportan control y también estados de fallo. La siguiente clase estudia conexiones persistentes y comunicación en tiempo real.
+
+## Glosario
+
+- **forward proxy:** intermediario que actúa por clientes hacia destinos.
+- **reverse proxy:** intermediario que actúa frente a uno o más orígenes.
+- **balanceador:** selector de un destino entre instancias elegibles.
+- **CDN:** red de borde que distribuye y puede almacenar contenido.
+- **health check:** prueba acotada usada para decidir elegibilidad de una instancia.
 
 ---
 

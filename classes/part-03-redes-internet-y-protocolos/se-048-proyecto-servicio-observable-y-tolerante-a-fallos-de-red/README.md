@@ -2,208 +2,220 @@
 
 [← SE-047 — Taller: seguir una petición de extremo a extremo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/README.md) · [↑ Parte 03](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-03-redes-internet-y-protocolos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/software-engineering-learning-suite/classes/SE-048.html) · [SE-049 — Descomposición, abstracción y reconocimiento de patrones →](https://github.com/vladimiracunadev-create/software-engineering-learning-suite/blob/main/classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/README.md)
 
-> [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Estado: **GUIDED** · Clase desarrollada y revisada cualitativamente.
+
+## Antes de empezar
+
+Esta clase continúa **Nexo**, la petición observable de la Parte 3. No estudia redes como una lista de siglas: añade una decisión concreta al mismo recorrido y obliga a explicar dónde nace cada señal. Conserva una bitácora con cuatro columnas —hecho, interpretación, hipótesis rival y próxima prueba—; si una conclusión no apunta a evidencia, todavía no es diagnóstico.
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-047` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de navegador, curl y utilidades de diagnóstico de red.
+- Haber completado `SE-047` o poder explicar su evidencia principal.
+- Trabajar solo contra `localhost`, una red propia o un destino con autorización expresa.
+- Disponer de navegador, `curl` y herramientas equivalentes del sistema; registra versiones y plataforma.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Proyecto: servicio observable y tolerante a fallos de red**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El proyecto integra Nexo como servicio local: recibe una URL autorizada, ejecuta comprobaciones acotadas y genera una traza comentada. Debe sobrevivir DNS lento, puerto cerrado, certificado inválido, 503, respuesta obsoleta y cliente lento sin filtrar secretos ni quedar bloqueado.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Proyecto y servicio con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **traza comentada de una comunicación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «atribuir al servidor un fallo que ocurre en resolución, transporte o caché» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Proyecto | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Servicio | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Observable | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Tolerante | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. definir SLI y presupuesto por fase;
+2. implementar timeouts, cancelación y reintentos seguros;
+3. exponer estados degradados y evidencia correlacionada;
+4. demostrar recuperación con una matriz de fallos;
+5. comunicar límites y una siguiente prueba sin presentar inferencias como hechos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Proyecto: servicio observable y tolerante a fallos de red"] --> M["Modelo: Proyecto"]
-    M --> D["Decisión: servicio"]
-    D --> E["Evidencia: observable"]
-    E --> R["Revisión: tolerante"]
-    R -->|nueva información| M
+    I[Intento de comunicación] --> O[Observación localizada]
+    O --> H[Hipótesis y alternativa]
+    H --> P[Prueba discriminante]
+    P --> D[Decisión reversible]
+    D --> E[Evidencia para la siguiente clase]
+    P -->|no separa hipótesis| H
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Proyecto: servicio observable y tolerante a fallos de red**.
+El ciclo evita el diagnóstico por intuición. La observación se ubica antes de interpretarse; la prueba debe producir resultados diferentes bajo hipótesis rivales; la decisión conserva una salida de recuperación. En esta clase la pregunta rectora es: **¿Cómo debe degradarse y recuperarse un servicio cuando la red incumple sus supuestos?**
+
+## Temas y por qué importan
+
+| Núcleo | Pregunta de trabajo | Evidencia esperada |
+|---|---|---|
+| alcance | ¿dónde es válido este identificador o estado? | mapa de fronteras |
+| mecanismo | ¿qué entrada produce qué transición? | secuencia comentada |
+| garantía | ¿qué promete el protocolo y qué no? | ejemplo y contraejemplo |
+| diagnóstico | ¿qué prueba separa causas plausibles? | comparación reproducible |
+| operación | ¿cómo falla, se limita y se recupera? | caso sano, degradado y restaurado |
 
 ## Conceptos y decisiones
 
-Una comunicación atraviesa resolución de nombres, rutas, transporte, seguridad y semántica de aplicación; cada capa tiene señales y fallos diferentes.
+### 1. Contrato y frontera de seguridad
 
-La pregunta rectora de esta parte es: **¿en qué capa se define el comportamiento y en cuál aparece el síntoma?** La respuesta debe
-apoyarse en **mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno**.
+Nexo acepta solo esquemas y destinos permitidos, rechaza direcciones locales o metadatos cuando opera como servicio compartido y limita redirecciones. La validación evita convertir la herramienta en SSRF. El informe redacta credenciales, query sensible y direcciones privadas.
 
-### 1. Proyecto: modelo
+### 2. Presupuesto y deadline
 
-En esta clase, **Proyecto** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada fase recibe un límite subordinado a un deadline total. Si DNS consume el presupuesto, no se inicia una operación que ya no puede completar. Los timeouts son resultados tipados por fase; `network error` no es suficientemente accionable.
 
-### 2. Servicio: mecanismo
+### 3. Reintento, backoff y circuito
 
-En esta clase, **servicio** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Solo fallos temporales y operaciones seguras/idempotentes se reintentan. Backoff con jitter evita sincronizar clientes. Un circuito abierto limita presión sobre una dependencia y ofrece una respuesta degradada; debe tener prueba de recuperación y no quedarse abierto para siempre.
 
-### 3. Observable: evidencia
+### 4. Observabilidad útil
 
-En esta clase, **observable** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Logs estructurados incluyen timestamp, request ID, fase, duración, outcome y causa categorizada; métricas agregan tasa, latencia y saturación; una traza conecta saltos. Ninguna señal debe copiar secretos ni usar cardinalidad ilimitada como URL completa.
 
-### 4. Tolerante: decisión
+### 5. Degradación y recuperación
 
-En esta clase, **tolerante** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿en qué capa se define el comportamiento y en cuál aparece el síntoma?» y demostrarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Proyecto: servicio observable y tolerante a fallos de red**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
-
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+Un servicio tolerante a fallos no promete éxito universal. Puede servir último resultado marcado con edad, omitir una dependencia opcional o devolver error claro. La recuperación se prueba restaurando la red y verificando que colas, circuitos y caches regresen a estado coherente.
 
 ## Definiciones de trabajo
 
-- **Proyecto:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **Servicio:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **Observable:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
-- **Tolerante:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno.
+- **SLI:** medida cuantitativa de comportamiento del servicio.
+- **deadline:** instante límite para completar una operación.
+- **backoff:** espera creciente entre intentos.
+- **circuit breaker:** control que limita llamadas a una dependencia degradada.
+- **SSRF:** abuso que induce a un servidor a solicitar destinos no autorizados.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Estas definiciones son operativas: precisan el uso dentro de Nexo y deben leerse junto a las fuentes. No convierten un término histórico o dependiente de implementación en una garantía universal.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Proyecto: servicio observable y tolerante a fallos de red**:
+Define un resultado JSON con `phase`, `outcome`, `duration_ms`, `attempts` y `evidence`. Representa éxito, timeout DNS y error TLS sin usar texto libre como única señal.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
-
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El ejemplo se acepta cuando incluye predicción previa, salida relevante y explicación de qué hipótesis descarta. Copiar una salida sin interpretación no demuestra comprensión.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Proyecto: servicio observable y tolerante a fallos de red**. Parte de esta pregunta: **¿en qué capa se define el comportamiento y en cuál aparece el síntoma?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando mensajes, tiempos, estados, cabeceras o capturas obtenidos sin interceptar tráfico ajeno. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `request.txt` y enlaza la evidencia, no solo la conclusión.
+El proyecto entrega un servidor local y CLI de consulta. Un entorno simulado ofrece DNS demorado, puerto cerrado, TLS autofirmado, 503 transitorio y caché. El tablero muestra tasa de éxito y p95 por fase; el runbook explica detección, mitigación, recuperación y límite de cada automatismo.
+
+La diferencia profesional es la trazabilidad: la decisión conecta requisito, mecanismo, señal, riesgo y recuperación. El equipo puede cambiar de herramienta sin perder el razonamiento.
 
 ## Práctica guiada
 
-1. Crea `work/SE-048/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el traza comentada de una comunicación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. especifica amenazas, destinos permitidos y presupuesto.
+2. implementa fases con resultados tipados.
+3. agrega request ID y redacción.
+4. crea cinco fallos deterministas en laboratorio.
+5. ejecuta matriz sana/degradada/recuperada.
+6. entrega a otra persona para operación con el runbook.
+7. entrega `trace.md` con comandos redactados, marcas de tiempo y condiciones de repetición.
 
 ## Ejercicios
 
-1. **Fundamental:** define Proyecto y servicio con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `request.txt` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
+2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
+3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
+4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
 
 ## Reto verificable
 
-Entrega el **traza comentada de una comunicación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega una traza comentada que permita a otra persona responder: qué se intentó, qué frontera se observó, qué garantía aplicaba, qué falló, qué alternativa fue descartada y cómo se restauró el estado. La persona revisora debe poder repetir al menos una prueba sin instrucciones orales.
 
-## Fallo controlado y diagnóstico
+## Demostración guiada
 
-Provoca de forma segura este fallo: **atribuir al servidor un fallo que ocurre en resolución, transporte o caché**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+1. Predice el primer evento observable y el resultado sano.
+2. Ejecuta una sola petición de Nexo y asigna cada marca a una frontera.
+3. Introduce el fallo controlado descrito abajo.
+4. Compara por **primera divergencia**, no por cantidad de errores posteriores.
+5. Restaura, repite y conserva evidencia de recuperación.
 
-## Entorno y archivos clave
-
-Entorno de referencia: navegador, curl y utilidades de diagnóstico de red. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
-
-```text
-work/SE-048/
-├── README.md
-│   ├── request.txt
-│   ├── trace.md
-│   ├── failure-report.md
-├── activity.yaml
-└── rubric.json
-```
-
-`README.md` explica cómo reproducir la actividad; `request.txt` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
-
-## Seguridad, ética y accesibilidad
-
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
-
-## Transferencia
-
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
-
-## Evaluación y evidencia
-
-| Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-048/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
-
-## Fuentes
-
-Fuentes verificadas el 2026-09-30:
-
-- **Internet Protocol, Version 6** — IETF. [https://www.rfc-editor.org/rfc/rfc8200](https://www.rfc-editor.org/rfc/rfc8200) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Transport Layer Security Protocol Version 1.3** — IETF. [https://www.rfc-editor.org/rfc/rfc8446](https://www.rfc-editor.org/rfc/rfc8446) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **QUIC: A UDP-Based Multiplexed and Secure Transport** — IETF. [https://www.rfc-editor.org/rfc/rfc9000](https://www.rfc-editor.org/rfc/rfc9000) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **HTTP Semantics** — IETF. [https://www.rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Una demostración que no incluye restauración solo prueba cómo romper el laboratorio.
 
 ## Preguntas frecuentes
 
-### ¿Basta con definir los términos del título?
+### ¿Una respuesta a `ping` demuestra que el servicio funciona?
 
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
+No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
 
-### ¿La herramienta recomendada es obligatoria?
+### ¿Puedo concluir desde una única captura?
 
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
+Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
 
-### ¿Completar los archivos aprueba automáticamente la clase?
+### ¿Debo usar exactamente las mismas herramientas?
 
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+
+## Fallo controlado y diagnóstico
+
+Encadena DNS lento y 503 para comprobar que el deadline total impide una tormenta de reintentos. Luego restaura ambos componentes y verifica cierre del circuito, vaciado controlado y ausencia de tareas huérfanas.
+
+Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
+
+## Errores comunes y cómo corregirlos
+
+| Error | Por qué falla | Corrección |
+|---|---|---|
+| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
+| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
+| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
+| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
+| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+
+## Entorno y archivos clave
+
+```text
+work/SE-048/
+├── README.md          # alcance, autorización y reproducción
+├── request.txt        # petición sin credenciales
+├── trace.md           # línea temporal y evidencias
+├── failure-report.md  # hipótesis, prueba y recuperación
+└── diagram.mmd        # mapa accesible acompañado de texto
+```
+
+Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
+
+## Seguridad, ética y accesibilidad
+
+- captura únicamente tráfico propio o autorizado y durante la ventana mínima;
+- redacta cookies, tokens, query strings, IP privadas y nombres de personas;
+- no desactives TLS, firewall o aislamiento como solución permanente;
+- acompaña color y diagramas con orden, etiquetas y una explicación textual;
+- ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
+- considera que telemetría e IP pueden identificar o perfilar personas.
+
+## Transferencia
+
+Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
+
+## Evaluación y evidencia
+
+| Criterio | Evidencia mínima | Señal de dominio |
+|---|---|---|
+| modelo causal | mapa con fronteras y unidades correctas | explica interacción y fugas del modelo |
+| protocolo | garantía y límite apoyados en fuente | distingue semántica de implementación |
+| diagnóstico | hipótesis rival y prueba discriminante | encuentra primera divergencia |
+| reproducibilidad | contexto, comandos y salida redactada | otra persona repite el resultado |
+| responsabilidad | autorización, minimización y rollback | reduce riesgo sin borrar evidencia |
+
+La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sostiene las conclusiones y declara lo que todavía no puede saberse.
+
+## Fuentes
+
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000): sustenta los mecanismos y límites usados en esta clase.
+- [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034): sustenta los mecanismos y límites usados en esta clase.
+
+Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Proyecto: servicio observable y tolerante a fallos de red**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-049`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+El proyecto demuestra diseño y diagnóstico en laboratorio; no certifica disponibilidad productiva ni sustituye monitoreo externo. Sus resultados alimentan la Parte 4, donde el mismo incidente se formaliza como problema, invariantes y algoritmo.
+
+## Glosario
+
+- **SLI:** medida cuantitativa de comportamiento del servicio.
+- **deadline:** instante límite para completar una operación.
+- **backoff:** espera creciente entre intentos.
+- **circuit breaker:** control que limita llamadas a una dependencia degradada.
+- **SSRF:** abuso que induce a un servidor a solicitar destinos no autorizados.
 
 ---
 

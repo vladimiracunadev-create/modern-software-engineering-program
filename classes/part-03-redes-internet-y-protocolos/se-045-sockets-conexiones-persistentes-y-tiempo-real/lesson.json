@@ -7,9 +7,26 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "PLANNED",
+  "status": "GUIDED",
   "source_ids": [
-    "IETF-RFC-9110"
+    "IETF-RFC-1122",
+    "IETF-RFC-826",
+    "IETF-RFC-894",
+    "IETF-RFC-1918",
+    "IETF-RFC-3022",
+    "IETF-RFC-8200",
+    "IETF-RFC-9293",
+    "IETF-RFC-768",
+    "IETF-RFC-9000",
+    "IETF-RFC-1034",
+    "IETF-RFC-1035",
+    "IETF-RFC-8499",
+    "IETF-RFC-9110",
+    "IETF-RFC-9111",
+    "IETF-RFC-8446",
+    "IETF-RFC-5280",
+    "IETF-RFC-6455",
+    "IETF-RFC-8305"
   ],
   "path": "classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real"
 }

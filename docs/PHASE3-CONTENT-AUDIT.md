@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las partes 00–02 aportan 36 clases `GUIDED` y las 144 restantes aún
+`SE-001`–`SE-180`: las partes 00–03 aportan 48 clases `GUIDED` y las 132 restantes aún
 no superan el estándar pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
@@ -19,10 +19,10 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 36 | Partes 00–02 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 48 | Partes 00–03 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases aprobadas | 36 | Partes 00–02 aprobadas; las otras 144 permanecen `PLANNED` |
+| clases aprobadas | 48 | Partes 00–03 aprobadas; las otras 132 permanecen `PLANNED` |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -85,6 +85,20 @@ Cada clase desarrolla mecanismos propios, mapa causal, ejemplos, práctica, reto
 fallo controlado, seguridad, transferencia y fuentes oficiales próximas. La revisión
 completa confirmó el contrato pedagógico y la publicación íntegra en el portal; las
 doce clases avanzaron a `GUIDED` sin atribuir ejecución en plataformas no probadas.
+
+## Avance editorial de la Parte 03
+
+Las clases `SE-037`–`SE-048` se reconstruyeron como fuentes canónicas en
+`content/part-03/`. El caso `Nexo` sigue una petición desde la red local hasta IP,
+transporte, DNS, HTTP, TLS, intermediarios y conexiones persistentes; después la
+mide, la integra en un taller de extremo a extremo y la convierte en un servicio
+observable con recuperación controlada. Cada clase desarrolla cinco mecanismos
+propios, contrasta una hipótesis rival, exige primera divergencia y conserva el caso
+sano, degradado y restaurado. Las fuentes RFC se enlazan junto al mecanismo que
+sustentan, y las prácticas limitan captura, privilegios y datos sensibles. Tras la
+revisión completa de clases, progresión, enlaces y publicación, las doce clases
+avanzaron a `GUIDED` sin afirmar que los laboratorios se ejecutaron en redes de
+producción.
 
 ## Orden de reconstrucción
 

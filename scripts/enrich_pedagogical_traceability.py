@@ -242,6 +242,7 @@ def source_lines(text: str, class_id: int) -> list[tuple[str, str, str]]:
             title, url, tail = match.groups()
             support = re.sub(r"^\s*(?:[—:-]|respalda)\s*", "", tail, flags=re.IGNORECASE).rstrip(".")
             vague = (not support or "sustenta las definiciones" in support.lower() or
+                     "sustenta los mecanismos" in support.lower() or
                      "referencia oficial para el mecanismo" in support.lower())
             if vague:
                 support = inferred_support(title, class_id)
@@ -260,6 +261,25 @@ def source_lines(text: str, class_id: int) -> list[tuple[str, str, str]]:
         if extra[1] not in {item[1] for item in found}:
             found.append(extra)
     return found
+
+
+def strengthen_source_bullets(text: str, class_id: int) -> str:
+    if "## Fuentes" not in text:
+        return text
+    prefix, block = text.split("## Fuentes", 1)
+    updated = []
+    for line in block.splitlines():
+        match = re.match(r"(- \[([^]]+)\]\((https?://[^)]+)\))(.*)", line)
+        if not match:
+            updated.append(line)
+            continue
+        lead, title, _url, tail = match.groups()
+        lower = tail.lower()
+        vague = (not tail.strip() or "sustenta las definiciones" in lower or
+                 "sustenta los mecanismos" in lower or
+                 "referencia oficial para el mecanismo" in lower)
+        updated.append(f"{lead} — {inferred_support(title, class_id)}." if vague else line)
+    return prefix + "## Fuentes\n" + "\n".join(updated) + ("\n" if block.endswith("\n") else "")
 
 
 def build_section(class_id: int, title: str, previous: str, following: str, sources: list[tuple[str, str, str]]) -> str:
@@ -334,6 +354,7 @@ def enrich_part(part: int) -> None:
             sources,
         )
         text = text[: insertion + 2] + section + text[insertion + 2 :]
+        text = strengthen_source_bullets(text, class_id)
         if text.count(SECTION) != 1 or "**PLANNED**" not in text:
             raise SystemExit(f"{path}: postcondition failed")
         path.write_text(text, encoding="utf-8", newline="\n")

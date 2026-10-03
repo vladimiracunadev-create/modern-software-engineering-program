@@ -61,6 +61,20 @@ def replace_labels(text: str) -> str:
             lambda match: match.group(1) + capital,
             text,
         )
+    continuity = {
+        "Esta clase continúa **petición observable de extremo a extremo**, la petición observable de la Parte 3.":
+            "Esta clase continúa la **petición observable de extremo a extremo de la Parte 3**.",
+        "Esta clase continúa **motor de reglas comparado**, el caso conductor de la Parte 06.":
+            "Esta clase continúa el **motor de reglas comparado de la Parte 06**.",
+        "Esta clase continúa **biblioteca de estructuras y algoritmos**, el caso conductor de la Parte 07.":
+            "Esta clase continúa la **biblioteca de estructuras y algoritmos de la Parte 07**.",
+        "Esta clase continúa **entorno reproducible de diagnóstico**, el caso conductor de la Parte 08.":
+            "Esta clase continúa el **entorno reproducible de diagnóstico de la Parte 08**.",
+        "Esta clase continúa **SDK y CLI versionados**, el caso conductor de la Parte 09.":
+            "Esta clase continúa el **SDK y la CLI versionados de la Parte 09**.",
+    }
+    for before, after in continuity.items():
+        text = text.replace(before, after)
     return text
 
 

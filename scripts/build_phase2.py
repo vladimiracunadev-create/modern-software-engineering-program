@@ -399,6 +399,12 @@ def file_index(program: dict) -> str:
 | Guías profesionales | `roles/*.md` (sin `README.md`) | 40 |
 | Perfiles fuente de las rutas | `scripts/role_profiles.py` | 40 perfiles |
 | Generador verificable de rutas | `scripts/build_role_guides.py` | 1 |
+| Licencia de software | `LICENSE` | Apache-2.0 |
+| Licencia de contenido | `LICENSE-CONTENT.md` | CC BY-NC-SA 4.0 |
+| Avisos e inventarios de propiedad intelectual | `NOTICE`, `*_LICENSES.md`, `THIRD_PARTY_NOTICES.md`, `TRADEMARKS.md` | 5 documentos |
+| Auditoría e historia de licencias | `LICENSING_AUDIT.md`, `docs/LICENSING_HISTORY.md` | 2 documentos |
+| Arquitectura de automatización | `docs/WORKFLOW-ARCHITECTURE.md` | 3 workflows |
+| Validador de licencias | `scripts/validate_licensing.py` | 1 |
 | Índices de parte | `classes/part-*/README.md` | {program['part_count']} |
 | Materiales de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |

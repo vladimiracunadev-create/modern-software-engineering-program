@@ -1,0 +1,90 @@
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    name: Secrets · Gitleaks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install fixed Gitleaks release with checksum verification
+        shell: bash
+        env:
+          GITLEAKS_VERSION: "8.18.4"
+        run: |
+          set -euo pipefail
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl --fail --silent --show-error --location --output "$RUNNER_TEMP/$archive" "$base/$archive"
+          curl --fail --silent --show-error --location --output "$RUNNER_TEMP/checksums.txt" "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          expected="$(grep "  $archive$" "$RUNNER_TEMP/checksums.txt")"
+          test -n "$expected"
+          printf '%s\n' "$expected" | (cd "$RUNNER_TEMP" && sha256sum --check --strict -)
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" version
+
+      - name: Detect secrets in the versioned tree
+        shell: bash
+        run: "$RUNNER_TEMP/gitleaks detect --no-git --redact --verbose --source ."
+
+  sast:
+    name: SAST · Bandit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install fixed Bandit release
+        run: python -m pip install --disable-pip-version-check bandit==1.9.4
+
+      - name: Scan repository Python scripts
+        run: bandit -q -r scripts -ll
+
+  governance:
+    name: Governance · Licenses and workflow policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Validate licensing, attribution and immutable actions
+        run: |
+          python scripts/validate_licensing.py
+          python scripts/validate_encoding.py
+          python scripts/validate_repository.py --strict
+

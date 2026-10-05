@@ -17,6 +17,13 @@ REQUIRED = [
     "STATUS.md",
     "ROADMAP.md",
     "LICENSE",
+    "LICENSE-CONTENT.md",
+    "NOTICE",
+    "THIRD_PARTY_NOTICES.md",
+    "ASSET_LICENSES.md",
+    "DATA_LICENSES.md",
+    "LICENSING_AUDIT.md",
+    "TRADEMARKS.md",
     "catalog.json",
     "curriculum.yaml",
     "FILE_INDEX.md",
@@ -30,6 +37,8 @@ REQUIRED = [
     "docs/COVERAGE-MATRIX.md",
     "docs/REPOSITORY-BOUNDARIES.md",
     "docs/PUBLICATION-PLAN.md",
+    "docs/LICENSING_HISTORY.md",
+    "docs/WORKFLOW-ARCHITECTURE.md",
     "docs/adr/ADR-002-expand-to-480-class-program.md",
     "docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md",
     "docs/ARCHITECTURE.md",
@@ -55,6 +64,7 @@ REQUIRED = [
     "scripts/build_phase3.py",
     "scripts/validate_class_contracts.py",
     "scripts/validate_encoding.py",
+    "scripts/validate_licensing.py",
     "scripts/validate_site.py",
     "scripts/validate_phase3.py",
 ]
@@ -383,16 +393,35 @@ def validate_portal() -> None:
 
 def validate_workflows(strict: bool) -> None:
     workflows = sorted((ROOT / ".github/workflows").glob("*.yml"))
-    if not workflows:
-        raise AssertionError("At least one GitHub Actions workflow is required")
+    names = {workflow.name for workflow in workflows}
+    expected = {"validate.yml", "pages.yml", "security.yml"}
+    if names != expected:
+        raise AssertionError(f"Expected workflow set {sorted(expected)}, found {sorted(names)}")
     for workflow in workflows:
         text = workflow.read_text(encoding="utf-8")
         if "permissions:" not in text or "timeout-minutes:" not in text:
             raise AssertionError(f"Workflow lacks permissions or timeout: {workflow.name}")
+        if "actions/checkout@" in text and "persist-credentials: false" not in text:
+            raise AssertionError(f"Workflow persists checkout credentials: {workflow.name}")
         for match in re.finditer(r"uses:\s*[^@\s]+@([^\s#]+)", text):
             ref = match.group(1)
             if strict and not FULL_SHA.fullmatch(ref):
                 raise AssertionError(f"Action is not pinned to a full SHA in {workflow.name}: {ref}")
+
+    validate = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+    for token in ("documentation:", "markdownlint-cli2@0.23.0", "validate_licensing.py", "evidence:"):
+        if token not in validate:
+            raise AssertionError(f"Validation workflow is missing: {token}")
+
+    pages = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+    for token in ('- "content/**"', '- "schemas/**"', "actions/configure-pages@"):
+        if token not in pages:
+            raise AssertionError(f"Pages workflow misses a publication dependency: {token}")
+
+    security = (ROOT / ".github/workflows/security.yml").read_text(encoding="utf-8")
+    for token in ('cron: "0 11 * * 1"', "GITLEAKS_VERSION", "bandit==1.9.4", "governance:"):
+        if token not in security:
+            raise AssertionError(f"Security workflow is missing: {token}")
 
 
 def validate_package_policy() -> None:

@@ -398,18 +398,35 @@ def render_compact_map(
 
     blocks: list[str] = []
     for family, entries in families.items():
-        blocks.extend((f"### {family}", "", "| Rol | Partes núcleo | Clases asociadas | Proyecto profesional |", "| --- | --- | --- | --- |"))
+        blocks.extend((f"### {family}", ""))
         for filename, profile_data, title in entries:
             role_href = filename if from_roles else f"roles/{filename}"
             core = dict(profile_data["core"])
-            part_links = "<br>".join(part_link(part_id, parts, prefix) for part_id in core)
-            class_links = " · ".join(
-                class_link(class_id, classes, prefix)
-                for class_ids in core.values()
-                for class_id in class_ids
-            )
+            _, mission = parse_identity((ROLE_ROOT / filename).read_text(encoding="utf-8"))
+            part_links = " · ".join(part_link(part_id, parts, prefix) for part_id in core)
             project = tuple(profile_data["project"])
-            blocks.append(f"| [{title}]({role_href}) | {part_links} | {class_links} | **{project[0]}**: {project[1]}. |")
+            blocks.extend(
+                (
+                    f"#### [{title}]({role_href})",
+                    "",
+                    f"> {mission}",
+                    "",
+                    f"- **🧱 Partes núcleo:** {part_links}.",
+                    "- **🔗 Clases asociadas:**",
+                )
+            )
+            for part_id, class_ids in core.items():
+                class_links = " · ".join(
+                    class_link(class_id, classes, prefix) for class_id in class_ids
+                )
+                blocks.append(f"  - **Parte {part_id}:** {class_links}.")
+            blocks.extend(
+                (
+                    f"- **🧪 Proyecto profesional:** **{project[0]}** — {project[1]}.",
+                    f"- **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →]({role_href})",
+                    "",
+                )
+            )
         blocks.append("")
     return "\n".join(blocks).rstrip()
 
@@ -432,7 +449,7 @@ añade el mapa de transiciones entre familias.'''
 def render_index_depth(classes: dict[str, dict[str, str]], parts: dict[str, dict[str, object]]) -> str:
     return f'''<div align="center">
 
-[![Rutas](https://img.shields.io/badge/rutas-40-6f42c1?style=for-the-badge)](#-mapa-de-40-roles)
+[![Rutas](https://img.shields.io/badge/rutas-40-6f42c1?style=for-the-badge)](#mapa-de-40-roles)
 [![Clases](https://img.shields.io/badge/clases-asociadas%20y%20enlazadas-0969da?style=for-the-badge)](#-parte--clases--evidencia)
 [![Evidencia](https://img.shields.io/badge/foco-decisiones%20y%20evidencia-2da44e?style=for-the-badge)](../assessments/rubric.md)
 

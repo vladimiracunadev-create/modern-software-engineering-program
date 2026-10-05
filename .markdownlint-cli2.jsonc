@@ -1,0 +1,23 @@
+{
+  // Conserva reglas estructurales y desactiva diferencias editoriales deliberadas.
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD033": false,
+    "MD041": false,
+    "MD024": { "siblings_only": true },
+    "MD036": false,
+    "MD026": false,
+    "MD029": false,
+    "MD007": false,
+    "MD012": false,
+    "MD022": false,
+    "MD031": false,
+    "MD032": false,
+    "MD058": false,
+    "MD060": false
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", "**/node_modules", ".git", "site"]
+}
+

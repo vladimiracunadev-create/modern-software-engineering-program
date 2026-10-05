@@ -63,6 +63,9 @@ jobs:
       - name: Validate generated site and links
         run: python scripts/validate_site.py
 
+      - name: Validate licensing and attribution contracts
+        run: python scripts/validate_licensing.py
+
       - name: Validate repository contracts
         run: python scripts/validate_repository.py --strict
 
@@ -103,6 +106,37 @@ jobs:
           python scripts/validate_phase4.py
           python scripts/validate_encoding.py
           python scripts/validate_site.py
+          python scripts/validate_licensing.py
+          python scripts/validate_repository.py --strict
+
+  documentation:
+    name: Documentation · Markdown and links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+
+      - name: Lint Markdown with a fixed version
+        run: npx --yes markdownlint-cli2@0.23.0 "**/*.md"
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Validate navigation, UTF-8 and public licensing
+        run: |
+          python scripts/build_role_guides.py --check
+          python scripts/validate_encoding.py
+          python scripts/validate_licensing.py
           python scripts/validate_repository.py --strict
 
   policy:
@@ -126,4 +160,41 @@ jobs:
           python scripts/build_phase4.py --check
           python scripts/build_role_guides.py --check
           python scripts/validate_encoding.py
+          python scripts/validate_licensing.py
           python scripts/validate_repository.py --strict
+
+  evidence:
+    name: Evidence summary
+    if: always()
+    needs: [structure, portability, documentation, policy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Publish validation evidence
+        shell: bash
+        env:
+          STRUCTURE_RESULT: ${{ needs.structure.result }}
+          PORTABILITY_RESULT: ${{ needs.portability.result }}
+          DOCUMENTATION_RESULT: ${{ needs.documentation.result }}
+          POLICY_RESULT: ${{ needs.policy.result }}
+        run: |
+          {
+            echo "### Programa de Ingeniería de Software Moderna"
+            echo
+            echo "- Partes: **$(find classes -mindepth 1 -maxdepth 1 -type d -name 'part-*' | wc -l)**"
+            echo "- Clases: **$(find classes -mindepth 3 -maxdepth 3 -name README.md | wc -l)**"
+            echo "- Rutas profesionales: **$(find roles -maxdepth 1 -type f -name '*.md' ! -name README.md | wc -l)**"
+            echo "- Generación y contratos: **${STRUCTURE_RESULT}**"
+            echo "- Portabilidad: **${PORTABILITY_RESULT}**"
+            echo "- Documentación: **${DOCUMENTATION_RESULT}**"
+            echo "- Política: **${POLICY_RESULT}**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preserve failure semantics
+        if: ${{ needs.structure.result != 'success' || needs.portability.result != 'success' || needs.documentation.result != 'success' || needs.policy.result != 'success' }}
+        run: exit 1

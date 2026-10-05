@@ -2,6 +2,19 @@
 
 ## Unreleased — fase 3
 
+### Licencias y automatización
+
+- transición no retroactiva desde MIT a una matriz explícita: Apache-2.0 para
+  software propio y CC BY-NC-SA 4.0 para contenido educativo, datos y activos
+  originales;
+- incorporación de `NOTICE`, auditoría, historia verificable, marcas e inventarios
+  de terceros, datos y activos, con un validador y pruebas dedicados;
+- workflow de seguridad con Gitleaks, Bandit y gobernanza semanal; CI ampliada con
+  lint Markdown, resumen de evidencia y contratos de licencia;
+- Pages cubre todas sus fuentes de generación y configura el despliegue mediante una
+  acción fijada a SHA; la arquitectura y los límites de los tres workflows quedan
+  documentados en profundidad;
+
 ### README y rutas profesionales
 
 - rediseño integral del README principal siguiendo el ritmo visual y documental del
@@ -19,7 +32,8 @@
   Mermaid, mapas parte → clases asociadas → evidencia, decisiones, escenarios de
   fallo, métricas, proyectos integradores, planes 30/60/90 y fuentes oficiales;
 - mapa profesional ampliado en el README principal y en `roles/README.md`, con enlaces
-  directos a 480 asociaciones de clase y generación reproducible de los bloques;
+  directos a 480 asociaciones de clase, tarjetas verticales adaptables y generación
+  reproducible de los bloques;
 
 ### Roadmap curricular y simplificación editorial
 

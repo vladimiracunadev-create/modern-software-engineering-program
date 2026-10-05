@@ -2,10 +2,14 @@
 
 ## Unreleased — fase 3
 
-### Reconciliación de misión y expansión progresiva
+### Roadmap curricular y simplificación editorial
 
-- prompt maestro ampliado con proceso de auditoría, cobertura profesional,
-  progresión pedagógica, casos, laboratorios, IA verificable y validación final;
+- retiro de `PROMPT_MAESTRO.md`: la definición pública del programa vive ahora en un
+  roadmap curricular detallado y las reglas de agentes permanecen en `AGENTS.md`;
+- eliminación de etiquetas de flujo o madurez por clase en manifiestos, esquemas,
+  generadores, portal, actividades, auditorías pedagógicas e índices;
+- roadmap de las 40 partes con contenidos, artefactos y comprobaciones concretas,
+  además de progresión, ejes transversales, proyectos y fases de implementación;
 - auditoría de cobertura fechada con matriz de estado, profundidad, brechas y acción;
 - ADR que preserva `SE-001`–`SE-480` y condiciona la aproximación a 500 clases a
   competencias no cubiertas, sin renumeración ni relleno;
@@ -15,18 +19,18 @@
 ### Corrección de integridad pedagógica
 
 - fase 3 reabierta con alcance correcto de 180 clases (`SE-001`–`SE-180`);
-- retiro de la afirmación incorrecta de 156 clases `GUIDED`;
+- retiro de la afirmación incorrecta de 156 clases desarrolladas;
 - incorporación del estándar pedagógico permanente y gate cualitativo;
 - publicación del contenido completo de cada borrador en lugar de fichas resumidas;
-- estados actuales devueltos a `PLANNED` hasta revisión clase por clase.
+- descripción factual del contenido disponible, sin asignar estados a cada clase.
 
 ### Fase 3 — declaración anterior, sustituida por la corrección
 
-- 156 clases de las etapas A y C elevadas a `GUIDED`;
+- 156 clases de las etapas A y C declaradas desarrolladas sin evidencia suficiente;
 - guías específicas con conceptos, ejemplos, prácticas, ejercicios y fallos controlados;
 - 156 contratos de actividad y 156 rúbricas machine-readable;
 - catálogo de fuentes primarias u oficiales verificadas para trece partes;
-- portal con estados de madurez y páginas guiadas enlazadas al material completo;
+- portal con páginas enlazadas al material completo;
 - validador de fase 3 y quince pruebas estructurales.
 
 ### Fase 2 — generadores y controles
@@ -52,7 +56,7 @@
 
 - suite integradora inicial;
 - programa profesional de 260 horas;
-- prompt maestro interno;
+- documento de instrucciones interno, retirado posteriormente al consolidar el roadmap;
 - manifiesto de cuatro repositorios;
 - mapa de competencias, proyectos y blueprint;
 - portal local y validación automática;

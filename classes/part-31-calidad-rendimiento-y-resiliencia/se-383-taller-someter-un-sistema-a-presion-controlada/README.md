@@ -3,7 +3,8 @@
 [← SE-382 — Calidad de experiencia y presupuestos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-382-calidad-de-experiencia-y-presupuestos/README.md) · [↑ Parte 31](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-383.html) · [SE-384 — Proyecto: informe reproducible de calidad →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-31-calidad-rendimiento-y-resiliencia/se-384-proyecto-informe-reproducible-de-calidad/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 

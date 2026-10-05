@@ -3,12 +3,10 @@
   "scope": "SE-037..SE-048",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-037",
       "title": "Modelos OSI y TCP/IP como herramientas de diagnóstico",
-      "maturity": "PLANNED",
       "professional_point": "usar OSI y TCP/IP como modelos de localización de fallos, no como descripción literal del recorrido",
       "misconception": "asignar cada herramienta a una capa rígida o creer que una capa descarta las demás",
       "evidence": "layer-hypotheses.md con síntoma, capas candidatas y observación discriminante",
@@ -30,13 +28,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-038",
       "title": "Ethernet, Wi-Fi, direccionamiento y redes locales",
-      "maturity": "PLANNED",
       "professional_point": "explicar entrega local mediante tramas, direcciones de enlace y resolución de vecinos",
       "misconception": "confundir dirección MAC con identidad global o ARP con enrutamiento",
       "evidence": "lan-trace.md con trama, caché de vecino, broadcast y fallo de resolución",
@@ -58,13 +54,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-039",
       "title": "IPv4, IPv6, subredes, rutas y NAT",
-      "maturity": "PLANNED",
       "professional_point": "decidir entrega directa o por gateway usando prefijos, rutas y traducción de direcciones",
       "misconception": "creer que NAT es firewall o que una IP privada nunca aparece fuera de una LAN",
       "evidence": "routing-lab.md con longest-prefix match y transformaciones antes/después de NAT",
@@ -86,13 +80,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-040",
       "title": "TCP, UDP, QUIC y decisiones de transporte",
-      "maturity": "PLANNED",
       "professional_point": "seleccionar TCP, UDP o QUIC por fiabilidad, orden, latencia y control de congestión",
       "misconception": "reducir la decisión a ‘TCP seguro, UDP rápido’",
       "evidence": "transport-decision.md con pérdidas, reordenamiento, handshake y requisito del producto",
@@ -114,13 +106,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-041",
       "title": "DNS, nombres, resolución y fallos",
-      "maturity": "PLANNED",
       "professional_point": "seguir resolución DNS, delegación, caché y TTL para distinguir ausencia, demora y respuesta obsoleta",
       "misconception": "tratar DNS como una sola base o asumir que limpiar una caché limpia todas",
       "evidence": "dns-trace.md con consultas, autoridad, TTL, cachés y fallo inducido",
@@ -142,13 +132,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-042",
       "title": "HTTP, semántica, caché y negociación",
-      "maturity": "PLANNED",
       "professional_point": "razonar sobre HTTP por semántica de método, representación, validación, caché y negociación",
       "misconception": "equiparar GET con ausencia de efectos o 200 con respuesta no cacheada",
       "evidence": "http-exchange.md con mensajes crudos, validators y decisión de caché",
@@ -165,13 +153,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-043",
       "title": "TLS, certificados y confianza en tránsito",
-      "maturity": "PLANNED",
       "professional_point": "explicar qué autentica y cifra TLS a partir de handshake, cadena y nombre del servicio",
       "misconception": "creer que el candado prueba que el sitio es confiable o que TLS protege datos ya comprometidos en el endpoint",
       "evidence": "tls-evidence.md con certificado, SAN, cadena, protocolo y fallo de nombre",
@@ -193,13 +179,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-044",
       "title": "Proxies, balanceadores, gateways y CDN",
-      "maturity": "PLANNED",
       "professional_point": "mapear cómo proxy, balanceador, gateway y CDN cambian conexiones, metadatos y caché",
       "misconception": "suponer que el servidor ve directamente al cliente o que todos los intermediarios son transparentes",
       "evidence": "hop-map.md con terminaciones, headers confiables, caché y punto de fallo",
@@ -221,13 +205,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-045",
       "title": "Sockets, conexiones persistentes y tiempo real",
-      "maturity": "PLANNED",
       "professional_point": "modelar conexiones persistentes y tiempo real por estados, framing, heartbeat y backpressure",
       "misconception": "confundir conexión abierta con entrega garantizada o ignorar consumidores lentos",
       "evidence": "connection-state.md con apertura, mensajes, cierre, timeout y cola acotada",
@@ -249,13 +231,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-046",
       "title": "Captura, medición y diagnóstico de tráfico",
-      "maturity": "PLANNED",
       "professional_point": "capturar y medir tráfico con una pregunta previa y distinguir ausencia de evidencia de evidencia de ausencia",
       "misconception": "filtrar hasta encontrar la hipótesis preferida o interpretar cifrado como falta de tráfico",
       "evidence": "capture-notes.md con interfaz, filtro, reloj, paquetes y conclusión acotada",
@@ -277,13 +257,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-047",
       "title": "Taller: seguir una petición de extremo a extremo",
-      "maturity": "PLANNED",
       "professional_point": "reconstruir una petición extremo a extremo correlacionando DNS, transporte, TLS y HTTP",
       "misconception": "narrar capas por separado sin una identidad temporal común",
       "evidence": "request-timeline.md con timestamps, IDs, saltos y dos hipótesis descartadas",
@@ -305,13 +283,11 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-048",
       "title": "Proyecto: servicio observable y tolerante a fallos de red",
-      "maturity": "PLANNED",
       "professional_point": "construir un servicio observable que trate timeout, reintento e idempotencia como decisiones de producto",
       "misconception": "reintentar cualquier fallo y duplicar efectos",
       "evidence": "servicio, cliente de prueba, fallos inyectados, trazas correlacionadas y matriz de reintentos",
@@ -333,8 +309,7 @@
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

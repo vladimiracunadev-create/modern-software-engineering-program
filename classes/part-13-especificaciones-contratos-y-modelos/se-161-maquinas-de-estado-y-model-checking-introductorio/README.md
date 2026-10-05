@@ -3,8 +3,8 @@
 [← SE-160 — Modelos estructurales, conductuales y de información](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) · [↑ Parte 13](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-161.html) · [SE-162 — Esquemas de datos y validación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Este material se publica para revisión editorial. Debe contrastarse como parte
+> completa antes de presentarse como contenido terminado.
 
 ## Prerrequisitos
 
@@ -203,7 +203,7 @@ del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Máquinas de estado y model checking introductorio**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-162`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **Máquinas de estado y model checking introductorio**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-162`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
 
 ---
 

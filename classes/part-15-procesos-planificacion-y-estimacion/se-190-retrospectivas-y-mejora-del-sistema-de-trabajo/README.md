@@ -3,8 +3,8 @@
 [← SE-189 — Métricas de flujo, calidad y resultados](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) · [↑ Parte 15](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-190.html) · [SE-191 — Taller: planificar bajo incertidumbre explícita →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Este material se publica para revisión editorial. Debe contrastarse como parte
+> completa antes de presentarse como contenido terminado.
 
 ## Prerrequisitos
 
@@ -202,7 +202,7 @@ del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Retrospectivas y mejora del sistema de trabajo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-191`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **Retrospectivas y mejora del sistema de trabajo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-191`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
 
 ---
 

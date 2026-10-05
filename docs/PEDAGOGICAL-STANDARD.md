@@ -14,7 +14,7 @@ No se copia su contenido ni se usa su extensión como plantilla.
 
 ## Contrato cualitativo de una clase
 
-Una clase candidata a `GUIDED` debe integrar, como mínimo:
+Una clase que se presente como desarrollada debe integrar, como mínimo:
 
 1. objetivo que explique capacidad, propósito y límite;
 2. resultados de aprendizaje observables;
@@ -35,7 +35,7 @@ Una clase candidata a `GUIDED` debe integrar, como mínimo:
 17. límites honestos: qué no se ejecutó, midió o validó.
 
 Una tabla, un enlace o una lista no sustituyen la explicación. Un generador puede
-crear estructura y comprobaciones, pero no otorga madurez pedagógica.
+crear estructura y comprobaciones, pero no demuestra profundidad pedagógica.
 
 ## Contrato de una parte
 
@@ -60,7 +60,7 @@ mismo sistema con lentes progresivamente más exigentes.
 El portal debe ayudar a orientarse y razonar, no limitarse a decorar Markdown:
 
 - muestra parte, posición, clase anterior, capacidad actual y conexión siguiente;
-- diferencia visualmente estado, explicación, práctica, evidencia, fuentes y límites;
+- diferencia visualmente explicación, práctica, evidencia, fuentes y límites;
 - transforma diagramas en una representación legible y conserva una alternativa
   textual o notación fuente accesible;
 - interpreta cada visual dentro del texto: qué relación muestra, por qué importa y
@@ -93,7 +93,7 @@ contenido correcto.
 - Marca fuentes retiradas o superadas y su reemplazo.
 - No reproduzcas material protegido ni uses una bibliografía como decoración.
 
-## Gate de aprobación
+## Revisión para publicación
 
 La aprobación se realiza clase por clase y luego parte por parte:
 
@@ -107,17 +107,19 @@ La aprobación se realiza clase por clase y luego parte por parte:
 8. validadores, pruebas, encoding y workflows verdes;
 9. commit independiente para la parte.
 
-Solo entonces se cambia `PLANNED` a `GUIDED`. Los estados `EXECUTABLE`, `TESTED`,
-`INTEGRATED` y `OPERABLE` requieren evidencia adicional definida en la arquitectura.
+Solo entonces puede describirse como desarrollada. Si se afirma que una práctica fue
+ejecutada, probada, integrada u operada, esa afirmación debe acompañarse de evidencia
+adicional definida en la arquitectura.
 
 ## Alcance corregido de fase 3
 
 La fase 3 comprende **180 clases consecutivas**, de `SE-001` a `SE-180`, agrupadas
-en las partes 00–14. Mientras una clase no supere el gate, permanece `PLANNED` aunque
-exista un borrador público.
+en las partes 00–14. La Parte 00 está desarrollada; las partes 01–14 conservan
+borradores que deben superar la revisión completa antes de presentarse como clases
+terminadas.
 
 ## Alcance de fase 4
 
 La fase 4 comprende **180 clases consecutivas**, de `SE-181` a `SE-360`, agrupadas
-en las partes 15–29. Aplica el mismo gate cualitativo: disponer de guía, actividad,
-rúbrica, fuentes y publicación no cambia por sí solo la madurez `PLANNED`.
+en las partes 15–29. Aplica la misma revisión cualitativa: disponer de guía, actividad,
+rúbrica, fuentes y publicación no demuestra por sí solo que la clase esté terminada.

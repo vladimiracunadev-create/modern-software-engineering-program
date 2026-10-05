@@ -3,12 +3,10 @@
   "scope": "SE-049..SE-060",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-049",
       "title": "Descomposición, abstracción y reconocimiento de patrones",
-      "maturity": "PLANNED",
       "professional_point": "descomponer un problema por responsabilidades y contratos sin perder restricciones transversales",
       "misconception": "convertir descomposición en una lista arbitraria de tareas",
       "evidence": "problem-tree.md con fronteras, dependencias, invariantes y una descomposición alternativa",
@@ -25,13 +23,11 @@
           "supports": "aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-050",
       "title": "Lógica proposicional, predicados e inferencia",
-      "maturity": "PLANNED",
       "professional_point": "usar lógica para comprobar validez de inferencias y hacer visibles supuestos",
       "misconception": "confundir una conclusión plausible con una consecuencia lógica",
       "evidence": "logic-check.md con formalización, tabla o derivación y contraejemplo",
@@ -48,13 +44,11 @@
           "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-051",
       "title": "Conjuntos, relaciones, funciones y grafos",
-      "maturity": "PLANNED",
       "professional_point": "elegir conjuntos, relaciones, funciones y grafos según la estructura que deben preservar",
       "misconception": "usar una colección por conveniencia sintáctica sin modelar multiplicidad y dirección",
       "evidence": "model-comparison.md con el mismo dominio en dos estructuras y una consulta discriminante",
@@ -71,13 +65,11 @@
           "supports": "aporta definiciones, invariantes y análisis de estructuras y algoritmos usados en la clase"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-052",
       "title": "Invariantes, precondiciones y poscondiciones",
-      "maturity": "PLANNED",
       "professional_point": "formular precondiciones, poscondiciones e invariantes que hagan verificable una transición",
       "misconception": "escribir validaciones aisladas sin una propiedad que deba preservarse",
       "evidence": "contract-proof.md con estados válidos, transición, invariante y contraejemplo mínimo",
@@ -99,13 +91,11 @@
           "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-053",
       "title": "Recursión, inducción y razonamiento estructural",
-      "maturity": "PLANNED",
       "professional_point": "relacionar definición recursiva, caso base, progreso e inducción",
       "misconception": "aceptar recursión porque termina en ejemplos pequeños",
       "evidence": "recursion-proof.md con medida decreciente, traza e hipótesis inductiva",
@@ -122,13 +112,11 @@
           "supports": "aporta definiciones, invariantes y análisis de estructuras y algoritmos usados en la clase"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-054",
       "title": "Algoritmos, corrección y terminación",
-      "maturity": "PLANNED",
       "professional_point": "separar corrección parcial, terminación y adecuación del algoritmo al contrato",
       "misconception": "declarar correcto un algoritmo porque produce una salida esperada",
       "evidence": "correctness.md con especificación, invariante de bucle, terminación y caso límite",
@@ -150,13 +138,11 @@
           "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-055",
       "title": "Complejidad temporal y espacial",
-      "maturity": "PLANNED",
       "professional_point": "comparar crecimiento temporal y espacial antes de interpretar benchmarks",
       "misconception": "equiparar Big‑O con segundos o descartar constantes en cargas reales",
       "evidence": "complexity.md con conteo, cota, gráfica y medición que no contradiga su alcance",
@@ -178,13 +164,11 @@
           "supports": "delimita computabilidad, complejidad y los límites de las soluciones algorítmicas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-056",
       "title": "Heurísticas, aproximación y límites computacionales",
-      "maturity": "PLANNED",
       "professional_point": "usar heurísticas y aproximaciones declarando objetivo, garantía y contraejemplo",
       "misconception": "presentar una buena solución observada como óptima",
       "evidence": "heuristic-report.md con baseline, calidad, tiempo y caso adverso",
@@ -206,13 +190,11 @@
           "supports": "aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-057",
       "title": "Modelado de estado, transiciones y eventos",
-      "maturity": "PLANNED",
       "professional_point": "modelar estado, transiciones y eventos para detectar secuencias imposibles o ambiguas",
       "misconception": "describir estados como pantallas sin condiciones de entrada y salida",
       "evidence": "state-model.md con tabla, diagrama, guardas y secuencia inválida",
@@ -229,13 +211,11 @@
           "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-058",
       "title": "Resolución sistemática y registro de hipótesis",
-      "maturity": "PLANNED",
       "professional_point": "resolver problemas registrando hipótesis rivales y observaciones que realmente las discriminan",
       "misconception": "cambiar código antes de formular una explicación falsable",
       "evidence": "hypothesis-log.md con síntoma, predicción, experimento, resultado y descarte",
@@ -252,13 +232,11 @@
           "supports": "aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-059",
       "title": "Taller: descomponer un problema ambiguo",
-      "maturity": "PLANNED",
       "professional_point": "convertir un problema ambiguo en contratos, riesgos, preguntas y evidencia de aceptación",
       "misconception": "empezar por implementar la interpretación más cómoda",
       "evidence": "ambiguity-map.md con actores, términos, decisiones, pruebas y preguntas abiertas",
@@ -275,13 +253,11 @@
           "supports": "aporta lógica, inducción, relaciones, grafos y técnicas de demostración aplicadas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-060",
       "title": "Proyecto: especificación y solución contrastable",
-      "maturity": "PLANNED",
       "professional_point": "entregar una especificación y solución contrastable mediante propiedades y evidencia",
       "misconception": "hacer que la prueba copie la implementación en vez de verificar el contrato",
       "evidence": "specification.md, solución, oráculo independiente, casos y límites",
@@ -303,8 +279,7 @@
           "supports": "aporta definiciones, invariantes y análisis de estructuras y algoritmos usados en la clase"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

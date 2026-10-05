@@ -3,7 +3,8 @@
 [← SE-436 — Dependencias obsoletas y riesgo acumulado](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado/README.md) · [↑ Parte 36](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-437.html) · [SE-438 — Migraciones de runtime, lenguaje y framework →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 

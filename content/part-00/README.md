@@ -2,7 +2,6 @@
 
 - **Etapa:** A · Fundamentos de la profesión
 - **Audiencia:** personas que comienzan y profesionales que necesitan hacer explícito su criterio de ingeniería
-- **Estado:** 12 clases `GUIDED`, desarrolladas y aprobadas contra el gate pedagógico
 - **Dedicación estimada:** 54 horas entre clases, taller y proyecto
 
 ## Antes de comenzar: la historia que conecta la parte

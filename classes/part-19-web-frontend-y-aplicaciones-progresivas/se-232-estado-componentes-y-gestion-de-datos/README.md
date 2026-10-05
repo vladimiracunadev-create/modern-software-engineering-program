@@ -3,8 +3,8 @@
 [← SE-231 — Renderizado cliente, servidor, estático e híbrido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/README.md) · [↑ Parte 19](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-232.html) · [SE-233 — Formularios, validación y experiencia de error →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Este material se publica para revisión editorial. Debe contrastarse como parte
+> completa antes de presentarse como contenido terminado.
 
 ## Prerrequisitos
 
@@ -203,7 +203,7 @@ del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Estado, componentes y gestión de datos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-233`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **Estado, componentes y gestión de datos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-233`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
 
 ---
 

@@ -14,16 +14,15 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 [![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
 [![Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
-[![Estado](https://img.shields.io/badge/clases%20GUIDED-12%20de%20480-2ea043?style=flat-square)](STATUS.md)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
 
 > [!CAUTION]
-> **Estado real:** la arquitectura contiene 480 clases y hoy hay **12 clases
-> `GUIDED`** aprobadas contra el estándar pedagógico (`SE-001`–`SE-012`).
-> `SE-013`–`SE-360` son borradores públicos en revisión; `SE-361`–`SE-480` son scaffolds.
+> **Alcance real:** la arquitectura contiene 480 clases. La Parte 00 (`SE-001`–`SE-012`)
+> tiene contenido desarrollado; `SE-013`–`SE-360` son borradores públicos en revisión
+> y `SE-361`–`SE-480` conservan únicamente su estructura curricular.
 > La dirección de aproximarse a 500 clases no altera estos conteos: solo se añadirán
 > IDs cuando una auditoría demuestre una competencia independiente que no cabe en la
 > arquitectura existente sin relleno ni duplicación.
@@ -36,8 +35,8 @@ La secuencia va desde qué es un sistema y cómo funciona un computador hasta SP
 agentes con herramientas, MCP, delegación, evaluación y recuperación de sistemas
 asistidos por IA.
 
-El objetivo no es coleccionar títulos. Cada clase que llegue a estado `GUIDED`
-deberá desarrollar realmente:
+El objetivo no es coleccionar títulos. Cada clase publicada como contenido desarrollado
+debe incluir realmente:
 
 - 🎯 objetivo, límites y resultados de aprendizaje observables;
 - 🗺️ temas con la razón por la que cada uno importa;
@@ -56,8 +55,8 @@ deberá desarrollar realmente:
 1. Abre el [índice plano de las 480 clases](classes/README.md).
 2. Haz clic en el título para leer su `README.md` en GitHub.
 3. Usa el enlace **🌐 portal** para comprobar la publicación de la misma clase.
-4. Verifica si declara **GUIDED**, **borrador no aprobado** o **scaffold planificado**.
-5. En una clase `GUIDED`, comprueba la conexión anterior/siguiente, el mapa visual,
+4. Comprueba si contiene enseñanza desarrollada, un borrador revisable o solo estructura curricular.
+5. Cuando el contenido esté desarrollado, comprueba la conexión anterior/siguiente, el mapa visual,
    la práctica y la evidencia acumulativa.
 6. Contrasta el material con el [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md).
 
@@ -116,67 +115,67 @@ Las fuentes se mantienen como datos auditables, no como una bibliografía decora
 
 - [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
 - [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
-- [registro de fase 3](sources/phase3.json): fuentes base para 12 clases `GUIDED` y 168 borradores;
+- [registro de fase 3](sources/phase3.json): fuentes base para 12 clases desarrolladas y 168 borradores;
 - [auditoría pedagógica de partes 01–09](sources/pedagogical/): punto profesional, error conceptual, evidencia, límite y trazabilidad por clase;
 - [registro de fase 4](sources/phase4.json): fuentes usadas por `SE-181`–`SE-360`;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
 
 Una asignación en el registro **no demuestra** que la clase esté terminada. Falta
 ligar cada afirmación importante con su fuente concreta y revisar vigencia,
-interpretación y alcance antes de promoverla a `GUIDED`.
+interpretación y alcance antes de presentarla como desarrollada.
 
 ## 🗂️ Las 40 partes
 
 Cada parte tiene un README con sus doce clases enlazadas. La fase 3 comprende las
-partes 00–14 y la fase 4 las partes 15–29. Solo la Parte 00 está aprobada; las
-partes 01–29 siguen pendientes de revisión cualitativa clase por clase.
+partes 00–14 y la fase 4 las partes 15–29. La Parte 00 tiene contenido desarrollado;
+las partes 01–29 conservan borradores y las partes 30–39 estructura curricular.
 
-| # | Parte | Clases | Foco | Estado | README |
-| ---: | --- | --- | --- | --- | --- |
-| 00 | Ingeniería de software como profesión | SE-001–SE-012 | disciplina, ética, evidencia y calidad | `GUIDED` | [📘 leer](classes/part-00-ingenieria-de-software-como-profesion/README.md) |
-| 01 | Computadores y representación de información | SE-013–SE-024 | máquina, datos, memoria y runtimes | borrador no aprobado | [📘 leer](classes/part-01-computadores-y-representacion-de-informacion/README.md) |
-| 02 | Sistemas operativos, terminal y automatización base | SE-025–SE-036 | Windows, Linux, macOS, shells y diagnóstico | borrador no aprobado | [📘 leer](classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) |
-| 03 | Redes, Internet y protocolos | SE-037–SE-048 | TCP/IP, DNS, HTTP, TLS y observación | borrador no aprobado | [📘 leer](classes/part-03-redes-internet-y-protocolos/README.md) |
-| 04 | Pensamiento computacional y resolución de problemas | SE-049–SE-060 | lógica, modelos, complejidad y estrategias | borrador no aprobado | [📘 leer](classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) |
-| 05 | Fundamentos de programación | SE-061–SE-072 | control, funciones, datos, errores y pruebas | borrador no aprobado | [📘 leer](classes/part-05-fundamentos-de-programacion/README.md) |
-| 06 | Paradigmas de programación | SE-073–SE-084 | imperativo, objetos, funcional, lógico y reactivo | borrador no aprobado | [📘 leer](classes/part-06-paradigmas-de-programacion/README.md) |
-| 07 | Estructuras de datos y algoritmos | SE-085–SE-096 | colecciones, grafos, diseño y medición | borrador no aprobado | [📘 leer](classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
-| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y entornos reproducibles | borrador no aprobado | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
-| 09 | Bibliotecas, paquetes, SDK y automatización | SE-109–SE-120 | dependencias, SemVer, CLI, plugins y DX | borrador no aprobado | [📘 leer](classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
-| 10 | Descubrimiento y estrategia de producto | SE-121–SE-132 | problema, usuarios, mercado y experimentación | borrador no aprobado | [📘 leer](classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) |
-| 11 | Economía, métricas y decisiones de producto | SE-133–SE-144 | valor, costo, métricas y priorización | borrador no aprobado | [📘 leer](classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
-| 12 | Ingeniería de requisitos | SE-145–SE-156 | elicitación, calidad, trazabilidad y cambio | borrador no aprobado | [📘 leer](classes/part-12-ingenieria-de-requisitos/README.md) |
-| 13 | Especificaciones, contratos y modelos | SE-157–SE-168 | SPEC, invariantes, APIs y aceptación | borrador no aprobado | [📘 leer](classes/part-13-especificaciones-contratos-y-modelos/README.md) |
-| 14 | Experiencia, accesibilidad e internacionalización | SE-169–SE-180 | UX, inclusión, contenido e i18n | borrador no aprobado | [📘 leer](classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
-| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y mejora | borrador no aprobado | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
-| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, integración y gobernanza | borrador no aprobado | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
-| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, runbook y búsqueda | borrador no aprobado | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
-| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales y procesos | borrador no aprobado | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
-| 19 | Web, frontend y aplicaciones progresivas | SE-229–SE-240 | navegador, UI, estado y PWA | borrador no aprobado | [📘 leer](classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
-| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos y tareas | borrador no aprobado | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
-| 21 | Software móvil, escritorio y multiplataforma | SE-253–SE-264 | plataformas, distribución y ciclo de vida | borrador no aprobado | [📘 leer](classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
-| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | recursos, hardware y temporización | borrador no aprobado | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
-| 23 | Software especializado y dominios | SE-277–SE-288 | datos, ciencia, juegos y regulación | borrador no aprobado | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
-| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | diseño evolutivo y deuda | borrador no aprobado | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
-| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y decisiones | borrador no aprobado | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
-| 26 | Datos, persistencia y recuperación | SE-313–SE-324 | modelos, transacciones, índices y backup | borrador no aprobado | [📘 leer](classes/part-26-datos-persistencia-y-recuperacion/README.md) |
-| 27 | Integración, eventos y mensajería | SE-325–SE-336 | contratos, colas, eventos y consistencia | borrador no aprobado | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
-| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos y consenso | borrador no aprobado | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
-| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y plataforma | borrador no aprobado | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
-| 30 | Estrategia y técnicas de prueba | SE-361–SE-372 | niveles, propiedades, contratos y E2E | planificado | [📘 leer](classes/part-30-estrategia-y-tecnicas-de-prueba/README.md) |
-| 31 | Calidad, rendimiento y resiliencia | SE-373–SE-384 | atributos, carga, degradación y recuperación | planificado | [📘 leer](classes/part-31-calidad-rendimiento-y-resiliencia/README.md) |
-| 32 | Seguridad, privacidad y cumplimiento | SE-385–SE-396 | amenazas, controles, privacidad y regulación | planificado | [📘 leer](classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) |
-| 33 | Build, release y cadena de suministro | SE-397–SE-408 | builds, artefactos, SBOM y procedencia | planificado | [📘 leer](classes/part-33-build-release-y-cadena-de-suministro/README.md) |
-| 34 | CI/CD, IaC y platform engineering | SE-409–SE-420 | pipelines, despliegue y autoservicio | planificado | [📘 leer](classes/part-34-ci-cd-iac-y-platform-engineering/README.md) |
-| 35 | Observabilidad, SRE e incidentes | SE-421–SE-432 | señales, SLO, guardias e incidentes | planificado | [📘 leer](classes/part-35-observabilidad-sre-e-incidentes/README.md) |
-| 36 | Mantenimiento y modernización legacy | SE-433–SE-444 | comprensión, migración y continuidad | planificado | [📘 leer](classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) |
-| 37 | Gestión, liderazgo y práctica profesional | SE-445–SE-456 | equipos, comunicación y decisiones | planificado | [📘 leer](classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) |
-| 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilotos, contexto, evals y seguridad | planificado | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
-| 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | SPEC, MCP, agentes, delegación y control | planificado | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
+| # | Parte | Clases | Foco | README |
+| ---: | --- | --- | --- | --- |
+| 00 | Ingeniería de software como profesión | SE-001–SE-012 | disciplina, ética, evidencia y calidad | [📘 leer](classes/part-00-ingenieria-de-software-como-profesion/README.md) |
+| 01 | Computadores y representación de información | SE-013–SE-024 | máquina, datos, memoria y runtimes | [📘 leer](classes/part-01-computadores-y-representacion-de-informacion/README.md) |
+| 02 | Sistemas operativos, terminal y automatización base | SE-025–SE-036 | Windows, Linux, macOS, shells y diagnóstico | [📘 leer](classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/README.md) |
+| 03 | Redes, Internet y protocolos | SE-037–SE-048 | TCP/IP, DNS, HTTP, TLS y observación | [📘 leer](classes/part-03-redes-internet-y-protocolos/README.md) |
+| 04 | Pensamiento computacional y resolución de problemas | SE-049–SE-060 | lógica, modelos, complejidad y estrategias | [📘 leer](classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/README.md) |
+| 05 | Fundamentos de programación | SE-061–SE-072 | control, funciones, datos, errores y pruebas | [📘 leer](classes/part-05-fundamentos-de-programacion/README.md) |
+| 06 | Paradigmas de programación | SE-073–SE-084 | imperativo, objetos, funcional, lógico y reactivo | [📘 leer](classes/part-06-paradigmas-de-programacion/README.md) |
+| 07 | Estructuras de datos y algoritmos | SE-085–SE-096 | colecciones, grafos, diseño y medición | [📘 leer](classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
+| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y entornos reproducibles | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| 09 | Bibliotecas, paquetes, SDK y automatización | SE-109–SE-120 | dependencias, SemVer, CLI, plugins y DX | [📘 leer](classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| 10 | Descubrimiento y estrategia de producto | SE-121–SE-132 | problema, usuarios, mercado y experimentación | [📘 leer](classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) |
+| 11 | Economía, métricas y decisiones de producto | SE-133–SE-144 | valor, costo, métricas y priorización | [📘 leer](classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| 12 | Ingeniería de requisitos | SE-145–SE-156 | elicitación, calidad, trazabilidad y cambio | [📘 leer](classes/part-12-ingenieria-de-requisitos/README.md) |
+| 13 | Especificaciones, contratos y modelos | SE-157–SE-168 | SPEC, invariantes, APIs y aceptación | [📘 leer](classes/part-13-especificaciones-contratos-y-modelos/README.md) |
+| 14 | Experiencia, accesibilidad e internacionalización | SE-169–SE-180 | UX, inclusión, contenido e i18n | [📘 leer](classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
+| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y mejora | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, integración y gobernanza | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, runbook y búsqueda | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales y procesos | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
+| 19 | Web, frontend y aplicaciones progresivas | SE-229–SE-240 | navegador, UI, estado y PWA | [📘 leer](classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
+| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos y tareas | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
+| 21 | Software móvil, escritorio y multiplataforma | SE-253–SE-264 | plataformas, distribución y ciclo de vida | [📘 leer](classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
+| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | recursos, hardware y temporización | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| 23 | Software especializado y dominios | SE-277–SE-288 | datos, ciencia, juegos y regulación | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
+| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | diseño evolutivo y deuda | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
+| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y decisiones | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
+| 26 | Datos, persistencia y recuperación | SE-313–SE-324 | modelos, transacciones, índices y backup | [📘 leer](classes/part-26-datos-persistencia-y-recuperacion/README.md) |
+| 27 | Integración, eventos y mensajería | SE-325–SE-336 | contratos, colas, eventos y consistencia | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
+| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos y consenso | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
+| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y plataforma | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
+| 30 | Estrategia y técnicas de prueba | SE-361–SE-372 | niveles, propiedades, contratos y E2E | [📘 leer](classes/part-30-estrategia-y-tecnicas-de-prueba/README.md) |
+| 31 | Calidad, rendimiento y resiliencia | SE-373–SE-384 | atributos, carga, degradación y recuperación | [📘 leer](classes/part-31-calidad-rendimiento-y-resiliencia/README.md) |
+| 32 | Seguridad, privacidad y cumplimiento | SE-385–SE-396 | amenazas, controles, privacidad y regulación | [📘 leer](classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) |
+| 33 | Build, release y cadena de suministro | SE-397–SE-408 | builds, artefactos, SBOM y procedencia | [📘 leer](classes/part-33-build-release-y-cadena-de-suministro/README.md) |
+| 34 | CI/CD, IaC y platform engineering | SE-409–SE-420 | pipelines, despliegue y autoservicio | [📘 leer](classes/part-34-ci-cd-iac-y-platform-engineering/README.md) |
+| 35 | Observabilidad, SRE e incidentes | SE-421–SE-432 | señales, SLO, guardias e incidentes | [📘 leer](classes/part-35-observabilidad-sre-e-incidentes/README.md) |
+| 36 | Mantenimiento y modernización legacy | SE-433–SE-444 | comprensión, migración y continuidad | [📘 leer](classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) |
+| 37 | Gestión, liderazgo y práctica profesional | SE-445–SE-456 | equipos, comunicación y decisiones | [📘 leer](classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) |
+| 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilotos, contexto, evals y seguridad | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
+| 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | SPEC, MCP, agentes, delegación y control | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
 
 ➡️ [Abrir el índice plano con enlaces directos a las 480 clases](classes/README.md).
 
-La fuente canónica de títulos, estados y horas es [curriculum.yaml](curriculum.yaml).
+La fuente canónica de títulos, secuencia y horas es [curriculum.yaml](curriculum.yaml).
 
 ## 🤖 IA, SPEC y agentes
 
@@ -214,7 +213,7 @@ estén aprobadas.
 ## 🌐 Portal y navegación
 
 El [portal público](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
-permite buscar por texto, filtrar por parte y estado, abrir una parte y leer cada
+permite buscar por texto, filtrar por parte, abrir una parte y leer cada
 clase. La Parte 00 añade un caso conductor, ruta de evidencias, progreso visible,
 conexión **vienes de / construyes / conecta con**, índice lateral y diagramas
 renderizados con su notación fuente accesible. Cada clase conserva navegación
@@ -238,7 +237,7 @@ y la CI falla si difiere de los manifiestos o del contenido de las clases.
 ## 🚀 Cómo usar el programa
 
 1. Empieza en el [índice completo](classes/README.md) y abre la ruta que corresponda a tu base actual.
-2. Lee el estado de la clase: un borrador sirve para revisión; un scaffold solo describe trabajo pendiente.
+2. Revisa su contenido real: un borrador sirve para revisión y una estructura vacía solo describe trabajo pendiente.
 3. Produce el artefacto solicitado, registra decisiones y conserva evidencia del resultado y del fallo.
 4. Compara tu entrega con la rúbrica y las fuentes; no promociones contenido por cantidad de texto.
 5. Continúa con los enlaces anterior/siguiente o vuelve al README de la parte para revisar dependencias.
@@ -270,7 +269,7 @@ infraestructura pública de fase 4 ya está implementada:
 - arquitectura de ocho etapas;
 - 40 partes con doce clases cada una;
 - 480 identificadores y títulos únicos;
-- contrato pedagógico y estados de madurez;
+- contrato pedagógico y requisitos de evidencia;
 - propietarios y fronteras entre repositorios;
 - ADR de expansión;
 - fuentes primarias iniciales;
@@ -282,14 +281,14 @@ infraestructura pública de fase 4 ya está implementada:
 - validadores dedicados de contratos y UTF-8;
 - workflow separado para GitHub Pages.
 - alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
-- 12 clases `GUIDED` y 168 borradores públicos de fase 3;
+- 12 clases desarrolladas y 168 borradores públicos de fase 3;
 - fase 4 añadida: 180 borradores, actividades y rúbricas de `SE-181`–`SE-360`;
 - texto íntegro de cada borrador publicado en Pages, no una ficha-resumen;
-- promoción limitada a las 12 clases revisadas de la Parte 00;
+- contenido desarrollado limitado a las 12 clases revisadas de la Parte 00;
 - instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
 
-`GUIDED` no significa `EXECUTABLE`, `TESTED` u `OPERABLE`; tampoco se concede por
-generación automática. El estado actual vive en [STATUS.md](STATUS.md) y la
+Desarrollada no significa práctica ejecutada, comportamiento probado u operación demostrada;
+ninguna de esas afirmaciones se concede por generación automática. El alcance actual vive en [STATUS.md](STATUS.md) y la
 evidencia de por qué las 180 entradas no cuentan como clases construidas está en
 [docs/PHASE3-CONTENT-AUDIT.md](docs/PHASE3-CONTENT-AUDIT.md).
 La auditoría equivalente de fase 4 está en
@@ -299,7 +298,7 @@ La auditoría equivalente de fase 4 está en
 
 | Workflow | Qué comprueba | Plataformas / salida |
 | --- | --- | --- |
-| [Validate](.github/workflows/validate.yml) | generación reproducible, contratos, madurez, UTF-8, enlaces, políticas y tests | Python 3.11–3.14 en Linux; portabilidad en Windows y macOS |
+| [Validate](.github/workflows/validate.yml) | generación reproducible, contratos, UTF-8, enlaces, políticas y tests | Python 3.11–3.14 en Linux; portabilidad en Windows y macOS |
 | [Pages](.github/workflows/pages.yml) | las 521 páginas generadas, integridad del portal y despliegue | artefacto y publicación en GitHub Pages |
 
 Las acciones externas están fijadas por SHA, los permisos son mínimos por job y los
@@ -326,8 +325,8 @@ python -m unittest discover -s tests -v
 
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
-catalog.json       métricas canónicas de estado
-classes/           480 clases; 12 GUIDED, 348 borradores y 120 scaffolds
+catalog.json       conteos canónicos del programa
+classes/           480 clases; 12 desarrolladas, 348 borradores y 120 estructuras
 curriculum/        línea base anterior, pendiente de migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
@@ -356,7 +355,7 @@ fueron verificados el 30 de septiembre de 2026.
 | Es | No es todavía |
 | --- | --- |
 | una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
-| 12 clases `GUIDED` y 348 borradores públicos | 480 clases aprobadas o listas para impartir |
+| 12 clases desarrolladas y 348 borradores públicos | 480 clases completas o listas para impartir |
 | un estándar explícito para aceptar contenido | una certificación profesional |
 | un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
 | un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |

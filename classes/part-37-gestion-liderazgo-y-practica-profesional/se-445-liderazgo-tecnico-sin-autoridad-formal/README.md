@@ -3,7 +3,8 @@
 [← SE-444 — Proyecto: migración incremental reversible](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/README.md) · [↑ Parte 37](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-445.html) · [SE-446 — Diseño de equipos y ownership →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 

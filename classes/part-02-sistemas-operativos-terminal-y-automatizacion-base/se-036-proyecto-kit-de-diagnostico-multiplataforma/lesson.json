@@ -7,7 +7,6 @@
   "kind": "project",
   "owner": "suite",
   "estimated_hours": 8,
-  "status": "PLANNED",
   "source_ids": [
     "POSIX-2024",
     "WINDOWS-DOCS",

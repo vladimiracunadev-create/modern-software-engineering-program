@@ -3,12 +3,10 @@
   "scope": "SE-097..SE-108",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-097",
       "title": "Editores, IDE y servidores de lenguaje",
-      "maturity": "PLANNED",
       "professional_point": "entender editor, IDE y servidor de lenguaje como componentes con protocolos y capacidades negociadas",
       "misconception": "atribuir al editor análisis que realmente ejecuta otra herramienta",
       "evidence": "tooling-map.md con proceso, mensaje LSP, capacidad y modo degradado",
@@ -25,13 +23,11 @@
           "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-098",
       "title": "Depuradores, breakpoints y observación de estado",
-      "maturity": "PLANNED",
       "professional_point": "observar ejecución con breakpoints, frames y variables sin confundir observación con ausencia de perturbación",
       "misconception": "cambiar estado desde el depurador y tratar la corrida como equivalente",
       "evidence": "debug-session.md con hipótesis, breakpoint, stack, variable y efecto observado",
@@ -48,13 +44,11 @@
           "supports": "Pdb, cprofile, timeit, tracemalloc y límites instrumentales; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-099",
       "title": "Profilers de CPU, memoria, I/O y red",
-      "maturity": "PLANNED",
       "professional_point": "medir CPU, memoria, I/O y red con el instrumento que corresponde a cada recurso",
       "misconception": "usar un único profiler y concluir causa por el mayor porcentaje",
       "evidence": "profile-plan.md con pregunta, instrumento, overhead, datos y optimización verificada",
@@ -71,13 +65,11 @@
           "supports": "Breakpoints, frames, variables y negociación de capacidades; autoridad: Microsoft"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-100",
       "title": "Compiladores, linters, formatters y análisis estático",
-      "maturity": "PLANNED",
       "professional_point": "separar compilación, formato, lint y análisis estático por la propiedad que verifican",
       "misconception": "tratar cero advertencias como prueba de corrección",
       "evidence": "static-analysis.md con hallazgo real, falso positivo, configuración y límite",
@@ -104,13 +96,11 @@
           "supports": "documenta alcance, reglas y configuración del linter"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-101",
       "title": "REPL, notebooks y desarrollo exploratorio",
-      "maturity": "PLANNED",
       "professional_point": "usar REPL y notebooks para explorar conservando orden, estado y transición a artefactos reproducibles",
       "misconception": "creer que celdas visibles documentan el orden ejecutado",
       "evidence": "exploration-log.md con kernel limpio, orden, dependencia oculta y script extraído",
@@ -137,13 +127,11 @@
           "supports": "define mensajes y canales entre cliente y kernel"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-102",
       "title": "Gestores de versiones de runtimes",
-      "maturity": "PLANNED",
       "professional_point": "fijar y cambiar versiones de runtimes haciendo visible la resolución efectiva",
       "misconception": "confundir gestor de versiones con entorno de dependencias",
       "evidence": "runtime-resolution.md con archivo de versión, PATH, ejecutable y prueba en dos versiones",
@@ -170,13 +158,11 @@
           "supports": "documenta toolchains y selección de versiones"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-103",
       "title": "Entornos virtuales y aislamiento de dependencias",
-      "maturity": "PLANNED",
       "professional_point": "aislar dependencias y explicar qué comparte un entorno virtual con el sistema",
       "misconception": "tratar venv como contenedor o lockfile",
       "evidence": "environment-audit.md con intérprete, rutas, paquetes, recreación y contaminación inducida",
@@ -193,13 +179,11 @@
           "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-104",
       "title": "Dev Containers y entornos desechables",
-      "maturity": "PLANNED",
       "professional_point": "declarar un entorno de desarrollo desechable por imagen, features, mounts y ciclo de vida",
       "misconception": "confundir reconstrucción con estado persistente o imagen con configuración completa",
       "evidence": "devcontainer-evidence.md con build, create, post-create, rebuild y limpieza",
@@ -216,13 +200,11 @@
           "supports": "Aislamiento de intérprete, scripts y entorno virtual; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-105",
       "title": "Reproducción de errores y reducción de casos",
-      "maturity": "PLANNED",
       "professional_point": "reducir un fallo conservando la condición causal y descartando ruido",
       "misconception": "eliminar pasos hasta que desaparece también el defecto",
       "evidence": "minimal-reproduction.md con condición, reducción, hipótesis y prueba de regresión",
@@ -244,13 +226,11 @@
           "supports": "formaliza reducción sistemática de causas relevantes"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-106",
       "title": "Ergonomía, accesibilidad y productividad del entorno",
-      "maturity": "PLANNED",
       "professional_point": "evaluar productividad del entorno junto con teclado, zoom, contraste, movimiento y carga cognitiva",
       "misconception": "optimizar atajos para una persona y llamarlo ergonomía universal",
       "evidence": "accessibility-check.md con tareas, barreras, ajustes y verificación por teclado",
@@ -267,13 +247,11 @@
           "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-107",
       "title": "Taller: diagnosticar un fallo desconocido",
-      "maturity": "PLANNED",
       "professional_point": "diagnosticar un fallo desconocido desde síntoma hasta causa usando instrumentos elegidos por hipótesis",
       "misconception": "abrir todas las herramientas sin una pregunta discriminante",
       "evidence": "diagnosis.md con reproducción, hipótesis rivales, evidencia, causa y recuperación",
@@ -295,13 +273,11 @@
           "supports": "Configuración reproducible de herramientas y ciclo de vida del contenedor; autoridad: Dev Container Specification maintainers"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-108",
       "title": "Proyecto: entorno de desarrollo autocontenido",
-      "maturity": "PLANNED",
       "professional_point": "entregar un entorno autocontenido que se reconstruya, diagnostique y recupere",
       "misconception": "considerar reproducible un contenedor que depende de cachés o pasos manuales",
       "evidence": "configuración, locks, build limpio, smoke test, SBOM y guía de recuperación",
@@ -323,8 +299,7 @@
           "supports": "Mensajes, capacidades y sincronización entre editor y servidor; autoridad: Microsoft"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

@@ -1,8 +1,7 @@
 """Add claim-level pedagogical traceability to Parts 01-09 without deleting drafts.
 
-This is a migration aid, not an approval tool. It inserts a reviewed, class-specific
-learning purpose and writes a machine-readable audit record. It never marks a class
-GUIDED and refuses to overwrite an existing traceability section.
+This migration aid inserts a reviewed, class-specific learning purpose and writes a
+machine-readable audit record. It refuses to overwrite an existing traceability section.
 """
 
 from __future__ import annotations
@@ -364,12 +363,10 @@ def enrich_part(part: int) -> None:
         sources = source_lines(text, class_id)
         if len(sources) < 2:
             raise SystemExit(f"{path}: fewer than two relevant sources")
-        status = re.search(r"^> Estado:.*$", text, flags=re.MULTILINE)
-        if not status:
-            raise SystemExit(f"{path}: missing status line")
-        new_status = "> Estado: **PLANNED** · Borrador público conservado íntegramente y sometido a auditoría técnica y pedagógica."
-        text = text[: status.start()] + new_status + text[status.end() :]
-        insertion = text.find("\n\n", status.start())
+        title_end = text.find("\n\n")
+        if title_end < 0:
+            raise SystemExit(f"{path}: cannot locate title boundary")
+        insertion = title_end
         if insertion < 0:
             raise SystemExit(f"{path}: cannot locate insertion point")
         section = build_section(
@@ -382,21 +379,19 @@ def enrich_part(part: int) -> None:
         text = text[: insertion + 2] + section + text[insertion + 2 :]
         text = strengthen_source_bullets(text, class_id)
         text = strengthen_topic_evidence(text, class_id)
-        if text.count(SECTION) != 1 or "**PLANNED**" not in text:
+        if text.count(SECTION) != 1:
             raise SystemExit(f"{path}: postcondition failed")
         path.write_text(text, encoding="utf-8", newline="\n")
         point, misconception, evidence, limit = PROFILES[class_id]
         records.append({
             "class_id": f"SE-{class_id:03d}",
             "title": all_titles[class_id],
-            "maturity": "PLANNED",
             "professional_point": point,
             "misconception": misconception,
             "evidence": evidence,
             "limit": limit,
             "sources": [{"title": a, "url": b, "supports": c} for a, b, c in sources],
             "reviewed_on": "2026-10-03",
-            "approval": "not_granted",
         })
     audit_dir = ROOT / "sources" / "pedagogical"
     audit_dir.mkdir(parents=True, exist_ok=True)
@@ -405,7 +400,6 @@ def enrich_part(part: int) -> None:
         "scope": f"SE-{start:03d}..SE-{start + 11:03d}",
         "content_preserved": True,
         "basis": "docs/PEDAGOGICAL-STANDARD.md",
-        "status": "under_qualitative_audit",
         "classes": records,
     }
     (audit_dir / f"part-{part:02d}.json").write_text(

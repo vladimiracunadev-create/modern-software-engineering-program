@@ -3,8 +3,8 @@
 [← SE-318 — Migraciones compatibles y evolución de esquema](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/README.md) · [↑ Parte 26](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-319.html) · [SE-320 — Cachés y consistencia entre capas →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Este material se publica para revisión editorial. Debe contrastarse como parte
+> completa antes de presentarse como contenido terminado.
 
 ## Prerrequisitos
 
@@ -202,7 +202,7 @@ del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Replicación, partición y distribución**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-320`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **Replicación, partición y distribución**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-320`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
 
 ---
 

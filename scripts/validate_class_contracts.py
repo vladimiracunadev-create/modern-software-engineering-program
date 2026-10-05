@@ -25,13 +25,15 @@ def main() -> int:
                 continue
             text = readme.read_text(encoding="utf-8")
             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-            if metadata["id"] != lesson["id"] or metadata["status"] != lesson["status"]:
+            if metadata["id"] != lesson["id"]:
                 failures.append(f"metadata drift: {lesson['id']}")
+            if "status" in metadata or "status" in lesson:
+                failures.append(f"editorial class status is not allowed: {lesson['id']}")
             missing = [section for section in REQUIRED_CLASS_SECTIONS if section not in text]
             if missing:
                 failures.append(f"contract sections missing: {lesson['id']}: {missing}")
-            if lesson["status"] != "PLANNED" and "Pendiente de desarrollar" in text:
-                failures.append(f"non-planned class still contains placeholders: {lesson['id']}")
+            if lesson["number"] <= 360 and "Pendiente de desarrollar" in text:
+                failures.append(f"class still contains placeholders: {lesson['id']}")
             checked += 1
     if failures:
         print("\n".join(failures[:50]), file=sys.stderr)

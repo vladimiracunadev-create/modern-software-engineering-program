@@ -2,7 +2,6 @@
   "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-200",
-  "status": "PLANNED",
   "mode": "class",
   "environment": "Git 2.40+ y alojamiento Git compatible",
   "duration_hours": 4,

@@ -1,14 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/activity.schema.json",
-  "title": "Guided class activity",
+  "title": "Class activity",
   "type": "object",
-  "required": ["schema_version", "class_id", "status", "mode", "environment", "duration_hours", "steps", "outputs", "safety", "source_ids"],
+  "required": ["schema_version", "class_id", "mode", "environment", "duration_hours", "steps", "outputs", "safety", "source_ids"],
   "properties": {
     "$schema": {"const": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/activity.schema.json"},
     "schema_version": {"const": 1},
     "class_id": {"pattern": "^SE-[0-9]{3}$"},
-    "status": {"enum": ["PLANNED", "GUIDED"]},
     "mode": {"enum": ["class", "studio", "project"]},
     "environment": {"type": "string", "minLength": 10},
     "duration_hours": {"type": "integer", "minimum": 1},

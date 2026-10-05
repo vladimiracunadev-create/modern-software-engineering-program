@@ -3,7 +3,8 @@
 [← SE-364 — End-to-end, aceptación y recorridos críticos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos/README.md) · [↑ Parte 30](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-365.html) · [SE-366 — Mutación, fuzzing y generación de casos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos/README.md)
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 

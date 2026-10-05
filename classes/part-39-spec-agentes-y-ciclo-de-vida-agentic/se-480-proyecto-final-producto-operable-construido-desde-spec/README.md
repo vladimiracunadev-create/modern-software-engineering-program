@@ -3,7 +3,8 @@
 [← SE-479 — Taller: detener, recuperar y evaluar un agente](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente/README.md) · [↑ Parte 39](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-480.html) · Fin del programa →
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 

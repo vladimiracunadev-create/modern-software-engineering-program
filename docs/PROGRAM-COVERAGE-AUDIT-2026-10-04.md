@@ -1,4 +1,4 @@
-# Auditoría de cobertura y madurez — 2026-10-04
+# Auditoría de cobertura — 2026-10-04
 
 ## Alcance y método
 
@@ -11,7 +11,7 @@ título. Por eso una competencia puede estar bien ubicada en el mapa y seguir
 Línea base reproducible:
 
 - 40 partes y 480 IDs consecutivos (`SE-001`–`SE-480`);
-- 12 clases `GUIDED`, 468 `PLANNED`;
+- 12 clases desarrolladas, 348 borradores y 120 estructuras curriculares;
 - `SE-013`–`SE-360`: borradores públicos no aprobados;
 - `SE-361`–`SE-480`: scaffolds planificados;
 - 521 páginas HTML generadas;

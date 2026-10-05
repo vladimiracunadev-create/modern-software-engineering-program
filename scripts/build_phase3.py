@@ -270,8 +270,8 @@ def lesson_readme(part: dict, lesson: dict, previous: dict | None, following: di
 {navigation}
 
 > [!WARNING]
-> Estado: **PLANNED · BORRADOR EN REVISIÓN**. El material es visible para auditoría,
-> pero aún no supera el estándar pedagógico profundo y no debe presentarse como clase terminada.
+> Este material se publica para revisión editorial. Debe contrastarse como parte
+> completa antes de presentarse como contenido terminado.
 
 ## Prerrequisitos
 
@@ -445,7 +445,7 @@ del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `{following_label}`. Si la actividad necesita código o infraestructura real, debe avanzar a `EXECUTABLE`, añadir pruebas y documentar versiones, limpieza y recuperación.
+Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `{following_label}`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
 
 ---
 
@@ -459,7 +459,6 @@ def activity(part: dict, lesson: dict) -> dict:
         "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
         "schema_version": 1,
         "class_id": lesson["id"],
-        "status": lesson["status"],
         "mode": lesson["kind"],
         "environment": profile["environment"],
         "duration_hours": lesson["estimated_hours"],
@@ -663,12 +662,12 @@ def site_page(
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
     following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
     navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
-    guided = lesson["status"] == "GUIDED"
-    description = ("Clase guiada" if guided else "Borrador estructural") + f" {lesson['id']}: {lesson['title']}"
+    developed = lesson["number"] <= 12
+    description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "<strong>GUIDED:</strong> clase desarrollada y aprobada contra el estándar pedagógico."
-        if guided else
-        "<strong>PLANNED · EN REVISIÓN:</strong> texto íntegro del borrador estructural publicado para auditoría. No es una clase aprobada."
+        "Contenido desarrollado como parte del recorrido completo de la Parte 00."
+        if developed else
+        "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )
     lesson_index = next(
         index for index, item in enumerate(part["lessons"]) if item["id"] == lesson["id"]
@@ -711,8 +710,8 @@ def expected_files(program: dict) -> dict[Path, str]:
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
             if lesson["id"] in PUBLISHED_EDITORIAL_IDS:
-                # Estas clases tienen fuentes editoriales explícitas, incluso
-                # cuando siguen PLANNED. Publicarlas no concede madurez.
+                # Estas clases tienen fuentes editoriales explícitas. Publicarlas
+                # no sustituye la revisión de la parte como recorrido completo.
                 source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
                 markdown = source.read_text(encoding="utf-8").replace(
                     "(../../classes/",
@@ -754,12 +753,7 @@ def main() -> int:
         print("PHASE3_STALE: " + ", ".join(stale[:30]), file=sys.stderr)
         return 1
     action = "PHASE3_CHECK_OK" if args.check else "PHASE3_BUILD_OK"
-    approved = sum(
-        lesson["status"] == "GUIDED"
-        for part in program["parts"] for lesson in part["lessons"]
-        if lesson["number"] <= TARGET_LAST_CLASS
-    )
-    print(f"{action}: {180 - approved} structural drafts, {approved} guided classes, 360 activity/rubric contracts")
+    print(f"{action}: 180 class documents, 360 activity/rubric contracts")
     return 0
 
 

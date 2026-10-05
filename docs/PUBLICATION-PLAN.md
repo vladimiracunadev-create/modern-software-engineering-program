@@ -11,9 +11,9 @@
 
 > 🧭 Programa de Ingeniería de Software Moderna · 480 clases, 40 partes y 8 etapas · aprendizaje conectado, práctica, evidencia y fuentes · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
 
-La descripción no repite el nombre que GitHub ya muestra ni usa el estado interno de
-madurez como identidad. Las 480 clases siguen el mismo estándar pedagógico; su avance
-verificado se mantiene por separado en `catalog.json` y `STATUS.md`.
+La descripción no repite el nombre que GitHub ya muestra. Las 480 clases siguen el
+mismo estándar pedagógico; el contenido realmente disponible se explica por separado
+en `STATUS.md` sin asignar etiquetas a cada clase.
 
 ## Topics publicados
 

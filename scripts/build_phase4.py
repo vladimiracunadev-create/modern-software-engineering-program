@@ -95,7 +95,7 @@ def main() -> int:
         print("PHASE4_STALE: " + ", ".join(stale[:30]), file=sys.stderr)
         return 1
     action = "PHASE4_CHECK_OK" if args.check else "PHASE4_BUILD_OK"
-    print(f"{action}: 180 structural drafts, 360 activity/rubric contracts, 0 classes approved")
+    print(f"{action}: 180 class documents, 360 activity/rubric contracts")
     return 0
 
 

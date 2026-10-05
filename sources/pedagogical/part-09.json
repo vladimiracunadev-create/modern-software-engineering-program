@@ -3,12 +3,10 @@
   "scope": "SE-109..SE-120",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-109",
       "title": "Biblioteca, framework, runtime, plataforma y SDK",
-      "maturity": "PLANNED",
       "professional_point": "distinguir biblioteca, framework, runtime, plataforma y SDK por control, contrato y superficie de actualización",
       "misconception": "clasificar por marketing o por el nombre del paquete",
       "evidence": "capability-map.md con quién llama a quién, artefactos, runtime y contrato público",
@@ -35,13 +33,11 @@
           "supports": "define acceso a metadata de distribuciones instaladas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-110",
       "title": "SemVer, compatibilidad y contratos públicos",
-      "maturity": "PLANNED",
       "professional_point": "usar SemVer solo después de declarar API pública y reglas observables de compatibilidad",
       "misconception": "inferir compatibilidad por número de versión sin contrato",
       "evidence": "compatibility.md con API, cambios, clasificación y consumidor de regresión",
@@ -58,13 +54,11 @@
           "supports": "Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-111",
       "title": "Resolución de dependencias y lockfiles",
-      "maturity": "PLANNED",
       "professional_point": "explicar resolución de dependencias como satisfacción de restricciones y distinguirla del lock reproducible",
       "misconception": "pedir ‘la última compatible’ como si hubiera una solución única",
       "evidence": "resolution-report.md con grafo, restricciones, solución, lock y cambio de entorno",
@@ -86,13 +80,11 @@
           "supports": "Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-112",
       "title": "Paquetes, módulos y publicación",
-      "maturity": "PLANNED",
       "professional_point": "separar módulo importable, paquete de distribución, metadata, build y publicación",
       "misconception": "equiparar carpeta de código con artefacto publicable",
       "evidence": "package-lifecycle.md con sdist/wheel, metadata, instalación limpia e importación",
@@ -114,13 +106,11 @@
           "supports": "Argparse, importlib.metadata, subprocess y apis de automatización; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-113",
       "title": "CLI, flags, configuración y códigos de salida",
-      "maturity": "PLANNED",
       "professional_point": "diseñar una CLI como interfaz pública con gramática, streams, códigos de salida y compatibilidad",
       "misconception": "imprimir errores en stdout o devolver cero tras un fallo",
       "evidence": "cli-contract.md con help, casos, stdout/stderr, exit codes y automatización",
@@ -147,13 +137,11 @@
           "supports": "define convenciones interoperables de argumentos"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-114",
       "title": "Scripting repetible y tareas idempotentes",
-      "maturity": "PLANNED",
       "professional_point": "hacer scripts repetibles mediante precondiciones, detección de estado y efectos idempotentes",
       "misconception": "suponer que ejecutar dos veces es seguro porque la primera terminó",
       "evidence": "idempotence.md con estado inicial, dos ejecuciones, fallo intermedio y recuperación",
@@ -175,13 +163,11 @@
           "supports": "define creación, streams y códigos de procesos automatizados"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-115",
       "title": "Plugins, extensiones y puntos de integración",
-      "maturity": "PLANNED",
       "professional_point": "diseñar plugins con descubrimiento, contrato, compatibilidad, aislamiento y confianza explícitos",
       "misconception": "cargar código encontrado y tratar extensión como configuración",
       "evidence": "plugin-contract.md con entry point, versión incompatible, fallo aislado y procedencia",
@@ -208,13 +194,11 @@
           "supports": "documenta estrategias de descubrimiento de plugins"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-116",
       "title": "Generación de código y metaprogramación",
-      "maturity": "PLANNED",
       "professional_point": "tratar generación de código y metaprogramación como transformación con fuente de verdad y salida revisable",
       "misconception": "editar generado a mano o esconder cambios semánticos en plantillas",
       "evidence": "generation-report.md con entrada, generador, diff determinista y regeneración limpia",
@@ -236,13 +220,11 @@
           "supports": "define transformaciones estructuradas de código Python"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-117",
       "title": "Licencias, procedencia y reutilización",
-      "maturity": "PLANNED",
       "professional_point": "registrar licencia, copyright, procedencia y SBOM para reutilización verificable",
       "misconception": "copiar una licencia raíz y asumir que cubre todos los archivos y dependencias",
       "evidence": "provenance.md, headers REUSE, SPDX y excepción documentada",
@@ -264,13 +246,11 @@
           "supports": "Metadata, nombres, versiones, dependencias y artefactos de distribución; autoridad: Python Packaging Authority"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-118",
       "title": "Diseño de experiencia para desarrolladores",
-      "maturity": "PLANNED",
       "professional_point": "evaluar experiencia de desarrollador por tiempo de primera tarea, mensajes, recuperación y consistencia",
       "misconception": "medir DX por apariencia o número de comandos",
       "evidence": "dx-study.md con tarea, tiempo, error inducido, mensaje y recuperación",
@@ -292,13 +272,11 @@
           "supports": "Api pública, versiones, prereleases y compatibilidad declarada; autoridad: Semantic Versioning project"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-119",
       "title": "Taller: empaquetar una capacidad reusable",
-      "maturity": "PLANNED",
       "professional_point": "empaquetar una capacidad reutilizable con API, metadata, documentación y consumidor externo",
       "misconception": "probar solo desde el árbol fuente y confundir eso con instalación",
       "evidence": "sdist/wheel, instalación aislada, consumidor, licencia y comprobación de metadata",
@@ -320,13 +298,11 @@
           "supports": "Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-120",
       "title": "Proyecto: SDK y CLI con compatibilidad verificada",
-      "maturity": "PLANNED",
       "professional_point": "entregar SDK y CLI con contrato común y compatibilidad verificada entre versiones",
       "misconception": "duplicar lógica entre interfaces o declarar compatibilidad sin consumidor anterior",
       "evidence": "matriz de versiones, artefactos, consumidor de regresión, CLI, SDK y changelog",
@@ -353,8 +329,7 @@
           "supports": "Identificadores, sbom y procedencia legible por máquinas; autoridad: Linux Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

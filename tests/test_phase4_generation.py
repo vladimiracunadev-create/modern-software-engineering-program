@@ -19,7 +19,10 @@ class PhaseFourGenerationTests(unittest.TestCase):
         self.assertEqual(180, len(self.target))
         self.assertEqual("SE-181", self.target[0]["id"])
         self.assertEqual("SE-360", self.target[-1]["id"])
-        self.assertEqual(0, self.program["phase_4_target"]["approved"])
+        self.assertEqual(
+            {"first_class": "SE-181", "last_class": "SE-360", "classes": 180},
+            self.program["phase_4_target"],
+        )
 
     def test_every_phase_four_class_has_learning_contracts(self) -> None:
         for lesson in self.target:

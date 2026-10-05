@@ -4,14 +4,10 @@ import argparse
 import json
 import re
 import unicodedata
-from collections import Counter
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-# Only Part 00 retains approval evidence. Parts 01-09 were demoted on
-# 2026-10-03 after the claimed qualitative/source review could not be substantiated.
-GUIDED_CLASS_IDS = {f"SE-{number:03d}" for number in range(1, 13)}
 OUTPUT = ROOT / "curriculum.yaml"
 CATALOG = ROOT / "catalog.json"
 
@@ -623,7 +619,6 @@ def build_payload() -> dict:
                 "title": lesson_title,
                 "kind": kind,
                 "estimated_hours": hours,
-                "status": "GUIDED" if lesson_id in GUIDED_CLASS_IDS else "PLANNED",
                 "path": f"{part_path}/{lesson_id.lower()}-{lesson_slug}",
             })
             lesson_number += 1
@@ -641,18 +636,15 @@ def build_payload() -> dict:
         "program": "modern-software-engineering-program",
         "language": "es",
         "baseline_date": "2026-09-30",
-        "status": "PHASE_3_AND_4_REBUILDING",
         "phase_3_target": {
             "first_class": "SE-001",
             "last_class": f"SE-{PHASE_3_TARGET_END:03d}",
             "classes": PHASE_3_TARGET_END,
-            "approved": len(GUIDED_CLASS_IDS),
         },
         "phase_4_target": {
             "first_class": f"SE-{PHASE_4_TARGET_START:03d}",
             "last_class": f"SE-{PHASE_4_TARGET_END:03d}",
             "classes": PHASE_4_TARGET_END - PHASE_4_TARGET_START + 1,
-            "approved": 0,
         },
         "part_count": len(parts),
         "class_count": sum(len(part["lessons"]) for part in parts),
@@ -682,18 +674,13 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     payload = build_payload()
-    class_status = Counter(
-        lesson["status"] for part in payload["parts"] for lesson in part["lessons"]
-    )
     catalog = {
         "program": payload["program"],
         "baseline_date": payload["baseline_date"],
-        "status": payload["status"],
         "stages": len(payload["stages"]),
         "parts": payload["part_count"],
         "classes": payload["class_count"],
         "estimated_hours": payload["estimated_hours"],
-        "class_status": dict(sorted(class_status.items())),
         "phase_3_target": payload["phase_3_target"],
         "phase_4_target": payload["phase_4_target"],
     }

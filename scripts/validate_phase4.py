@@ -48,8 +48,6 @@ def main() -> int:
             missing = [section for section in REQUIRED_SECTIONS if section not in text]
             if missing:
                 failures.append(f"missing sections {lesson['id']}: {missing}")
-            if "Estado: **PLANNED · BORRADOR EN REVISIÓN**" not in text:
-                failures.append(f"false maturity or missing warning: {lesson['id']}")
             if "## Ficha" in text or "| Campo | Valor |" in text:
                 failures.append(f"forbidden class record table: {lesson['id']}")
             if "Índice completo" not in text or f"↑ Parte {part['id']}" not in text:
@@ -63,7 +61,7 @@ def main() -> int:
 
             activity = json.loads(activity_path.read_text(encoding="utf-8"))
             rubric = json.loads(rubric_path.read_text(encoding="utf-8"))
-            if activity.get("class_id") != lesson["id"] or activity.get("status") != "PLANNED":
+            if activity.get("class_id") != lesson["id"] or "status" in activity:
                 failures.append(f"activity contract drift: {lesson['id']}")
             if not set(activity.get("source_ids", [])).issubset(source_ids):
                 failures.append(f"unresolved phase 4 source: {lesson['id']}")
@@ -73,7 +71,6 @@ def main() -> int:
     target = program.get("phase_4_target", {})
     expected_target = {
         "first_class": "SE-181", "last_class": "SE-360", "classes": 180,
-        "approved": 0,
     }
     if target != expected_target:
         failures.append(f"phase 4 target drift: {target}")
@@ -84,7 +81,7 @@ def main() -> int:
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1
-    print("PHASE4_STRUCTURE_OK: 180 drafts, 0 approved, 360 contracts, 15 sourced parts")
+    print("PHASE4_STRUCTURE_OK: 180 documents, 360 contracts, 15 sourced parts")
     return 0
 
 

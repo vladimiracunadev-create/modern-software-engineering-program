@@ -4,7 +4,6 @@
   "class_count": 480,
   "classes": {
     "SE-001": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -12,7 +11,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-002": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -20,7 +18,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-003": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -28,7 +25,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-004": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -36,7 +32,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-005": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -44,7 +39,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-006": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -52,7 +46,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-007": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -60,7 +53,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-008": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -68,7 +60,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-009": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -76,7 +67,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-010": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -84,7 +74,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-011": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -92,7 +81,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-012": {
-      "status": "GUIDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -100,7 +88,6 @@
       "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-013": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -112,7 +99,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-014": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -124,7 +110,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-015": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -136,7 +121,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-016": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -148,7 +132,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-017": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -160,7 +143,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-018": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -172,7 +154,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-019": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -184,7 +165,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-020": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -196,7 +176,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-021": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -208,7 +187,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-022": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -220,7 +198,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-023": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -232,7 +209,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-024": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "RISCV-ISA",
         "UNICODE-17",
@@ -244,7 +220,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-025": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -256,7 +231,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-026": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -268,7 +242,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-027": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -280,7 +253,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-028": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -292,7 +264,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-029": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -304,7 +275,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-030": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -316,7 +286,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-031": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -328,7 +297,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-032": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -340,7 +308,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-033": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -352,7 +319,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-034": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -364,7 +330,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-035": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -376,7 +341,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-036": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "POSIX-2024",
         "WINDOWS-DOCS",
@@ -388,7 +352,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-037": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -412,7 +375,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-038": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -436,7 +398,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-039": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -460,7 +421,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-040": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -484,7 +444,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-041": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -508,7 +467,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-042": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -532,7 +490,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-043": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -556,7 +513,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-044": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -580,7 +536,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-045": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -604,7 +559,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-046": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -628,7 +582,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-047": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -652,7 +605,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-048": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-1122",
         "IETF-RFC-826",
@@ -676,7 +628,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-049": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -686,7 +637,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-050": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -696,7 +646,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-051": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -706,7 +655,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-052": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -716,7 +664,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-053": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -726,7 +673,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-054": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -736,7 +682,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-055": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -746,7 +691,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-056": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -756,7 +700,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-057": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -766,7 +709,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-058": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -776,7 +718,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-059": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -786,7 +727,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-060": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -796,7 +736,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-061": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -805,7 +744,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-062": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -814,7 +752,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-063": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -823,7 +760,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-064": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -832,7 +768,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-065": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -841,7 +776,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-066": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -850,7 +784,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-067": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -859,7 +792,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-068": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -868,7 +800,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-069": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -877,7 +808,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-070": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -886,7 +816,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-071": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -895,7 +824,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-072": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -904,7 +832,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-073": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -916,7 +843,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-074": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -928,7 +854,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-075": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -940,7 +865,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-076": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -952,7 +876,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-077": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -964,7 +887,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-078": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -976,7 +898,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-079": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -988,7 +909,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-080": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1000,7 +920,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-081": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1012,7 +931,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-082": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1024,7 +942,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-083": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1036,7 +953,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-084": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1048,7 +964,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-085": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1058,7 +973,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-086": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1068,7 +982,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-087": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1078,7 +991,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-088": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1088,7 +1000,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-089": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1098,7 +1009,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-090": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1108,7 +1018,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-091": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1118,7 +1027,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-092": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1128,7 +1036,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-093": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1138,7 +1045,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-094": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1148,7 +1054,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-095": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1158,7 +1063,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-096": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "MIT-MATH-CS",
@@ -1168,7 +1072,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-097": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1180,7 +1083,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-098": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1192,7 +1094,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-099": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1204,7 +1105,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-100": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1216,7 +1116,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-101": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1228,7 +1127,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-102": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1240,7 +1138,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-103": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1252,7 +1149,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-104": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1264,7 +1160,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-105": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1276,7 +1171,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-106": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1288,7 +1182,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-107": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1300,7 +1193,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-108": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1312,7 +1204,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-109": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1325,7 +1216,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-110": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1338,7 +1228,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-111": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1351,7 +1240,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-112": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1364,7 +1252,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-113": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1377,7 +1264,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-114": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1390,7 +1276,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-115": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1403,7 +1288,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-116": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1416,7 +1300,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-117": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1429,7 +1312,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-118": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1442,7 +1324,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-119": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1455,7 +1336,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-120": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "PYTHON-3",
@@ -1468,7 +1348,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-121": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1476,7 +1355,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-122": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1484,7 +1362,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-123": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1492,7 +1369,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-124": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1500,7 +1376,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-125": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1508,7 +1383,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-126": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1516,7 +1390,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-127": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1524,7 +1397,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-128": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1532,7 +1404,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-129": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1540,7 +1411,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-130": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1548,7 +1418,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-131": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1556,7 +1425,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-132": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1564,91 +1432,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-133": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-134": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-135": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-136": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-137": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-138": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-139": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-140": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-141": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-142": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-143": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-144": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-145": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1656,7 +1511,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-146": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1664,7 +1518,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-147": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1672,7 +1525,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-148": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1680,7 +1532,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-149": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1688,7 +1539,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-150": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1696,7 +1546,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-151": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1704,7 +1553,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-152": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1712,7 +1560,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-153": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1720,7 +1567,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-154": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1728,7 +1574,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-155": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1736,7 +1581,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-156": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -1744,7 +1588,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-157": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1752,7 +1595,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-158": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1760,7 +1602,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-159": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1768,7 +1609,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-160": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1776,7 +1616,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-161": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1784,7 +1623,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-162": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1792,7 +1630,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-163": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1800,7 +1637,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-164": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1808,7 +1644,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-165": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1816,7 +1651,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-166": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1824,7 +1658,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-167": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1832,7 +1665,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-168": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -1840,7 +1672,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-169": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1848,7 +1679,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-170": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1856,7 +1686,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-171": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1864,7 +1693,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-172": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1872,7 +1700,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-173": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1880,7 +1707,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-174": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1888,7 +1714,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-175": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1896,7 +1721,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-176": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1904,7 +1728,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-177": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1912,7 +1735,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-178": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1920,7 +1742,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-179": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1928,7 +1749,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-180": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "ISO-25010-2023"
@@ -1936,91 +1756,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-181": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-182": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-183": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-184": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-185": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-186": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-187": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-188": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-189": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-190": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-191": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-192": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-193": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2028,7 +1835,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-194": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2036,7 +1842,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-195": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2044,7 +1849,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-196": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2052,7 +1856,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-197": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2060,7 +1863,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-198": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2068,7 +1870,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-199": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2076,7 +1877,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-200": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2084,7 +1884,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-201": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2092,7 +1891,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-202": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2100,7 +1898,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-203": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2108,7 +1905,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-204": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "GITHUB-ACTIONS-SHA"
@@ -2116,175 +1912,150 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-205": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-206": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-207": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-208": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-209": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-210": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-211": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-212": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-213": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-214": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-215": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-216": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-217": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-218": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-219": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-220": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-221": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-222": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-223": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-224": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-225": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-226": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-227": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-228": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-229": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2292,7 +2063,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-230": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2300,7 +2070,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-231": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2308,7 +2077,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-232": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2316,7 +2084,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-233": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2324,7 +2091,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-234": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2332,7 +2098,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-235": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2340,7 +2105,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-236": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2348,7 +2112,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-237": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2356,7 +2119,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-238": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2364,7 +2126,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-239": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2372,7 +2133,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-240": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "W3C-WCAG",
         "IETF-RFC-9110"
@@ -2380,7 +2140,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-241": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2388,7 +2147,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-242": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2396,7 +2154,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-243": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2404,7 +2161,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-244": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2412,7 +2168,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-245": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2420,7 +2175,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-246": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2428,7 +2182,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-247": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2436,7 +2189,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-248": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2444,7 +2196,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-249": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2452,7 +2203,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-250": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2460,7 +2210,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-251": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2468,7 +2217,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-252": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IETF-RFC-9110",
         "OPENAPI-LATEST"
@@ -2476,91 +2224,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-253": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-254": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-255": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-256": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-257": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-258": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-259": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-260": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-261": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-262": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-263": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-264": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-265": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2568,7 +2303,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-266": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2576,7 +2310,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-267": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2584,7 +2317,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-268": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2592,7 +2324,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-269": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2600,7 +2331,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-270": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2608,7 +2338,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-271": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2616,7 +2345,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-272": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2624,7 +2352,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-273": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2632,7 +2359,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-274": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2640,7 +2366,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-275": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2648,7 +2373,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-276": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023",
         "NIST-SSDF-800-218"
@@ -2656,7 +2380,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-277": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2664,7 +2387,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-278": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2672,7 +2394,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-279": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2680,7 +2401,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-280": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2688,7 +2408,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-281": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2696,7 +2415,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-282": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2704,7 +2422,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-283": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2712,7 +2429,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-284": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2720,7 +2436,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-285": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2728,7 +2443,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-286": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2736,7 +2450,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-287": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2744,7 +2457,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-288": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2752,91 +2464,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-289": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-290": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-291": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-292": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-293": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-294": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-295": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-296": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-297": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-298": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-299": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-300": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-301": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2844,7 +2543,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-302": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2852,7 +2550,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-303": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2860,7 +2557,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-304": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2868,7 +2564,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-305": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2876,7 +2571,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-306": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2884,7 +2578,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-307": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2892,7 +2585,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-308": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2900,7 +2592,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-309": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2908,7 +2599,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-310": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2916,7 +2606,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-311": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2924,7 +2613,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-312": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2932,7 +2620,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-313": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2940,7 +2627,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-314": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2948,7 +2634,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-315": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2956,7 +2641,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-316": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2964,7 +2648,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-317": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2972,7 +2655,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-318": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2980,7 +2662,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-319": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2988,7 +2669,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-320": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -2996,7 +2676,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-321": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3004,7 +2683,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-322": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3012,7 +2690,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-323": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3020,7 +2697,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-324": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3028,7 +2704,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-325": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3036,7 +2711,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-326": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3044,7 +2718,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-327": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3052,7 +2725,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-328": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3060,7 +2732,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-329": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3068,7 +2739,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-330": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3076,7 +2746,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-331": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3084,7 +2753,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-332": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3092,7 +2760,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-333": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3100,7 +2767,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-334": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3108,7 +2774,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-335": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3116,7 +2781,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-336": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "OPENAPI-LATEST"
@@ -3124,7 +2788,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-337": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3132,7 +2795,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-338": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3140,7 +2802,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-339": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3148,7 +2809,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-340": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3156,7 +2816,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-341": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3164,7 +2823,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-342": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3172,7 +2830,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-343": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3180,7 +2837,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-344": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3188,7 +2844,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-345": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3196,7 +2851,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-346": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3204,7 +2858,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-347": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3212,7 +2865,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-348": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3220,7 +2872,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-349": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3228,7 +2879,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-350": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3236,7 +2886,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-351": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3244,7 +2893,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-352": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3252,7 +2900,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-353": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3260,7 +2907,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-354": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3268,7 +2914,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-355": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3276,7 +2921,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-356": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3284,7 +2928,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-357": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3292,7 +2935,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-358": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3300,7 +2942,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-359": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3308,7 +2949,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-360": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "NIST-SSDF-800-218"
@@ -3316,7 +2956,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-361": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3324,7 +2963,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-362": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3332,7 +2970,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-363": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3340,7 +2977,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-364": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3348,7 +2984,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-365": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3356,7 +2991,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-366": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3364,7 +2998,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-367": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3372,7 +3005,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-368": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3380,7 +3012,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-369": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3388,7 +3019,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-370": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3396,7 +3026,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-371": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3404,7 +3033,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-372": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3412,91 +3040,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-373": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-374": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-375": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-376": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-377": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-378": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-379": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-380": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-381": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-382": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-383": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-384": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "ISO-25010-2023"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-385": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3504,7 +3119,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-386": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3512,7 +3126,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-387": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3520,7 +3133,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-388": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3528,7 +3140,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-389": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3536,7 +3147,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-390": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3544,7 +3154,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-391": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3552,7 +3161,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-392": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3560,7 +3168,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-393": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3568,7 +3175,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-394": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3576,7 +3182,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-395": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3584,7 +3189,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-396": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "OWASP-ASVS"
@@ -3592,7 +3196,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-397": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3600,7 +3203,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-398": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3608,7 +3210,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-399": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3616,7 +3217,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-400": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3624,7 +3224,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-401": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3632,7 +3231,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-402": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3640,7 +3238,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-403": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3648,7 +3245,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-404": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3656,7 +3252,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-405": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3664,7 +3259,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-406": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3672,7 +3266,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-407": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3680,7 +3273,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-408": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3688,7 +3280,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-409": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3696,7 +3287,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-410": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3704,7 +3294,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-411": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3712,7 +3301,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-412": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3720,7 +3308,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-413": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3728,7 +3315,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-414": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3736,7 +3322,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-415": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3744,7 +3329,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-416": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3752,7 +3336,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-417": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3760,7 +3343,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-418": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3768,7 +3350,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-419": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3776,7 +3357,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-420": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-SSDF-800-218",
         "GITHUB-ACTIONS-SHA"
@@ -3784,7 +3364,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-421": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3792,7 +3371,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-422": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3800,7 +3378,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-423": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3808,7 +3385,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-424": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3816,7 +3392,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-425": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3824,7 +3399,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-426": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3832,7 +3406,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-427": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3840,7 +3413,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-428": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3848,7 +3420,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-429": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3856,7 +3427,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-430": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3864,7 +3434,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-431": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3872,7 +3441,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-432": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ISO-25010-2023"
@@ -3880,91 +3448,78 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-433": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-434": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-435": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-436": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-437": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-438": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-439": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-440": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-441": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-442": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-443": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-444": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-445": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -3972,7 +3527,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-446": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -3980,7 +3534,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-447": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -3988,7 +3541,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-448": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -3996,7 +3548,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-449": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4004,7 +3555,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-450": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4012,7 +3562,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-451": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4020,7 +3569,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-452": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4028,7 +3576,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-453": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4036,7 +3583,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-454": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4044,7 +3590,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-455": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4052,7 +3597,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-456": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "IEEE-SWEBOK-4A",
         "ACM-IEEE-SE2014"
@@ -4060,7 +3604,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-457": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4069,7 +3612,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-458": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4078,7 +3620,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-459": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4087,7 +3628,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-460": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4096,7 +3636,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-461": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4105,7 +3644,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-462": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4114,7 +3652,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-463": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4123,7 +3660,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-464": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4132,7 +3668,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-465": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4141,7 +3676,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-466": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4150,7 +3684,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-467": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4159,7 +3692,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-468": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "NIST-AI-RMF",
         "NIST-AI-600-1",
@@ -4168,7 +3700,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-469": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4178,7 +3709,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-470": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4188,7 +3718,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-471": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4198,7 +3727,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-472": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4208,7 +3736,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-473": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4218,7 +3745,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-474": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4228,7 +3754,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-475": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4238,7 +3763,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-476": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4248,7 +3772,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-477": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4258,7 +3781,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-478": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4268,7 +3790,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-479": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",
@@ -4278,7 +3799,6 @@
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     },
     "SE-480": {
-      "status": "SEEDED_BASELINE",
       "source_ids": [
         "GITHUB-SPEC-KIT",
         "MCP-2026-07-28",

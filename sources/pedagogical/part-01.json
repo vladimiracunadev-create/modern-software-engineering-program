@@ -3,12 +3,10 @@
   "scope": "SE-013..SE-024",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-013",
       "title": "Arquitectura básica de un computador moderno",
-      "maturity": "PLANNED",
       "professional_point": "separar arquitectura física, ISA, sistema operativo y runtime antes de atribuir una propiedad a la máquina",
       "misconception": "confundir ‘64 bits’, núcleos, ISA y versión del sistema como una sola propiedad",
       "evidence": "machine-map.md con comandos, salidas, capas y dos conclusiones que los datos no permiten",
@@ -30,13 +28,11 @@
           "supports": " documenta `byteorder` y propiedades del runtime"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-014",
       "title": "Bits, bytes, bases numéricas y representación",
-      "maturity": "PLANNED",
       "professional_point": "interpretar un valor binario solo cuando se declaran base, ancho, signo y orden de bytes",
       "misconception": "creer que una secuencia de bytes posee signo y orden por sí misma",
       "evidence": "representations.md con valor↔bits↔bytes, round trips y un desbordamiento explicado",
@@ -58,13 +54,11 @@
           "supports": " documenta formatos binarios y byte order"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-015",
       "title": "Texto, Unicode, codificaciones y mojibake",
-      "maturity": "PLANNED",
       "professional_point": "distinguir carácter, punto de código, unidades de código, bytes y glifo al diagnosticar texto",
       "misconception": "tratar Unicode como una codificación única o suponer que toda corrupción es reversible",
       "evidence": "text-lab.md con code points, hex, normalización y un fallo de decodificación reproducible",
@@ -86,13 +80,11 @@
           "supports": " define las formas de normalización"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-016",
       "title": "Enteros, coma flotante, precisión y errores numéricos",
-      "maturity": "PLANNED",
       "professional_point": "evaluar precisión según representación, propagación del error y tolerancia ligada a la escala",
       "misconception": "esperar aritmética decimal exacta de coma flotante o elegir epsilon por costumbre",
       "evidence": "numeric-errors.md con predicción, error absoluto/relativo y contraejemplo inestable",
@@ -114,13 +106,11 @@
           "supports": " ofrece otro contrato IEEE 754 especificado"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-017",
       "title": "CPU, instrucciones, registros y ciclos de ejecución",
-      "maturity": "PLANNED",
       "professional_point": "explicar instrucciones como transiciones de estado sin confundir bytecode con ISA",
       "misconception": "leer la salida de dis como ensamblador o convertir bytecodes en ciclos de CPU",
       "evidence": "execution-trace.md con estados antes/después y la frontera VM↔ISA",
@@ -137,13 +127,11 @@
           "supports": " documenta bytecode específico de CPython y su carácter cambiante"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-018",
       "title": "Memoria, cachés, almacenamiento y jerarquías",
-      "maturity": "PLANNED",
       "professional_point": "elegir almacenamiento y acceso por localidad, latencia, capacidad y durabilidad",
       "misconception": "atribuir una segunda ejecución rápida a una caché concreta o equiparar write con persistencia",
       "evidence": "hierarchy.md con protocolo frío/caliente, muestras y dos hipótesis rivales",
@@ -165,13 +153,11 @@
           "supports": " documenta interfaces de archivo y `fsync`"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-019",
       "title": "Procesos, hilos, interrupciones y entrada/salida",
-      "maturity": "PLANNED",
       "professional_point": "atribuir concurrencia y espera a procesos, hilos, interrupciones e I/O según su mecanismo",
       "misconception": "inferir paralelismo de CPU porque dos hilos se solapan",
       "evidence": "concurrency-observation.md con cronología, tiempos de pared/CPU e hipótesis descartadas",
@@ -193,13 +179,11 @@
           "supports": " contextualiza interrupciones y niveles privilegiados"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-020",
       "title": "Compilación, interpretación, bytecode y JIT",
-      "maturity": "PLANNED",
       "professional_point": "seguir fuente, AST, bytecode, IR y ejecución para localizar la etapa que introduce un fallo",
       "misconception": "creer que interpretar excluye compilar o que JIT compila todo antes de iniciar",
       "evidence": "pipeline.md con representaciones, tres etapas de fallo y contraste con otra VM",
@@ -221,13 +205,11 @@
           "supports": " ofrece un formato de clase y VM especificados"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-021",
       "title": "Runtimes, máquinas virtuales y recolección de basura",
-      "maturity": "PLANNED",
       "professional_point": "razonar sobre carga, memoria y recolección separando especificación de estrategia del runtime",
       "misconception": "suponer que gc.collect devuelve memoria al sistema o que toda VM recolecta igual",
       "evidence": "runtime-memory.md con grafo de referencias, snapshots y recolección",
@@ -244,13 +226,11 @@
           "supports": " distingue contrato y algoritmo no prescrito"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-022",
       "title": "Rendimiento, consumo energético y límites físicos",
-      "maturity": "PLANNED",
       "professional_point": "formular afirmaciones de rendimiento y energía con unidad funcional, protocolo, variación y frontera",
       "misconception": "concluir que más rápido significa menor energía o comparar sin calentamiento",
       "evidence": "performance-report.md con datos crudos, dispersión, unidad funcional y afirmaciones permitidas",
@@ -267,13 +247,11 @@
           "supports": " define frontera, energía, hardware y unidad funcional"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-023",
       "title": "Taller: observar un programa desde el código hasta la máquina",
-      "maturity": "PLANNED",
       "professional_point": "integrar las capas del computador en una explicación causal que separe observación, inferencia e hipótesis",
       "misconception": "elegir una causa a partir de una sola métrica o presentar una captura como explicación",
       "evidence": "end-to-end-trace.md con mapa fuente→runtime→SO→máquina y vacíos explícitos",
@@ -295,13 +273,11 @@
           "supports": " delimitan lo que una ISA sí describe"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-024",
       "title": "Proyecto: informe reproducible de comportamiento y recursos",
-      "maturity": "PLANNED",
       "professional_point": "convertir observaciones en un informe reproducible que otra persona pueda repetir y disputar",
       "misconception": "confundir reproducibilidad con capturas o correlación con causalidad",
       "evidence": "protocolo, datos crudos, script, checksum, informe y resultados no validados",
@@ -323,8 +299,7 @@
           "supports": " delimita afirmaciones energéticas si el proyecto las considera"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

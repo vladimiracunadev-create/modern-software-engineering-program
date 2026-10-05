@@ -14,7 +14,7 @@ hermanos ni proporciona ejemplos, ejercicios, entornos y evidencias por clase.
 
 Adoptar ocho etapas, cuarenta partes y 480 clases. Cada parte tendrá diez clases
 nucleares, un taller y un proyecto. El manifiesto generated `curriculum.yaml` será
-validado en CI y todos sus contenidos comienzan como `PLANNED`.
+validado en CI y todos sus contenidos comienzan como borrador.
 
 Se preservan los documentos 00–16 existentes como línea base histórica hasta que una
 fase posterior migre su contenido. No se presentarán como las 480 clases nuevas.
@@ -30,7 +30,7 @@ fase posterior migre su contenido. No se presentarán como las 480 clases nuevas
 
 ## Consecuencias
 
-- La producción de contenido debe hacerse por incrementos y estados de madurez.
+- La producción de contenido debe hacerse por incrementos verificables, parte por parte.
 - Los conteos se generan; no se actualizan a mano.
 - La suite crece, pero mantiene fronteras estrictas con los repositorios propietarios.
 - La afirmación pública correcta durante esta fase es “480 clases especificadas”, no

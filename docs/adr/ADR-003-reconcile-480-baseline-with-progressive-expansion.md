@@ -7,8 +7,8 @@
 ## Contexto
 
 El programa ya tiene una arquitectura pública de 40 partes y 480 identificadores
-consecutivos. Doce clases superaron el gate `GUIDED`; las demás conservan estados
-honestos de borrador o scaffold. Un mandato posterior amplía la cobertura esperada y
+consecutivos. Doce clases tienen contenido desarrollado; las demás conservan borradores
+o estructura curricular. Un mandato posterior amplía la cobertura esperada y
 propone aproximarse a 500 clases, pero también prohíbe reconstruir, renumerar, inflar
 conteos o confundir archivos generados con aprendizaje desarrollado.
 
@@ -67,14 +67,14 @@ que no caben sin perder coherencia.
 ## Consecuencias
 
 - Los conteos actuales siguen siendo 40 partes y 480 clases.
-- El objetivo público debe distinguir arquitectura, borrador y madurez pedagógica.
+- El objetivo público debe distinguir arquitectura, borradores y contenido desarrollado.
 - La expansión futura será aditiva y trazable.
 - La matriz de brechas pasa a ser entrada obligatoria de cada incremento curricular.
 
 ## Criterios de aceptación
 
 - no se elimina ni renumera contenido existente;
-- la nueva misión queda en el prompt maestro y en el roadmap;
+- la definición del programa y su expansión queda en el roadmap;
 - existe una matriz `Área | Estado | Archivos existentes | Profundidad | Brechas | Acción`;
 - validadores y enlaces impiden que estos documentos queden huérfanos;
-- ninguna clase cambia de madurez como efecto de esta decisión.
+- ninguna clase se presenta como desarrollada solo por efecto de esta decisión.

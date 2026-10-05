@@ -32,11 +32,12 @@ técnica y pedagógica clase por clase.
 - los ejemplos y prácticas requieren ejecución o revisión humana por tecnología;
 - las fuentes están asignadas por parte, pero todavía no respaldan cada afirmación
   mediante citas de proximidad;
-- no existe evidencia de laboratorio suficiente para elevar clases a `EXECUTABLE`.
+- no existe evidencia de laboratorio suficiente para afirmar que las prácticas se
+  ejecutaron de forma reproducible.
 
 ## Gate pendiente
 
-Cada clase permanece `PLANNED` hasta demostrar cobertura específica de todos sus
+Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus
 temas, ejemplos no intercambiables, práctica reproducible, fuentes ligadas a
 afirmaciones y revisión cualitativa contra
 [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md). La fase no se contabiliza

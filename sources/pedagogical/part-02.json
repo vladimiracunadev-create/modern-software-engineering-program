@@ -3,12 +3,10 @@
   "scope": "SE-025..SE-036",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-025",
       "title": "Windows, Linux, macOS y sus modelos operativos",
-      "maturity": "PLANNED",
       "professional_point": "comparar Windows, Linux y macOS por contratos observables y no por estereotipos",
       "misconception": "suponer que una orden o ruta portable conserva idéntica semántica",
       "evidence": "os-contracts.md con la misma operación, resultado, diferencia y decisión por plataforma",
@@ -35,13 +33,11 @@
           "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-026",
       "title": "Sistemas de archivos, rutas, enlaces y metadatos",
-      "maturity": "PLANNED",
       "professional_point": "razonar sobre identidad de archivos mediante rutas, enlaces, metadatos y resolución",
       "misconception": "equiparar nombre de ruta con identidad o tratar symlink como copia",
       "evidence": "filesystem-fixture.md con árbol temporal, enlaces, permisos y resolución paso a paso",
@@ -63,13 +59,11 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-027",
       "title": "Usuarios, grupos, permisos y elevación de privilegios",
-      "maturity": "PLANNED",
       "professional_point": "explicar autorización como evaluación de identidad, pertenencia, ACL y elevación",
       "misconception": "creer que ser propietario implica acceso efectivo o que elevar corrige diseño de permisos",
       "evidence": "access-matrix.md con sujeto, objeto, regla, resultado y recuperación",
@@ -96,13 +90,11 @@
           "supports": "delimita el contrato técnico que debe cumplirse al explicar autorización como evaluación de identidad, pertenencia, ACL y elevación"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-028",
       "title": "Procesos, señales, servicios y tareas programadas",
-      "maturity": "PLANNED",
       "professional_point": "modelar ciclo de vida, señales, supervisión y reinicio de procesos y servicios",
       "misconception": "tratar proceso, daemon, servicio y tarea programada como sinónimos",
       "evidence": "lifecycle.md con estados, señal, código de salida, política de reinicio y fallo controlado",
@@ -124,13 +116,11 @@
           "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-029",
       "title": "Terminales, shells y composición de comandos",
-      "maturity": "PLANNED",
       "professional_point": "predecir cómo el shell analiza texto, expande argumentos y conecta flujos",
       "misconception": "pensar que una tubería pasa objetos en todos los shells o que citar es decorativo",
       "evidence": "shell-trace.md con tokens, stdin/stdout/stderr, quoting y resultado en dos shells",
@@ -152,13 +142,11 @@
           "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-030",
       "title": "PowerShell, Bash y portabilidad de scripts",
-      "maturity": "PLANNED",
       "professional_point": "preservar intención al portar scripts entre PowerShell y Bash",
       "misconception": "traducir sintaxis línea por línea ignorando tipos, errores y códigos de salida",
       "evidence": "paired-scripts.md con contrato común, casos límite y tabla de divergencias",
@@ -180,13 +168,11 @@
           "supports": "define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-031",
       "title": "Variables de entorno, configuración y secretos",
-      "maturity": "PLANNED",
       "professional_point": "diseñar precedencia de configuración y tratamiento de secretos con frontera explícita",
       "misconception": "guardar secretos en variables o archivos sin considerar herencia, logs y repositorio",
       "evidence": "configuration-map.md con fuentes, precedencia, redacción y rotación simulada",
@@ -208,13 +194,11 @@
           "supports": "delimita el contrato técnico que debe cumplirse al diseñar precedencia de configuración y tratamiento de secretos con frontera explícita"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-032",
       "title": "Instalación de software y gestores de paquetes del sistema",
-      "maturity": "PLANNED",
       "professional_point": "distinguir paquetes del sistema, del lenguaje y artefactos descargados por procedencia y alcance",
       "misconception": "mezclar gestores o ejecutar instalaciones sin plan de reversión",
       "evidence": "software-inventory.md con origen, versión, checksum o firma, alcance y rollback",
@@ -241,13 +225,11 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-033",
       "title": "Logs del sistema y diagnóstico de fallos",
-      "maturity": "PLANNED",
       "professional_point": "usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad",
       "misconception": "buscar una cadena y declarar causa sin línea temporal ni evidencia rival",
       "evidence": "incident-timeline.md con evento, fuente, reloj, hipótesis y dato ausente",
@@ -274,13 +256,11 @@
           "supports": "delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-034",
       "title": "Virtualización, WSL y aislamiento local",
-      "maturity": "PLANNED",
       "professional_point": "distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan",
       "misconception": "tratar contenedor como máquina virtual o aislamiento como seguridad absoluta",
       "evidence": "isolation-matrix.md con kernel, filesystem, red, recursos y ruptura simulada",
@@ -307,13 +287,11 @@
           "supports": "delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-035",
       "title": "Taller: preparar y reparar un entorno reproducible",
-      "maturity": "PLANNED",
       "professional_point": "preparar, romper, diagnosticar y restaurar un entorno desde un runbook verificable",
       "misconception": "resolver el síntoma cambiando varias variables sin conservar una reproducción",
       "evidence": "runbook.md con estado inicial, fallo, hipótesis, reparación, rollback y repetición limpia",
@@ -340,13 +318,11 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-036",
       "title": "Proyecto: kit de diagnóstico multiplataforma",
-      "maturity": "PLANNED",
       "professional_point": "entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente",
       "misconception": "coleccionar datos sin pregunta diagnóstica o exponer secretos en el reporte",
       "evidence": "kit ejecutable, fixtures, salidas redactadas y comparación en dos plataformas",
@@ -378,8 +354,7 @@
           "supports": "delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

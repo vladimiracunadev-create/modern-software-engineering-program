@@ -1,25 +1,18 @@
 {
   "program": "modern-software-engineering-program",
   "baseline_date": "2026-09-30",
-  "status": "PHASE_3_AND_4_REBUILDING",
   "stages": 8,
   "parts": 40,
   "classes": 480,
   "estimated_hours": 2160,
-  "class_status": {
-    "GUIDED": 12,
-    "PLANNED": 468
-  },
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",
-    "classes": 180,
-    "approved": 12
+    "classes": 180
   },
   "phase_4_target": {
     "first_class": "SE-181",
     "last_class": "SE-360",
-    "classes": 180,
-    "approved": 0
+    "classes": 180
   }
 }

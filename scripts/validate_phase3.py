@@ -43,16 +43,14 @@ def main() -> int:
     program = json.loads((ROOT / "curriculum.yaml").read_text(encoding="utf-8"))
     source_catalog = json.loads((ROOT / "sources/phase3.json").read_text(encoding="utf-8"))
     source_ids = {source["id"] for source in source_catalog["sources"]}
-    statuses = Counter()
     hashes = set()
     failures: list[str] = []
     draft_count = 0
     generic_count = 0
-    approval_section_counts = Counter()
+    section_counts = Counter()
 
     for part in program["parts"]:
         for lesson in part["lessons"]:
-            statuses[lesson["status"]] += 1
             directory = ROOT / lesson["path"]
             if lesson["number"] > 180:
                 continue
@@ -66,16 +64,9 @@ def main() -> int:
             if not all(path.is_file() for path in (readme, activity_path, rubric_path)):
                 continue
             text = readme.read_text(encoding="utf-8")
-            expected_marker = (
-                "Estado: **GUIDED**"
-                if lesson["status"] == "GUIDED"
-                else "Estado: **PLANNED**"
-                if lesson["number"] <= 120
-                else "Estado: **PLANNED · BORRADOR EN REVISIÓN**"
-            )
-            if expected_marker not in text or "Pendiente de desarrollar" in text:
-                failures.append(f"invalid maturity content: {lesson['id']}")
-            if lesson["status"] == "GUIDED":
+            if "Pendiente de desarrollar" in text:
+                failures.append(f"unfinished generated content: {lesson['id']}")
+            if lesson["number"] <= 12:
                 for marker in (
                     "## Antes de empezar",
                     "## Errores comunes y cómo corregirlos",
@@ -123,7 +114,7 @@ def main() -> int:
                 generic_count += 1
             for section in APPROVAL_SECTIONS:
                 if section in text:
-                    approval_section_counts[section] += 1
+                    section_counts[section] += 1
             digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
             if digest in hashes:
                 failures.append(f"duplicate class document: {lesson['id']}")
@@ -131,7 +122,7 @@ def main() -> int:
 
             activity = json.loads(activity_path.read_text(encoding="utf-8"))
             rubric = json.loads(rubric_path.read_text(encoding="utf-8"))
-            if activity.get("class_id") != lesson["id"] or activity.get("status") != lesson["status"]:
+            if activity.get("class_id") != lesson["id"] or "status" in activity:
                 failures.append(f"activity contract drift: {lesson['id']}")
             if not set(activity.get("source_ids", [])).issubset(source_ids):
                 failures.append(f"unresolved phase 3 source: {lesson['id']}")
@@ -140,8 +131,6 @@ def main() -> int:
             if sum(item.get("max", 0) for item in rubric.get("criteria", [])) != rubric.get("maximum_score"):
                 failures.append(f"rubric score drift: {lesson['id']}")
 
-    if statuses != Counter({"GUIDED": 12, "PLANNED": 468}):
-        failures.append(f"unexpected maturity counts: {dict(statuses)}")
     if draft_count != 180 or len(hashes) != 180:
         failures.append(f"expected 180 unique phase 3 drafts, found {draft_count}/{len(hashes)}")
 
@@ -152,20 +141,18 @@ def main() -> int:
             continue
         pedagogical_audit = json.loads(audit_path.read_text(encoding="utf-8"))
         audited_classes = pedagogical_audit.get("classes", [])
-        if pedagogical_audit.get("status") != "under_qualitative_audit":
-            failures.append(f"invalid pedagogical status: part-{part_number:02d}")
-        if any(item.get("approval") != "not_granted" for item in audited_classes):
-            failures.append(f"invalid pedagogical approval: part-{part_number:02d}")
+        if any("maturity" in item or "approval" in item for item in audited_classes):
+            failures.append(f"class state leaked into pedagogical audit: part-{part_number:02d}")
         if len(audited_classes) != 12:
             failures.append(f"invalid pedagogical class count: part-{part_number:02d}")
 
     audit = (ROOT / "docs/PHASE3-CONTENT-AUDIT.md").read_text(encoding="utf-8")
     audit_claims = {
         "borradores que repiten el mismo párrafo genérico": generic_count,
-        "clases con sección `Definiciones de trabajo`": approval_section_counts["## Definiciones de trabajo"],
-        "clases con sección `Glosario`": approval_section_counts["## Glosario"],
-        "clases con sección `Preguntas frecuentes`": approval_section_counts["## Preguntas frecuentes"],
-        "clases con sección `Reto verificable`": approval_section_counts["## Reto verificable"],
+        "clases con sección `Definiciones de trabajo`": section_counts["## Definiciones de trabajo"],
+        "clases con sección `Glosario`": section_counts["## Glosario"],
+        "clases con sección `Preguntas frecuentes`": section_counts["## Preguntas frecuentes"],
+        "clases con sección `Reto verificable`": section_counts["## Reto verificable"],
     }
     for label, count in audit_claims.items():
         if f"| {label} | {count} |" not in audit:
@@ -174,8 +161,8 @@ def main() -> int:
         print("\n".join(failures[:80]), file=sys.stderr)
         return 1
     print(
-        "PHASE3_STRUCTURE_OK: 168 drafts, "
-        f"{generic_count} still generic, 12 approved, 360 contracts"
+        "PHASE3_STRUCTURE_OK: 180 documents, "
+        f"{generic_count} still generic, 360 contracts"
     )
     return 0
 

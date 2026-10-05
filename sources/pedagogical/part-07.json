@@ -3,12 +3,10 @@
   "scope": "SE-085..SE-096",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-085",
       "title": "Arreglos, listas y secuencias",
-      "maturity": "PLANNED",
       "professional_point": "elegir secuencias por acceso, inserción, localidad y representación",
       "misconception": "tratar lista y arreglo como nombres intercambiables",
       "evidence": "sequence-bench.md con operaciones, tamaños, modelo de costo y medición",
@@ -30,13 +28,11 @@
           "supports": "Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-086",
       "title": "Pilas, colas, deques y prioridades",
-      "maturity": "PLANNED",
       "professional_point": "usar pila, cola, deque o prioridad según la disciplina de extracción requerida",
       "misconception": "elegir por API disponible sin preservar orden e igualdad de prioridad",
       "evidence": "queue-model.md con operaciones, invariante, empate y caso vacío",
@@ -58,13 +54,11 @@
           "supports": "Semántica de secuencias, conjuntos, mappings, igualdad y hash; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-087",
       "title": "Tablas hash, mapas y conjuntos",
-      "maturity": "PLANNED",
       "professional_point": "diseñar tablas hash, mapas y conjuntos con igualdad, hash, colisiones y mutabilidad coherentes",
       "misconception": "suponer acceso O(1) incondicional o usar claves mutables",
       "evidence": "hash-contract.md con igualdad/hash, colisión y degradación observada",
@@ -86,13 +80,11 @@
           "supports": "Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-088",
       "title": "Árboles, tries y estructuras jerárquicas",
-      "maturity": "PLANNED",
       "professional_point": "modelar jerarquías y prefijos con árboles o tries justificando recorrido y balance",
       "misconception": "elegir árbol porque el dominio ‘parece jerárquico’",
       "evidence": "tree-invariants.md con inserción, recorrido, altura y árbol degenerado",
@@ -114,13 +106,11 @@
           "supports": "Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-089",
       "title": "Grafos y recorridos",
-      "maturity": "PLANNED",
       "professional_point": "representar relaciones como grafos y elegir recorrido por la pregunta que se responde",
       "misconception": "usar BFS o DFS por costumbre sin definir visitados y dirección",
       "evidence": "graph-trace.md con frontera, visitados, camino y ciclo",
@@ -142,13 +132,11 @@
           "supports": "Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-090",
       "title": "Búsqueda, ordenamiento y selección",
-      "maturity": "PLANNED",
       "professional_point": "seleccionar búsqueda, ordenamiento y selección por precondiciones y estabilidad",
       "misconception": "comparar solo tiempo final o ignorar que los datos ya están ordenados",
       "evidence": "algorithm-comparison.md con entradas, comparaciones, estabilidad y umbral",
@@ -170,13 +158,11 @@
           "supports": "Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-091",
       "title": "Algoritmos voraces y programación dinámica",
-      "maturity": "PLANNED",
       "professional_point": "distinguir elección voraz de subproblemas solapados y justificar optimalidad",
       "misconception": "llamar dinámica a cualquier caché o asumir que una elección local es globalmente óptima",
       "evidence": "strategy-proof.md con recurrencia, propiedad voraz y contraejemplo",
@@ -198,13 +184,11 @@
           "supports": "Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-092",
       "title": "Backtracking, divide y vencerás",
-      "maturity": "PLANNED",
       "professional_point": "usar backtracking o divide y vencerás con espacio de búsqueda, poda y combinación explícitos",
       "misconception": "confundir recursión con estrategia o podar sin preservar soluciones",
       "evidence": "search-tree.md con ramas, poda válida, recurrencia y peor caso",
@@ -226,13 +210,11 @@
           "supports": "Timeit, cprofile y tracemalloc con sus límites; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-093",
       "title": "Índices, probabilísticas y estructuras persistentes",
-      "maturity": "PLANNED",
       "professional_point": "evaluar índices, estructuras probabilísticas y persistentes por errores permitidos y patrones de actualización",
       "misconception": "tratar falsos positivos o structural sharing como detalles gratuitos",
       "evidence": "advanced-structures.md con contrato, tasa de error o sharing y carga adversa",
@@ -254,13 +236,11 @@
           "supports": "Inducción, grafos, conteo y razonamiento discreto; autoridad: MIT OpenCourseWare"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-094",
       "title": "Complejidad empírica, benchmarks y perfiles",
-      "maturity": "PLANNED",
       "professional_point": "confrontar el modelo de complejidad con mediciones reproducibles y perfiles",
       "misconception": "optimizar la función más lenta de una muestra sin evaluar representatividad",
       "evidence": "benchmark-report.md con warm-up, muestras, perfil, hipótesis y regresión",
@@ -282,13 +262,11 @@
           "supports": "Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-095",
       "title": "Taller: elegir por carga y no por costumbre",
-      "maturity": "PLANNED",
       "professional_point": "elegir estructura y algoritmo por distribución de carga, no por familiaridad",
       "misconception": "usar promedios que ocultan colas largas o casos adversos",
       "evidence": "decision-evidence.md con workload, candidatos, percentiles y decisión reversible",
@@ -310,13 +288,11 @@
           "supports": "Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-096",
       "title": "Proyecto: biblioteca comparada con casos límite",
-      "maturity": "PLANNED",
       "professional_point": "entregar una biblioteca con contratos, casos límite y comparaciones de costo",
       "misconception": "considerar correcta una API porque sus ejemplos pasan",
       "evidence": "biblioteca, pruebas de propiedades, benchmarks, documentación y límites",
@@ -343,8 +319,7 @@
           "supports": "Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

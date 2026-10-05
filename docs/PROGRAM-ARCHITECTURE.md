@@ -14,17 +14,17 @@ decisión, práctica o evidencia reutilizable en un producto.
 `curriculum.yaml` es la vista generada del programa y `catalog.json` publica sus
 conteos actuales. La fuente editable está en `scripts/build_program_blueprint.py`.
 
-| Elemento | Cantidad | Estado en fase 1 |
+| Elemento | Cantidad | Evidencia disponible |
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | 12 `GUIDED`; 348 borradores públicos de fases 3–4; 120 scaffolds |
+| Clases | 480 | 12 desarrolladas; 348 borradores públicos; 120 estructuras curriculares |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 
-Las cifras no significan que las clases estén escritas. Una clase solo podrá pasar
-de `PLANNED` a `GUIDED`, `EXECUTABLE`, `TESTED`, `INTEGRATED` u `OPERABLE` cuando
-exista la evidencia correspondiente.
+Las cifras no significan que las clases estén escritas. Las afirmaciones sobre una
+clase —contenido desarrollado, práctica ejecutada, pruebas realizadas, integración u
+operación— solo se publican cuando existe la evidencia correspondiente.
 
 La dirección de crecimiento es aproximadamente 500 clases, pero 480 continúa siendo
 la línea base canónica. No se agregan clases para cumplir una cuota: la expansión solo
@@ -102,19 +102,20 @@ Cuando exista código, la carpeta de clase podrá incorporar `starter/`, `soluti
 `examples/`, `exercises/`, `tests/`, `fixtures/` y `evidence/`. Una clase conceptual
 debe aportar una actividad verificable en lugar de código artificial.
 
-## Estados de madurez
+## Evidencia por tipo de afirmación
 
-| Estado | Evidencia mínima |
-| --- | --- |
-| `PLANNED` | título, ubicación y propósito aprobados |
-| `GUIDED` | explicación, práctica, ejercicios y fuentes completas |
-| `EXECUTABLE` | ejemplos o laboratorio reproducibles |
-| `TESTED` | comprobaciones automáticas o rúbrica aplicada |
-| `INTEGRATED` | participa en un producto transversal |
-| `OPERABLE` | incluye telemetría, recuperación y runbook cuando aplica |
+- **Contenido desarrollado:** explicación completa, práctica, ejercicios, fuentes y
+  revisión cualitativa de todos los temas anunciados.
+- **Práctica ejecutada:** entorno y versiones identificados, comando o procedimiento,
+  resultado observado, limpieza y recuperación.
+- **Comportamiento probado:** comprobaciones automáticas o rúbrica aplicada con sus
+  resultados conservados.
+- **Integración demostrada:** el artefacto participa en el producto transversal y se
+  verifican sus contratos con los componentes vecinos.
+- **Operación demostrada:** telemetría, recuperación y runbook ensayados cuando el
+  sistema o proyecto lo requiere.
 
-Los estados son acumulativos. No toda clase necesita llegar a `OPERABLE`, pero los
-proyectos finales y los sistemas con estado sí.
+Estas expresiones describen evidencia, no forman una escala ni una etiqueta por clase.
 
 ## Entornos soportados
 

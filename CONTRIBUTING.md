@@ -12,7 +12,7 @@
 10. Ejecuta `python scripts/validate_repository.py --strict` y las pruebas.
 11. Revisa seguridad, accesibilidad, licencias y continuidad.
 
-Una clase solo cambia a `GUIDED` después de revisar su explicación completa,
+Una clase solo se presenta como desarrollada después de revisar su explicación completa,
 temario, ejemplos, glosario, práctica, reto, errores, FAQ y fuentes. La presencia
 de secciones o un conteo de palabras no autoriza el cambio de madurez.
 

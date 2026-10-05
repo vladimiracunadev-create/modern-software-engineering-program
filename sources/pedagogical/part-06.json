@@ -3,12 +3,10 @@
   "scope": "SE-073..SE-084",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
-  "status": "under_qualitative_audit",
   "classes": [
     {
       "class_id": "SE-073",
       "title": "Programación imperativa y estado mutable",
-      "maturity": "PLANNED",
       "professional_point": "usar estado mutable con propietario, vida útil e invariantes visibles",
       "misconception": "suponer que asignación local evita aliasing o estados intermedios",
       "evidence": "state-transitions.md con traza, alias, invariante y retorno temprano defectuoso",
@@ -30,13 +28,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-074",
       "title": "Programación procedural y descomposición funcional",
-      "maturity": "PLANNED",
       "professional_point": "descomponer procedimientos por contratos y efectos, no solo por longitud",
       "misconception": "extraer funciones que comparten estado implícito y llamar a eso modularidad",
       "evidence": "procedure-contracts.md con entradas, salidas, efectos y orden permitido",
@@ -53,13 +49,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-075",
       "title": "Orientación a objetos, mensajes y encapsulación",
-      "maturity": "PLANNED",
       "professional_point": "diseñar objetos por responsabilidades, mensajes e invariantes encapsuladas",
       "misconception": "usar clases como contenedores de datos o herencia como reutilización automática",
       "evidence": "object-protocol.md con mensajes, estados válidos y sustitución fallida",
@@ -81,13 +75,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-076",
       "title": "Programación funcional, composición e inmutabilidad",
-      "maturity": "PLANNED",
       "professional_point": "razonar con composición, valores inmutables y efectos localizados",
       "misconception": "llamar funcional a cualquier uso de map o lambda",
       "evidence": "composition.md con función pura, efecto aislado y contraste mutable",
@@ -109,13 +101,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-077",
       "title": "Programación declarativa y basada en reglas",
-      "maturity": "PLANNED",
       "professional_point": "expresar el qué mediante relaciones o restricciones y reconocer el motor que decide el cómo",
       "misconception": "confundir declarativo con ausencia de orden o costo",
       "evidence": "declarative-model.md con regla, consulta, plan observado y contraejemplo",
@@ -132,13 +122,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-078",
       "title": "Programación lógica y resolución",
-      "maturity": "PLANNED",
       "professional_point": "explicar unificación, búsqueda y backtracking como mecanismo operacional de la lógica",
       "misconception": "leer Prolog como ejecución exhaustiva sin depender de orden",
       "evidence": "resolution-trace.md con sustituciones, árbol de búsqueda y corte problemático",
@@ -155,13 +143,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-079",
       "title": "Programación orientada a eventos",
-      "maturity": "PLANNED",
       "professional_point": "modelar eventos por fuente, orden, identidad, handler y efecto",
       "misconception": "suponer que un callback implica secuencia global o entrega única",
       "evidence": "event-timeline.md con emisión, handler, reentrada y duplicado",
@@ -183,13 +169,11 @@
           "supports": "Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-080",
       "title": "Programación reactiva y flujos",
-      "maturity": "PLANNED",
       "professional_point": "diseñar flujos reactivos por contrato de notificación, terminación, error y presión",
       "misconception": "tratar stream como lista diferida o ignorar consumidores lentos",
       "evidence": "stream-contract.md con next/error/complete, cancelación y backpressure",
@@ -206,13 +190,11 @@
           "supports": "Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-081",
       "title": "Programación concurrente y actores",
-      "maturity": "PLANNED",
       "professional_point": "comparar memoria compartida y actores por aislamiento, buzones, fallos y supervisión",
       "misconception": "creer que mensajes eliminan carreras o garantizan entrega",
       "evidence": "actor-failure.md con mailbox, orden, monitor, reinicio y mensaje duplicado",
@@ -234,13 +216,11 @@
           "supports": "Semántica de sentencias, funciones, clases, generadores y corrutinas; autoridad: Python Software Foundation"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-082",
       "title": "Selección y combinación responsable de paradigmas",
-      "maturity": "PLANNED",
       "professional_point": "seleccionar y combinar paradigmas por fuerzas del problema y costo de adaptación",
       "misconception": "elegir paradigma por moda o forzar uno sobre todas las capas",
       "evidence": "decision-record.md con alternativas, fuerzas, adaptadores y pérdida aceptada",
@@ -262,13 +242,11 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-083",
       "title": "Taller: una regla de negocio en cinco paradigmas",
-      "maturity": "PLANNED",
       "professional_point": "comparar cinco paradigmas sobre la misma regla y los mismos casos",
       "misconception": "cambiar los fixtures para favorecer cada implementación",
       "evidence": "cinco implementaciones o modelos, contrato común, fixtures y tabla semántica",
@@ -300,13 +278,11 @@
           "supports": "Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     },
     {
       "class_id": "SE-084",
       "title": "Proyecto: comparación semántica con pruebas comunes",
-      "maturity": "PLANNED",
       "professional_point": "demostrar qué semántica se conserva y cuál cambia mediante pruebas comunes",
       "misconception": "concluir equivalencia por resultados felices o cantidad de líneas",
       "evidence": "suite común, matriz de diferencias, fallos y costo de cambio medido",
@@ -343,8 +319,7 @@
           "supports": "Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society"
         }
       ],
-      "reviewed_on": "2026-10-03",
-      "approval": "not_granted"
+      "reviewed_on": "2026-10-03"
     }
   ]
 }

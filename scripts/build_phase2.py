@@ -5,7 +5,6 @@ import html
 import json
 import re
 import sys
-from collections import Counter
 from pathlib import Path
 
 
@@ -159,7 +158,8 @@ def class_scaffold(
 {navigation}
 
 > [!WARNING]
-> Estado: **PLANNED**. Este archivo es un scaffold de fase 2, no una clase terminada.
+> Este archivo define la ubicación y el contrato de la clase, pero su contenido
+> pedagógico todavía no ha sido desarrollado.
 
 ## Prerrequisitos
 
@@ -243,7 +243,6 @@ def class_metadata(part: dict, lesson: dict, source_ids: list[str]) -> dict:
         "kind": lesson["kind"],
         "owner": part["owner"],
         "estimated_hours": lesson["estimated_hours"],
-        "status": lesson["status"],
         "source_ids": source_ids,
         "path": lesson["path"],
     }
@@ -256,18 +255,15 @@ def part_index(part: dict) -> str:
         rows.append(
             f"| {lesson['id']} | [{lesson['title']}]({folder}/README.md) · "
             f"[🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/{lesson['id']}.html) | "
-            f"{lesson['kind']} | {lesson['estimated_hours']} | {lesson['status']} |"
+            f"{lesson['kind']} | {lesson['estimated_hours']} |"
         )
-    statuses = Counter(lesson["status"] for lesson in part["lessons"])
-    status_text = ", ".join(f"{count} `{status}`" for status, count in sorted(statuses.items()))
     return f"""# Parte {part['id']} — {part['title']}
 
 - **Etapa:** {part['stage']} · {part['stage_title']}
 - **Dominio técnico principal:** `{part['owner']}`
-- **Estado:** {status_text}.
 
-| ID | Clase | Tipo | Horas | Estado |
-| --- | --- | --- | ---: | --- |
+| ID | Clase | Tipo | Horas |
+| --- | --- | --- | ---: |
 {chr(10).join(rows)}
 
 [Volver al índice de clases](../README.md)
@@ -288,34 +284,22 @@ def classes_index(program: dict) -> str:
         lesson_links = []
         for lesson in part["lessons"]:
             lesson_folder = Path(lesson["path"]).name
-            if lesson["status"] == "GUIDED":
-                scope = "clase guiada y revisada"
-            elif lesson["number"] <= 360:
-                scope = "borrador no aprobado"
-            else:
-                scope = "scaffold planificado"
             lesson_links.append(
                 f"- [{lesson['id']} — {lesson['title']}]({part_folder}/{lesson_folder}/README.md) "
-                f"· [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/{lesson['id']}.html) "
-                f"· `{scope}`"
+                f"· [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/{lesson['id']}.html)"
             )
         flat_sections.append(
             f"## [Parte {part['id']} — {part['title']}]({part_folder}/README.md)\n\n"
             + "\n".join(lesson_links)
         )
-    statuses = Counter(
-        lesson["status"] for part in program["parts"] for lesson in part["lessons"]
-    )
-    status_text = " · ".join(f"{count} `{status}`" for status, count in sorted(statuses.items()))
     return f"""# Índice completo del currículo
 
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Estado verificable: {status_text}. Fases 3 y 4 comprenden `SE-001`–`SE-360`.
-> Solo las entradas marcadas `GUIDED` han superado el gate; las demás siguen como
-> **borradores no aprobados**.
-> `SE-361`–`SE-480` permanecen como scaffolds. Cada enlace declara su estado.
+> La Parte 00 contiene material desarrollado. Las partes 01–29 publican borradores
+> para revisión y las partes 30–39 conservan la estructura pendiente de desarrollo.
+> Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
@@ -349,11 +333,10 @@ def source_registry(program: dict, baseline: dict) -> dict:
             raise ValueError(f"Unknown sources for part {part['id']}: {sorted(unresolved)}")
         for lesson in part["lessons"]:
             entries[lesson["id"]] = {
-                "status": "GUIDED_BASELINE" if lesson["status"] == "GUIDED" else "SEEDED_BASELINE",
                 "source_ids": source_ids,
                 "note": (
                     "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
-                    if lesson["status"] == "GUIDED"
+                    if lesson["number"] <= 12
                     else "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
                 ),
             }
@@ -366,13 +349,8 @@ def source_registry(program: dict, baseline: dict) -> dict:
 
 
 def status_document(program: dict) -> str:
-    statuses = Counter(
-        lesson["status"] for part in program["parts"] for lesson in part["lessons"]
-    )
-    guided = statuses.get("GUIDED", 0)
-    planned = statuses.get("PLANNED", 0)
-    phase3 = program.get("phase_3_target", {"classes": 0, "approved": 0})
-    phase4 = program.get("phase_4_target", {"classes": 0, "approved": 0})
+    phase3 = program.get("phase_3_target", {"classes": 0})
+    phase4 = program.get("phase_4_target", {"classes": 0})
     return f"""# Estado verificable
 
 Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
@@ -382,9 +360,12 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 en reconstrucción cualitativa |
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
-| Clases | {guided} `GUIDED`; {planned} `PLANNED` |
-| Objetivo de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`); {phase3['approved']} aprobadas contra el estándar profundo |
-| Objetivo de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`); {phase4['approved']} aprobadas contra el estándar profundo |
+| Clases | {program['class_count']} posiciones curriculares consecutivas |
+| Contenido desarrollado | Parte 00 (`SE-001`–`SE-012`) |
+| Borradores publicados | Partes 01–29 (`SE-013`–`SE-360`) |
+| Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
+| Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
+| Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
 | Horas | {program['estimated_hours']:,} estimadas; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
@@ -394,9 +375,9 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 
 ## Significado
 
-Las fases 3 y 4 están abiertas contra el estándar permanente de los programas
-educativos. Los borradores generados no equivalen a clases construidas.
-Una clase solo avanzará a `GUIDED` tras revisión cualitativa completa, clase por clase.
+La estructura generada no demuestra profundidad educativa. El contenido se incorpora
+parte por parte y se contrasta cualitativamente contra el estándar pedagógico antes
+de presentarlo como material terminado.
 
 La auditoría reproducible de las carencias actuales está documentada en
 [`docs/PHASE3-CONTENT-AUDIT.md`](docs/PHASE3-CONTENT-AUDIT.md).
@@ -449,19 +430,10 @@ html,body{max-width:100%;overflow-x:hidden}.lesson,.lesson-hero,.lesson-context,
 
 
 def site_js() -> str:
-    return """const grid=document.querySelector('#class-grid');const result=document.querySelector('#result');const search=document.querySelector('#search');const stage=document.querySelector('#stage');let classes=[];function render(){if(!grid)return;const q=(search.value||'').toLocaleLowerCase('es');const s=stage.value;const visible=classes.filter(item=>(!s||item.stage===s)&&(!q||`${item.id} ${item.title} ${item.part_title}`.toLocaleLowerCase('es').includes(q)));grid.replaceChildren(...visible.map(item=>{const article=document.createElement('article');article.className='class-card';const meta=document.createElement('div');meta.className='meta';meta.textContent=`${item.id} · Parte ${item.part} · ${item.hours} h`;const title=document.createElement('h3');const link=document.createElement('a');link.href=item.url;link.textContent=item.title;title.append(link);const badge=document.createElement('span');badge.className=`badge badge-${item.status.toLocaleLowerCase('es')}`;badge.textContent=item.status;article.append(meta,title,badge);return article;}));result.textContent=`${visible.length} clases visibles de ${classes.length}.`;}if(grid){fetch('assets/catalog.json').then(r=>{if(!r.ok)throw new Error('No se pudo cargar el catálogo');return r.json();}).then(data=>{classes=data.classes;render();}).catch(error=>{result.textContent=error.message;});search.addEventListener('input',render);stage.addEventListener('change',render);}\n"""
+    return """const grid=document.querySelector('#class-grid');const result=document.querySelector('#result');const search=document.querySelector('#search');const stage=document.querySelector('#stage');let classes=[];function render(){if(!grid)return;const q=(search.value||'').toLocaleLowerCase('es');const s=stage.value;const visible=classes.filter(item=>(!s||item.stage===s)&&(!q||`${item.id} ${item.title} ${item.part_title}`.toLocaleLowerCase('es').includes(q)));grid.replaceChildren(...visible.map(item=>{const article=document.createElement('article');article.className='class-card';const meta=document.createElement('div');meta.className='meta';meta.textContent=`${item.id} · Parte ${item.part} · ${item.hours} h`;const title=document.createElement('h3');const link=document.createElement('a');link.href=item.url;link.textContent=item.title;title.append(link);article.append(meta,title);return article;}));result.textContent=`${visible.length} clases visibles de ${classes.length}.`;}if(grid){fetch('assets/catalog.json').then(r=>{if(!r.ok)throw new Error('No se pudo cargar el catálogo');return r.json();}).then(data=>{classes=data.classes;render();}).catch(error=>{result.textContent=error.message;});search.addEventListener('input',render);stage.addEventListener('change',render);}\n"""
 
 
 def site_index(program: dict) -> str:
-    statuses = Counter(
-        lesson["status"] for part in program["parts"] for lesson in part["lessons"]
-    )
-    guided = statuses.get("GUIDED", 0)
-    planned = statuses.get("PLANNED", 0)
-    public_drafts = sum(
-        lesson["status"] == "PLANNED" and lesson["number"] <= 360
-        for part in program["parts"] for lesson in part["lessons"]
-    )
     stage_options = "".join(
         f'<option value="{stage["id"]}">{stage["id"]} · {html.escape(stage["title"])}</option>'
         for stage in program["stages"]
@@ -484,10 +456,10 @@ def site_index(program: dict) -> str:
     <body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><div class="hero-grid"><div><p class="eyebrow">Programa profesional · aprender haciendo visible el criterio</p>
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
-<div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>{guided}</strong><span>clases revisadas</span></div><div class="metric"><strong>{planned}</strong><span>clases por desarrollar</span></div></div></header>
-<main id="content"><div class="notice"><strong>Estado verificable:</strong> {guided} clases han superado el gate pedagógico; {public_drafts} borradores públicos siguen en revisión y no se presentan como terminados.</div>
+<div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> la Parte 00 contiene material completo; las partes siguientes se incorporan parte por parte según el roadmap.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
-<h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · 12 clases guiadas</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
+<h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · 12 borradores en auditoría</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Revisar la Parte 01 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 02 · 12 borradores en auditoría</p><h3>Sistemas operativos, terminal y automatización base</h3><p>Un kit de diagnóstico multiplataforma conecta rutas, permisos, procesos, configuración y evidencia con recuperación segura.</p></div><a href="parts/02.html">Revisar la Parte 02 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 03 · 12 borradores en auditoría</p><h3>Redes, Internet y protocolos</h3><p>Una petición observable se sigue desde el enlace local hasta DNS, transporte, TLS, HTTP, intermediarios y recuperación.</p></div><a href="parts/03.html">Revisar la Parte 03 →</a></div>
@@ -496,7 +468,7 @@ def site_index(program: dict) -> str:
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 06 · 12 borradores en auditoría</p><h3>Paradigmas de programación</h3><p>Un motor de reglas común permite comparar estado, objetos, funciones, reglas, eventos, flujos y actores bajo el mismo contrato.</p></div><a href="parts/06.html">Revisar la Parte 06 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · 12 borradores en auditoría</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Revisar la Parte 07 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · 12 borradores en auditoría</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Revisar la Parte 08 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · 12 borradores en auditoría</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Revisar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo completo conserva su arquitectura, pero solo una clase cambia de estado cuando su explicación, práctica, fuentes y publicación han sido revisadas.</p><div class="stage-grid">{''.join(stage_cards)}</div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · 12 borradores en auditoría</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Revisar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
 <footer>Generado desde curriculum.yaml · Línea base {program['baseline_date']}</footer><script src="assets/app.js"></script></body></html>\n"""
@@ -504,12 +476,11 @@ def site_index(program: dict) -> str:
 
 def part_page(part: dict) -> str:
     items = "".join(
-        f'<li><a href="../classes/{lesson["id"]}.html">{lesson["id"]} — {html.escape(lesson["title"])}</a> '
-        f'<span class="badge">{lesson["status"]}</span></li>' for lesson in part["lessons"]
+        f'<li><a href="../classes/{lesson["id"]}.html">{lesson["id"]} — {html.escape(lesson["title"])}</a></li>'
+        for lesson in part["lessons"]
     )
-    guided = sum(lesson["status"] == "GUIDED" for lesson in part["lessons"])
-    if guided == 12:
-        state = "Doce guías pedagógicas construidas."
+    if part["id"] == "00":
+        state = "Doce clases desarrolladas como un recorrido pedagógico conectado."
     elif part["lessons"][-1]["number"] <= 360:
         phase = 3 if part["lessons"][-1]["number"] <= 180 else 4
         state = f"Fase {phase} en reconstrucción: doce borradores visibles, todavía sin aprobación pedagógica."
@@ -621,7 +592,7 @@ def class_page(
     kind_label = {"class": "Clase", "studio": "Taller", "project": "Proyecto"}.get(
         lesson["kind"], lesson["kind"].capitalize()
     )
-    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Contenido planificado {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Planificada · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Esta posición curricular está definida, pero su desarrollo pedagógico todavía no ha superado el gate de aprobación.</p></header>{progress}<div class="notice"><strong>PLANNED:</strong> scaffold navegable; esta clase aún no contiene desarrollo pedagógico.</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido previsto"><strong>En esta ficha</strong><ol><li><a href="#contrato-previsto">Contrato previsto</a></li><li><a href="#fuentes-iniciales">Fuentes iniciales</a></li></ol></nav><article class="lesson-content"><h2 id="contrato-previsto">Contrato previsto</h2><p>Problema, objetivos, conceptos, ejemplos, práctica, tres ejercicios, fallo controlado, entorno, transferencia, evaluación, evidencia y límites.</p><h2 id="fuentes-iniciales">Fuentes iniciales</h2><ul>{source_list}</ul><p>Se ampliarán y vincularán a afirmaciones cuando la clase sea construida.</p></article></div>{navigation}</main><footer>Programa de Ingeniería de Software Moderna</footer></body></html>\n"""
+    return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Estructura curricular {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">{lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Esta posición está definida dentro del recorrido, pero su contenido pedagógico todavía debe desarrollarse.</p></header>{progress}<div class="notice">Consulta el roadmap para conocer el alcance que se incorporará a esta parte.</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido previsto"><strong>En esta ficha</strong><ol><li><a href="#contrato-previsto">Contrato previsto</a></li><li><a href="#fuentes-iniciales">Fuentes iniciales</a></li></ol></nav><article class="lesson-content"><h2 id="contrato-previsto">Contrato previsto</h2><p>Problema, objetivos, conceptos, ejemplos, práctica, tres ejercicios, fallo controlado, entorno, transferencia, evaluación, evidencia y límites.</p><h2 id="fuentes-iniciales">Fuentes iniciales</h2><ul>{source_list}</ul><p>Se ampliarán y vincularán a afirmaciones cuando la clase sea construida.</p></article></div>{navigation}</main><footer>Programa de Ingeniería de Software Moderna</footer></body></html>\n"""
 
 
 def validate_scaffold(path: Path, lesson: dict, failures: list[str]) -> None:
@@ -694,7 +665,7 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             )
             generated_target = program.get("phase_4_target", {}).get("last_class", "SE-180")
             generated_number = int(generated_target.split("-")[1])
-            if lesson["status"] == "PLANNED" and lesson["number"] > generated_number:
+            if lesson["number"] > generated_number:
                 write_generated(
                     ROOT / "site/classes" / f"{lesson['id']}.html",
                     class_page(part, lesson, source_ids, previous, following),
@@ -709,7 +680,6 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 "stage": part["stage"],
                 "kind": lesson["kind"],
                 "hours": lesson["estimated_hours"],
-                "status": lesson["status"],
                 "phase": 3 if lesson["number"] <= 180 else 4 if lesson["number"] <= 360 else "futura",
                 "url": f"classes/{lesson['id']}.html",
             })

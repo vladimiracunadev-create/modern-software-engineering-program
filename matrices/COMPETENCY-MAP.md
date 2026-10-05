@@ -23,6 +23,7 @@ La referencia canónica usa partes `P00`–`P39` y clases `SE-001`–`SE-480`.
 
 ## Uso
 
-Cada evidencia del portafolio debe indicar competencia, clase y estado de madurez. Un
-mismo artefacto puede demostrar varias competencias, pero debe señalar dónde está la
+Cada evidencia del portafolio debe indicar competencia, clase, procedimiento aplicado
+y resultado observado. Un mismo artefacto puede demostrar varias competencias, pero
+debe señalar dónde está la
 evidencia y qué fue ejecutado realmente.

@@ -7,7 +7,6 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "PLANNED",
   "source_ids": [
     "GITHUB-SPEC-KIT",
     "MCP-2026-07-28",

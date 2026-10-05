@@ -16,7 +16,6 @@ REQUIRED = [
     ".github/repository-metadata.json",
     "STATUS.md",
     "ROADMAP.md",
-    "PROMPT_MAESTRO.md",
     "LICENSE",
     "catalog.json",
     "curriculum.yaml",
@@ -118,15 +117,12 @@ def validate_program_blueprint() -> None:
         raise AssertionError("Each part must contain exactly 12 classes")
     if any(part["owner"] not in ALLOWED_OWNERS for part in payload["parts"]):
         raise AssertionError("Every part must use a declared repository owner")
-    expected_guided = {f"SE-{number:03d}" for number in range(1, 13)}
     for part in payload["parts"]:
         kinds = [lesson["kind"] for lesson in part["lessons"]]
         if kinds != ["class"] * 10 + ["studio", "project"]:
             raise AssertionError(f"Part {part['id']} must have ten classes, one studio and one project")
-        for lesson in part["lessons"]:
-            expected_status = "GUIDED" if lesson["id"] in expected_guided else "PLANNED"
-            if lesson["status"] != expected_status:
-                raise AssertionError(f"Unexpected maturity for {lesson['id']}")
+        if any("status" in lesson for lesson in part["lessons"]):
+            raise AssertionError(f"Part {part['id']} leaks class workflow state into the curriculum")
     hours = sum(lesson["estimated_hours"] for lesson in lessons)
     if hours != payload["estimated_hours"]:
         raise AssertionError("Estimated hours do not match the class manifest")
@@ -135,18 +131,15 @@ def validate_program_blueprint() -> None:
         "parts": 40,
         "classes": 480,
         "estimated_hours": hours,
-        "class_status": {"GUIDED": 12, "PLANNED": 468},
         "phase_3_target": {
             "first_class": "SE-001",
             "last_class": "SE-180",
             "classes": 180,
-            "approved": 12,
         },
         "phase_4_target": {
             "first_class": "SE-181",
             "last_class": "SE-360",
             "classes": 180,
-            "approved": 0,
         },
     }
     for key, value in expected_catalog.items():
@@ -227,12 +220,10 @@ def validate_phase2_outputs() -> None:
         raise AssertionError(f"Expected 360 phase 3-4 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
 
-def validate_guided_part_guides() -> None:
-    """Reject a GUIDED part whose overview collapses back into a class table."""
+def validate_developed_part_guide() -> None:
+    """Keep the developed Part 00 overview from collapsing into a class table."""
     program = read_json("curriculum.yaml")
-    for part in program["parts"]:
-        if not all(lesson["status"] == "GUIDED" for lesson in part["lessons"]):
-            continue
+    for part in program["parts"][:1]:
         source = ROOT / "content" / f"part-{part['id']}" / "README.md"
         if not source.is_file():
             raise AssertionError(f"Part {part['id']} has no editorial source")
@@ -264,24 +255,32 @@ def validate_guided_part_guides() -> None:
                 raise AssertionError(f"{match.group(1)} must explain its connection to {expected_ids[index + 1]}")
 
 
-def validate_program_mission() -> None:
-    prompt = (ROOT / "PROMPT_MAESTRO.md").read_text(encoding="utf-8")
-    required_prompt_tokens = (
-        "REVISAR → COMPRENDER → INVENTARIAR → CONTRASTAR → DETECTAR BRECHAS",
+def validate_program_roadmap() -> None:
+    roadmap = (ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    required_roadmap_tokens = (
+        "## Estado verificable de partida",
+        "## Resultado profesional buscado",
+        "## Desarrollo previsto por parte",
+        "## Ejes transversales obligatorios",
+        "## Modelo de clases, laboratorios y evaluación",
+        "## Proyectos integradores",
+        "## Fases de implementación",
+        "## Criterio de término del programa",
         "aproximadamente 500 clases",
         "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN",
-        "No reconstruyas el repositorio desde cero",
-        "Área | Estado | Archivos existentes | Profundidad | Brechas | Acción",
+        "calidad > profundidad > coherencia > cantidad",
     )
-    for token in required_prompt_tokens:
-        if token not in prompt:
-            raise AssertionError(f"Master prompt contract missing: {token}")
+    for token in required_roadmap_tokens:
+        if token not in roadmap:
+            raise AssertionError(f"Program roadmap contract missing: {token}")
+
+    part_rows = re.findall(r"^\| \d{2} · .+\(`SE-\d{3}`–`SE-\d{3}`\)", roadmap, re.MULTILINE)
+    if len(part_rows) != 40:
+        raise AssertionError(f"Program roadmap must define all 40 parts, found {len(part_rows)}")
 
     audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-04.md").read_text(encoding="utf-8")
     if "| Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |" not in audit:
         raise AssertionError("Coverage audit must contain the required diagnostic matrix")
-    if "12 clases `GUIDED`, 468 `PLANNED`" not in audit:
-        raise AssertionError("Coverage audit maturity baseline has drifted")
 
     adr = (ROOT / "docs" / "adr" / "ADR-003-reconcile-480-baseline-with-progressive-expansion.md").read_text(encoding="utf-8")
     for token in ("SE-001`–`SE-480", "no una cuota", "no se elimina ni renumera"):
@@ -359,8 +358,8 @@ def main() -> int:
         validate_relative_links()
         validate_sources()
         validate_phase2_outputs()
-        validate_guided_part_guides()
-        validate_program_mission()
+        validate_developed_part_guide()
+        validate_program_roadmap()
         validate_blueprint()
         validate_portal()
         validate_workflows(args.strict)

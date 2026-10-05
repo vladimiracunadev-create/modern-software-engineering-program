@@ -7,7 +7,6 @@
   "kind": "class",
   "owner": "suite",
   "estimated_hours": 4,
-  "status": "GUIDED",
   "source_ids": [
     "IEEE-SWEBOK-4A",
     "ACM-IEEE-SE2014"

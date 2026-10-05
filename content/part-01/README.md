@@ -2,7 +2,6 @@
 
 - **Etapa:** A · Fundamentos de la profesión
 - **Audiencia:** personas que programan o diseñan software y necesitan explicar qué ocurre debajo del lenguaje
-- **Estado:** 12 clases `GUIDED`, revisadas contra el estándar pedagógico
 - **Dedicación estimada:** 54 horas entre clases, taller y proyecto
 
 ## Antes de comenzar: el caso que conecta la parte

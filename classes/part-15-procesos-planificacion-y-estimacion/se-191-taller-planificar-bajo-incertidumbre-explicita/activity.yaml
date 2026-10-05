@@ -2,7 +2,6 @@
   "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
   "schema_version": 1,
   "class_id": "SE-191",
-  "status": "PLANNED",
   "mode": "studio",
   "environment": "tablero reproducible en Markdown o herramienta equivalente",
   "duration_hours": 6,

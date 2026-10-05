@@ -397,6 +397,8 @@ def file_index(program: dict) -> str:
 | Índice general | `classes/README.md` | 1 |
 | Índice de rutas profesionales | `roles/README.md` | 1 |
 | Guías profesionales | `roles/*.md` (sin `README.md`) | 40 |
+| Perfiles fuente de las rutas | `scripts/role_profiles.py` | 40 perfiles |
+| Generador verificable de rutas | `scripts/build_role_guides.py` | 1 |
 | Índices de parte | `classes/part-*/README.md` | {program['part_count']} |
 | Materiales de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |

@@ -15,6 +15,11 @@
 - índice por familias y mapa de transiciones para distinguir especialización técnica,
   producto, calidad, plataforma, gobierno, arquitectura, liderazgo e IA;
 - validación automática del inventario, la estructura y la navegación de las rutas.
+- profundización de las 40 guías a más de 2.200 palabras cada una, con dos gráficos
+  Mermaid, mapas parte → clases asociadas → evidencia, decisiones, escenarios de
+  fallo, métricas, proyectos integradores, planes 30/60/90 y fuentes oficiales;
+- mapa profesional ampliado en el README principal y en `roles/README.md`, con enlaces
+  directos a 480 asociaciones de clase y generación reproducible de los bloques;
 
 ### Roadmap curricular y simplificación editorial
 

@@ -186,6 +186,16 @@ def validate_role_guides() -> None:
         "## 📈 Progresión",
         "## ⚠️ Mitos frecuentes",
         "## 🚀 Siguientes pasos",
+        "## 🗺️ Sistema profesional del rol",
+        "## 🧱 Partes y clases asociadas",
+        "## ⚖️ Decisiones y trade-offs que debes defender",
+        "## 🚨 Escenario profesional:",
+        "## 📊 Señales útiles y límites de las métricas",
+        "## 🧩 Proyecto integrador del rol:",
+        "## 📈 Dominio esperado por alcance",
+        "## 🗓️ Plan de práctica 30 · 60 · 90 días",
+        "## 🎤 Preguntas para revisión o entrevista",
+        "## 🔗 Fuentes primarias y oficiales",
     )
     root_readme = (ROOT / "README.md").read_text(encoding="utf-8")
     role_index = (role_root / "README.md").read_text(encoding="utf-8")
@@ -194,10 +204,16 @@ def validate_role_guides() -> None:
         missing = [section for section in required_sections if section not in text]
         if missing:
             raise AssertionError(f"Role guide {guide.name} is missing sections: {missing}")
-        if len(text.split()) < 300:
+        if len(text.split()) < 2200:
             raise AssertionError(f"Role guide is too shallow for publication: {guide.name}")
         if text.count("../classes/") < 1:
             raise AssertionError(f"Role guide has no concrete curriculum link: {guide.name}")
+        if text.count("```mermaid") != 2:
+            raise AssertionError(f"Role guide must contain two visual models: {guide.name}")
+        if text.count("/se-") < 15:
+            raise AssertionError(f"Role guide has too few associated class links: {guide.name}")
+        if "style=for-the-badge" not in text:
+            raise AssertionError(f"Role guide has no visual identity badges: {guide.name}")
         link = f"roles/{guide.name}"
         if link not in root_readme:
             raise AssertionError(f"Role guide is not linked from README.md: {guide.name}")
@@ -222,10 +238,14 @@ def validate_role_guides() -> None:
         "github/followers/vladimiracunadev-create",
         '<td valign="top" width="50%">',
         "40 guías profesionales",
+        "Partes núcleo y clases asociadas por rol",
+        "<!-- role-map:start -->",
     )
     missing_readme = [token for token in readme_contract if token not in root_readme]
     if missing_readme:
         raise AssertionError(f"Main README presentation contract missing: {missing_readme}")
+    if "<!-- role-index-depth:start -->" not in role_index:
+        raise AssertionError("Professional role index is missing its detailed visual map")
 
 
 def validate_sources() -> None:

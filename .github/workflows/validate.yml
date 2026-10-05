@@ -45,6 +45,9 @@ jobs:
       - name: Verify phase 4 draft scope and generated publication
         run: python scripts/build_phase4.py --check
 
+      - name: Verify professional role guides
+        run: python scripts/build_role_guides.py --check
+
       - name: Validate class contracts
         run: python scripts/validate_class_contracts.py
 
@@ -94,6 +97,7 @@ jobs:
           python scripts/build_phase2.py --check
           python scripts/build_phase3.py --check
           python scripts/build_phase4.py --check
+          python scripts/build_role_guides.py --check
           python scripts/validate_class_contracts.py
           python scripts/validate_phase3.py
           python scripts/validate_phase4.py
@@ -120,5 +124,6 @@ jobs:
         run: |
           python scripts/build_phase3.py --check
           python scripts/build_phase4.py --check
+          python scripts/build_role_guides.py --check
           python scripts/validate_encoding.py
           python scripts/validate_repository.py --strict

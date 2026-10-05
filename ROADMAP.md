@@ -1,5 +1,10 @@
 # Roadmap
 
+La arquitectura canónica conserva 480 clases. El objetivo de aproximarse a 500 se
+trata como expansión condicionada por brechas, no como cuota. Véanse la
+[auditoría del 2026-10-04](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md) y
+[`ADR-003`](docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md).
+
 ## Fase 1 — Especificación y arquitectura — completada 2026-09-30
 
 - arquitectura de ocho etapas, 40 partes y 480 clases;
@@ -65,6 +70,17 @@ de sus clases.
 
 - calidad, seguridad, entrega, operación y liderazgo;
 - IA asistida, SPEC, agentes, MCP, evaluación y gobernanza.
+- auditoría explícita de métodos formales, green software, API lifecycle, DevEx,
+  InnerSource/OSPO, compliance, estimación probabilística y rutas profesionales;
+- profundización dentro de `SE-361`–`SE-480` antes de proponer clases nuevas.
+
+## Fase 6.5 — Decisión de expansión condicionada
+
+- repetir la matriz de cobertura después de desarrollar la línea base;
+- demostrar qué brechas no caben en clases existentes sin sobrecarga o duplicación;
+- diseñar IDs posteriores a `SE-480` solo con fuentes, evidencia, prerrequisitos,
+  propiedad, navegación y criterios de aceptación;
+- permitir permanecer por debajo de 500 si añadir clases implicaría relleno.
 
 ## Fase 7 — Experiencia pública
 

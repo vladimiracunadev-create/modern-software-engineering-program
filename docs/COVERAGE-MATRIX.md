@@ -4,6 +4,10 @@ Esta matriz demuestra qué parte del programa es propietaria de cada área. El d
 clase por clase vive en `curriculum.yaml`; esta vista evita confundir cobertura con
 una lista de herramientas.
 
+La presencia en esta matriz expresa **propiedad curricular**, no madurez. Consulta la
+[auditoría de cobertura y profundidad](PROGRAM-COVERAGE-AUDIT-2026-10-04.md) para
+distinguir contenido guiado, borradores y scaffolds.
+
 ## Cuerpo profesional estable
 
 | Área | Partes principales | Evidencia esperada |
@@ -23,6 +27,19 @@ una lista de herramientas.
 | Mantenimiento y legacy | 36 | migración incremental reversible |
 | Gestión y liderazgo | 37 | decisión, riesgo, economía y defensa |
 | IA, SPEC y agentes | 38–39 | evals, autoridad, trazabilidad y producto final |
+
+## Brechas explícitas bajo investigación
+
+| Brecha | Ubicación que debe intentarse primero | Condición para crear otra clase |
+| --- | --- | --- |
+| métodos formales y assurance | 13, 22–23 | laboratorio y competencia no caben en `SE-159`–`SE-161` o `SE-274` |
+| API en tiempo real y deprecación | 13, 20, 27 | el ciclo contractual queda fragmentado o sobrecarga esas clases |
+| estimación probabilística | 11, 15, 37 | necesita evidencia distinta de planificación y economía existentes |
+| InnerSource, OSPO y sociotécnica | 16, 25, 37 | gobernanza y diseño organizacional requieren artefactos independientes |
+| DevEx y SPACE | 34, 37 | no pueden evaluarse responsablemente dentro de plataforma y liderazgo |
+| green software medible | 00, 11, 22, 29, 31 | SCI y GreenOps requieren una secuencia práctica propia |
+| compliance engineering | 12, 32 | la cadena requisito → control → evidencia no cabe en el proyecto vigente |
+| carrera Staff/Principal/Manager | 37 | las rutas no se pueden construir reutilizando clases actuales |
 
 ## Formas de producir software
 

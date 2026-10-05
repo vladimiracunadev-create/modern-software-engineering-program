@@ -2,6 +2,16 @@
 
 ## Unreleased — fase 3
 
+### Reconciliación de misión y expansión progresiva
+
+- prompt maestro ampliado con proceso de auditoría, cobertura profesional,
+  progresión pedagógica, casos, laboratorios, IA verificable y validación final;
+- auditoría de cobertura fechada con matriz de estado, profundidad, brechas y acción;
+- ADR que preserva `SE-001`–`SE-480` y condiciona la aproximación a 500 clases a
+  competencias no cubiertas, sin renumeración ni relleno;
+- guardrails automáticos para impedir que misión, auditoría y decisión arquitectónica
+  desaparezcan o se desincronicen silenciosamente.
+
 ### Corrección de integridad pedagógica
 
 - fase 3 reabierta con alcance correcto de 180 clases (`SE-001`–`SE-180`);

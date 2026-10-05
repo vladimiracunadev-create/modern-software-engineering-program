@@ -8,6 +8,8 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 
 [📚 480 clases](classes/README.md) · [🧭 Rutas](#-rutas-sugeridas) · [🧪 Práctica](#-práctica-y-producto-transversal) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
+[🔎 Auditoría de cobertura 2026-10-04](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md) · [🧾 Decisión de expansión progresiva](docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)
+
 ---
 
 [![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
@@ -22,6 +24,9 @@ arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por I
 > **Estado real:** la arquitectura contiene 480 clases y hoy hay **12 clases
 > `GUIDED`** aprobadas contra el estándar pedagógico (`SE-001`–`SE-012`).
 > `SE-013`–`SE-360` son borradores públicos en revisión; `SE-361`–`SE-480` son scaffolds.
+> La dirección de aproximarse a 500 clases no altera estos conteos: solo se añadirán
+> IDs cuando una auditoría demuestre una competencia independiente que no cabe en la
+> arquitectura existente sin relleno ni duplicación.
 > No deben confundirse con material docente terminado.
 
 ## 🎯 Qué es esto

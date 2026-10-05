@@ -26,6 +26,12 @@ Las cifras no significan que las clases estén escritas. Una clase solo podrá p
 de `PLANNED` a `GUIDED`, `EXECUTABLE`, `TESTED`, `INTEGRATED` u `OPERABLE` cuando
 exista la evidencia correspondiente.
 
+La dirección de crecimiento es aproximadamente 500 clases, pero 480 continúa siendo
+la línea base canónica. No se agregan clases para cumplir una cuota: la expansión solo
+procede cuando una brecha demuestra una competencia, evidencia y secuencia propias.
+La decisión y sus gates están en
+[`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md).
+
 ## Ocho etapas
 
 ```mermaid
@@ -129,3 +135,7 @@ aislados.
 La expansión no termina al crear carpetas. Requiere 480 clases completas, fuentes
 resueltas, ejercicios, entornos documentados, proyectos integrados, portal navegable,
 validación automática, accesibilidad y una declaración verificable de lo ejecutado.
+
+Al completar esa base —o cuando construirla revele una brecha indivisible— se repite
+la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-04.md). Solo entonces se
+decide si el siguiente incremento necesita IDs posteriores a `SE-480`.

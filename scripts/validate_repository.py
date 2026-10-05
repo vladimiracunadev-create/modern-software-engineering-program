@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "README.md",
     "AGENTS.md",
+    "CHANGELOG.md",
     ".github/repository-metadata.json",
     "STATUS.md",
     "ROADMAP.md",
@@ -25,10 +26,12 @@ REQUIRED = [
     "docs/PROGRAM-ARCHITECTURE.md",
     "docs/PEDAGOGICAL-STANDARD.md",
     "docs/PHASE3-CONTENT-AUDIT.md",
+    "docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md",
     "docs/COVERAGE-MATRIX.md",
     "docs/REPOSITORY-BOUNDARIES.md",
     "docs/PUBLICATION-PLAN.md",
     "docs/adr/ADR-002-expand-to-480-class-program.md",
+    "docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md",
     "docs/ARCHITECTURE.md",
     "docs/INTEGRATION-CONTRACT.md",
     "docs/SOURCES.md",
@@ -261,6 +264,31 @@ def validate_guided_part_guides() -> None:
                 raise AssertionError(f"{match.group(1)} must explain its connection to {expected_ids[index + 1]}")
 
 
+def validate_program_mission() -> None:
+    prompt = (ROOT / "PROMPT_MAESTRO.md").read_text(encoding="utf-8")
+    required_prompt_tokens = (
+        "REVISAR → COMPRENDER → INVENTARIAR → CONTRASTAR → DETECTAR BRECHAS",
+        "aproximadamente 500 clases",
+        "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN",
+        "No reconstruyas el repositorio desde cero",
+        "Área | Estado | Archivos existentes | Profundidad | Brechas | Acción",
+    )
+    for token in required_prompt_tokens:
+        if token not in prompt:
+            raise AssertionError(f"Master prompt contract missing: {token}")
+
+    audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-04.md").read_text(encoding="utf-8")
+    if "| Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |" not in audit:
+        raise AssertionError("Coverage audit must contain the required diagnostic matrix")
+    if "12 clases `GUIDED`, 468 `PLANNED`" not in audit:
+        raise AssertionError("Coverage audit maturity baseline has drifted")
+
+    adr = (ROOT / "docs" / "adr" / "ADR-003-reconcile-480-baseline-with-progressive-expansion.md").read_text(encoding="utf-8")
+    for token in ("SE-001`–`SE-480", "no una cuota", "no se elimina ni renumera"):
+        if token not in adr:
+            raise AssertionError(f"Expansion ADR guardrail missing: {token}")
+
+
 def validate_blueprint() -> None:
     contract = (ROOT / "blueprints/reference-product/api/openapi.yaml").read_text(encoding="utf-8")
     for token in ("openapi: 3.1.0", "/students/{studentId}/progress:", "Idempotency-Key"):
@@ -332,6 +360,7 @@ def main() -> int:
         validate_sources()
         validate_phase2_outputs()
         validate_guided_part_guides()
+        validate_program_mission()
         validate_blueprint()
         validate_portal()
         validate_workflows(args.strict)

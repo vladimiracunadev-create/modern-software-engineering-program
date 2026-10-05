@@ -7,6 +7,8 @@
 - rediseño integral del README principal siguiendo el ritmo visual y documental del
   programa de ciberseguridad: identidad, fuentes, mapa completo, uso, rutas, calidad,
   límites, licencia y llamada final a apoyar el repositorio;
+- cabecera y cierre centrados, badges jerarquizados, accesos visuales, comparación en
+  dos columnas y badges sociales reales de stars, forks y seguimiento;
 - 40 guías profesionales propias, derivadas de las capacidades reales de las partes,
   con misión, jornada, responsabilidades, límites, conocimientos, recorrido,
   evidencia de portafolio, progresión, mitos y siguientes pasos;

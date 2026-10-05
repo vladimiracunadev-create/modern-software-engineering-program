@@ -215,6 +215,12 @@ def validate_role_guides() -> None:
         "## 🎯 Qué es y qué no es este programa",
         "## 🧭 Principios editoriales",
         "¿Te resulta útil? ⭐ Dale una estrella al repositorio.",
+        '<div align="center">',
+        "style=for-the-badge",
+        "github/stars/vladimiracunadev-create/modern-software-engineering-program",
+        "github/forks/vladimiracunadev-create/modern-software-engineering-program",
+        "github/followers/vladimiracunadev-create",
+        '<td valign="top" width="50%">',
         "40 guías profesionales",
     )
     missing_readme = [token for token in readme_contract if token not in root_readme]

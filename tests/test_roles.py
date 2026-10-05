@@ -50,6 +50,15 @@ EXPECTED_GUIDES = {
 
 
 class RoleGuideTests(unittest.TestCase):
+    def test_main_readme_preserves_visual_bookends(self) -> None:
+        text = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertGreaterEqual(text.count('<div align="center">'), 2)
+        self.assertIn("style=for-the-badge", text)
+        self.assertIn("github/stars/vladimiracunadev-create/modern-software-engineering-program", text)
+        self.assertIn("github/forks/vladimiracunadev-create/modern-software-engineering-program", text)
+        self.assertIn("github/followers/vladimiracunadev-create", text)
+        self.assertEqual(text.count('<td valign="top" width="50%">'), 2)
+
     def test_inventory_is_explicit_and_complete(self) -> None:
         actual = {
             path.name

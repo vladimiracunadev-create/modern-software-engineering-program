@@ -1,23 +1,32 @@
+<div align="center">
+
 # 🧭 Programa de Ingeniería de Software Moderna
 
-## 480 clases · 40 partes (00–39) · del fundamento al diseño, la operación, el liderazgo y la IA
+## **480 clases · 40 partes (00–39) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
 
-Currículo abierto en español para aprender a comprender, especificar, construir,
-probar, entregar, operar, modernizar y retirar software profesional. Conecta
-computación, producto, arquitectura, datos, calidad, seguridad, DevOps, SRE,
-liderazgo y desarrollo asistido por agentes.
+**Currículo profesional abierto en español para comprender, especificar, construir,
+probar, entregar, operar, modernizar y retirar software con evidencia.**
+
+[![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
+[![Deploy Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
+
+[![Clases](https://img.shields.io/badge/clases-480%20·%2040%20partes-7c5cff?style=for-the-badge)](classes/README.md)
+[![Nivel](https://img.shields.io/badge/nivel-fundamentos%20→%20liderazgo-2e8b57?style=for-the-badge)](ROADMAP.md)
+[![Idioma](https://img.shields.io/badge/idioma-español-blue?style=for-the-badge)](README.md)
+[![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=for-the-badge)](LICENSE)
+
+[![Python](https://img.shields.io/badge/Python-validación-3776AB?style=flat-square&logo=python&logoColor=white)](scripts/)
+[![Markdown](https://img.shields.io/badge/Markdown-contenido-000000?style=flat-square&logo=markdown&logoColor=white)](classes/README.md)
+[![OpenAPI](https://img.shields.io/badge/OpenAPI-contrato-6BA539?style=flat-square&logo=openapiinitiative&logoColor=white)](blueprints/reference-product/api/openapi.yaml)
+[![Multi-OS](https://img.shields.io/badge/Windows%20·%20macOS%20·%20Linux-validado-0078D4?style=flat-square)](.github/workflows/validate.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-sitio%20vivo-222?style=flat-square&logo=githubpages&logoColor=white)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
+[![SPEC + MCP](https://img.shields.io/badge/SPEC%20·%20MCP-ruta%20agentic-8A2BE2?style=flat-square)](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md)
 
 [📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
----
+</div>
 
-[![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
-[![Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
-[![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
-[![Partes](https://img.shields.io/badge/partes-40-2ea043?style=flat-square)](#-las-40-partes-numeradas-de-00-a-39)
-[![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
-[![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
-[![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
+---
 
 > [!IMPORTANT]
 > **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases. La
@@ -35,17 +44,17 @@ OPERACIÓN → SISTEMAS COMPLEJOS → ARQUITECTURA → LIDERAZGO → EVOLUCIÓN 
 
 Cada clase se diseña para integrar, cuando corresponde:
 
-- 🎯 objetivo, límites y resultados de aprendizaje observables;
-- 🗺️ temas con la razón profesional por la que importan;
-- 📖 principios, mecanismos, causas, consecuencias y trade-offs;
-- 🧠 definiciones en contexto, ejemplos y contraejemplos;
-- 🧩 diagramas interpretados, no imágenes ornamentales;
-- 🛠️ herramientas, versiones, entorno, preparación y limpieza;
-- 🧪 práctica reproducible con evidencia observable;
-- ✍️ ejercicios graduados y reto con criterio de aceptación;
-- ⚠️ fallos expresados como síntoma → hipótesis → causa → solución;
-- 🔭 observabilidad, mantenimiento, evolución y límites;
-- 🔗 fuentes primarias u oficiales vinculadas a lo que sustentan.
+- 🎯 **Objetivo, límites y resultados de aprendizaje observables**.
+- 🗺️ **Temas** con la razón profesional por la que importan.
+- 📖 **Principios y mecanismos**: causas, consecuencias y trade-offs.
+- 🧠 **Definiciones en contexto**, ejemplos y contraejemplos.
+- 🧩 **Diagramas interpretados**, no imágenes ornamentales.
+- 🛠️ **Herramientas y entorno**: versiones, preparación y limpieza.
+- 🧪 **Práctica reproducible** con evidencia observable.
+- ✍️ **Ejercicios y reto** con criterio de aceptación.
+- ⚠️ **Fallos controlados**: síntoma → hipótesis → causa → solución.
+- 🔭 **Operación y evolución**: observabilidad, mantenimiento y límites.
+- 🔗 **Fuentes primarias u oficiales** vinculadas a lo que sustentan.
 
 El contrato completo está en el
 [estándar pedagógico permanente](docs/PEDAGOGICAL-STANDARD.md). Una plantilla completa
@@ -374,14 +383,21 @@ tests/             pruebas estructurales y de navegación
 
 ## 🎯 Qué es y qué no es este programa
 
+<table>
+<tr>
+<td valign="top" width="50%">
+
 ### ✅ Lo que sí es
 
-- 📚 una arquitectura curricular secuencial de 480 clases y 40 partes;
-- 🧭 un recorrido que conecta profesión, producto, construcción, operación y retiro;
-- 🧪 una base de artefactos profesionales, actividades, rúbricas y producto transversal;
-- 👥 cuarenta rutas profesionales con responsabilidades, límites, evidencia y progresión;
-- 🌐 documentación abierta y un portal generado por CI;
-- 🤖 una cobertura explícita de IA y agentes bajo verificación humana.
+- 📚 una arquitectura curricular **secuencial** de 480 clases y 40 partes;
+- 🧭 un recorrido que conecta **profesión, producto, construcción, operación y retiro**;
+- 🧪 una base de **artefactos profesionales**, actividades, rúbricas y producto transversal;
+- 👥 **40 rutas profesionales** con responsabilidades, límites, evidencia y progresión;
+- 🌐 documentación abierta y un portal generado y verificado por CI;
+- 🤖 IA y agentes bajo **verificación humana**.
+
+</td>
+<td valign="top" width="50%">
 
 ### ❌ Lo que no es
 
@@ -389,8 +405,12 @@ tests/             pruebas estructurales y de navegación
 - 🚫 una colección de resúmenes o títulos para inflar conteos;
 - 🚫 una certificación profesional o una promesa de empleo;
 - 🚫 un curso profundo de cada lenguaje, base de datos o framework;
-- 🚫 una garantía de producción basada solo en archivos o tests generados;
+- 🚫 una garantía de producción basada sólo en archivos o tests generados;
 - 🚫 permiso para delegar decisiones críticas a un agente sin supervisión.
+
+</td>
+</tr>
+</table>
 
 ## 🧭 Principios editoriales
 
@@ -411,17 +431,29 @@ tests/             pruebas estructurales y de navegación
 
 ## 📄 Licencia y propiedad intelectual
 
-El código y el contenido propio del repositorio están cubiertos por la
-[Licencia MIT](LICENSE). Estándares, libros, herramientas, marcas y documentación de
-terceros conservan sus licencias y términos originales. Las referencias se enlazan y
-explican; no se reproducen obras protegidas.
+Este repositorio distingue el material propio de las referencias externas:
+
+- **Código, scripts, workflows, configuración y contenido original:** [Licencia MIT](LICENSE).
+- **Estándares, libros y documentación de terceros:** conservan sus licencias y términos originales.
+- **Referencias profesionales:** se enlazan y explican; no se reproducen obras protegidas.
+- **Contribuciones:** deben respetar la [guía de contribución](CONTRIBUTING.md) y la [política de seguridad](SECURITY.md).
 
 ---
 
-Hecho para quien quiere aprender Ingeniería de Software en serio, de principio a fin.
+<div align="center">
+
+**Hecho para quien quiere aprender Ingeniería de Software en serio, de principio a fin.**
 
 [⬆️ Empezar por el índice de clases](classes/README.md) · [🧭 Elegir una ruta profesional](roles/README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 
-¿Te resulta útil? ⭐ Dale una estrella al repositorio.
+<br>
+
+**¿Te resulta útil? ⭐ Dale una estrella al repositorio.**
+
+[![GitHub stars](https://img.shields.io/github/stars/vladimiracunadev-create/modern-software-engineering-program?style=social)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/vladimiracunadev-create/modern-software-engineering-program?style=social)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/network/members)
+[![Follow](https://img.shields.io/github/followers/vladimiracunadev-create?style=social&label=Follow)](https://github.com/vladimiracunadev-create)
 
 Hecho con 🧠 y ☕ por [Vladimir Acuña](https://github.com/vladimiracunadev-create).
+
+</div>

@@ -16,6 +16,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Horas | 2.160 estimadas; pendientes de validación por contenido |
 | Metadatos de clase | 480 archivos generados |
 | Registro bibliográfico | 480 entradas sembradas desde fuentes base |
+| Rutas profesionales | 40 guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
 | Portal definitivo | catálogo navegable; borradores visibles sin presentarlos como clases aprobadas |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |

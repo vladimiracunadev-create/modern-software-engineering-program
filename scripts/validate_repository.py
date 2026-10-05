@@ -21,6 +21,7 @@ REQUIRED = [
     "curriculum.yaml",
     "FILE_INDEX.md",
     "classes/README.md",
+    "roles/README.md",
     "manifest/repositories.json",
     "docs/PROGRAM-ARCHITECTURE.md",
     "docs/PEDAGOGICAL-STANDARD.md",
@@ -167,6 +168,58 @@ def validate_relative_links() -> None:
                 failures.append(f"{markdown.relative_to(ROOT)} -> {target}")
     if failures:
         raise AssertionError("Broken relative links: " + "; ".join(failures))
+
+
+def validate_role_guides() -> None:
+    role_root = ROOT / "roles"
+    guides = sorted(path for path in role_root.glob("*.md") if path.name != "README.md")
+    if len(guides) != 40:
+        raise AssertionError(f"Expected 40 professional role guides, found {len(guides)}")
+
+    required_sections = (
+        "## 🧭 Qué es y por qué importa",
+        "## 🗓️ Un día en el puesto",
+        "## ✅ Responsabilidades y límites",
+        "## 🧠 Qué necesitas saber",
+        "## 📚 Tu ruta en el programa",
+        "## 🧪 Evidencia de portafolio",
+        "## 📈 Progresión",
+        "## ⚠️ Mitos frecuentes",
+        "## 🚀 Siguientes pasos",
+    )
+    root_readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    role_index = (role_root / "README.md").read_text(encoding="utf-8")
+    for guide in guides:
+        text = guide.read_text(encoding="utf-8")
+        missing = [section for section in required_sections if section not in text]
+        if missing:
+            raise AssertionError(f"Role guide {guide.name} is missing sections: {missing}")
+        if len(text.split()) < 300:
+            raise AssertionError(f"Role guide is too shallow for publication: {guide.name}")
+        if text.count("../classes/") < 1:
+            raise AssertionError(f"Role guide has no concrete curriculum link: {guide.name}")
+        link = f"roles/{guide.name}"
+        if link not in root_readme:
+            raise AssertionError(f"Role guide is not linked from README.md: {guide.name}")
+        if f"]({guide.name})" not in role_index:
+            raise AssertionError(f"Role guide is not linked from roles/README.md: {guide.name}")
+
+    readme_contract = (
+        "## 🎯 Qué es esto",
+        "## 📚 Pauta profesional y cuerpos de conocimiento",
+        "## 🔗 Ecosistema y fronteras entre programas",
+        "## 🗂️ Las 40 partes, numeradas de 00 a 39",
+        "## 🧭 Rutas sugeridas por rol",
+        "## ✅ Calidad y CI",
+        "## 🧱 Estructura del repositorio",
+        "## 🎯 Qué es y qué no es este programa",
+        "## 🧭 Principios editoriales",
+        "¿Te resulta útil? ⭐ Dale una estrella al repositorio.",
+        "40 guías profesionales",
+    )
+    missing_readme = [token for token in readme_contract if token not in root_readme]
+    if missing_readme:
+        raise AssertionError(f"Main README presentation contract missing: {missing_readme}")
 
 
 def validate_sources() -> None:
@@ -356,6 +409,7 @@ def main() -> int:
         validate_program_blueprint()
         validate_legacy_curriculum()
         validate_relative_links()
+        validate_role_guides()
         validate_sources()
         validate_phase2_outputs()
         validate_developed_part_guide()

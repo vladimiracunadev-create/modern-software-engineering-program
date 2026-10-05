@@ -5,6 +5,8 @@
 | Manifiesto canónico | `curriculum.yaml` | 1 |
 | Catálogo resumido | `catalog.json` | 1 |
 | Índice general | `classes/README.md` | 1 |
+| Índice de rutas profesionales | `roles/README.md` | 1 |
+| Guías profesionales | `roles/*.md` (sin `README.md`) | 40 |
 | Índices de parte | `classes/part-*/README.md` | 40 |
 | Materiales de clase | `classes/part-*/se-*/README.md` | 480 |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | 480 |

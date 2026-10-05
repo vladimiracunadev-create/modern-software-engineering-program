@@ -8,6 +8,7 @@ Read first:
 - curriculum.yaml
 - catalog.json
 - classes/README.md
+- roles/README.md
 - FILE_INDEX.md
 - ROADMAP.md
 - docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md

@@ -1,71 +1,99 @@
 # 🧭 Programa de Ingeniería de Software Moderna
 
-## 480 clases · 40 partes · de fundamentos a IA, SPEC y sistemas multiagente
+## 480 clases · 40 partes (00–39) · del fundamento al diseño, la operación, el liderazgo y la IA
 
-Currículo abierto en español para comprender, construir, probar, entregar, operar
-y evolucionar software. Recorre computación, programación, producto, requisitos,
-arquitectura, datos, calidad, seguridad, DevOps, SRE y desarrollo asistido por IA.
+Currículo abierto en español para aprender a comprender, especificar, construir,
+probar, entregar, operar, modernizar y retirar software profesional. Conecta
+computación, producto, arquitectura, datos, calidad, seguridad, DevOps, SRE,
+liderazgo y desarrollo asistido por agentes.
 
-[📚 480 clases](classes/README.md) · [🧭 Rutas](#-rutas-sugeridas) · [🧪 Práctica](#-práctica-y-producto-transversal) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar](docs/PEDAGOGICAL-STANDARD.md) · [📊 Estado](STATUS.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
-
-[🔎 Auditoría de cobertura 2026-10-04](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md) · [🧾 Decisión de expansión progresiva](docs/adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)
+[📚 Índice completo de clases](classes/README.md) · [🧭 Rutas por rol](roles/README.md) · [🧪 Producto transversal](blueprints/reference-product/README.md) · [🌐 Aplicación web](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) · [🗺️ Roadmap](ROADMAP.md) · [🤝 Contribuir](CONTRIBUTING.md)
 
 ---
 
 [![Validate](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/validate.yml)
 [![Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
 [![Currículo](https://img.shields.io/badge/currículo-480%20clases-7c5cff?style=flat-square)](curriculum.yaml)
+[![Partes](https://img.shields.io/badge/partes-40-2ea043?style=flat-square)](#-las-40-partes-numeradas-de-00-a-39)
 [![Sitio](https://img.shields.io/badge/sitio-521%20páginas-ff8c42?style=flat-square)](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
 [![Idioma](https://img.shields.io/badge/idioma-español-1f6feb?style=flat-square)](docs/PROGRAM-ARCHITECTURE.md)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-3fb950?style=flat-square)](LICENSE)
 
-> [!CAUTION]
-> **Alcance real:** la arquitectura contiene 480 clases. La Parte 00 (`SE-001`–`SE-012`)
-> tiene contenido desarrollado; `SE-013`–`SE-360` son borradores públicos en revisión
-> y `SE-361`–`SE-480` conservan únicamente su estructura curricular.
-> La dirección de aproximarse a 500 clases no altera estos conteos: solo se añadirán
-> IDs cuando una auditoría demuestre una competencia independiente que no cabe en la
-> arquitectura existente sin relleno ni duplicación.
-> No deben confundirse con material docente terminado.
+> [!IMPORTANT]
+> **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases. La
+> Parte 00 (`SE-001`–`SE-012`) tiene contenido desarrollado; las partes 01–29
+> (`SE-013`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
+> y las partes 30–39 (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza
+> completa. Una carpeta o página generada no cuenta como aprendizaje terminado.
 
 ## 🎯 Qué es esto
 
-Es la arquitectura verificable de un programa completo de ingeniería de software.
-La secuencia va desde qué es un sistema y cómo funciona un computador hasta SPEC,
-agentes con herramientas, MCP, delegación, evaluación y recuperación de sistemas
-asistidos por IA.
+Un programa modular y secuencial que recorre el ciclo de vida completo de un sistema:
 
-El objetivo no es coleccionar títulos. Cada clase publicada como contenido desarrollado
-debe incluir realmente:
+**FUNDAMENTOS → COMPRENSIÓN → PRÁCTICA → CONSTRUCCIÓN → INTEGRACIÓN → PRODUCCIÓN →
+OPERACIÓN → SISTEMAS COMPLEJOS → ARQUITECTURA → LIDERAZGO → EVOLUCIÓN → RETIRO**.
+
+Cada clase se diseña para integrar, cuando corresponde:
 
 - 🎯 objetivo, límites y resultados de aprendizaje observables;
-- 🗺️ temas con la razón por la que cada uno importa;
-- 📖 primeros principios, mecanismos, causas y consecuencias;
-- 🧠 definiciones, características, contraejemplos y glosario;
-- 🧩 diagrama específico interpretado dentro de la narrativa;
-- 🛠️ herramientas, versiones, entorno y archivos clave;
-- 🧪 práctica reproducible, recuperación y evidencia observable;
+- 🗺️ temas con la razón profesional por la que importan;
+- 📖 principios, mecanismos, causas, consecuencias y trade-offs;
+- 🧠 definiciones en contexto, ejemplos y contraejemplos;
+- 🧩 diagramas interpretados, no imágenes ornamentales;
+- 🛠️ herramientas, versiones, entorno, preparación y limpieza;
+- 🧪 práctica reproducible con evidencia observable;
 - ✍️ ejercicios graduados y reto con criterio de aceptación;
-- ⚠️ errores comunes expresados como síntoma → causa → solución;
-- ❓ preguntas frecuentes auténticas;
-- 🔗 fuentes primarias u oficiales vinculadas a afirmaciones concretas.
+- ⚠️ fallos expresados como síntoma → hipótesis → causa → solución;
+- 🔭 observabilidad, mantenimiento, evolución y límites;
+- 🔗 fuentes primarias u oficiales vinculadas a lo que sustentan.
 
-## 🔎 Cómo revisar las clases
+El contrato completo está en el
+[estándar pedagógico permanente](docs/PEDAGOGICAL-STANDARD.md). Una plantilla completa
+no compensa contenido superficial y un agente que termina no demuestra que el software
+funcione.
 
-1. Abre el [índice plano de las 480 clases](classes/README.md).
-2. Haz clic en el título para leer su `README.md` en GitHub.
-3. Usa el enlace **🌐 portal** para comprobar la publicación de la misma clase.
-4. Comprueba si contiene enseñanza desarrollada, un borrador revisable o solo estructura curricular.
-5. Cuando el contenido esté desarrollado, comprueba la conexión anterior/siguiente, el mapa visual,
-   la práctica y la evidencia acumulativa.
-6. Contrasta el material con el [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md).
+## 📚 Pauta profesional y cuerpos de conocimiento
 
-Acceso inmediato: [Parte 00](classes/part-00-ingenieria-de-software-como-profesion/README.md) · [SE-001 en GitHub](classes/part-00-ingenieria-de-software-como-profesion/se-001-software-sistemas-y-productos-fronteras-de-la-disciplina/README.md) · [SE-001 en Pages](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-001.html).
+El programa no depende de una herramienta, proveedor o autor. La cobertura se
+contrasta con fuentes que representan distintas dimensiones de la disciplina:
 
-## 🔗 Familia de programas
+| Área | Referencia de orientación | Uso en el programa |
+| --- | --- | --- |
+| profesión | [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | áreas de conocimiento, prácticas y límites |
+| educación | [ACM/IEEE SE2014](https://www.acm.org/binaries/content/assets/education/se2014.pdf) | competencias y progresión curricular |
+| ciclo de vida | [ISO/IEC/IEEE 12207](https://www.iso.org/standard/63712.html) | procesos de software y relaciones durante su vida útil |
+| requisitos | [ISO/IEC/IEEE 29148](https://www.iso.org/standard/72089.html) | calidad, trazabilidad y validación de requisitos |
+| calidad | [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) | atributos y escenarios de calidad |
+| seguridad | [NIST SSDF](https://csrc.nist.gov/pubs/sp/800/218/final) | desarrollo seguro integrado al ciclo |
+| accesibilidad | [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) | experiencia inclusiva y verificable |
+| APIs | [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) y [OpenAPI](https://spec.openapis.org/oas/latest.html) | semántica y contratos interoperables |
+| confiabilidad | [Google SRE](https://sre.google/books/) | SLO, error budgets, toil e incidentes |
+| supply chain | [SLSA](https://slsa.dev/) y [OpenSSF](https://openssf.org/) | procedencia, artefactos y consumo seguro |
+| IA responsable | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | riesgo, evaluación y supervisión humana |
+| agentes | [Model Context Protocol](https://modelcontextprotocol.io/) | herramientas, contexto, autorización y límites |
 
-Este repositorio integra el ciclo de vida completo y se coordina con programas
-especializados para profundizar lenguajes, datos y frameworks.
+> Las referencias orientan y respaldan; no se reproduce el texto protegido de los
+> estándares. El material del programa tiene redacción propia.
+
+## 📖 De dónde sale el material
+
+Las fuentes se conservan como datos auditables, no como bibliografía decorativa:
+
+- [línea base de fuentes](sources/baseline.json): estándares, especificaciones y documentación oficial;
+- [registro por clase](sources/class-sources.json): fuentes asignadas a `SE-001`–`SE-480`;
+- [fuentes de fase 3](sources/phase3.json) y [fase 4](sources/phase4.json): cobertura por parte;
+- [trazabilidad pedagógica](sources/pedagogical/): afirmación, evidencia, error conceptual y límite;
+- [política de fuentes](docs/SOURCES.md): autoridad, vigencia y tratamiento de material obsoleto.
+
+Una fuente asignada no demuestra que cada afirmación esté sustentada ni que una
+práctica se haya ejecutado. Esa revisión ocurre clase por clase y se documenta en las
+[auditorías de contenido](docs/PHASE3-CONTENT-AUDIT.md).
+
+## 🔗 Ecosistema y fronteras entre programas
+
+Este repositorio integra producto y ciclo de vida completo. Reutiliza repositorios
+especializados cuando el aprendizaje exige profundidad propia de lenguajes, motores de
+datos o frameworks, sin copiar masivamente su contenido:
 
 | Repositorio | Responsabilidad | Unidad de transferencia |
 | --- | --- | --- |
@@ -74,61 +102,18 @@ especializados para profundizar lenguajes, datos y frameworks.
 | `framework-ecosystems-labs` | interfaces, frameworks y plataformas | contrato y atributos equivalentes |
 | `modern-software-engineering-program` | producto y ciclo de vida completo | resultado operable y defendible |
 
-Las fronteras y reglas antiduplicación están en
-[docs/REPOSITORY-BOUNDARIES.md](docs/REPOSITORY-BOUNDARIES.md).
+Las reglas de propiedad, integración y antiduplicación están en
+[fronteras entre repositorios](docs/REPOSITORY-BOUNDARIES.md) y en el
+[contrato de integración](docs/INTEGRATION-CONTRACT.md).
 
-## 📐 Estándar pedagógico
+## 🗂️ Las 40 partes, numeradas de 00 a 39
 
-Cada clase aprobada debe enseñar el tema completo, no resumirlo. El contrato exige
-objetivo, resultados verificables, tabla de temas, explicación desde primeros
-principios, definiciones, glosario, diagrama interpretado, preparación, laboratorio,
-ejercicios, reto con aceptación, errores síntoma→causa→solución, FAQ y fuentes
-trazables. El gate completo está en
-[docs/PEDAGOGICAL-STANDARD.md](docs/PEDAGOGICAL-STANDARD.md).
+Cada parte contiene doce clases: diez clases nucleares, un taller y un proyecto. Su
+README enlaza el recorrido y el [roadmap](ROADMAP.md) explica qué contenido, artefacto
+y comprobación debe incorporar.
 
-La referencia de profundidad es la
-[Parte 6 de modern-cybersecurity-program](https://github.com/vladimiracunadev-create/modern-cybersecurity-program/tree/main/classes/parte-6-analisis-de-malware).
-Se replica su calidad docente, no su contenido ni una cuota de palabras.
-
-## 📚 Pauta derivada de la literatura de ingeniería de software
-
-El programa no depende de una sola herramienta ni de la opinión de un autor. Su
-cobertura se contrasta con cuerpos de conocimiento, normas y especificaciones
-primarias. Estas referencias orientan el currículo; una clase solo puede citarlas
-como evidencia cuando su contenido haya sido revisado de forma individual.
-
-| Área | Referencia de orientación | Uso dentro del programa |
-| --- | --- | --- |
-| profesión y cuerpo de conocimiento | [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) | mapa de áreas, prácticas y límites profesionales |
-| resultados de aprendizaje | [ACM/IEEE SE2014](https://www.acm.org/binaries/content/assets/education/se2014.pdf) | línea base curricular histórica y competencias |
-| calidad del producto | [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) | atributos de calidad y decisiones verificables |
-| desarrollo seguro | [NIST SSDF](https://csrc.nist.gov/pubs/sp/800/218/final) | seguridad integrada al ciclo de vida |
-| accesibilidad | [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) | experiencia inclusiva y criterios comprobables |
-| contratos HTTP y API | [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110) y [OpenAPI](https://spec.openapis.org/oas/latest.html) | semántica, interoperabilidad y especificaciones ejecutables |
-| IA responsable | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | riesgo, evaluación y supervisión humana |
-| desarrollo basado en SPEC | [Spec Kit](https://github.github.com/spec-kit/) | intención, especificación, plan, tareas e implementación |
-| agentes y herramientas | [Model Context Protocol](https://modelcontextprotocol.io/) | contexto, capacidades, autorización y límites |
-
-## 📖 De dónde sale el material
-
-Las fuentes se mantienen como datos auditables, no como una bibliografía decorativa:
-
-- [línea base](sources/baseline.json): normas y documentación que definen la cobertura general;
-- [registro por clase](sources/class-sources.json): asignación inicial de fuentes a las 480 clases;
-- [registro de fase 3](sources/phase3.json): fuentes base para 12 clases desarrolladas y 168 borradores;
-- [auditoría pedagógica de partes 01–09](sources/pedagogical/): punto profesional, error conceptual, evidencia, límite y trazabilidad por clase;
-- [registro de fase 4](sources/phase4.json): fuentes usadas por `SE-181`–`SE-360`;
-- [política de fuentes](docs/SOURCES.md): autoridad, vigencia, trazabilidad y tratamiento de material obsoleto.
-
-Una asignación en el registro **no demuestra** que la clase esté terminada. Falta
-ligar cada afirmación importante con su fuente concreta y revisar vigencia,
-interpretación y alcance antes de presentarla como desarrollada.
-
-## 🗂️ Las 40 partes
-
-Cada parte tiene un README con sus doce clases enlazadas. La fase 3 comprende las
-partes 00–14 y la fase 4 las partes 15–29. La Parte 00 tiene contenido desarrollado;
-las partes 01–29 conservan borradores y las partes 30–39 estructura curricular.
+> La Parte 00 es la primera unidad; por eso la cuadragésima y última se identifica como
+> Parte 39. «40 partes» expresa la cantidad, no una carpeta `part-40`.
 
 | # | Parte | Clases | Foco | README |
 | ---: | --- | --- | --- | --- |
@@ -140,172 +125,198 @@ las partes 01–29 conservan borradores y las partes 30–39 estructura curricul
 | 05 | Fundamentos de programación | SE-061–SE-072 | control, funciones, datos, errores y pruebas | [📘 leer](classes/part-05-fundamentos-de-programacion/README.md) |
 | 06 | Paradigmas de programación | SE-073–SE-084 | imperativo, objetos, funcional, lógico y reactivo | [📘 leer](classes/part-06-paradigmas-de-programacion/README.md) |
 | 07 | Estructuras de datos y algoritmos | SE-085–SE-096 | colecciones, grafos, diseño y medición | [📘 leer](classes/part-07-estructuras-de-datos-y-algoritmos/README.md) |
-| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y entornos reproducibles | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
-| 09 | Bibliotecas, paquetes, SDK y automatización | SE-109–SE-120 | dependencias, SemVer, CLI, plugins y DX | [📘 leer](classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
-| 10 | Descubrimiento y estrategia de producto | SE-121–SE-132 | problema, usuarios, mercado y experimentación | [📘 leer](classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) |
-| 11 | Economía, métricas y decisiones de producto | SE-133–SE-144 | valor, costo, métricas y priorización | [📘 leer](classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
+| 08 | Entornos, herramientas y depuración | SE-097–SE-108 | IDE, depuración, profiling y reproducibilidad | [📘 leer](classes/part-08-entornos-herramientas-y-depuracion/README.md) |
+| 09 | Bibliotecas, paquetes, SDK y automatización | SE-109–SE-120 | dependencias, SemVer, CLI, plugins y DevEx | [📘 leer](classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) |
+| 10 | Descubrimiento y estrategia de producto | SE-121–SE-132 | problema, usuarios, outcomes y experimentación | [📘 leer](classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) |
+| 11 | Economía, métricas y decisiones de producto | SE-133–SE-144 | valor, TCO, costes y priorización | [📘 leer](classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) |
 | 12 | Ingeniería de requisitos | SE-145–SE-156 | elicitación, calidad, trazabilidad y cambio | [📘 leer](classes/part-12-ingenieria-de-requisitos/README.md) |
-| 13 | Especificaciones, contratos y modelos | SE-157–SE-168 | SPEC, invariantes, APIs y aceptación | [📘 leer](classes/part-13-especificaciones-contratos-y-modelos/README.md) |
+| 13 | Especificaciones, contratos y modelos | SE-157–SE-168 | SPEC, invariantes, estados, APIs y aceptación | [📘 leer](classes/part-13-especificaciones-contratos-y-modelos/README.md) |
 | 14 | Experiencia, accesibilidad e internacionalización | SE-169–SE-180 | UX, inclusión, contenido e i18n | [📘 leer](classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) |
-| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y mejora | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
-| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, integración y gobernanza | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
-| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, runbook y búsqueda | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
-| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales y procesos | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
+| 15 | Procesos, planificación y estimación | SE-181–SE-192 | flujo, incertidumbre y forecasting | [📘 leer](classes/part-15-procesos-planificacion-y-estimacion/README.md) |
+| 16 | Git, colaboración y código abierto | SE-193–SE-204 | historial, revisión, releases y gobernanza | [📘 leer](classes/part-16-git-colaboracion-y-codigo-abierto/README.md) |
+| 17 | Documentación y conocimiento técnico | SE-205–SE-216 | docs-as-code, ADR, RFC y runbooks | [📘 leer](classes/part-17-documentacion-y-conocimiento-tecnico/README.md) |
+| 18 | CLI, TUI, servicios y automatización | SE-217–SE-228 | interfaces textuales, jobs y procesos | [📘 leer](classes/part-18-cli-tui-servicios-y-automatizacion/README.md) |
 | 19 | Web, frontend y aplicaciones progresivas | SE-229–SE-240 | navegador, UI, estado y PWA | [📘 leer](classes/part-19-web-frontend-y-aplicaciones-progresivas/README.md) |
-| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos y tareas | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
+| 20 | Backend, APIs y procesamiento asíncrono | SE-241–SE-252 | servicios, contratos, workers y tiempo real | [📘 leer](classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) |
 | 21 | Software móvil, escritorio y multiplataforma | SE-253–SE-264 | plataformas, distribución y ciclo de vida | [📘 leer](classes/part-21-software-movil-escritorio-y-multiplataforma/README.md) |
-| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | recursos, hardware y temporización | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
-| 23 | Software especializado y dominios | SE-277–SE-288 | datos, ciencia, juegos y regulación | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
-| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | diseño evolutivo y deuda | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
-| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y decisiones | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
+| 22 | Embedded, IoT y tiempo real | SE-265–SE-276 | firmware, hardware, OTA y temporización | [📘 leer](classes/part-22-embedded-iot-y-tiempo-real/README.md) |
+| 23 | Software especializado y dominios | SE-277–SE-288 | ciencia, industria, regulación y safety | [📘 leer](classes/part-23-software-especializado-y-dominios/README.md) |
+| 24 | Diseño, patrones y refactorización | SE-289–SE-300 | modularidad, patrones y deuda | [📘 leer](classes/part-24-diseno-patrones-y-refactorizacion/README.md) |
+| 25 | Arquitectura de software y dominio | SE-301–SE-312 | límites, estilos, DDD y evolución | [📘 leer](classes/part-25-arquitectura-de-software-y-dominio/README.md) |
 | 26 | Datos, persistencia y recuperación | SE-313–SE-324 | modelos, transacciones, índices y backup | [📘 leer](classes/part-26-datos-persistencia-y-recuperacion/README.md) |
-| 27 | Integración, eventos y mensajería | SE-325–SE-336 | contratos, colas, eventos y consistencia | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
-| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos y consenso | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
-| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y plataforma | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
+| 27 | Integración, eventos y mensajería | SE-325–SE-336 | colas, streams, sagas y compatibilidad | [📘 leer](classes/part-27-integracion-eventos-y-mensajeria/README.md) |
+| 28 | Concurrencia y sistemas distribuidos | SE-337–SE-348 | coordinación, fallos, consistencia y consenso | [📘 leer](classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) |
+| 29 | Cloud, plataforma e infraestructura | SE-349–SE-360 | nube, contenedores, IaC y costes | [📘 leer](classes/part-29-cloud-plataforma-e-infraestructura/README.md) |
 | 30 | Estrategia y técnicas de prueba | SE-361–SE-372 | niveles, propiedades, contratos y E2E | [📘 leer](classes/part-30-estrategia-y-tecnicas-de-prueba/README.md) |
 | 31 | Calidad, rendimiento y resiliencia | SE-373–SE-384 | atributos, carga, degradación y recuperación | [📘 leer](classes/part-31-calidad-rendimiento-y-resiliencia/README.md) |
-| 32 | Seguridad, privacidad y cumplimiento | SE-385–SE-396 | amenazas, controles, privacidad y regulación | [📘 leer](classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) |
-| 33 | Build, release y cadena de suministro | SE-397–SE-408 | builds, artefactos, SBOM y procedencia | [📘 leer](classes/part-33-build-release-y-cadena-de-suministro/README.md) |
+| 32 | Seguridad, privacidad y cumplimiento | SE-385–SE-396 | amenazas, controles, privacidad y evidencia | [📘 leer](classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) |
+| 33 | Build, release y cadena de suministro | SE-397–SE-408 | artefactos, SBOM, firma y procedencia | [📘 leer](classes/part-33-build-release-y-cadena-de-suministro/README.md) |
 | 34 | CI/CD, IaC y platform engineering | SE-409–SE-420 | pipelines, despliegue y autoservicio | [📘 leer](classes/part-34-ci-cd-iac-y-platform-engineering/README.md) |
-| 35 | Observabilidad, SRE e incidentes | SE-421–SE-432 | señales, SLO, guardias e incidentes | [📘 leer](classes/part-35-observabilidad-sre-e-incidentes/README.md) |
-| 36 | Mantenimiento y modernización legacy | SE-433–SE-444 | comprensión, migración y continuidad | [📘 leer](classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) |
+| 35 | Observabilidad, SRE e incidentes | SE-421–SE-432 | señales, SLO, guardias y aprendizaje | [📘 leer](classes/part-35-observabilidad-sre-e-incidentes/README.md) |
+| 36 | Mantenimiento y modernización legacy | SE-433–SE-444 | arqueología, migración, EOL y retiro | [📘 leer](classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) |
 | 37 | Gestión, liderazgo y práctica profesional | SE-445–SE-456 | equipos, comunicación y decisiones | [📘 leer](classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) |
-| 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilotos, contexto, evals y seguridad | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
-| 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | SPEC, MCP, agentes, delegación y control | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
+| 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilots, contexto, evals y seguridad | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
+| 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | MCP, agentes, delegación y control | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
 
 ➡️ [Abrir el índice plano con enlaces directos a las 480 clases](classes/README.md).
 
-La fuente canónica de títulos, secuencia y horas es [curriculum.yaml](curriculum.yaml).
-
-## 🤖 IA, SPEC y agentes
-
-La etapa final cubre autocompletado, chat, edición, generación, pruebas,
-documentación, migraciones, context engineering, evaluaciones, desarrollo basado en
-especificaciones, greenfield, brownfield, reparación, agentes con herramientas,
-skills, plugins, MCP, delegación, multiagente, aprobación humana, seguridad agentic y
-recuperación.
-
-La matriz precisa se encuentra en [docs/COVERAGE-MATRIX.md](docs/COVERAGE-MATRIX.md).
-
 ## 🧪 Práctica y producto transversal
 
-La práctica se organiza alrededor de un producto de referencia que atraviesa
-descubrimiento, requisitos, arquitectura, APIs, pruebas, amenazas y operación. El
-objetivo es que una decisión sobreviva al cambio de lenguaje o framework y deje
-evidencia revisable.
+El programa mantiene un producto documental de referencia para conectar decisiones que
+normalmente se enseñan por separado:
 
-| Recurso | Qué permite revisar hoy |
+| Artefacto | Qué permite revisar |
 | --- | --- |
-| [Producto de referencia](blueprints/reference-product/README.md) | mapa del caso transversal y sus artefactos |
-| [Requisitos](blueprints/reference-product/REQUIREMENTS.md) | alcance, reglas y trazabilidad inicial |
-| [Arquitectura](blueprints/reference-product/ARCHITECTURE.md) | límites y estructura del sistema |
-| [Contrato OpenAPI](blueprints/reference-product/api/openapi.yaml) | interfaz formal y verificable |
-| [Estrategia de pruebas](blueprints/reference-product/TEST_STRATEGY.md) | niveles, riesgos y evidencia esperada |
+| [Brief de producto](blueprints/reference-product/PRODUCT_BRIEF.md) | problema, usuarios, alcance y valor |
+| [Requisitos](blueprints/reference-product/REQUIREMENTS.md) | reglas, restricciones y trazabilidad |
+| [Arquitectura](blueprints/reference-product/ARCHITECTURE.md) | límites, componentes y decisiones |
+| [ADR](blueprints/reference-product/adr/ADR-001-modular-monolith.md) | contexto, alternativas y trade-offs |
+| [Contrato OpenAPI](blueprints/reference-product/api/openapi.yaml) | interfaz formal, errores e idempotencia |
+| [Estrategia de pruebas](blueprints/reference-product/TEST_STRATEGY.md) | riesgos, niveles y evidencia esperada |
 | [Modelo de amenazas](blueprints/reference-product/THREAT_MODEL.md) | activos, amenazas y controles |
-| [Runbook de degradación](blueprints/reference-product/runbooks/API_DEGRADED.md) | diagnóstico y recuperación operacional |
-| [Proyecto integrador](projects/capstone.md) | transferencia del aprendizaje a un producto completo |
-| [Rúbrica transversal](assessments/rubric.md) | criterios comunes de evaluación |
+| [Runbook](blueprints/reference-product/runbooks/API_DEGRADED.md) | diagnóstico y recuperación operacional |
+| [Proyecto integrador](projects/capstone.md) | transferencia a un producto completo |
+| [Rúbrica](assessments/rubric.md) | explicación, implementación, prueba y operación |
 
-Estos artefactos son una base documental versionada; todavía no constituyen una
-colección de laboratorios ejecutados ni evidencia de que las 360 clases restantes
-estén aprobadas.
+Estos artefactos son una base versionada; no se presentan como laboratorios ejecutados.
+El [roadmap](ROADMAP.md#proyectos-integradores) incorpora además proyectos de sistema
+distribuido, modernización legacy, análisis económico e IA controlada.
 
 ## 🌐 Portal y navegación
 
-El [portal público](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
-permite buscar por texto, filtrar por parte, abrir una parte y leer cada
-clase. La Parte 00 añade un caso conductor, ruta de evidencias, progreso visible,
-conexión **vienes de / construyes / conecta con**, índice lateral y diagramas
-renderizados con su notación fuente accesible. Cada clase conserva navegación
-**anterior / parte / índice / siguiente** al inicio y al final, además de su enlace equivalente en GitHub. El
-[índice plano](classes/README.md) conserva acceso directo a las 480 clases y a sus
-480 páginas publicadas.
+El [sitio del programa](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
+publica 521 páginas: portada, 40 partes y 480 clases. Permite buscar por ID o título,
+filtrar por etapa y recorrer anterior / parte / índice / siguiente.
 
-La fuente de verdad sigue siendo el repositorio: Pages es una presentación generada
-y la CI falla si difiere de los manifiestos o del contenido de las clases.
+- 📚 [Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/).
+- 🗂️ [Usar el índice completo en GitHub](classes/README.md).
+- 🧭 [Elegir una ruta profesional](roles/README.md).
+- 📊 [Consultar la cobertura verificable](STATUS.md).
+
+La fuente de verdad sigue siendo el repositorio. El portal se genera desde los
+manifiestos y la CI falla cuando el sitio queda desincronizado. La identidad pública,
+el About, los topics, los gates y la URL canónica están documentados en el
+[plan de publicación](docs/PUBLICATION-PLAN.md).
 
 ## 👩‍🏫 Para instructores y revisores
 
-- [Arquitectura del programa](docs/PROGRAM-ARCHITECTURE.md): etapas, progresión y dependencias;
-- [modelo de aprendizaje](docs/LEARNING-MODEL.md): cómo se transforma teoría en evidencia;
-- [estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md): gate obligatorio por clase;
-- [matriz de cobertura](docs/COVERAGE-MATRIX.md): conceptos y ubicación curricular;
-- [auditoría de fase 3](docs/PHASE3-CONTENT-AUDIT.md): defectos conocidos y conteos comprobables;
-- [gobernanza](docs/GOVERNANCE.md): decisiones, revisión y evolución;
-- [guía de contribución](CONTRIBUTING.md): cambio reproducible y validación local.
+- 📐 [Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) — profundidad mínima y revisión cualitativa.
+- 🧠 [Modelo de aprendizaje](docs/LEARNING-MODEL.md) — contexto, práctica, fallo, transferencia e integración.
+- 🧭 [Arquitectura del programa](docs/PROGRAM-ARCHITECTURE.md) — etapas, partes y dependencias.
+- 🗺️ [Matriz de cobertura](docs/COVERAGE-MATRIX.md) — propiedad curricular por área.
+- 🔎 [Auditoría de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md) — brechas y acciones.
+- 📊 [Rúbrica transversal](assessments/rubric.md) — evaluación de decisiones y evidencia.
+- 🤝 [Guía de contribución](CONTRIBUTING.md) — cambio reproducible y validación local.
 
 ## 🚀 Cómo usar el programa
 
-1. Empieza en el [índice completo](classes/README.md) y abre la ruta que corresponda a tu base actual.
-2. Revisa su contenido real: un borrador sirve para revisión y una estructura vacía solo describe trabajo pendiente.
-3. Produce el artefacto solicitado, registra decisiones y conserva evidencia del resultado y del fallo.
-4. Compara tu entrega con la rúbrica y las fuentes; no promociones contenido por cantidad de texto.
-5. Continúa con los enlaces anterior/siguiente o vuelve al README de la parte para revisar dependencias.
+1. Empieza por [la Parte 00](classes/part-00-ingenieria-de-software-como-profesion/README.md) y realiza el diagnóstico inicial.
+2. Sigue la numeración para construir fundamentos; una ruta profesional no elimina prerrequisitos.
+3. Produce el artefacto solicitado y conserva tanto el resultado como el fallo controlado.
+4. Contrasta tu entrega con la rúbrica y las fuentes; leer no sustituye practicar.
+5. Cuando una parte aún no tenga enseñanza completa, usa el [roadmap](ROADMAP.md) para comprender el alcance, no la presentes como terminada.
+6. Elige una [ruta por rol](roles/README.md) cuando tengas la base para evaluar sus decisiones.
 
-## 🧭 Rutas sugeridas
+## 🧭 Rutas sugeridas por rol
 
-| Objetivo | Recorrido recomendado | Resultado esperado |
-| --- | --- | --- |
-| construir fundamentos sólidos | partes 00–09 | razonar sobre sistemas, código, datos, herramientas y depuración |
-| pasar de problema a SPEC | partes 10–17 | descubrir valor, especificar, planificar, colaborar y documentar |
-| desarrollar productos en distintas plataformas | partes 18–29 | construir interfaces, servicios, sistemas de datos, distribuidos y cloud |
-| asegurar calidad y entrega | partes 30–34 | probar, proteger, empaquetar y desplegar con evidencia |
-| operar y evolucionar software | partes 35–37 | observar, responder, modernizar y liderar cambios |
-| crear software con IA y agentes | partes 38–39, después de 00–17 y 30–35 | usar SPEC, contexto, evals, herramientas, MCP, delegación y recuperación |
+El programa ofrece **40 guías profesionales**. Cada una incluye misión, jornada,
+responsabilidades y límites, conocimientos, recorrido curricular, evidencia de
+portafolio, progresión, mitos y próximos pasos. No son cuarenta cursos separados:
+reutilizan las partes comunes y cambian el foco de decisión.
 
-## 📦 Formatos y superficies disponibles
+### 💻 Construcción de productos y sistemas
 
-Actualmente existen dos superficies oficiales: documentación navegable en GitHub y
-el portal estático en GitHub Pages. No se anuncian como disponibles un manual
-descargable, una aplicación móvil/escritorio, seguimiento personal de progreso ni
-releases empaquetadas; cualquiera de esas superficies deberá implementarse,
-probarse y declararse de forma separada antes de aparecer como capacidad del programa.
+- [🧑‍💻 Software Engineer](roles/software-engineer.md) — ciclo de vida de extremo a extremo.
+- [⚙️ Systems Programmer](roles/systems-programmer.md) — memoria, procesos, concurrencia y recursos.
+- [⚙️ Backend Engineer](roles/backend-engineer.md) — servicios, dominio, datos y operación.
+- [🎨 Frontend Engineer](roles/frontend-engineer.md) — interfaces accesibles, rápidas y mantenibles.
+- [🧩 Full-stack Engineer](roles/full-stack-engineer.md) — fragmentos verticales con contratos y despliegue.
+- [📱 Mobile Engineer](roles/mobile-engineer.md) — ciclo de vida, offline, sincronización y distribución.
+- [🖥️ Desktop Engineer](roles/desktop-engineer.md) — integración nativa, instalación y actualización.
+- [🔌 Embedded & IoT Engineer](roles/embedded-iot-engineer.md) — firmware, RTOS, energía, telemetría y OTA.
+- [🛡️ Safety-Critical Software Engineer](roles/safety-critical-software-engineer.md) — hazards, controles y assurance.
 
-## 📊 Estado verificable
+### 🔗 APIs, datos y sistemas distribuidos
 
-Las fases 1 y 2 están resueltas. La fase 3 fue reabierta tras una auditoría y la
-infraestructura pública de fase 4 ya está implementada:
+- [🔗 API Engineer](roles/api-engineer.md) — contratos, compatibilidad, experiencia y gobernanza.
+- [🧱 Data Engineer](roles/data-engineer.md) — pipelines, contratos, calidad y lineage.
+- [🗄️ Database Reliability Engineer](roles/database-reliability-engineer.md) — capacidad, migraciones y recuperación.
+- [🌐 Distributed Systems Engineer](roles/distributed-systems-engineer.md) — consistencia, coordinación y fallos parciales.
 
-- arquitectura de ocho etapas;
-- 40 partes con doce clases cada una;
-- 480 identificadores y títulos únicos;
-- contrato pedagógico y requisitos de evidencia;
-- propietarios y fronteras entre repositorios;
-- ADR de expansión;
-- fuentes primarias iniciales;
-- manifiesto, catálogo, validación y CI multiplataforma.
-- 480 scaffolds con contrato pedagógico protegido;
-- 480 metadatos y registros bibliográficos iniciales;
-- índices globales y por parte generados;
-- sitio estático con 521 páginas, búsqueda y filtros;
-- validadores dedicados de contratos y UTF-8;
-- workflow separado para GitHub Pages.
-- alcance corregido: 180 clases consecutivas, `SE-001`–`SE-180`;
-- 12 clases desarrolladas y 168 borradores públicos de fase 3;
-- fase 4 añadida: 180 borradores, actividades y rúbricas de `SE-181`–`SE-360`;
-- texto íntegro de cada borrador publicado en Pages, no una ficha-resumen;
-- contenido desarrollado limitado a las 12 clases revisadas de la Parte 00;
-- instrucción permanente en [AGENTS.md](AGENTS.md) para impedir la regresión.
+### 🧪 Calidad, inclusión y análisis
 
-Desarrollada no significa práctica ejecutada, comportamiento probado u operación demostrada;
-ninguna de esas afirmaciones se concede por generación automática. El alcance actual vive en [STATUS.md](STATUS.md) y la
-evidencia de por qué las 180 entradas no cuentan como clases construidas está en
-[docs/PHASE3-CONTENT-AUDIT.md](docs/PHASE3-CONTENT-AUDIT.md).
-La auditoría equivalente de fase 4 está en
-[docs/PHASE4-CONTENT-AUDIT.md](docs/PHASE4-CONTENT-AUDIT.md).
+- [🧪 QA / Test Automation Engineer](roles/qa-test-engineer.md) — riesgo, exploración y automatización.
+- [⏱️ Performance Engineer](roles/performance-engineer.md) — profiling, carga, percentiles y capacidad.
+- [♿ Accessibility Engineer](roles/accessibility-engineer.md) — WCAG, tecnología asistiva y prevención de barreras.
+- [🌍 Internationalization Engineer](roles/internationalization-engineer.md) — Unicode, locales, tiempo, RTL y localización.
+- [🧾 Requirements Engineer / Business Systems Analyst](roles/requirements-engineer.md) — elicitación, reglas y trazabilidad.
 
-## ✅ Calidad, CI y validación local
+### 🚀 Cloud, entrega, confiabilidad y plataforma
 
-| Workflow | Qué comprueba | Plataformas / salida |
-| --- | --- | --- |
-| [Validate](.github/workflows/validate.yml) | generación reproducible, contratos, UTF-8, enlaces, políticas y tests | Python 3.11–3.14 en Linux; portabilidad en Windows y macOS |
-| [Pages](.github/workflows/pages.yml) | las 521 páginas generadas, integridad del portal y despliegue | artefacto y publicación en GitHub Pages |
+- [🚚 DevOps Engineer](roles/devops-engineer.md) — entrega repetible, supply chain y rollback.
+- [📦 Build & Release Engineer](roles/build-release-engineer.md) — artefactos, procedencia, firma y promoción.
+- [☁️ Cloud Engineer](roles/cloud-engineer.md) — IAM, infraestructura, automatización y recuperación.
+- [📈 Site Reliability Engineer](roles/site-reliability-engineer.md) — SLO, capacidad, incidentes y aprendizaje.
+- [🔭 Observability Engineer](roles/observability-engineer.md) — logs, métricas, trazas y diagnóstico.
+- [🛤️ Platform Engineer](roles/platform-engineer.md) — IDP, golden paths y autoservicio.
+- [🧰 Developer Experience Engineer](roles/developer-experience-engineer.md) — tooling, onboarding y feedback loops.
 
-Las acciones externas están fijadas por SHA, los permisos son mínimos por job y los
-workflows usan concurrencia con cancelación de ejecuciones obsoletas. La misma
-validación crítica puede ejecutarse localmente sin instalar dependencias:
+### 🔐 Gobierno, economía y sostenibilidad
 
-Requiere Python 3.11 o posterior y no instala dependencias:
+- [🔐 Security Engineer](roles/security-engineer.md) — secure design, AppSec y respuesta.
+- [⚖️ Compliance Engineer](roles/compliance-engineer.md) — obligación, control, prueba y evidencia.
+- [💸 FinOps Engineer](roles/finops-engineer.md) — costes unitarios, forecast y decisiones de valor.
+- [🌱 Green Software Engineer](roles/green-software-engineer.md) — eficiencia, carbono y GreenOps medidos.
+- [✍️ Technical Writer / Documentation Engineer](roles/technical-writer.md) — información técnica usable y mantenible.
+- [🤝 Open Source & InnerSource Engineer](roles/open-source-innersource-engineer.md) — contribución, governance y ownership.
+
+### 🏛️ Arquitectura, evolución y liderazgo
+
+- [🏚️ Legacy Modernization Engineer](roles/legacy-modernization-engineer.md) — arqueología, compatibilidad y retiro.
+- [🏛️ Software Architect](roles/software-architect.md) — atributos, límites, trade-offs y evolución.
+- [🧩 Solutions Architect](roles/solutions-architect.md) — contexto, integración, adopción y transición.
+- [🧭 Technical Product Engineer](roles/technical-product-engineer.md) — discovery, economía y factibilidad.
+- [🧭 Staff / Principal / Technical Lead](roles/technical-leadership.md) — influencia, RFC, arquitectura y mentoring.
+- [👥 Engineering Manager](roles/engineering-manager.md) — personas, flujo, riesgo y sostenibilidad.
+- [🧭 CTO / Dirección de Tecnología](roles/cto.md) — estrategia, organización, portafolio y riesgo.
+
+### 🤖 Ingeniería con inteligencia artificial
+
+- [🤖 AI-Augmented Software Engineer](roles/ai-augmented-software-engineer.md) — desarrollo con agentes, evals y guardrails.
+- [🧠 AI Systems Engineer](roles/ai-systems-engineer.md) — productos con modelos, datasets, fallback y operación.
+
+### 🪜 El ecosistema de carrera técnica
+
+Junior → Semi Senior → Senior → Staff → Principal no es una escala de velocidad ni
+un camino obligatorio hacia management. Aumentan autonomía, ambigüedad, alcance e
+impacto multiplicador. Engineering Manager, Architect, Technical Product y CTO son
+variantes con mandatos distintos; el [índice de roles](roles/README.md) explica sus
+fronteras y transiciones.
+
+## 📦 Formatos disponibles
+
+Actualmente existen dos superficies oficiales:
+
+- documentación navegable directamente en GitHub;
+- portal estático completo en GitHub Pages.
+
+No se anuncian como disponibles un manual PDF consolidado, aplicación Android,
+seguimiento personal, certificación ni paquetes de release. Cuando existan, deberán
+tener generación reproducible, validación y evidencia propias antes de aparecer aquí.
+
+## ✅ Calidad y CI
+
+El repositorio no se publica a ciegas. Cada push y cada pull request validan
+generación, contratos, enlaces, encoding, portal y pruebas en varias versiones y
+plataformas.
+
+| ⚙️ Workflow | Qué cubre |
+| --- | --- |
+| [🧪 `validate.yml`](.github/workflows/validate.yml) | manifiestos reproducibles, 480 contratos de clase, fases 3–4, UTF-8, enlaces, políticas, tests y portabilidad en Linux, Windows y macOS |
+| [🚀 `pages.yml`](.github/workflows/pages.yml) | integridad de las 521 páginas, artefacto y despliegue en GitHub Pages |
+
+Las acciones externas están fijadas por SHA, los permisos son mínimos por job y las
+ejecuciones obsoletas se cancelan. Los mismos controles se ejecutan localmente:
 
 ```bash
 python scripts/build_program_blueprint.py --check
@@ -321,55 +332,75 @@ python scripts/validate_repository.py --strict
 python -m unittest discover -s tests -v
 ```
 
-## 🧱 Estructura
+Requiere Python 3.11 o posterior y no instala dependencias para estas validaciones.
+
+## 🔎 Cobertura disponible hoy
+
+| Superficie | Evidencia verificable |
+| --- | --- |
+| arquitectura | 8 etapas, 40 partes, 480 IDs únicos y 2.160 horas estimadas |
+| clases | 12 con contenido desarrollado, 348 con material de trabajo y 120 con estructura curricular |
+| contratos | 480 metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |
+| fuentes | línea base y registros por clase y por parte |
+| navegación | índice global, 40 índices de parte y enlaces anterior/siguiente |
+| portal | 521 páginas generadas y desplegadas por CI |
+| carrera | 40 guías profesionales enlazadas a partes reales |
+
+La evidencia detallada y las brechas están en [STATUS.md](STATUS.md), la
+[auditoría de fase 3](docs/PHASE3-CONTENT-AUDIT.md), la
+[auditoría de fase 4](docs/PHASE4-CONTENT-AUDIT.md) y la
+[auditoría general de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md).
+
+## 🧱 Estructura del repositorio
 
 ```text
 curriculum.yaml    manifiesto generado de las 480 clases
 catalog.json       conteos canónicos del programa
-classes/           480 clases; 12 desarrolladas, 348 borradores y 120 estructuras
-curriculum/        línea base anterior, pendiente de migración controlada
+classes/           clases, índices de parte, actividades y rúbricas
+roles/             índice y 40 guías profesionales
+curriculum/        línea base anterior preservada para migración controlada
 docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
-sources/           registro de fuentes primarias y oficiales
+sources/           fuentes primarias, oficiales y trazabilidad pedagógica
 schemas/           contratos legibles por máquinas
 site/              521 páginas estáticas generadas para GitHub Pages
 blueprints/        producto documental de referencia
 projects/          dominios y proyectos transversales
 assessments/       diagnóstico y rúbrica
 templates/         artefactos profesionales reutilizables
-portal/            portada local histórica de transición
 scripts/           generación y validación sin dependencias externas
-tests/             pruebas estructurales
+tests/             pruebas estructurales y de navegación
 ```
-
-## 🌐 Publicación
-
-La identidad, About, topics, gates y URL de Pages están definidos en
-[docs/PUBLICATION-PLAN.md](docs/PUBLICATION-PLAN.md). El sitio se genera íntegramente
-desde el manifiesto. El workflow remoto y la respuesta HTTPS del
-[portal público](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
-fueron verificados el 30 de septiembre de 2026.
 
 ## 🎯 Qué es y qué no es este programa
 
-| Es | No es todavía |
-| --- | --- |
-| una arquitectura pública de 480 clases con secuencia y fuentes | 480 clases terminadas |
-| 12 clases desarrolladas y 348 borradores públicos | 480 clases completas o listas para impartir |
-| un estándar explícito para aceptar contenido | una certificación profesional |
-| un producto transversal con artefactos de ingeniería | una garantía de empleo o dominio sin práctica |
-| un portal generado y verificado por CI | una app con cuenta, progreso o modo offline |
-| una cobertura deliberada de IA, SPEC y agentes | permiso para delegar decisiones críticas sin supervisión |
+### ✅ Lo que sí es
+
+- 📚 una arquitectura curricular secuencial de 480 clases y 40 partes;
+- 🧭 un recorrido que conecta profesión, producto, construcción, operación y retiro;
+- 🧪 una base de artefactos profesionales, actividades, rúbricas y producto transversal;
+- 👥 cuarenta rutas profesionales con responsabilidades, límites, evidencia y progresión;
+- 🌐 documentación abierta y un portal generado por CI;
+- 🤖 una cobertura explícita de IA y agentes bajo verificación humana.
+
+### ❌ Lo que no es
+
+- 🚫 una afirmación de que las 480 clases están terminadas;
+- 🚫 una colección de resúmenes o títulos para inflar conteos;
+- 🚫 una certificación profesional o una promesa de empleo;
+- 🚫 un curso profundo de cada lenguaje, base de datos o framework;
+- 🚫 una garantía de producción basada solo en archivos o tests generados;
+- 🚫 permiso para delegar decisiones críticas a un agente sin supervisión.
 
 ## 🧭 Principios editoriales
 
 - conceptos transferibles antes que catálogos de herramientas;
-- problemas, decisiones y evidencia antes que texto genérico;
+- problemas, mecanismos, decisiones y evidencia antes que texto genérico;
 - seguridad, privacidad, accesibilidad y recuperación desde el diseño;
 - continuidad operativa antes que reescritura impulsiva;
 - IA como capacidad supervisada, evaluada y reversible;
 - afirmaciones públicas derivadas de fuentes verificables;
-- portafolio reproducible en vez de certificación sin práctica.
+- portafolio reproducible antes que credenciales sin práctica.
 
 ## 💡 Idea fuerza
 
@@ -378,14 +409,19 @@ fueron verificados el 30 de septiembre de 2026.
 > esa capacidad solo cuando la intención, la evidencia y la responsabilidad siguen
 > bajo control humano.
 
-## 📄 Licencia
+## 📄 Licencia y propiedad intelectual
 
-MIT para el código y contenido propio actualmente cubierto por [LICENSE](LICENSE).
-Las fuentes, estándares, marcas y tecnologías externas conservan sus propios términos.
+El código y el contenido propio del repositorio están cubiertos por la
+[Licencia MIT](LICENSE). Estándares, libros, herramientas, marcas y documentación de
+terceros conservan sus licencias y términos originales. Las referencias se enlazan y
+explican; no se reproducen obras protegidas.
 
 ---
 
-Hecho para aprender ingeniería de software de principio a fin, con práctica,
-evidencia y límites explícitos.
+Hecho para quien quiere aprender Ingeniería de Software en serio, de principio a fin.
 
-[⬆️ Volver al inicio](#-programa-de-ingeniería-de-software-moderna) · [📚 Abrir las 480 clases](classes/README.md) · [🌐 Entrar al portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [👤 Vladimir Acuña](https://github.com/vladimiracunadev-create)
+[⬆️ Empezar por el índice de clases](classes/README.md) · [🧭 Elegir una ruta profesional](roles/README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
+
+¿Te resulta útil? ⭐ Dale una estrella al repositorio.
+
+Hecho con 🧠 y ☕ por [Vladimir Acuña](https://github.com/vladimiracunadev-create).

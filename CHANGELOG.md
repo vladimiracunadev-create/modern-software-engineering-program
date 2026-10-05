@@ -2,6 +2,18 @@
 
 ## Unreleased — fase 3
 
+### README y rutas profesionales
+
+- rediseño integral del README principal siguiendo el ritmo visual y documental del
+  programa de ciberseguridad: identidad, fuentes, mapa completo, uso, rutas, calidad,
+  límites, licencia y llamada final a apoyar el repositorio;
+- 40 guías profesionales propias, derivadas de las capacidades reales de las partes,
+  con misión, jornada, responsabilidades, límites, conocimientos, recorrido,
+  evidencia de portafolio, progresión, mitos y siguientes pasos;
+- índice por familias y mapa de transiciones para distinguir especialización técnica,
+  producto, calidad, plataforma, gobierno, arquitectura, liderazgo e IA;
+- validación automática del inventario, la estructura y la navegación de las rutas.
+
 ### Roadmap curricular y simplificación editorial
 
 - retiro de `PROMPT_MAESTRO.md`: la definición pública del programa vive ahora en un

@@ -369,6 +369,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Horas | {program['estimated_hours']:,} estimadas; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
+| Rutas profesionales | 40 guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
 | Portal definitivo | catálogo navegable; borradores visibles sin presentarlos como clases aprobadas |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
@@ -394,6 +395,8 @@ def file_index(program: dict) -> str:
 | Manifiesto canónico | `curriculum.yaml` | 1 |
 | Catálogo resumido | `catalog.json` | 1 |
 | Índice general | `classes/README.md` | 1 |
+| Índice de rutas profesionales | `roles/README.md` | 1 |
+| Guías profesionales | `roles/*.md` (sin `README.md`) | 40 |
 | Índices de parte | `classes/part-*/README.md` | {program['part_count']} |
 | Materiales de clase | `classes/part-*/se-*/README.md` | {program['class_count']} |
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |

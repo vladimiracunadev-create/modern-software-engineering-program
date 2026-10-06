@@ -9,6 +9,12 @@ La meta es un programa profesional integral de aproximadamente 500 clases. El n�
 no es una cuota: cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
+El mandato completo, las brechas transversales y la acción específica pendiente para
+cada uno de los 480 IDs se conservan en el
+[`plan maestro de auditoría y mejora curricular`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md).
+Ese plan es el backlog operativo recuperable; este roadmap continúa siendo la fuente
+de verdad sobre el producto educativo y su secuencia.
+
 ## Estado verificable de partida
 
 - La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,

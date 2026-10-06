@@ -7,8 +7,11 @@ Antes de una intervención curricular amplia, de cambiar conteos o de continuar 
 trabajo después de una compactación de contexto, relee también
 [`ROADMAP.md`](ROADMAP.md),
 [`docs/PROGRAM-ARCHITECTURE.md`](docs/PROGRAM-ARCHITECTURE.md) y la auditoría de
-cobertura vigente. El roadmap define el programa; este archivo define cómo trabajan
-los agentes. El chat no sustituye esas fuentes canónicas.
+cobertura vigente. Relee además el
+[`plan maestro de implementación`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md),
+que conserva el mandato completo y el análisis de mejora de `SE-001` a `SE-480`.
+El roadmap define el programa; este archivo define cómo trabajan los agentes. El
+chat no sustituye esas fuentes canónicas.
 
 Reglas no negociables:
 

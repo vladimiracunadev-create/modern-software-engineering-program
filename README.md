@@ -214,6 +214,7 @@ el About, los topics, los gates y la URL canónica están documentados en el
 - 📐 [Estándar pedagógico](docs/PEDAGOGICAL-STANDARD.md) — profundidad mínima y revisión cualitativa.
 - 🧠 [Modelo de aprendizaje](docs/LEARNING-MODEL.md) — contexto, práctica, fallo, transferencia e integración.
 - 🧭 [Arquitectura del programa](docs/PROGRAM-ARCHITECTURE.md) — etapas, partes y dependencias.
+- 🧾 [Plan maestro de implementación](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md) — mandato preservado y mejora clase por clase.
 - 🗺️ [Matriz de cobertura](docs/COVERAGE-MATRIX.md) — propiedad curricular por área.
 - 🔎 [Auditoría de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-06.md) — brechas y acciones.
 - 📊 [Rúbrica transversal](assessments/rubric.md) — evaluación de decisiones y evidencia.

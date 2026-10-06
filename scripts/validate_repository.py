@@ -32,6 +32,7 @@ REQUIRED = [
     "manifest/repositories.json",
     "docs/PROGRAM-ARCHITECTURE.md",
     "docs/PEDAGOGICAL-STANDARD.md",
+    "docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md",
     "docs/PHASE3-CONTENT-AUDIT.md",
     "docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md",
     "docs/PROGRAM-COVERAGE-AUDIT-2026-10-06.md",
@@ -378,6 +379,46 @@ def validate_program_roadmap() -> None:
             raise AssertionError(f"Expansion ADR guardrail missing: {token}")
 
 
+def validate_master_curriculum_plan() -> None:
+    """Keep the recoverable mandate complete and class-specific."""
+    path = ROOT / "docs" / "MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md"
+    text = path.read_text(encoding="utf-8")
+    required_tokens = (
+        "## Cómo recuperar el contexto",
+        "## Misión preservada",
+        "## Contratos de profundidad y evidencia",
+        "## Cobertura obligatoria",
+        "## Experiencias y proyectos que no pueden faltar",
+        "## Reglas de expansión y control de cambios",
+        "## Línea base verificada y brechas transversales",
+        "## Plan de mejora clase por clase",
+        "## Orden de ejecución y registro",
+        "## Validación final obligatoria",
+        "REVISAR → COMPRENDER → INVENTARIAR → CONTRASTAR → DETECTAR BRECHAS",
+        "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS",
+        "calidad > profundidad > coherencia > cantidad",
+        "HECHOS / INTERPRETACIÓN / LECCIONES",
+    )
+    for token in required_tokens:
+        if token not in text:
+            raise AssertionError(f"Master curriculum plan contract missing: {token}")
+
+    start = text.index("## Plan de mejora clase por clase")
+    end = text.index("## Orden de ejecución y registro")
+    class_plan = text[start:end]
+    rows = re.findall(r"^- \[([ x])\] `(SE-\d{3})` — .+$", class_plan, re.MULTILINE)
+    expected_ids = [f"SE-{number:03d}" for number in range(1, 481)]
+    found_ids = [class_id for _, class_id in rows]
+    if found_ids != expected_ids:
+        raise AssertionError(
+            "Master curriculum plan must cover SE-001 through SE-480 exactly once and in order"
+        )
+    if any(marker != "x" for marker, _ in rows[:24]):
+        raise AssertionError("The first 24 developed classes must stay recorded as reviewed")
+    if any(marker != " " for marker, _ in rows[24:]):
+        raise AssertionError("A pending class cannot be checked without updating the plan validator")
+
+
 def validate_blueprint() -> None:
     contract = (ROOT / "blueprints/reference-product/api/openapi.yaml").read_text(encoding="utf-8")
     for token in ("openapi: 3.1.0", "/students/{studentId}/progress:", "Idempotency-Key"):
@@ -470,6 +511,7 @@ def main() -> int:
         validate_phase2_outputs()
         validate_developed_part_guide()
         validate_program_roadmap()
+        validate_master_curriculum_plan()
         validate_blueprint()
         validate_portal()
         validate_workflows(args.strict)

@@ -8,6 +8,10 @@ curricular con `ROADMAP.md`, `curriculum.yaml`, las 480 carpetas de clase, fuent
 validadores, portal y prácticas ejecutables. Un título o una página generada demuestra
 ubicación curricular; no demuestra enseñanza completa.
 
+El mandato completo y la acción específica acordada para cada clase se conservan en el
+[`plan maestro de implementación`](MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md). Esta
+auditoría sigue siendo la fotografía de estado; el plan es el backlog recuperable.
+
 Se revisó cualitativamente la Parte 01 clase por clase, se ejecutó su laboratorio común
 y se reconsultaron fuentes oficiales vigentes. Unicode 18.0, Java SE 27, la biblioteca
 ratificada de RISC-V, Python 3 y SCI sustituyen marcadores de versión ya superados sin

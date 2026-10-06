@@ -3,6 +3,7 @@
   "scope": "SE-037..SE-048",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "reverified_on": "2026-10-06",
   "classes": [
     {
       "class_id": "SE-037",
@@ -130,6 +131,16 @@
           "title": "RFC 8499 — DNS Terminology",
           "url": "https://www.rfc-editor.org/rfc/rfc8499",
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
+        },
+        {
+          "title": "RFC 2308 — Negative Caching of DNS Queries",
+          "url": "https://www.rfc-editor.org/rfc/rfc2308",
+          "supports": "define almacenamiento y expiración de respuestas negativas DNS"
+        },
+        {
+          "title": "RFC 4033 — DNS Security Introduction and Requirements",
+          "url": "https://www.rfc-editor.org/rfc/rfc4033",
+          "supports": "define objetivos, cadena de confianza y límites de DNSSEC"
         }
       ],
       "reviewed_on": "2026-10-03"
@@ -203,6 +214,11 @@
           "title": "RFC 8446 — TLS 1.3",
           "url": "https://www.rfc-editor.org/rfc/rfc8446",
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
+        },
+        {
+          "title": "RFC 7239 — Forwarded HTTP Extension",
+          "url": "https://www.rfc-editor.org/rfc/rfc7239",
+          "supports": "define metadatos reenviados y sus consideraciones de seguridad y privacidad"
         }
       ],
       "reviewed_on": "2026-10-03"
@@ -281,6 +297,11 @@
           "title": "RFC 9293 — Transmission Control Protocol",
           "url": "https://www.rfc-editor.org/rfc/rfc9293",
           "supports": "define la semántica normativa del protocolo nombrado en el título y sus límites interoperables"
+        },
+        {
+          "title": "W3C Trace Context",
+          "url": "https://www.w3.org/TR/trace-context/",
+          "supports": "define propagación interoperable de contexto y límites de privacidad y confianza"
         }
       ],
       "reviewed_on": "2026-10-03"

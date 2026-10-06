@@ -189,6 +189,10 @@ work/SE-043/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+El escenario `tls_name_mismatch` de la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) evalúa el orden de la política: un nombre no coincidente se rechaza antes de HTTP. Es un modelo, no un handshake. Completa `tls-evidence.md` con una inspección autorizada que sí registre SAN, cadena, vigencia, protocolo y estrategia de revocación; nunca guardes una clave privada ni presentes `-k` como corrección.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

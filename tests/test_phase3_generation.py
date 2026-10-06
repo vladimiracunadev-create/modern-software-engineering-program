@@ -168,8 +168,35 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-036.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-037.html").read_text(encoding="utf-8")
+        next_developed_page = (ROOT / "site/classes/SE-037.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-049.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
+        self.assertIn("Contenido desarrollado", developed_page)
+        self.assertIn("Contenido desarrollado", next_developed_page)
+        self.assertIn("Contenido en revisión", draft_page)
+        self.assertIn("Doce clases desarrolladas", part_page)
+        self.assertNotIn("doce borradores visibles", part_page)
+
+    def test_part_three_has_an_observable_local_request_laboratory(self) -> None:
+        laboratory = ROOT / "labs" / "part-03-observable-request"
+        for relative in (
+            "README.md",
+            "observable_request.py",
+            "tests/test_observable_request.py",
+            "evidence/VALIDATION.md",
+        ):
+            self.assertTrue((laboratory / relative).is_file(), relative)
+        workflow = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        self.assertIn("labs/part-03-observable-request/tests", workflow)
+        lab_url = "labs/part-03-observable-request"
+        for lesson in self.lessons[36:48]:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            self.assertIn(lab_url, text, lesson["id"])
+            activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
+            self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
+        developed_page = (ROOT / "site/classes/SE-048.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-049.html").read_text(encoding="utf-8")
+        part_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)

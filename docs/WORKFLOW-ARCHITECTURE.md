@@ -39,9 +39,9 @@ Los generadores se ejecutan en modo `--check`: no corrigen el árbol dentro de C
 sino que fallan si una fuente y su salida discrepan. La matriz Python 3.11–3.14
 detecta incompatibilidades del lenguaje. Los contratos de clases, actividades,
 rúbricas, fuentes, sitio y rutas profesionales se comprueban antes de ejecutar las
-pruebas unitarias. Los laboratorios de las Partes 01 y 02 vuelven a ejecutar sus seis
-y diez pruebas, respectivamente, en el job estructural y en los tres sistemas
-operativos de portabilidad. La Parte 02 añade además un smoke test de su adaptador
+pruebas unitarias. Los laboratorios de las Partes 01, 02 y 03 vuelven a ejecutar sus
+seis, diez y once pruebas, respectivamente, en el job estructural y en los tres
+sistemas operativos de portabilidad. La Parte 02 añade además un smoke test de su adaptador
 nativo: PowerShell en Windows y Bash en macOS y Linux.
 
 ### Documentación
@@ -114,7 +114,8 @@ python scripts/validate_repository.py --strict
 python -m unittest discover -s tests -v
 python -m unittest discover -s labs/part-01-machine-observer/tests -v
 python -m unittest discover -s labs/part-02-cross-platform-diagnostic-kit/tests -v
-python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit
+python -m unittest discover -s labs/part-03-observable-request/tests -v
+python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit labs/part-03-observable-request
 ```
 
 El lint Markdown se reproduce con

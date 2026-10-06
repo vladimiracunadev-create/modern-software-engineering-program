@@ -6,18 +6,17 @@
   "environment": "navegador, curl y utilidades de diagnóstico de red",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "identify-loopback-boundary",
+    "separate-link-from-network",
+    "model-neighbor-resolution",
+    "compare-ethernet-wifi",
+    "design-authorized-probe",
+    "mark-unobserved-mechanisms"
   ],
   "outputs": [
-    "request.txt",
-    "trace.md",
-    "failure-report.md"
+    "lan-trace.md",
+    "boundary-map.md",
+    "limits.md"
   ],
   "safety": {
     "real_personal_data": false,

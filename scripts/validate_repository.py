@@ -413,9 +413,9 @@ def validate_master_curriculum_plan() -> None:
         raise AssertionError(
             "Master curriculum plan must cover SE-001 through SE-480 exactly once and in order"
         )
-    if any(marker != "x" for marker, _ in rows[:36]):
-        raise AssertionError("The first 36 developed classes must stay recorded as reviewed")
-    if any(marker != " " for marker, _ in rows[36:]):
+    if any(marker != "x" for marker, _ in rows[:48]):
+        raise AssertionError("The first 48 developed classes must stay recorded as reviewed")
+    if any(marker != " " for marker, _ in rows[48:]):
         raise AssertionError("A pending class cannot be checked without updating the plan validator")
 
 

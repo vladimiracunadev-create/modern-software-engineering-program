@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 36 clases de las Partes 00–02 están desarrolladas. Las 144
+`SE-001`–`SE-180`: las 48 clases de las Partes 00–03 están desarrolladas. Las 132
 restantes son borradores públicos y aún no superan la revisión definida por el
 estándar pedagógico permanente.
 
@@ -23,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 36 | Partes 00–02; las otras 144 continúan como borradores |
+| clases desarrolladas | 48 | Partes 00–03; las otras 132 continúan como borradores |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -118,7 +118,7 @@ portabilidad Linux/macOS sólo se acepta cuando la matriz remota termina verde.
 
 ## Avance editorial de la Parte 03
 
-Las clases `SE-037`–`SE-048` se reconstruyeron como fuentes canónicas en
+Las clases `SE-037`–`SE-048` se revisaron como fuentes canónicas en
 `content/part-03/`. Una petición observable se sigue desde la red local hasta IP,
 transporte, DNS, HTTP, TLS, intermediarios y conexiones persistentes; después la
 mide, la integra en un taller de extremo a extremo y la convierte en un servicio
@@ -126,7 +126,7 @@ observable con recuperación controlada. Cada clase desarrolla cinco mecanismos
 propios, contrasta una hipótesis rival, exige primera divergencia y conserva el caso
 sano, degradado y restaurado. Las fuentes RFC se enlazan junto al mecanismo que
 sustentan, y las prácticas limitan captura, privilegios y datos sensibles. Las doce
-clases todavía requieren revisión y no afirman que los laboratorios se ejecutaron en redes
+clases incorporan un laboratorio local ejecutable y no afirman que sus modelos prueben redes
 de producción.
 
 ## Avance editorial de la Parte 04

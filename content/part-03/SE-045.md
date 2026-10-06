@@ -189,6 +189,10 @@ work/SE-045/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Verifica con las pruebas de la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) que el servidor termina y el hilo se une incluso después de un timeout. Luego diseña en `connection-state.md` la transición equivalente para polling, SSE y WebSocket: apertura, heartbeat, consumidor lento, cursor, cierre y reconexión. La ejecución HTTP local no demuestra framing ni backpressure de WebSocket.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

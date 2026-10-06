@@ -189,6 +189,10 @@ work/SE-038/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Usa la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) para delimitar loopback frente a una LAN real. Entrega `lan-trace.md` con lo que el experimento sí observa y con ARP, Wi-Fi, trama, broadcast y VLAN marcados como mecanismos que requieren una práctica autorizada adicional. No conviertas la ausencia de una trama capturada en prueba de que la capa de enlace no existe.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

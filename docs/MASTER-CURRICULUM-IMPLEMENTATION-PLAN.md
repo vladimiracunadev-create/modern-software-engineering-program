@@ -198,18 +198,18 @@ evita una explicación genérica.
 
 ### Parte 03 — Redes
 
-- [ ] `SE-037` — diagnosticar una petición por capas con evidencia por salto.
-- [ ] `SE-038` — explicar Ethernet y Wi-Fi sin confundir enlace con Internet.
-- [ ] `SE-039` — experimentar IPv4, IPv6, routing y NAT con límites del entorno.
-- [ ] `SE-040` — comparar TCP, UDP y QUIC bajo latencia, pérdida y orden.
-- [ ] `SE-041` — probar DNS, caché negativa y límites de DNSSEC.
-- [ ] `SE-042` — verificar HTTP, negociación, caché y semántica de métodos.
-- [ ] `SE-043` — reconstruir cadena TLS, nombres, vencimiento y revocación.
-- [ ] `SE-044` — razonar sobre proxies, balanceo y fronteras de confianza de headers.
-- [ ] `SE-045` — comparar polling, SSE y WebSocket, incluida reconexión.
-- [ ] `SE-046` — capturar tráfico sintético con minimización y privacidad.
-- [ ] `SE-047` — producir una traza extremo a extremo con correlation ID.
-- [ ] `SE-048` — inyectar DNS, TLS, latencia y pérdida y demostrar recuperación.
+- [x] `SE-037` — diagnosticar una petición por capas con evidencia por salto.
+- [x] `SE-038` — explicar Ethernet y Wi-Fi sin confundir enlace con Internet.
+- [x] `SE-039` — experimentar IPv4, IPv6, routing y NAT con límites del entorno.
+- [x] `SE-040` — comparar TCP, UDP y QUIC bajo latencia, pérdida y orden.
+- [x] `SE-041` — probar DNS, caché negativa y límites de DNSSEC.
+- [x] `SE-042` — verificar HTTP, negociación, caché y semántica de métodos.
+- [x] `SE-043` — reconstruir cadena TLS, nombres, vencimiento y revocación.
+- [x] `SE-044` — razonar sobre proxies, balanceo y fronteras de confianza de headers.
+- [x] `SE-045` — comparar polling, SSE y WebSocket, incluida reconexión.
+- [x] `SE-046` — capturar tráfico sintético con minimización y privacidad.
+- [x] `SE-047` — producir una traza extremo a extremo con correlation ID.
+- [x] `SE-048` — inyectar DNS, TLS, latencia y pérdida y demostrar recuperación.
 
 ### Parte 04 — Pensamiento computacional
 

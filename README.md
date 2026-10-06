@@ -32,8 +32,8 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 
 > [!IMPORTANT]
 > **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases.
-> Las Partes 00–02 (`SE-001`–`SE-036`) tienen contenido desarrollado; las partes 03–29
-> (`SE-037`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
+> Las Partes 00–03 (`SE-001`–`SE-048`) tienen contenido desarrollado; las partes 04–29
+> (`SE-049`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
 > y las partes 30–39 (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza
 > completa. Una carpeta o página generada no cuenta como aprendizaje terminado.
 

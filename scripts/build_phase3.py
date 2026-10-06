@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 36
+DEVELOPED_LAST_CLASS = 48
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
@@ -606,7 +606,83 @@ PART02_ACTIVITIES = {
 }
 
 
-SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES}
+PART03_ACTIVITIES = {
+    "SE-037": {
+        "outputs": ["layer-hypotheses.md", "timeline.json", "limits.md"],
+        "steps": ["predict-healthy-path", "run-local-suite", "map-events-to-models", "locate-first-divergence", "test-rival-hypothesis", "state-model-leaks"],
+        "mechanism": "each observation is located at a boundary without treating OSI or TCP/IP as a literal implementation",
+        "failure": "a layer label without discriminating evidence is replaced by two rival hypotheses and a next probe",
+    },
+    "SE-038": {
+        "outputs": ["lan-trace.md", "boundary-map.md", "limits.md"],
+        "steps": ["identify-loopback-boundary", "separate-link-from-network", "model-neighbor-resolution", "compare-ethernet-wifi", "design-authorized-probe", "mark-unobserved-mechanisms"],
+        "mechanism": "link scope, frames, neighbor resolution and broadcast are separated from global identity and routing",
+        "failure": "absence in the loopback trace cannot be promoted to evidence that an Ethernet or Wi-Fi mechanism is absent",
+    },
+    "SE-039": {
+        "outputs": ["routing-lab.md", "prefix-table.json", "nat-boundaries.md"],
+        "steps": ["calculate-prefixes", "apply-longest-prefix-match", "explain-loopback-route", "observe-closed-port", "model-nat-transform", "avoid-host-route-changes"],
+        "mechanism": "address selection, longest-prefix routing, gateway use and NAT transformation remain distinct decisions",
+        "failure": "a designed NAT example is labelled as a model when no translation was observed",
+    },
+    "SE-040": {
+        "outputs": ["transport-decision.md", "retry-matrix.json", "unknown-outcome.md"],
+        "steps": ["list-required-guarantees", "compare-transport-semantics", "run-connect-timeout-loss", "bound-deadline", "justify-safe-retry", "construct-nonidempotent-counterexample"],
+        "mechanism": "connection, message framing, response wait and retry policy are derived from application guarantees",
+        "failure": "a timed-out write remains unknown and is not retried merely because the client saw an error",
+    },
+    "SE-041": {
+        "outputs": ["dns-trace.md", "negative-cache.md", "dnssec-limits.md"],
+        "steps": ["compare-name-and-address", "run-local-resolution-cases", "locate-preconnect-failure", "model-nxdomain-ttl", "classify-secure-insecure-bogus", "declare-simulation-limit"],
+        "mechanism": "resolution, delegation, positive and negative caching, address selection and DNSSEC validation are separated",
+        "failure": "the in-memory resolver is not presented as evidence of recursive DNS or DNSSEC validation",
+    },
+    "SE-042": {
+        "outputs": ["http-exchange.md", "retry-policy.md", "cache-example.md"],
+        "steps": ["predict-method-semantics", "run-healthy-and-503", "preserve-failed-attempt", "justify-retry", "design-etag-revalidation", "state-cache-limit"],
+        "mechanism": "method semantics, status, representation, validators and cache policy determine safe automation",
+        "failure": "a recovered 503 remains in the timeline instead of being erased by the final 200 response",
+    },
+    "SE-043": {
+        "outputs": ["tls-evidence.md", "trust-path.md", "rotation-plan.md"],
+        "steps": ["run-name-mismatch-model", "prove-http-not-reached", "inspect-authorized-certificate", "validate-san-time-chain", "separate-revocation-strategy", "reject-insecure-bypass"],
+        "mechanism": "protocol negotiation, certificate path, name, validity and trust anchor are checked as separate conditions",
+        "failure": "the deterministic name model is not misreported as a cryptographic handshake and validation is never disabled as a fix",
+    },
+    "SE-044": {
+        "outputs": ["hop-map.md", "header-policy.md", "timeout-budget.md"],
+        "steps": ["draw-connection-hops", "mark-tls-termination", "classify-forwarded-headers", "define-first-trusted-boundary", "propagate-correlation", "test-spoofed-input"],
+        "mechanism": "each intermediary owns an explicit connection, identity transformation, cache decision and timeout",
+        "failure": "client-supplied forwarding or correlation headers are replaced or rejected at the first trusted boundary",
+    },
+    "SE-045": {
+        "outputs": ["connection-state.md", "backpressure-policy.md", "reconnect-cases.json"],
+        "steps": ["compare-polling-sse-websocket", "model-open-message-close", "inject-slow-consumer", "bound-queue", "design-cursor-reconnect", "verify-clean-shutdown"],
+        "mechanism": "lifecycle, framing, heartbeat, backpressure and resumable position are explicit state transitions",
+        "failure": "an open connection is not treated as delivery and an unbounded queue is rejected",
+    },
+    "SE-046": {
+        "outputs": ["capture-notes.md", "minimal-timeline.json", "privacy-review.md"],
+        "steps": ["define-question-and-population", "run-local-suite", "measure-phases", "minimize-fields", "separate-observed-inferred", "design-authorized-capture"],
+        "mechanism": "measurement has a defined phase, clock, point of observation, population and minimization boundary",
+        "failure": "seven distinct scenarios are not summarized as a latency percentile or network-loss measurement",
+    },
+    "SE-047": {
+        "outputs": ["request-timeline.md", "identity-map.md", "rival-hypotheses.md"],
+        "steps": ["declare-observation-contract", "run-healthy-baseline", "inject-one-failure", "align-by-request-id", "find-first-divergence", "peer-reconstruct-timeline"],
+        "mechanism": "DNS, connect, TLS policy and HTTP evidence share a bounded timeline and explicit identities",
+        "failure": "temporal correlation alone cannot establish causality; a discriminating intervention is required",
+    },
+    "SE-048": {
+        "outputs": ["observable_request.py", "tests/test_observable_request.py", "failure-matrix.md", "runbook.md"],
+        "steps": ["run-eleven-tests", "record-healthy-baseline", "exercise-seven-scenarios", "verify-bounded-retries", "verify-redaction-and-cleanup", "document-production-limits"],
+        "mechanism": "the service returns typed phase results, correlation evidence, bounded retry and deterministic cleanup",
+        "failure": "local green results do not claim production availability, public DNS behavior or real TLS validation",
+    },
+}
+
+
+SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES, **PART03_ACTIVITIES}
 
 
 def activity(part: dict, lesson: dict) -> dict:
@@ -832,7 +908,7 @@ def site_page(
     developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–02."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–03."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

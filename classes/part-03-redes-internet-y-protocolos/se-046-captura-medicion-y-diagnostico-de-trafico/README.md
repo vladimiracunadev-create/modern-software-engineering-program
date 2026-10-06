@@ -189,6 +189,10 @@ work/SE-046/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Genera la suite JSON de la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) y conserva únicamente fase, offset, resultado y evidencia mínima. `capture-notes.md` debe comparar qué puede afirmar esa telemetría con lo que requeriría una captura de paquetes autorizada. No llames “p95” a siete escenarios distintos ni deduzcas pérdida de red desde la pérdida sintética.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

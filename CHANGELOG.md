@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-06 — Parte 03 desarrollada
+
+- revisión cualitativa clase a clase de `SE-037`–`SE-048`, con DNSSEC, caché
+  negativa, confianza de cabeceras y Trace Context vinculados a fuentes primarias;
+- laboratorio local de petición observable con siete escenarios, once pruebas,
+  resultados tipados, correlación, redacción y limpieza determinista;
+- actividades y rúbricas específicas, portal íntegro, índices y estado reconciliados
+  a 48 clases desarrolladas, 312 borradores y 120 estructuras curriculares.
+
 ## Unreleased — fase 3
 
 ### Parte 02 — sistemas operativos, terminal y automatización base

@@ -12,7 +12,7 @@ El mandato completo y la acción específica acordada para cada clase se conserv
 [`plan maestro de implementación`](MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md). Esta
 auditoría sigue siendo la fotografía de estado; el plan es el backlog recuperable.
 
-Se revisaron cualitativamente las Partes 01 y 02 clase por clase, se ejecutaron sus
+Se revisaron cualitativamente las Partes 01, 02 y 03 clase por clase, se ejecutaron sus
 laboratorios comunes y se reconsultaron fuentes oficiales vigentes. Unicode 18.0,
 Java SE 27, la biblioteca ratificada de RISC-V, Python 3, SCI, POSIX.1-2024 y GNU
 Bash 5.3 sustituyen marcadores de versión ya superados sin alterar referencias
@@ -21,12 +21,13 @@ históricas.
 ## Línea base verificable
 
 - 8 etapas, 40 partes y 480 IDs consecutivos (`SE-001`–`SE-480`);
-- 36 clases desarrolladas (`SE-001`–`SE-036`), 324 borradores y 120 estructuras;
-- Partes 00–02 desarrolladas; Partes 03–29 publicadas para revisión; Partes 30–39
+- 48 clases desarrolladas (`SE-001`–`SE-048`), 312 borradores y 120 estructuras;
+- Partes 00–03 desarrolladas; Partes 04–29 publicadas para revisión; Partes 30–39
   pendientes de desarrollo íntegro;
 - 521 páginas HTML generadas;
-- dos laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
-  y seis pruebas, y el de la Parte 02 con diez pruebas y adaptadores PowerShell/Bash;
+- tres laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
+  y seis pruebas, el de la Parte 02 con diez pruebas y adaptadores PowerShell/Bash, y
+  el de la Parte 03 con siete escenarios de red locales y once pruebas;
 - tres workflows; la evidencia remota del incremento se acepta solo cuando sus jobs y
   Pages terminen en verde.
 
@@ -34,7 +35,7 @@ históricas.
 
 | Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |
 | --- | --- | --- | --- | --- | --- |
-| Fundamentos, profesión y ética | PARCIAL | Partes 00–04; `content/part-00..04`; laboratorios de Partes 01–02 | Partes 00–02 desarrolladas; 03–04 no aprobadas | redes y razonamiento computacional aún carecen de ejecución y revisión integral | desarrollar Partes 03–04, una por commit, reutilizando los protocolos de evidencia existentes |
+| Fundamentos, profesión y ética | PARCIAL | Partes 00–04; `content/part-00..04`; laboratorios de Partes 01–03 | Partes 00–03 desarrolladas; 04 no aprobada | razonamiento computacional aún carece de ejecución y revisión integral | desarrollar la Parte 04 reutilizando los protocolos de evidencia existentes |
 | Construcción, paradigmas y depuración | SUPERFICIAL | Partes 05–09 y `polyglot-programming-labs` | borradores editoriales | mecanismos, fallos y transferencia entre paradigmas no han sido validados de extremo a extremo | profundizar decisiones de ingeniería aquí y conservar sintaxis especializada fuera |
 | Requisitos y discovery | SUPERFICIAL | Partes 10, 12 y 13 | títulos y borradores | observación, workshops, conflictos, NFR y cambio no están aprobados | construir trazabilidad necesidad → requisito → prueba → evidencia |
 | Economía, estimación y experimentación | SUPERFICIAL | Partes 11, 15 y 37 | cobertura nominal | Monte Carlo, Function Points, COCOMO II y compromiso probabilístico requieren práctica | profundizar `SE-185`, `SE-191` y el proyecto económico antes de dividir |
@@ -58,7 +59,7 @@ históricas.
 | Green software | PARCIAL | `SE-009`, `SE-022`, `SE-134`, `SE-267`, `SE-356` | `SE-022` delimita energía/SCI; GreenOps pendiente | falta medición física, carbon awareness operativo y efectos rebote | integrar medición en 29/31 sin inventar reducción desde tiempo |
 | Accesibilidad e internacionalización | SUPERFICIAL | Parte 14; Unicode 18.0 en Parte 01 | representación de texto desarrollada; experiencia inclusiva pendiente | RTL, pluralización, teclado, zoom y lector de pantalla | construir y verificar un flujo localizado accesible |
 | IA aplicada y agentes | AUSENTE | Partes 38–39 | scaffolds | evals, APIs inventadas, loops, coste, provenance y regresiones | aplicar HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN → HUMANO REVISA → SISTEMA VALIDA |
-| Casos reales, laboratorios y evaluación | PARCIAL | actividades, rúbricas, Parte 00 y laboratorios de Partes 01–02 | dos prácticas ejecutables conservadas; evidencia escasa en el resto | casos documentados y artefactos ejecutados deben crecer parte a parte | separar HECHOS / INTERPRETACIÓN / LECCIONES y no inventar resultados |
+| Casos reales, laboratorios y evaluación | PARCIAL | actividades, rúbricas, Parte 00 y laboratorios de Partes 01–03 | tres prácticas ejecutables conservadas; evidencia escasa en el resto | casos documentados y artefactos ejecutados deben crecer parte a parte | separar HECHOS / INTERPRETACIÓN / LECCIONES y no inventar resultados |
 | Fuentes, glosario, rutas y portal | PARCIAL | `sources/`, `roles/`, `site/`, `docs/SOURCES.md` | portal íntegro y rutas publicadas; glosario temático incompleto | fuentes por afirmación y relaciones terminológicas faltan fuera de partes aprobadas | actualizar junto a cada parte y evitar archivos huérfanos |
 
 ## Revisión clase a clase de la Parte 02
@@ -83,6 +84,27 @@ clase analiza.
 | `SE-035` | COMPLETA | la reparación podía borrar el síntoma o cambiar varias variables a la vez | ciclo reproducir–diagnosticar–reparar–regresar con corrupción controlada y regresión |
 | `SE-036` | COMPLETA | el proyecto necesitaba ser un producto operable y no una colección de comandos | núcleo Python, adaptadores, diez pruebas, códigos 0/2/3, limpieza conservadora y registro de validación |
 
+## Revisión clase a clase de la Parte 03
+
+`COMPLETA` significa que la clase superó revisión de mecanismo, práctica, límites,
+fuentes, actividad, rúbrica, navegación y publicación. El laboratorio usa sockets
+reales solo en loopback; DNS, confianza TLS y pérdida se identifican como modelos.
+
+| Clase | Estado | Hallazgo de la revisión | Mejora y evidencia incorporada |
+| --- | --- | --- | --- |
+| `SE-037` | COMPLETA | los modelos podían leerse como implementación literal | hipótesis rivales y mapa de observaciones por frontera |
+| `SE-038` | COMPLETA | loopback podía confundirse con evidencia Ethernet/Wi-Fi | límites explícitos y diseño de una práctica LAN autorizada |
+| `SE-039` | COMPLETA | faltaba separar ruta observada de NAT diseñada | longest-prefix match verificable sin modificar rutas del host |
+| `SE-040` | COMPLETA | los reintentos no distinguían resultado desconocido | conexión, deadline, pérdida sintética e idempotencia en una matriz |
+| `SE-041` | COMPLETA | DNSSEC y caché negativa requerían mecanismo y límites | NXDOMAIN/SOA/TTL y estados secure/insecure/bogus con RFC 2308/4033 |
+| `SE-042` | COMPLETA | el éxito final podía borrar el 503 previo | historial de intentos, semántica de método y caso ETag/304 diseñado |
+| `SE-043` | COMPLETA | una simulación podía parecer handshake real | rechazo de nombre tipado y práctica separada de cadena, vigencia y revocación |
+| `SE-044` | COMPLETA | faltaba una política comprobable de cabeceras confiables | mapa de saltos y tratamiento de Forwarded, Via, request ID y traceparent |
+| `SE-045` | COMPLETA | conexión abierta podía confundirse con entrega | estados de polling/SSE/WebSocket, backpressure y cierre verificado |
+| `SE-046` | COMPLETA | una muestra pequeña podía producir métricas falsas | telemetría mínima, privacidad y prohibición de inferir p95 o pérdida real |
+| `SE-047` | COMPLETA | correlación temporal podía presentarse como causalidad | primera divergencia, hipótesis rivales y Trace Context con límites de confianza |
+| `SE-048` | COMPLETA | faltaba un producto local ejecutable y recuperable | siete escenarios, once pruebas, resultados tipados, redacción y limpieza |
+
 ## Decisión sobre nuevas clases
 
 No se crean IDs posteriores a `SE-480` en este incremento. La Parte 01 demuestra que
@@ -93,23 +115,23 @@ evidencia de que integrar el tema en una clase existente degradaría su profundi
 
 ## Próximo incremento
 
-La Parte 03 (`SE-037`–`SE-048`) es la siguiente unidad indivisible. Debe convertir una
-petición de red en una traza observable por capas, usar tráfico sintético o autorizado,
-inyectar fallos controlados, demostrar recuperación y publicar la parte completa en un
-solo commit después de los gates.
+La Parte 04 (`SE-049`–`SE-060`) es la siguiente unidad indivisible. Debe convertir el
+incidente de red en un problema formalizado con supuestos, invariantes, algoritmos,
+oráculos y contraejemplos, y publicarse completa en un solo commit después de los gates.
 
 ## Métricas antes y después del incremento
 
-| Métrica | 2026-10-04 | 2026-10-06 · Parte 01 | 2026-10-06 · Parte 02 |
-| --- | ---: | ---: | ---: |
-| clases desarrolladas | 12 | 24 | 36 |
-| borradores publicados | 348 | 336 | 324 |
-| estructuras curriculares | 120 | 120 | 120 |
-| laboratorios ejecutables versionados | 0 | 1 | 2 |
-| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 |
-| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 |
-| clases totales | 480 | 480 | 480 |
-| páginas HTML | 521 | 521 | 521 |
+| Métrica | 2026-10-04 | Parte 01 | Parte 02 | Parte 03 |
+| --- | ---: | ---: | ---: | ---: |
+| clases desarrolladas | 12 | 24 | 36 | 48 |
+| borradores publicados | 348 | 336 | 324 | 312 |
+| estructuras curriculares | 120 | 120 | 120 | 120 |
+| laboratorios ejecutables versionados | 0 | 1 | 2 | 3 |
+| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 | 6 |
+| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 | 10 |
+| pruebas del laboratorio de Parte 03 | 0 | 0 | 0 | 11 |
+| clases totales | 480 | 480 | 480 | 480 |
+| páginas HTML | 521 | 521 | 521 | 521 |
 
 Los conteos no sustituyen la revisión cualitativa. El cambio conserva las 480 clases,
 la navegación y el historial; profundiza una parte completa y deja explícito lo que no
@@ -126,6 +148,10 @@ se midió.
 - [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/), consultada el 2026-10-06.
 - [PowerShell documentation](https://learn.microsoft.com/powershell/), consultada el 2026-10-06.
 - [Windows Subsystem for Linux documentation](https://learn.microsoft.com/windows/wsl/), consultada el 2026-10-06.
+- [RFC 2308 — Negative Caching of DNS Queries](https://www.rfc-editor.org/rfc/rfc2308), reconsultada el 2026-10-06.
+- [RFC 4033 — DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033), reconsultada el 2026-10-06.
+- [RFC 7239 — Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239), reconsultada el 2026-10-06.
+- [W3C Trace Context](https://www.w3.org/TR/trace-context/), reconsultada el 2026-10-06.
 
 No se afirma acceso al texto completo de normas de pago ni ejecución en hardware no
 disponible. Los resultados de CI y Pages se documentan después de la publicación.

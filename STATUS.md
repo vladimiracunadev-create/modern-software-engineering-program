@@ -8,8 +8,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Etapas | 8 especificadas |
 | Partes | 40 indexadas |
 | Clases | 480 posiciones curriculares consecutivas |
-| Contenido desarrollado | Partes 00–02 (`SE-001`–`SE-036`) |
-| Borradores publicados | Partes 03–29 (`SE-037`–`SE-360`) |
+| Contenido desarrollado | Partes 00–03 (`SE-001`–`SE-048`) |
+| Borradores publicados | Partes 04–29 (`SE-049`–`SE-360`) |
 | Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | 180 clases (`SE-181`–`SE-360`) |

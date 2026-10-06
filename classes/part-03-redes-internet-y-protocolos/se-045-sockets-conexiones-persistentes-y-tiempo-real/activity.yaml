@@ -6,18 +6,17 @@
   "environment": "navegador, curl y utilidades de diagnóstico de red",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "compare-polling-sse-websocket",
+    "model-open-message-close",
+    "inject-slow-consumer",
+    "bound-queue",
+    "design-cursor-reconnect",
+    "verify-clean-shutdown"
   ],
   "outputs": [
-    "request.txt",
-    "trace.md",
-    "failure-report.md"
+    "connection-state.md",
+    "backpressure-policy.md",
+    "reconnect-cases.json"
   ],
   "safety": {
     "real_personal_data": false,

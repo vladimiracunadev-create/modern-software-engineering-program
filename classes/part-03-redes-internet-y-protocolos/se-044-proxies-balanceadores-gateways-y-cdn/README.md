@@ -189,6 +189,10 @@ work/SE-044/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Usa el `request_id` de la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) para diseñar `hop-map.md`. En cada frontera indica si conserva, valida, reemplaza o elimina `Forwarded`, `Via`, `X-Request-ID` y `traceparent`. Una cabecera aportada por Internet no adquiere autoridad por llamarse “forwarded”: el primer perímetro confiable debe aplicar una política explícita.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;
@@ -221,6 +225,7 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 - [RFC 9111 — HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 - [RFC 8446 — TLS 1.3](https://www.rfc-editor.org/rfc/rfc8446) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 7239 — Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239) — estandariza metadatos reenviados y documenta sus consideraciones de seguridad y privacidad.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
 

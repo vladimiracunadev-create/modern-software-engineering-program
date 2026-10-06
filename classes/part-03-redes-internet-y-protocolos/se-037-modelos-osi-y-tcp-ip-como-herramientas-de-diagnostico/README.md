@@ -189,6 +189,10 @@ work/SE-037/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Ejecuta la suite de la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request) y construye `layer-hypotheses.md`. Para cada evento indica modelo, frontera, evidencia disponible y una explicación rival. La rúbrica rechaza tanto asignar una herramienta a una capa rígida como afirmar que el modelo representa literalmente la implementación.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

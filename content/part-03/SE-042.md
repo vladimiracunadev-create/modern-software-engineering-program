@@ -188,6 +188,10 @@ work/SE-042/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Ejecuta `healthy` y `http_503` en la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request). Conserva cada respuesta 503 antes de la recuperación y explica por qué el estado, el método y el presupuesto forman juntos la política de reintento. Extiende `http-exchange.md` con un caso de ETag/304 diseñado y declara que el servidor del laboratorio no implementa caché HTTP.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

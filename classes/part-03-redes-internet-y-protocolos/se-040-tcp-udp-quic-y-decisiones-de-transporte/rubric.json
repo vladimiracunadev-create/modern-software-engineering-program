@@ -5,24 +5,24 @@
   "maximum_score": 16,
   "criteria": [
     {
-      "id": "understanding",
+      "id": "mechanism",
       "max": 4,
-      "evidence": "example, counterexample and limits"
+      "evidence": "connection, message framing, response wait and retry policy are derived from application guarantees"
     },
     {
-      "id": "decision",
+      "id": "diagnosis",
       "max": 4,
-      "evidence": "options, criteria, risks and reversibility"
+      "evidence": "a timed-out write remains unknown and is not retried merely because the client saw an error"
     },
     {
       "id": "reproducibility",
       "max": 4,
-      "evidence": "environment, files and review trail"
+      "evidence": "versions, fixture, commands and raw evidence allow an independent repetition"
     },
     {
-      "id": "responsibility",
+      "id": "limits",
       "max": 4,
-      "evidence": "security, privacy, accessibility and affected people"
+      "evidence": "report separates observed, inferred and unmeasured claims and names the next instrument"
     }
   ]
 }

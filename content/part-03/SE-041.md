@@ -94,6 +94,10 @@ TTL limita cuánto tiempo puede reutilizarse un registro, no fija una hora unive
 
 Resolver un nombre puede devolver múltiples A y AAAA. El cliente decide orden e intenta conexiones; Happy Eyeballs evita esperar demasiado por una familia rota. Ver una dirección en `dig` no demuestra cuál eligió la aplicación ni que TLS acepte ese nombre.
 
+### 6. DNSSEC y los límites de la autenticación
+
+DNSSEC permite validar autenticidad e integridad de datos mediante una cadena de confianza y autenticar respuestas de inexistencia. No cifra la consulta, no oculta el nombre, no garantiza disponibilidad ni prueba que el servicio sea legítimo. Un estado `bogus` indica validación fallida y no debe convertirse silenciosamente en una respuesta insegura; distinguir `secure`, `insecure` y `bogus` requiere un validador y una ancla configurada, no solo observar registros DNSSEC.
+
 ## Definiciones de trabajo
 
 - **resolver:** componente que obtiene respuestas DNS para un cliente.
@@ -189,6 +193,10 @@ work/SE-041/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Contrasta `healthy` y `dns_failure` en la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request). El resolver es un mapa en memoria: úsalo para demostrar que el fallo detiene la petición antes de conexión, no para afirmar que reproduce recursión, caché negativa o DNSSEC. `dns-trace.md` debe añadir un diseño de NXDOMAIN con SOA/TTL y distinguir `secure`, `insecure` y `bogus` sin inventar validación ejecutada.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;
@@ -221,6 +229,8 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 - [RFC 1035 — Domain Names: Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 - [RFC 8499 — DNS Terminology](https://www.rfc-editor.org/rfc/rfc8499) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
+- [RFC 2308 — Negative Caching of DNS Queries](https://www.rfc-editor.org/rfc/rfc2308) — explica cómo se hacen cacheables las respuestas negativas y cómo expira esa evidencia.
+- [RFC 4033 — DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033) — define objetivos, cadena de confianza y límites de DNSSEC.
 - [RFC 8305 — Happy Eyeballs Version 2](https://www.rfc-editor.org/rfc/rfc8305) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.

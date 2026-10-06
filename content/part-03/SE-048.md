@@ -190,6 +190,10 @@ work/SE-048/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+El proyecto base es la [petición observable y fallos por fase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request). Debes mantener sus límites de loopback, pruebas y resultados tipados, y ampliarlo con presupuesto total, cancelación, una clave idempotente para una escritura simulada y un runbook. La entrega incluye casos sano, degradado y recuperado; un resultado verde aislado no acredita tolerancia a fallos.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

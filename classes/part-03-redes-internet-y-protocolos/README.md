@@ -208,7 +208,7 @@ prima que la Parte 4 transformará en modelos y estrategias contrastables.
 | [SE-045](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-045-sockets-conexiones-persistentes-y-tiempo-real/) | Sockets, conexiones persistentes y tiempo real | Gestiona vida útil y presión de conexiones |
 | [SE-046](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-046-captura-medicion-y-diagnostico-de-trafico/) | Captura, medición y diagnóstico de tráfico | Mide fases con alcance y privacidad |
 | [SE-047](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-047-taller-seguir-una-peticion-de-extremo-a-extremo/) | Taller: seguir una petición de extremo a extremo | Integra una petición extremo a extremo |
-| [SE-048](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/) | Proyecto: servicio observable y tolerante a fallos de red | Entrega la petición observable de extremo a extremo observable y recuperable |
+| [SE-048](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-03-redes-internet-y-protocolos/se-048-proyecto-servicio-observable-y-tolerante-a-fallos-de-red/) | Proyecto: servicio observable y tolerante a fallos de red | Entrega un servicio observable y recuperable que integra la petición extremo a extremo |
 
 ## Hilo pedagógico
 
@@ -222,7 +222,11 @@ No se adelanta la solución con una herramienta. Primero se formula la pregunta;
 2. **Bitácora de hipótesis:** hecho, interpretación, alternativa, prueba y decisión.
 3. **Trazas comparadas:** una petición sana y una degradada, alineadas por primera divergencia.
 4. **Matriz de fallos:** DNS, transporte, TLS, HTTP, caché y consumidor lento con recuperación.
-5. **Servicio la petición observable de extremo a extremo:** resultado tipado, deadlines, redacción, correlación, métricas y runbook.
+5. **Servicio para la petición observable:** resultado tipado, deadlines, redacción, correlación, métricas y runbook.
+
+## Laboratorio ejecutable común
+
+Las doce clases usan la [petición observable y fallos por fase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request). El laboratorio ejecuta HTTP real solo en loopback y modela de forma explícita DNS, validación del nombre TLS y pérdida; así evita privilegios y cambios globales sin confundir simulación con protocolo real. Sus once pruebas cubren correlación, primera divergencia, reintentos acotados, redacción y limpieza. Cada clase define un artefacto distinto sobre la misma evidencia, y `SE-048` integra la matriz sana, degradada y recuperada.
 
 ## Criterios de aprobación del proyecto
 

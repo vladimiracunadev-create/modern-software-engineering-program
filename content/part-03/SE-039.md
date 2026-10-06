@@ -189,6 +189,10 @@ work/SE-039/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+En la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request), explica por qué `127.0.0.1` se entrega localmente y por qué el puerto cerrado diverge después de seleccionar dirección y ruta. Completa `routing-lab.md` con longest-prefix match calculado sobre una tabla ficticia y con una transformación NAT diseñada, no observada. No cambies rutas del host para aprobar esta clase.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

@@ -297,7 +297,7 @@ def classes_index(program: dict) -> str:
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Las Partes 00–02 contienen material desarrollado. Las partes 03–29 publican borradores
+> Las Partes 00–03 contienen material desarrollado. Las partes 04–29 publican borradores
 > para revisión y las partes 30–39 conservan la estructura pendiente de desarrollo.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
@@ -336,7 +336,7 @@ def source_registry(program: dict, baseline: dict) -> dict:
                 "source_ids": source_ids,
                 "note": (
                     "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
-                    if lesson["number"] <= 36
+                    if lesson["number"] <= 48
                     else "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
                 ),
             }
@@ -361,8 +361,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
 | Clases | {program['class_count']} posiciones curriculares consecutivas |
-| Contenido desarrollado | Partes 00–02 (`SE-001`–`SE-036`) |
-| Borradores publicados | Partes 03–29 (`SE-037`–`SE-360`) |
+| Contenido desarrollado | Partes 00–03 (`SE-001`–`SE-048`) |
+| Borradores publicados | Partes 04–29 (`SE-049`–`SE-360`) |
 | Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
 | Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
@@ -471,12 +471,12 @@ def site_index(program: dict) -> str:
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–02 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap.</div>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–03 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 02 · contenido desarrollado y laboratorio multiplataforma</p><h3>Sistemas operativos, terminal y automatización base</h3><p>Un kit seguro hace observables plataforma, rutas, configuración, redacción, fallos, reparación y limpieza en Windows, Linux y macOS.</p></div><a href="parts/02.html">Estudiar la Parte 02 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 03 · 12 borradores en auditoría</p><h3>Redes, Internet y protocolos</h3><p>Una petición observable se sigue desde el enlace local hasta DNS, transporte, TLS, HTTP, intermediarios y recuperación.</p></div><a href="parts/03.html">Revisar la Parte 03 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 03 · contenido desarrollado y laboratorio ejecutable</p><h3>Redes, Internet y protocolos</h3><p>Una petición observable se sigue desde el enlace local hasta DNS, transporte, TLS, HTTP, intermediarios y recuperación.</p></div><a href="parts/03.html">Estudiar la Parte 03 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 04 · 12 borradores en auditoría</p><h3>Pensamiento computacional y resolución de problemas</h3><p>Un modelo de decisión diagnóstica convierte incidentes ambiguos en invariantes, algoritmos, límites y especificaciones contrastables.</p></div><a href="parts/04.html">Revisar la Parte 04 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 05 · 12 borradores en auditoría</p><h3>Fundamentos de programación</h3><p>Una CLI diagnóstica implementa el modelo de decisión con módulos, pruebas, manejo de errores y contratos de entrada y salida.</p></div><a href="parts/05.html">Revisar la Parte 05 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 06 · 12 borradores en auditoría</p><h3>Paradigmas de programación</h3><p>Un motor de reglas común permite comparar estado, objetos, funciones, reglas, eventos, flujos y actores bajo el mismo contrato.</p></div><a href="parts/06.html">Revisar la Parte 06 →</a></div>
@@ -493,7 +493,7 @@ def part_page(part: dict) -> str:
         f'<li><a href="../classes/{lesson["id"]}.html">{lesson["id"]} — {html.escape(lesson["title"])}</a></li>'
         for lesson in part["lessons"]
     )
-    if part["lessons"][-1]["number"] <= 36:
+    if part["lessons"][-1]["number"] <= 48:
         state = "Doce clases desarrolladas como un recorrido pedagógico conectado."
     elif part["lessons"][-1]["number"] <= 360:
         phase = 3 if part["lessons"][-1]["number"] <= 180 else 4

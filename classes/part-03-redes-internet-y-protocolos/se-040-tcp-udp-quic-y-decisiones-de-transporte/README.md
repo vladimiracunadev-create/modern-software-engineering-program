@@ -189,6 +189,10 @@ work/SE-040/
 
 Los archivos son contenedores, no evidencia automática. `README.md` declara sistema operativo, versiones, red utilizada y limpieza. Nunca confirmes cambios de red destructivos sin una ruta de recuperación.
 
+### Laboratorio integrado de la Parte 03
+
+Compara `healthy`, `connection_refused`, `latency_timeout` y `transient_loss` en la [petición observable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request). `transport-decision.md` debe separar conexión, espera de respuesta y deadline total; justificar por qué el GET admite un segundo intento acotado; y construir el contraejemplo de una escritura no idempotente cuyo resultado quedó desconocido.
+
 ## Seguridad, ética y accesibilidad
 
 - captura únicamente tráfico propio o autorizado y durante la ventana mínima;

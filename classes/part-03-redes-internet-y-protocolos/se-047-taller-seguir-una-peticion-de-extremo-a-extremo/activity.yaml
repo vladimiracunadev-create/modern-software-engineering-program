@@ -6,18 +6,17 @@
   "environment": "navegador, curl y utilidades de diagnóstico de red",
   "duration_hours": 6,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "declare-observation-contract",
+    "run-healthy-baseline",
+    "inject-one-failure",
+    "align-by-request-id",
+    "find-first-divergence",
+    "peer-reconstruct-timeline"
   ],
   "outputs": [
-    "request.txt",
-    "trace.md",
-    "failure-report.md"
+    "request-timeline.md",
+    "identity-map.md",
+    "rival-hypotheses.md"
   ],
   "safety": {
     "real_personal_data": false,

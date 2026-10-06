@@ -195,6 +195,8 @@ Intenta leer un archivo de laboratorio sin permiso y captura el error exacto. Lu
 
 ## Entorno y archivos clave
 
+La negativa ante un marker ajeno del [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) es el caso común de autorización: el kit no intenta elevarse ni apropiarse del directorio; devuelve código 3 y conserva el estado para revisión.
+
 `work/SE-027/`, dos archivos ficticios y `access-report.md`. Usa únicamente recursos propios; documenta comandos equivalentes sin forzar una traducción entre ACL y bits POSIX.
 
 ## Seguridad, ética y accesibilidad

@@ -183,18 +183,18 @@ evita una explicación genérica.
 
 ### Parte 02 — Sistemas operativos y terminal
 
-- [ ] `SE-025` — construir una matriz de capacidades Windows, Linux y macOS.
-- [ ] `SE-026` — probar rutas, case sensitivity, enlaces, metadatos y ACL sin mutación peligrosa.
-- [ ] `SE-027` — aplicar mínimo privilegio, elevación controlada y rollback.
-- [ ] `SE-028` — ensayar procesos, señales, cancelación, servicios y tareas programadas.
-- [ ] `SE-029` — verificar quoting, pipes, streams, códigos de salida y encoding.
-- [ ] `SE-030` — implementar rutas equivalentes PowerShell/Bash con pruebas de portabilidad.
-- [ ] `SE-031` — definir precedencia de configuración y redacción de secretos.
-- [ ] `SE-032` — documentar instalación, verificación, pinning y rollback de paquetes.
-- [ ] `SE-033` — correlacionar logs, relojes, contexto y causa sin exponer datos.
-- [ ] `SE-034` — comparar VM, WSL y contenedor con límites verificables.
-- [ ] `SE-035` — romper, diagnosticar, reparar y volver a ejecutar un entorno seguro.
-- [ ] `SE-036` — entregar un kit idempotente probado en los tres sistemas operativos.
+- [x] `SE-025` — construir una matriz de capacidades Windows, Linux y macOS.
+- [x] `SE-026` — probar rutas, case sensitivity, enlaces, metadatos y ACL sin mutación peligrosa.
+- [x] `SE-027` — aplicar mínimo privilegio, elevación controlada y rollback.
+- [x] `SE-028` — ensayar procesos, señales, cancelación, servicios y tareas programadas.
+- [x] `SE-029` — verificar quoting, pipes, streams, códigos de salida y encoding.
+- [x] `SE-030` — implementar rutas equivalentes PowerShell/Bash con pruebas de portabilidad.
+- [x] `SE-031` — definir precedencia de configuración y redacción de secretos.
+- [x] `SE-032` — documentar instalación, verificación, pinning y rollback de paquetes.
+- [x] `SE-033` — correlacionar logs, relojes, contexto y causa sin exponer datos.
+- [x] `SE-034` — comparar VM, WSL y contenedor con límites verificables.
+- [x] `SE-035` — romper, diagnosticar, reparar y volver a ejecutar un entorno seguro.
+- [x] `SE-036` — entregar un kit idempotente probado por la matriz de tres sistemas operativos.
 
 ### Parte 03 — Redes
 
@@ -756,8 +756,8 @@ evita una explicación genérica.
 | Orden | Unidad | Estado inicial | Condición de cierre |
 | ---: | --- | --- | --- |
 | 1 | Partes 00–01 | desarrolladas | conservar calidad y regresiones verdes |
-| 2 | Parte 02 | siguiente | kit multiplataforma, actividades específicas y matriz CI verde |
-| 3 | Partes 03–04 | pendientes | laboratorios de red y razonamiento, un commit por parte |
+| 2 | Parte 02 | desarrollada | kit multiplataforma, actividades específicas y matriz CI verde |
+| 3 | Partes 03–04 | siguientes | laboratorios de red y razonamiento, un commit por parte |
 | 4 | Partes 05–09 | borradores | construcción y transferencia ejecutables |
 | 5 | Partes 10–14 | borradores | evidencia de producto, requisitos, contratos y accesibilidad |
 | 6 | Partes 15–29 | borradores | prácticas profesionales e integración por dominio |

@@ -191,6 +191,8 @@ Inicia el kit de diagnóstico multiplataforma desde otro directorio y conserva u
 
 ## Entorno y archivos clave
 
+El [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) crea sus pruebas de case sensitivity y enlaces dentro de un hijo temporal del workspace y lo limpia; revisa por qué un resultado negativo describe capacidad efectiva, no una ley universal del filesystem.
+
 Carpeta `work/SE-026/` con `config/`, enlaces de laboratorio y contenido ficticio; `path-report.json`, `write-plan.md`. No uses directorios del sistema.
 
 ## Seguridad, ética y accesibilidad

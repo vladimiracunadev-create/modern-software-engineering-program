@@ -193,6 +193,8 @@ Introduce un token centinela y fuerza una excepción de validación. Busca el va
 
 ## Entorno y archivos clave
 
+Las pruebas de precedencia y centinela del [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) verifican argumento > entorno > archivo > default y exigen que `DIAG_DEMO_TOKEN` nunca aparezca en claro.
+
 `work/SE-031/config.example.json`, `config.local.json` ignorado, `config-report.json` y pruebas. Solo valores ficticios y carpeta desechable.
 
 ## Seguridad, ética y accesibilidad

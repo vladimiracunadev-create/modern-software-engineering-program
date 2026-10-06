@@ -228,7 +228,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-026": {
       "source_ids": [
@@ -239,7 +239,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-027": {
       "source_ids": [
@@ -250,7 +250,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-028": {
       "source_ids": [
@@ -261,7 +261,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-029": {
       "source_ids": [
@@ -272,7 +272,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-030": {
       "source_ids": [
@@ -283,7 +283,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-031": {
       "source_ids": [
@@ -294,7 +294,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-032": {
       "source_ids": [
@@ -305,7 +305,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-033": {
       "source_ids": [
@@ -316,7 +316,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-034": {
       "source_ids": [
@@ -327,7 +327,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-035": {
       "source_ids": [
@@ -338,7 +338,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-036": {
       "source_ids": [
@@ -349,7 +349,7 @@
         "SYSTEMD-MAN",
         "WSL-DOCS"
       ],
-      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+      "note": "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
     },
     "SE-037": {
       "source_ids": [

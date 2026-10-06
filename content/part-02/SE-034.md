@@ -199,6 +199,8 @@ Guarda un archivo solo en la capa efímera de un entorno desechable y recrea la 
 
 ## Entorno y archivos clave
 
+Ejecuta el [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) de forma nativa y, solo si tienes WSL, VM o contenedor autorizado, repite allí; la matriz debe distinguir `ejecutado`, `diseñado` y `no disponible`.
+
 Mapa en `work/SE-034/boundaries.md`, manifiesto o configuración inspeccionada y `experiment.md`. Si ejecutas, usa imágenes y datos ficticios autorizados.
 
 ## Seguridad, ética y accesibilidad

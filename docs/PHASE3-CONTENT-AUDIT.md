@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 24 clases de las Partes 00–01 están desarrolladas. Las 156
+`SE-001`–`SE-180`: las 36 clases de las Partes 00–02 están desarrolladas. Las 144
 restantes son borradores públicos y aún no superan la revisión definida por el
 estándar pedagógico permanente.
 
@@ -13,7 +13,7 @@ Esta auditoría distingue tres hechos:
 2. existen borradores estructurales, actividades y rúbricas generadas;
 3. esos artefactos no equivalen a clases desarrolladas ni aprobadas.
 
-## Evidencia observada el 2026-10-03
+## Evidencia observada el 2026-10-06
 
 | Comprobación | Resultado | Interpretación |
 | --- | ---: | --- |
@@ -23,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 24 | Partes 00–01; las otras 156 continúan como borradores |
+| clases desarrolladas | 36 | Partes 00–02; las otras 144 continúan como borradores |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -109,8 +109,12 @@ virtualización hasta un taller de recuperación y un kit diagnóstico multiplat
 Cada clase desarrolla mecanismos propios, mapa causal, ejemplos, práctica, reto,
 fallo controlado, seguridad, transferencia y fuentes oficiales próximas. PowerShell
 contrasta semántica de objetos, errores, quoting, entorno y códigos de salida con Bash;
-no se presenta como un curso independiente de cmdlets. Las doce clases todavía
-requieren revisión y no atribuyen ejecución en plataformas no probadas.
+no se presenta como un curso independiente de cmdlets. El laboratorio compartido
+`labs/part-02-cross-platform-diagnostic-kit` implementa preparación, inspección sin
+mutación, reparación idempotente y limpieza protegida por marcador de propiedad. Sus
+diez pruebas y los adaptadores PowerShell/Bash separan datos observados, secretos
+redactados y límites. La ejecución local demuestra el entorno Windows disponible; la
+portabilidad Linux/macOS sólo se acepta cuando la matriz remota termina verde.
 
 ## Avance editorial de la Parte 03
 

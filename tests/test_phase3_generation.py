@@ -127,9 +127,9 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
             self.assertIn(lab_url, text, lesson["id"])
         developed_page = (ROOT / "site/classes/SE-024.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-025.html").read_text(encoding="utf-8")
+        following_page = (ROOT / "site/classes/SE-025.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        self.assertIn("Contenido en revisión", draft_page)
+        self.assertIn("Contenido desarrollado", following_page)
 
     def test_part_one_sources_are_current_and_activities_are_specific(self) -> None:
         sources = (ROOT / "sources/phase3.json").read_text(encoding="utf-8")
@@ -147,6 +147,33 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             lesson = next(item for item in self.lessons if item["id"] == class_id)
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertIn(output, activity["outputs"])
+
+    def test_part_two_has_a_safe_cross_platform_laboratory(self) -> None:
+        laboratory = ROOT / "labs" / "part-02-cross-platform-diagnostic-kit"
+        for relative in (
+            "README.md",
+            "diagnostic_kit.py",
+            "diagnostic-kit.ps1",
+            "diagnostic-kit.sh",
+            "tests/test_diagnostic_kit.py",
+            "evidence/VALIDATION.md",
+        ):
+            self.assertTrue((laboratory / relative).is_file(), relative)
+        workflow = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        self.assertIn("labs/part-02-cross-platform-diagnostic-kit/tests", workflow)
+        lab_url = "labs/part-02-cross-platform-diagnostic-kit"
+        for lesson in self.lessons[24:36]:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            self.assertIn(lab_url, text, lesson["id"])
+            activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
+            self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
+        developed_page = (ROOT / "site/classes/SE-036.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-037.html").read_text(encoding="utf-8")
+        part_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
+        self.assertIn("Contenido desarrollado", developed_page)
+        self.assertIn("Contenido en revisión", draft_page)
+        self.assertIn("Doce clases desarrolladas", part_page)
+        self.assertNotIn("doce borradores visibles", part_page)
 
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:
         text = (ROOT / self.lessons[41]["path"] / "README.md").read_text(encoding="utf-8")

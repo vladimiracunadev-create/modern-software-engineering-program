@@ -314,7 +314,7 @@ def validate_phase2_outputs() -> None:
 def validate_developed_part_guide() -> None:
     """Keep developed part overviews from collapsing into class tables."""
     program = read_json("curriculum.yaml")
-    for part in program["parts"][:2]:
+    for part in program["parts"][:3]:
         source = ROOT / "content" / f"part-{part['id']}" / "README.md"
         if not source.is_file():
             raise AssertionError(f"Part {part['id']} has no editorial source")
@@ -413,9 +413,9 @@ def validate_master_curriculum_plan() -> None:
         raise AssertionError(
             "Master curriculum plan must cover SE-001 through SE-480 exactly once and in order"
         )
-    if any(marker != "x" for marker, _ in rows[:24]):
-        raise AssertionError("The first 24 developed classes must stay recorded as reviewed")
-    if any(marker != " " for marker, _ in rows[24:]):
+    if any(marker != "x" for marker, _ in rows[:36]):
+        raise AssertionError("The first 36 developed classes must stay recorded as reviewed")
+    if any(marker != " " for marker, _ in rows[36:]):
         raise AssertionError("A pending class cannot be checked without updating the plan validator")
 
 

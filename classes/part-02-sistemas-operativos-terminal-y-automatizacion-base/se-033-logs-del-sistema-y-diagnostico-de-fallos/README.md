@@ -195,6 +195,8 @@ Emite eventos sin correlación para dos ejecuciones simultáneas y demuestra la 
 
 ## Entorno y archivos clave
 
+Trata el JSON de `inspect` del [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) como evento estructurado: correlaciona ejecución sana y configuración corrupta, conserva la primera divergencia y comprueba redacción antes de compartir.
+
 `work/SE-033/events.jsonl`, `timeline.md`, `diagnostic-package/` y política de redacción. El paquete usa datos ficticios y tamaño limitado.
 
 ## Seguridad, ética y accesibilidad

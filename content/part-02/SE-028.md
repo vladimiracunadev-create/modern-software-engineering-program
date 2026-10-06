@@ -82,7 +82,7 @@ El sistema carga el ejecutable y bibliotecas, prepara memoria y recursos inicial
 
 En modelos POSIX, `fork` y `exec` explican conceptualmente la separación entre crear y reemplazar una imagen de proceso, aunque lenguajes de alto nivel ofrezcan una sola API. Windows usa su familia de creación con parámetros y objetos propios. En ambos casos se deciden argumentos, entorno, directorio, flujos estándar y manejadores heredables.
 
-Una herencia accidental mantiene archivos o pipes abiertos y puede impedir la terminación. El kit de diagnóstico multiplataforma registra quién inició a el analizador local de eventos y qué recursos relevantes permanecen abiertos, sin pretender inspeccionar memoria privada.
+Una herencia accidental mantiene archivos o pipes abiertos y puede impedir la terminación. El kit de diagnóstico multiplataforma registra quién inició el analizador local de eventos y qué recursos relevantes permanecen abiertos, sin pretender inspeccionar memoria privada.
 
 ### El planificador distribuye tiempo, no promete orden
 
@@ -129,7 +129,7 @@ Tareas programadas pueden omitirse, duplicarse o coincidir si una ejecución dur
 - **servicio:** proceso gestionado por un supervisor y una política de ciclo de vida;
 - **idempotencia:** propiedad por la que repetir una operación no multiplica su efecto previsto.
 
-## Caso conductor: el kit de diagnóstico multiplataforma observa a el analizador local de eventos bloqueado
+## Caso conductor: el kit de diagnóstico multiplataforma observa el analizador local de eventos bloqueado
 
 El kit de diagnóstico multiplataforma recibe un identificador o criterio explícito y produce una línea temporal de muestras: estado observable, CPU, memoria, tiempo de inicio, proceso padre y resultado final. Primero verifica que el proceso corresponde al esperado; nombre y PID aislados no bastan.
 
@@ -188,6 +188,8 @@ Ejecuta un proceso que espere entrada con plazo. Primero diagnostícalo errónea
 | Una tarea duplica efectos | Se asumió ejecución exactamente una vez | Diseñar idempotencia, exclusión o deduplicación |
 
 ## Entorno y archivos clave
+
+Ejecuta el [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) desde su adaptador nativo y registra proceso padre, código de salida y ausencia de procesos residuales; no generalices esta observación a servicios que el ejercicio no inicia.
 
 Scripts pequeños en `work/SE-028/`, `timeline.csv`, `service-policy.md`. Solo procesos iniciados por la práctica y sin cambios en servicios del sistema.
 

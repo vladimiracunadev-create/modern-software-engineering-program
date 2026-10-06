@@ -6,18 +6,17 @@
   "environment": "PowerShell 7 y Bash en Windows, macOS o Linux",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "declare-workspace-boundary",
+    "compare-relative-absolute",
+    "probe-case-lookup",
+    "attempt-local-symlink",
+    "reject-escape",
+    "clean-owned-files"
   ],
   "outputs": [
-    "diagnostic_kit.ps1",
-    "diagnostic_kit.sh",
-    "support-matrix.md"
+    "path-report.json",
+    "link-cases.md",
+    "cleanup.md"
   ],
   "safety": {
     "real_personal_data": false,

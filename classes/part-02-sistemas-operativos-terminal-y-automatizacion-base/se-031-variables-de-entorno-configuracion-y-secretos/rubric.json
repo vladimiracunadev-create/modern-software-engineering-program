@@ -5,24 +5,24 @@
   "maximum_score": 16,
   "criteria": [
     {
-      "id": "understanding",
+      "id": "mechanism",
       "max": 4,
-      "evidence": "example, counterexample and limits"
+      "evidence": "configuration reports the effective source while allowlisting observations and redacting sensitive values"
     },
     {
-      "id": "decision",
+      "id": "diagnosis",
       "max": 4,
-      "evidence": "options, criteria, risks and reversibility"
+      "evidence": "a corrupt setting or exposed sentinel produces a failing test before diagnostic evidence is accepted"
     },
     {
       "id": "reproducibility",
       "max": 4,
-      "evidence": "environment, files and review trail"
+      "evidence": "versions, fixture, commands and raw evidence allow an independent repetition"
     },
     {
-      "id": "responsibility",
+      "id": "limits",
       "max": 4,
-      "evidence": "security, privacy, accessibility and affected people"
+      "evidence": "report separates observed, inferred and unmeasured claims and names the next instrument"
     }
   ]
 }

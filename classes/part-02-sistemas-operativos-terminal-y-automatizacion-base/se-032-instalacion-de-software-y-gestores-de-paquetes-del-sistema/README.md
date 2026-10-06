@@ -185,6 +185,8 @@ Usa simulación o un fixture con dos paquetes homónimos de orígenes ficticios.
 
 ## Entorno y archivos clave
 
+El [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) declara Python 3.11+ y biblioteca estándar en lugar de instalar durante la ejecución. Usa esa decisión para completar procedencia, soporte, actualización y retirada del runtime por plataforma.
+
 Entorno virtual o contenedor desechable, `manifest`, `lock`, `install-plan.md` y `reversal-report.md`. No eleva ni agrega fuentes al host.
 
 ## Seguridad, ética y accesibilidad

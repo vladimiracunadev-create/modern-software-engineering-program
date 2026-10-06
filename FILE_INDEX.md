@@ -26,6 +26,7 @@
 | Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
+| Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

@@ -60,7 +60,7 @@ Podrás distinguir kernel y espacio de usuario; comparar Windows, Linux y macOS 
 
 ```mermaid
 flowchart TD
- A[Aplicación el kit de diagnóstico multiplataforma] --> B[Runtime y bibliotecas]
+ A[Aplicación: kit de diagnóstico multiplataforma] --> B[Runtime y bibliotecas]
  B --> C[API del sistema]
  C --> D[Kernel]
  D --> E[Controladores y recursos]
@@ -80,7 +80,7 @@ La abstracción no elimina el hardware. Lo representa con un contrato. Cuando un
 
 ```mermaid
 flowchart TB
-    A[Aplicación el kit de diagnóstico multiplataforma] --> B[Biblioteca o runtime]
+    A[Aplicación: kit de diagnóstico multiplataforma] --> B[Biblioteca o runtime]
     B --> C[API del sistema]
     C --> D[Kernel]
     D --> E[Controlador]
@@ -152,7 +152,7 @@ Un ejemplo causal: el kit de diagnóstico multiplataforma encuentra el archivo d
 
 1. Obtén plataforma, versión, arquitectura y shell mediante herramientas documentadas de tu sistema.
 2. Registra cada comando, su código de salida y qué afirmación sustenta.
-3. Dibuja el recorrido de una operación de lectura desdel kit de diagnóstico multiplataforma hasta el dispositivo.
+3. Dibuja el recorrido de una operación de lectura desde el kit de diagnóstico multiplataforma hasta el dispositivo.
 4. Formula tres fallos posibles en fronteras distintas y una observación que los discrimine.
 5. Repite la ficha en otro sistema o contrástala con la de un compañero; evita convertir diferencias en errores.
 
@@ -201,6 +201,8 @@ Configura una comprobación para buscar deliberadamente una orden inexistente. E
 | Se copian datos del equipo entero | No se minimizó evidencia | Recoger solo lo necesario y redactar identificadores sensibles |
 
 ## Entorno y archivos clave
+
+Usa `prepare` e `inspect` del [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) para obtener la matriz mínima sin hostname ni usuario; contrasta lo observado con una incógnita que el reporte no pueda resolver.
 
 Python 3.11+, PowerShell o Bash; `platform-report.json`, `layer-map.md` y `observations.md`. Todo se ejecuta sin elevación y en una carpeta de laboratorio.
 

@@ -2,6 +2,18 @@
 
 ## Unreleased — fase 3
 
+### Parte 02 — sistemas operativos, terminal y automatización base
+
+- revisión cualitativa y publicación como desarrolladas de `SE-025`–`SE-036`, con
+  actividades, rúbricas, fallos y evidencia específica para cada competencia;
+- laboratorio seguro sin dependencias externas para preparar, inspeccionar, reparar
+  y limpiar un entorno controlado, con diez pruebas y adaptadores PowerShell/Bash;
+- fuentes primarias reconsultadas para POSIX.1-2024, GNU Bash 5.3, PowerShell y WSL,
+  sin copiar estándares protegidos ni atribuir capacidades no ejecutadas;
+- CI ampliada con pruebas del laboratorio, smoke tests nativos y matriz
+  Windows/macOS/Linux; estado reconciliado a 36 clases desarrolladas, 324 borradores
+  y 120 estructuras curriculares.
+
 ### Parte 01 — computadores y representación de información
 
 - revisión cualitativa y publicación como desarrolladas de `SE-013`–`SE-024`, con

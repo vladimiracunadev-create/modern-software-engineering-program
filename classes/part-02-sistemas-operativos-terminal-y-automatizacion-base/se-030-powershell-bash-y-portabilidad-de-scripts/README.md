@@ -21,7 +21,7 @@
 
 | Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
 |---|---|---|
-| [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Microsoft Learn — About PowerShell](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
@@ -90,7 +90,7 @@ El kit de diagnóstico multiplataforma encapsula cada llamada externa, captura s
 
 ```mermaid
 flowchart TB
-    C[Contrato el kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
+    C[Contrato del kit de diagnóstico multiplataforma] --> P[Adaptador PowerShell]
     C --> B[Adaptador Bash]
     P --> W[APIs y herramientas Windows]
     B --> U[APIs y herramientas POSIX]
@@ -186,6 +186,8 @@ Entrega una ruta con espacios y un comodín literal al adaptador. Si se divide o
 
 ## Entorno y archivos clave
 
+Compara [`diagnostic-kit.ps1`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/labs/part-02-cross-platform-diagnostic-kit/diagnostic-kit.ps1) y [`diagnostic-kit.sh`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/labs/part-02-cross-platform-diagnostic-kit/diagnostic-kit.sh): ambos delegan el contrato, pero cada uno resuelve runtime, argumentos y fallo según su shell, sin pretender identidad sintáctica.
+
 `work/SE-030/contract.json`, `diagnostic_kit.ps1`, `diagnostic_kit.sh`, `fixtures/` y `support-matrix.md`. No instala shells ni herramientas globales.
 
 ## Seguridad, ética y accesibilidad
@@ -211,7 +213,7 @@ No buscamos cubrir toda la sintaxis ni producir scripts idénticos. Aún falta d
 ## Fuentes
 
 
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
+- [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
 - [Microsoft Learn — About PowerShell](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 - [Microsoft Learn — about_Automatic_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_automatic_variables) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 - [The Open Group — Shell Command Language](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.

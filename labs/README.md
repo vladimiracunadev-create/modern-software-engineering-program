@@ -7,6 +7,7 @@ entornos: cada laboratorio declara versiones, datos, comandos, limpieza y eviden
 | Parte | Laboratorio | Competencia integrada |
 | --- | --- | --- |
 | 01 | [Observar un programa por capas](part-01-machine-observer/README.md) | representación, runtime, memoria, proceso y medición reproducible |
+| 02 | [Kit de diagnóstico multiplataforma](part-02-cross-platform-diagnostic-kit/README.md) | configuración, inspección segura, reparación idempotente y recuperación en PowerShell/Bash |
 
 Los laboratorios futuros se incorporan parte por parte. Deben usar datos sintéticos o
 autorizados, evitar cambios globales innecesarios, incluir una ruta de recuperación y

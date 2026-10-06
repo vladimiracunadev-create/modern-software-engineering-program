@@ -3,6 +3,7 @@
   "scope": "SE-025..SE-036",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "reverified_on": "2026-10-06",
   "classes": [
     {
       "class_id": "SE-025",
@@ -127,7 +128,7 @@
       "limit": "la portabilidad exige declarar shell y versión",
       "sources": [
         {
-          "title": "GNU Bash Reference Manual",
+          "title": "GNU Bash Reference Manual 5.3",
           "url": "https://www.gnu.org/software/bash/manual/",
           "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
         },
@@ -153,7 +154,7 @@
       "limit": "equivalencia funcional no implica equivalencia de seguridad ni rendimiento",
       "sources": [
         {
-          "title": "GNU Bash Reference Manual",
+          "title": "GNU Bash Reference Manual 5.3",
           "url": "https://www.gnu.org/software/bash/manual/",
           "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
         },
@@ -339,7 +340,7 @@
           "supports": "documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX"
         },
         {
-          "title": "GNU Bash Reference Manual",
+          "title": "GNU Bash Reference Manual 5.3",
           "url": "https://www.gnu.org/software/bash/manual/",
           "supports": "documenta parsing, expansión, quoting, pipelines y estado de salida en Bash"
         },

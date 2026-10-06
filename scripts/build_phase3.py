@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 24
+DEVELOPED_LAST_CLASS = 36
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
@@ -34,7 +34,7 @@ SOURCES = {
     "POSIX": ("The Open Group Base Specifications", "The Open Group", "https://pubs.opengroup.org/onlinepubs/9799919799/"),
     "WINDOWS": ("Windows developer documentation", "Microsoft", "https://learn.microsoft.com/windows/"),
     "POWERSHELL": ("PowerShell documentation", "Microsoft", "https://learn.microsoft.com/powershell/"),
-    "BASH": ("Bash Reference Manual", "GNU Project", "https://www.gnu.org/software/bash/manual/"),
+    "BASH": ("GNU Bash Reference Manual 5.3", "GNU Project", "https://www.gnu.org/software/bash/manual/"),
     "SYSTEMD": ("systemd Manual Pages", "systemd project", "https://www.freedesktop.org/software/systemd/man/latest/"),
     "WSL": ("Windows Subsystem for Linux Documentation", "Microsoft", "https://learn.microsoft.com/windows/wsl/"),
     "RFC-8200": ("Internet Protocol, Version 6", "IETF", "https://www.rfc-editor.org/rfc/rfc8200"),
@@ -530,9 +530,88 @@ PART01_ACTIVITIES = {
 }
 
 
+PART02_ACTIVITIES = {
+    "SE-025": {
+        "outputs": ["platform-capabilities.json", "layer-map.md", "limits.md"],
+        "steps": ["prepare-owned-workspace", "inspect-platform", "separate-interface-implementation", "compare-capabilities", "redact-identifiers", "peer-review"],
+        "mechanism": "capability matrix separates OS family, architecture, runtime, shell and policy without collecting personal identifiers",
+        "failure": "a platform-name assumption is replaced by an observed capability and an explicit unknown",
+    },
+    "SE-026": {
+        "outputs": ["path-report.json", "link-cases.md", "cleanup.md"],
+        "steps": ["declare-workspace-boundary", "compare-relative-absolute", "probe-case-lookup", "attempt-local-symlink", "reject-escape", "clean-owned-files"],
+        "mechanism": "path report distinguishes lexical input, explicit base, resolved target, metadata and lookup behavior",
+        "failure": "a relative path or link escape is reproduced and rejected without touching files outside the workspace",
+    },
+    "SE-027": {
+        "outputs": ["access-model.md", "denial-evidence.json", "rollback.md"],
+        "steps": ["model-subject-action-object-policy", "record-effective-context", "reproduce-owned-denial", "rank-remediations", "apply-minimum-change", "restore-permissions"],
+        "mechanism": "access decision links effective identity and every relevant boundary to the requested operation",
+        "failure": "denial is diagnosed without elevation and the smallest laboratory-only permission change is reverted",
+    },
+    "SE-028": {
+        "outputs": ["process-timeline.md", "exit-codes.json", "recovery.md"],
+        "steps": ["launch-owned-process", "record-parent-child", "request-cooperative-stop", "capture-exit-code", "compare-service-contract", "verify-no-process-left"],
+        "mechanism": "timeline separates executable, process, supervisor, signal or control request and final exit status",
+        "failure": "interruption or failed child retains a meaningful code and cleanup evidence instead of becoming a generic failure",
+    },
+    "SE-029": {
+        "outputs": ["command-contract.md", "stream-cases.json", "failure.md"],
+        "steps": ["declare-argv", "separate-data-diagnostics", "quote-path-with-spaces", "compose-pipeline", "preserve-intermediate-failure", "peer-review"],
+        "mechanism": "command contract distinguishes terminal, shell parsing, argv, standard streams and exit status",
+        "failure": "quoting or pipeline masking is reproduced and repaired without building a command string from untrusted data",
+    },
+    "SE-030": {
+        "outputs": ["diagnostic-kit.ps1", "diagnostic-kit.sh", "contract-tests.md"],
+        "steps": ["define-common-contract", "implement-powershell-adapter", "implement-bash-adapter", "compare-json-schema", "test-spaces-and-errors", "document-divergence"],
+        "mechanism": "both adapters preserve arguments, JSON schema and exit codes while keeping shell-specific semantics isolated",
+        "failure": "a literal syntax translation is rejected when observable behavior or error propagation differs",
+    },
+    "SE-031": {
+        "outputs": ["configuration-contract.md", "precedence-tests.json", "redaction-evidence.md"],
+        "steps": ["declare-precedence", "test-absence-empty-invalid", "override-with-environment", "override-with-argument", "inject-secret-sentinel", "assert-redaction"],
+        "mechanism": "configuration reports the effective source while allowlisting observations and redacting sensitive values",
+        "failure": "a corrupt setting or exposed sentinel produces a failing test before diagnostic evidence is accepted",
+    },
+    "SE-032": {
+        "outputs": ["tool-manifest.md", "provenance-check.md", "rollback-plan.md"],
+        "steps": ["inventory-required-tools", "identify-authoritative-source", "record-version-and-scope", "verify-before-change", "design-uninstall", "review-trust-boundary"],
+        "mechanism": "manifest ties every tool to source, version, scope, verification and removal instead of an opaque install command",
+        "failure": "an unpinned remote installer is rejected and replaced with an inspectable, reversible procedure",
+    },
+    "SE-033": {
+        "outputs": ["diagnostic-bundle.json", "correlation-timeline.md", "privacy-review.md"],
+        "steps": ["define-diagnostic-question", "capture-controlled-events", "normalize-clock-context", "correlate-first-divergence", "redact-sentinel", "state-retention-limit"],
+        "mechanism": "timeline relates timestamp, source, event and correlation context while keeping observation distinct from cause",
+        "failure": "missing or conflicting log evidence opens a rival hypothesis rather than being treated as proof of absence",
+    },
+    "SE-034": {
+        "outputs": ["isolation-map.md", "capabilities.json", "limits.md"],
+        "steps": ["identify-host-guest-layers", "record-kernel-view", "map-filesystem-network-resources", "probe-shared-boundary", "classify-executed-designed", "security-review"],
+        "mechanism": "isolation map states which kernel, mounts, network and resources are shared or replaced for VM, WSL and container",
+        "failure": "an isolation or performance claim is withdrawn when the available probe cannot establish the responsible layer",
+    },
+    "SE-035": {
+        "outputs": ["diagnostic-log.md", "regression.json", "cleanup.md"],
+        "steps": ["capture-baseline", "reproduce-corrupt-settings", "form-rival-hypotheses", "repair-one-variable", "run-regression", "clean-and-independent-review"],
+        "mechanism": "runbook preserves baseline, discriminating tests, minimal intervention, regression and rollback in order",
+        "failure": "changing two variables destroys attribution, so both are reverted and tested one at a time",
+    },
+    "SE-036": {
+        "outputs": ["diagnostic_kit.py", "diagnostic-kit.ps1", "diagnostic-kit.sh", "evidence/VALIDATION.md"],
+        "steps": ["run-ten-contract-tests", "smoke-test-native-adapter", "verify-idempotence", "verify-secret-redaction", "verify-refusal-boundaries", "publish-support-matrix"],
+        "mechanism": "kit exposes one versioned JSON contract, bounded state transitions and equivalent native entry points",
+        "failure": "corruption, foreign ownership or unknown files produce distinct non-zero outcomes without destructive cleanup",
+    },
+}
+
+
+SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES}
+
+
 def activity(part: dict, lesson: dict) -> dict:
     profile = PROFILES[part["id"]]
-    specific = PART01_ACTIVITIES.get(lesson["id"])
+    specific = SPECIFIC_ACTIVITIES.get(lesson["id"])
     return {
         "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
         "schema_version": 1,
@@ -548,7 +627,7 @@ def activity(part: dict, lesson: dict) -> dict:
 
 
 def rubric(part: dict, lesson: dict) -> dict:
-    specific = PART01_ACTIVITIES.get(lesson["id"])
+    specific = SPECIFIC_ACTIVITIES.get(lesson["id"])
     if specific:
         criteria = [
             {"id": "mechanism", "max": 4, "evidence": specific["mechanism"]},
@@ -753,7 +832,7 @@ def site_page(
     developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–01."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–02."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

@@ -19,9 +19,9 @@ de verdad sobre el producto educativo y su secuencia.
 
 - La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,
   de `SE-001` a `SE-480`, sin renumerar el material existente.
-- Las Partes 00–01 contienen 24 clases desarrolladas con explicación, práctica,
-  fuentes, navegación y un laboratorio ejecutable para `SE-013`–`SE-024`. Las partes
-  02–29 conservan 336 borradores que deben revisarse y
+- Las Partes 00–02 contienen 36 clases desarrolladas con explicación, práctica,
+  fuentes, navegación y laboratorios ejecutables para `SE-013`–`SE-036`. Las partes
+  03–29 conservan 324 borradores que deben revisarse y
   profundizarse. Las partes 30–39 disponen de estructura curricular y requieren aún el
   desarrollo íntegro de sus 120 clases.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
@@ -171,14 +171,15 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | Orden | Entrega | Resultado verificable | Estado al 2026-10-06 |
 | ---: | --- | --- | --- |
 | 1 | Partes 00–01 | fundamentos profesionales y observación de un programa por capas | completadas; Parte 01 incluye laboratorio con seis pruebas |
-| 2 | Partes 02–04 | entorno reproducible, petición de red observable y modelo de decisión | siguiente bloque; revisar y ejecutar una parte por commit |
-| 3 | Partes 05–09 | construcción, paradigmas, algoritmos, depuración y empaquetado | contenido editorial existente; falta aprobación cualitativa y ejecución |
-| 4 | Partes 10–14 | discovery, economía, requisitos, contratos, UX, accesibilidad e i18n | contenido editorial existente; falta aprobación cualitativa y evidencia |
-| 5 | Partes 15–29 | planificación, colaboración, superficies, arquitectura, datos y cloud | borradores publicados; reconstruir en orden y preservar proyectos |
-| 6 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | estructura curricular; desarrollar prácticas y casos reales |
-| 7 | Partes 38–39 | IA asistida, SPEC y agentes controlados | estructura curricular; exigir evals, guardrails, coste y regresión |
-| 8 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
-| 9 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-480` |
+| 2 | Parte 02 | entorno reproducible y diagnóstico multiplataforma | completada; kit seguro con diez pruebas y adaptadores PowerShell/Bash |
+| 3 | Partes 03–04 | petición de red observable y modelo de decisión | siguiente bloque; revisar y ejecutar una parte por commit |
+| 4 | Partes 05–09 | construcción, paradigmas, algoritmos, depuración y empaquetado | contenido editorial existente; falta aprobación cualitativa y ejecución |
+| 5 | Partes 10–14 | discovery, economía, requisitos, contratos, UX, accesibilidad e i18n | contenido editorial existente; falta aprobación cualitativa y evidencia |
+| 6 | Partes 15–29 | planificación, colaboración, superficies, arquitectura, datos y cloud | borradores publicados; reconstruir en orden y preservar proyectos |
+| 7 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | estructura curricular; desarrollar prácticas y casos reales |
+| 8 | Partes 38–39 | IA asistida, SPEC y agentes controlados | estructura curricular; exigir evals, guardrails, coste y regresión |
+| 9 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
+| 10 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-480` |
 
 Las brechas candidatas siguen siendo métodos formales aplicados, GreenOps medible,
 InnerSource/OSPO, DevEx/SPACE, API en tiempo real, estimación probabilística,

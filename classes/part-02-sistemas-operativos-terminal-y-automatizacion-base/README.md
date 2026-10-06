@@ -41,6 +41,22 @@ flowchart LR
 
 El diagrama no representa una receta rígida. Representa un orden de reducción de incertidumbre: primero se describe el contexto; luego se verifica cada frontera; al final se interviene. Saltar directamente a “reinstalar todo” destruye evidencia y vuelve irreproducible el aprendizaje.
 
+## Laboratorio ejecutable compartido
+
+El [`kit de diagnóstico multiplataforma`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit)
+materializa el caso conductor con un núcleo Python sin dependencias, adaptadores Bash y
+PowerShell, un workspace marcado y diez pruebas. `prepare` crea únicamente estado
+propio; `inspect` observa sin mutar; `repair` repone archivos conocidos; y `clean` se
+niega a actuar si encuentra contenido ajeno. La matriz de CI ejecuta el contrato en
+Linux, Windows y macOS y prueba en cada familia el adaptador disponible.
+
+El kit no enumera usuarios, hostname, procesos o el entorno completo. Tampoco instala,
+eleva privilegios ni modifica servicios. Por eso sirve para estudiar contratos,
+portabilidad, redacción, idempotencia y recuperación, pero no sustituye las prácticas
+controladas de ACL, servicios, gestores de paquetes, logs o virtualización explicadas
+en sus clases. La [evidencia de validación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/labs/part-02-cross-platform-diagnostic-kit/evidence/VALIDATION.md)
+distingue explícitamente ejecución local, CI remota y escenarios no probados.
+
 ## Guía razonada clase por clase
 
 La tabla final permite localizar cada material, pero primero hace falta comprender la
@@ -210,7 +226,7 @@ la petición observable que la Parte 3 seguirá fuera del equipo local.
 
 ## Resumen operativo del recorrido
 
-| Clase | Pregunta profesional | Aporte concreto a el kit de diagnóstico multiplataforma |
+| Clase | Pregunta profesional | Aporte concreto al kit de diagnóstico multiplataforma |
 |---|---|---|
 | [SE-025](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-025-windows-linux-macos-y-sus-modelos-operativos/) | ¿Qué abstrae realmente un sistema operativo? | Inventario de plataforma, kernel, arquitectura y sesión |
 | [SE-026](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-02-sistemas-operativos-terminal-y-automatizacion-base/se-026-sistemas-de-archivos-rutas-enlaces-y-metadatos/) | ¿Por qué una ruta válida en un equipo falla en otro? | Resolución de rutas y metadatos sin supuestos ocultos |
@@ -238,7 +254,7 @@ La parte no se aprueba por completar lecturas. Se evalúan cuatro evidencias con
 1. **Mapa del entorno:** fronteras entre hardware, kernel, servicios, shell, proceso y recursos.
 2. **Bitácora diagnóstica:** hipótesis contrastables, comandos utilizados, salidas pertinentes y descarte de alternativas.
 3. **Adaptadores de plataforma:** implementaciones PowerShell y Bash que respetan un contrato compartido.
-4. **Kit el kit de diagnóstico multiplataforma:** ejecución segura, informe legible, pruebas reproducibles y declaración honesta de límites.
+4. **Kit de diagnóstico multiplataforma:** ejecución segura, informe legible, pruebas reproducibles y declaración honesta de límites.
 
 ## Criterio de calidad
 
@@ -251,7 +267,7 @@ Las clases enlazan la fuente específica junto a cada mecanismo. El bloque se ap
 - [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/)
 - [Microsoft Learn: Windows documentation](https://learn.microsoft.com/windows/)
 - [Microsoft Learn: PowerShell documentation](https://learn.microsoft.com/powershell/)
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
+- [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/)
 - [Apple Platform Deployment: File system basics](https://support.apple.com/guide/deployment/intro-to-file-system-apd0b895e8e1/web)
 - [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/)
 - [Windows Subsystem for Linux documentation](https://learn.microsoft.com/windows/wsl/)

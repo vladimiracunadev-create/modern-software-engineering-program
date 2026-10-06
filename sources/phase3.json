@@ -21,7 +21,7 @@
     },
     {
       "id": "BASH",
-      "title": "Bash Reference Manual",
+      "title": "GNU Bash Reference Manual 5.3",
       "authority": "GNU Project",
       "url": "https://www.gnu.org/software/bash/manual/",
       "status": "verified"

@@ -127,7 +127,7 @@ El informe final contiene hechos, causa, corrección, evidencia posterior y lím
 - **cambio mínimo:** intervención acotada que permite atribuir efecto;
 - **regresión:** pérdida de una propiedad previamente satisfecha.
 
-## Caso conductor: incidente incidente-de-diagnóstico-01
+## Caso conductor: incidente-de-diagnóstico-01
 
 Secuencia esperada del taller:
 
@@ -146,7 +146,7 @@ Prepara una carpeta de laboratorio, nunca una instalación real del sistema. Con
 
 | Paso | Hipótesis | Evidencia buscada | Acción | Resultado | Decisión |
 |---|---|---|---|---|---|
-| 1 | La ruta viene del entorno | Configuración efectiva | `el kit de diagnóstico multiplataforma config explain` | Variable presente | Probar entorno mínimo |
+| 1 | La ruta viene del entorno | Configuración efectiva | `diagnostic-kit inspect` | Variable presente | Probar entorno mínimo |
 
 Luego:
 
@@ -203,6 +203,8 @@ Aplica deliberadamente dos cambios a la vez y observa que no puedes atribuir el 
 
 ## Entorno y archivos clave
 
+Usa la secuencia `prepare → inspect → corromper settings → inspect → repair → inspect → clean` del [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit) y conserva cada código antes de redactar la causa.
+
 `work/SE-035/broken-environment/`, `baseline.json`, `diagnostic-log.md`, `regression.md` y `cleanup.md`. Todo debe poder borrarse sin afectar configuración global.
 
 ## Seguridad, ética y accesibilidad
@@ -223,7 +225,7 @@ El taller se aprueba cuando otra persona puede reproducir el fallo, seguir la ev
 
 ## Límites y siguiente paso
 
-El escenario es local, deliberadamente controlado y no autoriza intervenir equipos de terceros. La clase final convierte el procedimiento en un producto pequeño: el kit el kit de diagnóstico multiplataforma, con contrato, adaptadores, pruebas y entrega profesional.
+El escenario es local, deliberadamente controlado y no autoriza intervenir equipos de terceros. La clase final convierte el procedimiento en un producto pequeño: el kit de diagnóstico multiplataforma, con contrato, adaptadores, pruebas y entrega profesional.
 
 ## Fuentes
 

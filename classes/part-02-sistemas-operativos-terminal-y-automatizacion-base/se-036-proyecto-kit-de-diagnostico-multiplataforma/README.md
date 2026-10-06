@@ -23,13 +23,13 @@
 |---|---|---|
 | [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) | define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
-| [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/) | documenta parsing, expansión, quoting, pipelines y estado de salida en Bash | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) | documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
-La Parte 2 concluye con una entrega, no con un cuestionario. Construirás **kit de diagnóstico multiplataforma**, un kit local que describe el entorno del analizador local de eventos, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
+La Parte 2 concluye con una entrega, no con un cuestionario. Construirás un **kit de diagnóstico multiplataforma**, una herramienta local que describe el entorno del analizador local de eventos, valida precondiciones, explica hallazgos y exporta evidencia segura. El valor no reside en acumular comandos: reside en convertir los mecanismos estudiados en un sistema pequeño que otra persona pueda operar y auditar.
 
 ### Resultado de aprendizaje
 
@@ -60,7 +60,7 @@ Podrás definir un contrato versionado; separar núcleo y adaptadores; construir
 ```mermaid
 flowchart TB
  U[Persona operadora] --> CLI[Contrato CLI]
- CLI --> C[Núcleo el kit de diagnóstico multiplataforma]
+ CLI --> C[Núcleo del kit de diagnóstico multiplataforma]
  C --> P[Adaptador PowerShell]
  C --> B[Adaptador Bash]
  P --> N[Modelo normalizado]
@@ -87,7 +87,7 @@ PowerShell y Bash implementan capacidades con herramientas documentadas. Cada ad
 
 ```mermaid
 flowchart TB
-    CLI[Contrato CLI] --> CORE[Núcleo el kit de diagnóstico multiplataforma]
+    CLI[Contrato CLI] --> CORE[Núcleo del kit de diagnóstico multiplataforma]
     CORE --> CFG[Configuración y redacción]
     CORE --> WIN[Adaptador Windows/PowerShell]
     CORE --> POSIX[Adaptador Linux-macOS/Bash]
@@ -246,13 +246,15 @@ No se compensa una filtración de secreto o una modificación no declarada con m
 
 | Síntoma | Causa conceptual | Corrección |
 |---|---|---|
-| el kit de diagnóstico multiplataforma se convierte en un script de cien comandos | No existe modelo ni contrato | Separar capacidades, adaptadores y decisiones |
+| El kit de diagnóstico multiplataforma se convierte en un script de cien comandos | No existe modelo ni contrato | Separar capacidades, adaptadores y decisiones |
 | El JSON cambia entre plataformas sin versión | Se mezcló detalle con esquema común | Versionar esquema y aislar `platform_details` |
 | La demo necesita editar el código | Configuración y entrega no están resueltas | Definir interfaz, ejemplos y precedencia |
 | La matriz marca sistemas no ejecutados | Se confundió intención con evidencia | Publicar estado diseñado/probado por celda |
 | La herramienta “repara” por defecto | Se amplió el riesgo sin necesidad | Mantener solo lectura y plan explícito |
 
 ## Entorno y archivos clave
+
+La implementación de referencia es el [laboratorio compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit), con núcleo Python, adaptadores PowerShell/Bash, diez pruebas y [evidencia de validación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/labs/part-02-cross-platform-diagnostic-kit/evidence/VALIDATION.md). Extiéndela solo si conservas sus negativas de seguridad.
 
 Repositorio del proyecto con `src/`, `adapters/`, `tests/`, `fixtures/`, `schema/`, `README.md`, `SECURITY.md` y `support-matrix.md`. Los artefactos se generan bajo `work/SE-036/`.
 
@@ -281,7 +283,7 @@ El kit de diagnóstico multiplataforma es un kit educativo local, no un agente d
 
 - [The Open Group Base Specifications, Issue 8](https://pubs.opengroup.org/onlinepubs/9799919799/) — define el contrato portable de procesos, rutas, entorno o shell que se contrasta entre sistemas.
 - [Microsoft Learn — PowerShell documentation](https://learn.microsoft.com/powershell/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
+- [GNU Bash Reference Manual 5.3](https://www.gnu.org/software/bash/manual/) — documenta parsing, expansión, quoting, pipelines y estado de salida en Bash.
 - [Microsoft Learn — WSL documentation](https://learn.microsoft.com/windows/wsl/) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 - [OWASP — Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — delimita el contrato técnico que debe cumplirse al entregar un kit de diagnóstico multiplataforma que observe sin alterar innecesariamente.
 

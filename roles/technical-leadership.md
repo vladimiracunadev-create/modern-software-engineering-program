@@ -135,7 +135,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–01 están desarrolladas; las
+> El mapa expresa el currículo previsto. Las Partes 00–02 están desarrolladas; las
 > posteriores conservan borradores o estructuras que deben superar revisión
 > cualitativa. Esta ruta no declara terminadas esas clases ni reemplaza el
 > [roadmap](../ROADMAP.md).

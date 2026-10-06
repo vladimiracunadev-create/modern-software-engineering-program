@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Elegir una causa a partir de una sola métrica o presentar una captura como explicación.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Antes de integrar, selecciona tres afirmaciones y predice qué instrumento podría sostenerlas. Ejecuta el laboratorio común, enlaza cada salida con una capa y separa en columnas lo observado, lo inferido y lo no medido. Una revisión cruzada debe detectar al menos una generalización que el dossier no autoriza.
 
 **Evidencia de aprendizaje.** End-to-end-trace.md con mapa fuente→runtime→SO→máquina y vacíos explícitos. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -22,7 +22,7 @@
 | Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
 |---|---|---|
 | [Python 3 documentation](https://docs.python.org/3/) |  sustenta todas las interfaces del taller | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
-| [Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) |  sustenta la entrada textual | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) | sustenta la entrada textual | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [RISC-V specifications](https://docs.riscv.org/reference/isa/) |  delimitan lo que una ISA sí describe | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
@@ -134,6 +134,8 @@ puede repetir y decidir; una captura de “antes/después” no ofrece ese contr
 
 ## Práctica guiada
 
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-023/`.
+
 1. Crea `work/SE-023/` con `input.json`, `event_analyzer.py` y `README.md`.
 2. Valida puntos de código, bytes y hash esperado.
 3. Guarda AST y bytecode de la función principal.
@@ -196,7 +198,7 @@ Se exigen ruta completa, invariantes, evidencia trazable, revisión cruzada y re
 
 
 - [Python 3 documentation](https://docs.python.org/3/) sustenta todas las interfaces del taller.
-- [Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) sustenta la entrada textual.
+- [Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) sustenta la entrada textual.
 - [RISC-V specifications](https://docs.riscv.org/reference/isa/) delimitan lo que una ISA sí describe.
 
 ## Límites y siguiente paso

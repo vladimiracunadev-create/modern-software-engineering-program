@@ -20,10 +20,10 @@
       "used_for": ["computer-architecture", "instructions", "memory-model"]
     },
     {
-      "id": "UNICODE-17",
-      "title": "The Unicode Standard, Version 17.0",
+      "id": "UNICODE-18",
+      "title": "The Unicode Standard, Version 18.0",
       "authority": "Unicode Consortium",
-      "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+      "url": "https://www.unicode.org/versions/Unicode18.0.0/",
       "status": "current",
       "used_for": ["text", "encoding", "normalization"]
     },
@@ -132,10 +132,10 @@
       "used_for": ["licensing", "copyright", "file-level-metadata", "compliance"]
     },
     {
-      "id": "JVM-SE25",
-      "title": "The Java Virtual Machine Specification, Java SE 25",
+      "id": "JVM-SE27",
+      "title": "The Java Virtual Machine Specification, Java SE 27",
       "authority": "Oracle and JCP",
-      "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/",
+      "url": "https://docs.oracle.com/javase/specs/jvms/se27/html/",
       "status": "current-stable-reference",
       "used_for": ["virtual-machines", "runtime-data", "bytecode"]
     },

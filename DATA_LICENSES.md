@@ -1,6 +1,6 @@
 # Licencias y procedencia de datos
 
-Inventario revisado el **2026-10-05**. El repositorio no contiene telemetría
+Inventario revisado el **2026-10-06**. El repositorio no contiene telemetría
 productiva ni datasets con datos personales reales. Sus catálogos describen el
 programa o soportan ejercicios educativos.
 
@@ -13,6 +13,7 @@ programa o soportan ejercicios educativos.
 | `manifest/repositories.json` | Fronteras y propietarios dentro de la suite | CC BY-NC-SA 4.0 para la organización editorial; nombres y repositorios externos conservan sus derechos |
 | `schemas/*.json`, `blueprints/**/*.yaml` | Esquemas y contratos ejecutables | Apache-2.0 |
 | `site/assets/catalog.json`, `site/schemas/*.json` | Copias generadas de los catálogos y esquemas anteriores | La misma licencia que su fuente |
+| `labs/part-01-machine-observer/data/events.jsonl` | Cinco eventos ficticios creados para el laboratorio, sin relación con personas reales | Datos sintéticos originales bajo CC BY-NC-SA 4.0 |
 
 Las cifras, títulos, identificadores públicos y demás hechos no adquieren una nueva
 protección por aparecer en un registro. La licencia sólo cubre los derechos que el

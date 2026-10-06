@@ -2,6 +2,19 @@
 
 ## Unreleased — fase 3
 
+### Parte 01 — computadores y representación de información
+
+- revisión cualitativa y publicación como desarrolladas de `SE-013`–`SE-024`, con
+  secuencias, actividades y rúbricas específicas para cada competencia;
+- laboratorio reproducible sin dependencias externas para inspección de
+  representación, Unicode, números, AST, bytecode, memoria y medición de tiempo;
+- actualización no retroactiva de las referencias vigentes a Unicode 18.0 y Java
+  Virtual Machine Specification SE 27;
+- CI ampliada con las seis pruebas del laboratorio en estructura y portabilidad;
+- nueva auditoría de cobertura y backlog trazable: 24 clases desarrolladas, 336
+  borradores y 120 estructuras, sin crear IDs nuevos antes de demostrar una brecha
+  indivisible.
+
 ### Licencias y automatización
 
 - transición no retroactiva desde MIT a una matriz explícita: Apache-2.0 para

@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Concluir que más rápido significa menor energía o comparar sin calentamiento.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Define primero unidad funcional, oráculo de corrección, orden de ejecución y número de muestras. Alterna variantes, conserva datos crudos y decide de antemano cómo resumir variación. Luego intenta —y rechaza— inferir energía desde duración, indicando qué sensor, modelo y frontera serían necesarios.
 
 **Evidencia de aprendizaje.** Performance-report.md con datos crudos, dispersión, unidad funcional y afirmaciones permitidas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -139,6 +139,8 @@ Comprimir reduce red y aumenta CPU. En red lenta puede mejorar latencia y energ�
 en dispositivo limitado puede empeorar. Se mide el sistema bajo su unidad funcional.
 
 ## Práctica guiada
+
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-022/`.
 
 1. Define “procesar N eventos válidos y obtener hash H”.
 2. Implementa materialización y streaming con mismo resultado.

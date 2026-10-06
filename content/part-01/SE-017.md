@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Leer la salida de dis como ensamblador o convertir bytecodes en ciclos de CPU.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Traza primero una secuencia ISA didáctica a mano, con preestado y postestado. Después compárala con el bytecode de CPython y marca toda correspondencia que no puedas demostrar. Invierte un salto, localiza la primera divergencia y reconstruye la explicación sin convertir instrucciones virtuales en ciclos físicos.
 
 **Evidencia de aprendizaje.** Execution-trace.md con estados antes/después y la frontera VM↔ISA. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -136,6 +136,8 @@ evalúa por ISA/ABI; el rendimiento se mide por entorno. No se cambia algoritmo 
 solo en frecuencia anunciada.
 
 ## Práctica guiada
+
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-017/`.
 
 1. Crea `trace.md` con ocho posiciones de memoria, cuatro registros y PC.
 2. Ejecuta manualmente la secuencia del analizador local de eventos y anota pre/postestado.

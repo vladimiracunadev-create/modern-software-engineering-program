@@ -14,7 +14,7 @@ SOURCES = {
     "ISO29148": ("ISO/IEC/IEEE 29148:2018", "ISO", "https://www.iso.org/standard/72089.html"),
     "WCAG": ("Web Content Accessibility Guidelines 2.2", "W3C", "https://www.w3.org/TR/WCAG22/"),
     "I18N": ("Internationalization techniques", "W3C", "https://www.w3.org/International/techniques/"),
-    "UNICODE": ("The Unicode Standard 17.0", "Unicode Consortium", "https://www.unicode.org/versions/Unicode17.0.0/"),
+    "UNICODE": ("The Unicode Standard 18.0", "Unicode Consortium", "https://www.unicode.org/versions/Unicode18.0.0/"),
     "OPENAPI": ("OpenAPI Specification", "OpenAPI Initiative", "https://spec.openapis.org/oas/latest.html"),
     "ASYNCAPI": ("AsyncAPI Specification", "AsyncAPI Initiative", "https://www.asyncapi.com/docs/reference/specification/latest"),
     "RFC9110": ("HTTP Semantics", "IETF", "https://www.rfc-editor.org/rfc/rfc9110"),

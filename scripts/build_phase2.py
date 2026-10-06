@@ -33,7 +33,7 @@ REQUIRED_CLASS_SECTIONS = [
 
 PART_SOURCE_MAP = {
     "00": ["IEEE-SWEBOK-4A", "ACM-IEEE-SE2014"],
-    "01": ["RISCV-ISA", "UNICODE-17", "PYTHON-3", "JVM-SE25", "LLVM-DOCS", "GSF-SCI"],
+    "01": ["RISCV-ISA", "UNICODE-18", "PYTHON-3", "JVM-SE27", "LLVM-DOCS", "GSF-SCI"],
     "02": ["POSIX-2024", "WINDOWS-DOCS", "POWERSHELL-DOCS", "BASH-MANUAL", "SYSTEMD-MAN", "WSL-DOCS"],
     "03": [
         "IETF-RFC-1122", "IETF-RFC-826", "IETF-RFC-894", "IETF-RFC-1918",
@@ -297,7 +297,7 @@ def classes_index(program: dict) -> str:
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> La Parte 00 contiene material desarrollado. Las partes 01–29 publican borradores
+> Las Partes 00–01 contienen material desarrollado. Las partes 02–29 publican borradores
 > para revisión y las partes 30–39 conservan la estructura pendiente de desarrollo.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
@@ -336,7 +336,7 @@ def source_registry(program: dict, baseline: dict) -> dict:
                 "source_ids": source_ids,
                 "note": (
                     "Fuentes base complementadas por sources/phase3.json y vinculadas en la guía."
-                    if lesson["number"] <= 12
+                    if lesson["number"] <= 24
                     else "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
                 ),
             }
@@ -361,8 +361,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
 | Clases | {program['class_count']} posiciones curriculares consecutivas |
-| Contenido desarrollado | Parte 00 (`SE-001`–`SE-012`) |
-| Borradores publicados | Partes 01–29 (`SE-013`–`SE-360`) |
+| Contenido desarrollado | Partes 00–01 (`SE-001`–`SE-024`) |
+| Borradores publicados | Partes 02–29 (`SE-025`–`SE-360`) |
 | Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
 | Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
@@ -414,6 +414,8 @@ def file_index(program: dict) -> str:
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
 | Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 borradores |
 | Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
+| Índice de laboratorios ejecutables | `labs/README.md` | 1 |
+| Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.
@@ -468,10 +470,10 @@ def site_index(program: dict) -> str:
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> la Parte 00 contiene material completo; las partes siguientes se incorporan parte por parte según el roadmap.</div>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–01 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · 12 borradores en auditoría</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Revisar la Parte 01 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 02 · 12 borradores en auditoría</p><h3>Sistemas operativos, terminal y automatización base</h3><p>Un kit de diagnóstico multiplataforma conecta rutas, permisos, procesos, configuración y evidencia con recuperación segura.</p></div><a href="parts/02.html">Revisar la Parte 02 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 03 · 12 borradores en auditoría</p><h3>Redes, Internet y protocolos</h3><p>Una petición observable se sigue desde el enlace local hasta DNS, transporte, TLS, HTTP, intermediarios y recuperación.</p></div><a href="parts/03.html">Revisar la Parte 03 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 04 · 12 borradores en auditoría</p><h3>Pensamiento computacional y resolución de problemas</h3><p>Un modelo de decisión diagnóstica convierte incidentes ambiguos en invariantes, algoritmos, límites y especificaciones contrastables.</p></div><a href="parts/04.html">Revisar la Parte 04 →</a></div>

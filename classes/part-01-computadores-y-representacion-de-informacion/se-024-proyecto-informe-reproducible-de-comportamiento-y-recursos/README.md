@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Confundir reproducibilidad con capturas o correlación con causalidad.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Formula una pregunta refutable y preregistra carga, variables, oráculo y umbral antes de medir. Otra persona debe ejecutar el protocolo desde el fixture versionado, recalcular la tabla y disputar la conclusión. Conserva los intentos fallidos y termina con la condición concreta que obligaría a cambiar la decisión.
 
 **Evidencia de aprendizaje.** Protocolo, datos crudos, script, checksum, informe y resultados no validados. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -131,6 +131,8 @@ Un benchmark de librerías publica código, dataset permitido, versiones y resul
 Evita nombres promocionales y permite que mantenedores expliquen diferencias.
 
 ## Práctica guiada
+
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-024/`.
 
 1. Escribe `proposal.md` con pregunta, decisión, hipótesis y riesgos.
 2. Obtén revisión antes de ejecutar.

@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Inferir paralelismo de CPU porque dos hilos se solapan.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Dibuja la línea temporal esperada y separa tiempo de pared, CPU, espera y estado compartido antes de lanzar hilos. Compara la predicción con las muestras, introduce una actualización concurrente insegura y evita concluir que es segura si el fallo no aparece. Revisa el diseño eliminando o sincronizando la propiedad compartida.
 
 **Evidencia de aprendizaje.** Concurrency-observation.md con cronología, tiempos de pared/CPU e hipótesis descartadas. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -130,6 +130,8 @@ Un servidor atiende muchas conexiones con I/O asíncrono para evitar un hilo blo
 por conexión. Si el cuello es cálculo, se consideran procesos o trabajo vectorizado, siempre midiendo costos de coordinación.
 
 ## Práctica guiada
+
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-019/`.
 
 1. Crea dos archivos sintéticos y una versión secuencial del analizador local de eventos.
 2. Mide `perf_counter` y `process_time` en lectura y cálculo por separado.

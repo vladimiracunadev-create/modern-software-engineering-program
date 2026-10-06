@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 12 clases de la Parte 00 están desarrolladas. Las 168
+`SE-001`–`SE-180`: las 24 clases de las Partes 00–01 están desarrolladas. Las 156
 restantes son borradores públicos y aún no superan la revisión definida por el
 estándar pedagógico permanente.
 
@@ -23,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 12 | solo la Parte 00; las otras 168 continúan como borradores |
+| clases desarrolladas | 24 | Partes 00–01; las otras 156 continúan como borradores |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -90,8 +90,15 @@ se hayan ejecutado, probado, integrado u operado, ni se extiende a las demás pa
 Las clases `SE-013`–`SE-024` tienen fuentes canónicas en `content/part-01/`. Un
 analizador local de eventos conecta representación, Unicode, aritmética, CPU, memoria,
 procesos, traducción, runtime y medición hasta un taller y un informe reproducible.
-El contenido se conserva y publica completo, pero las doce clases todavía requieren
-una revisión técnica y pedagógica integral.
+La revisión completa sustituyó la secuencia pedagógica repetida por predicciones,
+fallos y transferencias específicas; actualizó Unicode 18.0 y JVM SE 27; y añadió
+`labs/part-01-machine-observer`, con fixture sintético, variantes materializada y
+streaming, inspección de AST/bytecode, seis pruebas automáticas y separación explícita
+entre observado, inferido y no medido. El laboratorio fue ejecutado localmente en
+CPython 3.12.9 sobre Windows 11; la portabilidad queda limitada a la matriz que termine
+verde en CI. Tras revisar las doce clases, el índice narrativo, las actividades, las
+rúbricas, las fuentes y la publicación íntegra, la Parte 01 puede describirse como
+desarrollada sin afirmar mediciones físicas de caché, energía o carbono.
 
 ## Avance editorial de la Parte 02
 

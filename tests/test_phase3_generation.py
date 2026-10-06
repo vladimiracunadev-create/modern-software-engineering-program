@@ -110,6 +110,44 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         self.assertNotIn("data-status", home)
         self.assertNotIn("class-status", home)
 
+    def test_part_one_has_an_executable_cross_class_laboratory(self) -> None:
+        laboratory = ROOT / "labs" / "part-01-machine-observer"
+        for relative in (
+            "README.md",
+            "lab.py",
+            "data/events.jsonl",
+            "tests/test_lab.py",
+            "evidence/VALIDATION.md",
+        ):
+            self.assertTrue((laboratory / relative).is_file(), relative)
+        workflow = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        self.assertIn("labs/part-01-machine-observer/tests", workflow)
+        lab_url = "labs/part-01-machine-observer"
+        for lesson in self.lessons[12:24]:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            self.assertIn(lab_url, text, lesson["id"])
+        developed_page = (ROOT / "site/classes/SE-024.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-025.html").read_text(encoding="utf-8")
+        self.assertIn("Contenido desarrollado", developed_page)
+        self.assertIn("Contenido en revisión", draft_page)
+
+    def test_part_one_sources_are_current_and_activities_are_specific(self) -> None:
+        sources = (ROOT / "sources/phase3.json").read_text(encoding="utf-8")
+        self.assertIn("UNICODE-18", sources)
+        self.assertIn("JVM-SE27", sources)
+        self.assertNotIn("UNICODE-17", sources)
+        self.assertNotIn("JVM-SE25", sources)
+        expected_outputs = {
+            "SE-013": "machine-map.md",
+            "SE-015": "unicode-evidence.json",
+            "SE-022": "performance-report.md",
+            "SE-024": "report.md",
+        }
+        for class_id, output in expected_outputs.items():
+            lesson = next(item for item in self.lessons if item["id"] == class_id)
+            activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
+            self.assertIn(output, activity["outputs"])
+
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:
         text = (ROOT / self.lessons[41]["path"] / "README.md").read_text(encoding="utf-8")
         self.assertIn("`SE-041`", text)

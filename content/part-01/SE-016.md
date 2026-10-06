@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Esperar aritmética decimal exacta de coma flotante o elegir epsilon por costumbre.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Predice qué operaciones serán exactas y cuáles aproximadas antes de inspeccionar ratios o formatos. Compara float, decimal e entero escalado bajo invariantes de dominio, provoca una comparación defectuosa y diseña una prueba que la detecte. Después cambia la escala del problema y revisa si la representación elegida sigue siendo válida.
 
 **Evidencia de aprendizaje.** Numeric-errors.md con predicción, error absoluto/relativo y contraejemplo inestable. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -23,7 +23,7 @@
 |---|---|---|
 | [Python Floating-Point Tutorial](https://docs.python.org/3/tutorial/floatingpoint.html) |  explica representación y aproximación | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Python `decimal`](https://docs.python.org/3/library/decimal.html) |  documenta aritmética decimal y contextos | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
-| [Java Virtual Machine Specification §2.8](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8) |  ofrece otro contrato IEEE 754 especificado | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [Java Virtual Machine Specification SE 27 §2.8](https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.8) | ofrece otro contrato IEEE 754 especificado | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
@@ -140,6 +140,8 @@ contrato sí. Se valida rango antes de serializar y se prueba máximo, máximo+1
 
 ## Práctica guiada
 
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-016/`.
+
 1. Usa `float.hex()` y `as_integer_ratio()` para inspeccionar 0.1.
 2. Compara suma repetida, `math.fsum` y Decimal bajo el mismo conjunto.
 3. Modela importe como centavos y tiempo como float con unidad.
@@ -202,7 +204,7 @@ Se exigen bits o ratios observados, decisión por dominio, pruebas límite y exp
 
 - [Python Floating-Point Tutorial](https://docs.python.org/3/tutorial/floatingpoint.html) explica representación y aproximación.
 - [Python `decimal`](https://docs.python.org/3/library/decimal.html) documenta aritmética decimal y contextos.
-- [Java Virtual Machine Specification §2.8](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8) ofrece otro contrato IEEE 754 especificado.
+- [Java Virtual Machine Specification SE 27 §2.8](https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.8) ofrece otro contrato IEEE 754 especificado.
 
 ## Límites y siguiente paso
 

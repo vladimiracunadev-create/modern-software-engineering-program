@@ -53,6 +53,19 @@ Al completar la parte podrás:
 
 Se recomienda completar la [Parte 00](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-00-ingenieria-de-software-como-profesion/README.md), especialmente evidencia e incertidumbre. Necesitas Python 3.11 o posterior, una terminal y un editor. Las prácticas usan solo biblioteca estándar y datos sintéticos. Registra versión, sistema operativo y arquitectura; nunca ejecutes binarios desconocidos ni cambies configuración del sistema.
 
+## Laboratorio ejecutable compartido
+
+El [laboratorio de observación por capas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer)
+incluye un fixture sintético UTF-8, una implementación materializada y otra streaming,
+seis pruebas automáticas, inspección de AST/bytecode, evidencia de representación y un
+benchmark que conserva muestras crudas. Cada clase reutiliza solo la lente que necesita;
+el taller y el proyecto integran el recorrido completo.
+
+La validación local confirma comportamiento en CPython 3.12.9 sobre Windows 11. La
+matriz de CI vuelve a ejecutar el laboratorio en Python 3.11–3.14 y en Windows/macOS;
+esa matriz demuestra compatibilidad únicamente cuando el workflow remoto termina en
+verde. Ningún tiempo local se publica como expectativa de producción.
+
 ## Progresión por bloques
 
 ### Bloque 1 — Representar información
@@ -241,8 +254,8 @@ depende de reproducibilidad y calidad causal, no de obtener un resultado llamati
 
 Una segunda persona ejecuta desde un entorno declarado y revisa si los datos permiten la
 conclusión. El informe separa observado, inferido y no medido. Ese hábito prepara la
-Parte 2, dondel analizador local de eventos se convierte en el kit de diagnóstico multiplataforma y el entorno operativo pasa de contexto a
-objeto explícito de diagnóstico.
+Parte 2, donde el analizador local de eventos se convierte en el kit de diagnóstico
+multiplataforma y el entorno operativo pasa de contexto a objeto explícito de diagnóstico.
 
 ## Resumen operativo del recorrido
 
@@ -272,7 +285,7 @@ desde el lenguaje.
 ## Fuentes de la parte
 
 - [RISC-V Ratified Specifications Library](https://docs.riscv.org/reference/isa/) sustenta la distinción entre ISA e implementación y los ejemplos de instrucciones.
-- [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) sustenta texto, codificación y normalización.
+- [The Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) sustenta texto, codificación y normalización.
 - [Python 3 documentation](https://docs.python.org/3/) sustenta los experimentos con representación, `ast`, `dis`, `gc`, `timeit` y `tracemalloc`.
 - [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/) aporta una máquina virtual especificada y deja explícitas decisiones de implementación.
 - [LLVM documentation](https://llvm.org/docs/) respalda las etapas de representaciones intermedias, generación y JIT.

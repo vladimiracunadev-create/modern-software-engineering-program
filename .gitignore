@@ -7,5 +7,6 @@ node_modules/
 .pnpm-store/
 .venv/
 __pycache__/
+labs/**/work/
 .DS_Store
 Thumbs.db

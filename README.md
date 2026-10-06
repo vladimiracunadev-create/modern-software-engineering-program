@@ -32,8 +32,8 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 
 > [!IMPORTANT]
 > **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases. La
-> Parte 00 (`SE-001`–`SE-012`) tiene contenido desarrollado; las partes 01–29
-> (`SE-013`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
+> Las Partes 00–01 (`SE-001`–`SE-024`) tienen contenido desarrollado; las partes 02–29
+> (`SE-025`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
 > y las partes 30–39 (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza
 > completa. Una carpeta o página generada no cuenta como aprendizaje terminado.
 
@@ -215,7 +215,7 @@ el About, los topics, los gates y la URL canónica están documentados en el
 - 🧠 [Modelo de aprendizaje](docs/LEARNING-MODEL.md) — contexto, práctica, fallo, transferencia e integración.
 - 🧭 [Arquitectura del programa](docs/PROGRAM-ARCHITECTURE.md) — etapas, partes y dependencias.
 - 🗺️ [Matriz de cobertura](docs/COVERAGE-MATRIX.md) — propiedad curricular por área.
-- 🔎 [Auditoría de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md) — brechas y acciones.
+- 🔎 [Auditoría de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-06.md) — brechas y acciones.
 - 📊 [Rúbrica transversal](assessments/rubric.md) — evaluación de decisiones y evidencia.
 - 🤝 [Guía de contribución](CONTRIBUTING.md) — cambio reproducible y validación local.
 
@@ -994,7 +994,7 @@ Requiere Python 3.11 o posterior y no instala dependencias para estas validacion
 La evidencia detallada y las brechas están en [STATUS.md](STATUS.md), la
 [auditoría de fase 3](docs/PHASE3-CONTENT-AUDIT.md), la
 [auditoría de fase 4](docs/PHASE4-CONTENT-AUDIT.md) y la
-[auditoría general de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md).
+[auditoría general de cobertura](docs/PROGRAM-COVERAGE-AUDIT-2026-10-06.md).
 
 ## 🧱 Estructura del repositorio
 

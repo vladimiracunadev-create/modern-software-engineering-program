@@ -34,6 +34,7 @@ REQUIRED = [
     "docs/PEDAGOGICAL-STANDARD.md",
     "docs/PHASE3-CONTENT-AUDIT.md",
     "docs/PROGRAM-COVERAGE-AUDIT-2026-10-04.md",
+    "docs/PROGRAM-COVERAGE-AUDIT-2026-10-06.md",
     "docs/COVERAGE-MATRIX.md",
     "docs/REPOSITORY-BOUNDARIES.md",
     "docs/PUBLICATION-PLAN.md",
@@ -310,9 +311,9 @@ def validate_phase2_outputs() -> None:
 
 
 def validate_developed_part_guide() -> None:
-    """Keep the developed Part 00 overview from collapsing into a class table."""
+    """Keep developed part overviews from collapsing into class tables."""
     program = read_json("curriculum.yaml")
-    for part in program["parts"][:1]:
+    for part in program["parts"][:2]:
         source = ROOT / "content" / f"part-{part['id']}" / "README.md"
         if not source.is_file():
             raise AssertionError(f"Part {part['id']} has no editorial source")
@@ -367,7 +368,7 @@ def validate_program_roadmap() -> None:
     if len(part_rows) != 40:
         raise AssertionError(f"Program roadmap must define all 40 parts, found {len(part_rows)}")
 
-    audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-04.md").read_text(encoding="utf-8")
+    audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-06.md").read_text(encoding="utf-8")
     if "| Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |" not in audit:
         raise AssertionError("Coverage audit must contain the required diagnostic matrix")
 

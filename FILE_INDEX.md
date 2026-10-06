@@ -24,6 +24,8 @@
 | Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
 | Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 borradores |
 | Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
+| Índice de laboratorios ejecutables | `labs/README.md` | 1 |
+| Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Páginas del sitio | `site/**/*.html` | 521 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

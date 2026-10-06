@@ -1,0 +1,5 @@
+{"sequence": 513, "message": "Matrícula confirmada ✓", "duration_ms": 12.5, "amount_cents": 1500}
+{"sequence": 514, "message": "Matrícula de José confirmada", "duration_ms": 8.25, "amount_cents": 2500}
+{"sequence": 515, "message": "Cupo reservado", "duration_ms": 11.75, "amount_cents": 0}
+{"sequence": 516, "message": "Pago conciliado", "duration_ms": 17.0, "amount_cents": 3200}
+{"sequence": 517, "message": "Resumen disponible", "duration_ms": 10.5, "amount_cents": 0}

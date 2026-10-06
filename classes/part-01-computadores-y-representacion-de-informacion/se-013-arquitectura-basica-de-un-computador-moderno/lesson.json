@@ -9,9 +9,9 @@
   "estimated_hours": 4,
   "source_ids": [
     "RISCV-ISA",
-    "UNICODE-17",
+    "UNICODE-18",
     "PYTHON-3",
-    "JVM-SE25",
+    "JVM-SE27",
     "LLVM-DOCS",
     "GSF-SCI"
   ],

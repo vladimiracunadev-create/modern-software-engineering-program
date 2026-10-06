@@ -5,7 +5,7 @@ clase por clase vive en `curriculum.yaml`; esta vista evita confundir cobertura 
 una lista de herramientas.
 
 La presencia en esta matriz expresa **propiedad curricular**, no contenido terminado.
-Consulta la [auditoría de cobertura y profundidad](PROGRAM-COVERAGE-AUDIT-2026-10-04.md)
+Consulta la [auditoría de cobertura y profundidad](PROGRAM-COVERAGE-AUDIT-2026-10-06.md)
 para distinguir contenido desarrollado, borradores y estructura pendiente.
 
 ## Cuerpo profesional estable

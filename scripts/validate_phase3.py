@@ -66,7 +66,7 @@ def main() -> int:
             text = readme.read_text(encoding="utf-8")
             if "Pendiente de desarrollar" in text:
                 failures.append(f"unfinished generated content: {lesson['id']}")
-            if lesson["number"] <= 12:
+            if lesson["number"] <= 24:
                 for marker in (
                     "## Antes de empezar",
                     "## Errores comunes y cómo corregirlos",

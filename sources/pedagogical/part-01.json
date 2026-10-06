@@ -3,6 +3,8 @@
   "scope": "SE-013..SE-024",
   "content_preserved": true,
   "basis": "docs/PEDAGOGICAL-STANDARD.md",
+  "reverified_on": "2026-10-06",
+  "executable_lab": "labs/part-01-machine-observer",
   "classes": [
     {
       "class_id": "SE-013",
@@ -65,8 +67,8 @@
       "limit": "Unicode no determina por sí solo tipografía, shaping ni bidi",
       "sources": [
         {
-          "title": "The Unicode Standard 17.0",
-          "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+          "title": "The Unicode Standard 18.0",
+          "url": "https://www.unicode.org/versions/Unicode18.0.0/",
           "supports": " define modelo y propiedades"
         },
         {
@@ -102,7 +104,7 @@
         },
         {
           "title": "Java Virtual Machine Specification §2.8",
-          "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.8",
+          "url": "https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.8",
           "supports": " ofrece otro contrato IEEE 754 especificado"
         }
       ],
@@ -222,7 +224,7 @@
         },
         {
           "title": "JVM Specification, Run-Time Data Areas",
-          "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5",
+          "url": "https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.5",
           "supports": " distingue contrato y algoritmo no prescrito"
         }
       ],
@@ -263,8 +265,8 @@
           "supports": " sustenta todas las interfaces del taller"
         },
         {
-          "title": "Unicode Standard 17.0",
-          "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+          "title": "Unicode Standard 18.0",
+          "url": "https://www.unicode.org/versions/Unicode18.0.0/",
           "supports": " sustenta la entrada textual"
         },
         {

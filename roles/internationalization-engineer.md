@@ -129,7 +129,7 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. La Parte 00 está desarrollada; las partes
+> El mapa expresa el currículo previsto. Las Partes 00–01 están desarrolladas; las
 > posteriores conservan borradores o estructuras que deben superar revisión
 > cualitativa. Esta ruta no declara terminadas esas clases ni reemplaza el
 > [roadmap](../ROADMAP.md).
@@ -263,7 +263,7 @@ competencia.
 ## 🔗 Fuentes primarias y oficiales
 
 - [Internationalization techniques](https://www.w3.org/International/techniques/) — **W3C**. Se usa como referencia primaria u oficial; la guía no sustituye la fuente.
-- [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) — **Unicode Consortium**. Se usa como referencia primaria u oficial; la guía no sustituye la fuente.
+- [The Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) — **Unicode Consortium**. Se usa como referencia primaria u oficial; la guía no sustituye la fuente.
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — **W3C**. Se usa como referencia primaria u oficial; la guía no sustituye la fuente.
 
 Las fuentes orientan principios, vocabulario y prácticas; no convierten la guía en una

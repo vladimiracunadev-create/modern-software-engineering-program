@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
+DEVELOPED_LAST_CLASS = 24
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
@@ -22,9 +23,9 @@ PRODUCTS = [
 SOURCES = {
     "SWEBOK-4A": ("SWEBOK Guide v4.0a", "IEEE Computer Society", "https://www.computer.org/education/bodies-of-knowledge/software-engineering"),
     "RISCV-ISA": ("RISC-V Ratified ISA Specifications", "RISC-V International", "https://docs.riscv.org/reference/isa/"),
-    "UNICODE-17": ("The Unicode Standard 17.0", "Unicode Consortium", "https://www.unicode.org/versions/Unicode17.0.0/"),
+    "UNICODE-18": ("The Unicode Standard 18.0", "Unicode Consortium", "https://www.unicode.org/versions/Unicode18.0.0/"),
     "PYTHON-3": ("Python 3 Documentation", "Python Software Foundation", "https://docs.python.org/3/"),
-    "JVM-SE25": ("Java Virtual Machine Specification SE 25", "Oracle and JCP", "https://docs.oracle.com/javase/specs/jvms/se25/html/"),
+    "JVM-SE27": ("Java Virtual Machine Specification SE 27", "Oracle and JCP", "https://docs.oracle.com/javase/specs/jvms/se27/html/"),
     "LLVM-DOCS": ("LLVM Documentation", "LLVM Project", "https://llvm.org/docs/"),
     "GSF-SCI": ("Software Carbon Intensity Specification", "Green Software Foundation", "https://greensoftware.foundation/standards/sci/"),
     "ACM-ETHICS": ("ACM Code of Ethics and Professional Conduct", "ACM", "https://www.acm.org/code-of-ethics"),
@@ -83,7 +84,7 @@ SOURCES = {
 
 PROFILES = {
     "00": {"artifact": "informe de decisión profesional", "environment": "editor de texto, navegador y repositorio Git", "files": ["decision.md", "evidence.md", "review.md"], "lenses": ["sistema", "ciclo de vida", "evidencia", "responsabilidad"], "failure": "confundir una preferencia personal con evidencia suficiente", "sources": ["SWEBOK-4A", "ACM-ETHICS", "ISO-25010"]},
-    "01": {"artifact": "cuaderno reproducible de representación y recursos", "environment": "Python 3.11+, terminal y herramientas del sistema", "files": ["experiment.py", "observations.md", "results.json"], "lenses": ["representación", "máquina", "medición", "límite"], "failure": "inferir el modelo de la máquina desde una sola observación", "sources": ["RISCV-ISA", "UNICODE-17", "PYTHON-3", "JVM-SE25", "LLVM-DOCS", "GSF-SCI"]},
+    "01": {"artifact": "cuaderno reproducible de representación y recursos", "environment": "CPython 3.11–3.14, terminal y biblioteca estándar", "files": ["experiment.py", "observations.md", "results.json"], "lenses": ["representación", "máquina", "medición", "límite"], "failure": "inferir el modelo de la máquina desde una sola observación", "sources": ["RISCV-ISA", "UNICODE-18", "PYTHON-3", "JVM-SE27", "LLVM-DOCS", "GSF-SCI"]},
     "02": {"artifact": "kit de diagnóstico multiplataforma", "environment": "PowerShell 7 y Bash en Windows, macOS o Linux", "files": ["diagnostic_kit.ps1", "diagnostic_kit.sh", "support-matrix.md"], "lenses": ["proceso", "permiso", "configuración", "recuperación"], "failure": "automatizar una operación destructiva sin precondiciones ni rollback", "sources": ["POSIX", "WINDOWS", "POWERSHELL", "BASH", "SYSTEMD", "WSL"]},
     "03": {"artifact": "traza comentada de una comunicación", "environment": "navegador, curl y utilidades de diagnóstico de red", "files": ["request.txt", "trace.md", "failure-report.md"], "lenses": ["capa", "protocolo", "estado", "observabilidad"], "failure": "atribuir al servidor un fallo que ocurre en resolución, transporte o caché", "sources": ["RFC-8200", "RFC-8446", "RFC-9000", "RFC-9110"]},
     "04": {"artifact": "especificación contrastable de una solución", "environment": "editor, Python opcional y diagramas Mermaid", "files": ["problem.md", "model.md", "checks.md"], "lenses": ["abstracción", "invariante", "algoritmo", "complejidad"], "failure": "resolver un ejemplo y asumir que la solución cubre todo el dominio", "sources": ["MIT-MATH-CS", "SWEBOK-4A"]},
@@ -453,8 +454,85 @@ Esta guía enseña a razonar y producir evidencia sobre **{lesson['title']}**; n
 """
 
 
+PART01_ACTIVITIES = {
+    "SE-013": {
+        "outputs": ["machine-map.md", "observations.json", "review.md"],
+        "steps": ["run-inspect", "map-layer-contracts", "label-observed-inferred-unknown", "refute-cpu-claim", "peer-review", "revise"],
+        "mechanism": "layer map connects each observation to one interface and excludes microarchitecture",
+        "failure": "review refutes a CPU or hardware claim unsupported by runtime evidence",
+    },
+    "SE-014": {
+        "outputs": ["representation-table.md", "round-trips.json", "failure.md"],
+        "steps": ["predict-513-bytes", "run-binary-probe", "verify-round-trips", "inject-wrong-byte-order", "explain-overflow", "peer-review"],
+        "mechanism": "table declares base, width, sign and byte order for every value",
+        "failure": "wrong byte order or overflow is reproduced and diagnosed from the contract",
+    },
+    "SE-015": {
+        "outputs": ["unicode-evidence.json", "repair-protocol.md", "review.md"],
+        "steps": ["preserve-original-bytes", "inspect-code-points", "compare-nfc-nfd", "reproduce-mojibake", "design-repair-gate", "peer-review"],
+        "mechanism": "evidence distinguishes grapheme, code point, encoding and bytes",
+        "failure": "mojibake is reproduced without overwriting the only copy of the input",
+    },
+    "SE-016": {
+        "outputs": ["numeric-decision.md", "boundary-tests.json", "review.md"],
+        "steps": ["predict-rounding", "inspect-float-ratio", "compare-domain-models", "test-special-values", "justify-tolerance", "peer-review"],
+        "mechanism": "numeric model follows range, exactness, scale and domain invariants",
+        "failure": "exact float equality or external-width overflow is exposed by a boundary test",
+    },
+    "SE-017": {
+        "outputs": ["execution-trace.md", "bytecode.txt", "limits.md"],
+        "steps": ["trace-architectural-state", "record-pre-post-state", "inspect-cpython-bytecode", "separate-vm-from-isa", "inject-branch-error", "peer-review"],
+        "mechanism": "trace records PC, operands and state transitions without inventing CPU cycles",
+        "failure": "first divergent state from an incorrect branch is located and corrected",
+    },
+    "SE-018": {
+        "outputs": ["hierarchy-experiment.md", "samples.csv", "threats.md"],
+        "steps": ["define-working-set", "predict-access-pattern", "collect-repeated-samples", "alternate-order", "list-rival-causes", "peer-review"],
+        "mechanism": "experiment connects locality and working set while keeping cache level unknown",
+        "failure": "a cache-specific or durability claim is rejected when the instrument cannot prove it",
+    },
+    "SE-019": {
+        "outputs": ["concurrency-timeline.md", "samples.csv", "recovery.md"],
+        "steps": ["separate-wall-and-cpu-time", "map-process-thread-io", "compare-sequential-concurrent", "inject-shared-state-risk", "design-recovery", "peer-review"],
+        "mechanism": "timeline distinguishes running, ready and blocked work and identifies shared state",
+        "failure": "a concurrency claim is revised without treating non-reproduction as proof of safety",
+    },
+    "SE-020": {
+        "outputs": ["pipeline.md", "ast.txt", "bytecode.txt"],
+        "steps": ["capture-runtime-version", "inspect-ast", "inspect-bytecode", "classify-stage-failures", "test-version-boundary", "peer-review"],
+        "mechanism": "pipeline separates source, AST, bytecode, loading and execution",
+        "failure": "stale or incompatible bytecode is regenerated from source instead of forced",
+    },
+    "SE-021": {
+        "outputs": ["object-lifecycle.md", "snapshots.txt", "limits.md"],
+        "steps": ["draw-reference-graph", "measure-python-allocations", "retain-references", "force-collection", "remove-retention-cause", "peer-review"],
+        "mechanism": "reference graph explains reachability and separates memory from external resources",
+        "failure": "forced collection fails to release reachable objects and the retaining edge is removed",
+    },
+    "SE-022": {
+        "outputs": ["benchmark-plan.md", "samples.csv", "performance-report.md"],
+        "steps": ["define-unit-of-work", "verify-equivalence", "collect-alternated-samples", "summarize-distribution", "bound-energy-claim", "peer-review"],
+        "mechanism": "benchmark fixes workload, correctness oracle, ordering and raw samples",
+        "failure": "a one-run or energy conclusion is rejected and replaced with a bounded claim",
+    },
+    "SE-023": {
+        "outputs": ["end-to-end-trace.md", "evidence.json", "review.md"],
+        "steps": ["run-integrated-inspection", "link-evidence-to-layer", "separate-observed-inferred-unmeasured", "reproduce-safe-failure", "cross-review", "revise"],
+        "mechanism": "dossier links representation, runtime, process and measurement in one causal path",
+        "failure": "a conflicting observation opens a rival hypothesis instead of being hidden",
+    },
+    "SE-024": {
+        "outputs": ["proposal.md", "data/raw.csv", "report.md"],
+        "steps": ["frame-refutable-question", "pre-register-protocol", "verify-functional-equivalence", "collect-raw-data", "independent-reproduction", "defend-limits"],
+        "mechanism": "report makes question, variables, oracle, data and conclusion independently traceable",
+        "failure": "a missing seed or version breaks reproduction and is repaired without deleting the record",
+    },
+}
+
+
 def activity(part: dict, lesson: dict) -> dict:
     profile = PROFILES[part["id"]]
+    specific = PART01_ACTIVITIES.get(lesson["id"])
     return {
         "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/rubric.schema.json",
         "schema_version": 1,
@@ -462,25 +540,35 @@ def activity(part: dict, lesson: dict) -> dict:
         "mode": lesson["kind"],
         "environment": profile["environment"],
         "duration_hours": lesson["estimated_hours"],
-        "steps": ["frame-problem", "separate-evidence", "compare-options", "produce-artifact", "inject-safe-failure", "peer-review", "revise"],
-        "outputs": profile["files"],
+        "steps": specific["steps"] if specific else ["frame-problem", "separate-evidence", "compare-options", "produce-artifact", "inject-safe-failure", "peer-review", "revise"],
+        "outputs": specific["outputs"] if specific else profile["files"],
         "safety": {"real_personal_data": False, "production_access": False, "secrets": False},
         "source_ids": profile["sources"],
     }
 
 
 def rubric(part: dict, lesson: dict) -> dict:
+    specific = PART01_ACTIVITIES.get(lesson["id"])
+    if specific:
+        criteria = [
+            {"id": "mechanism", "max": 4, "evidence": specific["mechanism"]},
+            {"id": "diagnosis", "max": 4, "evidence": specific["failure"]},
+            {"id": "reproducibility", "max": 4, "evidence": "versions, fixture, commands and raw evidence allow an independent repetition"},
+            {"id": "limits", "max": 4, "evidence": "report separates observed, inferred and unmeasured claims and names the next instrument"},
+        ]
+    else:
+        criteria = [
+            {"id": "understanding", "max": 4, "evidence": "example, counterexample and limits"},
+            {"id": "decision", "max": 4, "evidence": "options, criteria, risks and reversibility"},
+            {"id": "reproducibility", "max": 4, "evidence": "environment, files and review trail"},
+            {"id": "responsibility", "max": 4, "evidence": "security, privacy, accessibility and affected people"},
+        ]
     return {
         "schema_version": 1,
         "class_id": lesson["id"],
         "passing_score": 12,
         "maximum_score": 16,
-        "criteria": [
-            {"id": "understanding", "max": 4, "evidence": "example, counterexample and limits"},
-            {"id": "decision", "max": 4, "evidence": "options, criteria, risks and reversibility"},
-            {"id": "reproducibility", "max": 4, "evidence": "environment, files and review trail"},
-            {"id": "responsibility", "max": 4, "evidence": "security, privacy, accessibility and affected people"},
-        ],
+        "criteria": criteria,
     }
 
 
@@ -662,10 +750,10 @@ def site_page(
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
     following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
     navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
-    developed = lesson["number"] <= 12
+    developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de la Parte 00."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–01."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

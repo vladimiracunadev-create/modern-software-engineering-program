@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Creer que una secuencia de bytes posee signo y orden por sí misma.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Antes de ejecutar código, escribe los dos bytes que esperas para `513` en big-endian y little-endian. Verifica ambos round trips, provoca un overflow de ancho fijo y explica por qué el error pertenece al contrato de representación. Cierra transfiriendo el procedimiento a un valor con signo.
 
 **Evidencia de aprendizaje.** Representations.md con valor↔bits↔bytes, round trips y un desbordamiento explicado. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -138,6 +138,8 @@ pruebas locales y fallar al interoperar. La solución es contrato explícito y v
 de prueba compartidos, no detectar plataforma en cada extremo.
 
 ## Práctica guiada
+
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-014/`.
 
 1. Crea `representations.py` con funciones que muestren decimal, binario y hexadecimal.
 2. Convierte manualmente 13, 255 y 513 y verifica con `format`.

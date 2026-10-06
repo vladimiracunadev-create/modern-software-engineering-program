@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Suponer que gc.collect devuelve memoria al sistema o que toda VM recolecta igual.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Dibuja raíces y referencias antes de observar memoria. Compara una versión que retiene objetos con otra que los procesa y descarta, fuerza una colección sin esperar que libere objetos alcanzables y localiza el borde que conserva la retención. Cierra separando vida del objeto de cierre oportuno del recurso externo.
 
 **Evidencia de aprendizaje.** Runtime-memory.md con grafo de referencias, snapshots y recolección. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -22,7 +22,7 @@
 | Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
 |---|---|---|
 | [Python `gc`](https://docs.python.org/3/library/gc.html) |  y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
-| [JVM Specification, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5) |  distingue contrato y algoritmo no prescrito | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [JVM Specification SE 27, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.5) | distingue contrato y algoritmo no prescrito | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
 ## Antes de empezar
 
@@ -136,6 +136,8 @@ es fallo del GC. Se define tamaño, expiración, métrica y comportamiento al sa
 
 ## Práctica guiada
 
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-021/`.
+
 1. Crea `runtime_probe.py` con objetos temporales y una versión que los retiene.
 2. Mide instantáneas con `tracemalloc`; registra versión y tamaño de entrada.
 3. Usa `gc.get_count()` y `gc.collect()` solo como observación documentada.
@@ -196,7 +198,7 @@ Se exigen grafo de alcanzabilidad, medición acotada, manejo de recurso y límit
 
 
 - [Python `gc`](https://docs.python.org/3/library/gc.html) y [`tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) definen observaciones usadas.
-- [JVM Specification, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5) distingue contrato y algoritmo no prescrito.
+- [JVM Specification SE 27, Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se27/html/jvms-2.html#jvms-2.5) distingue contrato y algoritmo no prescrito.
 
 ## Límites y siguiente paso
 

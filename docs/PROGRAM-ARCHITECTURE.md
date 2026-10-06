@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 40 | especificadas |
-| Clases | 480 | 12 desarrolladas; 348 borradores públicos; 120 estructuras curriculares |
+| Clases | 480 | 24 desarrolladas; 336 borradores públicos; 120 estructuras curriculares |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.160 | sujetas a validación al construir contenido |
 
@@ -138,5 +138,5 @@ resueltas, ejercicios, entornos documentados, proyectos integrados, portal naveg
 validación automática, accesibilidad y una declaración verificable de lo ejecutado.
 
 Al completar esa base —o cuando construirla revele una brecha indivisible— se repite
-la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-04.md). Solo entonces se
+la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-06.md). Solo entonces se
 decide si el siguiente incremento necesita IDs posteriores a `SE-480`.

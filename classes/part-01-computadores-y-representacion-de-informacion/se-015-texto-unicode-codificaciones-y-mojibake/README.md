@@ -11,7 +11,7 @@
 
 **Error conceptual que debe corregir.** Tratar Unicode como una codificación única o suponer que toda corrupción es reversible.
 
-**Secuencia de aprendizaje.** Antes de leer la solución, el estudiante predice el resultado del caso normal y del error conceptual anterior. Luego explica un caso resuelto paso a paso, construye un contraejemplo que cambie la decisión y, sin consultar el texto, reconstruye el mecanismo y lo aplica a una entrada nueva. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+**Secuencia de aprendizaje.** Conserva primero los bytes originales; luego predice puntos de código, UTF-8 y longitudes NFC/NFD de la entrada. Reproduce un mojibake en una copia, reconstruye la transformación y pide a otra persona que determine qué casos son reversibles. La recuperación se evalúa por la cadena causal, no porque el texto vuelva a verse bien.
 
 **Evidencia de aprendizaje.** Text-lab.md con code points, hex, normalización y un fallo de decodificación reproducible. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
 
@@ -21,7 +21,7 @@
 
 | Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
 |---|---|---|
-| [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) |  define modelo y propiedades | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
+| [The Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) | define el modelo y las propiedades Unicode vigentes | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) |  explica UTF-8, UTF-16 y BOM | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 | [Unicode Normalization Annex #15](https://www.unicode.org/reports/tr15/) |  define las formas de normalización | No demuestra por sí sola que el artefacto del estudiante sea correcto. |
 
@@ -141,6 +141,8 @@ rechazan secuencias inválidas con informe de fila.
 
 ## Práctica guiada
 
+Usa como base el [laboratorio ejecutable de la Parte 01](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-01-machine-observer); trabaja sobre una copia o conserva tus salidas en el directorio `work/SE-015/`.
+
 1. Crea `unicode_probe.py` con `unicodedata.name`, `normalize`, `encode` y `decode`.
 2. Inspecciona `Matrícula José ✓` y la forma descompuesta de `é`.
 3. Demuestra UTF-8 → latin-1/Windows-1252 → mojibake sin sobrescribir el original.
@@ -201,7 +203,7 @@ Se exige cadena reversible, normalización explicada, error controlado y políti
 ## Fuentes
 
 
-- [The Unicode Standard 17.0](https://www.unicode.org/versions/Unicode17.0.0/) define modelo y propiedades.
+- [The Unicode Standard 18.0](https://www.unicode.org/versions/Unicode18.0.0/) define el modelo y las propiedades Unicode vigentes.
 - [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) explica UTF-8, UTF-16 y BOM.
 - [Unicode Normalization Annex #15](https://www.unicode.org/reports/tr15/) define las formas de normalización.
 - [Python Unicode HOWTO](https://docs.python.org/3/howto/unicode.html) respalda el laboratorio.

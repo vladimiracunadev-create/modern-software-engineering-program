@@ -3,21 +3,20 @@
   "schema_version": 1,
   "class_id": "SE-022",
   "mode": "class",
-  "environment": "Python 3.11+, terminal y herramientas del sistema",
+  "environment": "CPython 3.11–3.14, terminal y biblioteca estándar",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "define-unit-of-work",
+    "verify-equivalence",
+    "collect-alternated-samples",
+    "summarize-distribution",
+    "bound-energy-claim",
+    "peer-review"
   ],
   "outputs": [
-    "experiment.py",
-    "observations.md",
-    "results.json"
+    "benchmark-plan.md",
+    "samples.csv",
+    "performance-report.md"
   ],
   "safety": {
     "real_personal_data": false,
@@ -26,9 +25,9 @@
   },
   "source_ids": [
     "RISCV-ISA",
-    "UNICODE-17",
+    "UNICODE-18",
     "PYTHON-3",
-    "JVM-SE25",
+    "JVM-SE27",
     "LLVM-DOCS",
     "GSF-SCI"
   ]

@@ -69,10 +69,10 @@
       "status": "verified"
     },
     {
-      "id": "JVM-SE25",
-      "title": "Java Virtual Machine Specification SE 25",
+      "id": "JVM-SE27",
+      "title": "Java Virtual Machine Specification SE 27",
       "authority": "Oracle and JCP",
-      "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/",
+      "url": "https://docs.oracle.com/javase/specs/jvms/se27/html/",
       "status": "verified"
     },
     {
@@ -202,10 +202,10 @@
       "status": "verified"
     },
     {
-      "id": "UNICODE-17",
-      "title": "The Unicode Standard 17.0",
+      "id": "UNICODE-18",
+      "title": "The Unicode Standard 18.0",
       "authority": "Unicode Consortium",
-      "url": "https://www.unicode.org/versions/Unicode17.0.0/",
+      "url": "https://www.unicode.org/versions/Unicode18.0.0/",
       "status": "verified"
     },
     {
@@ -245,9 +245,9 @@
     ],
     "01": [
       "RISCV-ISA",
-      "UNICODE-17",
+      "UNICODE-18",
       "PYTHON-3",
-      "JVM-SE25",
+      "JVM-SE27",
       "LLVM-DOCS",
       "GSF-SCI"
     ],

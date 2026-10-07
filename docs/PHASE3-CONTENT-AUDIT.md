@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 48 clases de las Partes 00–03 están desarrolladas. Las 132
+`SE-001`–`SE-180`: las 60 clases de las Partes 00–04 están desarrolladas. Las 120
 restantes son borradores públicos y aún no superan la revisión definida por el
 estándar pedagógico permanente.
 
@@ -23,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 48 | Partes 00–03; las otras 132 continúan como borradores |
+| clases desarrolladas | 60 | Partes 00–04; las otras 120 continúan como borradores |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y

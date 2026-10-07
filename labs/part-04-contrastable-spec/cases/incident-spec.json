@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "decision": "seleccionar la próxima prueba segura para explicar una petición fallida",
+  "budget": 5,
+  "hypotheses": ["dns", "tls", "http"],
+  "requirements": [
+    {"id": "authorized_only", "text": "solo ejecutar pruebas autorizadas"},
+    {"id": "bounded_cost", "text": "no superar cinco unidades de costo"}
+  ],
+  "conflicts": [],
+  "tests": [
+    {
+      "id": "resolve",
+      "cost": 1,
+      "authorized": true,
+      "outcomes": {"dns": "fail", "tls": "ok", "http": "ok"}
+    },
+    {
+      "id": "handshake",
+      "cost": 2,
+      "authorized": true,
+      "outcomes": {"dns": "blocked", "tls": "fail", "http": "ok"}
+    },
+    {
+      "id": "request",
+      "cost": 3,
+      "authorized": true,
+      "outcomes": {"dns": "blocked", "tls": "blocked", "http": "fail"}
+    },
+    {
+      "id": "production-capture",
+      "cost": 1,
+      "authorized": false,
+      "outcomes": {"dns": "unknown", "tls": "unknown", "http": "unknown"}
+    }
+  ]
+}

@@ -179,6 +179,10 @@ work/SE-051/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Representa hipótesis, pruebas y outcomes de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) como relación muchos-a-muchos y como grafo dirigido. Usa `reachable()` sobre un ciclo y explica por qué `visited` garantiza terminación del recorrido, pero no convierte la relación en función ni demuestra que el modelo del dominio esté completo.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

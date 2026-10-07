@@ -179,6 +179,10 @@ work/SE-058/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Convierte la `timeline` de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) en registro de hecho, interpretación, hipótesis rival, predicción y próxima prueba. Una observación contradictoria debe detener el modelo y abrir la revisión de premisas; no se elimina el dato adverso para conservar una narrativa limpia.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

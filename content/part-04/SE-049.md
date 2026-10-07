@@ -179,6 +179,10 @@ work/SE-049/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Descompón la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) en decisión, hipótesis, pruebas, restricciones y resultados. `problem-tree.md` debe conservar autorización y presupuesto como restricciones transversales y proponer una segunda descomposición; una lista de funciones del programa no equivale a descomponer el problema.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

@@ -180,6 +180,10 @@ work/SE-056/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+La función `select_test()` de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) es codiciosa: maximiza eliminación adversa por costo bajo el presupuesto actual. Busca un fixture pequeño donde su primera elección no minimice el costo total del árbol de decisión. Entrega el contraejemplo y no llames «aproximación» a la heurística sin una cota demostrada.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 48
+DEVELOPED_LAST_CLASS = 60
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
@@ -682,7 +682,23 @@ PART03_ACTIVITIES = {
 }
 
 
-SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES, **PART03_ACTIVITIES}
+PART04_ACTIVITIES = {
+    "SE-049": {"outputs": ["problem-tree.md", "assumptions.md", "alternative-decomposition.md"], "steps": ["name-decision", "separate-hypotheses-tests", "preserve-crosscutting-constraints", "declare-assumptions", "compare-decompositions", "review-loss"], "mechanism": "decomposition preserves decision, dependencies, constraints and observable contracts", "failure": "a convenient task list is rejected when it loses authorization, budget or a causal relation"},
+    "SE-050": {"outputs": ["logic-check.md", "truth-table.json", "counterexample.md"], "steps": ["formalize-rule", "enumerate-assignments", "evaluate-implication", "find-counterexample", "separate-validity-truth", "revise-claim"], "mechanism": "premises, quantifiers and implication are made explicit and checked against all small assignments", "failure": "a plausible conclusion is withdrawn when one assignment makes the premises true and conclusion false"},
+    "SE-051": {"outputs": ["model-comparison.md", "graph.json", "queries.md"], "steps": ["declare-entities", "model-multiplicity", "build-directed-graph", "walk-with-visited", "compare-relation-function", "state-storage-limits"], "mechanism": "sets, relations, functions and graphs are selected by the question and multiplicity they preserve", "failure": "a cycle terminates through visited state and is not silently treated as a hierarchy"},
+    "SE-052": {"outputs": ["contracts.md", "negative-cases.json", "invariant-check.md"], "steps": ["state-preconditions", "state-subset-invariant", "state-postcondition", "inject-incomplete-outcome", "reject-unauthorized-test", "exhaust-budget"], "mechanism": "schema, authorization, budget and candidate-subset obligations are executable contracts", "failure": "negative cases fail with a typed reason rather than being coerced into a plausible result"},
+    "SE-053": {"outputs": ["structural-proof.md", "recursive-version.py", "depth-trace.json"], "steps": ["define-base-case", "define-reduction", "choose-decreasing-measure", "handle-cycle", "compare-recursive-iterative", "bound-depth"], "mechanism": "base case, structural reduction and a decreasing measure connect recursion to induction", "failure": "removing visited state exposes nontermination when graph-shaped data was assumed to be a tree"},
+    "SE-054": {"outputs": ["correctness-argument.md", "termination.md", "inconclusive-case.json"], "steps": ["define-domain", "prove-initialization", "prove-preservation", "name-variant", "check-exit", "separate-partial-total"], "mechanism": "partial correctness, termination and total correctness are argued separately over the declared domain", "failure": "termination with multiple candidates is labelled inconclusive, not a solved incident"},
+    "SE-055": {"outputs": ["complexity.md", "operation-counts.json", "benchmark-plan.md"], "steps": ["choose-input-size", "count-dominant-operation", "derive-bounds", "compare-time-space", "design-benchmark", "separate-theory-measurement"], "mechanism": "growth is derived from operations while empirical timing keeps environment and repetitions explicit", "failure": "a small timing result neither becomes a universal duration nor refutes an asymptotic bound"},
+    "SE-056": {"outputs": ["heuristic.md", "optimal-small-case.json", "counterexample.md"], "steps": ["state-objective", "run-greedy-choice", "enumerate-small-reference", "compare-total-cost", "find-adversarial-fixture", "state-no-guarantee"], "mechanism": "the greedy score is compared with an exact small oracle and its missing quality guarantee is explicit", "failure": "the rule is not called an approximation algorithm unless a bound is proved for its domain"},
+    "SE-057": {"outputs": ["state-machine.json", "transition-tests.md", "late-event-policy.md"], "steps": ["separate-state-event", "declare-guards", "run-legal-path", "reject-illegal-transition", "inject-duplicate-event", "check-safety-liveness"], "mechanism": "states, events, guards and terminal conditions form an executable transition relation", "failure": "confirmed to reopen is rejected unless the specification adds an explicit reviewed transition"},
+    "SE-058": {"outputs": ["hypothesis-log.md", "timeline.json", "adverse-evidence.md"], "steps": ["record-fact", "separate-interpretation", "name-rival", "predict-discriminating-result", "preserve-adverse-observation", "choose-next-test"], "mechanism": "each hypothesis carries predictions, observations, status and a next discriminating test", "failure": "contradictory evidence halts the model and triggers premise review instead of being deleted"},
+    "SE-059": {"outputs": ["problem.md", "stakeholder-conflicts.md", "open-questions.md"], "steps": ["receive-ambiguous-brief", "identify-actors-effects", "extract-conflicting-requirements", "negotiate-decision", "design-safe-experiment", "set-exit-criterion"], "mechanism": "ambiguity, uncertainty and stakeholder conflict remain visible until an authorized decision resolves them", "failure": "choosing one contradictory requirement silently fails the workshop review"},
+    "SE-060": {"outputs": ["incident-spec.json", "diagnostic_model.py", "tests/test_diagnostic_model.py", "evidence/VALIDATION.md"], "steps": ["run-thirteen-tests", "link-requirement-rule-case", "compare-with-small-oracle", "preserve-counterexamples", "peer-implement-contract", "document-proof-test-assumption"], "mechanism": "specification, executable solution, oracle, cases and limits form one independently reviewable package", "failure": "changing an expected result to fit the implementation is rejected as oracle corruption"},
+}
+
+
+SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES, **PART03_ACTIVITIES, **PART04_ACTIVITIES}
 
 
 def activity(part: dict, lesson: dict) -> dict:
@@ -908,7 +924,7 @@ def site_page(
     developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–03."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–04."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

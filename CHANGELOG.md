@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-06 — Parte 04 desarrollada
+
+- revisión clase a clase de `SE-049`–`SE-060`, preservando la progresión desde
+  ambigüedad hasta especificación, algoritmo, oráculo y contraejemplos;
+- laboratorio ejecutable con trece pruebas para lógica, grafos, contratos,
+  terminación, complejidad, heurísticas, estados y requisitos contradictorios;
+- actividades, rúbricas, portal y métricas reconciliados a 60 clases desarrolladas,
+  300 borradores y 120 estructuras curriculares.
+
 ## 2026-10-06 — Parte 03 desarrollada
 
 - revisión cualitativa clase a clase de `SE-037`–`SE-048`, con DNSSEC, caché

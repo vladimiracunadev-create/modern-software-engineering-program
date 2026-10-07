@@ -213,18 +213,18 @@ evita una explicación genérica.
 
 ### Parte 04 — Pensamiento computacional
 
-- [ ] `SE-049` — descomponer un problema y hacer visibles sus supuestos.
-- [ ] `SE-050` — usar tablas de verdad y contraejemplos para refutar soluciones.
-- [ ] `SE-051` — modelar relaciones y grafos como artefactos ejecutables.
-- [ ] `SE-052` — formular invariantes comprobables.
-- [ ] `SE-053` — conectar inducción, recursión y caso base.
-- [ ] `SE-054` — distinguir corrección parcial, total y terminación.
-- [ ] `SE-055` — separar complejidad teórica de benchmark empírico.
-- [ ] `SE-056` — justificar heurísticas, límites y condiciones de fallo.
-- [ ] `SE-057` — construir una máquina de estados ejecutable.
-- [ ] `SE-058` — mantener un registro de hipótesis y evidencia contraria.
-- [ ] `SE-059` — reconciliar un problema ambiguo y contradictorio.
-- [ ] `SE-060` — entregar especificación, solución, oráculo y contraejemplos.
+- [x] `SE-049` — descomponer un problema y hacer visibles sus supuestos.
+- [x] `SE-050` — usar tablas de verdad y contraejemplos para refutar soluciones.
+- [x] `SE-051` — modelar relaciones y grafos como artefactos ejecutables.
+- [x] `SE-052` — formular invariantes comprobables.
+- [x] `SE-053` — conectar inducción, recursión y caso base.
+- [x] `SE-054` — distinguir corrección parcial, total y terminación.
+- [x] `SE-055` — separar complejidad teórica de benchmark empírico.
+- [x] `SE-056` — justificar heurísticas, límites y condiciones de fallo.
+- [x] `SE-057` — construir una máquina de estados ejecutable.
+- [x] `SE-058` — mantener un registro de hipótesis y evidencia contraria.
+- [x] `SE-059` — reconciliar un problema ambiguo y contradictorio.
+- [x] `SE-060` — entregar especificación, solución, oráculo y contraejemplos.
 
 ### Parte 05 — Fundamentos de programación
 

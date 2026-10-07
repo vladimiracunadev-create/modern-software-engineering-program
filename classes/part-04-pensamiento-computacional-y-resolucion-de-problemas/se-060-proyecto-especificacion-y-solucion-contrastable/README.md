@@ -181,6 +181,10 @@ work/SE-060/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Entrega la [especificación y solución contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) con sus fixtures y trece pruebas. Añade un oráculo independiente para casos pequeños, contraejemplos de lógica y heurística, y una matriz requisito → regla → caso → evidencia. El paquete separa qué se demostró, qué se ejecutó y qué sigue siendo supuesto del dominio.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

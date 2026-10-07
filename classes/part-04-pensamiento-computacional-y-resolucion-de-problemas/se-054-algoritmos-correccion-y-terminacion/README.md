@@ -180,6 +180,10 @@ work/SE-054/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Argumenta `run_model()` de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec): inicialización del conjunto candidato, preservación del subconjunto, variante de observaciones pendientes y condición de salida. Separa «termina con la lista suministrada» de «resuelve el incidente» y construye un caso inconcluso sin pruebas elegibles.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

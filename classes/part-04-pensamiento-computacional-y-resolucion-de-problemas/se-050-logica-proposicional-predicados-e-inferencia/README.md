@@ -179,6 +179,10 @@ work/SE-050/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Ejecuta `implication_counterexamples()` en la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) y reconstruye las cuatro filas sin mirar el código. `logic-check.md` formaliza «si una prueba falla, entonces la hipótesis es cierta» y aporta un contraejemplo; además distingue validez de la regla y verdad empírica de sus premisas.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

@@ -180,6 +180,10 @@ work/SE-052/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Extrae de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) precondiciones de esquema, autorización y presupuesto; el invariante de que los candidatos nunca crecen; y la poscondición limitada de `resolved`. Fuerza outcome faltante, prueba no autorizada y presupuesto excedido. Una excepción esperada es evidencia del contrato negativo, no un fallo que deba ocultarse.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

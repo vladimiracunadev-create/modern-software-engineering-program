@@ -6,18 +6,17 @@
   "environment": "editor, Python opcional y diagramas Mermaid",
   "duration_hours": 6,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "receive-ambiguous-brief",
+    "identify-actors-effects",
+    "extract-conflicting-requirements",
+    "negotiate-decision",
+    "design-safe-experiment",
+    "set-exit-criterion"
   ],
   "outputs": [
     "problem.md",
-    "model.md",
-    "checks.md"
+    "stakeholder-conflicts.md",
+    "open-questions.md"
   ],
   "safety": {
     "real_personal_data": false,

@@ -6,18 +6,17 @@
   "environment": "editor, Python opcional y diagramas Mermaid",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "state-preconditions",
+    "state-subset-invariant",
+    "state-postcondition",
+    "inject-incomplete-outcome",
+    "reject-unauthorized-test",
+    "exhaust-budget"
   ],
   "outputs": [
-    "problem.md",
-    "model.md",
-    "checks.md"
+    "contracts.md",
+    "negative-cases.json",
+    "invariant-check.md"
   ],
   "safety": {
     "real_personal_data": false,

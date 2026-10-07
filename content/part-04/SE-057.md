@@ -179,6 +179,10 @@ work/SE-057/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Ejecuta las transiciones de hipótesis de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec). Distingue estado, evento y guarda; prueba `confirmed → reopen` como secuencia ilegal y diseña el tratamiento de un resultado tardío duplicado. La tabla ejecutable demuestra las transiciones declaradas, no cobertura de concurrencia distribuida.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

@@ -9,6 +9,7 @@ entornos: cada laboratorio declara versiones, datos, comandos, limpieza y eviden
 | 01 | [Observar un programa por capas](part-01-machine-observer/README.md) | representación, runtime, memoria, proceso y medición reproducible |
 | 02 | [Kit de diagnóstico multiplataforma](part-02-cross-platform-diagnostic-kit/README.md) | configuración, inspección segura, reparación idempotente y recuperación en PowerShell/Bash |
 | 03 | [Petición observable y fallos por fase](part-03-observable-request/README.md) | DNS, conexión, confianza TLS modelada, HTTP, correlación, reintento y recuperación local |
+| 04 | [Especificación y solución contrastable](part-04-contrastable-spec/README.md) | lógica, grafos, contratos, terminación, complejidad, estados, contradicciones y oráculos |
 
 Los laboratorios futuros se incorporan parte por parte. Deben usar datos sintéticos o
 autorizados, evitar cambios globales innecesarios, incluir una ruta de recuperación y

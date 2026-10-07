@@ -180,6 +180,10 @@ work/SE-059/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Añade a la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) dos requisitos incompatibles —por ejemplo, validar el comportamiento vivo y no contactar ningún sistema— y registra el conflicto. El taller no se aprueba eligiendo uno en silencio: identifica actor, efecto, decisión pendiente, experimento seguro y criterio de salida.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

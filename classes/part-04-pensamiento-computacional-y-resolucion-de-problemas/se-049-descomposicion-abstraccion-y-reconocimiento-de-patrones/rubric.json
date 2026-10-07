@@ -5,24 +5,24 @@
   "maximum_score": 16,
   "criteria": [
     {
-      "id": "understanding",
+      "id": "mechanism",
       "max": 4,
-      "evidence": "example, counterexample and limits"
+      "evidence": "decomposition preserves decision, dependencies, constraints and observable contracts"
     },
     {
-      "id": "decision",
+      "id": "diagnosis",
       "max": 4,
-      "evidence": "options, criteria, risks and reversibility"
+      "evidence": "a convenient task list is rejected when it loses authorization, budget or a causal relation"
     },
     {
       "id": "reproducibility",
       "max": 4,
-      "evidence": "environment, files and review trail"
+      "evidence": "versions, fixture, commands and raw evidence allow an independent repetition"
     },
     {
-      "id": "responsibility",
+      "id": "limits",
       "max": 4,
-      "evidence": "security, privacy, accessibility and affected people"
+      "evidence": "report separates observed, inferred and unmeasured claims and names the next instrument"
     }
   ]
 }

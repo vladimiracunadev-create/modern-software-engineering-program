@@ -81,6 +81,9 @@ jobs:
       - name: Run Part 03 observable request tests
         run: python -m unittest discover -s labs/part-03-observable-request/tests -v
 
+      - name: Run Part 04 contrastable specification tests
+        run: python -m unittest discover -s labs/part-04-contrastable-spec/tests -v
+
       - name: Smoke test Part 02 Bash adapter
         shell: bash
         run: |
@@ -90,7 +93,7 @@ jobs:
           bash labs/part-02-cross-platform-diagnostic-kit/diagnostic-kit.sh clean --workspace "$RUNNER_TEMP/part02-kit"
 
       - name: Compile Python sources
-        run: python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit labs/part-03-observable-request
+        run: python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit labs/part-03-observable-request labs/part-04-contrastable-spec
 
   portability:
     name: Portability · ${{ matrix.os }}
@@ -128,6 +131,7 @@ jobs:
           python -m unittest discover -s labs/part-01-machine-observer/tests -v
           python -m unittest discover -s labs/part-02-cross-platform-diagnostic-kit/tests -v
           python -m unittest discover -s labs/part-03-observable-request/tests -v
+          python -m unittest discover -s labs/part-04-contrastable-spec/tests -v
 
       - name: Smoke test Part 02 PowerShell adapter
         if: runner.os == 'Windows'

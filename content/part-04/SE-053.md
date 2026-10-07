@@ -179,6 +179,10 @@ work/SE-053/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Usa el grafo cíclico de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) para escribir caso base, paso estructural y medida de nodos no visitados. Compara una formulación recursiva con `reachable()` iterativo y explica qué sucede si se elimina `visited`; semejanza con un árbol no prueba ausencia de ciclos.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

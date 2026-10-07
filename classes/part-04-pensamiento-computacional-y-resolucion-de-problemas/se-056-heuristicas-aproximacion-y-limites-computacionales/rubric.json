@@ -5,24 +5,24 @@
   "maximum_score": 16,
   "criteria": [
     {
-      "id": "understanding",
+      "id": "mechanism",
       "max": 4,
-      "evidence": "example, counterexample and limits"
+      "evidence": "the greedy score is compared with an exact small oracle and its missing quality guarantee is explicit"
     },
     {
-      "id": "decision",
+      "id": "diagnosis",
       "max": 4,
-      "evidence": "options, criteria, risks and reversibility"
+      "evidence": "the rule is not called an approximation algorithm unless a bound is proved for its domain"
     },
     {
       "id": "reproducibility",
       "max": 4,
-      "evidence": "environment, files and review trail"
+      "evidence": "versions, fixture, commands and raw evidence allow an independent repetition"
     },
     {
-      "id": "responsibility",
+      "id": "limits",
       "max": 4,
-      "evidence": "security, privacy, accessibility and affected people"
+      "evidence": "report separates observed, inferred and unmeasured claims and names the next instrument"
     }
   ]
 }

@@ -12,7 +12,7 @@ El mandato completo y la acción específica acordada para cada clase se conserv
 [`plan maestro de implementación`](MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md). Esta
 auditoría sigue siendo la fotografía de estado; el plan es el backlog recuperable.
 
-Se revisaron cualitativamente las Partes 01, 02 y 03 clase por clase, se ejecutaron sus
+Se revisaron cualitativamente las Partes 01–04 clase por clase, se ejecutaron sus
 laboratorios comunes y se reconsultaron fuentes oficiales vigentes. Unicode 18.0,
 Java SE 27, la biblioteca ratificada de RISC-V, Python 3, SCI, POSIX.1-2024 y GNU
 Bash 5.3 sustituyen marcadores de versión ya superados sin alterar referencias
@@ -21,13 +21,14 @@ históricas.
 ## Línea base verificable
 
 - 8 etapas, 40 partes y 480 IDs consecutivos (`SE-001`–`SE-480`);
-- 48 clases desarrolladas (`SE-001`–`SE-048`), 312 borradores y 120 estructuras;
-- Partes 00–03 desarrolladas; Partes 04–29 publicadas para revisión; Partes 30–39
+- 60 clases desarrolladas (`SE-001`–`SE-060`), 300 borradores y 120 estructuras;
+- Partes 00–04 desarrolladas; Partes 05–29 publicadas para revisión; Partes 30–39
   pendientes de desarrollo íntegro;
 - 521 páginas HTML generadas;
-- tres laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
+- cuatro laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
   y seis pruebas, el de la Parte 02 con diez pruebas y adaptadores PowerShell/Bash, y
-  el de la Parte 03 con siete escenarios de red locales y once pruebas;
+  el de la Parte 03 con siete escenarios de red locales y once pruebas, y el de la
+  Parte 04 con especificación contrastable y trece pruebas;
 - tres workflows; la evidencia remota del incremento se acepta solo cuando sus jobs y
   Pages terminen en verde.
 
@@ -35,7 +36,7 @@ históricas.
 
 | Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |
 | --- | --- | --- | --- | --- | --- |
-| Fundamentos, profesión y ética | PARCIAL | Partes 00–04; `content/part-00..04`; laboratorios de Partes 01–03 | Partes 00–03 desarrolladas; 04 no aprobada | razonamiento computacional aún carece de ejecución y revisión integral | desarrollar la Parte 04 reutilizando los protocolos de evidencia existentes |
+| Fundamentos, profesión y ética | PARCIAL | Partes 00–04; `content/part-00..04`; laboratorios de Partes 01–04 | Partes 00–04 desarrolladas | la construcción programática de la especificación aún no está aprobada | desarrollar la Parte 05 reutilizando los contratos ejecutables existentes |
 | Construcción, paradigmas y depuración | SUPERFICIAL | Partes 05–09 y `polyglot-programming-labs` | borradores editoriales | mecanismos, fallos y transferencia entre paradigmas no han sido validados de extremo a extremo | profundizar decisiones de ingeniería aquí y conservar sintaxis especializada fuera |
 | Requisitos y discovery | SUPERFICIAL | Partes 10, 12 y 13 | títulos y borradores | observación, workshops, conflictos, NFR y cambio no están aprobados | construir trazabilidad necesidad → requisito → prueba → evidencia |
 | Economía, estimación y experimentación | SUPERFICIAL | Partes 11, 15 y 37 | cobertura nominal | Monte Carlo, Function Points, COCOMO II y compromiso probabilístico requieren práctica | profundizar `SE-185`, `SE-191` y el proyecto económico antes de dividir |
@@ -105,6 +106,23 @@ reales solo en loopback; DNS, confianza TLS y pérdida se identifican como model
 | `SE-047` | COMPLETA | correlación temporal podía presentarse como causalidad | primera divergencia, hipótesis rivales y Trace Context con límites de confianza |
 | `SE-048` | COMPLETA | faltaba un producto local ejecutable y recuperable | siete escenarios, once pruebas, resultados tipados, redacción y limpieza |
 
+## Revisión clase a clase de la Parte 04
+
+| Clase | Estado | Hallazgo de la revisión | Mejora y evidencia incorporada |
+| --- | --- | --- | --- |
+| `SE-049` | COMPLETA | descomponer podía reducirse a listar tareas | dos descomposiciones y restricciones transversales preservadas |
+| `SE-050` | COMPLETA | plausibilidad y consecuencia lógica podían confundirse | tabla exhaustiva y contraejemplo ejecutable |
+| `SE-051` | COMPLETA | relación, función, árbol y grafo requerían multiplicidad explícita | recorrido cíclico con visitados y consulta discriminante |
+| `SE-052` | COMPLETA | contratos positivos no mostraban cómo fallar | outcomes incompletos, autorización y presupuesto como casos negativos |
+| `SE-053` | COMPLETA | recursión sintáctica no demostraba progreso | caso base, reducción, medida y comparación iterativa |
+| `SE-054` | COMPLETA | terminar podía confundirse con resolver | corrección parcial, variante e inconclusión separadas |
+| `SE-055` | COMPLETA | un benchmark podía reemplazar el análisis | conteos de operaciones separados de tiempo de pared |
+| `SE-056` | COMPLETA | la heurística podía presentarse como aproximación garantizada | búsqueda adversarial y oráculo exacto para casos pequeños |
+| `SE-057` | COMPLETA | el diagrama no hacía ejecutables las transiciones | tabla de estados y rechazo de secuencias imposibles |
+| `SE-058` | COMPLETA | evidencia contraria podía desaparecer del relato | timeline preservado y detención ante contradicción |
+| `SE-059` | COMPLETA | requisitos contradictorios podían resolverse en silencio | conflicto, actores, experimento seguro y criterio de salida |
+| `SE-060` | COMPLETA | la especificación necesitaba implementación y oráculo independientes | fixtures, solución, trece pruebas, contraejemplos y límites |
+
 ## Decisión sobre nuevas clases
 
 No se crean IDs posteriores a `SE-480` en este incremento. La Parte 01 demuestra que
@@ -115,23 +133,24 @@ evidencia de que integrar el tema en una clase existente degradaría su profundi
 
 ## Próximo incremento
 
-La Parte 04 (`SE-049`–`SE-060`) es la siguiente unidad indivisible. Debe convertir el
-incidente de red en un problema formalizado con supuestos, invariantes, algoritmos,
-oráculos y contraejemplos, y publicarse completa en un solo commit después de los gates.
+La Parte 05 (`SE-061`–`SE-072`) es la siguiente unidad indivisible. Debe implementar
+la especificación con tipos, control, funciones, errores, colecciones, I/O, módulos,
+pruebas y una CLI empaquetada, y publicarse completa después de los gates.
 
 ## Métricas antes y después del incremento
 
-| Métrica | 2026-10-04 | Parte 01 | Parte 02 | Parte 03 |
-| --- | ---: | ---: | ---: | ---: |
-| clases desarrolladas | 12 | 24 | 36 | 48 |
-| borradores publicados | 348 | 336 | 324 | 312 |
-| estructuras curriculares | 120 | 120 | 120 | 120 |
-| laboratorios ejecutables versionados | 0 | 1 | 2 | 3 |
-| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 | 6 |
-| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 | 10 |
-| pruebas del laboratorio de Parte 03 | 0 | 0 | 0 | 11 |
-| clases totales | 480 | 480 | 480 | 480 |
-| páginas HTML | 521 | 521 | 521 | 521 |
+| Métrica | 2026-10-04 | Parte 01 | Parte 02 | Parte 03 | Parte 04 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| clases desarrolladas | 12 | 24 | 36 | 48 | 60 |
+| borradores publicados | 348 | 336 | 324 | 312 | 300 |
+| estructuras curriculares | 120 | 120 | 120 | 120 | 120 |
+| laboratorios ejecutables versionados | 0 | 1 | 2 | 3 | 4 |
+| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 | 6 | 6 |
+| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 | 10 | 10 |
+| pruebas del laboratorio de Parte 03 | 0 | 0 | 0 | 11 | 11 |
+| pruebas del laboratorio de Parte 04 | 0 | 0 | 0 | 0 | 13 |
+| clases totales | 480 | 480 | 480 | 480 | 480 |
+| páginas HTML | 521 | 521 | 521 | 521 | 521 |
 
 Los conteos no sustituyen la revisión cualitativa. El cambio conserva las 480 clases,
 la navegación y el historial; profundiza una parte completa y deja explícito lo que no
@@ -152,6 +171,9 @@ se midió.
 - [RFC 4033 — DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033), reconsultada el 2026-10-06.
 - [RFC 7239 — Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239), reconsultada el 2026-10-06.
 - [W3C Trace Context](https://www.w3.org/TR/trace-context/), reconsultada el 2026-10-06.
+- [MIT Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/), reconsultada el 2026-10-06.
+- [MIT Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/), reconsultada el 2026-10-06.
+- [MIT Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/), reconsultada el 2026-10-06.
 
 No se afirma acceso al texto completo de normas de pago ni ejecución en hardware no
 disponible. Los resultados de CI y Pages se documentan después de la publicación.

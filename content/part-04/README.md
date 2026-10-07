@@ -190,7 +190,7 @@ programa modular, probado y mantenible.
 
 ## Resumen operativo del recorrido
 
-| Clase | Núcleo | Aporte acumulativo a el modelo de decisión diagnóstica |
+| Clase | Núcleo | Aporte acumulativo al modelo de decisión diagnóstica |
 |---|---|---|
 | [SE-049](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-049-descomposicion-abstraccion-y-reconocimiento-de-patrones/) | Descomposición, abstracción y reconocimiento de patrones | Separa el problema en resultados y contratos |
 | [SE-050](../../classes/part-04-pensamiento-computacional-y-resolucion-de-problemas/se-050-logica-proposicional-predicados-e-inferencia/) | Lógica proposicional, predicados e inferencia | Hace explícitas premisas e inferencias |
@@ -218,6 +218,10 @@ Las clases 49 a 51 enseñan a recortar y representar; 52 a 54 establecen contrat
 5. máquina de estados y registro de hipótesis;
 6. matriz requisito–regla–caso–evidencia;
 7. paquete `problem.md`, `model.md` y `checks.md` revisado por otra persona.
+
+## Laboratorio ejecutable común
+
+Las doce clases comparten la [especificación y solución contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec). El fixture conserva decisión, hipótesis, outcomes, autorización, presupuesto y observaciones; trece pruebas hacen visibles contradicciones, contratos, ciclos, transiciones imposibles y límites de la heurística. El laboratorio no reemplaza una demostración general: obliga a separar propiedades demostradas, casos ejecutados, crecimiento analizado y supuestos del dominio.
 
 ## Criterios de aprobación del proyecto
 

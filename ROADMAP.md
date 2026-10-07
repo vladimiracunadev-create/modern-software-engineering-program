@@ -19,9 +19,9 @@ de verdad sobre el producto educativo y su secuencia.
 
 - La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,
   de `SE-001` a `SE-480`, sin renumerar el material existente.
-- Las Partes 00–03 contienen 48 clases desarrolladas con explicación, práctica,
-  fuentes, navegación y laboratorios ejecutables para `SE-013`–`SE-048`. Las partes
-  04–29 conservan 312 borradores que deben revisarse y
+- Las Partes 00–04 contienen 60 clases desarrolladas con explicación, práctica,
+  fuentes, navegación y laboratorios ejecutables para `SE-013`–`SE-060`. Las partes
+  05–29 conservan 300 borradores que deben revisarse y
   profundizarse. Las partes 30–39 disponen de estructura curricular y requieren aún el
   desarrollo íntegro de sus 120 clases.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra

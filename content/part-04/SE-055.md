@@ -180,6 +180,10 @@ work/SE-055/
 
 El pseudocódigo debe ser independiente de lenguaje y cada diagrama necesita explicación textual. Si usas código para explorar, registra versión, entrada y salida; no lo presentes automáticamente como producto de la clase.
 
+### Laboratorio integrado de la Parte 04
+
+Genera `operation_counts()` de la [especificación contrastable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-04-contrastable-spec) para tamaños crecientes y deriva las expresiones lineal y por pares. Después, si mides tiempo, conserva versión, máquina y repeticiones por separado. La tendencia teórica no predice milisegundos universales y un benchmark pequeño no refuta una cota asintótica.
+
 ## Seguridad, ética y accesibilidad
 
 - usa incidentes sintéticos y evita convertir direcciones o usuarios en datos de práctica;

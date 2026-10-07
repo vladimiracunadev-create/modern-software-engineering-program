@@ -192,6 +192,10 @@ work/SE-064/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+En [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli), dibuja el contrato de `parse_spec`, `apply_observation`, `run_diagnosis` y `main`: parámetros, retorno, errores y efectos. Prueba el núcleo con `StringIO` y valores construidos, sin terminal ni archivos. Luego introduce deliberadamente una lectura de archivo en `engine.py`, explica qué prueba se vuelve más frágil y revierte el cambio. Se aprueba por localizar dependencias y efectos, no por reducir el número de funciones.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

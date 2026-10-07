@@ -228,18 +228,18 @@ evita una explicación genérica.
 
 ### Parte 05 — Fundamentos de programación
 
-- [ ] `SE-061` — hacer explícitos tipos, coerciones y contratos.
-- [ ] `SE-062` — relacionar decisiones de control con cobertura alcanzable.
-- [ ] `SE-063` — usar invariantes de bucle y condiciones de término.
-- [ ] `SE-064` — separar alcance, efectos y contratos de funciones.
-- [ ] `SE-065` — comparar excepciones, Result y recuperación.
-- [ ] `SE-066` — diseñar transformaciones de colecciones sin mutación accidental.
-- [ ] `SE-067` — validar esquema, streaming y errores de E/S.
-- [ ] `SE-068` — controlar dependencias y límites de módulos.
-- [ ] `SE-069` — derivar código desde ejemplos, bordes y propiedades.
-- [ ] `SE-070` — revisar legibilidad con evidencia de mantenimiento.
-- [ ] `SE-071` — transferir la misma solución entre dos lenguajes.
-- [ ] `SE-072` — entregar una CLI empaquetada, probada y documentada.
+- [x] `SE-061` — hacer explícitos tipos, coerciones y contratos.
+- [x] `SE-062` — relacionar decisiones de control con cobertura alcanzable.
+- [x] `SE-063` — usar invariantes de bucle y condiciones de término.
+- [x] `SE-064` — separar alcance, efectos y contratos de funciones.
+- [x] `SE-065` — comparar excepciones, Result y recuperación.
+- [x] `SE-066` — diseñar transformaciones de colecciones sin mutación accidental.
+- [x] `SE-067` — validar esquema, streaming y errores de E/S.
+- [x] `SE-068` — controlar dependencias y límites de módulos.
+- [x] `SE-069` — derivar código desde ejemplos, bordes y propiedades.
+- [x] `SE-070` — revisar legibilidad con evidencia de mantenimiento.
+- [x] `SE-071` — transferir la misma solución entre dos lenguajes.
+- [x] `SE-072` — entregar una CLI empaquetada, probada y documentada.
 
 ### Parte 06 — Paradigmas
 

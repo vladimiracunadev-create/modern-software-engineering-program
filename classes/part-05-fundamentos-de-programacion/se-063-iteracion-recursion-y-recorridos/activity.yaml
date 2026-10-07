@@ -6,18 +6,17 @@
   "environment": "Python 3.11+, editor, terminal y Git",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "name-progress-measures",
+    "stream-lines",
+    "inject-extra-observation",
+    "inject-malformed-line",
+    "verify-bound",
+    "compare-materialization"
   ],
   "outputs": [
-    "main.py",
-    "test_main.py",
-    "README.md"
+    "iteration-invariant.md",
+    "malformed-stream.jsonl",
+    "termination.md"
   ],
   "safety": {
     "real_personal_data": false,

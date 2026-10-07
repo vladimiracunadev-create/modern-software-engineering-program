@@ -202,6 +202,10 @@ work/SE-072/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Entrega [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) desde un checkout limpio: ejecuta sus quince pruebas, compila Python, compila el puerto Rust y usa `python -m diagnostic_cli` con las fixtures. Un par revisa ayuda, `stdout`, `stderr`, códigos `0/2/3/4/5`, metadatos, límites y comandos. La aprobación exige que otra persona reproduzca la salida sin conocimiento tácito y que el informe distinga plataforma verificada, prueba omitida y capacidad todavía no implementada.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

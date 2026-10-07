@@ -193,6 +193,10 @@ work/SE-070/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Selecciona una tarea de mantenimiento real en [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli), por ejemplo añadir un outcome, y registra qué archivos y símbolos debes comprender. Refactoriza un nombre o extrae una función bajo la suite; compara el esfuerzo antes/después y conserva un diff donde un cambio «más limpio» altere el contrato para explicar por qué fue rechazado. Legibilidad se evalúa por menor ambigüedad al cambiar, no por una cuota de líneas.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

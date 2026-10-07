@@ -169,7 +169,7 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-036.html").read_text(encoding="utf-8")
         next_developed_page = (ROOT / "site/classes/SE-037.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-061.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-073.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido desarrollado", next_developed_page)
@@ -195,7 +195,7 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-048.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-061.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-073.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido en revisión", draft_page)
@@ -222,8 +222,41 @@ class PhaseThreeGenerationTests(unittest.TestCase):
             activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
             self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
         developed_page = (ROOT / "site/classes/SE-060.html").read_text(encoding="utf-8")
-        draft_page = (ROOT / "site/classes/SE-061.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-073.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/04.html").read_text(encoding="utf-8")
+        self.assertIn("Contenido desarrollado", developed_page)
+        self.assertIn("Contenido en revisión", draft_page)
+        self.assertIn("Doce clases desarrolladas", part_page)
+
+    def test_part_five_has_a_packaged_cross_language_cli_laboratory(self) -> None:
+        laboratory = ROOT / "labs" / "part-05-diagnostic-cli"
+        for relative in (
+            "README.md",
+            "pyproject.toml",
+            "src/diagnostic_cli/domain.py",
+            "src/diagnostic_cli/parsing.py",
+            "src/diagnostic_cli/engine.py",
+            "src/diagnostic_cli/cli.py",
+            "ports/diagnostic_core.rs",
+            "cases/incident-spec.json",
+            "cases/observations.jsonl",
+            "cases/contract-cases.tsv",
+            "tests/test_diagnostic_cli.py",
+            "evidence/VALIDATION.md",
+        ):
+            self.assertTrue((laboratory / relative).is_file(), relative)
+        workflow = (ROOT / ".github/workflows/validate.yml").read_text(encoding="utf-8")
+        self.assertIn("labs/part-05-diagnostic-cli/tests", workflow)
+        self.assertIn("ports/diagnostic_core.rs", workflow)
+        lab_url = "labs/part-05-diagnostic-cli"
+        for lesson in self.lessons[60:72]:
+            text = (ROOT / lesson["path"] / "README.md").read_text(encoding="utf-8")
+            self.assertIn(lab_url, text, lesson["id"])
+            activity = json.loads((ROOT / lesson["path"] / "activity.yaml").read_text(encoding="utf-8"))
+            self.assertNotIn("frame-problem", activity["steps"], lesson["id"])
+        developed_page = (ROOT / "site/classes/SE-072.html").read_text(encoding="utf-8")
+        draft_page = (ROOT / "site/classes/SE-073.html").read_text(encoding="utf-8")
+        part_page = (ROOT / "site/parts/05.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)

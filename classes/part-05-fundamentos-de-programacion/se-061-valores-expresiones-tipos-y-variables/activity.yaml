@@ -6,18 +6,17 @@
   "environment": "Python 3.11+, editor, terminal y Git",
   "duration_hours": 4,
   "steps": [
-    "frame-problem",
-    "separate-evidence",
-    "compare-options",
-    "produce-artifact",
-    "inject-safe-failure",
-    "peer-review",
-    "revise"
+    "trace-json-bytes",
+    "name-language-types",
+    "name-domain-values",
+    "inject-boolean-budget",
+    "observe-rejection",
+    "compare-coercion-policies"
   ],
   "outputs": [
-    "main.py",
-    "test_main.py",
-    "README.md"
+    "value-trace.md",
+    "invalid-budget.json",
+    "type-boundary.md"
   ],
   "safety": {
     "real_personal_data": false,

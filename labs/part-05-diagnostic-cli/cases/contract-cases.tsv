@@ -1,0 +1,5 @@
+case_id|budget|candidates|spent|test_cost|outcomes|result
+resolve_dns|5|dns,tls,http|0|1|dns=fail,tls=ok,http=ok|fail
+resolve_not_dns|5|dns,tls,http|0|1|dns=fail,tls=ok,http=ok|ok
+handshake_tls|5|tls,http|1|2|tls=fail,http=ok|fail
+request_http|5|http|2|3|http=fail|fail

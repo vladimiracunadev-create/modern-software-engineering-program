@@ -193,6 +193,10 @@ work/SE-061/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Trabaja sobre [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli). Traza `budget`, `authorized`, `Outcome` y `candidates` desde los bytes JSON hasta los objetos inmutables de `domain.py`. Después cambia `budget` por `true` y explica por qué aceptar esa entrada sería una coerción semánticamente incorrecta aunque `isinstance(True, int)` sea verdadero en Python. La evidencia aprobatoria es la predicción previa, el error `invalid_budget` observado y una regla que distinga representación externa, tipo del lenguaje y valor del dominio.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

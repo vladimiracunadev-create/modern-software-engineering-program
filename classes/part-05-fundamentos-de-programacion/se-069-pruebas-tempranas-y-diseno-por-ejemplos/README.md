@@ -198,6 +198,10 @@ work/SE-069/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Audita las quince pruebas de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) y clasifícalas como ejemplo, frontera, error, propiedad, integración o consumidor. Antes de corregir nada, agrega una regresión que falle por la razón prevista. Explica también qué no probarías: atributos privados o el orden interno de guard clauses no merecen fijarse si el contrato observable se conserva. La cobertura se argumenta por riesgos y particiones, no solo por líneas ejecutadas.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

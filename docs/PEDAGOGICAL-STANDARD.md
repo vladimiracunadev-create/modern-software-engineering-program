@@ -114,7 +114,7 @@ adicional definida en la arquitectura.
 ## Alcance corregido de fase 3
 
 La fase 3 comprende **180 clases consecutivas**, de `SE-001` a `SE-180`, agrupadas
-en las partes 00–14. Las Partes 00–04 están desarrolladas; las partes 05–14 conservan
+en las partes 00–14. Las Partes 00–05 están desarrolladas; las partes 06–14 conservan
 borradores que deben superar la revisión completa antes de presentarse como clases
 terminadas.
 

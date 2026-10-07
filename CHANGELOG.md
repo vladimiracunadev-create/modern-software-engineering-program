@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-06 — Parte 05 desarrollada
+
+- revisión clase a clase de `SE-061`–`SE-072`, conservando el hilo desde tipos y
+  control hasta módulos, pruebas, mantenimiento y entrega;
+- laboratorio empaquetado con quince contratos para parsing estricto, estado
+  inmutable, JSONL acotado, errores explícitos, streams y códigos de salida;
+- puerto Rust compilado en CI contra fixtures compartidas, con alcance de equivalencia
+  deliberadamente limitado y documentado;
+- actividades, rúbricas, portal y métricas reconciliados a 72 clases desarrolladas,
+  288 borradores y 120 estructuras curriculares.
+
 ## 2026-10-06 — Parte 04 desarrollada
 
 - revisión clase a clase de `SE-049`–`SE-060`, preservando la progresión desde

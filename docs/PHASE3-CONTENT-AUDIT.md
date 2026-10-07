@@ -3,7 +3,7 @@
 ## Resultado
 
 La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 60 clases de las Partes 00–04 están desarrolladas. Las 120
+`SE-001`–`SE-180`: las 72 clases de las Partes 00–05 están desarrolladas. Las 108
 restantes son borradores públicos y aún no superan la revisión definida por el
 estándar pedagógico permanente.
 
@@ -23,7 +23,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 60 | Partes 00–04; las otras 120 continúan como borradores |
+| clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -137,8 +137,8 @@ contrastables. La progresión conecta descomposición, lógica, conjuntos, relac
 grafos, contratos, inducción, corrección, terminación, complejidad, heurísticas,
 máquinas de estado y registro de hipótesis. Cada clase contiene un contraejemplo y
 exige distinguir ejemplos empíricos de argumentos generales; el proyecto termina en
-una matriz problema–regla–caso–evidencia lista para implementar. Las doce clases
-todavía requieren revisión y no atribuyen ejecución a los modelos o pruebas de papel.
+una matriz problema–regla–caso–evidencia y un laboratorio con trece pruebas. Las doce
+clases superaron revisión integral sin atribuir corrección universal a los casos ejecutados.
 
 ## Avance editorial de la Parte 05
 
@@ -147,9 +147,10 @@ implementación incremental del modelo de decisión mediante una CLI diagnóstic
 valores, control, iteración, funciones, resultados de error, colecciones, I/O,
 serialización, módulos, pruebas y legibilidad; el taller contrasta Python con Rust y
 el proyecto integra una CLI con contratos de streams y códigos de salida. Cada clase
-incluye código explicado, predicción previa, fallo controlado y caso de regresión. Los
-snippets no se presentan como un paquete publicado ni como evidencia automática de
-ejecución multiplataforma. Las doce clases todavía requieren revisión integral.
+incluye código explicado, predicción previa, fallo controlado y caso de regresión. El
+laboratorio aporta quince contratos, paquete local, JSONL acotado, códigos de salida y
+un puerto Rust contrastado en CI. Las doce clases superaron revisión integral; no se
+presenta el paquete como publicado ni la equivalencia parcial como portabilidad total.
 
 ## Avance editorial de la Parte 06
 

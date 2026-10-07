@@ -23,7 +23,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-062",
@@ -44,7 +44,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-063",
@@ -70,7 +70,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-064",
@@ -91,7 +91,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-065",
@@ -117,7 +117,7 @@
           "supports": "documenta ownership, tipos de error, traits y concurrencia usados como contraste semántico"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-066",
@@ -138,7 +138,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-067",
@@ -159,12 +159,17 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         },
         {
+          "title": "RFC 8259 — JSON Data Interchange Format",
+          "url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "supports": "define la gramática interoperable de JSON y sus restricciones de representación"
+        },
+        {
           "title": "Python `pathlib` documentation",
           "url": "https://docs.python.org/3/library/pathlib.html",
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-068",
@@ -190,7 +195,7 @@
           "supports": "sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-069",
@@ -216,7 +221,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-070",
@@ -242,7 +247,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-071",
@@ -268,7 +273,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     },
     {
       "class_id": "SE-072",
@@ -294,7 +299,7 @@
           "supports": "define la semántica y los límites de la API de Python utilizada en el experimento"
         }
       ],
-      "reviewed_on": "2026-10-03"
+      "reviewed_on": "2026-10-06"
     }
   ]
 }

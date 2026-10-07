@@ -84,6 +84,17 @@ jobs:
       - name: Run Part 04 contrastable specification tests
         run: python -m unittest discover -s labs/part-04-contrastable-spec/tests -v
 
+      - name: Run Part 05 packaged diagnostic CLI tests
+        run: python -m unittest discover -s labs/part-05-diagnostic-cli/tests -v
+
+      - name: Compile and exercise Part 05 Rust contract port
+        if: matrix.python-version == '3.12'
+        shell: bash
+        run: |
+          rustc --version
+          rustc labs/part-05-diagnostic-cli/ports/diagnostic_core.rs -o "$RUNNER_TEMP/diagnostic_core"
+          "$RUNNER_TEMP/diagnostic_core" labs/part-05-diagnostic-cli/cases/contract-cases.tsv
+
       - name: Smoke test Part 02 Bash adapter
         shell: bash
         run: |
@@ -93,7 +104,7 @@ jobs:
           bash labs/part-02-cross-platform-diagnostic-kit/diagnostic-kit.sh clean --workspace "$RUNNER_TEMP/part02-kit"
 
       - name: Compile Python sources
-        run: python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit labs/part-03-observable-request labs/part-04-contrastable-spec
+        run: python -m compileall -q scripts tests labs/part-01-machine-observer labs/part-02-cross-platform-diagnostic-kit labs/part-03-observable-request labs/part-04-contrastable-spec labs/part-05-diagnostic-cli/src labs/part-05-diagnostic-cli/tests
 
   portability:
     name: Portability · ${{ matrix.os }}
@@ -132,6 +143,7 @@ jobs:
           python -m unittest discover -s labs/part-02-cross-platform-diagnostic-kit/tests -v
           python -m unittest discover -s labs/part-03-observable-request/tests -v
           python -m unittest discover -s labs/part-04-contrastable-spec/tests -v
+          python -m unittest discover -s labs/part-05-diagnostic-cli/tests -v
 
       - name: Smoke test Part 02 PowerShell adapter
         if: runner.os == 'Windows'

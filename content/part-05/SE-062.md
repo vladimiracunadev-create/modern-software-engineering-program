@@ -200,6 +200,10 @@ work/SE-062/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Usa [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) para reconstruir la tabla de decisión de `apply_observation`: prueba desconocida, no autorizada, repetida, fuera de presupuesto, contradictoria y aceptada. Añade un caso de frontera sin cambiar el resultado esperado para acomodar la implementación. La revisión exige vincular cada guard clause con una regla, demostrar qué rama gana cuando se solapan condiciones y señalar una combinación no cubierta por el simple conteo de ramas.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

@@ -32,8 +32,8 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 
 > [!IMPORTANT]
 > **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases.
-> Las Partes 00–04 (`SE-001`–`SE-060`) tienen contenido desarrollado; las partes 05–29
-> (`SE-061`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
+> Las Partes 00–05 (`SE-001`–`SE-072`) tienen contenido desarrollado; las partes 06–29
+> (`SE-073`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
 > y las partes 30–39 (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza
 > completa. Una carpeta o página generada no cuenta como aprendizaje terminado.
 
@@ -972,6 +972,11 @@ python scripts/validate_site.py
 python scripts/validate_licensing.py
 python scripts/validate_repository.py --strict
 python -m unittest discover -s tests -v
+python -m unittest discover -s labs/part-01-machine-observer/tests -v
+python -m unittest discover -s labs/part-02-cross-platform-diagnostic-kit/tests -v
+python -m unittest discover -s labs/part-03-observable-request/tests -v
+python -m unittest discover -s labs/part-04-contrastable-spec/tests -v
+python -m unittest discover -s labs/part-05-diagnostic-cli/tests -v
 ```
 
 La arquitectura, los disparadores, los límites y la correspondencia con la referencia
@@ -985,7 +990,7 @@ Requiere Python 3.11 o posterior y no instala dependencias para estas validacion
 | Superficie | Evidencia verificable |
 | --- | --- |
 | arquitectura | 8 etapas, 40 partes, 480 IDs únicos y 2.160 horas estimadas |
-| clases | 12 con contenido desarrollado, 348 con material de trabajo y 120 con estructura curricular |
+| clases | 72 con contenido desarrollado, 288 con material de trabajo y 120 con estructura curricular |
 | contratos | 480 metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |
 | fuentes | línea base y registros por clase y por parte |
 | navegación | índice global, 40 índices de parte y enlaces anterior/siguiente |

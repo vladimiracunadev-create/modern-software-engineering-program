@@ -196,6 +196,10 @@ work/SE-068/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Reconstruye el grafo de importaciones de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) y comprueba la dirección `cli → parsing/engine → domain`. Sustituye el stream por `StringIO` y demuestra que la política no cambia. Propón dónde ubicar una nueva salida CSV y rechaza cualquier diseño que obligue a `domain.py` a importar `argparse`, rutas o serializadores. La evidencia es el grafo antes/después y una prueba de interfaz pública.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

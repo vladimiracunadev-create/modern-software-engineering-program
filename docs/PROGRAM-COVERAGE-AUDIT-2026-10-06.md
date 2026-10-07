@@ -12,7 +12,7 @@ El mandato completo y la acción específica acordada para cada clase se conserv
 [`plan maestro de implementación`](MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md). Esta
 auditoría sigue siendo la fotografía de estado; el plan es el backlog recuperable.
 
-Se revisaron cualitativamente las Partes 01–04 clase por clase, se ejecutaron sus
+Se revisaron cualitativamente las Partes 01–05 clase por clase, se ejecutaron sus
 laboratorios comunes y se reconsultaron fuentes oficiales vigentes. Unicode 18.0,
 Java SE 27, la biblioteca ratificada de RISC-V, Python 3, SCI, POSIX.1-2024 y GNU
 Bash 5.3 sustituyen marcadores de versión ya superados sin alterar referencias
@@ -21,14 +21,15 @@ históricas.
 ## Línea base verificable
 
 - 8 etapas, 40 partes y 480 IDs consecutivos (`SE-001`–`SE-480`);
-- 60 clases desarrolladas (`SE-001`–`SE-060`), 300 borradores y 120 estructuras;
-- Partes 00–04 desarrolladas; Partes 05–29 publicadas para revisión; Partes 30–39
+- 72 clases desarrolladas (`SE-001`–`SE-072`), 288 borradores y 120 estructuras;
+- Partes 00–05 desarrolladas; Partes 06–29 publicadas para revisión; Partes 30–39
   pendientes de desarrollo íntegro;
 - 521 páginas HTML generadas;
-- cuatro laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
+- cinco laboratorios ejecutables transversales: el de la Parte 01 con fixture sintético
   y seis pruebas, el de la Parte 02 con diez pruebas y adaptadores PowerShell/Bash, y
   el de la Parte 03 con siete escenarios de red locales y once pruebas, y el de la
-  Parte 04 con especificación contrastable y trece pruebas;
+  Parte 04 con especificación contrastable y trece pruebas, y el de la Parte 05 con
+  CLI empaquetada, quince contratos y un puerto Rust contrastado en CI;
 - tres workflows; la evidencia remota del incremento se acepta solo cuando sus jobs y
   Pages terminen en verde.
 
@@ -36,8 +37,8 @@ históricas.
 
 | Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |
 | --- | --- | --- | --- | --- | --- |
-| Fundamentos, profesión y ética | PARCIAL | Partes 00–04; `content/part-00..04`; laboratorios de Partes 01–04 | Partes 00–04 desarrolladas | la construcción programática de la especificación aún no está aprobada | desarrollar la Parte 05 reutilizando los contratos ejecutables existentes |
-| Construcción, paradigmas y depuración | SUPERFICIAL | Partes 05–09 y `polyglot-programming-labs` | borradores editoriales | mecanismos, fallos y transferencia entre paradigmas no han sido validados de extremo a extremo | profundizar decisiones de ingeniería aquí y conservar sintaxis especializada fuera |
+| Fundamentos, profesión y ética | PARCIAL | Partes 00–05; `content/part-00..05`; laboratorios de Partes 01–05 | Partes 00–05 desarrolladas | paradigmas y estructuras aún no permiten comparar estilos y costes sobre un contrato común | desarrollar la Parte 06 sobre la CLI y conservar los mecanismos ya validados |
+| Construcción, paradigmas y depuración | PARCIAL | Parte 05 desarrollada; Partes 06–09 y `polyglot-programming-labs` | CLI, fronteras y transferencia Python/Rust verificadas; resto en borrador | paradigmas, estructuras, depuración y empaquetado ampliado no han sido validados de extremo a extremo | profundizar decisiones de ingeniería aquí y conservar sintaxis especializada fuera |
 | Requisitos y discovery | SUPERFICIAL | Partes 10, 12 y 13 | títulos y borradores | observación, workshops, conflictos, NFR y cambio no están aprobados | construir trazabilidad necesidad → requisito → prueba → evidencia |
 | Economía, estimación y experimentación | SUPERFICIAL | Partes 11, 15 y 37 | cobertura nominal | Monte Carlo, Function Points, COCOMO II y compromiso probabilístico requieren práctica | profundizar `SE-185`, `SE-191` y el proyecto económico antes de dividir |
 | Diseño, patrones y refactorización | SUPERFICIAL | Parte 24 | borrador | GRASP, antipatterns y criterios de no refactorizar no tienen evidencia ejecutada | proteger refactor con caracterización y ADR contextual |
@@ -60,7 +61,7 @@ históricas.
 | Green software | PARCIAL | `SE-009`, `SE-022`, `SE-134`, `SE-267`, `SE-356` | `SE-022` delimita energía/SCI; GreenOps pendiente | falta medición física, carbon awareness operativo y efectos rebote | integrar medición en 29/31 sin inventar reducción desde tiempo |
 | Accesibilidad e internacionalización | SUPERFICIAL | Parte 14; Unicode 18.0 en Parte 01 | representación de texto desarrollada; experiencia inclusiva pendiente | RTL, pluralización, teclado, zoom y lector de pantalla | construir y verificar un flujo localizado accesible |
 | IA aplicada y agentes | AUSENTE | Partes 38–39 | scaffolds | evals, APIs inventadas, loops, coste, provenance y regresiones | aplicar HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN → HUMANO REVISA → SISTEMA VALIDA |
-| Casos reales, laboratorios y evaluación | PARCIAL | actividades, rúbricas, Parte 00 y laboratorios de Partes 01–03 | tres prácticas ejecutables conservadas; evidencia escasa en el resto | casos documentados y artefactos ejecutados deben crecer parte a parte | separar HECHOS / INTERPRETACIÓN / LECCIONES y no inventar resultados |
+| Casos reales, laboratorios y evaluación | PARCIAL | actividades, rúbricas, Parte 00 y laboratorios de Partes 01–05 | cinco prácticas ejecutables conservadas; evidencia escasa en el resto | casos documentados y artefactos ejecutados deben crecer parte a parte | separar HECHOS / INTERPRETACIÓN / LECCIONES y no inventar resultados |
 | Fuentes, glosario, rutas y portal | PARCIAL | `sources/`, `roles/`, `site/`, `docs/SOURCES.md` | portal íntegro y rutas publicadas; glosario temático incompleto | fuentes por afirmación y relaciones terminológicas faltan fuera de partes aprobadas | actualizar junto a cada parte y evitar archivos huérfanos |
 
 ## Revisión clase a clase de la Parte 02
@@ -123,6 +124,23 @@ reales solo en loopback; DNS, confianza TLS y pérdida se identifican como model
 | `SE-059` | COMPLETA | requisitos contradictorios podían resolverse en silencio | conflicto, actores, experimento seguro y criterio de salida |
 | `SE-060` | COMPLETA | la especificación necesitaba implementación y oráculo independientes | fixtures, solución, trece pruebas, contraejemplos y límites |
 
+## Revisión clase a clase de la Parte 05
+
+| Clase | Estado | Hallazgo de la revisión | Mejora y evidencia incorporada |
+| --- | --- | --- | --- |
+| `SE-061` | COMPLETA | tipo Python, representación JSON y valor del dominio podían confundirse | parser estricto y rechazo explícito de `true` como presupuesto entero |
+| `SE-062` | COMPLETA | el control podía reducirse a ramas sin semántica | tabla de decisiones, guard clauses ordenadas y casos de rechazo observables |
+| `SE-063` | COMPLETA | streaming podía presentarse sin progreso ni terminación | límites de bytes, pruebas no repetidas y máximo de pasos por especificación |
+| `SE-064` | COMPLETA | una función nombrada todavía podía ocultar I/O | núcleo puro, dependencias visibles y pruebas con streams sustituibles |
+| `SE-065` | COMPLETA | capturar excepciones podía borrar defectos internos | `Result` para fallos esperados y taxonomía estable de códigos de proceso |
+| `SE-066` | COMPLETA | elegir colecciones por costumbre ocultaba aliasing | tuplas, `frozenset`, mapas por operación e inmutabilidad comprobada |
+| `SE-067` | COMPLETA | JSON válido podía confundirse con dominio válido | UTF-8, JSON/JSONL, esquema, `NaN`, tamaño y separación stdout/stderr |
+| `SE-068` | COMPLETA | separar archivos no garantizaba dirección de dependencia | grafo CLI → adapters/engine → domain y superficie pública verificada |
+| `SE-069` | COMPLETA | cobertura de líneas podía sustituir selección por riesgo | quince pruebas de ejemplos, límites, propiedades, integración y consumidor |
+| `SE-070` | COMPLETA | legibilidad podía evaluarse solo por estilo | tarea de mantenimiento, refactor protegido y cambio semántico rechazado |
+| `SE-071` | COMPLETA | traducción literal entre lenguajes ocultaba ownership y alcance | puerto Rust, cuatro fixtures comunes y límites de equivalencia declarados |
+| `SE-072` | COMPLETA | ejecutar un script no demostraba entrega | paquete local, CLI, ayuda, streams, códigos, tests y aceptación reproducible |
+
 ## Decisión sobre nuevas clases
 
 No se crean IDs posteriores a `SE-480` en este incremento. La Parte 01 demuestra que
@@ -133,24 +151,25 @@ evidencia de que integrar el tema en una clase existente degradaría su profundi
 
 ## Próximo incremento
 
-La Parte 05 (`SE-061`–`SE-072`) es la siguiente unidad indivisible. Debe implementar
-la especificación con tipos, control, funciones, errores, colecciones, I/O, módulos,
-pruebas y una CLI empaquetada, y publicarse completa después de los gates.
+La Parte 06 (`SE-073`–`SE-084`) es la siguiente unidad indivisible. Debe comparar
+paradigmas sobre el mismo motor de reglas, conservar fixtures comunes y demostrar
+estado, efectos, backpressure, aislamiento y límites sin declarar un ganador universal.
 
 ## Métricas antes y después del incremento
 
-| Métrica | 2026-10-04 | Parte 01 | Parte 02 | Parte 03 | Parte 04 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| clases desarrolladas | 12 | 24 | 36 | 48 | 60 |
-| borradores publicados | 348 | 336 | 324 | 312 | 300 |
-| estructuras curriculares | 120 | 120 | 120 | 120 | 120 |
-| laboratorios ejecutables versionados | 0 | 1 | 2 | 3 | 4 |
-| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 | 6 | 6 |
-| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 | 10 | 10 |
-| pruebas del laboratorio de Parte 03 | 0 | 0 | 0 | 11 | 11 |
-| pruebas del laboratorio de Parte 04 | 0 | 0 | 0 | 0 | 13 |
-| clases totales | 480 | 480 | 480 | 480 | 480 |
-| páginas HTML | 521 | 521 | 521 | 521 | 521 |
+| Métrica | 2026-10-04 | Parte 01 | Parte 02 | Parte 03 | Parte 04 | Parte 05 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| clases desarrolladas | 12 | 24 | 36 | 48 | 60 | 72 |
+| borradores publicados | 348 | 336 | 324 | 312 | 300 | 288 |
+| estructuras curriculares | 120 | 120 | 120 | 120 | 120 | 120 |
+| laboratorios ejecutables versionados | 0 | 1 | 2 | 3 | 4 | 5 |
+| pruebas del laboratorio de Parte 01 | 0 | 6 | 6 | 6 | 6 | 6 |
+| pruebas del laboratorio de Parte 02 | 0 | 0 | 10 | 10 | 10 | 10 |
+| pruebas del laboratorio de Parte 03 | 0 | 0 | 0 | 11 | 11 | 11 |
+| pruebas del laboratorio de Parte 04 | 0 | 0 | 0 | 0 | 13 | 13 |
+| pruebas del laboratorio de Parte 05 | 0 | 0 | 0 | 0 | 0 | 15 |
+| clases totales | 480 | 480 | 480 | 480 | 480 | 480 |
+| páginas HTML | 521 | 521 | 521 | 521 | 521 | 521 |
 
 Los conteos no sustituyen la revisión cualitativa. El cambio conserva las 480 clases,
 la navegación y el historial; profundiza una parte completa y deja explícito lo que no
@@ -174,6 +193,10 @@ se midió.
 - [MIT Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/), reconsultada el 2026-10-06.
 - [MIT Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/), reconsultada el 2026-10-06.
 - [MIT Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/), reconsultada el 2026-10-06.
+- [Python Language Reference](https://docs.python.org/3/reference/), reconsultada el 2026-10-06.
+- [Python `json` documentation](https://docs.python.org/3/library/json.html), reconsultada el 2026-10-06.
+- [RFC 8259 — JSON](https://www.rfc-editor.org/rfc/rfc8259), reconsultada el 2026-10-06.
+- [The Rust Programming Language](https://doc.rust-lang.org/stable/book/), reconsultada el 2026-10-06.
 
 No se afirma acceso al texto completo de normas de pago ni ejecución en hardware no
 disponible. Los resultados de CI y Pages se documentan después de la publicación.

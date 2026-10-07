@@ -197,6 +197,10 @@ work/SE-063/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Recorre el stream JSONL de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) y documenta tres medidas de progreso: número de línea consumido, pruebas no repetidas y límite `len(spec.probes)`. Inyecta una observación adicional y una línea malformada; verifica terminación y localización del fallo. Compara el iterador con una carga completa en memoria y justifica la elección sin afirmar que JSONL vuelve ilimitada la entrada: el límite de 1 MB sigue siendo parte del contrato.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

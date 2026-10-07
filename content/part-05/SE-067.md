@@ -197,6 +197,10 @@ work/SE-067/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Ejecuta la CLI de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) con UTF-8 válido, JSON roto, `NaN`, línea JSONL malformada y archivo ausente. Verifica que nunca mezcle diagnóstico con el JSON de `stdout`, que identifique la línea y que limite tamaño antes de materializar el documento. Relaciona el comportamiento con RFC 8259 y explica por qué serializar un diccionario válido no prueba que el modelo de dominio sea válido.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

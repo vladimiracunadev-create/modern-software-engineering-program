@@ -196,6 +196,10 @@ work/SE-066/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Justifica cada colección de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli): tupla para orden estable, `frozenset` para pruebas usadas, diccionario para búsqueda de outcomes y lista solo durante construcción. Ejecuta la prueba que conserva el estado anterior tras `apply_observation` y crea un contraejemplo con una lista compartida mutable. La entrega debe relacionar operación dominante, invariante, coste y riesgo de aliasing; «es más cómodo» no es un criterio suficiente.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

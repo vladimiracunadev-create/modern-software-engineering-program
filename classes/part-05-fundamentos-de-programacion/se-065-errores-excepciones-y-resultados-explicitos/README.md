@@ -195,6 +195,10 @@ work/SE-065/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Clasifica los fallos reproducibles de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) como uso, entrada, dominio, I/O o defecto interno. Contrasta `Result.fail` con las excepciones capturadas en `cli.py` y no añadas un `except Exception`: una invariante rota debe seguir siendo visible como defecto. Ejecuta entrada inválida, observación contradictoria y archivo ausente; conserva `stderr`, código de salida y decisión de recuperación en una matriz.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

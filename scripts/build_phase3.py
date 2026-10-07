@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 60
+DEVELOPED_LAST_CLASS = 72
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 121)}
 
@@ -698,7 +698,23 @@ PART04_ACTIVITIES = {
 }
 
 
-SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES, **PART03_ACTIVITIES, **PART04_ACTIVITIES}
+PART05_ACTIVITIES = {
+    "SE-061": {"outputs": ["value-trace.md", "invalid-budget.json", "type-boundary.md"], "steps": ["trace-json-bytes", "name-language-types", "name-domain-values", "inject-boolean-budget", "observe-rejection", "compare-coercion-policies"], "mechanism": "external representation, Python type and domain value are separated by strict boundary validation", "failure": "boolean budget is rejected even though Python bool is an int subtype"},
+    "SE-062": {"outputs": ["decision-table.md", "boundary-cases.jsonl", "branch-review.md"], "steps": ["enumerate-guards", "order-overlaps", "add-boundary-case", "run-branch", "record-winning-rule", "identify-uncovered-combination"], "mechanism": "guard clauses implement an explicit ordered decision table with observable refusals", "failure": "branch count alone is rejected when semantic combinations remain untested"},
+    "SE-063": {"outputs": ["iteration-invariant.md", "malformed-stream.jsonl", "termination.md"], "steps": ["name-progress-measures", "stream-lines", "inject-extra-observation", "inject-malformed-line", "verify-bound", "compare-materialization"], "mechanism": "line progress, unique probes and a maximum step count make stream traversal finite and diagnosable", "failure": "streaming is not described as unbounded safety because byte and step limits remain necessary"},
+    "SE-064": {"outputs": ["function-contracts.md", "effects-map.md", "isolation-test.md"], "steps": ["map-parameters-returns", "mark-errors-effects", "test-pure-core", "inject-io-dependency", "observe-fragility", "restore-boundary"], "mechanism": "functions expose data dependencies while I/O remains in replaceable adapters", "failure": "moving file access into the engine is rejected when isolated policy tests require environment state"},
+    "SE-065": {"outputs": ["failure-taxonomy.md", "exit-code-matrix.md", "captured-stderr.jsonl"], "steps": ["classify-failures", "compare-result-exception", "run-invalid-input", "run-domain-refusal", "run-missing-file", "preserve-internal-defect"], "mechanism": "expected errors are explicit results and boundary exceptions map to stable process contracts", "failure": "a catch-all exception that converts invariant defects into apparent input errors is rejected"},
+    "SE-066": {"outputs": ["collection-rationale.md", "aliasing-counterexample.py", "immutability-test.md"], "steps": ["list-dominant-operations", "justify-tuple-set-map", "run-immutability-test", "introduce-shared-list", "observe-aliasing", "restore-value-semantics"], "mechanism": "collection choice follows order, uniqueness, lookup and mutation invariants", "failure": "a shared mutable candidate list demonstrates why convenience is not an adequate selection criterion"},
+    "SE-067": {"outputs": ["io-contract.md", "invalid-inputs", "stream-evidence.md"], "steps": ["run-valid-utf8", "reject-invalid-json", "reject-nonfinite-number", "locate-jsonl-error", "separate-output-streams", "verify-size-limit"], "mechanism": "bounded UTF-8 JSON and JSONL cross a validated frontier with stable stdout, stderr and exit codes", "failure": "successful serialization is not accepted as evidence that domain constraints were validated"},
+    "SE-068": {"outputs": ["import-graph.md", "adapter-proposal.md", "public-interface-test.md"], "steps": ["draw-imports", "mark-policy-mechanism", "replace-stream", "propose-csv-adapter", "check-dependency-direction", "test-public-interface"], "mechanism": "CLI and parsers depend inward on a domain and engine that know no terminal or filesystem", "failure": "a domain import of argparse, Path or a serializer is rejected as inverted ownership"},
+    "SE-069": {"outputs": ["test-risk-map.md", "failing-regression.md", "non-tests.md"], "steps": ["classify-fifteen-tests", "select-risk-partitions", "write-failing-regression", "observe-correct-failure", "implement-minimum-change", "name-brittle-non-tests"], "mechanism": "examples, boundaries, properties and consumer tests protect observable risks before refactoring", "failure": "private attributes and guard order are not frozen merely to increase coverage"},
+    "SE-070": {"outputs": ["maintenance-task.md", "refactor-diff.md", "rejected-refactor.md"], "steps": ["choose-change-task", "record-comprehension-path", "refactor-under-tests", "measure-ambiguity", "reproduce-semantic-break", "justify-rejection"], "mechanism": "legibility is evaluated by reduced ambiguity and safer change under the public test suite", "failure": "a cosmetically cleaner change is rejected when it alters an observable contract"},
+    "SE-071": {"outputs": ["diagnostic_core.rs", "contract-cases.tsv", "transfer-comparison.md"], "steps": ["compile-rust-port", "run-shared-fixtures", "compare-types-ownership", "compare-error-contract", "avoid-literal-translation", "declare-unported-scope"], "mechanism": "Python and Rust satisfy the same small observable contract through language-appropriate representations", "failure": "four common cases do not justify claiming that JSON, streaming or packaging were ported"},
+    "SE-072": {"outputs": ["diagnostic-cli-package", "tests", "acceptance.md", "evidence/VALIDATION.md"], "steps": ["checkout-clean", "run-fifteen-tests", "compile-python", "compile-rust", "exercise-exit-codes", "peer-reproduce-delivery"], "mechanism": "domain, adapters, package metadata, tests, help and process behavior form one reproducible CLI delivery", "failure": "a local successful command is insufficient without consumer reproduction and declared platform limits"},
+}
+
+
+SPECIFIC_ACTIVITIES = {**PART01_ACTIVITIES, **PART02_ACTIVITIES, **PART03_ACTIVITIES, **PART04_ACTIVITIES, **PART05_ACTIVITIES}
 
 
 def activity(part: dict, lesson: dict) -> dict:
@@ -924,7 +940,7 @@ def site_page(
     developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–04."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–05."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

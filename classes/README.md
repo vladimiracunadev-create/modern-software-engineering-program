@@ -3,7 +3,7 @@
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Las Partes 00–04 contienen material desarrollado. Las partes 05–29 publican borradores
+> Las Partes 00–05 contienen material desarrollado. Las partes 06–29 publican borradores
 > para revisión y las partes 30–39 conservan la estructura pendiente de desarrollo.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 

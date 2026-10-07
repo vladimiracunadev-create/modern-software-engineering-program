@@ -195,6 +195,10 @@ work/SE-071/
 
 No instales dependencias para resolver lo que cubre la biblioteca estándar. `README.md` conserva versión, comandos, entradas, salida, limpieza y límites. Los fragmentos son pedagógicos; intégralos solo después de entender su contrato.
 
+### Laboratorio integrado de la Parte 05
+
+Compila `ports/diagnostic_core.rs` de [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-05-diagnostic-cli) y ejecútalo contra `contract-cases.tsv`. Compara con Python tipos numéricos, ownership del texto, `HashMap`, errores y código de salida. Las cuatro fixtures deben producir el mismo contrato observable, pero no copies clases ni arquitectura línea por línea. Declara qué quedó fuera del puerto —parser JSON, streaming y empaquetado— para no confundir equivalencia parcial con portabilidad total.
+
 ## Seguridad, ética y accesibilidad
 
 - usa fixtures sintéticos y no incluyas tokens, rutas personales ni incidentes reales;

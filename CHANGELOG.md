@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-11-13 — Parte 19 desarrollada y profundizada con experimentos sintéticos reproducibles
+
+- las clases `SE-229`–`SE-240` pasan de borradores genéricos a clases completas sobre una aplicación web de entregas de tareas con conectividad irregular: HTML semántico, contraste y
+  cascada, JavaScript, DOM y eventos, renderizado en cliente, servidor, estático e híbrido, estado y datos remotos, formularios y validación, URLs y enrutado, rendimiento y presupuestos,
+  seguridad del navegador, PWA y sincronización, SEO y metadatos, un taller de flujo resiliente y un proyecto de aplicación accesible y offline; el portal publica ahora el contenido
+  íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: un linter semántico con 220 mutaciones y la razón de contraste de 5000 pares de colores, una carrera de
+  especificidad, un modelo de dos colas del bucle de eventos contrastado con Node y una delegación de eventos en un modelo de DOM, bytes reales y un modelo de tiempo de tres
+  estrategias de renderizado, desajustes de hidratación y obsolescencia por caducidad, reconciliación de listas, estado copiado frente a derivado y respuestas fuera de orden,
+  seis validadores de correo y normalización Unicode, normalización de URLs, enrutado y estado en la URL, compresión, ruta crítica y percentiles con pocas visitas, codificación por
+  contexto, políticas de contenido, SameSite y CORS, estrategias de caché, descargas por versión y duplicados al sincronizar, dos analizadores de `robots.txt`, navegación facetada y
+  un auditor de metadatos, una máquina de estados mutada, reintentos con y sin dispersión y defectos de accesibilidad automatizables, y un validador de manifiesto, una auditoría de
+  cabeceras de un servidor local y una suite de pares frente a defectos de tres factores;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9, Node 24.11) y en Ubuntu bajo WSL2 (3.12.3, Node 20.20) con salidas idénticas salvo los tiempos de compresión y de render;
+  los datos son sintéticos, los parámetros son supuestos del autor, las reglas de los linters se escribieron sabiendo qué mutaciones se aplicarían, y no se usó ningún navegador,
+  lector de pantalla, service worker real, buscador ni herramienta de auditoría ni se midió a ninguna persona; la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: un linter de ocho reglas detecta 200 de 220 mutaciones y ninguna de las 20 que cambian el significado de un texto alternativo; solo 11 % de los pares de colores
+  aleatorios alcanza 4,5:1; un modelo de dos colas acierta el orden de 300 programas y uno de una cola 221; un total copiado diverge en 13,5 % de las secuencias con 1 % de olvidos; la
+  última respuesta recibida deja un resultado obsoleto en 34,67 % de las búsquedas; con 30 visitas se declara que se cumple un presupuesto que no se cumple en 22 % de los casos; sin clave
+  de idempotencia 2000 envíos producen 476 duplicados; el reintento exponencial sin dispersión tarda 902 s frente a 23 s con dispersión; y una suite de pares halla 32 de 60 defectos de tres
+  factores.
+
 ## 2026-11-13 — Parte 17 desarrollada y profundizada con experimentos sintéticos y de Git reproducibles
 
 - las clases `SE-205`–`SE-216` pasan de borradores genéricos a clases completas sobre el portal documental de la plataforma de entregas de tareas: audiencias y tareas, los cuatro

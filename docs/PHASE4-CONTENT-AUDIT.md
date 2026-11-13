@@ -52,6 +52,25 @@ experiencia en gestión de proyectos y no presentan un verificador, una regla de
 replanificación ni un pronóstico como sustitutos del juicio ni de la responsabilidad del
 equipo que planifica.
 
+## Avance editorial de la Parte 19
+
+Las clases `SE-229`–`SE-240` se reconstruyeron en `content/part-19/` alrededor de una
+aplicación web de entregas de tareas con conectividad irregular, que recorre la parte:
+estructura semántica, contraste y cascada, modelo de ejecución y de eventos del
+navegador, dónde se construye el HTML, estado con identidad y datos remotos,
+formularios y Unicode, URLs y enrutado, rendimiento y presupuestos con percentiles,
+codificación por contexto, política de contenido y cookies, service worker, versionado
+y sincronización idempotente, rastreo y metadatos, un taller de flujo con fallos como
+máquina de estados y un proyecto con manifiesto, cabeceras y matriz de pruebas. Cada
+clase incluye tres experimentos con datos sintéticos y semilla fija, ejecutados en
+Windows (CPython 3.12.9, Node 24) y Ubuntu (WSL2, 3.12.3, Node 20) con salidas idénticas
+salvo los tiempos, y declara que no se usó ningún navegador, lector de pantalla, marco
+de interfaz, service worker real, buscador ni herramienta de auditoría y que no se midió
+a ninguna persona. Las doce clases todavía requieren revisión por personas con
+experiencia en desarrollo web y accesibilidad y no presentan un linter, un auditor de
+metadatos ni una política de contenido como sustitutos de una auditoría, de una revisión
+con tecnologías de apoyo ni de una prueba en navegadores reales.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

@@ -2,207 +2,319 @@
 
 [← SE-300 — Proyecto: evolución compatible de un componente](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-300-proyecto-evolucion-compatible-de-un-componente/README.md) · [↑ Parte 25](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-25-arquitectura-de-software-y-dominio/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-301.html) · [SE-302 — Vistas lógica, runtime, datos y despliegue →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-25-arquitectura-de-software-y-dominio/se-302-vistas-logica-runtime-datos-y-despliegue/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que conviertas «necesitamos una buena arquitectura» en drivers, restricciones y escenarios de calidad que se puedan medir, y para que sepas qué decisiones fuerzan y cuáles solo reflejan una preferencia.
+
+**Por qué aparece aquí.** Abre la **Parte 25** después de **Proyecto: evolución compatible de un componente**: la Parte 24 enseñó a diseñar y refactorizar dentro de un componente; ahora la pregunta sube de nivel y pasa a ser qué fuerzas obligan a dividir, agrupar o replicar componentes. La clase fija el vocabulario y el caso conductor de la parte: la plataforma de entregas y corrección de tareas de un curso, que recibe una ráfaga de archivos cada vez que vence un plazo.
+
+**Error conceptual que debe corregir.** Creer que una arquitectura se elige por estilo (monolito, microservicios, hexagonal) antes de saber qué atributo de calidad la fuerza: los estilos son respuestas, y sin la pregunta cualquiera parece buena.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuántos trabajadores necesita el sistema para atender la entrega del pico, qué disponibilidad da una cadena de componentes y cuántas de trescientas arquitecturas candidatas sobreviven a tres restricciones; después simulas cada cosa y comparas con la predicción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `drivers.md` con la tabla de drivers y restricciones, cinco escenarios de calidad con estímulo, respuesta y medida, la simulación del pico con su capacidad mínima, la cuenta de disponibilidad de la ruta crítica y la lista de candidatos no dominados con lo que cada restricción descartó.
+
+**Límite de la conclusión.** Los tiempos de servicio, las tasas de llegada, las disponibilidades de cada componente, el 30 % de causa común y los valores de los 300 candidatos son supuestos del autor. Nada se midió en una plataforma real: las simulaciones muestran mecanismos (umbral de saturación, producto de disponibilidades, dominancia), no cifras de un producto.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) | Define un modelo de características de calidad del producto (rendimiento, fiabilidad, seguridad, mantenibilidad, entre otras) que sirve de vocabulario común para nombrar atributos. | No dice qué atributo debe mandar en un sistema concreto ni qué umbral es suficiente. |
+| [SEI, «The Architecture Tradeoff Analysis Method»](https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/) | Propone escenarios de calidad con estímulo y respuesta medible, y un árbol de utilidad para priorizarlos. | No garantiza que los escenarios elegidos sean los que importan a quienes usarán el sistema. |
+| [Google SRE, «Embracing Risk»](https://sre.google/sre-book/embracing-risk/) | Trata la disponibilidad como un objetivo con coste y la compara con el riesgo aceptable, no con cien por ciento. | No fija el objetivo de disponibilidad de la plataforma de esta clase. |
+| [Python: `heapq`](https://docs.python.org/3/library/heapq.html) | Documenta la cola de prioridad con la que se simula la cola FIFO de trabajadores. | No valida el modelo de colas como descripción de un servidor real. |
+
+## Antes de empezar
+
+Recupera lo que la Parte 24 dejó sobre cambio: un componente se refactoriza para que el siguiente cambio cueste menos. La pregunta activa es: **¿qué escenario concreto de calidad obliga a que este sistema esté partido o replicado de esta manera, y qué alternativa descartamos al aceptarlo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-300` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor Markdown, Mermaid y repositorio de ADR.
+- Haber completado `SE-300` o poder explicar qué contrato de compatibilidad mantenía el componente.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Manejar percentiles, probabilidades de eventos independientes y archivos Markdown con tablas.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Drivers, restricciones y atributos de arquitectura**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas y corrección de un curso funciona bien los martes por la mañana. El jueves a las 23:50, diez minutos antes del plazo, cuarenta estudiantes por segundo suben archivos. Algunos reciben «error al subir», otros la entrega aparece dos veces y el equipo de seis personas discute si debe «pasar a microservicios». Nadie ha escrito qué significa «aguantar el plazo». Sin esa frase, la discusión es de gustos: el estilo arquitectónico no puede evaluarse contra algo que no se ha dicho.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Drivers y restricciones con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **dossier de arquitectura con decisiones y escenarios** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «elegir un estilo arquitectónico antes de identificar fuerzas y atributos» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Drivers | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Restricciones | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Atributos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Arquitectura | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. distinguir un driver (lo que empuja), una restricción (lo que limita) y un atributo de calidad (lo que se mide) con un ejemplo y un contraejemplo de la plataforma;
+2. escribir un escenario de calidad con fuente, estímulo, entorno, artefacto, respuesta y medida, y reconocer cuándo una frase como «debe ser rápido» no es un escenario;
+3. calcular con una simulación la capacidad mínima que cumple un escenario de latencia en el pico y localizar el umbral en el que el sistema deja de comportarse bien;
+4. calcular la disponibilidad de una ruta crítica en serie, con y sin redundancia, y explicar por qué la causa común limita la mejora;
+5. reducir un conjunto de alternativas con restricciones y dominancia antes de ponderar nada, y declarar qué decisión quedó abierta.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Drivers, restricciones y atributos de arquitectura"] --> M["Modelo: Drivers"]
-    M --> D["Decisión: restricciones"]
-    D --> E["Evidencia: atributos"]
-    E --> R["Revisión: arquitectura"]
-    R -->|nueva información| M
+    A[Necesidad de negocio y contexto] --> B[Drivers y restricciones]
+    B --> C[Escenarios de calidad medibles]
+    C --> D[Tácticas y alternativas]
+    D --> E[Descartar por restricciones y dominancia]
+    E --> F[Decisión con atributos sacrificados]
+    F --> G[Verificación con simulación o prueba]
+    G -->|el escenario falla| C
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Drivers, restricciones y atributos de arquitectura**.
+El mapa muestra que el estilo arquitectónico aparece tarde, después de la medida: primero se dice qué debe cumplirse, luego se descartan alternativas y solo entonces se decide. El retorno indica que un escenario que falla en la verificación obliga a revisar el escenario o la alternativa, no a ocultar el resultado.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Drivers de negocio y de contexto | Dicen qué empuja la arquitectura: un plazo, una norma, un equipo pequeño. | Predicción, traza causal y contraejemplo de **Drivers de negocio y de contexto** en `drivers.md` |
+| Restricciones | Reducen el espacio de alternativas antes de comparar. | Predicción, traza causal y contraejemplo de **Restricciones** en `drivers.md` |
+| Atributos y escenarios de calidad | Convierten un adjetivo en una prueba. | Predicción, traza causal y contraejemplo de **Atributos y escenarios de calidad** en `drivers.md` |
+| Conflictos entre atributos | Mejorar uno cuesta otro; hay que elegir cuál sacrificar. | Predicción, traza causal y contraejemplo de **Conflictos entre atributos** en `drivers.md` |
+| Arquitectura frente a diseño | Decide qué es costoso de cambiar y merece una decisión explícita. | Predicción, traza causal y contraejemplo de **Arquitectura frente a diseño** en `drivers.md` |
 
 ## Conceptos y decisiones
 
-La arquitectura expresa decisiones significativas y difíciles de cambiar frente a atributos y restricciones; un diagrama solo es una vista del razonamiento.
+### 1. Drivers de negocio y de contexto
 
-La pregunta rectora de esta parte es: **¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?** La respuesta debe
-apoyarse en **escenarios medibles, vistas coherentes, ADR y análisis de consecuencias**.
+Un **driver** es una fuerza que empuja la estructura del sistema: «los plazos concentran la carga en diez minutos», «el servicio debe operar con seis personas», «las notas no pueden perderse». Los drivers vienen del negocio (qué valor se protege), del contexto (equipo, presupuesto, calendario) y de la tecnología disponible. Se escriben como frases verificables y con un responsable que pueda cambiarlos. Un driver sin dueño se convierte en una creencia: nadie lo revisará cuando el contexto cambie. La diferencia con un requisito es que un driver no describe una función, describe una presión sobre cualquier función.
 
-### 1. Drivers: modelo
+### 2. Restricciones
 
-En esta clase, **Drivers** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?» y demostrarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Drivers, restricciones y atributos de arquitectura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una **restricción** es una decisión que ya no está en discusión: «se despliega en la infraestructura de la universidad», «los datos de estudiantes no salen del país», «el equipo domina Python». Reduce el espacio de alternativas, y por eso es lo primero que se aplica. Dos errores típicos: tratar una preferencia como restricción («tiene que ser serverless») y tratar una restricción real como preferencia («ya veremos lo de los datos»). La regla práctica es anotar quién impuso la restricción, desde cuándo y qué costaría levantarla; una restricción sin esa información es una opinión.
 
-### 2. Restricciones: mecanismo
+### 3. Atributos y escenarios de calidad
 
-En esta clase, **restricciones** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?» y demostrarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Drivers, restricciones y atributos de arquitectura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **atributo de calidad** (rendimiento, disponibilidad, modificabilidad, seguridad) solo guía una decisión cuando se escribe como **escenario**: una fuente produce un estímulo en un entorno sobre un artefacto, y el sistema debe dar una respuesta con una medida. «El 95 % de las entregas confirma en menos de 2 s cuando 40 estudiantes por segundo suben archivos durante 10 minutos» es un escenario; «debe ser escalable» no lo es. El SEI organiza los escenarios en un árbol de utilidad que ordena por importancia para el negocio y dificultad técnica. La norma ISO/IEC 25010 aporta los nombres de las características para no inventar vocabulario.
 
-### 3. Atributos: evidencia
+### 4. Conflictos entre atributos
 
-En esta clase, **atributos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?» y demostrarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Drivers, restricciones y atributos de arquitectura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Casi toda táctica mejora un atributo y empeora otro: replicar mejora la disponibilidad y complica la consistencia; guardar en caché mejora la latencia y complica la frescura; separar en servicios mejora la autonomía y añade latencia de red y operación. Por eso un conjunto de requisitos casi siempre no tiene una solución que gane en todo: tiene una frontera de alternativas que no se dominan entre sí. La decisión consiste en elegir un punto de esa frontera y escribir lo que se sacrificó. Si la decisión no nombra lo sacrificado, aún no se ha tomado.
 
-### 4. Arquitectura: decisión
+### 5. Arquitectura frente a diseño
 
-En esta clase, **arquitectura** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?» y demostrarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Drivers, restricciones y atributos de arquitectura**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La arquitectura reúne las decisiones **costosas de cambiar** que determinan los atributos de calidad: cómo se parte el sistema, qué comunica con qué, dónde viven los datos, qué se replica. El diseño de una clase o de una función se corrige con una refactorización; la partición de un sistema en tres servicios con tres bases de datos se corrige con una migración de meses. Una pregunta útil para decidir si algo es arquitectura es cuánto cuesta revertirlo. Cuanto más caro, más justifica un escenario medido que lo respalde y un registro escrito de por qué se eligió.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuántos trabajadores exige un pico de entrega
+
+El sistema recibe 4 entregas por segundo durante 20 minutos, 40 por segundo durante 10 minutos (el cierre del plazo) y de nuevo 4 durante 20 minutos: 33 803 peticiones con semilla fija. Cada petición tarda un tiempo lognormal de mediana 100 ms (σ = 0,5) y las atiende una cola FIFO con `c` trabajadores. Se mide la latencia hasta la confirmación.
+
+```python
+free = [0.0] * c; heapq.heapify(free)
+for a in llegadas:
+    s = rng.lognormvariate(math.log(0.1), 0.5)
+    f = heapq.heappop(free); inicio = max(a, f); heapq.heappush(free, inicio + s)
+    latencia.append(inicio + s - a)
+```
+
+| Trabajadores | Mediana | Percentil 95 | Percentil 99 | Más de 2 s |
+|---|---:|---:|---:|---:|
+| 4 | 26,3 s | 76,6 s | 81,2 s | 70,6 % |
+| 5 | 0,155 s | 0,514 s | 0,707 s | 0 % |
+| 6 | 0,113 s | 0,265 s | 0,367 s | 0 % |
+| 8 | 0,102 s | 0,230 s | 0,325 s | 0 % |
+| 16 | 0,100 s | 0,227 s | 0,322 s | 0 % |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). El tiempo medio de servicio es de unos 113 ms, así que cuatro trabajadores atienden unas 35 peticiones por segundo, por debajo de las 40 del pico: la cola crece durante los diez minutos y no se vacía hasta mucho después.
+
+![Tabla con la latencia mediana, en el percentil 95 y 99 y la fracción de peticiones de más de dos segundos en el pico de entrega con cuatro, cinco, seis, ocho y dieciséis trabajadores.](../../../content/part-25/figures/se-301-pico-de-entrega.svg)
+
+**Cómo leer la figura.** Cada fila es un número de trabajadores; las columnas son estadísticos de latencia en el pico. Con 4 el sistema no sobrevive al pico; con 5 ya lo cumple con margen (p95 de 0,514 s frente a un escenario de 2 s). **Dónde deja de valer:** el modelo supone llegadas de Poisson, servicio independiente y un único recurso; un sistema real tiene contención de base de datos, red y dependencias que cambian la capacidad efectiva. Lo que enseña es la forma: cerca de la saturación el comportamiento no es gradual, y un escenario con número deja ver ese umbral.
+
+### Disponibilidad de una cadena: producto y causa común
+
+La entrega atraviesa web, identidad, entregas, archivos, base de datos y cola. Si cada componente tiene 99,9 % de disponibilidad y todos son necesarios, la disponibilidad del conjunto es el producto: 0,999ⁿ. Se compara con dos réplicas independientes por componente y con una simulación en la que el 30 % de las caídas es de causa común (un despliegue erróneo, una dependencia compartida).
+
+```python
+def serie(ps):
+    r = 1
+    for p in ps: r *= p
+    return r
+# con réplica: componente cae solo si caen las dos; con causa común, si cae la causa compartida
+```
+
+| Componentes en serie | Disponibilidad | Min/mes sin réplica | Min/mes, 2 réplicas independientes | Min/mes, 2 réplicas y 30 % de causa común |
+|---:|---:|---:|---:|---:|
+| 1 | 99,900 % | 43,2 | 0,04 | — |
+| 3 | 99,700 % | 129,5 | 0,13 | 36,5 |
+| 5 | 99,501 % | 215,6 | 0,22 | 65,3 |
+| 8 | 99,203 % | 344,4 | 0,35 | — |
+
+Cada componente que se añade a una ruta necesaria resta disponibilidad: con ocho, un servicio «tres nueves» cae más de cinco horas al mes. La réplica independiente promete 300 o 1000 veces menos caída, pero con un tercio de causa común la mejora real es de 3,5 veces.
+
+![Tabla con la disponibilidad y los minutos de caída al mes de una cadena de uno, tres, cinco y ocho componentes sin réplica, con réplicas independientes y con réplicas con causa común.](../../../content/part-25/figures/se-301-disponibilidad-en-serie.svg)
+
+**Cómo leer la figura.** Las filas son longitudes de cadena; las tres últimas columnas comparan minutos de caída al mes. **Dónde deja de valer:** las disponibilidades son supuestos y la causa común del 30 % también; una caída real tiene duración, correlación temporal y degradación parcial que un número por mes no captura. Sirve para saber en qué parte de la cuenta mirar: no en duplicar, sino en lo que comparten los duplicados.
+
+### Frontera de Pareto y restricciones antes que pesos
+
+Se generan 300 arquitecturas candidatas con tres atributos al azar: latencia (50 a 500 ms), costo (1 a 20) y complejidad operativa (1 a 10). Una candidata **domina** a otra si es igual o mejor en todo y mejor en algo. Se cuentan las no dominadas y las que cumplen las restricciones (latencia ≤ 200 ms, costo ≤ 8, complejidad ≤ 5), y se repite el recuento con 2, 3, 5 y 8 atributos para ver cómo crece la frontera.
+
+```python
+def domina(a, b):
+    return all(x <= y for x, y in zip(a, b)) and a != b
+pareto = [c for c in cand if not any(domina(o, c) for o in cand)]
+```
+
+De las 300 candidatas, 13 no están dominadas con tres atributos; 13 cumplen las tres restricciones y solo 4 de ellas están además en la frontera. Con 2 atributos quedan 6 sin dominar, con 3 son 24, con 5 son 105 y con 8 son 215; las cuatro cifras vienen de conjuntos de puntos independientes, mientras que el conjunto de latencia, costo y complejidad usa una complejidad entera de 1 a 10 que genera empates y por eso da menos (13).
+
+![Barras con el número de candidatos no dominados entre trescientos al azar al comparar dos, tres, cinco y ocho atributos.](../../../content/part-25/figures/se-301-frontera-de-pareto.svg)
+
+**Cómo leer la figura.** Cada barra cuenta los candidatos que ningún otro supera en todo; cuantos más atributos, menos candidatos se pueden descartar por ser peores en todo. **Dónde deja de valer:** los candidatos son números al azar, independientes entre sí; los reales se correlacionan (lo barato suele ser más simple) y la frontera es más estrecha. La figura no recomienda «comparar pocos atributos»: dice que las restricciones, que son baratas, hacen la mayor parte del filtrado antes de ponderar.
 
 ## Definiciones de trabajo
 
-- **Drivers:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias.
-- **Restricciones:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias.
-- **Atributos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias.
-- **Arquitectura:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante escenarios medibles, vistas coherentes, ADR y análisis de consecuencias.
+- **driver arquitectónico:** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
+- **restricción:** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
+- **escenario de calidad:** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
+- **dominancia:** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
+- **causa común:** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Drivers, restricciones y atributos de arquitectura**:
+El fragmento calcula la disponibilidad de una ruta y los minutos de caída. Antes de ejecutarlo, predice cuántos minutos al mes cae una ruta con cinco componentes de 99,9 %.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+n, d = 5, 0.999
+disponibilidad = d ** n
+minutos = (1 - disponibilidad) * 43200
+assert abs(disponibilidad - 0.995010) < 1e-6 and round(minutos, 1) == 215.6
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Son unos 216 minutos, casi cuatro horas. Registra versión, comando y salida; cambia a seis componentes de 99,95 % y predice si la ruta cumple 99,9 %.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Drivers, restricciones y atributos de arquitectura**. Parte de esta pregunta: **¿qué escenario de calidad fuerza la decisión y qué alternativa se descartó?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando escenarios medibles, vistas coherentes, ADR y análisis de consecuencias. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `context.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma abre `drivers.md` con cuatro drivers (el pico de entrega no debe perder archivos; el servicio se apoya en seis personas; las notas deben ser consistentes; el servicio debe estar disponible en periodo de entregas), tres restricciones (infraestructura de la universidad, datos en el país, Python como lenguaje) y cinco escenarios medibles. Para el del pico simula cuatro a dieciséis trabajadores y registra que cinco bastan con margen; para el de disponibilidad calcula que la ruta de entrega, con seis componentes, da 99,4 % sin redundancia, y escribe que con réplicas y un tercio de causa común queda cerca de 99,8 %, no en los 99,9999 % que promete la cuenta de réplicas independientes. Antes de comparar estilos arquitectónicos descarta con las restricciones 287 de las 300 alternativas de un generador de candidatos y se queda con las que no se dominan.
+
+Compara con el planteamiento inicial («pasar a microservicios»): el equipo ahora puede decir qué escenario fuerza cada decisión, qué alternativa se descartó y qué se sacrificó. Un dossier es adecuado cuando otra persona puede refutar un escenario con una medida; es frágil cuando solo contiene adjetivos.
 
 ## Práctica guiada
 
-1. Crea `work/SE-301/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el dossier de arquitectura con decisiones y escenarios con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista cinco drivers de la plataforma y marca cuáles tienen dueño que pueda cambiarlos.
+2. Separa tres restricciones de tres preferencias y anota fuente y coste de levantarlas.
+3. Reescribe «debe ser rápido» como un escenario con las seis partes.
+4. Predice cuántos trabajadores necesita el pico y simula de 4 a 16 con semilla fija.
+5. Calcula la disponibilidad de la ruta de entrega con tus supuestos y con una causa común del 30 %.
+6. Genera 300 candidatos, aplica las restricciones y cuenta las no dominadas.
+7. Entrega `drivers.md` y pide a otra persona que encuentre un escenario sin medida.
 
 ## Ejercicios
 
-1. **Fundamental:** define Drivers y restricciones con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `context.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Escenario:** convierte «el servicio debe ser seguro» en un escenario con un atacante, un estímulo, una respuesta y una medida; explica qué parte tuviste que inventar.
+2. **Umbral:** con tiempo de servicio medio de 113 ms, calcula la llegada máxima que atienden 6 trabajadores al 80 % de uso y compárala con la simulación.
+3. **Cadena:** quita un componente de la ruta de entrega y calcula cuánto mejora la disponibilidad; compáralo con duplicar otro.
+4. **Dominancia:** construye cinco candidatos con tres atributos en los que dos estén dominados y uno cumpla una restricción que descarta a los demás.
 
 ## Reto verificable
 
-Entrega el **dossier de arquitectura con decisiones y escenarios** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `drivers.md` con drivers, restricciones, cinco escenarios medibles, la simulación del pico, la cuenta de disponibilidad y la reducción de candidatos. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene las mismas cifras y puede decir qué escenario cambiaría si el pico fuera de 60 peticiones por segundo. No se aprueba por listar atributos sin medida ni por afirmar que un estilo «escala mejor».
+
+## Caso conductor
+
+La plataforma de entregas y corrección de tareas de un curso es el caso conductor de la Parte 25. Esta clase deja el primer artefacto: los drivers, las restricciones y los escenarios que las siguientes clases usarán para evaluar vistas, estilos y decisiones. `SE-302` mostrará el sistema desde varias vistas coherentes con estos escenarios. Cambia después un solo escenario, el pico de 40 a 60 peticiones por segundo, y observa qué decisiones dejan de sostenerse.
+
+## Preguntas frecuentes
+
+### ¿Un requisito no funcional y un atributo de calidad son lo mismo?
+
+En la práctica se usan como sinónimos, pero un atributo de calidad solo orienta una decisión cuando se convierte en escenario con medida. Un requisito no funcional escrito como adjetivo («seguro», «rápido») no es verificable y no puede descartar ninguna alternativa.
+
+### ¿Cuántos escenarios hacen falta?
+
+Pocos y buenos: cinco a diez que cubran los atributos que más condicionan la estructura. Más escenarios aumentan el coste de verificarlos y diluyen la prioridad. Un árbol de utilidad ayuda a ordenarlos por importancia y dificultad.
+
+### ¿Se puede diseñar sin conocer la carga real?
+
+Sí, con rangos declarados como supuestos y un plan para medirla. Lo que no conviene es esconder el supuesto: el escenario debe decir «con 40 peticiones por segundo (supuesto)» y la clase de arquitectura debe poder cambiar si el número resulta otro.
+
+### ¿Qué hago si dos stakeholders piden atributos incompatibles?
+
+Escribe los dos escenarios, cuantifica el coste de cada uno y devuelve la decisión a quien pueda priorizar. Una arquitectura no resuelve un conflicto de prioridades: lo hace visible.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **elegir un estilo arquitectónico antes de identificar fuerzas y atributos**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **elegir un estilo arquitectónico antes de saber qué escenario lo fuerza**. El equipo decide pasar el sistema a servicios y el pico sigue sin atenderse. Simula la cola con 4 trabajadores en servicios (mismo servicio, más 8 ms de red) y compara con 5 trabajadores en el diseño anterior.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** tras la migración, el 70 % de las entregas del cierre tarda más de 2 s. **Hipótesis rivales:** (a) el nuevo estilo añade latencia; (b) la capacidad no cubre el pico; (c) un componente es el cuello de botella. **Prueba:** mide la capacidad (trabajadores ÷ tiempo de servicio) y compárala con la llegada del pico; si es menor, la causa es la capacidad, no el estilo. **Conclusión:** 4 trabajadores atienden unas 35 peticiones por segundo y llegan 40. **Regresión:** incluye en el dossier el escenario del pico con su capacidad mínima y una prueba de carga que lo verifique. No cambies a la vez el estilo y la capacidad.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| La discusión de arquitectura no termina | No hay escenarios con medida que comparar | Escribir escenarios con las seis partes y priorizarlos |
+| Se elige «microservicios» y el rendimiento no mejora | La causa del rendimiento era la capacidad o un cuello de botella, no la partición | Medir la capacidad contra el pico antes de cambiar la estructura |
+| La disponibilidad prometida no se cumple con réplicas | La causa común domina y las réplicas no son independientes | Identificar lo que comparten las réplicas y aislarlo |
+| Una restricción desaparece a mitad del proyecto | Era una preferencia sin dueño | Registrar fuente, fecha y coste de levantarla |
+| Se pondera sin descartar | Se comparan alternativas que una restricción ya excluía | Aplicar primero restricciones y dominancia y ponderar solo lo que queda |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor Markdown, Mermaid y repositorio de ADR. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-301/
 ├── README.md
-│   ├── context.md
-│   ├── architecture.md
-│   ├── adr.md
-├── activity.yaml
-└── rubric.json
+├── drivers.md
+├── sim/
+│   ├── pico.py
+│   ├── disponibilidad.py
+│   └── pareto.py
+└── evidence/drivers-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `context.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `heapq`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- los escenarios de seguridad y de privacidad deben escribirse con la misma disciplina que los de rendimiento, no relegarse a «buenas prácticas»;
+- un objetivo de disponibilidad para el periodo de entregas afecta a personas con plazos académicos: declara quién asume el coste de una caída;
+- un escenario que ignore a estudiantes con conexiones lentas o tecnologías de apoyo omite usuarios reales: incluye al menos uno de accesibilidad;
+- los datos de las simulaciones son sintéticos; no uses entregas reales de estudiantes para calibrar nada;
+- respeta las licencias de las normas citadas y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «propón una arquitectura para la plataforma» producirá un diagrama con un estilo de moda y justificaciones genéricas. Pídele en cambio que escriba primero los drivers y las restricciones, que convierta cada atributo en un escenario con medida y que liste las alternativas descartadas por una restricción. Revisa especialmente si da por supuesta una carga que no declaró y si usa un porcentaje de disponibilidad sin mostrar la cuenta: son los dos defectos que esta clase mostró con números.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro sistema (por ejemplo, una tienda con ofertas relámpago): cambia el driver (el pico viene del marketing) y conserva el procedimiento de escribir el escenario, simular la capacidad, calcular la disponibilidad de la ruta crítica y descartar por restricciones. La transferencia está lograda cuando puedes explicar qué escenario forzó cada decisión, no cuando el diagrama se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-301/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de driver, restricción y escenario con ejemplos de la plataforma |
+| corrección | simulaciones reproducibles con las mismas semillas y cuenta de disponibilidad con su causa común |
+| diseño | cinco escenarios medibles con fuente, estímulo, respuesta y medida |
+| diagnóstico | reproducción del fallo «estilo antes del escenario» con regresión |
+| incertidumbre | declaración de que las cargas, tiempos y disponibilidades son supuestos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) — modelo de calidad del producto de software; autoridad: ISO.
+- [SEI, «The Architecture Tradeoff Analysis Method»](https://www.sei.cmu.edu/library/the-architecture-tradeoff-analysis-method/) — escenarios de calidad y árbol de utilidad; autoridad: Software Engineering Institute (Carnegie Mellon).
+- [Google SRE, «Embracing Risk»](https://sre.google/sre-book/embracing-risk/) — disponibilidad como objetivo con coste; autoridad: Google SRE.
+- [Python: `heapq`](https://docs.python.org/3/library/heapq.html) — cola de prioridad usada en la simulación; autoridad: documentación de Python.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla; autoridad: documentación de Python.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
 
-- **C4 model** — C4 model project. [https://c4model.com/](https://c4model.com/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Las páginas de ISO bloquean peticiones automáticas, así que el enlace a la norma no pudo verificarse con `curl` desde esta sesión y se conserva tal como figura ya en las fuentes del programa; el resto respondió con éxito a una petición de solo lectura. Cada fuente respalda el mecanismo indicado; ninguna demuestra que cinco trabajadores basten, que la ruta dé 99,4 % o que 4 de 300 candidatos sobrevivan en la plataforma real. Esa afirmación depende de la carga, de los componentes y de los candidatos reales.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Drivers, restricciones y atributos de arquitectura**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-302`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna plataforma, base de datos ni red: los tiempos de servicio, las llegadas, las disponibilidades, la causa común y los candidatos son construcciones del autor. La siguiente clase mira el mismo sistema desde varias vistas y comprueba que no se contradigan.
+
+## Glosario
+
+- **driver arquitectónico:** fuerza de negocio, de contexto o técnica que condiciona la estructura del sistema y que debe poder escribirse como una frase verificable.
+- **restricción:** decisión ya tomada o condición externa que descarta alternativas sin discutirlas, con una fuente y un coste de levantarla.
+- **escenario de calidad:** descripción de una fuente que produce un estímulo en un entorno sobre un artefacto y de la respuesta medible que se espera.
+- **dominancia:** relación entre alternativas en la que una es igual o mejor que otra en todos los atributos y mejor en alguno.
+- **causa común:** fallo que afecta a varios componentes a la vez porque comparten algo (despliegue, configuración, dependencia).
 
 ---
 

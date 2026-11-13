@@ -123,6 +123,16 @@ en diseño de software y no presentan una métrica, un verificador de firmas ni 
 como sustitutos del juicio de quien diseña, de la revisión del código ni de los contratos con
 los consumidores reales.
 
+## Avance editorial de la Parte 25
+
+Las clases `SE-301`–`SE-312` se reconstruyeron en `content/part-25/` alrededor de la plataforma de entregas y corrección de tareas de un curso, un caso sintético que recorre la
+parte: escenarios de calidad con medida, vistas que no se contradicen, fronteras entre módulos y servicios, dependencias hacia adentro, contextos y agregados, eventos y proyecciones,
+estilos de ejecución, funciones de aptitud, decisiones registradas, estructura de equipos, una revisión contra escenarios y un dossier verificable. Cada clase incluye tres simulaciones
+con datos sintéticos y semilla fija, ejecutadas en Windows y Ubuntu (WSL2) con cifras idénticas salvo dos mediciones reales de tiempo que se publican como rangos, y declara que no se
+midió ningún sistema, equipo, proveedor, agente de mensajería ni base de datos de producción, que los precios son unidades ficticias y que los validadores de ADR y de dossier se afinaron
+con los mismos casos que los evalúan. Las doce clases todavía requieren revisión por personas con experiencia en arquitectura y operación de sistemas, y no presentan un modelo, un
+validador o una simulación como sustitutos de una prueba de carga, de una revisión de arquitectura con los equipos reales ni de la responsabilidad de quien decide.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

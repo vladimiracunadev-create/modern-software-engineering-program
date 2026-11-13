@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-11-13 — Parte 25 desarrollada y profundizada con simulaciones sintéticas y mediciones reproducibles de arquitectura
+
+- las clases `SE-301`–`SE-312` pasan de borradores genéricos a clases completas sobre la plataforma de entregas y corrección de tareas de un curso: drivers, restricciones y atributos de
+  arquitectura, vistas lógica, de ejecución, de datos y de despliegue, monolito, monolito modular y servicios, capas, hexagonal y puertos y adaptadores, Domain-Driven Design estratégico
+  y táctico, eventos, CQRS y event sourcing, serverless, borde y entre pares, funciones de aptitud, ADR y evaluación de alternativas, arquitectura socio-técnica, un taller de revisión
+  contra escenarios y un dossier de arquitectura verificable; el portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con simulaciones de datos sintéticos y semilla fija: capacidad que exige un pico, disponibilidad en serie con causa común y frontera de Pareto; dependencias no declaradas
+  frente a trazas, radio de explosión por nodo y latencia de una cadena de servicios; coste de una llamada, consistencia entre servicios y un comprobador de fronteras con `ast`; módulos
+  que arrastra cambiar la base de datos, velocidad de las pruebas y pruebas de contrato; acoplamiento entre contextos, invariante de un agregado y redondeo de notas; consumidores de
+  eventos bajo duplicados y desorden, reconstrucción con instantáneas y retraso del modelo de lectura; arranques en frío, equilibrio de costo y difusión por rumor; coste según cuándo se
+  detecta una violación, falsas alarmas de una prueba de rendimiento y alarmas sobre una deriva; ganador de una matriz según pesos, un comprobador de ADR y cuánto esperar antes de
+  decidir; reparto de módulos entre equipos, módulos huérfanos y colas de entrega; revisión ejecutable contra doce escenarios, cobertura según quién revisa y sensibilidad por parámetro;
+  y un validador de dossier con 200 mutaciones, mil meses de cuatro arquitecturas e impacto de revertir una decisión;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- las doce simulaciones se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con cifras idénticas salvo dos mediciones reales de tiempo (coste de una llamada y
+  velocidad de una prueba), cuyos valores dependen de la máquina y se publican como rangos; los datos son sintéticos, los parámetros son supuestos del autor, los validadores de ADR y de
+  dossier se afinaron con los mismos casos que los evalúan y no se midió ningún sistema, equipo, proveedor, agente de mensajería ni base de datos de producción; la parte no tiene
+  laboratorio en `labs/`;
+- hallazgos del análisis: con cuatro trabajadores el 70,6 % de las entregas del cierre tarda más de 2 s y con cinco ninguna; duplicar componentes baja la caída 1000 veces solo si son
+  independientes y con un 30 % de causa común baja 3,5 veces; replicar la base de datos no protege si la web vive en un único nodo; una llamada por TCP en bucle local cuesta entre 200 y
+  770 veces una llamada de función; cambiar la base arrastra 17 de 40 módulos por capas y 2 en hexagonal; tres ejemplos de camino feliz detectan 1 de 7 defectos de un doble y un contrato
+  los 7; un contador que suma mensajes se equivoca en 1824 de 2000 entregas con 5 % de duplicados; el 11,1 % de las peticiones de los primeros 10 s de un pico arranca en frío; con 30
+  muestras no hay umbral que dé pocas falsas alarmas y pocas regresiones perdidas; el 72,5 % de los cambios cruza equipos con un reparto por capa técnica y el 16,3 % con uno por
+  afinidad; un validador de dossier detecta 150 de 200 mutaciones y ninguna de las dos de sentido.
+
 ## 2026-11-13 — Parte 26 desarrollada y profundizada con experimentos sintéticos reproducibles de datos, persistencia y recuperación
 
 - las clases `SE-313`–`SE-324` pasan de borradores genéricos a clases completas sobre la capa de datos de la plataforma de entregas de tareas: modelado conceptual, lógico y físico, modelos relacional, documental, de clave-valor y de grafos, transacciones y aislamiento, restricciones e invariantes, consultas e índices,

@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-11-13 — Parte 12 desarrollada y profundizada con experimentos sintéticos reproducibles
+
+- las clases `SE-145`–`SE-156` pasan de borradores genéricos a clases completas sobre el requisito conductor de la plataforma de entregas de tareas (recuperar el borrador
+  cuando la sesión expira): elicitación, análisis, especificación y validación, requisitos funcionales y reglas de negocio, atributos de calidad y restricciones, casos de
+  uso, historias y job stories, criterios de aceptación y ejemplos, priorización con dependencias y negociación, trazabilidad, requisitos regulatorios, de datos y
+  seguridad, gestión de cambios y líneas base, ambigüedad, contradicción e incompletitud, un taller de reparación y un proyecto de especificación revisable; el portal
+  publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: cobertura de elicitación y revisión con defectos desiguales, tabla de decisión con huecos,
+  horas locales inexistentes y mutantes frente a suites, media frente a percentil, ventanas de disponibilidad y costo de PBKDF2, caminos de un caso de uso y corte
+  vertical, mutantes y pruebas de pares, dependencias, inflación de Must y ciclos de mayoría, densidad de trazabilidad y trazas con `sys.settrace`, variantes de una regla
+  de retención, STRIDE por elemento y cadena de hashes, alcance de cambios y hash normalizado, lecturas de frases con conectores y conflictos mínimos, la regla de tres, y
+  un validador de especificaciones con 16 mutaciones y captura–recaptura;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y un puente
+  hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas salvo los tiempos de PBKDF2 de `SE-147` y las latencias de
+  un servidor local de `SE-155`; los datos son sintéticos, los parámetros son supuestos del autor y las reglas léxicas se afinaron con pocos ejemplos: no hubo personas,
+  organizaciones ni normas interpretadas, y la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: ocho entrevistas cubren 77,2 % de 40 requisitos sintéticos por el conocimiento tácito; cinco reglas razonables dejan 4 de 24 combinaciones con hueco
+  o conflicto; la media cumple «menos de 2 s» mientras el percentil 99 no; los ejemplos felices detectan 0 de 10 mutantes y las fronteras los 10; los primeros k por
+  valor/costo no son entregables; ningún par de doce requisitos se contradice y el conjunto sí; y un validador con 11 de 16 mutaciones detectadas deja pasar los defectos semánticos.
 ## 2026-11-13 — Parte 11 desarrollada y profundizada con experimentos de economía, métricas y decisiones
 
 - las clases `SE-133`–`SE-144` pasan de borradores genéricos a clases completas sobre la economía de la plataforma de entregas de tareas: modelos de negocio y sostenibilidad,

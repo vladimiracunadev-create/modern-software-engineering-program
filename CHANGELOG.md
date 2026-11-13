@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-13 — Parte 13 desarrollada y profundizada con experimentos sintéticos reproducibles
+
+- las clases `SE-157`–`SE-168` pasan de borradores genéricos a clases completas sobre la regla de penalización por entrega tardía de una plataforma de entregas: especificación
+  informal, semiformal y formal, ejemplos y BDD, contratos e invariantes, modelos, máquinas de estados, esquemas, interfaces y eventos, compatibilidad y versionado, papel de la
+  especificación frente al código, pruebas contractuales, un taller y un paquete de especificaciones trazables; el portal publica ahora el contenido íntegro de las doce clases y
+  el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: dieciséis lecturas de una frase y huecos de una tabla de decisión, variantes defectuosas frente a suites
+  de ejemplos y cobertura de pares, contratos frente a pruebas de ejemplo y subtipado, deriva entre modelo y código y normalización en SQLite, búsqueda en anchura con contraejemplo,
+  explosión de estados e intercalados de una carrera, esquemas abiertos y cerrados y una expresión regular con retroceso, un linter OpenAPI, eventos duplicados y reordenados,
+  compatibilidad entre lectores y ventanas de deprecación, deriva y regeneración de código, contratos de consumidor frente a un doble, un bucle de contraejemplos y un validador
+  de trazabilidad con huellas;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas salvo los tiempos, la versión de SQLite (3.45.3 y 3.45.1), las
+  latencias de un servidor local y la huella de un paquete escrito con el modo de texto por defecto; los datos son sintéticos, los parámetros son supuestos del autor, las reglas
+  léxicas se afinaron con pocos ejemplos y se probaron con seis casos nuevos, y no se usó ninguna herramienta de producción ni se auditó una API real; la parte no tiene laboratorio
+  en `labs/`;
+- hallazgos del análisis: el ejemplo más típico elimina solo la mitad de las dieciséis lecturas de una frase; tres ejemplos elegidos matan los nueve mutantes distinguibles que diez
+  al azar no matan; cinco pruebas de ejemplo no detectan ninguno de nueve defectos que los contratos sí detectan; una expresión regular tarda 1,65 s con 25 caracteres; comprobar
+  una deriva cada 20 commits la deja 13 commits; el mismo paquete tiene dos huellas distintas en Windows y Ubuntu si no se fija el salto de línea.
+
+
 ## 2026-11-13 — Parte 12 desarrollada y profundizada con experimentos sintéticos reproducibles
 
 - las clases `SE-145`–`SE-156` pasan de borradores genéricos a clases completas sobre el requisito conductor de la plataforma de entregas de tareas (recuperar el borrador

@@ -2,208 +2,304 @@
 
 [← SE-162 — Esquemas de datos y validación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md) · [↑ Parte 13](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-163.html) · [SE-164 — Compatibilidad, versionado y evolución de contratos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para describir una interfaz (rutas, consultas o eventos) en un documento que otra persona o herramienta pueda leer, y para saber qué parte de esa descripción se comprueba mecánicamente y cuál depende de que el servicio la cumpla.
+
+**Por qué aparece aquí.** Se sitúa después de **Esquemas de datos y validación** y antes de **Compatibilidad, versionado y evolución de contratos**: `SE-162` describió la forma de un documento; esta clase la coloca dentro de contratos de interfaz síncronos (OpenAPI, GraphQL) y asíncronos (AsyncAPI, eventos). Deja el contrato de la API de entregas con un linter medido y las reglas de entrega de eventos que `SE-164` hará evolucionar.
+
+**Error conceptual que debe corregir.** Creer que un documento de interfaz que pasa un linter describe lo que el servicio hace, o que un contrato de eventos hereda las garantías de una llamada síncrona: la descripción puede mentir con sintaxis impecable, y un evento llega duplicado, tarde o desordenado salvo que el contrato diga otra cosa.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué defectos de un documento OpenAPI atrapa un linter y cuáles se le escapan; después mides cuántos bytes ahorra elegir campos y cuántos resolvedores cuesta una consulta anidada, y simulas eventos duplicados y reordenados con consumidores ingenuos e idempotentes. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `interface-log.md` con el documento OpenAPI mínimo, el linter, las 240 mutaciones, el cálculo de bytes y de resolvedores y la simulación de eventos. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría retirar el contrato.
+
+**Límite de la conclusión.** El documento OpenAPI es un fragmento de cuatro operaciones, el linter es una réplica mínima de unas pocas reglas, la medición de GraphQL es un cálculo y no una medición de un servidor, y las tasas de duplicado (15 %) y reordenamiento (20 %) de los eventos son supuestos del autor.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) | Define el formato de descripción de interfaces HTTP: rutas, operaciones, parámetros, respuestas y esquemas. | No garantiza que el servicio se comporte como el documento describe. |
+| [GraphQL Specification](https://spec.graphql.org/) | Define el lenguaje de consultas, el sistema de tipos y las reglas de ejecución, con selección de campos por el cliente. | No fija límites de profundidad o de coste: los deja a la implementación. |
+| [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest) | Define un formato de descripción para interfaces basadas en mensajes (canales, operaciones, cargas útiles). | No describe las garantías de entrega del broker concreto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-162`: el esquema comprueba forma y deja fuera reglas entre campos. La pregunta activa es: **¿qué promete la interfaz, quién la comprueba y qué ocurre con los mensajes que viajan sin respuesta inmediata?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-162` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor YAML/JSON y validador local opcional.
+- Haber completado `SE-162` o poder explicar qué comprueba un esquema y qué no.
+- Python 3.11 o posterior y un terminal; el linter y las simulaciones usan la biblioteca estándar.
+- Trabajar con la API de la plataforma de entregas y datos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma publica una API HTTP para la aplicación móvil y emite eventos de «entrega calificada» para el sistema de notificaciones. El documento de la API dice que `POST /entregas` responde 201; el servicio responde 200 desde hace dos versiones y el linter lo da por bueno. Los eventos llegan a veces dos veces y las notificaciones se envían duplicadas.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar OpenAPI y AsyncAPI con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **contrato versionado y ejemplos verificables** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «cambiar una interfaz sin analizar consumidores ni compatibilidad» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| OpenAPI | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| AsyncAPI | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| GraphQL | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Contratos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. leer y escribir un documento de interfaz con rutas, parámetros, respuestas de éxito y de error y esquemas;
+2. medir qué defectos de un documento detecta un linter y cuáles se le escapan;
+3. comparar lo que cambia entre un recurso fijo y una consulta con selección de campos y estimar el coste de una consulta anidada;
+4. distinguir un contrato de eventos de uno de petición y respuesta, y decidir con qué garantías se diseña un consumidor;
+5. declarar qué parte del contrato comprueba una herramienta y qué parte una prueba contractual.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: OpenAPI, AsyncAPI, GraphQL y contratos de eventos"] --> M["Modelo: OpenAPI"]
-    M --> D["Decisión: AsyncAPI"]
-    D --> E["Evidencia: GraphQL"]
-    E --> R["Revisión: contratos"]
-    R -->|nueva información| M
+    A[Contrato de interfaz] --> B[Síncrono: petición y respuesta]
+    A --> C[Asíncrono: eventos]
+    B --> D[OpenAPI: rutas y respuestas]
+    B --> E[GraphQL: consulta y tipos]
+    C --> F[AsyncAPI: canales y mensajes]
+    D --> G[Linter: forma]
+    E --> G
+    F --> G
+    G -.->|no ve| H[Comportamiento real]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**.
+El mapa se lee desde el contrato: según el estilo de interacción se elige el formato; todos se pasan por un linter que comprueba forma y ninguno, por sí solo, comprueba el comportamiento. La flecha punteada marca la parte que depende de pruebas contra el servicio (`SE-166`).
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| OpenAPI | Describe operaciones HTTP con parámetros, respuestas y esquemas, y habilita documentación y generación. | Predicción, traza causal y contraejemplo de **OpenAPI** en `interface-log.md` |
+| GraphQL | Deja al cliente elegir campos y desplaza al servidor el control del coste. | Predicción, traza causal y contraejemplo de **GraphQL** en `interface-log.md` |
+| AsyncAPI y eventos | Describe canales y mensajes; la semántica de entrega (duplicados, orden) debe declararse. | Predicción, traza causal y contraejemplo de **AsyncAPI y eventos** en `interface-log.md` |
+| Respuestas de error | Un contrato sin errores describe solo el camino feliz del servicio. | Predicción, traza causal y contraejemplo de **Respuestas de error** en `interface-log.md` |
+| Lo que el documento no dice | La descripción puede mentir con sintaxis válida; hace falta contrastarla con el servicio. | Predicción, traza causal y contraejemplo de **Lo que el documento no dice** en `interface-log.md` |
 
 ## Conceptos y decisiones
 
-Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes.
+### 1. OpenAPI
 
-La pregunta rectora de esta parte es: **¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?** La respuesta debe
-apoyarse en **esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual**.
+Un documento OpenAPI describe una interfaz HTTP: rutas con sus operaciones, parámetros (ruta, consulta, cabecera), cuerpos y respuestas por código, con esquemas para las cargas. Su valor es doble: es legible por personas y por herramientas, que generan documentación, clientes y pruebas. Su límite es que describe, no obliga: el servicio puede responder otra cosa y el documento seguirá siendo válido. Un contrato de este tipo incluye también la semántica HTTP (métodos, códigos, cabeceras) definida en el RFC 9110, y es en esos detalles donde aparecen las discrepancias.
 
-### 1. OpenAPI: modelo
+### 2. GraphQL
 
-En esta clase, **OpenAPI** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+GraphQL expone un sistema de tipos y un único punto de entrada; el cliente escribe una consulta que elige campos y relaciones. Esto reduce el sobreenvío de datos y los viajes de ida y vuelta, y traslada responsabilidad al servidor: una consulta anidada puede costar miles de llamadas. La especificación no fija límites de profundidad ni de coste, de modo que las guías de seguridad recomiendan imponerlos. El contrato no es solo el esquema de tipos sino también las reglas de coste que el servidor aplica.
 
-### 2. AsyncAPI: mecanismo
+### 3. AsyncAPI y eventos
 
-En esta clase, **AsyncAPI** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+En una interfaz asíncrona el productor emite mensajes a canales y el consumidor reacciona sin que haya respuesta inmediata. AsyncAPI describe canales, operaciones y cargas; los formatos como CloudEvents estandarizan la envoltura (identificador, tipo, origen, tiempo). Lo decisivo es lo que el documento suele omitir: con entrega «al menos una vez» un mensaje puede llegar duplicado, y sin garantía de orden dos eventos del mismo objeto pueden invertirse. El contrato debe decir qué garantías ofrece el canal y qué debe hacer el consumidor.
 
-### 3. GraphQL: evidencia
+### 4. Respuestas de error
 
-En esta clase, **GraphQL** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un documento que solo describe el código 200 deja sin especificar el 400, el 404 y el 409, que son los casos donde el cliente más necesita saber qué esperar. Los errores forman parte del contrato: código, cuerpo y significado. Describirlos permite que los clientes distingan lo reintentable de lo definitivo, y permite pruebas contractuales para el camino de fallo, que es el menos probado.
 
-### 4. Contratos: decisión
+### 5. Lo que el documento no dice
 
-En esta clase, **contratos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un linter comprueba forma: operaciones con identificador único, parámetros de ruta declarados, respuestas presentes. No sabe si el código de éxito es el que el servicio devuelve, si la descripción es verdadera ni si el esquema de la respuesta coincide con los datos. Cerrar esa brecha exige pruebas contra el servicio real (pruebas de contrato) o un servicio generado desde el documento. Mientras tanto, el documento es una afirmación, no una garantía.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Qué defectos de un documento atrapa un linter
+
+El documento mínimo tiene cuatro operaciones (`crearEntrega`, `leerEntrega`, `anularEntrega`, `listarEntregas`) con parámetros de ruta y respuestas. El linter comprueba: que los parámetros de ruta declarados coincidan con los de la plantilla, que sean requeridos, que cada operación tenga respuestas y una de éxito, que las de escritura tengan una respuesta de error y que los `operationId` sean únicos. Se aplicaron 240 mutaciones con semilla fija de ocho tipos.
+
+Detectó **todos** los defectos de estructura: parámetro sin declarar (28 de 28), renombrar el parámetro solo en la ruta (31 de 31), `operationId` repetido (25 de 25), escritura sin error (32 de 32), parámetro de ruta no requerido (30 de 30) y sin respuestas (27 de 27): 173 en total. No detectó **ninguno** de los que cambian el significado: cambiar el código de éxito de 201 a 200 (0 de 29) y una descripción falsa (0 de 38). Los resultados fueron idénticos en Windows y Ubuntu.
+
+```python
+if met in ("post", "put", "patch", "delete") and not any(c.startswith("4") for c in codes):
+    errores.add("sin respuesta de error")
+```
+
+![Tabla con ocho tipos de defecto de un documento OpenAPI y cuántos detecta el linter.](../../../content/part-13/figures/se-163-linter-de-un-documento-openapi.svg)
+
+**Cómo leer la figura.** Cada fila es un tipo de defecto con cuántas veces se inyectó y cuántas se detectó; las dos últimas cambian el significado. **Dónde deja de valer:** el linter es una réplica mínima de cinco reglas; los linters reales cubren más, pero ninguno sabe qué responde el servicio. Esa brecha es el objeto de las pruebas contractuales de `SE-166`.
+
+### Quién decide qué viaja y qué cuesta una consulta
+
+Se generaron 100 entregas sintéticas con identificador, nota, fechas, tres archivos con su huella y dos comentarios. Serializadas completas pesan **69 629 bytes**; con solo `id` y `nota`, lo que un cliente que muestra una lista necesita, pesan **3 193** (4,6 %). Es la ventaja de elegir campos. La contrapartida es de coste: una consulta de profundidad *d* con *b* hijos por nivel invoca 1 + *b* + *b*² + … + *b*^*d* resolvedores; con *b* = 10 son 111, 1 111, 11 111 y 111 111 para profundidades 2, 3, 4 y 5, y con *b* = 50 y profundidad 3 son **127 551**.
+
+```python
+def llamadas(b, d):
+    return sum(b ** i for i in range(d + 1))
+```
+
+![Tabla con los bytes de 100 entregas completas y con campos elegidos y los resolvedores de una consulta anidada.](../../../content/part-13/figures/se-163-bytes-y-resolvedores.svg)
+
+**Cómo leer la figura.** Las dos primeras filas comparan bytes; las dos últimas, resolvedores invocados. **Dónde deja de valer:** los bytes son de un generador sintético con huellas de 64 caracteres y no de un servicio real; el número de resolvedores es un cálculo del peor caso y no mide un servidor, donde cachés y agrupación de consultas pueden reducirlo. Sin embargo, la dirección es sólida: sin límite de profundidad o de coste, el servidor queda expuesto a consultas pequeñas y caras.
+
+### Eventos duplicados y desordenados
+
+Se simularon 60 eventos de «nota calificada» con la propiedad de que cada evento suma un delta a una clave (20 claves). La entrega es «al menos una vez»: cada evento se duplica con probabilidad 0,15 y el 20 % de los pares adyacentes se intercambia. Un consumidor **ingenuo** que suma cada mensaje obtiene el total correcto en **0 de 1 000** corridas; uno **idempotente**, que ignora identificadores ya vistos, lo obtiene en **1 000 de 1 000**. Para el orden se simularon 10 versiones de un valor con intercambios del 20 %: si el último mensaje gana, el estado final es correcto en **804 de 1 000** corridas; si se compara el número de versión y se descarta el que llega con versión menor, en **1 000 de 1 000**.
+
+```python
+if idempotente:
+    if e["id"] in visto: continue
+    visto.add(e["id"])
+total += e["delta"]
+```
+
+![Barras con las corridas en que el estado final es correcto según la idempotencia y el número de versión.](../../../content/part-13/figures/se-163-eventos-duplicados-y-reordenados.svg)
+
+**Cómo leer la figura.** Cada barra cuenta, de 1 000 corridas, las que terminan con el estado correcto; las verdes usan identificador o versión. **Dónde deja de valer:** 15 % de duplicados y 20 % de reordenamientos son supuestos del autor, no medidas de un broker; con tasas menores el consumidor ingenuo acertaría más veces, pero el problema permanece porque basta un duplicado. Y la idempotencia por identificador exige guardar los identificados vistos, un coste que crece con el tiempo.
 
 ## Definiciones de trabajo
 
-- **OpenAPI:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **AsyncAPI:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **GraphQL:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **Contratos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+- **contrato de interfaz:** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
+- **OpenAPI:** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
+- **GraphQL:** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
+- **evento:** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
+- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**:
+El fragmento describe una operación y comprueba que el parámetro de la ruta esté declarado. Antes de ejecutarlo, predice si pasa.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import re
+spec = {"/entregas/{id}": {"get": {"operationId": "leerEntrega",
+        "parameters": [{"name": "id", "in": "path", "required": True}],
+        "responses": {"200": {}, "404": {}}}}}
+for ruta, item in spec.items():
+    esperado = set(re.findall(r"{(\w+)}", ruta))
+    declarado = {p["name"] for p in item["get"]["parameters"]}
+    assert esperado == declarado
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Si renombras `{id}` a `{entrega_id}` en la ruta sin tocar el parámetro, el `assert` falla: es el defecto «parámetro de ruta sin declarar» que el linter detectó 31 de 31 veces. Registra versión del intérprete y salida.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**. Parte de esta pregunta: **¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `contract.yaml` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, el documento OpenAPI de la API de entregas y el documento AsyncAPI de los eventos viven en el repositorio, versionados con el código. Un linter de integración continua verifica la forma (identificadores únicos, parámetros, respuestas de error). Una prueba contractual (`SE-166`) comprueba que el servicio responda lo que el documento promete, incluida la respuesta 201 de `crearEntrega`. El documento de eventos declara la semántica de entrega («al menos una vez», sin orden global) y exige identificador y versión en cada mensaje; los consumidores son idempotentes por diseño. La política de GraphQL, donde se use, fija profundidad máxima y coste máximo.
+
+Compara el caso normal con un código de éxito distinto del documentado, un evento duplicado y una consulta con profundidad 8. Un contrato es apropiado cuando esos tres casos tienen una comprobación; es peligroso cuando el documento los ignora.
 
 ## Práctica guiada
 
-1. Crea `work/SE-163/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el contrato versionado y ejemplos verificables con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe el documento OpenAPI de las cuatro operaciones con respuestas de éxito y de error.
+2. Predice qué defectos detectará un linter y cuáles no, y escribe la lista.
+3. Implementa el linter con las cinco reglas y aplica 240 mutaciones con semilla fija.
+4. Calcula bytes de 100 entregas completas y con selección de campos, y los resolvedores de una consulta con profundidad 3 y ramificaciones 10 y 50.
+5. Simula 60 eventos con duplicados y reordenamientos y compara un consumidor ingenuo con uno idempotente y con versión.
+6. Escribe qué garantías de entrega declara el contrato de eventos y qué debe hacer un consumidor.
+7. Entrega `interface-log.md` y pide a otra persona que añada una operación guiándose solo por el documento.
 
 ## Ejercicios
 
-1. **Fundamental:** define OpenAPI y AsyncAPI con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `contract.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Linter:** añade una regla (por ejemplo, que todo `GET` tenga respuesta 200 con esquema) y mide cuántas mutaciones nuevas detecta.
+2. **Coste:** define un límite de coste para consultas GraphQL de la plataforma y calcula qué profundidad y ramificación permite.
+3. **Eventos:** diseña el identificador y la versión de un evento «nota calificada» y explica cómo un consumidor descarta duplicados y eventos antiguos.
+4. **Brecha:** escribe tres afirmaciones del documento OpenAPI que ningún linter puede verificar y la prueba que lo haría.
 
 ## Reto verificable
 
-Entrega el **contrato versionado y ejemplos verificables** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `interface-log.md` con el documento OpenAPI, el linter, las 240 mutaciones, los cálculos de bytes y de resolvedores y la simulación de eventos. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos conteos y puede señalar qué parte del contrato no comprueba el linter. No se aprueba por el tamaño del documento ni por que el linter no encuentre nada.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja el contrato de la API de entregas (OpenAPI), una política de coste de consultas y las reglas de entrega de los eventos de calificación. `SE-164` hará evolucionar ese contrato sin romper a los consumidores y `SE-166` comprobará que el servicio lo cumple. Cambia después una sola decisión, responder 200 en lugar de 201 al crear, y revisa qué consumidores, ejemplos y pruebas dependían de ello.
+
+## Preguntas frecuentes
+
+### ¿OpenAPI o GraphQL?
+
+Depende de quién consume y de qué se necesita controlar. OpenAPI describe recursos HTTP estables y se presta a caché y herramientas; GraphQL da flexibilidad al cliente y exige que el servidor controle el coste. Ninguno sustituye una prueba contractual.
+
+### ¿Cómo evito eventos duplicados?
+
+No se evitan: con entrega «al menos una vez» se diseñan consumidores idempotentes. Un identificador único por evento y una tabla de identificadores vistos con una ventana de retención es el patrón habitual.
+
+### ¿Se puede generar el servidor desde el documento?
+
+Se puede generar un esqueleto y a veces un servidor de prueba; mantener el documento como fuente evita la deriva pero exige disciplina (se trata en `SE-165`). Un servidor generado no demuestra que la lógica sea correcta.
+
+### ¿Un modelo de lenguaje puede redactar el documento?
+
+Puede proponer rutas y esquemas razonables, y suele omitir respuestas de error y ejemplos. Pídele que incluya errores, `operationId` únicos y ejemplos, y ejecuta el linter y una prueba contra el servicio.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **cambiar una interfaz sin analizar consumidores ni compatibilidad**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **dar por cierto un documento de interfaz que pasa el linter**. Cambia el código de éxito de `crearEntrega` de 201 a 200 en el documento y comprueba el linter.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** un cliente generado espera 201 y trata el 200 como un error. **Hipótesis rivales:** (a) el cliente generado tiene un defecto; (b) el documento y el servicio difieren. **Prueba:** ejecuta el linter (no detecta nada: 0 de 29) y una petición real contra el servicio de prueba (responde 200). **Conclusión:** la causa es una brecha entre el documento y el servicio. **Regresión:** añade una prueba contractual que verifique el código de éxito y los esquemas de respuesta. No cambies a la vez el servicio y el documento.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Un cliente generado falla contra el servicio real | El documento y el servicio divergieron | Añadir pruebas contractuales contra el servicio y ejecutarlas en integración continua |
+| Las notificaciones salen duplicadas | El consumidor no es idempotente y la entrega es «al menos una vez» | Identificador único por evento y descarte de identificadores vistos |
+| El estado final depende del orden de llegada | El último mensaje gana | Número de versión por entidad y descarte de los menores |
+| Una consulta GraphQL pequeña tarda segundos | No hay límite de profundidad ni de coste | Fijar profundidad máxima, coste máximo y paginación |
+| El contrato no describe qué hacer ante un error | Solo se documentó el éxito | Describir 4xx y 5xx con cuerpo y significado, y probarlos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor YAML/JSON y validador local opcional. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-163/
 ├── README.md
-│   ├── contract.yaml
-│   ├── examples.json
-│   ├── compatibility.md
-├── activity.yaml
-└── rubric.json
+├── interfaz/
+│   ├── entregas.openapi.json
+│   ├── linter.py
+│   └── eventos.py
+├── tests/test_interfaz.py
+└── evidence/interface-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `contract.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`json`, `random`, `re`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Si adoptas un linter o un generador reales, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una consulta GraphQL sin límites es una vía de denegación de servicio: fija profundidad, coste y tiempo máximos;
+- los eventos de calificación contienen datos académicos: envía solo los campos necesarios y no incluyas datos personales innecesarios en el canal;
+- los ejemplos del documento deben ser sintéticos; no copies datos reales de estudiantes a un archivo versionado;
+- redacta las descripciones de operaciones con lenguaje comprensible y ofrece una alternativa textual a las tablas;
+- respeta las licencias de las herramientas y los generadores y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «genera el documento OpenAPI de esta API» devolverá un documento válido y casi siempre incompleto: sin respuestas de error, sin ejemplos y con el código de éxito que supuso. Pídele que incluya respuestas de error por operación, que marque cada afirmación como observada en el servicio o inferida y que ejecute el linter y una petición real. Revisa especialmente los códigos de éxito y la semántica de entrega de los eventos: es la brecha que el linter no ve, ahora escrita con convicción.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro de los dominios persistentes (por ejemplo, un servicio de entregas a domicilio con una API de pedidos y eventos de cambio de estado): escribe el documento, inyecta defectos y simula eventos con duplicados. La transferencia está lograda cuando puedes explicar qué parte del método dependía de la interfaz y cuál no, no cuando el documento se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-163/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de lo que comprueba un linter y de lo que depende del servicio |
+| corrección | conteos reproducibles de mutaciones, bytes, resolvedores y corridas con las mismas semillas |
+| diseño | documento con errores, ejemplos y semántica de entrega de eventos |
+| diagnóstico | reproducción del fallo «documento válido pero falso» con regresión |
+| incertidumbre | declaración de las tasas supuestas y de lo que el linter no cubre |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) — formato de descripción de interfaces HTTP; autoridad: OpenAPI Initiative.
+- [GraphQL Specification](https://spec.graphql.org/) — lenguaje, tipos y ejecución; autoridad: GraphQL Foundation.
+- [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest) — descripción de interfaces basadas en mensajes; autoridad: AsyncAPI Initiative.
+- [CloudEvents](https://cloudevents.io/) — envoltura estándar de eventos con identificador, tipo y origen; autoridad: CNCF.
+- [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110) — métodos, códigos de estado y cabeceras; autoridad: IETF.
+- [OWASP: GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html) — límites de profundidad y de coste y otras defensas; autoridad: OWASP.
+- [Apache Kafka: message delivery semantics](https://kafka.apache.org/documentation/#semantics) — entrega «al menos una vez», «como máximo una» y «exactamente una»; autoridad: Apache Software Foundation.
 
-- **ISO/IEC/IEEE 29148:2018 Requirements Engineering** — ISO. [https://www.iso.org/standard/72089.html](https://www.iso.org/standard/72089.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **GraphQL Specification** — GraphQL Foundation. [https://spec.graphql.org/](https://spec.graphql.org/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el contrato de la API de entregas de la clase describa lo que un servicio real hace. Esa afirmación depende del servicio, de las pruebas contractuales y de quién las revisa.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `json`](https://docs.python.org/3/library/json.html) — serialización usada para medir bytes.
+- [Python: `re`](https://docs.python.org/3/library/re.html) — extracción de parámetros de ruta.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **OpenAPI, AsyncAPI, GraphQL y contratos de eventos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-164`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún linter real ni un servidor GraphQL o un broker, la medición de resolvedores es un cálculo y las tasas de duplicado y reordenamiento son supuestos. La siguiente clase pregunta cómo cambia un contrato sin romper a quien ya lo usa.
+
+## Glosario
+
+- **contrato de interfaz:** descripción de las operaciones o los mensajes que un servicio ofrece, con sus entradas, salidas, errores y garantías.
+- **OpenAPI:** formato de descripción de interfaces HTTP con rutas, operaciones, parámetros, respuestas y esquemas.
+- **GraphQL:** lenguaje de consulta con sistema de tipos en el que el cliente elige los campos que recibe.
+- **evento:** mensaje que comunica que algo ocurrió y que el emisor no espera que se responda de inmediato.
+- **consumidor idempotente:** consumidor cuyo efecto no cambia si recibe el mismo mensaje más de una vez.
 
 ---
 

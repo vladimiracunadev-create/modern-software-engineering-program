@@ -13,7 +13,7 @@ PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
 DEVELOPED_LAST_CLASS = 72
 VERIFIED_ON = "2026-09-30"
-PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 157)}
+PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 169)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",

@@ -2,208 +2,311 @@
 
 [← SE-160 — Modelos estructurales, conductuales y de información](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-160-modelos-estructurales-conductuales-y-de-informacion/README.md) · [↑ Parte 13](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-161.html) · [SE-162 — Esquemas de datos y validación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-13-especificaciones-contratos-y-modelos/se-162-esquemas-de-datos-y-validacion/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para modelar el comportamiento de una entidad como máquina de estados y explorar todos sus estados alcanzables con una búsqueda, de modo que una violación de un invariante llegue acompañada de la traza más corta que la produce y no de una sospecha.
+
+**Por qué aparece aquí.** Se sitúa después de **Modelos estructurales, conductuales y de información** y antes de **Esquemas de datos y validación**: `SE-160` mostró qué entidades hay y cómo se relacionan; esta clase toma la entrega y pregunta qué recorridos admite su ciclo de vida y cuáles son ilegales. Deja una máquina de estados con invariantes comprobados exhaustivamente y una estimación honesta de cuándo esa exploración deja de ser viable.
+
+**Error conceptual que debe corregir.** Creer que un diagrama de estados revisado a ojo es suficiente, o que una prueba de estrés encuentra las carreras: los estados ilegales aparecen por combinaciones de transiciones que nadie dibujó, y los planificadores naturales casi nunca producen los intercalados que los exponen.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices si una máquina con una transición defectuosa se detectará con una búsqueda y cuántos pasos tendrá la traza; después ejecutas la búsqueda en anchura, cuentas estados al crecer el número de estudiantes con y sin reducción por simetría, y comparas explorar todos los intercalados de una carrera con dejar que los hilos del sistema la produzcan. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `states-log.md` con la tabla de transiciones, el verificador, el invariante, la traza del contraejemplo, la tabla de crecimiento de estados y la enumeración de intercalados. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría dar por inválido el modelo.
+
+**Límite de la conclusión.** El modelo es una abstracción de la entrega con cinco estados; el verificador es una búsqueda mínima y no TLA+ ni SPIN; los hilos reales de CPython dependen de la versión y de la carga, y el resultado de «cero pérdidas» no es reproducible en general.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Clarke y Emerson, «Design and synthesis of synchronization skeletons» (1981)](https://doi.org/10.1007/BFb0025774) | Origen del model checking: explorar el espacio de estados de un sistema finito para comprobar propiedades temporales. | No dice que se pueda explorar un sistema real de tamaño arbitrario. |
+| [Holzmann, «The model checker SPIN» (IEEE TSE, 1997)](https://doi.org/10.1109/32.588521) | Describe una herramienta que explora estados de sistemas concurrentes y devuelve contraejemplos. | No garantiza que el modelo describa fielmente el sistema. |
+| [Harel, «Statecharts» (1987)](https://doi.org/10.1016/0167-6423%2887%2990035-9) | Propone estados jerárquicos y concurrentes para evitar la explosión de un diagrama plano. | No cuantifica cuánto se reduce un modelo concreto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-160`: un modelo conductual muestra cómo cambia el sistema en el tiempo. La pregunta activa es: **¿qué estados puede alcanzar una entrega, cuáles violan lo que prometimos, y cuánto cuesta saberlo con certeza?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-160` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor YAML/JSON y validador local opcional.
+- Haber completado `SE-160` o poder explicar para qué sirve un modelo conductual.
+- Python 3.11 o posterior y un terminal; el verificador usa `collections.deque` y `threading`.
+- Trabajar con el ciclo de vida de una entrega y datos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Máquinas de estado y model checking introductorio**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El ciclo de vida de una entrega parece sencillo: pendiente, enviada, calificada, publicada. Se añade la apelación, que permite recalificar una entrega publicada, y un revisor reporta una entrega «enviada» con nota todavía puesta. El diagrama dibujado a mano no tiene ninguna flecha que explique cómo llegó ahí.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Máquinas y estado con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **contrato versionado y ejemplos verificables** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «cambiar una interfaz sin analizar consumidores ni compatibilidad» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Máquinas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Estado | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Model | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Checking | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. modelar una entidad como estados, transiciones e invariantes y distinguir un invariante de una propiedad de vivacidad;
+2. explorar con una búsqueda en anchura todos los estados alcanzables y obtener la traza más corta de una violación;
+3. predecir cómo crece el número de estados con la concurrencia y cuándo una reducción por simetría es legítima;
+4. explicar por qué un intercalado defectuoso puede ser casi universal en el modelo y casi inexistente en la ejecución;
+5. declarar qué garantiza la exploración exhaustiva de un modelo y qué no garantiza sobre el sistema real.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Máquinas de estado y model checking introductorio"] --> M["Modelo: Máquinas"]
-    M --> D["Decisión: estado"]
-    D --> E["Evidencia: model"]
-    E --> R["Revisión: checking"]
-    R -->|nueva información| M
+    A[Estados y transiciones] --> B[Invariante]
+    A --> C[Búsqueda en anchura]
+    B --> C
+    C --> D{Violación}
+    D -->|sí| E[Traza más corta]
+    D -->|no| F[Modelo sin violaciones]
+    A --> G[Concurrencia y simetría]
+    G -->|explosión| C
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Máquinas de estado y model checking introductorio**.
+El mapa se lee desde las transiciones: junto con el invariante alimentan la búsqueda, que devuelve una traza o confirma que no hay violación en el modelo. La concurrencia multiplica los estados y retroalimenta el coste de la búsqueda. «Sin violaciones» se refiere al modelo, no al sistema.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Estados y transiciones | Hacen explícito qué recorridos son legales; lo que no está dibujado queda prohibido o indefinido. | Predicción, traza causal y contraejemplo de **Estados y transiciones** en `states-log.md` |
+| Invariantes y propiedades | Un invariante dice qué estados son malos; la vivacidad dice qué debe terminar ocurriendo. | Predicción, traza causal y contraejemplo de **Invariantes y propiedades** en `states-log.md` |
+| Exploración exhaustiva | Recorrer todos los estados da certeza dentro del modelo y un contraejemplo mínimo si falla. | Predicción, traza causal y contraejemplo de **Exploración exhaustiva** en `states-log.md` |
+| Explosión de estados | La concurrencia multiplica estados; sin una reducción, la verificación se vuelve inviable. | Predicción, traza causal y contraejemplo de **Explosión de estados** en `states-log.md` |
+| Del modelo al sistema | Un modelo correcto no implica un sistema correcto: la distancia entre ambos se gestiona. | Predicción, traza causal y contraejemplo de **Del modelo al sistema** en `states-log.md` |
 
 ## Conceptos y decisiones
 
-Una especificación reduce interpretaciones permitidas mediante vocabulario, modelos, invariantes y ejemplos; un contrato además define obligaciones observables entre partes.
+### 1. Estados y transiciones
 
-La pregunta rectora de esta parte es: **¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?** La respuesta debe
-apoyarse en **esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual**.
+Una máquina de estados enumera los estados de una entidad y las transiciones permitidas, con la acción que las dispara. Lo que no aparece como transición está prohibido, y esa propiedad es la que hace útil el modelo: obliga a decidir qué ocurre con una entrega anulada que recibe una calificación. Las máquinas planas crecen rápido; los statecharts de Harel introducen jerarquía y concurrencia para que el diagrama no se desborde. Para verificar, basta una representación explícita: un estado es una tupla de valores y una transición es una función que devuelve los estados siguientes.
 
-### 1. Máquinas: modelo
+### 2. Invariantes y propiedades
 
-En esta clase, **Máquinas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Máquinas de estado y model checking introductorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **invariante** es una propiedad que debe cumplirse en todos los estados alcanzables («si hay nota, el estado es calificada o publicada»); su violación se demuestra con una traza finita. Una propiedad de **vivacidad** exige que algo ocurra eventualmente («toda entrega enviada termina calificada o anulada») y su violación es una ejecución infinita sin progreso. Pnueli propuso la lógica temporal para expresar ambas. Esta clase se limita a invariantes: son comprobables con una búsqueda simple y cubren los errores más frecuentes del ciclo de vida.
 
-### 2. Estado: mecanismo
+### 3. Exploración exhaustiva
 
-En esta clase, **estado** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Máquinas de estado y model checking introductorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La búsqueda en anchura parte del estado inicial, genera los estados siguientes y marca los ya vistos; si encuentra uno que viola el invariante, devuelve el camino que lo alcanzó. La anchura garantiza que ese camino es el más corto, lo que importa para entenderlo: una traza de cuatro pasos se lee, una de cuarenta no. El resultado «sin violación» es una afirmación sobre el modelo completo, algo que ninguna cantidad de pruebas de ejemplo equivale a decir.
 
-### 3. Model: evidencia
+### 4. Explosión de estados
 
-En esta clase, **model** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Máquinas de estado y model checking introductorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada componente concurrente añade su propio estado y los estados globales son el producto. Con N estudiantes que envían a la vez y tres estados locales cada uno, el espacio crece exponencialmente. Las defensas son abstraer (modelar solo lo que importa), acotar (probar con N pequeño) y reducir por simetría (tratar como idénticos los estudiantes intercambiables). La reducción por simetría solo es válida si la intercambiabilidad es real: si una cola atiende por prioridad individual, ordenar el estado destruye diferencias que importan.
 
-### 4. Checking: decisión
+### 5. Del modelo al sistema
 
-En esta clase, **checking** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?» y demostrarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Máquinas de estado y model checking introductorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una verificación exitosa dice que el modelo cumple el invariante, no que el código lo haga. La distancia entre ambos tiene tres fuentes: el modelo omite detalles (tiempo, fallos de red), el código no coincide con el modelo, y los supuestos del modelo sobre el entorno son falsos. Los usos industriales de TLA+ combinan el modelo con pruebas del código y revisión de supuestos. Un contraejemplo del modelo, en cambio, es casi siempre una pista útil: señala una combinación que merece una prueba en el sistema.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Un contraejemplo de cuatro pasos
+
+El modelo de la entrega tiene cinco estados (`pendiente`, `enviada`, `calificada`, `publicada`, `anulada`), una marca de si hay nota y un contador de apelaciones (máximo 2). El invariante es «si hay nota, el estado es `calificada` o `publicada`». La máquina correcta tiene **13 estados alcanzables** y no lo viola. Se introduce un defecto en una transición: la apelación devuelve la entrega a `enviada` sin borrar la nota. La búsqueda en anchura devuelve, tras descubrir 6 estados, la traza `enviar → calificar → publicar → apelar` (4 pasos). Ni una prueba de ejemplo del camino feliz ni un diagrama leído a ojo la habrían mostrado con esa claridad.
+
+```python
+def bfs(bug):
+    ini = ("pendiente", False, 0); seen = {ini: None}; q = deque([ini])
+    while q:
+        s = q.popleft()
+        if not invariante(s): return reconstruir(seen, s)
+        for accion, t in siguientes(s, bug):
+            if t not in seen: seen[t] = (s, accion); q.append(t)
+```
+
+![Diagrama de una traza de cuatro pasos que lleva a una entrega enviada con nota puesta y viola el invariante.](../../../content/part-13/figures/se-161-contraejemplo-minimo.svg)
+
+**Cómo leer la figura.** Las cajas verdes son los estados legales de la traza, con su marca de nota; la coral es el estado que viola el invariante; las flechas llevan la acción. **Dónde deja de valer:** la traza es mínima para este modelo; un modelo que abstrae el tiempo no puede mostrar una carrera entre dos apelaciones, y un modelo con la transición correcta no demuestra que el código la implemente.
+
+### Cuántos estados hay con N estudiantes
+
+Se modeló el envío concurrente: N estudiantes con estados locales `idle`, `enviando` y `enviada`, un servidor que atiende como máximo 2 envíos simultáneos y un cierre global del plazo que puede ocurrir en cualquier momento. Sin reducción, el número de estados alcanzables es 144 para N = 4, 6 144 para N = 8 y **82 944** para N = 11 (0,34 s en el mismo equipo). Con reducción por simetría (ordenar los estados locales, porque los estudiantes son intercambiables) son 24, 48 y 66: crecen linealmente, 6N. Los tiempos son de un equipo y las cifras de estados fueron idénticas en Windows y Ubuntu.
+
+```python
+def norm(s):
+    loc, cierre, ocup = s
+    return (tuple(sorted(loc)), cierre, ocup)   # estudiantes intercambiables
+```
+
+![Barras con el número de estados alcanzables para cuatro, ocho y once estudiantes, con y sin reducción por simetría.](../../../content/part-13/figures/se-161-explosion-de-estados.svg)
+
+**Cómo leer la figura.** Las barras doradas y coral crecen con N; las verdes, de la misma N, son los estados con simetría. **Dónde deja de valer:** la reducción solo vale para componentes intercambiables; añade a un estudiante con una prórroga distinta y la simetría se rompe. Con N = 30 el espacio sin reducir superaría el billón de estados, y no se calculó: el extremo es una extrapolación del ritmo de crecimiento (×2,4 por estudiante), no una medición.
+
+### Una carrera: todos los intercalados frente a los hilos reales
+
+Dos o más revisoras suman 5 puntos a una nota en dos pasos: leer y escribir `valor_leído + 5`. Si dos leen antes de que alguna escriba, se pierde una actualización. Con `k` revisoras, los intercalados válidos son `(2k)!/2^k`: 6 para k = 2, 90 para k = 3, 2 520 para k = 4 y 113 400 para k = 5. Se ejecutaron todos: con actualización perdida resultan **4 de 6 (66,7 %)**, **84 de 90 (93,3 %)**, **2 496 de 2 520 (99,0 %)** y **113 280 de 113 400 (99,9 %)**. Un planificador que elige un intercalado al azar con k = 4 encuentra la carrera en el 99,1 % de los intentos con una sola ejecución. En cambio, dos hilos reales de CPython que sumaban 200 000 veces cada uno sin cerrojo **no perdieron ninguna actualización** en diez ejecuciones (CPython 3.12.9 en Windows y 3.12.3 en Ubuntu).
+
+```python
+def ejecutar(orden):
+    nota, local = 0, {}
+    for r, paso in orden:
+        if paso == "leer": local[r] = nota
+        else: nota = local[r] + 5
+    return nota
+```
+
+![Barras con el porcentaje de intercalados con actualización perdida según el número de revisoras y el resultado con hilos reales.](../../../content/part-13/figures/se-161-actualizacion-perdida.svg)
+
+**Cómo leer la figura.** Las barras de revisoras muestran el porcentaje de todos los intercalados que pierden una actualización; la última barra, a cero, son las pérdidas observadas con hilos reales. **Dónde deja de valer:** el modelo da la misma probabilidad a todos los intercalados, algo que el planificador real no hace; en CPython el intérprete cambia de hilo en puntos poco frecuentes y la prueba natural casi no produce el intercalado. Con otro intérprete, otra versión o una carga distinta, las pérdidas podrían aparecer; el experimento no demuestra que la carrera no exista en el sistema.
 
 ## Definiciones de trabajo
 
-- **Máquinas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **Estado:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **Model:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
-- **Checking:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual.
+- **máquina de estados:** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
+- **invariante:** propiedad que debe cumplirse en todos los estados alcanzables.
+- **contraejemplo:** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
+- **explosión de estados:** crecimiento del número de estados globales con el número de componentes concurrentes.
+- **reducción por simetría:** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Máquinas de estado y model checking introductorio**:
+El fragmento explora una máquina de tres estados y comprueba un invariante. Antes de ejecutarlo, predice cuántos estados alcanza.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+from collections import deque
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+T = {"pendiente": ["enviada"], "enviada": ["calificada"], "calificada": ["publicada"], "publicada": []}
+vistos, cola = {"pendiente"}, deque(["pendiente"])
+while cola:
+    s = cola.popleft()
+    for t in T[s]:
+        if t not in vistos:
+            vistos.add(t); cola.append(t)
+assert vistos == {"pendiente", "enviada", "calificada", "publicada"}
+```
+
+Con una sola transición por estado la búsqueda recorre un camino; añade `T["publicada"] = ["enviada"]` y observa que el número de estados no cambia pero aparece un ciclo. Registra versión del intérprete y salida.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Máquinas de estado y model checking introductorio**. Parte de esta pregunta: **¿qué comportamiento se promete, qué queda fuera y cómo evoluciona sin romper consumidores?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema válido, ejemplos positivos y negativos, compatibilidad y prueba contractual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `contract.yaml` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, el ciclo de vida de la entrega vive en una tabla de transiciones (estado, acción, estado siguiente, condición) que usan tanto el código de producción como el verificador. El verificador, ejecutado en integración continua, explora el modelo con los invariantes (si hay nota, estado válido; una entrega anulada no vuelve a ningún estado; el contador de apelaciones no supera 2) y falla con la traza si hay violación. Un segundo modelo con la concurrencia de las revisoras explora los intercalados de lectura y escritura con k pequeño. Los resultados se archivan junto al diseño.
+
+Compara el caso normal con una apelación sobre una entrega anulada, dos revisoras que califican a la vez y un cierre de plazo durante un envío. Un modelo es apropiado cuando esas tres situaciones tienen estados y transiciones explícitos; es peligroso cuando la tabla de transiciones se escribió a mano y el código la contradice.
 
 ## Práctica guiada
 
-1. Crea `work/SE-161/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el contrato versionado y ejemplos verificables con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja la máquina de estados de la entrega con acciones y condiciones.
+2. Predice si una transición defectuosa introducida a propósito se detectará con una búsqueda y con cuántos pasos.
+3. Implementa el verificador con `deque` y reconstruye la traza más corta.
+4. Introduce el defecto de la apelación y comprueba la traza; corrígelo y comprueba que no hay violaciones.
+5. Modela N estudiantes y calcula el número de estados con y sin reducción por simetría para N de 1 a 11.
+6. Enumera todos los intercalados de una carrera de lectura y escritura con k de 2 a 5 revisoras.
+7. Entrega `states-log.md` y pide a otra persona que añada una transición y ejecute el verificador.
 
 ## Ejercicios
 
-1. **Fundamental:** define Máquinas y estado con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `contract.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Invariante nuevo:** formula «una entrega anulada no vuelve a ningún otro estado» como invariante sobre pares de estados consecutivos y comprueba si el modelo lo cumple.
+2. **Simetría rota:** añade a uno de los N estudiantes una condición distinta (tiene prórroga) y recalcula los estados con simetría; explica qué cambia.
+3. **Carrera con cerrojo:** modela un cerrojo (nadie lee mientras otra escribe) y recalcula la fracción de intercalados con actualización perdida.
+4. **Frontera:** estima, con el factor de crecimiento observado, cuántos estados tendría N = 20 sin reducción y decide si la verificación es viable en tu equipo.
 
 ## Reto verificable
 
-Entrega el **contrato versionado y ejemplos verificables** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `states-log.md` con la tabla de transiciones, el verificador, la traza del contraejemplo, la tabla de estados para N de 1 a 11 con y sin simetría y la enumeración de intercalados. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos conteos y puede señalar qué suposición del modelo no cubre el sistema real. No se aprueba por el número de estados ni por que el verificador no encuentre nada.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 13. Esta clase deja la máquina de estados de la entrega con tres invariantes comprobados exhaustivamente, la traza de un defecto de apelación y una tabla de crecimiento de estados. `SE-162` pasará a lo que viaja por el sistema, con esquemas que validan los datos, y `SE-163` a los contratos de interfaz que los transportan. Cambia después una sola decisión, permitir apelar una entrega ya apelada, y revisa qué invariantes dejan de cumplirse.
+
+## Preguntas frecuentes
+
+### ¿Necesito TLA+ o SPIN para hacer model checking?
+
+Para modelos pequeños basta una búsqueda en anchura como la de la clase; las herramientas especializadas aportan lenguajes de propiedades, reducciones y escala. Conviene empezar con el verificador mínimo para entender qué hace y luego decidir si una herramienta compensa.
+
+### ¿Un modelo sin violaciones prueba que el sistema es correcto?
+
+No: prueba que el modelo cumple el invariante dentro de sus supuestos. El sistema puede divergir del modelo o enfrentarse a un entorno que el modelo no considera. Se reduce la distancia con pruebas del código derivadas del modelo y revisión de supuestos.
+
+### ¿Cuántos estados son demasiados?
+
+Depende del equipo y del tiempo disponible; los experimentos de la clase recorrieron 82 944 estados en menos de un segundo. El crecimiento exponencial es el problema: pasar de N = 11 a N = 20 multiplicaría el espacio por unas 2 600 veces. Antes de comprar más hardware conviene abstraer o reducir.
+
+### ¿Por qué no basta con probar con muchos hilos?
+
+Porque el planificador elige intercalados concretos y la mayoría de los defectuosos casi nunca ocurre. En el experimento, 99,0 % de los intercalados con cuatro revisoras eran defectuosos y diez ejecuciones con hilos reales no perdieron ninguna actualización.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **cambiar una interfaz sin analizar consumidores ni compatibilidad**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **creer que el diagrama revisado a ojo es la máquina de estados**. Añade la apelación sin borrar la nota y revisa solo el diagrama dibujado a mano.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una entrega aparece como «enviada» con una nota puesta. **Hipótesis rivales:** (a) un error de la interfaz muestra una nota antigua; (b) existe una secuencia de transiciones que deja la nota sin borrar. **Prueba:** ejecuta el verificador sobre la tabla de transiciones; devuelve `enviar → calificar → publicar → apelar`. **Conclusión:** la causa es una transición, no la interfaz. **Regresión:** añade el invariante a integración continua y una prueba que ejecute la traza sobre el código real. No cambies a la vez la transición y el invariante.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El diagrama parece correcto y un estado ilegal aparece en producción | La revisión visual no recorre combinaciones de transiciones | Explorar el modelo con una búsqueda y comprobar invariantes en integración continua |
+| La verificación tarda horas con pocos componentes | Explosión de estados sin reducción | Abstraer detalles, acotar N y aplicar simetría solo a componentes intercambiables |
+| La reducción por simetría oculta un defecto | Los componentes no eran intercambiables | Comprobar la intercambiabilidad y retirar la reducción si falla |
+| Las pruebas de estrés no encuentran la carrera y el defecto aparece en producción | El planificador natural casi no produce el intercalado defectuoso | Explorar sistemáticamente los intercalados del modelo y probar el código con una traza concreta |
+| El modelo cumple todo y el código no | El código divergió del modelo | Derivar pruebas del modelo y compartir la tabla de transiciones con el código |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor YAML/JSON y validador local opcional. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-161/
 ├── README.md
-│   ├── contract.yaml
-│   ├── examples.json
-│   ├── compatibility.md
-├── activity.yaml
-└── rubric.json
+├── estados/
+│   ├── entrega.py
+│   ├── verificador.py
+│   └── carrera.py
+├── tests/test_estados.py
+└── evidence/states-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `contract.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python y comandos. Los experimentos usan solo la biblioteca estándar (`collections`, `random`, `threading`, `time`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las cifras de estados e intercalados fueron idénticas; los tiempos y las pérdidas con hilos reales se informan como medidas de un equipo. Si adoptas TLA+ o SPIN, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un estado ilegal en una plataforma que publica notas tiene consecuencias para personas: trata los invariantes del ciclo de vida como controles de integridad;
+- los modelos no deben incluir datos personales en los nombres de estados ni en las trazas que se archivan;
+- los diagramas de estados deben tener alternativa textual (la tabla de transiciones) y no depender solo del color;
+- la verificación de un modelo no sustituye la revisión de seguridad de las transiciones que cambian derechos (publicar, anular);
+- respeta las licencias de las herramientas de verificación y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «verifica que el flujo de estados es correcto» tenderá a razonar en prosa sobre el diagrama y declarar que lo es. Pídele que escriba la tabla de transiciones como datos, que ejecute una búsqueda con los invariantes y que devuelva la traza más corta de cada violación; si dice que no hay violaciones, que indique qué estados exploró. Revisa especialmente si acotó N sin avisarlo: es el mismo límite que una prueba con pocos casos, ahora con apariencia de verificación.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro de los dominios persistentes (por ejemplo, un servicio de entregas a domicilio con pedidos que pasan de confirmado a despachado a entregado): escribe los estados, el invariante y un defecto, y obtén la traza. La transferencia está lograda cuando puedes explicar qué parte del método dependía del dominio y cuál no, no cuando el diagrama se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-161/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de la diferencia entre invariante y vivacidad y entre modelo y sistema |
+| corrección | verificador reproducible con la misma traza y los mismos conteos |
+| diseño | tabla de transiciones compartida entre el modelo y el código |
+| diagnóstico | reproducción del fallo «diagrama revisado a ojo» con regresión |
+| incertidumbre | declaración de N acotado, de la simetría asumida y de los supuestos del entorno |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Clarke y Emerson, «Design and synthesis of synchronization skeletons using branching time temporal logic» (1981)](https://doi.org/10.1007/BFb0025774) — origen del model checking; autoridad: Logics of Programs, Lecture Notes in Computer Science.
+- [Holzmann, «The model checker SPIN» (IEEE TSE, 1997)](https://doi.org/10.1109/32.588521) — herramienta de exploración de estados de sistemas concurrentes; autoridad: IEEE Transactions on Software Engineering.
+- [Pnueli, «The temporal logic of programs» (FOCS, 1977)](https://doi.org/10.1109/SFCS.1977.32) — lógica temporal para propiedades de seguridad y de vivacidad; autoridad: IEEE FOCS.
+- [Harel, «Statecharts» (Science of Computer Programming, 1987)](https://doi.org/10.1016/0167-6423%2887%2990035-9) — estados jerárquicos y concurrentes; autoridad: Science of Computer Programming.
+- [Newcombe et al., «How Amazon Web Services uses formal methods» (CACM, 2015)](https://doi.org/10.1145/2699417) — uso industrial de TLA+; autoridad: Communications of the ACM.
+- [Lamport: TLA+](https://lamport.azurewebsites.net/tla/tla.html) — lenguaje y herramientas de especificación; autoridad: sitio del autor.
 
-- **ISO/IEC/IEEE 29148:2018 Requirements Engineering** — ISO. [https://www.iso.org/standard/72089.html](https://www.iso.org/standard/72089.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **GraphQL Specification** — GraphQL Foundation. [https://spec.graphql.org/](https://spec.graphql.org/) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el modelo de cinco estados de la clase describa fielmente el ciclo de vida real de una entrega. Esa afirmación depende de las reglas y de quién las revisa.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `collections.deque`](https://docs.python.org/3/library/collections.html#collections.deque) — cola usada en la búsqueda en anchura.
+- [Python: `threading`](https://docs.python.org/3/library/threading.html) — hilos del experimento de la carrera.
+- [Python: `sys.setswitchinterval`](https://docs.python.org/3/library/sys.html#sys.setswitchinterval) — intervalo con que el intérprete cede el hilo, que explica por qué la carrera casi no aparece.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Máquinas de estado y model checking introductorio**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-162`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2): estados e intercalados idénticos, tiempos y resultados con hilos reales variables. No se usó TLA+ ni SPIN, el modelo es una abstracción de cinco estados y no se verificó ningún código real. La siguiente clase pregunta cómo se valida lo que viaja entre esas entidades.
+
+## Glosario
+
+- **máquina de estados:** modelo con un conjunto de estados, un estado inicial y transiciones etiquetadas con acciones.
+- **invariante:** propiedad que debe cumplirse en todos los estados alcanzables.
+- **contraejemplo:** traza finita de transiciones que lleva del estado inicial a un estado que viola una propiedad.
+- **explosión de estados:** crecimiento del número de estados globales con el número de componentes concurrentes.
+- **reducción por simetría:** tratar como idénticos los estados que difieren solo por permutación de componentes intercambiables.
 
 ---
 

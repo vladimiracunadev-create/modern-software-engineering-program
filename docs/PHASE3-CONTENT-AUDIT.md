@@ -20,7 +20,7 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 156 | Partes 00–12 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 168 | Partes 00–13 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
 | clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
@@ -244,6 +244,20 @@ declara que no se entrevistó a nadie, no se revisó ninguna especificación rea
 interpretó ninguna norma para un caso concreto. Las doce clases todavía requieren revisión y
 no presentan un validador, una regla léxica o una estimación como sustitutos del juicio, la
 revisión humana ni la asesoría de una persona competente en normativa.
+
+## Avance editorial de la Parte 13
+
+Las clases `SE-157`–`SE-168` se reconstruyeron en `content/part-13/` alrededor de la
+regla de penalización por entrega tardía de la plataforma de entregas, que recorre
+la parte: dieciséis lecturas de una frase, ejemplos que separan variantes
+defectuosas, contratos e invariantes, modelos y máquinas de estados, esquemas,
+interfaces y eventos, compatibilidad y versionado, el papel de la especificación
+frente al código, pruebas contractuales, un taller y un paquete trazable. Cada
+clase incluye tres experimentos con datos sintéticos y semilla fija, ejecutados en
+Windows y Ubuntu (WSL2), y declara que no se usó ninguna herramienta de producción
+(Cucumber, TLA+, SPIN, Pact, Hypothesis) ni se auditó una API real. Las doce clases
+todavía requieren revisión y no presentan un linter, un verificador o una huella
+como sustitutos de la lectura del sentido por una persona con el dominio.
 
 ## Orden de reconstrucción
 

@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-13 — Parte 15 desarrollada y profundizada con simulaciones sintéticas reproducibles
+
+- las clases `SE-181`–`SE-192` pasan de borradores genéricos a clases completas sobre el plan de lanzamiento de la plataforma de entregas de tareas: modelos predictivos, iterativos
+  e incrementales, principios ágiles frente a ceremonias, Scrum, Kanban, XP y Shape Up leídos por sus políticas, Lean, teoría de colas y límites de trabajo, estimación con rango y
+  evidencia histórica, planificación de entregas y dependencias, riesgos, supuestos, issues y decisiones, definiciones de listo, terminado y aceptación, métricas de flujo, calidad
+  y resultados, retrospectivas y mejora del sistema de trabajo, un taller de planificación bajo incertidumbre y un plan adaptativo con disparadores y barreras; el portal publica
+  ahora el contenido íntegro de las doce clases y el índice de la parte, y `build_phase4.py` usa las fuentes editoriales de `content/part-15/` para esas clases;
+- 36 figuras con simulaciones de datos sintéticos y semilla fija: esfuerzo según el intervalo de retroalimentación, valor si el proyecto se corta y cruce según la volatilidad;
+  valor perdido por no aprender del uso, sobrecoste de ceremonias y conflictos según la vida de una rama; espera de un urgente, reglas de compromiso y tiempo fijo; espera según la
+  utilización, ley de Little con límite de trabajo y variabilidad con lotes; suma de medianas, cobertura de intervalos y solape de tallas; convergencia de caminos, dependencias
+  externas y órdenes de entrega; riesgos con causa común, orden de validación de supuestos y un verificador de decisiones; comprobaciones correlacionadas, refinamiento previo y un
+  verificador de criterios; resumen de tiempos, velocidad premiada y tamaño de muestra de un percentil; acciones por retrospectiva, detección de una mejora e intervenciones sobre una
+  cola; calibración de pronósticos, margen frente a colchón y sensibilidad; disparadores de replanificación, un validador de planes y mil proyectos con tres estrategias;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- las doce simulaciones se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas, sin excepción; los datos son sintéticos, los parámetros son
+  supuestos del autor, los tres verificadores se afinaron con pocos ejemplos y se evaluaron con casos propios o nuevos mínimos, y no se observó ningún equipo ni se midió ninguna
+  estimación, retrospectiva o métrica real; la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: el intervalo de menor esfuerzo está en ciclos de cuatro piezas y no en el más corto; comprometer la media del rendimiento falla en 44 % de los sprints;
+  la espera se multiplica por 19 entre 50 % y 95 % de utilización; cumplir la suma de medianas de 30 tareas ocurre en 12,4 % de los casos; un intervalo del 80 % con 3 semanas de
+  historia cubre 32,5 %; con una causa común el percentil 85 del retraso de diez riesgos sube de 35 a 66 días; añadir comprobaciones correlacionadas deja los escapes en 4258 de 10 000;
+  acordar 8 acciones por retrospectiva termina las mismas 9,4 que acordar 2; un disparador de 4 semanas con un aviso da falsa alarma en 68 % de los proyectos sanos.
+
 ## 2026-11-13 — Parte 14 desarrollada y profundizada con experimentos sintéticos reproducibles
 
 - las clases `SE-169`–`SE-180` pasan de borradores genéricos a clases completas sobre la entrega de una tarea en la plataforma de entregas: diseño centrado en personas y tareas,

@@ -2,207 +2,319 @@
 
 [← SE-184 — Lean, teoría de colas y límites de trabajo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-184-lean-teoria-de-colas-y-limites-de-trabajo/README.md) · [↑ Parte 15](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-185.html) · [SE-186 — Planificación de entregas y gestión de dependencias →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-186-planificacion-de-entregas-y-gestion-de-dependencias/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que entregues una estimación como un rango con su evidencia y sus supuestos, y no como un número que alguien convertirá en compromiso; y para que sepas qué puede y qué no puede sostener una estimación por tamaño relativo o por historia.
+
+**Por qué aparece aquí.** Se sitúa después de **Lean, teoría de colas y límites de trabajo** y antes de **Planificación de entregas y gestión de dependencias**: la clase anterior produjo datos de flujo (rendimiento, plazo); esta enseña a usarlos para estimar con rangos, y la siguiente combinará varias estimaciones en un plan con dependencias. La estimación es el eslabón que más a menudo se convierte en promesa.
+
+**Error conceptual que debe corregir.** Creer que sumar las estimaciones típicas de las tareas da la estimación típica del proyecto, o que una talla (3, 5, 8) predice cuánto tarda un elemento concreto: la suma de medianas es optimista y las tallas contiguas se solapan.
+
+**Secuencia de aprendizaje.** Antes de simular, predices con qué probabilidad un proyecto de 30 tareas termina dentro de la suma de sus medianas; después simulas esa probabilidad con distintas dispersiones, mides cuánto cubre realmente un intervalo del 80 % construido con poca historia y calculas cuánto se solapan las tallas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `estimation-log.md` con la predicción, la probabilidad de cumplir la suma de medianas por dispersión, la cobertura de intervalos según la historia, el solape entre tallas y una nota con la estimación en forma de rango y sus supuestos.
+
+**Límite de la conclusión.** Las duraciones son lognormales y el rendimiento es gamma: elecciones convenientes del autor, no medidas. Los resultados describen cómo se comportan las estimaciones bajo esos modelos, no cuánto se equivocan las personas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Jørgensen, «A review of studies on expert estimation of software development effort» (Journal of Systems and Software, 2004)](https://doi.org/10.1016/S0164-1212%2802%2900156-5) | Revisa estudios de estimación por expertos y documenta sesgos, dispersión y la mejora al combinar estimaciones y usar historia. | No fija la exactitud de ninguna técnica en un equipo concreto. |
+| [Buehler, Griffin y Ross, «Exploring the planning fallacy» (Journal of Personality and Social Psychology, 1994)](https://doi.org/10.1037/0022-3514.67.3.366) | Muestra que las personas subestiman el tiempo de sus propias tareas incluso conociendo experiencias pasadas parecidas. | No cuantifica el sesgo en software ni descarta que se pueda corregir. |
+| [Flyvbjerg, «From Nobel Prize to project management: getting risks right» (Project Management Journal, 2006)](https://doi.org/10.1177/875697280603700302) | Propone partir de la distribución de resultados de proyectos parecidos para corregir el optimismo de la visión interna. | No ofrece una clase de referencia para la plataforma de entregas. |
+
+## Antes de empezar
+
+Recupera los datos de flujo de `SE-184`: rendimiento semanal y plazo de los elementos. Aquí se usan como historia. La pregunta activa es: **¿qué rango de resultados es creíble con la evidencia que tengo y cuántas semanas de historia hacen falta para que ese rango merezca confianza?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-184` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de tablero reproducible en Markdown o herramienta equivalente.
+- Haber completado `SE-184` o poder explicar la relación entre rendimiento y plazo.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Manejar percentiles y el significado de una distribución con cola larga a nivel básico.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Estimación por tamaño, rango y evidencia histórica**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La dirección pregunta cuándo estará lista la recuperación de borradores. El equipo ha desglosado 30 tareas y cada persona estimó una duración típica; la suma da 96 días. Se comunica «estará listo en 96 días» y la fecha pasa a un calendario externo. Seis semanas después el proyecto lleva 110 días de trabajo y falta el 15 %. Nadie se equivocó en una tarea concreta: la suma de números típicos no es un número típico.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Estimación y tamaño con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **plan adaptativo con riesgos y métricas de flujo** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «convertir una estimación en compromiso sin rango ni supuestos» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Estimación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Tamaño | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Rango | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Evidencia | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. explicar por qué la suma de medianas de varias tareas subestima el total y calcular la probabilidad de cumplirla bajo una dispersión dada;
+2. construir un rango a partir de la historia de rendimiento y medir su cobertura real según las semanas disponibles;
+3. calcular cuánto se solapan las tallas relativas y qué se puede y qué no se puede concluir de ellas;
+4. contrastar un margen proporcional por tarea con un rango del total y justificar cuál comunicar;
+5. escribir una estimación como rango con supuestos, historia usada y la observación que la revisaría.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Estimación por tamaño, rango y evidencia histórica"] --> M["Modelo: Estimación"]
-    M --> D["Decisión: tamaño"]
-    D --> E["Evidencia: rango"]
-    E --> R["Revisión: evidencia"]
-    R -->|nueva información| M
+    A[Desglose en tareas] --> B[Estimación típica por tarea]
+    B --> C[Dispersión y cola larga]
+    C --> D[Distribución del total]
+    E[Historia de rendimiento] --> D
+    D --> F[Rango con percentiles]
+    F --> G[Comunicación con supuestos]
+    G -->|nueva evidencia| E
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Estimación por tamaño, rango y evidencia histórica**.
+El mapa se lee de izquierda a derecha como el camino de una estimación: lo típico por tarea no es el total; hay que pasar por la dispersión y por la historia para obtener un rango. El retorno indica que cada avance real actualiza la evidencia.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Estimación por tamaño relativo | Ordena el trabajo sin pretender medir horas; sirve en agregado, no por elemento. | Predicción, traza causal y contraejemplo de **Estimación por tamaño relativo** en `estimation-log.md` |
+| Rangos | Comunican la incertidumbre y evitan que un número se convierta en compromiso. | Predicción, traza causal y contraejemplo de **Rangos** en `estimation-log.md` |
+| Suma de estimaciones | El total de varias tareas tiene una distribución propia con cola larga. | Predicción, traza causal y contraejemplo de **Suma de estimaciones** en `estimation-log.md` |
+| Evidencia histórica | La historia del equipo corrige el optimismo, pero con pocas observaciones es engañosa. | Predicción, traza causal y contraejemplo de **Evidencia histórica** en `estimation-log.md` |
+| Comunicar una estimación | Un rango con supuestos informa; un número aislado se vuelve promesa. | Predicción, traza causal y contraejemplo de **Comunicar una estimación** en `estimation-log.md` |
 
 ## Conceptos y decisiones
 
-Un proceso de trabajo limita trabajo en curso, hace visible el flujo y crea ciclos de aprendizaje; un plan es una hipótesis actualizable, no una predicción exacta.
+### 1. Estimación por tamaño relativo
 
-La pregunta rectora de esta parte es: **¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?** La respuesta debe
-apoyarse en **políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos**.
+Comparar tareas entre sí («esta es el doble de grande que aquella») es más fiable que predecir horas absolutas, porque la comparación cancela sesgos comunes. Las tallas (1, 2, 3, 5, 8) formalizan esa comparación en categorías. Su límite es que se usan después para predecir duración, y las duraciones de una misma talla varían tanto que las tallas vecinas se solapan: una tarea de talla 3 puede tardar más que una de talla 5 con frecuencia no despreciable. La talla sirve para ordenar y para agregar muchos elementos con la historia del equipo; no para prometer una tarea individual.
 
-### 1. Estimación: modelo
+### 2. Rangos
 
-En esta clase, **Estimación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estimación por tamaño, rango y evidencia histórica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un rango comunica dos cosas: el centro probable y cuánto puede desviarse. Los rangos útiles se acompañan de la confianza («entre 9 y 14 semanas con 85 % de confianza») y de los supuestos de los que depende. Un rango no es un truco para protegerse: se construye con datos y se evalúa después, comprobando si los resultados reales caen dentro con la frecuencia anunciada. Un rango tan ancho que nunca se falla no informa, y uno tan estrecho que se falla casi siempre tampoco.
 
-### 2. Tamaño: mecanismo
+### 3. Suma de estimaciones
 
-En esta clase, **tamaño** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estimación por tamaño, rango y evidencia histórica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si cada tarea tiene una distribución sesgada hacia arriba (puede tardar mucho más de lo típico, no mucho menos), la suma tiene una media mayor que la suma de las medianas. Con 30 tareas de mediana 1 a 5 días y una dispersión moderada, la mediana del total ya es 12 % mayor que la suma de las medianas, y completar dentro de esa suma ocurre una de cada ocho veces. Añadir un margen igual a cada tarea corrige el promedio, pero a costa de contar el margen dos veces donde las tareas se compensan; la clase `SE-191` compara esa práctica con un colchón compartido.
 
-### 3. Rango: evidencia
+### 4. Evidencia histórica
 
-En esta clase, **rango** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estimación por tamaño, rango y evidencia histórica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La historia reemplaza la opinión por observaciones: cuántos elementos se terminaron cada semana, cuánto tardaron. A partir de ella se puede remuestrear para obtener la distribución del total futuro. Con pocas semanas, el intervalo es demasiado estrecho porque no refleja la incertidumbre sobre la propia media. Además, la historia supone que el futuro se parece al pasado: un cambio de equipo, de tecnología o de tipo de trabajo invalida parte de ella. Flyvbjerg propone partir de clases de referencia —proyectos parecidos de otras organizaciones— cuando la historia propia es escasa.
 
-### 4. Evidencia: decisión
+### 5. Comunicar una estimación
 
-En esta clase, **evidencia** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estimación por tamaño, rango y evidencia histórica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La forma de comunicar importa tanto como el cálculo. Una buena estimación incluye el rango, la confianza, la historia usada, los supuestos (alcance, equipo, dependencias), qué no incluye y la fecha de su próxima revisión. Un número aislado en un correo se separa de todo eso y se vuelve fecha. Cuando un rango inconveniente se reduce a un número cómodo por presión del calendario, la estimación ya no informa: es una negociación disfrazada. El agradecimiento debe ir al rango que se mantiene.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### La suma de medianas casi nunca se cumple
+
+Treinta tareas con mediana de 1 a 5 días (enteros al azar con semilla fija) y duración lognormal con σ = 0,5. La suma de medianas es 96 días. Se simulan 20 000 proyectos.
+
+```python
+meds = [rng.randint(1, 5) for _ in range(30)]
+plan = sum(meds)                                   # 96
+tot = [sum(rng.lognormvariate(math.log(m), 0.5) for m in meds) for _ in range(20000)]
+p_cumplir = sum(t <= plan for t in tot) / len(tot)
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): cumplir la suma de medianas ocurre en el **12,4 %** de los proyectos; la media del total es 108,9, la mediana 108,1, el percentil 85 es 120,8 y el 95 es 129,4. Con σ = 0,2 la probabilidad sube a 31,9 %, con σ = 0,8 baja a 4,1 % y con σ = 1,1 a 1,5 %. Un margen de 25 % en cada tarea (plan de 120 días) se cumple en el 83,5 %.
+
+![Barras con la probabilidad de terminar 30 tareas dentro de la suma de sus medianas según la dispersión y con un margen de 25 por ciento.](../../../content/part-15/figures/se-185-suma-de-medianas.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de 20 000 (o 5000) proyectos que terminan dentro del plan; la verde es el plan con margen. **Dónde deja de valer:** las duraciones lognormales e independientes son una elección conveniente; tareas que fallan juntas (la misma dependencia, la misma persona) agrandan la cola del total. Y el margen del 25 % se calibró contra el modelo, no contra datos: con otra dispersión daría otra cobertura.
+
+### Un intervalo del 80 % con poca historia cubre mucho menos
+
+El rendimiento semanal es gamma con media 6 y varianza 9 (enteros). Con una historia de `n` semanas se pronostica la suma de las 12 semanas siguientes con un intervalo central del 80 % (percentiles 10 y 90), por remuestreo de la historia y por aproximación normal. Se comprueba con 1500 repeticiones qué fracción de veces el valor real cae dentro.
+
+```python
+hist = [week(rng) for _ in range(n)]
+sims = [sum(rng.choice(hist) for _ in range(12)) for _ in range(300)]
+lo, hi = q(sims, .10), q(sims, .90)
+cubre = lo <= sum(week(rng) for _ in range(12)) <= hi
+```
+
+| Semanas de historia | Cobertura con remuestreo | Cobertura normal |
+|---:|---:|---:|
+| 3 | 32,5 % | 37,1 % |
+| 6 | 46,6 % | 48,1 % |
+| 12 | 61,1 % | 60,8 % |
+| 24 | 70,7 % | 69,9 % |
+| 48 | 75,7 % | 75,0 % |
+
+Un intervalo que promete el 80 % cubre el 32,5 % con tres semanas de historia y el 75,7 % con cuarenta y ocho. Con poca historia la media y la dispersión observadas son ellas mismas inciertas, y el intervalo ignora esa incertidumbre. Ambos métodos fallan en la misma dirección.
+
+![Barras con la cobertura real de un intervalo nominal del 80 por ciento según las semanas de historia disponibles.](../../../content/part-15/figures/se-185-cobertura-de-intervalos.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de 1500 repeticiones en que el valor real cayó dentro del intervalo. **Dónde deja de valer:** el proceso simulado es estacionario (la media no cambia), cosa que ningún equipo real cumple, de modo que la cobertura real sería peor. La figura no dice cuánta historia basta: dice que con menos de unas veinte semanas conviene ensanchar el intervalo o apoyarse en proyectos parecidos.
+
+### Las tallas se solapan: ordenan, no predicen
+
+Cinco tallas (1, 2, 3, 5, 8) con medianas de 1; 1,8; 3; 5 y 8 días y una dispersión lognormal de 0,6. Para cada par de tallas contiguas se calcula la probabilidad de que un elemento de la menor tarde más que uno de la mayor, con 20 000 pares. Después se comparan diez elementos de talla 3 con diez de talla 5.
+
+```python
+P = sum(x > y for x, y in zip(D[3], D[5])) / 20000
+```
+
+| Comparación | La menor tarda más |
+|---|---:|
+| 1 contra 8 | 0,7 % |
+| 3 contra 8 | 12,4 % |
+| 2 contra 3 | 27,8 % |
+| 3 contra 5 | 27,1 % |
+| 5 contra 8 | 29,1 % |
+| 10 de talla 3 contra 10 de talla 5 | 4,2 % |
+
+Una tarea de talla 3 tarda más que una de talla 5 en el 27,1 % de los pares; en diez contra diez, solo en el 4,2 %. Las incertidumbres individuales se compensan en el agregado: las tallas sirven para estimar un conjunto con la historia, no un elemento.
+
+![Tabla con la probabilidad de que un elemento de talla menor tarde más que uno de talla mayor, para pares contiguos, lejanos y agregados.](../../../content/part-15/figures/se-185-solape-entre-tallas.svg)
+
+**Cómo leer la figura.** Cada fila compara dos tallas; la columna central es la probabilidad de que el orden de las tallas se invierta. **Dónde deja de valer:** las medianas y la dispersión de cada talla son supuestos; un equipo con tareas homogéneas tendría dispersión menor y menos solape, y uno con tareas muy variadas, más. La tabla no desautoriza la estimación relativa: delimita lo que una talla puede afirmar.
 
 ## Definiciones de trabajo
 
-- **Estimación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Tamaño:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Rango:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Evidencia:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
+- **estimación puntual:** un único valor para una cantidad incierta, sin rango ni confianza.
+- **rango con confianza:** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
+- **percentil:** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
+- **cobertura:** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
+- **clase de referencia:** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Estimación por tamaño, rango y evidencia histórica**:
+El fragmento calcula la mediana del total de dos tareas lognormales para mostrar que no es la suma de medianas. Antes de ejecutarlo, predice si la fracción de totales por debajo de 6 será mayor, igual o menor que 0,5.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import math, random
+rng = random.Random(7)
+tot = [rng.lognormvariate(math.log(3), 0.6) + rng.lognormvariate(math.log(3), 0.6) for _ in range(20000)]
+fraccion = sum(t <= 6 for t in tot) / len(tot)
+assert fraccion < 0.45
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La fracción queda por debajo de 0,5: la suma de medianas (6) es un valor que el total supera más de la mitad de las veces. Registra versión, comando y salida; sube a 10 tareas y predice si la fracción aumenta o disminuye.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Estimación por tamaño, rango y evidencia histórica**. Parte de esta pregunta: **¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `plan.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma de entregas comunica la estimación de la recuperación de borradores como: «entre 15 y 19 semanas con 85 % de confianza, basado en 14 semanas de rendimiento propio (media 5,8 elementos) y en el desglose actual de 62 elementos; supone un equipo estable de cuatro personas, que la integración con la secretaría se entrega en la semana 10 y que no se agregan funciones; no incluye vacaciones de fin de año; se revisa cada dos semanas». El extremo bajo corresponde al rendimiento del percentil 85 de la historia; el alto, a una caída del 20 %.
+
+Compara con la versión «16 semanas»: cuando un alcance nuevo aparece, la primera sabe qué supuesto rompió; la segunda parece un incumplimiento. Una estimación es adecuada cuando puede equivocarse de forma informativa; es peligrosa cuando solo puede ser acertada o culpable.
 
 ## Práctica guiada
 
-1. Crea `work/SE-185/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el plan adaptativo con riesgos y métricas de flujo con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Desglosa un trabajo en 20 a 30 tareas y estima una duración típica de cada una.
+2. Predice con qué probabilidad el total cabe en la suma de medianas y escribe el número antes de simular.
+3. Simula el total con tres dispersiones y compara con el margen proporcional.
+4. Toma tu historia de rendimiento (o genérala) y calcula un intervalo del 80 % para las próximas 12 semanas.
+5. Comprueba la cobertura con distintas cantidades de historia.
+6. Mide el solape entre las tallas que usa tu equipo.
+7. Entrega `estimation-log.md` con la estimación como rango y pide a otra persona que identifique su supuesto más frágil.
 
 ## Ejercicios
 
-1. **Fundamental:** define Estimación y tamaño con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `plan.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Suma:** calcula la probabilidad de cumplir la suma de medianas con 10 y con 60 tareas y explica cómo cambia con el número de tareas.
+2. **Cobertura:** aumenta el intervalo al 90 % y repite la comprobación con 6 y 24 semanas; indica cuánta historia necesitas para cubrir al menos el 85 %.
+3. **Tallas:** reduce la dispersión de 0,6 a 0,3 y recalcula el solape entre 3 y 5; interpreta la diferencia.
+4. **Comunicación:** reescribe un correo con una fecha como una estimación con rango, confianza, historia y supuestos.
 
 ## Reto verificable
 
-Entrega el **plan adaptativo con riesgos y métricas de flujo** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `estimation-log.md` con la predicción, la probabilidad de cumplir la suma de medianas por dispersión, la tabla de cobertura, el solape de tallas y la estimación final como rango. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué supuesto rompería el rango. No se aprueba por la sofisticación del método ni por un rango tan ancho que nunca falle.
+
+## Caso conductor
+
+La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el quinto artefacto: la estimación de la recuperación de borradores y de la regla de penalización como rangos con confianza, historia y supuestos. `SE-186` combinará varias de esas estimaciones en un plan con dependencias. Cambia después una sola cosa, una semana más de historia, y observa cuánto se mueve el rango.
+
+## Preguntas frecuentes
+
+### ¿Los puntos de historia sirven para algo?
+
+Sirven para comparar y ordenar el trabajo y, con la historia del equipo, para estimar un conjunto de elementos. No sirven para prometer una tarea individual ni para comparar equipos, porque cada equipo calibra su escala.
+
+### ¿Cómo elijo el percentil que comunico?
+
+Depende de lo que cueste fallar. Si un retraso tiene consecuencias graves (un trámite con fecha legal), comunica un percentil alto; si es barato, uno medio. Lo importante es declararlo, no esconderlo.
+
+### ¿Y si no tengo historia?
+
+Usa una clase de referencia (proyectos parecidos de otros equipos) y declara que la estimación se revisará con los primeros datos propios. Evita fingir precisión: es mejor un rango ancho y honesto.
+
+### ¿Sumar un margen a cada tarea no resuelve esto?
+
+Corrige el promedio, pero oculta el margen, invita a consumirlo y duplica el relleno donde las tareas se compensan. `SE-191` lo compara con un colchón compartido.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **convertir una estimación en compromiso sin rango ni supuestos**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **convertir la suma de estimaciones típicas en una fecha comprometida**. Simula 20 000 proyectos de 30 tareas y mide cuántos terminan dentro de la suma de medianas.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el proyecto prometido para el día 96 lleva 110 días y falta el 15 %. **Hipótesis rivales:** (a) las estimaciones individuales fueron mal hechas; (b) el equipo trabajó por debajo de lo normal; (c) la suma de medianas no es un valor típico del total. **Prueba:** calcula la probabilidad de cumplir la suma con las mismas estimaciones; en la simulación es del 12,4 %. **Conclusión:** la causa es la agregación, no las estimaciones individuales. **Regresión:** reemplaza la fecha por un rango con percentil y registra su cobertura en los siguientes tres proyectos. No cambies a la vez el método y el alcance.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| La fecha prometida se cumple una de cada ocho veces | Se sumaron valores típicos | Estimar el total con simulación o con historia y comunicar un rango |
+| El intervalo del 80 % falla la mitad de las veces | Se construyó con pocas semanas de historia | Ensanchar el intervalo o usar una clase de referencia |
+| Se usa una talla para prometer una tarea concreta | Se ignora el solape entre tallas | Usar las tallas para agregar con historia, no para prometer elementos |
+| La estimación cambió de rango a número en el correo | Presión del calendario | Mantener el rango en la comunicación y anotar quién pidió el número |
+| La historia dejó de servir tras un cambio de equipo | Se supuso un futuro igual al pasado | Marcar el cambio, descartar o ponderar los datos anteriores y reestimar |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: tablero reproducible en Markdown o herramienta equivalente. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-185/
 ├── README.md
-│   ├── plan.md
-│   ├── risks.md
-│   ├── flow.csv
-├── activity.yaml
-└── rubric.json
+├── estimation/
+│   ├── suma.py
+│   ├── cobertura.py
+│   └── tallas.py
+├── tests/test_estimation.py
+└── evidence/estimation-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `plan.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una estimación no debe usarse para evaluar a las personas que la hicieron: el error de agregación no es un error individual;
+- las estimaciones que condicionan plazos de estudiantes o trámites legales deben declarar su confianza y su revisión;
+- los rangos y gráficos deben acompañarse de una tabla textual accesible;
+- documenta quién aceptó el riesgo del percentil elegido;
+- respeta las licencias de las herramientas de estimación y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «estima el proyecto» devolverá una cifra con apariencia de cálculo, normalmente la suma de valores típicos. Pídele en cambio que declare la distribución que supone para cada tarea, que entregue el total como rango con percentiles, que indique cuánta historia usó y que liste los supuestos que invalidan el rango. Revisa especialmente si sumó medianas o si ignoró el crecimiento de alcance: es el error que dejó al proyecto en el 12,4 %.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra estimación (por ejemplo, el tiempo de migración de una base de datos): cambia el desglose y la historia, y conserva el procedimiento de simular el total, comprobar la cobertura y comunicar el rango. La transferencia está lograda cuando puedes explicar qué parte del método dependía de los datos y cuál no, no cuando el código se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-185/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué la suma de medianas no es la mediana del total |
+| corrección | probabilidad, cobertura y solape reproducibles con las mismas semillas |
+| diseño | estimación escrita como rango con confianza, historia, supuestos y revisión |
+| diagnóstico | reproducción del fallo «suma como fecha» con regresión |
+| incertidumbre | declaración de los modelos de duración y del supuesto de estacionariedad |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Jørgensen, «A review of studies on expert estimation of software development effort» (Journal of Systems and Software, 2004)](https://doi.org/10.1016/S0164-1212%2802%2900156-5) — revisión de estudios de estimación por expertos; autoridad: Journal of Systems and Software.
+- [Buehler, Griffin y Ross, «Exploring the planning fallacy» (Journal of Personality and Social Psychology, 1994)](https://doi.org/10.1037/0022-3514.67.3.366) — subestimación del tiempo propio; autoridad: Journal of Personality and Social Psychology.
+- [Flyvbjerg, «From Nobel Prize to project management: getting risks right» (Project Management Journal, 2006)](https://doi.org/10.1177/875697280603700302) — clases de referencia y optimismo en proyectos; autoridad: Project Management Journal.
+- [Efron, «Bootstrap methods: another look at the jackknife» (The Annals of Statistics, 1979)](https://doi.org/10.1214/aos/1176344552) — remuestreo para estimar la distribución de un estadístico; autoridad: The Annals of Statistics.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — gestión de ingeniería de software; autoridad: IEEE Computer Society.
 
-- **The Scrum Guide** — Scrum Guide authors. [https://scrumguides.org/scrum-guide.html](https://scrumguides.org/scrum-guide.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Kanban Guide** — Kanban Guides. [https://kanbanguides.org/english/](https://kanbanguides.org/english/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 12,4 %, la cobertura de 32,5 % o el solape de 27,1 % se cumplan en la plataforma de entregas. Esa afirmación depende de la distribución real de las duraciones y del rendimiento.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla y distribuciones lognormal y gamma.
+- [Python: `statistics`](https://docs.python.org/3/library/statistics.html) — media y desviación de la historia.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Estimación por tamaño, rango y evidencia histórica**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-186`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna estimación de una persona ni de un equipo: las duraciones lognormales, el rendimiento gamma y las medianas por talla son construcciones del autor. La siguiente clase combina estimaciones en un plan con dependencias, donde la suma se convierte en un máximo.
+
+## Glosario
+
+- **estimación puntual:** un único valor para una cantidad incierta, sin rango ni confianza.
+- **rango con confianza:** par de valores y la probabilidad declarada de que el resultado caiga entre ellos.
+- **percentil:** valor por debajo del cual cae la proporción indicada de los resultados; el percentil 85 deja al 85 % por debajo.
+- **cobertura:** fracción de veces que un intervalo contiene el resultado real; un intervalo está calibrado si su cobertura es la anunciada.
+- **clase de referencia:** conjunto de proyectos pasados parecidos cuya distribución de resultados se usa para corregir una estimación interna.
 
 ---
 

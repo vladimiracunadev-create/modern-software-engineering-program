@@ -67,7 +67,10 @@ def expected_files(program: dict) -> dict[Path, str]:
                 continue
             _, _, previous, following = entries[lesson["id"]]
             directory = ROOT / lesson["path"]
-            markdown = shared.lesson_readme(part, lesson, previous, following)
+            if lesson["id"] in shared.PUBLISHED_EDITORIAL_IDS:
+                markdown = shared.published_markdown(part, lesson)
+            else:
+                markdown = shared.lesson_readme(part, lesson, previous, following)
             result[directory / "README.md"] = markdown
             result[directory / "activity.yaml"] = shared.dump_json(shared.activity(part, lesson))
             result[directory / "rubric.json"] = shared.dump_json(shared.rubric(part, lesson))

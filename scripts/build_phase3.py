@@ -14,6 +14,7 @@ TARGET_LAST_CLASS = 180
 DEVELOPED_LAST_CLASS = 72
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 181)}
+PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(181, 193)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",
@@ -989,6 +990,23 @@ def site_page(
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Fase {phase} · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Una clase de la Parte {part['id']} — {html.escape(part['title'])}. Comprende el mecanismo, úsalo para decidir y conserva evidencia revisable.</p></header>{progress}<div class="notice">{notice}</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article></div><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Programa de Ingeniería de Software Moderna · Fase {phase} en reconstrucción</footer></body></html>\n"""
 
 
+def published_markdown(part: dict, lesson: dict) -> str:
+    source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
+    raw_markdown = source.read_text(encoding="utf-8")
+    return raw_markdown.replace(
+        "](figures/", f"](../../../content/part-{part['id']}/figures/"
+    ).replace(
+        "(../../classes/",
+        "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/",
+    ).replace(
+        "(../../docs/",
+        "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/",
+    ).replace(
+        "(../../site/",
+        "(https://vladimiracunadev-create.github.io/modern-software-engineering-program/",
+    )
+
+
 def expected_files(program: dict) -> dict[Path, str]:
     result = {ROOT / "sources/phase3.json": dump_json(source_catalog(program))}
     entries = context(program)
@@ -1001,20 +1019,7 @@ def expected_files(program: dict) -> dict[Path, str]:
             if lesson["id"] in PUBLISHED_EDITORIAL_IDS:
                 # Estas clases tienen fuentes editoriales explícitas. Publicarlas
                 # no sustituye la revisión de la parte como recorrido completo.
-                source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
-                raw_markdown = source.read_text(encoding="utf-8")
-                markdown = raw_markdown.replace(
-                    "](figures/", f"](../../../content/part-{part['id']}/figures/"
-                ).replace(
-                    "(../../classes/",
-                    "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/",
-                ).replace(
-                    "(../../docs/",
-                    "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/docs/",
-                ).replace(
-                    "(../../site/",
-                    "(https://vladimiracunadev-create.github.io/modern-software-engineering-program/",
-                )
+                markdown = published_markdown(part, lesson)
                 result[directory / "README.md"] = markdown
             else:
                 markdown = lesson_readme(part, lesson, previous, following)

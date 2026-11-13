@@ -35,6 +35,23 @@ técnica y pedagógica clase por clase.
 - no existe evidencia de laboratorio suficiente para afirmar que las prácticas se
   ejecutaron de forma reproducible.
 
+## Avance editorial de la Parte 15
+
+Las clases `SE-181`–`SE-192` se reconstruyeron en `content/part-15/` alrededor del plan
+de lanzamiento de la plataforma de entregas de tareas, que recorre la parte: modelos
+de proceso y su cruce según la volatilidad, principios frente a ceremonias, cuatro
+marcos leídos por sus políticas, teoría de colas y ley de Little, estimaciones con
+rango y cobertura, redes con dependencias, registros de riesgos y decisiones, puertas
+de listo y terminado, métricas con contrapesos, retrospectivas con capacidad limitada,
+un taller de calibración y un plan adaptativo con disparadores y barreras. Cada clase
+incluye tres simulaciones con datos sintéticos y semilla fija, ejecutadas en Windows y
+Ubuntu (WSL2) con salidas idénticas, y declara que no se observó ningún equipo, no se
+usó ninguna herramienta de gestión de proyectos y no se midió ninguna retrospectiva,
+estimación ni métrica real. Las doce clases todavía requieren revisión por personas con
+experiencia en gestión de proyectos y no presentan un verificador, una regla de
+replanificación ni un pronóstico como sustitutos del juicio ni de la responsabilidad del
+equipo que planifica.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

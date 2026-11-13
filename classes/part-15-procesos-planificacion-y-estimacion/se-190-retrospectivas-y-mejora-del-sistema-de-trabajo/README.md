@@ -2,207 +2,331 @@
 
 [← SE-189 — Métricas de flujo, calidad y resultados](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-189-metricas-de-flujo-calidad-y-resultados/README.md) · [↑ Parte 15](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-190.html) · [SE-191 — Taller: planificar bajo incertidumbre explícita →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-15-procesos-planificacion-y-estimacion/se-191-taller-planificar-bajo-incertidumbre-explicita/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que una retrospectiva produzca cambios que se terminan y se pueden evaluar, y no una lista de buenos propósitos: sabrás elegir cuántas acciones acordar según tu capacidad de mejora, cuántos datos necesitas para saber si una mejora funcionó y qué intervenciones mueven el sistema y cuáles solo piden más esfuerzo.
+
+**Por qué aparece aquí.** Se sitúa después de **Métricas de flujo, calidad y resultados** y antes del **Taller: planificar bajo incertidumbre explícita**: la clase anterior produjo un tablero con contrapesos; esta lo usa para decidir qué mejorar, y recupera el modelo de colas de `SE-184` para comparar intervenciones. Es el cierre del ciclo de aprendizaje de la parte: el proceso se mejora con el mismo método con que se mide el producto.
+
+**Error conceptual que debe corregir.** Creer que cuantas más acciones se acuerdan más se mejora, que dos semanas de datos confirman o refutan un cambio, o que la respuesta a un plazo largo es trabajar más: la capacidad de mejora limita lo que se termina, los datos de pocas semanas casi no distinguen una mejora real del ruido, y trabajar más horas no mueve una cola.
+
+**Secuencia de aprendizaje.** Antes de simular, predices cuántas acciones se terminan si se acuerdan una o ocho por retrospectiva; después simulas doce sprints con capacidad limitada de mejora, mides con qué frecuencia una prueba estadística detecta una mejora real del 15 % y con qué frecuencia declara una falsa si se mira cada semana, y comparas cinco intervenciones sobre una cola. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `retro-log.md` con la predicción, las acciones acordadas con responsable, señal y fecha, la tabla de acciones terminadas por número acordado, la potencia y la tasa de falsas mejoras de la prueba, la comparación de intervenciones y una nota que diga qué cambio probarías primero y cuándo lo evaluarías.
+
+**Límite de la conclusión.** La capacidad de mejora de 2 días por sprint, el 3 % de mejora por acción, el efecto de 15 % con dispersión 0,5 y la cola de un solo servidor son supuestos del autor. Los resultados muestran mecanismos; no miden retrospectivas ni equipos reales.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [The Scrum Guide](https://scrumguides.org/scrum-guide.html) | Define la retrospectiva como el evento en que el equipo inspecciona cómo trabajó y acuerda mejoras que pueden incorporarse al siguiente ciclo. | No fija cuántas acciones acordar ni cómo comprobar que funcionaron. |
+| [Edmondson, «Psychological safety and learning behavior in work teams» (Administrative Science Quarterly, 1999)](https://doi.org/10.2307/2666999) | Encuentra que la seguridad psicológica del equipo se asocia con conductas de aprendizaje como hablar de errores y pedir ayuda. | No prueba que una retrospectiva produzca esa seguridad ni lo contrario. |
+| [Mann y Whitney, «On a test of whether one of two random variables is stochastically larger than the other» (Annals of Mathematical Statistics, 1947)](https://doi.org/10.1214/aoms/1177730491) | Define una prueba no paramétrica de rangos para comparar dos muestras sin suponer una distribución concreta. | No dice cuántos datos exige un equipo concreto ni resuelve las miradas repetidas. |
+
+## Antes de empezar
+
+Recupera el tablero de `SE-189`: plazos con percentiles, rendimiento, trabajo en curso y escapes. Aquí se usa para elegir una mejora. La pregunta activa es: **¿qué cambio probaré, cuánto trabajo cabe de verdad en mi capacidad de mejora y cómo sabré, y cuándo, si funcionó?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-189` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de tablero reproducible en Markdown o herramienta equivalente.
+- Haber completado `SE-189` o poder explicar por qué un percentil necesita una muestra suficiente.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Haber participado en una retrospectiva o leído una guía de retrospectivas.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Retrospectivas y mejora del sistema de trabajo**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de la plataforma de entregas celebra una retrospectiva cada dos semanas. En el último año acordó 96 acciones; la hoja de acciones muestra 14 terminadas. Cada reunión empieza leyendo las acciones pendientes y termina agregando nuevas. Cuando el plazo de los elementos subió de 5 a 12 días, la conclusión fue «necesitamos comprometernos más». Tres sprints después el plazo seguía igual.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Retrospectivas y mejora con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **plan adaptativo con riesgos y métricas de flujo** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «convertir una estimación en compromiso sin rango ni supuestos» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Retrospectivas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Mejora | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Sistema | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Trabajo | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. relacionar el número de acciones acordadas con las que se terminan, dada una capacidad de mejora limitada;
+2. calcular con una simulación la probabilidad de detectar una mejora real según las semanas de datos y la de declarar una falsa al mirar cada semana;
+3. comparar intervenciones sobre un modelo de cola (más horas, más capacidad, lotes pequeños, menos variabilidad) y explicar por qué unas mueven el plazo y otras no;
+4. escribir una acción de mejora con hipótesis, responsable, señal, fecha de evaluación y criterio de abandono;
+5. diseñar una retrospectiva con límites de acciones, evaluación de las anteriores y separación entre síntomas y causas.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Retrospectivas y mejora del sistema de trabajo"] --> M["Modelo: Retrospectivas"]
-    M --> D["Decisión: mejora"]
-    D --> E["Evidencia: sistema"]
-    E --> R["Revisión: trabajo"]
-    R -->|nueva información| M
+    A[Datos del tablero] --> B[Hipótesis de causa]
+    B --> C[Una o dos acciones]
+    C --> D[Capacidad de mejora]
+    D --> E[Cambio hecho]
+    E --> F[Medición con muestra suficiente]
+    F -->|mejoró| G[Conservar]
+    F -->|no distinguible| H[Seguir midiendo o abandonar]
+    G --> A
+    H --> A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Retrospectivas y mejora del sistema de trabajo**.
+El mapa se lee como un ciclo de hipótesis: una causa supuesta, pocas acciones que caben en la capacidad, una medición con datos suficientes y una decisión. El retorno hacia los datos recuerda que mejorar es una práctica continua, no un evento.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Retrospectivas | Son el lugar donde el equipo inspecciona su método y decide qué probar. | Predicción, traza causal y contraejemplo de **Retrospectivas** en `retro-log.md` |
+| Capacidad de mejora | Limita cuántas acciones se terminan; acordar más solo acumula pendientes. | Predicción, traza causal y contraejemplo de **Capacidad de mejora** en `retro-log.md` |
+| Evaluar un cambio | Distinguir una mejora real del ruido exige suficientes datos y no mirar a cada rato. | Predicción, traza causal y contraejemplo de **Evaluar un cambio** en `retro-log.md` |
+| Intervenir en el sistema | Las palancas del sistema (lotes, variabilidad, capacidad) mueven el plazo; el esfuerzo no. | Predicción, traza causal y contraejemplo de **Intervenir en el sistema** en `retro-log.md` |
+| Seguridad para hablar | Sin seguridad para nombrar errores, la retrospectiva produce solo lo que ya era seguro decir. | Predicción, traza causal y contraejemplo de **Seguridad para hablar** en `retro-log.md` |
 
 ## Conceptos y decisiones
 
-Un proceso de trabajo limita trabajo en curso, hace visible el flujo y crea ciclos de aprendizaje; un plan es una hipótesis actualizable, no una predicción exacta.
+### 1. Retrospectivas
 
-La pregunta rectora de esta parte es: **¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?** La respuesta debe
-apoyarse en **políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos**.
+Una retrospectiva es una pausa periódica para examinar cómo trabaja el equipo y acordar cambios. Su valor no está en el formato (hay muchos) sino en tres propiedades: parte de datos y hechos, no de impresiones; termina con pocos cambios concretos; y revisa los cambios anteriores antes de proponer otros. El duodécimo principio del manifiesto pide reflexionar a intervalos regulares sobre cómo ser más efectivos y ajustar el comportamiento. Lo que una retrospectiva produce se mide por los cambios que ocurren después, no por la calidad de la conversación.
 
-### 1. Retrospectivas: modelo
+### 2. Capacidad de mejora
 
-En esta clase, **Retrospectivas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Retrospectivas y mejora del sistema de trabajo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Mejorar el proceso compite con entregar producto. Un equipo con dos días de capacidad de mejora por sprint termina como máximo unas ocho o nueve acciones de costo medio de dos días y medio en un trimestre, sin importar cuántas acuerde. Acordar más no acelera: crea un inventario de pendientes que erosiona la credibilidad de la retrospectiva («para qué proponer si no se hace»). La política sana es acordar tan pocas acciones como la capacidad permita terminar, y declarar el trabajo de mejora en el tablero, con el mismo límite de trabajo en curso que lo demás.
 
-### 2. Mejora: mecanismo
+### 3. Evaluar un cambio
 
-En esta clase, **mejora** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Retrospectivas y mejora del sistema de trabajo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un cambio de proceso se evalúa comparando datos antes y después. El problema es que el tiempo de ciclo es ruidoso: con una dispersión moderada, una mejora real del 15 % queda escondida durante varias semanas. Dos errores acechan. Concluir demasiado pronto («en dos semanas no mejoró») descarta cambios útiles. Mirar cada semana y declarar éxito la primera vez que el resultado parece bueno infla las falsas mejoras: es el problema de las múltiples miradas. La prueba de rangos de Mann y Whitney evita suponer una distribución, pero no corrige ninguno de estos dos errores: eso lo hace fijar de antemano cuánto tiempo se espera y qué se decidirá.
 
-### 3. Sistema: evidencia
+### 4. Intervenir en el sistema
 
-En esta clase, **sistema** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Retrospectivas y mejora del sistema de trabajo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando el plazo es largo, la tentación es pedir más esfuerzo. El modelo de colas de `SE-184` muestra por qué no funciona: la espera depende de la utilización, la variabilidad y los lotes, no de cuánto se esfuerza cada persona. Las intervenciones que cambian esas variables —añadir capacidad, enviar trabajo de uno en uno, reducir la dispersión de tamaños— mueven la espera; trabajar más horas con el mismo sistema no la mueve. La retrospectiva debería preguntar «¿qué parte del sistema produce esta espera?» antes de «¿quién debe hacer más?».
 
-### 4. Trabajo: decisión
+### 5. Seguridad para hablar
 
-En esta clase, **trabajo** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?» y demostrarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Retrospectivas y mejora del sistema de trabajo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Edmondson encontró que los equipos en que sus integrantes creen que pueden hablar de errores sin ser castigados aprenden más. Una retrospectiva donde solo se dicen cosas inocuas no puede mejorar un sistema cuyo problema es incómodo (una dependencia con una persona, una decisión de quien lleva el producto). La seguridad no se declara: se construye con conductas repetidas de quien tiene poder, como agradecer un reporte de error y no buscar culpables. Y se puede observar: si las causas que salen siempre son externas, quizá no se está hablando de las internas.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Acordar muchas acciones no termina más
+
+El equipo tiene 2 días de capacidad de mejora por sprint durante 12 sprints. Cada acción cuesta de 1 a 4 días y se trabaja por orden de llegada; al terminar una, su beneficio es un 3 % de rendimiento durante lo que queda del periodo. Se simulan 2000 equipos por cada número de acciones acordadas por retrospectiva.
+
+```python
+cap = 2.0
+while backlog and cap > 0:
+    uso = min(cap, backlog[0]); backlog[0] -= uso; cap -= uso
+    if backlog[0] <= 0:
+        backlog.pop(0); hechas += 1
+        beneficio += 3.0 * (12 - s - 1) / 12
+```
+
+| Acciones por retrospectiva | Creadas | Terminadas | Abiertas al final | Beneficio acumulado (pp) |
+|---:|---:|---:|---:|---:|
+| 1 | 12 | 9,2 | 2,8 | 12,1 |
+| 2 | 24 | 9,4 | 14,6 | 12,6 |
+| 3 | 36 | 9,4 | 26,6 | 12,6 |
+| 5 | 60 | 9,4 | 50,6 | 12,6 |
+| 8 | 96 | 9,4 | 86,6 | 12,7 |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): se terminan unas 9,4 acciones sin importar cuántas se acuerden; con 8 por retrospectiva quedan 86,6 abiertas (el 90 %). El beneficio acumulado es prácticamente el mismo (12,1 a 12,7 puntos porcentuales).
+
+![Tabla con las acciones creadas, terminadas y abiertas y el beneficio acumulado según el número de acciones acordadas por retrospectiva.](../../../content/part-15/figures/se-190-acciones-por-retrospectiva.svg)
+
+**Cómo leer la figura.** Cada fila es una política de acuerdos; las columnas centrales muestran que lo terminado no cambia y lo abierto crece. **Dónde deja de valer:** el trabajo es por orden de llegada; priorizar por beneficio sobre coste elevaría lo terminado. El 3 % de mejora por acción, los costos de 1 a 4 días y los 2 días de capacidad son supuestos. Y el modelo ignora el efecto de las acciones pendientes sobre la credibilidad del ritual, que probablemente agrave el problema.
+
+### Cuántas semanas hacen falta para ver una mejora de 15 %
+
+El tiempo de ciclo es lognormal con mediana de 5 días y dispersión 0,5; el equipo termina 8 elementos por semana. Se tiene una línea base de 12 semanas (96 elementos). Después del cambio, el nuevo tiempo es 15 % menor, o igual en el caso de control. Se compara con una prueba de Mann y Whitney al nivel de 0,05, con 1500 repeticiones por combinación. Después se repite el escenario sin efecto mirando la prueba cada semana durante 12 semanas y declarando mejora la primera vez que sale significativa.
+
+```python
+z = u_test_z(despues, antes)
+mejora = z < -1.96          # una sola mirada, al nivel de 0,05
+```
+
+| Semanas tras el cambio | Declara mejora (efecto real 15 %) | Declara mejora (sin efecto) |
+|---:|---:|---:|
+| 2 | 20,5 % | 2,7 % |
+| 4 | 36,0 % | 2,9 % |
+| 8 | 51,0 % | 1,9 % |
+| 12 | 59,8 % | 2,7 % |
+| 24 | 70,9 % | 2,4 % |
+| 12, mirando cada semana | — | 19,7 % |
+
+Una mejora real del 15 % se detecta en 1 de cada 5 casos a las 2 semanas y en 7 de cada 10 a las 24. Sin efecto real, una sola mirada produce falsas mejoras del 2 a 3 %; mirar cada semana durante 12 las sube a 19,7 %, siete veces más.
+
+![Tabla con la frecuencia con que una prueba declara mejora con un efecto real del quince por ciento y sin efecto según las semanas de datos, incluida la mirada semanal.](../../../content/part-15/figures/se-190-detectar-una-mejora.svg)
+
+**Cómo leer la figura.** Cada fila es un tiempo de observación; las columnas son la potencia (con efecto real) y la tasa de falsas mejoras (sin efecto). **Dónde deja de valer:** el proceso es estacionario, la dispersión de 0,5 es un supuesto, y los 8 elementos por semana fijan la cantidad de datos; un equipo más lento tarda más. La figura tampoco dice que 15 % sea una mejora típica: con un efecto de 40 % la detección sería más rápida. Lo que enseña es que el plazo de evaluación y la regla de decisión se fijan antes de mirar los datos.
+
+### Qué interviene sobre una cola y qué no
+
+Una cola de un servidor al 90 % de utilización, con llegadas en lotes de 5 y servicio muy variable (coeficiente de variación al cuadrado igual a 4). Se mide la espera media en múltiplos del servicio. Se compara con trabajar más horas sin cambiar nada (misma cola con otra semilla), añadir 10 % de capacidad, enviar de uno en uno, reducir la variabilidad del servicio a 1 y combinar ambas.
+
+```python
+base = lindley(0.90, cs2=4, batch=5)
+mas_capacidad = lindley(0.90 / 1.10, cs2=4, batch=5)
+combinada = lindley(0.90, cs2=1, batch=1)
+```
+
+| Intervención | Espera media |
+|---|---:|
+| Situación actual: lotes de 5, variabilidad alta | 41,2 |
+| Trabajar más horas sin cambiar nada | 41,6 |
+| Reducir la variabilidad del servicio (4 → 1) | 28,9 |
+| Llegadas de una en una | 23,1 |
+| Añadir 10 % de capacidad | 22,6 |
+| Llegadas de una en una y menos variabilidad | 9,4 |
+
+Trabajar más horas sin cambiar el sistema deja la espera igual (41,2 frente a 41,6, diferencia de semilla). Cada una de las otras tres palancas la reduce entre 30 % y 45 %, y combinar dos la reduce un 77 %.
+
+![Barras con la espera media de una cola al noventa por ciento de utilización según la intervención aplicada.](../../../content/part-15/figures/se-190-intervenciones-sobre-el-sistema.svg)
+
+**Cómo leer la figura.** Cada barra es la espera media con una intervención; menor es mejor. **Dónde deja de valer:** el modelo es una sola cola con llegadas y servicios aleatorios; un equipo real tiene varias etapas interdependientes, personas con habilidades distintas y trabajo de mejora que compite con el producto. «Trabajar más horas» se modela como no cambiar el sistema, lo que es cierto para esta cola y no necesariamente para una en que haya colas ocultas de espera por una persona. Lo que muestra es qué variables tiene la cola y cuáles se pueden cambiar.
 
 ## Definiciones de trabajo
 
-- **Retrospectivas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Mejora:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Sistema:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
-- **Trabajo:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos.
+- **retrospectiva:** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
+- **capacidad de mejora:** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
+- **potencia:** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
+- **mirada repetida:** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
+- **intervención sobre el sistema:** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Retrospectivas y mejora del sistema de trabajo**:
+El fragmento calcula cuántas acciones caben en la capacidad de mejora. Antes de ejecutarlo, predice cuántas acciones de 2,5 días de costo medio se terminan en 12 sprints con 2 días por sprint.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+capacidad_total = 2 * 12
+costo_medio = 2.5
+cabe = capacidad_total / costo_medio
+assert round(cabe, 1) == 9.6
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Caben unas 9,6 acciones en un trimestre, coherente con las 9,4 de la simulación (el trabajo en curso al cierre del periodo no se completa). Acordar 96 no cambia ese número. Registra versión, comando y salida; cambia la capacidad a 4 días por sprint y predice cuántas acciones más se terminan.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Retrospectivas y mejora del sistema de trabajo**. Parte de esta pregunta: **¿qué incertidumbre, dependencia o cuello de botella condiciona la siguiente entrega?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando políticas explícitas, tiempos de flujo, riesgos y revisión de resultados frente a supuestos. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `plan.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma de entregas cambia su retrospectiva. Antes de la reunión, quien facilita prepara el tablero de `SE-189` y la hoja de acciones previas con su estado. La reunión dedica diez minutos a evaluar el cambio anterior con su señal, 20 a identificar qué parte del sistema produce el plazo largo (con la cola y la ley de Little como lentes), y 15 a elegir una acción, máximo dos. La acción elegida es enviar los cambios a revisión de uno en uno en lugar de en bloque el viernes, con una hipótesis (el plazo de revisión bajará), una señal (percentil 85 del plazo de los elementos), una duración (ocho semanas) y un criterio de abandono (si en ocho semanas el percentil 85 no baja más de lo que explica el ruido, se revierte).
+
+Compara con la retrospectiva anterior: de 96 acciones en un año se pasa a 6, con una evaluación cada ocho semanas. Una retrospectiva es adecuada cuando se puede decir qué cambió gracias a ella; es un ritual cuando su producto es el acta.
 
 ## Práctica guiada
 
-1. Crea `work/SE-190/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el plan adaptativo con riesgos y métricas de flujo con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Cuenta las acciones acordadas y terminadas del último año de un equipo (o genera una serie).
+2. Predice cuántas se pueden terminar con tu capacidad de mejora y escribe el número antes de simular.
+3. Simula doce sprints con 1, 2, 3, 5 y 8 acciones acordadas.
+4. Calcula la potencia de tu evaluación (cuántas semanas, cuántos elementos) para un efecto de 15 %.
+5. Simula la tasa de falsas mejoras al mirar cada semana.
+6. Compara tres intervenciones sobre una cola con tus parámetros.
+7. Entrega `retro-log.md` y pide a otra persona que proponga la acción a probar con tu registro.
 
 ## Ejercicios
 
-1. **Fundamental:** define Retrospectivas y mejora con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `plan.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Acciones:** modifica la política para trabajar por beneficio sobre coste y compara lo terminado y el beneficio con el orden de llegada.
+2. **Evaluación:** calcula cuántas semanas se necesitan para detectar una mejora de 30 % con potencia mayor al 80 %.
+3. **Miradas:** propón una regla de parada fijada de antemano y simula su tasa de falsas mejoras.
+4. **Cola:** busca la combinación de dos intervenciones que reduzca la espera a menos de 15 y estima su coste de implementación.
 
 ## Reto verificable
 
-Entrega el **plan adaptativo con riesgos y métricas de flujo** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `retro-log.md` con la predicción, las acciones acordadas con hipótesis, señal, duración y criterio de abandono, las tres tablas y la intervención elegida. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir cuándo evaluaría el cambio y qué resultado lo haría abandonar. No se aprueba por la cantidad de acciones acordadas ni por una conclusión sin criterio de abandono.
+
+## Caso conductor
+
+La plataforma de entregas de tareas continúa como caso conductor de la Parte 15. Esta clase deja el décimo artefacto: una acción de mejora con hipótesis, señal, duración y criterio de abandono, elegida con la capacidad real del equipo. `SE-191` combinará todo lo anterior en un taller de planificación bajo incertidumbre. Cambia después una sola cosa, el tamaño del lote de revisión, y observa cuánto tarda en notarse en el tablero.
+
+## Preguntas frecuentes
+
+### ¿Cuántas acciones debo acordar por retrospectiva?
+
+Las que quepan en tu capacidad de mejora: normalmente una o dos. Si tu capacidad real es nula, el primer cambio es crear esa capacidad.
+
+### ¿Cómo sé si una mejora funcionó?
+
+Fija antes de empezar la señal, el tiempo que esperarás y la decisión que tomarás. Compara con la línea base usando una prueba robusta (como la de rangos) y reconoce que con pocas semanas el resultado suele ser «no distinguible».
+
+### ¿Puedo evaluar cada semana?
+
+Puedes mirar, pero no decidir cada semana sin corregir por las miradas repetidas. La simulación mostró 19,7 % de falsas mejoras con doce miradas; fija una fecha o usa un método diseñado para evaluar de forma secuencial.
+
+### ¿Y si el problema es una persona?
+
+Una retrospectiva no es para juzgar personas; examina el sistema. Si un problema depende de una persona concreta, se aborda en otro marco (conversación individual, reasignación), con los mecanismos de apoyo de la organización.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **convertir una estimación en compromiso sin rango ni supuestos**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **acordar muchas acciones y terminar casi las mismas**. Simula 12 sprints con 8 acciones por retrospectiva y compara con 2.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** tras un año, 96 acciones acordadas y 14 terminadas, y la retrospectiva ya no genera ideas nuevas. **Hipótesis rivales:** (a) el equipo no se compromete; (b) las acciones son demasiado grandes; (c) se acuerdan más de las que caben. **Prueba:** calcula la capacidad total de mejora y divide por el costo medio de una acción; en la simulación, 9,4 terminadas con cualquier número acordado. **Conclusión:** la causa es el exceso de acuerdos sobre la capacidad. **Regresión:** limita a dos acciones por retrospectiva, evalúa las anteriores antes de acordar nuevas y mide las terminadas en el trimestre siguiente. No cambies a la vez el número de acciones y el formato de la reunión.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Las acciones pendientes crecen cada sprint | Se acuerdan más de las que caben | Limitar a la capacidad y evaluar antes de agregar |
+| Se declara fracaso a las dos semanas | Muestra insuficiente para detectar la mejora | Fijar de antemano el plazo de evaluación según el tamaño del efecto |
+| Se declara éxito la primera vez que el gráfico baja | Miradas repetidas sin corrección | Fijar la fecha de decisión o usar un procedimiento secuencial |
+| La respuesta al plazo largo es «trabajar más» | Se ignora la estructura del sistema | Identificar utilización, variabilidad y lotes antes de pedir esfuerzo |
+| En la retrospectiva solo salen causas externas | Falta de seguridad para hablar de las internas | Reconocer los reportes de error y facilitar de forma que no se busque culpables |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: tablero reproducible en Markdown o herramienta equivalente. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-190/
 ├── README.md
-│   ├── plan.md
-│   ├── risks.md
-│   ├── flow.csv
-├── activity.yaml
-└── rubric.json
+├── mejora/
+│   ├── acciones.py
+│   ├── evaluacion.py
+│   └── intervenciones.py
+├── tests/test_mejora.py
+└── evidence/retro-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `plan.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- las retrospectivas no deben convertirse en una evaluación del desempeño individual ni registrar atribuciones personales;
+- los datos del tablero usados en la reunión deben estar agregados y sin información de estudiantes;
+- las dinámicas deben admitir participación escrita y asíncrona para que no dependa de quien habla más fuerte;
+- documenta quién decidió abandonar o conservar un cambio y con qué evidencia;
+- respeta las licencias de los formatos de retrospectiva y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «resume la retrospectiva y propone acciones» generará una lista larga de acciones razonables sin comprobar la capacidad ni el modo de evaluarlas. Pídele en cambio que parta de las métricas del tablero, que proponga como máximo dos acciones con hipótesis, señal, duración y criterio de abandono, y que calcule cuántas semanas harían falta para detectar el efecto esperado. Revisa especialmente si recomienda «mayor compromiso» o «trabajar más»: es la intervención que la cola mostró inútil.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra práctica de mejora (por ejemplo, la revisión posterior a un incidente): cambia la capacidad, el efecto esperado y la señal, y conserva el procedimiento de limitar acciones, fijar el plazo de evaluación y comparar intervenciones sobre el sistema. La transferencia está lograda cuando puedes explicar qué parte del método dependía del tipo de mejora y cuál no, no cuando el código se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-190/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué acordar más acciones no termina más |
+| corrección | simulaciones reproducibles con las mismas semillas |
+| diseño | acción con hipótesis, señal, duración y criterio de abandono |
+| diagnóstico | reproducción del fallo «muchas acciones, pocas terminadas» con regresión |
+| incertidumbre | declaración de la potencia y de la tasa de falsas mejoras |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [The Scrum Guide](https://scrumguides.org/scrum-guide.html) — la retrospectiva como evento de inspección y adaptación; autoridad: Scrum.org y Scrum Inc. (autores de la guía).
+- [Principios del Manifiesto Ágil](https://agilemanifesto.org/principles.html) — reflexión periódica sobre cómo ser más efectivos; autoridad: autores del manifiesto.
+- [Edmondson, «Psychological safety and learning behavior in work teams» (Administrative Science Quarterly, 1999)](https://doi.org/10.2307/2666999) — seguridad psicológica y aprendizaje; autoridad: Administrative Science Quarterly.
+- [Mann y Whitney, «On a test of whether one of two random variables is stochastically larger than the other» (Annals of Mathematical Statistics, 1947)](https://doi.org/10.1214/aoms/1177730491) — prueba de rangos; autoridad: Annals of Mathematical Statistics.
+- [Little, «A proof for the queuing formula: L = λW» (Operations Research, 1961)](https://doi.org/10.1287/opre.9.3.383) — base de las intervenciones sobre el flujo; autoridad: Operations Research.
 
-- **The Scrum Guide** — Scrum Guide authors. [https://scrumguides.org/scrum-guide.html](https://scrumguides.org/scrum-guide.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Kanban Guide** — Kanban Guides. [https://kanbanguides.org/english/](https://kanbanguides.org/english/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 9,4 acciones, el 20,5 % de detección o la espera de 9,4 se observen en la plataforma de entregas. Esa afirmación depende de la capacidad real, del ruido de los datos y de la estructura del flujo.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones.
+- [Python: `statistics`](https://docs.python.org/3/library/statistics.html) — medias y resúmenes.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Retrospectivas y mejora del sistema de trabajo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-191`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se observó ninguna retrospectiva ni se evaluó un cambio real: la capacidad de mejora, el beneficio por acción, el efecto del 15 %, la dispersión y la cola de un servidor son construcciones del autor, y la prueba de rangos se implementó con aproximación normal. La siguiente clase aplica todo lo anterior a un taller de planificación con la incertidumbre explícita.
+
+## Glosario
+
+- **retrospectiva:** reunión periódica para examinar cómo trabajó el equipo y acordar cambios que puedan evaluarse.
+- **capacidad de mejora:** tiempo que el equipo dedica en cada ciclo a cambiar su propio sistema de trabajo.
+- **potencia:** probabilidad de detectar un efecto real con un procedimiento y un tamaño de muestra dados.
+- **mirada repetida:** comprobación de un resultado varias veces antes de decidir, que aumenta la probabilidad de declarar un efecto que no existe.
+- **intervención sobre el sistema:** cambio en una variable que determina el comportamiento del flujo (capacidad, lotes, variabilidad, límite de trabajo), no en el esfuerzo individual.
 
 ---
 

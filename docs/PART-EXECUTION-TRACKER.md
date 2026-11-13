@@ -44,7 +44,7 @@ su commit está en `main` con CI verde.
 | 19 | Desarrollada y profundizada con experimentos sintéticos y modelos de web, accesibilidad, caché y seguridad ejecutados en Windows y Linux CI verde | `739f9443` |
 | 20 | Desarrollada y profundizada con experimentos sintéticos y modelos de backend, APIs y procesamiento asíncrono ejecutados en Windows y Linux, CI verde | `1fb76b53` |
 | 21 | Desarrollada y profundizada con experimentos sintéticos y modelos de software móvil, escritorio y multiplataforma ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
-| 22 | Desarrollada y profundizada con simulaciones sintéticas de embebidos, IoT y tiempo real ejecutadas en Windows y Linux (pendiente de CI verde) | pendiente |
+| 22 | Desarrollada y profundizada con simulaciones sintéticas de embebidos, IoT y tiempo real ejecutadas en Windows y Linux, CI verde | `4dafaa63` |
 | 23–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

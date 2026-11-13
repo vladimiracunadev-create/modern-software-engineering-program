@@ -34,7 +34,7 @@ su commit está en `main` con CI verde.
 | 09 | Profundizada con experimentos de paquetes, SDK y automatización ejecutados en Windows y Linux, CI verde | `0f56ff75` |
 | 10 | Desarrollada y profundizada con experimentos sintéticos ejecutados en Windows y Linux; su ejecución de Validate fue cancelada por el push siguiente y el contenido quedó validado en verde por el commit `0f56ff75` | `08a052b4` |
 | 11 | Desarrollada y profundizada con experimentos sintéticos de economía, métricas y decisiones ejecutados en Windows y Linux, CI verde | `d96a14a6` |
-| 12 | Desarrollada y profundizada con experimentos sintéticos ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 12 | Desarrollada y profundizada con experimentos sintéticos de requisitos ejecutados en Windows y Linux, CI verde | `ab725ae6` |
 | 13–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

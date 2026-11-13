@@ -2,206 +2,298 @@
 
 [← SE-138 — Experimentos, sesgos y causalidad básica](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md) · [↑ Parte 11](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-139.html) · [SE-140 — FinOps de producto y costo por resultado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para elegir una métrica que oriente al equipo sin que arrastre lo que no se mide, y para acompañarla de límites que no se cruzan y de métricas contrarias que avisan cuándo la mejora de una cifra se paga con el deterioro de otra.
+
+**Por qué aparece aquí.** Se sitúa después de **Experimentos, sesgos y causalidad básica** y antes de **FinOps de producto y costo por resultado**: `SE-138` dejó cómo estimar un efecto; esta clase decide qué efecto interesa y qué no puede empeorar mientras se persigue. Fija el vocabulario (métrica norte, guarda, métrica contraria, descomposición) y deja un conjunto de métricas con contrapesos que `SE-143` organizará en un árbol.
+
+**Error conceptual que debe corregir.** Creer que una sola métrica norte basta, y que cuando sube todo va bien.
+
+**Secuencia de aprendizaje.** Antes de ejecutar, predices hasta dónde empujaría una métrica norte un recordatorio semanal si nada la frenara; después simulas el optimizador con y sin guarda, mides cuántas alarmas falsas produce vigilar varias guardas a la vez y descompones un cambio de la métrica norte en sus factores. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `metric-guardrails.md` con la métrica norte y su definición calculable, las guardas con umbral y responsable, el resultado de optimizar con y sin guarda, la tasa de alarmas falsas con varias guardas y la descomposición de un cambio con su incertidumbre.
+
+**Límite de la conclusión.** Las relaciones entre recordatorios, entregas y quejas son supuestos del autor; no se midió ninguna plataforma. Los experimentos muestran el mecanismo por el que una métrica optimizada sin contrapeso se aleja del objetivo y el precio estadístico de vigilar varias guardas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Google Research: HEART framework](https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/) | Propone medir la experiencia con varias dimensiones (felicidad, compromiso, adopción, retención, éxito en la tarea) y definir objetivos, señales y métricas para cada una. | No dice cuál es la dimensión norte de la plataforma. |
+| [Google SRE: Embracing Risk](https://sre.google/sre-book/embracing-risk/) | Un presupuesto de error fija un límite explícito al riesgo que se acepta por velocidad de cambio, y decide cuándo se detiene el lanzamiento. | No fija el umbral de queja o de error que conviene a la plataforma. |
+| [Manheim y Garrabrant: Categorizing Variants of Goodhart's Law](https://arxiv.org/abs/1803.04585) | Optimizar una medida con fuerza hace que se aleje del objetivo que representaba. | No cuantifica la distancia en un caso concreto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-135` y `SE-138`: una meta cambia la conducta, y un efecto se estima con una comparación justa. La pregunta activa es: **¿qué métrica orienta al equipo y qué no puede empeorar para que valga la pena subirla?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-138` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor y hoja de cálculo sin datos personales reales.
+- Haber completado `SE-138` o poder explicar cómo se estima un efecto con asignación aleatoria.
+- Python 3.11 o posterior y un terminal.
+- Trabajar solo con datos sintéticos; ninguna observación necesita datos de personas reales.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **North Star, guardrails y métricas contrarias**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma elige como métrica norte «entregas a tiempo». El equipo prueba más recordatorios por semana y las entregas a tiempo suben de 61 % a 95 %. Al mes, los centros piden desactivar los avisos y soporte recibe quejas. Nadie definió un límite de quejas antes del experimento, y el panel solo mostraba la métrica norte.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar North y Star con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **árbol de métricas y caso de decisión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «optimizar actividad o una vanity metric en lugar del resultado» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| North | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Star | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Guardrails | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Métricas | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. definir una métrica norte con numerador, denominador y ventana, y explicar qué decisión orienta;
+2. fijar guardas con umbral, responsable y acción cuando se cruzan;
+3. comprobar con una simulación qué ocurre al optimizar la métrica norte con y sin guarda;
+4. calcular la tasa de alarmas falsas al vigilar varias guardas y el costo de corregirla en potencia;
+5. descomponer un cambio de la métrica norte en factores y declarar la incertidumbre de la atribución.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: North Star, guardrails y métricas contrarias"] --> M["Modelo: North"]
-    M --> D["Decisión: Star"]
-    D --> E["Evidencia: guardrails"]
-    E --> R["Revisión: métricas"]
-    R -->|nueva información| M
+    N1[Métrica norte] --> N2[Guardas] --> N3[Métricas contrarias] --> N4[Descomposición] --> N5[Alarmas y potencia]
+    N5 -->|un umbral o una definición cambia| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **North Star, guardrails y métricas contrarias**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una guarda cruzada o una alarma falsa recurrente obliga a revisar la métrica norte; no autoriza a retirar la guarda.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Métrica norte | Orienta decisiones de todo el equipo; si no representa valor, orienta mal a todos. | Definición calculable y la decisión que orienta en `metric-guardrails.md` |
+| Guardas | Marcan lo que no puede empeorar; sin ellas, optimizar una cifra gasta lo que no se mide. | Lista de guardas con umbral, responsable y acción |
+| Métricas contrarias | Son la otra cara de la meta: calidad frente a volumen, queja frente a uso. | Pares meta–contraria con el mecanismo del daño |
+| Descomposición | Explica qué factor movió la métrica y evita celebrar o corregir el equivocado. | Contribución por factor y su incertidumbre |
+| Alarmas y potencia | Vigilar muchas guardas produce alarmas falsas; corregirlas cuesta potencia. | Tasa de alarmas falsas con K guardas y potencia con y sin corrección |
 
 ## Conceptos y decisiones
 
-Una métrica representa parcialmente un resultado y puede cambiar conductas; por eso se interpreta junto con costo, población, ventana temporal y guardrails.
+### 1. Métrica norte
 
-La pregunta rectora de esta parte es: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** La respuesta debe
-apoyarse en **definición calculable, fuente de datos, segmento, tendencia y métrica contraria**.
+Una métrica norte es la medida única que mejor resume el valor que el producto entrega y que el equipo puede mover. Debe ser un resultado y no una actividad (`SE-135`), calculable y sensible al cambio. En la plataforma, «entregas aceptadas a tiempo por estudiante activo de la semana» es un candidato; «sesiones» no lo es. Una métrica norte orienta, no gobierna: nunca debe usarse sin lo que la rodea.
 
-### 1. North: modelo
+### 2. Guardas
 
-En esta clase, **North** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **North Star, guardrails y métricas contrarias**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una guarda es un límite de una métrica que no se debe empeorar al perseguir la métrica norte: tasa de quejas, tiempo de carga, tasa de errores, baja del servicio. Cada una tiene umbral, responsable y acción (detener el despliegue, revertir, convocar revisión). El presupuesto de error del enfoque de fiabilidad es una guarda: fija cuánto riesgo se acepta para ir más rápido. Sin umbral previo, la guarda es una opinión.
 
-### 2. Star: mecanismo
+### 3. Métricas contrarias
 
-En esta clase, **Star** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **North Star, guardrails y métricas contrarias**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una métrica contraria es la contraparte directa de una meta: si la meta premia el volumen, la contraria mide la calidad; si premia la velocidad, la contraria mide los errores. Se elige preguntando cómo se cumpliría la meta sin cumplir su propósito. Se vigila a la vez que la meta, con la misma frecuencia y visibilidad.
 
-### 3. Guardrails: evidencia
+### 4. Descomposición
 
-En esta clase, **guardrails** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **North Star, guardrails y métricas contrarias**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una métrica norte producto de factores (alcance × frecuencia × éxito) se descompone para saber qué factor explicó un cambio. Con logaritmos, la contribución de cada factor suma el cambio total sin depender del orden; con sustitución secuencial, depende del orden y se informa un rango. Cuando el cambio total es pequeño, las participaciones se vuelven inestables y no se informan como porcentajes.
 
-### 4. Métricas: decisión
+### 5. Alarmas y potencia
 
-En esta clase, **métricas** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **North Star, guardrails y métricas contrarias**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada guarda con umbral al 5 % tiene una probabilidad de alarma falsa de 5 % en ausencia de efecto; con K guardas, la probabilidad de alguna alarma es 1 − 0,95^K. Dividir el umbral entre K (corrección de Bonferroni) devuelve la tasa global a 5 %, y reduce la potencia para detectar un daño real. No existe una solución libre: se elige según el costo de cada error.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Optimizar solo la métrica norte la lleva a donde nadie quería ir
+
+Se modela un recordatorio de f avisos por semana: la proporción de entregas a tiempo es min(0,95; 0,60 + 0,05 f) y la de personas que se quejan, 0,01 + 0,004 f². Con 5 000 personas por nivel (f de 0 a 10) y semilla 1391, un optimizador elige el f con mayor métrica norte; otro exige además quejas de 3 % o menos. Predicción: ¿dónde se detiene cada uno?
+
+```python
+rng = random.Random(1391)
+a_tiempo = rng.random() < min(0.95, 0.60 + 0.05 * f)
+queja = rng.random() < 0.01 + 0.004 * f * f
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3): sin f = 0, 61,5 % a tiempo y 0,9 % de quejas; con f = 2, 70,0 % y 2,4 %; con f = 4, 80,2 % y 7,5 %; con f = 6, 89,5 % y 15,4 %; con f = 8, 95,4 % y 26,2 %; con f = 10, 95,1 % y 39,8 %. El optimizador de la métrica norte elige f = 8: 95,4 % de entregas y 26,2 % de quejas. Con la guarda de quejas ≤ 3 %, el óptimo es f = 2: 70,0 % y 2,4 %. Pasar de 2 a 8 recordatorios suma 25 puntos de entregas y 24 puntos de quejas. Una vez que la métrica norte satura (f = 8 a 10), más avisos no la suben y las quejas continúan.
+
+![Tabla de recordatorios por semana con entregas a tiempo y quejas, y el óptimo con y sin guarda.](../../../content/part-11/figures/se-139-norte-con-y-sin-guarda.svg)
+
+**Cómo leer la figura.** Cada fila es un nivel de recordatorios; las dos filas con anotación son los óptimos de cada criterio. **Dónde deja de valer:** la relación entre avisos, entregas y quejas es un supuesto del autor, con una curva de quejas cuadrática elegida para mostrar el mecanismo. En una plataforma real se mide con un experimento (`SE-138`) y el umbral de quejas lo decide una persona, no el optimizador.
+
+### Vigilar varias guardas produce alarmas falsas
+
+Se simulan 1 000 experimentos sin diferencia real y K guardas independientes, cada una con un contraste al 5 %. Predicción: ¿cuántos experimentos tendrán al menos una alarma con K = 10?
+
+```python
+z = rng.gauss(0, 1)
+p = math.erfc(abs(z) / math.sqrt(2))
+alguna = min(ps) < 0.05          # o 0.05 / K con la corrección
+```
+
+Con K = 1, 4,7 % tienen alguna alarma; con K = 3, 15,8 %; con K = 5, 22,1 %; con K = 10, 41,4 %; con K = 20, 65,2 % (la teoría 1 − 0,95^K da 5,0 %, 14,3 %, 22,6 %, 40,1 % y 64,2 %). Con el umbral dividido entre K, la tasa global queda cerca de 5 % (4,7 %, 5,1 %, 5,1 %, 5,1 %, 5,3 %). El costo: con 800 personas por brazo y un daño real de 0,15 desviaciones típicas, la potencia pasa de 85,4 % con α = 0,05 a 59,0 % con α = 0,005 (K = 10). Vigilar mucho sin corregir produce alarmas ante las que el equipo aprende a ignorar la guarda; corregir sin ampliar la muestra deja pasar daños reales.
+
+![Tabla de alarmas falsas según el número de guardas, con y sin corrección del umbral.](../../../content/part-11/figures/se-139-alarmas-falsas-con-varias-guardas.svg)
+
+**Cómo leer la figura.** Cada fila es un número de guardas; las columnas comparan la tasa observada con α = 0,05, la teoría y la tasa con el umbral dividido entre K. **Dónde deja de valer:** las guardas son independientes en la simulación; las reales se correlacionan (más errores suelen implicar más quejas), lo que reduce las alarmas falsas conjuntas. La corrección de Bonferroni es conservadora; existen alternativas, y la elección depende del costo de cada error.
+
+### Descomponer el cambio para saber qué lo movió
+
+La métrica norte pasa de 8 000 estudiantes activos × 3,1 entregas por activo × 0,91 de aceptación (22 568) a 9 200 × 3,0 × 0,95 (26 220), un cambio de +16,2 %. Predicción: ¿qué factor explicó más?
+
+```python
+logs = {"alcance": math.log(9200 / 8000), "frecuencia": math.log(3.0 / 3.1), "éxito": math.log(0.95 / 0.91)}
+total = math.log(26220 / 22568)
+partes = {k: v / total for k, v in logs.items()}
+```
+
+En escala logarítmica, el alcance explica 93,2 % del cambio, la frecuencia resta 21,9 % y el éxito suma 28,7 %. Con sustitución secuencial, la contribución depende del orden: el alcance aporta entre 3 276 y 3 534 entregas, la frecuencia entre −874 y −728, el éxito entre 960 y 1 141, con un total de 3 652. Al añadir un error de 3 % a cada lectura (5 000 sorteos), el factor principal cambia en 8,5 % de los casos: aquí es robusto, pero en un cambio total pequeño no lo sería. Informar «el alcance explicó 93 %» sin el rango ni el método oculta que el reparto es una convención.
+
+![Tabla con los tres factores de la métrica norte, su cambio, su parte logarítmica y su rango por sustitución secuencial.](../../../content/part-11/figures/se-139-descomposicion-de-la-metrica-norte.svg)
+
+**Cómo leer la figura.** Cada fila es un factor; la tercera columna es su parte en logaritmos (suma 100 %) y la cuarta, el rango según el orden de sustitución. **Dónde deja de valer:** la descomposición supone que la métrica es un producto exacto de los factores y que no hay interacciones fuera del producto; no dice por qué cambió cada factor. Atribuir causa a un factor exige experimentos (`SE-138`).
 
 ## Definiciones de trabajo
 
-- **North:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Star:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Guardrails:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Métricas:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
+- **métrica norte:** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
+- **guarda:** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
+- **métrica contraria:** contraparte de una meta que mide el daño posible de perseguirla.
+- **descomposición:** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+- **corrección por comparaciones múltiples:** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **North Star, guardrails y métricas contrarias**:
+Predice el óptimo de un recordatorio que sube las entregas 5 puntos por aviso y las quejas con el cuadrado de los avisos, con una guarda de 3 % de quejas.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+for f in range(0, 6):
+    entregas = min(0.95, 0.60 + 0.05 * f)
+    quejas = 0.01 + 0.004 * f * f
+    print(f, round(entregas, 2), round(quejas, 3), quejas <= 0.03)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Con f = 2 las quejas valen 0,026 y pasa; con f = 3, 0,046 y no pasa. Registra versión del intérprete, comando y salida; el óptimo con guarda es f = 2.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **North Star, guardrails y métricas contrarias**. Parte de esta pregunta: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando definición calculable, fuente de datos, segmento, tendencia y métrica contraria. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `metric-tree.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, `metric-guardrails.md` define la métrica norte (numerador, denominador, ventana, filtros), las guardas (métrica, umbral, ventana, responsable, acción) y los pares meta–contraria. El contrato es que ninguna prueba arranca sin guardas y que cruzar una guarda detiene el despliegue hasta que el responsable decide. Esa estructura permite que una revisión externa verifique que el equipo no podía optimizar sin frenos.
+
+Compara el caso normal con una guarda que se cruza por un incidente ajeno al cambio, con una que no se puede medir en la ventana del experimento, con una guarda de rendimiento que depende del dispositivo y con una métrica contraria que solo se mide en un subconjunto. La estructura es adecuada cuando esas excepciones tienen regla escrita; es peligrosa cuando la decisión de ignorar una guarda no deja huella.
 
 ## Práctica guiada
 
-1. Crea `work/SE-139/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el árbol de métricas y caso de decisión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de guardas (métrica, umbral, ventana, responsable, acción) antes de optimizar.
+2. Predice dónde se detiene un optimizador de la métrica norte sin guarda y anótalo.
+3. Simula once niveles del recordatorio con semilla fija y registra entregas y quejas.
+4. Elige el óptimo con y sin guarda de 3 % y explica la diferencia.
+5. Simula experimentos sin efecto con K = 1, 3, 5, 10 y 20 guardas y mide la tasa de alarmas con y sin corrección.
+6. Descompón un cambio de la métrica norte en tres factores con logaritmos y con sustitución en los seis órdenes.
+7. Pide a otra persona que reconstruya el óptimo, las alarmas y la descomposición solo con `metric-guardrails.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define North y Star con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `metric-tree.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Umbral:** repite el optimizador con una guarda de 5 % y de 1 % y describe cómo cambian el óptimo y la métrica norte.
+2. **Forma:** cambia las quejas a una función lineal (0,01 + 0,02 f) y explica cómo cambia el punto donde la guarda se cruza.
+3. **Guardas correlacionadas:** simula cinco guardas con correlación 0,6 y compara las alarmas falsas con las del caso independiente.
+4. **Descomposición:** descompón un cambio de +2 % de la métrica en tres factores que suben, bajan y casi no cambian, y explica por qué las participaciones no deben informarse.
 
 ## Reto verificable
 
-Entrega el **árbol de métricas y caso de decisión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `metric-guardrails.md` con la métrica norte, tres guardas con umbral y responsable, el optimizador con y sin guarda, la tabla de alarmas falsas con y sin corrección y la descomposición con su rango. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números con la semilla indicada y puede decir qué guarda se cruzó primero. No se aprueba por la cantidad de guardas.
+
+## Caso conductor
+
+La plataforma de entregas continúa como caso. Esta clase deja una métrica norte con guardas y un procedimiento para descomponerla. `SE-140` calculará el costo por resultado de esa métrica y `SE-143` la ubicará en un árbol completo. Cambia después una sola guarda y revisa qué decisiones del registro cambian.
+
+## Preguntas frecuentes
+
+### ¿Una sola métrica norte no basta para alinear al equipo?
+
+Alinea, pero no protege. En el experimento, quien optimiza solo las entregas a tiempo sube 25 puntos y acepta 24 puntos más de quejas sin que su métrica lo muestre. Se necesita la métrica norte para orientar y las guardas para limitar.
+
+### ¿Cuántas guardas debo vigilar?
+
+Las que respondan a un daño que no aceptarías. Cada una añade alarmas falsas (con 10, el 41 % de los experimentos sin diferencia dispara alguna) y exige umbral y responsable. Mejor pocas guardas con acción clara que muchas que se ignoran.
+
+### ¿La guarda debe ser estadística o un valor fijo?
+
+Ambas formas se usan. Un valor fijo (tasa de quejas ≤ 3 %) es simple y exige una muestra suficiente para medirse; una guarda estadística (no peor que el control con cierta confianza) detecta degradaciones pequeñas y requiere corrección por comparaciones múltiples. Se escribe cuál se usa y por qué.
+
+### ¿Puede un modelo de lenguaje proponer las guardas?
+
+Puede listar candidatas, pero cada umbral es una decisión sobre qué daño se acepta y quién responde. Exige el umbral, el responsable y la acción por escrito antes de aceptar la lista.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **optimizar actividad o una vanity metric en lugar del resultado**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **optimizar la métrica norte sin una métrica contraria**. Elige el nivel de recordatorios con mayor entrega a tiempo y observa las quejas.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** las entregas a tiempo suben a 95 % y los centros piden desactivar los avisos. **Hipótesis rivales:** (a) los avisos son valiosos y los centros no entienden; (b) los avisos superan un umbral de molestia; (c) la queja es un error de medición. **Prueba:** mide quejas por nivel; crecen con el cuadrado de los avisos y llegan a 26,2 % en f = 8, lo que sostiene (b). **Conclusión:** la métrica norte saturaba y las quejas seguían creciendo. **Regresión:** añade al contrato una prueba que falle si un experimento arranca sin guardas o si se cruza una sin acción registrada. No cambies a la vez el umbral y la definición de queja.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| La métrica norte sube y el producto empeora | No hay guardas | Definir guardas con umbral antes de optimizar |
+| El equipo ignora las alarmas de las guardas | Hay demasiadas y sin corrección | Reducir las guardas y corregir las comparaciones múltiples |
+| Una guarda se cruza y nadie actúa | No tiene responsable ni acción | Escribir quién decide y qué ocurre al cruzarla |
+| La descomposición atribuye 90 % a un factor | Se usó un solo orden de sustitución | Usar logaritmos o informar el rango de órdenes |
+| La métrica norte cambia de tendencia sin razón | Cambió su definición | Registrar cambios de definición con fecha y recalcular |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor y hoja de cálculo sin datos personales reales. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-139/
 ├── README.md
-│   ├── metric-tree.md
-│   ├── decision.csv
-│   ├── guardrails.md
-├── activity.yaml
-└── rubric.json
+├── guardas/
+│   ├── optimizador.py
+│   ├── alarmas.py
+│   └── descomposicion.py
+├── fixtures/niveles.csv
+├── tests/test_guardas.py
+└── evidence/metric-guardrails.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `metric-tree.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas (1391, 1392, 1393) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `math`, `statistics`, `itertools`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una guarda de quejas protege a personas reales: no la retires para cumplir una meta ni cambies su definición para que no se cruce;
+- las guardas de acceso (errores en lectores de pantalla, carga en conexiones lentas) protegen a quienes menos reportan: inclúyelas;
+- una métrica norte que premia entregas a tiempo puede castigar a estudiantes con barreras de acceso: revisa su efecto por segmento;
+- ofrece una alternativa textual a cada tabla y describe el umbral con palabras;
+- no pegues quejas reales en un modelo de lenguaje sin política de datos;
+- atribuye las fuentes usadas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «optimiza la métrica norte» propondrá cambios que la suben, y los llevará hasta donde sea posible. Pídele que declare las guardas y sus umbrales antes de empezar, que informe cada resultado junto con las métricas contrarias, que deje el código y la semilla del experimento y que se detenga cuando una guarda se cruce. Revisa especialmente si propone más de lo mismo cuando la métrica ya satura: es el mismo error del optimizador sin freno, ahora con apariencia de iteración.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro dominio persistente (por ejemplo, un servicio de reparto): cambia los recordatorios por notificaciones de pedido y la queja por la baja de notificaciones; conserva el contrato de guardas y comprueba si el optimizador sin guarda vuelve a pasar el umbral. La transferencia está lograda cuando puedes explicar qué dependía del dominio y qué no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-139/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación del papel de la métrica norte, las guardas y las contrarias |
+| corrección | óptimos, alarmas y descomposición reproducibles con la misma semilla |
+| diseño | contrato de guardas con umbral, responsable y acción |
+| diagnóstico | reproducción del fallo «norte sin contraria» con regresión |
+| incertidumbre | rango de la descomposición y potencia con y sin corrección |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Measuring the User Experience on a Large Scale: HEART (Google Research)](https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/) — dimensiones de experiencia y su traducción a objetivos y métricas; autoridad: Google Research.
+- [Google SRE Book: Embracing Risk](https://sre.google/sre-book/embracing-risk/) — presupuestos de error como límite explícito al riesgo; autoridad: Google SRE.
+- [Categorizing Variants of Goodhart's Law](https://arxiv.org/abs/1803.04585) — cómo una medida deja de informar al volverse objetivo; autoridad: investigación publicada en arXiv.
+- [DORA: Software delivery performance metrics](https://dora.dev/guides/dora-metrics-four-keys/) — métricas equilibradas de velocidad y estabilidad; autoridad: DORA (Google Cloud).
+- [Trustworthy Online Controlled Experiments](https://experimentguide.com/) — métricas guarda y comparaciones múltiples en experimentos; autoridad: Kohavi, Tang y Xu (Cambridge University Press).
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las guardas elegidas para la plataforma sean las adecuadas. Esa afirmación depende de datos reales y de la revisión de otra persona.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `itertools.permutations`](https://docs.python.org/3/library/itertools.html#itertools.permutations) — órdenes de sustitución de la descomposición.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generadores con semilla.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **North Star, guardrails y métricas contrarias**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-140`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna plataforma; las relaciones entre recordatorios, entregas y quejas, la independencia de las guardas y la convención de descomposición son supuestos del autor. La siguiente clase pasa de qué medir a cuánto cuesta cada resultado.
+
+## Glosario
+
+- **métrica norte:** medida única de resultado que resume el valor entregado y orienta las decisiones del equipo.
+- **guarda:** límite de una métrica que no debe empeorar al perseguir la métrica norte, con umbral, responsable y acción.
+- **métrica contraria:** contraparte de una meta que mide el daño posible de perseguirla.
+- **descomposición:** reparto del cambio de una métrica entre los factores que la componen, con convención y orden declarados.
+- **corrección por comparaciones múltiples:** ajuste del umbral para que la tasa global de alarmas falsas se mantenga en un nivel dado.
 
 ---
 

@@ -20,7 +20,7 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 132 | Partes 00–10 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 144 | Partes 00–11 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
 | clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
@@ -213,6 +213,20 @@ incluye tres experimentos con datos sintéticos y semilla fija, ejecutados en Wi
 Ubuntu (WSL2), y declara que no se entrevistó a nadie ni se midió ningún mercado real.
 Las doce clases todavía requieren revisión y no presentan una regla de priorización, un
 validador o un intervalo como sustitutos del juicio y la investigación con personas.
+
+## Avance editorial de la Parte 11
+
+Las clases `SE-133`–`SE-144` se reconstruyeron en `content/part-11/` sobre la misma plataforma de entregas de
+tareas, ahora vista desde su economía. El recorrido expresa el modelo de negocio con rangos; descompone el costo
+de propiedad; separa resultado de actividad; define adopción y retención por cohortes; decide qué telemetría
+recoger con consentimiento y minimización; distingue una diferencia de un efecto; pone guardas y métricas
+contrarias a una meta; calcula el costo por resultado; elige una cartera y evalúa opciones; clasifica decisiones
+por reversibilidad; organiza las métricas en un árbol con validador; y termina en un caso de viabilidad con valor
+presente como intervalo y una regla de abandono cuyo costo se mide. Cada clase incluye tres experimentos con datos
+sintéticos y semilla fija, ejecutados en Windows y Ubuntu (WSL2) con salidas idénticas, y declara que no se midió
+ninguna plataforma, mercado ni persona real y que `SE-137` no es asesoría legal. Las doce clases todavía requieren
+revisión y no presentan un intervalo, un validador ni una regla de abandono como sustitutos del juicio, de los datos
+propios y de la revisión de otra persona.
 
 ## Orden de reconstrucción
 

@@ -2,206 +2,299 @@
 
 [← SE-141 — Portafolio, opciones y secuenciación de inversión](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md) · [↑ Parte 11](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-142.html) · [SE-143 — Taller: diseñar un árbol de métricas →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir las decisiones que se pueden deshacer de las que no, calcular cuánto cuesta deshacer cada una y diseñar los cambios para que el costo de equivocarse sea pequeño y se descubra pronto.
+
+**Por qué aparece aquí.** Se sitúa después de **Portafolio, opciones y secuenciación de inversión** y antes de **Taller: diseñar un árbol de métricas**: `SE-141` dejó una cartera y un orden; esta clase pregunta, para cada decisión, cuánto cuesta equivocarse y cuánto puede deshacerse. Fija el vocabulario (reversible, irreversible, costo de reversión, despliegue progresivo) y deja una regla para decidir cuánta evidencia exige cada decisión.
+
+**Error conceptual que debe corregir.** Tratar todas las decisiones con el mismo nivel de cautela, o creer que existir un procedimiento de reversión (un script «down») hace reversible un cambio.
+
+**Secuencia de aprendizaje.** Antes de ejecutar, predices a partir de qué probabilidad de equivocarse conviene probar con vuelta atrás; después ejecutas seis migraciones de base de datos con su reversión y mides cuántas filas vuelven idénticas, y comparas desplegar de golpe con desplegar por etapas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `decision-reversibility.md` con el umbral de probabilidad de equivocarse que cambia la decisión, el resultado de seis migraciones con su ida y vuelta, la comparación de despliegue de golpe y por etapas con personas afectadas, y una clasificación de las decisiones de la plataforma en reversibles, costosas de revertir e irreversibles.
+
+**Límite de la conclusión.** Las pérdidas, las probabilidades y las tasas de reporte son supuestos del autor; los datos de las migraciones son sintéticos. Las migraciones se ejecutaron en SQLite y no representan a otros motores ni volúmenes mayores.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Amazon: Letter to Shareholders](https://www.aboutamazon.com/news/company-news/2016-letter-to-shareholders) | Distingue decisiones irreversibles (de un solo sentido), que exigen un proceso cuidadoso, de decisiones reversibles (de dos sentidos), que pueden tomarse con un proceso ligero. | No dice dónde está esa frontera en la plataforma ni demuestra el beneficio. |
+| [Google SRE Workbook: Canarying Releases](https://sre.google/workbook/canarying-releases/) | Desplegar a una fracción de tráfico y comparar con el resto limita el daño de un defecto y permite detectarlo antes de la exposición total. | No fija el tamaño de las etapas ni el umbral de detección. |
+| [SQLite: ALTER TABLE](https://www.sqlite.org/lang_altertable.html) | Documenta qué cambios de esquema admite el motor (renombrar, añadir y quitar columnas) y sus restricciones. | No garantiza que deshacer un cambio recupere los datos. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-141`: una opción vale por lo que permite evitar. La pregunta activa es: **¿cuánto cuesta equivocarme con esta decisión, qué parte puedo deshacer y cuánto tardo en enterarme?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-141` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor y hoja de cálculo sin datos personales reales.
+- Haber completado `SE-141` o poder explicar el valor de invertir por etapas.
+- Python 3.11 o posterior con `sqlite3` (incluido en la biblioteca estándar) y un terminal.
+- Trabajar solo con datos sintéticos y correos de dominio reservado `.test`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Decisiones reversibles e irreversibles**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma va a cambiar su esquema de base de datos: partir el nombre en dos columnas, guardar precios en centavos enteros, eliminar un campo que «nadie usa» y reemplazar el correo por un hash. Cada migración incluye un script de reversión. Además, la versión nueva se despliega a todos los centros a las 18:00 del viernes. Nadie ha preguntado qué datos se recuperan al revertir ni cuántas personas verían un defecto antes de que alguien lo reporte.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Decisiones y reversibles con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **árbol de métricas y caso de decisión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «optimizar actividad o una vanity metric en lugar del resultado» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Decisiones | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Reversibles | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Irreversibles | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Valor | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. calcular la probabilidad de equivocarse a partir de la cual conviene una opción reversible con costo de prueba;
+2. medir la reversibilidad de una migración comparando los datos antes y después de ida y vuelta;
+3. comparar el despliegue de golpe con el progresivo en personas afectadas y etapa de detección;
+4. clasificar las decisiones de la plataforma por reversibilidad y decir cuánta evidencia exige cada una;
+5. declarar qué cambios no pueden deshacerse y qué se hace antes de ejecutarlos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Decisiones reversibles e irreversibles"] --> M["Modelo: Decisiones"]
-    M --> D["Decisión: reversibles"]
-    D --> E["Evidencia: irreversibles"]
-    E --> R["Revisión: valor"]
-    R -->|nueva información| M
+    N1[Costo de equivocarse] --> N2[Costo de revertir] --> N3[Reversibilidad medida] --> N4[Despliegue progresivo] --> N5[Evidencia exigida]
+    N5 -->|aparece un daño no reversible| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Decisiones reversibles e irreversibles**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un daño que no se puede deshacer reabre el análisis; no autoriza a confiar en el script de reversión.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Costo de equivocarse | Decide cuánta evidencia justifica actuar; si es bajo, se prueba, y si es alto, se estudia. | Pérdida estimada y probabilidad en `decision-reversibility.md` |
+| Costo de revertir | Lo que cuesta volver atrás (tiempo, dinero, confianza) separa decisiones de dos sentidos de las de uno. | Costo de reversión por decisión |
+| Reversibilidad medida | Un script de reversión no garantiza recuperar los datos; solo la comparación antes y después lo prueba. | Filas idénticas tras ida y vuelta por migración |
+| Despliegue progresivo | Limitar la exposición reduce el daño de un defecto y acorta el tiempo hasta verlo. | Personas afectadas con despliegue de golpe y por etapas |
+| Evidencia exigida | Las decisiones irreversibles piden más evidencia, revisión y un plan de salida; las reversibles, un experimento barato. | Clasificación con la evidencia exigida a cada decisión |
 
 ## Conceptos y decisiones
 
-Una métrica representa parcialmente un resultado y puede cambiar conductas; por eso se interpreta junto con costo, población, ventana temporal y guardrails.
+### 1. Costo de equivocarse
 
-La pregunta rectora de esta parte es: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** La respuesta debe
-apoyarse en **definición calculable, fuente de datos, segmento, tendencia y métrica contraria**.
+Es la pérdida esperada si la decisión resulta mala: lo que se pierde por el daño y por el tiempo hasta corregirlo. Se estima con una probabilidad de equivocarse y una pérdida si se equivoca. Ambas son inciertas, y la decisión no debería cambiar con la segunda cifra decimal: si cambia, falta evidencia o la decisión es más difícil de lo que parece.
 
-### 1. Decisiones: modelo
+### 2. Costo de revertir
 
-En esta clase, **Decisiones** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Decisiones reversibles e irreversibles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una decisión de dos sentidos puede deshacerse a un costo bajo; una de un solo sentido, no. Entre ambas hay un continuo: revertir una configuración cuesta minutos; revertir una migración que descartó datos cuesta la confianza de los usuarios y una reconstrucción manual; revertir una promesa pública cuesta reputación. El costo de revertir incluye el tiempo en que el error estuvo expuesto, no solo la operación inversa.
 
-### 2. Reversibles: mecanismo
+### 3. Reversibilidad medida
 
-En esta clase, **reversibles** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Decisiones reversibles e irreversibles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La reversibilidad de un cambio de datos se comprueba aplicando el cambio, su inverso y comparando con el estado original. Muchas migraciones «reversibles» no devuelven los datos: borrar una columna elimina su contenido; convertir decimales a enteros redondea; sustituir un correo por su hash es unidireccional por diseño. Un script «down» que recrea la estructura, vacía de datos, se parece a una reversión y no lo es.
 
-### 3. Irreversibles: evidencia
+### 4. Despliegue progresivo
 
-En esta clase, **irreversibles** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Decisiones reversibles e irreversibles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Desplegar a una fracción creciente de personas limita cuántas ven un defecto antes de detectarlo. La detección depende de cuántas personas se ven afectadas y de qué fracción lo reporta: un defecto frecuente se ve en la primera etapa; uno raro, solo cuando la exposición es mayor. El diseño de las etapas y del umbral de detección es una decisión que se escribe antes de desplegar.
 
-### 4. Valor: decisión
+### 5. Evidencia exigida
 
-En esta clase, **valor** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Decisiones reversibles e irreversibles**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La evidencia que pide una decisión crece con su costo de equivocarse y su irreversibilidad. Una decisión reversible y barata se toma con un experimento; una irreversible y cara exige revisión de otra persona, una copia de seguridad verificada, un plan de salida y una ventana de observación. Lo irreversible no se prohíbe, se hace con otra disciplina, y a veces se descompone en un paso reversible y uno irreversible.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Probar con vuelta atrás conviene sobre cierto umbral de probabilidad
+
+Una decisión puede tomarse de forma irreversible (comprometerse ya) o reversible (probar a un costo T de 4 y, si resulta mala, revertir a un costo R de 20). Equivocarse sin posibilidad de revertir cuesta L = 100. Predicción: ¿a partir de qué probabilidad de equivocarse gana la opción reversible?
+
+```python
+irreversible = L * p
+reversible = T + R * p
+umbral = T / (L - R)          # 4 / 80
+```
+
+El umbral es 5,0 %. Con costo de revertir 5 baja a 4,2 %; con 50 sube a 8,0 %. Con 40 000 casos y semilla 1421: con p = 2 %, la pérdida esperada es 2,0 si es irreversible y 4,4 si es reversible (conviene comprometerse); con 5 %, 5,0 y 4,9 (el cruce); con 10 %, 9,9 y 6,0; con 30 %, 30,3 y 9,9. Resultado idéntico en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3). Por debajo del umbral, probar cuesta más de lo que evita; por encima, probar es mejor.
+
+![Tabla con la pérdida esperada de una decisión irreversible y de una reversible según la probabilidad de equivocarse.](../../../content/part-11/figures/se-142-umbral-de-reversibilidad.svg)
+
+**Cómo leer la figura.** Cada fila es una probabilidad de equivocarse; las dos columnas centrales son las pérdidas esperadas de cada opción y la última dice cuál conviene. **Dónde deja de valer:** las tres cifras (100, 20, 4) son supuestos, y la probabilidad de equivocarse casi nunca se conoce con precisión. El umbral sirve para ver cuánta probabilidad hace falta para cambiar la decisión; si tu probabilidad está lejos del umbral, la decisión es robusta.
+
+### Seis migraciones con su ida y vuelta
+
+Se crea una tabla con 10 000 filas sintéticas (identificador, nombre compuesto, correo `.test`, precio decimal, curso) en SQLite en memoria (3.45.3 en Windows, 3.45.1 en Ubuntu). Para cada migración se aplica el cambio, su inversa y se cuenta cuántas filas quedan idénticas a las originales.
+
+```python
+before = {r[0]: r[1:] for r in db.execute("select id, nombre, email, precio, curso from t")}
+# migración y su inversa
+after = {r[0]: r[1:] for r in db.execute("select id, nombre, email, precio, curso from t")}
+identicas = sum(before[k] == after[k] for k in before)
+```
+
+Añadir una columna nula y quitarla: 10 000 de 10 000 idénticas. Renombrar una columna y devolverla: 10 000 de 10 000. Partir el nombre en dos columnas (en el primer espacio) y reunirlo: 10 000 de 10 000, pero el 28,8 % de los nombres de pila quedó partido en el lugar equivocado («María» y «José de la Cruz» en lugar de «María José» y «de la Cruz»), de modo que el texto vuelve y lo creado era incorrecto. Pasar el precio a centavos enteros y volver: 953 de 10 000 (9,5 %) idénticas, porque el redondeo pierde información. Borrar la columna de correo y recrearla: 0 de 10 000. Sustituir el correo por su hash y «revertir»: 0 de 10 000. Los dos primeros son reversibles; el cuarto pierde precisión; los dos últimos destruyen datos.
+
+![Tabla de seis migraciones de base de datos con las filas idénticas tras ida y vuelta.](../../../content/part-11/figures/se-142-ida-y-vuelta-en-migraciones.svg)
+
+**Cómo leer la figura.** Cada fila es una migración con su inversa; la columna central cuenta filas idénticas y la última da la lectura. **Dónde deja de valer:** las migraciones se probaron con 10 000 filas en memoria y datos sintéticos; los volúmenes reales y los motores distintos (que bloquean tablas o cambian tipos) pueden comportarse de otra manera. La comparación antes/después es el método, no una garantía para tus datos.
+
+### Desplegar por etapas limita cuántas personas ven un defecto
+
+Se simulan 200 000 personas; un defecto afecta a una fracción q (5 %, 1 % o 0,2 %); 15 % de las personas afectadas lo reporta y se detecta al acumular 10 reportes. Se compara desplegar a todos de golpe con hacerlo por etapas (1 %, 5 %, 25 % y 100 %).
+
+```python
+expuestas = int(N * fraccion)
+afectadas = sum(rng.random() < q for _ in range(expuestas))
+reportes = sum(rng.random() < 0.15 for _ in range(afectadas))
+detectado = reportes >= 10
+```
+
+Con q = 5 %, el despliegue total afecta a 9 952 personas y el progresivo se detiene en la primera etapa con 87; con q = 1 %, 1 995 frente a 102 (detectado en la segunda etapa); con q = 0,2 %, 392 frente a 98 (detectado en la tercera). Cuanto más raro es el defecto, más tarde se detecta: con 0,05 % se esperan unos 4 reportes en la etapa de 25 % y el umbral de 10 no se alcanza hasta el 100 % (cuenta esperada, no simulada).
+
+![Tabla con las personas afectadas con despliegue de golpe y por etapas según la tasa del defecto y la etapa de detección.](../../../content/part-11/figures/se-142-despliegue-progresivo.svg)
+
+**Cómo leer la figura.** Cada fila es una tasa de defecto; las columnas comparan las personas afectadas con cada estrategia y la etapa de detección. **Dónde deja de valer:** el reporte de 15 % y el umbral de 10 son supuestos; un defecto silencioso (que corrompe datos sin avisar) puede no reportarse nunca, y entonces la detección depende de otra señal (guardas de `SE-139`). El despliegue progresivo reduce la exposición, no sustituye las pruebas.
 
 ## Definiciones de trabajo
 
-- **Decisiones:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Reversibles:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Irreversibles:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Valor:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
+- **decisión reversible (de dos sentidos):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
+- **decisión irreversible (de un sentido):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
+- **costo de reversión:** costo de volver al estado anterior, incluido el tiempo de exposición del error.
+- **migración reversible:** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
+- **despliegue progresivo:** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Decisiones reversibles e irreversibles**:
+Predice si una migración que redondea precios a la unidad es reversible.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+precios = [1.25, 3.5, 4.0]
+ida = [round(p) for p in precios]
+print(ida, ida == precios)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La ida da `[1, 4, 4]` y la comparación es falsa: los datos originales no vuelven. Registra versión del intérprete, comando y salida; si guardas antes una copia, la reversión se hace desde la copia y no desde la inversa.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Decisiones reversibles e irreversibles**. Parte de esta pregunta: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando definición calculable, fuente de datos, segmento, tendencia y métrica contraria. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `metric-tree.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, `decision-reversibility.md` tiene una fila por decisión con su costo de equivocarse, su costo de reversión, su clasificación (dos sentidos, costosa de revertir, un sentido), la evidencia exigida y el mecanismo de salida. El contrato es que ninguna migración se despliega sin la comparación antes/después en un entorno de prueba y que las irreversibles requieren copia verificada, revisión de otra persona y ventana de observación. Esa estructura permite que una revisora entienda qué se puede deshacer y qué no.
+
+Compara el caso normal con una migración que añade una columna, con una que la elimina, con una que cambia un tipo y con una que anonimiza datos. El registro es adecuado cuando cada caso tiene su clasificación; es peligroso cuando todos usan el mismo procedimiento.
 
 ## Práctica guiada
 
-1. Crea `work/SE-142/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el árbol de métricas y caso de decisión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de decisiones (costo de equivocarse, costo de reversión, clasificación, evidencia, salida) antes de decidir nada.
+2. Predice el umbral de probabilidad con tus cifras y anota por qué.
+3. Calcula el umbral con tres costos de reversión y verifícalo con una simulación de semilla fija.
+4. Ejecuta las seis migraciones con su inversa y cuenta las filas idénticas.
+5. Simula el despliegue de golpe y por etapas con tres tasas de defecto.
+6. Clasifica diez decisiones de la plataforma y escribe la evidencia que exige cada una.
+7. Pide a otra persona que reconstruya el umbral, las migraciones y el despliegue solo con `decision-reversibility.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Decisiones y reversibles con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `metric-tree.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Umbral:** calcula el umbral cuando probar cuesta 10 y revertir cuesta 40 con pérdida de 200, y explica por qué sube o baja.
+2. **Migración:** diseña una migración que parta el nombre sin perder información y demuestra con la comparación que lo logra.
+3. **Etapas:** prueba etapas de 0,5 %, 2 %, 10 % y 100 % y describe cómo cambian las personas afectadas con q = 0,2 %.
+4. **Clasificación:** clasifica «cambiar el precio», «eliminar una cuenta» y «publicar una API» y propone cómo volver cada una más reversible.
 
 ## Reto verificable
 
-Entrega el **árbol de métricas y caso de decisión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `decision-reversibility.md` con el umbral y su verificación, las seis migraciones con filas idénticas, el despliegue de golpe y por etapas con tres tasas de defecto y la clasificación de diez decisiones. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números con la semilla indicada y puede decir qué migración no debe ejecutarse sin copia verificada. No se aprueba por la cantidad de decisiones clasificadas.
+
+## Caso conductor
+
+La plataforma de entregas continúa como caso. Esta clase deja una clasificación de decisiones por reversibilidad y una regla de evidencia. `SE-143` organizará las métricas en un árbol y `SE-144` incorporará el criterio de abandono al caso de viabilidad. Cambia después una sola decisión —por ejemplo, el tamaño de la primera etapa— y revisa qué conclusiones cambian.
+
+## Preguntas frecuentes
+
+### Si tengo un script de reversión, ¿la migración es reversible?
+
+Solo si la comparación antes/después lo confirma. En el experimento, borrar y recrear una columna tiene un «down» que recrea la estructura y devuelve 0 de 10 000 filas idénticas. La reversión de datos es una propiedad del cambio, no del script.
+
+### ¿Qué hago con una decisión que no puede deshacerse?
+
+La haces con otra disciplina: copia verificada, revisión de otra persona, ventana de observación y plan de salida. Y buscas descomponerla en un paso reversible y uno irreversible, de modo que el segundo ocurra cuando la evidencia ya existe.
+
+### ¿Cuántas etapas debe tener un despliegue progresivo?
+
+Las que permitan detectar el defecto más raro que te importa antes de la exposición total. En el experimento, un defecto de 0,2 % se detectó en la etapa de 25 %; con etapas más pequeñas se habría detectado antes y con menos personas afectadas, pero con más tiempo total. El número de etapas es un compromiso entre exposición y velocidad.
+
+### ¿Puede un modelo de lenguaje generar y revisar migraciones?
+
+Puede generarlas y detectar patrones destructivos conocidos, pero no sabe qué datos son valiosos ni si tu entorno de prueba es representativo. Exige la comparación antes/después como evidencia y una persona que decida las irreversibles.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **optimizar actividad o una vanity metric en lugar del resultado**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **creer que existir un procedimiento de reversión hace reversible el cambio**. Aplica la migración de borrar la columna de correo y ejecuta su «down».
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** tras la reversión la columna existe y está vacía. **Hipótesis rivales:** (a) el script de reversión falló; (b) la información se destruyó al borrar; (c) el entorno no restauró una copia. **Prueba:** compara antes y después: 0 de 10 000 filas idénticas; el script no falló, la información no estaba en la inversa, lo que sostiene (b). **Conclusión:** la migración era irreversible. **Regresión:** añade al contrato una prueba que falle si una migración se despliega sin comparación antes/después o si destruye datos sin copia verificada. No cambies a la vez la migración y la clasificación.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Tras revertir faltan datos | La inversa recrea estructura, no contenido | Comparar antes y después y guardar copia verificada |
+| Un defecto afecta a miles de personas el viernes | Despliegue a todos de golpe | Desplegar por etapas con detección entre etapas |
+| Una decisión menor consume semanas de análisis | Se trató como irreversible | Clasificarla y probarla con un experimento barato |
+| Una decisión grave se aprueba en cinco minutos | Se trató como reversible | Exigir copia, revisión y ventana de observación |
+| El defecto raro nunca se detecta en las primeras etapas | El umbral de detección es demasiado alto | Ajustar etapas y umbral al defecto más raro que importa |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor y hoja de cálculo sin datos personales reales. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-142/
 ├── README.md
-│   ├── metric-tree.md
-│   ├── decision.csv
-│   ├── guardrails.md
-├── activity.yaml
-└── rubric.json
+├── reversibilidad/
+│   ├── umbral.py
+│   ├── migraciones.py
+│   └── despliegue.py
+├── fixtures/filas.csv
+├── tests/test_migraciones.py
+└── evidence/decision-reversibility.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `metric-tree.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python y de SQLite, semillas (1421, 1422, 1423) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `sqlite3`, `hashlib`, `statistics`) y se ejecutaron con CPython 3.12.9 (SQLite 3.45.3) en Windows 11 y 3.12.3 (SQLite 3.45.1) en Ubuntu bajo WSL2, con salidas idénticas salvo la versión de SQLite. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una migración que destruye datos puede afectar a personas que dependían de ellos: avisa, ofrece exportación y verifica la copia antes de ejecutar;
+- sustituir identificadores por hashes sin clave no anonimiza si el espacio de valores es pequeño (`SE-137`): evalúa la reidentificación;
+- un despliegue progresivo expone primero a un grupo de personas: elige ese grupo sin sesgo y con su consentimiento cuando corresponda;
+- describe los resultados con palabras y ofrece una alternativa textual a cada tabla;
+- no pegues datos reales de migraciones en un modelo de lenguaje sin política de datos;
+- atribuye las fuentes usadas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «migra el esquema» generará el cambio y un script de reversión. Pídele que ejecute la migración y su inversa sobre datos sintéticos, que compare antes y después y que clasifique cada paso como reversible, con pérdida o irreversible, que proponga una copia verificada para los últimos y que no ejecute nada irreversible sin aprobación. Revisa especialmente si borra columnas «sin uso»: es el mismo error de creer que existe una reversión, con apariencia de orden.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro dominio persistente (por ejemplo, un servicio de reparto): cambia las migraciones por un cambio de política de precios o de zonas; conserva la clasificación por reversibilidad y comprueba si el despliegue progresivo vuelve a limitar las personas afectadas. La transferencia está lograda cuando puedes explicar qué dependía del dominio y qué no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-142/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de la diferencia entre reversible, costoso de revertir e irreversible |
+| corrección | umbral, filas idénticas y personas afectadas reproducibles con la misma semilla |
+| diseño | contrato de decisiones con costo de reversión y evidencia exigida |
+| diagnóstico | reproducción del fallo «existe un script de reversión» con regresión |
+| incertidumbre | sensibilidad del umbral a los costos y detección según la tasa del defecto |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Amazon: Letter to Shareholders](https://www.aboutamazon.com/news/company-news/2016-letter-to-shareholders) — decisiones de un sentido y de dos sentidos y el proceso que merece cada una; autoridad: Amazon (carta corporativa).
+- [Google SRE Workbook: Canarying Releases](https://sre.google/workbook/canarying-releases/) — despliegue a una fracción y comparación con el control; autoridad: Google SRE.
+- [Google SRE Book: Embracing Risk](https://sre.google/sre-book/embracing-risk/) — presupuesto de error y decisiones sobre riesgo; autoridad: Google SRE.
+- [SQLite: ALTER TABLE](https://www.sqlite.org/lang_altertable.html) — qué cambios de esquema admite SQLite y con qué restricciones; autoridad: proyecto SQLite.
+- [Martin Fowler: Evolutionary Database Design](https://martinfowler.com/articles/evodb.html) — cambios de esquema pequeños, reversibles y automatizados; autoridad: M. Fowler y P. Sadalage.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las migraciones de la plataforma sean reversibles. Esa afirmación depende de la comparación antes/después con tus datos y de la revisión de otra persona.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `sqlite3`](https://docs.python.org/3/library/sqlite3.html) — módulo usado en el experimento de migraciones.
+- [Python: `hashlib`](https://docs.python.org/3/library/hashlib.html) — resumen criptográfico usado en la migración unidireccional.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Decisiones reversibles e irreversibles**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-143`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo la versión de SQLite (3.45.3 y 3.45.1). No se migró ninguna base real; las pérdidas, las probabilidades, la tasa de reporte y el umbral de detección son supuestos del autor, y los resultados con 10 000 filas no se extrapolan a volúmenes mayores ni a otros motores. La siguiente clase organiza las métricas de esta parte en un árbol.
+
+## Glosario
+
+- **decisión reversible (de dos sentidos):** decisión que puede deshacerse con un costo bajo y sin pérdida de información.
+- **decisión irreversible (de un sentido):** decisión cuyo efecto no puede deshacerse o cuyo costo de deshacerlo es muy alto.
+- **costo de reversión:** costo de volver al estado anterior, incluido el tiempo de exposición del error.
+- **migración reversible:** cambio de datos cuya inversa devuelve los datos originales, comprobado por comparación.
+- **despliegue progresivo:** exposición gradual de un cambio a fracciones crecientes de personas con detección entre etapas.
 
 ---
 

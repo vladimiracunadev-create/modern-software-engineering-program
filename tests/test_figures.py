@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_figures import FIGURES, collect  # noqa: E402
 
-PARTS = {"00": range(1, 13), "01": range(13, 25), "02": range(25, 37), "03": range(37, 49), "04": range(49, 61), "05": range(61, 73), "06": range(73, 85), "07": range(85, 97), "08": range(97, 109), "09": range(109, 121), "10": range(121, 133)}
+PARTS = {"00": range(1, 13), "01": range(13, 25), "02": range(25, 37), "03": range(37, 49), "04": range(49, 61), "05": range(61, 73), "06": range(73, 85), "07": range(85, 97), "08": range(97, 109), "09": range(109, 121), "10": range(121, 133), "11": range(133, 145)}
 
 
 class FigureTests(unittest.TestCase):

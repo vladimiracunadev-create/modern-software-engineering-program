@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-11-13 — Parte 11 desarrollada y profundizada con experimentos de economía, métricas y decisiones
+
+- las clases `SE-133`–`SE-144` pasan de borradores genéricos a clases completas sobre la economía de la plataforma de entregas de tareas: modelos de negocio y sostenibilidad,
+  costos de construcción, operación y oportunidad, resultados frente a actividad, adopción y retención, telemetría y consentimiento, experimentos y causalidad, métrica norte
+  con guardas, FinOps y costo por resultado, portafolio y opciones, decisiones reversibles, un taller de árbol de métricas y un proyecto de caso de viabilidad; el portal publica
+  el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: razón de valor de vida y costo de adquisición como intervalo, tres modelos de precio y concentración
+  de ingresos, costo de propiedad y suma de medianas, tasa de descuento que invierte un ranking, meta de cerrados frente a resueltos, registros acumulados frente a activos,
+  curva de retención por mezcla y cohortes incompletas, sesgo por consentimiento y unicidad por campos, once mutantes de una puerta de consentimiento, sesgo de selección, control
+  de proporciones y regresión a la media, optimización con y sin guarda, alarmas con varias guardas, reparto de costos con tres reglas y compromiso de capacidad, arrepentimiento
+  de una cartera, valor de un piloto, secuencias con dependencias, umbral de reversibilidad, seis migraciones en SQLite, despliegue progresivo, dos validadores con dieciséis
+  mutaciones cada uno, descomposición exacta, oscilación del valor presente y compuerta de abandono;
+- tres secciones nuevas por clase, preguntas frecuentes, tabla de errores, ejercicios y fallo controlado propios de cada una, un puente hacia el trabajo con agentes y fuentes
+  primarias verificadas con `curl` (la página del Reglamento (UE) 2016/679 en EUR-Lex no respondió desde el entorno de ejecución y se sustituyó por las directrices del EDPB; dos
+  páginas que devolvieron 403 se excluyeron);
+- hallazgos del análisis: contar cohortes incompletas como no retenidas baja una retención de 34 % a 27 %; una tasa constante ajustada a cuatro semanas subestima 15 veces la
+  retención a 26 semanas; tres pruebas del camino feliz matan 2 de 11 mutantes de una puerta de consentimiento y nueve pruebas dirigidas matan 10; una compuerta de abandono no
+  elevó el valor esperado en ningún umbral y solo redujo el riesgo; solo 3 de 6 migraciones vuelven con todos sus datos;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (Python 3.12.3) con salidas idénticas, salvo la versión de SQLite (3.45.3 y 3.45.1); la parte no
+  tiene laboratorio en `labs/`; todos los precios, costos, tasas y probabilidades son supuestos del autor en unidades ficticias y no se midió ninguna plataforma, empresa o persona.
+
 ## 2026-11-13 — Parte 09 profundizada con experimentos de bibliotecas, paquetes, SDK y automatización
 
 - 36 figuras para `SE-109`–`SE-120` con mediciones reales: pila de llamadas de biblioteca y framework, costo de importar y timeout por defecto, versiones PEP 440

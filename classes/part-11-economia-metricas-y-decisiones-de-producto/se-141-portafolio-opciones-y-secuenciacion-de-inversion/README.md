@@ -2,206 +2,302 @@
 
 [← SE-140 — FinOps de producto y costo por resultado](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md) · [↑ Parte 11](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-141.html) · [SE-142 — Decisiones reversibles e irreversibles →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para elegir un conjunto de iniciativas dentro de un presupuesto, invertir por etapas cuando la información llega con el tiempo y ordenar el trabajo respetando dependencias, sin tratar el valor esperado como si fuera una promesa.
+
+**Por qué aparece aquí.** Se sitúa después de **FinOps de producto y costo por resultado** y antes de **Decisiones reversibles e irreversibles**: `SE-140` dejó el costo por resultado de cada iniciativa; esta clase decide qué conjunto financiar, cuánto comprometer por adelantado y en qué orden hacerlo. Fija el vocabulario (portafolio, retorno esperado, arrepentimiento, opción, secuencia) y deja una cartera y un orden que `SE-142` someterá a la pregunta de cuánto cuesta equivocarse.
+
+**Error conceptual que debe corregir.** Creer que la cartera de mayor valor esperado es «la mejor», que invertir todo de una vez es siempre más eficiente que por etapas, y que se puede ordenar el trabajo por el valor de cada pieza sin mirar lo que habilita.
+
+**Secuencia de aprendizaje.** Antes de ejecutar, predices en qué fracción de los futuros posibles es la mejor la cartera óptima por valor esperado y cuánto vale un piloto que no es perfecto; después simulas, comparas todas las carteras y todos los órdenes válidos y reconstruyes sin apoyo qué hace valiosa a una opción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `portfolio-log.md` con la cartera elegida y su robustez (veces que es la mejor, arrepentimiento, retorno neto como intervalo), el valor de invertir por etapas según la exactitud del piloto y el mejor orden frente al voraz con dependencias.
+
+**Límite de la conclusión.** Las iniciativas, sus costos, sus retornos y sus dependencias son sintéticos; el mercado «bueno» con probabilidad 0,4 y la exactitud del piloto son supuestos del autor. Los experimentos muestran cómo se comparan las decisiones, no qué iniciativas conviene financiar.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [GOV.UK Service Manual: How the alpha phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works) | Un servicio avanza por fases (descubrimiento, alfa, beta) y en cada una se decide si seguir, con prototipos que prueban las incertidumbres mayores antes de construir. | No dice cuántas fases conviene a la plataforma ni su costo. |
+| [HM Treasury: The Green Book](https://www.gov.uk/government/publications/the-green-book-appraisal-and-evaluation-in-central-governent/the-green-book-2020) | Evalúa un conjunto de opciones frente a una de referencia, con análisis de sensibilidad y corrección del sesgo de optimismo. | No fija la regla de selección de una cartera. |
+| [Python: itertools](https://docs.python.org/3/library/itertools.html) | `permutations` y `combinations` enumeran todas las ordenaciones y subconjuntos, y permiten comprobar exhaustivamente un problema pequeño. | No escala a decenas de elementos. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-140`: cada iniciativa tiene un costo por resultado y un rango de retorno. La pregunta activa es: **¿qué conjunto y qué orden maximizan lo que se aprende y lo que se obtiene, y cuánta confianza hay en esa elección?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-140` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor y hoja de cálculo sin datos personales reales.
+- Haber completado `SE-140` o poder explicar un costo por resultado con su incertidumbre.
+- Python 3.11 o posterior y un terminal.
+- Trabajar solo con iniciativas, costos y retornos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Portafolio, opciones y secuenciación de inversión**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma tiene doce iniciativas candidatas y un presupuesto de 100. El equipo ordena por razón de retorno esperado entre costo y elige cuatro. Otra persona propone invertir las 120 unidades de una iniciativa grande «antes de que lo haga la competencia», con una probabilidad de éxito de 40 %. Una tercera pide ordenar un conjunto de siete tareas por el valor de cada una, sin notar que dos dependen de otras.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Portafolio y opciones con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **árbol de métricas y caso de decisión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «optimizar actividad o una vanity metric en lugar del resultado» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Portafolio | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Opciones | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Secuenciación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Inversión | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. seleccionar una cartera dentro de un presupuesto y medir su robustez (veces que es la mejor, arrepentimiento, retorno neto);
+2. calcular el valor de invertir por etapas con un piloto de exactitud conocida y decir a partir de cuándo conviene;
+3. enumerar los órdenes válidos de tareas con dependencias y comparar el mejor con uno voraz;
+4. explicar qué hace valiosa a una opción y cuándo deja de serlo;
+5. declarar qué parte de la elección depende de supuestos no medidos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Portafolio, opciones y secuenciación de inversión"] --> M["Modelo: Portafolio"]
-    M --> D["Decisión: opciones"]
-    D --> E["Evidencia: secuenciación"]
-    E --> R["Revisión: inversión"]
-    R -->|nueva información| M
+    N1[Cartera y presupuesto] --> N2[Retorno esperado y arrepentimiento] --> N3[Opciones y etapas] --> N4[Dependencias y secuencia] --> N5[Revisión con nueva información]
+    N5 -->|llega evidencia| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Portafolio, opciones y secuenciación de inversión**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que la evidencia que llega tras una etapa reabre la cartera; no autoriza a aferrarse al plan inicial.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Cartera y presupuesto | Elegir un conjunto no es ordenar una lista: el presupuesto crea restricciones que cambian la respuesta. | Cartera elegida y alternativas en `portfolio-log.md` |
+| Retorno esperado y arrepentimiento | El valor esperado resume, pero no dice cuán a menudo se acierta ni cuánto se pierde al errar. | Veces que la cartera es la mejor y arrepentimiento medio |
+| Opciones y etapas | Una etapa barata compra información y permite no gastar el resto si el resultado es malo. | Valor esperado por etapas y exactitud mínima del piloto |
+| Dependencias y secuencia | Una pieza de poco valor propio puede desbloquear la de mayor valor. | Órdenes válidos y comparación con el voraz |
+| Revisión con nueva información | La cartera inicial es una hipótesis; la evidencia nueva la modifica. | Regla de revisión y fecha |
 
 ## Conceptos y decisiones
 
-Una métrica representa parcialmente un resultado y puede cambiar conductas; por eso se interpreta junto con costo, población, ventana temporal y guardrails.
+### 1. Cartera y presupuesto
 
-La pregunta rectora de esta parte es: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** La respuesta debe
-apoyarse en **definición calculable, fuente de datos, segmento, tendencia y métrica contraria**.
+Un portafolio es un conjunto de iniciativas financiadas a la vez. Con un presupuesto fijo, el problema es una mochila: elegir el subconjunto de mayor valor cuyo costo cabe. Ordenar por razón valor/costo (voraz) suele dar una buena respuesta pero no siempre la óptima. Con doce iniciativas hay 4 096 subconjuntos y se pueden revisar todos; con cien ya no, y se usan aproximaciones o programación entera.
 
-### 1. Portafolio: modelo
+### 2. Retorno esperado y arrepentimiento
 
-En esta clase, **Portafolio** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Portafolio, opciones y secuenciación de inversión**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El retorno esperado promedia futuros posibles. Dos medidas lo complementan: la fracción de futuros en que la cartera elegida es la mejor de todas, y el arrepentimiento, la diferencia entre el valor de la mejor cartera de ese futuro y el de la elegida. Una cartera puede ser excelente en promedio y rara vez la mejor: eso describe el riesgo de decidir sin saber, no un error de selección.
 
-### 2. Opciones: mecanismo
+### 3. Opciones y etapas
 
-En esta clase, **opciones** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Portafolio, opciones y secuenciación de inversión**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Invertir por etapas es comprar una opción: se paga un piloto y se decide continuar o detenerse según su resultado. La opción tiene valor cuando el piloto es suficientemente informativo y cuando detenerse evita pérdidas mayores que el costo del piloto. Un piloto no informativo (exactitud de azar) solo agrega costo. Para un valor esperado negativo, el piloto puede hacer positiva la inversión si distingue bien.
 
-### 3. Secuenciación: evidencia
+### 4. Dependencias y secuencia
 
-En esta clase, **secuenciación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Portafolio, opciones y secuenciación de inversión**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Las dependencias imponen un orden parcial: no se puede hacer D antes de B. Entre los órdenes válidos varía el valor, porque el trabajo que se hace antes entrega su beneficio antes (descuento) y desbloquea a otros. Ordenar por valor propio por unidad de tiempo es una heurística razonable y no tiene en cuenta lo que una pieza habilita.
 
-### 4. Inversión: decisión
+### 5. Revisión con nueva información
 
-En esta clase, **inversión** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Portafolio, opciones y secuenciación de inversión**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La cartera y la secuencia cambian cuando la evidencia llega: un piloto, un experimento, un cambio de costo. Una regla de revisión (fecha, criterio, responsable) evita dos errores opuestos: no revisar nunca y revisar por cada novedad. La capacidad de cambiar de rumbo sin pérdida se estudia en `SE-142`.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### La cartera óptima casi nunca es la mejor de un futuro
+
+Se generan 12 iniciativas con costos de 10 a 40 y retorno triangular (mínimo 0,2–0,9 veces el costo, moda 0,9–2,2 veces, máximo 2–5 veces), con semilla 1411. El presupuesto es 100 y hay 748 subconjuntos factibles. Se elige por retorno esperado el subconjunto de mayor valor; después se sortean 400 futuros y en cada uno se busca la mejor cartera. Predicción: ¿en qué fracción de futuros coinciden?
+
+```python
+mejor = max(masks, key=lambda m: sum(esperado[i] for i in bits(m)))
+for _ in range(400):
+    retorno = [rng.triangular(lo, hi, moda) for (lo, hi, moda) in rangos]
+    mejor_sorteo = max(masks, key=lambda m: sum(retorno[i] for i in bits(m)))
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3): la cartera óptima por valor esperado, I04 + I05 + I06 + I10 (costo 100), tiene un retorno esperado de 211,5 y coincide con la voraz por razón retorno/costo. Es la mejor en 7,5 % de los 400 futuros; el arrepentimiento medio frente a la mejor de cada uno es 36,4 y el del percentil 95, 84,0. Su retorno neto va de 56,1 (percentil 5) a 176,6 (percentil 95), con mediana de 112,0, y fue negativo en 0 de 400 sorteos. Es buena casi siempre, y rara vez es la mejor: con 748 alternativas factibles y retornos inciertos, esa es la naturaleza del problema.
+
+![Tabla con la cartera óptima, su coincidencia con la voraz, la fracción de futuros en que es la mejor y su arrepentimiento.](../../../content/part-11/figures/se-141-cartera-y-arrepentimiento.svg)
+
+**Cómo leer la figura.** Cada fila es una medida de la misma cartera; la tercera y cuarta describen cuánto se equivoca respecto del futuro realizado. **Dónde deja de valer:** los retornos son independientes y triangulares por supuesto; los reales se correlacionan (una mala economía afecta a varias iniciativas), lo que ensancha el retorno neto de la cartera. La figura no recomienda esas cuatro iniciativas: muestra cómo se mide la robustez de una selección.
+
+### Un piloto convierte una apuesta perdedora en una buena si distingue bien
+
+Una iniciativa cuesta 120, rinde 180 si el mercado es bueno (probabilidad 0,4) y 40 si no. Invertir todo de una vez tiene valor esperado 0,4 × 180 + 0,6 × 40 − 120 = −24. Por etapas: un piloto cuesta 20, produce una señal «buena» con probabilidad igual a su exactitud cuando el mercado es bueno y con probabilidad 1 − exactitud cuando no lo es, y solo si la señal es buena se invierten los 100 restantes. Predicción: ¿desde qué exactitud el piloto vuelve positiva la inversión?
+
+```python
+senal_buena = (rng.random() < exactitud) if bueno else (rng.random() > exactitud)
+total -= 20
+if senal_buena:
+    total += (180 if bueno else 40) - 100
+```
+
+Con 100 000 casos y semilla 1412: con exactitud 0,5 el valor esperado es −21,9; con 0,6, −15,1; con 0,7, −8,3; con 0,8, −1,6; con 0,9, +5,3; con un piloto perfecto, +12,0. La fórmula exacta es −56 + 68 × exactitud: se anula en 0,82. Por debajo, el piloto gasta 20 y la opción de detenerse no compensa; por encima, el piloto vale. Invertir todo no es más eficiente: es más caro cuando el mercado resulta malo.
+
+![Barras con el valor esperado de invertir todo de una vez y por etapas según la exactitud del piloto.](../../../content/part-11/figures/se-141-valor-del-piloto.svg)
+
+**Cómo leer la figura.** Las barras coral son valores negativos y las verdes, positivos; la primera es invertir todo. **Dónde deja de valer:** las probabilidades, los retornos y el costo del piloto son supuestos del autor, y un piloto real no tiene una exactitud conocida de antemano: su informatividad se estima. El modelo también supone que el piloto no cambia el mercado y que se puede detener sin costo; ambas condiciones fallan con frecuencia.
+
+### Ordenar por valor propio no es ordenar por valor total
+
+Siete tareas A a G con duraciones de 2, 3, 1, 4, 2, 3 y 2 meses, valores mensuales una vez terminadas de 3, 10, 1, 14, 4, 9 y 6, y dependencias: B requiere A; D requiere B y C; F requiere E; G requiere D. Se enumeran los 5 040 órdenes posibles y se descartan los que violan alguna dependencia; el valor de cada orden es el valor presente a 24 meses con descuento de 1 % mensual.
+
+```python
+validos = [o for o in permutations("ABCDEFG")
+           if all(o.index(d) < o.index(k) for k, ds in deps.items() for d in ds)]
+valor = lambda o: sum(v[k] / 1.01 ** m for k, t in terminadas(o) for m in range(t, 24))
+```
+
+Hay 63 órdenes válidos. El mejor, A B C D G E F, vale 551,5. El voraz que elige cada vez la disponible con mayor valor por duración, E F A B C D G, vale 539,5 (−2,2 %); el peor, C A E F B D G, 514,3 (−6,7 %). El 73 % de los órdenes válidos está a menos de 5 % del mejor, pero solo el 4,8 % a menos de 1 %. El voraz empieza por E y F, que valen mucho por mes y retrasan a A, B y D, que desbloquean la pieza más valiosa. Según la primera tarea: A permite 551,5 como máximo; C, 543,9; E, 539,5.
+
+![Tabla con el mejor, el voraz y el peor orden de siete tareas con dependencias y la fracción de órdenes cercanos al mejor.](../../../content/part-11/figures/se-141-secuencias-con-dependencias.svg)
+
+**Cómo leer la figura.** Cada fila es un orden o una medida sobre el conjunto de órdenes válidos. **Dónde deja de valer:** los valores mensuales son ciertos y las duraciones fijas; con dependencias más densas o incertidumbre en las duraciones, el mejor orden cambia. La enumeración exhaustiva solo funciona con pocas tareas: con veinte, hay más de 10^18 permutaciones.
 
 ## Definiciones de trabajo
 
-- **Portafolio:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Opciones:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Secuenciación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Inversión:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
+- **portafolio:** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
+- **arrepentimiento:** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
+- **opción:** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
+- **dependencia:** relación que impide empezar una tarea antes de terminar otra.
+- **secuencia:** orden de ejecución de las tareas que respeta las dependencias.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Portafolio, opciones y secuenciación de inversión**:
+Predice la mejor cartera de tres iniciativas con costos 6, 5 y 4 y retornos esperados 12, 9 y 7 con un presupuesto de 10.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+from itertools import combinations
+datos = {"X": (6, 12), "Y": (5, 9), "Z": (4, 7)}
+mejor = max((c for r in range(1, 4) for c in combinations(datos, r)
+             if sum(datos[k][0] for k in c) <= 10),
+            key=lambda c: sum(datos[k][1] for k in c))
+print(mejor)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La mejor es X + Z (costo 10, retorno 19) y no X + Y (costo 11, inviable) ni Y + Z (costo 9, retorno 16). Ordenar por razón valor/costo daría X (2,0), Y (1,8), Z (1,75): entra X, Y ya no cabe y entra Z: coincide con la óptima. Registra versión del intérprete, comando y salida.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Portafolio, opciones y secuenciación de inversión**. Parte de esta pregunta: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando definición calculable, fuente de datos, segmento, tendencia y métrica contraria. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `metric-tree.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, `portfolio-log.md` registra cada iniciativa con costo, rango de retorno, dependencias y responsable, la cartera elegida con las alternativas descartadas, la medida de robustez (veces que es la mejor, arrepentimiento) y la regla de revisión. El contrato es que ninguna cartera se aprueba sin sus alternativas y sin la fecha en que se revisará. Esa estructura permite que otra persona vea qué se descartó y por qué.
+
+Compara el caso normal con una iniciativa que desbloquea a otras, con una que solo es valiosa si se hace otra, con una cuyo retorno depende de otra iniciativa de la cartera y con una cuyo costo se incrementa tras un piloto. El registro es adecuado cuando esas relaciones quedan explícitas; es peligroso cuando se archiva solo la lista elegida.
 
 ## Práctica guiada
 
-1. Crea `work/SE-141/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el árbol de métricas y caso de decisión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de iniciativas (costo, rango, dependencias, responsable) antes de elegir.
+2. Predice en qué fracción de futuros es la mejor la cartera por valor esperado y anótalo.
+3. Genera las 12 iniciativas con semilla fija y enumera los subconjuntos factibles.
+4. Sortea 400 futuros y calcula veces mejor, arrepentimiento y retorno neto.
+5. Calcula el valor por etapas con seis exactitudes y la exactitud de equilibrio.
+6. Enumera los órdenes válidos de siete tareas y compara el mejor, el voraz y el peor.
+7. Pide a otra persona que reconstruya cartera, valor por etapas y orden solo con `portfolio-log.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Portafolio y opciones con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `metric-tree.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Presupuesto:** repite la selección con un presupuesto de 80 y de 130 y describe cuánto cambia la cartera y su robustez.
+2. **Correlación:** introduce un factor común que mueva todos los retornos y calcula cómo cambian el retorno neto p5 y la probabilidad de pérdida.
+3. **Piloto:** cambia el costo del piloto a 10 y a 30 y calcula la exactitud de equilibrio; explica qué ocurre cuando el piloto es caro.
+4. **Dependencias:** añade la dependencia «F requiere D» y calcula cuántos órdenes válidos quedan y cuánto pierde el voraz.
 
 ## Reto verificable
 
-Entrega el **árbol de métricas y caso de decisión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `portfolio-log.md` con las iniciativas, la cartera elegida con su robustez, el valor por etapas con la exactitud de equilibrio y la comparación de órdenes con el mejor, el voraz y el peor. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números con la semilla indicada y puede decir qué iniciativa cambiaría la cartera si su retorno fuera la mitad. No se aprueba por la cantidad de iniciativas.
+
+## Caso conductor
+
+La plataforma de entregas continúa como caso. Esta clase deja una cartera con su robustez, un criterio para invertir por etapas y una secuencia con dependencias. `SE-142` preguntará cuán reversible es cada decisión de esa cartera y `SE-144` integrará todo en un caso de viabilidad. Cambia después una sola iniciativa y revisa qué conclusiones del registro cambian.
+
+## Preguntas frecuentes
+
+### Si la cartera óptima solo es la mejor 7,5 % de las veces, ¿para qué sirve elegirla?
+
+Porque su retorno neto fue positivo en los 400 sorteos y su valor esperado es el más alto. «La mejor» es una vara irreal: casi ninguna cartera lo es. Lo que importa es que sea buena en la mayoría de los futuros y que su peor caso sea tolerable.
+
+### ¿Por qué no invertir todo de una vez si el mercado es bueno el 40 % de las veces?
+
+Porque el valor esperado de la apuesta es −24 y el 60 % de las veces se pierden 80. Un piloto de exactitud 0,9 lo convierte en +5,3. Invertir todo es razonable cuando el piloto es caro, no informativo o cuando esperar tiene un costo de oportunidad mayor.
+
+### ¿Cuándo ordenar por valor por duración funciona bien?
+
+Cuando hay pocas dependencias o éstas son poco valiosas. En el experimento, perdió 2,2 % respecto del mejor; con otra estructura de dependencias podría perder más. Es una heurística y se verifica contra una enumeración cuando el problema es pequeño.
+
+### ¿Un modelo de lenguaje puede construir el portafolio?
+
+Puede proponer iniciativas y ordenarlas, pero no conoce los retornos ni las dependencias reales. Exige los rangos con su fuente, la medida de robustez y la lista de alternativas descartadas, y revisa si trata los valores esperados como seguros.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **optimizar actividad o una vanity metric en lugar del resultado**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **optimizar el valor esperado sin medir cuán a menudo se equivoca**. Elige la cartera óptima y declárala «la mejor»; luego compárala con la mejor de cada futuro.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el comité cree que la cartera «ganará» y a mitad de año otra combinación habría rendido más. **Hipótesis rivales:** (a) la selección fue mala; (b) cualquier selección tiene arrepentimiento; (c) los retornos se correlacionaron. **Prueba:** simula 400 futuros: la cartera es la mejor en 7,5 % y su arrepentimiento medio es 36,4, con retorno neto positivo en todos, lo que sostiene (b). **Conclusión:** la selección era buena y no era «la mejor». **Regresión:** añade al contrato una prueba que falle si una cartera se aprueba sin su arrepentimiento y su retorno neto p5. No cambies a la vez la selección y la medida de robustez.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El comité cree que la cartera «ganará» | Se informó solo el valor esperado | Informar arrepentimiento y retorno neto p5 |
+| Se compromete todo el presupuesto en una iniciativa | No se evaluó un piloto | Calcular el valor por etapas y la exactitud mínima |
+| Un piloto «positivo» no cambia la decisión | La señal no era informativa | Estimar su exactitud antes de comprarlo |
+| Se hace primero lo de mayor valor propio y todo se retrasa | Se ignoraron las dependencias | Enumerar o resolver el orden con las dependencias |
+| La cartera no se revisa en un año | No hay regla de revisión | Fijar fecha, criterio y responsable |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor y hoja de cálculo sin datos personales reales. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-141/
 ├── README.md
-│   ├── metric-tree.md
-│   ├── decision.csv
-│   ├── guardrails.md
-├── activity.yaml
-└── rubric.json
+├── cartera/
+│   ├── seleccion.py
+│   ├── etapas.py
+│   └── secuencia.py
+├── fixtures/iniciativas.csv
+├── tests/test_seleccion.py
+└── evidence/portfolio-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `metric-tree.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas (1411, 1412) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `itertools`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una cartera decide qué personas se benefician primero: documenta a quiénes beneficia y a quiénes posterga;
+- los retornos suelen medirse en dinero y omiten accesibilidad, seguridad y deuda técnica: añade criterios no financieros;
+- detener un proyecto afecta a personas (equipos y usuarios): planifica la salida con anticipación;
+- ofrece una alternativa textual a cada tabla y describe los resultados con palabras;
+- no pegues planes reales de inversión en un modelo de lenguaje sin política de datos;
+- atribuye las fuentes usadas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «prioriza el roadmap» devolverá una lista ordenada por retorno sobre costo. Pídele que declare el presupuesto y las dependencias, que entregue la cartera con la fracción de futuros en que es la mejor, su arrepentimiento y el retorno neto p5, que evalúe un piloto como opción y que enumere los órdenes válidos si hay pocas tareas. Revisa especialmente si ignora una dependencia: es el mismo error del orden por valor propio con aspecto de plan.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro dominio persistente (por ejemplo, un servicio de reparto): cambia las iniciativas por mejoras operativas, los costos y los retornos; conserva el contrato de iniciativas y comprueba si la cartera óptima vuelve a ser «la mejor» en una fracción pequeña de futuros. La transferencia está lograda cuando puedes explicar qué dependía del dominio y qué no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-141/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de cartera, arrepentimiento, opción y dependencia |
+| corrección | selección, valor por etapas y órdenes reproducibles con la misma semilla |
+| diseño | contrato de iniciativas con costos, rangos y dependencias |
+| diagnóstico | reproducción del fallo «valor esperado como promesa» con regresión |
+| incertidumbre | retorno neto p5–p95, arrepentimiento y exactitud de equilibrio |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [GOV.UK Service Manual: How the alpha phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works) — prototipos para probar incertidumbres antes de construir y decisión de continuar; autoridad: Government Digital Service (Reino Unido).
+- [GOV.UK Service Manual: How the beta phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works) — construcción por etapas con evidencia de cada una; autoridad: Government Digital Service.
+- [GOV.UK Service Manual: How the discovery phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works) — fase inicial que decide si avanzar; autoridad: Government Digital Service.
+- [HM Treasury: The Green Book](https://www.gov.uk/government/publications/the-green-book-appraisal-and-evaluation-in-central-governent/the-green-book-2020) — evaluación de opciones y sensibilidad; autoridad: HM Treasury (Reino Unido).
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — economía de la ingeniería de software; autoridad: IEEE Computer Society.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la cartera o la secuencia de la plataforma sean las adecuadas. Esa afirmación depende de retornos medidos y de la revisión de otra persona.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `itertools`](https://docs.python.org/3/library/itertools.html) — `permutations` y `combinations` usadas en la enumeración.
+- [Python: `random.triangular`](https://docs.python.org/3/library/random.html#random.triangular) — retornos con rango y moda.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Portafolio, opciones y secuenciación de inversión**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-142`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna iniciativa real; los costos, los retornos independientes, la probabilidad de mercado bueno, la exactitud del piloto y las dependencias son supuestos del autor, y la enumeración exhaustiva solo sirve para problemas pequeños. La siguiente clase pregunta cuán reversible es cada decisión de la cartera.
+
+## Glosario
+
+- **portafolio:** conjunto de iniciativas financiadas a la vez dentro de un presupuesto.
+- **arrepentimiento:** diferencia entre el valor de la mejor decisión en un futuro realizado y el de la elegida.
+- **opción:** derecho, no obligación, de continuar una inversión tras observar información de una etapa previa.
+- **dependencia:** relación que impide empezar una tarea antes de terminar otra.
+- **secuencia:** orden de ejecución de las tareas que respeta las dependencias.
 
 ---
 

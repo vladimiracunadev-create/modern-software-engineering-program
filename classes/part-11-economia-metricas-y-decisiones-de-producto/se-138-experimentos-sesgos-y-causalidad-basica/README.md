@@ -2,206 +2,300 @@
 
 [← SE-137 — Telemetría de producto y consentimiento](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md) · [↑ Parte 11](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-138.html) · [SE-139 — North Star, guardrails y métricas contrarias →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para distinguir una diferencia observada de un efecto causado, y para saber cuándo un experimento con asignación al azar es posible, cuándo se ha roto y qué se puede afirmar sin él.
+
+**Por qué aparece aquí.** Se sitúa después de **Telemetría de producto y consentimiento** y antes de **North Star, guardrails y métricas contrarias**: `SE-137` dejó eventos recogidos con permiso; esta clase usa esos eventos para estimar si un cambio causó una mejora, y deja un criterio para no atribuir a una función lo que viene de quién la usa, de un error de asignación o del azar.
+
+**Error conceptual que debe corregir.** Atribuir una mejora a una intervención porque ocurrió después de ella, o porque quienes la usan rinden más.
+
+**Secuencia de aprendizaje.** Antes de ejecutar, predices cuánto sobrestima el efecto una comparación entre quienes adoptan y quienes no; después simulas la asignación al azar, mides cuántas veces un control de proporciones detecta que se rompió y compruebas que los peores centros mejoran solos al medirlos de nuevo. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `experiment-readout.md` con el efecto estimado por comparación observacional, por estratificación y por asignación al azar frente al verdadero, la tasa de detección del control de proporciones, la regresión a la media de los peores centros y una nota de qué afirmaciones causales se sostienen.
+
+**Límite de la conclusión.** Los efectos, los sesgos y los ruidos son parámetros sintéticos de los generadores; en datos reales el efecto verdadero no se conoce. Los experimentos muestran el mecanismo de los sesgos, no cuánto sesgan tus datos.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Trustworthy Online Controlled Experiments (Kohavi, Tang y Xu)](https://experimentguide.com/) | La asignación aleatoria permite atribuir diferencias a la intervención, y el libro recoge fallos frecuentes de implementación y análisis. | No garantiza que tu experimento esté bien diseñado. |
+| [Fabijan et al.: Diagnosing Sample Ratio Mismatch (KDD 2019)](https://exp-platform.com/Documents/2019_KDDFabijanGupchupFuptaOmhoverVermeerDmitriev.pdf) | Un desajuste entre las proporciones esperadas y observadas de la asignación indica un defecto que invalida el análisis, y tiene causas catalogadas. | No dice cuánto sesgo produce un desajuste concreto. |
+| [Python: random](https://docs.python.org/3/library/random.html) | Un generador con semilla repite exactamente la asignación y los ruidos. | No hace que el generador represente a las personas reales. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-137`: los eventos reflejan a quienes consintieron. La pregunta activa es: **¿qué comparación sería justa y qué podría hacer que una diferencia parezca efecto sin serlo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-137` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor y hoja de cálculo sin datos personales reales.
+- Haber completado `SE-137` o poder describir qué eventos recoge la plataforma.
+- Python 3.11 o posterior y un terminal.
+- Trabajar solo con datos sintéticos; ninguna observación necesita datos de personas reales.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **Experimentos, sesgos y causalidad básica**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Una función nueva de la plataforma, el recordatorio de entrega, se lanza a quien la active. A las dos semanas, quienes la usan envían 2,6 entregas más por semana que quienes no. El equipo propone atribuirle la mejora y desplegarla para todos. Otro equipo propone un experimento, aunque nadie ha comprobado que la asignación funcione, y un tercero propone «relanzar» el programa en los centros de peores resultados, que ya muestran una mejora sin que nada haya cambiado.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Experimentos y sesgos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **árbol de métricas y caso de decisión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «optimizar actividad o una vanity metric en lugar del resultado» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Experimentos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Sesgos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Causalidad | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Básica | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. estimar un efecto con comparación observacional, estratificación y asignación aleatoria y explicar por qué difieren;
+2. aplicar un control de proporciones de asignación y decir qué pérdidas detecta y cuáles no;
+3. explicar la regresión a la media y calcular cuánto «mejoran» los peores casos sin intervención;
+4. redactar una afirmación causal con su contrafactual y declarar qué la limita;
+5. decidir cuándo un experimento es posible, necesario o innecesario.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Experimentos, sesgos y causalidad básica"] --> M["Modelo: Experimentos"]
-    M --> D["Decisión: sesgos"]
-    D --> E["Evidencia: causalidad"]
-    E --> R["Revisión: básica"]
-    R -->|nueva información| M
+    N1[Contrafactual y asignación] --> N2[Sesgo de selección] --> N3[Control de la asignación] --> N4[Regresión a la media] --> N5[Qué se puede afirmar]
+    N5 -->|un defecto de diseño| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Experimentos, sesgos y causalidad básica**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que un defecto de asignación o de análisis obliga a rehacer el diseño; no autoriza a corregir solo la estadística.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Contrafactual y asignación | Un efecto causal es la diferencia con lo que habría ocurrido sin intervención; la aleatorización fabrica un contrafactual comparable. | Descripción del contrafactual y de la unidad asignada en `experiment-readout.md` |
+| Sesgo de selección y confusión | Quien elige adoptar suele ser distinto de quien no; esa diferencia se mezcla con el efecto. | Efecto observacional frente a aleatorizado |
+| Control de la asignación | Un defecto en la asignación invalida el análisis aunque el número parezca razonable. | Tasa de detección del control de proporciones |
+| Regresión a la media | Los casos extremos en una medición ruidosa tienden a acercarse al promedio en la siguiente. | Mejora de los peores sin intervención |
+| Qué se puede afirmar | Una afirmación causal declara contrafactual, población y límites; sin eso es una correlación. | Lista de afirmaciones con evidencia que las sostiene |
 
 ## Conceptos y decisiones
 
-Una métrica representa parcialmente un resultado y puede cambiar conductas; por eso se interpreta junto con costo, población, ventana temporal y guardrails.
+### 1. Contrafactual y asignación
 
-La pregunta rectora de esta parte es: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** La respuesta debe
-apoyarse en **definición calculable, fuente de datos, segmento, tendencia y métrica contraria**.
+Decir que una función «causó» una mejora es decir que sin ella la mejora no habría ocurrido. Ese «sin ella» no se observa para la misma persona. La asignación aleatoria crea dos grupos que, en promedio, solo difieren en la intervención; su diferencia estima el efecto. Para que valga, la unidad asignada (persona, centro, sesión) debe coincidir con la unidad analizada y los grupos no deben contaminarse.
 
-### 1. Experimentos: modelo
+### 2. Sesgo de selección y confusión
 
-En esta clase, **Experimentos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Experimentos, sesgos y causalidad básica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando las personas eligen si usar la función, la elección depende de factores (compromiso, tamaño del centro) que también afectan al resultado. Esos factores confunden: la diferencia observada mezcla el efecto con la diferencia previa entre quienes eligen. Estratificar por una variable observada reduce el sesgo atribuible a ella y deja el resto; si la variable mide mal el factor real, la reducción es parcial.
 
-### 2. Sesgos: mecanismo
+### 3. Control de la asignación
 
-En esta clase, **sesgos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Experimentos, sesgos y causalidad básica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si se esperaba un reparto 50/50 y se observa otro con más desviación de la esperable por azar, algo falló: un error de código, una pérdida de datos que depende del grupo, un filtro que excluye a unos y no a otros. El control de la proporción de la muestra (sample ratio mismatch) compara las cuentas observadas con las esperadas con un contraste estadístico, con un umbral muy estricto para evitar falsas alarmas. Un resultado con asignación defectuosa no se interpreta: se corrige y se repite.
 
-### 3. Causalidad: evidencia
+### 4. Regresión a la media
 
-En esta clase, **causalidad** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Experimentos, sesgos y causalidad básica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una medición es el valor verdadero más ruido. Si se selecciona a los peores por una primera medición, parte de su mala posición es ruido que no se repetirá: en la segunda medición se acercarán al promedio sin intervención. Un programa dirigido a los peores y evaluado «antes y después» atribuye esa mejora al programa. Cuanto menos fiable la medición, mayor la regresión.
 
-### 4. Básica: decisión
+### 5. Qué se puede afirmar
 
-En esta clase, **básica** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué decisión cambiaría con esta medida y qué daño podría ocultar?» y demostrarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Experimentos, sesgos y causalidad básica**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una afirmación causal responde: ¿efecto de qué sobre qué?, ¿en qué población?, ¿comparado con qué?, ¿con qué incertidumbre? Sin experimento, lo defendible es una asociación con las razones por las que podría ser confusa. A veces un experimento no es posible o no se justifica (el costo de equivocarse es bajo y es reversible); entonces se declara que la decisión se toma sin evidencia causal.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Quién adopta no se parece a quien no adopta
+
+Se generan 20 000 personas con compromiso estándar normal; el resultado base depende de él (peso 2) y la función suma 0,5 entregas por semana. En el escenario observacional la probabilidad de adoptar crece con el compromiso (logística de 1,5 × compromiso − 0,5); en el aleatorizado se asigna con moneda. Predicción: ¿cuánto vale la diferencia observacional?
+
+```python
+rng = random.Random(1381)
+adopta = rng.random() < 1 / (1 + math.exp(-(1.5 * compromiso - 0.5)))
+resultado = 5 + 2 * compromiso + (0.5 if adopta else 0) + rng.gauss(0, 1)
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3): adopta el 40,8 % y la diferencia observacional es 2,62 entregas por semana, 5,2 veces el efecto verdadero (0,50). Estratificar en diez grupos por un indicador ruidoso del compromiso (compromiso más ruido de desviación 1) la reduce a 1,80, todavía 3,6 veces el verdadero. La asignación al azar estima 0,48. El indicador ruidoso corrige una parte del sesgo y deja el resto, porque no mide el compromiso, solo se parece a él.
+
+![Barras con el efecto verdadero y las estimaciones observacional, estratificada y aleatorizada.](../../../content/part-11/figures/se-138-sesgo-de-seleccion.svg)
+
+**Cómo leer la figura.** La barra azul es el efecto que puso el generador; la verde, el estimado con asignación al azar; la dorada, con estratificación; la coral, la comparación ingenua. **Dónde deja de valer:** el sesgo depende de cuánto compromiso determine la adopción (1,5), que es un supuesto. Con un efecto de confusión menor, la diferencia sería menor. En datos reales no conoces el efecto verdadero: la figura enseña a sospechar de una diferencia grande entre quienes eligen.
+
+### El control de proporciones detecta pérdidas grandes, no pequeñas
+
+Se simulan 1 000 experimentos de 10 000 personas asignadas 50/50 y se calcula el contraste de proporciones con umbral p < 0,001. Luego se simula una pérdida: las personas del grupo tratado cuyo cliente falla (por ejemplo, un error de la función) no quedan registradas, en proporciones de 0,5 %, 1 %, 2 % y 5 % del grupo.
+
+```python
+z = (n1 - n / 2) / math.sqrt(n / 4)
+p = math.erfc(abs(z) / math.sqrt(2))
+alarma = p < 0.001
+```
+
+Con asignación correcta hubo 0 alarmas falsas en 1 000 experimentos. Con una pérdida de 0,5 % se detectó el 0,2 %; con 1 %, el 0,9 %; con 2 %, el 10,7 %; con 5 %, el 95,8 %. Una pérdida de 2 % pasa inadvertida el 89 % de las veces. Y no es inocua: si se pierde justo el 3 % menos comprometido del grupo tratado, la diferencia de medias entre dos poblaciones idénticas pasa a +0,046 desviaciones típicas, del orden de un efecto pequeño real. El control es necesario y no es suficiente: el umbral estricto evita falsas alarmas a costa de potencia.
+
+![Barras con la fracción de experimentos en que el control de proporciones da alarma según la pérdida del grupo tratado.](../../../content/part-11/figures/se-138-desajuste-de-proporcion-de-muestra.svg)
+
+**Cómo leer la figura.** Cada barra es la fracción de 1 000 experimentos con alarma; la verde es la pérdida de 5 %, que sí se detecta. **Dónde deja de valer:** la pérdida se modela como una fracción fija y al azar del grupo tratado; la pérdida real depende del comportamiento (quien falla suele ser distinto) y su efecto sobre la media puede ser mayor o menor. La figura no dice que una pérdida pequeña sea irrelevante: dice que este control no la ve.
+
+### Los peores mejoran solos
+
+Se generan 500 centros con valor verdadero de media 60 y desviación 8, se miden dos veces con ruido de desviación 2, 5 u 8 y se elige el 10 % peor en la primera medición, sin aplicar ninguna intervención.
+
+```python
+rng = random.Random(1384)
+t1 = [v + rng.gauss(0, ruido) for v in verdadero]
+t2 = [v + rng.gauss(0, ruido) for v in verdadero]
+peores = sorted(range(500), key=lambda i: t1[i])[:50]
+mejora = statistics.mean(t2[i] - t1[i] for i in peores)
+```
+
+Con ruido 2 (fiabilidad 0,94) los peores «mejoran» 0,91 puntos; con ruido 5 (0,72), 4,00; con ruido 8 (0,50), 12,64. Con ruido 5, 40 de los 50 peores (80 %) suben. Un programa de apoyo aplicado al peor decil y evaluado «antes y después» habría atribuido a su acción una mejora de 4 puntos que ocurre sin él.
+
+![Barras con la mejora media de los peores centros sin intervención según el ruido de medición.](../../../content/part-11/figures/se-138-regresion-a-la-media.svg)
+
+**Cómo leer la figura.** Cada barra es la mejora del 10 % peor entre la primera y la segunda medición; cuanto menos fiable la medición, mayor la barra. **Dónde deja de valer:** supone que el valor verdadero no cambia entre mediciones y que el ruido es independiente y normal; en datos reales hay tendencias y cambios reales. La corrección es un grupo de comparación seleccionado de igual manera, no un ajuste matemático.
 
 ## Definiciones de trabajo
 
-- **Experimentos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Sesgos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Causalidad:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
-- **Básica:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante definición calculable, fuente de datos, segmento, tendencia y métrica contraria.
+- **contrafactual:** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
+- **asignación aleatoria:** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
+- **sesgo de selección:** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
+- **desajuste de proporción de muestra:** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
+- **regresión a la media:** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas y deben contrastarse con las fuentes enlazadas al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Experimentos, sesgos y causalidad básica**:
+Predice cuántas personas deberían quedar en cada grupo con 1 000 asignadas al azar y qué ocurriría si se observan 540 y 460.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import math
+n, n1 = 1000, 540
+z = (n1 - n / 2) / math.sqrt(n / 4)
+print(round(z, 2), math.erfc(abs(z) / math.sqrt(2)) < 0.001)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El contraste da z = 2,53 y p ≈ 0,011: no supera el umbral estricto de 0,001. Con 560 y 440 sí lo supera. Registra versión del intérprete, comando y salida; el umbral decide qué asignaciones se aceptan.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **Experimentos, sesgos y causalidad básica**. Parte de esta pregunta: **¿qué decisión cambiaría con esta medida y qué daño podría ocultar?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando definición calculable, fuente de datos, segmento, tendencia y métrica contraria. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `metric-tree.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, `experiment-readout.md` registra por experimento: unidad asignada, mecanismo de asignación, proporciones esperadas y observadas con el resultado del control, población y ventana, métrica primaria con su métrica contraria, efecto estimado con intervalo y límites. El contrato es que ningún efecto se informa si el control de proporciones falló, y que toda comparación observacional se rotula como tal.
+
+Compara el caso normal con un experimento en que dos docentes del mismo centro quedan en grupos distintos y comparten información, con una función que falla en un tipo de dispositivo, con un grupo que se redujo por un filtro y con un centro que cambió de plan durante el experimento. El readout es adecuado cuando esas diferencias aparecen como notas de validez; es peligroso cuando una cifra sola las absorbe.
 
 ## Práctica guiada
 
-1. Crea `work/SE-138/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el árbol de métricas y caso de decisión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Copia el contrato de readout (unidad, asignación, proporciones, métrica, efecto, límites) antes de analizar nada.
+2. Predice cuánto sobrestima el efecto una comparación entre adoptantes y no adoptantes y anota por qué.
+3. Simula los tres estimadores con semilla fija y registra el efecto de cada uno.
+4. Implementa el control de proporciones y mide falsas alarmas y detección con cuatro pérdidas.
+5. Simula la regresión a la media con tres niveles de ruido y registra la mejora de los peores.
+6. Redacta tres afirmaciones causales con su contrafactual y los límites de cada una.
+7. Pide a otra persona que reconstruya efectos, tasas de detección y mejoras solo con `experiment-readout.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Experimentos y sesgos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `metric-tree.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Confusión:** cambia el peso del compromiso en la adopción a 0,5 y a 3 y describe cómo cambian las estimaciones observacional y estratificada.
+2. **Umbral:** repite el control con p < 0,05 y compara falsas alarmas y detección; explica por qué no se usa ese umbral.
+3. **Regresión:** calcula la mejora esperada de los peores 25 % con ruido 5 y explica cómo un grupo de comparación seleccionado igual la eliminaría.
+4. **Afirmación:** reescribe «el recordatorio aumentó las entregas» como afirmación causal con contrafactual, población y límite.
 
 ## Reto verificable
 
-Entrega el **árbol de métricas y caso de decisión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `experiment-readout.md` con los tres estimadores, el control de proporciones con sus cuatro pérdidas, la regresión a la media con tres ruidos y tres afirmaciones causales con sus límites. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números con la semilla indicada y puede decir cuál de las afirmaciones no se sostiene sin experimento. No se aprueba por la cantidad de simulaciones.
+
+## Caso conductor
+
+La plataforma de entregas continúa como caso. Esta clase deja un readout con tres estimadores y una lista de afirmaciones que se pueden hacer con los datos observacionales y las que exigen experimento. `SE-139` usará esas métricas con sus contrapesos y `SE-142` tratará cuándo conviene experimentar y cuándo decidir sin evidencia causal. Cambia después una sola decisión de diseño —por ejemplo, la unidad asignada— y revisa qué conclusiones cambian.
+
+## Preguntas frecuentes
+
+### Si controlo por muchas variables, ¿puedo prescindir del experimento?
+
+Solo por las que se miden bien y explican la selección. En el experimento, estratificar por un indicador ruidoso redujo el sesgo de 2,62 a 1,80, pero el efecto verdadero era 0,50. Las variables relevantes no observadas, o mal medidas, quedan sin controlar.
+
+### ¿Un control de proporciones que no da alarma prueba que la asignación está bien?
+
+No. Detecta desviaciones grandes: una pérdida de 2 % pasa inadvertida el 89 % de las veces con 10 000 personas. Se complementa con revisar el código de asignación, comparar covariables previas entre grupos y vigilar los filtros del análisis.
+
+### ¿Cómo sé si una mejora es regresión a la media?
+
+Compara con un grupo seleccionado igual y no intervenido. Si los peores que no recibieron el programa también mejoran, parte de la mejora es regresión. Cuanto menos fiable la medición, mayor es la regresión esperada, y por eso se mide la fiabilidad.
+
+### ¿Puede un modelo de lenguaje analizar un experimento?
+
+Puede ejecutar el análisis, pero debe recibir la unidad asignada, las proporciones esperadas y el control de calidad. Un análisis sin estos datos devuelve una diferencia de medias con su intervalo, que se leerá como causal aunque la asignación estuviera rota.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **optimizar actividad o una vanity metric en lugar del resultado**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **atribuir a la función la diferencia entre quienes la usan y quienes no**. Compara adoptantes y no adoptantes y luego repite con asignación al azar.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** la diferencia es 2,62 y el equipo quiere desplegar a todos esperando un aumento similar. **Hipótesis rivales:** (a) el efecto es grande; (b) quienes adoptan ya eran más activos; (c) la medición tiene ruido. **Prueba:** estratifica por compromiso observado y asigna al azar; la diferencia baja a 1,80 y a 0,48, lo que sostiene (b). **Conclusión:** la selección explicaba la mayor parte. **Regresión:** añade al contrato una prueba que falle si una comparación observacional se informa como efecto sin rotularla. No cambies a la vez el diseño y el análisis.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| La función «mejora» las entregas en 2,6 y al desplegarla no ocurre nada | Se comparó a quienes eligen adoptar | Asignar al azar o rotular como asociación |
+| Un experimento de 10 000 personas reparte 46 % y 54 % y nadie lo cuestiona | El control de proporciones no se aplicó | Aplicar el control antes de analizar y corregir la asignación |
+| El programa de apoyo «funcionó» en el peor decil | Regresión a la media | Comparar con un grupo seleccionado igual |
+| El efecto aparece solo en un subgrupo elegido a posteriori | Se miraron muchos subgrupos | Declarar subgrupos antes y corregir comparaciones múltiples |
+| El grupo control recibió la función por contagio | La unidad asignada era menor que la unidad de interacción | Asignar por centro y no por persona |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor y hoja de cálculo sin datos personales reales. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-138/
 ├── README.md
-│   ├── metric-tree.md
-│   ├── decision.csv
-│   ├── guardrails.md
-├── activity.yaml
-└── rubric.json
+├── experimentos/
+│   ├── seleccion.py
+│   ├── srm.py
+│   └── regresion.py
+├── fixtures/asignacion.csv
+├── tests/test_srm.py
+└── evidence/experiment-readout.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `metric-tree.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas (1381, 1382, 1383, 1384) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `math`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- asignar personas a una experiencia distinta es una decisión sobre ellas: considera quién puede salir perjudicado y la necesidad de informarlo según el caso;
+- no experimentes con características que afecten derechos o acceso (calificaciones, plazos) sin una revisión que lo permita;
+- los experimentos usan los eventos de `SE-137`: respeta el consentimiento y la minimización;
+- describe cada resultado con palabras y ofrece una alternativa textual a los gráficos;
+- no pegues datos reales de experimentos en un modelo de lenguaje sin política de datos;
+- atribuye las fuentes usadas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «analiza el experimento» calculará una diferencia de medias y un intervalo. Pídele que confirme primero la unidad asignada y el control de proporciones, que rotule como asociación cualquier comparación sin asignación y que busque regresión a la media si se seleccionó por una medición extrema. Revisa especialmente si omite el control de proporciones: es el mismo error de fiarse de un número sin comprobar cómo se generó.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro dominio persistente (por ejemplo, un servicio de reparto): cambia la función por una promoción y el compromiso por la frecuencia de pedidos; conserva el contrato de readout y comprueba si la diferencia entre quienes aprovechan la promoción y quienes no vuelve a sobrestimar el efecto. La transferencia está lograda cuando puedes explicar qué dependía del dominio y qué no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-138/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación del contrafactual, la selección y la regresión a la media |
+| corrección | efectos, tasas de detección y mejoras reproducibles con la misma semilla |
+| diseño | contrato de readout con unidad, asignación y control |
+| diagnóstico | reproducción del fallo «usuarios frente a no usuarios» con regresión |
+| incertidumbre | límites de cada afirmación causal y qué experimento la sostendría |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Trustworthy Online Controlled Experiments](https://experimentguide.com/) — diseño, calidad y análisis de experimentos controlados en línea; autoridad: R. Kohavi, D. Tang y Y. Xu (Cambridge University Press).
+- [Diagnosing Sample Ratio Mismatch in Online Controlled Experiments (KDD 2019)](https://exp-platform.com/Documents/2019_KDDFabijanGupchupFuptaOmhoverVermeerDmitriev.pdf) — taxonomía y reglas para diagnosticar un desajuste de asignación; autoridad: A. Fabijan y colaboradores (Microsoft).
+- [GOV.UK Service Manual: Measuring success](https://www.gov.uk/service-manual/measuring-success) — usar datos para decidir cómo mejorar un servicio; autoridad: Government Digital Service.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — medición y evidencia empírica en ingeniería de software; autoridad: IEEE Computer Society.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que un experimento de la plataforma esté bien diseñado. Esa afirmación depende del diseño, del control de la asignación y de la revisión de otra persona.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generadores con semilla.
+- [Python: `math.erfc`](https://docs.python.org/3/library/math.html#math.erfc) — función de error complementaria usada para el contraste.
+- [Python: `statistics`](https://docs.python.org/3/library/statistics.html) — promedios y diferencias.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Experimentos, sesgos y causalidad básica**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-139`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se asignó a ninguna persona real, el efecto verdadero lo fija el generador y los parámetros de confusión, ruido y pérdida son supuestos del autor. La siguiente clase usa métricas con contrapesos para evitar que un experimento optimice una cifra a costa de otra.
+
+## Glosario
+
+- **contrafactual:** lo que habría ocurrido a las mismas personas sin la intervención; no se observa.
+- **asignación aleatoria:** reparto por azar de las unidades entre grupos para que solo la intervención los distinga en promedio.
+- **sesgo de selección:** diferencia previa entre quienes eligen una opción y quienes no, mezclada con el efecto.
+- **desajuste de proporción de muestra:** diferencia entre el reparto esperado y el observado mayor que la que explica el azar.
+- **regresión a la media:** tendencia de los casos extremos de una medición ruidosa a acercarse al promedio en la siguiente.
 
 ---
 

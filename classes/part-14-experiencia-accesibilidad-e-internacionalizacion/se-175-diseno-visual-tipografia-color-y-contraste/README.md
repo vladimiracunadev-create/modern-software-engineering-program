@@ -2,207 +2,302 @@
 
 [← SE-174 — Semántica, teclado, foco y tecnologías de asistencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-174-semantica-teclado-foco-y-tecnologias-de-asistencia/README.md) · [↑ Parte 14](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-175.html) · [SE-176 — Responsive, adaptativo y preferencias del usuario →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que decidas color, tipografía y maquetación con cálculos y simulaciones (contraste, confusión de colores, reflujo) y no con una impresión, y para que sepas qué se conserva y qué se rompe cuando un tema, un zoom o una visión distinta cambian lo que se ve.
+
+**Por qué aparece aquí.** Se sitúa después de **Semántica, teclado, foco y tecnologías de apoyo** y antes de **Responsive, adaptativo y preferencias del usuario**: `SE-174` dejó la estructura sobre la que se pinta; esta clase decide cómo se ve sin romper la estructura ni la legibilidad. Deja los tokens de color y tipografía que `SE-176` adaptará a anchos y preferencias.
+
+**Error conceptual que debe corregir.** Creer que un buen diseño visual es una paleta atractiva y que un modo oscuro se obtiene invirtiendo los colores: el contraste, la distinción entre estados y el reflujo se calculan, y una transformación ingenua cambia de lado una de cada dos comprobaciones.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué pares de estados se confunden con tres tipos de daltonismo, qué maquetaciones desbordan al ampliar al 400 % y cuántos pares de colores que cumplían dejan de cumplir al invertir; después calculas con matrices publicadas, comparas anchos y simulas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `visual-log.md` con los tokens de color de la plataforma, la tabla de distancia de color bajo tres simulaciones, la tabla de reflujo y la comparación antes y después de invertir. Debe distinguir una aproximación (simulación de visión) de una medición con personas. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría retirar la conclusión.
+
+**Límite de la conclusión.** Las matrices de simulación de daltonismo se aplican en RGB lineal como aproximación, el reflujo usa 0,5 em por carácter y los pares de colores son aleatorios y uniformes; ninguna cifra reemplaza a personas con visión distinta ni a una evaluación de la maquetación real.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Machado, Oliveira y Fernandes (IEEE TVCG, 2009)](https://doi.org/10.1109/TVCG.2009.113) | Propone un modelo fisiológico para simular deficiencias de color con matrices por tipo y severidad. | Es un modelo aproximado; no reproduce la experiencia de una persona concreta. |
+| [W3C: Comprender 1.4.10 Reflujo](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) | Pide que el contenido se presente sin desplazamiento en dos dimensiones a 320 px CSS de ancho (400 % de zoom en 1280 px). | No cubre contenido que por naturaleza necesita dos dimensiones, como mapas o tablas de datos. |
+| [W3C: Comprender 1.4.1 Uso del color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) | Exige que el color no sea el único medio para transmitir información. | No indica qué señal adicional conviene en cada caso. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-174`: lo que importa de un control es su rol, nombre y orden, no su aspecto. La pregunta activa es: **¿qué se distingue y qué se lee cuando cambian la visión, el zoom o el tema?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-174` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de navegador, teclado, lector de pantalla disponible y editor.
+- Haber completado `SE-174` o poder explicar qué aporta la semántica nativa.
+- Python 3.11 o posterior y un terminal; los cálculos usan solo la biblioteca estándar.
+- Trabajar con los tokens de color de la plataforma y pares de colores sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Diseño visual, tipografía, color y contraste**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El diseño de la plataforma marca los estados con verde y rojo, usa un gris claro para los avisos, define contenedores de 600 px y un modo oscuro que se obtuvo invirtiendo los colores. Quien tiene deuteranopía ve igual «entregado» y «pendiente»; con el zoom del 400 % hay que desplazarse lateralmente; y en el modo oscuro hay textos que antes se leían y ahora no. Una propuesta añade más colores; otra elimina el modo oscuro; otra agranda el texto.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Diseño y visual con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo y auditoría de inclusión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «declarar accesibilidad únicamente por el resultado de una herramienta automática» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Diseño | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Visual | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Tipografía | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Color | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. calcular la distancia entre dos colores y estimar su confusión con una simulación de visión;
+2. decidir qué señal adicional necesita un estado que se codifica con color;
+3. calcular si una maquetación desborda al ampliar y por qué;
+4. medir cuántos pares de colores dejan de cumplir al invertir un tema;
+5. escribir tokens de color y tipografía con su razón de contraste comprobable.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Diseño visual, tipografía, color y contraste"] --> M["Modelo: Diseño"]
-    M --> D["Decisión: visual"]
-    D --> E["Evidencia: tipografía"]
-    E --> R["Revisión: color"]
-    R -->|nueva información| M
+    A[Tokens de color y tipo] --> B[Contraste y distancia]
+    B --> C[Simulación de visión]
+    A --> D[Maquetación y reflujo]
+    D --> E[Zoom y texto ampliado]
+    C --> F[Señal redundante]
+    E --> F
+    F -->|nuevo tema| A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Diseño visual, tipografía, color y contraste**.
+El mapa se lee como un conjunto de comprobaciones sobre los mismos tokens: contraste y distancia entre colores, simulación de visión y reflujo. Todas convergen en una señal redundante (texto, forma, patrón) y un nuevo tema reabre los tokens. No es una secuencia.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Tokens de color y de tipografía | Centralizan las decisiones para poder comprobarlas. | Predicción, traza causal y contraejemplo de **Tokens de color y de tipografía** en `visual-log.md` |
+| Contraste y legibilidad | Hace que el texto se distinga del fondo para visión reducida, luz solar o pantallas de baja calidad. | Predicción, traza causal y contraejemplo de **Contraste y legibilidad** en `visual-log.md` |
+| Visión del color | Evita que un estado dependa de distinguir tonos que una parte de la población no distingue. | Predicción, traza causal y contraejemplo de **Visión del color** en `visual-log.md` |
+| Maquetación, zoom y reflujo | Hace que el contenido se adapte al ancho disponible al ampliar. | Predicción, traza causal y contraejemplo de **Maquetación, zoom y reflujo** en `visual-log.md` |
+| Temas y preferencias de color | Respeta lo que la persona eligió en su sistema. | Predicción, traza causal y contraejemplo de **Temas y preferencias de color** en `visual-log.md` |
 
 ## Conceptos y decisiones
 
-La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales.
+### 1. Tokens de color y de tipografía
 
-La pregunta rectora de esta parte es: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** La respuesta debe
-apoyarse en **recorrido por teclado, semántica, contraste, formatos culturales y observación de uso**.
+Un token es un nombre para un valor de diseño (color de texto, de fondo, de error; tamaño y escala de texto). Centralizarlos permite calcular el contraste de todos los pares permitidos una vez y fallar en una prueba si alguien añade uno que no cumple. Una escala tipográfica con una razón constante (por ejemplo 1,25) da jerarquía sin decidir cada tamaño por separado y debe expresarse en unidades relativas para respetar las preferencias de la persona.
 
-### 1. Diseño: modelo
+### 2. Contraste y legibilidad
 
-En esta clase, **Diseño** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño visual, tipografía, color y contraste**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La razón mínima es 4,5:1 para texto normal y 3:1 para texto grande y componentes. Es necesaria y no suficiente: un texto muy fino, una tipografía de trazos ambiguos o un fondo con textura pueden ser ilegibles con una razón alta. Se comprueba con el texto real y con el tamaño real. Un exceso (blanco sobre negro puro) puede causar deslumbramiento en algunas personas; por eso los temas oscuros usan grises.
 
-### 2. Visual: mecanismo
+### 3. Visión del color
 
-En esta clase, **visual** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño visual, tipografía, color y contraste**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Las deficiencias de color (protanopía, deuteranopía, tritanopía) cambian qué pares de tonos se confunden. Se estima con matrices que transforman el color y se mide con una distancia perceptual (CIELAB). Una distancia de menos de unos diez puntos indica confusión probable. Rojo y verde son el caso clásico: casi iguales en deuteranopía. La solución no es otra paleta única, sino añadir una señal que no sea el color: un texto, un icono con nombre o una forma.
 
-### 3. Tipografía: evidencia
+### 4. Maquetación, zoom y reflujo
 
-En esta clase, **tipografía** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño visual, tipografía, color y contraste**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Ampliar el texto al 400 % en una ventana de 1 280 px deja un ancho útil de 320 px CSS. Un contenedor de ancho fijo de 600 px obliga a desplazarse en dos dimensiones, y una tabla de cinco columnas de 140 px lo hace ya al 200 %. Los anchos relativos, las rejillas que envuelven y los textos en unidades relativas evitan el problema. Algunas tablas de datos necesitan un desplazamiento horizontal, que el criterio admite como excepción.
 
-### 4. Color: decisión
+### 5. Temas y preferencias de color
 
-En esta clase, **color** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Diseño visual, tipografía, color y contraste**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El modo oscuro, el alto contraste y los colores forzados responden a preferencias de la persona. Un tema oscuro se diseña con pares calculados para ese fondo, no por inversión: el contraste no se conserva, un color saturado vibra sobre negro y las sombras desaparecen. Los colores forzados sustituyen los colores del autor por los del sistema, y por eso un estado que se marca solo con un color de fondo desaparece.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Pares de estados bajo tres simulaciones de visión
+
+Se aplicaron las matrices de simulación de Machado (severidad completa) en RGB lineal y se midió la distancia ΔE en CIELAB entre pares de colores de estado. El rojo #d62728 y el verde #2ca02c están a 119,8 con visión normal, 37,6 con protanopía, 7,3 con deuteranopía y 124,4 con tritanopía; sus luminancias dan un contraste de solo 1,48:1. Los colores coral y verde azulado de las figuras del programa pasan de 90,8 a 42,2 y 61,3; el par azul y naranja, a 101,0 y 118,1, y el de ámbar y verde azulado, a 67,2 y 71,9. El par rojo-verde solo se separa por tono; el azul y el naranja se separan también por luminancia y por eso resisten.
+
+```python
+def simular(rgb, M):
+    l = [lin(c) for c in rgb]
+    return tuple(to_srgb(sum(M[i][j] * l[j] for j in range(3))) for i in range(3))
+
+def delta_e(a, b):
+    return math.dist(lab(a), lab(b))
+```
+
+![Tabla con cinco pares de colores y su diferencia de color para visión normal y tres simulaciones de daltonismo: el par rojo y verde pasa de 119,8 a 7,3 en deuteranopía; azul y naranja se mantiene por encima de 96.](../../../content/part-14/figures/se-175-pares-bajo-daltonismo.svg)
+
+**Cómo leer la figura.** Cada fila es un par de colores; las columnas muestran su distancia con visión normal y con cada simulación; un valor bajo indica confusión. **Dónde deja de valer:** las matrices se aplican en RGB lineal y a severidad completa, una aproximación; muchas personas tienen deficiencias parciales y ninguna simulación sustituye a personas con esa visión. Un ΔE menor que 10 es un umbral práctico, no una medida de percepción individual.
+
+### Una misma página al ampliar
+
+Se comparó el ancho útil con el ancho fijo de tres maquetaciones al 100 %, 200 % y 400 % en una ventana de 1 280 px (1 280, 640 y 320 px CSS). El contenedor fluido con texto de 16 px nunca desborda: a 320 px de ancho caben unos 36 caracteres por línea y un párrafo de 500 caracteres ocupa 14 líneas. El contenedor fijo de 600 px no desborda al 100 % ni al 200 %, y sí al 400 % (600 px en 320). La tabla de cinco columnas de 140 px (700 px) desborda ya al 200 % (700 px en 640) y al 400 %.
+
+```python
+vw = 1280 / (zoom / 100)                       # ancho CSS disponible
+desborda = ancho_fijo > vw
+caracteres_por_linea = int(vw / (16 * 0.5))      # 0,5 em por carácter, supuesto
+```
+
+![Tabla de tres maquetaciones a ampliación del 100, 200 y 400 por ciento: el contenedor fluido nunca desborda, el de 600 píxeles desborda al 400 por ciento y la tabla de 700 píxeles desborda desde el 200 por ciento.](../../../content/part-14/figures/se-175-reflujo-con-zoom.svg)
+
+**Cómo leer la figura.** Cada fila es una maquetación y cada columna un nivel de ampliación; «Desborda» indica desplazamiento horizontal. **Dónde deja de valer:** el cálculo compara anchos fijos con el ancho disponible y supone 0,5 em por carácter; el desbordamiento real depende de las reglas de maquetación, del contenido y del navegador, y debe comprobarse abriendo la página.
+
+### Invertir los colores no conserva el contraste
+
+De 20 000 pares de colores al azar, 2 441 pasan 4,5:1. Al invertir cada canal (255 − c), pasan 2 499: casi el mismo total, pero 956 de los pares que pasaban dejan de pasar (el 39 %) y 1 014 que fallaban pasan. La razón de contraste de un par #767676 sobre blanco sube de 4,54 a 6,00 y la de #c0432f sobre blanco, de 5,14 a 9,32: invertir cambia el contraste de forma impredecible. Un tema oscuro necesita sus propios pares calculados.
+
+```python
+inv = lambda c: tuple(255 - x for x in c)
+antes = razon(fg, bg) >= 4.5
+despues = razon(inv(fg), inv(bg)) >= 4.5
+pierden = antes and not despues
+```
+
+![Barras con 20 000 pares de colores al azar: 2 441 pasan 4,5 a 1 antes de invertir y 2 499 después, pero 956 dejan de pasar y 1 014 empiezan a pasar.](../../../content/part-14/figures/se-175-inversion-ingenua.svg)
+
+**Cómo leer la figura.** Las dos primeras barras son los pares que pasan antes y después; las dos siguientes, los que cambian de lado. **Dónde deja de valer:** los pares son aleatorios y uniformes en sRGB y no una paleta real, en la que la mayoría de los pares son de bajo contraste por diseño. El experimento muestra que la inversión no conserva el contraste, no cuántos pares de una paleta se rompen.
 
 ## Definiciones de trabajo
 
-- **Diseño:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Visual:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Tipografía:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Color:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
+- **token de diseño:** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
+- **razón de contraste:** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
+- **distancia de color ΔE:** distancia en un espacio perceptual como CIELAB entre dos colores.
+- **reflujo:** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
+- **señal redundante:** indicador adicional al color, como texto, forma o patrón.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Diseño visual, tipografía, color y contraste**:
+El fragmento calcula si un contenedor de ancho fijo desborda a un nivel de zoom. Antes de ejecutarlo, predice a qué zoom empieza a desbordar uno de 600 px en una ventana de 1 280 px.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+def desborda(ancho_fijo, zoom, ventana=1280):
+    return ancho_fijo > ventana / (zoom / 100)
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+for z in (100, 150, 200, 250, 400):
+    print(z, desborda(600, z))   # desborda desde 250 %
+```
+
+Desde el 214 % el ancho disponible baja de 600 px. Prueba con 700 px y anota desde qué zoom desborda; registra versión y salida.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Diseño visual, tipografía, color y contraste**. Parte de esta pregunta: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `prototype.html` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, los tokens de color viven en un archivo con los pares permitidos de texto sobre fondo; una prueba calcula la razón de cada par y falla si alguno baja de 4,5:1 (3:1 para componentes), y otra calcula la distancia entre los colores de estado bajo tres simulaciones de visión y exige una señal redundante cuando baja de diez. El tema oscuro se define con sus propios pares y la maquetación usa anchos relativos; una captura a 320 px CSS comprueba que no hay desplazamiento horizontal.
+
+Compara el caso normal con una persona con deuteranopía, con el zoom del 400 % y con colores forzados del sistema. Un diseño es apropiado cuando los estados se distinguen por texto o forma además del color; es peligroso cuando solo se probó con la paleta original.
 
 ## Práctica guiada
 
-1. Crea `work/SE-175/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo y auditoría de inclusión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista los pares de colores de texto y de estado de la plataforma.
+2. Predice qué pares se confunden en deuteranopía y calcula la distancia.
+3. Añade a cada estado una señal redundante y vuelve a evaluar la confusión.
+4. Calcula si cada contenedor y tabla desbordan al 200 % y al 400 %.
+5. Invierte la paleta, mide cuántos pares dejan de cumplir y diseña los pares del tema oscuro.
+6. Introduce el fallo controlado y registra el síntoma antes de corregirlo.
+7. Pide a otra persona que reconstruya los tokens y las comprobaciones solo desde `visual-log.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Diseño y visual con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `prototype.html` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Estados:** propón una codificación de «entregado», «pendiente» y «tarde» que cumpla distancia y señal redundante y calcula su distancia bajo las tres simulaciones.
+2. **Reflujo:** transforma la tabla de cinco columnas en una presentación que no desborde al 400 % y explica qué se pierde.
+3. **Tema oscuro:** diseña los pares del tema oscuro con razón de al menos 4,5:1 y explica por qué no usas blanco puro sobre negro puro.
+4. **Escala:** calcula una escala tipográfica de razón 1,25 en unidades relativas y comprueba el contraste de cada nivel sobre su fondo.
 
 ## Reto verificable
 
-Entrega el **prototipo y auditoría de inclusión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `visual-log.md` con los tokens de la plataforma, la tabla de distancia de color bajo tres simulaciones, la tabla de reflujo y la comparación antes y después de invertir. Se aprueba si otra persona reproduce los números y puede nombrar una condición que las simulaciones no cubren. No se aprueba por una paleta atractiva ni por la inversión de una paleta clara.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los tokens de color y tipografía, las señales redundantes de estado y las comprobaciones de contraste y reflujo. `SE-176` adaptará esa maquetación a anchos y preferencias, y `SE-177` a idiomas y formatos. Cambia después un solo token, el color de error, y revisa qué pares, qué estados y qué capturas dependían de él.
+
+## Preguntas frecuentes
+
+### ¿Cuántos colores de estado puedo usar?
+
+Pocos y con una señal adicional. Cada color añadido compite con los otros por distinguibilidad y, sin una señal redundante, depende de que la persona distinga tonos; la cifra depende de la distancia mínima que exijas bajo simulación.
+
+### ¿Basta con simular daltonismo?
+
+No: la simulación ayuda a descubrir pares que se confunden y no reemplaza a personas con esa visión ni cubre deficiencias parciales ni baja visión. Es una comprobación barata, no una evaluación.
+
+### ¿El modo oscuro es obligatorio?
+
+No lo exige ninguna pauta; lo exige la persona cuando lo elige en su sistema. Si lo ofreces, debe cumplir los mismos contrastes con sus propios pares, y si no lo ofreces, debe funcionar el sistema de colores forzados.
+
+### ¿Por qué unidades relativas?
+
+Porque respetan el tamaño de texto que la persona eligió en el navegador y permiten el reflujo al ampliar; con píxeles fijos, esa preferencia se ignora y los contenedores desbordan.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **declarar accesibilidad únicamente por el resultado de una herramienta automática**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **codificar estados solo con rojo y verde**. Usa el par de estados con la simulación de deuteranopía.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una persona con deuteranopía no distingue «entregado» de «pendiente» en la lista. **Hipótesis rivales:** (a) el color verde elegido es demasiado claro; (b) el par depende solo del tono. **Prueba:** con deuteranopía la distancia cae de 119,8 a 7,3 y el contraste de luminancia es 1,48:1, de modo que cambiar un tono no lo arregla. **Conclusión:** la causa es depender únicamente del tono. **Regresión:** añade texto o forma a cada estado y una prueba que falle si un par de estados baja de diez puntos sin señal redundante. No cambies a la vez la paleta y los textos.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Dos estados se ven iguales a una parte de los usuarios | Se codificaron solo con tono | Añadir texto, forma o patrón y comprobar la distancia |
+| El modo oscuro tiene textos ilegibles | Se invirtieron los colores | Definir pares calculados para el tema oscuro |
+| Hay que desplazarse lateralmente al ampliar | Anchos fijos en píxeles | Anchos relativos, rejillas que envuelven y unidades relativas |
+| El texto se lee mal pese a cumplir 4,5:1 | Texto fino, fondo con textura o tipografía ambigua | Comprobar con el texto real y su grosor |
+| Un token nuevo rompe el contraste | No hay prueba sobre los pares | Prueba que calcule la razón de cada par de los tokens |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: navegador, teclado, lector de pantalla disponible y editor. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-175/
 ├── README.md
-│   ├── prototype.html
-│   ├── accessibility.md
-│   ├── usability-notes.md
-├── activity.yaml
-└── rubric.json
+├── visual/
+│   ├── tokens.py
+│   ├── daltonismo.py
+│   └── reflujo.py
+├── tests/test_visual.py
+└── evidence/visual-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `prototype.html` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los cálculos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. No se usó ningún navegador, simulador de visión de terceros ni persona con deficiencia de color.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- no reveles información sensible solo mediante el color, que puede no percibirse y que no se transmite a un lector de pantalla;
+- los temas deben respetar las preferencias de la persona (esquema, contraste, colores forzados) y no sobrescribirlas;
+- una animación o un parpadeo en un tema puede provocar molestias o crisis: evita destellos y respeta la preferencia de movimiento reducido (`SE-176`);
+- ofrece una alternativa textual a cada tabla y figura y no uses el color como única señal;
+- atribuye las fuentes y respeta las licencias de tipografías e iconos.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «añade un modo oscuro» invertirá las variables de color o generará una paleta atractiva sin calcular ningún par, y marcará los estados con los mismos rojo y verde. Pídele que calcule la razón de contraste de cada par del tema, que simule tres tipos de daltonismo con los colores de estado, que añada señales redundantes y que escriba una prueba sobre los tokens. Revisa especialmente si aplicó un filtro de inversión sobre toda la página: es la misma inversión ingenua, ahora con apariencia de tema.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra interfaz (un tablero con alertas de colores o un mapa de calor): calcula los pares, simula tres visiones, decide señales redundantes y mide el reflujo. La transferencia está lograda cuando puedes explicar qué parte dependía de la plataforma de entregas y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-175/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué el tono solo no basta y por qué invertir no conserva el contraste |
+| corrección | razones, distancias y desbordes reproducibles con las mismas semillas |
+| diseño | tokens con pares comprobados y señales redundantes de estado |
+| diagnóstico | reproducción del fallo rojo-verde con su regresión |
+| incertidumbre | declaración de que la simulación es una aproximación sin personas |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Machado, Oliveira y Fernandes, «A physiologically-based model for simulation of color vision deficiency» (IEEE TVCG, 2009)](https://doi.org/10.1109/TVCG.2009.113) — matrices de simulación de deficiencias de color; autoridad: IEEE Transactions on Visualization and Computer Graphics.
+- [W3C: Comprender 1.4.3 Contraste (mínimo)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) — razones de contraste y cálculo; autoridad: W3C.
+- [W3C: Comprender 1.4.1 Uso del color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) — señales no basadas solo en color; autoridad: W3C.
+- [W3C: Comprender 1.4.10 Reflujo](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) — contenido sin desplazamiento en dos dimensiones; autoridad: W3C.
+- [MDN: `prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) — preferencia de esquema claro u oscuro; autoridad: Mozilla.
+- [MDN: `forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors) — modo de colores forzados; autoridad: Mozilla.
+- [MDN: `prefers-contrast`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast) — preferencia de contraste; autoridad: Mozilla.
 
-- **Web Content Accessibility Guidelines 2.2** — W3C. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Internationalization techniques** — W3C. [https://www.w3.org/International/techniques/](https://www.w3.org/International/techniques/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la paleta de la plataforma sea distinguible para una persona concreta. Esa afirmación depende de probarla con personas con esa visión.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `math`](https://docs.python.org/3/library/math.html) — funciones usadas en luminancia y distancia de color.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — semillas del sorteo de pares de colores.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Diseño visual, tipografía, color y contraste**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-176`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún navegador, simulador de terceros ni persona con deficiencia de color; las matrices se aplican en RGB lineal como aproximación, el reflujo supone 0,5 em por carácter y los pares de colores son aleatorios. La siguiente clase adapta la maquetación a anchos y preferencias.
+
+## Glosario
+
+- **token de diseño:** nombre asignado a un valor de diseño (color, tamaño, espacio) que centraliza su uso.
+- **razón de contraste:** cociente entre las luminancias relativas del color claro y del oscuro, con un término de 0,05 sumado.
+- **distancia de color ΔE:** distancia en un espacio perceptual como CIELAB entre dos colores.
+- **reflujo:** adaptación del contenido al ancho disponible sin desplazamiento en dos dimensiones.
+- **señal redundante:** indicador adicional al color, como texto, forma o patrón.
 
 ---
 

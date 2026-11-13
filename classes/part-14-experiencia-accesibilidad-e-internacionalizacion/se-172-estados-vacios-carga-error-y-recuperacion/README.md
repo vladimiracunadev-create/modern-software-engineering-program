@@ -2,207 +2,300 @@
 
 [← SE-171 — Interacción, affordances y retroalimentación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md) · [↑ Parte 14](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-172.html) · [SE-173 — Accesibilidad perceptible, operable y comprensible →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que diseñes lo que ve y puede hacer una persona cuando una vista no tiene datos, está esperando, falló o se recuperó, y para que representes esos casos como estados explícitos y no como un montón de banderas que pueden contradecirse.
+
+**Por qué aparece aquí.** Se sitúa después de **Interacción, affordances y retroalimentación** y antes de **Accesibilidad perceptible, operable y comprensible**: `SE-171` dejó cómo responde un control a una acción; esta clase pregunta qué muestra la vista cuando la respuesta no llega, llega vacía o llega rota. Deja los estados y mensajes que `SE-173` comprobará para que también sean perceptibles y comprensibles.
+
+**Error conceptual que debe corregir.** Creer que los estados vacío, de carga y de error son detalles de acabado que se añaden al final: son parte del contrato de la vista, aparecen más a menudo de lo que parece y, mal modelados con banderas independientes, producen combinaciones imposibles que nadie diseñó.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices cuántas combinaciones de tres banderas booleanas tienen significado, qué política de reintentos evita un pico de carga al volver un servicio y cuántas cargas de una distribución dada muestran un indicador que parpadea; después enumeras, simulas y comparas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `states-log.md` con la lista de estados de la vista de entregas, la enumeración de combinaciones, la simulación de reintentos y la distribución de latencias. Debe distinguir el cálculo exacto (combinaciones) de las simulaciones con supuestos (reintentos y latencias). Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría retirar la conclusión.
+
+**Límite de la conclusión.** Los eventos aleatorios no son equiprobables en una aplicación real, los clientes de la simulación arrancan casi a la vez, no hay colas ni límites del servicio y la latencia es lognormal por supuesto; ninguna cifra describe a un servicio ni a una población.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Harel, «Statecharts: a visual formalism for complex systems» (Sci. Comput. Program., 1987)](https://doi.org/10.1016/0167-6423%2887%2990035-9) | Muestra que las combinaciones de condiciones independientes explotan y propone estados jerárquicos con transiciones explícitas. | No dice cómo modelar una vista concreta ni cuántos estados necesita. |
+| [AWS Architecture Blog: Exponential backoff and jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) | Compara reintentos con espera creciente con y sin aleatoriedad y muestra que la aleatoriedad reduce la competencia entre clientes. | Es un análisis de un proveedor para sus propios sistemas; no es una norma. |
+| [W3C: WCAG 2.2, 3.3.1 Identificación de errores](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html) | Exige que un error detectado se identifique y se describa en texto. | No define cómo debe redactarse un mensaje útil. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-171`: separar «recibido» de «guardado» y hacer seguros los reintentos. La pregunta activa es: **¿qué ve la persona cuando no hay datos, cuando espera, cuando falla y cuando se recupera?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-171` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de navegador, teclado, lector de pantalla disponible y editor.
+- Haber completado `SE-171` o poder explicar qué es una operación idempotente.
+- Python 3.11 o posterior y un terminal; los cálculos usan solo la biblioteca estándar.
+- Trabajar con la vista «mis entregas» de la plataforma y datos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Estados vacíos, carga, error y recuperación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La vista «mis entregas» muestra una lista que a veces queda en blanco: tras cargar muestra «No tienes entregas» durante un segundo y luego aparecen las entregas; otras veces muestra a la vez un indicador de carga y un mensaje de error; y cuando el servicio vuelve de una caída, los clientes reintentan al mismo tiempo y lo tumban de nuevo. Una propuesta añade más banderas; otra reintenta cada segundo; otra pone un indicador siempre.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Estados y vacíos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo y auditoría de inclusión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «declarar accesibilidad únicamente por el resultado de una herramienta automática» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Estados | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Vacíos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Carga | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Error | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. enumerar los estados de una vista y distinguir los que tienen significado de los que no;
+2. representar un estado como unión con transiciones explícitas y mostrar qué evita;
+3. comparar políticas de reintento por carga durante la caída y pico al recuperarse;
+4. decidir cuándo mostrar un indicador de carga a partir de una distribución de latencias;
+5. escribir los estados y mensajes de una vista de modo que otra persona los revise.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Estados vacíos, carga, error y recuperación"] --> M["Modelo: Estados"]
-    M --> D["Decisión: vacíos"]
-    D --> E["Evidencia: carga"]
-    E --> R["Revisión: error"]
-    R -->|nueva información| M
+    A[Vacío] -->|pedir| B[Carga]
+    B -->|datos| C[Con datos]
+    B -->|sin resultados| A
+    B -->|fallo| D[Error]
+    D -->|reintentar| B
+    C -->|actualizar| B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Estados vacíos, carga, error y recuperación**.
+El mapa se lee como una máquina de cuatro estados: solo se puede estar en uno a la vez y cada flecha es una transición declarada. Lo que no tiene flecha no puede ocurrir; ese es el punto del modelo. Un estado parcial (algunos datos, un fallo) se añade como un quinto estado y no como dos banderas.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Los estados de una vista | Fija qué se muestra cuando no hay datos, cuando se espera, cuando falla y cuando todo va bien. | Predicción, traza causal y contraejemplo de **Los estados de una vista** en `states-log.md` |
+| Estado como unión, no como banderas | Evita combinaciones que nadie diseñó. | Predicción, traza causal y contraejemplo de **Estado como unión, no como banderas** en `states-log.md` |
+| Mensajes de error y recuperación | Dice qué pasó, por qué y qué puede hacer la persona. | Predicción, traza causal y contraejemplo de **Mensajes de error y recuperación** en `states-log.md` |
+| Reintentos y competencia entre clientes | Evita que un servicio recién recuperado reciba todos los reintentos a la vez. | Predicción, traza causal y contraejemplo de **Reintentos y competencia entre clientes** en `states-log.md` |
+| Percepción de la espera | Decide cuándo y cómo mostrar que algo está pasando. | Predicción, traza causal y contraejemplo de **Percepción de la espera** en `states-log.md` |
 
 ## Conceptos y decisiones
 
-La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales.
+### 1. Los estados de una vista
 
-La pregunta rectora de esta parte es: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** La respuesta debe
-apoyarse en **recorrido por teclado, semántica, contraste, formatos culturales y observación de uso**.
+Una vista que depende de datos remotos tiene al menos cuatro estados: carga, vacío (se pidió y no hay nada), error y con datos. Cada uno necesita un diseño: el vacío explica por qué no hay nada y qué hacer; la carga, que algo ocurre; el error, qué falló y cómo seguir. El estado vacío es la oportunidad de orientar, no un texto de relleno, y el estado de carga inicial no es el vacío: confundirlos produce el parpadeo de «no tienes entregas».
 
-### 1. Estados: modelo
+### 2. Estado como unión, no como banderas
 
-En esta clase, **Estados** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estados vacíos, carga, error y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Con tres banderas (cargando, hay error, hay datos) hay ocho combinaciones y solo cuatro tienen significado. Cada actualización puede ser correcta en aislamiento y el conjunto, imposible: al llegar los datos se olvida apagar el indicador de carga. Una unión etiquetada (un único valor entre carga, error, vacío, datos) hace imposible representar lo que no tiene sentido, y las transiciones se declaran en un solo lugar. Es la idea de los diagramas de estados de Harel aplicada a una vista.
 
-### 2. Vacíos: mecanismo
+### 3. Mensajes de error y recuperación
 
-En esta clase, **vacíos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estados vacíos, carga, error y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un buen mensaje identifica el problema en texto, lo explica sin culpar, no expone detalles internos y ofrece un camino (reintentar, corregir, contactar). WCAG exige identificar los errores en texto y no solo con color o iconos. La recuperación cuenta tanto como el aviso: reintentar sin perder lo escrito, conservar un borrador y no pedir de nuevo lo que ya se dio.
 
-### 3. Carga: evidencia
+### 4. Reintentos y competencia entre clientes
 
-En esta clase, **carga** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estados vacíos, carga, error y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Reintentar cada segundo multiplica la carga durante la caída. Una espera creciente (exponencial) la reduce, pero deja a los clientes sincronizados: si todos empezaron juntos, todos reintentan juntos en cada potencia de dos. Añadir aleatoriedad a la espera rompe esa sincronía y reparte la carga en el tiempo. El reintento solo es seguro si la operación es idempotente (`SE-171`) y si hay un tope de intentos y un mensaje a la persona.
 
-### 4. Error: decisión
+### 5. Percepción de la espera
 
-En esta clase, **error** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Estados vacíos, carga, error y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una carga que tarda menos de una fracción de segundo no necesita indicador, y mostrarlo produce un parpadeo molesto. Retrasar el indicador unos cientos de milisegundos y mantenerlo un mínimo cuando aparece evita el parpadeo. Para esperas largas conviene mostrar progreso real o un esqueleto del contenido, y para las muy largas, permitir cancelar y volver más tarde. Las cifras dependen de la distribución de latencias de tu servicio, que hay que medir.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Combinaciones imposibles con banderas independientes
+
+Tres banderas booleanas dan 8 combinaciones de las que solo 4 tienen significado (cargando; error; con datos; vacío). Se aplicaron 200 eventos aleatorios con semilla fija (empezar, éxito, fallo, reintentar, limpiar) a un manejador que cambia cada bandera por separado y olvida apagar el estado anterior: 198 de 200 eventos terminaron en una combinación imposible, y el manejador visitó solo 5 combinaciones. Con una unión de cuatro estados y transiciones declaradas, los mismos eventos dejan la vista en 4 estados con significado y ninguna combinación imposible: carga 70, datos 16, error 37 y vacío 77 veces. Con cuatro fuentes de datos de cuatro estados cada una, las combinaciones son 256.
+
+```python
+validos = {(1,0,0): 'carga', (0,1,0): 'error', (0,0,1): 'datos', (0,0,0): 'vacío'}
+transiciones = {('vacío','empezar'): 'carga', ('carga','ok'): 'datos',
+                ('carga','fallo'): 'error', ('error','reintentar'): 'carga'}
+estado = transiciones.get((estado, evento), estado)
+```
+
+![Tabla que compara tres banderas booleanas, con 8 combinaciones y 198 de 200 eventos en una combinación imposible, con un estado explícito de cuatro valores, sin ninguna, y con cuatro fuentes de cuatro estados, 256 combinaciones.](../../../content/part-14/figures/se-172-estados-imposibles.svg)
+
+**Cómo leer la figura.** Cada fila es un modelo del estado de la lista; la última columna dice qué ocurre con 200 eventos aleatorios. **Dónde deja de valer:** los eventos son equiprobables por construcción; en una aplicación real algunos son raros y las combinaciones imposibles tardan en aparecer, pero siguen siendo alcanzables. La unión evita representarlas, no evita que haya eventos mal manejados.
+
+### Tres políticas de reintento tras una caída
+
+Mil clientes empiezan en un intervalo de 0,5 s, el servicio cae durante 10 s y vuelve. Reintentar cada segundo suma 10 000 peticiones durante la caída y un pico de 1 000 por segundo al recuperarse (total 11 000). La espera exponencial sin aleatoriedad suma 3 000 durante la caída y mantiene el pico de 1 000 al recuperarse: los clientes están sincronizados (total 4 000). La espera exponencial con aleatoriedad completa suma 3 978 durante la caída y baja el pico al recuperarse a 151 por segundo (total 4 978). La aleatoriedad cuesta algo más de tráfico y reparte la carga.
+
+```python
+if politica == 'fijo':    t += 1.0
+elif politica == 'exp':    t += min(60, 2 ** intento)
+elif politica == 'jitter': t += r.uniform(0, min(60, 2 ** intento))
+```
+
+![Tabla de tres políticas de reintento con mil clientes y una caída de diez segundos: cada segundo suma 10 000 peticiones y pico de 1 000; exponencial sin aleatoriedad suma 3 000 y pico de 1 000; con aleatoriedad suma 3 978 y pico de 151.](../../../content/part-14/figures/se-172-politicas-de-reintento.svg)
+
+**Cómo leer la figura.** Cada fila es una política; compara la carga durante la caída con el pico por segundo al recuperarse. **Dónde deja de valer:** la simulación no modela capacidad del servicio, colas ni clientes que se rinden. Los clientes que arrancan casi a la vez son el peor caso de sincronía; en un sistema real el efecto depende de cuántos clientes y cuán dispersos.
+
+### ¿Cuándo mostrar un indicador de carga?
+
+Con una latencia lognormal de mediana 0,4 s y dispersión 0,9, el 93,7 % de las 20 000 cargas supera 0,1 s, el 62,3 % supera 0,3 s, el 15,3 % supera 1 s, el 1,4 % supera 3 s y ninguna supera 10 s (p50 0,40 s, p95 1,75 s, p99 3,37 s). Un indicador inmediato aparece en las cargas de menos de 0,3 s: 7 541, el 37,7 %, y parpadea. Con un retardo de 0,3 s ese parpadeo desaparece, pero 4 432 cargas mostrarían el indicador menos de 0,2 s; una duración mínima de 0,6 s elimina esos parpadeos a costa de prolongar la espera.
+
+```python
+parpadean = sum(x < 0.3 for x in latencias)                 # indicador inmediato
+breves = sum(1 for x in latencias if 0.3 <= x < 0.5)             # indicador visible <0,2 s con retardo
+```
+
+![Barras con el porcentaje de cargas que superan cada umbral de latencia: 93,7 por ciento superan 0,1 segundos, 62,3 superan 0,3, 15,3 superan 1, 1,4 superan 3 y ninguna supera 10.](../../../content/part-14/figures/se-172-umbrales-de-latencia.svg)
+
+**Cómo leer la figura.** Cada barra es la fracción de cargas que tardan más que el umbral; la altura da una idea de cuántas cargas mostrarían un indicador con cada retardo. **Dónde deja de valer:** la distribución lognormal es un supuesto; una latencia real tiene colas pesadas, picos por arranque en frío y variación por conexión. Hay que medir la distribución propia antes de fijar un retardo.
 
 ## Definiciones de trabajo
 
-- **Estados:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Vacíos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Carga:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Error:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
+- **estado vacío:** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
+- **estado imposible:** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
+- **unión etiquetada:** tipo cuyo valor es exactamente uno de varios casos con nombre.
+- **espera exponencial con aleatoriedad:** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
+- **indicador de carga:** señal visible de que una operación está en curso.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Estados vacíos, carga, error y recuperación**:
+El fragmento define una vista con un único estado y una tabla de transiciones. Antes de ejecutarlo, predice qué ocurre si llega el evento `ok` estando en `vacío`.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+T = {('vacío', 'pedir'): 'carga', ('carga', 'ok'): 'datos',
+     ('carga', 'fallo'): 'error', ('error', 'reintentar'): 'carga',
+     ('datos', 'actualizar'): 'carga'}
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+estado = 'vacío'
+for e in ('ok', 'pedir', 'fallo', 'reintentar', 'ok'):
+    estado = T.get((estado, e), estado)
+    print(e, '->', estado)
+```
+
+El primer `ok` se ignora porque no hay transición desde `vacío`: la vista no puede mostrar datos que nadie pidió. Añade un estado `parcial` y registra qué transiciones nuevas hacen falta.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Estados vacíos, carga, error y recuperación**. Parte de esta pregunta: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `prototype.html` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, cada vista con datos remotos declara sus estados en una tabla (carga, vacío, error, con datos, parcial), el texto de cada uno y la acción de recuperación. Los componentes usan un único valor de estado, y una prueba recorre las transiciones declaradas y falla si aparece un par no declarado. Los reintentos usan espera exponencial con aleatoriedad, tope de cinco intentos y clave de idempotencia; el indicador de carga espera 300 ms y dura al menos 600 ms.
+
+Compara el caso normal con una lista sin entregas, un fallo de red a mitad de una actualización y una recarga con la sesión caducada. Una vista es apropiada cuando esos tres casos tienen un texto, una acción y un estado; es peligrosa cuando el estado vacío y el de carga se ven igual.
 
 ## Práctica guiada
 
-1. Crea `work/SE-172/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo y auditoría de inclusión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista los estados de «mis entregas» y escribe el texto y la acción de cada uno.
+2. Predice cuántas combinaciones de tres banderas tienen significado y comprueba con una enumeración.
+3. Simula 200 eventos con banderas independientes y con transiciones declaradas y compara.
+4. Simula tres políticas de reintento y registra carga y pico al recuperarse.
+5. Genera la distribución de latencias y decide un retardo y una duración mínima del indicador.
+6. Introduce el fallo controlado y registra el síntoma antes de corregirlo.
+7. Pide a otra persona que reconstruya la tabla de estados solo desde `states-log.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Estados y vacíos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `prototype.html` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Estado parcial:** añade el estado «parcial» (llegaron algunas entregas y falló la carga de otras) y escribe sus transiciones y su mensaje.
+2. **Reintentos:** calcula con una simulación cuántas peticiones totales y qué pico produce un tope de tres intentos en lugar de ilimitados.
+3. **Retardo:** con una mediana de latencia de 1,2 s, decide el retardo y la duración mínima del indicador y explica qué cambia.
+4. **Mensajes:** reescribe un mensaje «Error 500» para que identifique el problema, no culpe a la persona y ofrezca una acción.
 
 ## Reto verificable
 
-Entrega el **prototipo y auditoría de inclusión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `states-log.md` con la tabla de estados de la vista, la enumeración de combinaciones, las tres simulaciones y la política de indicador. Se aprueba si otra persona reproduce los números con las mismas semillas y puede indicar qué estado no está cubierto. No se aprueba por un diseño bonito del vacío ni por un reintento sin tope.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja los estados de «mis entregas», la política de reintento y la del indicador. `SE-173` comprobará que esos estados son perceptibles y comprensibles para todos, `SE-174` que tienen estructura semántica y foco. Cambia después un solo evento, añadir «sin conexión», y revisa qué transiciones, textos y pruebas necesita.
+
+## Preguntas frecuentes
+
+### ¿El vacío y la carga inicial son lo mismo?
+
+No: en la carga se espera algo y en el vacío no hay nada. Mostrar «no tienes entregas» antes de que llegue la respuesta es información falsa durante un instante; basta un estado explícito de carga.
+
+### ¿Cuántos reintentos son razonables?
+
+Los suficientes para absorber un fallo corto y pocos para no sostener una caída: un tope pequeño con espera creciente y aleatoria, y un mensaje que explique que no se pudo. La cifra depende de la operación y de su costo.
+
+### ¿Un esqueleto es mejor que un indicador?
+
+Un esqueleto comunica la forma del contenido y evita saltos de maquetación, y sirve cuando la espera es de uno a diez segundos; para esperas más cortas es ruido y para más largas conviene un progreso real. Se decide con tus latencias.
+
+### ¿Es necesario modelar un estado «sin conexión»?
+
+Si la aplicación puede usarse con la conexión intermitente, sí: se añade como estado con su texto y sus transiciones y se prueba. Si no, su ausencia debe ser una decisión y no un olvido.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **declarar accesibilidad únicamente por el resultado de una herramienta automática**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **dos banderas que se contradicen tras una actualización parcial**. Usa el manejador con banderas independientes.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** la vista muestra a la vez el indicador de carga y la lista con datos, y a veces el mensaje de error. **Hipótesis rivales:** (a) el servidor devuelve datos corruptos; (b) el manejador no apaga las banderas anteriores al cambiar de estado. **Prueba:** aplica 200 eventos aleatorios: 198 terminan en una combinación imposible con banderas y 0 con transiciones declaradas. **Conclusión:** la causa es el modelo de estado, no el servidor. **Regresión:** reemplaza las banderas por un único estado y escribe una prueba que recorre todas las transiciones. No cambies a la vez el modelo y los textos.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| «No tienes entregas» parpadea antes de aparecer la lista | El estado de carga inicial se trató como vacío | Estado de carga explícito y vacío solo tras una respuesta sin datos |
+| Indicador y error visibles a la vez | Banderas independientes sin transiciones | Unión de estados con transiciones declaradas |
+| El servicio cae de nuevo al recuperarse | Reintentos sincronizados | Espera exponencial con aleatoriedad y tope de intentos |
+| El indicador parpadea en cargas rápidas | Se muestra sin retardo ni duración mínima | Retrasar unos cientos de milisegundos y fijar una duración mínima |
+| Un mensaje de error dice «Algo salió mal» | No identifica el problema ni la acción | Texto que describe el problema y ofrece una acción de recuperación |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: navegador, teclado, lector de pantalla disponible y editor. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-172/
 ├── README.md
-│   ├── prototype.html
-│   ├── accessibility.md
-│   ├── usability-notes.md
-├── activity.yaml
-└── rubric.json
+├── estados/
+│   ├── combinaciones.py
+│   ├── reintentos.py
+│   └── latencias.py
+├── tests/test_estados.py
+└── evidence/states-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `prototype.html` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. No se usó ningún servicio real ni se midió ninguna latencia propia.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- los mensajes de error no deben exponer rutas, consultas, identificadores internos ni datos de otras personas;
+- los reintentos automáticos de operaciones con efectos exigen idempotencia y un tope para no multiplicar cargos o envíos;
+- un estado «sin conexión» no debe guardar localmente datos sensibles sin cifrado y sin decisión informada;
+- los cambios de estado deben anunciarse de manera perceptible para tecnologías de apoyo (se retoma en `SE-174`) y no depender del color;
+- atribuye las fuentes y respeta las licencias de las bibliotecas de interfaz.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «muestra un spinner mientras carga y un error si falla» añadirá dos banderas y un spinner inmediato, y dejará la combinación de ambas sin definir. Pídele que enumere los estados de la vista, que los represente como un único valor con transiciones, que defina la política de reintento con tope y aleatoriedad y que escriba una prueba que recorra las transiciones. Revisa especialmente si el estado vacío y el de carga se ven igual: es la misma información falsa, ahora con apariencia de pantalla completa.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra vista con datos remotos (un buzón de mensajes o el historial de pedidos de una tienda): enumera estados, simula reintentos y decide el retardo del indicador con tu distribución de latencias. La transferencia está lograda cuando puedes explicar qué parte dependía de la plataforma de entregas y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-172/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué las banderas independientes producen estados imposibles |
+| corrección | conteos de combinaciones, cargas y picos reproducibles con las mismas semillas |
+| diseño | tabla de estados con texto, acción y transiciones |
+| diagnóstico | reproducción del fallo de banderas contradictorias con su regresión |
+| incertidumbre | supuestos de eventos, sincronía y latencia declarados |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Harel, «Statecharts: a visual formalism for complex systems» (Science of Computer Programming, 1987)](https://doi.org/10.1016/0167-6423%2887%2990035-9) — estados jerárquicos y explosión de combinaciones; autoridad: Science of Computer Programming.
+- [AWS Architecture Blog: Exponential backoff and jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) — comparación de políticas de reintento; autoridad: Amazon Web Services (análisis de un proveedor).
+- [Nielsen Norman Group: diseño de estados vacíos](https://www.nngroup.com/articles/empty-state-interface-design/) — contenido y propósito del estado vacío; autoridad: Nielsen Norman Group.
+- [Nielsen Norman Group: guía de mensajes de error](https://www.nngroup.com/articles/error-message-guidelines/) — qué debe contener un mensaje de error; autoridad: Nielsen Norman Group.
+- [Nielsen Norman Group: indicadores de progreso](https://www.nngroup.com/articles/progress-indicators/) — cuándo y cómo mostrar progreso; autoridad: Nielsen Norman Group.
+- [W3C: WCAG 2.2, 3.3.1 Identificación de errores](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html) — texto que identifica el error; autoridad: W3C.
+- [W3C: WCAG 2.2, 4.1.3 Mensajes de estado](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html) — anunciar cambios de estado sin mover el foco; autoridad: W3C.
 
-- **Web Content Accessibility Guidelines 2.2** — W3C. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Internationalization techniques** — W3C. [https://www.w3.org/International/techniques/](https://www.w3.org/International/techniques/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la política de reintento o el retardo del indicador de la plataforma sean los adecuados. Esa afirmación depende de medir su propio servicio.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — semillas y distribuciones de las simulaciones.
+- [Python: `itertools.product`](https://docs.python.org/3/library/itertools.html#itertools.product) — enumeración de combinaciones de banderas.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Estados vacíos, carga, error y recuperación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-173`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún servicio ni se midió ninguna latencia propia, y los eventos, la sincronía de los clientes y la latencia lognormal son supuestos del autor. La siguiente clase pregunta si todo lo anterior es perceptible, operable y comprensible para toda la población.
+
+## Glosario
+
+- **estado vacío:** estado de una vista que pidió datos y no recibió ninguno, distinto del estado de carga inicial.
+- **estado imposible:** combinación de valores que el modelo permite representar y que no corresponde a ninguna situación del producto.
+- **unión etiquetada:** tipo cuyo valor es exactamente uno de varios casos con nombre.
+- **espera exponencial con aleatoriedad:** política de reintento cuya espera crece de forma exponencial con un componente aleatorio.
+- **indicador de carga:** señal visible de que una operación está en curso.
 
 ---
 

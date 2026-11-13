@@ -2,207 +2,307 @@
 
 [← SE-169 — Diseño centrado en personas y tareas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-169-diseno-centrado-en-personas-y-tareas/README.md) · [↑ Parte 14](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-170.html) · [SE-171 — Interacción, affordances y retroalimentación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-171-interaccion-affordances-y-retroalimentacion/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que decidas cómo se agrupa, nombra y enlaza la información de modo que una persona encuentre lo que busca y sepa dónde está, y para que midas esa decisión en vez de defenderla por intuición.
+
+**Por qué aparece aquí.** Se sitúa después de **Diseño centrado en personas y tareas** y antes de **Interacción, affordances y retroalimentación**: `SE-169` dejó las tareas y la etapa que más pierde gente; esta clase pregunta dónde vive cada tarea en la estructura y cuántos pasos cuesta llegar a ella. Deja el esquema de navegación que `SE-171` llenará de controles y respuestas.
+
+**Error conceptual que debe corregir.** Creer que una buena arquitectura de información es un menú bonito o un árbol con pocos niveles: es un acuerdo entre cómo la gente agrupa y nombra las cosas y cómo está enlazada la información, y se comprueba con personas buscando, no con un organigrama interno.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué anchura de menú minimiza el costo de llegar a una página entre 4 096, cuántas personas hacen falta para que un ordenamiento de tarjetas sea estable y qué pasa con el alcance del sitio al quitar el menú global; después calculas, simulas y mides en un grafo sintético. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `ia-log.md` con el esquema de la plataforma, el cálculo de anchura y profundidad, la simulación de ordenamiento de tarjetas y el análisis del grafo de enlaces. Debe distinguir lo que mide la estructura (alcance, profundidad) de lo que solo puede observarse con personas (comprensión de etiquetas). Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría retirar la conclusión.
+
+**Límite de la conclusión.** El error por nivel, la estructura verdadera del ordenamiento y el grafo de 120 páginas son supuestos del autor; ningún número mide a una persona real ni un sitio real, y las etiquetas no se probaron con nadie.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Nielsen Norman Group: heurísticas de usabilidad](https://www.nngroup.com/articles/ten-usability-heuristics/) | Recoge el principio de que el sistema debe usar el lenguaje de la persona y mostrar dónde está. | No dice cuántos niveles ni qué etiquetas convienen a un sitio concreto. |
+| [Hick, «On the rate of gain of information» (QJEP, 1952)](https://doi.org/10.1080/17470215208416600) | El tiempo de elegir crece con el logaritmo del número de alternativas equiprobables. | No cubre listas largas leídas de arriba abajo ni errores de comprensión. |
+| [W3C: WCAG 2.2, 3.2.3 Navegación coherente](https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html) | Exige que los mecanismos de navegación repetidos aparezcan en el mismo orden relativo. | No evalúa si la navegación elegida es la adecuada. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-169`: la etapa que más pierde gente orienta el esfuerzo. La pregunta activa es: **¿dónde vive cada tarea, cuántos pasos cuesta llegar y qué hace la persona cuando se equivoca de rama?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-169` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de navegador, teclado, lector de pantalla disponible y editor.
+- Haber completado `SE-169` o poder explicar qué es una tarea y por qué el promedio no sirve.
+- Python 3.11 o posterior y un terminal; los cálculos usan solo la biblioteca estándar.
+- Trabajar con la plataforma de entregas, un sitio sintético de 120 páginas y datos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Arquitectura de información y navegación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas creció: 120 páginas entre cursos, tareas, calificaciones, ayuda y configuración. Estudiantes escriben a soporte para preguntar «dónde veo mi nota» y docentes no encuentran «reabrir una entrega». Una propuesta es un menú gigante con todo; otra, un árbol de seis niveles ordenado por la organización interna; una tercera, buscar y listo. Nadie sabe cuántos clics cuesta cada una ni qué pasa con quien llega a una página desde un enlace de correo.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Arquitectura y información con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo y auditoría de inclusión** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «declarar accesibilidad únicamente por el resultado de una herramienta automática» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Arquitectura | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Información | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Navegación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Tarea | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. comparar estructuras de navegación por profundidad, anchura y costo esperado con supuestos declarados;
+2. estimar cuántas personas necesita un ordenamiento de tarjetas para dar una estructura estable;
+3. analizar un grafo de enlaces para obtener alcance y profundidad y detectar páginas huérfanas;
+4. decidir qué elementos de navegación son globales, locales y contextuales y por qué;
+5. escribir un esquema de información con etiquetas, agrupaciones y una prueba de hallazgo que otra persona pueda repetir.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Arquitectura de información y navegación"] --> M["Modelo: Arquitectura"]
-    M --> D["Decisión: información"]
-    D --> E["Evidencia: navegación"]
-    E --> R["Revisión: tarea"]
-    R -->|nueva información| M
+    A[Contenido y tareas] --> B[Agrupación y etiquetas]
+    B --> C[Estructura de navegación]
+    C --> D[Alcance y profundidad]
+    D --> E[Prueba de hallazgo]
+    E -->|etiquetas o ramas confusas| B
+    C -->|entrada directa| F[Orientación]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Arquitectura de información y navegación**.
+El mapa se lee como un lazo de ajuste: se agrupa y etiqueta, se estructura, se mide el alcance y se comprueba si la gente encuentra; una prueba fallida devuelve a las agrupaciones. La entrada directa (un enlace de correo, una búsqueda) obliga a que cada página oriente por sí misma; el mapa no es un orden de entrega.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Agrupación y etiquetado | Decide qué va junto y cómo se llama, que es lo que la persona usa para decidir dónde mirar. | Predicción, traza causal y contraejemplo de **Agrupación y etiquetado** en `ia-log.md` |
+| Profundidad y anchura | Fija cuántas decisiones toma una persona y cuántas opciones ve en cada una. | Predicción, traza causal y contraejemplo de **Profundidad y anchura** en `ia-log.md` |
+| Navegación global, local y contextual | Reparte la orientación entre lo que está siempre, lo que depende de la sección y lo que aparece según la tarea. | Predicción, traza causal y contraejemplo de **Navegación global, local y contextual** en `ia-log.md` |
+| Descubrimiento y búsqueda | Combina explorar con encontrar y define qué pasa cuando una de las dos falla. | Predicción, traza causal y contraejemplo de **Descubrimiento y búsqueda** en `ia-log.md` |
+| Orientación y entrada directa | Garantiza que una persona que llega a una página por un enlace sepa dónde está y adónde ir. | Predicción, traza causal y contraejemplo de **Orientación y entrada directa** en `ia-log.md` |
 
 ## Conceptos y decisiones
 
-La experiencia surge de la interacción entre persona, tarea, contenido y contexto; accesibilidad e internacionalización son restricciones de diseño verificables, no acabados visuales.
+### 1. Agrupación y etiquetado
 
-La pregunta rectora de esta parte es: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** La respuesta debe
-apoyarse en **recorrido por teclado, semántica, contraste, formatos culturales y observación de uso**.
+Una agrupación responde a un modelo mental y una etiqueta es la promesa de qué hay detrás. Las dos fallan de modos distintos: una agrupación por el organigrama interno separa lo que la persona junta, y una etiqueta propia del equipo («Gestión de artefactos») no se entiende sin su contexto. Un ordenamiento de tarjetas abierto muestra cómo agrupa la gente y un ordenamiento cerrado comprueba si una estructura propuesta encaja. Ninguno decide por sí solo: aporta evidencia que se combina con restricciones de negocio.
 
-### 1. Arquitectura: modelo
+### 2. Profundidad y anchura
 
-En esta clase, **Arquitectura** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura de información y navegación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un árbol de N destinos con b opciones por nivel tiene log_b(N) niveles. Menos niveles significa menos decisiones, pero más opciones por decisión, y esa anchura cuesta tiempo de elección (la ley de Hick: logarítmico en el número de opciones) y errores de lectura. Más niveles significa decisiones simples pero más oportunidades de equivocarse de rama, y el error se multiplica por nivel. El óptimo depende de cuánto crece el error con la anchura, que es un dato que hay que medir en el contenido real.
 
-### 2. Información: mecanismo
+### 3. Navegación global, local y contextual
 
-En esta clase, **información** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura de información y navegación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La navegación global (siempre visible) acorta el recorrido y da un punto de referencia; la local organiza una sección; la contextual (enlaces dentro del contenido, «relacionados») sigue la tarea. Un sitio con solo navegación contextual depende de que los enlaces de contenido formen un camino conexo: si uno falla, páginas enteras se vuelven inaccesibles. La coherencia importa: cambiar de orden o de etiqueta entre páginas obliga a releer en cada una.
 
-### 3. Navegación: evidencia
+### 4. Descubrimiento y búsqueda
 
-En esta clase, **navegación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura de información y navegación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Quien sabe lo que busca escribe; quien explora navega. Una estructura clara ayuda a la búsqueda (los resultados se agrupan, los filtros se entienden) y una búsqueda buena compensa estructuras imperfectas, pero no las sustituye: los resultados fuera de contexto desorientan. Medir las búsquedas sin resultado y las búsquedas repetidas da pistas de etiquetas que faltan, siempre que se traten como datos agregados y anónimos.
 
-### 4. Tarea: decisión
+### 5. Orientación y entrada directa
 
-En esta clase, **tarea** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?» y demostrarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Arquitectura de información y navegación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Muchas visitas no empiezan en la portada. Cada página necesita decir en qué sección está (migas, estado de la navegación actual), cómo subir (enlace al nivel superior) y cómo salir (a la portada o a la búsqueda). El criterio práctico: desde cualquier página, ¿se puede llegar a todo el sitio? Si no, hay una isla de contenido, y el tiempo y la paciencia de la persona se gastan en buscar un camino.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Anchura frente a profundidad en un menú de 4 096 destinos
+
+Se modeló cada nivel con un costo de 0,9 s por clic más 0,2·log2(opciones + 1) s de elección y una probabilidad de acierto de 0,92 por nivel (supuesto). Con 2 opciones por nivel hay 12 niveles, 14,6 s y 0,368 de éxito; con 4, 6 niveles, 8,2 s y 0,606; con 8, 4 niveles, 6,1 s y 0,716; con 16, 3 niveles, 5,2 s y 0,779; con 64, 2 niveles, 4,2 s y 0,846; con una lista de 4 096, 1 nivel, 3,3 s y 0,92. El tiempo esperado por éxito (tiempo ÷ éxito) baja de 39,7 s a 3,6 s: con error constante por nivel, ganan los árboles anchos.
+
+```python
+import math
+def arbol(b, N=4096, p_err=0.08, clic=0.9, hick=0.2):
+    niveles = math.ceil(math.log(N, b))
+    t = niveles * (clic + hick * math.log2(b + 1))
+    exito = (1 - p_err) ** niveles
+    return niveles, round(t, 1), round(exito, 3), round(t / exito, 1)
+```
+
+![Tabla con seis anchuras de menú para 4 096 destinos: con 2 opciones por nivel hay 12 niveles, 14,6 segundos y 0,368 de éxito; con 64, dos niveles, 4,2 segundos y 0,846; con una lista de 4 096, un nivel, 3,3 segundos y 0,92.](../../../content/part-14/figures/se-170-anchura-frente-a-profundidad.svg)
+
+**Cómo leer la figura.** Cada fila es una anchura; léela de arriba abajo para ver cómo bajan los niveles, el tiempo y el costo por éxito. **Dónde deja de valer:** el modelo mantiene el error por nivel en 0,08 sin importar la anchura, y eso es falso para una lista de 4 096 elementos: ahí el error de lectura sube. Por eso el resultado a favor de lo ancho es un límite del supuesto y no una recomendación; lo que se mide en un menú real es cómo cambia el error con la anchura.
+
+### ¿Cuántas personas para un ordenamiento de tarjetas estable?
+
+Se simularon participantes que ordenan 24 tarjetas en 4 categorías según una estructura verdadera con un 25 % de ruido (cada tarjeta se coloca al azar con esa probabilidad), y se midió la correlación entre las matrices de coocurrencia de dos grupos independientes del mismo tamaño en 100 repeticiones. Con 5 participantes por grupo la correlación media es 0,67 y el peor caso 0,47; con 10, 0,81 (mínimo 0,70); con 15, 0,86; con 20, 0,90 (mínimo 0,84); con 30, 0,93 (mínimo 0,90). Los rendimientos decrecen y con pocas personas dos grupos pueden proponer estructuras bastante distintas.
+
+```python
+mia = t if rnd.random() > 0.25 else rnd.randrange(4)   # categoría puesta por un participante
+co[i][j] += (mia_i == mia_j)                              # coocurrencia
+r = statistics.correlation(v1, v2)                       # estabilidad entre dos grupos
+```
+
+![Barras con la correlación entre dos grupos independientes que ordenan 24 tarjetas: 0,67 con 5 participantes, 0,81 con 10, 0,86 con 15, 0,90 con 20 y 0,93 con 30.](../../../content/part-14/figures/se-170-participantes-en-card-sorting.svg)
+
+**Cómo leer la figura.** Cada barra es la correlación media entre dos grupos del mismo tamaño; más alta significa que un grupo reproduce la estructura del otro. **Dónde deja de valer:** los participantes simulados comparten una estructura única con ruido uniforme; las personas reales discrepan por razones sistemáticas (dominio, idioma, rol), y entonces más participantes no convergen a una sola estructura sino a varias.
+
+### El menú global y el enlace a la portada, medidos en un grafo
+
+Se generó un sitio de 120 páginas con una semilla: un árbol de contenido, 8 secciones enlazadas desde la portada y un 30 % de enlaces cruzados. Con el menú global, un recorrido en anchura desde la portada alcanza las 120 páginas, con 17, 47, 41 y 14 páginas a 1, 2, 3 y 4 clics. Sin el menú global, se alcanzan las mismas 120, pero la profundidad llega a 9 clics. Desde una página interna con un enlace a la portada en todas las páginas se llega a las 120 en 5 clics como máximo; sin ese enlace, solo a 16 de 120 (13 %).
+
+```python
+def bfs(adj, origen):
+    dist, cola = {origen: 0}, [origen]
+    for u in cola:
+        for v in adj[u]:
+            if v not in dist:
+                dist[v] = dist[u] + 1
+                cola.append(v)
+    return dist
+```
+
+![Tabla de un sitio sintético de 120 páginas: con menú global todo se alcanza en 4 clics como máximo; sin él la profundidad llega a 9; desde una página interna con enlace a la portada se alcanza todo, y sin ese enlace solo 16 de 120.](../../../content/part-14/figures/se-170-alcance-del-menu-global.svg)
+
+**Cómo leer la figura.** Cada fila es una configuración; compara las columnas de alcance y de clics máximos entre filas. **Dónde deja de valer:** un recorrido en anchura mide cuántas páginas se alcanzan y a cuántos clics, no si la persona entiende las etiquetas ni elige la rama correcta. El grafo es sintético con 30 % de enlaces cruzados; en un sitio real, la forma y los enlaces rotos cambian los números.
 
 ## Definiciones de trabajo
 
-- **Arquitectura:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Información:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Navegación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
-- **Tarea:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante recorrido por teclado, semántica, contraste, formatos culturales y observación de uso.
+- **arquitectura de información:** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
+- **ordenamiento de tarjetas:** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
+- **profundidad:** número de niveles o clics entre un punto de partida y una página.
+- **anchura:** número de opciones que se ofrecen en un nivel de navegación.
+- **página huérfana:** página sin ningún enlace entrante desde el resto de la estructura.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Arquitectura de información y navegación**:
+El fragmento calcula la profundidad de cada página con un recorrido en anchura sobre un grafo pequeño. Antes de ejecutarlo, predice cuál es la profundidad de `ayuda`.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+adj = {'inicio': ['cursos', 'ayuda'], 'cursos': ['tarea'], 'tarea': ['entrega'], 'ayuda': [], 'entrega': []}
+dist, cola = {'inicio': 0}, ['inicio']
+for u in cola:
+    for v in adj[u]:
+        if v not in dist:
+            dist[v] = dist[u] + 1
+            cola.append(v)
+print(dist)   # {'inicio': 0, 'cursos': 1, 'ayuda': 1, 'tarea': 2, 'entrega': 3}
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La entrega está a tres clics de la portada. Añade un enlace de `inicio` a `entrega` y observa cómo cambia solo esa distancia; registra versión y salida.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Arquitectura de información y navegación**. Parte de esta pregunta: **¿quién puede completar la tarea, con qué modalidad y en qué estado de error o recuperación?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando recorrido por teclado, semántica, contraste, formatos culturales y observación de uso. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `prototype.html` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, el equipo mantiene el esquema de información como un archivo de agrupaciones y etiquetas con la evidencia que las respalda (un ordenamiento de tarjetas abierto con participantes voluntarios, una prueba de hallazgo con tareas concretas). El grafo de enlaces se genera en cada despliegue, y una comprobación falla si aparece una página sin enlace entrante o si el alcance desde la portada baja del 100 %. Las etiquetas nuevas pasan por una revisión de personas ajenas al equipo.
+
+Compara el caso normal con una entrada por un enlace de correo a una página profunda, una búsqueda sin resultados y una sección con 90 elementos. Una estructura es apropiada cuando esos tres casos tienen un camino y un mensaje; es peligrosa cuando solo se probó recorriéndola desde la portada.
 
 ## Práctica guiada
 
-1. Crea `work/SE-170/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo y auditoría de inclusión con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista las tareas de `SE-169` y las páginas donde vive cada una.
+2. Predice cuántos clics cuesta llegar a «ver mi nota» y a «reabrir una entrega» en la estructura actual.
+3. Calcula el costo esperado para las anchuras de 4, 8 y 16 y anota qué supuesto sostiene el resultado.
+4. Simula el ordenamiento de tarjetas con 5, 10 y 20 participantes y registra la estabilidad.
+5. Construye el grafo, calcula alcance y profundidad con y sin menú global e identifica páginas huérfanas.
+6. Elimina el enlace a la portada de las páginas internas y mide cuánto del sitio queda a alcance.
+7. Pide a otra persona que reconstruya la estructura solo desde `ia-log.md`.
 
 ## Ejercicios
 
-1. **Fundamental:** define Arquitectura y información con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `prototype.html` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Costo con error creciente:** modifica el modelo para que el error por nivel suba con la anchura (0,02 por cada 10 opciones) y encuentra la anchura que minimiza el tiempo por éxito.
+2. **Estabilidad:** repite el ordenamiento de tarjetas con 40 % de ruido y explica qué cambia en el número de participantes necesario.
+3. **Alcance:** añade una sección de 10 páginas enlazada solo desde otra sección y calcula su profundidad y la fracción alcanzable sin ese enlace.
+4. **Etiquetas:** propón dos etiquetas alternativas para una sección y diseña una prueba de hallazgo con cinco tareas que decida entre ellas.
 
 ## Reto verificable
 
-Entrega el **prototipo y auditoría de inclusión** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `ia-log.md` con el esquema de agrupaciones y etiquetas, el cálculo de anchura y profundidad con su supuesto de error, la simulación de tarjetas y el análisis del grafo. Se aprueba si otra persona reproduce los números con las mismas semillas y señala qué prueba con personas cambiaría la estructura. No se aprueba por un diagrama bonito ni por un conteo de páginas.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 14. Esta clase deja el esquema de información de las tareas de `SE-169` y las comprobaciones de alcance y huérfanas. `SE-171` decidirá cómo responden los controles de cada página; `SE-172` qué ocurre cuando una página no tiene datos o falla. Cambia después una sola etiqueta, «Calificaciones» por «Mis notas», y revisa qué búsquedas, enlaces y soportes dependían de ella.
+
+## Preguntas frecuentes
+
+### ¿Menos clics siempre es mejor?
+
+No: el costo de un clic depende de cuán claro sea. Tres decisiones fáciles pueden ser más rápidas y menos propensas al error que una lista larga que hay que leer entera. La regla de «tres clics» no tiene respaldo en este modelo; lo que importa es el error por decisión.
+
+### ¿La búsqueda reemplaza a la navegación?
+
+No: quien explora no sabe qué escribir y quien busca necesita que los resultados tengan contexto. Una buena búsqueda alivia estructuras imperfectas, y una buena estructura hace que la búsqueda sea más fácil de usar.
+
+### ¿Cuántas personas necesita un ordenamiento de tarjetas?
+
+En la simulación, 15 a 20 dan una estructura bastante estable con ruido del 25 %; con personas reales depende de cuánto discrepen. Dos grupos pequeños que difieren son una señal y no un ruido que promediar.
+
+### ¿Qué hago con las páginas huérfanas?
+
+Decide si son contenido que debería estar enlazado (añadir enlace), contenido obsoleto (retirar con redirección) o contenido deliberadamente privado. Un detector no decide cuál es; lo que hace es obligar a decidir.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **declarar accesibilidad únicamente por el resultado de una herramienta automática**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una isla de contenido por navegación solo contextual**. Usa el grafo sin enlace a la portada.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una persona llega por un enlace de correo a la página 7 y no puede ir a ninguna otra parte del sitio salvo 16 páginas. **Hipótesis rivales:** (a) el menú global está roto; (b) la página no enlaza hacia arriba ni hacia la portada. **Prueba:** recorre el grafo desde la página 7 con y sin enlace a la portada: 16 páginas frente a 120. **Conclusión:** la causa es la falta de salida, no el menú. **Regresión:** añade una comprobación que falla si alguna página no alcanza al menos el 100 % del sitio. No cambies a la vez las etiquetas y los enlaces.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| La gente pregunta por soporte dónde está algo que existe | Etiqueta propia del equipo o agrupación por organigrama | Ordenamiento de tarjetas y prueba de hallazgo con etiquetas alternativas |
+| Una sección desaparece de la navegación tras un cambio | Se movió el contenido sin comprobar alcance | Comprobar alcance y huérfanas en cada despliegue |
+| Se elige la anchura por una regla de «tres clics» | No se midió el error por nivel | Medir el error con árboles reales y decidir con tiempo por éxito |
+| Un enlace de correo lleva a una página sin salida | Navegación solo contextual | Enlace a la portada y al nivel superior en toda página |
+| Dos grupos de tarjetas proponen estructuras distintas y se promedian | Se trató la discrepancia como ruido | Analizar quién discrepa y por qué antes de decidir |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: navegador, teclado, lector de pantalla disponible y editor. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-170/
 ├── README.md
-│   ├── prototype.html
-│   ├── accessibility.md
-│   ├── usability-notes.md
-├── activity.yaml
-└── rubric.json
+├── ia/
+│   ├── arbol.py
+│   ├── tarjetas.py
+│   └── grafo.py
+├── tests/test_ia.py
+└── evidence/ia-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `prototype.html` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. No se usó ninguna herramienta de análisis de sitios ni se hizo un ordenamiento de tarjetas con personas.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- las búsquedas de las personas pueden contener datos personales: se agregan, se anonimizan y no se conservan textos libres;
+- las etiquetas no deben revelar la existencia de contenido restringido a quien no debe saberlo;
+- los participantes de un ordenamiento de tarjetas dan su consentimiento informado y pueden retirarse; no se recogen datos innecesarios;
+- ofrece una alternativa textual a cada tabla y figura y no uses el color como única señal;
+- respeta las licencias de las herramientas de análisis y atribuye las adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «propón la navegación de la plataforma» devolverá un menú ordenado por las secciones del código, con etiquetas técnicas y ningún análisis de alcance. Pídele que agrupe a partir de las tareas de `SE-169`, que proponga dos etiquetas alternativas por sección y que escriba la comprobación de alcance y huérfanas. Revisa especialmente si dedujo agrupaciones de los nombres de los módulos: es la misma organización interna, ahora con apariencia de estructura de usuario.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra estructura (la ayuda de una aplicación bancaria o el catálogo de una tienda): calcula la anchura que minimiza el tiempo por éxito con un error que crece con las opciones y mide alcance y huérfanas de un grafo propio. La transferencia está lograda cuando puedes explicar qué parte dependía de la plataforma de entregas y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-170/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué la anchura óptima depende del error por decisión |
+| corrección | cifras de costo, estabilidad y alcance reproducibles con las mismas semillas |
+| diseño | esquema con agrupaciones, etiquetas alternativas y evidencia |
+| diagnóstico | reproducción del fallo «isla de contenido» con su comprobación de regresión |
+| incertidumbre | supuestos de error, ruido y grafo declarados |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Nielsen Norman Group: 10 heurísticas de usabilidad](https://www.nngroup.com/articles/ten-usability-heuristics/) — correspondencia con el lenguaje de la persona y visibilidad del estado; autoridad: Nielsen Norman Group.
+- [Hick, «On the rate of gain of information» (QJEP, 1952)](https://doi.org/10.1080/17470215208416600) — tiempo de elección y número de alternativas; autoridad: Quarterly Journal of Experimental Psychology.
+- [Miller, «The magical number seven, plus or minus two» (Psychological Review, 1956)](https://doi.org/10.1037/h0043158) — límites de capacidad de procesamiento; autoridad: Psychological Review.
+- [Nielsen Norman Group: cuántos participantes en un ordenamiento de tarjetas](https://www.nngroup.com/articles/card-sorting-how-many-users-to-test/) — criterio práctico de tamaño de muestra; autoridad: Nielsen Norman Group.
+- [W3C: WCAG 2.2, 2.4.1 Evitar bloques](https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html) — saltar contenido repetido en la navegación; autoridad: W3C.
+- [W3C: WCAG 2.2, 3.2.3 Navegación coherente](https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html) — orden estable de los mecanismos repetidos; autoridad: W3C.
 
-- **Web Content Accessibility Guidelines 2.2** — W3C. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Internationalization techniques** — W3C. [https://www.w3.org/International/techniques/](https://www.w3.org/International/techniques/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la estructura de la plataforma de entregas sea la adecuada. Esa afirmación depende de que personas reales encuentren lo que buscan.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `statistics.correlation`](https://docs.python.org/3/library/statistics.html) — correlación entre dos matrices de coocurrencia.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — semillas de los participantes y del grafo.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Arquitectura de información y navegación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-171`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se hizo un ordenamiento de tarjetas con personas, no se usó ninguna herramienta de análisis de sitios y el error por nivel, el ruido y el grafo son supuestos del autor. La siguiente clase pregunta cómo debe responder cada control cuando alguien lo usa.
+
+## Glosario
+
+- **arquitectura de información:** organización, etiquetado y enlazado de la información para que las personas la encuentren y la entiendan.
+- **ordenamiento de tarjetas:** técnica en la que participantes agrupan tarjetas con conceptos y revelan cómo los organizan.
+- **profundidad:** número de niveles o clics entre un punto de partida y una página.
+- **anchura:** número de opciones que se ofrecen en un nivel de navegación.
+- **página huérfana:** página sin ningún enlace entrante desde el resto de la estructura.
 
 ---
 

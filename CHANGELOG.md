@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-13 — Parte 14 desarrollada y profundizada con experimentos sintéticos reproducibles
+
+- las clases `SE-169`–`SE-180` pasan de borradores genéricos a clases completas sobre la entrega de una tarea en la plataforma de entregas: diseño centrado en personas y tareas,
+  arquitectura de información, interacción y retroalimentación, estados vacíos, de carga y de error, criterios de accesibilidad, semántica, teclado y foco, diseño visual,
+  adaptación a anchos y preferencias, internacionalización, medición de usabilidad, un taller de auditoría y reparación y un prototipo evaluado; el portal publica ahora el
+  contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: tres diseños cronometrados con operadores, la persona promedio en varias dimensiones y un embudo,
+  anchura de menús, ordenamiento de tarjetas y alcance de un grafo, tamaño del objetivo, doble envío y confirmar frente a deshacer, estados imposibles, reintentos y latencias,
+  razones de contraste, un auditor de reglas y destinos, orden de foco, nombre accesible y encabezados, daltonismo, reflujo e inversión de colores, anchos de pantalla, matriz
+  de preferencias y peso de imágenes, plurales, Unicode y fechas ambiguas, problemas hallados, intervalos y potencia, una auditoría con órdenes de reparación y mutaciones y
+  la probabilidad de ver una barrera, la cobertura de modalidades y kappa;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas; los datos son sintéticos, los parámetros son supuestos del autor
+  o valores medios de la literatura, las matrices de daltonismo son una aproximación, y no se usó ningún escáner de producción, lector de pantalla, navegador ni biblioteca de
+  localización ni se evaluó a ninguna persona; la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: un formulario de nueve campos tarda 50,7 s frente a 18,6 s con tres; con diez dimensiones ninguna de 5 000 personas es promedio en todas; una sola
+  etapa de seis pierde 315 de 1 000 personas; un auditor de reglas detecta 7 de 12 defectos y ninguno de los presentes pero incorrectos; el rojo y el verde caen de 119,8 a 7,3 de
+  distancia en deuteranopía; invertir colores hace perder el contraste a 956 de 2 441 pares que lo cumplían; la regla de «uno o plural» falla en 120 de 121 números en ruso; cinco
+  participantes hallan 62 % de los problemas frente al 76,6 % de la fórmula; y declarar conformidad ignorando lo no probado permite 368 de 1 000 afirmaciones que una política
+  estricta no admite.
+
+
 ## 2026-11-13 — Parte 13 desarrollada y profundizada con experimentos sintéticos reproducibles
 
 - las clases `SE-157`–`SE-168` pasan de borradores genéricos a clases completas sobre la regla de penalización por entrega tardía de una plataforma de entregas: especificación

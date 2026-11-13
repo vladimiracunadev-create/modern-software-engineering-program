@@ -20,7 +20,7 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 168 | Partes 00–13 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 180 | Partes 00–14 reconstruidas |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
 | clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
@@ -258,6 +258,21 @@ Windows y Ubuntu (WSL2), y declara que no se usó ninguna herramienta de producc
 (Cucumber, TLA+, SPIN, Pact, Hypothesis) ni se auditó una API real. Las doce clases
 todavía requieren revisión y no presentan un linter, un verificador o una huella
 como sustitutos de la lectura del sentido por una persona con el dominio.
+
+## Avance editorial de la Parte 14
+
+Las clases `SE-169`–`SE-180` se reconstruyeron en `content/part-14/` alrededor de la
+entrega de una tarea en la plataforma de entregas, que recorre la parte: modelo de la
+tarea y variación entre personas, estructura de navegación, respuesta de los controles
+y estados de una vista, criterios de accesibilidad, semántica, teclado y foco, color y
+reflujo, adaptación a anchos y preferencias, idiomas y formatos, medición con pocas
+personas, auditoría y reparación de un flujo y un prototipo con su declaración de
+conformidad. Cada clase incluye tres experimentos con datos sintéticos y semilla fija,
+ejecutados en Windows y Ubuntu (WSL2), y declara que no se usó ningún escáner de
+producción, lector de pantalla, navegador ni biblioteca de localización y que no se
+evaluó a ninguna persona. Las doce clases todavía requieren revisión por personas con
+experiencia en accesibilidad y no constituyen asesoría legal: ningún auditor, simulación
+ni cálculo sustituye una evaluación con personas con discapacidad.
 
 ## Orden de reconstrucción
 

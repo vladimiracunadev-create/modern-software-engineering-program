@@ -41,7 +41,7 @@ su commit está en `main` con CI verde.
 | 16 | Desarrollada y profundizada con experimentos de Git real y simulaciones sintéticas de colaboración ejecutados en Windows y Linux, CI verde | `c2e96890` |
 | 17 | Desarrollada y profundizada con experimentos sintéticos y de Git real de documentación y conocimiento técnico ejecutados en Windows y Linux, CI verde | `41921319` |
 | 18 | Borradores; requieren desarrollo completo | — |
-| 19 | Desarrollada y profundizada con experimentos sintéticos y modelos de web, accesibilidad, caché y seguridad ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 19 | Desarrollada y profundizada con experimentos sintéticos y modelos de web, accesibilidad, caché y seguridad ejecutados en Windows y Linux CI verde | `739f9443` |
 | 20–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

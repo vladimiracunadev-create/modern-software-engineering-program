@@ -84,6 +84,36 @@ Memoización resuelve bajo demanda con recursión; tabulación llena estados en 
 
 El valor óptimo no basta si se necesita explicar qué casos se eligieron. Guardar predecesores o decisiones permite reconstruir. Empates deben seguir una política estable para que resultados y auditoría sean reproducibles.
 
+### Cambio mínimo: un voraz que funciona y otro que no
+
+El algoritmo voraz para dar cambio elige siempre la moneda más grande posible. Con {1, 5, 10, 25} y objetivo 63 da 6 monedas, igual que la programación dinámica. Con {1, 3, 4} y objetivo 6 da 3 (4+1+1), pero el óptimo son 2 (3+3). Probamos 2 000 sistemas de monedas aleatorios (que siempre incluyen la moneda 1) con objetivos de 1 a 60: en 442 casos (22,1 %) el voraz no fue óptimo. Entre cinco sistemas con objetivos hasta 199, {1, 5, 10, 25} y {1, 2, 5, 10} resultaron «canónicos» (el voraz coincide con el óptimo) y {1, 3, 4}, {1, 5, 12, 25} y {1, 7, 10} no.
+
+La programación dinámica no adivina: define el subproblema («monedas mínimas para el importe `x`»), lo resuelve de menor a mayor y reutiliza resultados. Su corrección se apoya en la subestructura óptima. El voraz solo es correcto si además se demuestra la propiedad de elección voraz; que funcione en los ejemplos habituales no la prueba.
+
+![Tabla con resultados del voraz y la programación dinámica para varios sistemas de monedas.](../../../content/part-07/figures/se-091-monedas-voraz-y-dinamica.svg)
+
+**Cómo leer la figura.** Las filas 2 a 4 son contraejemplos; la primera muestra por qué un sistema real engaña: funciona. **Dónde deja de valer:** la prueba aleatoria cubre importes pequeños; un sistema puede ser canónico para importes hasta 199 y fallar más allá. Es una refutación posible, no una prueba de corrección.
+
+### Intervalos y mochila: el criterio es la parte difícil
+
+La selección de actividades (el mayor número de intervalos sin solapes) admite un voraz correcto: ordenar por hora de fin. Con 400 instancias aleatorias de 3 a 9 intervalos comparamos con fuerza bruta: ordenar por **fin** coincidió con el óptimo en 400 de 400; ordenar por **inicio** solo en 338 de 400. Mismo problema, mismo esquema, otro criterio: 62 casos peores.
+
+La mochila 0/1 no tiene voraz correcto. Elegir por mayor valor/peso fue subóptimo en 228 de 1 000 instancias aleatorias, con un peor caso de 0,556 del óptimo. El contraejemplo clásico: pesos 10, 20 y 30, valores 60, 100 y 120, capacidad 50; el voraz da 160 (toma 10 y 20) y el óptimo es 220 (toma 20 y 30). Si los objetos fueran divisibles, el voraz sería óptimo (mochila fraccionaria); la indivisibilidad lo rompe.
+
+![Tabla que compara criterios voraces para intervalos y mochila con fuerza bruta y programación dinámica.](../../../content/part-07/figures/se-091-intervalos-y-mochila.svg)
+
+**Cómo leer la figura.** La diferencia entre la primera y segunda fila es solo el criterio de orden. **Dónde deja de valer:** las instancias son pequeñas para que la fuerza bruta sea posible; sobre instancias grandes no se puede verificar así. Un criterio que sobrevive a 400 pruebas aleatorias aún necesita una demostración.
+
+### Programación dinámica: cuántas celdas, cuánta memoria
+
+Para la subsecuencia común más larga (LCS) de dos cadenas de longitud `n`, la tabla tiene `(n+1)²` celdas: 63 001, 251 001 y 1 002 001 para n = 250, 500 y 1 000. El tiempo fue 22,0, 92,1 y 506 ms: al duplicar `n`, ×4,2 y ×5,5, coherente con crecimiento cuadrático. Medimos con `tracemalloc` la memoria pico con n = 1 000: 11,97 MB con la tabla completa y 44 192 bytes conservando solo dos filas, 271 veces menos. Ambas versiones dieron la misma longitud en un par de cadenas de 300 caracteres; es una comprobación, no una prueba de equivalencia.
+
+Reducir a dos filas tiene un precio: ya no se puede reconstruir la subsecuencia (hace falta la tabla o información adicional). La decisión de diseño es qué se debe devolver: solo la longitud, o la subsecuencia. La memoria de una DP suele dominar antes que el tiempo.
+
+![Tabla con celdas, tiempo y memoria de la programación dinámica de la subsecuencia común más larga.](../../../content/part-07/figures/se-091-tabla-y-memoria.svg)
+
+**Cómo leer la figura.** La nota inferior contiene el contraste de memoria entre la tabla completa y las dos filas. **Dónde deja de valer:** el tiempo es de Python puro en un solo equipo (Linux: 29,6, 78,4 y 499,5 ms). Con NumPy o C la constante baja mucho. La reducción a dos filas vale para la longitud, no para recuperar el resultado.
+
 ## Definiciones de trabajo
 
 - **estrategia voraz:** un algoritmo voraz toma la mejor opción local y no retrocede.
@@ -122,10 +152,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Contraejemplo:** busca con código un sistema de monedas de tres valores donde el voraz falle y entrega el menor importe que lo muestra.
+2. **Criterio:** implementa selección de intervalos por inicio y por fin; contrástalos con fuerza bruta en 200 instancias y reporta el número de discrepancias.
+3. **Mochila:** implementa DP y el voraz por razón; mide la fracción de instancias subóptimas y el peor cociente.
+4. **Memoria:** calcula LCS con tabla completa y con dos filas, compara pico de memoria con `tracemalloc` y explica qué información pierdes.
 
 ## Reto verificable
 
@@ -137,17 +167,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Cómo sé si un problema admite un voraz?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Con una demostración (intercambio o inducción) y con contraejemplos buscados activamente. Aquí el mismo problema de intervalos tuvo un criterio correcto (fin, 400/400) y otro incorrecto (inicio, 338/400).
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Cuándo usar programación dinámica?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Cuando hay subproblemas que se repiten y subestructura óptima. Aquí LCS tiene `(n+1)²` subproblemas; la mochila 0/1 tiene capacidad × objetos.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Por qué la mochila voraz falla?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Porque los objetos no son divisibles: elegir el de mejor razón puede dejar capacidad sin usar. Con pesos 10, 20, 30 el voraz da 160 y el óptimo 220.
+
+### ¿La DP siempre usa mucha memoria?
+
+Puede reducirse: en LCS pasamos de 11,97 MB a 44 KB conservando dos filas, a costa de no poder reconstruir la solución.
 
 ## Fallo controlado y diagnóstico
 
@@ -155,15 +189,17 @@ Implementa greedy por valor y usa el ejemplo A/B/C. Luego define estado `dp[i][c
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Aplica el voraz de monedas al sistema {1, 3, 4} con objetivo 6. **Síntoma:** devuelve 3 monedas y la DP devuelve 2. **Hipótesis rivales:** (a) hay un error de implementación del voraz; (b) el voraz no es correcto para este sistema. **Prueba:** el voraz funciona con {1, 5, 10, 25} (6 monedas para 63) y fracasa en 442 de 2 000 sistemas aleatorios; ejecuta ambos con objetivos 1 a 60. **Conclusión:** el defecto no está en el código, sino en el supuesto de elección voraz. Guarda el contraejemplo como prueba permanente.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El cambio devuelto usa más monedas de las necesarias | Voraz con un sistema de monedas no canónico | Usar DP o demostrar que el sistema es canónico |
+| El conteo de actividades es menor al esperado | Criterio de orden equivocado (por inicio) | Ordenar por fin y contrastar con fuerza bruta en casos pequeños |
+| La mochila voraz difiere del óptimo | Se trató un problema indivisible como divisible | Usar DP o una cota explícita de aproximación |
+| La DP agota la memoria con entradas grandes | Tabla completa innecesaria | Conservar solo las filas necesarias si no hace falta reconstruir |
+| La DP da resultados distintos con índices en cero | Caso base mal definido | Probar vacío y un elemento; escribir el caso base en el contrato |
 
 ## Entorno y archivos clave
 
@@ -188,6 +224,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente tiende a ofrecer un voraz porque es corto y pasa los ejemplos que se le dan. Pide dos cosas: una justificación (intercambio o inducción) y un contraste automático contra fuerza bruta o DP en instancias pequeñas aleatorias, con semilla fija. Con ese contraste el agente descubre por sí mismo que el criterio por inicio acierta en 338 de 400 casos y puede corregir antes de entregar; sin él, la entrega sería correcta «en los ejemplos».
 
 ## Transferencia
 
@@ -216,6 +256,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [MIT 6.006: Dynamic Programming](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — subproblemas, memoización y análisis de tabla.
+- [Python: `functools.lru_cache`](https://docs.python.org/3/library/functools.html#functools.lru_cache) — memoización y sus límites de memoria.
+- [Python: `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) — memoria pico y sobrecosto de la medición.
+- [MIT 6.046J: Design and Analysis of Algorithms](https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/) — algoritmos voraces, programación dinámica y demostraciones de corrección.
 
 ## Límites y siguiente paso
 

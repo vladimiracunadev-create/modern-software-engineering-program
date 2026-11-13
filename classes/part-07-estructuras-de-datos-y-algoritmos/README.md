@@ -49,6 +49,18 @@ recursos invalida tu recomendación.
 3. **Estrategias y estructuras avanzadas:** las clases 91–93 estudian decisiones locales, subproblemas, exploración e índices especializados.
 4. **Medición y biblioteca:** las clases 94–96 miden, deciden por carga y entregan una biblioteca comparada.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu 24.04 bajo WSL2: crecimiento
+de la capacidad de una lista y `pop(0)` frente a `deque`; colas de prioridad con `heapq`, listas ordenadas y búsqueda del mínimo, con conteo de comparaciones y empates;
+colisiones de hash, `PYTHONHASHSEED`, igualdad de `1`, `1.0` y `True` y claves mutadas; altura de un árbol binario, un AVL y un trie frente a `bisect`; BFS, DFS, listas
+frente a matrices y los fallos de Dijkstra con pesos negativos; comparaciones de Timsort, inserción, mezcla y quicksort, y selección frente a ordenación; monedas, intervalos,
+mochila y subsecuencia común con programación dinámica; n reinas, suma de subconjunto y divide y vencerás; índices de SQLite, filtros de Bloom, Count-Min, HyperLogLog y un árbol
+persistente; pendientes log-log, ruido y sobrecosto de `cProfile` y `tracemalloc`; matrices de compromisos por carga, y un oráculo diferencial con seis defectos inyectados.
+Los experimentos son scripts autónomos que no tocan datos reales. Los tiempos son de un equipo y se leen como razones: una misma medición dio una pendiente de 1,21 en una pasada y de
+1,02 en otra, y esa variación se declara en la clase. No se midió otro intérprete, otro hardware ni cargas reales. Esta parte no tiene laboratorio propio en `labs/`; el proyecto
+integrador SE-096 define el contrato y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 La biblioteca de estructuras y algoritmos mantiene casos, operaciones y criterios de corrección estables mientras cambia la

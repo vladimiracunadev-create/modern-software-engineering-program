@@ -85,6 +85,36 @@ El runner separa preparación y operación, verifica outputs, registra entorno y
 
 El README guía a consumidor, el informe explica mecanismos y la matriz recomienda por carga. Se declara qué no se midió: concurrencia, producción, otros runtimes o datasets. La honestidad del límite es parte de la entrega.
 
+### Un oráculo de referencia y seis defectos inyectados
+
+El proyecto compara implementaciones con un contrato. Para medir la calidad de las pruebas, implementamos una secuencia ordenada con `bisect` y un oráculo trivial (una lista que se reordena y se recorre) y le inyectamos seis defectos (mutantes): `add_end` (añade al final sin ordenar), `closed_hi` (el rango incluye el extremo superior), `remove_all` (borra todos los duplicados), `raise_missing` (lanza `KeyError` al borrar un ausente), `neg_range` (resta negativa si `lo > hi`) y `left_dups` (inserta duplicados a la izquierda). Con ejemplos escritos a mano solo se detectaron dos (`add_end` y `closed_hi`); cuatro mutantes pasaron las pruebas de ejemplo. Con un oráculo diferencial de 200 semillas de 60 operaciones aleatorias, se detectaron cinco: 100 %, 98,5 %, 99,0 %, 98,5 % y 97,5 %, con una mediana de entre 4 y 29 pasos hasta el primer desacuerdo.
+
+El sexto, `left_dups`, no se detectó nunca (0 %): para enteros, insertar un duplicado a la izquierda o a la derecha da una lista idéntica. Es un mutante equivalente respecto de este oráculo; solo se distinguiría con registros que tengan identidad y exijan estabilidad. Una suite diferencial no sustituye el diseño de qué observar.
+
+![Tabla con seis mutantes, si pasan los ejemplos y la tasa de detección del oráculo diferencial.](../../../content/part-07/figures/se-096-mutantes-y-oraculo.svg)
+
+**Cómo leer la figura.** Observa la columna «¿Pasan los ejemplos?»: la columna que debería asustar es «Sí». **Dónde deja de valer:** 200 semillas × 60 pasos no es una cobertura exhaustiva; un defecto raro puede escapar. Los mutantes los diseñé yo: un conjunto realista saldría de un historial de errores del proyecto.
+
+### El oráculo encontró un defecto en la referencia
+
+La primera ejecución del oráculo diferencial, antes de inyectar mutantes, **falló**. La causa: `count_range(lo, hi)` restaba dos posiciones y, con `lo > hi`, devolvía un número negativo (por ejemplo −3), mientras que el oráculo (`sum(1 for v in datos if lo <= v < hi)`) devolvía 0. La implementación que se creía correcta tenía un hueco de contrato que ningún ejemplo escrito a mano había cubierto. La corrección fue `max(0, resultado)`, y con ella la línea base pasó 300 semillas de 200 pasos sin discrepancias.
+
+El caso se convirtió en una prueba nombrada y en una línea del contrato: «si `lo >= hi`, el conteo es 0». Es el patrón que justifica el proyecto: comparar implementaciones contra un oráculo obliga a decidir los casos límite que el diseño original dejaba abiertos.
+
+![Diagrama de la discrepancia entre la implementación y el oráculo y su corrección.](../../../content/part-07/figures/se-096-defecto-en-la-referencia.svg)
+
+**Cómo leer la figura.** Sigue las flechas: una entrada hace que dos implementaciones se contradigan, y la corrección vuelve a unirlas. **Dónde deja de valer:** el oráculo mismo puede estar mal. Aquí era tan simple que su corrección es evidente; en un proyecto real se revisa el oráculo con un tercer método o con casos calculados a mano.
+
+### Casos límite entre bibliotecas y una comparación con cruce
+
+Sacar de una estructura vacía no es uniforme: `[].pop()`, `heapq.heappop([])` y `deque().popleft()` lanzan `IndexError`; `min([])` lanza `ValueError`; `{}[1]` y `set().remove(1)` lanzan `KeyError`. Una biblioteca comparada debe decidir si traduce a un solo error. Y hay errores silenciosos: `bisect_left([3, 1, 2], 2)` devuelve 2 sin ninguna excepción, aunque la precondición de orden está violada.
+
+Una comparación de implementaciones «los k menores» mostró otro riesgo: la variante `sorted(set(xs))[:k]` coincidió con la de referencia en solo 1 419 de 2 000 casos (descarta duplicados), mientras que `heapq.nsmallest` y la selección repetida coincidieron en 2 000. En rendimiento, con 100 000 elementos y k = 10, `sorted` tardó 22,8 ms y `heapq.nsmallest` 2,35 ms; con k = 30 000, 24,1 ms frente a 74,2 ms. La mejor implementación se invierte con k, de modo que el informe final debe decir para qué rango de k vale cada una.
+
+![Tabla con casos límite de varias estructuras y una comparación de k menores con cruce.](../../../content/part-07/figures/se-096-bordes-y-comparacion.svg)
+
+**Cómo leer la figura.** Las cuatro primeras filas son comportamientos de vacío o de precondición; las dos últimas son comparaciones con datos. **Dónde deja de valer:** se midió un solo tipo de dato (enteros pequeños con duplicados) y una sola biblioteca estándar. Otro intérprete o una biblioteca de terceros puede tener otro error para el mismo caso.
+
 ## Definiciones de trabajo
 
 - **contrato de la biblioteca:** la api define tipos, operaciones, errores, orden y complejidad esperada.
@@ -123,10 +153,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Oráculo:** implementa una secuencia ordenada con `bisect` y un oráculo de lista; ejecuta 200 semillas y registra si coinciden.
+2. **Mutantes:** inyecta tres defectos y compara cuántos detectan tus ejemplos y cuántos tu oráculo.
+3. **Contrato:** para tres estructuras define qué ocurre en vacío, con duplicados y con una precondición violada, y pruébalo.
+4. **Informe:** compara dos implementaciones de «los k menores» barriendo k y reporta el cruce y la memoria.
 
 ## Reto verificable
 
@@ -138,17 +168,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Qué es un oráculo de referencia?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Una implementación simple y evidentemente correcta contra la que se compara la rápida. Aquí era una lista que se reordena en cada operación.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Por qué no basta con pruebas de ejemplo?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Cuatro de seis defectos inyectados las pasaron; el oráculo diferencial detectó cinco. Los ejemplos reflejan lo que ya pensé; el oráculo explora lo que no.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Qué hago con un mutante que no muere?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Pregunta si es equivalente (`left_dups` con enteros) o si falta observabilidad. Si es equivalente, documenta por qué; si no, añade la prueba que lo distinga.
+
+### ¿Cómo declaro el rendimiento en un informe comparado?
+
+Con las cargas, los tamaños y el rango donde cada candidato gana: `nsmallest` ganó con k = 10 y perdió con k = 30 000.
 
 ## Fallo controlado y diagnóstico
 
@@ -156,15 +190,17 @@ Optimiza la extracción y rompe estabilidad de empates. Una prueba basada solo e
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Ejecuta el oráculo diferencial sobre la implementación de referencia, antes de inyectar mutantes. **Síntoma:** falla con `count_range(5, 2)`: −3 frente a 0. **Hipótesis rivales:** (a) el oráculo es incorrecto; (b) la implementación no define el caso `lo > hi`. **Prueba:** calcular a mano el conteo (0 elementos en un rango vacío) y revisar la resta de posiciones. **Conclusión:** el defecto es de la implementación; corrige con `max(0, …)`, escribe el caso en el contrato y deja una prueba de regresión.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Todas las pruebas pasan y un defecto llega a producción | Pruebas solo con ejemplos | Añadir un oráculo diferencial con semillas y mutantes |
+| Dos implementaciones difieren con `lo > hi` | El contrato no define el caso | Escribir la regla en el contrato y una prueba nombrada |
+| Un mutante sobrevive siempre | Es equivalente o el observador es insuficiente | Analizar si la diferencia es observable y documentar |
+| La biblioteca devuelve resultados sin error con entradas inválidas | Precondición no comprobada (orden) | Validar en la frontera o documentar el riesgo |
+| La recomendación final fue válida solo para un parámetro | Se midió un único k o tamaño | Barrer el parámetro y reportar el cruce |
 
 ## Entorno y archivos clave
 
@@ -189,6 +225,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+En el proyecto, un agente puede producir código plausible para cada estructura y pasar los ejemplos. El control relevante es el oráculo diferencial con semilla fija y los mutantes: si el agente no mata los mutantes que tú inyectas, sus pruebas son decorativas. Entrega al agente el contrato (vacío, duplicados, precondiciones) como texto verificable, y pide un informe que liste los mutantes sobrevivientes y por qué.
 
 ## Transferencia
 
@@ -217,6 +257,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Jia y Harman, «An Analysis and Survey of the Development of Mutation Testing» (IEEE TSE, 2011)](https://doi.org/10.1109/TSE.2010.62) — pruebas de mutación y mutantes equivalentes.
+- [Hypothesis: pruebas basadas en propiedades](https://hypothesis.readthedocs.io/en/latest/) — generación aleatoria y reducción de casos para pruebas diferenciales.
+- [Python: `unittest`](https://docs.python.org/3/library/unittest.html) — marco de pruebas usado en el laboratorio.
+- [Python: `heapq.nsmallest`](https://docs.python.org/3/library/heapq.html#heapq.nsmallest) — contrato y notas de rendimiento según el tamaño de k.
 
 ## Límites y siguiente paso
 

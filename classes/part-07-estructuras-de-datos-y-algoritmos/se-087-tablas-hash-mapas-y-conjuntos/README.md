@@ -84,6 +84,36 @@ Al aumentar ocupación crecen colisiones; la tabla reserva una capacidad mayor y
 
 Python garantiza orden de inserción en `dict`, pero `set` no promete orden estable entre ejecuciones. Usar el orden observado de un conjunto como desempate crea pruebas frágiles. Si el orden importa, debe representarse explícitamente.
 
+### Colisiones: cuando el hash deja de repartir
+
+Una tabla hash promete búsqueda en tiempo constante *si* el hash reparte las claves. Lo rompimos a propósito: una clase cuyo `__hash__` devuelve siempre 1 y otra con `hash(self.valor)`, ambas con `__eq__` correcto. Buscar `n` claves tardó 16,0, 60,4, 227,7 y 960,3 ms con hash constante (n = 500, 1 000, 2 000 y 4 000) y 0,39, 0,27, 0,53 y 3,48 ms con el hash razonable. Con hash constante, duplicar `n` multiplica el tiempo por 3,8, 3,8 y 4,2: cada búsqueda compara con las claves previas, de modo que el costo total es cuadrático. Los resultados fueron iguales en Linux (1 219 ms con 4 000).
+
+El peligro práctico no es solo el código propio. Un atacante que controle las claves (parámetros de una petición, nombres de campo) puede fabricar colisiones; por eso CPython aleatoriza el hash de `str` y `bytes` por proceso. La ventaja frente a una lista también se midió: 500 pertenencias sobre 20 000 claves tardaron 93,7 ms en una lista y 0,027 ms en un `set`, aproximadamente 3 500 veces menos, al precio de 4,19 MB frente a 0,80 MB cada 100 000 enteros.
+
+![Barras con el tiempo de buscar n claves con un hash constante y con un hash razonable.](../../../content/part-07/figures/se-087-colisiones-y-pertenencia.svg)
+
+**Cómo leer la figura.** Cada par es un tamaño; fíjate en la razón entre barras consecutivas coral, no en los milisegundos. **Dónde deja de valer:** el `O(1)` es esperado bajo un hash uniforme; no es garantía. El experimento usa claves de una clase propia; con enteros o cadenas el intérprete ya reparte bien, y el riesgo se desplaza a quien define `__hash__`.
+
+### Hash e igualdad: cinco sorpresas
+
+`__hash__` y `__eq__` deben ser coherentes: dos objetos iguales deben tener el mismo hash. De ahí salen sorpresas que medimos. (1) Un `set` de cinco cadenas se iteró en 5 órdenes distintos con 6 valores de `PYTHONHASHSEED`: el hash de `str` se aleatoriza por proceso. (2) Un `set` de enteros produjo un solo orden con 3 semillas: el hash de `int` no se aleatoriza. (3) `hash(-1)` y `hash(-2)` valen ambos −2, porque −1 está reservado como señal de error en C. (4) `{1: 'a', 1.0: 'b', True: 'c'}` tiene una sola clave, porque `1 == 1.0 == True` y sus hashes coinciden. (5) `float('nan') in {nan: 1}` es `True` con el mismo objeto y `False` con otro NaN: NaN no es igual a sí mismo y solo la identidad rescata la búsqueda.
+
+La consecuencia de diseño: el orden de iteración de un `set` o de un `dict` por hash no debe usarse como dato. Los `dict` conservan el orden de inserción desde Python 3.7 (tras borrar `b` y reinsertarla, el orden fue `acdeb`), pero los `set` no ofrecen esa garantía.
+
+![Tabla con cinco comportamientos medidos de hash e igualdad.](../../../content/part-07/figures/se-087-hash-e-igualdad.svg)
+
+**Cómo leer la figura.** Lee cada fila como una pregunta de entrevista con respuesta comprobada: la columna central es la observación, la derecha su causa. **Dónde deja de valer:** estas observaciones son de CPython 3.12; otros intérpretes pueden aleatorizar o no. La igualdad de `1` y `True` es una decisión del lenguaje que podría sorprender en otros dominios (identificadores, banderas).
+
+### Claves mutables: la entrada que existe y no se encuentra
+
+Insertamos `K(1)` en un diccionario, cambiamos su atributo a 2 y probamos las búsquedas. `K(2) in d` dio `False`, `K(1) in d` dio `False`, `len(d)` seguía en 1 y la iteración devolvía la clave. La entrada quedó en la ranura que corresponde al hash 1, pero la clave ya no es igual a `K(1)`; y el hash 2 apunta a otra ranura. La entrada existe y es inalcanzable. Por eso `list`, `dict` y `set` no son hashables (`TypeError: unhashable type: 'list'`).
+
+El tamaño del diccionario también tiene un matiz: tras insertar 100 000 entradas y borrar 99 990, `sys.getsizeof` siguió en 5,24 MB. Un `dict` no devuelve memoria al borrar; se reconstruye (`dict(d)`) si importa. La regla de diseño es sencilla: las claves son valores inmutables o se tratan como tales; si el estado de una clave puede cambiar, la clave debe ser su identificador estable (un `id` o una tupla congelada), no el objeto.
+
+![Diagrama de una clave mutada tras insertarse y de las búsquedas que ya no la encuentran.](../../../content/part-07/figures/se-087-clave-mutada.svg)
+
+**Cómo leer la figura.** Sigue las tres cajas de arriba de izquierda a derecha: insertar, mutar, buscar. La fila de abajo muestra los tres resultados. **Dónde deja de valer:** el experimento define `__hash__` a partir del atributo mutable, que es justo lo que se desaconseja. Una clase con hash por identidad (el comportamiento por defecto) no sufre este fallo, pero entonces dos objetos «iguales» en contenido son claves distintas.
+
 ## Definiciones de trabajo
 
 - **mapa y conjunto:** un mapa asocia claves únicas con valores; un conjunto conserva pertenencia sin payload separado.
@@ -123,10 +153,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Colisiones:** reproduce el experimento con `__hash__` constante y con `hash(valor)` para cuatro tamaños; calcula las razones y explica por qué la primera es cuadrática.
+2. **Semillas:** ejecuta un script que imprima un `set` de cinco cadenas con seis valores de `PYTHONHASHSEED` y cuenta cuántos órdenes distintos obtienes.
+3. **Clave mutada:** construye el caso `K(1)` mutado y escribe una prueba que lo detecte; propón dos diseños que lo eviten.
+4. **Igualdad:** predice el tamaño de `{1: 'a', 1.0: 'b', True: 'c'}` antes de ejecutarlo y explica el resultado con `hash` y `==`.
 
 ## Reto verificable
 
@@ -138,17 +168,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿`set` es siempre más rápido que una lista para saber si algo está?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+No siempre: construir el set cuesta. Con 10 000 elementos y una sola consulta la lista fue más rápida; con tres consultas ya conviene el set (véase SE-095). Depende de cuántas veces se consulta.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Puedo usar una lista como clave?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+No: `TypeError: unhashable type`. Usa una tupla (si sus elementos son hashables) o un `frozenset`. Si necesitas mutar, usa un identificador estable como clave.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Por qué el orden de mi `set` de cadenas cambia entre ejecuciones?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Porque el hash de `str` se aleatoriza por proceso (5 órdenes distintos con 6 semillas). No dependas del orden; ordena con `sorted` cuando necesites reproducibilidad.
+
+### ¿Es seguro escribir mi propio `__hash__`?
+
+Solo si iguales ⇒ mismo hash y la clave no cambia mientras esté dentro. Con hash constante, 4 000 búsquedas tardaron 960 ms frente a 3,5 ms.
 
 ## Fallo controlado y diagnóstico
 
@@ -156,15 +190,17 @@ Define una clave cuyo hash depende de una lista modificable y cambia la lista tr
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Define una clase con `__hash__` basado en un atributo, inserta una instancia en un `dict`, cambia el atributo y busca con el valor nuevo y con el antiguo. **Síntoma:** ninguna búsqueda encuentra la entrada y `len` sigue en 1. **Hipótesis rivales:** (a) el diccionario perdió la clave; (b) el hash apunta ahora a otra ranura mientras la entrada permanece en la original. **Prueba:** itera el diccionario y observa que la clave sigue allí; restaura el valor original y observa que la búsqueda vuelve a funcionar. **Conclusión:** la entrada nunca desapareció, quedó en una ranura que ya no corresponde a su hash. Registra la regla «claves inmutables» en el contrato.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Una búsqueda en un `dict` falla para una clave que «seguro» se insertó | La clave se mutó después de insertarla | Usar claves inmutables o un identificador estable; añadir una prueba que mute y busque |
+| El orden de salida cambia entre ejecuciones | Se itera un `set` de cadenas con hash aleatorizado | Ordenar explícitamente antes de producir resultados |
+| `1` y `True` colapsan en una sola clave | `1 == True` y tienen el mismo hash | Normalizar o separar el tipo antes de usarlos como claves |
+| `nan in d` da distinto resultado según el objeto | NaN no es igual a sí mismo; solo la identidad lo rescata | Rechazar o normalizar NaN antes de indexar |
+| El consumo de memoria no baja tras borrar | El `dict` conserva su tabla al borrar | Reconstruir el diccionario si el tamaño importa |
 
 ## Entorno y archivos clave
 
@@ -189,6 +225,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Cuando un agente propone usar objetos como claves de un diccionario, la pregunta para su plan es: ¿cuál es el hash, cuál la igualdad y puede cambiar el objeto mientras es clave? Un agente que cachea resultados por objeto mutable produce fallos que no se reproducen con la misma entrada. Exige que su caché use claves inmutables y que una prueba mute el objeto y verifique el resultado; esa prueba rara vez aparece sin pedirla.
 
 ## Transferencia
 
@@ -217,6 +257,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: modelo de datos, `object.__hash__`](https://docs.python.org/3/reference/datamodel.html#object.__hash__) — contrato de hash e igualdad y requisito de inmutabilidad práctica.
+- [Python: `PYTHONHASHSEED`](https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHASHSEED) — aleatorización del hash de `str` y `bytes` por proceso.
+- [Python: tipos de mapeo, `dict`](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict) — orden de inserción garantizado desde Python 3.7 y operaciones del diccionario.
+- [Crosby y Wallach, «Denial of Service via Algorithmic Complexity Attacks» (USENIX Security 2003)](https://www.usenix.org/legacy/events/sec03/tech/full_papers/crosby/crosby.pdf) — ataque por colisiones deliberadas contra tablas hash.
 
 ## Límites y siguiente paso
 

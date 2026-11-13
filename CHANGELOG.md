@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-13 — Parte 07 profundizada con experimentos de estructuras y algoritmos
+
+- 36 figuras para `SE-085`–`SE-096` con mediciones y cuentas reales: capacidad de listas y `pop(0)` frente a `deque`, colas de prioridad y empates,
+  colisiones de hash y claves mutadas, altura de árboles (BST, AVL, trie y `bisect`), BFS frente a DFS y representaciones de grafos, comparaciones por
+  algoritmo de ordenamiento, monedas, intervalos y mochila, n reinas y poda, índices de SQLite, filtros de Bloom y Count-Min, pendientes log-log y
+  ruido de medición, matrices de compromisos por carga y mutantes frente a un oráculo diferencial;
+- tres secciones nuevas por clase, y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios, que eran idénticos en las doce clases,
+  por versiones específicas de cada una; fuentes primarias verificadas (enlaces con `curl`, DOI con Crossref) y un puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3); la parte no tiene laboratorio en `labs/`; los tiempos son de un
+  equipo y varían entre pasadas (una pendiente dio 1,21 y luego 1,02), y no se midieron otros intérpretes ni cargas reales.
+
 ## 2026-11-13 — Parte 06 profundizada con experimentos de paradigmas ejecutados
 
 - 36 figuras para `SE-073`–`SE-084` con mediciones reales: aliasing y costo de copiar, costo de llamar funciones y límite de

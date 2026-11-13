@@ -84,6 +84,36 @@ Se divide en subproblemas independientes, se resuelven y combinan. La independen
 
 El árbol de recursión explica tiempo y trabajo de combinación. En tamaños pequeños, overhead domina y un algoritmo simple puede ganar; implementaciones híbridas usan umbral medido sin cambiar corrección.
 
+### Retroceso con poda: contar nodos, no solo soluciones
+
+El problema de las n reinas coloca una reina por fila y retrocede cuando una columna o diagonal está ocupada. Contamos los nodos del árbol de búsqueda con poda: para n = 4 a 9, soluciones 2, 10, 4, 40, 92 y 352; nodos visitados 17, 54, 153, 552, 2 057 y 8 394; permutaciones totales (n!) 24, 120, 720, 5 040, 40 320 y 362 880. Para n = 8, generar todas las permutaciones y filtrar tardó 38,2 ms (42,7 en Linux) y el retroceso con poda 3,9 ms (4,0); ambos hallaron las 92 soluciones. La poda cambió el costo, no el resultado.
+
+Ese contraste es la prueba de la poda: una poda es válida si el número de soluciones coincide con el de la enumeración completa en tamaños pequeños. Si difiere, la poda eliminó una rama que sí contenía soluciones.
+
+![Tabla con soluciones, nodos con poda y permutaciones para 4 a 9 reinas.](../../../content/part-07/figures/se-092-reinas-y-poda.svg)
+
+**Cómo leer la figura.** Compara la tercera con la cuarta columna: la ventaja crece con n. **Dónde deja de valer:** el retroceso sigue siendo exponencial en el peor caso; solo cambia la constante y el exponente efectivo. Para n grande se necesitan otras técnicas (heurísticas o reparación local).
+
+### Orden de las decisiones y poda por cota
+
+En la suma de subconjunto (18 números, objetivo 100) el árbol completo tiene 2¹⁹ − 1 = 524 287 nodos. Sin poda el retroceso visitó 450 869 nodos; con dos podas (se pasa del objetivo, o aun sumando todo lo que queda no se alcanza) visitó 4 441, 100 veces menos, y encontró las mismas 277 soluciones. La poda por cota usa una suma de sufijos precomputada: una cota barata que descarta ramas enteras.
+
+El orden en que se prueban las decisiones cambia qué se encuentra primero. Para hallar la primera solución de n reinas, probar las columnas de izquierda a derecha o de derecha a izquierda necesitó 114 nodos con n = 8, 262 con n = 12 y 10 053 con n = 16; comenzar por las columnas centrales necesitó 15, 18 y 26 nodos (387 veces menos con n = 16). No cambia qué soluciones existen; cambia cuánto cuesta llegar a la primera.
+
+![Tabla con nodos visitados con y sin poda en suma de subconjunto y con distintos órdenes en reinas.](../../../content/part-07/figures/se-092-poda-y-orden.svg)
+
+**Cómo leer la figura.** Las dos primeras filas comparten el resultado y difieren en 100× el trabajo; las dos últimas muestran el efecto del orden. **Dónde deja de valer:** las cifras dependen de los datos concretos (18 números elegidos con semilla fija). El orden central funciona bien para reinas; en otros problemas el mejor orden se descubre con heurísticas (primero la variable más restringida).
+
+### Divide y vencerás: profundidad, costo y cuándo no conviene
+
+La ordenación por mezcla divide en mitades: con 1 000, 10 000 y 100 000 elementos usó 8 678, 120 398 y 1 536 147 comparaciones, cerca de `n·log₂ n` (9 966; 132 877; 1 660 964), con profundidad de recursión 10, 14 y 17. Si la división es desigual (quitar un elemento cada vez), la profundidad pasa a ser `n`: una recursión de ese tipo con 2 000 elementos agotó la pila con `RecursionError`. Dividir bien es parte de la corrección práctica del algoritmo.
+
+El problema del subarreglo de suma máxima admite divide y vencerás (6,22 ms para 2 000 enteros), pero el algoritmo de Kadane, lineal e iterativo, tardó 0,62 ms: 10 veces menos. Los tres métodos (divide y vencerás, Kadane y fuerza bruta) coincidieron en 500 de 500 casos pequeños. Un esquema general no siempre da el mejor algoritmo.
+
+![Tabla con comparaciones y profundidad de la ordenación por mezcla frente a n log n.](../../../content/part-07/figures/se-092-divide-y-venceras.svg)
+
+**Cómo leer la figura.** La penúltima y la antepenúltima columnas son casi iguales: la mezcla se comporta como predice la teoría. **Dónde deja de valer:** las comparaciones se contaron con datos aleatorios; con duplicados o datos ordenados cambia la cuenta exacta. El tiempo del subarreglo (Linux: 14,5 ms y 1,59 ms) varió entre sistemas aunque la razón fue parecida.
+
 ## Definiciones de trabajo
 
 - **espacio de estados:** cada nodo representa una decisión parcial y cada arista una elección.
@@ -128,10 +158,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Nodos:** instrumenta las n reinas para contar nodos con y sin poda para n = 4 a 9 y verifica que ambas versiones dan el mismo número de soluciones.
+2. **Cota:** implementa la suma de subconjunto con la poda de sufijo y mide cuántos nodos ahorra frente al árbol completo.
+3. **Orden:** compara tres órdenes de columnas para encontrar la primera solución de 12 reinas y explica la diferencia.
+4. **Profundidad:** escribe una división desigual y una en mitades, y reporta la profundidad de recursión para n = 1 000 y 100 000.
 
 ## Reto verificable
 
@@ -143,17 +173,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Cómo sé que mi poda es válida?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Compara el número de soluciones con la enumeración completa en tamaños pequeños: 92 soluciones para 8 reinas con y sin poda. Si difieren, la poda elimina ramas con soluciones.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿El retroceso siempre es exponencial?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+En el peor caso, sí. Con poda y buen orden puede resolver instancias grandes: 16 reinas necesitaron 26 nodos para la primera solución con el orden central y 10 053 con el orden natural.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Cuándo no usar divide y vencerás?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Cuando existe un algoritmo lineal más simple: Kadane fue 10 veces más rápido y más corto. O cuando la partición es desigual y la recursión profunda.
+
+### ¿Qué límite de recursión debo esperar?
+
+Si divides en mitades la profundidad es `log₂ n` (17 para 100 000). Si quitas un elemento por llamada es `n` y el límite por defecto (1 000) se supera con facilidad.
 
 ## Fallo controlado y diagnóstico
 
@@ -161,15 +195,17 @@ Poda una tarea porque hoy no cumple prerrequisitos, aunque otra tarea de la mism
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Cambia la poda de la suma de subconjunto de `s > objetivo` a `s >= objetivo` con elementos positivos y busca todas las soluciones. **Síntoma:** el número de soluciones baja respecto de la búsqueda sin poda. **Hipótesis rivales:** (a) la enumeración sin poda cuenta repetidos; (b) la poda descarta una rama que ya alcanzó el objetivo. **Prueba:** contraste con la versión sin poda en un tamaño pequeño (277 soluciones frente a menos). **Conclusión:** una desigualdad estricta/no estricta mal elegida destruye soluciones sin lanzar error. Guarda el conteo de referencia como prueba.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El algoritmo encuentra menos soluciones que la fuerza bruta | Poda que elimina una rama válida | Contrastar el conteo con enumeración completa en n pequeño |
+| La búsqueda es lenta aunque el algoritmo es correcto | Orden de decisiones desfavorable | Probar el orden de variables más restringidas primero y medir nodos |
+| `RecursionError` en divide y vencerás | Partición desigual con profundidad `n` | Dividir por la mitad o usar iteración |
+| El esquema divide y vencerás es más lento que un bucle | Constantes de la recursión y copias | Comparar con la solución lineal antes de adoptar el esquema |
+| El mismo caso da soluciones en otro orden | Orden de exploración distinto | Definir el orden o comparar conjuntos, no listas |
 
 ## Entorno y archivos clave
 
@@ -194,6 +230,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Cuando se le pide a un agente que resuelva un problema combinatorio, tiende a entregar fuerza bruta o una poda que «parece» razonable. Pide que reporte nodos visitados y que compare el conteo de soluciones con la enumeración completa en una instancia pequeña. Una poda defectuosa es un error silencioso; el harness puede incluir ese contraste como prueba obligatoria con un límite de tiempo.
 
 ## Transferencia
 
@@ -222,6 +262,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [MIT 6.006: Divide and Conquer y recurrencias](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — ordenación por mezcla, recurrencias y teorema maestro.
+- [Python: `itertools`](https://docs.python.org/3/library/itertools.html) — permutaciones y combinaciones para fuerza bruta de contraste.
+- [Python: `sys.setrecursionlimit`](https://docs.python.org/3/library/sys.html#sys.setrecursionlimit) — límite de recursión y sus riesgos.
+- [MIT 6.042J: Mathematics for Computer Science](https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/) — conteo, recurrencias e inducción para razonar sobre el tamaño del árbol de búsqueda.
 
 ## Límites y siguiente paso
 

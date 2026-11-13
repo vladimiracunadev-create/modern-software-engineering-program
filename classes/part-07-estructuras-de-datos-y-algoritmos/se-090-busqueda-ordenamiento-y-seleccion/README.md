@@ -84,6 +84,36 @@ Merge sort garantiza `n log n` y usa memoria adicional; quicksort depende de piv
 
 Para top-k, un heap de tamaño `k` evita ordenar todo y usa espacio acotado. Quickselect ofrece selección esperada lineal bajo pivotes adecuados. La mejor opción depende de si llegan datos en streaming, si k cambia y si se necesita salida ordenada.
 
+### Contar comparaciones: el orden de entrada decide el algoritmo
+
+Con una clase que cuenta cada `__lt__` ordenamos 800 elementos de tres maneras. Con **datos aleatorios**: `sorted` (Timsort) 6 655 comparaciones, inserción 157 960, mezcla 6 695 y quicksort con el primer elemento como pivote 16 284. Con **datos ya ordenados**: 799, 799, 3 728 y 639 200. Con **datos invertidos**: 799, 319 600, 4 048 y 639 200. Las referencias son `n·log₂ n` = 7 715 y `n(n−1)/2` = 319 600. La conclusión es incómoda: el quicksort ingenuo, el que muchos escriben primero, hace su peor trabajo (casi `n²`) justamente con la entrada ya ordenada, la más común en la práctica; la inserción es óptima con datos ordenados y pésima con invertidos; Timsort hace `n−1` comparaciones en ambos casos porque detecta tramos ya ordenados.
+
+Contar comparaciones aísla el algoritmo del equipo: estos números no cambian de máquina a máquina, a diferencia de los milisegundos.
+
+![Tabla con las comparaciones de cuatro algoritmos de ordenamiento sobre tres entradas.](../../../content/part-07/figures/se-090-comparaciones-por-algoritmo.svg)
+
+**Cómo leer la figura.** Lee cada columna: los números en coral indican entradas que hacen cuadrático a un algoritmo. **Dónde deja de valer:** el quicksort evaluado usa el primer elemento como pivote; con pivote aleatorio o mediana de tres el caso patológico desaparece para esta entrada, aunque no para todas. Las comparaciones no incluyen el costo de mover datos.
+
+### Timsort y selección: aprovechar el orden que ya existe
+
+Medimos `sorted()` con 100 000 y 200 000 flotantes: aleatorios tardó 22,9 y 55,5 ms; ya ordenados 1,87 y 5,19 ms; invertidos 2,31 y 5,91 ms (en Linux 1,38 y 1,41 ms con 100 000). Timsort detecta tramos ya ordenados («runs») y los mezcla, por eso lo ordenado es entre 10 y 12 veces más barato. La búsqueda binaria complementa la idea: necesitó 10, 20 y 30 pasos para 10³, 10⁶ y 10⁹ elementos, pero exige que el orden ya exista.
+
+Para la mediana de 100 000 números comparamos `sorted()[n//2]` (22,3 ms), un quickselect de Python puro con pivote aleatorio (40,8 ms, con 2,33 comparaciones por elemento) y `heapq.nsmallest(1, …)` solo para el mínimo (1,32 ms). El algoritmo de selección es asintóticamente mejor (lineal frente a `n log n`), pero en CPython perdió contra el `sorted` implementado en C. Un resultado así es la razón de medir antes de reemplazar una función de biblioteca por una versión «más eficiente».
+
+![Tabla de tiempos de sorted() con entradas aleatorias, ordenadas e invertidas, con nota sobre selección.](../../../content/part-07/figures/se-090-timsort-y-seleccion.svg)
+
+**Cómo leer la figura.** La razón entre la primera columna y las otras dos es el beneficio de los tramos ya ordenados. **Dónde deja de valer:** los tiempos corresponden a flotantes. Con objetos con comparaciones caras, o con muchos duplicados, los resultados cambian; y un quickselect escrito en C o en NumPy superaría al ordenamiento completo. Linux dio un quickselect de 13,5 ms: la diferencia entre sistemas muestra que esta comparación es frágil.
+
+### Trampas del orden: estabilidad, NaN y tipos
+
+`sorted(registros, key=prioridad)` con registros `[('b',1),('a',1),('c',0),('d',1),('e',0)]` devolvió `['c','e','b','a','d']`: los empates conservaron el orden de llegada (b antes de a), porque el ordenamiento es estable. Esa propiedad permite ordenar por varios criterios aplicando sorts sucesivos, del menos al más significativo. Tres trampas se midieron: `sorted([3.0, nan, 1.0, 2.0])` devolvió `[3.0, nan, 1.0, 2.0]`, es decir, no ordenó nada, porque NaN rompe el orden total (toda comparación con NaN es falsa); `sorted([1, 'a'])` lanza `TypeError`; y `sorted(['Zebra','apple','Árbol','zeta'])` dio `['Zebra','apple','zeta','Árbol']`, orden por punto de código, no alfabético del español.
+
+El problema de fondo es el orden total: un comparador debe ser transitivo y consistente. Si no lo es, Timsort no falla con un error; produce un resultado arbitrario. Cuando el criterio viene de datos externos (prioridades, puntuaciones con valores ausentes), se normaliza antes de ordenar.
+
+![Tabla con cuatro comportamientos de sorted() frente a estabilidad, NaN, tipos mezclados y cadenas.](../../../content/part-07/figures/se-090-trampas-del-orden.svg)
+
+**Cómo leer la figura.** La columna derecha explica la causa; ninguna de las cuatro filas lanzó una advertencia salvo la del TypeError. **Dónde deja de valer:** las cuatro filas son de CPython 3.12. El orden de cadenas depende de la configuración regional si se usa `locale.strxfrm`; aquí se mostró el orden por defecto. Otros lenguajes tienen otras reglas con NaN.
+
 ## Definiciones de trabajo
 
 - **búsqueda lineal y binaria:** la búsqueda lineal no exige orden y puede detenerse al hallar; la binaria descarta media región bajo secuencia ordenada y acceso por índice.
@@ -123,10 +153,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Conteo:** instrumenta `__lt__` y cuenta comparaciones de inserción, mezcla y quicksort con 800 elementos aleatorios, ordenados e invertidos.
+2. **Pivote:** cambia el pivote del quicksort a uno aleatorio y repite; explica por qué desaparece el caso cuadrático para la entrada ordenada.
+3. **Selección:** compara `sorted()[n//2]` con tu quickselect para dos tamaños; ¿cuál gana y por qué?
+4. **Trampas:** construye tres entradas que rompan un comparador (NaN, tipos, empates) y define cómo tu biblioteca debe reaccionar.
 
 ## Reto verificable
 
@@ -138,17 +168,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Por qué `sorted` es tan rápido con datos ya ordenados?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Porque Timsort detecta tramos monótonos y los mezcla: 799 comparaciones para 800 elementos ordenados frente a 6 655 con datos aleatorios.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Sirve escribir mi propio ordenamiento?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Casi nunca en producción. Un quicksort ingenuo hizo 639 200 comparaciones con la entrada ordenada; el `sorted` de la biblioteca, 799. Se implementa para aprender y comparar, no para reemplazar la biblioteca.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Cuándo uso búsqueda binaria?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Cuando los datos ya están ordenados y se consultan varias veces: 30 pasos para mil millones de elementos. Si hay que ordenar primero para una sola consulta, no compensa.
+
+### ¿Qué pasa si hay NaN en los datos?
+
+`sorted` no falla; devuelve un orden sin sentido. Elimina o reemplaza los NaN antes de ordenar y valida el resultado.
 
 ## Fallo controlado y diagnóstico
 
@@ -156,15 +190,17 @@ Usa una clave aleatoria durante el sort y observa violación de consistencia. Ca
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Implementa un quicksort que use el primer elemento como pivote y ordena una lista ya ordenada de 800 elementos. **Síntoma:** casi 40 veces las comparaciones que con datos aleatorios (639 200 frente a 16 284). **Hipótesis rivales:** (a) el algoritmo es incorrecto; (b) el pivote es el peor elemento posible en cada partición. **Prueba:** el resultado es correcto en ambos casos; con pivote aleatorio vuelve a ≈ `n log n`. **Conclusión:** la corrección y el costo son propiedades distintas; una implementación correcta puede ser inaceptable. Añade la entrada ordenada a la suite.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El ordenamiento propio es lento con datos casi ordenados | Pivote fijo en un quicksort ingenuo | Usar `sorted` o un pivote aleatorio; probar con entrada ordenada |
+| El resultado «ordenado» no está ordenado | Hay NaN o un comparador no transitivo | Normalizar el criterio y verificar con una prueba de orden total |
+| Los empates cambian de orden entre versiones | Se supuso estabilidad en una estructura que no la garantiza | Ordenar con `sorted` (estable) o añadir un desempate explícito |
+| `TypeError` al ordenar datos externos | Tipos mezclados | Validar y convertir antes; rechazar con un error propio |
+| La búsqueda binaria devuelve una posición sin sentido | La lista no estaba ordenada | Comprobar la precondición o ordenar primero |
 
 ## Entorno y archivos clave
 
@@ -189,6 +225,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «optimiza este ordenamiento» tiene la tentación de sustituir `sorted` por una versión propia. Exige que compare con la biblioteca en tres tipos de entrada y reporte comparaciones, no solo milisegundos: en este experimento el quickselect en Python puro perdió contra el `sorted` en C. Un harness útil rechaza cambios que empeoren cualquiera de las tres entradas respecto de la línea base.
 
 ## Transferencia
 
@@ -217,6 +257,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: Sorting HOW TO](https://docs.python.org/3/howto/sorting.html) — estabilidad, claves y el orden total que se espera de `sorted`.
+- [Tim Peters, descripción de Timsort (`listsort.txt` de CPython)](https://github.com/python/cpython/blob/main/Objects/listsort.txt) — diseño de Timsort, tramos y estrategia de mezcla.
+- [de Gouw et al., «OpenJDK's java.utils.Collections.sort() is broken» (CAV 2015)](https://doi.org/10.1007/978-3-319-21690-4_16) — error real en la implementación de Timsort de Java hallado con verificación formal.
+- [Hoare, «Algorithm 64: Quicksort» (Communications of the ACM, 1961)](https://doi.org/10.1145/366622.366644) — origen del quicksort y de la partición.
 
 ## Límites y siguiente paso
 

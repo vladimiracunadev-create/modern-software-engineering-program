@@ -84,6 +84,36 @@ Un trie comparte prefijos a lo largo de aristas o nodos. Buscar depende de longi
 
 Preorden sirve para copiar estructura, inorden produce claves ordenadas en un BST y postorden procesa hijos antes que padre. Recursión puede exceder pila en árboles profundos; una pila explícita hace visible el recurso.
 
+### La altura manda: un árbol de búsqueda según el orden de inserción
+
+Un árbol binario de búsqueda (BST) promete `O(log n)` si está equilibrado. Medimos la altura y las comparaciones acumuladas con tres cargas. Insertando 255, 1 000 y 4 000 claves **en orden**, la altura fue 255, 1 000 y 4 000 y las comparaciones sumaron 32 385, 499 500 y 7 998 000: una lista enlazada disfrazada. Con las mismas claves **barajadas**, la altura fue 17, 26 y 30 y las comparaciones 2 104, 11 562 y 56 801. Un árbol AVL insertando las claves en orden quedó en altura 8, 10 y 12, y con 100 000 claves llegó a 17 (la cota 1,44·log₂(n+2) vale 23,9) al coste de 99 983 rotaciones.
+
+La lección es que el algoritmo correcto con datos aleatorios puede ser terrible con la entrada más natural: datos ya ordenados. Por eso se prueban las tres entradas (ordenada, inversa, aleatoria) y se mide la altura, no solo el resultado funcional.
+
+![Tabla con altura y comparaciones de un BST con claves ordenadas y aleatorias, y de un AVL.](../../../content/part-07/figures/se-088-altura-segun-el-orden.svg)
+
+**Cómo leer la figura.** Compara las dos columnas centrales: la misma estructura con las mismas claves, distinto orden de llegada. **Dónde deja de valer:** el AVL se implementó para el experimento con rotaciones simples y dobles; un árbol rojinegro, un B-tree o una lista ordenada con `bisect` tienen otros costos. La cota 1,44 log₂ vale para AVL, no para cualquier árbol equilibrado.
+
+### Prefijos: trie, bisect y recorrido completo
+
+Generamos 28 785 palabras sintéticas de 4 a 9 letras (190 043 caracteres) y contamos las que empiezan por `abc` (39). Tres soluciones dieron el mismo resultado: recorrer todas con `startswith` (6 374 µs en Windows, 3 370 µs en Linux), un trie de diccionarios anidados (30,9 µs y 28,9 µs) y una lista ordenada con dos búsquedas binarias (1,1 µs y 0,9 µs). El trie tuvo 82 553 nodos (43 % de los caracteres) pero ocupó 15,3 MB, 9,6 veces los 1,6 MB de la lista de textos.
+
+El resultado incómodo es que, en CPython, `bisect` sobre una lista ordenada ganó al trie para contar. Esto no refuta el trie: el trie permite completar carácter a carácter, compartir prefijos y consultar «¿existe algún texto con este prefijo?» sin rangos. Lo que refuta es la idea de que la estructura más específica gana siempre. El criterio es la operación: para contar y paginar por prefijo sobre datos estáticos, una lista ordenada es más simple y más rápida; para autocompletar con inserciones frecuentes, el trie o una variante comprimida tiene sentido.
+
+![Tabla con el tiempo de contar palabras por prefijo con recorrido, trie y bisect.](../../../content/part-07/figures/se-088-prefijos-trie-y-bisect.svg)
+
+**Cómo leer la figura.** Fíjate en la última nota: el trie ocupó mucha más memoria que la lista de palabras. **Dónde deja de valer:** las palabras son sintéticas con un alfabeto de diez letras; un diccionario real tiene otra distribución de prefijos. Los diccionarios anidados de Python pagan mucha memoria por nodo; un trie en C o con arreglos compactos la reduciría.
+
+### Recursión sobre árboles y el invariante del montículo
+
+Una inserción recursiva en un BST con 1 500 claves ordenadas falló con `RecursionError` (límite 1 000), porque la profundidad de la recursión es la altura del árbol. La versión iterativa funcionó con 4 000 claves ordenadas, pero con 7 998 000 comparaciones. Una estructura jerárquica sin balanceo convierte la altura en un riesgo de pila y de tiempo a la vez.
+
+El montículo binario muestra otra forma de jerarquía: un arreglo plano donde el padre del índice `i` es `(i − 1) // 2` y el invariante es *padre ≤ hijo*. Tras `heapify` de 31 valores aleatorios, el invariante se cumplió en los 30 pares padre-hijo. Un árbol puede vivir en un arreglo sin punteros; lo que lo hace árbol es el invariante, no la representación. Verificar el invariante tras cada operación es la prueba que más errores atrapa.
+
+![Tabla con cuatro resultados sobre recursión, balanceo e invariante de montículo.](../../../content/part-07/figures/se-088-profundidad-y-balanceo.svg)
+
+**Cómo leer la figura.** Cada fila es un experimento aislado con su lectura a la derecha. **Dónde deja de valer:** el límite de recursión es una política de CPython; otros lenguajes tienen otros límites. El invariante se comprobó para 31 elementos, que es una evidencia, no una demostración de corrección de `heapq`.
+
 ## Definiciones de trabajo
 
 - **árbol, raíz y subárbol:** un árbol conecta nodos sin ciclos mediante relación padre-hijo y ofrece un camino único desde la raíz.
@@ -124,10 +154,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Altura:** inserta 1 000 claves en orden y barajadas en un BST propio; registra altura y comparaciones, y calcula la razón con `log₂ n`.
+2. **Prefijos:** genera 10 000 palabras y compara recorrido, trie y `bisect` para tres prefijos; mide también la memoria con `tracemalloc`.
+3. **Invariante:** escribe una función que verifique padre ≤ hijo en un arreglo de montículo y úsala tras cada operación en una prueba aleatoria.
+4. **Pila:** reescribe la inserción recursiva con un bucle y comprueba que soporta 4 000 claves ordenadas; mide el costo en comparaciones.
 
 ## Reto verificable
 
@@ -139,17 +169,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Cuándo un árbol es mejor que un `dict`?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Cuando necesitas orden, rangos o vecinos (siguiente, anterior). Un `dict` no ofrece esas operaciones. Si solo consultas por clave exacta, el `dict` es más simple y más rápido.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Por qué mi BST es lento con datos ya ordenados?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Porque cada inserción cae a la derecha y la altura es n (4 000 claves ordenadas hicieron 7 998 000 comparaciones). Usa un árbol equilibrado, una lista ordenada con bisect o baraja la entrada si el contrato lo permite.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Un trie ahorra memoria?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+No necesariamente: aquí 82 553 nodos de diccionario ocuparon 15,3 MB frente a 1,6 MB de la lista de textos. Comparte prefijos pero paga por nodo.
+
+### ¿Cuándo la recursión sobre un árbol es un problema?
+
+Cuando la altura puede superar el límite de recursión (1 000 por defecto). Con un árbol desequilibrado, usa una pila explícita o equilibra.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +191,17 @@ Inserta claves ordenadas en un BST sin balance y mide altura igual a `n`. Contra
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Inserta 1 500 claves ordenadas con una función recursiva y el límite de recursión por defecto. **Síntoma:** `RecursionError`. **Hipótesis rivales:** (a) la función tiene un error lógico; (b) la altura del árbol supera el límite. **Prueba:** inserta las mismas claves barajadas (altura ≈ 26) y observa que funciona; inserta ordenadas con un bucle y comprueba la altura 1 500. **Conclusión:** el código es correcto, el árbol está desequilibrado. Añade una prueba con entrada ordenada y registra la altura máxima aceptada.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Inserción lenta y `RecursionError` con datos ordenados | BST sin balanceo con entrada ordenada | Equilibrar, barajar o usar una lista ordenada; probar las tres entradas |
+| El trie consume más memoria que la lista de datos | Un diccionario por carácter paga cabecera por nodo | Medir con `tracemalloc` y valorar bisect o un trie comprimido |
+| El montículo devuelve valores en un orden raro al recorrerlo | Se recorre el arreglo creyendo que está ordenado | Extraer con `heappop` o ordenar al final; el arreglo solo garantiza el mínimo |
+| Búsqueda por prefijo incluye resultados que no corresponden | Límite superior mal calculado en la búsqueda binaria | Usar `prefijo + '\uffff'` o la siguiente cadena y probar prefijos vacíos y ausentes |
+| El árbol correcto en pruebas falla en producción | Las pruebas usaron datos aleatorios | Añadir entradas ordenada, inversa y con duplicados |
 
 ## Entorno y archivos clave
 
@@ -190,6 +226,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Cuando un agente implementa un árbol o un índice jerárquico, pide la altura máxima que garantiza y la prueba con entrada ordenada. Un agente que solo prueba con datos aleatorios entrega una estructura que pasa todos los controles y se degrada con el primer lote ordenado. El harness puede incluir un generador de entradas adversarias (ordenada, inversa, repetida) y fallar si la altura o el tiempo exceden el presupuesto.
 
 ## Transferencia
 
@@ -218,6 +258,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: `bisect`](https://docs.python.org/3/library/bisect.html) — búsqueda y ordenamiento incremental sobre listas ordenadas.
+- [Python: `heapq`](https://docs.python.org/3/library/heapq.html) — montículo binario sobre listas y su invariante.
+- [Python: `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html) — medición de memoria asignada por el código Python, con su sobrecosto.
+- [MIT 6.006: Binary Search Trees and AVL](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — árboles de búsqueda, AVL y análisis de altura.
 
 ## Límites y siguiente paso
 

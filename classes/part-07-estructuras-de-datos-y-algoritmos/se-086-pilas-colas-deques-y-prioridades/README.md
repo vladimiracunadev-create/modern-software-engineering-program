@@ -84,6 +84,36 @@ Un heap mantiene el mínimo o máximo en la raíz y una propiedad local entre pa
 
 Prioridad estricta puede posponer indefinidamente trabajo bajo. Aging aumenta prioridad con espera o reserva capacidad por clase. Esa política pertenece al dominio y modifica qué significa correcto, no es un detalle de optimización.
 
+### Prioridad: montículo, lista ordenada o búsqueda del mínimo
+
+Una cola de prioridad responde «¿cuál es el siguiente?». Comparamos tres implementaciones con valores aleatorios (mínimo de tres ejecuciones): `heapq` (insertar y extraer todo), una lista mantenida ordenada con `bisect.insort` y vaciada con `pop()`, y la búsqueda repetida de `min()` seguida de `remove()`. Con 2 000, 4 000, 8 000 y 16 000 elementos tardaron 0,6, 1,4, 3,2 y 11,2 ms (montículo), 2,9, 4,3, 16,9 y 59,4 ms (lista ordenada) y 43,6, 194,4, 833,3 y 3 746 ms (mínimo y borrado). La tercera multiplica su tiempo por 4,5, 4,3 y 4,5 al duplicar `n`: es cuadrática. En Linux el orden se repitió (6,7 ms, 53,0 ms y 3 712 ms con 16 000).
+
+Contamos también las comparaciones con una clase que cuenta cada llamada a `__lt__`: n inserciones cuestan unas 2,2 n comparaciones (2 212 con n = 1 000, 18 300 con 8 000) y n extracciones cuestan 8 703, 19 342, 42 666 y 93 390, entre 0,87 y 0,90 veces `n·log₂ n`. Por eso el montículo no mantiene orden total: solo asegura que el mínimo esté en la raíz, y esa renuncia es lo que lo hace barato.
+
+![Tabla de tiempos de tres implementaciones de cola de prioridad con cuatro tamaños.](../../../content/part-07/figures/se-086-colas-de-prioridad.svg)
+
+**Cómo leer la figura.** Mira la última columna: el crecimiento por escalones de ×4 es la firma de una operación cuadrática. **Dónde deja de valer:** el montículo ofrece el mínimo, no recorrido en orden ni borrado de un elemento arbitrario sin trabajo extra. Si hace falta iterar ordenadamente o cambiar prioridades, la comparación cambia (véase la figura sobre empates).
+
+### Empates: el desempate es parte del contrato
+
+Inserta cinco tareas de la misma prioridad en el orden E, D, C, B, A. Con tuplas `(1, nombre)`, `heapq` las devuelve como A, B, C, D, E: desempata por el texto, no por la llegada. Con una tupla `(1, contador, nombre)`, devuelve E, D, C, B, A: es FIFO estable. La diferencia no es un detalle de implementación; es una decisión de política que, si no se escribe, queda fijada por el contenido de las cargas útiles. Y hay un segundo fallo: si la carga útil no es comparable, el empate dispara `TypeError: '<' not supported between instances of 'dict' and 'dict'`, y el error aparece en producción justo cuando dos tareas coinciden en prioridad.
+
+La cola con límite también tiene semántica propia. `deque(maxlen=3)` al que se añaden seis elementos conserva `[3, 4, 5]`: descarta en silencio los más antiguos. Una cola acotada que descarta es una política de carga (conservar lo reciente); una que bloquea o rechaza es otra. La biblioteca debe elegir y registrar cuál ofrece.
+
+![Dos formas de desempatar en una cola de prioridad y el error de comparar cargas útiles.](../../../content/part-07/figures/se-086-empates-y-estabilidad.svg)
+
+**Cómo leer la figura.** La caja coral muestra una salida correcta en apariencia y equivocada como política; la caja verde muestra el contrato escrito. **Dónde deja de valer:** el contador monótono resuelve el desempate FIFO, pero no cambia prioridades ya insertadas ni elimina elementos arbitrarios. Para eso se usan entradas marcadas como eliminadas o estructuras de índice.
+
+### Pilas y recursión: el límite de la pila de llamadas
+
+Una pila (LIFO) convierte una recursión en un bucle explícito. En CPython la recursión tiene un límite: con `sys.getrecursionlimit()` = 1 000, una función recursiva simple de profundidad 5 000 lanzó `RecursionError`, mientras que una pila explícita (una lista con `append` y `pop`) procesó 1 000 000 de pasos sin problema. El mismo mecanismo apareció en la clase siguiente: un recorrido recursivo sobre una cadena de 5 001 nodos falla, y la versión con pila no.
+
+La pila además sirve para validar estructuras anidadas. Un verificador de paréntesis con una pila acepta `([]{})` y rechaza `([)]`, `(((` y `)(` — cuatro de cinco casos de prueba distintos, cada uno con una razón distinta de fallo (cierre cruzado, apertura sin cierre, cierre sin apertura). Pensar la pila como el «estado pendiente» explica el algoritmo: lo último que se abrió debe cerrarse primero.
+
+![Tabla con las comparaciones contadas al insertar y extraer n elementos de un montículo.](../../../content/part-07/figures/se-086-comparaciones-del-monticulo.svg)
+
+**Cómo leer la figura.** La última columna se acerca a 1: extraer cuesta aproximadamente `n·log₂ n`; insertar, mucho menos. **Dónde deja de valer:** el contador mide comparaciones, no tiempo. Cada comparación en Python cuesta más que en C, y una clave simple (entero) es más barata que una tupla. El límite de recursión es una política del intérprete, no una propiedad de la pila como estructura.
+
 ## Definiciones de trabajo
 
 - **pila y disciplina lifo:** una pila expone `push`, `pop` y `peek`; el último elemento entra primero en salir.
@@ -124,10 +154,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una operación dominante y demuestra la invariante que conserva.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Estabilidad:** inserta cinco tareas con la misma prioridad en un orden dado y demuestra, con y sin contador, qué orden sale. Escribe la política en una frase.
+2. **Conteo:** instrumenta `__lt__` y verifica que extraer `n` elementos de un montículo cuesta aproximadamente `n·log₂ n` comparaciones.
+3. **Pila:** implementa un verificador de paréntesis con una pila y prepara tres entradas inválidas con causas de fallo distintas.
+4. **Límite:** escribe una función recursiva de profundidad 5 000 y su versión con pila explícita; documenta qué ocurre con `sys.getrecursionlimit()`.
 
 ## Reto verificable
 
@@ -139,17 +169,21 @@ La biblioteca de estructuras y algoritmos recibe casos del motor de reglas compa
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Cuándo usar `heapq` y cuándo una lista ordenada?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+`heapq` si solo necesitas el mínimo repetidamente con inserciones intercaladas (11,2 ms con 16 000 elementos). Una lista ordenada con `bisect` si además necesitas consultas por rango o recorrer en orden. Medir con tus tamaños decide.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Por qué mis tareas con la misma prioridad salen en otro orden?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Porque el desempate lo decide la comparación de la carga útil. Añade un contador monótono como segundo elemento de la tupla; el orden de llegada pasa a ser parte del contrato.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Una cola con `maxlen` es segura?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Es segura contra el crecimiento sin límite, pero descarta en silencio los más antiguos. Si perder elementos es inaceptable, usa una cola que rechace o bloquee y registra el rechazo.
+
+### ¿Puedo cambiar la prioridad de un elemento ya insertado?
+
+No directamente en `heapq`. Se inserta una entrada nueva y se marca la anterior como inválida, o se usa una estructura con índice. Hay que decidirlo antes de elegir la estructura.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +191,17 @@ Usa `(priority, payload)` y crea dos prioridades iguales cuyos payloads no son c
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Inserta en un `heapq` tuplas `(1, {'a': 1})` y `(1, {'b': 2})`. **Síntoma:** `TypeError` al segundo `heappush`. **Hipótesis rivales:** (a) la prioridad no es comparable; (b) la comparación pasa al segundo elemento cuando el primero empata. **Prueba:** cambia las prioridades a 1 y 2 y observa que ya no falla; vuelve a 1 y 1 y añade un contador `(1, 0, {...})` y `(1, 1, {...})`. **Conclusión:** el fallo aparece solo con empates, por lo que las pruebas con prioridades distintas no lo ven. Conserva el caso como regresión con empate explícito.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Dos tareas con igual prioridad salen en orden alfabético | El desempate recae en el texto de la carga útil | Añadir un contador monótono como segundo elemento de la tupla |
+| `TypeError` solo cuando dos prioridades coinciden | La comparación llega a cargas útiles no ordenables | Hacer que la tupla sea totalmente ordenable (prioridad, contador, carga) |
+| La cola de prioridad tarda segundos con 16 000 elementos | Se busca el mínimo con `min()` y `remove()` en cada paso | Cambiar a `heapq` y medir al duplicar el tamaño |
+| `RecursionError` en un recorrido con datos reales | Profundidad de datos mayor que el límite de recursión | Reescribir con una pila explícita y probar con 1 000 000 de pasos |
+| Se pierden mensajes sin aviso | `deque(maxlen=n)` descarta los más antiguos | Elegir política (descartar, rechazar, bloquear) y registrar cada descarte |
 
 ## Entorno y archivos clave
 
@@ -190,6 +226,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que gestiona una cola de trabajos suele resolver los empates por accidente. Al revisar su código, exige tres cosas: qué orden produce un empate, qué pasa cuando la cola está llena y qué ocurre con el elemento más antiguo. Convierte esas tres respuestas en pruebas que el harness ejecute antes de aceptar el cambio; un agente rápido pero sin contrato de empate producirá un sistema que se comporta distinto según el contenido de los mensajes.
 
 ## Transferencia
 
@@ -218,6 +258,11 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, medición y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación de la biblioteca de estructuras y algoritmos sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: `heapq`](https://docs.python.org/3/library/heapq.html) — contrato del montículo binario, notas sobre estabilidad de prioridades y entradas con contador.
+- [Python: `bisect`](https://docs.python.org/3/library/bisect.html) — inserción y búsqueda en listas ordenadas; el módulo no ordena por ti.
+- [Python: `queue`](https://docs.python.org/3/library/queue.html) — colas FIFO, LIFO y de prioridad seguras entre hilos.
+- [Python: `sys.setrecursionlimit`](https://docs.python.org/3/library/sys.html#sys.setrecursionlimit) — límite de profundidad de la pila del intérprete y sus riesgos.
 
 ## Límites y siguiente paso
 

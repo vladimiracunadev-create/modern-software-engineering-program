@@ -88,6 +88,42 @@ Una guarda rechaza temprano entrada inválida o estado incompatible y deja el ca
 
 Una tabla cruza estado, presupuesto y autorización para revelar combinaciones. Cada fila se convierte en caso. Si una combinación no es válida, se rechaza explícitamente; `else` no debe actuar como basurero semántico.
 
+### Qué es verdadero: la tabla medida
+
+Una condición `if x:` no pregunta «¿x es cierto?»; pregunta «¿bool(x) es `True`?», y esa conversión depende del tipo. Se midieron trece valores: son falsos `0`, `0.0`, `''`, `[]`, `{}`, `()`, `set()` y `None`; son verdaderos `' '`, `[0]`, `'false'`, `'0'` y `float('nan')`. El criterio es «vacío o cero» frente a «algo contiene», sin interpretar el contenido: la cadena `'0'` es verdadera porque tiene un carácter.
+
+El problema aparece cuando una regla del dominio distingue lo que la verdad de Python mezcla. Si `budget = 0` significa «presupuesto agotado» y `budget = None` significa «no informado», `if budget:` trata ambos igual y la CLI respondería lo mismo ante dos situaciones distintas. La condición correcta nombra la pregunta: `budget is None` para ausencia y `budget == 0` para agotado. Los operadores lógicos agravan el efecto porque devuelven un operando, no un booleano: `None or 5` es 5, `0 or ''` es `''`, `[] and 3` es `[]`. Usar `x or valor_por_defecto` es cómodo hasta que 0 es un dato válido y se reemplaza por el valor por defecto sin aviso.
+
+Una buena heurística es escribir la condición como una frase del dominio. «Hay observaciones» se escribe `len(observations) > 0` o, con una colección, `if observations:` solo si «vacío» es exactamente lo que se quiere decir.
+
+![Figura 1. Dos filas de una tabla: los valores falsos de Python (0, cadena vacía, colecciones vacías, None) y los verdaderos (espacio, [0], 'false', '0', nan)](../../../content/part-05/figures/se-062-valores-verdaderos-y-falsos.svg)
+
+**Cómo leer la figura.** Cada fila agrupa valores con el mismo resultado de `bool()`. La primera es la ausencia de contenido; la segunda, valores con contenido aunque «parezcan» falsos. Los recuadros inferiores dan la consecuencia para una condición del laboratorio. **Dónde deja de valer:** la tabla es de Python 3.12. JavaScript considera verdadero `[]` y falso `NaN`; Go no permite `if` sobre enteros. Un tipo propio puede definir `__bool__` y cambiar la respuesta: no asumas la tabla para clases ajenas.
+
+### Cortocircuito y comparaciones encadenadas
+
+`and` y `or` evalúan de izquierda a derecha y se detienen en cuanto el resultado está decidido. Se instrumentó una función que registra sus llamadas: `f(0) and f(1)` evaluó solo `f(0)` y `f(1) or f(2)` evaluó solo `f(1)`. Esta propiedad se usa a propósito en guardas como `x is not None and x.ok`; al invertir el orden, la misma condición lanza `AttributeError` cuando `x` es `None`. La corrección de la condición depende del orden, y por eso una guarda correcta se prueba con el caso `None`.
+
+Python permite encadenar comparaciones: `1 < 2 < 3` equivale a `(1 < 2) and (2 < 3)`, con cada operando evaluado una vez, y `3 > 2 > 2` es `False`. Se midió además que `5 < 3 < f(9)` no llega a llamar a `f`. El encadenamiento es legible para rangos (`0 <= x < limite`), pero cambia la lectura de quien espera `(3 > 2) > 2`. Por último, `0 == False` es `True` y `'' == None` es `False`: `==` iguala numéricamente 0 y `False`, pero `None` solo es igual a `None`; para ausencia se usa `is None`.
+
+La regla de diseño es colocar primero la condición barata o la que protege la segunda, y no poner efectos secundarios en una expresión que pueda no evaluarse. Un `and` que contiene una llamada con efecto es una rama escondida.
+
+![Figura 2. Tabla con cinco expresiones y qué se evaluó: cortocircuito de and y or, comparación encadenada con efecto, 3>2>2 y la igualdad de 0 con False](../../../content/part-05/figures/se-062-cortocircuito-y-cadenas.svg)
+
+**Cómo leer la figura.** La columna central registra qué llamadas ocurrieron realmente. Si una función con efecto no aparece, esa parte de la expresión no se ejecutó. **Dónde deja de valer:** el cortocircuito es semántica garantizada de `and`/`or` en Python, pero no de operadores como `&` ni de funciones como `all()` con listas ya construidas. Un lenguaje con evaluación estricta de booleanos cambiaría el resultado de una guarda.
+
+### Cadena de condiciones o tabla de umbrales
+
+Clasificar la latencia en `fast` (≤ 100), `ok` (≤ 500), `slow` (≤ 1000) y `timeout` se puede escribir como una cadena de `if/elif` o como una tabla de límites con `bisect`. Se implementaron ambas y se compararon sobre 1000 muestras con valores frontera (-1, 0, 99, 100, 101, 499, 500, 501, 999, 1000, 1001, 5000): coincidieron en todas. El costo por llamada fue de 74.0 ns para 50 ms y 104.7 ns para 1500 ms con la cadena, y 126.4 ns con la tabla en Windows (49.4, 65.3 y 98.2 ns en Linux). Para cuatro tramos la cadena es más corta, más rápida y más fácil de leer; la tabla se justifica cuando hay muchos tramos o los umbrales vienen de configuración.
+
+Lo importante no es el costo, sino dónde se equivoca una persona: en la frontera. Con la cadena, cambiar `<=` por `<` en el primer tramo hace que 100 pase de `fast` a `ok`, y ningún caso «típico» lo nota. Una buena prueba usa pares de valores a ambos lados de cada frontera (100 y 101, 500 y 501) y verifica la clase de cada uno. Las condiciones deben ser mutuamente excluyentes y exhaustivas: el último `else` captura lo que ninguna rama nombró, y `negativo` se rechaza antes con una guarda para que `-1` no se clasifique como `fast`.
+
+`match` aporta otra forma: con patrones de diccionario, secuencia y clase se observó que `{"status": "ok"}` entra en el primer caso, `{"status": "x"}` en el segundo, `[1, 2]` como secuencia y `True` como número (otra vez `bool` es `int`). El orden de los `case` importa tanto como el de los `elif`.
+
+![Figura 3. Barras con el costo por llamada de una clasificación en cuatro tramos con if/elif y con tabla bisect, en Windows y en Linux](../../../content/part-05/figures/se-062-cadena-o-tabla.svg)
+
+**Cómo leer la figura.** Cada barra es el mejor de cinco bloques de 200 000 llamadas, en nanosegundos. Compara las barras verdes (cadena) con la dorada (tabla) dentro de cada plataforma, no entre plataformas. **Dónde deja de valer:** son nanosegundos de un equipo concreto y una sola función; no sirven como presupuesto. Con 4 tramos no se justifica optimizar; con cientos, una tabla ordenada cambiaría la complejidad de lineal a logarítmica.
+
 ## Definiciones de trabajo
 
 - **condición:** expresión interpretada para elegir control.
@@ -137,10 +173,10 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 
 ## Ejercicios
 
-1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
-3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
-4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
+1. **Tabla de verdad:** sin ejecutar, predice `bool` de `[[]]`, `' '`, `-0.0`, `float('inf')` y `{0}`; ejecuta y corrige tu modelo mental.
+2. **Frontera:** para los umbrales 100/500/1000 escribe doce muestras que cubran ambos lados de cada frontera y compara la cadena con la tabla `bisect`.
+3. **Guardas:** reescribe `if x.ok and x is not None` de forma correcta y escribe la prueba con `None` que muestra el fallo del orden original.
+4. **Mutación:** cambia `<=` por `<` en una copia y comprueba qué pruebas de tu suite fallan; si ninguna, añade la que falta.
 
 ## Reto verificable
 
@@ -156,33 +192,35 @@ Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo c
 
 ## Preguntas frecuentes
 
-### ¿Que el programa se ejecute significa que está correcto?
+### ¿Por qué no escribir `if x == True`?
 
-No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+Porque compara con `True` por igualdad numérica: `1 == True`. Si `x` es booleano, basta `if x:`; si puede ser otro tipo, la pregunta real es `x is True` o una validación de tipo.
 
-### ¿Debo memorizar toda la sintaxis?
+### ¿Cuándo conviene `match` y cuándo `if/elif`?
 
-No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+`match` aporta cuando se decide por la forma de un dato (diccionario con ciertas claves, secuencia, clase). Para comparar rangos numéricos, `if/elif` es más directo.
 
-### ¿Las anotaciones de tipo validan JSON?
+### ¿Es mala idea `x or default`?
 
-No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
+Es correcta si 0, vacío y `None` significan lo mismo «sin valor». Si 0 es un dato válido, usa `default if x is None else x`.
+
+### ¿Cuántas ramas son demasiadas?
+
+No hay un número fijo: cuando la tabla de casos es el dato (umbrales, códigos, estados), cámbiala a una tabla o a un diccionario de despacho y prueba cada fila.
 
 ## Fallo controlado y diagnóstico
 
-Invierte las ramas `>500` y `>1000`. Un caso de 1250 queda `slow`. Usa los casos frontera para detectar la rama inalcanzable y corrige el orden.
-
-Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+Reproduce la frontera silenciosa. Toma la función de clasificación y cambia `ms <= 100` por `ms < 100`. Ejecuta tus ejemplos típicos (50, 300, 800, 2000): todos siguen igual. Ejecuta el par 100/101: `100` pasa de `fast` a `ok`. Escribe la prueba de frontera que falla con el cambio, restaura el operador y confirma que pasa. Después prueba `-1`: sin la guarda de negativos queda clasificado como `fast`, que es el defecto que una guarda `ms < 0 → invalid` evita. Registra los dos casos y las dos pruebas.
 
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
-| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
-| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
-| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
-| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
+| clases mal asignadas justo en el límite | `<=` y `<` intercambiados, sin prueba de frontera | probar ambos lados de cada umbral |
+| `if budget:` responde igual con 0 y con `None` | verdad de Python mezcla ausencia y cero | comparar con `is None` y con 0 por separado |
+| `AttributeError` solo con ciertos datos | guarda en orden inverso, sin cortocircuito protector | poner primero la comprobación `is not None` |
+| un valor negativo se clasifica como válido | cadena sin rama de entrada inválida | guarda inicial que rechace el dominio no admitido |
+| `match` no entra en el caso esperado | orden de los `case`: uno general oculta al específico | colocar los casos de más a menos específicos y probar cada uno |
 
 ## Entorno y archivos clave
 
@@ -213,6 +251,10 @@ Usa [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunadev-create/m
 - preserva autorización como regla del núcleo, no como checkbox de UI;
 - no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
+## Puente hacia el trabajo con agentes
+
+Las políticas de un agente (qué herramienta puede usar, cuándo pide confirmación, cuánto puede gastar) son condiciones sobre datos, y heredan todos los riesgos de esta clase: una política escrita como `if allowed:` con `allowed = None` por una configuración ausente se comporta como «denegado» en un lenguaje y como «permitido» en otro. Dos controles se derivan: las decisiones de autorización se escriben con comparaciones explícitas y un caso por defecto que deniega, y cada frontera de la política (un límite de gasto, de pasos, de tamaño) tiene una prueba a ambos lados. Un agente que decide por una condición mal acotada no falla de forma visible, falla de forma plausible.
+
 ## Transferencia
 
 Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
@@ -233,12 +275,18 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 
 - [Python Tutorial](https://docs.python.org/3/tutorial/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Language Reference — Expressions](https://docs.python.org/3/reference/expressions.html): orden de evaluación, cortocircuito y comparaciones encadenadas.
+- [Built-in Types — Truth Value Testing](https://docs.python.org/3/library/stdtypes.html#truth-value-testing): qué valores se consideran falsos.
+- [Compound statements — match](https://docs.python.org/3/reference/compound_stmts.html): patrones de `match` y su orden de evaluación.
+- [Python Tutorial — More Control Flow Tools](https://docs.python.org/3/tutorial/controlflow.html): `if`, `for`, `match` y funciones, con ejemplos oficiales.
 
 La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
 Las ramas secuenciales no modelan bien procesos largos ni estados concurrentes. La siguiente clase repite transformaciones sobre colecciones y estructuras.
+
+**Lo que no se midió.** Los tiempos de la cadena y de la tabla son de una sola función con cuatro tramos en dos equipos; no se compararon tablas de cientos de umbrales ni se midió `match` con patrones complejos.
 
 ## Glosario
 

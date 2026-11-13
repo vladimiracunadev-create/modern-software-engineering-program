@@ -89,6 +89,42 @@ La recursión resuelve una estructura mediante subestructuras y caso base. Pytho
 
 Eliminar elementos de la lista iterada desplaza índices y omite datos. Se construye una nueva colección, se itera sobre copia o se filtra declarativamente. La estrategia depende de memoria, identidad y necesidad de conservar orden.
 
+### Recursión y pila: lo que cuesta y cuándo falla
+
+Sumar los enteros de 1 a 900 con una función recursiva y con un bucle da el mismo resultado (405 450), pero el costo es distinto: 148.8 µs con recursión y 39.4 µs con bucle en Windows (164.0 y 36.3 µs en Linux). Cada llamada recursiva crea un marco en la pila de llamadas, y CPython limita su profundidad: `sys.getrecursionlimit()` devolvió 1000 y una prueba que descendió hasta el error alcanzó una profundidad de 998 marcos. `sum_rec(5000)` lanza `RecursionError: maximum recursion depth exceeded`.
+
+Que sea una excepción y no un cierre abrupto del proceso es una propiedad útil: el fallo es capturable y diagnosticable. Pero también muestra el riesgo de recorrer datos externos con recursión: si la estructura la controla otra persona, la profundidad es una entrada. Un JSON con 100 000 corchetes anidados produce `RecursionError` en `json.loads` (medido en SE-067). El laboratorio evita el problema de dos formas: recorre las observaciones con un bucle sobre un iterador de líneas y limita el número de pasos (`max_steps = len(spec.probes)`), de modo que ningún dato de entrada crea un recorrido ilimitado.
+
+La recursión sigue siendo la forma natural de recorrer estructuras recursivas (árboles, expresiones). La decisión profesional es acotar su profundidad (límite explícito o conversión a iteración con pila propia) en lugar de confiar en que los datos «no serán tan grandes». Python no hace optimización de llamada de cola, así que una recursión de cola no ahorra marcos.
+
+![Figura 1. Barras con el tiempo de sumar 1 a 900 recursivamente y con un bucle en Windows y Linux, y una tabla con el límite de recursión 1000 y el error de sum_rec(5000)](../../../content/part-05/figures/se-063-recursion-contra-bucle.svg)
+
+**Cómo leer la figura.** Las barras rojas son recursión y las verdes bucle, en microsegundos por llamada; la tabla inferior registra el límite del intérprete y el error observado al superarlo. **Dónde deja de valer:** el límite 1000 es configurable (`sys.setrecursionlimit`) pero subirlo solo desplaza el fallo hasta agotar la pila del sistema. Otros lenguajes (Scheme, Erlang) eliminan las llamadas de cola; Python no.
+
+### Invariantes y la trampa de modificar mientras se recorre
+
+Un bucle es correcto si mantiene un invariante: una afirmación verdadera antes de cada vuelta, que al terminar el bucle implica el resultado. Para el filtrado, el invariante podría ser «los elementos ya vistos están decididos y los aceptados están en el resultado». Modificar la colección que se recorre rompe ese invariante porque el iterador conserva un índice y la colección cambia debajo.
+
+El experimento lo muestra con una trampa bien escondida. Quitar los pares de `[1, 2, 3, 4, 5, 6]` mientras se itera dio `[1, 3, 5]`, correcto. Pero con `[2, 4, 6, 8]` el resultado fue `[4, 8]`: al borrar el elemento del índice 0 la lista se desplaza, el iterador avanza al índice 1 y salta el 4. El primer caso «funcionó» porque los elementos saltados eran impares. Una prueba con una sola entrada habría aprobado un defecto. Con un diccionario el lenguaje avisa: añadir una clave durante el recorrido lanza `RuntimeError: dictionary changed size during iteration`.
+
+La alternativa es construir un resultado nuevo: la comprensión `[v for v in xs if v % 2]` dio el resultado correcto en ambos casos. Las reglas que siguen son: no modificar una colección mientras se itera sobre ella; iterar sobre una copia si hace falta mutar; y preferir construir una colección nueva. En el laboratorio, `apply_observation` devuelve un `State` nuevo y no toca el anterior, de modo que el bucle de `run_diagnosis` no tiene este riesgo.
+
+![Figura 2. Tabla con cuatro experimentos: quitar pares de [1..6], de [2,4,6,8], añadir una clave a un diccionario durante el recorrido y filtrar con una comprensión](../../../content/part-05/figures/se-063-mutar-mientras-se-recorre.svg)
+
+**Cómo leer la figura.** La segunda fila es la importante: el mismo código que funcionó con la primera entrada falla con la segunda. La cuarta muestra el patrón que evita ambos problemas. **Dónde deja de valer:** el comportamiento exacto (saltar elementos) es el de la lista de CPython; en otras estructuras o lenguajes puede ser un error, un salto distinto o comportamiento indefinido. Nunca debe usarse como técnica.
+
+### Iteradores, `for…else`, cierres y memoria
+
+Un iterador produce los valores de uno en uno. La diferencia en memoria es medible: `range(10**9)` ocupa 48 bytes, una expresión generadora sobre ese rango 192 bytes y `list(range(10**5))` ocupa 800 056 bytes. Por eso el laboratorio lee las observaciones línea a línea con un generador (`iter_json_lines`): el consumo de memoria no depende del tamaño del archivo, salvo el límite de 1 MB que se impone para acotar el tiempo.
+
+Un iterador se agota: `it = iter([1, 2, 3]); list(it)` y luego `list(it)` devuelve `[]`. Quien necesita recorrer dos veces debe recrearlo o materializar la colección. `for…else` expresa la búsqueda: el `else` se ejecuta solo si el bucle terminó sin `break`; `find([3, 4], 4)` devolvió 1 y `find([3, 4], 9)` devolvió -1. Y una variable de bucle sobrevive al bucle (`i` valía 2 al terminar `for i in range(3)`), pero si el bucle no itera, el nombre nunca existió y leerlo lanza `NameError`.
+
+Dos trampas más. Los cierres capturan el nombre, no el valor: `[lambda: i for i in range(3)]` devuelve `[2, 2, 2]` cuando se llama a las tres funciones. Y los bucles con `float` no deben terminar por igualdad: `while v != 1.0: v += 0.1` nunca vale exactamente 1.0 (tras diez sumas da 0.9999999999999999) y sigue hasta 2.0000000000000004 sin detenerse; el contador de seguridad cortó a las 20 vueltas. La condición de término correcta es una desigualdad (`<`) o un contador entero.
+
+![Figura 3. Barras con el tamaño de range, un generador y una lista de 100000 enteros, y una tabla con el enlace tardío de cierres, el iterador agotado y el bucle con floats](../../../content/part-05/figures/se-063-memoria-de-iteradores.svg)
+
+**Cómo leer la figura.** Las barras muestran memoria; la barra de la lista está truncada para caber. La tabla inferior reúne tres trampas con su resultado medido. **Dónde deja de valer:** `sys.getsizeof` mide el objeto contenedor, no los objetos a los que apunta; los tamaños son de CPython 3.12 de 64 bits. Los generadores ahorran memoria pero impiden volver atrás o conocer la longitud.
+
 ## Definiciones de trabajo
 
 - **iterable:** objeto que produce elementos secuencialmente.
@@ -134,10 +170,10 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 
 ## Ejercicios
 
-1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
-3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
-4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
+1. **Invariante:** escribe el invariante de un bucle que suma los costos de las pruebas usadas y comprueba que se mantiene en cada vuelta con un `assert` temporal.
+2. **Depuración:** predice la salida de `for v in xs: if v % 2 == 0: xs.remove(v)` con `[1, 2, 2, 3, 4]` y explica cada salto del iterador.
+3. **Recursión a pila:** reescribe `sum_rec` como bucle y como recursión con límite explícito de profundidad; mide ambos con `timeit`.
+4. **Memoria:** mide con `sys.getsizeof` una lista y un generador de 10**6 elementos y explica por qué el lector JSONL del laboratorio usa el segundo.
 
 ## Reto verificable
 
@@ -153,33 +189,35 @@ Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo c
 
 ## Preguntas frecuentes
 
-### ¿Que el programa se ejecute significa que está correcto?
+### ¿Recursión o bucle?
 
-No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+Recursión para estructuras recursivas con profundidad acotada; bucle para recorridos lineales y para datos externos. Si la profundidad depende de la entrada, itera con una pila explícita.
 
-### ¿Debo memorizar toda la sintaxis?
+### ¿Se puede subir el límite de recursión?
 
-No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+Sí con `sys.setrecursionlimit`, pero solo traslada el fallo al agotamiento de la pila del sistema y puede cerrar el proceso. Es un parche, no una solución.
 
-### ¿Las anotaciones de tipo validan JSON?
+### ¿`break`, `continue` y `else` en bucles son mala práctica?
 
-No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
+No, usados con claridad. `for…else` es la forma idiomática de «buscar y, si no se encuentra, actuar». Lo dudoso es anidarlos hasta ocultar el invariante.
+
+### ¿Por qué no `while True` en la CLI?
+
+Porque no tiene cota. El laboratorio cuenta los pasos y los limita (`too_many_observations`), de modo que ningún archivo de entrada produce un bucle infinito.
 
 ## Fallo controlado y diagnóstico
 
-Recorre una lista de pruebas y elimina las desautorizadas en el mismo `for`. Observa elementos saltados. Sustituye por una comprensión filtrada y prueba orden y cantidad.
-
-Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+Crea la lista `[2, 4, 6, 8]` y elimina los pares mientras la recorres con `for`. Predice el resultado, ejecútalo y observa `[4, 8]`. Escribe un caso de prueba con esa entrada y comprueba que falla con la implementación defectuosa. Corrige con una comprensión o con una copia (`for v in list(xs):`) y confirma que el resultado es `[]`. Después repite con un diccionario y registra el `RuntimeError`. La evidencia es el par entrada/salida que revela el defecto, no la entrada que lo esconde.
 
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
-| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
-| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
-| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
-| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
+| el resultado cambia según los datos, sin error | se elimina de la lista que se recorre | construir una lista nueva o iterar sobre una copia |
+| `RuntimeError: dictionary changed size` | se añaden o quitan claves durante el recorrido | recorrer `list(d)` o construir un diccionario nuevo |
+| `RecursionError` con una entrada grande | recursión con profundidad igual al tamaño del dato | iterar con pila explícita o limitar la profundidad |
+| todas las funciones creadas en el bucle devuelven lo mismo | enlace tardío del nombre en el cierre | capturar el valor como argumento por defecto o con `functools.partial` |
+| el bucle con floats no termina o se pasa | comparación de igualdad con aproximaciones binarias | contador entero o condición `<` |
 
 ## Entorno y archivos clave
 
@@ -210,6 +248,10 @@ Recorre el stream JSONL de [`labs/part-05-diagnostic-cli`](https://github.com/vl
 - preserva autorización como regla del núcleo, no como checkbox de UI;
 - no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
+## Puente hacia el trabajo con agentes
+
+Un agente es, en esencia, un bucle: observa, decide, actúa y repite. Todo lo que esta clase dice sobre bucles se aplica con más fuerza: sin una cota explícita (número de pasos, presupuesto, tiempo), un bucle de agente puede repetirse indefinidamente, gastando dinero o tocando sistemas. El laboratorio ya muestra el patrón correcto: contar pasos, limitar el máximo al tamaño del problema y devolver un rechazo explícito al superarlo. Dos controles se derivan: toda iteración de un agente tiene un límite de pasos y de tiempo configurado fuera del propio agente, y el estado que cambia entre vueltas se pasa y se devuelve como valor, no se modifica en su sitio, para que una vuelta fallida no deje la siguiente con datos corruptos.
+
 ## Transferencia
 
 Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
@@ -231,12 +273,19 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 - [Python Tutorial](https://docs.python.org/3/tutorial/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Tutorial — Data Structures](https://docs.python.org/3/tutorial/datastructures.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Tutorial — Control Flow](https://docs.python.org/3/tutorial/controlflow.html): `for`, `range`, `break`, `continue` y `else` en bucles.
+- [Compound statements — for, while](https://docs.python.org/3/reference/compound_stmts.html): semántica del recorrido y de la cláusula `else`.
+- [sys — recursion limit](https://docs.python.org/3/library/sys.html): `getrecursionlimit` y `setrecursionlimit`.
+- [Built-in Types — Iterator Types](https://docs.python.org/3/library/stdtypes.html): protocolo de iteración y agotamiento de iteradores.
+- [itertools](https://docs.python.org/3/library/itertools.html): herramientas de iteración perezosa.
 
 La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
 Un recorrido correcto puede ser demasiado costoso y Python impone límites de recursos. La siguiente clase encapsula decisiones mediante funciones y contratos.
+
+**Lo que no se midió.** No se midió el límite de recursión de otros intérpretes ni el agotamiento real de la pila del sistema; el experimento de modificar durante el recorrido solo cubre listas y diccionarios de CPython.
 
 ## Glosario
 

@@ -88,6 +88,40 @@ Una asignación enlaza un nombre a un objeto; no copia necesariamente el objeto.
 
 `int(texto)` convierte si el formato es válido y puede fallar; no debe dispersarse por la lógica. Primero se valida el dato en la frontera, después el núcleo trabaja con valores ya interpretados. Convertir `bool('false')` produce `True` porque la cadena no está vacía: un contraejemplo clásico de conversión semánticamente incorrecta.
 
+### Qué decide el tipo: expresiones ejecutadas
+
+Un valor no lleva su significado escrito: lo decide el tipo del operando y la regla del lenguaje. Se ejecutaron siete expresiones en Python 3.12.9 (Windows 11) y 3.12.3 (Ubuntu 24.04 bajo WSL2) y dieron resultados idénticos. `0.1 + 0.2 == 0.3` es `False` porque un `float` guarda la fracción binaria más cercana, y 0.1 y 0.2 no son exactas en base 2; la suma da `0.30000000000000004`. `bool('false')` es `True` porque `bool` solo pregunta si la cadena está vacía, no qué dice. `3 / 2` devuelve siempre `float` (1.5) y `3 // 2` trunca hacia menos infinito (1); por eso `-7 // 2` vale -4 y `-7 % 2` vale 1, mientras que en C o en Rust el mismo par daría -3 y -1. Con enteros grandes ocurre lo contrario: `int` tiene precisión arbitraria (`2**53 + 1` es 9007199254740993) pero `float(2**53 + 1) == float(2**53)` es `True`, de modo que convertir a `float` pierde exactamente lo que el entero conservaba.
+
+La consecuencia práctica es que cada valor del programa necesita una decisión explícita de representación. Un tiempo en milisegundos puede ser `int` si se mide en pasos discretos, `float` si viene de un reloj y se compara con tolerancia, o `Decimal` si hay dinero; mezclarlos sin decidir produce la clase de defecto que esta clase quiere hacer visible. El redondeo también engaña: `round(2.5)` da 2 y `round(3.5)` da 4 (redondeo al par), y `round(2.675, 2)` da 2.67 porque el 2.675 almacenado es en realidad 2.67499999999999982236431605997495353221893310546875.
+
+![Figura 1. Tabla de siete expresiones de Python con su resultado medido: 0.1+0.2, bool('false'), 3/2, -7//2, '3'*2, float(2**53+1) y round, con la causa de cada una](../../../content/part-05/figures/se-061-expresiones-y-tipos.svg)
+
+**Cómo leer la figura.** Cada fila es una expresión que alguien podría escribir en la CLI diagnóstica; la columna central es lo que Python devolvió y la derecha, la regla que lo explica. Léela de izquierda a derecha y cubre la columna central para predecir antes de mirar. **Dónde deja de valer:** vale para CPython 3.12 con floats IEEE 754 de doble precisión. La división entera con signo y el redondeo son decisiones de cada lenguaje (Rust y C truncan, JavaScript no tiene enteros), y otra implementación de Python podría variar detalles como la identidad de objetos, no estos resultados.
+
+### Nombres, objetos e identidad
+
+En Python una variable no es una caja con un valor dentro: es un nombre enlazado a un objeto. La asignación `b = a` no copia, enlaza el segundo nombre al mismo objeto. Con `a = [1, 2]; b = a; b.append(3)`, el nombre `a` pasa a ver `[1, 2, 3]` y `a is b` es `True`, porque solo existe un objeto con dos nombres. Con enteros el efecto es invisible porque son inmutables: `x += 1` crea otro objeto y reenlaza `x`, sin tocar a quien compartía el anterior.
+
+Esto cambia lo que significa «copiar» y qué puede salir mal en un núcleo de dominio. El laboratorio resuelve el problema con `dataclass(frozen=True)`: intentar `probe.cost = 3` lanza `FrozenInstanceError`, y las colecciones del estado son `tuple` y `frozenset`, que no admiten mutación. Medimos además que un entero pequeño ocupa 28 bytes (32 con `2**30`, 40 con `2**100`, 160 con `2**1000`): un `int` de Python es un objeto que crece con su valor, no una palabra de máquina. Y `isinstance(True, int)` es `True`, `True + True` es 2 y `type(True) is int` es `False`: `bool` es subtipo de `int`, el origen de la trampa que el parser del laboratorio evita con `type(value) is int`.
+
+La identidad (`is`) responde otra pregunta que la igualdad (`==`): «¿es el mismo objeto?». Con enteros pequeños los resultados dependen de la implementación: `int('256') is int('256')` fue `True` y con 257 fue `False`. No se usa nunca `is` para comparar valores; solo para `None` y para centinelas.
+
+![Figura 2. Dos nombres a y b enlazados a un mismo objeto lista, y una tabla con tamaños medidos de enteros, la relación bool-int y el dataclass congelado](../../../content/part-05/figures/se-061-nombres-e-identidad.svg)
+
+**Cómo leer la figura.** El esquema superior muestra dos flechas que llegan al mismo objeto; el cambio hecho por b es visible por a. La tabla inferior reúne lo medido sobre tamaños y tipos. **Dónde deja de valer:** la imagen de «nombres que apuntan a objetos» describe el modelo de datos de Python. En Rust, un valor tiene un único dueño; en C++, una variable puede ser el objeto mismo. Los tamaños (28 B para un entero) son de CPython de 64 bits.
+
+### La frontera: del texto externo al valor del dominio
+
+El laboratorio separa dos preguntas: qué dice el JSON y qué valor admite el dominio. Se probó el campo `budget` con seis entradas: `5` se acepta; `true`, `5.0`, `"5"`, `-1` y `null` se rechazan con el mismo código `invalid_budget`. El caso `true` es el instructivo: Python lo convertiría a 1 sin avisar, pero `true` en un documento significa «sí», no «presupuesto de 1». `5.0` tiene valor entero pero tipo distinto, y aceptarlo en silencio convertiría el contrato en «lo que `int()` tolere».
+
+Lo que tolera `int()` es mucho: `int(' 42 ')` da 42, `int('4_2')` da 42 y `int('٣')` (dígito arábigo-índico) da 3, mientras que `int('²')` falla aunque `'²'.isdigit()` sea `True` y `'²'.isdecimal()` sea `False`. Esa generosidad es útil en una consola y peligrosa en una frontera: dos sistemas que usan `int()` aceptan conjuntos de textos distintos. El contrato de entrada se escribe una vez, en el parser, y todo lo que está detrás trabaja con valores ya interpretados. La regla general es validar tipo y rango en el borde, convertir una vez y no repetir la conversión en el núcleo.
+
+Un último matiz: ausencia y cero son valores distintos. `None` no es 0; un presupuesto desconocido y un presupuesto agotado exigen respuestas diferentes, y por eso el parser lo rechaza en lugar de interpretarlo.
+
+![Figura 3. Tabla de seis valores externos para el campo budget con el resultado del parser, más ejemplos de lo que int() acepta](../../../content/part-05/figures/se-061-frontera-del-presupuesto.svg)
+
+**Cómo leer la figura.** La primera columna es el texto JSON, la segunda su tipo y la tercera la decisión del parser. Solo la primera fila entra al dominio; las demás se detienen en la frontera con el mismo código de error. **Dónde deja de valer:** el contrato del laboratorio es un acuerdo educativo, no el estándar de JSON. Otro servicio podría aceptar `5.0` como 5 legítimamente si lo documenta; lo que no vale es no haberlo decidido.
+
 ## Definiciones de trabajo
 
 - **valor:** dato concreto manipulable por el programa.
@@ -130,10 +164,10 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 
 ## Ejercicios
 
-1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
-3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
-4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
+1. **Predicción:** antes de ejecutar, escribe valor y tipo de `7 // -2`, `7 % -2`, `True + True`, `'a' * 3` y `round(0.5)`; ejecuta y explica cada discrepancia.
+2. **Frontera:** añade al parser una regla para `cost` y pruébala con `1`, `0`, `1.5`, `true` y `"1"`; escribe una prueba por cada rechazo con su código.
+3. **Aliasing:** construye un `State` con una lista en lugar de una tupla y muestra cómo una función que «solo lee» modifica el estado original; vuelve a la tupla y explica qué garantía recuperaste.
+4. **Transferencia:** describe en pseudocódigo cómo representarías `budget` en un lenguaje sin `bool` subtipo de entero y qué prueba mantienes idéntica.
 
 ## Reto verificable
 
@@ -149,33 +183,35 @@ Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo c
 
 ## Preguntas frecuentes
 
-### ¿Que el programa se ejecute significa que está correcto?
+### ¿`float` o `Decimal` para tiempos?
 
-No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+Un tiempo medido por un reloj es `float` y se compara con tolerancia; un tiempo contado en pasos o un presupuesto discreto es `int`; el dinero va en enteros de la unidad menor o en `Decimal`. Elegir por la naturaleza del dato, no por comodidad.
 
-### ¿Debo memorizar toda la sintaxis?
+### ¿Por qué `is` a veces da `True` con números?
 
-No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+Porque CPython reutiliza objetos enteros pequeños (medimos que 256 sí y 257 no). Es un detalle de implementación: comparar valores se hace con `==`, e `is` queda para `None`.
 
-### ¿Las anotaciones de tipo validan JSON?
+### ¿Las anotaciones de tipo evitan el caso `true`?
 
-No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
+No. Una anotación `budget: int` no impide que llegue `True` desde un JSON, porque `bool` es un `int` válido. La comprobación en ejecución (`type(value) is int`) es lo que protege.
+
+### ¿Es lo mismo `None` que 0 o cadena vacía?
+
+No. `None` indica ausencia; 0 es un valor. Comparar con `is None` evita que `if x:` mezcle ausencia con cero.
 
 ## Fallo controlado y diagnóstico
 
-Usa `if bool(value):` para interpretar el argumento `--enabled false`. Observa que queda verdadero. Define un parser explícito que acepte valores documentados y rechace el resto.
-
-Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+Prueba el parser con `budget: true`. Predice el resultado antes de ejecutarlo, ejecútalo con `python -m diagnostic_cli` y observa `invalid_budget` y el código de salida 3. Después sustituye en una copia `type(value) is int` por `isinstance(value, int)` y repite: el JSON `true` pasa como presupuesto 1 y el informe sale con un estado que parece válido. La prueba `test_parse_rejects_boolean_budget_without_silent_integer_coercion` falla en la copia modificada; es el único guardián de esa regla. Registra la causa (`bool` es subtipo de `int`), la regla que debe permanecer (tipo exacto) y la prueba de regresión.
 
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
-| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
-| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
-| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
-| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
+| `0.1 + 0.2 == 0.3` es `False` | los floats guardan aproximaciones binarias | comparar con tolerancia (`math.isclose`) o trabajar con enteros/`Decimal` |
+| `--enabled false` queda activado | `bool('false')` es `True` (cadena no vacía) | parser explícito que acepte solo valores documentados |
+| un cambio en una lista aparece «en otra variable» | dos nombres para el mismo objeto | copiar (`list(a)`) o usar tuplas inmutables |
+| un presupuesto `true` pasa como 1 | `bool` es subtipo de `int` | `type(value) is int` y prueba que lo cubra |
+| `int('²')` falla pero `'²'.isdigit()` es `True` | `isdigit` y `isdecimal` no coinciden con lo que `int` acepta | no usar `isdigit` como validador; intentar la conversión y manejar `ValueError` |
 
 ## Entorno y archivos clave
 
@@ -206,6 +242,10 @@ Trabaja sobre [`labs/part-05-diagnostic-cli`](https://github.com/vladimiracunade
 - preserva autorización como regla del núcleo, no como checkbox de UI;
 - no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
+## Puente hacia el trabajo con agentes
+
+Un agente que llama herramientas recibe argumentos como JSON generado por un modelo. Todo lo medido aquí reaparece: el modelo puede emitir `"5"` donde se esperaba `5`, o `true` donde se esperaba un entero, y un servidor que acepte la coerción ejecutará una acción con un valor que nadie decidió. La defensa es la misma que en el laboratorio: un esquema estricto en la frontera de la herramienta, rechazo con un código estable (que el agente pueda leer y corregir) y ninguna conversión implícita en el núcleo. Un esquema JSON describe estructura, pero la regla «un `bool` no es un presupuesto» sigue necesitando una prueba que la fije. Las partes de herramientas y de seguridad agentic retoman este límite.
+
 ## Transferencia
 
 Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
@@ -226,12 +266,19 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 
 - [Python Tutorial](https://docs.python.org/3/tutorial/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Data Model](https://docs.python.org/3/reference/datamodel.html): identidad, tipo y valor de un objeto, y objetos mutables e inmutables.
+- [Floating-Point Arithmetic: Issues and Limitations](https://docs.python.org/3/tutorial/floatingpoint.html): por qué 0.1 + 0.2 no es 0.3 y cómo se representan los floats.
+- [Built-in Types: Numeric Types](https://docs.python.org/3/library/stdtypes.html): operaciones numéricas, división entera y verdad de los valores.
+- [decimal — Decimal fixed-point and floating-point arithmetic](https://docs.python.org/3/library/decimal.html): alternativa exacta para magnitudes decimales.
+- [dataclasses — Data Classes](https://docs.python.org/3/library/dataclasses.html): `frozen=True` y la excepción `FrozenInstanceError`.
 
 La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
 Los tipos incorporados no expresan todas las reglas del dominio ni eliminan precisión finita. La siguiente clase usa condiciones para elegir comportamiento sin perder casos.
+
+**Lo que no se midió.** No se midió el comportamiento en macOS ni en otras implementaciones de Python (PyPy, MicroPython); los resultados de `float`, tamaños y redondeo son de CPython 3.12 con IEEE 754 de doble precisión.
 
 ## Glosario
 

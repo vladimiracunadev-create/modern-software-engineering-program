@@ -89,6 +89,42 @@ El núcleo no importa la CLI ni detalles de almacenamiento. Adaptadores dependen
 
 La función principal recibe colaboradores —loader, clock, writer— o valores ya obtenidos. La composición ocurre en una raíz pequeña. No hace falta framework: pasar una función como argumento basta para sustituir I/O en pruebas.
 
+### El grafo de dependencias del paquete, leído del código
+
+Una arquitectura que solo existe en un diagrama no se puede verificar; una que se lee del código sí. Se analizaron con `ast` las importaciones de los seis módulos de `diagnostic_cli`. `domain.py` (82 líneas) no importa ningún módulo local; `engine.py` (109) y `parsing.py` (110) importan solo `domain`; `cli.py` (59) importa `engine` y `parsing`; `__init__.py` (16) reexporta `domain` y `engine`; `__main__.py` (3) importa `cli`. Las únicas dependencias externas son de la biblioteca estándar: `argparse`, `json`, `pathlib`, `dataclasses`, `enum`, `sys` y `typing`.
+
+Esa forma tiene una propiedad: las flechas apuntan hacia el núcleo y nunca salen de él. `domain.py` no sabe que existen archivos, JSON ni terminales; `engine.py` no abre archivos ni imprime; `parsing.py` traduce JSON a valores del dominio; `cli.py` traduce fallos a códigos de salida. Por eso el motor se prueba sin crear archivos y el parser sin ejecutar la CLI. Un ciclo (por ejemplo, que `domain` importara `cli` para imprimir un aviso) rompería esa propiedad y haría imposible entender o cambiar un módulo sin los demás.
+
+Separar política y mecanismo es la otra mitad. La política es la regla (elegir la prueba que más elimina por unidad de costo, en `select_next`); el mecanismo es cómo se lee y escribe. Cuando la política cambia, solo `engine.py` cambia; cuando cambia el formato de entrada, solo `parsing.py`. La inyección también es visible: `main(argv, stdout, stderr)` recibe los flujos como parámetros, y las pruebas pasan `io.StringIO` en lugar de redirigir la consola.
+
+![Figura 1. Diagrama con los seis módulos del paquete y sus importaciones locales: domain en el centro, engine y parsing dependen de domain, cli depende de ambos, main de cli, init de domain y engine](../../../content/part-05/figures/se-068-grafo-de-importaciones.svg)
+
+**Cómo leer la figura.** Una flecha de A a B significa «A importa B». Se lee de abajo hacia arriba: las capas externas (cli, main) dependen de las internas; el núcleo no depende de nadie. **Dónde deja de valer:** el grafo se extrajo de `import` estáticos del paquete; no ve importaciones dinámicas (`importlib`) ni dependencias de datos. Es una propiedad del código actual: nada impide que alguien añada un ciclo si no hay una prueba o una regla que lo detecte.
+
+### El sistema de módulos: caché, ciclos y sombras
+
+Importar un módulo ejecuta su cuerpo una vez y guarda el resultado en `sys.modules`. Se comprobó con un módulo con una línea `print`: `import side, side` imprimió el mensaje una sola vez. Dos consecuencias: un efecto en el nivel del módulo (abrir un archivo, una conexión) ocurre en un momento que depende de quién importe primero, y los módulos se comportan como singletons del proceso.
+
+Los ciclos muestran la mecánica. Con `ma` que importa `mb` y `mb` que importa `ma`, la ejecución fue: `ma start`, `mb start`, `mb sees ma.X? False`, `ma end`. Cuando `mb` se ejecuta, `ma` existe en `sys.modules` pero aún no terminó su cuerpo, de modo que `X` no está definido. Con `from md import Y` / `from mc import Z` el resultado es un error: `ImportError: cannot import name 'Z' from partially initialized module 'mc' (most likely due to a circular import)`. La solución no es un truco de orden, sino reorganizar: extraer lo común a un tercer módulo del que ambos dependan, o invertir la dependencia.
+
+Y el nombre de un módulo propio puede ocultar uno estándar. Se creó un `json.py` en el directorio actual y `import json` ejecutó el archivo propio (imprimió «SOMBRA»), porque el directorio del script o el directorio actual precede a la biblioteca estándar en `sys.path`. `python -I` (modo aislado) importó el `json` real. Las defensas son nombres que no colisionen con la biblioteca estándar, el modo aislado en scripts de infraestructura y entornos virtuales con dependencias fijadas.
+
+![Figura 2. Tabla con cinco experimentos de importación: caché de módulos, ciclo entre dos módulos, ImportError por from-import circular, sombra de la biblioteca estándar y modo aislado](../../../content/part-05/figures/se-068-ciclos-cache-y-sombras.svg)
+
+**Cómo leer la figura.** Cada fila es un experimento real con módulos temporales. Observa que la caché y el ciclo se explican por el mismo mecanismo: el módulo está en `sys.modules` antes de terminar de ejecutarse. **Dónde deja de valer:** el orden de búsqueda de `sys.path` depende de cómo se lanza Python (`-m`, script o `-c`); la sombra del directorio actual no ocurre igual con `python script.py` que con `python -m`. Validar en tu forma de ejecución.
+
+### Interfaz pública y costo de importar
+
+Un módulo promete una interfaz y esconde el resto. `diagnostic_cli.__all__` lista nueve nombres (`DiagnosticReport`, `DiagnosticSpec`, `Observation`, `Outcome`, `Probe`, `Result`, `State`, `apply_observation`, `run_diagnosis`); lo demás (`parse_spec`, `iter_json_lines`, `select_next`) es de uso interno aunque Python no lo impide. `dir(diagnostic_cli)` mostró además los submódulos `cli`, `domain`, `engine` y `parsing`, porque importar un paquete deja sus submódulos como atributos: `__all__` solo controla `from paquete import *`. La interfaz se sostiene por convención, documentación y pruebas, no por el intérprete; un nombre con guion bajo inicial señala «interno».
+
+El costo de importar es el costo de arrancar. Con `python -X importtime`, el acumulado de `diagnostic_cli.domain` fue 48.0 ms y el de `diagnostic_cli.cli` 68.5 ms en Windows (78.8 y 173.7 ms en Linux). Casi todo ese tiempo es de la biblioteca estándar que se importa (`dataclasses`, `enum`, `typing`, `argparse`), no del código del paquete: `parsing` costó 0.7 ms y `engine` 3.1 ms. La medición de Linux se hizo sobre archivos de Windows montados en WSL2 y no representa Linux nativo.
+
+La conclusión es doble. El código propio es barato; la dependencia es lo que cuesta, y eso sustenta la regla de no importar bibliotecas para lo que la estándar resuelve. Y una interfaz bien acotada permite cambiar el interior sin romper a los consumidores: la clase siguiente (pruebas) protege esa promesa.
+
+![Figura 3. Barras con el tiempo acumulado de importar los módulos domain y cli del paquete en Windows y en Linux, con la advertencia de que el costo es de la biblioteca estándar](../../../content/part-05/figures/se-068-costo-de-importar.svg)
+
+**Cómo leer la figura.** Las barras son milisegundos acumulados de una importación en frío; las verdes son Windows y las doradas Linux (sobre un disco montado, más lento). **Dónde deja de valer:** una sola ejecución en frío por plataforma: sirve para ordenar módulos, no para fijar presupuestos. La caché de bytecode (`__pycache__`) y la carga del disco cambian el resultado; el valor «de arranque» depende del equipo.
+
 ## Definiciones de trabajo
 
 - **módulo:** unidad de código con namespace propio.
@@ -133,10 +169,10 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 
 ## Ejercicios
 
-1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
-3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
-4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
+1. **Grafo:** genera con `ast` el grafo de importaciones de tu propio proyecto y dibújalo; marca cualquier flecha que apunte hacia afuera del núcleo.
+2. **Ciclo:** reproduce un ciclo de importación con `import` y con `from … import`, y explica por qué solo el segundo falla.
+3. **Interfaz:** lista lo que debería estar en `__all__` de tu módulo y escribe una prueba que importe solo esos nombres.
+4. **Costo:** mide con `-X importtime` el arranque de tu CLI y decide si alguna importación podría diferirse sin esconder un efecto.
 
 ## Reto verificable
 
@@ -152,33 +188,35 @@ Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo c
 
 ## Preguntas frecuentes
 
-### ¿Que el programa se ejecute significa que está correcto?
+### ¿Cuándo dividir un archivo en módulos?
 
-No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+Cuando una parte cambia por razones distintas al resto (formato de entrada, regla de negocio, salida). Contar líneas no sirve: el laboratorio tiene módulos de 82 a 110 líneas porque cada uno cambia por una sola razón.
 
-### ¿Debo memorizar toda la sintaxis?
+### ¿`__all__` impide usar nombres internos?
 
-No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+No; define qué exporta `import *` y documenta la interfaz. Lo interno se marca con guion bajo y se protege con pruebas de la interfaz pública.
 
-### ¿Las anotaciones de tipo validan JSON?
+### ¿Importar dentro de una función es mala práctica?
 
-No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
+Es una herramienta para ciclos o dependencias opcionales, y retrasa el costo. Si es habitual, el diseño de dependencias probablemente está al revés.
+
+### ¿Por qué no un solo archivo?
+
+Para un script de 50 líneas es correcto. Cuando crece, la separación permite probar el núcleo sin entradas/salidas y reemplazar un borde sin tocarlo.
 
 ## Fallo controlado y diagnóstico
 
-Importa `cli` desde `domain` para reutilizar una constante mientras `cli` importa `domain`. Reproduce el ciclo; mueve el concepto al módulo dueño o pásalo como parámetro.
-
-Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+Provoca un ciclo a propósito. En un directorio temporal crea `mc.py` con `from md import Y` y `md.py` con `from mc import Z`, y ejecuta `python -c "import mc"`. Lee el `ImportError` completo y explica por qué el módulo está «parcialmente inicializado». Luego rompe el ciclo extrayendo `Y` y `Z` a un tercer módulo y confirma que ambos importan sin error. Para el laboratorio, escribe una prueba que lea con `ast` las importaciones de `domain.py` y falle si aparece alguna local: es la forma de convertir la regla «el núcleo no depende de nadie» en una comprobación automática.
 
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
-| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
-| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
-| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
-| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
+| `ImportError: partially initialized module` | importación circular con `from … import` | extraer lo común a un tercer módulo o invertir la dependencia |
+| `import json` ejecuta código propio | un archivo `json.py` local sombrea la biblioteca estándar | renombrar el archivo y usar `python -I` en infraestructura |
+| importar un módulo abre archivos o red | efectos al nivel del módulo | mover los efectos a `main()` o a una función llamada explícitamente |
+| un cambio en el formato de entrada rompe el motor | el núcleo importa el parser o la CLI | dependencias dirigidas: el borde depende del núcleo, nunca al revés |
+| los consumidores importan nombres internos y se rompen al refactorizar | no hay interfaz pública declarada | `__all__`, guion bajo y pruebas sobre la interfaz |
 
 ## Entorno y archivos clave
 
@@ -209,6 +247,10 @@ Reconstruye el grafo de importaciones de [`labs/part-05-diagnostic-cli`](https:/
 - preserva autorización como regla del núcleo, no como checkbox de UI;
 - no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
+## Puente hacia el trabajo con agentes
+
+Las herramientas de un agente se empaquetan como módulos o servidores, y la separación de esta clase es la que permite razonar sobre ellas: una herramienta cuyo núcleo no conoce el transporte (MCP, línea de comandos, HTTP) se prueba sin el agente y se reutiliza en otro. Dos controles se derivan: el módulo que implementa una capacidad (política) no importa el que la expone (mecanismo), y la interfaz que se ofrece al agente es la mínima necesaria, declarada y probada. Un agente que recibe una interfaz amplia tiene más acciones posibles que las que alguien revisó. El principio de interfaz mínima también reduce lo que hay que auditar por seguridad.
+
 ## Transferencia
 
 Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
@@ -230,12 +272,18 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 - [Python Tutorial — Modules](https://docs.python.org/3/tutorial/modules.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
+- [The import system](https://docs.python.org/3/reference/import.html): `sys.modules`, módulos parcialmente inicializados y resolución de nombres.
+- [Python cmdline — -I, -X importtime](https://docs.python.org/3/using/cmdline.html): modo aislado y medición del tiempo de importación.
+- [ast — Abstract Syntax Trees](https://docs.python.org/3/library/ast.html): análisis estático de importaciones y funciones.
+- [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/): convenciones de nombres internos, importaciones y módulos.
 
 La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
 Modularidad no garantiza buena API ni compatibilidad futura. La próxima clase usa ejemplos como pruebas tempranas para presionar el diseño.
+
+**Lo que no se midió.** Las mediciones de importación son una sola ejecución en frío por plataforma, y la de Linux leyó archivos de un disco de Windows montado; no se midió un entorno virtual limpio ni una instalación del paquete.
 
 ## Glosario
 

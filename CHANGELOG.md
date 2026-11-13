@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-13 — Parte 05 profundizada con mediciones y mutaciones del laboratorio
+
+- 36 figuras para `SE-061`–`SE-072` con datos reales: expresiones y tipos, tabla de verdad, recursión y memoria de iteradores, argumentos por defecto y cierres,
+  jerarquía y costo de excepciones, colecciones, codificaciones y plataformas, `json`, grafo de importaciones, diez mutaciones de la suite del laboratorio,
+  métricas con `ast`, un refactor protegido, semántica Python/Rust (Rust solo documentada) y catorce invocaciones de la CLI con sus códigos de salida;
+- tres secciones nuevas por clase, y sustitución de las preguntas frecuentes, errores, ejercicios y fallos controlados genéricos por versiones propias de cada clase;
+  fuentes primarias verificadas y un puente hacia el trabajo con agentes;
+- hallazgos del análisis: seis de diez mutaciones sobreviven a la suite original, cinco se cierran con pruebas nuevas (verificadas en una copia) y la sexta es
+  equivalente; los mensajes de error de la CLI incluyen la ruta absoluta del archivo;
+- las quince pruebas del laboratorio se ejecutaron en Windows (Python 3.12.9) y Linux (3.12.3); `rustc` no estaba disponible y el puerto Rust no se compiló.
+
 ## 2026-11-13 — Parte 07 profundizada con experimentos de estructuras y algoritmos
 
 - 36 figuras para `SE-085`–`SE-096` con mediciones y cuentas reales: capacidad de listas y `pop(0)` frente a `deque`, colas de prioridad y empates,

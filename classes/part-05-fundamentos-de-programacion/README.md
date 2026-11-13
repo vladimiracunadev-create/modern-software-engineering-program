@@ -36,6 +36,17 @@ El flujo no autoriza una gran implementación al final. Cada paso debe ejecutar 
 
 Podrás predecir cómo Python evalúa expresiones y control, diseñar funciones con dependencias visibles, tratar errores sin ocultar defectos, elegir colecciones por operaciones, validar JSON, separar módulos, escribir pruebas de consumidor y entregar una CLI con streams y códigos de salida coherentes.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte salen de ejecuciones reales de Python en un mismo equipo con Windows 11 (CPython 3.12.9) y Ubuntu 24.04 bajo WSL2
+(CPython 3.12.3): expresiones y tipos, tabla de verdad y cortocircuito, recursión frente a bucle y su límite de pila, argumentos por defecto y cierres,
+jerarquía y costo de excepciones, costo y memoria de las colecciones, codificaciones y valores por plataforma, comportamiento de `json`, grafo de importaciones
+leído con `ast`, diez mutaciones del laboratorio con las pruebas que las detectan, métricas y un refactor medido, y catorce invocaciones de la CLI con sus
+códigos de salida. Las quince pruebas del laboratorio se ejecutaron en ambas plataformas (catorce aprobadas y una omitida). `rustc` no estaba instalado: el puerto
+Rust no se compiló y todo lo dicho sobre Rust es lectura de su documentación. Las cinco pruebas añadidas y el refactor se verificaron en copias temporales y no
+forman parte del laboratorio publicado. No se construyó ni publicó el paquete, no se probó macOS y los tiempos son de un equipo concreto. Los nombres de usuario,
+equipo y rutas locales se omiten. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 La CLI diagnóstica materializa la especificación del modelo de decisión diagnóstica sin reducir programación a sintaxis. En

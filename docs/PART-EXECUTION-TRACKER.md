@@ -27,7 +27,7 @@ su commit está en `main` con CI verde.
 | 02 | Profundizada con evidencia medida en Windows y Linux, CI verde | `d8969ff` |
 | 03 | Profundizada con mediciones de red reales | `ddd3b90` |
 | 04 | Profundizada con cálculos y mediciones reales (pendiente de CI verde) | — |
-| 05 | Desarrollada; pendiente de profundizar en contenido y figuras | — |
+| 05 | Profundizada con mediciones y mutaciones del laboratorio en Windows y Linux (pendiente de CI verde) | — |
 | 06 | Profundizada con experimentos de paradigmas ejecutados en Windows y Linux (pendiente de CI verde) | — |
 | 07 | Profundizada con experimentos de estructuras y algoritmos ejecutados en Windows y Linux (pendiente de CI verde) | — |
 | 08–29 | Borradores; requieren desarrollo completo | — |

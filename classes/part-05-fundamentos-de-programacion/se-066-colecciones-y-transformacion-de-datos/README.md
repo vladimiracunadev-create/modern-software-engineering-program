@@ -88,6 +88,42 @@ Un dict asocia claves hashables con valores y conserva orden de inserción como 
 
 Comprensiones expresan map/filter sencillos; un bucle explícito sirve cuando hay validación, varias salidas o diagnóstico. Encadenar transformaciones crea colecciones intermedias. La CLI diagnóstica separa normalizar, validar, indexar y resumir para localizar fallos.
 
+### Operación dominante y costo de la pertenencia
+
+Elegir una colección es elegir qué operación se hace rápida. Se midió la consulta «¿está el último elemento?»: en una lista cuesta 8.41 µs con 1 000 elementos, 94.28 µs con 10 000 y 997.55 µs con 100 000 en Windows (1 221 µs en Linux con 100 000): crece de forma lineal, diez veces más elementos, diez veces más tiempo. En un conjunto o un diccionario de 100 000 elementos la misma consulta costó 77.1 y 78.5 ns (69.0 y 67.7 en Linux): casi constante, porque busca por hash en lugar de recorrer.
+
+Otras operaciones muestran la misma lógica. `lista.pop(0)` con 100 000 elementos costó 25.5 µs (desplaza todos los elementos), mientras que `deque.popleft()` costó 60.2 ns. Una lista es buena para recorrer en orden y añadir al final; un `deque` para colas; un `set` para pertenencia y operaciones de conjuntos (`{1,2,3} & {2,3,4}` da `{2, 3}`); un `dict` para asociar claves con valores. La decisión se justifica con la operación dominante del problema: en el laboratorio las pruebas usadas se consultan por identificador en cada observación, y por eso `State.used` es un `frozenset` y no una lista.
+
+El costo no es solo tiempo. El conjunto compra la búsqueda rápida con memoria (siguiente figura) y exige que los elementos sean hashables. Para tamaños pequeños la lista gana en simplicidad y a veces en velocidad; la regla es medir con datos del tamaño real antes de cambiar una estructura por razones de rendimiento.
+
+![Figura 1. Barras con el tiempo de buscar el último elemento en listas de mil, diez mil y cien mil elementos, y una tabla comparando conjunto, diccionario y lista en Windows y Linux](../../../content/part-05/figures/se-066-costo-de-pertenencia.svg)
+
+**Cómo leer la figura.** Las tres barras superiores muestran cómo crece el tiempo de la lista con el tamaño; la tabla inferior compara las tres estructuras con 100 000 elementos. **Dónde deja de valer:** la medición es el peor caso de la lista (elemento al final) y en CPython; con claves de hash costosas o con muchas colisiones el conjunto se degrada. La complejidad asintótica (O(n) frente a O(1) promedio) es la regla, y los números son un ejemplo.
+
+### Memoria: qué se paga por la velocidad
+
+Con 100 enteros, `sys.getsizeof` informó 856 bytes para una lista, 840 para una tupla, 4 688 para un diccionario y 8 408 para un conjunto; vacías ocupan 56, 40, 64 y 216. El conjunto ocupa unas diez veces lo que una lista para el mismo contenido, porque mantiene una tabla hash con espacio libre para evitar colisiones. La tupla es la más compacta porque su tamaño es fijo y no se reserva margen para crecer.
+
+Por eso la elección depende del papel del dato. Para un registro de unos pocos campos (un `Probe` con identificador, costo, autorización y resultados), una tupla o un `dataclass` pesan menos que un diccionario y además tienen nombres de campos comprobables. Un `dict` es el tipo correcto cuando las claves son un conjunto abierto (resultados por hipótesis) y cuando la búsqueda por clave es la operación principal. Un `frozenset` expresa «solo pertenencia, no cambia» y es hashable, de modo que puede ser clave de un diccionario o miembro de otro conjunto.
+
+`getsizeof` mide el contenedor, no los objetos a los que apunta: los 100 enteros referenciados no están incluidos. Para una estimación total hay que sumar los contenidos o usar un perfilador de memoria. Y los números son de CPython 3.12 de 64 bits: otra versión, otra plataforma u otra implementación cambia las cifras, aunque la relación «el conjunto cuesta mucho más que la lista» se mantiene.
+
+![Figura 2. Barras con la memoria de una lista, tupla, diccionario y conjunto de 100 enteros, y los tamaños de las estructuras vacías](../../../content/part-05/figures/se-066-memoria-de-colecciones.svg)
+
+**Cómo leer la figura.** Cada barra es el tamaño en bytes con 100 elementos. Las estructuras con tabla hash (diccionario y conjunto) son las más grandes. **Dónde deja de valer:** `sys.getsizeof` excluye los elementos contenidos y el recolector de basura; no es un presupuesto de memoria del proceso. En colecciones muy pequeñas el margen de reserva domina la comparación.
+
+### Seis trampas de colecciones, ejecutadas
+
+Las colecciones comparten objetos con más facilidad de la que parece. `a = [[0]*2]*2` crea dos filas que son el mismo objeto: tras `a[0][0] = 9`, `a` valió `[[9, 0], [9, 0]]`, mientras que la comprensión `[[0]*2 for _ in range(2)]` dio `[[9, 0], [0, 0]]`. Una copia superficial (`dict(orig)`) comparte los valores internos: al añadir a la lista interna del original, la copia también cambió; `copy.deepcopy` conservó el estado anterior. Estas dos trampas son el mismo error: confundir «copiar el contenedor» con «copiar su contenido».
+
+La igualdad de claves tiene sus propias sorpresas: `{1: 'a', 1.0: 'b', True: 'c'}` es `{1: 'c'}`, porque `1 == 1.0 == True` y sus hashes coinciden; y `{float('nan'): 1, float('nan'): 2}` tiene dos claves, porque `nan != nan`. Solo es hashable lo inmutable en profundidad: `{[1]: 1}` lanzó `TypeError: unhashable type: 'list'` y `hash((1, [2]))` también, porque una tupla con una lista dentro no es inmutable de verdad.
+
+Por último, el orden. `sorted` es estable: con `[('b', 2), ('a', 2), ('c', 1)]` ordenado por el segundo campo, `b` y `a` conservaron su orden relativo. Y `sorted(['b', 'B', 'a'])` dio `['B', 'a', 'b']`: se ordena por punto de código, no alfabéticamente; para comparar «de forma natural» hace falta una clave explícita. Los diccionarios conservan el orden de inserción (`{'b': 1, 'a': 2}` itera `b` y luego `a`); los conjuntos no prometen ninguno.
+
+![Figura 3. Tabla con seis trampas: filas compartidas, copia superficial, claves 1, 1.0 y True iguales, nan, listas no hashables y ordenamiento estable, con su resultado medido](../../../content/part-05/figures/se-066-trampas-de-colecciones.svg)
+
+**Cómo leer la figura.** Cada fila es una trampa con el resultado que Python dio. La causa explica el mecanismo; ninguna es un defecto del intérprete. **Dónde deja de valer:** el orden de inserción de `dict` es garantía del lenguaje desde Python 3.7; el de `set` no lo es. La trampa de `nan` depende de IEEE 754; otros lenguajes tratan `NaN` como clave de otra manera.
+
 ## Definiciones de trabajo
 
 - **secuencia:** colección ordenada accesible por posición.
@@ -133,10 +169,10 @@ El criterio profesional es que el comportamiento pueda ser consumido, diagnostic
 
 ## Ejercicios
 
-1. **Lectura:** predice valor, tipo, rama o efecto de un fragmento antes de ejecutarlo.
-2. **Construcción:** añade un caso de la CLI diagnóstica siguiendo el contrato, sin mezclar I/O y cálculo.
-3. **Frontera:** incorpora vacío, límite, inválido y error recuperable.
-4. **Transferencia:** escribe pseudocódigo o una versión equivalente en otro lenguaje y señala diferencias.
+1. **Estructura:** elige la colección para (a) pruebas usadas, (b) resultados por hipótesis, (c) cola de observaciones, (d) historial de pasos, y justifica con la operación dominante.
+2. **Medición:** mide tu propio cruce: ¿a partir de qué tamaño un `set` supera a una `list` para consultar el último elemento en tu equipo?
+3. **Aliasing:** muestra con `id` dos referencias al mismo objeto dentro de una lista de listas y corrige el código.
+4. **Orden:** ordena nombres con acentos y mayúsculas de forma «natural» con una clave explícita y explica por qué `sorted` solo no basta.
 
 ## Reto verificable
 
@@ -152,33 +188,35 @@ Entrega un cambio que incluya comportamiento, caso normal, caso límite, fallo c
 
 ## Preguntas frecuentes
 
-### ¿Que el programa se ejecute significa que está correcto?
+### ¿Lista o tupla?
 
-No. Solo demuestra que esa ejecución terminó. La corrección se refiere al contrato y requiere cubrir límites, errores y propiedades relevantes.
+Lista para una secuencia que crece o se modifica; tupla para una secuencia fija o un registro ligero. La tupla comunica que no se va a modificar y es hashable si sus elementos lo son.
 
-### ¿Debo memorizar toda la sintaxis?
+### ¿Cuándo un `set` es peor que una `list`?
 
-No. Debes reconocer valores, control, contratos y efectos, y saber consultar la referencia oficial. Copiar sintaxis sin modelo produce defectos difíciles de diagnosticar.
+Con pocos elementos, cuando se recorre mucho más de lo que se busca, o cuando los elementos no son hashables. Medir con el tamaño real decide.
 
-### ¿Las anotaciones de tipo validan JSON?
+### ¿Por qué no usar un diccionario para todo?
 
-No por sí solas. Ayudan a lectores y herramientas; los datos externos requieren parseo y validación en ejecución.
+Porque pierde nombres comprobables de campos y consume más memoria que una tupla o un `dataclass` para registros de forma fija.
+
+### ¿Una comprensión siempre es mejor que un bucle?
+
+No siempre. En 10 000 elementos midió 639 µs frente a 724 µs para el bucle con `append` (Windows), una diferencia pequeña; se elige por claridad, y se evita una comprensión con efectos o con demasiadas condiciones.
 
 ## Fallo controlado y diagnóstico
 
-Convierte registros duplicados directamente con `{x['id']: x for x in items}`. Observa pérdida silenciosa. Añade detección y un error con índice del primer y segundo registro.
-
-Registra mensaje, traceback cuando corresponda, hipótesis, caso mínimo, corrección y prueba de regresión. No ocultes el fallo con un `except` amplio ni cambies la prueba para aceptar el defecto.
+Construye una matriz de 3×3 con `[[0] * 3] * 3`, asigna `m[1][1] = 7` y observa que las tres filas cambian. Predice antes de ejecutar y explica con `id(m[0]) == id(m[1])`. Corrige con una comprensión y escribe la prueba que cambia una celda y verifica que las demás filas quedaron intactas. Luego prueba la copia superficial de un diccionario con una lista dentro y su efecto al mutar el original. Para cada caso registra el objeto compartido (cuántos objetos hay realmente) y qué estructura inmutable (tupla, `frozenset`) lo habría impedido.
 
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| funciona solo con un dato | ejemplo usado como especificación | particiones y casos frontera |
-| `None`, vacío y cero se mezclan | truthiness sin semántica | comparaciones explícitas |
-| importar ejecuta trabajo | efectos al nivel del módulo | función `main` y composition root |
-| error desaparece | captura demasiado amplia | manejar solo lo recuperable |
-| refactor rompe consumidores | pruebas de detalle o contrato implícito | probar interfaz pública |
+| cambiar una fila cambia todas | multiplicar una lista de listas comparte el objeto interno | construir con una comprensión |
+| la copia «cambia sola» | copia superficial de una estructura anidada | `copy.deepcopy` o evitar la mutación |
+| `TypeError: unhashable type` al usar una clave | clave mutable o tupla que contiene una lista | usar una tupla de inmutables o `frozenset` |
+| claves que «desaparecen» al unir `1`, `1.0` y `True` | igualdad y hash coinciden | normalizar los tipos antes de usarlos como claves |
+| la búsqueda es lenta con muchos datos | pertenencia sobre una lista de decenas de miles de elementos | convertir a `set`/`dict` si la consulta domina y el costo de memoria es aceptable |
 
 ## Entorno y archivos clave
 
@@ -209,6 +247,10 @@ Justifica cada colección de [`labs/part-05-diagnostic-cli`](https://github.com/
 - preserva autorización como regla del núcleo, no como checkbox de UI;
 - no uses `eval`, `exec` ni construcción de shell con entrada externa.
 
+## Puente hacia el trabajo con agentes
+
+El contexto que se le da a un agente es una colección: mensajes, resultados de herramientas, memoria. Las mismas decisiones aparecen: una lista que crece sin límite agota la ventana de contexto, una caché sin tamaño máximo consume memoria, y una estructura compartida mutable entre dos agentes (o entre dos turnos) produce el aliasing de esta clase con consecuencias más serias que un valor repetido. Dos controles: toda colección que acumula resultados de un agente tiene un tamaño máximo y una política de descarte, y el estado compartido entre agentes o turnos se pasa como valores inmutables o copias, no como referencias. Las partes de memoria y contexto del programa retoman estas decisiones.
+
 ## Transferencia
 
 Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje representa ausencia, error, mutabilidad y módulos. Conserva fixtures y resultados públicos para detectar una diferencia semántica.
@@ -229,12 +271,18 @@ Reimplementa el contrato, no la sintaxis. Identifica cómo el segundo lenguaje r
 
 - [Python Tutorial — Data Structures](https://docs.python.org/3/tutorial/datastructures.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 - [Python Language Reference](https://docs.python.org/3/reference/) — define la semántica y los límites de la API de Python utilizada en el experimento.
+- [Python Wiki — TimeComplexity](https://wiki.python.org/moin/TimeComplexity): complejidad de las operaciones de las colecciones de CPython.
+- [collections](https://docs.python.org/3/library/collections.html): `deque`, `Counter`, `defaultdict`.
+- [copy — Shallow and deep copy operations](https://docs.python.org/3/library/copy.html): diferencia entre copia superficial y profunda.
+- [Python Data Model — hashable](https://docs.python.org/3/reference/datamodel.html): `__hash__`, `__eq__` y objetos hashables.
 
 La documentación oficial define el lenguaje y la biblioteca; no demuestra que la CLI diagnóstica cumpla su dominio. Esa evidencia vive en contratos, pruebas y ejecución reproducible.
 
 ## Límites y siguiente paso
 
 Las colecciones en memoria no resuelven persistencia, volumen ilimitado ni concurrencia. La próxima clase define entradas, salidas y serialización reproducible.
+
+**Lo que no se midió.** Los costos de pertenencia son del peor caso de la lista y de enteros como elementos; no se midieron colisiones de hash adversas ni estructuras de terceros (por ejemplo, NumPy o `sortedcontainers`).
 
 ## Glosario
 

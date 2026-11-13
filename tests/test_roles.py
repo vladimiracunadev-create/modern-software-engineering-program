@@ -138,13 +138,13 @@ class RoleGuideTests(unittest.TestCase):
             self.assertIn("Planificada, sin clases publicadas", document)
 
     def test_support_classes_are_developed_and_exist(self) -> None:
-        pattern = re.compile(r"Ya desarrolladas de apoyo \(Partes 00–22\):(.+)")
+        pattern = re.compile(r"Ya desarrolladas de apoyo \(Partes 00–26\):(.+)")
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         matches = pattern.findall(main)
         self.assertEqual(len(matches), len(EXPECTED_GUIDES))
         for line in matches:
             for number in re.findall(r"\[SE-(\d{3})\]", line):
-                self.assertLessEqual(int(number), 276)
+                self.assertLessEqual(int(number), 324)
 
     def test_entry_points_expose_part_class_evidence_map(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")

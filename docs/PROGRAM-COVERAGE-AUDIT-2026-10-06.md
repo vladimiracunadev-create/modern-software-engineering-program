@@ -1,5 +1,10 @@
 # Auditoría de cobertura — 2026-10-06
 
+> **Fotografía histórica del 2026-10-06.** Los conteos de abajo (72 desarrolladas) corresponden
+> a esa fecha. Estado vigente al 2026-11-13: Partes 00–26 (`SE-001`–`SE-324`) desarrolladas,
+> Partes 27–29 (`SE-325`–`SE-360`) borradores, Partes 30–39 (`SE-361`–`SE-480`) estructura y
+> Partes 40–44 (`SE-481`–`SE-540`) planificadas sin clases; ver [`STATUS.md`](../STATUS.md).
+
 ## Alcance y método
 
 Esta auditoría actualiza, sin reescribir, la fotografía histórica del

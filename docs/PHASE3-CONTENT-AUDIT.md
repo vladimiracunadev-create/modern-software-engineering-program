@@ -2,10 +2,13 @@
 
 ## Resultado
 
-La fase 3 está **parcialmente construida**. Su alcance correcto es de 180 clases,
-`SE-001`–`SE-180`: las 72 clases de las Partes 00–05 están desarrolladas. Las 108
-restantes son borradores públicos y aún no superan la revisión definida por el
-estándar pedagógico permanente.
+La fase 3 está **desarrollada y publicada**, a falta de una revisión editorial humana
+independiente. Su alcance correcto es de 180 clases, `SE-001`–`SE-180` (Partes 00–14), y
+las 180 tienen contenido íntegro en `content/part-00` a `content/part-14` con figuras,
+experimentos reproducibles y fuentes. La tabla de abajo es la fotografía histórica del
+2026-10-06, cuando solo las 72 clases de las Partes 00–05 estaban desarrolladas; las 108
+restantes se reconstruyeron después, parte por parte, y siguen sujetas al estándar
+pedagógico permanente.
 
 Esta auditoría distingue tres hechos:
 
@@ -23,7 +26,7 @@ Esta auditoría distingue tres hechos:
 | clases con sección `Glosario` | 180 | Partes 00–14 reconstruidas |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
-| clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
+| clases desarrolladas | 72 | Partes 00–05 el 2026-10-06; hoy las 180 de las Partes 00–14 están desarrolladas |
 
 El conteo es evidencia negativa, no un criterio suficiente de calidad. Aunque se
 añadieran encabezados, cada clase seguiría necesitando una revisión técnica y
@@ -42,8 +45,8 @@ pedagógica integral.
 
 ## Decisión de integridad
 
-- conservar las 180 entradas como borradores públicos para que el defecto sea
-  auditable;
+- (histórico) se conservaron las 180 entradas como borradores públicos para que el defecto
+  fuera auditable; ese estado ya se superó parte por parte;
 - no presentar una clase como desarrollada hasta superar la revisión completa de
   [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md);
 - reconstruir por parte, con un commit independiente y revisión cualitativa;

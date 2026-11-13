@@ -124,7 +124,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–22 (`SE-001`–`SE-276`), ya
+en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
 tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
 resto del currículo:
 
@@ -136,6 +136,7 @@ resto del currículo:
 | [SE-150 · Priorización, dependencias y negociación](../classes/part-12-ingenieria-de-requisitos/se-150-priorizacion-dependencias-y-negociacion/README.md) | Parte 12 |
 | [SE-153 · Gestión de cambios y líneas base](../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) | Parte 12 |
 | [SE-156 · Proyecto: especificación de requisitos revisable](../classes/part-12-ingenieria-de-requisitos/se-156-proyecto-especificacion-de-requisitos-revisable/README.md) | Parte 12 |
+| [SE-301 · Drivers, restricciones y atributos de arquitectura](../classes/part-25-arquitectura-de-software-y-dominio/se-301-drivers-restricciones-y-atributos-de-arquitectura/README.md) | Parte 25 |
 
 **Cómo recorrerla.** Empieza por [SE-121](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md) para fijar el
 primer mecanismo, usa [SE-157](../classes/part-13-especificaciones-contratos-y-modelos/se-157-especificacion-informal-semiformal-y-formal/README.md) para integrar el
@@ -145,8 +146,8 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–22 (`SE-001`–`SE-276`) están
-> desarrolladas; las Partes 23–29 son borradores y las Partes 30–39 conservan sólo
+> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
+> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
 > estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
 > esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

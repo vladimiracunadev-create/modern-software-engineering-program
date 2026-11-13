@@ -131,7 +131,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–22 (`SE-001`–`SE-276`), ya
+en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
 tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
 resto del currículo:
 
@@ -142,6 +142,8 @@ resto del currículo:
 | [SE-211 · Runbooks, playbooks y documentación operacional](../classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md) | Parte 17 |
 | [SE-224 · Automatización idempotente y reanudable](../classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/README.md) | Parte 18 |
 | [SE-250 · Health, readiness y shutdown ordenado](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) | Parte 20 |
+| [SE-319 · Replicación, partición y distribución](../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/README.md) | Parte 26 |
+| [SE-321 · Backups, restauración y pruebas de recuperación](../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/README.md) | Parte 26 |
 
 **Cómo recorrerla.** Empieza por [SE-341](../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/README.md) para fijar el
 primer mecanismo, usa [SE-425](../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/README.md) para integrar el
@@ -151,8 +153,8 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–22 (`SE-001`–`SE-276`) están
-> desarrolladas; las Partes 23–29 son borradores y las Partes 30–39 conservan sólo
+> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
+> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
 > estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
 > esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 

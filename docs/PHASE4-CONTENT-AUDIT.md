@@ -9,6 +9,12 @@ arquitectura, persistencia, integración, sistemas distribuidos y cloud.
 
 ## Estado verificable
 
+Estado actual (2026-11-13): las Partes 15–26 (`SE-181`–`SE-324`, 144 clases) están
+desarrolladas y publicadas con CI verde; las Partes 27–29 (`SE-325`–`SE-360`, 36 clases)
+siguen como borradores estructurales ampliados. Ninguna se presenta como aprobada: falta
+la revisión editorial humana independiente. La tabla siguiente describe la línea base de
+artefactos estructurados, no el estado editorial.
+
 | Comprobación | Resultado |
 | --- | ---: |
 | clases dentro del alcance | 180 |
@@ -133,9 +139,25 @@ midió ningún sistema, equipo, proveedor, agente de mensajería ni base de dato
 con los mismos casos que los evalúan. Las doce clases todavía requieren revisión por personas con experiencia en arquitectura y operación de sistemas, y no presentan un modelo, un
 validador o una simulación como sustitutos de una prueba de carga, de una revisión de arquitectura con los equipos reales ni de la responsabilidad de quien decide.
 
+## Avance editorial de la Parte 26
+
+Las clases `SE-313`–`SE-324` se reconstruyeron en `content/part-26/` alrededor de la capa de datos de la
+plataforma de entregas de tareas, un caso sintético que recorre la parte: modelado conceptual, lógico y
+físico, modelos relacional, documental, de clave-valor y de grafos, transacciones y aislamiento,
+restricciones e invariantes, consultas e índices, migraciones compatibles, replicación y partición, cachés
+entre capas, copias de seguridad y pruebas de recuperación, privacidad y ciclo de vida del dato, un taller
+de migración peligrosa y un paquete de capa de datos recuperable. Cada clase incluye tres experimentos con
+datos sintéticos y semilla fija, la mayoría sobre SQLite real, ejecutados en Windows y Ubuntu (WSL2) con
+cifras idénticas salvo dos diferencias pequeñas declaradas, y declara que no se usó ningún servidor de bases
+de datos, base distribuida, caché real ni nube, que los parámetros son supuestos del autor y que los
+validadores se afinaron con los mismos casos que los evalúan. Las doce clases todavía requieren revisión por
+personas con experiencia en datos y operación, y no presentan un modelo, un experimento o un validador como
+sustitutos de una prueba de restauración con los datos reales, de una revisión del esquema con sus
+consumidores ni de la normativa de privacidad aplicable.
+
 ## Gate pendiente
 
-Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus
+Las Partes 27–29 continúan como borrador hasta demostrar cobertura específica de todos sus
 temas, ejemplos no intercambiables, práctica reproducible, fuentes ligadas a
 afirmaciones y revisión cualitativa contra
 [`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md). La fase no se contabiliza

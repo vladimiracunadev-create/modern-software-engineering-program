@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-13 — Documentación y About alineados con las Partes 00–26 (324 clases desarrolladas)
+
+- el estado publicado pasa de «Partes 00–22 (`SE-001`–`SE-276`) desarrolladas» a «Partes 00–26 (`SE-001`–`SE-324`) desarrolladas»; las Partes 27–29 (`SE-325`–`SE-360`, 36 clases) siguen como borradores, las Partes 30–39 (`SE-361`–`SE-480`) como estructura y las Partes 40–44 (`SE-481`–`SE-540`) como alcance planificado sin clases publicadas (ADR-004);
+- las páginas del portal de las clases 277 a 324 dejan de marcarse como «contenido en revisión»; la revisión editorial humana independiente sigue declarada como pendiente;
+- README, STATUS, ROADMAP, estándar pedagógico, auditorías de fases 3 y 4, matriz de cobertura, plan maestro (hitos `SE-073`–`SE-324` marcados como hechos), auditoría de brechas, seguimiento por partes, guías de rol y `.github/repository-metadata.json` (About del repositorio: «324 desarrolladas, SE-001–SE-324», 540 clases planificadas en 45 partes) usan las mismas cifras: 324 desarrolladas, 36 borradores, 120 con estructura y 60 planificadas;
+- las guías de rol añaden a «Ya desarrolladas de apoyo» clases de las Partes 23–26 verificadas contra `curriculum.yaml`;
+- los conteos generados del programa (480 clases publicadas, 40 partes) no cambian.
+
 ## 2026-11-13 — Parte 25 desarrollada y profundizada con simulaciones sintéticas y mediciones reproducibles de arquitectura
 
 - las clases `SE-301`–`SE-312` pasan de borradores genéricos a clases completas sobre la plataforma de entregas y corrección de tareas de un curso: drivers, restricciones y atributos de

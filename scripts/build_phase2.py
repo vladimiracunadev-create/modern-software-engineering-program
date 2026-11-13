@@ -297,7 +297,7 @@ def classes_index(program: dict) -> str:
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Las Partes 00–22 contienen material desarrollado. Las partes 23–29 publican borradores
+> Las Partes 00–26 contienen material desarrollado. Las partes 27–29 publican borradores
 > para revisión, las partes 30–39 conservan la estructura pendiente de desarrollo y las
 > Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
@@ -362,8 +362,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
 | Clases | {program['class_count']} posiciones curriculares consecutivas |
-| Contenido desarrollado | Partes 00–22 (`SE-001`–`SE-276`) |
-| Borradores publicados | Partes 23–29 (`SE-277`–`SE-360`) |
+| Contenido desarrollado | Partes 00–26 (`SE-001`–`SE-324`) |
+| Borradores publicados | Partes 27–29 (`SE-325`–`SE-360`) |
 | Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
 | Alcance planificado | Partes 40–44 (`SE-481`–`SE-540`), sin clases publicadas |
 | Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
@@ -474,7 +474,7 @@ def site_index(program: dict) -> str:
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–22 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap, que planifica 540 clases en total.</div>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–26 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap, que planifica 540 clases en total.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>

@@ -116,11 +116,13 @@ adicional definida en la arquitectura.
 La fase 3 comprende **180 clases consecutivas**, de `SE-001` a `SE-180`, agrupadas
 en las partes 00–14. Todas están desarrolladas y profundizadas con figuras y evidencia
 reproducible; sigue pendiente una revisión editorial humana independiente antes de
-presentarlas como aprobadas. Las partes 23–29 conservan borradores que deben superar la
-revisión completa.
+presentarlas como aprobadas.
 
 ## Alcance de fase 4
 
 La fase 4 comprende **180 clases consecutivas**, de `SE-181` a `SE-360`, agrupadas
-en las partes 15–29. Aplica la misma revisión cualitativa: disponer de guía, actividad,
+en las partes 15–29. Las Partes 15–26 (`SE-181`–`SE-324`) están desarrolladas y profundizadas con
+figuras y evidencia reproducible, a falta de una revisión editorial humana independiente; las
+Partes 27–29 (`SE-325`–`SE-360`) conservan borradores que deben superar la revisión completa.
+Aplica la misma revisión cualitativa: disponer de guía, actividad,
 rúbrica, fuentes y publicación no demuestra por sí solo que la clase esté terminada.

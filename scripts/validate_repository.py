@@ -419,8 +419,13 @@ def validate_master_curriculum_plan() -> None:
         )
     if any(marker != "x" for marker, _ in rows[:72]):
         raise AssertionError("The first 72 developed classes must stay recorded as reviewed")
-    if any(marker != " " for marker, _ in rows[72:]):
-        raise AssertionError("A pending class cannot be checked without updating the plan validator")
+    for marker, class_id in rows[72:]:
+        number = int(class_id[3:])
+        developed = (ROOT / "content" / f"part-{(number - 1) // 12:02d}" / f"{class_id}.md").exists()
+        if developed != (marker == "x"):
+            raise AssertionError(
+                f"{class_id} must be checked in the master plan if and only if its content exists in content/"
+            )
 
 
 def validate_blueprint() -> None:

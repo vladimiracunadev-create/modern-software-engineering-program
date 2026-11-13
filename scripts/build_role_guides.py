@@ -103,7 +103,7 @@ def planned_range(part_id: str) -> str:
 
 
 def developed_support(filename: str, core: dict[str, list[str]], classes: dict[str, dict[str, str]]) -> list[str]:
-    """Clases ya desarrolladas (Partes 00-22) no repetidas en el núcleo; verifica cada id."""
+    """Clases ya desarrolladas (Partes 00-26) no repetidas en el núcleo; verifica cada id."""
 
     in_core = {item for ids in core.values() for item in ids}
     result: list[str] = []
@@ -285,7 +285,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–22 (`SE-001`–`SE-276`), ya
+en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
 tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
 resto del currículo:
 
@@ -301,8 +301,8 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–22 (`SE-001`–`SE-276`) están
-> desarrolladas; las Partes 23–29 son borradores y las Partes 30–39 conservan sólo
+> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
+> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
 > estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
 > esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
@@ -496,7 +496,7 @@ def render_compact_map(
             support = developed_support(filename, core, classes)
             support_links = " · ".join(class_link(class_id, classes, prefix) for class_id in support)
             blocks.append(
-                f"- **✅ Ya desarrolladas de apoyo (Partes 00–22):** {support_links}."
+                f"- **✅ Ya desarrolladas de apoyo (Partes 00–26):** {support_links}."
             )
             planned_text = " · ".join(
                 f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
@@ -525,8 +525,8 @@ No es una lista de materias optativas: cada guía explica prerrequisitos, límit
 trade-offs y evidencia esperada.
 
 > [!NOTE]
-> Estado real de las partes que aparecen en los mapas: las Partes 00–22
-> (`SE-001`–`SE-276`) están **desarrolladas**; 23–29 son **borradores**; 30–39 son
+> Estado real de las partes que aparecen en los mapas: las Partes 00–26
+> (`SE-001`–`SE-324`) están **desarrolladas**; 27–29 son **borradores**; 30–39 son
 > **estructura**. Las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD,
 > harness y agentic engineering, patrones agénticos, patrones de diseño y estilos
 > arquitectónicos) están **planificadas**: no tienen clases publicadas, por eso se
@@ -569,11 +569,11 @@ revisión y fuentes. La estructura común permite comparar; los mecanismos y dec
 son específicos de cada profesión.
 
 > [!NOTE]
-> Los mapas distinguen el estado real de cada parte: 00–22 desarrolladas, 23–29
+> Los mapas distinguen el estado real de cada parte: 00–26 desarrolladas, 27–29
 > borradores, 30–39 estructura. Las Partes 40–44 (`SE-481`–`SE-540`) están
 > **planificadas** ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin
 > clases publicadas: aparecen como «Planificada» y sin enlaces. «Ya desarrolladas de
-> apoyo» lista clases existentes de las Partes 00–22 con las que se puede practicar hoy.
+> apoyo» lista clases existentes de las Partes 00–26 con las que se puede practicar hoy.
 
 ## 🧱 Parte → clases → evidencia
 

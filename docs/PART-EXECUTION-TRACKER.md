@@ -45,7 +45,7 @@ su commit está en `main` con CI verde.
 | 20 | Desarrollada y profundizada con experimentos sintéticos y modelos de backend, APIs y procesamiento asíncrono ejecutados en Windows y Linux, CI verde | `1fb76b53` |
 | 21 | Desarrollada y profundizada con experimentos sintéticos y modelos de software móvil, escritorio y multiplataforma ejecutados en Windows y Linux CI verde | `a0798f74` |
 | 22 | Desarrollada y profundizada con simulaciones sintéticas de embebidos, IoT y tiempo real ejecutadas en Windows y Linux, CI verde | `4dafaa63` |
-| 23 | Desarrollada y profundizada con simulaciones sintéticas de dominios especializados ejecutadas en Windows y Linux (pendiente de CI verde) | pendiente |
+| 23 | Desarrollada y profundizada con simulaciones sintéticas de dominios especializados ejecutadas en Windows y Linux (CI verde) | `5103274d` |
 | 24 | Desarrollada y profundizada con análisis de código y simulaciones sintéticas de diseño, patrones y refactorización ejecutados en Windows y Linux, CI verde | `4a8cd0b6` |
 | 25 | Desarrollada y profundizada con simulaciones sintéticas y mediciones de arquitectura ejecutadas en Windows y Linux, CI verde | `30386e11` |
 | 26 | Desarrollada y profundizada con experimentos sintéticos y modelos de datos, persistencia y recuperación ejecutados en Windows y Linux CI verde | `d50af249` |

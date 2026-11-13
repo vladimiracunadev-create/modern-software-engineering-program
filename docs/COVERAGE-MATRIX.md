@@ -6,7 +6,8 @@ una lista de herramientas.
 
 La presencia en esta matriz expresa **propiedad curricular**, no contenido terminado.
 Consulta la [auditoría de cobertura y profundidad](PROGRAM-COVERAGE-AUDIT-2026-10-06.md)
-para distinguir contenido desarrollado, borradores y estructura pendiente.
+para distinguir contenido desarrollado, borradores y estructura pendiente. Estado actual:
+Partes 00–26 desarrolladas, 27–29 borradores, 30–39 estructura y 40–44 planificadas sin clases.
 
 ## Cuerpo profesional estable
 

@@ -132,6 +132,13 @@ Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 pági
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
+Estado actual (2026-11-13): las Partes 00–26 (`SE-001`–`SE-324`) están desarrolladas y
+publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. Las
+Partes 27–29 (`SE-325`–`SE-360`) siguen como borradores, las Partes 30–39
+(`SE-361`–`SE-480`) como estructura y las Partes 40–44 (`SE-481`–`SE-540`) están
+planificadas (ADR-004) sin clases publicadas. Falta la revisión editorial humana
+independiente.
+
 Brechas detectadas que se atienden parte a parte:
 
 - actividades y rúbricas genéricas fuera de las partes aprobadas;
@@ -243,318 +250,318 @@ evita una explicación genérica.
 
 ### Parte 06 — Paradigmas
 
-- [ ] `SE-073` — observar estado y mutación en el paradigma imperativo.
-- [ ] `SE-074` — evaluar descomposición procedural y sus límites.
-- [ ] `SE-075` — probar encapsulación y mensajería entre objetos.
-- [ ] `SE-076` — razonar sobre inmutabilidad, efectos y composición funcional.
-- [ ] `SE-077` — construir una regla declarativa y explicar su motor.
-- [ ] `SE-078` — seguir resolución y fallos en programación lógica.
-- [ ] `SE-079` — controlar orden, reentrada y errores en eventos.
-- [ ] `SE-080` — probar backpressure y cancelación en flujos reactivos.
-- [ ] `SE-081` — ensayar supervisión y aislamiento con actores.
-- [ ] `SE-082` — usar una matriz contextual para combinar paradigmas.
-- [ ] `SE-083` — implementar una regla de negocio en cinco paradigmas.
-- [ ] `SE-084` — comparar implementaciones con fixtures y propiedades comunes.
+- [x] `SE-073` — observar estado y mutación en el paradigma imperativo.
+- [x] `SE-074` — evaluar descomposición procedural y sus límites.
+- [x] `SE-075` — probar encapsulación y mensajería entre objetos.
+- [x] `SE-076` — razonar sobre inmutabilidad, efectos y composición funcional.
+- [x] `SE-077` — construir una regla declarativa y explicar su motor.
+- [x] `SE-078` — seguir resolución y fallos en programación lógica.
+- [x] `SE-079` — controlar orden, reentrada y errores en eventos.
+- [x] `SE-080` — probar backpressure y cancelación en flujos reactivos.
+- [x] `SE-081` — ensayar supervisión y aislamiento con actores.
+- [x] `SE-082` — usar una matriz contextual para combinar paradigmas.
+- [x] `SE-083` — implementar una regla de negocio en cinco paradigmas.
+- [x] `SE-084` — comparar implementaciones con fixtures y propiedades comunes.
 
 ### Parte 07 — Estructuras y algoritmos
 
-- [ ] `SE-085` — elegir secuencia según operaciones y carga.
-- [ ] `SE-086` — comparar colas, deques y prioridades.
-- [ ] `SE-087` — medir hashing, colisiones y adversarios.
-- [ ] `SE-088` — mantener invariantes de árboles y balance.
-- [ ] `SE-089` — tratar ciclos, pesos y alcanzabilidad en grafos.
-- [ ] `SE-090` — comparar búsqueda y ordenamiento por workload.
-- [ ] `SE-091` — contrastar greedy y programación dinámica.
-- [ ] `SE-092` — hacer visible poda y explosión combinatoria.
-- [ ] `SE-093` — evaluar estructuras probabilísticas y persistentes.
-- [ ] `SE-094` — diseñar benchmarks sin sesgo obvio.
-- [ ] `SE-095` — justificar selección con una carga representativa.
-- [ ] `SE-096` — entregar biblioteca de bordes con pruebas y límites.
+- [x] `SE-085` — elegir secuencia según operaciones y carga.
+- [x] `SE-086` — comparar colas, deques y prioridades.
+- [x] `SE-087` — medir hashing, colisiones y adversarios.
+- [x] `SE-088` — mantener invariantes de árboles y balance.
+- [x] `SE-089` — tratar ciclos, pesos y alcanzabilidad en grafos.
+- [x] `SE-090` — comparar búsqueda y ordenamiento por workload.
+- [x] `SE-091` — contrastar greedy y programación dinámica.
+- [x] `SE-092` — hacer visible poda y explosión combinatoria.
+- [x] `SE-093` — evaluar estructuras probabilísticas y persistentes.
+- [x] `SE-094` — diseñar benchmarks sin sesgo obvio.
+- [x] `SE-095` — justificar selección con una carga representativa.
+- [x] `SE-096` — entregar biblioteca de bordes con pruebas y límites.
 
 ### Parte 08 — Entornos y depuración
 
-- [ ] `SE-097` — reproducir configuración de editor y tareas.
-- [ ] `SE-098` — conservar una sesión de depuración explicada.
-- [ ] `SE-099` — perfilar una hipótesis y no una intuición vaga.
-- [ ] `SE-100` — explicar capacidad y límites de lint y análisis estático.
-- [ ] `SE-101` — hacer reproducibles notebooks y resultados.
-- [ ] `SE-102` — verificar una matriz de runtimes.
-- [ ] `SE-103` — demostrar aislamiento de entornos.
-- [ ] `SE-104` — reconstruir un Dev Container desde cero.
-- [ ] `SE-105` — minimizar un fallo conservando su causa.
-- [ ] `SE-106` — medir accesibilidad y carga cognitiva de herramientas.
-- [ ] `SE-107` — diagnosticar un sistema desconocido con hipótesis.
-- [ ] `SE-108` — reproducir el entorno desde un checkout limpio.
+- [x] `SE-097` — reproducir configuración de editor y tareas.
+- [x] `SE-098` — conservar una sesión de depuración explicada.
+- [x] `SE-099` — perfilar una hipótesis y no una intuición vaga.
+- [x] `SE-100` — explicar capacidad y límites de lint y análisis estático.
+- [x] `SE-101` — hacer reproducibles notebooks y resultados.
+- [x] `SE-102` — verificar una matriz de runtimes.
+- [x] `SE-103` — demostrar aislamiento de entornos.
+- [x] `SE-104` — reconstruir un Dev Container desde cero.
+- [x] `SE-105` — minimizar un fallo conservando su causa.
+- [x] `SE-106` — medir accesibilidad y carga cognitiva de herramientas.
+- [x] `SE-107` — diagnosticar un sistema desconocido con hipótesis.
+- [x] `SE-108` — reproducir el entorno desde un checkout limpio.
 
 ### Parte 09 — Paquetes y automatización
 
-- [ ] `SE-109` — separar contratos de biblioteca, framework y runtime.
-- [ ] `SE-110` — comprobar compatibilidad SemVer, no solo declararla.
-- [ ] `SE-111` — explicar resolución, lockfile y conflictos transitivos.
-- [ ] `SE-112` — publicar un artefacto reproducible.
-- [ ] `SE-113` — estabilizar contrato y códigos de salida de CLI.
-- [ ] `SE-114` — probar idempotencia y recuperación de scripts.
-- [ ] `SE-115` — aislar plugins y manejar incompatibilidad.
-- [ ] `SE-116` — evaluar riesgo y deriva de code generation.
-- [ ] `SE-117` — registrar licencia y provenance de dependencias.
-- [ ] `SE-118` — medir tiempo hasta el primer éxito del consumidor.
-- [ ] `SE-119` — validar el paquete desde un consumidor externo.
-- [ ] `SE-120` — mantener compatibilidad de SDK/CLI con clientes anteriores.
+- [x] `SE-109` — separar contratos de biblioteca, framework y runtime.
+- [x] `SE-110` — comprobar compatibilidad SemVer, no solo declararla.
+- [x] `SE-111` — explicar resolución, lockfile y conflictos transitivos.
+- [x] `SE-112` — publicar un artefacto reproducible.
+- [x] `SE-113` — estabilizar contrato y códigos de salida de CLI.
+- [x] `SE-114` — probar idempotencia y recuperación de scripts.
+- [x] `SE-115` — aislar plugins y manejar incompatibilidad.
+- [x] `SE-116` — evaluar riesgo y deriva de code generation.
+- [x] `SE-117` — registrar licencia y provenance de dependencias.
+- [x] `SE-118` — medir tiempo hasta el primer éxito del consumidor.
+- [x] `SE-119` — validar el paquete desde un consumidor externo.
+- [x] `SE-120` — mantener compatibilidad de SDK/CLI con clientes anteriores.
 
 ### Parte 10 — Discovery
 
-- [ ] `SE-121` — separar síntoma, problema y oportunidad.
-- [ ] `SE-122` — mapear actores, poder y exclusiones.
-- [ ] `SE-123` — diseñar entrevistas que reduzcan sesgo.
-- [ ] `SE-124` — mantener un mapa de supuestos.
-- [ ] `SE-125` — formular outcomes medibles.
-- [ ] `SE-126` — comparar alternativas, incluido no construir.
-- [ ] `SE-127` — diseñar un experimento falsable.
-- [ ] `SE-128` — priorizar por riesgo y evidencia.
-- [ ] `SE-129` — aplicar consentimiento y minimización.
-- [ ] `SE-130` — fijar criterios de abandono.
-- [ ] `SE-131` — convertir una petición en investigación.
-- [ ] `SE-132` — entregar un brief de producto respaldado por evidencia.
+- [x] `SE-121` — separar síntoma, problema y oportunidad.
+- [x] `SE-122` — mapear actores, poder y exclusiones.
+- [x] `SE-123` — diseñar entrevistas que reduzcan sesgo.
+- [x] `SE-124` — mantener un mapa de supuestos.
+- [x] `SE-125` — formular outcomes medibles.
+- [x] `SE-126` — comparar alternativas, incluido no construir.
+- [x] `SE-127` — diseñar un experimento falsable.
+- [x] `SE-128` — priorizar por riesgo y evidencia.
+- [x] `SE-129` — aplicar consentimiento y minimización.
+- [x] `SE-130` — fijar criterios de abandono.
+- [x] `SE-131` — convertir una petición en investigación.
+- [x] `SE-132` — entregar un brief de producto respaldado por evidencia.
 
 ### Parte 11 — Economía y métricas
 
-- [ ] `SE-133` — modelar sostenibilidad del negocio.
-- [ ] `SE-134` — calcular TCO y coste de oportunidad.
-- [ ] `SE-135` — detectar vanity metrics.
-- [ ] `SE-136` — analizar cohortes y retención.
-- [ ] `SE-137` — diseñar telemetría con consentimiento.
-- [ ] `SE-138` — reconocer causalidad débil y errores estadísticos.
-- [ ] `SE-139` — definir guardrails y contramétricas.
-- [ ] `SE-140` — relacionar coste con outcome.
-- [ ] `SE-141` — tratar cartera como opciones reversibles.
-- [ ] `SE-142` — valorar reversibilidad de una decisión.
-- [ ] `SE-143` — construir un árbol de métricas.
-- [ ] `SE-144` — defender un caso económico por escenarios.
+- [x] `SE-133` — modelar sostenibilidad del negocio.
+- [x] `SE-134` — calcular TCO y coste de oportunidad.
+- [x] `SE-135` — detectar vanity metrics.
+- [x] `SE-136` — analizar cohortes y retención.
+- [x] `SE-137` — diseñar telemetría con consentimiento.
+- [x] `SE-138` — reconocer causalidad débil y errores estadísticos.
+- [x] `SE-139` — definir guardrails y contramétricas.
+- [x] `SE-140` — relacionar coste con outcome.
+- [x] `SE-141` — tratar cartera como opciones reversibles.
+- [x] `SE-142` — valorar reversibilidad de una decisión.
+- [x] `SE-143` — construir un árbol de métricas.
+- [x] `SE-144` — defender un caso económico por escenarios.
 
 ### Parte 12 — Requisitos
 
-- [ ] `SE-145` — elaborar un plan de elicitación.
-- [ ] `SE-146` — extraer reglas, excepciones y vocabulario de dominio.
-- [ ] `SE-147` — volver medibles los requisitos no funcionales.
-- [ ] `SE-148` — elegir entre historia, caso de uso y job story.
-- [ ] `SE-149` — escribir aceptación mediante ejemplos y bordes.
-- [ ] `SE-150` — negociar conflictos sin ocultarlos.
-- [ ] `SE-151` — mantener trazabilidad bidireccional.
-- [ ] `SE-152` — traducir regulación a controles comprobables.
-- [ ] `SE-153` — analizar impacto del cambio.
-- [ ] `SE-154` — detectar contradicciones e incompletitud.
-- [ ] `SE-155` — reparar un requisito defectuoso.
-- [ ] `SE-156` — entregar una especificación revisable.
+- [x] `SE-145` — elaborar un plan de elicitación.
+- [x] `SE-146` — extraer reglas, excepciones y vocabulario de dominio.
+- [x] `SE-147` — volver medibles los requisitos no funcionales.
+- [x] `SE-148` — elegir entre historia, caso de uso y job story.
+- [x] `SE-149` — escribir aceptación mediante ejemplos y bordes.
+- [x] `SE-150` — negociar conflictos sin ocultarlos.
+- [x] `SE-151` — mantener trazabilidad bidireccional.
+- [x] `SE-152` — traducir regulación a controles comprobables.
+- [x] `SE-153` — analizar impacto del cambio.
+- [x] `SE-154` — detectar contradicciones e incompletitud.
+- [x] `SE-155` — reparar un requisito defectuoso.
+- [x] `SE-156` — entregar una especificación revisable.
 
 ### Parte 13 — Especificaciones y contratos
 
-- [ ] `SE-157` — elegir el grado de formalidad adecuado.
-- [ ] `SE-158` — usar BDD como conversación y evidencia, no ritual.
-- [ ] `SE-159` — verificar precondiciones, postcondiciones e invariantes.
-- [ ] `SE-160` — comprobar consistencia entre modelos.
-- [ ] `SE-161` — obtener un contraejemplo con TLA+ o Alloy y declarar límites.
-- [ ] `SE-162` — evolucionar esquemas de forma compatible.
-- [ ] `SE-163` — separar contratos OpenAPI, AsyncAPI y GraphQL.
-- [ ] `SE-164` — probar compatibilidad, versionado y deprecación.
-- [ ] `SE-165` — gobernar una fuente de verdad contractual.
-- [ ] `SE-166` — ejecutar contract tests contra productor y consumidor.
-- [ ] `SE-167` — trazar intención hasta contrato y prueba.
-- [ ] `SE-168` — entregar un paquete de especificación trazable.
+- [x] `SE-157` — elegir el grado de formalidad adecuado.
+- [x] `SE-158` — usar BDD como conversación y evidencia, no ritual.
+- [x] `SE-159` — verificar precondiciones, postcondiciones e invariantes.
+- [x] `SE-160` — comprobar consistencia entre modelos.
+- [x] `SE-161` — obtener un contraejemplo con TLA+ o Alloy y declarar límites.
+- [x] `SE-162` — evolucionar esquemas de forma compatible.
+- [x] `SE-163` — separar contratos OpenAPI, AsyncAPI y GraphQL.
+- [x] `SE-164` — probar compatibilidad, versionado y deprecación.
+- [x] `SE-165` — gobernar una fuente de verdad contractual.
+- [x] `SE-166` — ejecutar contract tests contra productor y consumidor.
+- [x] `SE-167` — trazar intención hasta contrato y prueba.
+- [x] `SE-168` — entregar un paquete de especificación trazable.
 
 ### Parte 14 — UX, accesibilidad e i18n
 
-- [ ] `SE-169` — investigar personas, tareas y contexto sin estereotipos.
-- [ ] `SE-170` — probar arquitectura de información y navegación.
-- [ ] `SE-171` — diseñar feedback y affordances perceptibles.
-- [ ] `SE-172` — construir errores recuperables.
-- [ ] `SE-173` — aplicar criterios WCAG a un flujo concreto.
-- [ ] `SE-174` — verificar teclado, foco y lector de pantalla.
-- [ ] `SE-175` — comprobar contraste, zoom y tipografía.
-- [ ] `SE-176` — respetar responsive y preferencias del usuario.
-- [ ] `SE-177` — probar locale, plural, tiempo, moneda y RTL.
-- [ ] `SE-178` — realizar un estudio de usabilidad con protocolo.
-- [ ] `SE-179` — reparar una barrera y explicar la exclusión evitada.
-- [ ] `SE-180` — entregar un flujo accesible en varios locales.
+- [x] `SE-169` — investigar personas, tareas y contexto sin estereotipos.
+- [x] `SE-170` — probar arquitectura de información y navegación.
+- [x] `SE-171` — diseñar feedback y affordances perceptibles.
+- [x] `SE-172` — construir errores recuperables.
+- [x] `SE-173` — aplicar criterios WCAG a un flujo concreto.
+- [x] `SE-174` — verificar teclado, foco y lector de pantalla.
+- [x] `SE-175` — comprobar contraste, zoom y tipografía.
+- [x] `SE-176` — respetar responsive y preferencias del usuario.
+- [x] `SE-177` — probar locale, plural, tiempo, moneda y RTL.
+- [x] `SE-178` — realizar un estudio de usabilidad con protocolo.
+- [x] `SE-179` — reparar una barrera y explicar la exclusión evitada.
+- [x] `SE-180` — entregar un flujo accesible en varios locales.
 
 ### Parte 15 — Procesos y estimación
 
-- [ ] `SE-181` — seleccionar proceso según riesgo y contexto.
-- [ ] `SE-182` — separar principios ágiles de rituales.
-- [ ] `SE-183` — comparar métodos sobre el mismo caso.
-- [ ] `SE-184` — gestionar colas y WIP con datos.
-- [ ] `SE-185` — comparar Function Points, COCOMO II y rangos.
-- [ ] `SE-186` — modelar dependencias y camino crítico.
-- [ ] `SE-187` — mantener un registro de riesgos.
-- [ ] `SE-188` — definir DoR y DoD observables.
-- [ ] `SE-189` — usar métricas sin incentivar gaming.
-- [ ] `SE-190` — ejecutar un experimento de mejora.
-- [ ] `SE-191` — producir un forecast Monte Carlo reproducible.
-- [ ] `SE-192` — entregar un plan adaptable con intervalos.
+- [x] `SE-181` — seleccionar proceso según riesgo y contexto.
+- [x] `SE-182` — separar principios ágiles de rituales.
+- [x] `SE-183` — comparar métodos sobre el mismo caso.
+- [x] `SE-184` — gestionar colas y WIP con datos.
+- [x] `SE-185` — comparar Function Points, COCOMO II y rangos.
+- [x] `SE-186` — modelar dependencias y camino crítico.
+- [x] `SE-187` — mantener un registro de riesgos.
+- [x] `SE-188` — definir DoR y DoD observables.
+- [x] `SE-189` — usar métricas sin incentivar gaming.
+- [x] `SE-190` — ejecutar un experimento de mejora.
+- [x] `SE-191` — producir un forecast Monte Carlo reproducible.
+- [x] `SE-192` — entregar un plan adaptable con intervalos.
 
 ### Parte 16 — Git y colaboración
 
-- [ ] `SE-193` — explicar objetos Git y recuperar con reflog.
-- [ ] `SE-194` — crear commits revisables y recuperables.
-- [ ] `SE-195` — resolver rebase y conflictos de forma segura.
-- [ ] `SE-196` — hacer review basada en riesgo.
-- [ ] `SE-197` — comparar branching strategies con métricas.
-- [ ] `SE-198` — trazar issue, cambio, revisión y release.
-- [ ] `SE-199` — usar CODEOWNERS sin ocultar bus factor.
-- [ ] `SE-200` — practicar InnerSource y función de OSPO.
-- [ ] `SE-201` — aplicar obligaciones de licencia.
-- [ ] `SE-202` — verificar firmas y provenance.
-- [ ] `SE-203` — rescatar una integración fallida.
-- [ ] `SE-204` — operar una contribución y release reales.
+- [x] `SE-193` — explicar objetos Git y recuperar con reflog.
+- [x] `SE-194` — crear commits revisables y recuperables.
+- [x] `SE-195` — resolver rebase y conflictos de forma segura.
+- [x] `SE-196` — hacer review basada en riesgo.
+- [x] `SE-197` — comparar branching strategies con métricas.
+- [x] `SE-198` — trazar issue, cambio, revisión y release.
+- [x] `SE-199` — usar CODEOWNERS sin ocultar bus factor.
+- [x] `SE-200` — practicar InnerSource y función de OSPO.
+- [x] `SE-201` — aplicar obligaciones de licencia.
+- [x] `SE-202` — verificar firmas y provenance.
+- [x] `SE-203` — rescatar una integración fallida.
+- [x] `SE-204` — operar una contribución y release reales.
 
 ### Parte 17 — Documentación
 
-- [ ] `SE-205` — definir audiencia, tarea y éxito documental.
-- [ ] `SE-206` — separar tutorial, how-to, referencia y explicación.
-- [ ] `SE-207` — medir time-to-first-success.
-- [ ] `SE-208` — conservar alternativas rechazadas en ADR/RFC.
-- [ ] `SE-209` — crear diagramas con propósito y límites.
-- [ ] `SE-210` — probar ejemplos contra contratos.
-- [ ] `SE-211` — ensayar un runbook.
-- [ ] `SE-212` — validar publicación y enlaces.
-- [ ] `SE-213` — mantener un glosario relacional.
-- [ ] `SE-214` — distinguir documentación humana y legible por máquina.
-- [ ] `SE-215` — reconstruir conocimiento desde evidencia legacy.
-- [ ] `SE-216` — entregar un portal accesible y versionado.
+- [x] `SE-205` — definir audiencia, tarea y éxito documental.
+- [x] `SE-206` — separar tutorial, how-to, referencia y explicación.
+- [x] `SE-207` — medir time-to-first-success.
+- [x] `SE-208` — conservar alternativas rechazadas en ADR/RFC.
+- [x] `SE-209` — crear diagramas con propósito y límites.
+- [x] `SE-210` — probar ejemplos contra contratos.
+- [x] `SE-211` — ensayar un runbook.
+- [x] `SE-212` — validar publicación y enlaces.
+- [x] `SE-213` — mantener un glosario relacional.
+- [x] `SE-214` — distinguir documentación humana y legible por máquina.
+- [x] `SE-215` — reconstruir conocimiento desde evidencia legacy.
+- [x] `SE-216` — entregar un portal accesible y versionado.
 
 ### Parte 18 — CLI, TUI y servicios
 
-- [ ] `SE-217` — diseñar un contrato CLI estable.
-- [ ] `SE-218` — componer stdout, stderr, pipes y códigos de salida.
-- [ ] `SE-219` — implementar precedencia de configuración.
-- [ ] `SE-220` — devolver errores accionables.
-- [ ] `SE-221` — probar accesibilidad de una TUI.
-- [ ] `SE-222` — gestionar lifecycle de un daemon.
-- [ ] `SE-223` — diseñar jobs con leasing y concurrencia.
-- [ ] `SE-224` — usar checkpoints e idempotencia.
-- [ ] `SE-225` — verificar instalación, actualización y desinstalación.
-- [ ] `SE-226` — diseñar telemetría opt-in.
-- [ ] `SE-227` — endurecer una automatización peligrosa.
-- [ ] `SE-228` — entregar una herramienta operable multiplataforma.
+- [x] `SE-217` — diseñar un contrato CLI estable.
+- [x] `SE-218` — componer stdout, stderr, pipes y códigos de salida.
+- [x] `SE-219` — implementar precedencia de configuración.
+- [x] `SE-220` — devolver errores accionables.
+- [x] `SE-221` — probar accesibilidad de una TUI.
+- [x] `SE-222` — gestionar lifecycle de un daemon.
+- [x] `SE-223` — diseñar jobs con leasing y concurrencia.
+- [x] `SE-224` — usar checkpoints e idempotencia.
+- [x] `SE-225` — verificar instalación, actualización y desinstalación.
+- [x] `SE-226` — diseñar telemetría opt-in.
+- [x] `SE-227` — endurecer una automatización peligrosa.
+- [x] `SE-228` — entregar una herramienta operable multiplataforma.
 
 ### Parte 19 — Web y frontend
 
-- [ ] `SE-229` — construir sobre HTML semántico.
-- [ ] `SE-230` — explicar lifecycle de DOM y eventos.
-- [ ] `SE-231` — medir SSR, CSR y SSG en un caso.
-- [ ] `SE-232` — mantener consistencia de estado.
-- [ ] `SE-233` — implementar validación accesible.
-- [ ] `SE-234` — diseñar URLs durables.
-- [ ] `SE-235` — fijar Core Web Vitals y presupuestos.
-- [ ] `SE-236` — aplicar CSP y fronteras del navegador.
-- [ ] `SE-237` — resolver offline y conflictos.
-- [ ] `SE-238` — medir SEO sin promesas vagas.
-- [ ] `SE-239` — diagnosticar un flujo web degradado.
-- [ ] `SE-240` — entregar una aplicación offline y accesible.
+- [x] `SE-229` — construir sobre HTML semántico.
+- [x] `SE-230` — explicar lifecycle de DOM y eventos.
+- [x] `SE-231` — medir SSR, CSR y SSG en un caso.
+- [x] `SE-232` — mantener consistencia de estado.
+- [x] `SE-233` — implementar validación accesible.
+- [x] `SE-234` — diseñar URLs durables.
+- [x] `SE-235` — fijar Core Web Vitals y presupuestos.
+- [x] `SE-236` — aplicar CSP y fronteras del navegador.
+- [x] `SE-237` — resolver offline y conflictos.
+- [x] `SE-238` — medir SEO sin promesas vagas.
+- [x] `SE-239` — diagnosticar un flujo web degradado.
+- [x] `SE-240` — entregar una aplicación offline y accesible.
 
 ### Parte 20 — Backend y APIs
 
-- [ ] `SE-241` — definir límites y ownership de servicio.
-- [ ] `SE-242` — aplicar semántica REST/HTTP con precisión.
-- [ ] `SE-243` — comparar RPC, GraphQL y gRPC.
-- [ ] `SE-244` — normalizar validación y errores.
-- [ ] `SE-245` — probar autorización por recurso.
-- [ ] `SE-246` — implementar idempotencia y replay seguro.
-- [ ] `SE-247` — tratar poison messages.
-- [ ] `SE-248` — controlar backpressure y uploads.
-- [ ] `SE-249` — diseñar caché y rate limiting.
-- [ ] `SE-250` — probar readiness y shutdown.
-- [ ] `SE-251` — reparar una API incompatible.
-- [ ] `SE-252` — entregar servicio con contratos y telemetría.
+- [x] `SE-241` — definir límites y ownership de servicio.
+- [x] `SE-242` — aplicar semántica REST/HTTP con precisión.
+- [x] `SE-243` — comparar RPC, GraphQL y gRPC.
+- [x] `SE-244` — normalizar validación y errores.
+- [x] `SE-245` — probar autorización por recurso.
+- [x] `SE-246` — implementar idempotencia y replay seguro.
+- [x] `SE-247` — tratar poison messages.
+- [x] `SE-248` — controlar backpressure y uploads.
+- [x] `SE-249` — diseñar caché y rate limiting.
+- [x] `SE-250` — probar readiness y shutdown.
+- [x] `SE-251` — reparar una API incompatible.
+- [x] `SE-252` — entregar servicio con contratos y telemetría.
 
 ### Parte 21 — Móvil y escritorio
 
-- [ ] `SE-253` — modelar lifecycle del cliente.
-- [ ] `SE-254` — conservar estado ante suspensión.
-- [ ] `SE-255` — justificar nativo, híbrido o multiplataforma.
-- [ ] `SE-256` — resolver sync y conflictos.
-- [ ] `SE-257` — pedir el mínimo de permisos.
-- [ ] `SE-258` — probar accesibilidad por modalidad.
-- [ ] `SE-259` — verificar firma y distribución.
-- [ ] `SE-260` — diseñar offline-first.
-- [ ] `SE-261` — medir batería y recursos honestamente.
-- [ ] `SE-262` — asumir cliente hostil y sandbox.
-- [ ] `SE-263` — comparar dos plataformas con la misma prueba.
-- [ ] `SE-264` — entregar cliente sincronizable y recuperable.
+- [x] `SE-253` — modelar lifecycle del cliente.
+- [x] `SE-254` — conservar estado ante suspensión.
+- [x] `SE-255` — justificar nativo, híbrido o multiplataforma.
+- [x] `SE-256` — resolver sync y conflictos.
+- [x] `SE-257` — pedir el mínimo de permisos.
+- [x] `SE-258` — probar accesibilidad por modalidad.
+- [x] `SE-259` — verificar firma y distribución.
+- [x] `SE-260` — diseñar offline-first.
+- [x] `SE-261` — medir batería y recursos honestamente.
+- [x] `SE-262` — asumir cliente hostil y sandbox.
+- [x] `SE-263` — comparar dos plataformas con la misma prueba.
+- [x] `SE-264` — entregar cliente sincronizable y recuperable.
 
 ### Parte 22 — Embedded, IoT y edge
 
-- [ ] `SE-265` — trazar frontera hardware/firmware.
-- [ ] `SE-266` — comparar buses y contratos eléctricos/lógicos.
-- [ ] `SE-267` — medir memoria, CPU y energía con límites.
-- [ ] `SE-268` — verificar deadlines y jitter de RTOS.
-- [ ] `SE-269` — controlar ISR y estado compartido.
-- [ ] `SE-270` — operar con conectividad intermitente.
-- [ ] `SE-271` — probar OTA y rollback.
-- [ ] `SE-272` — diseñar provisioning y rotación de claves.
-- [ ] `SE-273` — repartir decisiones entre edge y nube.
-- [ ] `SE-274` — analizar hazards y vida útil.
-- [ ] `SE-275` — simular fallos físicos y digitales con honestidad.
-- [ ] `SE-276` — entregar dispositivo simulado actualizable y recuperable.
+- [x] `SE-265` — trazar frontera hardware/firmware.
+- [x] `SE-266` — comparar buses y contratos eléctricos/lógicos.
+- [x] `SE-267` — medir memoria, CPU y energía con límites.
+- [x] `SE-268` — verificar deadlines y jitter de RTOS.
+- [x] `SE-269` — controlar ISR y estado compartido.
+- [x] `SE-270` — operar con conectividad intermitente.
+- [x] `SE-271` — probar OTA y rollback.
+- [x] `SE-272` — diseñar provisioning y rotación de claves.
+- [x] `SE-273` — repartir decisiones entre edge y nube.
+- [x] `SE-274` — analizar hazards y vida útil.
+- [x] `SE-275` — simular fallos físicos y digitales con honestidad.
+- [x] `SE-276` — entregar dispositivo simulado actualizable y recuperable.
 
 ### Parte 23 — Dominios especializados
 
-- [ ] `SE-277` — exigir reproducibilidad científica.
-- [ ] `SE-278` — asegurar calidad en pipelines de datos.
-- [ ] `SE-279` — evaluar drift y modelos ML.
-- [ ] `SE-280` — controlar determinismo en game loops.
-- [ ] `SE-281` — tratar latencia y accesibilidad en AV.
-- [ ] `SE-282` — formalizar invariantes contables.
-- [ ] `SE-283` — separar privacidad, safety y cumplimiento médico.
-- [ ] `SE-284` — explicar cuándo no usar blockchain.
-- [ ] `SE-285` — manejar CRS, tiempo y precisión geoespacial.
-- [ ] `SE-286` — delimitar low-code y escape hatches.
-- [ ] `SE-287` — comparar riesgos entre dominios.
-- [ ] `SE-288` — entregar un diseño profundo de dominio.
+- [x] `SE-277` — exigir reproducibilidad científica.
+- [x] `SE-278` — asegurar calidad en pipelines de datos.
+- [x] `SE-279` — evaluar drift y modelos ML.
+- [x] `SE-280` — controlar determinismo en game loops.
+- [x] `SE-281` — tratar latencia y accesibilidad en AV.
+- [x] `SE-282` — formalizar invariantes contables.
+- [x] `SE-283` — separar privacidad, safety y cumplimiento médico.
+- [x] `SE-284` — explicar cuándo no usar blockchain.
+- [x] `SE-285` — manejar CRS, tiempo y precisión geoespacial.
+- [x] `SE-286` — delimitar low-code y escape hatches.
+- [x] `SE-287` — comparar riesgos entre dominios.
+- [x] `SE-288` — entregar un diseño profundo de dominio.
 
 ### Parte 24 — Diseño y refactorización
 
-- [ ] `SE-289` — interpretar cohesión y acoplamiento en contexto.
-- [ ] `SE-290` — aplicar SOLID con sus límites.
-- [ ] `SE-291` — preferir composición cuando las fuerzas lo justifiquen.
-- [ ] `SE-292` — elegir patrones por fuerzas, no por catálogo.
-- [ ] `SE-293` — tratar efectos y concurrencia en patrones.
-- [ ] `SE-294` — usar contraejemplos para code smells.
-- [ ] `SE-295` — construir pruebas de caracterización.
-- [ ] `SE-296` — diseñar para observabilidad.
-- [ ] `SE-297` — distinguir complejidad accidental y esencial.
-- [ ] `SE-298` — modelar economía de deuda técnica.
-- [ ] `SE-299` — refactorizar con regresión protegida.
-- [ ] `SE-300` — evolucionar diseño conservando compatibilidad.
+- [x] `SE-289` — interpretar cohesión y acoplamiento en contexto.
+- [x] `SE-290` — aplicar SOLID con sus límites.
+- [x] `SE-291` — preferir composición cuando las fuerzas lo justifiquen.
+- [x] `SE-292` — elegir patrones por fuerzas, no por catálogo.
+- [x] `SE-293` — tratar efectos y concurrencia en patrones.
+- [x] `SE-294` — usar contraejemplos para code smells.
+- [x] `SE-295` — construir pruebas de caracterización.
+- [x] `SE-296` — diseñar para observabilidad.
+- [x] `SE-297` — distinguir complejidad accidental y esencial.
+- [x] `SE-298` — modelar economía de deuda técnica.
+- [x] `SE-299` — refactorizar con regresión protegida.
+- [x] `SE-300` — evolucionar diseño conservando compatibilidad.
 
 ### Parte 25 — Arquitectura
 
-- [ ] `SE-301` — derivar arquitectura desde drivers medibles.
-- [ ] `SE-302` — mantener vistas consistentes.
-- [ ] `SE-303` — evaluar primero un monolito modular.
-- [ ] `SE-304` — comparar layered, hexagonal, clean y onion.
-- [ ] `SE-305` — delimitar bounded contexts.
-- [ ] `SE-306` — explicar fallos de CQRS y event sourcing.
-- [ ] `SE-307` — comparar serverless, edge y P2P.
-- [ ] `SE-308` — automatizar fitness functions.
-- [ ] `SE-309` — cuantificar coste y reversibilidad en ADR.
-- [ ] `SE-310` — relacionar Conway y Team Topologies.
-- [ ] `SE-311` — probar escenarios de atributos de calidad.
-- [ ] `SE-312` — defender una arquitectura y su evolución.
+- [x] `SE-301` — derivar arquitectura desde drivers medibles.
+- [x] `SE-302` — mantener vistas consistentes.
+- [x] `SE-303` — evaluar primero un monolito modular.
+- [x] `SE-304` — comparar layered, hexagonal, clean y onion.
+- [x] `SE-305` — delimitar bounded contexts.
+- [x] `SE-306` — explicar fallos de CQRS y event sourcing.
+- [x] `SE-307` — comparar serverless, edge y P2P.
+- [x] `SE-308` — automatizar fitness functions.
+- [x] `SE-309` — cuantificar coste y reversibilidad en ADR.
+- [x] `SE-310` — relacionar Conway y Team Topologies.
+- [x] `SE-311` — probar escenarios de atributos de calidad.
+- [x] `SE-312` — defender una arquitectura y su evolución.
 
 ### Parte 26 — Datos
 
-- [ ] `SE-313` — explicar modelos y pérdida de información.
-- [ ] `SE-314` — diseñar desde patrones de acceso.
-- [ ] `SE-315` — reproducir anomalías de aislamiento.
-- [ ] `SE-316` — proteger invariantes transaccionales.
-- [ ] `SE-317` — interpretar planes e índices.
-- [ ] `SE-318` — aplicar expand-contract a esquemas.
-- [ ] `SE-319` — comparar replicación y partición.
-- [ ] `SE-320` — tratar invalidación de caché.
-- [ ] `SE-321` — probar restore, no solo backup.
-- [ ] `SE-322` — ejecutar retención y borrado.
-- [ ] `SE-323` — migrar con rollback.
-- [ ] `SE-324` — entregar un sistema de datos recuperable.
+- [x] `SE-313` — explicar modelos y pérdida de información.
+- [x] `SE-314` — diseñar desde patrones de acceso.
+- [x] `SE-315` — reproducir anomalías de aislamiento.
+- [x] `SE-316` — proteger invariantes transaccionales.
+- [x] `SE-317` — interpretar planes e índices.
+- [x] `SE-318` — aplicar expand-contract a esquemas.
+- [x] `SE-319` — comparar replicación y partición.
+- [x] `SE-320` — tratar invalidación de caché.
+- [x] `SE-321` — probar restore, no solo backup.
+- [x] `SE-322` — ejecutar retención y borrado.
+- [x] `SE-323` — migrar con rollback.
+- [x] `SE-324` — entregar un sistema de datos recuperable.
 
 ### Parte 27 — Integración y eventos
 

@@ -2,207 +2,334 @@
 
 [← SE-292 — Patrones creacionales, estructurales y conductuales](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-292-patrones-creacionales-estructurales-y-conductuales/README.md) · [↑ Parte 24](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-293.html) · [SE-294 — Code smells y diagnóstico contextual →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-294-code-smells-y-diagnostico-contextual/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que decidas dónde vive el estado y quién puede cambiarlo, y para que elijas entre funciones puras, flujos con contrapresión y datos con un solo dueño por lo que cada opción garantiza cuando hay varias cosas ocurriendo, no por la moda del estilo.
+
+**Por qué aparece aquí.** Sigue a **Patrones creacionales, estructurales y conductuales** (`SE-292`): esos patrones suponían objetos con estado que cooperan; aquí el estado se vuelve el problema central. Se aplica al cálculo de tarifas por lotes (miles de envíos por minuto en hora punta) y al flujo de eventos que lo alimenta.
+
+**Error conceptual que debe corregir.** Creer que «funcional», «reactivo» o «concurrente» son estilos de código: son decisiones sobre qué puede cambiar, qué ocurre cuando el productor es más rápido que el consumidor y qué intercalaciones son posibles; cada una tiene una prueba que la vuelve observable.
+
+**Secuencia de aprendizaje.** Antes de mirar los resultados, predices cuántas de ocho funciones impuras detecta una prueba que llama una vez, cuántas una que llama dos veces y perturba el estado, qué hace una cola sin límite cuando llegan 100 eventos por segundo y se atienden 80, y cuántas de las 70 intercalaciones de dos hilos que incrementan un contador dan el valor esperado. Después lo ejecutas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `state-log.md` con la predicción, la tabla de impurezas detectadas por nivel, la tabla de políticas de cola, la tabla de intercalaciones y una nota que diga quién es dueño de cada dato de `tarifas` y cómo se protege.
+
+**Límite de la conclusión.** Las funciones, la cola y los programas de dos hilos son construcciones del autor. La simulación de la cola usa llegadas y servicios exponenciales y la enumeración de intercalaciones es un modelo de pasos atómicos: no se ejecutó ningún hilo ni se midió ningún tiempo de máquina.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Hughes, «Why Functional Programming Matters» (The Computer Journal, 1989)](https://doi.org/10.1093/comjnl/32.2.98) | Defiende que la modularidad se gana componiendo funciones sin efectos laterales y funciones de orden superior. | No mide el efecto sobre los defectos ni sobre el rendimiento. |
+| [Lee, «The Problem with Threads» (IEEE Computer, 2006)](https://doi.org/10.1109/MC.2006.180) | Argumenta que los hilos con memoria compartida hacen el comportamiento no determinista y difícil de razonar. | No dice que no deban usarse ni cuánto cuestan en un caso concreto. |
+| [Reactive Streams: especificación](https://www.reactive-streams.org/) | Define el flujo asincrónico con contrapresión no bloqueante entre productor y consumidor. | No elige una política de descarte ni dimensiona una cola. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-292`: el orden en que se avisa a los observadores es una decisión. La pregunta activa es: **¿quién es dueño de este dato, quién puede cambiarlo y qué pasa con lo que llega más rápido de lo que puedo atender?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-292` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, pruebas, analizador estático y Git.
+- Haber completado `SE-292` o poder explicar por qué un estado global vuelve dependiente del orden a una suite.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Conocer funciones de orden superior, colas y la idea de proceso e hilo.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Patrones funcionales, reactivos y concurrentes**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+En hora punta, `tarifas` recibe cien eventos de pedido por segundo y su cálculo puede atender ochenta. La primera versión encola todo en una lista en memoria; a los diez minutos las respuestas llegan con un retraso de horas y el proceso pesa varios gigabytes. Un colega «paralelizó» el cálculo con dos hilos que acumulan el total del día en una variable compartida, y el total empezó a diferir del de la base de datos en unos pocos pesos por día. Y una función de redondeo «pura» que recibía una lista de pedidos la ordenaba en sitio: el módulo que llamaba empezó a ver sus pedidos reordenados. Tres problemas distintos con una causa común: no estaba decidido quién es dueño del estado.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Patrones y funcionales con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **refactorización protegida por caracterización y decisión de diseño** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «refactorizar y cambiar comportamiento al mismo tiempo sin caracterización» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Patrones | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Funcionales | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Reactivos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Concurrentes | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. detectar funciones que no son puras con pruebas escalonadas y explicar por qué un ejemplo no basta;
+2. simular una cola con un productor más rápido que el consumidor y comparar cuatro políticas por latencia, pérdida y bloqueo;
+3. enumerar las intercalaciones de dos hilos sobre un dato compartido y contar cuántas dan un resultado erróneo con y sin protección;
+4. asignar a cada dato de `tarifas` un dueño y una forma de protección (inmutabilidad, un solo hilo, operación atómica);
+5. declarar qué simula cada modelo, qué ignora y qué evidencia haría abandonar la conclusión.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Patrones funcionales, reactivos y concurrentes"] --> M["Modelo: Patrones"]
-    M --> D["Decisión: funcionales"]
-    D --> E["Evidencia: reactivos"]
-    E --> R["Revisión: concurrentes"]
-    R -->|nueva información| M
+    A[Estado compartido] --> B{Quién es dueño}
+    B --> C[Nadie: funciones puras y datos inmutables]
+    B --> D[Un solo hilo: paso de mensajes]
+    B --> E[Varios: protección con operación atómica]
+    C --> F[Prueba: repetir, perturbar, comparar]
+    D --> G[Prueba: cola acotada y política de desborde]
+    E --> H[Prueba: enumerar intercalaciones]
+    F --> I[¿Qué sigue sin garantía?]
+    G --> I
+    H --> I
+    I -->|cambia la carga| B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Patrones funcionales, reactivos y concurrentes**.
+El mapa parte de la pregunta de propiedad y termina en lo que no queda garantizado. El retorno marca que un cambio de carga reabre la decisión.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Funciones puras y datos inmutables | Sin estado oculto, la función se prueba y se compone sin sorpresas. | Predicción, traza causal y contraejemplo de **Funciones puras y datos inmutables** en `state-log.md` |
+| Flujos y contrapresión | Un productor más rápido que el consumidor exige una política. | Predicción, traza causal y contraejemplo de **Flujos y contrapresión** en `state-log.md` |
+| Concurrencia y carreras | Los resultados dependen de intercalaciones que la prueba no controla. | Predicción, traza causal y contraejemplo de **Concurrencia y carreras** en `state-log.md` |
+| Un solo dueño | Mover mensajes en lugar de compartir memoria reduce las intercalaciones posibles. | Predicción, traza causal y contraejemplo de **Un solo dueño** en `state-log.md` |
+| Límites de cada estilo | Ninguno elimina el costo: lo traslada. | Predicción, traza causal y contraejemplo de **Límites de cada estilo** en `state-log.md` |
 
 ## Conceptos y decisiones
 
-Diseñar distribuye responsabilidades y dependencias para facilitar cambios; refactorizar mejora esa estructura sin alterar comportamiento observable.
+### 1. Funciones puras y datos inmutables
 
-La pregunta rectora de esta parte es: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** La respuesta debe
-apoyarse en **pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible**.
+Una función es pura si su resultado depende solo de sus argumentos y no deja efectos: no cambia sus entradas, no lee reloj, aleatoriedad ni configuración global y no escribe fuera. De ahí salen propiedades útiles: se puede repetir, memorizar, ejecutar en cualquier orden y en paralelo. Los datos inmutables extienden la idea: si nadie puede cambiarlos, compartirlos es seguro. El costo es copiar o construir estructuras nuevas, y que en un lenguaje sin imposición la pureza es una convención que una prueba debe vigilar.
 
-### 1. Patrones: modelo
+### 2. Flujos reactivos y contrapresión
 
-En esta clase, **Patrones** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Patrones funcionales, reactivos y concurrentes**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un flujo conecta un productor con un consumidor mediante una cola. Si el productor es más rápido que el consumidor, la cola crece sin límite o algo debe ceder. La **contrapresión** es la señal del consumidor hacia el productor para frenar; si no se puede frenar al productor (un sensor, un usuario), debe descartarse algo. Las políticas son cuatro: dejar crecer la cola, bloquear al productor, descartar lo nuevo o descartar lo viejo. Cada una compra algo y cuesta algo; elegir es decidir qué se pierde.
 
-### 2. Funcionales: mecanismo
+### 3. Concurrencia y carreras
 
-En esta clase, **funcionales** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Patrones funcionales, reactivos y concurrentes**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Dos hilos que leen, calculan y escriben un dato compartido pueden intercalarse de muchas maneras. En un incremento de dos pasos (leer y guardar), el segundo hilo puede leer antes de que el primero guarde, y una actualización se pierde. No hay excepción ni aviso: el total sale plausible y equivocado. La prueba que corre mil veces puede no ver nunca la intercalación mala; solo enumerar o proteger la sección crítica la vuelve explícita.
 
-### 3. Reactivos: evidencia
+### 4. Un solo dueño
 
-En esta clase, **reactivos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Patrones funcionales, reactivos y concurrentes**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una alternativa a proteger un dato compartido es que lo posea un solo hilo (o actor) y los demás le envíen mensajes. Las operaciones llegan por una cola y se aplican en orden, de modo que las intercalaciones dañinas no existen. El costo: el dueño es un cuello de botella, el orden de llegada decide el resultado cuando hay conflicto, y los mensajes pueden perderse o duplicarse si hay una red en medio.
 
-### 4. Concurrentes: decisión
+### 5. Límites de cada estilo
 
-En esta clase, **concurrentes** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Patrones funcionales, reactivos y concurrentes**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La pureza no elimina los efectos: los empuja a los bordes (leer del disco, escribir en la base), donde hay que gestionarlos igual. Los flujos con política de desborde convierten la saturación en una pérdida explícita, que alguien debe aceptar. La concurrencia con un dueño no evita los fallos de orden entre varios dueños. Ningún estilo es gratuito: la pregunta es si su costo es el que el negocio prefiere pagar.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuántas impurezas encuentra cada prueba
+
+Se escriben doce funciones: cuatro puras y ocho impuras (dos que modifican su argumento, una que imprime, una con un argumento por defecto mutable, una que lee una configuración global, una que lee un reloj simulado, una que escribe un total global y una que devuelve una referencia a su estado interno). Tres niveles de prueba: un ejemplo, repetir la llamada con copias iguales y comprobar resultado, entrada intacta y salida vacía, y además perturbar el estado global entre llamadas y comprobar que no cambió.
+
+```python
+r1 = f(a); r2 = f(b)
+impura = not (r1 == r2 and a == [3, 1, 2] and b == [3, 1, 2] and salida == "")
+```
+
+| Impureza | Un ejemplo | Repetir y comprobar | Y perturbar lo global |
+|---|---|---|---|
+| Muta su argumento (2 funciones) | no | sí | sí |
+| Imprime | no | sí | sí |
+| Argumento por defecto mutable | no | sí | sí |
+| Lee una configuración global | no | no | sí |
+| Lee el reloj | no | no | sí |
+| Escribe un total global | no | no | sí |
+| Devuelve su estado interno | no | no | no |
+| Total (de 8) / falsas alarmas en las 4 puras | 0 / 0 | 4 / 0 | 7 / 0 |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Ningún nivel dio una falsa alarma sobre las cuatro puras.
+
+![Tabla con las impurezas que detectan un ejemplo, repetir la llamada y comprobar, y además perturbar el estado global, sobre ocho funciones impuras.](../../../content/part-24/figures/se-293-deteccion-de-impureza.svg)
+
+**Cómo leer la figura.** Cada fila es un tipo de impureza; las columnas son niveles acumulativos de prueba. **Dónde deja de valer:** el detector es una construcción sencilla del autor y la función que devuelve su estado interno pasa los tres niveles: se descubre cuando alguien modifica el valor devuelto. Una función «pura» según estas pruebas puede no serlo si depende de algo que no se perturbó. La figura muestra que un ejemplo no demuestra pureza, no que siete de ocho sea una cifra general.
+
+### Una cola entre un productor rápido y un consumidor lento
+
+Veinte mil eventos con llegadas exponenciales y servicio exponencial; semilla fija. Dos escenarios: estable (llegan 70 por segundo, se atienden 80) y saturado (llegan 100, se atienden 80). Cuatro políticas con capacidad 20: sin límite, bloquear al productor, descartar lo nuevo y descartar lo viejo. Se mide latencia media y p99 de lo procesado, descartados, cola máxima y tiempo que el productor queda bloqueado.
+
+```python
+if politica != "sin limite" and len(cola) >= cap:
+    if politica == "bloquea":
+        a2 = max(a, libre); bloqueo += a2 - a; retraso += a2 - a; a = a2
+    elif politica == "descarta lo nuevo":
+        desc += 1; continue
+    else:
+        cola.popleft(); desc += 1
+```
+
+| Escenario | Política | Procesados / descartados | Cola máxima | Latencia media (ms) | p99 (ms) |
+|---|---|---:|---:|---:|---:|
+| Estable | Sin límite | 20 000 / 0 | 48 | 99,2 | 422,4 |
+| Estable | Bloquea | 20 000 / 0 | 20 | 81,7 | 308,7 |
+| Saturado | Sin límite | 20 000 / 0 | 3992 | 24 713,8 | 49 544,7 |
+| Saturado | Bloquea | 20 000 / 0 | 20 | 220,7 | 386,1 |
+| Saturado | Descarta lo nuevo | 16 009 / 3991 | 20 | 212,8 | 376,2 |
+| Saturado | Descarta lo viejo | 16 078 / 3922 | 20 | 167,4 | 271,1 |
+
+![Tabla con la cola máxima, los eventos descartados y las latencias media y p99 de una cola con cuatro políticas en un escenario estable y en uno saturado.](../../../content/part-24/figures/se-293-contrapresion.svg)
+
+**Cómo leer la figura.** Las filas comparan la política en el escenario; las columnas, lo que se paga. **Dónde deja de valer:** la política que bloquea al productor mantiene la latencia de lo procesado pero retiene al productor 50,2 segundos, que en un sistema real sería otra cola aguas arriba; y no mide el efecto de reintentos. Las llegadas y los servicios exponenciales son un supuesto: con ráfagas, las colas se comportan peor. Los milisegundos son del modelo, no de una máquina.
+
+### Todas las intercalaciones de dos hilos
+
+Cada hilo tiene un programa de pasos atómicos. Primer caso: cada hilo incrementa un contador dos veces, y cada incremento son dos pasos (leer a un registro, guardar el registro más uno); se enumeran las 70 intercalaciones posibles. Segundo caso: dos hilos reservan el último cupo, con dos pasos (verificar y tomar). En ambos se compara con una operación indivisible.
+
+```python
+for pos in itertools.combinations(range(n1 + n2), n1):
+    orden = [1 if i in pos else 2 for i in range(n1 + n2)]      # una intercalación
+```
+
+| Programa | Variante | Intercalaciones | Resultados (valor: cuántas) |
+|---|---|---:|---|
+| 2 incrementos por hilo (esperado 4) | sin protección | 70 | 2: 32 · 3: 32 · 4: 6 |
+| 2 incrementos por hilo (esperado 4) | operación atómica | 6 | 4: 6 |
+| Reservar el último cupo (esperado 1) | sin protección | 6 | 1: 2 · 2: 4 |
+| Reservar el último cupo (esperado 1) | operación atómica | 2 | 1: 2 |
+
+![Tabla con las intercalaciones de dos hilos y los resultados obtenidos al incrementar un contador y al reservar un cupo, sin protección y con una operación atómica.](../../../content/part-24/figures/se-293-intercalaciones-de-dos-hilos.svg)
+
+**Cómo leer la figura.** Cada fila es un programa y una variante; el último dato cuenta cuántas intercalaciones dan cada resultado. **Dónde deja de valer:** el modelo supone pasos atómicos y orden de memoria secuencial; un procesador real con cachés y reordenamientos tiene más comportamientos, y los hilos reales no eligen intercalaciones con la misma probabilidad. Solo 6 de 70 salen bien: una prueba corrida mil veces puede no ver nunca una mala. Si un solo hilo es dueño del dato y recibe operaciones por una cola, hay un resultado por cada orden de llegada y ninguna pérdida.
 
 ## Definiciones de trabajo
 
-- **Patrones:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Funcionales:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Reactivos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Concurrentes:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
+- **función pura:** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
+- **inmutabilidad:** propiedad de un dato que no puede modificarse después de crearse.
+- **contrapresión:** mecanismo por el que el consumidor limita el ritmo del productor.
+- **condición de carrera:** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
+- **sección crítica:** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Patrones funcionales, reactivos y concurrentes**:
+El fragmento muestra que ordenar «en sitio» cambia la entrada. Antes de ejecutarlo, predice qué contiene `pedidos` después.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+def ordenar_mal(xs):
+    xs.sort()
+    return xs
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+pedidos = [3, 1, 2]
+asc = ordenar_mal(pedidos)
+assert pedidos == [1, 2, 3] and asc is pedidos
+```
+
+La función devolvió su entrada modificada, y el módulo que la llamó ve sus pedidos reordenados. Registra versión, comando y salida; cámbiala por `sorted(xs)` y predice el estado de `pedidos`.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Patrones funcionales, reactivos y concurrentes**. Parte de esta pregunta: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `characterization.py` y enlaza la evidencia, no solo la conclusión.
+El equipo de `tarifas` toma tres decisiones. El cálculo del costo pasa a ser una función pura sobre un registro inmutable (una tupla con nombre), con una prueba de tres niveles que se ejecuta en la suite. La cola de eventos se acota a 200 y la política es descartar lo viejo con un contador de descartes y una alarma si superan 1 % en una hora, porque un pedido antiguo ya tiene un cálculo posterior que lo reemplaza. El total del día deja de ser una variable compartida: lo acumula un único hilo que recibe cada monto por una cola, y una prueba verifica que el total coincide con la suma de los montos de la entrada.
+
+Compara con el estado anterior: la decisión es adecuada si la latencia se mantiene bajo el plazo en saturación, el total coincide con la base y la política de descarte está documentada y alarmada; es frágil si «descartar lo viejo» elimina pedidos que nadie reemplaza, o si el hilo dueño del total se vuelve el cuello de botella sin que nadie lo mida.
 
 ## Práctica guiada
 
-1. Crea `work/SE-293/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el refactorización protegida por caracterización y decisión de diseño con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe doce funciones, cuatro puras y ocho con una impureza cada una, y predice cuántas detecta cada nivel de prueba.
+2. Implementa los tres niveles y completa la tabla; anota la que ninguno detecta.
+3. Simula la cola con llegadas de 70 y 100 por segundo y servicio de 80, y compara las cuatro políticas.
+4. Cambia la capacidad de 20 a 5 y a 100 y anota cómo cambian la pérdida y la latencia.
+5. Enumera las intercalaciones de dos incrementos de dos pasos y cuenta los resultados.
+6. Reescribe el programa con una operación atómica y con un único dueño que recibe mensajes, y compara.
+7. Entrega `state-log.md` y pide a otra persona que identifique, para cada dato de `tarifas`, quién es su dueño.
 
 ## Ejercicios
 
-1. **Fundamental:** define Patrones y funcionales con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `characterization.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Pureza:** escribe una función que lea `os.environ` y muestra qué nivel de prueba la detecta.
+2. **Contrapresión:** añade una política de muestreo (conservar uno de cada dos eventos al desbordar) y compara pérdida y latencia.
+3. **Carrera:** modifica el programa de reserva para dos cupos y tres hilos y cuenta las intercalaciones que venden de más.
+4. **Dueño:** diseña el flujo de mensajes para acumular el total del día y explica qué ocurre si el hilo dueño falla.
 
 ## Reto verificable
 
-Entrega el **refactorización protegida por caracterización y decisión de diseño** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `state-log.md` con la predicción, la tabla de impurezas, la de la cola, la de intercalaciones y la asignación de dueños de `tarifas`. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué política de desborde elegiste y qué se pierde con ella. No se aprueba por afirmar que el código es «funcional» o «thread-safe» sin una prueba que lo muestre.
+
+## Caso conductor
+
+El componente `tarifas` conserva el registro de reglas, el contrato, los recargos y los observadores de `SE-289` a `SE-292` y gana un cálculo puro sobre registros inmutables, una cola acotada con política de descarte y un acumulador con un único dueño. `SE-294` pasará de los mecanismos a los síntomas: cómo diagnosticar olores de código con contexto. Cambia después una sola decisión, la capacidad de la cola, y observa qué latencia y qué pérdida cambian.
+
+## Preguntas frecuentes
+
+### ¿Hay que escribir todo como funciones puras?
+
+No: la pureza vale donde el cálculo se repite, se prueba o se paraleliza. Las operaciones con efectos (leer, escribir, avisar) se concentran en los bordes y se mantienen finas.
+
+### ¿Descartar eventos no es perder datos?
+
+Sí, y por eso la política debe ser explícita, contada y aceptada por quien responde por el negocio. Una cola sin límite también pierde: pierde la utilidad, porque las respuestas llegan demasiado tarde.
+
+### ¿Un candado resuelve las carreras?
+
+Resuelve la intercalación dentro de la sección que protege, a cambio de espera y del riesgo de bloqueos entre candados. Un único dueño con una cola evita el candado y traslada el costo al orden de llegada y a la capacidad del dueño.
+
+### ¿Programación reactiva es lo mismo que asíncrona?
+
+No: lo asíncrono es no esperar el resultado; lo reactivo agrega flujos de datos con contrapresión entre quien produce y quien consume. Se puede ser asíncrono sin contrapresión, con la cola creciendo hasta agotar la memoria.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **refactorizar y cambiar comportamiento al mismo tiempo sin caracterización**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **un total compartido que pierde actualizaciones sin avisar**. Usa el programa de dos hilos que incrementan dos veces con un contador compartido y toma las 70 intercalaciones.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el total del día difiere en unos pocos pesos del de la base, y la diferencia varía entre ejecuciones. **Hipótesis rivales:** (a) un redondeo acumulado; (b) duplicados en la entrada; (c) actualizaciones perdidas por una intercalación de lectura y escritura. **Prueba:** ejecuta los incrementos con un solo hilo; si el total es exacto, descarta (a) y (b); enumera las intercalaciones: si solo 6 de 70 dan 4, la causa es (c). **Conclusión:** el contador compartido sin protección pierde actualizaciones. **Regresión:** pasa el acumulador a un único dueño que recibe los montos por una cola, agrega la prueba de enumeración y no cambies a la vez la cola y la política de redondeo.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Una función «pura» deja a su llamador con datos reordenados | Modifica su argumento | Devolver un valor nuevo y probar con copias |
+| Las respuestas llegan con horas de retraso en hora punta | Cola sin límite con productor más rápido | Acotar la cola y elegir una política de desborde |
+| El total difiere en unos pocos pesos entre ejecuciones | Carrera sobre un contador compartido | Un único dueño o una operación atómica |
+| La prueba concurrente pasa mil veces y falla en producción | Intercalación mala poco probable | Enumerar o acotar las intercalaciones |
+| Se pierden eventos sin que nadie lo sepa | Descarte sin contador ni alarma | Contar los descartes y alarmar |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, pruebas, analizador estático y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-293/
 ├── README.md
-│   ├── characterization.py
-│   ├── design.md
-│   ├── refactoring.md
-├── activity.yaml
-└── rubric.json
+├── pureza/
+│   ├── funciones.py
+│   └── detector.py
+├── flujo/
+│   └── cola.py
+├── concurrencia/
+│   └── intercalaciones.py
+└── evidence/state-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `characterization.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`, `itertools`, `collections`, `contextlib`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- descartar un pedido o una tarifa es una decisión que afecta a una persona: la política de desborde debe ser explícita, aceptada por quien responde por el negocio y auditable;
+- un total que pierde actualizaciones puede cobrar de menos o de más: reconcilia siempre con una fuente independiente;
+- una función pura que se memoriza puede conservar datos personales en la memoria: define su tiempo de vida;
+- no uses datos reales de clientes en las colas de prueba;
+- respeta las licencias de los artículos y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «hazlo concurrente y rápido» añadirá hilos o `async` y una variable compartida para el total, y declarará que escala. Pídele en cambio que diga quién es dueño de cada dato, que acote la cola con una política elegida y justificada, que escriba la prueba de tres niveles de pureza y que enumere las intercalaciones del acumulador. Revisa especialmente si dejó una lista sin límite, si usó un argumento por defecto mutable o si presentó un `Lock` como la solución sin probar la sección crítica.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro flujo (por ejemplo, el de notificaciones por correo): cambia el productor, el consumidor y el dato compartido, y conserva el procedimiento de preguntar quién es dueño, acotar la cola y enumerar intercalaciones. La transferencia está lograda cuando puedes explicar qué se pierde con la política elegida, no cuando el código usa los mismos nombres.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-293/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de pureza, contrapresión y dueño con ejemplos de `tarifas` |
+| corrección | impurezas detectadas, cola e intercalaciones reproducibles con las mismas semillas |
+| diseño | cálculo puro, cola acotada con política y acumulador con un solo dueño |
+| diagnóstico | reproducción del fallo «total compartido que pierde actualizaciones» con regresión |
+| incertidumbre | declaración de que la cola y las intercalaciones son modelos, sin hilos reales |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Hughes, «Why Functional Programming Matters» (The Computer Journal, 1989)](https://doi.org/10.1093/comjnl/32.2.98) — modularidad con funciones sin efectos; autoridad: The Computer Journal.
+- [Lee, «The Problem with Threads» (IEEE Computer, 2006)](https://doi.org/10.1109/MC.2006.180) — hilos y no determinismo; autoridad: IEEE Computer.
+- [Reactive Streams](https://www.reactive-streams.org/) — flujo asincrónico con contrapresión; autoridad: la iniciativa Reactive Streams.
+- [The Reactive Manifesto](https://www.reactivemanifesto.org/) — sistemas reactivos y paso de mensajes; autoridad: sus autores.
+- [Little, «A Proof for the Queuing Formula: L = λW» (Operations Research, 1961)](https://doi.org/10.1287/opre.9.3.383) — relación entre cola, llegada y espera; autoridad: Operations Research.
+- [Python: `queue`](https://docs.python.org/3/library/queue.html) — colas para comunicar hilos; autoridad: documentación de Python.
+- [Python: `threading`](https://docs.python.org/3/library/threading.html) — hilos y candados; autoridad: documentación de Python.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 3992 posiciones de cola, los 6 de 70 resultados correctos o los siete de ocho detectados se observen en `tarifas`. Esa afirmación depende de su carga, su planificador y sus datos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Patrones funcionales, reactivos y concurrentes**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-294`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres modelos y análisis con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó ningún hilo real, no se midió ningún tiempo de máquina y las llegadas y servicios exponenciales son un supuesto; las funciones, la cola y los programas de dos hilos son construcciones del autor. La siguiente clase pasa de los mecanismos a los síntomas y trata los olores de código y su diagnóstico con contexto.
+
+## Glosario
+
+- **función pura:** función cuyo resultado depende solo de sus argumentos y que no produce efectos observables fuera de él.
+- **inmutabilidad:** propiedad de un dato que no puede modificarse después de crearse.
+- **contrapresión:** mecanismo por el que el consumidor limita el ritmo del productor.
+- **condición de carrera:** situación en que el resultado depende del orden en que se intercalan operaciones concurrentes.
+- **sección crítica:** fragmento que accede a un dato compartido y debe ejecutarse sin interferencia.
 
 ---
 

@@ -106,6 +106,23 @@ personas con experiencia en cada dominio, y no presentan una simulación, un or�
 como sustitutos de la validación de dominio, de las pruebas con sistemas reales ni de la normativa
 aplicable.
 
+## Avance editorial de la Parte 24
+
+Las clases `SE-289`–`SE-300` se reconstruyeron en `content/part-24/` alrededor del componente
+`tarifas` de una plataforma de entregas, un caso sintético que recorre la parte: cohesión,
+acoplamiento y encapsulación, principios SOLID y sus límites, herencia frente a composición,
+patrones de diseño, patrones funcionales, reactivos y concurrentes, olores de código con
+contexto, refactorización con una red de pruebas medida, diseño para cambio, prueba y operación,
+complejidad esencial y accidental, deuda técnica con su interés, un taller de refactorización de
+una función heredada y un proyecto de evolución compatible. Cada clase incluye tres análisis de
+código o simulaciones con semilla fija, ejecutados en Windows y Ubuntu (WSL2) con cifras idénticas,
+y declara que no se midió ningún proyecto de producción, que los parámetros son supuestos del
+autor, que los detectores se evaluaron con ejemplos escritos por el autor y que no se consultó a
+ningún consumidor real. Las doce clases todavía requieren revisión por personas con experiencia
+en diseño de software y no presentan una métrica, un verificador de firmas ni un maestro dorado
+como sustitutos del juicio de quien diseña, de la revisión del código ni de los contratos con
+los consumidores reales.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

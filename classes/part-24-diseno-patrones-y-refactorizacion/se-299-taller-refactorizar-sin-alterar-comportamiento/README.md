@@ -2,207 +2,330 @@
 
 [← SE-298 — Deuda técnica, interés y opciones](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones/README.md) · [↑ Parte 24](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-299.html) · [SE-300 — Proyecto: evolución compatible de un componente →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-300-proyecto-evolucion-compatible-de-un-componente/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** El taller existe para que ejecutes un refactor completo sobre una función heredada de `tarifas` con la técnica que cuida el comportamiento cuando no hay especificación: registrar lo que hace hoy (un maestro dorado), avanzar en pasos que se comparan con ese registro, decidir caso por caso qué rarezas se conservan y cuáles se corrigen, y entregar la evidencia de cada decisión.
+
+**Por qué aparece aquí.** Es el taller de la mitad de la Parte 24 y reúne las clases anteriores: el diagnóstico de `SE-294`, la red de `SE-295`, las decisiones de diseño de `SE-296`, la complejidad de `SE-297` y la estimación de interés de `SE-298`. Prepara el proyecto de `SE-300`, que evoluciona un componente sin romper a sus usuarios.
+
+**Error conceptual que debe corregir.** Creer que, si un refactor «se ve más limpio» y las pruebas existentes pasan, el comportamiento se conservó: en el código heredado hay comportamientos no documentados que alguien usa, y los pasos aparentemente inocentes (simplificar una comparación, cambiar el redondeo) los cambian sin que ninguna prueba lo diga.
+
+**Secuencia de aprendizaje.** Antes de mirar los resultados, predices cuántas entradas registradas cambian de resultado en cada paso de un refactor de cuatro pasos, cuántos de 39 mutantes mata un maestro dorado de 10, 200 o 3000 entradas y qué fracción de los caminos de la función alcanzan 3, 30 o 300 entradas registradas. Después lo ejecutas sobre una función heredada con rarezas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `workshop-log.md` con la predicción, la tabla de pasos con entradas que difieren, la curva de mutantes muertos, la de caminos alcanzados, las decisiones de conservar o corregir cada rareza y una nota que diga qué comportamiento heredado se conservó y por qué.
+
+**Límite de la conclusión.** La función heredada, su dominio de entradas (con 10 % de valores no booleanos en una bandera) y los 39 mutantes son construcciones del autor. Un maestro dorado solo protege lo que sus entradas ejercen: no se ejecutó ningún cliente real ni se consultó a quienes usaban las rarezas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Feathers, «Working Effectively with Legacy Code»](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) | Presenta las pruebas de caracterización: registrar lo que el código hace hoy para protegerlo al cambiarlo, aunque ese comportamiento no esté especificado. | No dice cuántas entradas bastan ni cómo decidir qué rarezas conservar. |
+| [Fowler, catálogo de refactorizaciones: «Extract Function»](https://refactoring.com/catalog/extractFunction.html) | Describe la extracción de una función como un paso pequeño que conserva el comportamiento, con sus precauciones. | No garantiza que una extracción concreta sea segura sin una red. |
+| [Python: `sys.settrace`](https://docs.python.org/3/library/sys.html) | Documenta el rastreo de líneas ejecutadas, que se usa aquí para medir los caminos que alcanza cada conjunto de entradas. | No define qué cobertura es suficiente. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-295` y `SE-298`: una red se mide y un refactor se paga donde hay interés. La pregunta activa es: **¿qué hace hoy esta función que alguien pudo haber usado, y cómo lo sabré después de cada paso?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-298` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, pruebas, analizador estático y Git.
+- Haber completado `SE-298` o poder explicar la diferencia entre principal e interés.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Haber medido mutantes (`SE-295`) y leído el árbol sintáctico con `ast`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: refactorizar sin alterar comportamiento**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Dentro de `tarifas` hay una función heredada de 31 líneas, `tarifa(peso, zona, urgente, fragil, vip, cupon)`, escrita hace cuatro años por alguien que ya no está. Sin documentación, mezcla la base por zona, los recargos por peso, las opciones y los cupones, con condicionales en cascada y un redondeo propio (`int(t * 100 + 0.5) / 100`). La complejidad ciclomática es 15, es el módulo que más se cambia (se estima, con `SE-298`, un interés de medio día por cambio) y nadie sabe qué hace con un cupón de envío gratis fuera de la zona 1 y 2, ni con un `urgente` que llega como número o como texto desde un cliente antiguo. La jefatura pide que se limpie «sin cambiar nada».
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Taller y refactorizar con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **refactorización protegida por caracterización y decisión de diseño** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «refactorizar y cambiar comportamiento al mismo tiempo sin caracterización» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Refactorizar | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Sin | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Alterar | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. registrar un maestro dorado de una función heredada con entradas elegidas por semilla y usarlo como oráculo en cada paso;
+2. ejecutar un refactor de cuatro pasos y detectar, con una cuenta, qué paso cambió el comportamiento y por qué;
+3. medir cuántos mutantes mata el maestro según su tamaño y cuántos caminos de la función alcanza;
+4. decidir caso por caso si una rareza se conserva (compatibilidad) o se corrige (con aviso), y dejarlo escrito;
+5. entregar las métricas antes y después y el límite de lo que el maestro no cubre.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Taller: refactorizar sin alterar comportamiento"] --> M["Modelo: Taller"]
-    M --> D["Decisión: refactorizar"]
-    D --> E["Evidencia: sin"]
-    E --> R["Revisión: alterar"]
-    R -->|nueva información| M
+    A[Función heredada] --> B[Registrar entradas y salidas: maestro dorado]
+    B --> C[Paso de refactor]
+    C --> D[Comparar con el maestro]
+    D -->|igual| E[Confirmar y seguir]
+    D -->|difiere| F{¿Rareza usada?}
+    F -->|sí: conservar| G[Escribir la rareza como regla explícita]
+    F -->|no: corregir| H[Aviso y cambio de comportamiento deliberado]
+    E --> C
+    G --> C
+    H --> C
+    E --> I[Métricas antes y después]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: refactorizar sin alterar comportamiento**.
+El mapa tiene un ciclo (paso, comparación, decisión) y dos salidas distintas ante una diferencia: conservar la rareza como regla o corregirla con un aviso. Ninguna diferencia se acepta sin decisión.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Maestro dorado | Convierte el comportamiento actual en un oráculo sin necesitar una especificación. | Predicción, traza causal y contraejemplo de **Maestro dorado** en `workshop-log.md` |
+| Pasos y comparación | Cada paso se comprueba con el oráculo y deja un solo sospechoso. | Predicción, traza causal y contraejemplo de **Pasos y comparación** en `workshop-log.md` |
+| Rarezas heredadas | Hay que decidir si se conservan o se corrigen. | Predicción, traza causal y contraejemplo de **Rarezas heredadas** en `workshop-log.md` |
+| Cobertura del oráculo | El maestro protege solo lo que sus entradas ejercen. | Predicción, traza causal y contraejemplo de **Cobertura del oráculo** en `workshop-log.md` |
+| Métricas y cierre | Antes y después, con lo que no se cubrió. | Predicción, traza causal y contraejemplo de **Métricas y cierre** en `workshop-log.md` |
 
 ## Conceptos y decisiones
 
-Diseñar distribuye responsabilidades y dependencias para facilitar cambios; refactorizar mejora esa estructura sin alterar comportamiento observable.
+### 1. Maestro dorado
 
-La pregunta rectora de esta parte es: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** La respuesta debe
-apoyarse en **pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible**.
+Un maestro dorado (golden master) es un registro de las salidas del programa actual para un conjunto grande de entradas. No afirma que esas salidas sean correctas: afirma que son lo que el código hace hoy. Sirve como oráculo para un refactor, porque cualquier diferencia es un cambio de comportamiento que hay que explicar. Su calidad depende de las entradas: deben cubrir los caminos y los bordes, incluidas las entradas «raras» que los clientes reales envían.
 
-### 1. Taller: modelo
+### 2. Pasos y comparación
 
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: refactorizar sin alterar comportamiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El refactor se divide en pasos que se pueden comparar con el maestro: extraer la base por zona y el recargo por peso, extraer las opciones, el cupón y el redondeo, simplificar una condición, cambiar el redondeo. Tras cada paso se ejecuta la comparación; si algo difiere, el último paso es el sospechoso único (`SE-295`). Un paso que no cambia nada observable es puro refactor; uno que sí, es un cambio de comportamiento que debe decidirse aparte.
 
-### 2. Refactorizar: mecanismo
+### 3. Rarezas heredadas
 
-En esta clase, **refactorizar** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: refactorizar sin alterar comportamiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada diferencia detectada es una decisión. Algunas rarezas son defectos que nadie notó (un cupón que da un monto negativo y se corrige a cero por un piso), otras son acuerdos implícitos con clientes (un `urgente` que llega como `2` o como `"si"` y se trata como falso porque la comparación es con `True`). Conservar una rareza la convierte en una regla explícita con una prueba y un nombre; corregirla es un cambio de comportamiento que se anuncia y se programa. No decidir deja la rareza escondida en una simplificación.
 
-### 3. Sin: evidencia
+### 4. Cobertura del oráculo
 
-En esta clase, **sin** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: refactorizar sin alterar comportamiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El maestro tiene un tamaño y una distribución. Con pocas entradas, los caminos poco frecuentes (un cupón de envío gratis fuera de las zonas 1 y 2, el piso en cero) no aparecen. La cobertura de caminos se mide con un rastreo de líneas, y se completa con entradas escogidas a mano para los caminos que el azar no alcanza. También hay que incluir los valores que llegan por canales antiguos (números en lugar de booleanos), aunque sean pocos.
 
-### 4. Alterar: decisión
+### 5. Métricas y cierre
 
-En esta clase, **alterar** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: refactorizar sin alterar comportamiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El cierre del taller compara antes y después: funciones, líneas, complejidad total y complejidad de la función mayor. No bastan: la evidencia principal es que el oráculo pasa, que cada diferencia tiene una decisión y que se declara lo que el maestro no ve (concurrencia, rendimiento, efectos laterales, clientes que dependían de un detalle fuera del dominio probado). Un refactor termina cuando otra persona puede continuar sin saber qué hacía la función antes.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Un refactor de cuatro pasos contra el maestro
+
+La función heredada: base por zona (2, 3, 5 u 8), +4 si el peso pasa de 5, +6 si pasa de 20, +0,125 por kilo, ×1,5 si `urgente == True`, +3 si frágil, ×0,9 si VIP, un cupón (`PRIMERA` resta 2, `ENVIOGRATIS` anula el monto en las zonas 1 y 2 y resta 5 en las demás), piso en cero y el redondeo `int(t * 100 + 0.5) / 100`. El maestro se registra con 3000 entradas de semilla fija: peso de 0,1 a 50, zona 1 a 5, banderas booleanas el 90 % de las veces y valores `1`, `0`, `2` o `"si"` el 10 %, y cupón ausente, `PRIMERA`, `ENVIOGRATIS` u `OTRO`.
+
+Los cuatro pasos: (1) extraer `base_zona` y `recargo_peso`; (2) extraer las opciones, el cupón y un `redondeo_historico` con el piso; (3) cambiar `urgente == True` por `if urgente`; (4) cambiar el redondeo histórico por `round(t, 2)`.
+
+```python
+dif = [(x, g, f(*x)) for x, g in zip(MAESTRO, GOLD) if f(*x) != g]
+```
+
+| Paso | Entradas que difieren |
+|---|---|
+| 1. Extraer zona y peso | 0 |
+| 2. Extraer opciones, cupón y redondeo | 0 |
+| 3. `urgente == True` pasa a `if urgente` | 142 (`urgente` = 2 o `"si"`: 77 y 65) |
+| 4. `round()` en vez del redondeo histórico | 257 (106 con `urgente` booleano) |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). De las 3000 entradas, 315 tienen un `urgente` no booleano; el paso 3 cambia el resultado de las 142 con `2` o `"si"`. Con `1` y `0` el resultado no cambia.
+
+![Tabla con las entradas del maestro dorado cuyo resultado cambia en cada uno de los cuatro pasos de un refactor: ninguna en los dos primeros, 142 al simplificar una comparación y 257 al cambiar el redondeo.](../../../content/part-24/figures/se-299-maestro-dorado-por-pasos.svg)
+
+**Cómo leer la figura.** Cada fila es un paso; el número es cuántas de las 3000 entradas registradas dan un resultado distinto. **Dónde deja de valer:** el 10 % de valores no booleanos es un supuesto del autor sobre lo que envían los clientes antiguos; si ninguno los enviara, el paso 3 sería inocuo. El maestro detecta la diferencia, pero no decide si es un defecto o un acuerdo: eso es una decisión. Y el paso 4 cambia el comportamiento en entradas con redondeo de mitades, donde el valor difiere por un centavo.
+
+### Cuántos mutantes mata el maestro según su tamaño
+
+Se parte de la versión tras el paso 2. Un transformador de `ast` genera 39 mutantes (comparaciones, operadores y constantes), todos distinguibles con 3000 entradas de referencia. Se toman muestras aleatorias del maestro de 10, 50, 200, 1000 y 3000 entradas (30 muestras por tamaño, semilla fija) y se cuenta cuántos mutantes dan una salida distinta de la función heredada.
+
+```python
+ests.append(sum(1 for m in vivos if any(salida(m, x) != salida(f0, x) for x in sub)))
+```
+
+| Entradas registradas | Mutantes muertos (media de 30 muestras) | Mínimo y máximo |
+|---:|---:|---|
+| 10 | 31,8 de 39 (81,6 %) | 27 y 36 |
+| 50 | 36,2 de 39 (92,9 %) | 35 y 38 |
+| 200 | 37,7 de 39 (96,8 %) | 36 y 39 |
+| 1000 | 38,8 de 39 (99,4 %) | 38 y 39 |
+| 3000 | 39 de 39 (100 %) | 39 y 39 |
+
+![Barras con los mutantes de la función refactorizada que mata un maestro dorado de diez, cincuenta, doscientas, mil y tres mil entradas registradas, del ochenta y uno al cien por ciento.](../../../content/part-24/figures/se-299-entradas-que-matan-mutantes.svg)
+
+**Cómo leer la figura.** Cada barra es la media de mutantes muertos con un tamaño de maestro; el mínimo y el máximo de las muestras están en la tabla. **Dónde deja de valer:** el dominio de entradas es pequeño (peso, cinco zonas, banderas, cupón) y los mutantes son cambios automáticos simples; en un dominio con millones de combinaciones, la curva sube mucho más despacio. Con 200 entradas aún sobreviven 1,3 mutantes en promedio y hasta 3 en la peor muestra: un maestro pequeño deja pasar cambios.
+
+### Qué caminos alcanzan las entradas
+
+Con `sys.settrace` se registran los arcos (pares de líneas consecutivas) que recorre la función heredada. El total alcanzable con las 3000 entradas y dos entradas a mano (un cupón de envío gratis fuera de zona y un peso mínimo) es de 42 arcos. Para cada tamaño de muestra se calcula qué fracción de esos arcos se alcanza (30 muestras, semilla fija).
+
+```python
+def tr(fr, ev, arg):
+    if fr.f_code.co_name == "tarifa" and ev == "line":
+        vistos.add((tr.ant, fr.f_lineno)); tr.ant = fr.f_lineno
+```
+
+| Entradas registradas | Arcos alcanzados (media) | Mínimo de 30 muestras |
+|---:|---:|---:|
+| 3 | 67,4 % | 52,4 % |
+| 10 | 88,7 % | 78,6 % |
+| 30 | 94,9 % | 90,5 % |
+| 100 | 96,0 % | 90,5 % |
+| 300 | 96,7 % | 95,2 % |
+| 3000 | 100 % | 100 % |
+
+![Tabla con la fracción de arcos de la función heredada que alcanzan tres, diez, treinta, cien, trescientas y tres mil entradas registradas, con su valor medio y mínimo.](../../../content/part-24/figures/se-299-cobertura-segun-entradas.svg)
+
+**Cómo leer la figura.** Cada fila es un tamaño de maestro; las columnas dan la fracción media y la mínima de arcos alcanzados. **Dónde deja de valer:** los arcos son pares de líneas, una medida de caminos más fina que las líneas pero no tan fina como las condiciones; alcanzar un arco no comprueba su resultado. Los primeros diez casos rinden mucho y los últimos arcos cuestan miles: los caminos raros (cupón de envío gratis fuera de zona, piso en cero) casi no salen al azar y hay que ir a buscarlos. Tras el paso 2 la función de complejidad 15 queda en seis funciones, la mayor con 4.
 
 ## Definiciones de trabajo
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Refactorizar:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Sin:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Alterar:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
+- **maestro dorado:** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
+- **prueba de caracterización:** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
+- **rareza heredada:** comportamiento no documentado del código existente que puede estar en uso.
+- **arco:** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
+- **compatibilidad hacia atrás:** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Taller: refactorizar sin alterar comportamiento**:
+El fragmento registra un maestro dorado de una función y detecta un cambio. Antes de ejecutarlo, predice cuántas entradas difieren.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+def antes(x): return int(x * 100 + 0.5) / 100
+def despues(x): return round(x, 2)
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+entradas = [0.125, 0.135, 1.005, 2.675, 3.14159]
+maestro = [antes(x) for x in entradas]
+difieren = [x for x, g in zip(entradas, maestro) if despues(x) != g]
+assert len(difieren) >= 1
+```
+
+Las entradas con mitades exactas o casi exactas pueden redondear distinto. Registra versión, comando y salida; imprime cuáles difieren y por qué.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: refactorizar sin alterar comportamiento**. Parte de esta pregunta: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `characterization.py` y enlaza la evidencia, no solo la conclusión.
+El equipo de `tarifas` ejecuta el taller con un protocolo de cinco pasos escrito antes de tocar el código. Registra el maestro dorado con 3000 entradas de semilla fija más los casos de borde derivados del código, incluidos los valores no booleanos que, según el registro de solicitudes, llegan del cliente antiguo. Hace los cuatro pasos con un commit y una comparación cada uno. Ante el paso 3, no lo da por inocuo: pregunta al equipo de integración y encuentra que un cliente antiguo envía `2` en lugar de `True`; decide conservar la rareza como una función `urgente_historico(valor)` con una prueba y un aviso de retirada en seis meses. Ante el paso 4, decide conservar el redondeo histórico con un nombre que lo explique, porque cambiaría el monto de un centavo en 106 entradas booleanas.
+
+Compara con el estado anterior: el taller es adecuado si cada diferencia tiene una decisión escrita, el maestro pasa en cada paso y la lista de lo que no cubre está declarada; es frágil si se acepta una diferencia «porque es de un centavo» sin preguntar a quien factura, o si el maestro no contiene las entradas que los clientes reales envían.
 
 ## Práctica guiada
 
-1. Crea `work/SE-299/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el refactorización protegida por caracterización y decisión de diseño con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe la función heredada de 31 líneas y predice su complejidad ciclomática.
+2. Registra el maestro dorado con 3000 entradas de semilla fija, incluyendo valores no booleanos en `urgente`.
+3. Ejecuta los cuatro pasos y compara con el maestro tras cada uno; anota las diferencias.
+4. Para cada diferencia, decide conservar o corregir y escribe la regla o el aviso.
+5. Genera 39 mutantes y mide cuántos mata el maestro con 10, 200 y 3000 entradas.
+6. Mide con `sys.settrace` los arcos que alcanzan 3, 30 y 300 entradas y completa con entradas a mano los que faltan.
+7. Entrega `workshop-log.md` y pide a otra persona que reproduzca el maestro y diga qué rareza conservaste.
 
 ## Ejercicios
 
-1. **Fundamental:** define Taller y refactorizar con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `characterization.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Rarezas:** encuentra una tercera rareza en la función (por ejemplo, el cupón `OTRO`) y decide si se conserva.
+2. **Maestro:** añade entradas de borde derivadas del código y mide si suben los mutantes muertos con 200 entradas.
+3. **Paso:** divide el paso 4 en dos (introducir `redondeo` como función y cambiar su cuerpo) y explica qué ganas.
+4. **Cierre:** escribe la sección «lo que el maestro no cubre» para esta función.
 
 ## Reto verificable
 
-Entrega el **refactorización protegida por caracterización y decisión de diseño** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `workshop-log.md` con la predicción, el maestro dorado (semilla y comando), la tabla de pasos con las diferencias, la decisión por rareza, las curvas de mutantes y arcos y las métricas antes y después. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué rarezas se conservaron y cuáles se corrigieron. No se aprueba por afirmar que «las pruebas pasan» ni por aceptar una diferencia sin una decisión escrita.
+
+## Caso conductor
+
+El componente `tarifas` conserva el diagnóstico, la red, el diseño, la reducción de complejidad y el registro de deuda de `SE-294` a `SE-298`, y gana la función de tarifa refactorizada en seis funciones, con las rarezas conservadas como reglas con nombre y una prueba de maestro dorado. `SE-300` cierra la parte evolucionando el componente sin romper a sus usuarios. Cambia después una sola decisión, el tamaño del maestro, y observa qué mutantes sobreviven.
+
+## Preguntas frecuentes
+
+### ¿Un maestro dorado no consagra los defectos?
+
+Los registra, y eso es lo que se busca al principio: no cambiar nada por accidente. Después se decide, caso por caso, cuáles se corrigen con un aviso y una prueba nueva. Corregir un defecto durante el refactor mezcla dos cambios y hace imposible saber cuál rompió algo.
+
+### ¿Cuántas entradas debe tener el maestro?
+
+Las que alcancen los caminos y los bordes relevantes y las entradas raras que los clientes reales envían. La curva muestra que 200 entradas aún dejan pasar mutantes y que unas pocas entradas dirigidas valen más que cientos al azar.
+
+### ¿Qué hago si una diferencia es de un centavo?
+
+Preguntar quién factura y quién concilia: un centavo en miles de cobros es dinero y un motivo de reclamos. No se acepta por pequeña.
+
+### ¿Puedo cambiar el nombre de las funciones durante el refactor?
+
+Sí, si es un paso mecánico y se comprueba con el maestro. Cambiar la interfaz pública es otro tipo de cambio y se trata en `SE-300`.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **refactorizar y cambiar comportamiento al mismo tiempo sin caracterización**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico del taller: **una simplificación que cambia el comportamiento para clientes antiguos**. Aplica el paso 3 sin consultar el maestro y despliega.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** un cliente antiguo empieza a recibir tarifas de envío urgente más altas que antes, y la suite de ejemplos sigue en verde. **Hipótesis rivales:** (a) el cliente cambió el peso; (b) la tabla de zonas se actualizó; (c) el parámetro `urgente` llega como `2` y la condición ahora lo trata como verdadero. **Prueba:** ejecuta la versión anterior y la nueva con `urgente = 2`; si difieren y con `True` coinciden, la causa es (c). **Conclusión:** la simplificación cambió un comportamiento no documentado. **Regresión:** añade al maestro entradas con `urgente` en `1`, `0`, `2` y `"si"`, conserva la rareza como `urgente_historico` con su prueba y no cambies a la vez la condición y la lista de valores aceptados.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El refactor pasa las pruebas y rompe a un cliente | El maestro no incluye entradas de canales antiguos | Añadir las entradas reales (valores no booleanos, formatos viejos) |
+| No se sabe qué paso cambió el comportamiento | Se hicieron varios pasos antes de comparar | Comparar tras cada paso y hacer un commit por paso |
+| Se corrige un defecto durante el refactor | Dos cambios en uno | Separar: primero preservar, luego corregir con aviso |
+| El maestro deja pasar mutantes | Pocas entradas o sin bordes | Medir mutantes y completar con entradas dirigidas |
+| Se acepta una diferencia «de un centavo» | No se preguntó a quien factura | Tratar cada diferencia como decisión de negocio |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, pruebas, analizador estático y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-299/
 ├── README.md
-│   ├── characterization.py
-│   ├── design.md
-│   ├── refactoring.md
-├── activity.yaml
-└── rubric.json
+├── heredado/
+│   ├── tarifa_heredada.py
+│   └── maestro.json
+├── refactor/
+│   ├── paso1.py
+│   ├── paso2.py
+│   ├── paso3.py
+│   └── paso4.py
+├── medidas/
+│   ├── mutantes.py
+│   └── arcos.py
+└── evidence/workshop-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `characterization.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`ast`, `sys`, `random`, `statistics`, `textwrap`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un cambio de un centavo en un cobro es un cambio de lo que paga una persona: toda diferencia detectada es una decisión de negocio y se registra con quién la tomó;
+- un maestro dorado que se construye con datos reales de clientes contiene información personal: usa entradas sintéticas o anonimizadas y no lo publiques;
+- retirar una rareza que un cliente antiguo usa sin avisarle puede impedirle operar: anuncia la retirada con plazo (`SE-300`);
+- los mensajes de las pruebas deben decir qué entrada difiere y en cuánto, para que cualquiera pueda decidir;
+- respeta las licencias de los textos citados y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «refactoriza esta función heredada sin cambiar el comportamiento» la reescribirá con una forma más clara y ejecutará las pruebas que existan. Pídele en cambio que registre primero el maestro dorado con entradas de semilla fija y bordes, que avance en pasos con comparación y commit por paso, que detenga el refactor ante cada diferencia y te la presente con la decisión que necesita, y que liste lo que el maestro no cubre. Revisa especialmente si «arregló» una rareza sin avisar, si cambió el redondeo o una comparación con `True`, o si modificó el maestro para que la diferencia desapareciera.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el taller a otra función heredada (por ejemplo, la de conciliación de pagos): cambia la lógica y las rarezas, y conserva el procedimiento de registrar el maestro, avanzar en pasos, decidir cada diferencia y declarar lo no cubierto. La transferencia está lograda cuando puedes explicar qué rarezas conservaste y por qué, no cuando el código queda más corto.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-299/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de qué registra un maestro dorado y qué decisiones exige |
+| corrección | maestro, pasos y curvas reproducibles con las mismas semillas |
+| diseño | función refactorizada en funciones con nombre y rarezas conservadas como reglas |
+| diagnóstico | reproducción del fallo «simplificación que cambia el comportamiento para clientes antiguos» con regresión |
+| incertidumbre | declaración de que el maestro solo protege las entradas que ejerce |
+| reproducibilidad | versiones, comandos, semillas, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Feathers, «Working Effectively with Legacy Code»](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) — pruebas de caracterización; autoridad: su autor (Prentice Hall).
+- [Fowler, «Refactoring» (2.ª ed.)](https://martinfowler.com/books/refactoring.html) — refactorizar en pasos pequeños; autoridad: Martin Fowler.
+- [Fowler, «Extract Function»](https://refactoring.com/catalog/extractFunction.html) — extracción de una función; autoridad: Martin Fowler.
+- [Fowler, «Self Testing Code»](https://martinfowler.com/bliki/SelfTestingCode.html) — código que se comprueba solo; autoridad: Martin Fowler.
+- [Jia y Harman (IEEE TSE, 2011)](https://doi.org/10.1109/TSE.2010.62) — revisión de la prueba de mutación; autoridad: IEEE Transactions on Software Engineering.
+- [Python: `sys.settrace`](https://docs.python.org/3/library/sys.html) — rastreo de líneas ejecutadas; autoridad: documentación de Python.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 142 casos del paso 3, los 31,8 mutantes con 10 entradas o el 67,4 % de arcos con 3 entradas se observen en una función real. Esa afirmación depende de su dominio de entradas y de lo que sus clientes envían.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Taller: refactorizar sin alterar comportamiento**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-300`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres análisis sobre una función heredada de ejemplo con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se consultó a ningún cliente real ni se registró un maestro con tráfico real; la función, su dominio de entradas, los valores no booleanos y los 39 mutantes son construcciones del autor. La siguiente clase es el proyecto de la parte: evolucionar un componente sin romper a quienes lo usan.
+
+## Glosario
+
+- **maestro dorado:** registro de las salidas de un programa para un conjunto de entradas, usado como oráculo para detectar cambios de comportamiento.
+- **prueba de caracterización:** prueba que fija lo que el código hace hoy, sin afirmar que sea lo correcto.
+- **rareza heredada:** comportamiento no documentado del código existente que puede estar en uso.
+- **arco:** par de líneas consecutivas ejecutadas, usado como medida de cobertura de caminos.
+- **compatibilidad hacia atrás:** propiedad de un cambio que no rompe a quienes usaban la versión anterior.
 
 ---
 

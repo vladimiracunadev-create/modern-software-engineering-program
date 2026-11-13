@@ -2,207 +2,326 @@
 
 [← SE-297 — Complejidad accidental y esencial](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-297-complejidad-accidental-y-esencial/README.md) · [↑ Parte 24](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-298.html) · [SE-299 — Taller: refactorizar sin alterar comportamiento →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-24-diseno-patrones-y-refactorizacion/se-299-taller-refactorizar-sin-alterar-comportamiento/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que hables de la deuda técnica con el vocabulario del dinero que la metáfora pide (principal, interés, plazo, opción) y para que decidas qué pagar, cuándo y qué dejar, usando una estimación explícita de lo que cuesta no pagar y no la incomodidad de ver un código feo.
+
+**Por qué aparece aquí.** Sigue a **Complejidad accidental y esencial** (`SE-297`): allí se distinguió la complejidad que se puede reducir de la que no; aquí se pone precio a la que queda. Es la clase que convierte los olores (`SE-294`), la red de pruebas (`SE-295`) y las decisiones de diseño (`SE-296`) en una decisión de inversión.
+
+**Error conceptual que debe corregir.** Creer que toda deuda técnica debe pagarse o que «deuda» es cualquier código que no nos gusta: la deuda solo cobra interés cuando se trabaja en ella, y lo que importa es la tasa, no el tamaño; una deuda grande en código que nadie toca puede ser barata y una pequeña en el centro del cambio, carísima.
+
+**Secuencia de aprendizaje.** Antes de mirar los resultados, predices qué política de pago (nunca, un porcentaje fijo, por umbral, todo primero) entrega más funcionalidad en 24 sprints con un interés bajo y con uno alto, desde qué frecuencia de cambios conviene refactorizar ahora o al primer cambio y cuánto mejora el interés pagado elegir los archivos a refactorizar por complejidad, por cambios o por ambos. Después lo simulas con parámetros declarados. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `debt-log.md` con la predicción, la tabla de políticas frente al interés, la de refactorizar ahora o después, la de selección de archivos y una nota que diga qué deuda de `tarifas` se paga, cuál se aplaza y con qué estimación de interés.
+
+**Límite de la conclusión.** Las tres simulaciones son modelos con parámetros supuestos por el autor (capacidad de 40 puntos, interés por unidad de deuda, fricción de 3 puntos por cambio, 40 archivos). Ninguna mide un equipo ni un proyecto: muestran cómo cambian las decisiones con la tasa y con la frecuencia de cambio, no cuánto vale esa tasa.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Cunningham, «The WyCash Portfolio Management System» (OOPSLA, 1992)](http://c2.com/doc/oopsla92.html) | Introduce la metáfora de la deuda: lanzar código con una comprensión incompleta es como pedir un préstamo, y los intereses se pagan cada vez que se trabaja sobre ese código. | No cuantifica ninguna tasa ni dice cuándo conviene pedir prestado. |
+| [Kruchten, Nord y Ozkaya, «Technical Debt: From Metaphor to Theory and Practice» (IEEE Software, 2012)](https://doi.org/10.1109/MS.2012.167) | Discute dónde la metáfora ayuda y dónde se queda corta, y distingue la deuda visible en el código de otras formas de deuda. | No fija un método único de estimación. |
+| [Tornhill y Borg, «Code red: the business impact of code quality» (TechDebt, 2022)](https://doi.org/10.1145/3524843.3528091) | Es un estudio cuantitativo de 39 bases de código propietarias sobre el impacto de la calidad del código en el negocio. | No traslada sus cifras a `tarifas` ni a un equipo concreto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-297`: parte de la complejidad es esencial y no se paga. La pregunta activa es: **¿cuánto interés paga este código cada vez que lo toco, cuántas veces lo toco y cuánto costaría pagar el principal?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-297` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, pruebas, analizador estático y Git.
+- Haber completado `SE-297` o poder explicar la diferencia entre complejidad esencial y accidental.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Haber visto el diagnóstico de olores de `SE-294` y los pasos de refactor de `SE-295`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Deuda técnica, interés y opciones**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de la plataforma de entregas tiene un tablero con 140 elementos de «deuda técnica» acumulados en cuatro años. La dirección pregunta cuánto cuesta y propone dedicar 20 % de cada sprint a pagarla. Dos integrantes discrepan: una dice que la deuda frena cada sprint y que hay que pagarla ya; otro que la mayoría de los elementos están en módulos que nadie toca y que pagar 20 % es tirar el dinero. Los dos tienen razón en algo y ninguno tiene una estimación. Hay un módulo, el de reglas de descuento, que cada trimestre se modifica tres veces y donde un código enredado añade, según la gente, medio día a cada cambio. Hay otro, el de exportación, que no se toca desde hace dos años.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Deuda y técnica con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **refactorización protegida por caracterización y decisión de diseño** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «refactorizar y cambiar comportamiento al mismo tiempo sin caracterización» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Deuda | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Técnica | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Interés | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Opciones | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. simular cómo cambian los puntos entregados en 24 sprints con cuatro políticas de pago según el interés de la deuda;
+2. comparar tres decisiones (nunca refactorizar, refactorizar ahora, refactorizar al primer cambio) según la frecuencia de cambio y según si aplazar encarece el trabajo;
+3. medir cuánto del interés total se paga en los archivos elegidos según se elijan por complejidad, por cambios o por ambos, y cómo depende de si ambas se relacionan;
+4. estimar el interés de una deuda de `tarifas` con una fórmula declarada y sus supuestos;
+5. declarar qué deuda se paga, cuál se aplaza y la evidencia que haría cambiar la decisión.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Deuda técnica, interés y opciones"] --> M["Modelo: Deuda"]
-    M --> D["Decisión: técnica"]
-    D --> E["Evidencia: interés"]
-    E --> R["Revisión: opciones"]
-    R -->|nueva información| M
+    A[Decisión de atajo] --> B[Principal: costo de arreglarlo]
+    A --> C[Interés: costo extra por cada vez que se toca]
+    C --> D[Frecuencia de cambio x fricción]
+    B --> E{Política}
+    D --> E
+    E --> F[Pagar ahora]
+    E --> G[Pagar al primer cambio]
+    E --> H[No pagar y aceptar el interés]
+    F --> I[Resultado observado]
+    G --> I
+    H --> I
+    I -->|la frecuencia de cambio varía| D
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Deuda técnica, interés y opciones**.
+El mapa tiene dos parámetros que se estiman: el principal y el interés, que a su vez depende de cuántas veces se toca el código. El retorno marca que la decisión se revisa cuando cambia la frecuencia.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| La metáfora de la deuda | Da vocabulario para hablar de costo diferido con quien decide. | Predicción, traza causal y contraejemplo de **La metáfora de la deuda** en `debt-log.md` |
+| Interés y principal | Distinguen lo que cuesta arreglar de lo que cuesta no arreglar. | Predicción, traza causal y contraejemplo de **Interés y principal** en `debt-log.md` |
+| Cuándo pagar | La frecuencia de cambio y el costo de aplazar mueven la decisión. | Predicción, traza causal y contraejemplo de **Cuándo pagar** en `debt-log.md` |
+| Dónde pagar | Conviene pagar donde se toca, no donde molesta. | Predicción, traza causal y contraejemplo de **Dónde pagar** en `debt-log.md` |
+| Límites de la metáfora | No toda la deuda tiene dueño ni vencimiento. | Predicción, traza causal y contraejemplo de **Límites de la metáfora** en `debt-log.md` |
 
 ## Conceptos y decisiones
 
-Diseñar distribuye responsabilidades y dependencias para facilitar cambios; refactorizar mejora esa estructura sin alterar comportamiento observable.
+### 1. La metáfora de la deuda
 
-La pregunta rectora de esta parte es: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** La respuesta debe
-apoyarse en **pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible**.
+Cunningham comparó entregar código con una comprensión incompleta con pedir un préstamo: sirve para llegar antes, y cada vez que se trabaja sobre ese código se paga un interés en forma de esfuerzo extra. La metáfora es útil porque permite discutir con negocio una decisión de plazo (llegar antes a cambio de un costo futuro) en lugar de un juicio de gusto sobre el código. Su riesgo es la analogía literal: la deuda de código no tiene un acreedor, ni un calendario de pagos, ni siempre un principal claro.
 
-### 1. Deuda: modelo
+### 2. Interés y principal
 
-En esta clase, **Deuda** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Deuda técnica, interés y opciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El **principal** es lo que costaría arreglar el atajo (reescribir el módulo, añadir la prueba que falta). El **interés** es el costo extra por cada vez que se trabaja sobre ese código: medio día más por cada cambio a las reglas de descuento. La deuda total es una cifra poco informativa; lo que decide es el interés esperado, que es la fricción por cambio multiplicada por la frecuencia de cambio. Una deuda enorme en un módulo que no se toca tiene interés casi nulo.
 
-### 2. Técnica: mecanismo
+### 3. Cuándo pagar
 
-En esta clase, **técnica** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Deuda técnica, interés y opciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Hay tres decisiones básicas. No pagar acepta el interés. Pagar ahora paga el principal por adelantado. Pagar **al primer cambio** (refactorizar cuando alguien tiene que tocar el código de todos modos) paga el principal solo si el módulo se mueve. La tercera es una opción: se ejerce solo si el área cambia. Deja de convenir cuando aplazar encarece el principal (el contexto se pierde, quien lo sabía se fue) o cuando el área cambia tanto que el pago es seguro.
 
-### 3. Interés: evidencia
+### 4. Dónde pagar
 
-En esta clase, **interés** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Deuda técnica, interés y opciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Con presupuesto limitado, se pagan los archivos donde el interés es mayor: los que son difíciles de cambiar **y** se cambian a menudo. Elegir solo por complejidad apunta a los archivos más feos, que pueden ser los menos tocados. Elegir solo por cambios apunta a los más activos, que pueden ser simples. El producto de ambos aproxima el interés. Es una heurística: la complejidad de un archivo no siempre refleja la fricción de cambiarlo.
 
-### 4. Opciones: decisión
+### 5. Límites de la metáfora
 
-En esta clase, **opciones** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?» y demostrarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Deuda técnica, interés y opciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+No toda la deuda es de código: también hay deuda de documentación, de pruebas, de infraestructura y de conocimiento (una sola persona entiende un módulo). No toda tiene un momento en que se «vence»: algunas se acumulan sin un hito. Y la decisión de contraerla fue razonable muchas veces; tratarla como culpa lleva a esconderla. Otra distinción útil es la de la deuda **deliberada** (se decidió con conocimiento) frente a la **inadvertida** (se descubrió después).
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuatro políticas de pago frente al interés
+
+Un modelo de 24 sprints con capacidad de 40 puntos. La deuda inicial es de 10 unidades. En cada sprint se aplica la política (pagar nada, el 20 % de la capacidad, el 50 % si la deuda pasa de 25 unidades, o todo lo posible hasta bajar de 10), la velocidad de entrega es lo que queda de la capacidad multiplicado por (1 − interés × deuda) y la deuda crece en 0,35 por punto entregado con una variación uniforme de ±30 %. Se prueban cuatro intereses por unidad de deuda: 0,002; 0,006; 0,012 y 0,020.
+
+```python
+velocidad = util * (1.0 - min(0.9, interes * deuda))
+deuda = deuda - pago + nueva * velocidad * rng.uniform(0.7, 1.3)
+```
+
+| Política | Interés 0,002 | 0,006 | 0,012 | 0,020 |
+|---|---:|---:|---:|---:|
+| Nunca pagar | 703 / 246 | 408 / 146 | 241 / 91 | 173 / 68 |
+| 20 % de la capacidad | 717 / 59 | 654 / 38 | 609 / 23 | 585 / 15 |
+| 50 % cuando la deuda pasa de 25 | 706 / 33 | 663 / 38 | 600 / 35 | 505 / 23 |
+| Todo hasta bajar de 10 | 716 / 23 | 693 / 22 | 651 / 8 | 609 / 7 |
+
+Cada celda es puntos entregados / deuda final. Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
+
+![Tabla con los puntos entregados en veinticuatro sprints y la deuda final con cuatro políticas de pago y cuatro intereses por unidad de deuda.](../../../content/part-24/figures/se-298-politicas-de-pago-e-interes.svg)
+
+**Cómo leer la figura.** Cada fila es una política; cada columna, un interés. **Dónde deja de valer:** todos los parámetros (la capacidad, la generación de deuda, el interés lineal) son supuestos del autor; el efecto real del interés no es lineal ni se conoce, y no se midió ningún equipo. Con interés bajo, pagar apenas mejora lo entregado (703 frente a 717 puntos): la deuda barata se puede dejar. Con interés alto, no pagar entrega menos de un tercio de lo que entrega pagar todo. La figura no dice cuál es el interés de ningún equipo: dice que la política correcta depende de él.
+
+### Refactorizar ahora, al primer cambio o nunca
+
+Un área de código con una fricción de 3 puntos por cambio sin refactor y un refactor que cuesta 8. En 12 meses (pasos mensuales de cuatro semanas, aproximación de Poisson) hay una tasa de cambios por mes. Tres decisiones: nunca refactorizar (se paga 3 por cada cambio), refactorizar ahora (se paga 8) y refactorizar al primer cambio (se paga 8 solo si hay al menos un cambio). Como variante, se duplica el costo del refactor si se aplaza. Se simulan 20 000 repeticiones por fila con semilla fija.
+
+```python
+nunca += friccion * k
+ahora += costo_refactor
+jit += (costo_refactor if k else 0.0)
+jit2 += (costo_refactor * 2.0 if k else 0.0)      # aplazar encarece el refactor
+```
+
+| Cambios por mes | Nunca | Ahora | Al primer cambio | Gana | Gana si aplazar duplica el costo |
+|---:|---:|---:|---:|---|---|
+| 0,05 | 1,83 | 8,00 | 3,68 | nunca | nunca |
+| 0,15 | 5,43 | 8,00 | 6,77 | nunca | nunca |
+| 0,30 | 10,84 | 8,00 | 7,83 | al primer cambio | ahora |
+| 0,60 | 21,64 | 8,00 | 8,00 | al primer cambio | ahora |
+| 1,00 | 36,04 | 8,00 | 8,00 | ahora | ahora |
+| 2,00 | 72,22 | 8,00 | 8,00 | ahora | ahora |
+
+![Tabla con el costo esperado en doce meses de no refactorizar, refactorizar ahora y refactorizar al primer cambio según la frecuencia de cambio, y qué decisión gana si aplazar duplica el costo.](../../../content/part-24/figures/se-298-refactorizar-ahora-o-despues.svg)
+
+**Cómo leer la figura.** Cada fila es una frecuencia de cambio; las columnas son el costo esperado de cada decisión. **Dónde deja de valer:** el costo del refactor (8), la fricción (3) y la duplicación al aplazar son supuestos; la tasa de cambios del futuro se desconoce y una aproximación de Poisson ignora las rachas. La figura muestra la estructura: esperar es una opción que vale cuando el área rara vez cambia y aplazar no encarece el trabajo. Un área que nunca cambia no merece un refactor, aunque se vea fea.
+
+### Elegir los archivos que se refactorizan
+
+Cuarenta archivos con complejidad lognormal y una distribución de cambios de tipo Zipf (el más cambiado recibe mucho más que el último). Se sortean 400 cambios y el interés pagado es la suma de la complejidad del archivo tocado. Con presupuesto para 5 archivos, cuya complejidad baja un 60 %, se compara elegir por complejidad, por cambios, por su producto o al azar, y cómo depende de si la complejidad y los cambios se relacionan entre sí (ninguna, media, total). Son 400 repeticiones con semilla fija.
+
+```python
+puntajes = {"complejidad": cx, "cambios": peso_cambios, "producto": [c * w for c, w in zip(cx, peso_cambios)]}
+elegidos = sorted(range(n_arch), key=lambda a: -sc[a])[:k]
+```
+
+| Relación entre complejidad y cambios | Por complejidad | Por cambios | Por complejidad × cambios | Al azar |
+|---|---:|---:|---:|---:|
+| Ninguna | 17,8 % | 33,9 % | 36,6 % | 7,4 % |
+| Media (0,5) | 37,3 % | 43,1 % | 44,1 % | 8,2 % |
+| Total (1,0) | 48,1 % | 48,1 % | 48,1 % | 7,3 % |
+
+Cada celda es el porcentaje del interés total que se evita.
+
+![Tabla con la reducción del interés pagado al refactorizar cinco de cuarenta archivos elegidos por complejidad, por cambios, por su producto o al azar, según la relación entre complejidad y cambios.](../../../content/part-24/figures/se-298-puntos-calientes.svg)
+
+**Cómo leer la figura.** Cada fila fija cuánto se parecen los archivos más complejos a los más cambiados; cada columna es un criterio de elección. **Dónde deja de valer:** el modelo fija como supuesto que el interés es complejidad por cambios, que es lo que se está probando; con otro supuesto, el orden de los criterios podría cambiar. La relación entre complejidad y cambios se impuso, no se midió en ningún repositorio. La figura enseña la estructura: elegir solo por complejidad rinde la mitad si la complejidad no guarda relación con los cambios.
 
 ## Definiciones de trabajo
 
-- **Deuda:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Técnica:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Interés:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
-- **Opciones:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible.
+- **deuda técnica:** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
+- **principal:** costo de eliminar el atajo que originó la deuda.
+- **interés:** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
+- **deuda deliberada:** deuda contraída con conocimiento de que lo es y de su costo.
+- **opción de refactorizar:** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para `tarifas`. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la bibliografía enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Deuda técnica, interés y opciones**:
+El fragmento calcula el interés anual esperado de una deuda. Antes de ejecutarlo, predice el valor.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+friccion_por_cambio = 3.0      # puntos extra por cada cambio
+cambios_por_anio = 3 * 4       # tres cambios por trimestre
+interes_anual = friccion_por_cambio * cambios_por_anio
+principal = 20.0
+assert interes_anual == 36.0 and interes_anual > principal
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El interés de un año supera el principal: pagar compensa en menos de un año. Registra versión, comando y salida; cambia a un cambio por año y predice la decisión.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Deuda técnica, interés y opciones**. Parte de esta pregunta: **¿qué cambio futuro se vuelve más seguro y qué evidencia demuestra que el comportamiento se conserva?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando pruebas de caracterización, diff enfocado, métricas interpretadas y decisión reversible. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `characterization.py` y enlaza la evidencia, no solo la conclusión.
+El equipo de `tarifas` no paga el tablero de 140 elementos. Estima, para los diez candidatos con más actividad en `git log`, tres cosas: la fricción por cambio (medida en una encuesta de tres preguntas al equipo y contrastada con el tiempo de los últimos cambios), la frecuencia de cambio (de la historia del repositorio) y el principal (una estimación en puntos, con rango). Calcula el interés anual y el plazo de recuperación. El módulo de descuentos, con tres cambios por trimestre y medio día de fricción, se paga ya; el de exportación, sin cambios en dos años, se deja con una nota; los demás se pagan al primer cambio con la regla de que quien lo toque lo deja mejor.
+
+Compara con el estado anterior: la decisión es adecuada si cada elemento tiene un interés estimado con su fuente y un plazo de revisión; es frágil si la fricción se estima por opinión de una sola persona, o si la regla de pagar al primer cambio se aplica sin comprobar que el cambio no vuelve a empeorar el código.
 
 ## Práctica guiada
 
-1. Crea `work/SE-298/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el refactorización protegida por caracterización y decisión de diseño con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista diez elementos de deuda de `tarifas` y estima para cada uno el principal, la fricción por cambio y la frecuencia.
+2. Calcula el interés anual y el plazo de recuperación de cada uno.
+3. Simula las cuatro políticas con intereses de 0,002 y 0,020 y anota cuándo cambia la mejor.
+4. Simula las tres decisiones con 0,15 y 0,60 cambios por mes y con aplazar a costo doble.
+5. Genera cuarenta archivos con complejidad y cambios y compara los cuatro criterios de elección.
+6. Decide qué se paga ya, qué al primer cambio y qué se deja, con su razón.
+7. Entrega `debt-log.md` y pide a otra persona que identifique la decisión menos respaldada por una estimación.
 
 ## Ejercicios
 
-1. **Fundamental:** define Deuda y técnica con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `characterization.py` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Interés:** estima el interés de una deuda de tu código con la historia de cambios y compara con tu intuición.
+2. **Opción:** calcula el costo de aplazar que haría indiferentes «ahora» y «al primer cambio» con 0,30 cambios por mes.
+3. **Dónde:** modifica el modelo para que el interés dependa del cuadrado de la complejidad y observa si cambia el mejor criterio.
+4. **Límite:** describe una deuda de `tarifas` que la metáfora financiera no describe bien y propón otro vocabulario.
 
 ## Reto verificable
 
-Entrega el **refactorización protegida por caracterización y decisión de diseño** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `debt-log.md` con la predicción, las tres tablas, la estimación de interés y principal de diez elementos de `tarifas` con sus fuentes y la decisión por elemento. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué parámetro cambiaría la decisión de cada elemento. No se aprueba por afirmar que la deuda «es alta» ni por proponer un porcentaje fijo sin una estimación.
+
+## Caso conductor
+
+El componente `tarifas` conserva lo construido en `SE-289` a `SE-297` y gana un registro de deuda con interés estimado, principal, decisión y plazo de revisión. `SE-299` aplica la refactorización segura a una función heredada. Cambia después una sola decisión, la frecuencia estimada de cambios de las reglas de descuento, y observa cuándo cambia el orden de prioridades.
+
+## Preguntas frecuentes
+
+### ¿Toda la deuda técnica debe pagarse?
+
+No: se paga la que tiene un interés mayor que el costo de pagarla. La deuda en código estable puede dejarse, y se anota para que no se vuelva a discutir.
+
+### ¿Cómo estimo la fricción por cambio?
+
+Combinando el tiempo observado de los últimos cambios en ese código con la opinión de quienes los hicieron, y declarando el rango. Una sola persona opinando da una cifra con más sesgo que varias personas con datos.
+
+### ¿Por qué «al primer cambio» no es siempre lo mejor?
+
+Porque aplazar puede encarecer el trabajo (se pierde el contexto, se va quien lo entendía) y porque con cambios frecuentes pagar al principio es seguro. La opción vale cuando el área cambia poco.
+
+### ¿La deuda técnica es culpa de quien programó?
+
+No necesariamente: muchas veces fue una decisión razonable con la información de entonces. Tratarla como culpa lleva a esconderla; tratarla como una decisión de inversión permite revisarla.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **refactorizar y cambiar comportamiento al mismo tiempo sin caracterización**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **pagar la deuda más fea y no la más cara**. Con cuarenta archivos sin relación entre complejidad y cambios, refactoriza los cinco más complejos.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** tras invertir un sprint en los cinco archivos más complejos, el tiempo de los cambios del trimestre siguiente casi no baja. **Hipótesis rivales:** (a) el refactor no mejoró la complejidad; (b) los cambios del trimestre fueron más difíciles por otra razón; (c) esos archivos casi no se tocaron en el trimestre. **Prueba:** cuenta los cambios por archivo en el trimestre; si los cinco archivos suman pocos cambios, la causa es (c). **Conclusión:** se pagó la deuda con menos interés. **Regresión:** elige por complejidad por cambios (evita 36,6 % del interés frente a 17,8 %) y registra la frecuencia de cambio de cada elemento del tablero. No cambies a la vez el criterio y la medida.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Se dedica un porcentaje fijo a «pagar deuda» sin resultados visibles | No se estimó el interés de cada elemento | Estimar interés y principal y ordenar por plazo de recuperación |
+| Se refactoriza el módulo más feo y el cambio sigue costando lo mismo | Se eligió por complejidad y no por cambios | Priorizar por complejidad por frecuencia de cambio |
+| Una deuda se aplaza y su pago se encarece | Se perdió el contexto | Anotar por qué se aplaza y la fecha de revisión |
+| El tablero crece sin decisiones | Todo se registra y nada se decide | Cada elemento tiene decisión: pagar ya, al primer cambio o dejar |
+| La dirección entiende la deuda como culpa | Se usa la metáfora como reproche | Hablar de decisiones de plazo y de costo esperado |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, pruebas, analizador estático y Git. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-298/
 ├── README.md
-│   ├── characterization.py
-│   ├── design.md
-│   ├── refactoring.md
-├── activity.yaml
-└── rubric.json
+├── modelos/
+│   ├── politicas.py
+│   ├── opcion.py
+│   └── puntos_calientes.py
+├── registro/
+│   └── deuda.md
+└── evidence/debt-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `characterization.py` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una deuda de seguridad (una dependencia vulnerable, una validación ausente) no se evalúa solo por su interés de desarrollo: el costo incluye el daño posible a las personas, y debe tratarse aparte de la deuda de mantenimiento;
+- una estimación de fricción pedida al equipo no debe usarse para evaluar a las personas ni exponer a quien menciona un módulo difícil;
+- el registro de deuda debe ser legible para negocio y para personas con distintas herramientas, con cifras y razones y sin jerga;
+- no incluyas datos de clientes en las notas del registro;
+- respeta las licencias de los textos citados y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «paga la deuda técnica de tarifas» refactorizará los archivos que la herramienta marque como peores y presentará la reducción de métricas como logro. Pídele en cambio que calcule para cada candidato la frecuencia de cambio desde `git log`, que estime la fricción con datos o la declare como supuesto y que proponga qué pagar ya, al primer cambio o dejar, con el cálculo. Revisa especialmente si eligió por complejidad sin mirar los cambios, si tocó código sin la red de `SE-295` o si presentó una cifra de interés sin su fuente.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro módulo (por ejemplo, el de notificaciones): cambia los candidatos y las frecuencias, y conserva el procedimiento de estimar principal e interés, comparar las opciones y elegir dónde pagar. La transferencia está lograda cuando puedes explicar por qué dejaste una deuda sin pagar, no cuando el tablero queda más corto.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-298/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de principal, interés y opción con ejemplos de `tarifas` |
+| corrección | políticas, decisiones y selección de archivos reproducibles con las mismas semillas |
+| diseño | registro de deuda con interés estimado, decisión y plazo de revisión |
+| diagnóstico | reproducción del fallo «pagar la deuda más fea y no la más cara» con regresión |
+| incertidumbre | declaración de que los modelos son supuestos y no miden ningún equipo |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Cunningham, «The WyCash Portfolio Management System» (OOPSLA, 1992)](http://c2.com/doc/oopsla92.html) — origen de la metáfora de la deuda; autoridad: su autor.
+- [Kruchten, Nord y Ozkaya (IEEE Software, 2012)](https://doi.org/10.1109/MS.2012.167) — la metáfora y sus límites; autoridad: IEEE Software.
+- [Tornhill y Borg (TechDebt, 2022)](https://doi.org/10.1145/3524843.3528091) — estudio cuantitativo de calidad del código y negocio; autoridad: Proceedings of the International Conference on Technical Debt.
+- [Fowler, «Technical Debt»](https://martinfowler.com/bliki/TechnicalDebt.html) — la metáfora y el interés; autoridad: Martin Fowler.
+- [Fowler, «Technical Debt Quadrant»](https://martinfowler.com/bliki/TechnicalDebtQuadrant.html) — deuda deliberada e inadvertida; autoridad: Martin Fowler.
+- [Fowler, «Yagni»](https://martinfowler.com/bliki/Yagni.html) — el costo de construir flexibilidad por adelantado; autoridad: Martin Fowler.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones; autoridad: documentación de Python.
 
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Python 3 documentation** — Python Software Foundation. [https://docs.python.org/3/](https://docs.python.org/3/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el interés de 0,012, el punto de cruce de 0,30 cambios por mes o el 36,6 % de interés evitado se observen en `tarifas`. Esa afirmación depende de su historia de cambios y de la fricción que mida su equipo.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Deuda técnica, interés y opciones**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-299`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres modelos con parámetros supuestos y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún equipo ni ningún repositorio; la capacidad, el interés, la fricción, la distribución de los cambios y la relación entre complejidad y cambios son construcciones del autor. La siguiente clase es un taller: refactorizar una función heredada sin alterar su comportamiento.
+
+## Glosario
+
+- **deuda técnica:** costo futuro adicional que se acepta al elegir una solución más rápida o más incompleta hoy.
+- **principal:** costo de eliminar el atajo que originó la deuda.
+- **interés:** costo extra, por cada vez que se trabaja sobre el código afectado, de convivir con la deuda.
+- **deuda deliberada:** deuda contraída con conocimiento de que lo es y de su costo.
+- **opción de refactorizar:** derecho, sin obligación, de pagar el principal cuando el código se vuelva a tocar.
 
 ---
 

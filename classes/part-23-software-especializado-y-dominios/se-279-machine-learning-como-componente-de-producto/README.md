@@ -2,208 +2,325 @@
 
 [← SE-278 — Ingeniería de datos y procesamiento analítico](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/README.md) · [↑ Parte 23](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-279.html) · [SE-280 — Videojuegos, loops, entidades y simulación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-280-videojuegos-loops-entidades-y-simulacion/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que trates un modelo de aprendizaje automático como un componente con contrato, límites y fallos propios dentro de un producto, y no como una caja que «tiene una exactitud». Quien lo integra responde por cómo se evaluó, qué pasa cuando se equivoca y cuándo deja de valer.
+
+**Por qué aparece aquí.** Es la tercera clase de la **Parte 23**, después de **Ingeniería de datos y procesamiento analítico**: allí las tablas del tablero se volvieron repetibles; aquí esas tablas alimentan un modelo que decide a quién avisar. Un error de datos ya no mueve un número, mueve una decisión sobre personas. El caso conductor sigue siendo la plataforma educativa ficticia: un aviso temprano a docentes sobre estudiantes con riesgo de no completar un curso.
+
+**Error conceptual que debe corregir.** Creer que una métrica alta en el conjunto de prueba prueba que el modelo servirá en producción. La métrica solo vale si la prueba imita las condiciones de uso: sin fuga de información, con la prevalencia real de lo que se predice y con datos del mismo tipo que los futuros.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuánto sube la exactitud cuando una variable contiene una copia de la respuesta y qué proporción de los avisos de un detector serán falsos si el evento es raro; después mides ambos efectos y la frecuencia con que una alarma de deriva suena sin que nada haya cambiado. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `ml-log.md` con la predicción, la exactitud en prueba y en producción simulada con y sin fuga, la tabla de valor predictivo por prevalencia, la tabla de alarmas de deriva por tamaño de ventana y una nota que separe lo que dice una métrica de lo que decide el producto.
+
+**Límite de la conclusión.** Los datos, el clasificador por umbral y las distribuciones son construcciones del autor. No se entrenó ningún modelo real, no se usó ninguna biblioteca de aprendizaje automático y no se midió ninguna población de estudiantes: los experimentos muestran mecanismos de evaluación, no el rendimiento de un sistema.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Sculley et al., «Hidden Technical Debt in Machine Learning Systems» (NeurIPS, 2015)](https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html) | Sostiene que el código del modelo es una parte pequeña de un sistema de aprendizaje automático y que el resto (datos, configuración, monitoreo) acumula deuda propia. | No cuantifica la deuda de ningún sistema concreto. |
+| [Kaufman et al., «Leakage in Data Mining» (ACM TKDD, 2012)](https://doi.org/10.1145/2382577.2382579) | Formaliza la fuga: información en los datos de entrenamiento que no estará disponible al predecir y que infla el rendimiento estimado. | No da un procedimiento que detecte toda fuga. |
+| [NIST, AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) | Organiza la gestión del riesgo de un sistema de inteligencia artificial en gobernar, mapear, medir y gestionar. | No sustituye una evaluación de impacto ni fija umbrales. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-278`: una cadena de datos declara qué es provisional y qué es definitivo. Un modelo añade una incertidumbre propia sobre cada salida. La pregunta activa es: **¿qué dice exactamente la métrica, bajo qué condiciones vale y qué hace el producto cuando el modelo se equivoca?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-278` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Jupyter o Godot según el caso, datos sintéticos y control de versiones.
+- Haber completado `SE-278` o poder explicar qué hace idempotente una etapa de datos.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Conocer sensibilidad, especificidad y exactitud a nivel básico.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Machine learning como componente de producto**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma educativa ficticia quiere avisar a docentes de estudiantes con riesgo de no completar un curso. Un primer prototipo muestra 90 % de exactitud en el conjunto de prueba y se despliega. Un mes después los docentes dicen que «avisa por casi todos» y que «los que de verdad abandonan no estaban en la lista». El modelo no se rompió: se evaluó sobre una población con otra proporción de abandono, con una variable que no existe cuando hace falta avisar y con una exactitud que no mide lo que importa. Además, el curso cambió de formato y los datos de entrada ya no se parecen a los de entrenamiento.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Machine y learning con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo especializado con restricciones de dominio** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «trasladar una métrica técnica a una conclusión de dominio sin validación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Machine | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Learning | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Componente | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Producto | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. distinguir el problema de producto del problema de modelo con un ejemplo y un contraejemplo de la plataforma;
+2. medir cuánto infla una fuga de información la métrica de prueba y cuánto cae en producción, y escribir la pregunta que la detecta;
+3. calcular cuántos avisos son falsos para una sensibilidad, una especificidad y una prevalencia dadas, y elegir qué métricas reportar;
+4. medir con qué frecuencia suena una alarma de deriva sin cambio real y con cambios pequeños, según el tamaño de la ventana;
+5. declarar qué hace el producto cuando el modelo no sabe, se equivoca o ya no aplica.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Machine learning como componente de producto"] --> M["Modelo: Machine"]
-    M --> D["Decisión: learning"]
-    D --> E["Evidencia: componente"]
-    E --> R["Revisión: producto"]
-    R -->|nueva información| M
+    A[Decisión de producto] --> B[Datos disponibles al decidir]
+    B --> C[Partición y evaluación]
+    C --> D[Modelo]
+    D --> E[Umbral y acción]
+    E --> F[Persona o proceso]
+    F --> G[Monitoreo y deriva]
+    G -->|cambia la población| B
+    E -->|error| H[Plan de respaldo]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Machine learning como componente de producto**.
+El mapa conecta la decisión de producto con los datos que existen **en el momento de decidir**, no con los que existen después. La evaluación depende de esa frontera temporal; el umbral y la acción dependen del coste de cada error; y el monitoreo devuelve la información de que el entorno cambió.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Problema de producto y de modelo | Fija qué decisión se mejora y qué error cuesta más. | Predicción, traza causal y contraejemplo de **Problema de producto y de modelo** en `ml-log.md` |
+| Datos, partición y fuga | Decide si la métrica de prueba se parece al uso real. | Predicción, traza causal y contraejemplo de **Datos, partición y fuga** en `ml-log.md` |
+| Métricas y prevalencia | Evita celebrar una exactitud que no mide el valor del aviso. | Predicción, traza causal y contraejemplo de **Métricas y prevalencia** en `ml-log.md` |
+| Deriva y monitoreo | Detecta cuándo el modelo ya no representa la población. | Predicción, traza causal y contraejemplo de **Deriva y monitoreo** en `ml-log.md` |
+| Documentación y respaldo | Declara el uso previsto y qué ocurre cuando el modelo falla. | Predicción, traza causal y contraejemplo de **Documentación y respaldo** en `ml-log.md` |
 
 ## Conceptos y decisiones
 
-El software especializado hereda reglas, riesgos y evidencia del dominio; una técnica correcta puede ser inválida si el modelo no representa ese contexto.
+### 1. Problema de producto y de modelo
 
-La pregunta rectora de esta parte es: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** La respuesta debe
-apoyarse en **supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio**.
+El problema de producto es una decisión: a quién se avisa, con qué antelación, y qué hace la persona que recibe el aviso. El problema de modelo es una función de entradas a salidas. Entre ambos hay supuestos: que la acción tomada ante el aviso sirve, que el aviso llega a tiempo y que equivocarse en un sentido cuesta distinto que en el otro. Una regla simple (por ejemplo, «sin entregas en dos semanas») puede ser una línea base que el modelo debe superar de forma medible; si no la supera, el modelo no se justifica. Sculley et al. insisten en que el modelo es una parte pequeña del sistema y que la mayor parte del trabajo está en los datos, la configuración y el monitoreo.
 
-### 1. Machine: modelo
+### 2. Datos, partición y fuga
 
-En esta clase, **Machine** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Machine learning como componente de producto**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los datos de entrenamiento y los de evaluación deben separarse de forma que imite el uso: si el modelo predice el futuro, la prueba debe ser posterior al entrenamiento, no una mezcla aleatoria. La **fuga** ocurre cuando una variable contiene información que no existirá al predecir: el resultado mismo, una copia derivada de él, un dato generado después. Kaufman et al. la formalizan. La pregunta que la detecta, variable por variable, es: **¿existiría este valor, tal como está, en el instante en que hay que decidir?** Una exactitud sorprendentemente alta suele ser la primera pista. También hay fuga por duplicados entre entrenamiento y prueba, o por normalizar con estadísticos de todo el conjunto.
 
-### 2. Learning: mecanismo
+### 3. Métricas y prevalencia
 
-En esta clase, **learning** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Machine learning como componente de producto**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La exactitud cuenta aciertos sin distinguir cuál era la clase. Con un evento raro, una regla que siempre responde «no» acierta casi siempre. Las métricas que importan se leen en pares: **sensibilidad** (de los casos reales, cuántos detecta) y **valor predictivo positivo** (de los avisos, cuántos son reales). Este último depende de la prevalencia: con la misma sensibilidad y especificidad, el valor predictivo cae al bajar la prevalencia. El umbral de decisión convierte una puntuación en acción y se elige por el coste relativo de los errores, no por defecto. La métrica de un informe debe incluir la prevalencia del conjunto de evaluación y la de la población de uso.
 
-### 3. Componente: evidencia
+### 4. Deriva y monitoreo
 
-En esta clase, **componente** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Machine learning como componente de producto**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La población cambia: otro formato de curso, otra época del año, otro canal de entrada. La **deriva** de los datos de entrada se detecta comparando la distribución reciente con la de referencia; una medida habitual es el índice de estabilidad de población (PSI), que agrupa la variable en tramos y suma las diferencias de proporciones ponderadas por su logaritmo. Por convención, valores sobre 0,1 piden atención y sobre 0,2 acción, pero son convenciones, no leyes. Detectar deriva en la entrada no es lo mismo que detectar que el modelo empeoró: eso exige etiquetas que pueden llegar tarde. El monitoreo combina ambos y declara cuánto retraso tiene cada señal.
 
-### 4. Producto: decisión
+### 5. Documentación y respaldo
 
-En esta clase, **producto** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Machine learning como componente de producto**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una **tarjeta de modelo** (Mitchell et al.) documenta el uso previsto, los datos de evaluación, las métricas por subgrupo y las limitaciones conocidas. Sirve para que quien integra el modelo sepa para qué no sirve. El producto necesita además un **plan de respaldo**: qué se muestra cuando el modelo no tiene datos suficientes, cuando la confianza es baja o cuando está apagado; y un mecanismo para que la persona afectada o quien la atiende pueda cuestionar el aviso. El marco de gestión del riesgo del NIST ordena este trabajo en gobernar, mapear, medir y gestionar; no sustituye el criterio de dominio.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Una variable que contiene la respuesta
+
+Se generan 4 000 casos de entrenamiento y 4 000 de prueba: `y` es 1 con probabilidad 0,3; la señal real `x` es gaussiana con media `y` y desviación 1; la variable `z` es una copia de `y` correcta el 90 % de las veces (fuga). En «producción» `z` es ruido gaussiano, porque la copia no existe. Un clasificador por umbral elige el corte que maximiza la exactitud de entrenamiento.
+
+```python
+def fit_thr(train, idx):
+    return max((i / 20 for i in range(-40, 80)),
+               key=lambda t: sum((row[idx] > t) == row[2] for row in train))
+```
+
+| Variable usada | Exactitud en prueba | Exactitud en producción |
+|---|---:|---:|
+| Señal real (`x`), sin fuga | 0,742 | 0,755 |
+| Copia ruidosa de la etiqueta (`z`), con fuga | 0,899 | 0,515 |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). La variable con fuga gana 16 puntos en prueba y pierde 38 en producción; ni siquiera supera la regla «siempre no», que acierta el 70 % de los casos.
+
+![Tabla con la exactitud en prueba y en producción de un umbral sobre una señal real y sobre una copia ruidosa de la etiqueta.](../../../content/part-23/figures/se-279-fuga-de-la-etiqueta.svg)
+
+**Cómo leer la figura.** Cada fila es una variable; la columna de prueba mide lo que el equipo ve y la de producción lo que ocurriría al usarla. **Dónde deja de valer:** la fuga de un caso real rara vez es una copia tan limpia de la etiqueta; suele ser una variable derivada o posterior. La figura no ofrece un detector automático de fuga: solo muestra el efecto cuando existe. Y el 0,515 depende de que `z` sea ruido sin relación con `y` en producción.
+
+### Un detector bueno y cuántos avisos son falsos
+
+Un detector con sensibilidad 0,90 y especificidad 0,95 se aplica a poblaciones con prevalencia 50 %, 10 %, 1 % y 0,1 %. Se calcula la exactitud, el valor predictivo positivo y la exactitud de la regla que siempre responde «no», y se comprueba el caso del 1 % con 500 000 casos simulados.
+
+```python
+tp = n * prev * sens; fp = n * (1 - prev) * (1 - spec)
+vpp = tp / (tp + fp)
+exactitud = (tp + n * (1 - prev) * spec) / n
+```
+
+| Prevalencia | Exactitud | De cada aviso, proporción real | Exactitud de «siempre no» |
+|---:|---:|---:|---:|
+| 50 % | 0,925 | 0,947 | 0,500 |
+| 10 % | 0,945 | 0,667 | 0,900 |
+| 1 % | 0,950 | 0,154 | 0,990 |
+| 0,1 % | 0,950 | 0,018 | 0,999 |
+
+La simulación con prevalencia 1 % dio un valor predictivo de 0,158, coherente con el cálculo (0,154). Con 1 % de casos, de cada cien avisos 85 son falsos.
+
+![Tabla con la exactitud, el valor predictivo positivo y la exactitud de responder siempre no para un detector con sensibilidad 0,90 y especificidad 0,95 según la prevalencia.](../../../content/part-23/figures/se-279-prevalencia-y-avisos.svg)
+
+**Cómo leer la figura.** Cada fila es una prevalencia; la tercera columna es la fracción de avisos que corresponde a casos reales. **Dónde deja de valer:** la sensibilidad y la especificidad se tomaron fijas y en la práctica dependen del umbral y de la población. La tabla no dice si 15 % de avisos reales es aceptable: eso depende de lo que cuesta atender un aviso falso frente a perder un caso, y es una decisión del producto.
+
+### Una alarma de deriva que suena sola
+
+Se toma una referencia de 5 000 valores gaussianos estándar y se generan ventanas de 100, 500 y 5 000 valores con la media desplazada en 0, 0,1, 0,3 y 0,5 desviaciones. Se calcula el PSI con 10 tramos de la referencia y se cuenta en cuántas de 200 ventanas supera 0,2.
+
+```python
+def psi(ref, ventana, tramos=10):
+    ordenada = sorted(ref)
+    cortes = [ordenada[int(len(ref) * i / tramos)] for i in range(1, tramos)]
+    def proporciones(v):
+        cuenta = [0] * tramos
+        for x in v: cuenta[sum(x > c for c in cortes)] += 1
+        return [max(c / len(v), 1e-4) for c in cuenta]
+    pr, pv = proporciones(ref), proporciones(ventana)
+    return sum((b - a) * math.log(b / a) for a, b in zip(pr, pv))
+```
+
+| Desplazamiento (desviaciones) | Ventana de 100 | Ventana de 500 | Ventana de 5 000 |
+|---|---:|---:|---:|
+| 0,0 | 4 % | 0 % | 0 % |
+| 0,1 | 6 % | 0 % | 0 % |
+| 0,3 | 37 % | 0 % | 0 % |
+| 0,5 | 92 % | 92 % | 100 % |
+
+El valor del índice con 200 000 puntos por lado (semilla 3) es 0,0001, 0,0104, 0,0905 y 0,2406 para los cuatro desplazamientos: sólo el de 0,5 supera el umbral de 0,2.
+
+![Tabla con el porcentaje de ventanas en que un índice de estabilidad de población supera 0,2 según el desplazamiento de la media y el tamaño de la ventana.](../../../content/part-23/figures/se-279-alarmas-de-deriva.svg)
+
+**Cómo leer la figura.** Cada fila es un desplazamiento real de la media; las columnas son el tamaño de la ventana observada. **Dónde deja de valer:** la distribución es gaussiana y el desplazamiento solo de la media; la deriva real cambia la forma, las correlaciones o la frecuencia de valores raros. El índice con ventanas pequeñas tiene un sesgo positivo por muestreo: una alarma a n = 100 mezcla cambio real y azar. Un umbral de 0,2 no es universal; en cada variable debería calibrarse con el ruido de ventanas sin cambio.
 
 ## Definiciones de trabajo
 
-- **Machine:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Learning:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Componente:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Producto:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
+- **fuga de datos:** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
+- **prevalencia:** proporción de casos positivos en la población considerada.
+- **valor predictivo positivo:** proporción de los avisos que corresponden a casos reales.
+- **deriva de los datos:** cambio en la distribución de las entradas respecto de la de entrenamiento.
+- **tarjeta de modelo:** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el aviso de riesgo. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Machine learning como componente de producto**:
+El fragmento calcula el valor predictivo de un detector. Antes de ejecutarlo, predice qué fracción de los avisos es real con prevalencia del 2 %.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+sens, spec, prev = 0.90, 0.95, 0.02
+tp = prev * sens; fp = (1 - prev) * (1 - spec)
+vpp = tp / (tp + fp)
+assert round(vpp, 3) == 0.269      # 27 de cada 100 avisos son reales
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Con 2 % de prevalencia, algo más de un cuarto de los avisos es real. Registra versión, comando y salida; cambia la especificidad a 0,99 y predice el nuevo valor.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Machine learning como componente de producto**. Parte de esta pregunta: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `domain.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma redefine el aviso como una decisión: «cada lunes, listar a los estudiantes con riesgo alto, con el motivo, para que el docente decida si escribe». Fija una línea base (sin entregas en dos semanas) y exige que el modelo la supere en sensibilidad con el mismo número de avisos. Separa entrenamiento y prueba por fecha, revisa cada variable con la pregunta de la fuga (descarta «nota final» y «fecha de baja»), reporta sensibilidad, valor predictivo y prevalencia, y documenta la tarjeta del modelo. El monitoreo calcula el PSI semanal sobre ventanas de al menos 500 estudiantes y avisa solo si dos semanas seguidas superan 0,2. Si el modelo está apagado o la variable principal falta, el producto vuelve a la línea base y lo dice en pantalla.
+
+Compara con el prototipo: una exactitud única, partición aleatoria, sin línea base ni respaldo. Un diseño es adecuado cuando sus errores son visibles, acotados y reversibles; es frágil cuando el modelo es la única defensa y su fallo es silencioso.
 
 ## Práctica guiada
 
-1. Crea `work/SE-279/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo especializado con restricciones de dominio con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe la decisión de producto en una frase con actor, momento y acción, y define la línea base sin aprendizaje automático.
+2. Lista las variables disponibles y, para cada una, responde si existiría tal cual al decidir.
+3. Predice la exactitud de prueba con y sin la variable sospechosa y simula ambas.
+4. Calcula el valor predictivo para tres prevalencias y decide qué métrica reportarías al docente.
+5. Genera ventanas sin cambio y con cambios pequeños y mide la tasa de alarmas de un índice de deriva para tres tamaños.
+6. Escribe el plan de respaldo para tres situaciones: modelo apagado, entrada faltante y confianza baja.
+7. Entrega `ml-log.md` y pide a otra persona que diga qué variable eliminaría y por qué.
 
 ## Ejercicios
 
-1. **Fundamental:** define Machine y learning con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `domain.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Fuga:** diseña una segunda variable con fuga indirecta (por ejemplo, un contador que se actualiza después del evento) y mide su efecto con el mismo procedimiento.
+2. **Prevalencia:** calcula la sensibilidad mínima para que el valor predictivo supere 0,5 con prevalencia del 1 % y especificidad 0,99.
+3. **Deriva:** calibra el umbral del índice con 200 ventanas sin cambio de n = 500 y propón un umbral que deje la tasa de falsas alarmas bajo el 5 %.
+4. **Respaldo:** escribe qué verá el docente cuando el modelo no pueda calcular un riesgo y por qué esa pantalla es mejor que un riesgo por defecto.
 
 ## Reto verificable
 
-Entrega el **prototipo especializado con restricciones de dominio** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `ml-log.md` con la predicción, la tabla de fuga, la de prevalencia, la de deriva y la tarjeta del modelo. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué variable elegiría quitar y qué métrica pediría antes de aceptar el modelo. No se aprueba por reportar una exactitud sin su prevalencia ni su línea base.
+
+## Caso conductor
+
+La plataforma educativa ficticia es el caso conductor de la Parte 23. Esta clase deja el tercer artefacto: el aviso de riesgo con línea base, revisión de fuga, métricas con prevalencia, alarma de deriva y respaldo. `SE-280` pasa a otro dominio, un juego educativo donde el tiempo y el estado de muchas entidades son lo que debe ser correcto. Cambia después una sola decisión, el umbral del aviso, y observa cuántos avisos nuevos son falsos.
+
+## Preguntas frecuentes
+
+### ¿Por qué no usar siempre la exactitud?
+
+Porque con eventos raros una regla que nunca avisa acierta casi siempre. Reporta sensibilidad, valor predictivo y la prevalencia del conjunto de evaluación.
+
+### ¿Cómo sé si una variable tiene fuga?
+
+Pregunta si ese valor, tal como está, existiría en el instante de decidir. Desconfía de variables creadas por procesos posteriores al evento, de identificadores y de métricas demasiado buenas.
+
+### ¿Un PSI alto significa que el modelo empeoró?
+
+No: significa que la entrada cambió. El modelo puede seguir bien o no. Hace falta además una señal de resultado, con su retraso, para saberlo.
+
+### ¿Hace falta un modelo de aprendizaje automático?
+
+Solo si supera una línea base más simple en una métrica relevante para la decisión. Si no la supera, la línea base es el producto.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **trasladar una métrica técnica a una conclusión de dominio sin validación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una métrica de prueba excelente que se desploma en producción**. Entrena el umbral sobre la variable con fuga y evalúalo en datos donde la copia no existe.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** exactitud de 0,899 en prueba y 0,515 en producción. **Hipótesis rivales:** (a) la población de producción es distinta; (b) hay un error en el cálculo de la métrica; (c) una variable tiene fuga. **Prueba:** reentrena sin la variable sospechosa; si la exactitud de prueba baja a 0,742 y coincide con la de producción (0,755), la causa es (c). **Conclusión:** la variable `z` no existe al decidir. **Regresión:** añade a la revisión de variables la pregunta de existencia en el momento de decidir y una prueba que compare prueba y producción con una tolerancia declarada. No cambies a la vez las variables y la partición.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Exactitud excelente en prueba y mala en uso | Fuga o partición que no imita el uso | Separar por fecha y revisar cada variable con la pregunta de existencia |
+| «Avisa por casi todos» | Prevalencia baja con umbral por defecto | Reportar valor predictivo y elegir el umbral por coste de errores |
+| El modelo se degrada sin que nadie lo note | Sin monitoreo de entradas ni de resultados | Calcular deriva y resultados con retraso declarado |
+| Una alarma de deriva suena sola | Ventana pequeña y umbral sin calibrar | Calibrar con ventanas sin cambio y exigir persistencia |
+| El producto no funciona si el modelo falla | Sin plan de respaldo | Definir la línea base y mostrarla cuando falta el modelo |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Jupyter o Godot según el caso, datos sintéticos y control de versiones. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-279/
 ├── README.md
-│   ├── domain.md
-│   ├── prototype.md
-│   ├── validation.md
-├── activity.yaml
-└── rubric.json
+├── riesgo/
+│   ├── datos.py
+│   ├── evaluar.py
+│   └── deriva.py
+├── tests/test_riesgo.py
+└── evidence/ml-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `domain.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un aviso sobre estudiantes es una decisión sobre personas: documenta quién puede verla, qué se hace con ella y cómo se cuestiona;
+- evalúa el rendimiento por subgrupos relevantes antes de usar el modelo, y no uses atributos protegidos o sus sustitutos sin una justificación revisada;
+- el aviso debe explicar su motivo en lenguaje comprensible y no sustituir el juicio del docente;
+- usa datos sintéticos o anonimizados en las prácticas y aplica minimización;
+- describe las tablas con texto y no uses color como única señal.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «entrena un modelo que prediga abandono» usará todas las columnas disponibles, dividirá al azar y reportará la exactitud. Pídele en cambio que liste cada variable con la hora a la que existe, que separe por fecha, que reporte sensibilidad, valor predictivo y prevalencia junto a una línea base simple, y que escriba el plan de respaldo. Revisa especialmente si una variable se calcula con información posterior al evento y si la métrica aparece sin prevalencia: son los dos defectos que esta clase mostró.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro componente (por ejemplo, una recomendación de lecturas): cambia la decisión y las variables, y conserva el procedimiento de separar por tiempo, revisar la fuga, reportar métricas con prevalencia y monitorear la entrada. La transferencia está lograda cuando puedes explicar qué parte de la evaluación dependía del dominio y cuál no, no cuando el código se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-279/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de la diferencia entre problema de producto y de modelo con ejemplos de la plataforma |
+| corrección | fuga, valor predictivo y alarmas reproducibles con las mismas semillas |
+| diseño | aviso con línea base, revisión de variables, métricas con prevalencia y respaldo |
+| diagnóstico | reproducción del fallo «métrica que se desploma» con regresión |
+| incertidumbre | declaración de que ningún experimento entrenó un modelo real ni usó personas |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Sculley et al., «Hidden Technical Debt in Machine Learning Systems» (NeurIPS, 2015)](https://papers.nips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html) — deuda técnica específica de sistemas de aprendizaje automático; autoridad: NeurIPS.
+- [Kaufman et al., «Leakage in Data Mining» (ACM TKDD, 2012)](https://doi.org/10.1145/2382577.2382579) — formulación de la fuga de datos; autoridad: ACM Transactions on Knowledge Discovery from Data.
+- [Mitchell et al., «Model Cards for Model Reporting» (FAT*, 2019)](https://doi.org/10.1145/3287560.3287596) — documentación de uso previsto y límites de un modelo; autoridad: ACM FAT*.
+- [Google, «Rules of Machine Learning»](https://developers.google.com/machine-learning/guides/rules-of-ml) — prácticas de ingeniería de aprendizaje automático en producción; autoridad: Google Developers.
+- [NIST, AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — marco de gestión del riesgo de sistemas de inteligencia artificial; autoridad: NIST.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones; autoridad: documentación de Python.
 
-- **Jupyter documentation** — Project Jupyter. [https://docs.jupyter.org/en/latest/](https://docs.jupyter.org/en/latest/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Godot Engine documentation** — Godot Engine. [https://docs.godotengine.org/en/stable/](https://docs.godotengine.org/en/stable/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 16 puntos de inflación, el 15,4 % de avisos reales o el 37 % de alarmas se observen con un modelo real. Esa afirmación depende de los datos, de la población y del umbral.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Machine learning como componente de producto**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-280`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se entrenó ningún modelo real, no se usó ninguna biblioteca de aprendizaje automático y no se midió ninguna población: los casos, el clasificador por umbral y las distribuciones son construcciones del autor. La siguiente clase pasa al dominio de los videojuegos, donde el tiempo y el estado de muchas entidades son lo que debe ser correcto.
+
+## Glosario
+
+- **fuga de datos:** presencia en los datos de entrenamiento o prueba de información que no estará disponible en el momento de predecir y que infla el rendimiento estimado.
+- **prevalencia:** proporción de casos positivos en la población considerada.
+- **valor predictivo positivo:** proporción de los avisos que corresponden a casos reales.
+- **deriva de los datos:** cambio en la distribución de las entradas respecto de la de entrenamiento.
+- **tarjeta de modelo:** documento que declara el uso previsto, la evaluación y las limitaciones de un modelo.
 
 ---
 

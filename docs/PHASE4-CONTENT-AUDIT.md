@@ -88,6 +88,24 @@ seguridad funcional, y no presentan una simulación, un validador de paquetes ni
 de fallos como sustitutos de las normas, de las pruebas con hardware ni de la responsabilidad
 de quien diseña un dispositivo.
 
+## Avance editorial de la Parte 23
+
+Las clases `SE-277`–`SE-288` se reconstruyeron en `content/part-23/` alrededor de una plataforma
+educativa ficticia que incorpora, una por clase, una pieza de un dominio especializado: la
+reproducibilidad de un cálculo, una cadena de datos, un componente de aprendizaje automático, un
+laboratorio de física con bucle de juego, una sala virtual con audio y realidad extendida, el cobro
+de matrículas, un módulo de enfermería escolar, certificados verificables, un mapa con calendario,
+una automatización visual, un taller de comparación de riesgos y un proyecto de diseño de un
+dominio. Cada clase incluye tres simulaciones con datos sintéticos y semilla fija, ejecutadas en
+Windows y Ubuntu (WSL2) con cifras idénticas, y declara que no se usó ningún código científico real,
+motor de procesamiento, biblioteca de aprendizaje automático, motor de juego, tarjeta gráfica, casco,
+procesador de pagos, dato clínico, red de cadena de bloques ni base de datos de zonas horarias o
+espacial, que no se midió confort ni percepción y que no se evaluó ninguna norma. Las puntuaciones de
+riesgo de `SE-287` son un juicio ilustrativo del autor. Las doce clases todavía requieren revisión por
+personas con experiencia en cada dominio, y no presentan una simulación, un oráculo ni un validador
+como sustitutos de la validación de dominio, de las pruebas con sistemas reales ni de la normativa
+aplicable.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

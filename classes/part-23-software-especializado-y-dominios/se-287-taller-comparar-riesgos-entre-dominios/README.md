@@ -2,208 +2,352 @@
 
 [← SE-286 — Low-code, no-code y automatización visual](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-286-low-code-no-code-y-automatizacion-visual/README.md) · [↑ Parte 23](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-287.html) · [SE-288 — Proyecto: diseño profundo de un dominio elegido →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** El taller entrena a comparar los riesgos de dominios distintos sin fingir una precisión que no existe: construir una matriz con criterios explícitos, comprobar cuánto cambia el orden cuando cambian los pesos, medir cuánto discrepan dos personas que puntúan lo mismo y ver qué cubre una lista corta de controles comunes y qué queda sin cubrir en cada dominio.
+
+**Por qué aparece aquí.** Se sitúa después de **Low-code, no-code y automatización visual** y antes del **Proyecto: diseño profundo de un dominio elegido**: las diez clases anteriores trataron un dominio cada una, con su mecanismo de fallo; el taller las pone una al lado de otra y deja el método de comparación que el proyecto aplicará a un dominio elegido.
+
+**Error conceptual que debe corregir.** Creer que una tabla de riesgos con números ordena los dominios de forma objetiva. El orden depende de los pesos que se dan a los criterios y de quién puntúa; una lista universal de controles cubre mucho en promedio y deja a algún dominio casi sin protección.
+
+**Secuencia de aprendizaje.** El taller tiene tres pasos con predicción previa: perturbar los pesos de una matriz de diez dominios y seis criterios para medir la estabilidad del primer lugar y del orden completo, simular a dos evaluadores con ruido para medir el acuerdo y cuánto cambia el podio, y calcular qué riesgos cubre una lista corta de controles. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `risk-compare-log.md` con la predicción, la matriz con sus puntuaciones y su justificación, la tabla de estabilidad del ranking, la de acuerdo entre evaluadores, la de cobertura de controles y una nota que diga qué comparación no se puede hacer con estos datos.
+
+**Límite de la conclusión.** Las puntuaciones de 1 a 5 son un juicio ilustrativo del autor, no una medición de los dominios; los controles y los riesgos de cada dominio también son una construcción suya. El taller no dice qué dominio es más peligroso: muestra cómo auditar una comparación. Los acuerdos entre evaluadores son simulaciones con ruido gaussiano, no mediciones de personas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [NIST SP 800-30 Rev. 1, «Guide for Conducting Risk Assessments»](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf) | Describe la evaluación de riesgos como la identificación de amenazas, vulnerabilidades, probabilidad e impacto y recomienda documentar los supuestos y la incertidumbre. | No proporciona puntuaciones para ningún dominio. |
+| [Landis y Koch, «The Measurement of Observer Agreement for Categorical Data» (Biometrics, 1977)](https://doi.org/10.2307/2529310) | Presenta el estadístico kappa como medida de acuerdo entre observadores corregida por azar y propone una guía de lectura. | Las bandas de interpretación son convenciones, no leyes. |
+| [Saltelli et al., «Global Sensitivity Analysis: The Primer» (2008)](https://doi.org/10.1002/9780470725184) | Expone cómo estudiar el efecto de variar a la vez los parámetros inciertos de un modelo en lugar de uno por uno. | No decide qué parámetros son inciertos en un caso concreto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-277` a `SE-286`: cada dominio tiene un mecanismo de fallo característico (no asociatividad, reintento que duplica, fuga, espiral, pliegue, comisión mal redondeada, clase homogénea, reentrada, cambio de hora, flujo huérfano). La pregunta activa es: **¿qué se puede comparar entre esos dominios, con qué criterio y con cuánta confianza en el orden?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-286` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Jupyter o Godot según el caso, datos sintéticos y control de versiones.
+- Haber completado `SE-286` o poder nombrar el mecanismo de fallo principal de dos dominios anteriores.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Saber qué es un promedio ponderado a nivel básico.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: comparar riesgos entre dominios**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La dirección de la plataforma educativa ficticia pide un ranking de «qué dominio es más arriesgado» para decidir dónde poner a la revisión externa. Dos personas del equipo puntúan los diez dominios de las clases anteriores con seis criterios; sus tablas difieren en muchos números y los dos rankings tienen el mismo primer lugar pero distinto resto. Alguien propone promediar las tablas y publicar «el orden». Nadie sabe cuánto cambia el resultado si se pondera distinto un criterio, ni si la lista corta de controles recomendada protege a todos los dominios por igual.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Taller y comparar con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo especializado con restricciones de dominio** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «trasladar una métrica técnica a una conclusión de dominio sin validación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Comparar | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Riesgos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Entre | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. construir una matriz de riesgos con criterios definidos, una escala con ejemplos ancla y la justificación de cada puntuación;
+2. medir cuánto cambian el primer lugar y el orden completo cuando se perturban los pesos, y declarar qué parte del ranking es estable;
+3. medir cuánto discrepan dos evaluadores con ruido y cuánto cambia el podio, y calcular un acuerdo corregido por azar;
+4. calcular qué riesgos cubre una lista corta de controles y qué dominio queda peor cubierto;
+5. escribir qué comparaciones el taller no permite y qué evidencia haría falta para hacerlas.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Taller: comparar riesgos entre dominios"] --> M["Modelo: Taller"]
-    M --> D["Decisión: comparar"]
-    D --> E["Evidencia: riesgos"]
-    E --> R["Revisión: entre"]
-    R -->|nueva información| M
+    A[Dominios] --> B[Criterios y escala con anclas]
+    B --> C[Puntuaciones con justificación]
+    C --> D[Pesos]
+    D --> E[Ranking]
+    E --> F[Sensibilidad a los pesos]
+    C --> G[Acuerdo entre evaluadores]
+    A --> H[Riesgos por dominio]
+    H --> I[Controles y cobertura]
+    F --> J[Decisión y límites]
+    G --> J
+    I --> J
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: comparar riesgos entre dominios**.
+El mapa tiene tres comprobaciones que cuelgan de la misma matriz: la **sensibilidad** a los pesos, el **acuerdo** entre quienes puntúan y la **cobertura** de los controles. Solo cuando las tres se declaran, el ranking pasa de ser una opinión con números a una opinión con límites.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Criterios y escalas | Fijan qué se compara y qué significa cada nivel. | Predicción, traza causal y contraejemplo de **Criterios y escalas** en `risk-compare-log.md` |
+| Pesos y sensibilidad | Muestran qué parte del orden resiste otros pesos razonables. | Predicción, traza causal y contraejemplo de **Pesos y sensibilidad** en `risk-compare-log.md` |
+| Acuerdo entre evaluadores | Mide cuánto del orden depende de quién puntúa. | Predicción, traza causal y contraejemplo de **Acuerdo entre evaluadores** en `risk-compare-log.md` |
+| Controles comunes y propios | Separa lo que se puede reutilizar entre dominios de lo específico. | Predicción, traza causal y contraejemplo de **Controles comunes y propios** en `risk-compare-log.md` |
+| Lo que no se compara | Evita conclusiones que los datos no sostienen. | Predicción, traza causal y contraejemplo de **Lo que no se compara** en `risk-compare-log.md` |
 
 ## Conceptos y decisiones
 
-El software especializado hereda reglas, riesgos y evidencia del dominio; una técnica correcta puede ser inválida si el modelo no representa ese contexto.
+### 1. Criterios y escalas
 
-La pregunta rectora de esta parte es: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** La respuesta debe
-apoyarse en **supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio**.
+Comparar exige criterios que se puedan puntuar con el mismo significado en todos los dominios. Los seis del taller son: *daño del error* (cuánto cuesta equivocarse), *irreversibilidad* (si se puede deshacer), *regulación* (cuánto la ley condiciona el diseño), *dificultad de verificar* (cuánto cuesta saber si el resultado es correcto), *datos sensibles* y *dependencia de terceros*. Cada criterio necesita una **escala con ejemplos ancla** (qué es un 1, un 3 y un 5, con un caso concreto), porque «3» no significa lo mismo para dos personas. NIST recomienda además documentar los supuestos y la incertidumbre de cada valoración; una puntuación sin justificación no se puede revisar.
 
-### 1. Taller: modelo
+### 2. Pesos y sensibilidad
 
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: comparar riesgos entre dominios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El ranking resulta de promediar las puntuaciones con unos pesos. Pesos iguales son una elección, no una neutralidad. La pregunta correcta no es cuál es el orden, sino **cuánto del orden sobrevive a otros pesos razonables**. Se estudia variando los pesos a la vez (no uno por uno) con un muestreo y midiendo cuántas veces se mantiene el primer lugar, el conjunto de los primeros y la concordancia de todo el orden (por ejemplo, con el coeficiente tau de Kendall). Saltelli et al. desarrollan este enfoque global frente al de mover un parámetro cada vez. Un resultado estable se declara; uno inestable se declara también.
 
-### 2. Comparar: mecanismo
+### 3. Acuerdo entre evaluadores
 
-En esta clase, **comparar** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: comparar riesgos entre dominios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Dos personas no puntúan igual aunque usen la misma escala. El porcentaje de coincidencias exactas es engañoso porque parte del acuerdo es azar. El **kappa ponderado** corrige el azar y, al ser ponderado, penaliza menos una diferencia de un punto que una de cuatro. Landis y Koch propusieron bandas de lectura, que son convenciones útiles y no leyes. Lo decisivo para el taller es otra medida: **cuánto cambia la conclusión** (el podio) cuando se cambia de evaluador, porque un kappa alto puede convivir con un orden distinto. La respuesta práctica es calibrar con ejemplos ancla, puntuar a ciegas y reconciliar las diferencias grandes.
 
-### 3. Riesgos: evidencia
+### 4. Controles comunes y propios
 
-En esta clase, **riesgos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: comparar riesgos entre dominios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **control** es una medida que reduce un riesgo: una prueba de propiedades, un entorno fijo, una clave de idempotencia, una minimización de datos, un registro de auditoría, un presupuesto de tiempo, un contrato con el proveedor, una copia con recuperación. Algunos protegen contra riesgos que aparecen en varios dominios (privacidad, duplicados, pérdida de datos); otros, contra uno solo (consenso, sesgo por fuga). Una lista corta de controles comunes cubre bien lo compartido y deja huecos en lo propio. El criterio es la **cobertura**: qué fracción de los riesgos de cada dominio queda cubierta, y cuál es el peor cubierto.
 
-### 4. Entre: decisión
+### 5. Lo que no se compara
 
-En esta clase, **entre** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: comparar riesgos entre dominios**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un ranking de riesgo mezcla magnitudes distintas: pérdida económica, daño físico, daño reputacional. Esos números no se suman sin una decisión de valor. Tampoco se pueden comparar probabilidades sin datos de frecuencia, ni extrapolar de una plataforma ficticia a un sector. Un buen taller termina con la lista de comparaciones que **no** se permite: no se afirma que un dominio sea «más seguro», solo que, con estos criterios y pesos, su perfil de riesgo es distinto y con qué estabilidad.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### La matriz que se compara
+
+Las puntuaciones son un juicio del autor, de 1 (bajo) a 5 (alto), para los criterios *daño*, *irreversibilidad*, *regulación*, *dificultad de verificar*, *datos sensibles* y *terceros*:
+
+| Dominio | Daño | Irrev. | Reg. | Verif. | Datos | Terc. | Promedio |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| salud | 5 | 5 | 5 | 4 | 5 | 3 | 4,50 |
+| fintech | 5 | 5 | 5 | 3 | 4 | 3 | 4,17 |
+| blockchain | 4 | 5 | 3 | 4 | 2 | 4 | 3,67 |
+| low-code | 3 | 3 | 2 | 4 | 3 | 5 | 3,33 |
+| ML | 3 | 2 | 2 | 5 | 3 | 3 | 3,00 |
+| datos | 3 | 2 | 2 | 3 | 3 | 3 | 2,67 |
+| geo/tiempo | 3 | 2 | 2 | 3 | 3 | 3 | 2,67 |
+| ciencia | 3 | 2 | 1 | 4 | 1 | 2 | 2,17 |
+| audio/XR | 2 | 1 | 1 | 3 | 2 | 2 | 1,83 |
+| juegos | 1 | 1 | 1 | 2 | 1 | 2 | 1,33 |
+
+Con pesos iguales el orden es el de la tabla; «datos» y «geo/tiempo» empatan en 2,67.
+
+### Cuánto resiste el ranking a otros pesos
+
+Se generan 5 000 vectores de pesos con una distribución de Dirichlet de concentración 50 (casi iguales), 10 (algo distintos) y 3 (muy dispares). Para cada uno se calcula el ranking y se compara con el de pesos iguales.
+
+```python
+g = [r.gammavariate(conc / 6, 1) for _ in range(6)]
+pesos = [x / sum(g) for x in g]
+orden = sorted(DOMINIOS, key=lambda d: (-sum(w * s for w, s in zip(pesos, S[d])), d))
+```
+
+| Dispersión de los pesos | Primer lugar igual | Primeros dos (conjunto) iguales | Kendall (percentil 5) |
+|---|---:|---:|---:|
+| Casi iguales (concentración 50) | 100 % | 99,8 % | 1,00 |
+| Algo distintos (10) | 97,6 % | 88,4 % | 0,87 |
+| Muy dispares (3) | 84,9 % | 71,4 % | 0,69 |
+
+Con pesos muy dispares el primer lugar de «salud» se mantiene en 4 244 de 5 000 sorteos; «low-code» lo ocupa 463 veces, «blockchain» 169 y «ML» 124. Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
+
+![Tabla con la fracción de sorteos de pesos en que se mantiene el primer lugar y los dos primeros de un ranking de diez dominios y el coeficiente de Kendall en el percentil 5.](../../../content/part-23/figures/se-287-estabilidad-de-un-ranking.svg)
+
+**Cómo leer la figura.** Cada fila es una dispersión de los pesos; las columnas miden cuánto del ranking original sobrevive. **Dónde deja de valer:** el primer lugar es estable porque en esta matriz un dominio puntúa alto en casi todo; con otra matriz sería distinto. La distribución de Dirichlet es una forma de definir «pesos razonables» y no la única. Y las puntuaciones son ilustrativas: la estabilidad calculada es la de esta matriz, no la de los dominios reales.
+
+### Dos evaluadores y un podio que cambia
+
+Se parte de las 60 puntuaciones de la matriz como «verdad» y se genera, para cada evaluador, una puntuación con ruido gaussiano de desviación `σ` (redondeada y acotada a 1–5). Se comparan 300 pares de evaluadores por nivel de ruido.
+
+```python
+a = [min(5, max(1, round(x + r.gauss(0, sigma)))) for x in verdad]
+b = [min(5, max(1, round(x + r.gauss(0, sigma)))) for x in verdad]
+```
+
+| Ruido de cada evaluador (puntos) | Acuerdo exacto | Kappa ponderado | Tres primeros distintos |
+|---:|---:|---:|---:|
+| 0,0 | 100 % | 1,00 | 0 % |
+| 0,5 | 58,0 % | 0,84 | 24,3 % |
+| 1,0 | 36,4 % | 0,59 | 61,3 % |
+| 1,5 | 30,3 % | 0,39 | 82,7 % |
+
+Con un kappa de 0,84, que muchas guías leerían como acuerdo «casi perfecto», el trío de dominios más riesgosos difiere en uno de cada cuatro pares de evaluadores.
+
+![Tabla con el acuerdo exacto, el kappa ponderado y el porcentaje de pares de evaluadores cuyos tres dominios más riesgosos difieren según el ruido con que puntúa cada evaluador.](../../../content/part-23/figures/se-287-acuerdo-entre-evaluadores.svg)
+
+**Cómo leer la figura.** Cada fila es un nivel de ruido; la última columna es la fracción de pares de evaluadores que no llegan al mismo podio. **Dónde deja de valer:** el ruido gaussiano independiente es un modelo; las personas reales comparten sesgos (puntúan alto lo que les resulta familiar) y esos sesgos no se promedian. La figura no mide a ninguna persona ni dice cuál es el ruido típico: dice cómo se propaga el que haya.
+
+### Qué cubre una lista corta de controles
+
+Se definen 14 riesgos distintos repartidos entre los diez dominios (de 2 a 5 riesgos cada uno) y ocho controles, cada uno con los riesgos que cubre. Se calcula, para listas de 1 a 4 controles, la que cubre más riesgos distintos y el dominio peor cubierto; y con un algoritmo voraz, cuántos controles cubren los 14.
+
+| Control | Riesgos que cubre (de la matriz del autor) |
+|---|---|
+| prueba de propiedades | error numérico, duplicados, dinero, tiempo/zona |
+| entorno y semilla fijos | no reproducible, error numérico, sesgo/fuga |
+| idempotencia y claves | duplicados, dinero, automatización huérfana, fraude |
+| minimizar y anonimizar | privacidad, regulación, sesgo/fuga |
+| auditoría e historial | regulación, fraude, dinero, automatización huérfana, consenso |
+| presupuesto de tiempo | latencia, consenso |
+| contrato con terceros | dependencia, automatización huérfana, regulación |
+| copias y recuperación | pérdida de datos, dependencia |
+
+```python
+mejor = max(itertools.combinations(CONTROLES, k),
+            key=lambda cs: len(set().union(*(CONTROLES[c] for c in cs)) & riesgos))
+```
+
+| Controles elegidos | Riesgos cubiertos | Dominio peor cubierto |
+|---|---:|---|
+| 1 (auditoría e historial) | 5 de 14 | ciencia (0 %) |
+| 2 (+ prueba de propiedades) | 8 de 14 | ML (0 %) |
+| 3 (+ entorno y semilla fijos) | 10 de 14 | juegos (33 %) |
+| 4 (+ copias y recuperación) | 12 de 14 | audio/XR (50 %) |
+| 6 (cobertura voraz) | 14 de 14 | todos cubiertos |
+
+Los riesgos más repetidos son privacidad, duplicados y pérdida de datos, con cuatro dominios cada uno; sesgo por fuga, consenso y automatización huérfana son propios de uno. Resultado, idéntico en ambos sistemas salvo el orden de listado de empates.
+
+![Tabla con los riesgos cubiertos por la mejor lista de uno a seis controles frente a catorce riesgos de diez dominios y el dominio peor cubierto en cada caso.](../../../content/part-23/figures/se-287-controles-frente-a-riesgos.svg)
+
+**Cómo leer la figura.** Cada fila es el tamaño de la lista de controles; la tercera columna nombra el dominio que menos se beneficia. **Dónde deja de valer:** qué control cubre qué riesgo y qué riesgos tiene cada dominio son juicios del autor; con otra asignación, las cifras cambian. Que un control «cubra» un riesgo no mide cuánto lo reduce, solo que es pertinente. Una cobertura del 100 % es una cobertura de lista, no una garantía.
 
 ## Definiciones de trabajo
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Comparar:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Riesgos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Entre:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
+- **ejemplo ancla:** caso concreto que fija el significado de un nivel de una escala de puntuación.
+- **sensibilidad global:** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
+- **kappa ponderado:** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
+- **control:** medida que reduce la probabilidad o el impacto de un riesgo.
+- **cobertura de controles:** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el taller. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Taller: comparar riesgos entre dominios**:
+El fragmento calcula un promedio ponderado y comprueba que un cambio de pesos invierte un orden. Antes de ejecutarlo, predice cuál de los dos dominios queda primero con los pesos del segundo caso.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+S = {"A": (5, 1), "B": (3, 3)}                  # dos criterios
+def puntaje(d, w): return sum(wi * si for wi, si in zip(w, S[d]))
+assert puntaje("A", (0.5, 0.5)) == puntaje("B", (0.5, 0.5)) == 3.0
+assert puntaje("A", (0.8, 0.2)) > puntaje("B", (0.8, 0.2))     # A primero
+assert puntaje("A", (0.2, 0.8)) < puntaje("B", (0.2, 0.8))     # B primero
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Con pesos iguales empatan; con peso 0,8 al primer criterio gana A, con 0,8 al segundo gana B. Registra versión, comando y salida; busca el peso en que se cruzan.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: comparar riesgos entre dominios**. Parte de esta pregunta: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `domain.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma redacta la matriz con una escala de cinco niveles y un ejemplo ancla por criterio (por ejemplo, para *irreversibilidad*: 1 = se deshace con un clic; 3 = se deshace con una operación manual; 5 = no se puede deshacer). Dos personas puntúan por separado y sin ver la otra tabla; las diferencias de dos o más puntos se discuten y se registran con su motivo. Se calcula el kappa ponderado y la estabilidad del ranking con 5 000 sorteos de pesos, y el informe publica tres líneas: el primer lugar (con su estabilidad), las parejas empatadas y la lista de comparaciones que no se hacen. La recomendación de controles no es «los seis para todos» sino los dos comunes más uno propio por dominio. La revisión externa se pide al dominio de mayor impacto y se registra que se eligió por impacto y no por posición en el ranking.
+
+Compara con la primera propuesta: promediar las dos tablas y publicar el orden. Un diseño es adecuado cuando el informe dice cuánto confiar en cada afirmación; es frágil cuando el orden se presenta como un hecho.
 
 ## Práctica guiada
 
-1. Crea `work/SE-287/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo especializado con restricciones de dominio con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe los seis criterios con una escala de cinco niveles y un ejemplo ancla por nivel extremo.
+2. Puntúa los diez dominios con una justificación de una línea por celda.
+3. Predice si el primer lugar resiste pesos muy dispares y escribe el porcentaje.
+4. Genera 5 000 vectores de pesos y mide la estabilidad del primer lugar, de los dos primeros y del orden completo.
+5. Simula a dos evaluadores con tres niveles de ruido y mide el acuerdo exacto, el kappa ponderado y el cambio del podio.
+6. Asigna riesgos a los dominios y controles a los riesgos, y calcula la mejor lista de uno a cuatro controles y el dominio peor cubierto.
+7. Entrega `risk-compare-log.md` y pide a otra persona que diga qué afirmación del informe quitaría por estar poco sostenida.
 
 ## Ejercicios
 
-1. **Fundamental:** define Taller y comparar con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `domain.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Pesos:** con la matriz del taller, encuentra el peso de *dependencia de terceros* (repartiendo el resto por igual entre los otros cinco criterios) a partir del cual «low-code» pasa a ocupar el primer lugar; la respuesta ronda 0,47.
+2. **Acuerdo:** calcula cuánto debe bajar el ruido de los evaluadores para que el podio difiera en menos del 5 % de los pares.
+3. **Cobertura:** añade un noveno control que cubra los riesgos peor atendidos y recalcula la lista de tres.
+4. **Límites:** redacta tres comparaciones que el informe no debe hacer y la evidencia que se necesitaría para hacerlas.
 
 ## Reto verificable
 
-Entrega el **prototipo especializado con restricciones de dominio** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `risk-compare-log.md` con la predicción, la matriz con justificaciones, las tres tablas y la lista de comparaciones no permitidas. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué parte del ranking resiste otros pesos y qué dominio queda peor cubierto por la lista corta. No se aprueba por entregar un orden sin decir su estabilidad ni su acuerdo.
+
+## Caso conductor
+
+La plataforma educativa ficticia es el caso conductor de la Parte 23. Este taller deja el undécimo artefacto: una matriz de diez dominios con su estabilidad, su acuerdo entre evaluadores y su cobertura de controles. `SE-288` pide aplicar el método a un dominio elegido, con un diseño profundo y su propia evidencia. Cambia después una sola decisión, el peso de un criterio, y observa qué parte del orden se mueve.
+
+## Preguntas frecuentes
+
+### ¿Hay una forma correcta de dar los pesos?
+
+No hay una forma correcta; hay formas defendibles. Lo que se exige es declararla y mostrar cuánto cambia el resultado con otras razonables.
+
+### ¿Un kappa alto garantiza que el ranking es fiable?
+
+No: puede convivir con un podio distinto, como muestra la simulación. Hay que medir también cuánto cambia la conclusión de un evaluador a otro.
+
+### ¿Una lista de controles que cubre todos los riesgos protege el sistema?
+
+Cubre la lista, no el sistema: dice que cada riesgo tiene un control pertinente, no que el control sea eficaz ni que la lista de riesgos esté completa.
+
+### ¿Se pueden usar estos números para decidir un presupuesto?
+
+No directamente: son ilustrativos. Para decidir se necesitan datos del dominio real (frecuencias, costes) y personas con experiencia en él.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **trasladar una métrica técnica a una conclusión de dominio sin validación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico del taller: **un ranking que cambia de primer lugar con un cambio razonable de pesos**. Sortea pesos muy dispares y mira cuántas veces el primer lugar no es «salud».
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** al dar más peso a «dependencia de terceros», «low-code» pasa al primer lugar. **Hipótesis rivales:** (a) hay un error en el cálculo del promedio; (b) la matriz tiene una puntuación mal copiada; (c) el orden es sensible a ese peso. **Prueba:** recalcula a mano los dos promedios con los pesos modificados; si coinciden con el programa y las celdas son las de la matriz, la causa es (c). **Conclusión:** el primer lugar no es estable frente a ese peso. **Regresión:** añade al informe la estabilidad medida y una prueba que falle si el primer lugar cambia con pesos dentro del rango declarado sin que el informe lo diga. No cambies a la vez los pesos y las puntuaciones.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Los dos evaluadores discrepan en muchas celdas | Escala sin ejemplos ancla | Calibrar con casos ancla y puntuar a ciegas |
+| Se publica un orden como si fuera un hecho | No se mide la sensibilidad a los pesos | Muestrear pesos y declarar la estabilidad |
+| Un kappa alto tranquiliza y el podio cambia | Se mide el acuerdo pero no su efecto | Medir también el cambio en la conclusión |
+| La lista de controles «cubre todo» y un dominio queda desprotegido | Se mira la cobertura en promedio | Calcular el dominio peor cubierto |
+| Se suman daños de naturaleza distinta | Mezcla de magnitudes sin decisión de valor | Declarar qué no se compara y por qué |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Jupyter o Godot según el caso, datos sintéticos y control de versiones. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-287/
 ├── README.md
-│   ├── domain.md
-│   ├── prototype.md
-│   ├── validation.md
-├── activity.yaml
-└── rubric.json
+├── taller/
+│   ├── matriz.py
+│   ├── sensibilidad.py
+│   └── cobertura.py
+├── tests/test_taller.py
+└── evidence/risk-compare-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `domain.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `itertools`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas salvo el orden de listado de elementos empatados. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una matriz de riesgos puede usarse para justificar decisiones sobre personas: documenta quién puntúa, con qué información y con qué conflicto de intereses;
+- no presentes puntuaciones de juicio como mediciones ni uses el orden para excluir a una comunidad o a un dominio sin evidencia;
+- las decisiones que afectan a personas deben poder cuestionarse con un procedimiento conocido;
+- describe las tablas con texto y no uses color como única señal;
+- usa datos sintéticos y no incluyas información real de organizaciones o personas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «compara los riesgos de estos dominios» devolverá una tabla con números que parecen medidos y un orden definitivo. Pídele en cambio que defina cada criterio con ejemplos ancla, que declare los pesos y muestre la estabilidad del ranking con otros pesos, que puntúe dos veces por separado y reporte el acuerdo, y que liste lo que no se puede comparar. Revisa especialmente si presenta puntuaciones de juicio como datos y si da un orden sin su incertidumbre: son los dos defectos que este taller mostró.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el taller a otra comparación (por ejemplo, tres proveedores de una herramienta): cambia los objetos y los criterios, y conserva el procedimiento de anclar la escala, muestrear los pesos, medir el acuerdo y calcular la cobertura. La transferencia está lograda cuando puedes explicar qué parte de la conclusión resistía y cuál no, no cuando la tabla se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-287/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de criterios, pesos, acuerdo y cobertura con ejemplos de la matriz |
+| corrección | estabilidad, acuerdo y cobertura reproducibles con las mismas semillas |
+| diseño | matriz con anclas, justificaciones y lista de comparaciones no permitidas |
+| diagnóstico | reproducción del fallo «primer lugar inestable» con regresión |
+| incertidumbre | declaración de que las puntuaciones son un juicio ilustrativo y no mediciones |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [NIST SP 800-30 Rev. 1, «Guide for Conducting Risk Assessments»](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-30r1.pdf) — evaluación de riesgos con documentación de supuestos e incertidumbre; autoridad: NIST.
+- [Landis y Koch, «The Measurement of Observer Agreement for Categorical Data» (Biometrics, 1977)](https://doi.org/10.2307/2529310) — kappa y su interpretación; autoridad: Biometrics.
+- [Saltelli et al., «Global Sensitivity Analysis: The Primer» (2008)](https://doi.org/10.1002/9780470725184) — análisis de sensibilidad global; autoridad: Wiley.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones; autoridad: documentación de Python.
 
-- **Jupyter documentation** — Project Jupyter. [https://docs.jupyter.org/en/latest/](https://docs.jupyter.org/en/latest/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Godot Engine documentation** — Godot Engine. [https://docs.godotengine.org/en/stable/](https://docs.godotengine.org/en/stable/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 84,9 % de estabilidad, el 24,3 % de podios distintos o los 10 de 14 riesgos cubiertos se observen con dominios reales. Esa afirmación depende de las puntuaciones, de los evaluadores y de los controles.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Taller: comparar riesgos entre dominios**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-288`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo el orden de listado de empates. Las puntuaciones, los riesgos y los controles son un juicio ilustrativo del autor, no una medición de ningún dominio, evaluador ni organización. El proyecto final aplica este método a un dominio elegido.
+
+## Glosario
+
+- **ejemplo ancla:** caso concreto que fija el significado de un nivel de una escala de puntuación.
+- **sensibilidad global:** análisis del efecto de variar a la vez varios parámetros inciertos sobre el resultado de un modelo.
+- **kappa ponderado:** medida de acuerdo entre evaluadores corregida por azar que penaliza más las diferencias grandes.
+- **control:** medida que reduce la probabilidad o el impacto de un riesgo.
+- **cobertura de controles:** fracción de los riesgos de un dominio a los que un conjunto de controles es pertinente.
 
 ---
 

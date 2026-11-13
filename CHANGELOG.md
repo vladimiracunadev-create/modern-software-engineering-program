@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-13 — Parte 23 desarrollada y profundizada con simulaciones sintéticas reproducibles
+
+- las clases `SE-277`–`SE-288` pasan de borradores genéricos a clases completas sobre una plataforma educativa ficticia que incorpora una pieza de un dominio especializado en cada una: software científico y
+  reproducibilidad, ingeniería de datos y procesamiento analítico, aprendizaje automático como componente de producto, videojuegos y simulación, gráficos, audio y realidad extendida, fintech e invariantes
+  monetarias, salud y datos sensibles, cadenas de bloques y contratos inteligentes, sistemas geoespaciales y temporales, low-code y automatización visual, un taller de comparación de riesgos entre dominios
+  y un proyecto de diseño profundo de un dominio elegido; el portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con simulaciones de datos sintéticos y semilla fija: orden de la suma, dispersión entre semillas y horizonte del caos; reintentos con duplicados, eventos tardíos y asimetría de claves; fuga de la
+  etiqueta, prevalencia y alarmas de deriva; paso de tiempo fijo, atravesar una pared y espiral de la muerte; latencia y subcargas de audio, aliasing y fotogramas fuera de presupuesto; dinero con coma flotante,
+  mutantes de un libro mayor y cobros duplicados; anonimización por generalización, fusión de fichas y fatiga de alarmas; prueba de trabajo, doble gasto y reentrada; distancia en grados, un año de reloj e índice
+  de rejilla; caminos frente a pares, eventos duplicados y automatizaciones huérfanas; estabilidad de un ranking, acuerdo entre evaluadores y cobertura de controles; y mutaciones de un dosier, sensibilidad de
+  supuestos y huella del paquete;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un puente hacia el trabajo con agentes;
+- las simulaciones se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas (salvo el orden de listado de elementos empatados en `SE-287`); los parámetros son supuestos
+  del autor y las puntuaciones de riesgo de `SE-287` son un juicio ilustrativo; no se usó ningún código científico real, motor de procesamiento, modelo de aprendizaje automático, motor de juego, dato clínico,
+  procesador de pagos ni red de cadena de bloques, no se midió confort ni percepción y no se evaluó ninguna norma;
+- el alcance (480 clases publicadas, 540 planificadas) y los textos globales no cambian en esta entrada.
+
 ## 2026-11-13 — Guías por rol alineadas con el alcance de 540 clases: 42 guías
 
 - dos guías nuevas, de más de 2.200 palabras cada una y con la misma estructura, generador y contrato que las demás: `Agentic Harness Engineer` (harness, contexto, herramientas, bucles, evaluación y recuperación de agentes) y `Domain & Methodology Engineer` (TDD, BDD, ATDD, DDD, contratos y SDD como práctica de equipo); el programa pasa de 40 a 42 guías profesionales;

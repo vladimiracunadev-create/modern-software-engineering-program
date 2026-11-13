@@ -2,208 +2,340 @@
 
 [← SE-279 — Machine learning como componente de producto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/README.md) · [↑ Parte 23](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-280.html) · [SE-281 — Gráficos, audio, XR y experiencias inmersivas →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-23-software-especializado-y-dominios/se-281-graficos-audio-xr-y-experiencias-inmersivas/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que diseñes el bucle de un juego sabiendo qué promete sobre el tiempo, el determinismo y la colisión, y para que distingas un problema de rendimiento de un problema de corrección que solo se manifiesta cuando el rendimiento cae.
+
+**Por qué aparece aquí.** Es la cuarta clase de la **Parte 23**, después de **Machine learning como componente de producto**: allí el riesgo era una métrica que no representaba el uso; aquí el riesgo es un programa interactivo cuyo estado debe avanzar de forma coherente aunque el tiempo entre fotogramas varíe. Un juego es una simulación con una persona dentro del bucle, y por eso concentra problemas de tiempo, estado compartido y presupuesto que otros dominios tratan por separado. El caso conductor sigue siendo la plataforma educativa ficticia: un juego de laboratorio de física para clase.
+
+**Error conceptual que debe corregir.** Creer que mover los objetos «según el tiempo transcurrido» hace el juego independiente de la velocidad de la máquina. Escala la velocidad aparente, pero deja el resultado dependiente de cuánto duró cada fotograma, lo que vuelve irrepetibles las partidas y hace que los objetos rápidos atraviesen las paredes.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices si dos ejecuciones de la misma simulación con tiempos de fotograma algo distintos terminan en el mismo estado; después mides cuántos finales distintos aparecen con paso variable y con paso fijo, a qué velocidad una bala atraviesa una pared fina y qué ocurre cuando actualizar cuesta más que el paso. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `game-log.md` con la predicción, la tabla de finales según la política de paso, la tabla de colisiones detectadas por velocidad, la tabla de la espiral por coste de actualización y una nota que diga qué parte del juego se comprobó sin motor gráfico y cuál exige la máquina del jugador.
+
+**Límite de la conclusión.** El resorte, la pared y los costes de actualización son construcciones del autor. No se usó ningún motor de juego, ninguna tarjeta gráfica ni ninguna medición de fotogramas reales: los experimentos son modelos en CPython de la lógica del tiempo y la colisión, no del rendimiento de un juego.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Fiedler, «Fix Your Timestep!» (Gaffer On Games)](https://gafferongames.com/post/fix_your_timestep/) | Compara el paso variable con el fijo y propone acumular el tiempo y avanzar en pasos fijos; advierte de la espiral de la muerte y de limitar el tiempo acumulado. | No mide ningún motor concreto y no es una norma. |
+| [Nystrom, «Game Loop» (Game Programming Patterns)](https://gameprogrammingpatterns.com/game-loop.html) | Describe el bucle de juego, sus variantes de paso fijo y variable y el compromiso entre determinismo, suavidad y coste. | No fija números para ningún juego. |
+| [Godot Engine, documentación](https://docs.godotengine.org/en/stable/) | Documenta cómo un motor concreto separa el procesamiento de física de un paso fijo del procesamiento por fotograma. | Describe una herramienta; otros motores lo resuelven de otra forma. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-279`: una métrica solo vale si la prueba imita el uso. En un juego, el «uso» incluye máquinas con velocidades distintas. La pregunta activa es: **¿qué garantiza este bucle cuando el tiempo entre fotogramas cambia, y qué parte de esa garantía puedo comprobar sin el motor gráfico?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-279` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Jupyter o Godot según el caso, datos sintéticos y control de versiones.
+- Haber completado `SE-279` o poder explicar por qué una evaluación debe imitar el uso real.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Saber qué es una integración numérica sencilla (posición += velocidad × tiempo).
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Videojuegos, loops, entidades y simulación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma educativa ficticia crea un laboratorio de física para clase: una bola rebota sobre un resorte y el estudiante mide el periodo. El prototipo mueve todo según el tiempo del último fotograma. En el portátil del docente la bola oscila de una forma; en la sala de ordenadores, con una máquina más lenta, de otra; dos estudiantes con los mismos parámetros anotan resultados distintos. En un nivel posterior, un proyectil rápido «atraviesa» una pared sin tocarla, y cuando se carga un nivel pesado la aplicación se congela unos segundos y después va a cámara lenta. Son tres síntomas de un mismo diseño del tiempo.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Videojuegos y loops con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo especializado con restricciones de dominio** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «trasladar una métrica técnica a una conclusión de dominio sin validación» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Videojuegos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Loops | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Entidades | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Simulación | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. explicar las etapas del bucle de un juego y qué garantía da cada política de paso de tiempo, con un ejemplo y un contraejemplo del laboratorio;
+2. medir cuántos estados finales distintos produce la misma simulación con paso variable y con paso fijo, y declarar qué determinismo necesitas;
+3. medir a qué velocidad una detección de colisión discreta deja de ver una pared de un grosor dado y comprobar que una prueba barrida la detecta;
+4. calcular cuándo el coste de actualizar supera el paso fijo y qué ocurre con y sin tope de pasos por fotograma;
+5. declarar qué parte del juego se comprobó sin motor gráfico y qué exige la máquina real.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Videojuegos, loops, entidades y simulación"] --> M["Modelo: Videojuegos"]
-    M --> D["Decisión: loops"]
-    D --> E["Evidencia: entidades"]
-    E --> R["Revisión: simulación"]
-    R -->|nueva información| M
+    A[Entrada] --> B[Acumular tiempo]
+    B --> C{Hay un paso fijo completo?}
+    C -->|sí| D[Actualizar estado un paso]
+    D --> C
+    C -->|no| E[Dibujar con interpolación]
+    E --> F[Presentar fotograma]
+    F --> A
+    D -->|más pasos de los permitidos| G[Descartar tiempo acumulado]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Videojuegos, loops, entidades y simulación**.
+El mapa muestra el bucle de paso fijo con acumulador: el tiempo real se acumula y se consume en pasos de duración constante; el dibujo ocurre una vez por fotograma. El descarte del exceso es la válvula que evita que un fotograma lento provoque más trabajo y por tanto otro fotograma lento.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| El bucle de juego | Define qué ocurre en cada fotograma y quién manda sobre el tiempo. | Predicción, traza causal y contraejemplo de **El bucle de juego** en `game-log.md` |
+| Paso fijo y determinismo | Decide si una partida se puede repetir, grabar y sincronizar. | Predicción, traza causal y contraejemplo de **Paso fijo y determinismo** en `game-log.md` |
+| Entidades y estado | Organiza qué se actualiza, en qué orden y quién posee cada dato. | Predicción, traza causal y contraejemplo de **Entidades y estado** en `game-log.md` |
+| Colisiones continuas | Evita que lo rápido atraviese lo fino. | Predicción, traza causal y contraejemplo de **Colisiones continuas** en `game-log.md` |
+| Presupuesto y degradación | Define qué se sacrifica cuando el tiempo no alcanza. | Predicción, traza causal y contraejemplo de **Presupuesto y degradación** en `game-log.md` |
 
 ## Conceptos y decisiones
 
-El software especializado hereda reglas, riesgos y evidencia del dominio; una técnica correcta puede ser inválida si el modelo no representa ese contexto.
+### 1. El bucle de juego
 
-La pregunta rectora de esta parte es: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** La respuesta debe
-apoyarse en **supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio**.
+Un juego repite tres etapas: leer la entrada, actualizar el estado del mundo y dibujarlo. Lo que distingue un diseño de otro es cómo se relaciona el tiempo real con el tiempo simulado. Nystrom describe las variantes: avanzar el estado una cantidad proporcional al tiempo que pasó desde el fotograma anterior (paso variable), avanzarlo siempre una cantidad constante (paso fijo) o combinar ambas con un acumulador. Cada una compra algo: el paso variable es simple y suave; el fijo da repetibilidad; el acumulador da ambas a cambio de interpolar al dibujar. La elección no es de gusto: depende de si una partida debe poder reproducirse, grabarse o sincronizarse con otra máquina.
 
-### 1. Videojuegos: modelo
+### 2. Paso fijo y determinismo
 
-En esta clase, **Videojuegos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Videojuegos, loops, entidades y simulación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una simulación es **determinista** si, partiendo del mismo estado y las mismas entradas, llega siempre al mismo estado. Con paso variable el estado final depende de la secuencia de duraciones de los fotogramas, que cambia con la carga de la máquina; dos ejecuciones con las mismas entradas terminan en estados distintos. Con paso fijo la secuencia de pasos es la misma, y el resultado solo depende de las entradas. Para sincronizar dos máquinas, repetir una partida o encontrar un fallo con una grabación se necesita el paso fijo. El determinismo entre máquinas distintas exige además la misma aritmética (la no asociatividad de `SE-277` reaparece) y el mismo orden de actualización.
 
-### 2. Loops: mecanismo
+### 3. Entidades y estado
 
-En esta clase, **loops** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Videojuegos, loops, entidades y simulación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un mundo de juego tiene muchas entidades con estado que cambia a cada paso. Dos formas de organizarlo son la jerarquía de clases (una bola «es un» objeto físico) y la composición de componentes (una entidad es un identificador al que se asocian posición, velocidad, aspecto). La composición facilita añadir comportamientos y recorrer solo lo necesario, pero repartir el estado exige decidir el **orden de actualización**: si la entidad A lee la posición de B antes o después de que B se mueva cambia el resultado. Fijar el orden, y escribir el estado nuevo en un búfer aparte para leerlo en el paso siguiente, evita dependencias ocultas.
 
-### 3. Entidades: evidencia
+### 4. Colisiones continuas
 
-En esta clase, **entidades** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Videojuegos, loops, entidades y simulación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La detección **discreta** comprueba si dos formas se solapan en el instante del fotograma. Si un objeto se mueve más de su propio tamaño (o del grosor del obstáculo) entre dos fotogramas, puede estar de un lado en uno y del otro en el siguiente sin solaparse nunca en un instante muestreado: es el efecto de **túnel**. La detección **continua** o barrida comprueba el segmento recorrido entre ambos instantes. Alternativas: subdividir el paso cuando la velocidad es alta, o limitar la velocidad máxima. Cada una tiene un coste, y todas necesitan una prueba que lance objetos rápidos contra obstáculos finos.
 
-### 4. Simulación: decisión
+### 5. Presupuesto y degradación
 
-En esta clase, **simulación** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué afirmación de dominio se hace y qué validación permite sostenerla?» y demostrarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Videojuegos, loops, entidades y simulación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Con 60 fotogramas por segundo, cada fotograma dispone de 16,7 ms para entrada, actualización, dibujo y presentación. Un fotograma que lo excede no solo se ve mal: con paso fijo, el tiempo acumulado exige más pasos en el siguiente, que tarda aún más. Es la **espiral de la muerte**. La defensa es un tope: no ejecutar más de unos pocos pasos por fotograma y descartar el resto, a cambio de que el juego corra más lento que el reloj. Otras formas de degradar son bajar la resolución, simplificar la física o reducir entidades activas. Lo importante es decidir de antemano qué se sacrifica.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### La misma simulación, veinte finales distintos
+
+Un resorte amortiguado (`a = −40·x − 0,5·v`, integración de Euler semiimplícita) se simula 10 s desde `x = 1`. Con paso variable la duración de cada fotograma es gaussiana en torno a `1/fps` con una fluctuación del 25 %; con paso fijo es `1/60`. Referencia: paso de `1/10 000`.
+
+```python
+def simular(pasos, T=10.0):
+    x, v, t = 1.0, 0.0, 0.0
+    while t < T - 1e-12:
+        dt = min(pasos(), T - t)
+        a = -40.0 * x - 0.5 * v
+        v += a * dt; x += v * dt; t += dt
+    return x
+```
+
+| Política de paso | Posición a los 10 s | Error frente a la referencia |
+|---|---:|---:|
+| Variable, 30 fps medios | 0,0637 | 1,4·10⁻² |
+| Variable, 60 fps medios | 0,0687 | 9,1·10⁻³ |
+| Variable, 144 fps medios | 0,0744 | 3,4·10⁻³ |
+| Fijo de 1/60 s | 0,0697 | 8,1·10⁻³ |
+| Referencia (1/10 000 s) | 0,0778 | — |
+
+Con paso variable, 20 ejecuciones con semillas distintas dieron **20 finales distintos**; con paso fijo, uno. Resultado idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
+
+![Tabla con la posición de un resorte a los diez segundos según la política de paso de tiempo y su error frente a una referencia.](../../../content/part-23/figures/se-280-paso-de-tiempo-fijo.svg)
+
+**Cómo leer la figura.** Cada fila es una política; la columna de error mide la distancia a una simulación muy fina. **Dónde deja de valer:** el error de una corrida con paso variable puede ser menor o mayor que el del paso fijo según el azar de los tiempos; la tabla no dice que el variable sea peor en exactitud, sino que no es repetible. El paso fijo de 1/60 tampoco es «exacto»: tiene un error propio del integrador. La figura no mide ningún motor: los tiempos de fotograma son gaussianos supuestos.
+
+### La bala y la pared fina
+
+Una bala parte de una posición uniforme en el tramo de una unidad previo a una pared que ocupa [0; 0,2]. En cada fotograma (1/60 s) se evalúa si choca con la pared: una prueba **discreta** (¿está dentro de la pared al inicio o al final del paso?) y una **barrida** (¿el segmento recorrido toca la pared?). Se lanzan 2 000 balas por velocidad.
+
+```python
+def barrida(x0, x1, pared=(0.0, 0.2)):
+    return x0 <= pared[1] and x1 >= pared[0]
+def discreta(x0, x1, pared=(0.0, 0.2)):
+    return pared[0] <= x1 <= pared[1] or pared[0] <= x0 <= pared[1]
+```
+
+| Velocidad (u/s) | Paso por fotograma (u) | Prueba discreta | Prueba barrida |
+|---:|---:|---:|---:|
+| 5 | 0,08 | 8,2 % | 8,2 % |
+| 12 | 0,20 | 20,5 % | 20,5 % |
+| 30 | 0,50 | 19,2 % | 49,4 % |
+| 60 | 1,00 | 20,0 % | 100 % |
+| 120 | 2,00 | 0 % | 100 % |
+
+Las columnas son el porcentaje de lanzamientos que tocan la pared durante el fotograma. La prueba barrida es la verdad de referencia. Hasta que el paso iguala el grosor (0,2) coinciden; a 30 u/s la discreta detecta el 39 % de los choques reales (19,2 de 49,4); a 120 u/s, ninguno.
+
+![Tabla con el porcentaje de choques con una pared fina que detectan una prueba discreta y una barrida según la velocidad de una bala.](../../../content/part-23/figures/se-280-atravesar-la-pared.svg)
+
+**Cómo leer la figura.** Cada fila es una velocidad; la prueba barrida marca los choques que ocurrieron durante el paso y la discreta, los que alcanzó a ver. **Dónde deja de valer:** la geometría es unidimensional y la pared fija; en dos o tres dimensiones con formas rotadas la prueba barrida es más cara y hay casos (rotaciones rápidas) que exigen otros métodos. Los porcentajes dependen del tramo de lanzamiento elegido; lo que no depende de él es que la discreta pierde choques cuando el paso supera el grosor.
+
+### Cuando actualizar cuesta más que el paso
+
+Se simula un bucle con acumulador de paso fijo de 16,7 ms durante 60 s. Cada actualización cuesta `c` ms, con un 2 % de picos de coste cuádruple; dibujar cuesta 2 ms y presentar espera al menos 16,7 ms. Se compara sin tope de pasos con un tope de 5 pasos por fotograma (el exceso se descarta).
+
+```python
+while real < 60_000:
+    acc += prev                       # tiempo del fotograma anterior
+    pasos, gastado = 0, 0.0
+    while acc >= dt and pasos < tope:
+        gastado += coste * (4 if r.random() < 0.02 else 1)
+        acc -= dt; juego += dt; pasos += 1
+    if pasos == tope and acc >= dt: acc = 0.0      # válvula
+    fotograma = max(gastado + 2.0, dt)
+    real += fotograma; prev = fotograma
+```
+
+| Coste de una actualización (ms) | Sin tope: fps · peor fotograma (ms) | Tope de 5 pasos: fps · peor (ms) · juego/real |
+|---:|---|---|
+| 4 | 59,9 · 18 | 59,9 · 18 · 1,00 |
+| 12 | 52,4 · 122 | 52,5 · 122 · 1,00 |
+| 15 | 18,7 · 302 | 26,7 · 167 · 0,98 |
+| 17 | 1,0 · 5 357 | 10,9 · 189 · 0,90 |
+| 20 | 0,5 · 13 322 | 9,3 · 282 · 0,77 |
+
+Con un coste de 17 ms, apenas por encima del paso, el juego sin tope se bloquea (1 fotograma por segundo y uno de más de 5 s); con tope sigue respondiendo a 11 fps, con el juego al 90 % del reloj.
+
+![Tabla con los fotogramas por segundo y el peor fotograma de un bucle de paso fijo con y sin tope de pasos según el coste de cada actualización.](../../../content/part-23/figures/se-280-espiral-de-la-muerte.svg)
+
+**Cómo leer la figura.** Cada fila es el coste de una actualización; las columnas comparan las dos políticas. La última cifra de la derecha es el tiempo de juego transcurrido por cada segundo real. **Dónde deja de valer:** los costes y los picos son supuestos; en un juego real la actualización y el dibujo comparten la unidad de proceso y la memoria. Un tope que descarta tiempo tampoco es gratis: el juego va más lento que el reloj, lo que en un juego en red o con música sincronizada es un fallo visible.
 
 ## Definiciones de trabajo
 
-- **Videojuegos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Loops:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Entidades:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
-- **Simulación:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio.
+- **bucle de juego:** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
+- **paso fijo:** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
+- **determinismo:** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
+- **túnel:** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
+- **espiral de la muerte:** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el laboratorio de física. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Videojuegos, loops, entidades y simulación**:
+El fragmento muestra que con paso fijo el resultado no depende de cuántos fotogramas se usen. Antes de ejecutarlo, predice si ambas ejecuciones coinciden.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+def mundo():
+    return {"x": 1.0, "v": 0.0, "acc": 0.0}
+def avanzar(m, dt_real, paso=1/60):
+    m["acc"] += dt_real
+    while m["acc"] >= paso - 1e-12:
+        m["v"] += -40.0 * m["x"] * paso; m["x"] += m["v"] * paso; m["acc"] -= paso
+a, b = mundo(), mundo()
+avanzar(a, 1.0)
+for _ in range(60): avanzar(b, 1/60)
+assert a["x"] == b["x"], (a, b)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Con el mismo tiempo acumulado, el mismo número de pasos fijos da el mismo estado, sin importar si ese tiempo llegó en un fotograma de un segundo o en sesenta de 1/60 s. Registra versión, comando y salida; cambia `paso` a 1/30 y predice si cambia el estado.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Videojuegos, loops, entidades y simulación**. Parte de esta pregunta: **¿qué afirmación de dominio se hace y qué validación permite sostenerla?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando supuestos explícitos, datos sintéticos, métrica apropiada y revisión por criterio de dominio. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `domain.md` y enlaza la evidencia, no solo la conclusión.
+El equipo del laboratorio adopta el bucle de acumulador con paso fijo de 1/120 s para la física y un dibujo por fotograma con interpolación entre el estado anterior y el actual. Registra las entradas del estudiante con el número de paso, de modo que cualquier partida se puede reproducir paso a paso en una prueba automática sin pantalla. Los proyectiles usan prueba barrida y subdividen el paso por encima de una velocidad dada. El tope es de 5 pasos por fotograma; cuando se alcanza, se muestra un indicador de «ralentizado» y se registra en la telemetría local. Una prueba de regresión lanza 200 proyectiles a velocidades crecientes contra una pared fina y exige que ninguno la atraviese.
+
+Compara con el prototipo: paso variable, colisión discreta, sin tope. Un diseño es adecuado cuando una partida se puede reproducir y cuando la degradación es visible y acotada; es frágil cuando el comportamiento depende de la velocidad de la máquina.
 
 ## Práctica guiada
 
-1. Crea `work/SE-280/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo especializado con restricciones de dominio con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja el bucle del laboratorio y marca dónde se lee la entrada, dónde se actualiza y dónde se dibuja.
+2. Predice si dos ejecuciones con tiempos de fotograma distintos terminan igual con paso variable y con paso fijo.
+3. Simula el resorte con ambas políticas y cuenta los finales distintos en 20 ejecuciones.
+4. Lanza balas de velocidad creciente contra una pared fina con las dos pruebas de colisión y determina a qué velocidad la discreta empieza a fallar.
+5. Simula el bucle con acumulador para cinco costes de actualización, con y sin tope.
+6. Decide y escribe qué se sacrifica primero cuando el tiempo no alcanza.
+7. Entrega `game-log.md` y pide a otra persona que reproduzca una partida a partir de las entradas registradas.
 
 ## Ejercicios
 
-1. **Fundamental:** define Videojuegos y loops con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `domain.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Paso:** cambia el paso fijo a 1/120 y mide el error del resorte frente a la referencia; explica qué compraste y qué pagaste.
+2. **Túnel:** calcula la velocidad máxima segura de una bala para una pared de 0,05 de grosor a 60 fps con prueba discreta.
+3. **Espiral:** para un coste de actualización de 16 ms con picos del 5 % de coste doble, simula el bucle y decide un tope de pasos justificado.
+4. **Orden:** diseña un caso con dos entidades donde el resultado cambie según el orden de actualización y propón cómo fijarlo.
 
 ## Reto verificable
 
-Entrega el **prototipo especializado con restricciones de dominio** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `game-log.md` con la predicción, la tabla de finales por política de paso, la de colisiones por velocidad, la de la espiral y una grabación de entradas que reproduzca una partida. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y reproduce la partida con el mismo estado final. No se aprueba por describir el bucle ni por afirmar que el juego «va fluido» sin una medición.
+
+## Caso conductor
+
+La plataforma educativa ficticia es el caso conductor de la Parte 23. Esta clase deja el cuarto artefacto: el laboratorio de física con paso fijo, colisión barrida y tope de pasos. `SE-281` mira lo que sale por los altavoces y la pantalla: gráficos, audio y experiencias inmersivas, donde el presupuesto de tiempo es todavía más estricto. Cambia después una sola decisión, el paso fijo de 1/60 a 1/120, y observa qué garantía mejora y qué presupuesto empeora.
+
+## Preguntas frecuentes
+
+### ¿Siempre debo usar paso fijo?
+
+No: un juego sin repeticiones ni sincronización puede usar paso variable con un tope razonable. Se elige por lo que necesita reproducirse; si lo necesita, el paso fijo.
+
+### ¿Por qué mi bala atraviesa la pared solo en algunos ordenadores?
+
+Porque la distancia por fotograma depende de la tasa de fotogramas: en una máquina lenta el paso es mayor y supera el grosor. Con colisión barrida o con paso fijo la distancia por paso es la misma en todas.
+
+### ¿El determinismo entre máquinas es automático con paso fijo?
+
+No: además hace falta la misma aritmética y el mismo orden de actualización. Los números en coma flotante pueden diferir entre arquitecturas, como se vio en `SE-277`.
+
+### ¿Qué hago si no cabe en 16,7 ms?
+
+Mide qué etapa gasta el tiempo, decide qué degradar y pon un tope. Lo peor es no decidir: la espiral decide por ti.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **trasladar una métrica técnica a una conclusión de dominio sin validación**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **un proyectil rápido que atraviesa una pared sin que ningún error aparezca**. Lanza una bala a 120 u/s contra una pared de 0,2 con la prueba discreta.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** la bala sale por el otro lado y el registro no muestra ningún choque. **Hipótesis rivales:** (a) la pared no está activa; (b) la geometría de la pared está mal; (c) el paso por fotograma supera el grosor. **Prueba:** calcula el paso (120/60 = 2) y compáralo con 0,2; con la prueba barrida, el choque aparece. **Conclusión:** el paso es diez veces el grosor. **Regresión:** cambia a la prueba barrida o subdivide el paso, y añade una prueba que lance 200 balas a velocidades crecientes. No cambies a la vez la prueba y el grosor de la pared.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Dos máquinas dan resultados distintos con las mismas entradas | Paso variable | Paso fijo con acumulador y entradas con número de paso |
+| Los objetos rápidos atraviesan las paredes | Colisión discreta con paso mayor que el grosor | Prueba barrida, subdivisión del paso o límite de velocidad |
+| El juego se congela y luego va lento | Espiral de la muerte sin tope | Tope de pasos por fotograma y descarte del exceso, con aviso |
+| El resultado depende del orden de las entidades | Lectura de estado ya modificado | Fijar el orden y escribir el estado nuevo en un búfer aparte |
+| Una repetición se desincroniza al cabo de un rato | Aritmética o azar no deterministas | Misma aritmética, semilla en el estado y comprobación periódica del estado |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Jupyter o Godot según el caso, datos sintéticos y control de versiones. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-280/
 ├── README.md
-│   ├── domain.md
-│   ├── prototype.md
-│   ├── validation.md
-├── activity.yaml
-└── rubric.json
+├── laboratorio/
+│   ├── bucle.py
+│   ├── colision.py
+│   └── presupuesto.py
+├── tests/test_laboratorio.py
+└── evidence/game-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `domain.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un juego que graba entradas guarda datos de comportamiento: minimiza y separa lo que se envía de lo que queda en el equipo;
+- los destellos y los cambios bruscos de brillo pueden dañar a personas con epilepsia fotosensible: ofrece una opción para reducirlos;
+- permite reasignar los controles y jugar sin depender de un tiempo de reacción estricto cuando el objetivo educativo no lo exige;
+- no uses color como única señal de estado y ofrece alternativa textual o sonora;
+- documenta qué se comprobó sin motor y qué en la máquina real, para que el límite sea visible.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «escribe el bucle del juego» usará el tiempo del último fotograma para mover los objetos y comprobará colisiones en cada fotograma. Pídele en cambio que use un acumulador con paso fijo y tope, que haga las colisiones con prueba barrida o subdivisión, que registre las entradas por número de paso y que incluya una prueba que reproduzca una partida. Revisa especialmente si el estado depende del tiempo real del fotograma y si una velocidad alta puede saltarse un obstáculo: son los dos defectos que esta clase mostró.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra simulación interactiva (por ejemplo, un simulador de tráfico para clase): cambia las entidades y las reglas, y conserva el procedimiento de fijar el paso, medir los finales distintos y probar el caso rápido contra el obstáculo fino. La transferencia está lograda cuando puedes explicar qué parte del diseño dependía del motor y cuál no, no cuando el código se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-280/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de las etapas del bucle y de las políticas de paso con ejemplos del laboratorio |
+| corrección | finales, colisiones y fotogramas reproducibles con las mismas semillas |
+| diseño | bucle con paso fijo, colisión barrida, tope y registro de entradas |
+| diagnóstico | reproducción del fallo «la bala atraviesa» con regresión |
+| incertidumbre | declaración de que ningún experimento usó un motor ni una tarjeta gráfica |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Fiedler, «Fix Your Timestep!» (Gaffer On Games)](https://gafferongames.com/post/fix_your_timestep/) — paso fijo, acumulador y espiral de la muerte; autoridad: autor del artículo.
+- [Nystrom, «Game Loop» (Game Programming Patterns)](https://gameprogrammingpatterns.com/game-loop.html) — variantes del bucle de juego; autoridad: autor del libro.
+- [Godot Engine, documentación](https://docs.godotengine.org/en/stable/) — procesamiento de física con paso fijo en un motor concreto; autoridad: Godot Engine.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones; autoridad: documentación de Python.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
 
-- **Jupyter documentation** — Project Jupyter. [https://docs.jupyter.org/en/latest/](https://docs.jupyter.org/en/latest/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Godot Engine documentation** — Godot Engine. [https://docs.godotengine.org/en/stable/](https://docs.godotengine.org/en/stable/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 20 finales distintos, el 39 % de choques detectados a 30 u/s o los 11 fotogramas por segundo se observen en un juego real. Esa afirmación depende del motor, de la máquina y del contenido.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Videojuegos, loops, entidades y simulación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-281`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún motor de juego, tarjeta gráfica ni medición de fotogramas reales: el resorte, la pared y los costes de actualización son construcciones del autor. La siguiente clase pasa a gráficos, audio y experiencias inmersivas.
+
+## Glosario
+
+- **bucle de juego:** ciclo repetido de lectura de entrada, actualización del estado y dibujo.
+- **paso fijo:** duración constante con que se avanza el estado, independiente del tiempo real del fotograma.
+- **determinismo:** propiedad de una simulación que, con el mismo estado y las mismas entradas, llega siempre al mismo estado.
+- **túnel:** efecto por el cual un objeto rápido atraviesa uno fino porque nunca se solapa en un instante muestreado.
+- **espiral de la muerte:** realimentación en que un fotograma lento acumula más trabajo y provoca otro más lento.
 
 ---
 

@@ -49,6 +49,15 @@ accesibilidad y limpieza verificables.
 3. **Aislamiento reproducible:** las clases 102–104 fijan runtime, dependencias y entorno desechable.
 4. **Diagnóstico y entrega:** las clases 105–108 reducen, hacen accesible, diagnostican y entregan el entorno.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan experimentos reales con CPython 3.12.9 en Windows 11 (ruff 0.15.20, mypy 2.1.0, black, uv) y, donde se indica, con CPython 3.12.3 en Ubuntu bajo WSL2: un intercambio LSP con `ruff server`,
+una sesión de `pdb` y el costo de `sys.settrace` y `sys.monitoring`, `cProfile`, `tracemalloc` y un muestreo por hilo, una matriz de defectos analizados con ruff, mypy y la ejecución,
+un cuaderno ejecutado en orden y fuera de orden con un kernel real, el arranque del intérprete y los intérpretes que encuentran `where`, `py` y `uv`, la creación de entornos virtuales con y sin pip,
+la instalación de una rueda local sin red en dos entornos, una reducción con `ddmin` y una bisección de 64 commits, razones de contraste calculadas con la fórmula de WCAG y dos construcciones de una misma rueda.
+No se ejecutó ningún contenedor porque el motor de Docker no estaba disponible (solo se verificó el cliente y la estructura de un `devcontainer.json`), no se midió macOS ni PowerShell 7 y no se probó un servidor de lenguaje con completado.
+Los tiempos son de un equipo y se leen como razones. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 El entorno reproducible de diagnóstico investiga una regresión de la biblioteca de estructuras y algoritmos que solo aparece bajo una combinación concreta de

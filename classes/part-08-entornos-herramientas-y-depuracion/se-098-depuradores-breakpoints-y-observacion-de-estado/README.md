@@ -83,6 +83,30 @@ Step into sigue llamadas, over ejecuta la llamada y out termina el frame. Watch 
 
 Detener cambia temporización, locks y timeouts. Un fallo concurrente puede desaparecer. Logpoints, trazas o grabación pueden preservar mejor el fenómeno, aunque también instrumentan. Se declara qué observación pudo alterar el sistema.
 
+### Una sesión de depuración como experimento
+
+Depurar es observar el estado en un instante preciso, y conviene hacerlo con una hipótesis previa. Con `python -m pdb` y órdenes por entrada estándar se ejecutó una sesión reproducible sobre una función de tres líneas: `b 3` fijó un punto de interrupción en `c = b + 1`, `c` continuó hasta ese punto, `p b` y `p a` imprimieron 10 y 5, `bt` mostró la pila (`run()` → `<module>` → `f()`) y `n` avanzó una línea. La hipótesis era «b vale 10 cuando a vale 5»; la observación la confirma. Lo valioso no es el comando, sino que el resultado puede contradecir la hipótesis.
+
+![Figura 1. Tabla de una sesión de pdb con el punto de interrupción, los valores observados y la pila](../../../content/part-08/figures/se-098-sesion-pdb.svg)
+
+**Cómo leer la figura.** Cada fila es una orden, su salida y lo que se aprende. **Dónde deja de valer:** un depurador muestra el estado, no la causa; para entender por qué `b` tiene ese valor hay que retroceder hasta quien lo calculó, y la sesión sola no lo hace.
+
+### Cuánto cuesta observar
+
+Los depuradores se apoyan en ganchos del intérprete. Con 300 000 llamadas a una función pequeña, la ejecución sin trazado tomó 43,7 ms. Con `sys.settrace` registrando solo llamadas (300 001 eventos) tomó 174,7 ms, 4,0 veces más; registrando también líneas (1 500 005 eventos), 422,6 ms, 9,7 veces. La API `sys.monitoring` de Python 3.12, diseñada para bajar esa sobrecarga, con el evento `PY_START` tomó 84,9 ms, 1,9 veces. Dos consecuencias: un fallo que depende de tiempos puede desaparecer al depurar (porque el programa va 10 veces más lento), y trazar en producción no es gratuito.
+
+![Figura 2. Barras con el costo de 300 000 llamadas sin trazado, con sys.monitoring, con settrace de llamadas y con settrace de líneas](../../../content/part-08/figures/se-098-costo-de-observar.svg)
+
+**Cómo leer la figura.** Cada barra es la misma carga con un mecanismo de observación distinto. **Dónde deja de valer:** los factores dependen de la carga (una función diminuta exagera la proporción) y de la versión del intérprete; la jerarquía entre mecanismos es lo que se conserva.
+
+### El punto de interrupción olvidado
+
+`breakpoint()` es una llamada ordinaria que consulta la variable `PYTHONBREAKPOINT`. Con `PYTHONBREAKPOINT=0` no hace nada y el programa continúa (se comprobó: imprime «siguio 1»); sin la variable detiene el proceso y espera entrada. En un servicio sin terminal eso significa un proceso colgado. La política es doble: una regla de revisión que rechace `breakpoint()` en código confirmado y una variable de entorno en los entornos no interactivos. Entrar en el depurador sin tocar el código, con `python -m pdb`, evita el problema de raíz.
+
+![Figura 3. Tabla de tres formas de entrar en el depurador y el riesgo de cada una](../../../content/part-08/figures/se-098-breakpoint-olvidado.svg)
+
+**Cómo leer la figura.** La columna central es lo observado; la derecha, la consecuencia operativa. **Dónde deja de valer:** otros lenguajes y entornos tienen sus propios mecanismos; la idea general es que un punto de interrupción en el código es un efecto secundario que debe controlarse.
+
 ## Definiciones de trabajo
 
 - **debugger, adapter y runtime:** la ui habla con un adaptador mediante dap y este traduce al debugger o runtime.
@@ -121,10 +145,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Hipótesis:** formula por escrito qué esperas ver en `a` y `b` antes de ejecutar `pdb` sobre tu propia función y compara con lo observado.
+2. **Costo:** calcula cuántos eventos genera un bucle de 10 000 iteraciones con una función de tres líneas bajo `settrace` de líneas.
+3. **Condicional:** diseña un breakpoint condicional para detenerte en la iteración 5000 de un bucle y estima su costo adicional.
+4. **Política:** redacta la regla de revisión que evita `breakpoint()` olvidados y cómo se comprueba automáticamente.
 
 ## Reto verificable
 
@@ -136,33 +160,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Para qué sirve un depurador si puedo imprimir valores?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Imprimir exige decidir de antemano qué mostrar y volver a ejecutar; el depurador permite explorar el estado, cambiar de hipótesis y recorrer la pila sin reiniciar. Imprimir sigue siendo útil cuando el depurador altera los tiempos o no se puede conectar.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Qué es un breakpoint condicional?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Un punto de interrupción que solo detiene la ejecución si una expresión es verdadera (por ejemplo `i == 4999`). Evita detenerse miles de veces, pero la expresión se evalúa en cada paso y añade costo.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Por qué mi fallo desaparece al depurar?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Porque el depurador cambia la sincronización: los tiempos entre hilos o procesos cambian hasta 10 veces. Es una pista de que el fallo depende de una condición de carrera o de un plazo.
 
+### ¿Se puede depurar un proceso remoto o en producción?
+
+Sí, con adaptadores de depuración, pero detiene el proceso y expone memoria. Se limita a entornos autorizados y se prefiere observar con registros y métricas.
 ## Fallo controlado y diagnóstico
 
 Añade un breakpoint dentro de una sección con timeout y el fallo desaparece. Cambia a logpoint con contador/ID o una aserción de primera divergencia y compara sin pausa.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Reproduce el efecto del observador. Escribe un bucle con dos hilos que comparten un contador sin protección y cuenta cuántas veces el resultado final difiere del esperado en 20 ejecuciones. Repite con `sys.settrace` activo. **Síntoma:** la frecuencia del fallo cambia. **Hipótesis:** el trazado altera la sincronización. **Prueba:** compara las tasas de fallo con y sin trazado, con el mismo número de ejecuciones. **Conclusión:** la observación no es neutral; hay que contrastar con un método menos intrusivo (registros con marcas de tiempo, o `sys.monitoring`). Registra la tasa en cada caso en `checks.md`, y deja un `breakpoint()` a propósito en un guion de prueba para comprobar que `PYTHONBREAKPOINT=0` lo neutraliza.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El fallo desaparece al depurar | El depurador altera los tiempos | Observar con registros o `sys.monitoring` y comparar |
+| Un proceso queda colgado en producción | `breakpoint()` olvidado | Regla de revisión y `PYTHONBREAKPOINT=0` |
+| Se depura sin hipótesis | Exploración sin pregunta | Escribir qué valor se espera antes de ejecutar |
+| El breakpoint nunca se alcanza | Ruta equivocada o código no ejecutado | Comprobar el archivo, la línea y que el código se importa |
+| Se cambia una variable en la sesión y se cree resuelto | Se modificó el estado, no el código | Reproducir la corrección en el código y repetir la prueba |
 
 ## Entorno y archivos clave
 
@@ -187,6 +217,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente depura leyendo trazas y salidas, no sentado frente a una sesión interactiva; un harness puede darle un depurador no interactivo (órdenes por entrada estándar, como en la Figura 1) y limitar los pasos. La regla de la hipótesis previa es aún más importante: un agente que ejecuta órdenes sin predecir resultados acumula salidas sin criterio para interpretarlas. Y el efecto del observador también existe aquí: instrumentar a un agente (registrar cada paso) cambia su comportamiento si el registro entra en su contexto.
 
 ## Transferencia
 
@@ -216,6 +250,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: `pdb`, el depurador](https://docs.python.org/3/library/pdb.html): órdenes `b`, `c`, `p`, `bt` y `n` usadas en la Figura 1.
+- [Python: `sys.monitoring`](https://docs.python.org/3/library/sys.monitoring.html) y [`sys.settrace`](https://docs.python.org/3/library/sys.html#sys.settrace): mecanismos de observación y sus eventos, medidos en la Figura 2.
+- [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/): protocolo que conecta editores y depuradores.
 
 ## Límites y siguiente paso
 

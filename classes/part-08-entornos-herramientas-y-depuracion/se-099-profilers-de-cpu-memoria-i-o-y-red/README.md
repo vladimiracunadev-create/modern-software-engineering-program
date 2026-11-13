@@ -83,6 +83,30 @@ Trazar duración, bytes y concurrencia por operación separa espera de cómputo.
 
 El perfil señala dónde se observa costo, no por qué. Se formula una causa, cambia una variable y repite con salida correcta. Optimizar una función caliente irrelevante para el SLO es trabajo sin impacto.
 
+### El perfilador determinista altera la carga
+
+Un perfilador responde dónde se gasta el tiempo, pero la respuesta depende de cómo mide. `cProfile` registra cada llamada. Sobre una carga con 1 200 018 llamadas, la ejecución sin perfilar tomó 27,4 ms y con `cProfile`, 132,5 ms: 4,8 veces. El costo se paga *por llamada*, de modo que las funciones pequeñas y muy llamadas aparecen inflamadas respecto a un bucle largo con pocas llamadas. El perfil sigue siendo útil para encontrar dónde mirar, pero no para afirmar cuánto vale cada función sin la herramienta.
+
+![Figura 1. Barras con el tiempo de una carga con 1 200 018 llamadas sin perfilar, 27,4 ms, y con cProfile, 132,5 ms](../../../content/part-08/figures/se-099-costo-de-cprofile.svg)
+
+**Cómo leer la figura.** Las dos barras comparan la misma carga con y sin perfilador. **Dónde deja de valer:** el factor 4,8 es de esta carga, formada casi por llamadas; una carga dominada por cálculo dentro de una sola función se perturbaría mucho menos.
+
+### Medir memoria tiene su precio
+
+`tracemalloc` rastrea las asignaciones y permite saber qué línea reservó memoria. Para crear 200 000 cadenas midió un pico de 14 910 KiB; pero la creación pasó de 44 ms a 2 719 ms, unas 62 veces más. Por eso la memoria se perfila en una ejecución dedicada, nunca en la misma medición de tiempos. La razón es la misma de la sección anterior: cada mecanismo de observación cambia lo observado, y mezclar dos mecanismos (tiempo y memoria) en una misma medida invalida ambas.
+
+![Figura 2. Barras con la creación de 200 000 cadenas sin tracemalloc, 44 ms, y con tracemalloc, 2719 ms](../../../content/part-08/figures/se-099-costo-de-tracemalloc.svg)
+
+**Cómo leer la figura.** La diferencia de escala es la lectura: 44 ms frente a 2 719 ms. **Dónde deja de valer:** el factor depende del número de asignaciones y de la profundidad de pila registrada; con pocas asignaciones grandes el costo sería menor.
+
+### Muestrear en lugar de contar
+
+Un perfilador por muestreo no registra cada llamada: pregunta periódicamente en qué función está el programa. Un hilo muestreador consultó `sys._current_frames()` cada milisegundo mientras se ejecutaban un generador intensivo y una ordenación. Resultado: 21 muestras en `<genexpr>`, 7 en `helper` y una en `cold` y en `wait`; el tiempo total fue 205 ms frente a 192 ms sin muestrear, un 7 % más. Perturba mucho menos (4,8× frente a 1,07×), a cambio de menos detalle y de incertidumbre: con 30 muestras, una función que gasta el 5 % del tiempo puede no aparecer.
+
+![Figura 3. Tabla con el recuento de muestras por función y el sobrecosto del muestreo, 205 ms frente a 192 ms](../../../content/part-08/figures/se-099-perfil-por-muestreo.svg)
+
+**Cómo leer la figura.** Las filas son funciones y su número de muestras; la última compara tiempos. **Dónde deja de valer:** el muestreo sobre hilos de Python depende del intérprete y del bloqueo global; no ve el tiempo fuera de Python (extensiones nativas) con el mismo detalle.
+
 ## Definiciones de trabajo
 
 - **tiempo de pared y cpu:** wall time incluye espera; cpu time cuenta ejecución en procesador.
@@ -121,10 +145,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Sobrecosto:** calcula el factor de perturbación de `cProfile` (132,5 ms / 27,4 ms) y de tu propia carga.
+2. **Muestras:** con 30 muestras en total, estima cuántas esperarías para una función que gasta el 5 % del tiempo y por qué puede no aparecer.
+3. **Memoria:** mide el pico de memoria de crear un millón de enteros en una lista y en un `array('q')`, con ejecuciones separadas de las de tiempo.
+4. **Decisión:** redacta el criterio para aceptar una optimización (qué se mide, cuántas veces y con qué margen).
 
 ## Reto verificable
 
@@ -136,33 +160,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Perfilador determinista o por muestreo?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+El determinista cuenta todas las llamadas con exactitud y cuesta más; el de muestreo perturba poco y da una vista estadística. Se usa el de muestreo para encontrar el cuello de botella y el determinista para entender un caso concreto.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Cuántas muestras necesito?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Depende de la fracción de tiempo que se quiere resolver. Para detectar una función que gasta el 5 % con confianza razonable hacen falta cientos de muestras, no treinta; se alarga la ejecución o se reduce el intervalo.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Por qué el perfil dice que lo lento es `helper` y optimizarlo no ayuda?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Porque el perfilador infla las funciones muy llamadas. La comprobación es medir el tiempo total del programa antes y después del cambio, sin perfilador.
 
+### ¿Se puede perfilar en producción?
+
+El muestreo de baja frecuencia sí, con permiso y límites. Un perfilador determinista, no: multiplica el costo.
 ## Fallo controlado y diagnóstico
 
 Perfila generación de fixtures y concluye que el algoritmo es lento. Mueve preparación fuera de la región, valida resultado y repite manteniendo la misma carga.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Reproduce un perfil engañoso. Escribe dos funciones que gasten el mismo tiempo real: una con un bucle largo y otra con un millón de llamadas diminutas. Perfila con `cProfile`. **Síntoma:** el perfil acusa a la función de llamadas diminutas con un tiempo mucho mayor. **Hipótesis:** el costo por llamada del perfilador la infla. **Prueba:** mide cada función sin perfilador con `time.perf_counter` y compara las proporciones. **Conclusión:** el perfil es una guía, no una medida; la decisión de optimizar se confirma con tiempos reales. Guarda en `checks.md` ambas proporciones y la corrección que decidirías.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Se optimiza una función que no era el problema | Perfil determinista inflado por llamadas | Confirmar con el tiempo total sin perfilador |
+| El perfil de memoria hace la prueba 62 veces más lenta | `tracemalloc` activo en la medición de tiempo | Perfilar memoria y tiempo en ejecuciones separadas |
+| Una función rápida no aparece en el muestreo | Pocas muestras | Alargar la ejecución o muestrear más a menudo |
+| Se perfila con datos de tamaño trivial | Muestra no representativa | Usar tamaños del mismo orden que en producción |
+| Se comparan perfiles de máquinas distintas | Entorno distinto | Comparar proporciones y declarar el equipo |
 
 ## Entorno y archivos clave
 
@@ -187,6 +217,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+El «perfil» de un agente es su traza: cuántas llamadas a herramientas hizo, cuántos tokens consumió y dónde esperó. Medirlo tiene el mismo efecto del observador: registrar demasiado en el contexto aumenta el costo. La distinción entre contar todo y muestrear tiene su equivalente: registrar cada llamada para auditar casos concretos y muestrear ejecuciones para vigilar la tendencia. Y no se optimiza un agente por la traza de un único caso.
 
 ## Transferencia
 
@@ -216,6 +250,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: perfiladores `cProfile` y `profile`](https://docs.python.org/3/library/profile.html): funcionamiento del perfilador determinista y su sobrecosto, medido en la Figura 1.
+- [Python: `tracemalloc`](https://docs.python.org/3/library/tracemalloc.html): rastreo de asignaciones de memoria y su costo, medido en la Figura 2.
+- [Python: `sys._current_frames`](https://docs.python.org/3/library/sys.html#sys._current_frames): base del muestreo por hilo usado en la Figura 3.
 
 ## Límites y siguiente paso
 

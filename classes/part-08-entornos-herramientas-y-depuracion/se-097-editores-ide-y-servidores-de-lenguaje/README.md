@@ -83,6 +83,30 @@ La raíz del workspace condiciona búsqueda de configuración, módulos y herram
 
 Una extensión ejecuta código con acceso relevante al workspace. Procedencia, permisos, actualización y política de red forman parte del riesgo. Un perfil mínimo reduce variabilidad y facilita recuperar el entorno sin exportar secretos personales.
 
+### Un intercambio LSP real, mensaje a mensaje
+
+El *Language Server Protocol* separa el editor del analizador: el editor envía mensajes JSON-RPC con una cabecera `Content-Length` y el servidor responde. Para no hablar de ello en abstracto se arrancó un servidor real, `ruff server`, y se le enviaron cuatro mensajes. `initialize` se respondió en 240 ms y declaró diez capacidades. `textDocument/didOpen` con un archivo de seis líneas produjo, a los 351 ms, tres diagnósticos: `F401` en la línea 1 (`os` importado y sin usar), `F401` en la línea 2 (`sys`) y `F841` en la línea 5 (la variable `y` asignada y nunca usada). Después de `didChange`, que elimina el `import os`, el servidor publicó nuevos diagnósticos en 5 ms: `F401` en la línea 1 y `F841` en la línea 4, con los números de línea ya desplazados. Un mensaje tan simple como `initialized` ocupa 79 bytes entre cabecera y cuerpo.
+
+![Figura 1. Tabla de un intercambio con ruff server: initialize en 240 ms, diagnósticos tras didOpen en 351 ms y tras didChange en 5 ms](../../../content/part-08/figures/se-097-intercambio-lsp.svg)
+
+**Cómo leer la figura.** Cada fila es un mensaje del protocolo con su tiempo y su efecto. La diferencia entre 351 ms y 5 ms es la del primer análisis frente a la actualización incremental: el servidor mantiene el documento en memoria. **Dónde deja de valer:** son tiempos de un servidor, un archivo diminuto y un equipo; un proyecto grande con un servidor que indexa dependencias tarda segundos en el arranque.
+
+### Protocolo no es capacidad
+
+La respuesta a `initialize` es una declaración: el servidor lista lo que ofrece. `ruff server` anunció `textDocumentSync`, `diagnosticProvider`, `codeActionProvider`, `documentFormattingProvider`, `documentRangeFormattingProvider`, `hoverProvider`, `executeCommandProvider`, `notebookDocumentSync`, `positionEncoding` y `workspace`: diez claves. No aparecen `completionProvider` ni `definitionProvider`. Por tanto, si un editor muestra diagnósticos de ruff pero no completa ni salta a la definición, no hay ningún fallo: ese servidor no ofrece esas funciones y las ofrece otro (o ninguno). La pregunta de diagnóstico correcta no es «¿está roto el editor?» sino «¿qué proceso responde esta función y qué declaró en `initialize`?».
+
+![Figura 2. Tabla de las capacidades declaradas por ruff server, con completado y definición ausentes](../../../content/part-08/figures/se-097-capacidades-declaradas.svg)
+
+**Cómo leer la figura.** La última fila contiene lo que *no* está declarado, y es la información más útil para atribuir correctamente un comportamiento. **Dónde deja de valer:** las capacidades pueden registrarse más tarde de forma dinámica con `client/registerCapability`; la lista de `initialize` es el punto de partida, no siempre el inventario final.
+
+### Código roto y presupuesto de latencia
+
+Un editor trabaja casi siempre con código incompleto. La biblioteca estándar, en cambio, se detiene: `ast.parse` sobre una definición con un paréntesis sin cerrar falla con `SyntaxError` en la línea 1 («'(' was never closed»), y `tokenize` lanza `TokenError` antes de recorrer el resto. Además, reanalizar un archivo de 59 999 líneas con `ast.parse` tomó 432 ms: hacerlo en cada pulsación no es viable. Los servidores resuelven ambas cosas con analizadores tolerantes a errores y con actualizaciones incrementales, que es lo que explica los 5 ms medidos tras `didChange`.
+
+![Figura 3. Tabla que contrasta ast.parse y tokenize ante código roto, el costo de reanalizar 59 999 líneas y la actualización incremental de 5 ms](../../../content/part-08/figures/se-097-codigo-roto-y-latencia.svg)
+
+**Cómo leer la figura.** Las dos primeras filas son fallos de un compilador ante un error; las dos siguientes comparan el costo de reanalizar con el de actualizar. **Dónde deja de valer:** el compilador de CPython no pretende ser interactivo; la comparación muestra una diferencia de diseño, no un defecto de la biblioteca estándar.
+
 ## Definiciones de trabajo
 
 - **editor e ide:** un editor manipula texto y puede integrar capacidades; un ide reúne proyecto, build, ejecución, depuración y navegación.
@@ -122,10 +146,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Capacidades:** a partir de la lista de diez capacidades de la Figura 2, indica qué funciones del editor dependen de cada una y cuál falta para navegar a la definición.
+2. **Tiempos:** calcula la razón entre el primer análisis (351 ms) y la actualización (5 ms) y explica qué mecanismo la produce.
+3. **Código roto:** escribe tres fragmentos incompletos y comprueba cuáles acepta `ast.parse` y cuáles no; relaciona el resultado con lo que un editor necesita.
+4. **Tooling map:** completa una fila con proceso, mensaje, capacidad y modo degradado para «formatear al guardar».
 
 ## Reto verificable
 
@@ -137,33 +161,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Es un editor lo mismo que un IDE?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+No. Un editor edita texto; un IDE integra además análisis, ejecución, depuración y gestión de proyectos. Con el protocolo LSP un editor ligero gana funciones de IDE delegándolas en servidores externos, de modo que la frontera entre ambos se difumina.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Por qué el primer diagnóstico tarda más que los siguientes?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Porque el servidor debe cargar la configuración, analizar el documento y, a menudo, indexar el proyecto. Las actualizaciones posteriores reutilizan el estado en memoria: en la medición, 351 ms frente a 5 ms.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿El linter que veo en el editor es el mismo que el de integración continua?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+No necesariamente. Pueden ser versiones distintas, con configuraciones distintas. Para que coincidan se fija la versión de la herramienta y su configuración en el repositorio.
 
+### ¿Puedo confiar en un diagnóstico del editor?
+
+Es una hipótesis automatizada con un código de regla y una posición. Se verifica leyendo la regla, ejecutando la herramienta en la terminal y comprobando que reproduce el mismo diagnóstico.
 ## Fallo controlado y diagnóstico
 
 Configura el LSP con un intérprete diferente al terminal integrado. Compara `sys.executable`, ruta del servidor y diagnóstico; fija la selección en configuración versionable cuando sea portable.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Reproduce un malentendido de capacidad. Abre un archivo con un editor que use solo `ruff server` y pide «ir a la definición» de una función. **Síntoma:** no ocurre nada. **Hipótesis:** el editor está roto. **Prueba:** captura la respuesta a `initialize` (la mayoría de los editores registran el tráfico LSP en un canal de salida) y busca `definitionProvider`. **Conclusión:** la capacidad no está declarada; la navegación necesita otro servidor, y añadirlo o desactivar la expectativa resuelve el caso. Guarda en `tooling-map.md` el servidor, la capacidad declarada y el comportamiento degradado cuando no existe.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| «El editor no completa» | Se asume que el servidor ofrece completado | Revisar las capacidades declaradas en `initialize` |
+| El editor y la CI discrepan | Versiones o configuración distintas | Fijar versión y configuración en el repositorio |
+| El diagnóstico aparece tarde en el arranque | Primer análisis completo | Esperar al índice o medir la latencia inicial |
+| Línea de diagnóstico desplazada tras editar | Se interpretan posiciones viejas | Usar la versión del documento que acompaña al diagnóstico |
+| Se atribuye el análisis al editor | Se ignora el proceso del servidor | Identificar el proceso, el mensaje y la capacidad |
 
 ## Entorno y archivos clave
 
@@ -188,6 +218,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente de programación también necesita un servidor de lenguaje: lo que el editor obtiene como diagnósticos, el agente lo recibe como texto de herramienta. Si el harness no le entrega diagnósticos, el agente propone cambios que no compilan; si se los entrega sin versión de documento, puede corregir líneas que ya se desplazaron. La lección de esta clase se traduce en una regla de diseño: el agente debe ver las capacidades declaradas de cada herramienta y saber qué hacer cuando una no existe, en lugar de inventar una respuesta.
 
 ## Transferencia
 
@@ -217,6 +251,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Language Server Protocol, especificación](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/): formato de mensajes, `initialize`, capacidades y sincronización de documentos usados en las Figuras 1 y 2.
+- [Ruff: integración con editores](https://docs.astral.sh/ruff/editors/): servidor `ruff server` y funciones que ofrece.
+- [Python: módulo `ast`](https://docs.python.org/3/library/ast.html): comportamiento de `ast.parse` ante errores de sintaxis, contrastado en la Figura 3.
 
 ## Límites y siguiente paso
 

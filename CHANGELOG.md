@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-13 — Parte 08 profundizada con experimentos de herramientas y entornos
+
+- 36 figuras para `SE-097`–`SE-108` con mediciones reales: un intercambio LSP con `ruff server`, una sesión de `pdb` y el costo de observar la ejecución, perfiladores
+  por llamada, de memoria y por muestreo, la matriz de defectos de ruff y mypy, el estado oculto de un cuaderno, el arranque y la resolución de intérpretes,
+  entornos virtuales, la instalación de una rueda local, reducción de casos y bisección, contraste WCAG y la reproducibilidad de una rueda;
+- tres secciones nuevas por clase y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios por versiones específicas de cada clase; fuentes verificadas y un puente hacia agentes;
+- el motor de Docker no estaba disponible: no se ejecutó ningún contenedor y se declara como límite; los tiempos son de un equipo y se leen como razones.
+
 ## 2026-11-13 — Parte 05 profundizada con mediciones y mutaciones del laboratorio
 
 - 36 figuras para `SE-061`–`SE-072` con datos reales: expresiones y tipos, tabla de verdad, recursión y memoria de iteradores, argumentos por defecto y cierres,

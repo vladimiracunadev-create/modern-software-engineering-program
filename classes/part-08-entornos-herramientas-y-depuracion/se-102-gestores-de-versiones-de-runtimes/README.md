@@ -85,6 +85,30 @@ Un rango como `>=3.11` promete que código y dependencias funcionan en cada vers
 
 Actualizar runtime requiere suite, dependencias compatibles y plan de reversión. Se prueba en matriz antes de cambiar el predeterminado. Conservar una versión vulnerable indefinidamente tampoco es estabilidad; riesgo y soporte guían el calendario.
 
+### Cuánto cuesta arrancar el intérprete
+
+El runtime es parte del entorno, y arrancarlo tiene un costo medible. La mediana de siete arranques de `python -c pass` fue de 127 ms en Windows y de 31 ms en Linux (WSL2). Con `-I -S` (modo aislado y sin cargar el módulo `site`) bajó a 63 ms en Windows y 19 ms en Linux. El arranque normal importó 66 módulos según `-X importtime`. La diferencia entre sistemas muestra que *la misma versión no tiene el mismo costo en dos sistemas*; la medición de rendimiento siempre declara el entorno.
+
+![Figura 1. Barras con el arranque de un intérprete vacío: 127 ms en Windows y 31 ms en Linux, y 63 ms y 19 ms con -I -S](../../../content/part-08/figures/se-102-arranque-del-interprete.svg)
+
+**Cómo leer la figura.** Cada par compara arranque normal y aislado en un sistema. **Dónde deja de valer:** el arranque depende del disco, del antivirus y de los paquetes que haya en `site-packages` (que se importan al arrancar si hay archivos `.pth`); en otro equipo los valores cambian, no la jerarquía.
+
+### Qué Python se ejecuta
+
+«Python» no identifica un intérprete. En la misma máquina, `where python` encontró tres candidatos, el lanzador `py -0` listó tres versiones registradas (entre ellas una de 32 bits) y `uv python list --only-installed` mostró cuatro. Cada herramienta ve un conjunto distinto, y quien gana depende del orden de `PATH`. La evidencia fiable es la que da el propio proceso: `sys.executable` y `sys.version`. Un script que dice «usa python» sin más ejecuta lo que encuentre primero.
+
+![Figura 2. Tabla con los intérpretes encontrados por where, py, uv y sys.executable](../../../content/part-08/figures/se-102-que-python-se-ejecuta.svg)
+
+**Cómo leer la figura.** La columna central cuenta cuántos intérpretes ve cada consulta. **Dónde deja de valer:** en Linux y macOS los mecanismos son otros (enlaces simbólicos, `update-alternatives`, gestores como `pyenv`), pero el problema de ambigüedad es el mismo.
+
+### Fijar la versión exacta
+
+En esta máquina se ejecutó CPython 3.12.9 en Windows y 3.12.3 en Linux: la misma serie, compilaciones distintas. Un resultado medido en una puede no repetirse en la otra, y mucho menos en 3.14. El repositorio no fijaba ninguna de las dos. Un gestor de versiones de runtime (el lanzador `py`, `uv`, `pyenv`, `asdf`) convierte el requisito en un archivo (`.python-version`, `.tool-versions`) que otra persona o la CI pueden leer. La regla es que el repositorio declare *qué* versión necesita y que una herramienta verifique que coincide.
+
+![Figura 3. Tabla con las versiones medidas, 3.12.9 en Windows y 3.12.3 en Linux, y la ausencia de un archivo de versión](../../../content/part-08/figures/se-102-versiones-medidas.svg)
+
+**Cómo leer la figura.** La última fila es la carencia: nada en el repositorio fija la versión. **Dónde deja de valer:** fijar la versión exacta tiene un costo de mantenimiento (actualizaciones de seguridad); se decide cada cuánto se revisa.
+
 ## Definiciones de trabajo
 
 - **runtime e implementación:** la versión del lenguaje, la implementación y la arquitectura son dimensiones distintas.
@@ -122,10 +146,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Candidatos:** lista todos los intérpretes que encuentra tu sistema y marca cuál ejecutaría el comando `python`.
+2. **Arranque:** mide la mediana de cinco arranques de tu intérprete con y sin `-I -S` y calcula la razón.
+3. **Versión:** escribe el archivo que fijaría la versión exacta en tu repositorio y la comprobación que falla si no coincide.
+4. **Importaciones:** ejecuta `-X importtime` y señala los tres módulos más costosos del arranque.
 
 ## Reto verificable
 
@@ -137,33 +161,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Qué hace el lanzador `py` en Windows?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Elige entre las versiones de Python registradas según una opción o un archivo de configuración. `py -0` las lista. Es la forma estándar de elegir versión sin depender de `PATH`.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Para qué sirve `-I`?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Ejecuta en modo aislado: ignora variables de entorno `PYTHON*` y el directorio del script en `sys.path`. Sirve para ejecutar herramientas sin que el entorno del usuario las altere.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Fijo la versión menor o la exacta?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Para reproducir mediciones y errores, la exacta. Para compatibilidad de una biblioteca, un rango. La decisión se escribe en el archivo de versión.
 
+### ¿Qué pasa si el sistema actualiza Python?
+
+Los entornos virtuales que apuntan al intérprete anterior dejan de funcionar o cambian de comportamiento. Por eso se recrean desde una definición, no se reparan a mano.
 ## Fallo controlado y diagnóstico
 
 Configura el archivo de versión pero no el CI. Añade un assert de versión al diagnóstico y una matriz que cubra mínimo y máximo soportado.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Reproduce la ambigüedad. En tu máquina, ejecuta `where python` (Windows) o `which -a python3` (Linux) y compara con `py -0` o con `uv python list`. Luego ejecuta `python -c "import sys; print(sys.executable)"` desde dos terminales con distinto `PATH`. **Síntoma:** el mismo comando ejecuta intérpretes distintos. **Hipótesis:** `PATH` decide. **Prueba:** reordena `PATH` en la sesión y repite. **Conclusión:** el nombre `python` no es una dependencia; la versión exacta se declara en un archivo y se verifica al inicio del script. Guarda la lista de candidatos y el intérprete elegido en `tooling-map.md`.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El script usa otro Python en otra máquina | Se invoca `python` a secas | Declarar la versión y verificarla al inicio |
+| La medición no se repite en otro equipo | Compilación o sistema distintos | Registrar versión y sistema con cada medición |
+| Un entorno deja de funcionar tras actualizar el sistema | Apunta a un intérprete que cambió | Recrear el entorno desde su definición |
+| El arranque es lento | Muchos módulos o `.pth` en `site-packages` | Medir con `-X importtime` y revisar paquetes |
+| Dos herramientas discrepan sobre la versión | Ven conjuntos distintos | Comparar con `sys.executable` dentro del proceso |
 
 ## Entorno y archivos clave
 
@@ -188,6 +218,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que ejecuta comandos usa el `PATH` del entorno donde corre, que puede no ser el del usuario. Un comando como `python script.py` puede ejecutarse con un intérprete distinto del esperado y producir resultados distintos sin error. El harness debe pasar al agente el intérprete exacto o una forma de verificarlo, y registrar la versión en cada ejecución. Las mediciones de rendimiento que haga un agente sin declarar el entorno no son comparables.
 
 ## Transferencia
 
@@ -217,6 +251,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python en Windows: el lanzador `py`](https://docs.python.org/3/using/windows.html#python-launcher-for-windows): selección de versiones y la opción `-0`.
+- [Python: opciones de línea de comandos `-I`, `-S` y `-X importtime`](https://docs.python.org/3/using/cmdline.html): modo aislado, módulo `site` y medición de importaciones, usados en la Figura 1.
+- [uv: gestión de versiones de Python](https://docs.astral.sh/uv/concepts/python-versions/): instalación y descubrimiento de intérpretes.
 
 ## Límites y siguiente paso
 

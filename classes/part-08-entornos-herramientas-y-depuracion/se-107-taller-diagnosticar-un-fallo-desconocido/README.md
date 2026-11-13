@@ -84,6 +84,30 @@ Se empieza por versión, logs y reproducción; luego debugger, profiler o análi
 
 La causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; la regresión falla antes y pasa después. El informe añade factores contribuyentes y acciones con owner, sin culpar a la persona que activó una debilidad sistémica.
 
+### Una secuencia de diagnóstico con datos
+
+El taller aplica las técnicas de la parte a un fallo desconocido. La secuencia usada tiene cinco pasos y cada uno deja una cifra. **Reproducir:** una prueba determinista que falla; sin ella nada posterior es fiable. **Reducir:** una entrada de 403 caracteres bajó a 3 con 24 pruebas. **Localizar:** 6 pasos de bisección para 64 commits señalaron `c41`. **Observar:** `pdb` mostró `b = 10` y `a = 5` en la línea 3. **Verificar:** una prueba nueva que falla antes y pasa después. Cada paso reduce el espacio de búsqueda y deja un registro que otra persona puede revisar.
+
+![Figura 1. Tabla de la secuencia reproducir, reducir, localizar, observar y verificar con los datos medidos de cada paso](../../../content/part-08/figures/se-107-secuencia-de-diagnostico.svg)
+
+**Cómo leer la figura.** Cada fila liga un paso con su dato y su motivo. **Dónde deja de valer:** el orden no es rígido (a veces se observa antes de reducir), pero saltarse la reproducción deja el resto sin base. Los datos son de un defecto sintético y sencillo; uno real tiene más ruido.
+
+### Registrar hipótesis y descartes
+
+Un diagnóstico sin registro se repite. El registro del taller tiene tres hipótesis: H1 (el defecto está en el analizador) se confirma, porque el caso mínimo `ab[` lo fuerza; H2 (lo introdujo el commit 41) se confirma, porque la bisección lo señala con una prueba automática; H3 (depende del estado de `b`) se descarta, porque `pdb` muestra el valor esperado. Descartar es información: evita que otra persona vuelva a investigar H3 y muestra qué se comprobó. El registro también protege contra el sesgo de confirmación, porque la predicción se escribe antes del resultado.
+
+![Figura 2. Tabla con tres hipótesis: dos confirmadas por reducción y bisección y una descartada por observación](../../../content/part-08/figures/se-107-registro-de-hipotesis.svg)
+
+**Cómo leer la figura.** Cada hipótesis tiene su prueba y su veredicto. **Dónde deja de valer:** un registro formal tiene un costo; para fallos triviales basta una nota. Se justifica cuando el diagnóstico dura más de una sesión o participan varias personas.
+
+### Cada técnica tiene su condición
+
+La reducción funciona con pruebas deterministas y falla con fallos intermitentes. La bisección funciona con un único cambio culpable y la confunden dos defectos o una interacción. El depurador muestra el estado en un instante, pero perturba los tiempos (hasta 9,7 veces de costo con trazado de líneas). Aplicar una técnica fuera de su condición produce conclusiones falsas con aspecto de evidencia: por eso, antes de aplicarla, se comprueba que se cumple su condición, y si no se cumple, se elige otra o se estabiliza el problema primero.
+
+![Figura 3. Tabla con la condición de cada técnica: reducción, bisección y depurador, y cuándo falla](../../../content/part-08/figures/se-107-condiciones-de-cada-tecnica.svg)
+
+**Cómo leer la figura.** La tercera columna es la que se olvida en la práctica. **Dónde deja de valer:** existen variantes tolerantes a ruido de cada técnica (bisección estadística, reducción con repeticiones) con un costo mayor, y su condición es otra.
+
 ## Definiciones de trabajo
 
 - **triage y contención:** primero se describe impacto, alcance, seguridad y acción reversible para evitar daño.
@@ -124,10 +148,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Secuencia:** ordena los cinco pasos de la Figura 1 y di qué evidencia deja cada uno.
+2. **Registro:** redacta tres hipótesis para un fallo propio con su prueba y su veredicto.
+3. **Condición:** para cada técnica de la Figura 3, escribe cómo comprobarías que su condición se cumple.
+4. **Presupuesto:** fija un presupuesto de tiempo para un diagnóstico y describe qué entregas a quien te ayude.
 
 ## Reto verificable
 
@@ -139,33 +163,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Por dónde empiezo si no sé qué falla?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Por conseguir una reproducción determinista y por registrar qué se observa y qué se espera. Sin eso, cualquier técnica trabaja sobre una impresión.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Cuánto tiempo dedico a un diagnóstico antes de pedir ayuda?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Se fija un presupuesto antes de empezar (por ejemplo 90 minutos) y se pide ayuda al agotarlo con el registro en la mano. Quien ayuda debe poder retomar sin repetir lo hecho.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Cómo sé que el arreglo es el correcto y no un parche?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Si la prueba que falla pasa, y la causa se explica por el mecanismo observado (no solo porque el síntoma desapareció). Un arreglo que no se puede explicar es una sospecha.
 
+### ¿Qué hago con un fallo que solo ocurre en producción?
+
+Se mejora la observación en producción (registros con contexto, trazas) y se reproduce en un entorno controlado. Depurar en producción se evita salvo con autorización y límites.
 ## Fallo controlado y diagnóstico
 
 Actualiza dependencia, runtime y comparador a la vez; el fallo desaparece sin causa. Revierte en rama aislada y construye una matriz que cambie una dimensión por ejecución.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Aplica la secuencia a un defecto que no hayas escrito tú. Pide a otra persona (o a un compañero) un fragmento con un fallo plantado y su historial de 20 commits. **Síntoma:** una prueba falla en el último commit. **Hipótesis:** el defecto está en un commit concreto. **Prueba:** escribe la prueba determinista, bisecciona, reduce la entrada del commit culpable y observa con `pdb`. **Conclusión:** redacta el registro con hipótesis, pruebas, descartes y la prueba de regresión. Compara con la solución de quien plantó el fallo y anota en `review.md` qué hipótesis tardaste más en descartar.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Se cambia código antes de reproducir | Se actúa sobre una impresión | Escribir la prueba determinista primero |
+| El diagnóstico se repite entre personas | No hay registro | Escribir hipótesis, pruebas y descartes |
+| Se concluye con la primera explicación plausible | Sesgo de confirmación | Escribir la predicción antes de observar y buscar una hipótesis rival |
+| La bisección apunta a un commit inocente | Condición no cumplida | Estabilizar la prueba antes de bisecar |
+| El arreglo desaparece el síntoma pero no la causa | Parche sin explicación | Explicar el mecanismo y añadir una prueba de regresión |
 
 ## Entorno y archivos clave
 
@@ -190,6 +220,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+La secuencia del taller es un procedimiento que un agente puede ejecutar si el harness le da las herramientas: una para reproducir, una para reducir, una para bisecar y una para observar. La disciplina del registro es lo que permite auditar su trabajo: hipótesis, prueba, resultado, descarte. Un agente que arregla sin reproducir ni explicar el mecanismo produce el parche del que advierte la tabla de errores; por eso, la aceptación de su trabajo exige la prueba de regresión y la explicación.
 
 ## Transferencia
 
@@ -218,6 +252,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Zeller, *Why Programs Fail*](https://www.whyprogramsfail.com/): método TRAFFIC de seguimiento, reproducción, automatización, localización y corrección.
+- [Git: `git bisect`](https://git-scm.com/docs/git-bisect): localización automática del cambio defectuoso.
+- [Python: `pdb`](https://docs.python.org/3/library/pdb.html): observación del estado en un punto de la ejecución.
 
 ## Límites y siguiente paso
 

@@ -85,6 +85,30 @@ El análisis de tipos aproxima valores posibles sin ejecutar todas las rutas. Re
 
 Análisis de datos, taint o control explora modelos conservadores. Puede reportar ruta imposible o no ver reflexión. La calidad depende de configuración, stubs y lenguaje; un reporte se triagea como hipótesis con evidencia.
 
+### Qué detecta cada herramienta y qué no
+
+Seis fragmentos de código se analizaron con tres métodos: `ruff check`, `mypy` y la ejecución. Una importación sin usar la detecta ruff (`F401`) y la ejecución no falla. Un nombre no definido dentro de una función sin llamar la detecta ruff (`F821`), pero el programa se ejecuta sin error porque nadie llama a la función. Llamar `f('a')` con `x: int` lo detecta mypy (un error) y la ejecución *no* falla: las anotaciones no se aplican en tiempo de ejecución. Usar `x: Any` apaga la verificación: mypy no ve el error y la ejecución lanza `TypeError`. Un `d['k']` sobre un diccionario vacío lo descubre solo la ejecución (`KeyError`). Y un argumento mutable por defecto no genera aviso con el conjunto de reglas por defecto.
+
+![Figura 1. Matriz de seis fragmentos con lo que detectan ruff, mypy y la ejecución](../../../content/part-08/figures/se-100-que-detecta-cada-herramienta.svg)
+
+**Cómo leer la figura.** Cada fila es un defecto distinto; cada columna, un método. Ninguna columna cubre todas las filas. **Dónde deja de valer:** el resultado depende de la configuración y las versiones usadas (ruff 0.15.20, mypy 2.1.0); con otras reglas activas, la columna de ruff cambiaría.
+
+### Velocidad y lugar de ejecución
+
+Sobre un archivo de 3 000 funciones (6 000 líneas) `ruff check` tardó 199 ms, `py_compile` 217 ms y `mypy` sin caché 2 031 ms, unas diez veces más. La velocidad decide dónde se ejecuta cada herramienta: un linter de 0,2 s corre al guardar y en cada compromiso; un verificador de tipos de 2 s sin caché se ejecuta con caché incremental o en integración continua. Estos tiempos incluyen el arranque del intérprete (unos 127 ms en esta máquina), por lo que sobreestiman el costo del análisis puro en archivos pequeños.
+
+![Figura 2. Barras con el tiempo de analizar 6000 líneas: ruff 199 ms, py_compile 217 ms y mypy 2031 ms](../../../content/part-08/figures/se-100-velocidad-de-analisis.svg)
+
+**Cómo leer la figura.** La escala muestra que mypy cuesta un orden de magnitud más. **Dónde deja de valer:** con caché, mypy reanaliza solo lo que cambia y la brecha se reduce; con un proyecto con miles de módulos y dependencias, los tiempos se alejan de los de un archivo único.
+
+### Formato, reglas y configuración
+
+`black` es idempotente: aplicarlo dos veces produjo la misma salida, una propiedad que permite usarlo en un gancho de confirmación sin generar cambios infinitos. `ruff` integra 59 familias de reglas, pero activa por defecto solo errores y estilo básico (`E` y `F`); la regla de argumentos mutables por defecto (`B006`) existe pero no está activa. La consecuencia es que *el mismo código pasa o falla según la configuración*, de modo que la configuración se versiona junto al código y se revisa como código. Un linter sin configuración fijada produce resultados que cambian al actualizar la herramienta.
+
+![Figura 3. Tabla con la idempotencia de black, las 59 familias de reglas de ruff, las reglas activas por defecto y el argumento mutable sin aviso](../../../content/part-08/figures/se-100-formato-y-reglas.svg)
+
+**Cómo leer la figura.** Cada fila es una comprobación y su lectura operativa. **Dónde deja de valer:** el número de familias y las reglas por defecto cambian entre versiones; se leen en la documentación de la versión fijada.
+
 ## Definiciones de trabajo
 
 - **compilación y front-end:** el compilador tokeniza, parsea, comprueba reglas y puede producir representación o ejecutable.
@@ -123,10 +147,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Clasificación:** asigna cada defecto de la Figura 1 a la herramienta que lo detecta y a la que no.
+2. **Velocidad:** decide en qué punto del flujo (al guardar, al confirmar, en CI) ejecutarías ruff y mypy según sus tiempos y justifica.
+3. **Idempotencia:** comprueba que tu formateador es idempotente aplicándolo dos veces a un archivo.
+4. **Configuración:** escribe las reglas que activarías además de las de por defecto y una razón por cada una.
 
 ## Reto verificable
 
@@ -138,33 +162,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Es lo mismo un linter que un verificador de tipos?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+No. El linter aplica reglas sobre la forma del código (importaciones sin usar, nombres no definidos); el verificador de tipos razona sobre los tipos declarados y detecta usos incompatibles. Cubren defectos distintos y se complementan.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Los tipos se comprueban al ejecutar?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+En Python no: las anotaciones son información para herramientas. El código con un tipo incorrecto se ejecuta hasta que una operación concreta falla.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Qué hago con un falso positivo?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Se documenta el motivo y se desactiva la regla en la línea mínima necesaria, con un comentario que lo justifique. Desactivarla en todo el proyecto oculta defectos reales.
 
+### ¿Por qué no activar todas las reglas?
+
+Porque algunas se contradicen y otras generan ruido que hace que se ignore todo. Se elige un conjunto con una razón por regla y se amplía por decisión.
 ## Fallo controlado y diagnóstico
 
 Añade `# type: ignore` a un acceso opcional y provoca `None` en runtime. Reemplaza la supresión por validación/refinamiento y prueba el caso ausente.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Comprueba el límite de cada herramienta con un defecto que ninguna ve. Escribe una función que acceda a una clave de un diccionario construido dinámicamente y ejecútala solo con una entrada que la contiene. **Síntoma:** ruff y mypy pasan limpios y la prueba también. **Hipótesis:** el defecto depende de datos que no se ejercitaron. **Prueba:** llama a la función con una entrada sin la clave. **Conclusión:** ninguna herramienta estática puede reemplazar una prueba con la entrada que expone el defecto. Registra en `checks.md` qué herramienta habría detectado el defecto y cuál no, y añade el caso como prueba.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El código pasa mypy y falla al ejecutar | `Any` o falta de anotaciones | Reducir `Any` en las fronteras y probar con datos reales |
+| El linter pasa pero hay un defecto conocido | La regla no está activa | Revisar el conjunto de reglas y activar la relevante |
+| El resultado cambia al actualizar la herramienta | Versión o reglas por defecto cambiaron | Fijar versión y configuración |
+| Se desactiva una regla en todo el proyecto | Falso positivo local | Desactivar solo en la línea y justificar |
+| El verificador es tan lento que se omite | Se ejecuta sin caché | Usar caché incremental o ejecutarlo en CI |
 
 ## Entorno y archivos clave
 
@@ -189,6 +219,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+El análisis estático es la primera barrera barata contra el código que genera un agente: ruff en 0,2 s lo vuelve viable como paso obligatorio tras cada edición. Pero la matriz de la Figura 1 se aplica igual: un agente puede producir código que pasa linter y tipos y falla al ejecutar, de modo que el harness combina las tres capas (reglas, tipos, pruebas) y registra cuál detectó cada defecto. Que el agente edite la configuración del linter para silenciar un aviso es un patrón de riesgo que se revisa.
 
 ## Transferencia
 
@@ -218,6 +252,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Ruff: reglas y configuración](https://docs.astral.sh/ruff/rules/): catálogo de reglas y cuáles están activas por defecto.
+- [mypy: documentación](https://mypy.readthedocs.io/en/stable/): funcionamiento del verificador de tipos y el papel de `Any`.
+- [Black: estilo y estabilidad del formato](https://black.readthedocs.io/en/stable/the_black_code_style/index.html): garantías de idempotencia del formateador.
 
 ## Límites y siguiente paso
 

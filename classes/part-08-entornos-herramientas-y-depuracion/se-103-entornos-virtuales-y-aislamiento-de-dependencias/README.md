@@ -83,6 +83,30 @@ El test real borra o ignora el entorno, crea uno nuevo, instala desde fuentes de
 
 Variables y archivos locales pueden entrar al proceso pese al aislamiento de paquetes. `.env` no debe versionar secretos; se usan ejemplos sin credenciales y validación de variables requeridas. Logs no imprimen tokens durante diagnóstico.
 
+### Cuánto cuesta un entorno virtual y por qué
+
+Crear un entorno con `python -m venv` tomó 11 344 ms en Windows y dejó 860 archivos y 11 550 KiB. Con `--without-pip` tomó 180 ms, 7 archivos y 557 KiB. Con `uv venv`, 278 ms, 16 archivos y 555 KiB. En Linux (WSL2), `venv --without-pip` tomó 118 ms con 8 archivos y con pip 6 376 ms. Casi todo el costo es instalar pip: 860 archivos frente a 7. En Linux, además, el intérprete del entorno es un enlace simbólico al base; en Windows se copia un lanzador. Un entorno es barato; lo caro es lo que se instala dentro.
+
+![Figura 1. Tabla de la creación de entornos: con pip 11 344 ms y 860 archivos, sin pip 180 ms y 7 archivos, con uv 278 ms, y los valores de Linux](../../../content/part-08/figures/se-103-costo-del-entorno.svg)
+
+**Cómo leer la figura.** Cada fila es una forma de crear el entorno con su tiempo y tamaño. **Dónde deja de valer:** el tiempo de 11 s incluye la instalación de pip desde la copia empaquetada con Python y el antivirus del equipo; en otra máquina cambia. Que `uv` sea 40 veces más rápido en este caso no significa que lo sea con un conjunto grande de dependencias.
+
+### Cómo se aísla realmente
+
+Un entorno virtual no es un contenedor: es un archivo `pyvenv.cfg` y una forma de calcular rutas. El archivo del entorno medido tiene cinco claves (`home`, `include-system-site-packages`, `version`, `executable`, `command`). Dentro del entorno, `sys.prefix` difiere de `sys.base_prefix` (así se detecta que se ejecuta dentro de un entorno) y `sys.path` tiene 7 entradas frente a 16 del intérprete del sistema. El entorno comparte el intérprete base y el sistema operativo; solo cambia dónde se buscan e instalan los paquetes. Por eso un entorno no protege de variables de entorno, de bibliotecas del sistema ni de la versión del sistema.
+
+![Figura 2. Tabla con las claves de pyvenv.cfg, la diferencia entre sys.prefix y sys.base_prefix y las entradas de sys.path](../../../content/part-08/figures/se-103-como-se-aisla.svg)
+
+**Cómo leer la figura.** Cada fila es un hecho comprobable dentro y fuera del entorno. **Dónde deja de valer:** con `include-system-site-packages = true` el entorno ve también los paquetes del sistema, y el aislamiento desaparece.
+
+### Instalar sin tocar el sistema
+
+Se construyó una rueda local de un paquete diminuto (`demo-pkg`) y se instaló con `--no-index --no-deps` en dos entornos nuevos. `import demo_pkg` falló en el intérprete global y devolvió `1.0.0` dentro del entorno; `pip list` mostró solo dos paquetes (pip y `demo-pkg`) y `pip freeze` fue idéntico en los dos entornos. Esa es la comprobación de aislamiento: lo instalado en un entorno no aparece fuera, y el mismo archivo instalado dos veces produce el mismo estado. La instalación sin red es también una propiedad útil: demuestra que no se depende de un índice externo para reconstruir el entorno.
+
+![Figura 3. Tabla con la importación fallida fuera del entorno, 1.0.0 dentro, pip list con 2 paquetes y pip freeze idéntico en dos entornos](../../../content/part-08/figures/se-103-instalacion-local.svg)
+
+**Cómo leer la figura.** Las filas comparan dentro y fuera, y entre dos entornos. **Dónde deja de valer:** con dependencias transitivas la instalación sin red exige tener todos los archivos; aquí se usó `--no-deps` porque el paquete no tiene ninguna.
+
 ## Definiciones de trabajo
 
 - **entorno virtual:** `venv` crea un prefijo con scripts y configuración que usa una instalación base.
@@ -122,10 +146,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una observación que refute una hipótesis sin cambiar simultáneamente el sistema.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Costo:** crea un entorno con y sin pip, y calcula la razón de tiempos y de archivos.
+2. **Detección:** escribe una línea que determine si el proceso corre dentro de un entorno virtual.
+3. **Aislamiento:** instala un paquete local en un entorno y demuestra que no se puede importar fuera.
+4. **Receta:** escribe el comando único que recrea tu entorno desde cero y la prueba que lo verifica.
 
 ## Reto verificable
 
@@ -137,33 +161,39 @@ El entorno reproducible de diagnóstico parte de una inversión de empates en la
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Por qué un entorno por proyecto?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Porque proyectos distintos necesitan versiones distintas de las mismas bibliotecas, y mezclarlos en el intérprete global hace que instalar una dependencia rompa otro proyecto.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Se versiona la carpeta del entorno?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+No. Se versiona la definición (archivo de requisitos con versiones y hashes, o un archivo de bloqueo) y el entorno se recrea desde ella. La carpeta contiene rutas absolutas que no se trasladan entre máquinas.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Puedo mover un entorno a otra ruta?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+No de forma fiable: contiene rutas absolutas al intérprete. Se recrea en la nueva ubicación.
 
+### ¿Qué diferencia hay entre `pip freeze` y un archivo de bloqueo?
+
+`pip freeze` lista lo instalado, sin hashes ni marcadores de plataforma; un archivo de bloqueo describe cómo reconstruirlo con hashes. El primero es un informe; el segundo, una receta.
 ## Fallo controlado y diagnóstico
 
 Importa un paquete presente solo globalmente. Ejecuta con `-I` cuando corresponda, crea venv limpio y declara la dependencia o elimínala.
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+
+Reproduce la contaminación. Instala un paquete en el intérprete global (en una máquina de prueba) y comprueba que un proyecto lo importa sin declararlo. **Síntoma:** funciona en tu máquina y falla en otra limpia. **Hipótesis:** hay una dependencia no declarada que el entorno global satisface. **Prueba:** crea un entorno vacío, ejecuta el proyecto y observa el `ModuleNotFoundError`. **Conclusión:** declarar las dependencias exige ejecutar en un entorno vacío. Guarda el error, la dependencia faltante y la corrección en `checks.md`, y añade la prueba «importar desde un entorno nuevo» a la CI.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Funciona aquí y no en otra máquina | Dependencia no declarada presente en el sistema | Probar siempre en un entorno vacío |
+| El entorno deja de funcionar al moverlo | Rutas absolutas | Recrearlo desde su definición |
+| Crear el entorno tarda mucho | Instalación de pip y antivirus | Usar `--without-pip` con `uv` o un caché de ruedas |
+| Se versiona la carpeta del entorno | Se confunde entorno con definición | Versionar la receta, ignorar la carpeta |
+| `pip freeze` se toma como bloqueo | No contiene hashes ni plataforma | Usar un archivo de bloqueo con hashes |
 
 ## Entorno y archivos clave
 
@@ -188,6 +218,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente instala paquetes cuando le parece necesario. Si lo hace en el intérprete global, contamina el sistema y el resultado deja de ser reproducible. El harness debe darle un entorno desechable y una política explícita sobre qué puede instalar, registrar cada instalación y fallar si el agente intenta modificar el sistema. La prueba «ejecutar desde un entorno vacío» es la verificación más sencilla de que el agente declaró lo que usa.
 
 ## Transferencia
 
@@ -217,6 +251,10 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [Web Content Accessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) — Percepción, operación por teclado y reducción de barreras en interfaces; autoridad: W3C.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del entorno reproducible de diagnóstico sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: módulo `venv`](https://docs.python.org/3/library/venv.html): creación de entornos y estructura de `pyvenv.cfg`.
+- [PEP 405: entornos virtuales de Python](https://peps.python.org/pep-0405/): diseño del aislamiento por rutas.
+- [uv: entornos virtuales](https://docs.astral.sh/uv/pip/environments/): creación y uso de entornos con `uv`.
 
 ## Límites y siguiente paso
 

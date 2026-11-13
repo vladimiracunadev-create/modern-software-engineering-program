@@ -20,7 +20,7 @@ Esta auditoría distingue tres hechos:
 | clases dentro del alcance | 180 | `SE-001`–`SE-180` |
 | borradores que repiten el mismo párrafo genérico | 0 | el párrafo señalado en la auditoría anterior ya no aparece |
 | clases con sección `Definiciones de trabajo` | 180 | existe una base terminológica inicial |
-| clases con sección `Glosario` | 120 | Partes 00–09 reconstruidas; requisito pendiente en las demás partes |
+| clases con sección `Glosario` | 132 | Partes 00–10 reconstruidas; requisito pendiente en las demás partes |
 | clases con sección `Preguntas frecuentes` | 180 | existe una capa de aclaración inicial |
 | clases con sección `Reto verificable` | 180 | existe una extensión evaluable de la práctica |
 | clases desarrolladas | 72 | Partes 00–05; las otras 108 continúan como borradores |
@@ -199,6 +199,20 @@ licencias SPDX/REUSE y diseño de experiencia para desarrolladores. El taller co
 el artefacto fuera del checkout y el proyecto prueba un SDK+CLI entre versiones. Las
 doce clases todavía requieren revisión y no presentan SemVer, lockfiles, contenedores o SBOM
 como garantías automáticas de compatibilidad, reproducibilidad o cumplimiento.
+
+## Avance editorial de la Parte 10
+
+Las clases `SE-121`–`SE-132` se reconstruyeron en `content/part-10/` alrededor de una
+plataforma de entregas de tareas, un caso sintético que recorre la parte. El recorrido
+separa síntoma, problema, necesidad y oportunidad; describe actores, trabajos y contextos;
+obtiene evidencia cualitativa trazable; formula hipótesis con umbral fijado de antemano;
+redacta propuesta de valor, segmentos y alternativas; dimensiona experimentos; prioriza
+con una regla cuya robustez se mide; protege a las personas que participan; fija criterios
+de abandono; y termina en un taller y en un brief respaldado por evidencia. Cada clase
+incluye tres experimentos con datos sintéticos y semilla fija, ejecutados en Windows y
+Ubuntu (WSL2), y declara que no se entrevistó a nadie ni se midió ningún mercado real.
+Las doce clases todavía requieren revisión y no presentan una regla de priorización, un
+validador o un intervalo como sustitutos del juicio y la investigación con personas.
 
 ## Orden de reconstrucción
 

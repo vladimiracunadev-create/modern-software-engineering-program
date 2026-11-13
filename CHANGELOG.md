@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-11-13 — Parte 10 desarrollada y profundizada con experimentos sintéticos reproducibles
+
+- las clases `SE-121`–`SE-132` pasan de borradores genéricos a clases completas sobre una plataforma de entregas de tareas: síntomas frente a causas, actores y contextos,
+  entrevistas y evidencia cualitativa, hipótesis, propuesta de valor, segmentos y mercado, experimentos, priorización, ética y protección de participantes, criterios de
+  abandono, un taller y un proyecto integrador (brief respaldado por evidencia); el portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: conteo de frases frente a causas y dimensionamiento con rangos, usuario promedio y paradoja de
+  Simpson, saturación de temas y kappa, sensibilidad de supuestos y comparaciones múltiples, estabilidad de rankings y de k-means frente a ruido, tamaño de muestra y
+  falsos positivos al mirar varias veces, RICE bajo perturbación y coste del retraso, unicidad por cuasi-identificadores y reversión de un hash, reglas de abandono y zona
+  gris, y un validador de briefs con doce mutaciones;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y un puente
+  hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas salvo los tiempos de hash de `SE-129`; los datos son
+  sintéticos, los parámetros son supuestos del autor y las reglas léxicas se afinaron con pocos ejemplos y se probaron con casos nuevos mínimos: no hubo personas, usuarios
+  ni mercados reales, y la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: la frase más repetida de 600 tickets no coincide con la causa más frecuente; con cinco atributos corrientes el 64,2 % de 500 participantes es único;
+  un hash sin clave de siete dígitos se revierte en 16–20 s; mirar 10 veces una prueba A/A produce 21,1 % de falsos positivos; una regla léxica con 100 % de acierto en sus
+  ejemplos acierta 50 % con preguntas nuevas.
+
 ## 2026-11-13 — Parte 08 profundizada con experimentos de herramientas y entornos
 
 - 36 figuras para `SE-097`–`SE-108` con mediciones reales: un intercambio LSP con `ruff server`, una sesión de `pdb` y el costo de observar la ejecución, perfiladores

@@ -2,207 +2,303 @@
 
 [← SE-129 — Ética del descubrimiento y protección de participantes](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/se-129-etica-del-descubrimiento-y-proteccion-de-participantes/README.md) · [↑ Parte 10](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-130.html) · [SE-131 — Taller: convertir una petición en un problema investigable →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-10-descubrimiento-y-estrategia-de-producto/se-131-taller-convertir-una-peticion-en-un-problema-investigable/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para decidir antes de empezar qué resultado significará «no» y qué se hará entonces: criterios medibles de no éxito, reglas de parada con su costo de error y una zona gris reconocida como tal.
+
+**Por qué aparece aquí.** Se sitúa después de **Ética del descubrimiento y protección de participantes** y antes de **Taller: convertir una petición en un problema investigable**: `SE-129` dejó un protocolo que limita qué se puede probar y con quién; ahora hay que decidir cuándo dejar de probar. Esta clase fija criterios de no éxito y de abandono con umbral, ventana y responsable, y calcula qué muestra hace falta para que «no hay evidencia» no se confunda con «la idea es mala». Su documento es la condición de salida que `SE-132` exigirá al brief.
+
+**Error conceptual que debe corregir.** Seguir hasta que algo funcione, mover la meta cuando el resultado no llega y confundir un experimento inconcluso con una prueba de que la idea fracasó o de que prospera.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices cuánto ahorra una regla de abandono definida de antemano cuando la idea es mala, cuántas personas hacen falta para distinguir una tasa del 5 % de una del 15 % y qué criterios de una lista son realmente medibles; luego simulas, explicas cada resultado y reconstruyes sin apoyo cómo se redacta un criterio de abandono con umbral, ventana y responsable. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `stop-rules.md` con los criterios de éxito y de no éxito, la zona gris, la regla de parada y su costo de error simulado, el responsable de la decisión y lo que se conserva al abandonar. Debe contener predicción previa, observación, explicación causal, contraejemplo, criterio de aceptación y una nota de qué dato haría cambiar la conclusión.
+
+**Límite de la conclusión.** Las tasas (5 %, 10 %, 15 %), los tamaños y las reglas son supuestos y datos sintéticos; la regla de parada no se probó con un piloto real y el linter de criterios se afinó con ocho ejemplos escritos por el autor.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [GOV.UK Service Manual: How the discovery phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works) | Señala que lo aprendido en la discovery debe ayudar a decidir si avanzar a la fase siguiente, que puede ser razonable detenerse al final de la discovery y que no se debe empezar a construir el servicio en ella. | No fija umbrales ni tamaños de muestra concretos. |
+| [The Lean Startup: principios](https://theleanstartup.com/principles) | Plantea que, si las métricas no mueven el modelo de negocio, es momento de pivotar o hacer una corrección estructural y probar una hipótesis fundamental nueva. | No define cuándo exactamente se activa esa decisión. |
+| [Johari, Pekelis y Walsh: Always Valid Inference](https://arxiv.org/abs/1512.04922) | Muestra que decidir el tamaño de la muestra monitoreando continuamente invalida la inferencia clásica y propone inferencia secuencial válida en cualquier momento. | No prescribe el umbral de abandono de tu proyecto. |
+
+## Antes de empezar
+
+Esta clase continúa **el caso de la plataforma de entregas**. Recupera el plan de experimento de `SE-127`, el registro de priorización de `SE-128` y el protocolo de `SE-129`, añade una decisión propia sobre **qué resultado haría detener la idea y quién lo decide** y deja un documento de abandono para `SE-131` y `SE-132`. La pregunta activa es: **¿qué tendría que pasar para que dijéramos «no» sin sentir que fracasamos?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-129` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor, hoja de cálculo opcional y repositorio de investigación.
+- Haber completado `SE-129` o reconstruir el protocolo ético y el plan de experimento.
+- Python 3.11 o posterior; solo se usa la biblioteca estándar.
+- Trabajar con tasas y participantes sintéticos: ninguna cifra procede de un piloto real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Criterios de no éxito y decisiones de abandono**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El piloto de recuperación de borradores lleva ocho semanas. El criterio de éxito era «que lo use una proporción razonable» y el de abandono «si no funciona». La tasa de uso es 8 %; el equipo argumenta que «hay que darle más tiempo» y propone añadir una función. Nadie escribió antes qué tasa bastaba, con cuántas personas, en cuántas semanas ni quién decidía detener.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Criterios y no con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **product brief respaldado por evidencia** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «convertir la primera petición de una persona en requisito definitivo» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Criterios | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| No | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Éxito | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Decisiones | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. redactar un criterio de no éxito con comparador, umbral, población, ventana y responsable;
+2. comparar una regla de abandono definida de antemano con un presupuesto fijo por personas consumidas y por errores;
+3. calcular cuántas personas hacen falta para decidir entre una tasa mala y una buena y reconocer la zona gris;
+4. distinguir «no hay evidencia suficiente» de «hay evidencia de que no funciona»;
+5. documentar qué se conserva al abandonar para que el aprendizaje no se pierda.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Criterios de no éxito y decisiones de abandono"] --> M["Modelo: Criterios"]
-    M --> D["Decisión: no"]
-    D --> E["Evidencia: éxito"]
-    E --> R["Revisión: decisiones"]
-    R -->|nueva información| M
+    N1[Éxito y no éxito] --> N2[Zona gris] --> N3[Reglas de parada] --> N4[Coste hundido y compromiso] --> N5[Abandonar y conservar]
+    N5 -->|fallo o cambio| N1
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Criterios de no éxito y decisiones de abandono**.
+El mapa se lee como una cadena de razonamiento, no como fases obligatorias. La flecha de retorno indica que una zona gris que no se resuelve, un criterio imposible de medir o una regla que abandona ideas buenas obliga a revisar los umbrales; no autoriza a moverlos tras ver el resultado.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Éxito y no éxito | Si solo se define el éxito, cualquier resultado intermedio se interpreta como «casi» y la decisión se pospone. | Predicción, traza causal y contraejemplo de **Éxito y no éxito** en `stop-rules.md` |
+| Zona gris | Con pocas personas casi todo resultado cae entre «sí» y «no»; el diseño debe prever qué hacer ahí. | Predicción, traza causal y contraejemplo de **Zona gris** en `stop-rules.md` |
+| Reglas de parada | Una regla fijada de antemano ahorra recursos cuando la idea es mala y limita cuántas ideas buenas se pierden. | Predicción, traza causal y contraejemplo de **Reglas de parada** en `stop-rules.md` |
+| Coste hundido y compromiso | Cuanto más se invirtió, más cuesta abandonar; los criterios previos protegen la decisión de esa presión. | Predicción, traza causal y contraejemplo de **Coste hundido y compromiso** en `stop-rules.md` |
+| Abandonar y conservar | Abandonar bien conserva el aprendizaje y deja abiertas otras opciones. | Predicción, traza causal y contraejemplo de **Abandonar y conservar** en `stop-rules.md` |
 
 ## Conceptos y decisiones
 
-El descubrimiento reduce incertidumbre sobre personas, problemas y resultados antes de comprometer una solución; una entrevista produce evidencia situada, no verdad universal.
+### 1. Éxito y no éxito
 
-La pregunta rectora de esta parte es: **¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?** La respuesta debe
-apoyarse en **observaciones trazables, patrones y contradicciones, siempre separadas de interpretación**.
+Un criterio de éxito dice qué resultado justifica continuar; uno de no éxito, qué resultado justifica detener. Entre ambos queda una zona intermedia que debe tener su propia decisión (extender hasta una fecha, cambiar el experimento). Un criterio útil tiene cinco elementos: comparador («menos de»), umbral (6 de 30), población (quienes entregaron desde móvil), ventana (4 semanas) y responsable (producto). «Si no funciona, lo dejamos» no tiene ninguno y por eso no se puede incumplir ni cumplir, que es la razón por la que a nadie le molesta escribirlo.
 
-### 1. Criterios: modelo
+### 2. Zona gris
 
-En esta clase, **Criterios** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?» y demostrarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Criterios de no éxito y decisiones de abandono**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si la tasa buena es 15 % y la mala 5 %, con 30 personas muchas pruebas no podrán decir cuál es la real: el resultado «inconcluso» es frecuente. Reconocer la zona gris obliga a decidir de antemano si se amplía la muestra, se acepta la incertidumbre o se cambia de prueba. Equivale a admitir que no todo experimento decide. Un criterio que no admite zona gris suele esconder la decisión real en un empate al que se responde con lo que el equipo ya quería.
 
-### 2. No: mecanismo
+### 3. Reglas de parada
 
-En esta clase, **no** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?» y demostrarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Criterios de no éxito y decisiones de abandono**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una regla de futilidad abandona si, dado lo observado, la probabilidad de que la tasa real supere el umbral cae por debajo de un valor declarado (por ejemplo, 5 %). Ahorra personas cuando la idea es mala, a costa de un pequeño porcentaje de ideas buenas abandonadas por mala suerte. Ese porcentaje es una elección: se calcula por simulación y se acepta o no. Lo que no vale es decidir sobre la marcha; las reglas secuenciales con garantías (y no el análisis repetido con una prueba clásica) son lo que permite parar antes sin inflar el error.
 
-### 3. Éxito: evidencia
+### 4. Coste hundido y compromiso
 
-En esta clase, **éxito** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?» y demostrarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Criterios de no éxito y decisiones de abandono**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Lo gastado no se recupera abandonando ni continuando, y por tanto no debería influir en la decisión; pero a las personas les pesa. Los compromisos previos —criterios con fecha, responsable externo al equipo, revisión por alguien que no construyó la idea— reducen ese peso. Una práctica útil es preguntar «si empezáramos hoy con lo que sabemos, ¿lo haríamos?». Si la respuesta es no, continuar es una nueva inversión que requiere su propia justificación.
 
-### 4. Decisiones: decisión
+### 5. Abandonar y conservar
 
-En esta clase, **decisiones** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?» y demostrarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Criterios de no éxito y decisiones de abandono**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Abandonar no es borrar. El cierre registra la hipótesis refutada, los datos y la regla que activó el abandono, lo que se desmonta (prototipos, accesos, datos de participantes según `SE-129`), lo que se reutiliza y qué cambio de contexto reabriría la idea. Distingue tres decisiones: detener, pivotar (cambiar una hipótesis fundamental conservando el problema) y perseverar con otro experimento. Documentarlo evita repetir el mismo experimento dos años después y respeta a las personas que participaron.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Una regla de abandono frente a gastar todo el presupuesto
+
+Simulamos un piloto con presupuesto de 300 personas. Si la tasa real es mala (5 %) o buena (15 %) y el umbral de decisión es 10 %, comparamos dos políticas con 300 repeticiones cada una: presupuesto fijo (se consumen las 300 personas y se decide al final) y regla de futilidad (a partir de 30 personas y cada 10, se abandona si la probabilidad posterior de que la tasa supere el 10 % —con un a priori Beta(1, 1)— es menor de 5 %). Predicción antes de ejecutar: la regla ahorra mucho cuando la idea es mala y casi nada cuando es buena.
+
+```python
+if n >= 30 and n % 10 == 0 and p_supera(k, n, 0.10) < 0.05:
+    return n, "abandona"
+```
+
+Resultados: presupuesto fijo, idea mala: 300 personas y 100 % de abandonos; idea buena: 300 personas y 0 % de abandonos. Regla de futilidad, idea mala: 103 personas en promedio (66 % menos) y 100 % de abandonos; idea buena: 296 personas y 2 % de abandonos erróneos. La regla recorta dos tercios del esfuerzo cuando conviene abandonar, casi no cambia el esfuerzo cuando conviene seguir, y cuesta un 2 % de ideas buenas abandonadas. Ese 2 % es el precio de parar antes y debe quedar escrito. Idéntico en Windows y Ubuntu.
+
+![Tabla con las personas consumidas y el porcentaje de abandonos para presupuesto fijo y regla de futilidad con una idea mala y una buena.](../../../content/part-10/figures/se-130-regla-de-abandono.svg)
+
+**Cómo leer la figura.** Cada fila combina una política con la realidad (mala o buena); la penúltima columna son las personas consumidas y la última el porcentaje de abandonos. **Dónde deja de valer:** la simulación supone observaciones independientes, una tasa constante y las dos únicas tasas posibles (5 % y 15 %); con tasas cercanas al umbral la regla abandonaría más ideas buenas. El 2 % depende del a priori, del umbral de 5 % y del calendario de comprobación.
+
+### La zona gris: cuántas personas hacen falta para decidir
+
+Queremos distinguir una tasa real de 5 % (no éxito) de una de 15 % (viable). La decisión: concluir «no éxito» si el límite superior del intervalo de Wilson al 90 % queda por debajo de 12 %, y concluir «viable» si el límite inferior supera el 6 %. Para cada tamaño de muestra, 2 000 repeticiones por tasa. Predicción antes de ejecutar: con 30 personas la mayoría de las pruebas no concluye.
+
+```python
+lo, hi = wilson(k, n, z=1.644854)
+no_exito = hi < 0.12
+viable = lo > 0.06
+```
+
+Resultados (tasa real 5 %: concluye «no éxito»; tasa real 15 %: concluye «viable»): n = 30: 21,4 % y 68,2 %; n = 60: 63,7 % y 81,3 %; n = 120: 84,3 % y 95,3 %; n = 240: 99,2 % y 99,8 %; n = 480: 100 % y 100 %. Con 30 personas, cuando la idea es mala, solo dos de cada diez pruebas lo concluyen; el resto queda en la zona gris. Hacen falta unas 120 personas para que ambas conclusiones se alcancen con más del 84 %. Idéntico en Windows y Ubuntu.
+
+![Tabla con el porcentaje de pruebas que concluyen no éxito o viable según el número de personas para tasas reales de 5 y 15 por ciento.](../../../content/part-10/figures/se-130-zona-gris-y-tamano-de-muestra.svg)
+
+**Cómo leer la figura.** Cada fila es un tamaño de muestra; la segunda columna es la frecuencia con que una idea mala se descarta y la tercera con que una buena se confirma. **Dónde deja de valer:** los umbrales (12 % y 6 %) y las tasas (5 % y 15 %) son supuestos; si la diferencia entre ambas tasas fuera menor, haría falta mucha más gente. El resultado «inconcluso» es legítimo y debe tener asignada una acción en el documento.
+
+### Criterios de abandono: ¿medibles o ruido?
+
+Para revisar criterios de abandono antes de aprobarlos se escribió una regla con cuatro comprobaciones: un comparador («menos de», «por debajo de»), un número, una ventana de tiempo (semanas, días, una fecha) y un responsable (producto, la dirección, el comité). Se aplicó a ocho criterios etiquetados a mano antes de escribir la regla: tres medibles y cinco que no. Resultado: 3 de 3 aceptados, 5 de 5 rechazados, incluidos «si no funciona, lo dejamos», «cancelar si la adopción es baja» y «seguir hasta que el cliente quede contento». Un criterio rechazado por falta de ventana («detener si menos de 3 de 12 entrevistas confirman el problema; responsable: producto») muestra que la regla exige los cuatro elementos.
+
+La regla acierta porque se afinó con esos ocho; su límite es que valida forma, no sensatez. «Detener si menos de 2 de 1 000 personas completan la tarea en diez años» pasaría y no sirve. Y un criterio mal formado en palabras que la regla no conoce (por ejemplo, «a menos que el piloto no despegue») pasaría o fallaría por azar.
+
+![Tabla con cinco criterios de abandono, si son medibles y el resultado de la regla.](../../../content/part-10/figures/se-130-criterios-medibles.svg)
+
+**Cómo leer la figura.** Cada fila es un criterio; la columna central dice si cumple los cuatro elementos y la última el resultado de la regla. **Dónde deja de valer:** ocho ejemplos escritos por el autor no dicen cómo se comportaría con criterios reales; medible no es lo mismo que razonable, y la regla no sustituye la revisión de una segunda persona.
 
 ## Definiciones de trabajo
 
-- **Criterios:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación.
-- **No:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación.
-- **Éxito:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación.
-- **Decisiones:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante observaciones trazables, patrones y contradicciones, siempre separadas de interpretación.
+- **éxito y no éxito:** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
+- **zona gris:** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
+- **reglas de parada:** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
+- **coste hundido y compromiso:** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
+- **abandonar y conservar:** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Criterios de no éxito y decisiones de abandono**:
+Un fragmento mínimo con un criterio de abandono ejecutable. Antes de ejecutarlo, predice la decisión para 4 de 30 y para 9 de 30.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+CRITERIO = {
+    "comparador": "<", "umbral": 6, "de": 30,         # menos de 6 de 30 personas completan la tarea
+    "ventana": "4 semanas", "responsable": "producto",
+}
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+def decide(completan, observadas, c=CRITERIO):
+    if observadas < c["de"]:
+        return "seguir observando"
+    return "abandonar" if completan < c["umbral"] else "continuar"
+
+assert decide(4, 30) == "abandonar"
+assert decide(9, 30) == "continuar"
+assert decide(2, 12) == "seguir observando"     # aún no hay muestra para decidir
+```
+
+Registra versión, comando y salida. El criterio es un dato fechado y con responsable, no una frase: cambiar el umbral después de observar equivale a cambiar de criterio y debe registrarse como tal.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Criterios de no éxito y decisiones de abandono**. Parte de esta pregunta: **¿qué incertidumbre crítica se intenta reducir y qué decisión habilitaría?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando observaciones trazables, patrones y contradicciones, siempre separadas de interpretación. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `brief.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma de entregas, el documento de abandono conserva por cada hipótesis: criterio de éxito, criterio de no éxito, zona gris con su acción, regla de parada y su error simulado, ventana, responsable (externo al equipo que construye), fecha de fijación, y el cierre: qué se aprendió, qué se desmonta, qué reabriría la idea. El contrato es que el criterio se fecha antes de empezar y que cualquier cambio se registra con quién lo aprobó.
+
+Compara el caso normal con un resultado exactamente en el umbral, con una muestra que se queda corta, con una interrupción externa (un incidente) y con un proyecto que pide extender «una semana más». Un documento es apropiado cuando esas situaciones tienen acción asignada; es peligroso cuando se renegocian después de mirar.
 
 ## Práctica guiada
 
-1. Crea `work/SE-130/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el product brief respaldado por evidencia con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Reformula la hipótesis principal de `SE-124` con un criterio de éxito y uno de no éxito.
+2. Redacta cada criterio con comparador, umbral, población, ventana y responsable.
+3. Define la zona gris y asigna la acción para ese caso.
+4. Simula el piloto con presupuesto fijo y con regla de futilidad y registra personas consumidas y errores.
+5. Calcula la muestra necesaria para que «no éxito» y «viable» se concluyan más del 80 % de las veces.
+6. Ejecuta el revisor de criterios sobre tu lista y corrige los rechazados.
+7. Pide a otra persona que diga, solo con `stop-rules.md`, qué resultado detendría la idea y quién lo decide.
 
 ## Ejercicios
 
-1. **Fundamental:** define Criterios y no con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `brief.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Regla:** cambia el umbral de futilidad de 5 % a 1 % y a 10 % y mide personas consumidas y abandonos erróneos; elige uno justificando el equilibrio.
+2. **Zona gris:** calcula cuántas personas necesitas para distinguir 8 % de 12 % con las mismas reglas y explica por qué es mucho mayor.
+3. **Criterios:** escribe tres criterios medibles pero absurdos que el revisor acepte y explica qué comprobación añadirías.
+4. **Cierre:** redacta el cierre de una idea abandonada con aprendizaje, desmontaje y condiciones de reapertura en menos de 200 palabras.
 
 ## Reto verificable
 
-Entrega el **product brief respaldado por evidencia** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `stop-rules.md` con criterios de éxito y no éxito de una hipótesis, su zona gris con acción, la regla de parada con el error simulado, el responsable externo y el formato de cierre. Se aprueba si otra persona ejecuta la simulación desde un checkout limpio, obtiene las mismas personas consumidas y puede decir qué resultado detiene la idea sin pedir contexto oral. No se aprueba por tener una regla sin responsable ni un umbral sin ventana.
+
+## Caso conductor
+
+La plataforma de entregas fija: «si menos de 6 de 30 estudiantes del segmento móvil recuperan su texto con la función en 3 semanas, producto detiene la recuperación y retoma el aviso de sesión». La simulación indica que con 30 personas la zona gris es amplia, así que el documento añade: «entre 6 y 9, se extiende a 120 personas». Cambia después un solo supuesto —por ejemplo, la tasa mala— y revisa qué cambia en la muestra necesaria.
+
+## Preguntas frecuentes
+
+### ¿Por qué escribir cuándo abandonar si estoy convencido de que funcionará?
+
+Porque la convicción es justo lo que impide ver los datos adversos. Escribir el criterio antes convierte la decisión en un compromiso y permite que alguien externo la haga cumplir. Si los datos lo superan, mejor; si no, el criterio ahorra semanas de discusión.
+
+### ¿Un experimento inconcluso significa que la idea es mala?
+
+No: significa que la muestra no alcanzó para distinguir. Con 30 personas, solo el 21,4 % de las ideas malas se concluyen como «no éxito». Se registra «inconcluso», se aplica la acción de la zona gris y se evita decir ni «funciona» ni «no funciona».
+
+### ¿La regla de futilidad puede abandonar una idea buena?
+
+Sí: en la simulación lo hizo en el 2 % de los casos. Ese riesgo se acepta a cambio de ahorrar el 66 % del esfuerzo cuando la idea es mala. Si el costo de perder una idea buena es alto, se usa un umbral más estricto (1 %) y se acepta consumir más personas.
+
+### ¿Pivotar es lo mismo que abandonar?
+
+No. Abandonar detiene la línea de trabajo; pivotar conserva el problema y cambia una hipótesis fundamental (el segmento, la solución, el modelo). Ambos requieren cierre escrito y criterio, porque «pivotar» sin criterio es una manera de no abandonar nunca.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **convertir la primera petición de una persona en requisito definitivo**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo de la clase: **mover la meta cuando el resultado no llega**. Escribe «éxito: tasa de uso razonable» sin umbral, observa 8 % y declara «hay que darle más tiempo».
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el piloto se extiende cada dos semanas durante ocho semanas y se añaden funciones sin que cambie la tasa de uso. **Hipótesis rivales:** (a) la idea necesita más tiempo para madurar; (b) el criterio no permitía fallar y se estaba posponiendo la decisión. **Prueba:** con una tasa real de 5 % la regla de futilidad abandona en promedio con 103 personas, mientras que sin regla se consumen 300; y el criterio original no tenía comparador, umbral, ventana ni responsable. **Conclusión:** la causa fue un criterio que no podía fallar. **Regresión:** añade al documento los cinco elementos obligatorios y una prueba que rechace criterios sin ellos. No cambies a la vez el umbral y la ventana.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El piloto se extiende sin fin y siempre «casi funciona» | El criterio de no éxito no existía o no tenía umbral | Escribir comparador, umbral, población, ventana y responsable antes de empezar |
+| Se abandona una idea que luego otro equipo hace funcionar | La muestra era demasiado pequeña y el resultado era inconcluso, no negativo | Distinguir «no hay evidencia» de «hay evidencia en contra» y calcular la zona gris |
+| Se añaden funciones para «salvar» el piloto | Coste hundido: se evalúa lo invertido y no el valor futuro | Preguntar «¿empezaríamos hoy con lo que sabemos?» y revisar con alguien externo |
+| La regla de parada abandona demasiadas ideas buenas | Umbral de futilidad demasiado alto para el costo de perder una idea buena | Simular el error con tasas realistas y elegir el umbral con el costo en la mano |
+| Nadie recuerda por qué se cerró la línea hace un año | El cierre no registró aprendizaje ni condiciones de reapertura | Usar un formato de cierre con hipótesis, datos, regla activada y qué reabriría la idea |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor, hoja de cálculo opcional y repositorio de investigación. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-130/
 ├── README.md
-│   ├── brief.md
-│   ├── assumptions.md
-│   ├── research-log.md
-├── activity.yaml
-└── rubric.json
+├── stop/
+│   ├── regla.py
+│   ├── zona_gris.py
+│   └── criterios.py
+├── fixtures/criterios.json
+├── tests/test_criterios.py
+└── evidence/stop-rules.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `brief.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versiones, semilla y comandos. Los scripts usan solo `random`, `math` y `re` y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Las tasas, umbrales y presupuestos son supuestos del autor.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- define criterios de parada por daño además de por resultado: si algo perjudica a los participantes, se detiene sin esperar a la muestra planificada;
+- el responsable externo no debe depender jerárquicamente de quien propone la idea para que el criterio no se negocie;
+- abandonar una línea no autoriza a conservar los datos de los participantes: aplica la retención de `SE-129`;
+- evita criterios que premien extender el piloto para mantener cuentas o equipos;
+- ofrece una alternativa textual a las tablas y no uses color como única señal;
+- atribuye las reglas y métodos reutilizados.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «ejecuta el piloto y dime si continuar» puede interpretar los datos a su favor, extender la ventana o proponer una función adicional cuando el resultado es malo. Pídele que lea `stop-rules.md` con su fecha, que aplique el criterio sin modificarlo, que informe del resultado en la categoría que corresponda (éxito, no éxito o zona gris) y que no proponga cambios de umbral. Revisa especialmente si sugiere «darle una semana más» o añadir una métrica: es el error de esta clase con apariencia de diligencia.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el documento a otro dominio persistente (por ejemplo, un servicio financiero): cambia la hipótesis, las tasas y la población, conserva los cinco elementos del criterio, la simulación de la regla y el formato de cierre. La transferencia está lograda cuando puedes explicar quién ocuparía el papel del responsable externo y por qué.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
+|---|---|
+| comprensión | explicación causal de por qué un criterio sin umbral no puede fallar |
+| corrección | simulación de la regla y tabla de la zona gris reproducibles con la misma semilla |
+| diseño | criterios con comparador, umbral, población, ventana y responsable, y cierre |
+| diagnóstico | reproducción del fallo «mover la meta» con regresión |
+| responsabilidad | criterio de parada por daño y responsable externo |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
-Entrega el directorio `work/SE-130/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
 
-- **The Service Manual: user research** — UK Government Digital Service. [https://www.gov.uk/service-manual/user-research](https://www.gov.uk/service-manual/user-research) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **NIST Privacy Framework** — NIST. [https://www.nist.gov/privacy-framework](https://www.nist.gov/privacy-framework) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+- [GOV.UK Service Manual: How the discovery phase works](https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works) — decidir al final de la discovery si avanzar o detenerse; autoridad: Government Digital Service.
+- [The Lean Startup: principios](https://theleanstartup.com/principles) — aprendizaje validado y decisión de pivotar o perseverar; autoridad: Eric Ries (fuente del autor).
+- [Johari, Pekelis y Walsh: Always Valid Inference (arXiv:1512.04922)](https://arxiv.org/abs/1512.04922) — inferencia secuencial válida con monitoreo continuo; autoridad: preprint de investigación.
+- [Brown, Cai y DasGupta: Interval Estimation for a Binomial Proportion (Statistical Science, 2001)](https://projecteuclid.org/journals/statistical-science/volume-16/issue-2/Interval-Estimation-for-a-Binomial-Proportion/10.1214/ss/1009213286.full) — intervalos para proporciones con muestras pequeñas; autoridad: Statistical Science.
+- [Douglas Hubbard: How to Measure Anything](https://www.howtomeasureanything.com/) — valor de la información y costo de decidir con incertidumbre; autoridad: Hubbard Decision Research.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — gestión de proyectos, riesgo y fundamentos de ingeniería; autoridad: IEEE Computer Society.
 
-## Preguntas frecuentes
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los umbrales de la plataforma sean los adecuados. Esa afirmación depende de las tasas reales, del costo de cada tipo de error y de la revisión.
 
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `random.betavariate`](https://docs.python.org/3/library/random.html#random.betavariate) — distribución beta usada en la probabilidad posterior de la regla de futilidad.
+- [Python: `re`, expresiones regulares](https://docs.python.org/3/library/re.html) — sintaxis de las comprobaciones del revisor de criterios.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Criterios de no éxito y decisiones de abandono**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-131`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con tasas y criterios sintéticos en Windows y Ubuntu (WSL2) con salidas idénticas. No se probó la regla con un piloto real y no se midió el efecto del coste hundido en personas. La siguiente clase aplica todo lo anterior a un taller: convertir una petición en un problema investigable.
+
+## Glosario
+
+- **éxito y no éxito:** par de umbrales fijados antes de observar: por encima del primero se continúa y por debajo del segundo se abandona o se cambia de rumbo.
+- **zona gris:** rango de resultados que no permite distinguir con la confianza declarada entre el éxito y el no éxito.
+- **reglas de parada:** procedimiento que, tras cada observación o lote, decide continuar, detener por futilidad o detener por éxito, con tasas de error conocidas.
+- **coste hundido y compromiso:** tendencia a continuar un proyecto por lo ya invertido y no por su valor futuro esperado; se contrarresta comprometiendo la decisión de antemano.
+- **abandonar y conservar:** cierre explícito de una línea de trabajo que registra qué se aprendió, qué se retira y qué podría reabrirla.
 
 ---
 

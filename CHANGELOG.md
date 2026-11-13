@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-13 — Documentación alineada con las Partes 00–22 y el alcance de 540 clases
+
+- el estado publicado pasa de «Partes 00–05» a «Partes 00–22 (`SE-001`–`SE-276`) desarrolladas»; las páginas de las clases 73 a 276 dejan de marcarse como «contenido en revisión» y la revisión editorial humana independiente sigue declarada como pendiente;
+- README, ROADMAP, STATUS, portal, guías de rol y estándar pedagógico describen el alcance planificado de 540 clases (Partes 40–44, `SE-481`–`SE-540`) sin publicarlo como clases: los conteos generados siguen siendo 480 clases y 40 partes;
+- nueva decisión `ADR-004-expand-to-540-class-scope.md`.
+
 ## 2026-11-13 — Parte 22 desarrollada y profundizada con simulaciones sintéticas reproducibles
 
 - las clases `SE-265`–`SE-276` pasan de borradores genéricos a clases completas sobre un nodo ambiental de una sala de estudio: hardware, firmware y software embebido,

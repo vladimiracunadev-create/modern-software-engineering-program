@@ -19,11 +19,16 @@ de verdad sobre el producto educativo y su secuencia.
 
 - La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,
   de `SE-001` a `SE-480`, sin renumerar el material existente.
-- Las Partes 00–05 contienen 72 clases desarrolladas con explicación, práctica,
-  fuentes, navegación y laboratorios ejecutables para `SE-013`–`SE-072`. Las partes
-  06–29 conservan 288 borradores que deben revisarse y
-  profundizarse. Las partes 30–39 disponen de estructura curricular y requieren aún el
-  desarrollo íntegro de sus 120 clases.
+- Las Partes 00–22 contienen 276 clases desarrolladas y profundizadas con explicación,
+  práctica, figuras interpretadas, experimentos reproducibles, fuentes y navegación
+  (`SE-001`–`SE-276`), con laboratorios ejecutables en las Partes 01–05; falta una revisión
+  editorial humana independiente. Las partes 23–29 conservan 84 borradores que deben
+  revisarse y profundizarse. Las partes 30–39 disponen de estructura curricular y
+  requieren aún el desarrollo íntegro de sus 120 clases.
+- El alcance planificado es de 540 clases: las Partes 40–44 (`SE-481`–`SE-540`:
+  metodologías de TDD a ODD, harness y agentic engineering, patrones agénticos, patrones
+  de diseño y estilos arquitectónicos) están decididas pero sin clases publicadas. Ver
+  [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md).
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
 - Los conteos describen archivos y alcance; la calidad se demuestra revisando contenido,

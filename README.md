@@ -31,11 +31,34 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 ---
 
 > [!IMPORTANT]
-> **Cobertura real, sin inflar cifras:** la arquitectura contiene 480 clases.
-> Las Partes 00–05 (`SE-001`–`SE-072`) tienen contenido desarrollado; las partes 06–29
-> (`SE-073`–`SE-360`) conservan material de trabajo que requiere revisión cualitativa,
-> y las partes 30–39 (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza
-> completa. Una carpeta o página generada no cuenta como aprendizaje terminado.
+> **Cobertura real, sin inflar cifras:** la arquitectura publicada contiene 480 clases y el
+> alcance planificado es de **540**. Las Partes 00–22 (`SE-001`–`SE-276`) tienen contenido
+> desarrollado y profundizado con figuras, experimentos reproducibles y fuentes; todavía no
+> pasaron una revisión editorial humana independiente. Las partes 23–29 (`SE-277`–`SE-360`)
+> conservan material de trabajo que requiere revisión cualitativa, las partes 30–39
+> (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza completa y las Partes 40–44
+> (`SE-481`–`SE-540`) están planificadas, sin clases publicadas. Una carpeta o página
+> generada no cuenta como aprendizaje terminado.
+
+## 🧭 Alcance planificado hasta la clase 540
+
+El 13 de noviembre de 2026 se decidió ampliar el programa de 480 a **540 clases** con cinco
+partes nuevas, sin renumerar `SE-001`–`SE-480` (ver
+[`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md)
+y la [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)):
+
+| Parte | Tema | Clases | Estado |
+|---|---|---|---|
+| 40 | Metodologías de desarrollo de TDD a ODD (TDD, BDD, ATDD, DDD, contratos, SDD, EDD, ODD) | `SE-481`–`SE-492` | planificada |
+| 41 | Harness y agentic engineering | `SE-493`–`SE-504` | planificada |
+| 42 | Patrones agénticos y sistemas con LLM | `SE-505`–`SE-516` | planificada |
+| 43 | Patrones de diseño, empresariales y de resiliencia | `SE-517`–`SE-528` | planificada |
+| 44 | Estilos arquitectónicos | `SE-529`–`SE-540` | planificada |
+
+Estas cinco partes aún no existen como clases: no figuran en `curriculum.yaml`, en el
+catálogo ni en el portal, y los conteos generados (480 clases, 40 partes) siguen
+describiendo lo publicado. Se incorporarán parte por parte, cada una con su contenido
+completo, a medida que el trabajo avance.
 
 ## 🎯 Qué es esto
 

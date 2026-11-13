@@ -3,8 +3,9 @@
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Las Partes 00–05 contienen material desarrollado. Las partes 06–29 publican borradores
-> para revisión y las partes 30–39 conservan la estructura pendiente de desarrollo.
+> Las Partes 00–22 contienen material desarrollado. Las partes 23–29 publican borradores
+> para revisión, las partes 30–39 conservan la estructura pendiente de desarrollo y las
+> Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)

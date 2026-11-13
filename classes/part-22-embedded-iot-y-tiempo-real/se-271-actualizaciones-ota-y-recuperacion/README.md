@@ -2,208 +2,324 @@
 
 [← SE-270 — Protocolos IoT y conectividad intermitente](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-270-protocolos-iot-y-conectividad-intermitente/README.md) · [↑ Parte 22](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-22-embedded-iot-y-tiempo-real/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-271.html) · [SE-272 — Identidad de dispositivo y gestión de claves →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que diseñes una actualización de firmware que sobreviva a un corte de energía en cualquier paso, que transmita lo mínimo y que se despliegue por etapas con una regla para detenerse, de modo que una versión defectuosa no deje inservible a una flota entera.
+
+**Por qué aparece aquí.** Se sitúa después de **Protocolos IoT y conectividad intermitente** y antes de **Identidad de dispositivo y gestión de claves**: la clase anterior hizo llegar datos por una red que se corta; esta usa esa red para llevar código, que es el dato más peligroso, y la siguiente pregunta cómo el dispositivo sabe que ese código es legítimo. Retoma lo aprendido en `SE-164` y `SE-259` sobre ventanas de versiones y distribución.
+
+**Error conceptual que debe corregir.** Creer que una actualización «o funciona o no» y que basta probarla con un corte al azar: el defecto está en un paso concreto, una prueba de cortes al azar casi nunca cae en él, y una versión que falla en pocos dispositivos solo se ve si la primera etapa es lo bastante grande.
+
+**Secuencia de aprendizaje.** Antes de simular, predices en cuántos de los puntos de corte una actualización que sobrescribe deja el dispositivo inservible; después enumeras todos los cortes en cuatro estrategias, calculas el tamaño de actualizaciones diferenciales con dos métodos y simulas el despliegue por etapas de una versión defectuosa. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `ota-log.md` con la predicción, la enumeración de cortes por estrategia, la tabla de tamaños de actualización, la tabla de despliegue por etapas y un plan de actualización del nodo (ranuras, validación, reversión, etapas, criterio de parada).
+
+**Límite de la conclusión.** Los pasos de la actualización son un modelo de dieciséis trozos y un indicador; las imágenes de firmware son sintéticas (mitad estructura, mitad bytes aleatorios); la probabilidad de informe y de fallo son supuestos. No se actualizó ningún dispositivo real ni se usó un cargador de arranque.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Moran et al., RFC 9019: A Firmware Update Architecture for Internet of Things](https://www.rfc-editor.org/rfc/rfc9019) | Describe una arquitectura de actualización de firmware para IoT con requisitos de integridad, autenticidad, recuperación de fallos y actualización de dispositivos con restricciones. | No prescribe la estrategia de ranuras ni el tamaño de las etapas. |
+| [Moran et al., RFC 9124: A Manifest Information Model for Firmware Updates in IoT Devices](https://www.rfc-editor.org/rfc/rfc9124) | Define qué información debe llevar el manifiesto de una actualización (versión, dependencias, condiciones, resumen del firmware). | No define un formato concreto ni mide su coste. |
+| [The Update Framework (TUF)](https://theupdateframework.io/) | Propone un marco para distribuir actualizaciones de forma segura frente al compromiso de claves o de servidores. | No es una garantía de que una implementación concreta sea correcta. |
+| [Tridgell y Mackerras, «The rsync algorithm»](https://rsync.samba.org/tech_report/) | Describe cómo calcular una diferencia entre dos versiones sin conocer sus posiciones, con sumas de comprobación que se actualizan al desplazarse. | No evalúa el algoritmo sobre imágenes de firmware. |
+
+## Antes de empezar
+
+Recupera lo aprendido sobre versiones y ventanas de deprecación en `SE-164`: aquí la «versión vieja» es un dispositivo físico que no se puede recoger. La pregunta activa es: **¿en qué paso de la actualización un corte me deja sin dispositivo, cuánto tengo que enviar y cuándo me detengo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-270` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de simulador o placa autorizada, toolchain declarada y analizador de trazas.
+- Haber completado `SE-270` o poder explicar la política de comunicación del nodo.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Manejar sumas de comprobación y la idea de enumerar casos a nivel básico.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Actualizaciones OTA y recuperación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de la plataforma prepara la primera actualización remota del firmware de 200 nodos instalados en salas de estudio. La imagen ocupa 256 KiB y la red del nodo es lenta y cara. El prototipo de actualización borra la imagen actual, escribe la nueva por trozos y marca la nueva como válida. En una prueba en la mesa funciona. En un nodo instalado, un corte de energía durante la escritura lo deja mudo; recuperarlo exige ir a la sala. Y la versión 1.1 tiene un defecto que afecta a unos pocos nodos que nadie detecta hasta que ya se actualizaron todos.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Actualizaciones y OTA con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo embebido con presupuesto y análisis temporal** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «bloquear una tarea crítica o incumplir un deadline sin señal observable» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Actualizaciones | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| OTA | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Recuperación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Recurso | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. enumerar los puntos de corte de una actualización y decir en cuáles queda el dispositivo inservible según la estrategia;
+2. diseñar una actualización con dos ranuras, validación y reversión, y detectar el defecto de un indicador que no se valida;
+3. calcular el tamaño de una actualización diferencial con comparación por posición y con búsqueda de bloques y explicar cuándo difieren;
+4. simular un despliegue por etapas y estimar qué defectos detecta según el tamaño de la primera etapa;
+5. escribir un plan de actualización del nodo con ranuras, validación, reversión, etapas y criterio de parada.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Actualizaciones OTA y recuperación"] --> M["Modelo: Actualizaciones"]
-    M --> D["Decisión: OTA"]
-    D --> E["Evidencia: recuperación"]
-    E --> R["Revisión: recurso"]
-    R -->|nueva información| M
+    A[Nueva versión] --> B[Manifiesto y verificación]
+    B --> C[Escritura en la ranura inactiva]
+    C --> D[Validación]
+    D --> E[Cambio de indicador]
+    E --> F[Arranque en la nueva]
+    F -->|falla| G[Reversión a la anterior]
+    F -->|ok| H[Confirmar]
+    I[Corte de energía] -.-> C
+    I -.-> E
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Actualizaciones OTA y recuperación**.
+El mapa muestra el camino seguro: se escribe en la ranura que no está en uso, se valida y solo entonces se cambia el indicador; si la nueva no arranca, se vuelve a la anterior. Los cortes (líneas punteadas) pueden ocurrir en cualquier paso y el diseño debe tolerarlos todos.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Actualización segura | Una actualización es un procedimiento con pasos que pueden interrumpirse. | Predicción, traza causal y contraejemplo de **Actualización segura** en `ota-log.md` |
+| Ranuras y reversión | Dos ranuras convierten cualquier corte en «antigua o nueva». | Predicción, traza causal y contraejemplo de **Ranuras y reversión** en `ota-log.md` |
+| Actualización diferencial | Enviar solo lo que cambió ahorra ancho de banda y energía, salvo que el cambio desplace todo. | Predicción, traza causal y contraejemplo de **Actualización diferencial** en `ota-log.md` |
+| Despliegue por etapas | Limitar la exposición de una versión nueva acota el daño si falla. | Predicción, traza causal y contraejemplo de **Despliegue por etapas** en `ota-log.md` |
+| Criterios de parada | Sin una regla previa, nadie detiene un despliegue a tiempo. | Predicción, traza causal y contraejemplo de **Criterios de parada** en `ota-log.md` |
 
 ## Conceptos y decisiones
 
-El software embebido interactúa con tiempo y mundo físico bajo presupuestos estrictos; corrección funcional y cumplimiento temporal son propiedades distintas.
+### 1. Actualización segura
 
-La pregunta rectora de esta parte es: **¿qué deadline, recurso o estado físico convierte un retraso en fallo?** La respuesta debe
-apoyarse en **presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro**.
+El RFC 9019 resume los requisitos de una actualización de firmware de dispositivos con restricciones: debe ser íntegra y auténtica, tolerar fallos durante la instalación y permitir recuperar un dispositivo que no arranca. La actualización es una secuencia de pasos (descargar, verificar, escribir, validar, activar, confirmar) y cada paso puede interrumpirse por un corte de energía, un reinicio o una pérdida de red. El diseño se prueba enumerando los puntos de corte, no sorteándolos.
 
-### 1. Actualizaciones: modelo
+### 2. Ranuras y reversión
 
-En esta clase, **Actualizaciones** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Actualizaciones OTA y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Con dos ranuras, la nueva imagen se escribe en la inactiva y la activa no se toca hasta que la nueva está completa y validada. El cambio de ranura es un único indicador, cuya escritura debe ser atómica o validable: si ocupa dos bytes y se corta entre ambos, el cargador de arranque encuentra un valor inválido. El cargador arranca la nueva en modo de prueba y, si no confirma en un plazo (con un temporizador de vigilancia, `SE-274`), vuelve a la anterior. El coste es el doble de memoria para firmware.
 
-### 2. OTA: mecanismo
+### 3. Actualización diferencial
 
-En esta clase, **OTA** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Actualizaciones OTA y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Enviar la diferencia entre versiones ahorra bytes y energía de radio, que suele costar más que el cálculo. Comparar bloques por posición es simple y falla cuando una inserción desplaza el resto: todos los bloques posteriores «cambian». Buscar bloques en cualquier posición (con sumas de comprobación que se actualizan al desplazar una ventana, como en rsync) los reconoce aunque se hayan movido. El coste es más cálculo en el dispositivo o en el servidor y un formato de diferencias que el cargador debe aplicar con seguridad, también ante cortes.
 
-### 3. Recuperación: evidencia
+### 4. Despliegue por etapas
 
-En esta clase, **recuperación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Actualizaciones OTA y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Publicar a toda la flota a la vez expone a todos a un defecto. Un despliegue por etapas (1 %, 10 %, 100 %) limita el daño, siempre que cada etapa sea lo bastante grande para ver el defecto y el sistema recoja informes de fallo. Si un defecto afecta a una fracción f de los dispositivos, una etapa de n dispositivos espera n·f fallos; con n·f menor que el umbral de informes, el defecto no se ve y el despliegue avanza.
 
-### 4. Recurso: decisión
+### 5. Criterios de parada
 
-En esta clase, **recurso** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Actualizaciones OTA y recuperación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un criterio de parada se fija antes de empezar: «detener si tres dispositivos informan fallo en la etapa», «detener si el porcentaje de arranques fallidos supera el 1 %». Sin él, la decisión se toma bajo presión, con información parcial. Un criterio útil tiene umbral, ventana y responsable, igual que un disparador de replanificación (`SE-192`), y se acompaña de la capacidad de revertir a los dispositivos ya actualizados, que es lo que convierte una parada en una recuperación.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cortar la energía en cada paso
+
+Una actualización tiene 16 trozos. Se enumeran todos los puntos de corte posibles (antes de cada paso y al final) para cuatro estrategias y se clasifica el estado tras el reinicio: queda la versión antigua, la nueva o un dispositivo inservible.
+
+```python
+def single_slot(cut):
+    steps = ["borrar"] + [f"trozo {i}" for i in range(16)] + ["indicador"]
+    if cut == 0: return "antigua"
+    if "indicador" in steps[:cut]: return "nueva"
+    return "ladrillo"        # se borró la antigua y la nueva está incompleta
+```
+
+| Estrategia | Puntos de corte | Queda la antigua | Queda la nueva | Queda inservible |
+|---|---:|---:|---:|---:|
+| Una sola ranura (sobrescribe) | 19 | 1 | 1 | 17 |
+| Dos ranuras, indicador atómico | 19 | 18 | 1 | 0 |
+| Dos ranuras, indicador de 2 bytes sin validar | 20 | 18 | 1 | 1 |
+| Dos ranuras, indicador de 2 bytes validado | 20 | 19 | 1 | 0 |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Una sola ranura deja inservible el dispositivo en 17 de 19 puntos de corte. Con dos ranuras, un indicador de dos bytes sin validar deja un punto de corte (uno de veinte) con un valor inválido; validarlo lo elimina.
+
+![Tabla con los puntos de corte de una actualización y el estado en que queda el dispositivo con una ranura, con dos y con dos más un indicador de dos bytes sin y con validación.](../../../content/part-22/figures/se-271-cortes-de-energia-en-una-actualizacion.svg)
+
+**Cómo leer la figura.** Cada fila es una estrategia; las columnas suman los puntos de corte posibles y clasifican el resultado. **Dónde deja de valer:** es un modelo de pasos; una flash real programa páginas con un orden y un tiempo propios, y un corte puede dejar bits a medias. Aun así, la enumeración encuentra el defecto del indicador en un punto de veinte, que una prueba con cortes al azar vería en uno de cada veinte intentos.
+
+### Cuántos bytes hay que enviar
+
+Se genera una imagen sintética de 262 144 bytes (la mitad con estructura repetitiva y la mitad con bytes aleatorios) y cuatro versiones nuevas: 50 bytes cambiados al azar, 500 bytes cambiados, inserción de 100 bytes a la mitad e inserción de un solo byte a la mitad. Se calcula la diferencia comparando bloques de 256 bytes por posición y buscando bloques en cualquier posición (con `zlib.adler32` y verificación exacta).
+
+```python
+h = zlib.adler32(nueva[i:i + 256])
+if h in tabla and any(vieja[j:j + 256] == nueva[i:i + 256] for j in tabla[h]):
+    ...   # el bloque ya existe en la versión anterior, aunque esté desplazado
+```
+
+| Cambio | Bloques por posición | Bloques en cualquier posición |
+|---|---:|---:|
+| 50 bytes cambiados al azar | 13 200 | 13 512 |
+| 500 bytes cambiados al azar | 106 128 | 106 936 |
+| Inserción de 100 bytes a mitad | 135 168 | 288 |
+| Inserción de 1 byte a mitad | 135 168 | 288 |
+
+Con cambios dispersos, ambos métodos envían unos 264 bytes por bloque tocado. Con una inserción, la comparación por posición envía 135 168 bytes (la mitad de la imagen) y la búsqueda de bloques, 288. Como referencia, la imagen nueva comprimida con zlib ocupa unos 184 000 bytes.
+
+![Tabla con los bytes de una actualización diferencial de una imagen de 256 kibibytes con cuatro tipos de cambio y dos métodos de comparación.](../../../content/part-22/figures/se-271-actualizacion-diferencial.svg)
+
+**Cómo leer la figura.** Cada fila es un cambio; las columnas son los bytes que hay que enviar con cada método. **Dónde deja de valer:** la imagen sintética no se parece a un firmware real, donde un cambio de código mueve direcciones y desplaza llamadas; allí los cambios dispersos son frecuentes y los bloques de 256 bytes demasiado grandes. Y el cálculo de la diferencia puede costar más memoria de la que tiene el dispositivo.
+
+### Qué ve cada etapa de un despliegue
+
+Una versión nueva falla en una fracción f de los dispositivos; cada dispositivo fallido informa con probabilidad 0,9. El despliegue se detiene si una etapa produce al menos tres informes antes del 100 %. Se simulan 600 despliegues de 10 000 dispositivos por celda con tres políticas: todos a la vez, etapas de 1 %, 10 % y 100 %, y etapas de 0,1 %, 1 %, 10 % y 100 %. Cada celda es «dispositivos dañados de media · porcentaje de despliegues detenidos antes del 100 %».
+
+```python
+fails = sum(rng.random() < f for _ in range(batch))
+reports = sum(rng.random() < 0.9 for _ in range(fails))
+if reports >= 3 and frac < 1.0: detenido = True
+```
+
+| Fallo de la versión | Todos a la vez | Etapas 1 %, 10 %, 100 % | Etapas 0,1 %, 1 %, 10 %, 100 % |
+|---:|---:|---:|---:|
+| 0,1 % | 10 · 0 % | 10 · 5 % | 10 · 5 % |
+| 0,5 % | 50 · 0 % | 15 · 78 % | 15 · 77 % |
+| 2 % | 200 · 0 % | 15 · 100 % | 16 · 100 % |
+| 10 % | 1 002 · 0 % | 11 · 100 % | 10 · 100 % |
+
+Con un fallo del 2 %, publicar a todos daña 200 dispositivos y las etapas, 15. Con un fallo del 0,1 %, las etapas no ayudan: la etapa de 100 dispositivos espera 0,1 fallos, el defecto casi nunca se ve y el despliegue llega a los 10 000.
+
+![Tabla con los dispositivos dañados y el porcentaje de despliegues detenidos antes del cien por ciento según la fracción de fallo y la política de etapas.](../../../content/part-22/figures/se-271-despliegue-por-etapas.svg)
+
+**Cómo leer la figura.** Cada celda muestra el daño medio y el porcentaje de despliegues que se detuvieron a tiempo para una fracción de fallo y una política. **Dónde deja de valer:** el 0,9 de probabilidad de informe, los umbrales de tres informes y los fallos independientes son supuestos; un fallo concentrado en un modelo de hardware se ve en una etapa si esa etapa incluye ese modelo, y no se ve si no. Los defectos raros exigen una primera etapa grande o una detección activa (telemetría de arranque).
 
 ## Definiciones de trabajo
 
-- **Actualizaciones:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **OTA:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **Recuperación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **Recurso:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
+- **actualización inalámbrica (OTA):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
+- **ranura:** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
+- **reversión:** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
+- **actualización diferencial:** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
+- **despliegue por etapas:** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Actualizaciones OTA y recuperación**:
+El fragmento calcula cuántos fallos espera una etapa. Antes de ejecutarlo, predice si una etapa de 100 dispositivos verá tres informes con un fallo del 0,5 %.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+n, f, p_informe = 100, 0.005, 0.9
+fallos_esperados = n * f
+assert fallos_esperados == 0.5 and fallos_esperados * p_informe < 3
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Se esperan 0,5 fallos: la etapa casi nunca llega a tres informes. Registra versión, comando y salida; calcula el tamaño de etapa para esperar tres fallos y compáralo con la flota de 200 nodos.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Actualizaciones OTA y recuperación**. Parte de esta pregunta: **¿qué deadline, recurso o estado físico convierte un retraso en fallo?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `firmware.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma define el plan para sus 200 nodos. El firmware tiene dos ranuras de 256 KiB con un indicador de un byte atómico y un cargador que arranca la nueva en modo de prueba y vuelve a la anterior si no confirma en 60 s. La actualización es diferencial por bloques de 256 B con búsqueda en cualquier posición, con un tamaño típico de unos pocos kilobytes. El despliegue es por etapas de 2, 20 y 200 nodos; con 200 nodos, un fallo del 1 % espera 0,2 fallos en la segunda etapa y dos en la última, de modo que la flota es demasiado pequeña para que un fallo raro se vea por informes y el criterio de parada es «un informe de fallo o cualquier nodo que no confirme en 60 s». La telemetría de arranque se envía en el primer minuto tras activar.
+
+Compara con el prototipo: un corte durante la actualización deja el nodo con la versión anterior, la actualización diferencial no envía la mitad de la imagen por insertar una línea y un defecto raro se detecta por telemetría y no por la queja de una sala. Un plan es adecuado cuando cada paso tolera un corte; es frágil cuando funciona solo si nada falla.
 
 ## Práctica guiada
 
-1. Crea `work/SE-271/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo embebido con presupuesto y análisis temporal con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja los pasos de la actualización del nodo y marca cuáles pueden interrumpirse.
+2. Predice en cuántos puntos de corte queda inservible una actualización que sobrescribe y escribe el número.
+3. Enumera los cortes con una ranura, con dos y con dos más indicador de dos bytes.
+4. Genera dos versiones de una imagen y calcula la diferencia con ambos métodos.
+5. Simula el despliegue por etapas con tu flota y tus umbrales.
+6. Escribe el plan de actualización con criterio de parada y reversión.
+7. Entrega `ota-log.md` y pide a otra persona que identifique el paso más frágil.
 
 ## Ejercicios
 
-1. **Fundamental:** define Actualizaciones y OTA con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `firmware.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Cortes:** añade a la estrategia de dos ranuras un paso de «verificar firma» y enumera de nuevo los puntos de corte.
+2. **Diferencia:** calcula el tamaño de la diferencia con bloques de 64 bytes y compáralo con el de 256 para 500 bytes cambiados.
+3. **Etapas:** calcula el tamaño de la primera etapa para ver tres informes con un fallo del 0,2 % y decide si es viable con tu flota.
+4. **Parada:** escribe el criterio de parada de tu despliegue con umbral, ventana y responsable.
 
 ## Reto verificable
 
-Entrega el **prototipo embebido con presupuesto y análisis temporal** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `ota-log.md` con la predicción, la enumeración de cortes, la tabla de tamaños, la simulación de etapas y el plan de actualización. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué fallo no vería la primera etapa. No se aprueba por afirmar «lo probamos y funciona» sin enumerar los cortes.
+
+## Caso conductor
+
+El nodo ambiental de una sala de estudio continúa como caso conductor de la Parte 22. Esta clase deja el séptimo artefacto: el plan de actualización del nodo con ranuras, validación, reversión, etapas y criterio de parada. `SE-272` pregunta cómo el nodo sabe que lo que recibe es legítimo. Cambia después una sola cosa, el tamaño de la primera etapa, y observa qué defectos deja de ver.
+
+## Preguntas frecuentes
+
+### ¿Siempre necesito dos ranuras?
+
+No si la memoria no alcanza o el firmware es pequeño: se puede usar una ranura con una pequeña copia de recuperación. Pero cada atajo debe pasar la enumeración de cortes y declarar qué ocurre si falla.
+
+### ¿Una actualización diferencial es más arriesgada?
+
+Añade un paso (aplicar la diferencia) que también debe tolerar cortes y verificar el resultado con un resumen de la imagen final. Se ahorra radio, que es lo caro, a cambio de complejidad.
+
+### ¿Qué hago con dispositivos que están desconectados mucho tiempo?
+
+Se actualizan cuando se conectan; el servidor debe aceptar versiones antiguas durante una ventana (`SE-164`) y declarar hasta cuándo.
+
+### ¿Cómo detecto un fallo que no tiene informe?
+
+Con telemetría de arranque: que cada dispositivo confirme tras actualizar y que su ausencia cuente como señal. Un dispositivo que no responde después de actualizarse es un fallo que no informa.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **bloquear una tarea crítica o incumplir un deadline sin señal observable**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **sobrescribir la imagen actual y perder el dispositivo ante un corte**. Enumera los 19 puntos de corte de la estrategia de una sola ranura y cuenta los inservibles.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** un nodo instalado no arranca después de una actualización con un corte de energía. **Hipótesis rivales:** (a) la imagen nueva estaba corrupta; (b) la memoria falló; (c) la actualización dejó la imagen a medias. **Prueba:** enumera los cortes; 17 de 19 dejan la imagen incompleta. **Conclusión:** la causa es el diseño sin ranura de respaldo, no la imagen. **Regresión:** cambia a dos ranuras con indicador atómico, repite la enumeración y comprueba que no queda ninguno inservible. No cambies a la vez la estrategia y el formato del indicador.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Un corte durante la actualización deja el dispositivo mudo | Sobrescritura de la imagen activa | Dos ranuras y cambio de indicador al final |
+| Un indicador inválido tras un corte | Indicador de varios bytes sin validación | Hacerlo atómico o validarlo con una suma |
+| La actualización diferencial envía la mitad de la imagen | Comparación por posición con una inserción | Buscar bloques en cualquier posición |
+| Una versión defectuosa llega a toda la flota | Despliegue sin etapas o con primera etapa pequeña | Etapas con tamaño suficiente y telemetría de arranque |
+| Nadie detiene un despliegue defectuoso | Sin criterio de parada previo | Fijar umbral, ventana y responsable antes de empezar |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: simulador o placa autorizada, toolchain declarada y analizador de trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-271/
 ├── README.md
-│   ├── firmware.md
-│   ├── timing.csv
-│   ├── safety.md
-├── activity.yaml
-└── rubric.json
+├── ota/
+│   ├── cortes.py
+│   ├── diferencia.py
+│   └── etapas.py
+├── tests/test_ota.py
+└── evidence/ota-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `firmware.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`, `zlib`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una actualización sin verificación de autenticidad permite instalar código ajeno: la firma y el manifiesto no son opcionales (`SE-272`);
+- una versión que desactiva una alarma de aire en una sala ocupada es un riesgo para las personas: la parada debe ser más rápida que la exposición;
+- la telemetría de arranque no debe contener datos personales;
+- documenta quién aprueba cada etapa y quién puede detener el despliegue;
+- respeta las licencias de los cargadores y las bibliotecas de diferencias y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «implementa la actualización remota» escribirá una descarga y una escritura de la imagen sobre la activa, con un reinicio al final. Pídele que enumere los puntos de corte, que use dos ranuras con un indicador validado y que defina etapas con un criterio de parada. Revisa especialmente si el cambio de versión es un solo paso sin reversión: es la actualización que un corte inutiliza.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dispositivo (por ejemplo, una cerradura con un microcontrolador): cambia el tamaño de la imagen, la memoria y la flota, y conserva el procedimiento de enumerar cortes, calcular la diferencia y dimensionar las etapas. La transferencia está lograda cuando puedes explicar qué parte del plan dependía del dispositivo y cuál no, no cuando las tablas se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-271/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué dos ranuras tolera cualquier corte y por qué las etapas no ven fallos raros |
+| corrección | enumeración, tamaños y etapas reproducibles con las mismas semillas |
+| diseño | plan de actualización con ranuras, validación, reversión, etapas y parada |
+| diagnóstico | reproducción del fallo «sobrescribir» con regresión |
+| incertidumbre | declaración de lo que el modelo no cubre (flash real, firmware real) |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Moran et al., RFC 9019: A Firmware Update Architecture for Internet of Things](https://www.rfc-editor.org/rfc/rfc9019) — arquitectura de actualización de firmware; autoridad: IETF.
+- [Moran et al., RFC 9124: A Manifest Information Model for Firmware Updates in IoT Devices](https://www.rfc-editor.org/rfc/rfc9124) — modelo de información del manifiesto; autoridad: IETF.
+- [The Update Framework (TUF)](https://theupdateframework.io/) — distribución segura de actualizaciones; autoridad: proyecto TUF (CNCF).
+- [Uptane](https://uptane.org/) — marco de actualización segura de software para vehículos; autoridad: proyecto Uptane.
+- [Tridgell y Mackerras, «The rsync algorithm»](https://rsync.samba.org/tech_report/) — diferencia de archivos con sumas de comprobación móviles; autoridad: proyecto rsync.
+- [Python: `zlib`](https://docs.python.org/3/library/zlib.html) — `adler32` y compresión usados en el cálculo de diferencias; autoridad: documentación de Python.
 
-- **Zephyr Project documentation** — Linux Foundation. [https://docs.zephyrproject.org/latest/](https://docs.zephyrproject.org/latest/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **FreeRTOS documentation** — FreeRTOS. [https://www.freertos.org/Documentation/RTOS_book.html](https://www.freertos.org/Documentation/RTOS_book.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Secure Software Development Framework** — NIST. [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 17 puntos de corte, los 288 bytes de diferencia o el 5 % de detección se observen en el nodo real. Esa afirmación depende de la memoria, del cargador y del firmware.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Actualizaciones OTA y recuperación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-272`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se actualizó ningún dispositivo ni se usó un cargador de arranque: los pasos de la actualización, las imágenes sintéticas, el 0,9 de informe y los fallos independientes son construcciones del autor. La siguiente clase pregunta cómo el nodo sabe que la actualización que recibe es legítima.
+
+## Glosario
+
+- **actualización inalámbrica (OTA):** actualización del firmware de un dispositivo a través de una red, sin acceso físico.
+- **ranura:** región de memoria que contiene una imagen de firmware completa; con dos, una está activa y la otra recibe la actualización.
+- **reversión:** regreso automático a la imagen anterior cuando la nueva no confirma su arranque correcto.
+- **actualización diferencial:** envío de las diferencias entre dos versiones del firmware en lugar de la imagen completa.
+- **despliegue por etapas:** publicación de una versión a fracciones crecientes de la flota con una regla para detenerla.
 
 ---
 

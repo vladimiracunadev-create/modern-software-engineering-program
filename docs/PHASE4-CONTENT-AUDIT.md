@@ -71,6 +71,23 @@ experiencia en desarrollo web y accesibilidad y no presentan un linter, un audit
 metadatos ni una política de contenido como sustitutos de una auditoría, de una revisión
 con tecnologías de apoyo ni de una prueba en navegadores reales.
 
+## Avance editorial de la Parte 22
+
+Las clases `SE-265`–`SE-276` se reconstruyeron en `content/part-22/` alrededor de un nodo
+ambiental de una sala de estudio, un caso sintético que recorre la parte: firmware y su
+separación del hardware, buses y convertidores, presupuesto de energía, memoria y precisión,
+plazos de tiempo real, datos compartidos con las interrupciones, conectividad intermitente,
+actualización con recuperación, identidad y claves, procesamiento en el borde, safety,
+seguridad y vida útil, un taller de modelado de fallos y un dispositivo simulado operable.
+Cada clase incluye tres simulaciones con datos sintéticos y semilla fija, ejecutadas en
+Windows y Ubuntu (WSL2) con cifras idénticas, y declara que no se usó ningún
+microcontrolador, sistema operativo de tiempo real, agente MQTT, cargador de arranque ni red
+real, que no se midió consumo ni peor caso de ejecución y que no se atacó ningún chip. Las doce
+clases todavía requieren revisión por personas con experiencia en sistemas embebidos y de
+seguridad funcional, y no presentan una simulación, un validador de paquetes ni un análisis
+de fallos como sustitutos de las normas, de las pruebas con hardware ni de la responsabilidad
+de quien diseña un dispositivo.
+
 ## Gate pendiente
 
 Cada clase continúa como borrador hasta demostrar cobertura específica de todos sus

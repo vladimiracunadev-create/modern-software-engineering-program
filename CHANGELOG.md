@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-13 — Parte 22 desarrollada y profundizada con simulaciones sintéticas reproducibles
+
+- las clases `SE-265`–`SE-276` pasan de borradores genéricos a clases completas sobre un nodo ambiental de una sala de estudio: hardware, firmware y software embebido,
+  microcontroladores, periféricos y buses, restricciones de memoria, energía y cómputo, sistemas de tiempo real, interrupciones y estado compartido, protocolos IoT y conectividad
+  intermitente, actualizaciones OTA y recuperación, identidad de dispositivo y gestión de claves, edge y pasarelas, safety, seguridad y vida útil prolongada, un taller de modelado
+  de fallos y un dispositivo simulado operable y actualizable; el portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con simulaciones de datos sintéticos y semilla fija: latencia de un botón, un acumulador de 16 bits y mutantes de un antirrebote; eficiencia de I²C y SPI, errores no
+  detectados por paridad, suma y CRC-8 y sobremuestreo de un convertidor; vida de una pila, desgaste de una flash y zona muerta de un filtro de enteros; planificabilidad rate-monotonic,
+  plazos incumplidos e inversión de prioridad; posiciones de una interrupción, lecturas partidas y búfer circular; garantías de entrega, cola de almacenar y reenviar y tormenta de
+  reconexión; cortes de energía en una actualización, actualización diferencial y despliegue por etapas; alcance de una clave extraída, ventanas de tiempo y semillas débiles;
+  estrategias de reporte, decisión local o en la nube y codificación de la carga; votación con causa común, plazo de vigilancia y vuelta de un contador; inyección de fallos, cortes
+  durante una escritura y estabilidad de un AMFE; y un mes de flota simulada, un validador de paquetes y una versión defectuosa en mil dispositivos;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- las doce simulaciones se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con cifras idénticas, sin excepción; los datos son sintéticos, los parámetros son
+  supuestos del autor, los dos validadores se afinaron con los mismos casos que los evalúan y no se usó ningún microcontrolador, sistema operativo de tiempo real, agente MQTT,
+  cargador de arranque, pasarela ni red real, ni se midió consumo, peor caso de ejecución o ataque alguno; la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: sondear un botón en un bucle con radio da una espera máxima de 166 ms frente a 0,03 ms con una interrupción; 32 lecturas de 12 bits desbordan siempre un
+  acumulador de 16 bits con señal alta; la paridad no detecta ningún error de dos bits; sobrescribir una imagen deja el dispositivo inservible en 17 de 19 cortes de energía; una
+  espera exponencial sin jitter deja 4309 de 5000 dispositivos sin conectar a los 900 s; la comparación directa de tiempos decide mal el 33,35 % de los temporizadores armados antes
+  de la vuelta de un contador de 32 bits; una deriva lenta pasa todas las comprobaciones locales y solo una referencia independiente la ve.
+
 ## 2026-11-13 — Parte 20 desarrollada y profundizada con experimentos sintéticos y modelos reproducibles de backend, APIs y procesamiento asíncrono
 
 - las clases `SE-241`–`SE-252` pasan de borradores genéricos a clases completas sobre el backend de la plataforma de entregas de tareas: fronteras de confirmación, recursos y semántica de

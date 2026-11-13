@@ -2,208 +2,310 @@
 
 [← SE-264 — Proyecto: cliente multiplataforma con sincronización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-21-software-movil-escritorio-y-multiplataforma/se-264-proyecto-cliente-multiplataforma-con-sincronizacion/README.md) · [↑ Parte 22](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-22-embedded-iot-y-tiempo-real/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-265.html) · [SE-266 — Microcontroladores, periféricos y buses →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-22-embedded-iot-y-tiempo-real/se-266-microcontroladores-perifericos-y-buses/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que distingas qué decide el hardware, qué decide el firmware y qué puede probarse sin ninguno de los dos, y para que elijas una arquitectura de firmware por lo que garantiza sobre la respuesta a un evento, no por costumbre.
+
+**Por qué aparece aquí.** Abre la **Parte 22** después de **Proyecto: cliente multiplataforma con sincronización**: la Parte 21 llevó el software a clientes que corren en sistemas operativos completos; ahora el programa corre sin sistema operativo, con memoria medida en kilobytes y con un mundo físico que no espera. La clase fija el vocabulario y el caso conductor de la parte: un nodo ambiental de una sala de estudio, simulado.
+
+**Error conceptual que debe corregir.** Creer que el software embebido es «software normal en un dispositivo pequeño»: las garantías de tiempo, el ancho de los enteros y el estado compartido con las interrupciones cambian lo que significa que un programa sea correcto.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuánto tarda un botón en ser atendido en un bucle principal con tareas lentas; después mides esa latencia, calculas cuándo un acumulador de 16 bits desborda sin avisar y mides qué mutantes de un antirrebote matan unos ejemplos y unas secuencias con rebotes. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `embedded-log.md` con la predicción, la latencia por arquitectura, la tabla del acumulador, la salida de la suite de mutantes y una nota que diga qué parte del firmware se comprobó en el equipo de desarrollo y cuál exige hardware.
+
+**Límite de la conclusión.** Las duraciones del bucle, el ruido de las lecturas y las variantes del antirrebote son construcciones del autor. Ningún experimento corrió en un microcontrolador: son simulaciones de aritmética y de tiempo en CPython, que muestran mecanismos, no cifras de un chip.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Lee y Seshia, «Introduction to Embedded Systems: A Cyber-Physical Systems Approach»](https://ptolemy.berkeley.edu/books/leeseshia/) | Trata los sistemas embebidos como computación en interacción con procesos físicos, con el tiempo como parte de la semántica y no solo como rendimiento. | No fija una arquitectura de firmware ni cifras de ningún microcontrolador. |
+| [Barr Group, «Embedded C Coding Standard»](https://barrgroup.com/embedded-systems/books/embedded-c-coding-standard) | Reúne reglas de codificación orientadas a reducir defectos en firmware, entre ellas tipos de ancho fijo y el cuidado con datos compartidos con interrupciones. | Un estándar de estilo no demuestra por sí mismo que reduzca los defectos de un proyecto concreto. |
+| [Python: `struct`](https://docs.python.org/3/library/struct.html) | Documenta cómo empaquetar enteros con ancho y orden de bytes definidos, útil para simular el ancho de un registro. | No reproduce el comportamiento de un compilador ni de una arquitectura concreta. |
+
+## Antes de empezar
+
+Recupera lo aprendido en la Parte 21 sobre ciclo de vida: un cliente móvil se suspende y se reanuda; un nodo embebido simplemente sigue corriendo, o deja de hacerlo. La pregunta activa es: **¿qué garantiza este firmware sobre la respuesta a un evento, y qué parte de esa garantía puedo comprobar sin el dispositivo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-264` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de simulador o placa autorizada, toolchain declarada y analizador de trazas.
+- Haber completado `SE-264` o poder explicar qué estado persistía un cliente entre sesiones.
+- Python 3.11 o posterior y un terminal; todo el código usa solo la biblioteca estándar.
+- Leer enteros con y sin signo y operaciones de bits a nivel básico.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Hardware, firmware y software embebido**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de la plataforma de entregas instala en una sala de estudio un nodo que mide temperatura, humedad y CO₂ y tiene un botón para marcar «aire cargado». Un primer prototipo lee los sensores, actualiza una pantalla, envía datos por radio cada diez vueltas y consulta el botón al final de cada vuelta. Al probarlo en la mesa, funciona. En la sala, el botón «a veces no responde», el promedio de CO₂ se ve a veces cero y el contador de pulsaciones cuenta de más. Cada síntoma tiene una causa distinta que no se ve leyendo el código como software normal.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Hardware y firmware con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **prototipo embebido con presupuesto y análisis temporal** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «bloquear una tarea crítica o incumplir un deadline sin señal observable» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Hardware | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Firmware | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Software | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Embebido | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. distinguir hardware, firmware y software embebido con un ejemplo y un contraejemplo del nodo de la sala;
+2. medir con una simulación la latencia de un evento según el firmware lo sondee en un bucle principal o lo atienda con una interrupción;
+3. calcular cuándo un acumulador de ancho fijo desborda y qué error produce, y escribirlo como una condición verificable;
+4. separar la lógica del dispositivo de su acceso al hardware para comprobarla en el equipo de desarrollo, y medir qué defectos encuentra cada tipo de prueba;
+5. declarar qué parte del firmware solo puede comprobarse con el dispositivo y cómo se reduce esa parte.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Hardware, firmware y software embebido"] --> M["Modelo: Hardware"]
-    M --> D["Decisión: firmware"]
-    D --> E["Evidencia: software"]
-    E --> R["Revisión: embebido"]
-    R -->|nueva información| M
+    A[Mundo físico] --> B[Sensor y periférico]
+    B --> C[Capa de acceso al hardware]
+    C --> D[Lógica del dispositivo]
+    D --> E[Actuador, pantalla o radio]
+    D --> F[Prueba en el equipo de desarrollo]
+    C --> G[Prueba con hardware]
+    F -->|defecto de lógica| D
+    G -->|defecto de integración| C
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Hardware, firmware y software embebido**.
+El mapa separa la **lógica**, que se comprueba con una función pura y entradas simuladas, de la **capa de acceso al hardware**, que exige el dispositivo. La mayor parte del esfuerzo de calidad consiste en empujar defectos hacia el lado barato.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Hardware, firmware y software | Decide quién es dueño de cada defecto y dónde puede probarse. | Predicción, traza causal y contraejemplo de **Hardware, firmware y software** en `embedded-log.md` |
+| Arquitectura del firmware | El bucle principal, las interrupciones y un planificador dan garantías de tiempo distintas. | Predicción, traza causal y contraejemplo de **Arquitectura del firmware** en `embedded-log.md` |
+| Capa de acceso al hardware | Aislar los registros permite comprobar la lógica sin dispositivo. | Predicción, traza causal y contraejemplo de **Capa de acceso al hardware** en `embedded-log.md` |
+| Aritmética de ancho fijo | Los desbordamientos no avisan y producen valores plausibles. | Predicción, traza causal y contraejemplo de **Aritmética de ancho fijo** en `embedded-log.md` |
+| Qué exige el dispositivo | Reconocer la parte irreductible orienta la inversión en bancos de prueba. | Predicción, traza causal y contraejemplo de **Qué exige el dispositivo** en `embedded-log.md` |
 
 ## Conceptos y decisiones
 
-El software embebido interactúa con tiempo y mundo físico bajo presupuestos estrictos; corrección funcional y cumplimiento temporal son propiedades distintas.
+### 1. Hardware, firmware y software
 
-La pregunta rectora de esta parte es: **¿qué deadline, recurso o estado físico convierte un retraso en fallo?** La respuesta debe
-apoyarse en **presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro**.
+El **hardware** es el microcontrolador, los sensores, los buses y la alimentación; fija qué es posible y qué cuesta. El **firmware** es el programa que vive en la memoria del dispositivo y habla con ese hardware; se actualiza con más dificultad que una aplicación y su fallo suele dejar el dispositivo mudo. El **software embebido** es el conjunto: firmware y componentes que corren junto al dispositivo. Un defecto puede ser de cualquiera de los tres y el síntoma casi nunca lo dice: un promedio erróneo puede venir de un sensor ruidoso, de un acumulador que desborda o de un cableado. Diagnosticar es separar capas, igual que en una red.
 
-### 1. Hardware: modelo
+### 2. Arquitectura del firmware
 
-En esta clase, **Hardware** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Hardware, firmware y software embebido**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La arquitectura más simple es un bucle principal que repite sensor, pantalla y radio. Su garantía es débil: un evento espera a que termine la vuelta. Una interrupción atiende el evento al instante y solo hace lo mínimo, dejando el resto para el bucle. Un planificador de tiempo real asigna prioridades y plazos (`SE-268`). Lee y Seshia insisten en que el tiempo es parte de la semántica: un resultado correcto entregado tarde puede ser un resultado incorrecto. Por eso la pregunta de arquitectura es qué plazo se necesita para cada evento, y cuál es la peor vuelta posible.
 
-### 2. Firmware: mecanismo
+### 3. Capa de acceso al hardware
 
-En esta clase, **firmware** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Hardware, firmware y software embebido**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si la lógica lee directamente un registro, no se puede ejecutar sin el chip. Una capa fina de acceso (leer un canal del convertidor, escribir un pin) con una interfaz que el equipo de desarrollo puede reemplazar por datos simulados permite comprobar el antirrebote, el promedio y las alarmas con pruebas automáticas rápidas. La capa no elimina las pruebas con hardware: reduce lo que solo ellas pueden ver (tiempos reales, ruido, consumo). Es el mismo principio de contratos y dobles de `SE-166`, aplicado a un chip.
 
-### 3. Software: evidencia
+### 4. Aritmética de ancho fijo
 
-En esta clase, **software** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Hardware, firmware y software embebido**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un entero de 16 bits sin signo vale de 0 a 65 535 y da la vuelta. Sumar 32 lecturas de 12 bits (máximo 4095) puede llegar a 131 040 y desbordar. El resultado no es una excepción sino un número plausible, y el promedio sale entre 0 y 2047 cuando la señal está cerca del máximo. Las reglas de codificación para firmware (como las del estándar de Barr Group) piden tipos de ancho fijo y razonar sobre el rango; la condición verificable es «el producto del número de lecturas por el máximo del convertidor cabe en el acumulador».
 
-### 4. Embebido: decisión
+### 5. Qué exige el dispositivo
 
-En esta clase, **embebido** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué deadline, recurso o estado físico convierte un retraso en fallo?» y demostrarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Hardware, firmware y software embebido**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Quedan siempre cosas que solo el dispositivo muestra: el ruido real de un sensor, el tiempo de arranque de la radio, el consumo, la interferencia entre periféricos, las rutinas de interrupción que alteran el tiempo. El equipo decide cuánto de eso mover a un banco con hardware en el bucle y cuánto aceptar como riesgo declarado. Una buena práctica es medir la proporción: de las líneas del firmware, ¿cuántas se ejecutaron en las pruebas en el equipo de desarrollo y cuántas tocan registros?
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuánto espera un botón: sondeo frente a interrupción
+
+El bucle del nodo tiene sensor (2 ms), pantalla (8 ms) y, cada diez vueltas, un envío de radio de mediana 40 ms con cola larga (σ = 0,4). El botón se consulta al final de cada vuelta. Se simulan 100 000 pulsaciones en instantes uniformes sobre 200 000 vueltas y se mide la espera hasta la siguiente consulta. Como contraste, una interrupción que atiende el botón en 20 a 30 µs.
+
+```python
+k = bisect.bisect_right(bounds, a)      # siguiente fin de vuelta tras la pulsación
+latencia_sondeo = bounds[k] - a
+```
+
+| Arquitectura | Media (ms) | Percentil 99 | Máximo |
+|---|---:|---:|---:|
+| Sondeo en el bucle principal | 14,19 | 78,2 | 166,0 |
+| Interrupción con manejo inmediato | 0,025 | 0,03 | 0,03 |
+
+Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). El sondeo da una espera media de 14 ms y un peor caso de 166 ms, determinado por la vuelta más lenta, no por el botón.
+
+![Tabla con la latencia media, en el percentil 99 y máxima de un botón sondeado en el bucle principal y atendido por interrupción.](../../../content/part-22/figures/se-265-latencia-segun-la-arquitectura.svg)
+
+**Cómo leer la figura.** Cada fila es una arquitectura; las columnas dan la espera en milisegundos. **Dónde deja de valer:** las duraciones del bucle son supuestos. Una interrupción mueve el problema: un manejador largo retrasa a todas las demás y deja el bucle sin avanzar. La figura no dice que toda lógica deba estar en interrupciones, sino que el sondeo no tiene una latencia acotada por diseño.
+
+### Un acumulador de 16 bits que desborda en silencio
+
+Se promedian N lecturas de 12 bits (señal con ruido gaussiano de 150 cuentas alrededor de 1000 o de 3000), acumulando en 16 bits con `& 0xFFFF`. Se comparan con el promedio correcto en 20 000 ventanas por celda.
+
+```python
+acc = 0
+for x in lecturas:
+    acc = (acc + x) & 0xFFFF
+promedio = acc // n
+```
+
+| Número de lecturas | Señal media 1000 | Señal media 3000 | Error medio (cuentas) |
+|---|---:|---:|---:|
+| 4, 8, 16 o 17 | 0 % | 0 % | — |
+| 32 | 0 % | 100 % | 2 048 |
+| 64 | 10,0 % | 100 % | 1 024 y 2 048 |
+
+Con señal media de 3000, 32 lecturas suman unos 96 000 y desbordan siempre: el error es 65 536 / 32 = 2048 cuentas. Con señal 1000, 64 lecturas suman unos 64 000, cerca del borde, y desbordan el 10 % de las veces.
+
+![Tabla con el porcentaje de promedios erróneos al acumular lecturas de 12 bits en 16 bits según el número de lecturas y la señal media.](../../../content/part-22/figures/se-265-acumulador-de-16-bits.svg)
+
+**Cómo leer la figura.** Cada fila agrupa un número de lecturas; las dos columnas centrales son el porcentaje de ventanas erróneas. **Dónde deja de valer:** el modelo emula la vuelta con una máscara; un compilador puede promover tipos y ocultar o cambiar el desbordamiento, y un procesador de 32 bits no lo sufriría. Lo que enseña es la condición: lecturas × máximo ≤ 65 535, comprobable antes de ejecutar nada.
+
+### Mutantes de un antirrebote: ejemplos frente a rebotes
+
+Un antirrebote cambia de estado cuando la entrada difiere del estado durante K = 3 muestras seguidas. Se generan ocho variantes con un defecto cada una (umbral de 2, umbral de 4, contador que no se reinicia, desfase de una muestra, estado inicial invertido y tres cambios que no alteran ninguna salida). Se comparan con el modelo de referencia con tres ejemplos de camino feliz y con 200 secuencias con rebotes aleatorios.
+
+```python
+def killed(mut, tests):
+    f = make(mut)
+    return any(f(t) != ref(t) for t in tests)
+```
+
+Tres de las ocho variantes son equivalentes y no se pueden matar. De las cinco distinguibles, los **tres ejemplos de camino feliz matan 4** y las **200 secuencias con rebotes matan las 5**. El mutante que escapa a los ejemplos no reinicia el contador al volver a un valor igual: solo se nota con rebotes que entran y salen.
+
+![Barras con los mutantes distinguibles de un antirrebote que matan tres ejemplos de camino feliz y doscientas secuencias con rebotes.](../../../content/part-22/figures/se-265-mutantes-de-un-antirrebote.svg)
+
+**Cómo leer la figura.** Cada barra es el número de las cinco variantes distinguibles que la suite detecta. **Dónde deja de valer:** el modelo de referencia es la propia especificación del autor; si el rebote real de un interruptor tiene otra forma, la secuencia aleatoria no la cubre. Y todo corre en el equipo de desarrollo: no demuestra que el antirrebote funcione con el interruptor físico.
 
 ## Definiciones de trabajo
 
-- **Hardware:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **Firmware:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **Software:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
-- **Embebido:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro.
+- **firmware:** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
+- **capa de acceso al hardware:** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
+- **latencia de un evento:** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
+- **desbordamiento:** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
+- **mutante equivalente:** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el nodo de la sala. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Hardware, firmware y software embebido**:
+El fragmento calcula si un acumulador cabe. Antes de ejecutarlo, predice si 32 lecturas de 12 bits caben en 16 bits.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+n, maximo, ancho = 32, 4095, 16
+peor_caso = n * maximo
+assert peor_caso == 131040 and peor_caso > 2 ** ancho - 1
+assert 16 * maximo <= 2 ** ancho - 1      # 16 lecturas sí caben
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+16 lecturas caben (65 520 ≤ 65 535) y 32 no. Registra versión, comando y salida; cambia a lecturas de 10 bits y predice cuántas caben.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Hardware, firmware y software embebido**. Parte de esta pregunta: **¿qué deadline, recurso o estado físico convierte un retraso en fallo?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando presupuesto medido, traza temporal, límites eléctricos simulados o declarados y estado seguro. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `firmware.md` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma separa el firmware del nodo en dos módulos. `hal.py` (simulado aquí) expone `leer_canal(n)` y `leer_boton()`; `logica.py` contiene el antirrebote, el promedio con acumulador de 32 bits, la alarma de CO₂ y la decisión de cuándo enviar. Las pruebas en el equipo de desarrollo ejecutan `logica.py` con secuencias generadas, incluidas las de rebotes y las de lecturas al máximo. En el dispositivo real solo se comprueban la latencia del botón con una interrupción y el consumo. Documentan además la condición del acumulador como una aserción en tiempo de compilación.
+
+Compara con el primer prototipo: el botón responde en menos de un milisegundo, el promedio de CO₂ nunca da cero y el contador no cuenta de más. Un diseño es adecuado cuando sus defectos de lógica se encuentran en segundos; es frágil cuando solo se ven en la sala.
 
 ## Práctica guiada
 
-1. Crea `work/SE-265/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el prototipo embebido con presupuesto y análisis temporal con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja el nodo en tres capas (hardware, acceso al hardware, lógica) y marca qué módulo se puede ejecutar en el equipo de desarrollo.
+2. Predice cuánto espera el botón con el sondeo y escribe el número antes de simular.
+3. Simula la latencia con el bucle del nodo y con una interrupción.
+4. Calcula para cada acumulador del firmware el máximo que alcanza y compáralo con el ancho.
+5. Escribe un antirrebote, ocho variantes y un modelo de referencia, y mide qué suite las mata.
+6. Lista lo que solo se puede comprobar con el dispositivo y cómo lo medirías.
+7. Entrega `embedded-log.md` y pide a otra persona que identifique la lógica que no pasó por el equipo de desarrollo.
 
 ## Ejercicios
 
-1. **Fundamental:** define Hardware y firmware con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `firmware.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Bucle:** añade una tarea de 25 ms cada cinco vueltas y recalcula la latencia máxima del botón; explica qué parte del cambio viene de la tarea.
+2. **Ancho:** calcula el número máximo de lecturas de 10 bits que cabe en un acumulador de 16 bits sin signo y con signo.
+3. **Rebotes:** diseña una secuencia de cinco muestras que distinga el mutante que no reinicia el contador de la referencia.
+4. **Frontera:** elige tres líneas de un firmware que toquen registros y propone cómo comprobar su lógica sin ellos.
 
 ## Reto verificable
 
-Entrega el **prototipo embebido con presupuesto y análisis temporal** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `embedded-log.md` con la predicción, la tabla de latencia, la del acumulador, la salida de la suite de mutantes y la lista de lo que exige el dispositivo. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos números y puede decir qué condición cambiaría si las lecturas fueran de 10 bits. No se aprueba por describir los tres niveles ni por afirmar que algo funciona sin una prueba en el dispositivo.
+
+## Caso conductor
+
+El nodo ambiental de una sala de estudio es el caso conductor de la Parte 22. Esta clase deja el primer artefacto: el nodo en tres capas con su latencia de botón medida y sus condiciones de ancho escritas. `SE-266` añadirá los periféricos y los buses por los que el nodo habla con sus sensores. Cambia después una sola decisión, sondear o interrumpir, y observa qué garantías de tiempo cambian.
+
+## Preguntas frecuentes
+
+### ¿Siempre hay que usar interrupciones para los botones?
+
+No: si el plazo es de decenas de milisegundos y el bucle es corto, el sondeo basta y es más simple. Se elige por el peor caso del bucle y el plazo del evento, que hay que medir.
+
+### ¿Se puede probar firmware sin hardware?
+
+La lógica sí, con una capa de acceso que se simule. No se puede probar sin hardware el tiempo real, el ruido ni el consumo. Declarar la frontera es parte del trabajo.
+
+### ¿Por qué no usar siempre enteros de 32 bits?
+
+Cuesta memoria y, en algunos procesadores, tiempo. Y no elimina el problema: lo traslada a un rango mayor. Lo que importa es razonar sobre el máximo.
+
+### ¿Qué es un mutante equivalente y por qué importa?
+
+Es una variante que se comporta igual y por eso ninguna prueba la mata. Importa para no interpretar «no matamos todos» como una suite floja: parte de los supervivientes no son defectos.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **bloquear una tarea crítica o incumplir un deadline sin señal observable**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **promediar muchas lecturas con un acumulador estrecho y no ver el error hasta la sala**. Simula 32 lecturas con señal media de 3000 y compara con el promedio de 32 bits.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el CO₂ se muestra como un valor cercano a 1000 cuando en la sala hay más de 3000. **Hipótesis rivales:** (a) el sensor está mal calibrado; (b) la conversión a ppm tiene un error; (c) el acumulador desborda. **Prueba:** calcula el promedio con un acumulador de 32 bits sobre las mismas lecturas; si difiere en 2048 cuentas, la causa es el desbordamiento. **Conclusión:** 32 × 3000 = 96 000 > 65 535. **Regresión:** cambia el acumulador a 32 bits, añade la aserción «lecturas × máximo cabe» y una prueba con lecturas al máximo. No cambies a la vez el ancho y el número de lecturas.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El botón «a veces» no responde | Sondeo en un bucle con tareas lentas | Medir la vuelta más larga y atender el botón por interrupción o acotar el bucle |
+| Un promedio sale en cero o muy bajo con señales altas | Desbordamiento del acumulador | Escribir la condición de rango y usar un tipo más ancho |
+| El contador cuenta más pulsaciones de las que hubo | Antirrebote ausente o con un defecto de reinicio | Comprobarlo con secuencias de rebotes contra un modelo de referencia |
+| Las pruebas pasan en el equipo y fallan en el dispositivo | La lógica lee registros directamente | Aislar el acceso al hardware y probar la lógica con datos simulados |
+| Se confía en que «funciona en la mesa» | Las pruebas no incluyen tiempos ni extremos | Añadir casos de peor vuelta y de lecturas al máximo |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: simulador o placa autorizada, toolchain declarada y analizador de trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-265/
 ├── README.md
-│   ├── firmware.md
-│   ├── timing.csv
-│   ├── safety.md
-├── activity.yaml
-└── rubric.json
+├── nodo/
+│   ├── hal.py
+│   ├── logica.py
+│   └── latencia.py
+├── tests/test_nodo.py
+└── evidence/embedded-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `firmware.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `statistics`, `bisect`, `math`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un nodo que mide la calidad del aire de una sala debe indicar su incertidumbre y no sustituir una medición regulada;
+- la alarma debe ser perceptible por más de un canal (luz y sonido, o pantalla y aviso) para personas con distintas capacidades;
+- los datos de una sala no deben identificar a las personas presentes;
+- documenta qué se comprobó en el equipo y qué en el dispositivo, para que el límite sea visible;
+- respeta las licencias de los estándares de código y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «escribe el firmware del nodo» producirá un bucle que llama a funciones de biblioteca de un fabricante concreto y mezclará lógica con registros. Pídele en cambio que separe el acceso al hardware de la lógica, que escriba las condiciones de rango de cada acumulador y que entregue pruebas con secuencias de rebotes contra un modelo de referencia. Revisa especialmente si acumula en un tipo estrecho o si da por supuesto que una llamada es atómica: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dispositivo (por ejemplo, un temporizador de riego): cambia el evento y los tipos, y conserva el procedimiento de medir la latencia, calcular el rango y probar la lógica contra un modelo. La transferencia está lograda cuando puedes explicar qué parte dependía del chip y cuál no, no cuando el código se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-265/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de la diferencia entre hardware, firmware y software embebido con ejemplos del nodo |
+| corrección | latencia, desbordamiento y mutantes reproducibles con las mismas semillas |
+| diseño | nodo en tres capas con condiciones de rango y frontera con el dispositivo |
+| diagnóstico | reproducción del fallo «acumulador estrecho» con regresión |
+| incertidumbre | declaración de que ningún experimento corrió en un microcontrolador |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Lee y Seshia, «Introduction to Embedded Systems»](https://ptolemy.berkeley.edu/books/leeseshia/) — sistemas embebidos y ciberfísicos con el tiempo en la semántica; autoridad: autores del libro (UC Berkeley).
+- [Barr Group, «Embedded C Coding Standard»](https://barrgroup.com/embedded-systems/books/embedded-c-coding-standard) — reglas de codificación para firmware; autoridad: Barr Group.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — áreas de conocimiento de ingeniería de software; autoridad: IEEE Computer Society.
+- [Python: `struct`](https://docs.python.org/3/library/struct.html) — empaquetado de enteros con ancho definido; autoridad: documentación de Python.
+- [Python: `random`](https://docs.python.org/3/library/random.html) — generador con semilla para las simulaciones; autoridad: documentación de Python.
 
-- **Zephyr Project documentation** — Linux Foundation. [https://docs.zephyrproject.org/latest/](https://docs.zephyrproject.org/latest/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **FreeRTOS documentation** — FreeRTOS. [https://www.freertos.org/Documentation/RTOS_book.html](https://www.freertos.org/Documentation/RTOS_book.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Secure Software Development Framework** — NIST. [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 14 ms de latencia, el 100 % de desbordamientos o el 4 de 5 mutantes se observen en el nodo real. Esa afirmación depende del chip, del compilador y del interruptor físico.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Hardware, firmware y software embebido**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-266`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún microcontrolador, compilador de firmware ni banco de pruebas: las duraciones del bucle, el ruido de las lecturas y las variantes del antirrebote son construcciones del autor. La siguiente clase baja a los periféricos y buses por los que el nodo habla con sus sensores.
+
+## Glosario
+
+- **firmware:** programa almacenado en la memoria no volátil de un dispositivo que controla su hardware y se actualiza con procedimientos propios.
+- **capa de acceso al hardware:** módulo que aísla los registros y periféricos detrás de una interfaz que puede reemplazarse por datos simulados.
+- **latencia de un evento:** tiempo entre que ocurre un evento y el firmware empieza a atenderlo.
+- **desbordamiento:** resultado de una operación que no cabe en el ancho del tipo y da la vuelta sin avisar.
+- **mutante equivalente:** variante del código que no cambia ninguna salida y no se puede matar con ninguna prueba.
 
 ---
 

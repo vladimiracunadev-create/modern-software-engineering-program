@@ -9,7 +9,15 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 
-from role_profiles import PART_CONTEXT, PROFILES, SOURCES
+from role_profiles import (
+    DEVELOPED,
+    PART_CONTEXT,
+    PART_STATUS,
+    PLANNED_BY_ROLE,
+    PLANNED_PARTS,
+    PROFILES,
+    SOURCES,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -85,6 +93,31 @@ def part_link(part_id: str, parts: dict[str, dict[str, object]], prefix: str) ->
     return f"[Parte {part_id} · {part['title']}]({prefix}{part['path']}/README.md)"
 
 
+def se_id(number: int) -> str:
+    return f"SE-{number:03d}"
+
+
+def planned_range(part_id: str) -> str:
+    _, first, last = PLANNED_PARTS[part_id]
+    return f"{first}–{last}"
+
+
+def developed_support(filename: str, core: dict[str, list[str]], classes: dict[str, dict[str, str]]) -> list[str]:
+    """Clases ya desarrolladas (Partes 00-22) no repetidas en el núcleo; verifica cada id."""
+
+    in_core = {item for ids in core.values() for item in ids}
+    result: list[str] = []
+    for number in DEVELOPED[filename]:
+        class_id = se_id(number)
+        if class_id not in classes:
+            raise AssertionError(f"Clase de apoyo inexistente en curriculum.yaml: {class_id} ({filename})")
+        if PART_STATUS.get(classes[class_id]["part"]) != "desarrollada":
+            raise AssertionError(f"La clase de apoyo {class_id} no pertenece a una parte desarrollada ({filename})")
+        if class_id not in in_core:
+            result.append(class_id)
+    return result
+
+
 def shield(label: str, value: str, color: str) -> str:
     encoded_label = quote(label.replace("-", "--"), safe="")
     encoded_value = quote(value.replace("-", "--"), safe="")
@@ -115,6 +148,7 @@ def render_visual(title: str, profile_data: dict[str, object]) -> str:
 
 
 def render_role_depth(
+    filename: str,
     title: str,
     mission: str,
     profile_data: dict[str, object],
@@ -147,9 +181,19 @@ def render_role_depth(
         capability, evidence = PART_CONTEXT[part_id]
         links = "<br>".join(detailed_class_link(item, classes, "../") for item in class_ids)
         part_rows.append(
-            f"| {sequence} | {part_link(part_id, parts, '../')} | {links} | "
+            f"| {sequence} | {part_link(part_id, parts, '../')} | {PART_STATUS[part_id]} | {links} | "
             f"Profundiza **{capability}** desde la responsabilidad del rol. | {sentence(evidence)}. |"
         )
+    support_ids = developed_support(filename, core, classes)
+    support_rows = chr(10).join(
+        f"| {detailed_class_link(item, classes, '../')} | Parte {classes[item]['part']} |"
+        for item in support_ids
+    )
+    planned = PLANNED_BY_ROLE[filename]
+    planned_rows = chr(10).join(
+        f"| **Parte {part_id} · {PLANNED_PARTS[part_id][0]}** | `{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}` | {text} |"
+        for part_id, text in sorted(planned.items())
+    )
 
     decision_rows = "\n".join(
         f"| **{name}** | {sentence(criterion)}. | {sentence(proof)}. |"
@@ -234,9 +278,20 @@ La ruta distingue **parte** —unidad curricular con una capacidad acumulativa�
 clases siguientes forman el núcleo; no eliminan los prerrequisitos indicados en sus
 propias páginas ni convierten en opcional la base común.
 
-| Orden | Parte del programa | Clases clave | Por qué entra en esta ruta | Evidencia de transferencia |
-| ---: | --- | --- | --- | --- |
+| Orden | Parte del programa | Estado | Clases clave | Por qué entra en esta ruta | Evidencia de transferencia |
+| ---: | --- | --- | --- | --- | --- |
 {chr(10).join(part_rows)}
+
+### ✅ Clases ya desarrolladas que sostienen la ruta hoy
+
+El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
+en borrador o estructura. Estas clases, de las Partes 00–22 (`SE-001`–`SE-276`), ya
+tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
+resto del currículo:
+
+| Clase desarrollada | Parte |
+| --- | --- |
+{support_rows}
 
 **Cómo recorrerla.** Empieza por {class_link(class_start, classes, '../')} para fijar el
 primer mecanismo, usa {class_link(class_middle, classes, '../')} para integrar el
@@ -246,10 +301,28 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–22 están desarrolladas; las
-> posteriores conservan borradores o estructuras que deben superar revisión
-> cualitativa. Esta ruta no declara terminadas esas clases ni reemplaza el
-> [roadmap](../ROADMAP.md).
+> El mapa expresa el currículo previsto. Las Partes 00–22 (`SE-001`–`SE-276`) están
+> desarrolladas; las Partes 23–29 son borradores y las Partes 30–39 conservan sólo
+> estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
+> esas clases ni reemplaza el [roadmap](../ROADMAP.md).
+
+## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
+
+> [!NOTE]
+> Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
+> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
+
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+{planned_rows}
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 
@@ -419,7 +492,19 @@ def render_compact_map(
                 class_links = " · ".join(
                     class_link(class_id, classes, prefix) for class_id in class_ids
                 )
-                blocks.append(f"  - **Parte {part_id}:** {class_links}.")
+                blocks.append(f"  - **Parte {part_id} ({PART_STATUS[part_id]}):** {class_links}.")
+            support = developed_support(filename, core, classes)
+            support_links = " · ".join(class_link(class_id, classes, prefix) for class_id in support)
+            blocks.append(
+                f"- **✅ Ya desarrolladas de apoyo (Partes 00–22):** {support_links}."
+            )
+            planned_text = " · ".join(
+                f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
+                for part_id in sorted(PLANNED_BY_ROLE[filename])
+            )
+            blocks.append(
+                f"- **🔭 Planificada, sin clases publicadas:** {planned_text}."
+            )
             blocks.extend(
                 (
                     f"- **🧪 Proyecto profesional:** **{project[0]}** — {project[1]}.",
@@ -439,6 +524,15 @@ que activan decisiones del rol y el **proyecto profesional** que permite integra
 No es una lista de materias optativas: cada guía explica prerrequisitos, límites,
 trade-offs y evidencia esperada.
 
+> [!NOTE]
+> Estado real de las partes que aparecen en los mapas: las Partes 00–22
+> (`SE-001`–`SE-276`) están **desarrolladas**; 23–29 son **borradores**; 30–39 son
+> **estructura**. Las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD,
+> harness y agentic engineering, patrones agénticos, patrones de diseño y estilos
+> arquitectónicos) están **planificadas**: no tienen clases publicadas, por eso se
+> nombran sin enlace en cada ruta. Cada rol añade «Ya desarrolladas de apoyo» para
+> practicar hoy con contenido existente.
+
 {render_compact_map(classes, parts, from_roles=False)}
 
 ➡️ Cada nombre abre una guía extensa con gráficos, escenario de fallo, decisiones,
@@ -449,7 +543,7 @@ añade el mapa de transiciones entre familias.'''
 def render_index_depth(classes: dict[str, dict[str, str]], parts: dict[str, dict[str, object]]) -> str:
     return f'''<div align="center">
 
-[![Rutas](https://img.shields.io/badge/rutas-40-6f42c1?style=for-the-badge)](#mapa-de-40-roles)
+[![Rutas](https://img.shields.io/badge/rutas-{len(PROFILES)}-6f42c1?style=for-the-badge)](#mapa-de-{len(PROFILES)}-roles)
 [![Clases](https://img.shields.io/badge/clases-asociadas%20y%20enlazadas-0969da?style=for-the-badge)](#-parte--clases--evidencia)
 [![Evidencia](https://img.shields.io/badge/foco-decisiones%20y%20evidencia-2da44e?style=for-the-badge)](../assessments/rubric.md)
 
@@ -473,6 +567,13 @@ enlazadas con propósito, trade-offs, incidente o fallo representativo, métrica
 sus trampas, proyecto integrador, niveles de alcance, plan 30/60/90, preguntas de
 revisión y fuentes. La estructura común permite comparar; los mecanismos y decisiones
 son específicos de cada profesión.
+
+> [!NOTE]
+> Los mapas distinguen el estado real de cada parte: 00–22 desarrolladas, 23–29
+> borradores, 30–39 estructura. Las Partes 40–44 (`SE-481`–`SE-540`) están
+> **planificadas** ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin
+> clases publicadas: aparecen como «Planificada» y sin enlaces. «Ya desarrolladas de
+> apoyo» lista clases existentes de las Partes 00–22 con las que se puede practicar hoy.
 
 ## 🧱 Parte → clases → evidencia
 
@@ -503,7 +604,7 @@ def build(check: bool) -> None:
             rendered,
             DEPTH_START,
             DEPTH_END,
-            render_role_depth(title, mission, profile_data, classes, parts),
+            render_role_depth(filename, title, mission, profile_data, classes, parts),
             "## 🧪 Evidencia de portafolio",
         )
         if rendered != original:

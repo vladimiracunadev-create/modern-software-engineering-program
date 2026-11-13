@@ -6,8 +6,8 @@
 | Catálogo resumido | `catalog.json` | 1 |
 | Índice general | `classes/README.md` | 1 |
 | Índice de rutas profesionales | `roles/README.md` | 1 |
-| Guías profesionales | `roles/*.md` (sin `README.md`) | 40 |
-| Perfiles fuente de las rutas | `scripts/role_profiles.py` | 40 perfiles |
+| Guías profesionales | `roles/*.md` (sin `README.md`) | 42 |
+| Perfiles fuente de las rutas | `scripts/role_profiles.py` | 42 perfiles |
 | Generador verificable de rutas | `scripts/build_role_guides.py` | 1 |
 | Licencia de software | `LICENSE` | Apache-2.0 |
 | Licencia de contenido | `LICENSE-CONTENT.md` | CC BY-NC-SA 4.0 |

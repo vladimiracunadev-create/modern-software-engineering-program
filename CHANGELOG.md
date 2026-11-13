@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-13 — Guías por rol alineadas con el alcance de 540 clases: 42 guías
+
+- dos guías nuevas, de más de 2.200 palabras cada una y con la misma estructura, generador y contrato que las demás: `Agentic Harness Engineer` (harness, contexto, herramientas, bucles, evaluación y recuperación de agentes) y `Domain & Methodology Engineer` (TDD, BDD, ATDD, DDD, contratos y SDD como práctica de equipo); el programa pasa de 40 a 42 guías profesionales;
+- cada guía, el mapa del README y `roles/README.md` incorporan el estado real de cada parte (00–22 desarrolladas, 23–29 borradores, 30–39 estructura), una sección «Clases ya desarrolladas que sostienen la ruta hoy» con clases de las Partes 00–22 verificadas contra `curriculum.yaml` y una sección «Ampliación planificada» con las Partes 40–44 (`SE-481`–`SE-540`) por rol, sin enlaces porque esas clases no existen;
+- las guías `ai-augmented-software-engineer`, `ai-systems-engineer`, `qa-test-engineer` y `software-architect` delimitan su frontera con las dos nuevas para evitar solapamiento;
+- la tabla de cuerpos de conocimiento del README añade referencias a TDD, BDD, Gherkin, Specification by Example, DDD, Pact, GoF, POSA, PoEAA, Enterprise Integration Patterns, patrones cloud, ISO/IEC/IEEE 42010, estilos arquitectónicos, patrones agénticos, sistemas con LLM, evaluación de agentes, A2A, ISO/IEC 42001, Spec Kit y AGENTS.md; cada URL se comprobó con `curl` (las páginas de ISO responden 403 a clientes automatizados);
+- «Cobertura disponible hoy» se corrige con los conteos reales (276 desarrolladas, 84 borradores, 120 con estructura y 60 planificadas); `STATUS.md`, `validate_repository.py` y `tests/test_roles.py` pasan a exigir 42 guías y a comprobar que ninguna guía enlace una parte planificada;
+- los conteos generados del programa (480 clases publicadas, 40 partes) no cambian.
+
 ## 2026-11-13 — Documentación alineada con las Partes 00–22 y el alcance de 540 clases
 
 - el estado publicado pasa de «Partes 00–05» a «Partes 00–22 (`SE-001`–`SE-276`) desarrolladas»; las páginas de las clases 73 a 276 dejan de marcarse como «contenido en revisión» y la revisión editorial humana independiente sigue declarada como pendiente;

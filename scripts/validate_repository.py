@@ -185,8 +185,8 @@ def validate_relative_links() -> None:
 def validate_role_guides() -> None:
     role_root = ROOT / "roles"
     guides = sorted(path for path in role_root.glob("*.md") if path.name != "README.md")
-    if len(guides) != 40:
-        raise AssertionError(f"Expected 40 professional role guides, found {len(guides)}")
+    if len(guides) != 42:
+        raise AssertionError(f"Expected 42 professional role guides, found {len(guides)}")
 
     required_sections = (
         "## 🧭 Qué es y por qué importa",
@@ -226,6 +226,10 @@ def validate_role_guides() -> None:
             raise AssertionError(f"Role guide has too few associated class links: {guide.name}")
         if "style=for-the-badge" not in text:
             raise AssertionError(f"Role guide has no visual identity badges: {guide.name}")
+        if "## 🔭 Ampliación planificada: Partes 40–44" not in text:
+            raise AssertionError(f"Role guide lacks the planned Parts 40-44 section: {guide.name}")
+        if re.search(r"classes/part-4[0-4]", text):
+            raise AssertionError(f"Role guide links an unpublished planned part: {guide.name}")
         link = f"roles/{guide.name}"
         if link not in root_readme:
             raise AssertionError(f"Role guide is not linked from README.md: {guide.name}")
@@ -249,7 +253,7 @@ def validate_role_guides() -> None:
         "github/forks/vladimiracunadev-create/modern-software-engineering-program",
         "github/followers/vladimiracunadev-create",
         '<td valign="top" width="50%">',
-        "40 guías profesionales",
+        "42 guías profesionales",
         "Partes núcleo y clases asociadas por rol",
         "<!-- role-map:start -->",
     )

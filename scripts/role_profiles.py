@@ -1,4 +1,4 @@
-"""Datos editoriales curados para las cuarenta rutas profesionales.
+"""Datos editoriales curados para las rutas profesionales (hoy 42).
 
 No representan ofertas universales ni estados de madurez de las clases. Su función es
 relacionar responsabilidades profesionales con partes, clases y evidencias reales del
@@ -43,6 +43,36 @@ SOURCES = {
     "POSIX": ("The Open Group Base Specifications, Issue 8", "The Open Group / IEEE", "https://pubs.opengroup.org/onlinepubs/9799919799/"),
     "FREERTOS": ("FreeRTOS Documentation", "FreeRTOS project", "https://www.freertos.org/Documentation/RTOS_book.html"),
     "ZEPHYR": ("Zephyr Project Documentation", "Zephyr Project", "https://docs.zephyrproject.org/latest/"),
+    "TDDFOWLER": ("Test-Driven Development", "Martin Fowler", "https://martinfowler.com/bliki/TestDrivenDevelopment.html"),
+    "BDDNORTH": ("Introducing BDD", "Dan North", "https://dannorth.net/introducing-bdd/"),
+    "GHERKIN": ("Gherkin reference", "Cucumber", "https://cucumber.io/docs/gherkin/reference/"),
+    "SPECEX": ("Specification by Example", "Gojko Adzic", "https://gojko.net/books/specification-by-example/"),
+    "DDDREF": ("Domain-Driven Design Reference", "Eric Evans / Domain Language", "https://www.domainlanguage.com/ddd/reference/"),
+    "IDDD": ("Implementing Domain-Driven Design", "Vaughn Vernon / Pearson InformIT", "https://www.informit.com/store/implementing-domain-driven-design-9780321834577"),
+    "PACT": ("Pact documentation: consumer-driven contract testing", "Pact Foundation", "https://docs.pact.io/"),
+    "GOF": ("Design Patterns: Elements of Reusable Object-Oriented Software", "Gamma, Helm, Johnson y Vlissides / Pearson", "https://www.pearson.com/en-us/subject-catalog/p/design-patterns-elements-of-reusable-object-oriented-software/P200000009480/9780137903610"),
+    "POSA": ("Pattern-Oriented Software Architecture, Volume 1", "Buschmann et al. / Wiley", "https://www.wiley.com/en-us/Pattern-Oriented+Software+Architecture+Volume+1%3A+A+System+of+Patterns-p-9780471958697"),
+    "PEAA": ("Catalog of Patterns of Enterprise Application Architecture", "Martin Fowler", "https://martinfowler.com/eaaCatalog/"),
+    "EIP": ("Enterprise Integration Patterns", "Gregor Hohpe y Bobby Woolf", "https://www.enterpriseintegrationpatterns.com/"),
+    "ISO42010": ("ISO/IEC/IEEE 42010:2022", "ISO", "https://www.iso.org/standard/74393.html"),
+    "REST": ("Architectural Styles and the Design of Network-based Software Architectures", "Roy T. Fielding", "https://ics.uci.edu/~fielding/pubs/dissertation/top.htm"),
+    "TWELVEFACTOR": ("The Twelve-Factor App", "Adam Wiggins", "https://12factor.net/"),
+    "MICROSERVICES": ("Microservices", "James Lewis y Martin Fowler", "https://martinfowler.com/articles/microservices.html"),
+    "CLOUDPATTERNS": ("Cloud design patterns", "Microsoft Azure Architecture Center", "https://learn.microsoft.com/en-us/azure/architecture/patterns/"),
+    "HEXAGONAL": ("Hexagonal architecture", "Alistair Cockburn", "https://alistair.cockburn.us/hexagonal-architecture/"),
+    "EFFAGENTS": ("Building effective agents", "Anthropic", "https://www.anthropic.com/research/building-effective-agents"),
+    "CONTEXTENG": ("Effective context engineering for AI agents", "Anthropic", "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"),
+    "A2A": ("Agent2Agent (A2A) Protocol", "A2A Protocol maintainers", "https://a2a-protocol.org/latest/"),
+    "OWASPLLM": ("OWASP Top 10 for LLM Applications", "OWASP GenAI Security Project", "https://genai.owasp.org/llm-top-10/"),
+    "ISO42001": ("ISO/IEC 42001:2023", "ISO", "https://www.iso.org/standard/81230.html"),
+    "SPECKIT": ("Spec Kit", "GitHub", "https://github.com/github/spec-kit"),
+    "AGENTSMD": ("AGENTS.md", "AGENTS.md community", "https://agents.md/"),
+    "SWEBENCH": ("SWE-bench", "SWE-bench team", "https://www.swebench.com/"),
+    "TAUBENCH": ("tau-bench: A Benchmark for Tool-Agent-User Interaction", "Yao et al. / arXiv", "https://arxiv.org/abs/2406.12045"),
+    "REACT": ("ReAct: Synergizing Reasoning and Acting in Language Models", "Yao et al. / arXiv", "https://arxiv.org/abs/2210.03629"),
+    "RAG": ("Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "Lewis et al. / arXiv", "https://arxiv.org/abs/2005.11401"),
+    "OTELGENAI": ("Semantic conventions for generative AI", "CNCF / OpenTelemetry", "https://opentelemetry.io/docs/specs/semconv/gen-ai/"),
+    "EVALS": ("Your AI Product Needs Evals", "Hamel Husain", "https://hamel.dev/blog/posts/evals/"),
 }
 
 PART_CONTEXT = {
@@ -482,4 +512,254 @@ PROFILES = {
         "Capacidad de IA operable y reversible|integrar un modelo con evaluación guardrails observabilidad privacidad y fallback|dataset card evals baseline contrato de modelo threat model trazas control humano y runbook",
         "NISTAI|MCP|ISO25010", "ai-augmented-software-engineer.md|data-engineer.md|security-engineer.md",
     ),
+    "agentic-harness-engineer.md": profile(
+        "Ingeniería agentic", "semi-senior → principal", "18:222,224,228;20:245,246,247;35:424,426,431;38:459,464,465;39:473,474,477,478,479",
+        "Objetivo|Contexto|Herramientas|Bucle y evaluación|Recuperación",
+        "Más contexto o contexto curado|incluir sólo lo que cambia la decisión y medir el coste de atención y de filtración|ablación de contexto con tasa de éxito y tokens;Herramienta amplia o estrecha|preferir herramientas con efectos acotados entradas validables y salidas verificables|prueba de permisos y registro de cada invocación;Bucle libre o con puntos de control|insertar checkpoints límites de pasos y aprobación donde la acción no es reversible|simulación de bucle atascado y reanudación desde checkpoint",
+        "Éxito de tarea verificado|tareas cuyo resultado pasa oráculos externos al agente|contar finales declarados por el propio agente;Coste y pasos por tarea resuelta|tokens llamadas y tiempo hasta un resultado aceptado|comparar sólo el precio por llamada;Intervenciones humanas útiles|aprobaciones que detienen daño frente a las que sólo interrumpen|premiar autonomía sin medir incidentes",
+        "Agente en bucle que agota presupuesto y repite una acción destructiva|el agente reintenta una herramienta que falla parcialmente y el harness no detecta la repetición ni limita el efecto|reconstruir la traza paso a paso con contexto herramienta argumentos resultado y decisión del bucle y formular hipótesis rivales sobre prompt herramienta y política|activar el límite de pasos revocar el permiso restaurar desde checkpoint y añadir una evaluación y una política que cubran la repetición",
+        "Harness mínimo evaluado y recuperable|construir un harness con contexto herramientas permisos bucle evaluaciones y reanudación para una tarea real de ingeniería|especificación del harness catálogo de herramientas con permisos suite de evaluación trazas política de aprobación checkpoint y runbook de recuperación",
+        "EFFAGENTS|CONTEXTENG|MCP|OWASPLLM|OTELGENAI", "ai-augmented-software-engineer.md|ai-systems-engineer.md|platform-engineer.md",
+    ),
+    "domain-methodology-engineer.md": profile(
+        "Metodología y dominio", "semi-senior → principal", "05:69;12:149,155;13:158,159,165,166,167;24:295,296;25:305,308;30:362,363",
+        "Intención|Ejemplo|Contrato|Modelo de dominio|Evidencia",
+        "Prueba primero o prueba después|usar prueba primero cuando el diseño es incierto y el feedback rápido y después cuando un contrato ya fija el comportamiento|historial de ciclos rojo verde refactor con una prueba que falla por la razón correcta;Ejemplos ejecutables o especificación narrativa|elegir un lenguaje ejecutable cuando el ejemplo debe sobrevivir al cambio y ser leído por negocio|escenarios vinculados a automatización y a la regla que ilustran;Modelo de dominio rico o transaccional simple|invertir en límites y lenguaje ubicuo sólo donde la complejidad esencial lo justifica|mapa de contextos y pruebas de invariantes",
+        "Defectos de regla de negocio escapados|reglas mal entendidas que llegan a producción|usar la cobertura de líneas como sustituto;Estabilidad del lenguaje ubicuo|términos del dominio coincidentes entre código pruebas y conversaciones|contar glosarios que nadie usa;Tiempo de feedback de la práctica|minutos entre un cambio y una señal fiable de pruebas o contratos|ganar velocidad con pruebas frágiles",
+        "Escenarios verdes que no capturan la regla de negocio real|las pruebas ejercen un camino feliz mientras negocio y desarrollo usan el mismo término con significados distintos|contrastar ejemplos con la regla escrita y las conversaciones e identificar el término ambiguo y el contexto delimitado|corregir el lenguaje ubicuo reescribir los ejemplos en la frontera correcta y añadir una prueba de contrato que falle ante la regresión semántica",
+        "Práctica de equipo verificable|introducir una práctica que conecte ejemplos de negocio pruebas contratos y modelo de dominio en un flujo real de entrega|acuerdo de equipo mapa de contextos ejemplos ejecutables pruebas de contrato SPEC trazable y métricas de feedback",
+        "SWEBOK|TDDFOWLER|BDDNORTH|GHERKIN|SPECEX|DDDREF|PACT", "qa-test-engineer.md|software-architect.md|requirements-engineer.md",
+    ),
+}
+
+
+# Estado editorial de cada parte. Debe coincidir con STATUS.md (generado por build_phase2.py).
+PART_STATUS = {
+    **{f"{n:02d}": "desarrollada" for n in range(0, 23)},
+    **{f"{n:02d}": "borrador" for n in range(23, 30)},
+    **{f"{n:02d}": "estructura" for n in range(30, 40)},
+}
+
+# Clases YA desarrolladas (Partes 00-22, SE-001..SE-276) que sostienen cada ruta hoy.
+# Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
+DEVELOPED = {
+    "software-engineer.md": [65, 100, 105, 196, 208],
+    "systems-programmer.md": [21, 94, 99, 105],
+    "backend-engineer.md": [242, 244, 245, 247, 249],
+    "frontend-engineer.md": [233, 234, 236, 237],
+    "full-stack-engineer.md": [231, 234, 242, 245],
+    "mobile-engineer.md": [255, 257, 261, 262, 264],
+    "desktop-engineer.md": [254, 255, 258, 261],
+    "embedded-iot-engineer.md": [265, 266, 269, 272, 274, 276],
+    "safety-critical-software-engineer.md": [160, 187, 268, 274],
+    "api-engineer.md": [110, 210, 244, 245, 249],
+    "data-engineer.md": [66, 67, 162, 163, 164, 223, 247],
+    "database-reliability-engineer.md": [18, 93, 162, 164, 224],
+    "distributed-systems-engineer.md": [40, 81, 246, 247, 260],
+    "qa-test-engineer.md": [69, 105, 155, 158, 188],
+    "performance-engineer.md": [22, 94, 99, 235, 249, 261],
+    "accessibility-engineer.md": [169, 172, 175, 178, 258],
+    "internationalization-engineer.md": [14, 67, 175, 176, 238],
+    "requirements-engineer.md": [146, 147, 149, 150, 153, 156],
+    "devops-engineer.md": [29, 31, 104, 114, 196, 202, 211, 224],
+    "build-release-engineer.md": [103, 104, 112, 114, 225],
+    "cloud-engineer.md": [31, 34, 44, 211, 250],
+    "site-reliability-engineer.md": [33, 46, 211, 224, 250],
+    "observability-engineer.md": [33, 99, 220, 226, 250],
+    "platform-engineer.md": [104, 114, 115, 212, 225],
+    "developer-experience-engineer.md": [98, 100, 105, 108, 212],
+    "security-engineer.md": [27, 31, 43, 202, 236, 262],
+    "compliance-engineer.md": [4, 117, 129, 153, 226],
+    "finops-engineer.md": [22, 133, 141, 142, 143],
+    "green-software-engineer.md": [94, 99, 235, 261],
+    "technical-writer.md": [207, 208, 210, 211, 212, 214],
+    "open-source-innersource-engineer.md": [112, 198, 201, 202, 204],
+    "legacy-modernization-engineer.md": [110, 142, 164, 195, 208],
+    "software-architect.md": [8, 142, 160, 164, 208, 209],
+    "solutions-architect.md": [44, 117, 141, 163, 209],
+    "technical-product-engineer.md": [125, 127, 128, 139, 143],
+    "technical-leadership.md": [5, 142, 196, 199, 208],
+    "engineering-manager.md": [5, 182, 187, 188, 196],
+    "cto.md": [8, 117, 133, 142, 208],
+    "ai-augmented-software-engineer.md": [69, 100, 158, 196, 214],
+    "ai-systems-engineer.md": [6, 214, 245, 246, 249],
+    "agentic-harness-engineer.md": [27, 31, 104, 105, 214],
+    "domain-methodology-engineer.md": [52, 57, 60, 146, 153, 208],
+}
+
+# Partes 40-44: planificadas (ADR-004). No existen en curriculum.yaml ni como carpetas.
+PLANNED_PARTS = {
+    "40": ("Metodologías de desarrollo: de TDD a ODD", "SE-481", "SE-492"),
+    "41": ("Harness y agentic engineering", "SE-493", "SE-504"),
+    "42": ("Patrones agénticos y sistemas con LLM", "SE-505", "SE-516"),
+    "43": ("Patrones de diseño, empresariales y de resiliencia", "SE-517", "SE-528"),
+    "44": ("Estilos arquitectónicos", "SE-529", "SE-540"),
+}
+
+# Qué cambia para cada rol cuando existan las partes planificadas.
+PLANNED_BY_ROLE = {
+    "software-engineer.md": {
+        "40": "Fija cuándo conviene escribir la prueba primero, un ejemplo ejecutable o un contrato, en lugar de tratarlas como modas intercambiables.",
+        "43": "Da un catálogo disciplinado de patrones de diseño y antipatrones para elegir una estructura por la fuerza que resuelve y no por nombre.",
+    },
+    "systems-programmer.md": {
+        "43": "Añade los patrones de resiliencia y de aislamiento de recursos que hoy se estudian de forma dispersa entre concurrencia y calidad.",
+        "44": "Aclara qué estilos (microkernel, pipes and filters) describen mejor un sistema de bajo nivel y qué coste de comunicación imponen.",
+    },
+    "backend-engineer.md": {
+        "43": "Incorpora Repository, Unit of Work y el catálogo de patrones de integración empresarial como decisiones con modo de fallo explícito.",
+        "44": "Compara monolito modular, microservicios, BFF y arquitecturas por celdas con sus costes operativos, sin presentarlos como una escalera de madurez.",
+    },
+    "frontend-engineer.md": {
+        "44": "Sitúa el Backend for Frontend y el gateway dentro del criterio de estilo arquitectónico y de su coste.",
+        "43": "Aporta el catálogo de patrones de diseño aplicable a la interfaz sin confundirlo con el catálogo de un framework.",
+    },
+    "full-stack-engineer.md": {
+        "40": "Conecta ejemplos de aceptación, pruebas de contrato y TDD para que un fragmento vertical conserve el mismo significado en cliente, API y datos.",
+        "44": "Ofrece criterio para decidir dónde cortar un sistema vertical (BFF, gateway, monolito modular) antes de repartirlo entre equipos.",
+    },
+    "mobile-engineer.md": {
+        "43": "Concreta patrones de reintento y degradación (retry con jitter, circuit breaker) para conectividad intermitente.",
+        "44": "Sitúa el cliente móvil frente al estilo BFF y su impacto en versionado y compatibilidad.",
+    },
+    "desktop-engineer.md": {
+        "43": "Cubre los patrones de diseño del catálogo GoF que sostienen la extensibilidad y sus riesgos de compatibilidad.",
+        "44": "Explica cuándo un cliente rico justifica un estilo microkernel o de plugins y qué compatibilidad exige.",
+    },
+    "embedded-iot-engineer.md": {
+        "43": "Añade patrones de resiliencia para fallos físicos, con límites de memoria y tiempo explícitos.",
+        "44": "Describe estilos como pipes and filters y microkernel en dispositivos con recursos acotados.",
+    },
+    "safety-critical-software-engineer.md": {
+        "40": "Examina qué metodologías de prueba y contrato producen evidencia aceptable para un caso de seguridad y cuáles no sustituyen el análisis de hazards.",
+        "44": "Relaciona estilos arquitectónicos con aislamiento, redundancia y trazabilidad hasta la descripción de arquitectura que exige la evidencia.",
+    },
+    "api-engineer.md": {
+        "40": "Convierte el contrato en práctica de equipo: spec-first, pruebas de contrato dirigidas por el consumidor y SDD con criterios de compatibilidad.",
+        "43": "Aporta el catálogo de patrones de integración empresarial para gobernar fronteras entre sistemas.",
+    },
+    "data-engineer.md": {
+        "43": "Incluye el catálogo de patrones de integración empresarial con sus garantías y modos de fallo.",
+        "44": "Compara data mesh, arquitecturas por capas de datos y pipes and filters, con propiedad y contrato como eje.",
+    },
+    "database-reliability-engineer.md": {
+        "43": "Detalla patrones de resiliencia (bulkhead, circuit breaker, retry con jitter) que condicionan la capacidad y la recuperación de los datos.",
+        "44": "Muestra cómo estilos como multi-tenancy y arquitectura celular cambian el aislamiento, la migración y el radio de fallo.",
+    },
+    "distributed-systems-engineer.md": {
+        "42": "Introduce ejecución durable, orquestación y coordinación entre agentes como casos de sistemas distribuidos con modelo de fallo propio.",
+        "43": "Sistematiza patrones de resiliencia y de integración (retry con jitter, circuit breaker, bulkhead) con condiciones de aplicación.",
+        "44": "Compara estilos celulares, orientados a eventos y mallas con el modelo de consistencia que cada uno supone.",
+    },
+    "qa-test-engineer.md": {
+        "40": "Aclara el reparto entre estrategia de QA y las prácticas de equipo TDD, BDD y ATDD, y qué evidencia produce cada una.",
+        "42": "Añade evaluación de sistemas con LLM y agentes como disciplina de prueba con oráculos probabilísticos.",
+    },
+    "performance-engineer.md": {
+        "43": "Aporta patrones de resiliencia (bulkhead, retry con jitter, circuit breaker) con su efecto medible sobre latencia de cola y capacidad.",
+        "44": "Relaciona estilos arquitectónicos con costes de red, serialización y saltos que dominan la latencia.",
+    },
+    "accessibility-engineer.md": {
+        "40": "Integra criterios de accesibilidad como ejemplos ejecutables y contratos dentro de BDD y ATDD en lugar de auditorías tardías.",
+    },
+    "internationalization-engineer.md": {
+        "40": "Lleva reglas de formato, plural y dirección de escritura a ejemplos ejecutables y pruebas de contrato.",
+    },
+    "requirements-engineer.md": {
+        "40": "Relaciona requisitos con ATDD, BDD, Specification by Example y SDD, y cuándo cada técnica reduce ambigüedad.",
+        "41": "Trata la especificación como entrada de un agente: qué debe contener para que un harness pueda ejecutarla y verificarla.",
+    },
+    "devops-engineer.md": {
+        "41": "Cubre la ejecución de agentes en pipelines con permisos acotados, aislamiento y evaluación dentro de la entrega.",
+        "43": "Incorpora patrones de resiliencia (bulkhead, retry con jitter, circuit breaker) con criterios de reversión.",
+    },
+    "build-release-engineer.md": {
+        "41": "Examina la procedencia y la verificación de cambios producidos por agentes dentro de la cadena de build y release.",
+    },
+    "cloud-engineer.md": {
+        "43": "Sistematiza patrones cloud de resiliencia (sidecar, ambassador, retry con jitter) con la responsabilidad compartida de cada servicio.",
+        "44": "Compara estilos celulares, multi-tenant y 12-factor con sus límites de plataforma y de coste.",
+    },
+    "site-reliability-engineer.md": {
+        "41": "Añade el funcionamiento de agentes como carga operada: presupuestos, límites de autoridad y recuperación.",
+        "43": "Sistematiza patrones de resiliencia que sostienen SLO: timeouts, retries, circuit breakers y degradación elegante.",
+    },
+    "observability-engineer.md": {
+        "40": "Trata la observabilidad como práctica de desarrollo (ODD): preguntas de producción definidas antes de escribir el cambio.",
+        "41": "Define las trazas, el registro de herramientas y las señales que hacen auditable un bucle agentic.",
+    },
+    "platform-engineer.md": {
+        "41": "Ofrece el harness como capacidad de plataforma: entornos aislados, catálogo de herramientas, permisos y evaluación comunes.",
+        "44": "Relaciona estilos de plataforma, multi-tenancy y celdas con el contrato de autoservicio.",
+    },
+    "developer-experience-engineer.md": {
+        "40": "Examina cómo las prácticas TDD, BDD y SDD cambian el bucle de feedback del desarrollador y cómo medirlo.",
+        "41": "Estudia la configuración de agentes de codificación (instrucciones, herramientas, entornos) como experiencia de desarrollo medible.",
+    },
+    "security-engineer.md": {
+        "41": "Profundiza el modelo de amenazas del harness: permisos, aislamiento, inyección de instrucciones y auditoría.",
+        "42": "Trata la superficie de ataque de los sistemas con LLM y agentes: RAG, memoria, herramientas y comunicación entre agentes.",
+    },
+    "compliance-engineer.md": {
+        "42": "Conecta sistemas con LLM con marcos de gestión de IA como ISO/IEC 42001 y NIST AI RMF, y con la evidencia que exigen.",
+        "41": "Define qué registros, aprobaciones y límites de autoridad hacen demostrable el control humano sobre un agente.",
+    },
+    "finops-engineer.md": {
+        "42": "Incorpora el coste de tokens, reintentos y caché como unidad económica de los sistemas con LLM.",
+    },
+    "green-software-engineer.md": {
+        "42": "Mide la energía y el carbono de inferencia, recuperación y agentes con unidad funcional comparable.",
+    },
+    "technical-writer.md": {
+        "40": "Trata la documentación ejecutable (ejemplos Gherkin, contratos) como parte del producto y no como texto paralelo.",
+        "41": "Cubre instrucciones para agentes (como AGENTS.md y SPEC) escritas para lectores máquina con control de calidad.",
+    },
+    "open-source-innersource-engineer.md": {
+        "41": "Plantea la política de contribuciones asistidas por agentes: procedencia, revisión y responsabilidad del mantenedor.",
+    },
+    "legacy-modernization-engineer.md": {
+        "40": "Usa pruebas de caracterización, contratos y SDD como red de seguridad en brownfield antes de refactorizar.",
+        "44": "Compara estilos de destino (microkernel, microservicios con sus costes, celdas) con coste de transición y retorno.",
+    },
+    "software-architect.md": {
+        "43": "Aporta el catálogo de patrones de diseño (GoF, GRASP), empresariales y de resiliencia con fuerzas, consecuencias y antipatrones.",
+        "44": "Convierte los estilos arquitectónicos en alternativas comparables con ISO/IEC/IEEE 42010 y escenarios de calidad.",
+    },
+    "solutions-architect.md": {
+        "43": "Da patrones de integración empresarial para conectar terceros y sistemas heredados con modos de fallo explícitos.",
+        "44": "Compara estilos de integración y de despliegue (BFF, gateway, mesh, multi-tenant) con su coste de adopción.",
+    },
+    "technical-product-engineer.md": {
+        "40": "Relaciona hipótesis, ejemplos de aceptación y evaluación como forma de reducir incertidumbre antes de construir.",
+        "42": "Evalúa cuándo un patrón agéntico o un sistema con LLM resuelve un problema de producto y cuándo basta software determinista.",
+    },
+    "technical-leadership.md": {
+        "40": "Aporta criterio para elegir y sostener prácticas de equipo (TDD, BDD, SDD) sin imponerlas como ritual.",
+        "44": "Permite defender un estilo arquitectónico en un RFC con escenarios y reversibilidad.",
+    },
+    "engineering-manager.md": {
+        "40": "Explica cómo introducir prácticas de metodología en un equipo y qué señales indican que mejoran el flujo.",
+        "41": "Plantea cómo organizar trabajo, revisión y responsabilidad cuando parte del cambio lo produce un agente.",
+    },
+    "cto.md": {
+        "41": "Fija política de autonomía, riesgo y gobierno de agentes en la organización.",
+        "42": "Aporta criterio de portafolio para decidir qué capacidades con LLM construir, comprar o evitar.",
+        "44": "Sitúa la estrategia de plataforma y de organización frente a los estilos arquitectónicos disponibles.",
+    },
+    "ai-augmented-software-engineer.md": {
+        "40": "Cambia el flujo asistido: TDD, SDD y evaluación sirven de oráculo externo al agente que propone el código.",
+        "41": "Enseña a configurar el harness con el que trabaja el agente, que hoy se trata de forma introductoria.",
+    },
+    "ai-systems-engineer.md": {
+        "42": "Es la parte central del rol: workflows, agentes, RAG, memoria, MCP/A2A, evaluación, ejecución durable y coste.",
+        "41": "Aporta el harness y la evaluación de agentes sobre los que se apoya un sistema de producción.",
+    },
+    "agentic-harness-engineer.md": {
+        "41": "Es la parte central del rol: anatomía del harness, contexto, herramientas, bucles, permisos, evaluación y recuperación.",
+        "42": "Aporta los patrones (encadenado, enrutamiento, orquestador-trabajadores, evaluador-optimizador) que el harness ejecuta.",
+    },
+    "domain-methodology-engineer.md": {
+        "40": "Es la parte central del rol: TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD como prácticas de equipo con evidencia.",
+        "43": "Conecta el modelo de dominio con patrones de persistencia (Repository, Unit of Work, Active Record) y sus antipatrones.",
+    },
 }

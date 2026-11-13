@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_GUIDES = {
     "accessibility-engineer.md",
+    "agentic-harness-engineer.md",
     "ai-augmented-software-engineer.md",
     "ai-systems-engineer.md",
     "api-engineer.md",
@@ -22,6 +23,7 @@ EXPECTED_GUIDES = {
     "developer-experience-engineer.md",
     "devops-engineer.md",
     "distributed-systems-engineer.md",
+    "domain-methodology-engineer.md",
     "embedded-iot-engineer.md",
     "engineering-manager.md",
     "finops-engineer.md",
@@ -120,6 +122,29 @@ class RoleGuideTests(unittest.TestCase):
                 self.assertGreaterEqual(len(class_links), 15)
                 for link in links:
                     self.assertTrue((path.parent / link).resolve().is_file(), link)
+
+    def test_planned_parts_are_marked_and_never_linked(self) -> None:
+        main = (ROOT / "README.md").read_text(encoding="utf-8")
+        index = (ROOT / "roles" / "README.md").read_text(encoding="utf-8")
+        self.assertEqual(len(EXPECTED_GUIDES), 42)
+        for name in EXPECTED_GUIDES:
+            text = (ROOT / "roles" / name).read_text(encoding="utf-8")
+            with self.subTest(role=name):
+                self.assertIn("## 🔭 Ampliación planificada: Partes 40–44", text)
+                self.assertIn("✅ Clases ya desarrolladas que sostienen la ruta hoy", text)
+                self.assertNotRegex(text, r"classes/part-4[0-4]")
+        for document in (main, index):
+            self.assertNotRegex(document, r"classes/part-4[0-4]")
+            self.assertIn("Planificada, sin clases publicadas", document)
+
+    def test_support_classes_are_developed_and_exist(self) -> None:
+        pattern = re.compile(r"Ya desarrolladas de apoyo \(Partes 00–22\):(.+)")
+        main = (ROOT / "README.md").read_text(encoding="utf-8")
+        matches = pattern.findall(main)
+        self.assertEqual(len(matches), len(EXPECTED_GUIDES))
+        for line in matches:
+            for number in re.findall(r"\[SE-(\d{3})\]", line):
+                self.assertLessEqual(int(number), 276)
 
     def test_entry_points_expose_part_class_evidence_map(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")

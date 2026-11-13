@@ -57,6 +57,17 @@ controladas de ACL, servicios, gestores de paquetes, logs o virtualización expl
 en sus clases. La [evidencia de validación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/labs/part-02-cross-platform-diagnostic-kit/evidence/VALIDATION.md)
 distingue explícitamente ejecución local, CI remota y escenarios no probados.
 
+## Evidencia medida en dos plataformas
+
+Las figuras y los ejemplos de esta parte usan observaciones reales de un mismo equipo con dos entornos: Windows 11
+(CPython 3.12.9, Windows PowerShell 5.1) y Ubuntu 24.04 bajo WSL2 (CPython 3.12.3, Bash). Entre ellas están el
+comportamiento de tres sistemas de archivos (NTFS, ext4 y el montaje 9p), el efecto de `chmod`, los códigos de salida al
+terminar procesos, la expansión de argumentos, la visibilidad de un secreto ficticio, la propiedad de archivos en `dpkg`, los
+espacios de nombres creados con `unshare` y la secuencia del laboratorio con sus diez pruebas en ambas plataformas.
+No se ejecutó macOS ni PowerShell 7, y Docker Desktop estaba instalado con su motor detenido; esas afirmaciones se presentan
+como documentadas y no como medidas. Los nombres de equipo, usuarios, zonas horarias e identificadores de seguridad
+se omiten a propósito. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 La tabla final permite localizar cada material, pero primero hace falta comprender la

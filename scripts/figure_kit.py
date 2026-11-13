@@ -111,6 +111,40 @@ class Fig:
         self.parts.append(f'<circle cx="{x:g}" cy="{y:g}" r="12" fill="{fill}" stroke="{stroke}" stroke-width="1.6"/>')
         self.text(x, y + 5, value, 13, "middle", 700, ink)
 
+
+    # -- compound helpers -----------------------------------------------------
+    def table(self, heads: list[str], rows: list[list[str]], x: float, y: float, widths: list[float],
+              row_h: float = 52, head_h: float = 38, size: int = 12, kinds: list[str] | None = None,
+              first_bold: bool = True, gap: float = 6) -> float:
+        """Draw a table of boxes and return the y coordinate below the last row."""
+        cx = x
+        for width, head in zip(widths, heads):
+            self.box(cx, y, width - gap, head_h, head, "navy", size + 1, bold=True)
+            cx += width
+        cy = y + head_h + gap
+        for i, row in enumerate(rows):
+            cx = x
+            for j, (width, cell) in enumerate(zip(widths, row)):
+                kind = (kinds[j] if kinds else "plain")
+                if isinstance(kind, tuple):
+                    kind = kind[i % len(kind)]
+                self.box(cx, cy, width - gap, row_h, cell, kind, size, bold=(first_bold and j == 0))
+                cx += width
+            cy += row_h + gap
+        return cy
+
+    def hbars(self, items: list[tuple[str, float, str, str]], x: float, y: float, scale: float,
+              label_w: float = 220, bar_h: float = 30, step: float = 46, size: int = 13) -> float:
+        """Horizontal bars: items are (label, value, kind, value_label)."""
+        cy = y
+        for label, value, kind, value_label in items:
+            self.text(x + label_w - 10, cy + bar_h * 0.7, label, size, "end", 700)
+            width = max(value * scale, 4)
+            self.box(x + label_w, cy, width, bar_h, "", kind, radius=3)
+            self.text(x + label_w + width + 8, cy + bar_h * 0.7, value_label, size, "start", 700)
+            cy += step
+        return cy
+
     # -- output -------------------------------------------------------------
     def svg(self) -> str:
         defs = (

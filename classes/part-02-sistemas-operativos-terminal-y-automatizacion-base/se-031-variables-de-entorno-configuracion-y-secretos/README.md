@@ -118,6 +118,51 @@ El kit de diagnóstico multiplataforma ofrece `config explain`: muestra valor no
 
 La documentación [about_Environment_Variables](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_environment_variables) y el estándar [`environ`](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/stdlib.h.html) describen mecanismos; la política de secretos debe adaptarse al riesgo y plataforma.
 
+### Resolver la configuración: una función que se puede probar
+
+La precedencia deja de ser una convención cuando se escribe como una función pura. La siguiente recorre las fuentes en orden y devuelve *de dónde* viene el valor, no solo el valor:
+
+```python
+def resolver(argumento, entorno, archivo, por_omision):
+    for fuente, valor in (("argumento", argumento), ("entorno", entorno),
+                          ("archivo", archivo), ("default", por_omision)):
+        if valor is not None:
+            return fuente, valor
+```
+
+Con `resolver(None, "8081", "8082", "8080")` el resultado es `("entorno", "8081")`; con `resolver("9000", "8081", "8082", "8080")`, `("argumento", "9000")`; y con tres `None`, `("default", "8080")`. El valor
+de que devuelva la *fuente* es doble: permite explicar la configuración efectiva («el puerto viene del entorno») y probar el orden con casos sencillos. El laboratorio aplica exactamente este orden a `profile` y su reporte
+conserva la fuente elegida.
+
+![Figura 1. Tabla con tres resoluciones reales de la precedencia argumento, entorno, archivo y valor por omisión](../../../content/part-02/figures/se-031-precedencia-resuelta.svg)
+
+**Cómo leer la figura.** Cada fila es una combinación de fuentes presentes; la última columna es el resultado de la función. Obsérvese que `None` (ausencia) no es lo mismo que una cadena vacía: una variable definida pero vacía es
+una decisión, y mezclar ambas es una causa frecuente de configuraciones que «no se aplican». **Dónde deja de valer:** hay fuentes que la función no modela (variables de un archivo `.env`, servicios de configuración remotos, valores por
+usuario o por máquina) y cada una necesita su lugar en el orden y su propia validación.
+
+### El entorno: heredado, sin tipos y distinto entre sistemas
+
+Las variables de entorno son pares texto-texto que cada proceso hereda de su padre. Dos pruebas con el mismo programa en Windows y en Linux (WSL2) lo muestran. Buscar `mi_var` tras fijar `MI_VAR` devolvió `'valor'` en Windows
+(no distingue mayúsculas) y `None` en Linux (sí las distingue); un script de configuración que funcione en ambos no puede depender de esa diferencia. Un proceso hijo vio la variable en ambos sistemas (herencia), y asignar el entero `5`
+a `os.environ["N"]` lanzó `TypeError` en ambos: *todo valor es texto*, y la conversión y la validación («el puerto es un entero entre 1 y 65535») son responsabilidad del programa, no del entorno.
+
+![Figura 2. Tabla con resultados reales de variables de entorno en Windows y en Linux: mayúsculas, herencia, tipo y asignación de un entero](../../../content/part-02/figures/se-031-entorno-en-dos-sistemas.svg)
+
+**Cómo leer la figura.** La primera fila es la única que difiere entre sistemas; las otras tres muestran contratos comunes. **Dónde deja de valer:** el comportamiento de mayúsculas es del sistema operativo, no de Python, y herramientas como
+los shells o los gestores de servicios pueden filtrar o transformar el entorno antes de entregarlo; el entorno que ve un servicio no es el de tu terminal.
+
+### Un secreto ficticio: dónde puede verse
+
+Pasar un secreto por la línea de comandos es una práctica insegura, y se puede demostrar sin usar ninguno real. Con un valor ficticio (`token-ficticio-12345`), un proceso lanzado con `--token=...` mostró el secreto en `/proc/PID/cmdline` y en la salida de
+`ps`, visibles para cualquier usuario que pueda listar procesos; el mismo valor en una variable de entorno (`API_KEY`) fue legible en `/proc/PID/environ`, un archivo con modo `0o400` que solo el propietario puede leer. Es mejor que el argumento, pero no protege del propietario,
+ni de los procesos hijos que heredan el entorno, ni de los volcados de memoria o los registros que lo copien. El laboratorio muestra un tercer nivel de cuidado: para `DIAG_DEMO_TOKEN` solo informa *presencia*, *longitud* (23 en la prueba) y el texto
+`[REDACTED]`, y el valor no aparece en ningún lugar de la salida.
+
+![Figura 3. Tabla con tres lugares donde viaja un secreto ficticio, lo observado y su lectura, incluida la redacción del laboratorio](../../../content/part-02/figures/se-031-donde-se-ve-un-secreto.svg)
+
+**Cómo leer la figura.** Las filas van de menos a más protección: argumento, entorno y reporte redactado. **Dónde deja de valer:** el valor era una cadena ficticia y las pruebas son de Linux; en Windows, las variables de entorno de otro proceso
+y su línea de comandos son accesibles por mecanismos distintos y según los privilegios. La redacción protege *esa* variable conocida del laboratorio, no cualquier secreto en cualquier salida.
+
 ## Definiciones de trabajo
 
 - **esquema:** contrato de nombres, tipos, restricciones y sensibilidad;
@@ -177,10 +222,27 @@ No por sí sola. Puede heredarse, inspeccionarse o registrarse; su riesgo depend
 
 No. Debe rotarse la credencial y evaluarse historial y copias.
 
+### ¿Una variable de entorno es un buen lugar para un secreto?
+
+Es mejor que un argumento o un archivo del repositorio, pero no es un almacén seguro: se hereda, aparece en volcados y herramientas de depuración, y suele copiarse en registros de errores. Para secretos reales se usa un
+gestor dedicado con control de acceso y rotación, y el proceso lo recibe por el canal más restringido posible.
+
+### ¿Añadir `.env` al `.gitignore` resuelve una exposición anterior?
+
+No. Evita *futuros* commits, pero un secreto ya publicado permanece en el historial de Git y en cualquier clon. Se revoca y rota el secreto, y recién entonces se limpia el historial; la rotación es la medida decisiva.
+
+### ¿Cómo muestro la configuración efectiva sin exponer secretos?
+
+Con una ficha que lista cada clave, su fuente y, para las sensibles, solo presencia y longitud. Una lista de fragmentos sensibles (`TOKEN`, `PASSWORD`, `SECRET`) ayuda a redactar, pero no es exhaustiva: lo seguro es una lista
+*permitida* de claves visibles, como hace el laboratorio.
 ## Fallo controlado y diagnóstico
 
 Introduce un token centinela y fuerza una excepción de validación. Busca el valor en todas las salidas. Si aparece, centraliza representación segura y repite hasta demostrar la propiedad acotada.
 
+
+Una segunda práctica ejercita el orden de precedencia. Escribe `resolver` y una prueba con cuatro casos (solo default, entorno, archivo y entorno, argumento y entorno). **Síntoma de un defecto típico:** una cadena vacía en
+el entorno (`PUERTO=`) se trata como «no definida» y gana el archivo. **Causa:** se compara con la falsedad (`if valor:`) en lugar de con `None`. **Corrección:** decidir explícitamente qué significa una cadena vacía (ausencia o
+error de configuración) y probarlo. Añade validación de tipo (puerto entero y en rango) con un mensaje que nombre la clave y la fuente, sin imprimir su valor si es sensible.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -200,6 +262,13 @@ Las pruebas de precedencia y centinela del [laboratorio compartido](https://gith
 ## Seguridad, ética y accesibilidad
 
 No uses credenciales reales. Mensajes de validación deben nombrar el campo y regla sin repetir el valor sensible; ofrece ejemplos copiables y legibles por tecnología asistiva.
+
+## Puente hacia el trabajo con agentes
+
+La configuración de un agente (credenciales de herramientas, claves de modelos, rutas permitidas) es un caso directo de esta clase. Los riesgos se repiten: un secreto pasado como argumento de una herramienta aparece en el registro de comandos, el
+entorno heredado por un proceso lanzado por el agente expone todo lo que el agente podía ver, y un archivo `.env` leído por el agente entra en su contexto. El diseño correcto aplica las reglas de la figura 3: secretos fuera del
+contexto del modelo, entorno mínimo y explícito para cada herramienta, redacción en los registros y una ficha de configuración efectiva que un humano pueda auditar. Un agente nunca debería poder leer más variables de las que su tarea necesita. Las
+partes de seguridad agentic y de gestión de secretos desarrollan esos controles.
 
 ## Transferencia
 
@@ -225,6 +294,8 @@ No diseñamos una infraestructura empresarial de secretos ni garantizamos borrad
 - [OWASP — Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) — delimita el contrato técnico que debe cumplirse al diseñar precedencia de configuración y tratamiento de secretos con frontera explícita.
 - [Python documentation — configparser](https://docs.python.org/3/library/configparser.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 
+- [proc_pid_environ(5)](https://man7.org/linux/man-pages/man5/proc_pid_environ.5.html) y [credentials(7)](https://man7.org/linux/man-pages/man7/credentials.7.html): qué expone `/proc/PID/environ` y quién puede leerlo; respalda la figura 3.
+- [Python `os.environ`](https://docs.python.org/3/library/os.html#os.environ): mapeo de texto a texto y su comportamiento según el sistema.
 ## Glosario
 
 - **Configuración efectiva:** resultado final tras aplicar fuentes, precedencia y validación.

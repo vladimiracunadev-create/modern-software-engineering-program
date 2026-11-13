@@ -106,7 +106,7 @@ Una instalación puede ser del sistema, usuario, proyecto o entorno aislado. El 
 
 El kit de diagnóstico multiplataforma prefiere dependencias del proyecto o herramientas ya provistas por el sistema. No eleva privilegios para evitar comprender una ruta.
 
-### Instalar puede ejecutar código
+### Instalar es confiar: scripts de mantenedor, sdist y wheel
 
 Ganchos previos/posteriores y compilación nativa pueden ejecutarse durante la instalación. Revisar el nombre del paquete no basta. En automatización se limita origen, permisos, acceso de red y se conserva log. Para software sensible pueden requerirse artefactos preconstruidos, verificación adicional o entorno aislado.
 
@@ -115,6 +115,40 @@ Ganchos previos/posteriores y compilación nativa pueden ejecutarse durante la i
 Desinstalar un paquete no siempre revierte configuración, servicios, datos o variables. Antes de aplicar se captura estado relevante, se usa modo de simulación cuando existe y se define qué conservar. Un rollback de paquete puede ser incompatible con datos migrados.
 
 Los gestores oficiales —[WinGet](https://learn.microsoft.com/windows/package-manager/winget/), [APT](https://www.debian.org/doc/manuals/debian-handbook/apt.en.html) y [Homebrew](https://docs.brew.sh/)— tienen modelos diferentes. El kit de diagnóstico multiplataforma documenta adaptadores; no presenta comandos como intercambiables.
+
+### Un paquete visto desde el gestor del sistema
+
+Un gestor de paquetes es una base de datos de versiones, relaciones y sumas de verificación. En el Ubuntu 24.04 de prueba, `dpkg -s coreutils` informó el paquete `coreutils`, arquitectura `amd64`, mantenedor «Ubuntu Developers» y versión
+`9.4-3ubuntu6`; `apt-cache policy coreutils` mostró que la *versión candidata* era `9.4-3ubuntu6.3`, publicada en `noble-updates`: hay una actualización, y «instalado» no es lo mismo que «el más reciente». `apt-cache depends` listó dependencias previas
+(`libacl1`, `libattr1`, `libc6`, `libgmp10`, `libselinux1`) que deben estar presentes antes de instalar. Y `dpkg --verify coreutils` terminó sin salida y con código 0: los archivos instalados coinciden con las sumas de verificación registradas.
+El sistema tenía 663 paquetes instalados según `dpkg -l`, y el Python de Windows, unos 350 paquetes de `pip`: cada gestor conoce solo lo suyo.
+
+![Figura 1. Tabla con campos reales de dpkg y apt para el paquete coreutils: versión, candidata, dependencias previas y verificación](../../../content/part-02/figures/se-032-paquete-observado.svg)
+
+**Cómo leer la figura.** Cada fila es una pregunta que el gestor puede responder con evidencia: quién empaqueta, qué versión y arquitectura, si hay una actualización, qué debe existir antes y si los archivos están íntegros. **Dónde deja de valer:** la
+verificación con sumas de verificación detecta cambios *accidentales o locales*, pero un atacante con privilegios puede alterar también la base de datos; y los paquetes instalados fuera del gestor (`pip`, descargas manuales, binarios copiados) no aparecen.
+
+### Qué paquete es dueño de una ruta: la respuesta depende de cómo se pregunta
+
+`dpkg -S /bin/ls` respondió `no path found matching pattern /bin/ls`, mientras que `dpkg -S /usr/bin/ls` respondió `coreutils: /usr/bin/ls`. La razón es que en Ubuntu 24.04 `/bin` es un enlace simbólico a `usr/bin`
+(`lrwxrwxrwx ... /bin -> usr/bin`), y el gestor registra rutas reales. La misma pregunta con dos rutas equivalentes dio respuestas distintas: la evidencia depende de la *forma* de la consulta. Para obtener resultados fiables se
+resuelve la ruta canónica antes de preguntar (`readlink -f`), y se recuerda que un enlace simbólico no es dueño de nada.
+
+![Figura 2. Preguntar a dpkg por /bin/ls no encuentra nada, mientras /usr/bin/ls pertenece a coreutils, porque /bin es un enlace simbólico](../../../content/part-02/figures/se-032-duenos-de-una-ruta.svg)
+
+**Cómo leer la figura.** Las dos cajas de la izquierda son las dos consultas y sus resultados; las de la derecha, la explicación. **Dónde deja de valer:** la fusión de `/bin` en `/usr/bin` es una decisión de la distribución (y de la versión); en otras
+distribuciones o versiones, `/bin` puede ser un directorio real. La lección es el método de consulta, no la ruta.
+
+### Instalar puede ejecutar código
+
+Instalar es una operación de confianza porque *puede ejecutar código*. En el sistema de prueba había 624 archivos de scripts de mantenedor (`preinst`, `postinst`, `prerm`, `postrm`) en `/var/lib/dpkg/info`: instalar o quitar un paquete del sistema ejecuta esos
+scripts con privilegios de administrador. En Python, instalar una distribución fuente (*sdist*) puede ejecutar código de construcción del paquete; las *ruedas* (*wheels*) son archivos ya construidos y no tienen un paso de ejecución al instalar, aunque el código del paquete se ejecuta cuando se lo
+importa. Por eso la decisión de instalar considera la procedencia del repositorio, la firma, el alcance (sistema o usuario) y un plan de reversión antes del cambio.
+
+![Figura 3. Tabla con un hecho observado y dos documentados sobre dónde puede ejecutarse código al instalar: scripts de mantenedor, sdist y wheel](../../../content/part-02/figures/se-032-instalar-ejecuta-codigo.svg)
+
+**Cómo leer la figura.** La primera fila es una observación; las otras dos son afirmaciones de la documentación (no ejecutadas aquí). La columna final traduce cada una en una consecuencia de riesgo. **Dónde deja de valer:** el número 624 depende de qué esté instalado
+en el equipo; lo transferible es que los scripts de mantenedor existen y se ejecutan con privilegios. Un paquete firmado por un repositorio legítimo puede aun así contener código con errores; la firma prueba procedencia, no corrección.
 
 ## Definiciones de trabajo
 
@@ -169,10 +203,28 @@ No. Aporta una cadena de distribución y controles concretos, no garantía absol
 
 Fija parte de la resolución; runtime, plataforma, disponibilidad y servicios externos pueden variar.
 
+### ¿Un paquete de un repositorio oficial es seguro?
+
+Tiene una procedencia más confiable y pasó por un proceso de empaquetado, pero «oficial» no significa libre de vulnerabilidades ni de errores. Se mantiene al día con las actualizaciones de seguridad, se minimizan los paquetes instalados y se
+revisa qué scripts ejecuta cada uno.
+
+### ¿Un archivo de bloqueo (lockfile) vuelve reproducible cualquier instalación?
+
+Fija las *versiones* (y, si incluye sumas de verificación, el contenido), pero no la plataforma, el compilador ni las dependencias del sistema. Una instalación reproducible exige además declarar el entorno (versión de Python, sistema, arquitectura)
+y probarla en él.
+
+### ¿Cómo desinstalo sin romper el sistema?
+
+Se revisa antes qué depende del paquete (`apt-cache rdepends`, `pip show`) y se usa la herramienta que lo instaló. Se prueba el cambio en un entorno desechable cuando es posible, y se conserva el estado previo (lista de paquetes, copia de
+configuración) para revertir.
 ## Fallo controlado y diagnóstico
 
 Usa simulación o un fixture con dos paquetes homónimos de orígenes ficticios. El kit de diagnóstico multiplataforma debe rechazar la identidad ambigua antes de instalar y explicar qué dato falta.
 
+
+Una segunda práctica explora la propiedad de archivos. En un Ubuntu de práctica elige un binario (por ejemplo, `ls`), obtén su ruta canónica con `readlink -f $(command -v ls)` y pregunta `dpkg -S` con esa ruta y con `/bin/ls`. **Síntoma:** respuestas
+distintas para rutas equivalentes. **Causa:** el gestor registra rutas reales y `/bin` es un enlace simbólico. **Corrección:** consultar siempre con la ruta canónica. Repite con un archivo instalado por `pip` en un entorno virtual desechable y comprueba que
+`dpkg -S` responde «no path found»: el archivo pertenece a otro gestor. Documenta qué gestor responde por cada archivo y no instales nada con privilegios para hacer la prueba.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -192,6 +244,13 @@ Entorno virtual o contenedor desechable, `manifest`, `lock`, `install-plan.md` y
 ## Seguridad, ética y accesibilidad
 
 No canalices scripts remotos al shell ni publiques tokens de registro. Presenta el plan en formato textual legible y señala con palabras los cambios de riesgo.
+
+## Puente hacia el trabajo con agentes
+
+Los asistentes proponen instalar paquetes con la misma naturalidad con que sugieren una función, y un agente con una terminal puede ejecutarlo. Es la superficie del ataque de *dependencia falsa* o *typosquatting*: el modelo recomienda un nombre
+que no existe, o uno parecido a uno real, y alguien registra el nombre con código malicioso. Las defensas de esta clase se vuelven reglas del harness: instalar solo desde un repositorio y una lista de paquetes aprobados, fijar versiones y sumas de verificación, ejecutar
+en un entorno aislado sin privilegios de administrador, y exigir aprobación humana para cualquier instalación nueva. Un agente que «arregla» un error instalando una dependencia debe justificarla y dejarla en el archivo de dependencias, no solo en el entorno. Las partes sobre cadena de suministro y
+seguridad agentic desarrollan estas políticas.
 
 ## Transferencia
 
@@ -217,6 +276,8 @@ No realizamos auditoría completa de cadena de suministro ni declaramos seguro u
 - [Homebrew Documentation](https://docs.brew.sh/) — delimita el contrato técnico que debe cumplirse al distinguir paquetes del sistema, del lenguaje y artefactos descargados por procedencia y alcance.
 - [Python Packaging User Guide](https://packaging.python.org/en/latest/) — define la semántica y los límites de la API de Python utilizada en el experimento.
 
+- [dpkg(1)](https://man7.org/linux/man-pages/man1/dpkg.1.html) y la [Guía del mantenedor de paquetes de Debian](https://www.debian.org/doc/manuals/debmake-doc/): estructura de un paquete, scripts de mantenedor y consulta de propiedad de archivos; respaldan las figuras 1 a 3.
+- [Python Packaging User Guide](https://packaging.python.org/): diferencia entre distribuciones fuente y ruedas, y cómo se instalan.
 ## Glosario
 
 - **Dependencia:** componente requerido bajo una relación y restricción declaradas.

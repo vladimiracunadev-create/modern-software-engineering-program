@@ -84,7 +84,7 @@ Estabilizar no significa congelar un sistema productivo sin autorización. En es
 
 Una buena hipótesis relaciona mecanismo y evidencia: “la variable `EVENT_ANALYZER_CONFIG` tiene mayor precedencia y dirige a una ruta inexistente”. La prueba mínima ejecuta con entorno saneado; reinstalar no discrimina esta causa.
 
-### Reducir incertidumbre por capas
+### Probar primero lo barato: las hipótesis del incidente
 
 ```mermaid
 flowchart TD
@@ -118,6 +118,36 @@ La regresión busca que la corrección no haya roto otro contrato. El kit de dia
 ### Documentar decisión y riesgo residual
 
 El informe final contiene hechos, causa, corrección, evidencia posterior y límites. Si solo se mitigó el síntoma, se dice. Si no se reprodujo en macOS, no se marca esa plataforma como validada.
+
+### Un incidente reproducido de principio a fin
+
+El taller se entiende mejor con un incidente real y pequeño. Un script de Bash creado en Windows se copia a Linux y falla con `/usr/bin/env: ‘bash\r’: No such file or directory`. El método de la clase se aplica así (Figura 1): (1) *estabilizar* el escenario trabajando sobre una copia, sin modificar el original; (2) convertir el síntoma en una
+afirmación comprobable (el mensaje nombra `bash\r`, no `bash`); (3) formular hipótesis por capa (falta el intérprete, el shebang está mal escrito, hay finales de línea ajenos); (4) probar la más barata: `file` informa «with CRLF line terminators»; (5) aplicar el cambio *mínimo* (quitar los `\r` con `sed -i 's/\r$//'` y fijar `eol=lf` en `.gitattributes`
+para que no se repita); y (6) verificar, no solo el caso original (ahora funciona), sino un caso *vecino*: el mismo script sin el bit de ejecución responde `Permission denied`, y `bash script.sh` funciona, lo que confirma que ese es otro problema y que la corrección no lo enmascaró.
+
+![Figura 1. Seis pasos de un incidente reproducido: estabilizar, formular el síntoma, hipótesis, prueba, cambio mínimo y verificación con el caso vecino](../../../content/part-02/figures/se-035-incidente-reproducido.svg)
+
+**Cómo leer la figura.** Las seis cajas siguen el orden del método; las de colores cálidos marcan síntoma e hipótesis, y las de tonos verdes, lo comprobado. **Dónde deja de valer:** el incidente tiene una causa única y una prueba trivial. En uno real hay varias causas concurrentes y
+las pruebas son costosas o arriesgadas; el orden se conserva (de lo barato y reversible a lo caro) y la verificación debe incluir siempre un caso vecino y el efecto del cambio sobre otros componentes.
+
+### Reducir incertidumbre por capas
+
+Cada hipótesis debe poder *refutarse* con una prueba barata. En el incidente: `command -v bash` descarta la ausencia del intérprete; `head -1 script.sh | cat -A` muestra si el shebang termina en `^M`; `file script.sh` informa los finales de línea; y `ls -l` junto con `bash script.sh` separa contenido y permiso. La Figura 2 las ordena con qué resultado
+confirma o descarta cada una. La regla es probar primero lo más *barato* y lo que más *discrimina*, y no cambiar nada hasta tener una hipótesis que la prueba haya sostenido: un cambio al azar (reinstalar, reiniciar, copiar de nuevo) puede «arreglar» el síntoma sin enseñar la causa, y a veces borra la evidencia.
+
+![Figura 2. Tabla con cuatro hipótesis para el script que falla, la prueba barata de cada una y qué resultado la confirma o la descarta](../../../content/part-02/figures/se-035-hipotesis-por-capa.svg)
+
+**Cómo leer la figura.** Las dos últimas columnas hacen explícito qué observación refuta la hipótesis, que es lo que la vuelve una hipótesis. **Dónde deja de valer:** las pruebas del ejemplo son de Linux y usan herramientas habituales (`file`, `cat -A`); en otros sistemas se usan equivalentes (por ejemplo, un editor hexadecimal o un visor de finales de línea), y los resultados dependen de que el archivo no se haya modificado al copiarlo.
+
+### Reparar con límites: la secuencia real del laboratorio
+
+El laboratorio de la Parte 02 convierte el taller en una secuencia reproducible. Ejecutada con el adaptador de Bash en Ubuntu 24.04 (WSL2) sobre un workspace desechable: `prepare` informó `changed` y, repetido, `unchanged` (idempotente); `inspect` informó `healthy` sobre `Linux x86_64`; al sustituir `settings.json` por `{broken`, `inspect` informó `degraded` con la categoría `integrity` y
+el mensaje `invalid settings.json`, con código de salida 2; `repair` restauró la configuración y `inspect` volvió a `healthy`; `clean` con un archivo ajeno (`student-notes.txt`) dentro se negó con código 3 y dejó el directorio con cuatro archivos; y tras retirar ese archivo, `clean` terminó con 0 dejando el workspace vacío. Lo notable es lo que *no* hace: `repair` solo repone dos archivos conocidos y no toca el marker de propiedad, y `clean`
+se niega a borrar lo que no reconoce.
+
+![Figura 3. Tabla con la secuencia real del laboratorio: prepare, inspect, corrupción, repair, clean rechazado y clean aceptado, con resultados y códigos](../../../content/part-02/figures/se-035-secuencia-del-laboratorio.svg)
+
+**Cómo leer la figura.** Cada fila es un paso con su resultado y su código; la columna final explica qué propiedad del diseño demuestra. **Dónde deja de valer:** es una ejecución en Linux con el adaptador de Bash; los adaptadores y sistemas distintos se prueban por separado (la clase siguiente reúne las diez pruebas en Windows y en Linux). Un resultado correcto sobre un workspace desechable no demuestra seguridad sobre un entorno real con datos de producción.
 
 ## Definiciones de trabajo
 
@@ -187,10 +217,20 @@ Solo si discrimina una hipótesis y conserva evidencia; normalmente cambia demas
 
 No. Puede reducir impacto mientras la causa permanece; el informe debe distinguirlas.
 
+### ¿Reinstalar o reiniciar puede ser una prueba válida?
+
+Puede serlo si se plantea como un *experimento* con hipótesis y resultado esperado («si el problema es un estado corrupto local, una instalación limpia lo elimina»). Pero como remedio al azar destruye evidencia: después de reinstalar, ya no puedes saber qué falló. Se captura primero el estado (versión, configuración, registros) y se decide con ese criterio.
+
+### ¿Cuánto debe durar un diagnóstico antes de escalar?
+
+Se acuerda de antemano un plazo proporcional al impacto, y se escala cuando se agotan las hipótesis baratas o el plazo, con el registro de lo probado. Un buen escalamiento entrega síntomas, hipótesis descartadas y evidencia, no solo «no funciona».
 ## Fallo controlado y diagnóstico
 
 Aplica deliberadamente dos cambios a la vez y observa que no puedes atribuir el éxito. Revierte ambos, repite uno por uno y corrige la bitácora con esa limitación.
 
+
+Una segunda práctica extiende el incidente con un cambio de radio mayor. Ejecuta el recorrido del laboratorio en un workspace desechable: `prepare`, `inspect`, corrompe `settings.json`, `inspect`, `repair`, `inspect`. **Síntoma esperado:** `degraded` con código 2 y luego `healthy`. Añade ahora un archivo ajeno dentro de `.diagnostic-kit` y ejecuta `clean`: debe
+negarse con código 3. **Causa del rechazo:** el kit solo borra lo que reconoce. **Registro:** anota en `decision.md` qué hipótesis descartó cada paso, qué cambió (solo dos archivos conocidos) y el riesgo residual (qué no cubre: otros archivos del workspace, otras plataformas). Evita cualquier prueba en un directorio que no hayas creado.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -210,6 +250,12 @@ Usa la secuencia `prepare → inspect → corromper settings → inspect → rep
 ## Seguridad, ética y accesibilidad
 
 No uses un equipo productivo ni datos reales. Declara toda acción que modifica estado, proporciona alternativa manual legible y evita que la guía dependa solo de capturas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente depurando es un candidato natural al *cambio al azar*: prueba una modificación, ejecuta, y si el síntoma desaparece da el trabajo por terminado. El método de esta clase es la corrección: cada acción nace de una hipótesis con una prueba que podría refutarla; los cambios son mínimos y reversibles; y la verificación incluye el caso vecino. Un harness puede imponerlo exigiendo que el agente
+registre, antes de tocar nada, el síntoma, las hipótesis y la prueba elegida, y después el cambio y su verificación. Además, las operaciones de reparación del agente deben tener los mismos límites que `repair` y `clean` del laboratorio: alcance acotado, solo sobre lo que reconoce, negativa explícita ante lo ajeno y un código de salida que lo diga. Las partes de harness y de evaluación de agentes
+desarrollan esos contratos.
 
 ## Transferencia
 
@@ -235,6 +281,8 @@ El escenario es local, deliberadamente controlado y no autoriza intervenir equip
 - [systemd manual pages](https://www.freedesktop.org/software/systemd/man/latest/) — define ciclo de vida, supervisión o consulta de eventos en systemd.
 - [Python documentation — subprocess](https://docs.python.org/3/library/subprocess.html) — define la semántica y los límites de la API de Python utilizada en el experimento.
 
+- [file(1)](https://man7.org/linux/man-pages/man1/file.1.html) y [gitattributes: eol](https://git-scm.com/docs/gitattributes): detección de tipos de archivo y normalización de finales de línea, usadas en el incidente reproducido.
+- [Laboratorio de la Parte 02](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-02-cross-platform-diagnostic-kit): secuencia `prepare`, `inspect`, `repair` y `clean` con códigos de salida 0, 2 y 3.
 ## Glosario
 
 - **Hipótesis discriminante:** explicación cuya prueba produce resultados diferentes frente a alternativas.

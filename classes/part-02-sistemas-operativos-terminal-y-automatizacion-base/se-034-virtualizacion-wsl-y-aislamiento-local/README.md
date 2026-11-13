@@ -122,6 +122,37 @@ El kit de diagnóstico multiplataforma informa límites observables y evita equi
 
 Montar el socket del motor, ejecutar privilegiado o compartir directorios sensibles perfora fronteras. Una imagen puede contener software malicioso; un contenedor no lo vuelve inocuo. Se usa mínimo privilegio, orígenes verificados, capacidades limitadas y datos ficticios en el laboratorio.
 
+### WSL2 por capas: qué se observa en cada una
+
+WSL2 es el caso real más útil para estudiar capas de aislamiento, porque mezcla dos sistemas en un mismo equipo. Desde dentro del Ubuntu 24.04 de la prueba se pueden obtener datos de cada capa (Figura 1): el usuario es `uid 1000`; el proceso 1 es `systemd`
+(`ps -p 1 -o comm=`); `systemd-detect-virt` informa `wsl`; el kernel es `6.18.58.1-microsoft-standard-WSL2`, una versión que Microsoft mantiene; la máquina virtual en sí no se ve desde dentro, se *infiere* por esas señales; y debajo está Windows 11, cuyos archivos
+aparecen en `/mnt/c` a través de 9p. La raíz de Linux es `ext4`. Cada frontera añade costo y cambia la semántica (las mediciones de `SE-026` y `SE-027` lo cuantifican).
+
+![Figura 1. Pila de capas de WSL2 con la evidencia observable de cada una: usuario, systemd, kernel, máquina virtual y Windows](../../../content/part-02/figures/se-034-capas-de-wsl2.svg)
+
+**Cómo leer la figura.** La pila va de la capa que ve el usuario (arriba) a la que ejecuta todo (abajo); a la derecha está el dato que permite afirmarla. La máquina virtual es la única capa sin evidencia directa. **Dónde deja de valer:** es una instancia concreta (versión de WSL, kernel
+y distribución). WSL1, por ejemplo, tradujo llamadas del sistema sin un kernel de Linux propio, y las versiones futuras cambiarán detalles. La enseñanza es el método: pedir a cada capa un dato y marcar lo inferido.
+
+### Espacios de nombres: aislar sin una máquina virtual
+
+Un contenedor no es una máquina virtual: es un proceso al que el kernel le muestra una *vista restringida* mediante espacios de nombres y le limita los recursos con cgroups. Un proceso de Linux pertenece a diez espacios de nombres (`ls /proc/self/ns`: `cgroup`, `ipc`, `mnt`, `net`, `pid`,
+`pid_for_children`, `time`, `time_for_children`, `user`, `uts`). Con `unshare --user --map-root-user --pid --fork --mount-proc bash` se puede crear, *sin privilegios*, un espacio de usuario y otro de PIDs. Dentro, el shell tuvo `PID 1` y `uid 0` y `ps` mostró tres procesos; fuera, el mismo usuario seguía siendo `uid 1000`
+y veía su sistema. El «root» de adentro es un *mapeo* del usuario 1000: no tiene autoridad sobre el equipo. El sistema de archivos de `/sys/fs/cgroup` era `cgroup2fs`, la versión 2 de cgroups, que controla CPU, memoria y E/S.
+
+![Figura 2. Los diez espacios de nombres de un proceso y el resultado real de unshare: dentro PID 1 y uid 0, fuera uid 1000](../../../content/part-02/figures/se-034-espacios-de-nombres.svg)
+
+**Cómo leer la figura.** La izquierda enumera los espacios de nombres; la derecha, el contraste entre la vista de adentro y la de afuera. **Dónde deja de valer:** esto muestra el mecanismo del kernel, no un contenedor completo: faltan imágenes, red configurada, sistema de archivos propio y políticas de seguridad (perfiles `seccomp`, AppArmor). Docker Desktop estaba
+instalado en este equipo, pero su motor no estaba en ejecución y no se ejecutó ningún contenedor; no se afirma nada sobre su comportamiento.
+
+### Máquina virtual, contenedor y proceso aislado
+
+Lo que cada mecanismo comparte determina su riesgo y su costo. Una máquina virtual tiene su propio kernel sobre hardware virtualizado: el arranque y la memoria son mayores y la frontera la media un hipervisor. Un contenedor *comparte el kernel del anfitrión*: arranca en milisegundos y consume poco, pero una falla del kernel o un escape
+afecta a todos. Un proceso aislado con `unshare` es el bloque de construcción básico. «Aislamiento» no es sinónimo de «seguridad»: el anfitrión, el kernel y los volúmenes montados siguen formando parte del límite de confianza, y los datos dentro de un contenedor pueden persistir en volúmenes más allá de su vida.
+
+![Figura 3. Tabla comparativa de máquina virtual, contenedor y proceso con unshare: kernel, qué aísla y costo o riesgo](../../../content/part-02/figures/se-034-vm-contenedor-proceso.svg)
+
+**Cómo leer la figura.** La segunda columna es la clave: quién ejecuta el kernel. **Dónde deja de valer:** hay mecanismos intermedios (máquinas virtuales ligeras para contenedores, *sandboxes* de usuario como gVisor) que mezclan ambos modelos, y las capacidades concretas dependen de la configuración. La tabla es un marco para preguntar «¿qué comparte esto con el anfitrión?».
+
 ## Definiciones de trabajo
 
 - **anfitrión:** sistema que posee o administra recursos físicos;
@@ -183,10 +214,25 @@ No en el modelo común: comparte kernel y aísla procesos; algunas plataformas a
 
 No. Puede depender del mismo almacenamiento y capturar estado inconsistente; recuperación debe probarse por separado.
 
+### ¿Un contenedor es una máquina virtual pequeña?
+
+No. Una máquina virtual ejecuta su propio kernel; un contenedor es un proceso (o grupo de procesos) del anfitrión, con una vista aislada. Esa diferencia explica que el contenedor arranque más rápido y que no pueda ejecutar un kernel distinto del anfitrión.
+
+### ¿Una instantánea (snapshot) reemplaza a una copia de seguridad?
+
+No. Una instantánea captura un estado dentro del mismo sistema de almacenamiento y suele depender de él: si el almacenamiento falla, se pierde todo. Una copia de seguridad es independiente, verificable y restaurable en otro lugar.
+
+### ¿Puedo usar `/mnt/c` para el código de un proyecto en WSL2?
+
+Funciona, pero con el costo medido en `SE-026` (cientos de veces más lento en operaciones de metadatos) y con semánticas de permisos y nombres de NTFS. Para proyectos con muchos archivos, es preferible el sistema de archivos de Linux, y se accede desde Windows por la ruta de red de WSL.
 ## Fallo controlado y diagnóstico
 
 Guarda un archivo solo en la capa efímera de un entorno desechable y recrea la instancia. Registra la pérdida, añade un volumen de laboratorio y repite. Explica persistencia sin afirmar que el volumen ya tiene backup.
 
+
+Una segunda práctica reproduce el aislamiento con `unshare`. En un Linux de práctica sin privilegios, ejecuta `unshare --user --map-root-user --pid --fork --mount-proc bash -c 'id -u; ps -e -o pid,comm'` y compara con `id -u` fuera. **Síntoma esperado:** dentro, `uid 0` y un `ps`
+con muy pocos procesos; fuera, tu usuario normal. **Hipótesis que debes refutar:** «adentro soy administrador del equipo». **Prueba:** intenta leer `/etc/shadow` desde dentro (sigue denegado) y comprueba que el espacio de usuario solo mapea tu uid. **Corrección conceptual:** el aislamiento
+cambia la *vista*, no la autoridad real. Documenta qué espacios de nombres usaste y cuáles no.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -206,6 +252,12 @@ Mapa en `work/SE-034/boundaries.md`, manifiesto o configuración inspeccionada y
 ## Seguridad, ética y accesibilidad
 
 No habilites modo privilegiado, sockets administrativos ni montajes personales. Describe los diagramas en texto y marca explícitamente qué capas son inferidas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que ejecuta comandos necesita un límite, y los mecanismos de esta clase son los candidatos para construirlo: una máquina virtual o un contenedor desechable, un proceso con espacios de nombres, un usuario sin privilegios y un sistema de archivos restringido a un directorio de trabajo. La pregunta de diseño es la de la
+figura 3: *¿qué comparte el entorno del agente con el anfitrión?* Si comparte el kernel (contenedor), una vulnerabilidad del kernel o una configuración permisiva (montar el directorio personal o el socket del motor de contenedores) elimina el aislamiento. Un entorno aislado también debe controlar la red (qué destinos
+puede contactar) y la persistencia (qué sobrevive a la ejecución). Las partes sobre sandboxes, herramientas y seguridad agentic desarrollan estos controles y su verificación.
 
 ## Transferencia
 
@@ -231,6 +283,8 @@ No cubrimos orquestación, hardening avanzado ni escapes. Con el modelo de plata
 - [Linux kernel — cgroup v2](https://docs.kernel.org/admin-guide/cgroup-v2.html) — delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
 - [Docker documentation — storage](https://docs.docker.com/engine/storage/) — delimita el contrato técnico que debe cumplirse al distinguir virtualización, namespaces, cgroups, WSL y contenedores por la frontera que aíslan.
 
+- [namespaces(7)](https://man7.org/linux/man-pages/man7/namespaces.7.html) y [cgroups(7)](https://man7.org/linux/man-pages/man7/cgroups.7.html): espacios de nombres y grupos de control de Linux, base de los contenedores; respaldan las figuras 2 y 3.
+- [WSL: arquitectura y sistemas de archivos](https://learn.microsoft.com/windows/wsl/about) y [systemd-detect-virt](https://www.freedesktop.org/software/systemd/man/latest/systemd-detect-virt.html): descripción de WSL y de la detección de virtualización usadas en la figura 1.
 ## Glosario
 
 - **Bind mount:** exposición de una ruta del anfitrión dentro de otro contexto.

@@ -121,6 +121,49 @@ Reiniciar siempre puede crear un bucle que oculte un fallo persistente. Una pol�
 
 Tareas programadas pueden omitirse, duplicarse o coincidir si una ejecución dura más que el intervalo. La tarea debe definir zona horaria, comportamiento tras suspensión, concurrencia y reintentos. Cuando el efecto no tolera repetición, se diseña idempotencia o deduplicación; el calendario solo decide intentos.
 
+### Cómo termina un proceso: códigos observados
+
+La forma en que un proceso termina deja un rastro: su *código de salida*. Desde Python, `subprocess` lo entrega como `returncode`, y los valores observados en Windows y en Linux
+(WSL2) muestran lo común y lo distinto. Salir con `sys.exit(3)` produjo `3` en ambos; una excepción sin tratar produjo `1` en ambos. La diferencia aparece al *terminar desde fuera*: `terminate()` produjo `1` en Windows
+(`TerminateProcess` no deja una señal), y `-15` en Linux, donde el signo negativo significa «terminado por la señal 15 (SIGTERM)»; `SIGKILL` produjo `-9`; y un proceso con un manejador de SIGTERM que limpia y sale
+terminó con `0` tras imprimir «limpiando». `subprocess.run(timeout=1)` lanzó `TimeoutExpired` en ambos, el mecanismo portable para que un proceso colgado no bloquee a quien lo espera.
+
+![Figura 1. Tabla con los códigos de salida reales de seis formas de terminar un proceso en Windows y en Linux](../../../content/part-02/figures/se-028-codigos-de-salida.svg)
+
+**Cómo leer la figura.** Cada fila es una forma de terminar y cada columna una plataforma. Las filas de `terminate()` y de `SIGKILL` muestran que el *mismo* código de salida significa cosas
+distintas según el sistema. **Dónde deja de valer:** el valor `1` en Windows es una convención de `TerminateProcess`, no una señal; los códigos mayores a 255 o negativos dependen de
+cómo cada sistema los empaqueta y de cómo el lenguaje los presenta. Un contrato entre un supervisor y un programa debe definir qué códigos significan qué, y probarlo en cada plataforma.
+
+### Apagado ordenado frente a terminación forzada
+
+Detener un proceso son dos solicitudes distintas. `SIGTERM` es una *petición* que el proceso puede interceptar con un manejador para cerrar archivos, vaciar búferes y liberar recursos; `SIGKILL` no puede
+interceptarse ni ignorarse: el núcleo termina el proceso al instante y ningún código del hijo se ejecuta. El patrón estándar de un supervisor es pedir con `SIGTERM`, esperar un plazo y solo entonces forzar con `SIGKILL`. Si el
+proceso hijo sale con `0` tras limpiar, se conserva la integridad; si lo matan con `SIGKILL`, quedan archivos temporales, bloqueos y conexiones sin cerrar.
+
+![Figura 2. Dos caminos de terminación: SIGTERM con manejador que limpia y sale con 0, y SIGKILL sin posibilidad de limpiar](../../../content/part-02/figures/se-028-apagado-ordenado.svg)
+
+**Cómo leer la figura.** El camino superior termina con limpieza y código `0`; el inferior, con código `-9` y recursos abandonados. **Dónde deja de valer:** el manejador solo se ejecuta si el proceso
+no está bloqueado de una manera que impida atender la señal, y un manejador mal escrito puede colgarse y hacer que el plazo expire. En Windows, `terminate()` usa `TerminateProcess`, que
+no ejecuta manejadores del proceso destino, por lo que el apagado ordenado se diseña con otros mecanismos, como eventos de consola, mensajes de cierre o un protocolo propio.
+
+### El costo de crear procesos
+
+Lanzar un proceso es una operación cara y varía con la plataforma. En una medición (el promedio de diez arranques de `python -c pass`), el arranque tardó unos 140 ms en Windows y unos 26 ms en
+Linux (WSL2): una relación de 5,4. Un diseño que lanza un proceso por cada tarea pequeña paga ese costo cada vez. Se reutilizan procesos (agrupaciones de trabajadores), se agrupan tareas o se usan hilos
+para esperar, y se mide antes de dar por buena una estrategia.
+
+![Figura 3. Barras con una medición real: arrancar Python tarda 140 ms en Windows y 26 ms en Linux](../../../content/part-02/figures/se-028-costo-de-arrancar-procesos.svg)
+
+**Cómo leer la figura.** Cada barra es el promedio de diez arranques; lo que se compara es la proporción, no los milisegundos. **Dónde deja de valer:** incluye el arranque del intérprete de Python, que
+domina el valor; un ejecutable pequeño nativo tendrá otro costo. Las políticas de seguridad (antivirus) en Windows también influyen. Es un resultado del equipo, no una propiedad del sistema.
+
+### Servicios y tareas programadas: supervisión sin garantías de «exactamente una vez»
+
+Un servicio añade supervisión: una política de reinicio (por ejemplo, `Restart=on-failure` en `systemd`), un entorno controlado y registros. Eso no vuelve segura una operación: un proceso que falla por un directorio de trabajo
+inexistente puede reiniciarse indefinidamente; `systemd` lo registra como un código de salida del tipo `status=200/CHDIR` («no pudo cambiar al directorio de trabajo»), y la causa es de *configuración*, no de código. Un
+planificador temporal (cron, el Programador de tareas) ejecuta «al menos una vez» en la práctica: una tarea puede perder una ejecución si el equipo está apagado y puede solaparse con la anterior si tarda más que su intervalo. Por eso
+las tareas programadas deben ser idempotentes, usar un bloqueo contra el solapamiento y registrar cada ejecución con un identificador.
+
 ## Definiciones de trabajo
 
 - **proceso:** instancia de un programa con contexto y recursos administrados;
@@ -173,10 +216,29 @@ No. Puede ejecutar trabajo útil. Se compara consumo con progreso y objetivo.
 
 No. Frente a fallos persistentes puede crear un bucle, perder evidencia y aumentar impacto.
 
+### ¿Un código de salida distinto de cero siempre es un error?
+
+No necesariamente: algunas herramientas usan códigos distintos de cero para informar un resultado válido (por ejemplo, «no se encontraron coincidencias»). El contrato de la herramienta lo
+define; por eso un script lee la documentación del comando que invoca en vez de suponer que cualquier valor distinto de cero es un fallo.
+
+### ¿Qué es un proceso zombi?
+
+En POSIX, es un proceso que ya terminó pero cuyo padre todavía no leyó su código de salida; ocupa una entrada en la tabla de procesos sin consumir CPU. Se resuelve cuando el padre llama a `wait` (o
+termina). Un servicio que lanza hijos y nunca los espera acumula zombis, un síntoma de un ciclo de vida mal diseñado.
+
+### ¿Reiniciar automáticamente un servicio mejora la disponibilidad?
+
+Solo si la causa del fallo es transitoria. Si la causa es permanente (configuración, dependencia ausente), el reinicio crea un bucle que consume recursos y oculta el problema; una política razonable limita los
+reintentos, espera entre ellos y alerta al agotarlos.
 ## Fallo controlado y diagnóstico
 
 Ejecuta un proceso que espere entrada con plazo. Primero diagnostícalo erróneamente como “colgado”; luego usa estado, flujos y progreso para refutar esa conclusión. Solicita cierre cooperativo y registra el código final.
 
+
+Una segunda práctica ejercita el apagado ordenado en Linux. Escribe un proceso hijo de Python que instale un manejador de `SIGTERM` (que imprima «limpiando» y salga con 0) y duerma; lanza el hijo desde un padre con
+`subprocess.Popen`, espera a que imprima «listo», envía `terminate()` y lee la salida y el código. **Síntoma esperado:** `returncode = 0` y «limpiando». Repite con `send_signal(signal.SIGKILL)`: código `-9` y sin limpieza.
+Añade un plazo: si el hijo no termina en dos segundos tras `SIGTERM`, el padre usa `kill()`. **Corrección de diseño:** el supervisor documenta el plazo y el orden (pedir, esperar, forzar). Anota qué habría hecho esa
+prueba en Windows (código `1`, sin manejador) y no la ejecutes con procesos que no sean tuyos.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -196,6 +258,13 @@ Scripts pequeños en `work/SE-028/`, `timeline.csv`, `service-policy.md`. Solo p
 ## Seguridad, ética y accesibilidad
 
 No enumeres ni termines procesos de otras personas. Redacta argumentos sensibles y explica estados con texto, no solo color o animación.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que ejecuta comandos es un supervisor de procesos, y hereda todos los problemas de esta clase. Un comando colgado detiene el flujo si no tiene plazo: cada ejecución debe llevar un `timeout`, y el
+harness debe distinguir terminación ordenada de forzada y registrar el código de salida (con su significado en esa plataforma). Los procesos que el agente lanza deben tener *dueño*: si el agente termina o falla, sus
+hijos no deben quedar huérfanos consumiendo recursos. Además, los códigos de salida son la señal más barata para que un agente decida si continuar; pero no deben ser lo único: un comando puede salir con `0` y producir un
+resultado vacío. Las partes sobre harness, herramientas y evaluación de agentes desarrollan los límites de tiempo, la cancelación y la verificación de resultados.
 
 ## Transferencia
 
@@ -221,6 +290,9 @@ No hacemos depuración de kernel ni análisis forense de memoria. La observabili
 - [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) — define ciclo de vida, supervisión o consulta de eventos en systemd.
 - [Microsoft Learn — Services](https://learn.microsoft.com/windows/win32/services/services) — documenta el comportamiento de Windows o PowerShell que se compara con el contrato POSIX.
 
+- [signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html) y [Python `signal`](https://docs.python.org/3/library/signal.html): señales de POSIX, SIGTERM frente a SIGKILL y su disponibilidad en Windows; respaldan las figuras 1 y 2.
+- [Python `subprocess`](https://docs.python.org/3/library/subprocess.html): `returncode`, `terminate`, `kill` y `timeout`; usados en las mediciones.
+- [systemd.exec(5)](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html): opciones de ejecución de servicios, incluido `WorkingDirectory`, y los códigos de salida de fallos de preparación como `200/CHDIR`.
 ## Glosario
 
 - **Código de salida:** valor con el que un proceso comunica una categoría de resultado.

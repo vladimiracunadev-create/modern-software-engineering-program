@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-13 — Parte 02 profundizada con evidencia medida en Windows y Linux
+
+- 36 figuras para `SE-025`–`SE-036` con datos reales de Windows 11 y Ubuntu 24.04 bajo WSL2: sistemas de
+  archivos (NTFS, ext4 y 9p) y su costo de metadatos, efecto de `chmod`, códigos de salida de procesos, expansión
+  de argumentos y pipelines en Bash y PowerShell 5.1, visibilidad de un secreto ficticio, propiedad de archivos en
+  `dpkg`, registros, espacios de nombres con `unshare` y la secuencia del laboratorio;
+- tres a cuatro secciones nuevas por clase, fallos controlados ampliados, preguntas frecuentes, puentes hacia el
+  trabajo con agentes y fuentes verificadas;
+- las diez pruebas del laboratorio se ejecutaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3);
+  macOS, PowerShell 7 y los contenedores de Docker no se ejecutaron y se declaran como documentados;
+- las pruebas de figuras cubren las Partes 00 a 02.
+
 ## 2026-11-13 — Parte 01 profundizada en contenido y figuras
 
 - 40 figuras SVG para `SE-013`–`SE-024` (de tres a cuatro por clase), varias con datos medidos

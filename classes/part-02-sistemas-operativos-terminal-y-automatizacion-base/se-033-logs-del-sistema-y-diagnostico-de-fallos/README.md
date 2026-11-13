@@ -122,6 +122,44 @@ El flujo profesional define el síntoma, construye una línea temporal, formula 
 
 Los sistemas ofrecen almacenes diferentes: Windows Event Log, journal de `systemd`, Unified Logging de Apple y archivos de aplicación. Sus filtros y permisos no son equivalentes. Se consulta documentación oficial como [Windows Event Log](https://learn.microsoft.com/windows/win32/eventlog/event-logging), [`journalctl`](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) y [Apple Unified Logging](https://developer.apple.com/documentation/os/logging).
 
+### Anatomía de un evento: estructura sobre texto libre
+
+Un buen registro tiene campos. Tres eventos reales del registro *Application* de Windows (leídos con `Get-WinEvent`, sin privilegios de administrador) muestran los cuatro campos mínimos: la hora de creación, un identificador numérico (8224, 8302), un nivel
+(«Información») y el proveedor que lo emitió («VSS», «Microsoft-Windows-System-Restore»). El registro es *circular*: cuando se llena, los eventos más antiguos se sobrescriben, por lo que la evidencia de un incidente se exporta antes de que se pierda.
+En Linux con `systemd`, `journalctl` entrega campos parecidos con otra forma: una marca de tiempo ISO 8601 con desfase, el nombre del equipo, la unidad y el mensaje.
+
+![Figura 1. Tabla con tres eventos reales del registro Application de Windows y sus campos: hora, identificador, nivel y proveedor](../../../content/part-02/figures/se-033-anatomia-de-un-evento.svg)
+
+**Cómo leer la figura.** Cada fila es un evento y cada columna, un campo. El identificador y el proveedor permiten buscar y agrupar sin leer el mensaje; el nivel prioriza. **Dónde deja de valer:** los identificadores son específicos de cada proveedor (el 8224 de VSS no
+significa nada para otro proveedor), y el texto del mensaje depende del idioma del sistema; un análisis automático se apoya en proveedor e identificador, no en el texto. El ejemplo no contiene datos personales: los nombres del equipo se omiten.
+
+### Tiempo y orden: el mismo instante en dos escrituras
+
+Ordenar eventos exige un tiempo comparable. Una entrada del journal con la marca `2026-11-13T11:38:54-03:00` y la salida de `date -u` en ese momento, `2026-11-13T14:38:54Z`, son *el mismo instante* (11 h con desfase de -3 equivalen a 14 h en UTC). Sin el desfase explícito, dos registros de
+equipos en zonas horarias distintas no se pueden ordenar. Hay además dos relojes: el *reloj de pared* (`time.time()`) puede ajustarse hacia atrás o adelante (por sincronización o cambio de hora), y un reloj *monotónico* (`time.monotonic()`) solo avanza; para medir duraciones se usa el segundo. En una prueba de 0,2 s, ambos
+midieron 0,203 s porque no hubo ajuste: la diferencia aparece cuando lo hay.
+
+![Figura 2. Una misma hora escrita en local con desfase y en UTC, y la distinción entre reloj de pared y reloj monotónico](../../../content/part-02/figures/se-033-hora-local-y-utc.svg)
+
+**Cómo leer la figura.** Las dos cajas superiores son la misma hora; las inferiores recuerdan que el reloj de pared no es una base fiable para medir duraciones y que el orden de llegada de las líneas no es el orden de ocurrencia. **Dónde deja de valer:** aun con UTC,
+los relojes de equipos distintos pueden tener un desfase de milisegundos a segundos; para ordenar eventos entre sistemas se declara la fuente de sincronización y la tolerancia, y se usan identificadores de correlación.
+
+### Registros estructurados y correlación
+
+Un registro estructurado emite una línea por evento con campos fijos, normalmente JSON. Con un formateador de `logging` de pocas líneas, la salida es, por ejemplo, `{"ts": "2026-11-13T14:46:09Z", "nivel": "ERROR", "evento": "integridad invalida", "cid": "a1"}`: una marca de tiempo en
+UTC, un nivel, un evento con nombre estable y un *identificador de correlación* (`cid`) que une todas las líneas de una misma operación. Con eso, reconstruir una línea temporal es filtrar por `cid` y ordenar por `ts`, en vez de leer texto libre. El diseño del evento incluye qué *no* se registra: no
+datos personales ni secretos, y no más detalle del necesario.
+
+### Diagnosticar es iterar hipótesis
+
+El caso de la Figura 3 muestra el método con un fallo común de servicios: `systemd` registra `Main process exited, code=exited, status=200/CHDIR`, un código que, según su documentación, indica que no se pudo cambiar al directorio de trabajo configurado. La lectura precisa excluye las hipótesis sobre el
+programa (ni siquiera llegó a ejecutarse) y señala la configuración (`WorkingDirectory`). Se comprueba la ruta con `ls -ld` y `namei -l`, se corrige y se verifica que el servicio queda activo. El ejemplo es genérico: omite deliberadamente el nombre de la unidad y de la ruta.
+
+![Figura 3. Cuatro pasos de diagnóstico para un servicio que falla con 200/CHDIR: observar, formular hipótesis, probar y corregir](../../../content/part-02/figures/se-033-diagnostico-por-hipotesis.svg)
+
+**Cómo leer la figura.** Los cuatro pasos son un bucle: si la verificación falla, la nueva evidencia reformula las hipótesis. **Dónde deja de valer:** la «línea roja» más visible no siempre es la causa; a menudo es una consecuencia (un reintento fallido tras el primer error). Se busca el *primer* evento anómalo y se
+comprueba que la corrección cambia el resultado, para no confundir correlación con causa.
+
 ## Definiciones de trabajo
 
 - **evento:** observación estructurada con significado estable;
@@ -179,10 +217,25 @@ No. Puede aumentar ruido, costo y exposición. Cada campo debe responder una pre
 
 No necesariamente. Proximidad temporal es evidencia para explorar, no prueba causal.
 
+### ¿Más detalle de registro siempre ayuda?
+
+No. Más volumen aumenta el costo, ahoga la señal y arriesga datos sensibles. Se registra lo que permite responder preguntas concretas (qué ocurrió, a quién, cuándo, con qué resultado) y se ajusta el nivel de detalle por componente y por situación.
+
+### ¿El evento inmediatamente anterior a un fallo lo causó?
+
+No necesariamente. Puede ser una consecuencia, una coincidencia o un síntoma de la misma causa previa. La correlación temporal es una pista; la causa se establece con una hipótesis y una prueba que podría refutarla.
+
+### ¿Cómo comparto un registro sin exponer datos personales?
+
+Con una copia minimizada: se recortan los campos necesarios, se sustituyen identificadores por seudónimos estables y se revisa a mano antes de compartir. Los nombres de equipo, usuarios, rutas personales y direcciones no suelen ser necesarios para diagnosticar.
 ## Fallo controlado y diagnóstico
 
 Emite eventos sin correlación para dos ejecuciones simultáneas y demuestra la ambigüedad. Añade un identificador por operación, repite y documenta qué preguntas ahora sí pueden responderse.
 
+
+Una segunda práctica construye una línea temporal con registros estructurados. Escribe un programa que emita tres eventos con el mismo `cid` (inicio, advertencia, error) como líneas JSON, y otro `cid` interleaved con otra operación. **Síntoma:** al leer el archivo en
+orden de llegada, las operaciones se mezclan. **Causa:** el orden de llegada no es el orden de las operaciones. **Corrección:** filtrar por `cid` y ordenar por `ts`; añade un test que verifique que cada `cid` reconstruye su secuencia. Convierte después una marca local con desfase
+a UTC con `datetime` y comprueba que dos escrituras del mismo instante coinciden.
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa conceptual | Corrección |
@@ -202,6 +255,12 @@ Trata el JSON de `inspect` del [laboratorio compartido](https://github.com/vladi
 ## Seguridad, ética y accesibilidad
 
 Recoge solo señales autorizadas y propias. Redacta antes de escribir, define retención y acompaña gráficos o severidades con texto y códigos estables.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que ejecuta herramientas produce una traza, y su calidad determina si se puede depurar. Los principios de esta clase se aplican directamente: eventos estructurados con nombre estable, marca de tiempo en UTC, un identificador de correlación por tarea y por llamada a una
+herramienta, y niveles que distingan la decisión del agente del resultado de la herramienta. Esa traza es la evidencia que permite reconstruir *por qué* el agente hizo algo y detectar un bucle o una acción no autorizada. Además, el registro debe omitir secretos y datos personales, incluidas las entradas del
+usuario que no hagan falta. Las partes de observabilidad, evaluación y auditoría de agentes retoman estos formatos con OpenTelemetry y registros de auditoría.
 
 ## Transferencia
 
@@ -227,6 +286,9 @@ No implementamos una plataforma distribuida de observabilidad ni demostramos cau
 - [Apple Developer — Logging](https://developer.apple.com/documentation/os/logging) — delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad.
 - [OpenTelemetry — Logs data model](https://opentelemetry.io/docs/specs/otel/logs/data-model/) — delimita el contrato técnico que debe cumplirse al usar logs como observaciones parciales que deben correlacionarse con reloj, contexto y causalidad.
 
+- [journalctl(1)](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) y [systemd.exec(5)](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html): campos del journal y códigos de salida de servicios como `200/CHDIR`.
+- [Get-WinEvent (PowerShell)](https://learn.microsoft.com/powershell/module/microsoft.powershell.diagnostics/get-winevent) y [Python `logging`](https://docs.python.org/3/library/logging.html): lectura de registros de Windows y registros estructurados en Python.
+- [RFC 3339, Date and Time on the Internet: Timestamps](https://www.rfc-editor.org/rfc/rfc3339): perfil de ISO 8601 con desfase o `Z` usado para ordenar eventos.
 ## Glosario
 
 - **Correlación:** atributo que permite relacionar señales de una misma operación.

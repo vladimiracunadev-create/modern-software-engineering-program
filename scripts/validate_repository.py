@@ -236,7 +236,7 @@ def validate_role_guides() -> None:
         "## 🎯 Qué es esto",
         "## 📚 Pauta profesional y cuerpos de conocimiento",
         "## 🔗 Ecosistema y fronteras entre programas",
-        "## 🗂️ Las 40 partes, numeradas de 00 a 39",
+        "## 🗂️ Las 45 partes, numeradas de 00 a 44",
         "## 🧭 Rutas sugeridas por rol",
         "## ✅ Calidad y CI",
         "## 🧱 Estructura del repositorio",

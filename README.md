@@ -2,7 +2,7 @@
 
 # 🧭 Programa de Ingeniería de Software Moderna
 
-## **480 clases · 40 partes (00–39) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
+## **540 clases · 45 partes (00–44) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
 
 **Currículo profesional abierto en español para comprender, especificar, construir,
 probar, entregar, operar, modernizar y retirar software con evidencia.**
@@ -11,7 +11,7 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 [![Deploy Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
 [![Security](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml)
 
-[![Clases](https://img.shields.io/badge/clases-480%20·%2040%20partes-7c5cff?style=for-the-badge)](classes/README.md)
+[![Clases](https://img.shields.io/badge/clases-540%20·%2045%20partes-7c5cff?style=for-the-badge)](classes/README.md)
 [![Nivel](https://img.shields.io/badge/nivel-fundamentos%20→%20liderazgo-2e8b57?style=for-the-badge)](ROADMAP.md)
 [![Idioma](https://img.shields.io/badge/idioma-español-blue?style=for-the-badge)](README.md)
 [![Software](https://img.shields.io/badge/licencia-Apache--2.0-3fb950?style=for-the-badge&logo=apache)](LICENSE)
@@ -31,34 +31,15 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 ---
 
 > [!IMPORTANT]
-> **Cobertura real, sin inflar cifras:** la arquitectura publicada contiene 480 clases y el
-> alcance planificado es de **540**. Las Partes 00–22 (`SE-001`–`SE-276`) tienen contenido
+> **Cobertura real, sin inflar cifras:** el alcance planificado es de **540 clases en
+> 45 partes (00–44)**, de las cuales 480 clases (Partes 00–39) están publicadas como
+> estructura en el portal. Las Partes 00–22 (`SE-001`–`SE-276`) tienen contenido
 > desarrollado y profundizado con figuras, experimentos reproducibles y fuentes; todavía no
 > pasaron una revisión editorial humana independiente. Las partes 23–29 (`SE-277`–`SE-360`)
 > conservan material de trabajo que requiere revisión cualitativa, las partes 30–39
 > (`SE-361`–`SE-480`) todavía deben desarrollar su enseñanza completa y las Partes 40–44
 > (`SE-481`–`SE-540`) están planificadas, sin clases publicadas. Una carpeta o página
 > generada no cuenta como aprendizaje terminado.
-
-## 🧭 Alcance planificado hasta la clase 540
-
-El 13 de noviembre de 2026 se decidió ampliar el programa de 480 a **540 clases** con cinco
-partes nuevas, sin renumerar `SE-001`–`SE-480` (ver
-[`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md)
-y la [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)):
-
-| Parte | Tema | Clases | Estado |
-|---|---|---|---|
-| 40 | Metodologías de desarrollo de TDD a ODD (TDD, BDD, ATDD, DDD, contratos, SDD, EDD, ODD) | `SE-481`–`SE-492` | planificada |
-| 41 | Harness y agentic engineering | `SE-493`–`SE-504` | planificada |
-| 42 | Patrones agénticos y sistemas con LLM | `SE-505`–`SE-516` | planificada |
-| 43 | Patrones de diseño, empresariales y de resiliencia | `SE-517`–`SE-528` | planificada |
-| 44 | Estilos arquitectónicos | `SE-529`–`SE-540` | planificada |
-
-Estas cinco partes aún no existen como clases: no figuran en `curriculum.yaml`, en el
-catálogo ni en el portal, y los conteos generados (480 clases, 40 partes) siguen
-describiendo lo publicado. Se incorporarán parte por parte, cada una con su contenido
-completo, a medida que el trabajo avance.
 
 ## 🎯 Qué es esto
 
@@ -140,14 +121,20 @@ Las reglas de propiedad, integración y antiduplicación están en
 [fronteras entre repositorios](docs/REPOSITORY-BOUNDARIES.md) y en el
 [contrato de integración](docs/INTEGRATION-CONTRACT.md).
 
-## 🗂️ Las 40 partes, numeradas de 00 a 39
+## 🗂️ Las 45 partes, numeradas de 00 a 44
 
 Cada parte contiene doce clases: diez clases nucleares, un taller y un proyecto. Su
 README enlaza el recorrido y el [roadmap](ROADMAP.md) explica qué contenido, artefacto
 y comprobación debe incorporar.
 
-> La Parte 00 es la primera unidad; por eso la cuadragésima y última se identifica como
-> Parte 39. «40 partes» expresa la cantidad, no una carpeta `part-40`.
+> Las Partes 00–39 (`SE-001`–`SE-480`) están publicadas en el portal; las Partes 00–22
+> tienen contenido desarrollado. Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron al
+> alcance el 13 de noviembre de 2026 sin renumerar las anteriores (ver
+> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) y la
+> [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)): están
+> **planificadas**, sin clases ni README todavía. Por eso `curriculum.yaml`, el catálogo
+> y el portal siguen contando 480 clases y 40 partes hasta que cada parte nueva tenga
+> contenido completo. «45 partes» expresa la cantidad; la Parte 00 es la primera unidad.
 
 | # | Parte | Clases | Foco | README |
 | ---: | --- | --- | --- | --- |
@@ -191,8 +178,13 @@ y comprobación debe incorporar.
 | 37 | Gestión, liderazgo y práctica profesional | SE-445–SE-456 | equipos, comunicación y decisiones | [📘 leer](classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) |
 | 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilots, contexto, evals y seguridad | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
 | 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | MCP, agentes, delegación y control | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
+| 40 | Metodologías de desarrollo de TDD a ODD | SE-481–SE-492 | TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD | planificada |
+| 41 | Harness y agentic engineering | SE-493–SE-504 | contexto, herramientas, bucles y recuperación | planificada |
+| 42 | Patrones agénticos y sistemas con LLM | SE-505–SE-516 | patrones de agentes, evaluación y límites | planificada |
+| 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | GoF, GRASP, repositorio, mensajería y resiliencia | planificada |
+| 44 | Estilos arquitectónicos | SE-529–SE-540 | microkernel, microservicios, celular, data mesh y 12-factor | planificada |
 
-➡️ [Abrir el índice plano con enlaces directos a las 480 clases](classes/README.md).
+➡️ [Abrir el índice plano con enlaces directos a las 480 clases publicadas](classes/README.md).
 
 ## 🧪 Práctica y producto transversal
 
@@ -1054,7 +1046,7 @@ tests/             pruebas estructurales y de navegación
 
 ### ✅ Lo que sí es
 
-- 📚 una arquitectura curricular **secuencial** de 480 clases y 40 partes;
+- 📚 una arquitectura curricular **secuencial** de 540 clases planificadas en 45 partes, con 480 clases y 40 partes publicadas;
 - 🧭 un recorrido que conecta **profesión, producto, construcción, operación y retiro**;
 - 🧪 una base de **artefactos profesionales**, actividades, rúbricas y producto transversal;
 - 👥 **40 rutas profesionales** con responsabilidades, límites, evidencia y progresión;
@@ -1066,7 +1058,7 @@ tests/             pruebas estructurales y de navegación
 
 ### ❌ Lo que no es
 
-- 🚫 una afirmación de que las 480 clases están terminadas;
+- 🚫 una afirmación de que las 540 clases planificadas están terminadas;
 - 🚫 una colección de resúmenes o títulos para inflar conteos;
 - 🚫 una certificación profesional o una promesa de empleo;
 - 🚫 un curso profundo de cada lenguaje, base de datos o framework;

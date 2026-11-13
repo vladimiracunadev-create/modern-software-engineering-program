@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-13 — Parte 21 desarrollada y profundizada con experimentos sintéticos y modelos reproducibles de software móvil, escritorio y multiplataforma
+
+- las clases `SE-253`–`SE-264` pasan de borradores genéricos a clases completas sobre el cliente de la plataforma de entregas de tareas: modelos de aplicación, ciclo de vida y restauración
+  del estado, decisión de construcción, almacenamiento local y fusión, permisos y capacidades, interacción y accesibilidad, distribución y versiones que conviven, trabajo sin conexión y
+  conflictos, presupuesto de recursos, seguridad del cliente, un taller de adaptación a dos plataformas y un proyecto con sincronización; el portal publica ahora el contenido íntegro
+  de las doce clases y el índice de la parte;
+- 36 figuras con cálculos, simulaciones y mediciones de datos sintéticos y semilla fija: dos copias sobre un archivo compartido, controles alcanzables según el ancho y arranques en frío,
+  ediciones perdidas por política de guardado, restauración con tres políticas de lectura y coste de guardar de forma atómica, pesos sorteados de cuatro opciones, coste de una frontera
+  entre capas y capacidades comunes, modos de SQLite, terminación a mitad de escritura y fusión por registro o campo, estados de permiso, revocación y unicidad de la ubicación, acierto
+  de toques simulados, orden de foco y contraste, adopción por canal, clientes rotos al retirar un campo y descarga por bloques, estructuras replicadas, duplicados y relojes desfasados,
+  lista completa o ventana, sondeo, lote y empuje y tamaño de caché, integridad, confinamiento de rutas y secretos, siete diferencias entre Windows y Ubuntu, coste de adaptación con
+  intervalo y contrato de adaptadores, sincronización con fallos, un servidor local con clave de idempotencia y 240 mutaciones de un paquete;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas deterministas idénticas salvo los tiempos, la versión de SQLite (3.45.3 y 3.45.1)
+  y los siete comportamientos de sistema que `SE-263` mide porque difieren; los datos son sintéticos, los parámetros son supuestos del autor, no se usó ningún teléfono, emulador, SDK,
+  tienda ni biblioteca de producción, no se midió la batería ni se cortó la energía y los secretos y rutas son ficticios; la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: dos copias de una aplicación sobre un mismo archivo dejan 127,65 de 200 actualizaciones; con una recuperación de memoria agresiva el 66,5 % de los regresos
+  parte de cero; guardar solo al cerrar pierde 109 ediciones por sesión y combinar guardado periódico y de segundo plano 1,7; el ganador de una tabla de decisión cambia con una
+  unidad en las puntuaciones en el 41 % de los casos; 500 inserciones tardan 2874 ms en transacciones separadas y 8 ms en un lote; un par de lugares a 1 km identifica al 99,1 % de
+  2000 personas ficticias; un gris habitual queda a 0,02 del contraste mínimo; retirar un campo a los 30 días rompe al 73,7 % de un canal empresarial lento; reintentar sin identificador
+  convierte 30 operaciones en 44; siete de siete comportamientos del sistema de archivos difieren entre Windows y Ubuntu; y un validador de presencia deja pasar 104 de 240 mutaciones.
+
 ## 2026-11-13 — Parte 18 desarrollada y profundizada con experimentos sintéticos y procesos locales reproducibles
 
 - las clases `SE-217`–`SE-228` pasan de borradores genéricos a clases completas sobre `notas`, una herramienta de línea de comandos sintética de la plataforma de entregas: diseño de la

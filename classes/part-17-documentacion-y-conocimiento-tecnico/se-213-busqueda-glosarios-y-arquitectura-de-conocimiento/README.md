@@ -2,207 +2,311 @@
 
 [← SE-212 — Docs as code, revisión y publicación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-212-docs-as-code-revision-y-publicacion/README.md) · [↑ Parte 17](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-213.html) · [SE-214 — Documentación para humanos, máquinas y LLM →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que trates la recuperabilidad como una propiedad de la documentación que se diseña y se mide: que lo escrito se encuentre con las palabras de quien busca, que los términos signifiquen lo mismo en todas partes y que ninguna página quede fuera del camino de nadie. Una página que existe y no se encuentra es una página que no existe para el lector.
+
+**Por qué aparece aquí.** Se sitúa después de **Docs as code, revisión y publicación** y antes de **Documentación para humanos, máquinas y LLM**: la clase anterior aseguró que lo publicado es lo revisado y que los enlaces funcionan; esta pregunta si alguien llega a ello. Retoma el vocabulario de la audiencia de `SE-205` y prepara el terreno para que, en la clase siguiente, los mismos mecanismos (metadatos, glosario, estructura) sirvan también a las máquinas.
+
+**Error conceptual que debe corregir.** Creer que instalar un buscador resuelve la recuperabilidad. Un buscador léxico encuentra las palabras que están en la página, no las que el lector usa para pensar el problema; y un glosario que define el mismo término de dos maneras distintas es peor que ninguno, porque la contradicción lleva autoridad.
+
+**Límite de la conclusión.** El corpus de búsqueda tiene 40 conceptos con tres sinónimos exactos, las definiciones son listas de palabras sorteadas y el sitio de 120 páginas es un grafo aleatorio. No se midió a ningún lector, ningún buscador de producción ni ningún glosario real.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Robertson y Zaragoza, «The Probabilistic Relevance Framework: BM25 and Beyond» (2009)](https://doi.org/10.1561/1500000019) | Describe el marco probabilístico de relevancia y la función de ordenación BM25, basada en la frecuencia de términos y su rareza. | No cubre sinónimos ni semántica; BM25 es un modelo léxico. |
+| [W3C, SKOS Reference](https://www.w3.org/TR/skos-reference/) | Define un modelo para vocabularios controlados con etiquetas preferidas y alternativas para un mismo concepto. | No dice cómo construir un vocabulario para un proyecto. |
+| [Pirolli y Card, «Information Foraging» (Psychological Review, 1999)](https://doi.org/10.1037/0033-295X.106.4.643) | Propone que las personas siguen «rastros de información» y deciden por el olor de lo que ven, un modelo útil para pensar la navegación. | No mide la navegación en un portal concreto. |
+
+## Antes de empezar
+
+Retoma las comprobaciones de `SE-212`: los enlaces funcionan, los anclajes existen y las construcciones son reproducibles. La pregunta activa es: **si alguien busca «cuánto me quitan por entregar tarde», ¿llega a la página que habla de «penalización por retraso», y sé cuántas veces pasa?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-212` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor Markdown, Mermaid y verificador de enlaces.
+- Haber completado `SE-212` o poder explicar qué comprueba un comprobador de enlaces y qué no.
+- Python 3.11 o posterior y un terminal; los experimentos usan solo la biblioteca estándar.
+- Trabajar con un corpus sintético de páginas, un glosario sintético y un sitio de 120 páginas generado por los experimentos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Búsqueda, glosarios y arquitectura de conocimiento**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El portal de la plataforma tiene 200 páginas y un buscador. Una estudiante escribe «descuento por tarde» y no obtiene resultados: las páginas hablan de «penalización por retraso». Un docente busca «prórroga» y encuentra tres páginas que la definen con plazos distintos: en una dice 48 horas, en otra 72, en la tercera «a criterio del docente». El índice de la secretaría enlaza a veinte páginas, pero cinco páginas recientes no tienen ningún enlace entrante: existen en el buscador solo si alguien acierta con una palabra de su título.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Búsqueda y glosarios con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete de documentación mantenible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «documentar una intención como si describiera el comportamiento actual» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Búsqueda | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Glosarios | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Arquitectura | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Conocimiento | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. medir la tasa de aciertos de un buscador léxico cuando el lector usa sinónimos y explicar qué mecanismos la recuperan;
+2. diseñar un glosario con términos preferidos y alternativos, y decir cuándo un término debe tener una sola definición en toda la documentación;
+3. detectar definiciones en conflicto y explicar por qué una similitud léxica alta no indica concordancia;
+4. calcular qué páginas de un sitio son huérfanas o quedan lejos de la portada con un recorrido en anchura;
+5. proponer una prueba de recuperabilidad con consultas reales y decir qué mide y qué no.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Búsqueda, glosarios y arquitectura de conocimiento"] --> M["Modelo: Búsqueda"]
-    M --> D["Decisión: glosarios"]
-    D --> E["Evidencia: arquitectura"]
-    E --> R["Revisión: conocimiento"]
-    R -->|nueva información| M
+    A[Palabras del lector] --> B[Buscador léxico]
+    A --> C[Glosario: término preferido y alternativos]
+    C --> B
+    D[Páginas] --> B
+    D --> E[Estructura: índices y enlaces]
+    E --> F[Alcance desde la portada]
+    B --> G[Recuperabilidad medida]
+    F --> G
+    G -->|consulta sin resultado| C
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Búsqueda, glosarios y arquitectura de conocimiento**.
+El diagrama se lee de izquierda a derecha: las palabras del lector llegan a un buscador que consulta las páginas; el glosario aporta sinónimos; la estructura aporta un segundo camino (los enlaces); ambos caminos se miden con consultas y recorridos. El retorno indica que una consulta sin resultado alimenta el glosario. No se dibuja el buscador semántico, que usa vectores en lugar de palabras y tiene otros fallos.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Búsqueda léxica | Encuentra lo que contiene las palabras de la consulta; el lector usa otras. | Tasa de aciertos con consultas por sinónimo |
+| Glosario y vocabulario controlado | Un término preferido y alternativas conectan el vocabulario del lector con el de la página. | Glosario con etiquetas alternativas |
+| Coherencia de definiciones | Una definición contradictoria con autoridad confunde más que ninguna. | Comparación de definiciones del mismo término |
+| Estructura y alcance | La navegación es el segundo camino: una página sin enlaces entrantes depende solo de la búsqueda. | Recuento de huérfanas y distancia desde la portada |
+| Medir la recuperabilidad | Sin consultas reales no se sabe qué falla; con ellas se corrige donde duele. | Registro de consultas sin resultado |
 
 ## Conceptos y decisiones
 
-La documentación sirve a una audiencia y una tarea concreta; debe diferenciar tutorial, guía, explicación, referencia, arquitectura y registro histórico.
+### 1. Búsqueda léxica y vocabulario del lector
 
-La pregunta rectora de esta parte es: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** La respuesta debe
-apoyarse en **prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual**.
+Un buscador léxico, como los basados en BM25, puntúa cada página por la frecuencia con que contiene los términos de la consulta, ponderada por lo raros que son en el corpus. Es rápido, predecible y explicable. Su límite es estructural: si la consulta usa una palabra que la página no contiene, la página no existe para él. Quien busca «descuento por tarde» y la página dice «penalización por retraso» no obtiene nada, aunque el contenido sea exactamente lo que busca. La causa no es un error del buscador, sino la distancia entre el vocabulario del lector y el del autor.
 
-### 1. Búsqueda: modelo
+### 2. Glosario y vocabulario controlado
 
-En esta clase, **Búsqueda** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Búsqueda, glosarios y arquitectura de conocimiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un glosario con vocabulario controlado asigna a cada concepto una etiqueta preferida y varias alternativas (sinónimos, formas coloquiales, abreviaturas). El modelo SKOS lo formaliza: un concepto tiene una etiqueta preferida y puede tener etiquetas alternativas. En un portal, las alternativas se añaden a los metadatos de la página o se expanden al consultar. El glosario también cumple otra función: fija una definición por término, de modo que «prórroga» signifique lo mismo en el manual del estudiante y en la guía del docente. Mantenerlo exige un responsable y una revisión, como cualquier otra pieza del portal.
 
-### 2. Glosarios: mecanismo
+### 3. Estructura, enlaces y olor de la información
 
-En esta clase, **glosarios** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Búsqueda, glosarios y arquitectura de conocimiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La navegación es el segundo camino hacia una página. Las personas siguen rastros: deciden qué enlace pulsar por lo que sugiere su texto, el «olor» de la información. Una estructura que ofrece rastros claros (un índice por tareas, enlaces con texto descriptivo) reduce el esfuerzo; una página sin ningún enlace entrante solo se encuentra por búsqueda. Medir la estructura es sencillo con un recorrido en anchura desde la portada: cuántas páginas son inalcanzables, cuántas tienen cero enlaces entrantes y cuántos clics separan la portada de las más lejanas. Las pautas de accesibilidad piden además más de una forma de localizar una página dentro de un conjunto.
 
-### 3. Arquitectura: evidencia
+### 4. Definiciones en conflicto
 
-En esta clase, **arquitectura** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Búsqueda, glosarios y arquitectura de conocimiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando un término se define en varias páginas, tarde o temprano discrepan. Dos casos son distintos: la paráfrasis (la misma definición con otras palabras) y el conflicto (una condición que cambia, como un plazo de 48 horas que pasa a 72). Detectarlos automáticamente es tentador y engañoso. Una medida de similitud léxica entre definiciones trata como cercanas a dos textos que comparten casi todas las palabras, y un conflicto que cambia una sola palabra clave (el número) es léxicamente más cercano que una paráfrasis honesta que cambia tres. La detección útil compara el valor de las condiciones (números, plazos, negaciones) o remite a una única definición.
 
-### 4. Conocimiento: decisión
+### 5. Medir la recuperabilidad
 
-En esta clase, **conocimiento** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Búsqueda, glosarios y arquitectura de conocimiento**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La recuperabilidad se mide con consultas: las reales, tomadas del registro del buscador, y un conjunto de consultas de prueba por tarea. Para cada consulta se registra si una página relevante aparece entre las primeras posiciones, y se vigila la tasa de consultas sin resultado. Esa lista es el insumo del glosario y de los títulos. La medición tiene sus límites: depende de que alguien haya decidido qué página es relevante, y una consulta con resultado no prueba que el lector haya entendido la página.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Búsqueda léxica con y sin sinónimos
+
+Se genera un corpus de 200 páginas sobre 40 conceptos; cada concepto tiene tres sinónimos exactos y cada página usa uno al azar, repetido de dos a cuatro veces, junto a 40 palabras de relleno de un vocabulario de 300. Se implementa BM25 (k1 = 1,5, b = 0,75) y se lanzan 600 consultas: cada una elige un concepto y uno de sus tres sinónimos al azar. Se miden dos cosas: que una página relevante aparezca entre las tres primeras y que sea la primera. Se comparan tres sistemas: el léxico, el que añade los tres sinónimos del glosario a los metadatos de cada página y el que expande la consulta con los tres sinónimos.
+
+```python
+def bm25(docs, consulta, k1=1.5, b=0.75):
+    N, medio = len(docs), sum(len(d) for d in docs) / len(docs)
+    for d in docs:
+        tf = Counter(d)
+        s = sum(math.log(1 + (N - df[t] + 0.5) / (df[t] + 0.5))
+                * tf[t] * (k1 + 1) / (tf[t] + k1 * (1 - b + b * len(d) / medio))
+                for t in consulta if t in tf)
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): el buscador léxico coloca una página relevante entre las tres primeras el 80,8 % de las veces y la primera el 78,8 %; con los sinónimos en los metadatos o con la consulta expandida, el 100 % en ambos criterios. La pérdida del 19,2 % es la probabilidad de que ninguna de las páginas relevantes use el sinónimo elegido por el lector: con n páginas relevantes, 1 − (2/3)ⁿ de acierto.
+
+![Barras con el porcentaje de consultas que encuentran una página relevante entre las tres primeras con un buscador léxico y con sinónimos del glosario.](../../../content/part-17/figures/se-213-busqueda-y-sinonimos.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de 600 consultas con una página relevante en el puesto indicado; las dos primeras son el buscador léxico y las otras dos, con los sinónimos del glosario. **Dónde deja de valer:** el 100 % es consecuencia de un vocabulario cerrado de tres sinónimos exactos, todos conocidos por el glosario; un corpus real tiene sinónimos que nadie enumeró, errores de ortografía, abreviaturas y consultas en forma de frase. Lo que se sostiene es la dirección: el glosario recupera lo que el vocabulario del lector pierde.
+
+### Conflictos de definiciones por similitud léxica
+
+Se simulan 20 términos con definiciones de 14 palabras. Para cada término se generan 12 paráfrasis (se reordenan las palabras y se cambian 3 por sinónimos) y 12 definiciones en conflicto (se cambia 1 palabra clave por un número distinto), 240 pares de cada clase. Se calcula la similitud de Jaccard (palabras comunes sobre palabras totales) respecto a la definición original.
+
+```python
+def jaccard(a, b):
+    a, b = set(a), set(b)
+    return len(a & b) / len(a | b)
+```
+
+La similitud media de las paráfrasis es 0,65 y la de los conflictos 0,87: los conflictos se parecen más a la original que las paráfrasis. Con un umbral de 0,5 (se marca si la similitud es menor) no se marca ningún par de ninguna clase; con 0,7 se marcan las 240 paráfrasis y ningún conflicto; con 0,9 se marcan los 240 pares de las dos clases. Ningún umbral separa los conflictos de las paráfrasis. Los resultados fueron idénticos en ambos sistemas.
+
+![Tabla con los pares de definiciones contradictorias y parafraseadas que marca un detector por similitud de palabras según el umbral.](../../../content/part-17/figures/se-213-conflictos-de-glosario.svg)
+
+**Cómo leer la figura.** Cada fila es un umbral; las columnas dan cuántos pares contradictorios y cuántas paráfrasis se marcan de 240. **Dónde deja de valer:** el conflicto sorteado es una palabra sustituida por un número, el caso más favorable a la similitud alta; un conflicto que reordena toda la frase tendría una similitud baja. El resultado no dice que la similitud sea inútil, sino que no ordena lo que importa: para detectar conflictos hay que extraer y comparar los valores, o centralizar la definición.
+
+### Páginas huérfanas y distancia desde la portada
+
+Se genera un sitio de 120 páginas: una portada, 8 índices enlazados desde ella y 111 páginas; el 80 % cuelga de un índice y cada una enlaza además a entre 0 y 3 páginas al azar. Se hace un recorrido en anchura desde la portada y se cuenta, antes y después de enlazar desde un índice las páginas inalcanzables.
+
+```python
+dist, cola = {0: 0}, deque([0])
+while cola:
+    u = cola.popleft()
+    for v in enlaces[u]:
+        if v not in dist:
+            dist[v] = dist[u] + 1
+            cola.append(v)
+```
+
+Antes de reparar hay 5 páginas sin ningún enlace entrante, inalcanzables desde la portada (4 % del sitio); ninguna está a más de 3 clics y la profundidad máxima es 3. Tras enlazar esas 5 páginas desde un índice, quedan 0 huérfanas y la profundidad máxima sigue siendo 3. Los resultados fueron idénticos en Windows y Ubuntu.
+
+![Tabla con las páginas huérfanas, inalcanzables y lejanas de un sitio de 120 páginas antes y después de enlazarlas desde un índice.](../../../content/part-17/figures/se-213-paginas-alcanzables.svg)
+
+**Cómo leer la figura.** Cada fila es una medida del sitio; las dos columnas son el valor antes y después de enlazar las huérfanas desde un índice. **Dónde deja de valer:** el sitio es un grafo aleatorio con índices cercanos a la portada, por eso la profundidad nunca fue problema; en un portal real hay secciones profundas y enlaces rotos. La medida mide estructura, no si el rastro es claro: un enlace con el texto «aquí» cuenta igual que uno descriptivo.
 
 ## Definiciones de trabajo
 
-- **Búsqueda:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Glosarios:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Arquitectura:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Conocimiento:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
+- **recuperabilidad:** propiedad de una página de poder ser encontrada por alguien que la necesita con las palabras que usa y los caminos que sigue.
+- **vocabulario controlado:** conjunto de términos preferidos, con alternativas y definiciones, que fija cómo se nombran los conceptos.
+- **etiqueta alternativa:** sinónimo, forma coloquial o abreviatura de un concepto que lleva a la misma página que la etiqueta preferida.
+- **página huérfana:** página sin enlaces entrantes desde el resto del sitio.
+- **similitud de Jaccard:** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el portal; no reemplazan las de SKOS ni las de la bibliografía enlazada abajo.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Búsqueda, glosarios y arquitectura de conocimiento**:
+El fragmento busca una consulta en un corpus mínimo con y sin sinónimos. Antes de ejecutarlo, predice qué páginas devuelve cada caso.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+paginas = {"p1": "penalizacion por retraso en la entrega", "p2": "como pedir una prorroga"}
+sinonimos = {"descuento": ["penalizacion"]}
+consulta = ["descuento"]
+sin = [k for k, t in paginas.items() if any(w in t.split() for w in consulta)]
+con = [k for k, t in paginas.items() if any(w in t.split() for q in consulta for w in [q] + sinonimos.get(q, []))]
+print(sin, con)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La predicción correcta es `[] ['p1']`: sin sinónimos la consulta no coincide con nada; con ellos llega a la página de la penalización. Registra la versión del intérprete y la salida; si añades `"descuento": ["penalizacion", "prorroga"]`, predice antes qué cambia.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Búsqueda, glosarios y arquitectura de conocimiento**. Parte de esta pregunta: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `README.md` y enlaza la evidencia, no solo la conclusión.
+El portal de la plataforma de entregas mantiene un glosario de 30 términos con etiqueta preferida, alternativas y una definición única que las demás páginas enlazan. El buscador indexa título, cuerpo y alternativas del glosario. El registro de consultas sin resultado se revisa cada mes: «descuento por tarde» pasó a ser una alternativa de «penalización por retraso». Un recorrido en anchura en cada construcción comprueba que no hay huérfanas y que ninguna página está a más de tres clics. Un comprobador compara los valores numéricos de las definiciones de «prórroga» en las páginas que la mencionan y avisa si discrepan.
+
+Compara el caso normal con tres casos límite: el sinónimo que nadie enumeró (aparece en el registro de consultas sin resultado y se añade), el término con dos definiciones legítimas en contextos distintos (se desambigua con dos entradas) y la página nueva sin enlaces (la construcción falla hasta enlazarla).
 
 ## Práctica guiada
 
-1. Crea `work/SE-213/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete de documentación mantenible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `work/SE-213/` y escribe un glosario de diez términos de la plataforma con etiquetas preferidas y alternativas.
+2. Genera un corpus de 200 páginas con los diez términos y sinónimos al azar.
+3. Implementa BM25 y mide la tasa de aciertos con 600 consultas, con y sin sinónimos.
+4. Genera 240 pares de definiciones parafraseadas y en conflicto y mide la similitud de Jaccard.
+5. Escribe un comparador que extraiga los números de cada definición y marca los pares con números distintos.
+6. Genera un sitio de 120 páginas, calcula huérfanas y profundidad, y repara las huérfanas.
+7. Registra tres consultas imaginarias sin resultado y decide qué cambiarías.
+8. Entrega `recuperabilidad.md` con las medidas y los cambios.
 
 ## Ejercicios
 
-1. **Fundamental:** define Búsqueda y glosarios con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `README.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Glosario:** elige cinco términos de una documentación pública y escribe etiqueta preferida, tres alternativas y una definición única.
+2. **BM25:** cambia la proporción de sinónimos enumerados en el glosario (de 3 a 2 de 3) y mide cuánto baja el acierto.
+3. **Conflictos:** extiende el comparador para detectar negaciones («no incluye») y prueba con 50 pares.
+4. **Estructura:** añade al sitio 20 enlaces rotos y mide cuántas páginas pasan a ser inalcanzables.
 
 ## Reto verificable
 
-Entrega el **paquete de documentación mantenible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega el glosario, el buscador, la medición de aciertos con y sin sinónimos, el comparador de definiciones y el recorrido del sitio. Se aprueba si otra persona ejecuta todo desde un checkout limpio, obtiene los mismos porcentajes y puede nombrar una consulta realista que tu glosario no recuperaría.
+
+## Caso conductor
+
+El portal de la plataforma de entregas se vuelve encontrable: glosario de 30 términos, buscador medido y un recorrido que impide páginas huérfanas. Esta clase deja el glosario con alternativas, la medición de recuperabilidad y el comprobador de alcance, que `SE-214` convierte en metadatos para máquinas y `SE-216` incorpora a la auditoría del portal.
+
+## Preguntas frecuentes
+
+### ¿Basta con un buscador semántico?
+
+Mejora los sinónimos y empeora otras cosas: puede devolver páginas relacionadas y no exactas, y es más difícil de explicar cuando falla. El glosario sigue siendo útil porque fija definiciones y puede alimentar a ambos.
+
+### ¿Cuántos términos debe tener un glosario?
+
+Los que generan confusión o consultas: términos que se usan con sentidos distintos, siglas y nombres internos. Un glosario de 300 términos obvios no lo mantiene nadie.
+
+### ¿Qué hago con dos definiciones legítimas del mismo término?
+
+Si dependen del contexto, haz dos entradas con la condición que las distingue. Si no, es un conflicto y debe resolverse: una definición vigente y las demás enlazan a ella.
+
+### ¿Hay que mostrar los resultados de búsqueda sin resultados?
+
+Sí: una página de «sin resultados» con sugerencias y un enlace al índice por tareas rescata a quien busca con otras palabras, y el registro de esas consultas es el mejor insumo para mejorar.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **documentar una intención como si describiera el comportamiento actual**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una consulta con sinónimo que no encuentra la página**. Busca «descuento» en el corpus sin glosario.
+
+Registra síntoma, entrada mínima, hipótesis, observación que discrimina, causa, corrección y prueba de regresión. **Síntoma:** la búsqueda de «descuento por tarde» no devuelve resultados. **Hipótesis rivales:** (a) la página no existe; (b) el buscador no indexó la página; (c) la página no contiene las palabras de la consulta. **Observación que discrimina:** busca la página por su título exacto; si aparece, descarta (a) y (b); inspecciona su texto y, si ninguna palabra de la consulta aparece, confirma (c). **Causa:** el vocabulario del lector y el de la página no coinciden. **Corrección:** añadir «descuento» como alternativa de «penalización por retraso» en el glosario. **Prueba de regresión:** una lista de consultas de prueba por tarea que se ejecuta en cada construcción. **Recuperación:** revisar el registro de consultas sin resultado del último mes.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Quien busca con otras palabras no encuentra nada | El buscador es léxico y no hay alternativas | Añadir etiquetas alternativas al glosario y a los metadatos |
+| Un término tiene tres definiciones distintas | Se copió y se editó sin fuente única | Centralizar la definición y enlazarla desde las demás |
+| Una página nueva no aparece en ningún índice | No se comprobó el alcance | Añadir el recorrido en anchura a la construcción |
+| El detector de conflictos marca paráfrasis y deja pasar números distintos | Usa similitud léxica en lugar de valores | Extraer los valores (números, plazos) y compararlos |
+| El glosario está desactualizado | No tiene responsable ni revisión | Asignar responsable y revisar con el registro de consultas |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor Markdown, Mermaid y verificador de enlaces. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-213/
 ├── README.md
-│   ├── README.md
-│   ├── architecture.md
-│   ├── decision-record.md
-├── activity.yaml
-└── rubric.json
+├── glosario.json
+├── corpus/
+├── experimentos/
+│   ├── busqueda.py
+│   ├── conflictos.py
+│   └── alcance.py
+└── evidencia/recuperabilidad.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `README.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`math`, `random`, `collections`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con resultados idénticos.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el registro de consultas puede contener datos personales: anonimiza y minimiza antes de analizarlo;
+- los resultados de búsqueda no deben revelar páginas restringidas: aplica los permisos antes de indexar y antes de mostrar;
+- ofrece más de una forma de encontrar una página (búsqueda, índice, mapa del sitio, enlaces relacionados);
+- los enlaces deben tener texto que diga adónde llevan, y los índices deben ser listas reales con encabezados;
+- evita jerga sin entrada en el glosario cuando la audiencia incluye personas ajenas a la ingeniería;
+- un término ofensivo o excluyente se sustituye y deja una alternativa para que la búsqueda siga encontrándolo.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se pide «mejora la búsqueda» puede añadir sinónimos al azar o reescribir títulos sin comprobar el efecto. Pídele que parta del registro de consultas sin resultado, que proponga alternativas con la consulta que justifica cada una y que ejecute la medición de aciertos antes y después. Un agente que responde preguntas sobre la documentación depende de lo mismo: si las alternativas, las definiciones únicas y los enlaces están bien, recupera la página correcta. Quien revisa comprueba la medición y las alternativas, no solo la lista.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada la medición a otro dominio (por ejemplo, la documentación de un servicio de reparto con términos propios): cambian los términos y las consultas, se conservan el glosario con alternativas, la medición de aciertos, la detección de conflictos por valores y el recorrido de alcance. La transferencia está lograda cuando puedes explicar qué parte del método depende del idioma y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-213/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué un buscador léxico pierde sinónimos y de la diferencia entre paráfrasis y conflicto |
+| corrección | porcentajes de acierto y conteos de huérfanas reproducibles con las mismas semillas |
+| diseño | glosario con etiquetas preferidas y alternativas, y comprobador de alcance |
+| diagnóstico | reproducción del fallo «consulta con sinónimo sin resultado» con regresión |
+| incertidumbre | declaración de que el vocabulario es cerrado y de que la similitud léxica no separa conflictos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Robertson y Zaragoza, «The Probabilistic Relevance Framework: BM25 and Beyond» (2009)](https://doi.org/10.1561/1500000019) — función de ordenación BM25; autoridad: Foundations and Trends in Information Retrieval.
+- [W3C, SKOS Reference](https://www.w3.org/TR/skos-reference/) — etiquetas preferidas y alternativas de un concepto; autoridad: W3C.
+- [Pirolli y Card, «Information Foraging» (Psychological Review, 1999)](https://doi.org/10.1037/0033-295X.106.4.643) — rastros de información y navegación; autoridad: Psychological Review.
+- [WCAG 2.2](https://www.w3.org/TR/WCAG22/) — criterios de accesibilidad, incluido ofrecer más de una forma de localizar una página; autoridad: W3C.
+- [Diátaxis](https://diataxis.fr/) — organización de la documentación alrededor de necesidades; autoridad: proyecto Diátaxis.
 
-- **Diátaxis documentation framework** — Diátaxis project. [https://diataxis.fr/](https://diataxis.fr/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **C4 model** — C4 model project. [https://c4model.com/](https://c4model.com/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que un glosario con alternativas aumente los aciertos de tu portal ni que el 100 % del experimento sea alcanzable con vocabularios reales. Esa afirmación depende del corpus y se comprueba con el registro de consultas.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `collections`](https://docs.python.org/3/library/collections.html) — `Counter` y `deque` usados en BM25 y en el recorrido en anchura; autoridad: documentación de Python.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Búsqueda, glosarios y arquitectura de conocimiento**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-214`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó un buscador de producción: el vocabulario de 40 conceptos con tres sinónimos exactos, las definiciones de 14 palabras sorteadas y el sitio aleatorio de 120 páginas son construcciones del autor. La siguiente clase prepara la misma documentación para lectores que no son personas: máquinas y modelos de lenguaje.
+
+## Glosario
+
+- **recuperabilidad:** propiedad de una página de poder ser encontrada con las palabras y los caminos de quien la necesita.
+- **vocabulario controlado:** conjunto de términos preferidos con alternativas y definiciones que fija cómo se nombran los conceptos.
+- **etiqueta alternativa:** sinónimo o forma coloquial de un concepto que lleva a la misma página.
+- **página huérfana:** página sin enlaces entrantes desde el resto del sitio.
+- **similitud de Jaccard:** cociente entre las palabras comunes de dos textos y las palabras totales de ambos.
 
 ---
 

@@ -2,207 +2,329 @@
 
 [← SE-205 — Documentación orientada a tareas y audiencias](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-205-documentacion-orientada-a-tareas-y-audiencias/README.md) · [↑ Parte 17](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-206.html) · [SE-207 — README, instalación y primer éxito →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-207-readme-instalacion-y-primer-exito/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que puedas decir de una página si es un tutorial, una guía práctica, una referencia o una explicación, y para que sepas qué se rompe cuando una misma página intenta ser dos cosas a la vez. El tipo de página decide su tono, su orden y lo que se puede comprobar de ella.
+
+**Por qué aparece aquí.** Se sitúa después de **Documentación orientada a tareas y audiencias** y antes de **README, instalación y primer éxito**: la clase anterior fijó para quién y para qué se escribe; esta fija qué forma toma cada página según la necesidad del lector, y la siguiente aplica esa forma a la página más leída de cualquier proyecto. Además, deja una técnica verificable: un tutorial cuyos pasos se ejecutan es una prueba de integración de la documentación.
+
+**Error conceptual que debe corregir.** Creer que una buena página es una página completa: la que explica el porqué, enseña el procedimiento y lista todos los parámetros. Esa página sirve mal a las tres necesidades, porque quien tiene prisa por ejecutar atraviesa la teoría y quien quiere entender atraviesa los pasos.
+
+**Límite de la conclusión.** Los párrafos de la clasificación se escribieron con plantillas del propio autor, la página mixta es un modelo con secciones aleatorias y el tutorial es una biblioteca de juguete. Los experimentos muestran qué ocurre al mezclar tipos, no cuánto cuesta en una documentación real ni que cuatro tipos sean la única taxonomía posible.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Diátaxis: tutoriales](https://diataxis.fr/tutorials/) | Describe el tutorial como una experiencia de aprendizaje guiada por quien enseña, orientada a que quien aprende logre algo y gane confianza. | No mide si los tutoriales así escritos enseñan más que otros. |
+| [Diátaxis: guías prácticas](https://diataxis.fr/how-to-guides/) | Define la guía práctica como instrucciones para resolver un problema o alcanzar un resultado concreto, orientada al objetivo. | No fija cuántas guías necesita un producto. |
+| [Python: `doctest`](https://docs.python.org/3/library/doctest.html) | Documenta un mecanismo que ejecuta los ejemplos escritos en texto y compara su salida con la declarada. | No garantiza que los ejemplos cubran el comportamiento importante. |
+
+## Antes de empezar
+
+Retoma el inventario de tareas de `SE-205`. Cada tarea necesita una página; ahora importa de qué tipo. La pregunta activa es: **¿esta página enseña, guía a un resultado, describe o explica, y qué le pasa al lector cuando hace dos cosas a la vez?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-205` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor Markdown, Mermaid y verificador de enlaces.
+- Haber completado `SE-205` o poder explicar la diferencia entre audiencia y tarea.
+- Python 3.11 o posterior y un terminal; los experimentos usan solo la biblioteca estándar.
+- Trabajar con la plataforma de entregas y textos sintéticos escritos para la clase.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Tutoriales, how-to, referencia y explicación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La página «Penalización por retraso» de la plataforma abre con tres párrafos sobre por qué la institución eligió un 10 % diario, sigue con una lista de seis parámetros configurables, intercala cinco pasos para cambiar el tope, vuelve a la historia de la política y termina con un ejemplo de cálculo. Una docente que debe mover el tope esta tarde lee ochocientas palabras antes de llegar a los pasos y, al ejecutarlos, descubre que el cuarto depende de un parámetro explicado dos secciones antes. Nadie escribió nada falso. La página sirve a cuatro necesidades distintas y por eso no cumple ninguna del todo.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Tutoriales y how con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete de documentación mantenible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «documentar una intención como si describiera el comportamiento actual» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Tutoriales | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| How | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| To | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Referencia | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. clasificar una página en tutorial, guía práctica, referencia o explicación con dos preguntas, y reconocer cuándo una página no admite una sola clasificación;
+2. medir cuánto contenido de rodeo atraviesa quien busca los pasos en una página mezclada frente a una separada;
+3. convertir los pasos de un tutorial en una comprobación que se ejecuta y leer sus fallos para localizar el cambio que los provocó;
+4. decidir en qué orden escribir los cuatro tipos para un componente nuevo y cuál omitir justificadamente;
+5. declarar qué contenido de una página sustituiría por un enlace a otro tipo de página.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Tutoriales, how-to, referencia y explicación"] --> M["Modelo: Tutoriales"]
-    M --> D["Decisión: how"]
-    D --> E["Evidencia: to"]
-    E --> R["Revisión: referencia"]
-    R -->|nueva información| M
+    A[Necesidad del lector] --> B{Actúa o piensa}
+    B -->|actúa| C{Está aprendiendo o trabajando}
+    B -->|piensa| D{Está aprendiendo o consultando}
+    C -->|aprende| E[Tutorial]
+    C -->|trabaja| F[Guía práctica]
+    D -->|consulta| G[Referencia]
+    D -->|aprende| H[Explicación]
+    E --> I[Se ejecuta]
+    F --> I
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Tutoriales, how-to, referencia y explicación**.
+El diagrama se lee de arriba abajo con dos preguntas: si la persona necesita actuar o comprender, y si está estudiando o resolviendo algo de su trabajo. De la combinación salen cuatro tipos, y los dos que piden acción comparten una propiedad que los otros dos no tienen: pueden ejecutarse. Las flechas son una guía de decisión, no una jerarquía; la clase no afirma que cuatro cajas sean la única clasificación posible.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Tutorial | Lleva a quien aprende a un éxito garantizado; no debe explicar ni ramificar. | Tutorial cuyos pasos se ejecutan en `tutorial.md` |
+| Guía práctica | Resuelve un objetivo de trabajo y supone competencia previa; no enseña desde cero. | Guía con objetivo, precondiciones y verificación |
+| Referencia | Describe la máquina con completitud y sin opinión; se consulta, no se lee. | Tabla de parámetros comprobada contra el código |
+| Explicación | Aporta contexto, alternativas y porqués; es la única donde caben las tensiones. | Página con decisiones y alternativas descartadas |
+| Mezcla de tipos | Obliga a leer lo que no se busca y a ejecutar lo que se creía explicado. | Medición de palabras hasta los pasos |
 
 ## Conceptos y decisiones
 
-La documentación sirve a una audiencia y una tarea concreta; debe diferenciar tutorial, guía, explicación, referencia, arquitectura y registro histórico.
+### 1. Tutorial
 
-La pregunta rectora de esta parte es: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** La respuesta debe
-apoyarse en **prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual**.
+Un tutorial es una lección: quien la escribe asume la responsabilidad de que quien la sigue llegue a un resultado y gane confianza. Por eso los pasos son pocos, concretos y verificables, cada uno muestra lo que se debe ver, y nada ramifica: «si usas otra versión, haz esto» pertenece a otra página. No explica por qué las cosas son así; a lo sumo dice «ahora verás» y da una frase de contexto que lo enlaza a la explicación. Un tutorial se rompe en silencio cuando el entorno cambia y deja a quien aprende creyendo que el error es suyo, de modo que el tutorial es el tipo que más gana si se ejecuta en cada cambio. En la plataforma, el tutorial crea una tarea de prueba, entrega dos veces y comprueba la nota con una penalización.
 
-### 1. Tutoriales: modelo
+### 2. Guía práctica
 
-En esta clase, **Tutoriales** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tutoriales, how-to, referencia y explicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una guía práctica responde a un objetivo concreto del trabajo («cambiar el tope de penalización»), da por sentado que quien la lee sabe lo básico y evita enseñar. Es una receta con precondiciones, pasos y una forma de comprobar que funcionó. Se distingue del tutorial porque admite bifurcaciones («si el curso tiene prórrogas activas, antes haz esto») y porque no garantiza que sea la primera vez de nadie. Su error típico es crecer: se le añaden definiciones, el porqué del tope, una tabla de parámetros, y deja de ser una guía. Lo que sobra se enlaza.
 
-### 2. How: mecanismo
+### 3. Referencia
 
-En esta clase, **how** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tutoriales, how-to, referencia y explicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La referencia describe la máquina: los parámetros, sus tipos, sus valores por defecto, los errores que puede devolver. Se consulta de forma puntual y por eso importa más que sea completa, uniforme y exacta que agradable; su estructura imita la del producto, no la de las tareas. Es el único tipo cuya exactitud puede comprobarse por completo con herramientas, porque sus afirmaciones tienen una contraparte en el código: nombres, firmas, límites. Una referencia con opiniones («recomendamos un tope del 50 %») mezcla tipos; la opinión va a una explicación o a una guía.
 
-### 3. To: evidencia
+### 4. Explicación
 
-En esta clase, **to** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tutoriales, how-to, referencia y explicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La explicación responde a «¿por qué?» y «¿qué alternativas había?». Es la única donde caben el contexto histórico, las tensiones entre dos buenas razones y las decisiones que podrían cambiar. No se lee con prisa y no se ejecuta; se mide en lo que permite entender. Es también el tipo que más se omite, porque no tiene una tarea inmediata, y por eso la gente reinventa decisiones ya tomadas. En la plataforma, la explicación dice por qué la penalización es diaria y con tope, qué se probó antes y qué se rechazó, y enlaza al registro de decisiones.
 
-### 4. Referencia: decisión
+### 5. La brújula y el coste de mezclar
 
-En esta clase, **referencia** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Tutoriales, how-to, referencia y explicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Dos preguntas bastan para clasificar: ¿el contenido guía una acción o informa al pensamiento? y ¿sirve a quien estudia o a quien trabaja? Las cuatro combinaciones dan los cuatro tipos. Mezclar tipos no es un pecado, es un coste: cada tipo exige un tono distinto (imperativo y alentador, imperativo y seco, neutral y completo, reflexivo) y un orden distinto. Una página mixta obliga a cambiar de registro sin aviso, esconde los pasos entre párrafos de contexto y complica las pruebas, porque lo que se puede ejecutar queda enterrado. La solución no es borrar lo que sobra, es enlazarlo: una frase y un enlace conservan el vínculo sin interrumpir.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Clasificar páginas puras y mezcladas
+
+Se generan con plantillas del autor 50 párrafos de cada tipo (200 en total) y 300 mezclas de dos tipos (50 por cada una de las seis parejas). Un clasificador léxico cuenta marcas: imperativos y «ahora verás» para el tutorial, pasos numerados para la guía, «devuelve», «obligatorio» y «parámetro» para la referencia, «porque», «ya que» y «tensión» para la explicación, y devuelve el tipo con más marcas, o «ambiguo» si hay empate.
+
+```python
+def clasificar(texto):
+    t = texto.lower()
+    puntaje = {"tutorial": t.count("vamos a") * 2 + t.count("veras") * 2,
+               "howto": len(re.findall(r"\b\d\. ", t)) * 2 + t.count("para "),
+               "referencia": t.count("devuelve") * 2 + t.count("parametro"),
+               "explicacion": t.count("porque") * 2 + t.count("tension") * 3}
+    mejor = max(puntaje.values())
+    ganadores = [k for k, v in puntaje.items() if v == mejor]
+    return ganadores[0] if mejor > 0 and len(ganadores) == 1 else "ambiguo"
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): los 200 párrafos puros se clasifican bien. De las 300 mezclas, 240 se clasifican como uno de los dos tipos (el otro se pierde), 60 como ambiguas y ninguna como la pareja. Es decir, el clasificador nunca ve las dos cosas a la vez: una herramienta que debe elegir una etiqueta oculta la otra mitad de la página.
+
+![Barras con el resultado de un clasificador léxico sobre párrafos puros y sobre mezclas de dos tipos.](../../../content/part-17/figures/se-206-clasificar-paginas-mezcladas.svg)
+
+**Cómo leer la figura.** Cada barra es un porcentaje de los casos de su grupo: la verde son los párrafos puros acertados, las doradas y coral las mezclas. **Dónde deja de valer:** los párrafos puros usan las mismas palabras que el clasificador espera, así que el 100 % mide circularidad y no capacidad; con textos reales de varios autores acertaría menos. Lo que sí es robusto es la conclusión sobre las mezclas: añadir un segundo tipo no hace más difícil la clasificación, la hace imposible de expresar con una sola etiqueta.
+
+### Cuánto se lee antes de llegar a los pasos
+
+Se simulan 200 páginas de 1 200 palabras con ocho secciones: tres de explicación (220, 220 y 180 palabras), una de explicación breve (160), dos de referencia (140 y 100), una de advertencias (60) y una de pasos (120). En la página mezclada el orden es aleatorio; en la separada, los pasos están en su propia página.
+
+```python
+sec = [("exp", 220), ("exp", 220), ("exp", 180), ("ref", 140),
+       ("ref", 100), ("steps", 120), ("warn", 60), ("exp", 160)]
+rng.shuffle(sec)
+antes = 0
+for tipo, n in sec:
+    if tipo == "steps":
+        break
+    antes += n
+```
+
+Quien busca los pasos lee, en la página mezclada, una mediana de 540 palabras antes de llegar a ellos y 1 020 en el percentil 90 (de 1 200 en total). En una página how-to separada, cero. No es que la explicación sobre; es que está entre quien llega y lo que busca.
+
+![Barras con las palabras que lee quien busca los pasos antes de llegar a ellos en una página mezclada y en una separada.](../../../content/part-17/figures/se-206-palabras-hasta-los-pasos.svg)
+
+**Cómo leer la figura.** Cada barra es el número de palabras leídas antes del primer paso: la mediana, el percentil 90 y el caso de la página separada. **Dónde deja de valer:** el orden aleatorio es un supuesto; un autor cuidadoso puede poner los pasos al inicio de la página mixta, y entonces el coste se desplaza a quien busca la explicación. Tampoco mide si el lector lee de corrido o salta con la búsqueda del navegador.
+
+### Un tutorial que se ejecuta
+
+El tutorial de la plataforma tiene seis pasos de código sobre una biblioteca de juguete (`crear`, `entregar`, `penalizar`). Se ejecutan en orden con `exec` y se registra cuáles pasan; luego se ejecutan contra tres versiones modificadas de la biblioteca: una renombra `crear` a `crear_tarea`, otra calcula los días redondeando hacia abajo y otra exige un cuarto argumento obligatorio en `entregar`.
+
+```python
+TUTORIAL = ["t = api.crear('Ensayo', 48)",
+            "n = api.entregar(t, 'ana', 0)",
+            "m = api.entregar(t, 'luis', 30)",
+            "assert api.penalizar(80, 30) == 64",
+            "assert api.penalizar(75, 24) == 68",
+            "assert len(t['entregas']) == 2"]
+```
+
+Sin cambios pasan los seis pasos. Renombrar `crear` hace fallar los pasos 1, 2, 3 y 6 con `AttributeError`: el primero es la causa y los demás, consecuencia, porque `t` no existe. Redondear los días hacia abajo hace fallar los pasos 4 y 5 con `AssertionError`: el cálculo cambió de comportamiento sin cambiar de firma. Añadir el argumento obligatorio hace fallar las dos llamadas a `entregar` y el recuento, con `TypeError`. Cada cambio deja un patrón distinto, lo que ayuda a diagnosticar.
+
+![Tabla con los pasos que fallan al ejecutar un tutorial de seis pasos contra cuatro versiones de una biblioteca.](../../../content/part-17/figures/se-206-tutorial-ejecutable.svg)
+
+**Cómo leer la figura.** Cada fila es una versión de la biblioteca; la segunda columna dibuja los seis pasos con un punto si pasan y una X si fallan; el primer error es el que informa. **Dónde deja de valer:** el tutorial solo detecta lo que ejercita; si ningún paso llama a `penalizar` con una nota decimal, un cambio en ese caso pasa sin ruido. Y un tutorial que se ejecuta no prueba que se entienda: puede pasar la comprobación y seguir confundiendo a quien lo lee.
 
 ## Definiciones de trabajo
 
-- **Tutoriales:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **How:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **To:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Referencia:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
+- **tutorial:** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
+- **guía práctica:** página orientada a un objetivo de trabajo concreto que supone competencia previa y admite bifurcaciones.
+- **referencia:** descripción completa y neutral de los elementos de un producto, estructurada como el producto.
+- **explicación:** página que aporta contexto, causas y alternativas para comprender, sin pasos ni listados.
+- **página mixta:** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el portal; no reemplazan la formulación de Diátaxis, que se enlaza abajo.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Tutoriales, how-to, referencia y explicación**:
+El fragmento ejecuta los pasos de un tutorial contra una biblioteca y reporta cuáles pasan. Antes de ejecutarlo, predice qué pasos fallan si renombras `entregar` a `enviar`.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+class Api:
+    @staticmethod
+    def crear(nombre): return {"nombre": nombre, "entregas": []}
+    @staticmethod
+    def entregar(t, quien): t["entregas"].append(quien)
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+pasos = ["t = api.crear('Ensayo')", "api.entregar(t, 'ana')", "assert len(t['entregas']) == 1"]
+ns = {"api": Api}
+for i, p in enumerate(pasos, 1):
+    try:
+        exec(p, ns); print(i, "ok")
+    except Exception as e:
+        print(i, type(e).__name__)
+```
+
+La predicción correcta es que fallan el paso 2 (`AttributeError`) y el 3 (`AssertionError`, porque la lista sigue vacía). Registra versión del intérprete y salida.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Tutoriales, how-to, referencia y explicación**. Parte de esta pregunta: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `README.md` y enlaza la evidencia, no solo la conclusión.
+La plataforma separa la penalización en cuatro páginas con nombres propios: un tutorial («Tu primera entrega con retraso»), una guía («Cambiar el tope de penalización de un curso»), una referencia («Parámetros de penalización») y una explicación («Por qué la penalización es diaria y con tope»). Cada una enlaza a las otras tres en una línea al comienzo o al final. El tutorial y la guía se ejecutan en la integración continua; la referencia se genera de la configuración; la explicación se revisa cuando cambia la política. Una persona nueva empieza por el tutorial, una docente va directo a la guía y una auditora lee la explicación.
+
+Compara el caso normal con tres casos límite: la docente que necesita cambiar el tope pero no sabe qué es una prórroga (la guía enlaza a la referencia, no la define), el parámetro nuevo que aparece en el código y no en la referencia (una comprobación lo detecta), y la decisión de eliminar el tope (cambia la explicación y la guía, no el tutorial).
 
 ## Práctica guiada
 
-1. Crea `work/SE-206/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete de documentación mantenible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `work/SE-206/` y escribe el contenido de «Penalización por retraso» en una sola página mixta.
+2. Marca cada párrafo con su tipo (T, G, R o E) y cuenta las palabras de cada tipo.
+3. Separa la página en cuatro, con enlaces cruzados de una línea.
+4. Convierte el tutorial en un script de pasos ejecutables sobre una biblioteca pequeña.
+5. Ejecútalo y anota qué pasos fallan si cambias el nombre de una función, el redondeo o una firma.
+6. Mide las palabras que lee quien busca los pasos en tu página mixta y en tu guía.
+7. Pide a otra persona que clasifique tus cuatro páginas sin ver tu marcado y compara.
+8. Entrega `tipos.md` con las diferencias y qué cambiaste.
 
 ## Ejercicios
 
-1. **Fundamental:** define Tutoriales y how con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `README.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Clasificar:** toma cinco páginas de una documentación pública que conozcas y clasifícalas con las dos preguntas; indica cuál no admite una sola etiqueta y qué separarías.
+2. **Tutorial:** añade un séptimo paso que ejerza una nota decimal y calcula qué cambio del experimento deja de pasar inadvertido.
+3. **Coste:** reorganiza las secciones de la página simulada con los pasos al principio y calcula la nueva mediana de palabras hasta la explicación; interpreta el resultado.
+4. **Referencia:** compara una tabla de parámetros con la firma real de una función usando `inspect.signature` y lista las discrepancias.
 
 ## Reto verificable
 
-Entrega el **paquete de documentación mantenible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega las cuatro páginas, el script del tutorial ejecutable y `tipos.md` con las palabras por tipo antes y después. Se aprueba si otra persona ejecuta el tutorial desde un checkout limpio, obtiene los mismos pasos que pasan y que fallan con las tres mutaciones, y clasifica tus cuatro páginas igual que tú en al menos tres de ellas.
+
+## Caso conductor
+
+La penalización de la plataforma de entregas pasa de una página mixta a cuatro páginas por tipo. Esta clase deja el tutorial ejecutable, que se reutilizará como prueba en `SE-212` (documentación como código) y `SE-216` (portal versionado), y la distinción entre referencia y explicación, que `SE-210` aplica a la API y `SE-208` a las decisiones.
+
+## Preguntas frecuentes
+
+### ¿Hay que escribir siempre los cuatro tipos?
+
+No. Hay componentes que solo necesitan referencia (una opción de configuración) y otros que piden explicación (una decisión de diseño). Lo que se evita es que una página cumpla dos funciones sin avisarlo. Omitir un tipo es legítimo si se decide, no si se olvida.
+
+### ¿Un README es un tutorial o una guía?
+
+Suele ser una mezcla de portada, guía de instalación y enlaces. `SE-207` trata el caso: el README debe llevar al primer éxito y derivar el resto; si crece, se parte.
+
+### ¿La referencia no puede incluir un ejemplo?
+
+Sí, y debe: un ejemplo mínimo de uso es parte de describir un elemento. Lo que no debe incluir es un recorrido de aprendizaje ni una opinión sobre cuándo usarlo; eso va en otra página.
+
+### ¿Cómo evito que los enlaces cruzados sean un laberinto?
+
+Con una regla: un enlace por salto de tipo y solo al inicio o al final. Si necesitas más, probablemente la página mezcla.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **documentar una intención como si describiera el comportamiento actual**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **un tutorial que deja de funcionar sin que nadie lo sepa**. Ejecuta los seis pasos contra la versión que renombra `crear` y observa cuántos fallos aparecen.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una persona nueva sigue el tutorial y obtiene `AttributeError` en el primer paso. **Hipótesis rivales:** (a) la persona escribió mal el comando; (b) su entorno es distinto; (c) el tutorial describe una versión anterior. **Observación que discrimina:** ejecuta el paso desde un entorno limpio con la versión publicada; si falla igual, descarta (a) y (b). **Causa:** la función se renombró y el tutorial no se tocó. **Corrección:** actualizar el nombre y añadir la ejecución del tutorial a la integración continua. **Prueba de regresión:** el script de pasos como parte de la suite. **Recuperación:** publicar una nota en el changelog y revisar si otras páginas citan el nombre antiguo.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El tutorial tiene una sección «Notas avanzadas» a mitad de los pasos | Se mezcló explicación con guía de aprendizaje | Mover las notas a una explicación y dejar un enlace de una línea |
+| La guía práctica empieza con la historia de la política | Se mezcló contexto con procedimiento | Mover la historia a la explicación y enlazarla desde el primer párrafo |
+| La referencia dice «se recomienda» en varios parámetros | Se mezcló opinión con descripción | Trasladar las recomendaciones a una guía o una explicación |
+| El tutorial funciona en la máquina de quien lo escribió y no en otra | Depende de un estado previo no declarado | Ejecutarlo desde un entorno limpio en la integración continua |
+| Hay explicación pero nadie la encuentra | No está enlazada desde ninguna página de acción | Enlazar la explicación desde el tutorial, la guía y la referencia |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor Markdown, Mermaid y verificador de enlaces. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-206/
 ├── README.md
-│   ├── README.md
-│   ├── architecture.md
-│   ├── decision-record.md
-├── activity.yaml
-└── rubric.json
+├── paginas/
+│   ├── mixta.md
+│   ├── tutorial.md
+│   ├── guia.md
+│   ├── referencia.md
+│   └── explicacion.md
+├── experimentos/
+│   ├── clasificar.py
+│   ├── palabras.py
+│   └── tutorial_ejecutable.py
+└── evidencia/tipos.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `README.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python y comandos. Los experimentos usan solo la biblioteca estándar (`re`, `random`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con resultados idénticos. El tutorial se ejecuta con `exec` sobre código escrito por quien lo ejecuta; no ejecutes pasos de un tutorial que no hayas leído.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- ejecutar con `exec` el código de un tutorial equivale a ejecutar código ajeno: léelo antes y hazlo en un entorno aislado;
+- un tutorial no debe pedir credenciales reales ni datos de estudiantes; usa identificadores sintéticos;
+- las guías que cambian configuración que afecta notas deben indicar cómo deshacer el cambio;
+- los cuatro tipos deben tener encabezados jerárquicos y listas reales para lectores de pantalla;
+- evita instrucciones que dependan solo de color o de posición en pantalla («el botón verde»);
+- cita la fuente de cada afirmación de la explicación para que pueda revisarse.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se pide «mejora esta página» tiende a añadir: más contexto, más ejemplos, más advertencias, y convierte una guía en una página mixta. Pídele primero el tipo de la página y la tarea que sirve, que enlace en lugar de añadir cuando el contenido pertenezca a otro tipo y que no toque los pasos de un tutorial sin ejecutarlos. Un tutorial ejecutable es la mejor red para trabajo delegado: si el agente edita el texto o el código, el script dice si los pasos siguen funcionando. Quien revisa comprueba que ningún cambio mezcla tipos y que las comprobaciones se ejecutaron realmente.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada la separación a otro dominio (por ejemplo, una app de reparto con una regla de recargo): cambian los parámetros, se conserva la brújula de dos preguntas y la ejecución de los pasos. La transferencia está lograda cuando puedes explicar qué parte del método depende del producto y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-206/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de las dos preguntas de la brújula con un ejemplo de la plataforma |
+| corrección | conteo reproducible de palabras hasta los pasos y de pasos que fallan por mutación |
+| diseño | cuatro páginas separadas con enlaces de una línea |
+| diagnóstico | reproducción del fallo «tutorial roto sin aviso» con regresión |
+| incertidumbre | declaración de que la clasificación usa plantillas del autor y de que el orden de secciones es un supuesto |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Diátaxis](https://diataxis.fr/) — los cuatro tipos y la relación entre ellos; autoridad: proyecto Diátaxis.
+- [Diátaxis: tutoriales](https://diataxis.fr/tutorials/) — qué es y qué no es un tutorial; autoridad: proyecto Diátaxis.
+- [Diátaxis: guías prácticas](https://diataxis.fr/how-to-guides/) — guías orientadas a un objetivo; autoridad: proyecto Diátaxis.
+- [Diátaxis: referencia](https://diataxis.fr/reference/) — descripción neutral y completa; autoridad: proyecto Diátaxis.
+- [Diátaxis: explicación](https://diataxis.fr/explanation/) — contexto y alternativas; autoridad: proyecto Diátaxis.
+- [Python: `doctest`](https://docs.python.org/3/library/doctest.html) — ejecución de ejemplos escritos en el texto; autoridad: documentación de Python.
 
-- **Diátaxis documentation framework** — Diátaxis project. [https://diataxis.fr/](https://diataxis.fr/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **C4 model** — C4 model project. [https://c4model.com/](https://c4model.com/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que cuatro tipos sean suficientes ni que separarlos mejore la comprensión en tu proyecto. Esa afirmación depende del producto y se comprueba observando a quien lee.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [Python: `inspect`](https://docs.python.org/3/library/inspect.html) — firmas de funciones para comparar con una referencia.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Tutoriales, how-to, referencia y explicación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-207`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió a ningún lector ni se evaluó una documentación existente: el clasificador usa las palabras con que se escribieron los párrafos, el orden aleatorio de secciones es un supuesto y el tutorial es una biblioteca de juguete. La siguiente clase aplica la distinción a la página más leída de cualquier proyecto: el README y el camino hasta el primer éxito.
+
+## Glosario
+
+- **tutorial:** página que guía a quien aprende por pasos hacia un resultado seguro, sin ramificar ni explicar.
+- **guía práctica:** página orientada a un objetivo de trabajo concreto que supone competencia previa.
+- **referencia:** descripción completa y neutral de los elementos de un producto.
+- **explicación:** página que aporta contexto, causas y alternativas para comprender.
+- **página mixta:** página cuyo contenido pertenece a más de un tipo sin separación ni enlaces entre ellos.
 
 ---
 

@@ -2,207 +2,307 @@
 
 [← SE-211 — Runbooks, playbooks y documentación operacional](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-211-runbooks-playbooks-y-documentacion-operacional/README.md) · [↑ Parte 17](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-212.html) · [SE-213 — Búsqueda, glosarios y arquitectura de conocimiento →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que trates la documentación con las mismas prácticas que el código (control de versiones, revisión, comprobaciones automáticas, publicación reproducible) y para que sepas qué ganas, qué cuesta y qué sigue necesitando a una persona. Un enlace roto, una ancla que cambió o una página publicada que difiere de la revisada son defectos de software.
+
+**Por qué aparece aquí.** Se sitúa después de **Runbooks, playbooks y documentación operacional** y antes de **Búsqueda, glosarios y arquitectura de conocimiento**: las clases anteriores produjeron piezas (páginas por tipo, README, decisiones, diagramas, API, runbooks) y esta las pone en un proceso. Reúne los comprobadores de las clases `SE-207`, `SE-209`, `SE-210` y `SE-211` en una canalización y fija las dos propiedades que `SE-216` exigirá del portal: comprobaciones que no cansen y construcciones reproducibles.
+
+**Error conceptual que debe corregir.** Creer que «documentación como código» significa guardar Markdown en git. Sin comprobaciones, sin revisión de lo que importa y sin una construcción reproducible, la documentación versionada envejece igual que la que no lo está, solo que con historial.
+
+**Límite de la conclusión.** El corpus de enlaces es sintético, el generador de la página mide el efecto de tres decisiones concretas y el linter implementa tres reglas. No se midió ninguna canalización real ni el tiempo de revisión de nadie.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Write the Docs: Docs as Code](https://www.writethedocs.org/guide/docs-as-code/) | Define la práctica como escribir la documentación con las herramientas del código: seguimiento de incidencias, control de versiones, texto plano, revisión y pruebas automáticas. | No mide su efecto en la calidad. |
+| [CommonMark: especificación](https://spec.commonmark.org/) | Define la sintaxis de Markdown, incluidos enlaces, encabezados y bloques de código, y no define identificadores de ancla para los encabezados. | No cubre las extensiones de cada plataforma. |
+| [Reproducible Builds: documentación](https://reproducible-builds.org/docs/) | Describe por qué una construcción debe dar el mismo resultado desde las mismas fuentes y las fuentes habituales de variación. | No garantiza que un proyecto concreto sea reproducible. |
+
+## Antes de empezar
+
+Retoma los comprobadores de las clases anteriores: la comparación de opciones del README, el linter de ADR, la comparación del diagrama con el código, los ejemplos ejecutables de la API y el linter de runbooks. La pregunta activa es: **¿qué pasa en un pull request que toca la documentación, quién comprueba qué, y cómo sé que lo publicado es lo que se revisó?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-211` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor Markdown, Mermaid y verificador de enlaces.
+- Haber completado `SE-211` o poder explicar la diferencia entre una comprobación mecánica y una revisión humana.
+- Python 3.11 o posterior, un terminal y nociones de Git.
+- Trabajar con un corpus sintético de páginas Markdown creadas por los experimentos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Docs as code, revisión y publicación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La documentación de la plataforma vive en un repositorio, y cada cambio pasa por un pull request. Aun así, tres semanas después de renombrar la página de penalización, doce enlaces siguen apuntando a la antigua; un cambio de título deja sin efecto las anclas que lo citaban; el linter de Markdown, que alguien activó en la integración continua, emite ciento treinta avisos por comentarios de shell dentro de bloques de código y el equipo aprende a ignorarlo; y la página publicada difiere de la del repositorio porque la construcción de ayer incluía una fecha y el orden de las etiquetas cambió. La documentación está versionada y nadie confía en ella.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Docs y as con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete de documentación mantenible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «documentar una intención como si describiera el comportamiento actual» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Docs | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| As | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Code | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Revisión | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. describir una canalización de documentación (revisión, comprobaciones, construcción, publicación) y decir qué comprueba cada etapa;
+2. escribir un comprobador de enlaces y anclas, medir cuántos enlaces rompe un renombrado y explicar por qué la regla de anclas depende del renderizador;
+3. escribir un linter que respete el contexto (bloques de código) y medir el ruido que evita;
+4. construir una página de forma reproducible, identificar tres fuentes de variación y verificar la huella en dos sistemas;
+5. decidir qué revisa una persona en un pull request de documentación y qué debe dejarse a las máquinas.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Docs as code, revisión y publicación"] --> M["Modelo: Docs"]
-    M --> D["Decisión: as"]
-    D --> E["Evidencia: code"]
-    E --> R["Revisión: revisión"]
-    R -->|nueva información| M
+    A[Cambio en texto] --> B[Pull request]
+    B --> C[Comprobaciones: enlaces, estilo, ejemplos]
+    B --> D[Revisión humana: exactitud y claridad]
+    C --> E[Construcción reproducible]
+    D --> E
+    E --> F[Publicación con huella]
+    F -->|enlace roto o deriva| A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Docs as code, revisión y publicación**.
+El diagrama se lee de izquierda a derecha: un cambio abre un pull request; las comprobaciones mecánicas y la revisión humana corren en paralelo; solo si ambas pasan se construye, de forma reproducible, y se publica con una huella que permite verificar qué se publicó. El retorno indica que un enlace roto descubierto después reabre el ciclo. El diagrama no dice cuánto debe tardar cada etapa; esa medida es del equipo.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Docs as code | Los mismos mecanismos que protegen el código protegen la documentación si se aplican con criterio. | Repositorio, pull request y comprobaciones definidas |
+| Enlaces y anclas | Un enlace roto es el defecto más frecuente y el más barato de detectar. | Comprobador con recuento de enlaces rotos |
+| Linter con contexto | Un linter que ignora el contexto genera ruido; el ruido se ignora; lo ignorado no protege. | Comparación de avisos con y sin contexto |
+| Construcción reproducible | Si la construcción varía, no se puede comparar lo revisado con lo publicado. | Huellas iguales en distintas ejecuciones y sistemas |
+| Revisión humana | La exactitud y la claridad no se comprueban con regex; la revisión debe dedicarse a ellas. | Lista de qué revisa una persona |
 
 ## Conceptos y decisiones
 
-La documentación sirve a una audiencia y una tarea concreta; debe diferenciar tutorial, guía, explicación, referencia, arquitectura y registro histórico.
+### 1. Qué es (y qué no es) documentación como código
 
-La pregunta rectora de esta parte es: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** La respuesta debe
-apoyarse en **prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual**.
+Docs as code propone escribir la documentación con las herramientas de desarrollo: texto plano, control de versiones, pull requests, revisión y pruebas automáticas, de modo que escritores y desarrolladores trabajen en el mismo flujo. Lo que aporta es trazabilidad (quién cambió qué y por qué), revisión (otra persona mira antes de publicar) y automatización (las comprobaciones se ejecutan siempre). Lo que no aporta por sí mismo es calidad: un repositorio con Markdown sin comprobaciones solo guarda el historial de su deterioro. La ventaja se materializa cuando cada etapa de la canalización tiene un propósito claro.
 
-### 1. Docs: modelo
+### 2. La revisión: qué mira una persona
 
-En esta clase, **Docs** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Docs as code, revisión y publicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una revisión de documentación tiene dos partes que no deben confundirse. Las comprobaciones mecánicas (enlaces, formato, ejemplos que se ejecutan) corren solas y fallan con un mensaje preciso. La revisión humana comprueba lo que una máquina no ve: si la explicación es correcta, si responde a la tarea de la audiencia, si el tono es el adecuado, si la página debería ser dos. Un pull request que obliga a una persona a señalar un espacio al final de una línea desperdicia su atención; uno que solo pasa las máquinas puede publicar una explicación falsa con la sintaxis perfecta.
 
-### 2. As: mecanismo
+### 3. Enlaces y anclas
 
-En esta clase, **as** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Docs as code, revisión y publicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un enlace roto es la forma más frecuente de documentación que miente. Hay dos clases: el enlace a un archivo que se movió o renombró, y el enlace a un encabezado cuyo título cambió. La primera se detecta comprobando que la ruta exista; la segunda exige conocer cómo se genera la ancla de un encabezado, y ese algoritmo no está en la especificación de Markdown: cada renderizador convierte los títulos en identificadores con sus propias reglas (minúsculas, eliminación de signos, guiones por espacios, sufijos para duplicados). Un comprobador que use una regla distinta de la del sitio publicado dará falsas alarmas o dejará pasar enlaces rotos.
 
-### 3. Code: evidencia
+### 4. Linters con contexto
 
-En esta clase, **code** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Docs as code, revisión y publicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un linter de estilo aplica reglas a líneas de texto. Sin contexto, trata como texto lo que no lo es: un comentario de shell dentro de un bloque de código empieza por almohadilla y parece un encabezado; una línea larga de comando parece un párrafo ilegible. El resultado es ruido, y el ruido enseña a ignorar el linter. La defensa es hacer que las reglas conozcan los bloques de código y apliquen cada comprobación solo a lo que corresponde. Esta decisión de diseño importa tanto como el catálogo de reglas: una regla correcta aplicada al lugar equivocado es una falsa alarma.
 
-### 4. Revisión: decisión
+### 5. Construcción reproducible y huella
 
-En esta clase, **revisión** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Docs as code, revisión y publicación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Para saber que lo publicado es lo revisado hace falta que la construcción sea determinista: las mismas fuentes producen los mismos bytes. Tres fuentes de variación son comunes: el orden de recorrido de colecciones (en Python, el de un conjunto de cadenas varía con la semilla de hash de cada proceso), las marcas de tiempo incrustadas y los saltos de línea del sistema. La huella (un resumen criptográfico del resultado) convierte la comparación en una igualdad de cadenas. La reproducibilidad no es un lujo: sin ella, cualquier diferencia entre dos construcciones es una pregunta sin respuesta.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Un comprobador de enlaces sobre 60 archivos
+
+Se genera un corpus de 60 archivos Markdown con cuatro encabezados cada uno y siete enlaces por archivo a otro archivo y a uno de sus encabezados (480 enlaces), más un bloque de código por archivo con un enlace de ejemplo que no debe contarse. El comprobador extrae los enlaces, calcula la ancla de cada encabezado (minúsculas, sin signos, espacios por guiones) y verifica que el archivo y la ancla existan. Después se renombran 5 archivos y se cambia el título de un encabezado en 8 archivos.
+
+```python
+def ancla(titulo):
+    s = re.sub(r"[^\w\s-]", "", titulo.lower().strip())
+    return re.sub(r"\s", "-", s)
+...
+if destino not in archivos:                 rotos_archivo += 1
+elif ancla_enlace and ancla_enlace not in anclas[destino]:
+                                            rotas_ancla += 1
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): el corpus original tiene 0 enlaces rotos. Si el comprobador lee también el interior de los bloques de código, marca 60 enlaces como rotos que eran ejemplos. Tras renombrar 5 archivos y cambiar 8 encabezados aparecen 52 enlaces a archivo rotos y 14 anclas rotas: 66 enlaces rotos reales, más de diez por cada archivo renombrado.
+
+![Tabla con los enlaces rotos de un corpus de 60 archivos Markdown antes y después de renombrar archivos y encabezados, y con un comprobador que no respeta los bloques de código.](../../../content/part-17/figures/se-212-comprobador-de-enlaces.svg)
+
+**Cómo leer la figura.** Cada fila es una situación del corpus; las columnas dan los enlaces a archivo rotos, las anclas rotas y la lectura. **Dónde deja de valer:** la regla de ancla es la del autor; si el sitio publicado genera otra, el comprobador dará resultados distintos. El corpus es sintético y uniforme (siete enlaces por archivo); uno real tiene enlaces externos, imágenes y rutas relativas con `..` que añaden casos.
+
+### Un linter que respeta los bloques de código
+
+Se generan 40 archivos con un título, una sección, texto, un bloque de código con comentarios de shell, una línea que parece un encabezado de nivel 3 y un comando largo (la mitad con más de 100 caracteres y con espacios al final). En 5 archivos se siembra un salto real de encabezado (de nivel 2 a 4). El linter aplica tres reglas: no saltar niveles de encabezado, no superar 100 caracteres por línea y no dejar espacios al final.
+
+```python
+if linea.startswith("```"):
+    dentro = not dentro
+    continue
+if dentro and respeta_vallas:
+    continue
+```
+
+El linter que lee el interior de los bloques emite 102 avisos; el que respeta las vallas emite 5, exactamente los 5 saltos sembrados. De los 102 avisos, 97 eran falsos. Los resultados fueron idénticos en ambos sistemas.
+
+![Barras con los avisos de un linter de Markdown sobre 40 archivos con y sin respeto de los bloques de código.](../../../content/part-17/figures/se-212-linter-y-bloques-de-codigo.svg)
+
+**Cómo leer la figura.** Cada barra es el número de avisos; la gris son los defectos sembrados. **Dónde deja de valer:** los bloques de código son del tipo más simple (valla de tres acentos graves); los bloques con sangría, las vallas de tilde o los bloques anidados en listas requieren un analizador completo, y la forma estable de lograrlo es usar uno de Markdown en lugar de expresiones regulares. El experimento muestra el efecto del contexto, no un linter listo para usar.
+
+### La misma página en ocho ejecuciones
+
+Se construye una página HTML con una lista de seis etiquetas y una fecha. Se prueban cuatro variantes: etiquetas en el orden de iteración de un conjunto, etiquetas en ese orden más la fecha de la ejecución, etiquetas ordenadas con fecha fija, y las ordenadas con saltos de línea CRLF en lugar de LF. Cada variante se ejecuta con ocho valores de `PYTHONHASHSEED` y se calcula el SHA-256 de la salida.
+
+```python
+items = list(etiquetas) if modo.startswith("set") else sorted(etiquetas)
+fecha = datetime.now().isoformat() if modo == "set+fecha" else "2026-11-13"
+```
+
+Con las etiquetas en el orden de un conjunto, las ocho ejecuciones producen ocho huellas distintas; añadiendo la fecha de la ejecución, también ocho. Con las etiquetas ordenadas y la fecha fija, las ocho producen una única huella. Con CRLF en lugar de LF, la huella cambia aunque la estructura sea idéntica: un mismo generador en Windows y Ubuntu produce huellas distintas si no fija los saltos de línea. Los resultados fueron idénticos en ambos sistemas.
+
+![Tabla con las huellas distintas al construir la misma página con ocho valores de semilla de hash según la variante del generador.](../../../content/part-17/figures/se-212-construccion-reproducible.svg)
+
+**Cómo leer la figura.** Cada fila es una variante del generador; la segunda columna es el número de huellas distintas en ocho ejecuciones. **Dónde deja de valer:** el experimento aísla tres fuentes de variación; las construcciones reales añaden otras (versiones de dependencias, rutas absolutas, orden del sistema de archivos, límites de zona horaria). Fijar el orden, la fecha y los saltos de línea es necesario y no suficiente.
 
 ## Definiciones de trabajo
 
-- **Docs:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **As:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Code:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Revisión:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
+- **documentación como código:** práctica de escribir y mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
+- **enlace roto:** referencia a un archivo o a una ancla que no existe en el conjunto publicado.
+- **ancla:** identificador de un encabezado dentro de una página, generado por el renderizador a partir de su título.
+- **construcción reproducible:** construcción que produce los mismos bytes a partir de las mismas fuentes.
+- **huella:** resumen criptográfico de un resultado que permite comprobar su identidad.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Docs as code, revisión y publicación**:
+El fragmento calcula la ancla de dos encabezados y detecta un enlace roto. Antes de ejecutarlo, predice qué enlace queda marcado.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import re
+def ancla(t):
+    return re.sub(r"\s", "-", re.sub(r"[^\w\s-]", "", t.lower().strip()))
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+encabezados = {ancla("Penalización por retraso"), ancla("Cómo pedir una prórroga")}
+enlaces = ["penalización-por-retraso", "como-pedir-una-prorroga"]
+print([e for e in enlaces if e not in encabezados])
+```
+
+La predicción correcta es `['como-pedir-una-prorroga']`, porque la regla conserva las tildes: la ancla de «Cómo pedir una prórroga» es `cómo-pedir-una-prórroga`. Registra la versión del intérprete; si quitas las tildes del enlace y de la regla, predice antes el resultado.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Docs as code, revisión y publicación**. Parte de esta pregunta: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `README.md` y enlaza la evidencia, no solo la conclusión.
+La documentación de la plataforma de entregas se construye en cada pull request: un comprobador de enlaces y anclas con la regla del sitio, un linter de Markdown consciente de los bloques de código, los comprobadores de las clases anteriores (opciones del README, grafo de ADR, diagrama frente a importaciones, ejemplos de la API, linter de runbooks) y una construcción reproducible cuya huella se publica junto a la página. La revisión humana mira exactitud, tarea de la audiencia y tipo de página, con una lista corta. Cuando alguien renombra la página de penalización, el comprobador lista los 12 enlaces que apuntan a ella y el pull request no se fusiona hasta corregirlos.
+
+Compara el caso normal con tres casos límite: el cambio de título que rompe anclas (el comprobador lo detecta con la regla del sitio), el enlace externo que deja de responder (se comprueba aparte y con tolerancia, porque una caída momentánea no es un defecto del repositorio) y el cambio de saltos de línea por un editor (la huella lo detecta antes de publicar).
 
 ## Práctica guiada
 
-1. Crea `work/SE-212/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete de documentación mantenible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `work/SE-212/` y genera un corpus de 60 archivos Markdown con enlaces y encabezados.
+2. Escribe el comprobador de enlaces y anclas y comprueba que el corpus original tiene cero rotos.
+3. Renombra 5 archivos y cambia 8 títulos y cuenta los enlaces rotos.
+4. Haz que el comprobador respete los bloques de código y mide la diferencia de falsas alarmas.
+5. Escribe el linter de tres reglas con y sin contexto y cuenta los avisos en 40 archivos.
+6. Construye la página de ejemplo con las cuatro variantes y ocho valores de `PYTHONHASHSEED`.
+7. Repite la construcción ordenada en el otro sistema operativo y compara la huella.
+8. Entrega `canalizacion.md` con los recuentos, las huellas y qué revisa una persona.
 
 ## Ejercicios
 
-1. **Fundamental:** define Docs y as con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `README.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Anclas:** modifica la regla de ancla para añadir un sufijo a los títulos duplicados y calcula cuántos enlaces del corpus de la clase cambian de ancla.
+2. **Linter:** añade una regla de longitud de párrafo y mide cuántos avisos nuevos produce con y sin respeto de los bloques de código.
+3. **Reproducibilidad:** añade a la página la ruta absoluta del directorio de trabajo y explica qué cambia entre dos máquinas.
+4. **Revisión:** redacta una lista de seis preguntas para la revisión humana de una página de la plataforma, sin incluir ninguna que una máquina responda.
 
 ## Reto verificable
 
-Entrega el **paquete de documentación mantenible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega el corpus, el comprobador, el linter con y sin contexto, el generador de la página con sus cuatro variantes y las huellas en dos sistemas. Se aprueba si otra persona ejecuta todo desde un checkout limpio, obtiene los mismos recuentos y la misma huella ordenada, y puede nombrar una fuente de variación que tu construcción no controla.
+
+## Caso conductor
+
+El portal de la plataforma de entregas pasa de un conjunto de páginas a una canalización. Esta clase deja el comprobador de enlaces, el linter con contexto y la construcción reproducible, que `SE-213` aprovecha para validar glosarios y `SE-216` para publicar versiones con huella.
+
+## Preguntas frecuentes
+
+### ¿Cuántas comprobaciones debe tener un pull request de documentación?
+
+Las que producen señal. Cada comprobación que falla por motivos irrelevantes enseña a ignorar todas. Empieza con enlaces, ejemplos ejecutables y un linter con contexto, y añade solo las que hayan atrapado un defecto real.
+
+### ¿Los enlaces externos se comprueban en cada pull request?
+
+No de forma bloqueante. Una caída de un sitio ajeno no es un defecto del cambio. Se comprueban en una tarea programada y con tolerancia a fallos temporales, y se corrigen aparte.
+
+### ¿Qué hago si el linter no entiende un bloque de código?
+
+Usa un analizador de Markdown en lugar de expresiones regulares, o exclúyelo de forma explícita con un comentario que lo justifique. Desactivar la regla globalmente pierde la protección que aporta.
+
+### ¿La huella demuestra que la documentación es correcta?
+
+No: demuestra que lo publicado es lo construido y que lo construido es lo revisado. La corrección sigue dependiendo de la revisión.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **documentar una intención como si describiera el comportamiento actual**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **renombrar una página y dejar enlaces rotos**. Renombra `doc07.md` a `doc07_nuevo.md` y ejecuta el comprobador.
+
+Registra síntoma, entrada mínima, hipótesis, observación que discrimina, causa, corrección y prueba de regresión. **Síntoma:** quien sigue un enlace obtiene un 404 en el sitio publicado. **Hipótesis rivales:** (a) el servidor de publicación falló; (b) el enlace tiene un error de escritura; (c) la página se renombró. **Observación que discrimina:** ejecuta el comprobador; si lista el enlace con destino inexistente y la página existe con otro nombre, confirma (c). **Causa:** el renombrado no actualizó los enlaces entrantes. **Corrección:** actualizar los enlaces o añadir una redirección. **Prueba de regresión:** el comprobador en la integración continua, que bloquea la fusión. **Recuperación:** añadir una redirección para los enlaces externos que no se pueden corregir.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El linter emite cientos de avisos y nadie los lee | No respeta los bloques de código | Usar un analizador de Markdown o ignorar las vallas de forma explícita |
+| Un cambio de título rompe enlaces internos sin aviso | No se comprueban las anclas | Añadir la comprobación con la regla de ancla del sitio |
+| La página publicada difiere de la revisada | La construcción no es reproducible | Ordenar colecciones, fijar fechas y saltos de línea, y publicar la huella |
+| Las huellas difieren entre Windows y Linux | Distintos saltos de línea al escribir | Fijar LF en el generador y en la configuración del repositorio |
+| Los pull requests de documentación se revisan solo por forma | La revisión no tiene preguntas propias | Escribir una lista de preguntas de exactitud y tarea para el revisor |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor Markdown, Mermaid y verificador de enlaces. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-212/
 ├── README.md
-│   ├── README.md
-│   ├── architecture.md
-│   ├── decision-record.md
-├── activity.yaml
-└── rubric.json
+├── corpus/
+├── experimentos/
+│   ├── enlaces.py
+│   ├── linter.py
+│   └── construccion.py
+├── .github/workflows/docs.yml
+└── evidencia/canalizacion.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `README.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`re`, `pathlib`, `hashlib`, `subprocess`, `random`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con resultados idénticos. El corpus se crea en un directorio temporal y se elimina al terminar.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una canalización de documentación ejecuta código (ejemplos, comprobadores): trátala como el resto del código, con permisos mínimos y sin secretos accesibles a los pull requests de terceros;
+- no publiques documentación interna por error: la construcción debe declarar qué entra y qué no;
+- el linter debe comprobar también accesibilidad básica: texto alternativo en las imágenes, encabezados en orden y enlaces con texto descriptivo;
+- usa enlaces con texto que diga adónde llevan; evita «aquí» y «este enlace»;
+- documenta quién aprueba la publicación y cómo se revierte una versión;
+- respeta las licencias de las herramientas y de los contenidos que incorporas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se pide «arregla los enlaces rotos» puede reescribir texto para que el comprobador deje de quejarse, o borrar enlaces. Pídele que ejecute el comprobador antes y después, que no elimine enlaces sin proponer el destino correcto, que liste los cambios por archivo y que no modifique reglas del linter ni de la canalización sin aprobación. Un agente es también el autor de muchos cambios de documentación: las comprobaciones mecánicas son su red, y la revisión humana debe centrarse en lo que una máquina no ve. Quien revisa comprueba que las comprobaciones se ejecutaron y que no se debilitaron.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada la canalización a otro dominio (por ejemplo, la documentación de un servicio de reparto): cambian las páginas y los comprobadores específicos, se conservan el pull request, las comprobaciones con contexto, la construcción reproducible y la huella. La transferencia está lograda cuando puedes explicar qué parte de la canalización depende del renderizador y cuál no.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-212/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de qué comprueba cada etapa de la canalización y por qué la revisión humana sigue siendo necesaria |
+| corrección | recuentos reproducibles de enlaces rotos, avisos y huellas con las mismas semillas |
+| diseño | comprobador de enlaces, linter con contexto y construcción reproducible |
+| diagnóstico | reproducción del fallo «renombrado con enlaces rotos» con regresión |
+| incertidumbre | declaración de que la regla de ancla y el corpus son del autor y de que no se midió ninguna canalización real |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Write the Docs: Docs as Code](https://www.writethedocs.org/guide/docs-as-code/) — práctica y herramientas; autoridad: Write the Docs.
+- [CommonMark: especificación](https://spec.commonmark.org/) — sintaxis de Markdown; autoridad: proyecto CommonMark.
+- [GitHub Flavored Markdown: especificación](https://github.github.com/gfm/) — extensiones de Markdown de GitHub; autoridad: GitHub.
+- [markdownlint: reglas](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md) — catálogo de reglas de estilo de Markdown; autoridad: proyecto markdownlint.
+- [Reproducible Builds: documentación](https://reproducible-builds.org/docs/) — causas de variación y prácticas; autoridad: proyecto Reproducible Builds.
+- [Reproducible Builds: SOURCE_DATE_EPOCH](https://reproducible-builds.org/specs/source-date-epoch/) — fecha fija para construcciones; autoridad: proyecto Reproducible Builds.
+- [Python: opciones de línea de comandos y variables de entorno](https://docs.python.org/3/using/cmdline.html) — `PYTHONHASHSEED` y su efecto en el orden; autoridad: documentación de Python.
 
-- **Diátaxis documentation framework** — Diátaxis project. [https://diataxis.fr/](https://diataxis.fr/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **C4 model** — C4 model project. [https://c4model.com/](https://c4model.com/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que una canalización de documentación reduzca los defectos publicados de tu proyecto. Esa afirmación depende del equipo y se comprueba con sus propios recuentos de enlaces rotos y de discrepancias.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Docs as code, revisión y publicación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-213`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna canalización real ni el tiempo de revisión: el corpus de 60 archivos, la regla de ancla y el linter de tres reglas son construcciones del autor, y la construcción reproducible controla solo tres fuentes de variación. La siguiente clase pregunta cómo se encuentra lo que está publicado: búsqueda, glosarios y arquitectura de conocimiento.
+
+## Glosario
+
+- **documentación como código:** práctica de mantener la documentación con control de versiones, revisión y comprobaciones automáticas.
+- **enlace roto:** referencia a un archivo o ancla que no existe en el conjunto publicado.
+- **ancla:** identificador de un encabezado dentro de una página, generado a partir de su título.
+- **construcción reproducible:** construcción que produce los mismos bytes a partir de las mismas fuentes.
+- **huella:** resumen criptográfico de un resultado que permite comprobar su identidad.
 
 ---
 

@@ -2,207 +2,306 @@
 
 [← SE-213 — Búsqueda, glosarios y arquitectura de conocimiento](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-213-busqueda-glosarios-y-arquitectura-de-conocimiento/README.md) · [↑ Parte 17](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-214.html) · [SE-215 — Taller: reconstruir conocimiento perdido →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-17-documentacion-y-conocimiento-tecnico/se-215-taller-reconstruir-conocimiento-perdido/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que escribas documentación que lean también programas y modelos de lenguaje sin perjudicar a las personas, y para que sepas qué cambia al diseñarla: metadatos que una máquina valida, fragmentos que no separan una regla de su excepción y una postura clara ante el texto que un agente leerá y podría obedecer.
+
+**Por qué aparece aquí.** Se sitúa después de **Búsqueda, glosarios y arquitectura de conocimiento** y antes del taller **Reconstruir conocimiento perdido**: la clase anterior hizo la documentación encontrable por personas; esta añade a las máquinas como lectoras y, con ellas, un riesgo nuevo, el de que un documento contenga instrucciones. Fija el esquema de metadatos que el portal final exigirá y la regla de que el texto que lee un agente es dato, no mandato.
+
+**Error conceptual que debe corregir.** Creer que preparar documentación para un modelo es escribirla más corta, o que un filtro de palabras sospechosas protege a un agente. La estructura (metadatos, encabezados, fragmentos coherentes) es lo que ayuda a una máquina, y la seguridad de un agente no se apoya en filtrar el texto sino en limitar lo que puede hacer.
+
+**Límite de la conclusión.** No se usó ningún modelo de lenguaje ni agente: los fragmentos son documentos sintéticos con una excepción por sección, los metadatos son registros inventados y el filtro se probó con 22 textos escritos por el autor. Los resultados describen mecanismos, no el comportamiento de ningún sistema.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [llms.txt: propuesta de Jeremy Howard](https://llmstxt.org/) | Propone un archivo `/llms.txt` en un sitio para ofrecer información que ayude a agentes a usarlo. | Es una propuesta, no un estándar adoptado, y no mide si mejora las respuestas. |
+| [AGENTS.md](https://agents.md/) | Describe un formato abierto para dar contexto e instrucciones a agentes de código, complementario al README. | No garantiza que cada agente lo lea ni lo respete. |
+| [Greshake et al., «Not what you've signed up for» (2023)](https://arxiv.org/abs/2302.12173) | Muestra que aplicaciones integradas con modelos pueden ser atacadas con instrucciones colocadas en datos que el modelo recupera, la inyección indirecta. | No cubre todas las defensas ni mide la frecuencia en producción. |
+
+## Antes de empezar
+
+Retoma los metadatos de responsable y fecha de `SE-205`, el glosario de `SE-213` y la advertencia de `SE-211` sobre reglas léxicas. La pregunta activa es: **si un programa, un buscador o un agente lee esta página, ¿qué estructura necesita, qué podría malinterpretar y qué no debe hacer con lo que lee?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-213` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de editor Markdown, Mermaid y verificador de enlaces.
+- Haber completado `SE-213` o poder explicar la diferencia entre recuperar una página y entenderla.
+- Python 3.11 o posterior y un terminal; los experimentos usan solo la biblioteca estándar.
+- Trabajar con documentos sintéticos; no se envía nada a ningún modelo ni servicio.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Documentación para humanos, máquinas y LLM**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas quiere que un asistente responda preguntas sobre la penalización a partir de la documentación. El sistema divide las páginas en trozos de 500 caracteres y recupera los más parecidos a la pregunta. Una estudiante pregunta cuánto pierde con 30 horas de retraso. El trozo recuperado contiene «el tope de penalización es del 50 %» y termina ahí; la excepción («excepto cuando existe una prórroga vigente») quedó en el trozo siguiente. La respuesta es correcta para la regla y falsa para el caso. Semanas después, alguien incorpora a la documentación un comentario oculto con instrucciones dirigidas al asistente, y nadie lo ve porque en la página renderizada no aparece.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Documentación y humanos con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **paquete de documentación mantenible** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «documentar una intención como si describiera el comportamiento actual» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Documentación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Humanos | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Máquinas | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| LLM | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. enumerar las propiedades que una documentación necesita para tres tipos de lector (persona, programa determinista, modelo de lenguaje) y qué cambia entre ellos;
+2. medir cuántos pares «regla más excepción» se conservan según cómo se fragmente un documento y justificar una estrategia;
+3. validar metadatos de documentos con un esquema, incluida una regla de antigüedad, y decir qué defectos el esquema solo no ve;
+4. explicar la inyección indirecta, medir qué detecta y qué no un filtro léxico y justificar por qué la defensa debe estar en los permisos;
+5. decidir qué instrucciones para agentes se documentan, dónde y con qué límites.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Documentación para humanos, máquinas y LLM"] --> M["Modelo: Documentación"]
-    M --> D["Decisión: humanos"]
-    D --> E["Evidencia: máquinas"]
-    E --> R["Revisión: LLM"]
-    R -->|nueva información| M
+    A[Documento] --> B[Metadatos validados]
+    A --> C[Fragmentos coherentes]
+    A --> D[Texto que puede contener instrucciones]
+    B --> E[Programas: índices, auditorías]
+    C --> F[Recuperación para un modelo]
+    D --> G[Tratar como dato]
+    G --> H[Permisos mínimos del agente]
+    F --> H
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Documentación para humanos, máquinas y LLM**.
+El diagrama se lee de izquierda a derecha: un documento ofrece tres cosas a una máquina: metadatos que un programa valida, fragmentos que un modelo recupera y texto que, por ser texto, podría contener instrucciones. Lo último se trata como dato y la defensa real es limitar lo que el agente puede hacer. No se dibuja la parte humana: las propiedades de `SE-205` a `SE-213` siguen siendo necesarias; esta clase añade, no sustituye.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Tres tipos de lector | Persona, programa y modelo necesitan propiedades distintas; ignorar uno degrada a los otros. | Tabla de propiedades por tipo de lector |
+| Metadatos y esquema | Un programa solo puede auditar lo que está declarado y validado. | Esquema y validador con regla de antigüedad |
+| Fragmentación | Separar una regla de su excepción produce respuestas falsas con apariencia de fuente. | Porcentaje de pares conservados por estrategia |
+| Instrucciones para agentes | Un archivo de contexto reduce errores y fija límites; no obliga a nadie. | Archivo de instrucciones con límites de permisos |
+| Texto como superficie de ataque | Un documento recuperado puede contener órdenes; un agente que las sigue es vulnerable. | Política de tratamiento como dato y permisos mínimos |
 
 ## Conceptos y decisiones
 
-La documentación sirve a una audiencia y una tarea concreta; debe diferenciar tutorial, guía, explicación, referencia, arquitectura y registro histórico.
+### 1. Tres lectores con necesidades distintas
 
-La pregunta rectora de esta parte es: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** La respuesta debe
-apoyarse en **prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual**.
+La persona necesita claridad, jerarquía y ejemplos. Un programa determinista (un índice, un auditor, un generador de sitio) necesita estructura predecible: campos con nombres fijos, formatos de fecha, enlaces resolubles. Un modelo de lenguaje necesita lo anterior y, además, fragmentos que se entiendan sin el resto de la página, porque lo que recupera es un trozo y no el documento. Las tres necesidades se superponen: encabezados descriptivos, definiciones únicas y metadatos honestos sirven a todos. Lo que no se superpone es el riesgo: la persona puede notar un texto sospechoso; el modelo, por diseño, trata todo lo que lee como contexto.
 
-### 1. Documentación: modelo
+### 2. Metadatos que una máquina puede validar
 
-En esta clase, **Documentación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Documentación para humanos, máquinas y LLM**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un bloque de metadatos al comienzo de la página (responsable, estado, fecha de revisión, audiencia, tipo) permite que un programa liste páginas vencidas, sin responsable o en borrador, y que un buscador las filtre. Para ello debe validarse con un esquema: campos obligatorios, valores permitidos y formatos. Un esquema comprueba forma; la vigencia es otra regla, que se calcula contra una fecha de referencia. La diferencia importa: un documento con metadatos válidos puede llevar dos años sin revisión. YAML es el formato habitual para estos bloques, con sus propias trampas de tipado, y por eso conviene validar después de analizar, no solo analizar.
 
-### 2. Humanos: mecanismo
+### 3. Fragmentos que conservan su sentido
 
-En esta clase, **humanos** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Documentación para humanos, máquinas y LLM**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los sistemas de recuperación aumentada dividen los documentos en fragmentos, recuperan los más cercanos a la pregunta y los entregan al modelo como contexto. Si el corte separa una regla de su excepción, el modelo recibe una afirmación incompleta y la presenta con la autoridad de una cita. Dividir por tamaño fijo es simple y arbitrario; dividir por encabezado respeta la estructura que la persona ya escribió, a cambio de fragmentos más grandes y desiguales. La decisión es de diseño: escribir la excepción en la misma sección que la regla, y fragmentar por la estructura del documento.
 
-### 3. Máquinas: evidencia
+### 4. Instrucciones para agentes: contexto, no mandato
 
-En esta clase, **máquinas** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Documentación para humanos, máquinas y LLM**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Formatos como AGENTS.md o la propuesta llms.txt dan un lugar predecible para el contexto que un agente necesita: cómo ejecutar las pruebas, qué convenciones seguir, qué no tocar. Aportan lo que el README no debería llevar. Son documentación, no seguridad: un agente que no los lea no se detiene, y uno que los lea puede equivocarse. Las instrucciones de un proyecto de este repositorio, por ejemplo, fijan qué documentos consultar antes de ampliar el contenido y qué reglas no se negocian; ayudan a quien las respeta y no impiden que otro las ignore.
 
-### 4. LLM: decisión
+### 5. El texto recuperado es dato, no instrucción
 
-En esta clase, **LLM** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?» y demostrarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Documentación para humanos, máquinas y LLM**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La inyección indirecta aprovecha que un modelo no distingue de forma fiable entre las instrucciones de quien lo usa y el texto que lee: un documento recuperado puede contener «ignora lo anterior» y el modelo puede obedecer. La defensa no consiste en detectar frases, porque el texto adversarial se reescribe, se codifica o cambia de idioma. Consiste en tratar todo lo recuperado como dato no confiable y en limitar lo que el agente puede hacer con él: permisos mínimos, acciones que requieren confirmación humana, separación entre quien lee y quien ejecuta. Un filtro léxico puede ayudar como alarma; no es un límite.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Fragmentos que separan la regla de su excepción
+
+Se generan 30 documentos de 40 secciones. Cada sección contiene un relleno inicial de entre 5 y 80 palabras, la regla («El tope de penalización de la política i es del 50 por ciento»), un relleno intermedio de entre 0 y 60 palabras, la excepción («Excepto cuando existe una prórroga vigente de la política i, que suspende el cálculo») y un cierre de entre 5 y 80 palabras. Se fragmenta cada documento de tres maneras: trozos fijos de 500 caracteres, trozos de 500 con un solape de 150 y un trozo por encabezado. Se cuenta cuántos pares regla-excepción quedan completos en un mismo trozo.
+
+```python
+def trozos_fijos(texto, tam, solape=0):
+    i, salida = 0, []
+    while i < len(texto):
+        salida.append(texto[i:i + tam]); i += tam - solape
+    return salida
+```
+
+Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): con trozos fijos de 500 caracteres, el 33,4 % de los pares queda completo en un trozo (tamaño medio 498); con solape de 150, el 46,5 % (497); con un trozo por encabezado, el 100 % (1 045 caracteres de media).
+
+![Barras con el porcentaje de pares regla más excepción que quedan en un mismo fragmento según la estrategia de fragmentación.](../../../content/part-17/figures/se-214-fragmentos-y-excepciones.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de pares completos por estrategia; la etiqueta añade el tamaño medio del fragmento. **Dónde deja de valer:** cada sección tiene una regla y una excepción dentro de una distancia corta, escrita para el experimento; en documentos reales la excepción puede estar a tres secciones de la regla y ni el encabezado la protege. Además, los fragmentos grandes (1 045 caracteres) cuestan más contexto y pueden reunir información ajena a la pregunta.
+
+### Metadatos: esquema y antigüedad
+
+Se generan 140 documentos con metadatos (responsable, estado, fecha de revisión) y defectos sembrados: sin responsable (23), estado inválido «casi listo» (20), fecha con formato incorrecto (15), revisado hace más de 180 días (27) y correctos (55). Se validan primero con un esquema que comprueba presencia, valores permitidos y formato de fecha, y después con la misma regla más una de antigüedad contra la fecha de referencia 2026-11-13.
+
+```python
+if "owner" not in meta: problemas.append("owner")
+if meta.get("estado") not in ("vigente", "borrador", "obsoleto"): problemas.append("estado")
+fecha = datetime.date.fromisoformat(meta["revisado"])
+if con_antiguedad and (hoy - fecha).days > 180: problemas.append("antiguo")
+```
+
+El esquema solo detecta los 23 sin responsable, los 20 con estado inválido y los 15 con fecha incorrecta; no detecta ninguno de los 27 vencidos. Con la regla de antigüedad detecta los 27 y no marca ninguno de los 55 correctos. Los resultados fueron idénticos en ambos sistemas.
+
+![Tabla con los defectos de metadatos de 140 documentos que detecta un esquema y un esquema con regla de antigüedad.](../../../content/part-17/figures/se-214-metadatos-y-antiguedad.svg)
+
+**Cómo leer la figura.** Cada fila es un tipo de defecto; las columnas dan cuántos documentos lo tenían y cuántos detecta cada validador. **Dónde deja de valer:** los 180 días y la fecha de referencia son parámetros; un documento puede estar vigente sin revisarse en 180 días (un glosario estable) o estar vencido el día después. La regla señala qué mirar, no qué está mal.
+
+### Qué ve un filtro léxico de instrucciones ocultas
+
+Se escriben 22 textos: 6 instrucciones maliciosas literales (en español e inglés), 8 ofuscadas o parafraseadas (letras separadas, cifras por letras, codificación base64, una nota dirigida al agente en un comentario, una orden en francés, una instrucción de ejecución disfrazada y una pretensión de que la página manda sobre las reglas) y 8 textos benignos con palabras como «ignorar», «instrucciones» u «olvida». Un filtro de cinco expresiones regulares se aplica a los 22.
+
+```python
+patrones = [r"(?i)ignor(a|e)\b.{0,30}(instrucciones|instructions|anterior)",
+            r"(?i)olvida (todo )?lo anterior", r"(?i)disregard.{0,20}instructions",
+            r"(?i)a partir de ahora eres", r"(?i)ignora lo anterior"]
+```
+
+El filtro marca las 6 literales, 0 de las 8 ofuscadas y 0 de los 8 benignos. Los patrones se escribieron viendo los casos literales, por eso el 6 de 6; lo que no ve es lo que escribe un adversario que conoce el filtro. Los resultados fueron idénticos en Windows y Ubuntu. No se envió ningún texto a ningún modelo.
+
+![Barras con las instrucciones literales, las ofuscadas y los textos benignos que marca un filtro de expresiones regulares.](../../../content/part-17/figures/se-214-filtro-de-instrucciones-ocultas.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de textos de su grupo que el filtro marcó; la verde final significa cero falsas alarmas. **Dónde deja de valer:** son 22 textos escritos por el autor; con otros ejemplos, el filtro fallaría en más literales y marcaría algún benigno. Lo que se sostiene es la asimetría: añadir un patrón por cada variante es una carrera que gana quien escribe la variante. La defensa estructural son los permisos y la confirmación humana.
 
 ## Definiciones de trabajo
 
-- **Documentación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Humanos:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **Máquinas:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
-- **LLM:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual.
+- **metadatos de documento:** campos estructurados al inicio de una página (responsable, estado, fecha, tipo) que un programa puede validar y consultar.
+- **fragmento:** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
+- **inyección indirecta:** ataque que coloca instrucciones en datos que un modelo recupera o lee, para que las obedezca como si fueran de su usuario.
+- **permiso mínimo:** capacidad estrictamente necesaria que se concede a un agente para su tarea.
+- **archivo de instrucciones para agentes:** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para el portal; no reemplazan las de las fuentes enlazadas abajo.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Documentación para humanos, máquinas y LLM**:
+El fragmento valida un bloque de metadatos y calcula su antigüedad. Antes de ejecutarlo, predice qué problemas devuelve.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import datetime
+meta = {"estado": "vigente", "revisado": "2026-03-01"}
+hoy = datetime.date(2026, 11, 13)
+problemas = []
+if "owner" not in meta: problemas.append("owner")
+if (hoy - datetime.date.fromisoformat(meta["revisado"])).days > 180: problemas.append("antiguo")
+print(problemas)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La predicción correcta es `['owner', 'antiguo']`: falta el responsable y han pasado 257 días. Registra la versión del intérprete y la salida; si cambias la fecha a `2026-09-01`, predice antes que solo queda `['owner']`.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Documentación para humanos, máquinas y LLM**. Parte de esta pregunta: **¿quién necesita tomar qué decisión con esta vista y cuándo dejaría de ser válida?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando prueba de recorrido, enlaces comprobados, owner, fecha y contraste con el comportamiento actual. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `README.md` y enlaza la evidencia, no solo la conclusión.
+El portal de la plataforma de entregas exige a cada página un bloque de metadatos con responsable, estado, fecha de revisión, audiencia y tipo, validado en la integración continua con la regla de antigüedad de 180 días. Los documentos se fragmentan por encabezado y cada sección que enuncia una regla incluye sus excepciones. Un archivo de instrucciones para agentes explica cómo ejecutar los comprobadores y qué no modificar. El asistente que responde preguntas tiene acceso de solo lectura al portal; no puede ejecutar acciones ni escribir. Ante un texto recuperado que contiene instrucciones, el diseño no depende de detectarlo: no tiene nada peligroso que ejecutar.
+
+Compara el caso normal con tres casos límite: la excepción lejos de la regla (se mueve a la misma sección o se enlaza con un resumen en cada una), el documento con metadatos válidos y vencido (la regla de antigüedad lo lista) y el comentario oculto con instrucciones (se trata como dato y no cambia lo que el asistente puede hacer).
 
 ## Práctica guiada
 
-1. Crea `work/SE-214/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el paquete de documentación mantenible con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea `work/SE-214/` y escribe el esquema de metadatos de la plataforma con los campos y los valores permitidos.
+2. Genera 140 documentos con defectos sembrados y valídalos con y sin la regla de antigüedad.
+3. Genera 30 documentos de 40 secciones con regla y excepción y fragméntalos de tres maneras.
+4. Mide cuántos pares quedan completos en cada estrategia.
+5. Escribe el filtro de cinco patrones y pruébalo con 22 textos; añade tres variantes tuyas que lo evadan.
+6. Redacta el archivo de instrucciones para agentes del portal con los límites de lo que pueden hacer.
+7. Pide a otra persona que proponga un texto que tu filtro no marque y que un lector humano sí notaría.
+8. Entrega `maquinas.md` con los resultados y la política de permisos.
 
 ## Ejercicios
 
-1. **Fundamental:** define Documentación y humanos con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `README.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Metadatos:** añade un campo de audiencia con valores permitidos y mide cuántos documentos sembrados con un valor inválido detecta el esquema.
+2. **Fragmentos:** coloca la excepción a dos secciones de la regla y mide cuántos pares conserva la fragmentación por encabezado; diseña una solución.
+3. **Filtro:** reescribe tres de las ocho instrucciones ofuscadas para que el filtro las detecte y explica por qué una versión nueva volvería a evadirlo.
+4. **Permisos:** lista las acciones que un asistente de lectura de documentación no necesita y que por tanto no deben concederse.
 
 ## Reto verificable
 
-Entrega el **paquete de documentación mantenible** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega el esquema, los 140 documentos, el validador con y sin antigüedad, la comparación de fragmentaciones, el filtro con sus 22 textos y el archivo de instrucciones con su política de permisos. Se aprueba si otra persona ejecuta todo desde un checkout limpio, obtiene los mismos porcentajes y puede proponer una instrucción oculta que tu filtro no ve y explicar qué permiso impediría su efecto.
+
+## Caso conductor
+
+El portal de la plataforma de entregas se prepara para lectores no humanos: metadatos validados, secciones que conservan sus excepciones y una política de que el texto recuperado es dato. Esta clase deja el esquema de metadatos, el validador con antigüedad y el archivo de instrucciones, que `SE-215` usa al reconstruir conocimiento perdido y `SE-216` incorpora al portal versionado.
+
+## Preguntas frecuentes
+
+### ¿Hay que escribir dos versiones de cada página, una para humanos y otra para modelos?
+
+No. Escribir bien para personas (encabezados claros, definiciones únicas, excepciones junto a la regla) es lo que más ayuda a las máquinas. Lo que se añade son metadatos y un archivo de contexto, no un duplicado.
+
+### ¿El archivo AGENTS.md hace que un agente sea seguro?
+
+No. Es contexto para quien lo lee, no un control. La seguridad se obtiene limitando lo que el agente puede hacer, no lo que se le pide.
+
+### ¿Por qué no filtrar todas las frases sospechosas?
+
+Porque quien ataca reescribe, codifica o traduce la frase, y el filtro siempre llega tarde. Sirve como alarma para revisar, no como frontera.
+
+### ¿Se puede confiar en la respuesta de un asistente que cita la documentación?
+
+Si la cita es el fragmento exacto y se puede abrir la fuente, se puede verificar. Si el fragmento está truncado en una excepción, la respuesta puede estar equivocada con una cita real; por eso la fragmentación importa.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **documentar una intención como si describiera el comportamiento actual**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una respuesta correcta para la regla y falsa para el caso, por un fragmento cortado**. Fragmenta un documento en trozos de 500 caracteres y busca el par regla-excepción de la política 7.
+
+Registra síntoma, entrada mínima, hipótesis, observación que discrimina, causa, corrección y prueba de regresión. **Síntoma:** el asistente afirma que el tope es del 50 % para una estudiante con prórroga vigente. **Hipótesis rivales:** (a) la documentación está equivocada; (b) el asistente inventó la respuesta; (c) el fragmento recuperado no incluía la excepción. **Observación que discrimina:** abre el fragmento citado; si contiene la regla y termina antes de la excepción, y la página completa la incluye, confirma (c). **Causa:** el corte por tamaño separó la regla de su excepción. **Corrección:** fragmentar por encabezado y mantener la excepción en la misma sección. **Prueba de regresión:** la comprobación de pares completos en la construcción del índice. **Recuperación:** revisar las respuestas dadas con ese fragmento y avisar a las personas afectadas.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El asistente da respuestas correctas a medias | Fragmentos que separan reglas y excepciones | Fragmentar por estructura y escribir la excepción junto a la regla |
+| La auditoría no encuentra páginas sin responsable | Los metadatos no se validan con un esquema | Añadir el esquema y exigirlo en la integración continua |
+| Hay metadatos válidos en documentos de hace dos años | El esquema no comprueba vigencia | Añadir una regla de antigüedad contra una fecha de referencia |
+| Se confía en el filtro de frases sospechosas | Se trata una alarma como una frontera | Limitar permisos y exigir confirmación humana para acciones |
+| Un agente ejecuta lo que decía un comentario oculto | Se trató texto recuperado como instrucción | Tratar lo recuperado como dato y separar quien lee de quien ejecuta |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: editor Markdown, Mermaid y verificador de enlaces. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-214/
 ├── README.md
-│   ├── README.md
-│   ├── architecture.md
-│   ├── decision-record.md
-├── activity.yaml
-└── rubric.json
+├── esquema-metadatos.json
+├── AGENTS.md
+├── experimentos/
+│   ├── fragmentos.py
+│   ├── metadatos.py
+│   └── filtro.py
+└── evidencia/maquinas.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `README.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`datetime`, `re`, `random`, `base64`, `statistics`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con resultados idénticos. No se usó ningún modelo ni servicio externo.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el texto que un agente lee es una entrada no confiable: no le concedas permisos de escritura ni de ejecución por el solo hecho de que lea tu documentación;
+- no incluyas secretos ni datos personales en documentos que un asistente indexará: lo indexado puede reaparecer en una respuesta;
+- los comentarios ocultos y el texto invisible son una vía de ataque: revisa también el contenido que no se renderiza;
+- las instrucciones para agentes deben ser legibles por personas y estar bajo la misma revisión que el resto;
+- los metadatos no deben incluir información personal más allá de un rol o un equipo responsable;
+- diseña pensando en que una respuesta incorrecta de un asistente puede afectar a la nota de una persona: exige citar la fuente y mostrar la excepción.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se pide «prepara la documentación para el asistente» puede reescribirla más corta, eliminar excepciones o añadir un archivo de instrucciones que declare permisos que no existen. Pídele que valide los metadatos con el esquema, que mida los pares regla-excepción conservados y que no conceda ni documente permisos nuevos sin aprobación. Un agente es además el lector que más expuesto está a la inyección: configúralo con permisos mínimos, tratando todo lo recuperado como dato. Quien revisa comprueba la medición, la política de permisos y que ninguna instrucción oculta pasó la revisión.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada la técnica a otro dominio (por ejemplo, la documentación de un servicio de reparto): cambian los campos y las reglas, se conservan el esquema con antigüedad, la fragmentación por estructura, el tratamiento del texto recuperado como dato y los permisos mínimos. La transferencia está lograda cuando puedes explicar qué parte de la defensa depende de los textos y cuál del diseño del agente.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-214/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de las necesidades de los tres tipos de lector y de por qué el filtro no es una frontera |
+| corrección | porcentajes reproducibles de pares conservados y de defectos detectados con las mismas semillas |
+| diseño | esquema de metadatos, fragmentación por estructura y política de permisos |
+| diagnóstico | reproducción del fallo «fragmento cortado» con regresión |
+| incertidumbre | declaración de que no se usó ningún modelo y de que los 22 textos son del autor |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [llms.txt: propuesta de Jeremy Howard](https://llmstxt.org/) — archivo de información para agentes en un sitio; autoridad: autor de la propuesta.
+- [AGENTS.md](https://agents.md/) — formato abierto de instrucciones para agentes de código; autoridad: proyecto AGENTS.md.
+- [Lewis et al., «Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks» (2020)](https://arxiv.org/abs/2005.11401) — generación aumentada por recuperación; autoridad: arXiv.
+- [Greshake et al., «Not what you've signed up for» (2023)](https://arxiv.org/abs/2302.12173) — inyección indirecta de instrucciones; autoridad: arXiv.
+- [OWASP Top 10 for Large Language Model Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — riesgos de aplicaciones con modelos de lenguaje; autoridad: OWASP.
+- [Willison, «Prompt injection attacks against GPT-3» (2022)](https://simonwillison.net/2022/Sep/12/prompt-injection/) — descripción temprana de la inyección de instrucciones; autoridad: weblog del autor.
+- [YAML 1.2.2](https://yaml.org/spec/1.2.2/) — especificación del formato habitual de metadatos; autoridad: YAML Language Development Team.
 
-- **Diátaxis documentation framework** — Diátaxis project. [https://diataxis.fr/](https://diataxis.fr/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **C4 model** — C4 model project. [https://c4model.com/](https://c4model.com/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que fragmentar por encabezado sea óptimo ni que los permisos mínimos eliminen la inyección indirecta. Esa afirmación depende del sistema y se comprueba con pruebas adversariales propias.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Documentación para humanos, máquinas y LLM**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-215`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún modelo de lenguaje ni agente, y no se midió ningún sistema de recuperación: los documentos de 40 secciones, los 140 registros de metadatos y los 22 textos del filtro son construcciones del autor. La siguiente clase pasa al taller: reconstruir conocimiento perdido a partir de lo que sobrevive en el historial.
+
+## Glosario
+
+- **metadatos de documento:** campos estructurados al inicio de una página que un programa puede validar y consultar.
+- **fragmento:** trozo de un documento que un sistema de recuperación entrega a un modelo como contexto.
+- **inyección indirecta:** ataque que coloca instrucciones en datos que un modelo lee para que las obedezca.
+- **permiso mínimo:** capacidad estrictamente necesaria que se concede a un agente para su tarea.
+- **archivo de instrucciones para agentes:** documento de contexto y convenciones que un agente puede leer antes de trabajar en un proyecto.
 
 ---
 

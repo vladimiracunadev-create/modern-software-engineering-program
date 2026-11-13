@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-13 — Parte 17 desarrollada y profundizada con experimentos sintéticos y de Git reproducibles
+
+- las clases `SE-205`–`SE-216` pasan de borradores genéricos a clases completas sobre el portal documental de la plataforma de entregas de tareas: audiencias y tareas, los cuatro
+  tipos de página, README y primer éxito, registros de decisiones, diagramas generados, documentación de una API con ejemplos ejecutables, runbooks, documentación como código,
+  búsqueda y glosarios, documentación para máquinas y agentes, un taller de reconstrucción de conocimiento perdido y un portal versionado con paquete reproducible y auditoría; el
+  portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos y simulaciones de datos sintéticos y semilla fija: clics hasta una página y coherencia de un dato repetido, un clasificador de tipos de página y un tutorial
+  ejecutable, un embudo de pasos y un detector de deriva del README, un linter de ADR y la caducidad de sus suposiciones, cruces de aristas y un generador de diagramas estable, ejemplos
+  de una API y los códigos de un servidor local, idempotencia de los pasos de un runbook, enlaces rotos y huellas de construcción, búsqueda con sinónimos, fragmentación de documentos
+  para recuperación, el factor de camión y `git log -S`, versiones etiquetadas y un paquete zip reproducible;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9, Git 2.55) y en Ubuntu bajo WSL2 (3.12.3, Git 2.43) con salidas idénticas; durante el trabajo aparecieron dos
+  diferencias entre sistemas que se corrigieron y se documentan: un servidor local que responde 413 sin leer el cuerpo aborta la conexión en Windows y no en Ubuntu, y un zip con
+  orden, fecha y permisos fijos tenía huellas distintas en cada sistema hasta fijar también el campo de sistema de origen; los datos son sintéticos, los parámetros son supuestos
+  del autor, las reglas léxicas se probaron con casos construidos por el propio autor, no se usó ningún modelo de lenguaje, herramienta de documentación de producción ni portal real,
+  y la parte no tiene laboratorio en `labs/`;
+- hallazgos del análisis: con tres cambios al año, un dato repetido en seis páginas solo sigue coherente el 5,3 % de las veces; un linter de ADR que ve la forma no detecta ninguna de
+  las alternativas vacías; renombrar 5 archivos y 8 títulos rompe 66 enlaces; el 55 % de las respuestas de un servidor ante peticiones erróneas lleva códigos no documentados; un
+  linter que ignora los bloques de código da 102 avisos de los cuales 97 son falsos; fragmentar por 500 caracteres separa la regla de su excepción en dos de cada tres casos; un
+  filtro léxico detecta las 6 instrucciones ocultas literales y ninguna de las 8 ofuscadas; cuando se va la persona con más commits queda sin responsable el 45 % de los archivos.
+
+
 ## 2026-11-13 — Parte 16 desarrollada y profundizada con experimentos reproducibles de Git y colaboración
 
 - las clases `SE-193`–`SE-204` pasan de borradores genéricos a clases completas sobre el repositorio de la plataforma de entregas de tareas: modelo de objetos y áreas de Git, commits

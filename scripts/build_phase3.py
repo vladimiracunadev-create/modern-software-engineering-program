@@ -905,6 +905,20 @@ def markdown_to_html(markdown: str) -> tuple[str, list[tuple[str, str]]]:
                 index += 1
             output.append(f"<{tag}>{''.join(items)}</{tag}>")
             continue
+        figure = re.match(r'^!\[([^\]]+)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)$', line.strip())
+        if figure:
+            alt, source, caption = figure.group(1), figure.group(2), figure.group(3) or ""
+            source = re.sub(r"^(?:\.\./)+content/part-\d+/figures/", "../assets/figures/", source)
+            visible = caption or alt
+            caption_html = f'<figcaption aria-hidden="true">{inline_markdown(visible)}</figcaption>'
+
+            output.append(
+                '<figure class="lesson-figure">'
+                f'<img src="{html.escape(source)}" alt="{html.escape(alt)}" loading="lazy">'
+                f"{caption_html}</figure>"
+            )
+            index += 1
+            continue
         if line.strip() == "---":
             output.append("<hr>")
             index += 1
@@ -988,7 +1002,10 @@ def expected_files(program: dict) -> dict[Path, str]:
                 # Estas clases tienen fuentes editoriales explícitas. Publicarlas
                 # no sustituye la revisión de la parte como recorrido completo.
                 source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
-                markdown = source.read_text(encoding="utf-8").replace(
+                raw_markdown = source.read_text(encoding="utf-8")
+                markdown = raw_markdown.replace(
+                    "](figures/", f"](../../../content/part-{part['id']}/figures/"
+                ).replace(
                     "(../../classes/",
                     "(https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/",
                 ).replace(
@@ -1007,6 +1024,8 @@ def expected_files(program: dict) -> dict[Path, str]:
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = site_page(
                 part, lesson, markdown, previous, following
             )
+    for figure in sorted((ROOT / "content").glob("part-*/figures/*.svg")):
+        result[ROOT / "site/assets/figures" / figure.name] = figure.read_text(encoding="utf-8")
     return result
 
 

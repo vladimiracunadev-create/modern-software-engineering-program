@@ -430,6 +430,7 @@ def site_css() -> str:
 def site_visual_enhancements() -> str:
     return """
 ::selection{background:#b9e2dc;color:#102a43}
+.lesson-figure{margin:1.8rem 0;padding:1rem;border:1px solid #b9d8d4;border-radius:1rem;background:#fff;overflow-x:auto}.lesson-figure img{display:block;width:100%;min-width:640px;height:auto}.lesson-figure figcaption{margin-top:.8rem;color:var(--muted);font-size:.86rem;line-height:1.5}
 a{transition:color .16s ease,background .16s ease,border-color .16s ease,transform .16s ease}
 a:hover{color:#b44231}a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
 .stage,.class-card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.stage:hover,.class-card:hover{transform:translateY(-3px);border-color:#8bb8b3;box-shadow:0 22px 55px rgba(17,42,67,.13)}

@@ -84,6 +84,19 @@ fijar el flujo, revisión de accesibilidad con prototipo, criterios operativos a
 desplegar y feedback de soporte después. La colaboración efectiva conserva profundidad
 y hace permeable el conocimiento relevante.
 
+![Figura 1. Línea de tiempo con cuatro hitos que muestra cómo cambia lo que se puede corregir según el momento en que entra seguridad: con el diseño o solo al final](../../../content/part-00/figures/se-005-silo-y-momento.svg)
+
+**Cómo leer la figura.** Las barras grises sugieren, de forma cualitativa, que cambiar un
+supuesto cuesta más a medida que el diseño se fija y se construye. En el carril B, seguridad
+modela amenazas cuando el flujo todavía es maleable y su conocimiento *cambia la decisión*.
+En el carril A, la misma persona, con el mismo conocimiento, solo puede aprobar o rechazar lo
+construido: la especialidad existe, pero entró cuando ya no podía influir sin rehacer. La
+franja inferior recuerda el otro extremo del silo: la señal que nunca llega a ingeniería.
+**Dónde deja de valer:** la altura de las barras no es una medición; es una intuición ordenada que
+cada equipo debe calibrar con su propio historial de retrabajo. Además, adelantar una
+especialidad no la sustituye: una revisión final sigue siendo necesaria para lo que cambió
+durante la construcción.
+
 ### 3. Las interfaces de colaboración también se diseñan
 
 Una reunión no garantiza colaboración. Puede reunir perspectivas sin producir una
@@ -116,6 +129,17 @@ y revisa, se limita el alcance, se buscan criterios automatizados o revisión ex
 se registra la limitación. A mayor impacto e irreversibilidad, más importante es separar
 incentivos.
 
+![Figura 3. Tabla de cuatro decisiones por seis dimensiones de derechos de decisión, con más separación de incentivos a mayor impacto](../../../content/part-00/figures/se-005-derechos-de-decision.svg)
+
+**Cómo leer la figura.** Las filas van de menor a mayor impacto y urgencia. Cambiar un texto
+reversible lo decide el propio equipo con una revisión automática; liberar una migración de
+identidad separa quien propone, quien decide, quien revisa de forma independiente y quien
+acepta el riesgo, y registra el desacuerdo. La última fila muestra una excepción
+legítima: en un incidente la autoridad de parada está pre-acordada para actuar rápido, y la
+revisión ocurre después. **Dónde deja de valer:** los nombres de rol son ilustrativos. Lo que
+debe sobrevivir al traslado a otra organización es el principio: la gobernanza es
+proporcional al riesgo, y cada dimensión tiene un propietario que existe antes del conflicto.
+
 ### 5. Colaborar bajo presión requiere protocolos previos
 
 Durante un incidente no hay tiempo para descubrir quién posee una dependencia o qué
@@ -145,6 +169,17 @@ El flujo no termina al restaurar el servicio. Las personas afectadas reciben est
 corrección; el contrato de idempotencia cambia; la señal de duplicado entra al tablero;
 y el mapa de decisiones se actualiza. Así la colaboración produce aprendizaje y no
 solo coordinación momentánea.
+
+![Figura 2. Red de colaboración con el incidente en el centro y siete roles alrededor, cada uno con su aportación o decisión](../../../content/part-00/figures/se-005-red-de-incidente.svg)
+
+**Cómo leer la figura.** No hay jerarquía: el nodo central es el incidente y cada rol aporta
+una pieza que los demás no ven. El líder conserva la línea temporal y la imagen compartida
+(no diagnostica todo); soporte, desarrollo, datos y seguridad contribuyen evidencia distinta;
+producto decide la experiencia de reparación; operación puede detener nuevas confirmaciones
+al cruzarse un umbral acordado *antes* del incidente. **Dónde deja de valer:** la figura
+omite el tiempo. En un incidente real las aportaciones llegan en desorden, hay información
+contradictoria y personas que cambian de turno; por eso el protocolo previo y el registro
+temporal importan más que el diagrama.
 
 ## Definiciones de trabajo
 
@@ -188,9 +223,39 @@ Depende de la decisión. Debe declararse antes del conflicto y respetar obligaci
 ### ¿Un generalista reemplaza especialistas?
 No en riesgos que requieren competencia profunda; sí puede mejorar interfaces y visión sistémica.
 
+### ¿La ley de Conway implica que debo reorganizar el equipo para cambiar la arquitectura?
+
+Conway observó que las organizaciones tienden a producir diseños que copian su estructura de
+comunicación. Es una tendencia, no un mandato. Sirve para detectar que una frontera técnica
+difícil de mantener quizá refleja una frontera de equipo, y que cambiar una exige considerar
+la otra. No obliga a reorganizar por reflejo.
+
+### ¿Cuántas personas debe tener una decisión de alto riesgo?
+
+Las necesarias para cubrir competencia, autoridad y revisión independiente, no un número
+fijo. Más personas sin interfaz clara añaden espera. Es preferible pocas personas con papeles
+explícitos que un comité donde nadie acepta el riesgo.
+
+### ¿Cómo colaboro con alguien en otra zona horaria sin reuniones constantes?
+
+Con artefactos asincrónicos completos: una decisión escrita con contexto, opciones, plazo
+y criterio de aceptación; un canal acordado y una ventana de solapamiento reservada para
+desacuerdos que el texto no resuelve. La excepción son los incidentes, donde se pre-acuerda
+quién actúa cuando alguien duerme.
+
 ## Fallo controlado y diagnóstico
 
-Entrega un artefacto sin criterio de aceptación. Registra espera y reproceso; corrige la interfaz, no culpes al receptor.
+Entre dos personas (o dos roles que interpretas en momentos distintos) elige un artefacto
+pequeño, por ejemplo la especificación de un endpoint de consulta de cupos. **Ronda 1:** la
+persona emisora entrega el artefacto con la frase «ya está» y sin criterio de aceptación;
+la receptora lo implementa. Registra espera, preguntas de aclaración, reproceso y diferencias
+entre lo que ambas creían acordado. **Ronda 2:** repite con una interfaz explícita (entrada,
+pregunta que debe responder, salida, criterio de aceptación, plazo, canal y qué hacer si falta
+evidencia). **Síntoma esperado:** la ronda 1 produce reproceso y malentendidos de
+semántica, errores y privacidad. **Causa:** la interfaz de colaboración estaba implícita.
+**Corrección:** mejorar la interfaz, no culpar a quien recibió. Compara tiempos y errores en
+ambas rondas y registra qué parte de la mejora podría deberse al aprendizaje de la segunda
+ronda y no al contrato: es una amenaza a tu conclusión, no un detalle.
 
 ## Errores comunes y cómo corregirlos
 
@@ -210,6 +275,19 @@ Entrega un artefacto sin criterio de aceptación. Registra espera y reproceso; c
 
 Evita exponer a personas en retrospectivas; analiza condiciones. Incluye representación de usuarios y canales accesibles.
 
+## Puente hacia el trabajo con agentes
+
+Un agente de IA es un participante nuevo en la red de colaboración, y casi siempre sin rol
+declarado. Si no se define su interfaz, ocurre lo mismo que en la figura 1: entra al final como
+«quien genera» sin acceso al contexto que cambiaría su salida. Diseñarlo implica las mismas
+preguntas que para una persona: qué información recibe, qué pregunta responde, qué salida y
+criterio de aceptación produce, cuánto tiempo tiene, qué hace ante falta de evidencia y
+quién posee la decisión. La autoridad nunca se delega por defecto: proponer cambios es
+distinto de aceptarlos, y detener una acción en curso debe ser posible para una persona
+nombrada. Además, un agente no sustituye especialistas con competencia verificable; puede
+preparar material para su revisión. Las partes sobre agentes y harness desarrollan estos
+contratos con herramientas concretas.
+
 ## Transferencia
 
 Adapta el mapa a open source y a una organización regulada; compara autoridad formal e influencia.
@@ -223,6 +301,9 @@ Se exige autoridad explícita, interfaces, revisión, manejo de desacuerdo y red
 - [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), práctica profesional y trabajo en equipo.
 - [ACM Code of Ethics](https://www.acm.org/code-of-ethics), competencia, revisión y liderazgo responsable.
 - [NASA Software Activities Review](https://swehb.nasa.gov/spaces/7150/pages/16449741/SWE-018+-+Software+Activities+Review), participación de stakeholders y cierre de asuntos.
+- Melvin E. Conway, [How Do Committees Invent?](https://www.melconway.com/Home/Committees_Paper.html) (1968): origen de la observación sobre estructura de comunicación y diseño; respalda la pregunta sobre equipos y arquitectura.
+- [Google SRE Book: Managing Incidents](https://sre.google/sre-book/managing-incidents/): papeles, comunicación y control durante un incidente; contrasta con la red de la figura 2.
+- Matthew Skelton y Manuel Pais, *Team Topologies* (IT Revolution, ISBN 978-1-942788-81-2): interacción entre equipos y carga cognitiva; se estudia con más detalle en la parte de liderazgo.
 
 ## Límites y siguiente paso
 

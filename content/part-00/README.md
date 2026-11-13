@@ -42,6 +42,13 @@ independientes ni una lista de conceptos.
 4. Produce el artefacto de la práctica; no marques progreso solo por haber leído.
 5. Contrasta el resultado con el reto verificable y solicita una revisión externa.
 6. Conserva la evidencia: será entrada de la clase siguiente y del proyecto final.
+7. Interpreta cada figura con su párrafo «Cómo leer la figura»: qué relación muestra y
+   dónde deja de ser válida. Las figuras son modelos, no mediciones; las que usan cifras
+   las declaran sintéticas.
+8. Lee el «Puente hacia el trabajo con agentes» de cada clase: indica qué parte de la
+   decisión puede delegarse a un asistente, qué debe verificarse y qué evidencia acepta el
+   cambio. Su desarrollo completo pertenece a las partes de harness, especificación y
+   agentes.
 
 ## Propósito profesional
 

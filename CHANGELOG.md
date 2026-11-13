@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-13 — Parte 00 profundizada con figuras de apoyo
+
+- 36 figuras SVG estáticas (tres por clase) para `SE-001`–`SE-012`: modelos del
+  mecanismo, secuencias de fallo, comparaciones y gráficos con datos sintéticos
+  declarados, cada una con título, descripción, texto alternativo y un párrafo que
+  explica cómo leerla y dónde deja de valer;
+- cada clase añade un fallo controlado con protocolo, preguntas frecuentes sobre
+  ambigüedades reales, un puente hacia el trabajo con agentes y fuentes primarias
+  nuevas verificadas;
+- el portal publica las figuras sin JavaScript externo (`site/assets/figures/`) y el
+  README de GitHub las enlaza por ruta relativa; el generador de figuras vive en
+  `scripts/build_figures_part00.py` y se comprueba con `--check`;
+- nuevo documento `docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md` con la auditoría de
+  brechas (metodologías de la era de la IA, patrones y arquitecturas) y el alcance
+  decidido de 540 clases; el alcance no se publica en `curriculum.yaml` hasta que cada
+  parte tenga contenido desarrollado.
+
 ## 2026-10-06 — Parte 05 desarrollada
 
 - revisión clase a clase de `SE-061`–`SE-072`, conservando el hilo desde tipos y

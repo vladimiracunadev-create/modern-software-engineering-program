@@ -59,6 +59,17 @@ familiaridad. Un **supuesto** completa provisionalmente información faltante y 
 condición de revisión. Mezclarlos manipula el espacio de decisión: si cada deseo se
 declara innegociable, solo queda la opción elegida de antemano.
 
+![Figura 1. Embudo de decisión: seis opciones, tres tras las restricciones duras y una decisión tras comparar preferencias, con el fallo de declarar todo como restricción](../../../content/part-00/figures/se-008-embudo-de-decision.svg)
+
+**Cómo leer la figura.** Cada etapa tiene una función distinta. Las restricciones duras
+*eliminan*; las preferencias *ordenan* lo que queda; los supuestos *completan* lo que falta y
+llevan una condición de revisión. El recuadro rojo muestra el fallo clásico: si todo deseo se
+declara innegociable, el filtro deja una opción y la comparación se vuelve teatro.
+**Dónde deja de valer:** el embudo presenta las restricciones como datos. En la práctica
+también se negocian: una restricción con autoridad capaz de cambiarla puede relajarse si el
+costo de mantenerla es mayor que el de discutirla; por eso debe registrar fuente y quién puede
+modificarla.
+
 ### 2. Un riesgo conecta causa, evento incierto y consecuencia
 
 “Caída del sistema” es demasiado general. Un riesgo útil puede decir: “debido a que la
@@ -76,6 +87,16 @@ La **mitigación** reduce probabilidad o impacto antes del evento. La **continge
 indica cómo responder si ocurre. Observabilidad puede mejorar detección sin reducir la
 probabilidad; seguro puede transferir costo financiero sin reparar dignidad o acceso.
 Nombrar el tipo de control evita prometer más de lo que hace.
+
+![Figura 2. Causa, evento y consecuencia de un riesgo con mitigación, detección, contingencia y transferencia ubicadas en su momento](../../../content/part-00/figures/se-008-anatomia-de-un-riesgo.svg)
+
+**Cómo leer la figura.** Un riesgo útil es una cadena: causa, evento incierto, consecuencia.
+Cada tipo de control actúa en un punto distinto. La mitigación opera sobre la causa o el
+impacto *antes*; la detección acorta el tiempo hasta enterarse; la contingencia responde
+*después*; la transferencia traslada un costo financiero pero deja intacta la consecuencia no
+financiera. **Dónde deja de valer:** la figura muestra un solo evento. Los riesgos reales se
+acumulan y se refuerzan (una demora provoca reintentos que agravan la demora), y su
+probabilidad y consecuencia rara vez se conocen con precisión: usa rangos y razones.
 
 ### 3. Los atributos se relacionan mediante mecanismos, no eslóganes
 
@@ -129,6 +150,16 @@ Se definen claves idempotentes, estado consultable, conciliación y autoridad de
 suspensión. Si la tasa de compensaciones supera el umbral o el proveedor cambia su
 contrato, se reabre la decisión.
 
+![Figura 3. Tabla cualitativa de tres opciones de reserva de cupos por seis atributos, con símbolos de alto, medio o bajo](../../../content/part-00/figures/se-008-tabla-de-tradeoffs.svg)
+
+**Cómo leer la figura.** Cada columna es una opción real y cada fila un atributo, con símbolos
+(▲, ▬, ▼) para no depender del color. Ninguna columna gana en todo: la reserva temporal no
+tiene la verdad inmediata de la síncrona ni la absorción de picos de la asincrónica; se eligió
+porque respeta la condición dura (no declarar matrícula definitiva antes de confirmarla) y
+porque la espera breve es tolerable. **Dónde deja de valer:** los símbolos son cualitativos y
+dependen de supuestos de carga y de infraestructura. Un cambio en esos supuestos puede cambiar
+la fila entera; la tabla sirve para conversar sobre ellos, no para sumar puntos.
+
 ## Definiciones de trabajo
 - **restricción dura:** condición no negociable dentro del alcance;
 - **preferencia:** criterio graduable;
@@ -162,8 +193,36 @@ No. A veces otra arquitectura mejora varios atributos; aun así tiene costo y l�
 ### ¿Riesgo bajo se ignora?
 No si la consecuencia es catastrófica o acumulativa.
 
+### ¿Qué es un pre-mortem y por qué ayuda?
+
+Es un ejercicio en el que el equipo imagina que la decisión ya fracasó y escribe por qué. Al
+suponer el fallo, las personas expresan dudas que antes callaban y surgen riesgos que
+ninguna lista genérica habría mostrado. Se complementa con señales de detección y un
+propietario para cada riesgo importante.
+
+### ¿Cuántos atributos debo comparar en una tabla de trade-offs?
+
+Los que cambian la decisión: normalmente entre cuatro y seis. Más atributos diluyen la
+conversación; menos pueden esconder una pérdida. Si un atributo no distingue entre las
+opciones, déjalo fuera de la comparación y regístralo como restricción común.
+
+### ¿Cuándo conviene conservar una opción y cuándo cerrarla?
+
+Conserva opciones cuando la información que falta llegará pronto y cuando el costo de
+mantenerlas es acotado. Ciérralas con un plazo y un criterio escritos de antemano; de lo
+contrario el valor de opción se convierte en indecisión y en complejidad permanente.
+
 ## Fallo controlado y diagnóstico
-Marca todas las restricciones como duras y observa que queda una sola opción. Revalida fuente y autoridad de cada una.
+
+Toma la tabla de tres opciones y declara a propósito todas las preferencias como restricciones
+duras («debe ser instantáneo, mínimo costo, máxima seguridad y entrega inmediata»).
+**Síntoma:** no queda ninguna opción viable, o queda exactamente la que alguien prefería de
+antemano. **Causa:** se confundieron preferencias con restricciones. **Corrección:** para cada
+restricción registra fuente (contrato, norma, límite físico), vigencia y autoridad capaz de
+cambiarla; las que no tengan fuente pasan a preferencias con un peso. Después cambia una
+restricción en una revisión cruzada y comprueba que la conclusión cambie *sin reescribir los
+criterios* una vez conocido el resultado: esa es la prueba de que la tabla no fue
+construida hacia una respuesta.
 
 ## Errores comunes y cómo corregirlos
 
@@ -181,6 +240,17 @@ Markdown u hoja local: `constraints.md`, `risk-register.md`, `tradeoff-table.md`
 ## Seguridad, ética y accesibilidad
 Incluye cargas trasladadas a usuarios, operadores y ambiente. No reduzcas derechos a una puntuación intercambiable sin justificar límites.
 
+## Puente hacia el trabajo con agentes
+
+Un agente de código toma decisiones de diseño implícitas en cada cambio: elige una biblioteca,
+una estructura de datos, una estrategia de reintentos. Casi nunca declara las restricciones
+que supuso ni la opción que descartó. Pedirle que compare alternativas con la tabla de la
+figura 3 convierte esas decisiones en material revisable, pero la elección, la aceptación del
+riesgo y la autoridad de parada siguen siendo humanas. Además, hay que declarar como restricciones
+las que un agente no puede deducir del repositorio: obligaciones legales, contratos y límites
+de seguridad. Un patrón habitual de fallo es la «sobreoptimización local»: el agente mejora el
+atributo que se le midió y degrada otro que nadie le pidió cuidar.
+
 ## Transferencia
 Repite para sistema crítico y aplicación recreativa; compara apetito y reversibilidad.
 
@@ -191,6 +261,8 @@ Se exigen restricciones trazables, riesgos causales, opciones reales y condició
 - [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html), atributos del producto.
 - [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/), gestión técnica y riesgo.
 - [ACM Code of Ethics](https://www.acm.org/code-of-ethics), evaluación de riesgos e impactos.
+- [ISO 31000:2018, Gestión del riesgo](https://www.iso.org/standard/65694.html): principios y proceso de gestión de riesgos; respalda la distinción entre mitigación, contingencia y transferencia.
+- Michael Nygard, [Documenting Architecture Decisions](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions): formato breve de registro de decisiones con contexto, decisión y consecuencias.
 
 ## Límites y siguiente paso
 La matriz no monetiza dignidad ni resuelve regulación. `SE-009` amplía horizonte social y ambiental.

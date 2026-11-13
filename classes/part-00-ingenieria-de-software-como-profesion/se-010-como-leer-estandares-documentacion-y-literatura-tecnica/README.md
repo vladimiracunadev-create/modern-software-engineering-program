@@ -57,6 +57,16 @@ La cadena afirmación → pregunta → fuente evita dos extremos: citar una auto
 no habla del punto y usar una experiencia local como regla universal. También permite
 descubrir que una afirmación mezcla varias proposiciones y necesita fuentes diferentes.
 
+![Figura 1. Seis pasos de la cadena afirmación, pregunta, fuente, versión, pasaje y límite aplicados a la afirmación «Campus Abierto cumple ISO 25010»](../../../content/part-00/figures/se-010-cadena-de-trazabilidad.svg)
+
+**Cómo leer la figura.** Cada paso transforma la frase original en algo comprobable. La
+afirmación (rojo) carece de edición, alcance y evidencia; las preguntas la desarman en
+proposiciones que necesitan fuentes distintas; la fuente se elige por aptitud (la ficha
+confirma nombre, edición y alcance general), y el límite final (gris) declara qué *no*
+demuestra: no es certificación ni evidencia de calidad en uso. **Dónde deja de valer:** la
+cadena es lineal por claridad. En la práctica se itera: al leer el pasaje descubres que la
+afirmación era más amplia de lo que la fuente sostiene y vuelves a reformularla.
+
 ### 2. Tipo de fuente y autoridad sobre el objeto
 
 Un estándar ofrece vocabulario, modelos o requisitos consensuados dentro de un alcance.
@@ -73,6 +83,17 @@ requerir la primaria cuando se afirma conformidad.
 La selección se basa en **aptitud para la afirmación**, no en prestigio general. Se
 prefiere la fuente más próxima capaz de sostenerla y se añade contexto cuando el lector
 necesita interpretación.
+
+![Figura 2. Tabla de cuatro tipos de fuente con lo que sostienen bien, lo que no sostienen y su riesgo típico](../../../content/part-00/figures/se-010-tipos-de-fuente.svg)
+
+**Cómo leer la figura.** Cada columna describe una *aptitud* y no un ranking de prestigio. Un
+estándar sostiene vocabulario y modelos dentro de su alcance, pero no el umbral adecuado para
+tu producto; la documentación oficial sostiene lo que el producto soporta, pero no compara
+imparcialmente con alternativas; un artículo aporta método y datos que pueden no transferirse a
+tu contexto. La fila inferior recoge el error típico de cada tipo. **Dónde deja de valer:** los
+límites de una categoría dependen del documento concreto: una guía oficial puede incluir
+resultados empíricos, y un artículo puede ser a la vez la mejor fuente primaria. Clasifica
+la fuente leyéndola, no por su etiqueta.
 
 ### 3. Alcance, lenguaje normativo y excepciones
 
@@ -99,6 +120,16 @@ sitúa calidad del producto en ISO/IEC 25010 y el modelo de calidad en uso en
 ISO/IEC 25019. Por eso escribir solo “ISO 25010” puede ocultar qué edición y modelo se
 usa. De manera semejante, un RFC puede ser actualizado parcialmente por otros; el
 encabezado y las relaciones forman parte de la lectura.
+
+![Figura 3. Dos líneas de tiempo de sustitución: ISO/IEC 25010 de 2011 a 2023 con 25019, y RFC 7231 reemplazado por RFC 9110](../../../content/part-00/figures/se-010-cadena-de-sustitucion.svg)
+
+**Cómo leer la figura.** Una misma referencia puede significar cosas distintas según la
+edición. ISO/IEC 25010:2011 reunía los modelos de producto y de calidad en uso; la edición de
+2023 los separa en dos documentos. En HTTP, RFC 9110 reemplaza a RFC 7231. Citar la versión
+antigua como actual no es mentir sobre el pasado, pero sí sobre el presente. **Dónde deja de
+valer:** una fuente retirada no es necesariamente inútil: puede ser la correcta para un
+sistema que aún implementa esa edición. El registro debe decir qué edición aplica a qué
+objeto y por qué.
 
 ### 5. Del pasaje a la interpretación y su límite
 
@@ -165,8 +196,35 @@ No; significa autoridad sobre un objeto, no adecuación universal.
 ### ¿Puedo citar un resumen?
 Sí para lo que el resumen afirma; no para detalles no visibles.
 
+### ¿Qué hago cuando dos fuentes autorizadas se contradicen?
+
+No elijas por prestigio. Revisa edición, alcance y condiciones de cada una: a menudo hablan de
+objetos o versiones distintos. Si la contradicción persiste, registra ambas, indica cuál
+adoptas para qué decisión y por qué, y deja una condición de revisión.
+
+### ¿Cómo uso un estándar de pago si no tengo acceso al texto completo?
+
+Cita solo lo que puedes ver: metadatos de la ficha pública, alcance general y edición. No
+atribuyas cláusulas que no leíste ni eludas el acceso. Si la afirmación necesita una cláusula,
+consigue una copia legítima (biblioteca, organización, compra) o reformula la afirmación para que
+no dependa de ella.
+
+### ¿Cuántas fuentes necesita una afirmación?
+
+Las necesarias para sostener *esa* afirmación: una especificación primaria para un contrato,
+observaciones propias para un resultado local, una fuente complementaria para ver límites. Más
+enlaces no son más respaldo; la proximidad entre afirmación y fuente sí lo es.
+
 ## Fallo controlado y diagnóstico
-Cita una versión antigua como actual, detecta la sustitución y registra qué conclusiones cambian. No reescribas historia legítima.
+
+Escribe a propósito una afirmación apoyada en una referencia desactualizada, por ejemplo
+«según RFC 7231, el método X es seguro para reintento». **Síntoma:** el enlace funciona y el
+pasaje parece respaldar la afirmación, pero el encabezado del RFC indica que fue obsoleto. **Traza:**
+busca la relación «obsoleto por» en el propio documento, abre el sustituto (RFC 9110), localiza
+el pasaje equivalente y compara qué cambió. **Corrección:** actualiza la cita con identificador,
+edición y fecha, y reescribe la afirmación si el pasaje cambió. Registra además qué conclusiones de
+tu documento dependían de la edición antigua. No borres la referencia histórica si describe un
+sistema que todavía se ajusta a ella: añade el contexto de vigencia.
 
 ## Errores comunes y cómo corregirlos
 
@@ -184,6 +242,18 @@ Navegador, gestor bibliográfico opcional: `source-trace.md`, `currency-check.md
 ## Seguridad, ética y accesibilidad
 Respeta licencias y límites de cita. No eludas paywalls. Añade título y autoridad para lectores que no puedan abrir el enlace.
 
+## Puente hacia el trabajo con agentes
+
+Los modelos generativos producen referencias plausibles que pueden no existir: títulos,
+números de RFC, cláusulas o enlaces inventados. La cadena de esta clase se convierte en un
+procedimiento de verificación para todo texto asistido: abre cada fuente, confirma su
+identificador y edición, localiza el pasaje y comprueba que respalda la afirmación concreta.
+Un agente con acceso a la web también puede leer contenido que contiene instrucciones
+ocultas; tratar lo leído como datos y no como órdenes es una regla de seguridad que se
+estudia en las partes de seguridad agentic. Para que otra persona pueda auditar, pide al agente
+que registre pregunta, fuente, pasaje y límite en un archivo, y revisa una muestra a mano. La
+confianza en una cita depende de lo que verificaste, no de lo seguro que suene el texto.
+
 ## Transferencia
 Compara un RFC, una norma ISO y documentación de una biblioteca.
 
@@ -194,6 +264,8 @@ Se exige trazabilidad de afirmación, edición, pasaje, interpretación y límit
 - [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), cuerpo de conocimiento y referencias.
 - [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) e [ISO/IEC 25019:2023](https://www.iso.org/standard/78177.html), ejemplo de separación entre ediciones.
 - [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), especificación primaria accesible.
+- [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) y [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174): convención sobre el significado de los términos de requisito (MUST, SHOULD, MAY); respalda la lectura del lenguaje normativo.
+- [RFC 7231](https://www.rfc-editor.org/rfc/rfc7231): documento cuyo encabezado indica que fue reemplazado por RFC 9110; sirve para ejercitar la lectura de la cadena de sustitución.
 
 ## Límites y siguiente paso
 La clase no enseña revisión sistemática completa. `SE-011` integra las diez clases en la anatomía de un producto.

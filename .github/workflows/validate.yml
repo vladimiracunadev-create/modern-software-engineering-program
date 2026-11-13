@@ -39,6 +39,9 @@ jobs:
       - name: Verify scaffolds, indices, sources and site
         run: python scripts/build_phase2.py --check
 
+      - name: Verify generated lesson figures
+        run: python scripts/build_figures_part00.py --check
+
       - name: Verify phase 3 draft scope and generated publication
         run: python scripts/build_phase3.py --check
 

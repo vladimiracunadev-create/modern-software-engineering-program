@@ -60,6 +60,17 @@ prueba, señal operativa y recuperación. No todas las capas existen ni están e
 repositorio. Un salto se registra como incógnita con la evidencia que permitiría
 resolverla; no se rellena por intuición.
 
+![Figura 1. Nueve saltos del flujo vertical de una confirmación repetida, con la fuente de cada uno y su clasificación como observado, inferido o desconocido](../../../content/part-00/figures/se-011-flujo-vertical.svg)
+
+**Cómo leer la figura.** Cada fila es un salto de la tarea, de la persona hasta la recuperación;
+la columna central indica de qué artefacto proviene la evidencia y la derecha la clasifica.
+Los seis primeros saltos se *observan* en contrato, código y prueba; los dos siguientes se
+*infieren* a partir del contrato y la configuración sin ver el comportamiento real; el último
+es *desconocido*. El valor de la figura es que no deja una casilla en blanco: una incógnita
+queda registrada con su nombre. **Dónde deja de valer:** la cadena asume un flujo lineal.
+Un producto real tiene ramas, colas y procesos asíncronos; en ese caso se traza un flujo por
+cada rama relevante, no se comprime todo en una sola línea.
+
 ### 2. Cada fuente muestra una perspectiva distinta
 
 La documentación expresa intención y uso esperado. El contrato define una superficie.
@@ -110,6 +121,17 @@ consecuencia, probabilidad razonada, alcance y costo de obtener evidencia. “No
 el color del tablero interno” puede ser desconocido y no relevante; “no sé si repetir
 la solicitud duplica el cobro” cambia la decisión.
 
+![Figura 3. Cuadrícula de consecuencia por costo de obtener evidencia, con ejemplos de gaps en cada cuadrante](../../../content/part-00/figures/se-011-priorizar-gaps.svg)
+
+**Cómo leer la figura.** Un gap se prioriza por dos ejes. La consecuencia mide qué pasa si el
+desconocido resulta adverso; el costo, cuánto cuesta averiguarlo. El cuadrante superior
+izquierdo (consecuencia alta, evidencia barata) es siempre la primera parada: una prueba basta
+para saber si repetir la solicitud duplica el cobro. El inferior derecho agrupa los
+desconocidos que no cambian ninguna decisión y que no conviene perseguir. **Dónde deja de
+valer:** «consecuencia» y «costo» se estiman, y la estimación puede equivocarse. Si una
+revisión cruzada discrepa en el cuadrante de un gap, esa discrepancia es información útil y
+se registra.
+
 El informe enlaza rutas y líneas específicas cuando son estables, explica el método y
 separa recomendaciones de hallazgos. Una revisión cruzada intenta reproducir al menos
 tres afirmaciones. Si requiere la explicación oral del autor, falta trazabilidad.
@@ -128,6 +150,17 @@ evidencia de conciliación tras el vencimiento. El hallazgo responsable es: “L
 probada evita duplicado dentro de la ventana configurada. No se encontró evidencia
 suficiente para determinar el comportamiento después de expirar; verificar runbook o
 prueba de conciliación”. No se declara una vulnerabilidad ni una garantía total.
+
+![Figura 2. Tres columnas con el hallazgo de la demostración: la prueba observada, la protección inferida y el comportamiento tras expirar como desconocido](../../../content/part-00/figures/se-011-observado-inferido-desconocido.svg)
+
+**Cómo leer la figura.** El mismo hallazgo se divide en tres tipos de enunciado. Lo observado
+puede citarse con ruta y versión; lo inferido depende de un supuesto que se declara (que la
+configuración probada coincide con la desplegada); lo desconocido se convierte en un gap con
+la evidencia que lo resolvería. La caja final es la redacción responsable: dice qué se probó y
+evita tanto la afirmación de seguridad como la de vulnerabilidad. **Dónde deja de valer:** la
+frontera entre observado e inferido depende de cuánto de la evidencia se ejecutó. Si solo se
+leyó el código, incluso «una escritura» es inferencia; por eso se declara si la revisión fue
+estática o dinámica.
 
 ## Protocolo completo del taller
 
@@ -179,8 +212,35 @@ No. Ejecuta solo lo autorizado y seguro; declara qué quedó estático.
 ### ¿Más archivos significan más evidencia?
 No. Importan relevancia, trazabilidad y capacidad de refutar.
 
+### ¿Qué hago si el producto no tiene pruebas ni contrato?
+
+Esa ausencia es un hallazgo (evidencia negativa), no un defecto automático. Registra que no
+se encontró contrato ni pruebas, infiere el comportamiento desde el código con la etiqueta
+«inferido», y propón la prueba o el contrato mínimo que convertiría esa inferencia en
+observación. No ejecutes código desconocido para compensar.
+
+### ¿Cuántos flujos debo trazar?
+
+Uno normal y uno degradado por cada tarea elegida, y solo las tareas que el propósito de la
+revisión justifica. Trazar todo es una forma de no decidir qué importa.
+
+### ¿Cómo cito una línea de código si el archivo cambia?
+
+Con una referencia estable: identifica el repositorio, el commit o la etiqueta y la ruta. Una
+URL a la rama principal puede apuntar a otra cosa mañana; un permalink con el hash del commit
+sigue mostrando lo que viste.
+
 ## Fallo controlado y diagnóstico
-Sigue deliberadamente el README como única fuente y compara con contrato o configuración. Documenta la primera contradicción y corrige el método.
+
+Elige el producto de referencia del repositorio y escribe un informe de cinco afirmaciones
+usando *solo* su README. A continuación contrasta cada una con el contrato (OpenAPI), la
+configuración y las pruebas. **Síntoma esperado:** al menos una afirmación («operación segura»,
+«datos cifrados», «idempotente») resulta más amplia que lo que sostienen el contrato o las
+pruebas. **Causa:** el README expresa intención, no comportamiento verificado. **Corrección de
+método:** clasifica cada afirmación como observada, inferida o desconocida, sustituye la
+frase por una que cite ruta y versión, y registra el gap que falta cerrar. Anota también tu primera
+contradicción como evidencia de que el método funciona: no la escondas para que el informe
+parezca más sólido.
 
 ## Errores comunes y cómo corregirlos
 
@@ -198,6 +258,18 @@ Editor, Git y navegador. Entrega `review-plan.md`, `system-map.md`, `evidence-ma
 ## Seguridad, ética y accesibilidad
 No abras secretos, datos reales ni producción. Examina si la interfaz y soporte contemplan acceso alternativo y recuperación.
 
+## Puente hacia el trabajo con agentes
+
+Esta es la clase más directamente aplicable al trabajo con asistentes: pedirle a un agente que
+«explique este repositorio» produce una narración fluida que mezcla lo observado, lo inferido
+y lo inventado sin señalarlo. El protocolo del taller se convierte en la instrucción: que el
+agente siga una tarea concreta, cite ruta y línea de cada salto, etiquete observado, inferido
+o desconocido y liste los gaps en lugar de rellenarlos. Tú verificas una muestra de las citas.
+Hay además una cuestión de seguridad: un repositorio es entrada no confiable, y un agente con
+acceso al terminal puede ejecutar instalaciones o scripts maliciosos sin que lo notes.
+Conviene limitarlo a lectura estática, a un entorno aislado y a permisos mínimos. Las partes
+sobre harness y seguridad agentic retoman estos límites con detalle.
+
 ## Transferencia
 Repite el flujo en un proyecto de otro stack; conserva preguntas y cambia herramientas.
 
@@ -208,6 +280,9 @@ Se evalúan flujo vertical, citas precisas, límites, riesgo y revisión reprodu
 - [SWEBOK v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4), áreas de conocimiento usadas en la inspección.
 - [NASA Systems Engineering Handbook](https://www.nasa.gov/reference/systems-engineering-handbook/), trazabilidad y revisiones técnicas.
 - [ACM Code of Ethics](https://www.acm.org/code-of-ethics), autorización, competencia y evaluación exhaustiva.
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html): estructura de un contrato de API; sirve para localizar entradas, salidas y errores en el flujo vertical.
+- [The C4 model](https://c4model.com/): vistas jerárquicas de un sistema (contexto, contenedores, componentes); ayuda a ordenar la anatomía sin reducirla a carpetas.
+- [NIST SP 800-218, Secure Software Development Framework](https://csrc.nist.gov/pubs/sp/800/218/final): prácticas para revisar y construir software con procedencia y riesgos conocidos; respalda tratar un repositorio ajeno como entrada no confiable.
 
 ## Límites y siguiente paso
 Es una revisión acotada, no certificación de seguridad ni producción. `SE-012` convierte resultados en un plan profesional verificable.

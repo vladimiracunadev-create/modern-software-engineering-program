@@ -2,208 +2,294 @@
 
 [← SE-250 — Health, readiness y shutdown ordenado](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/se-250-health-readiness-y-shutdown-ordenado/README.md) · [↑ Parte 20](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-251.html) · [SE-252 — Proyecto: servicio contractual operable →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/se-252-proyecto-servicio-contractual-operable/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** El taller existe para que repares una API que funciona y está mal: diez defectos de seguridad y consistencia que ninguna prueba de camino feliz ve. Aprenderás a encontrarlos con tres clases de prueba, a repararlos de uno en uno, a comprobar que cada defecto reintroducido es detectado y a reconocer los que quedan dormidos porque nadie sabe cómo llegar hasta ellos.
+
+**Por qué aparece aquí.** Se sitúa después de **Health, readiness y shutdown ordenado** y antes de **Proyecto: servicio contractual operable**: las clases `SE-241` a `SE-250` trataron un mecanismo cada una; el taller las vuelve a juntar en una API deliberadamente defectuosa antes del proyecto de `SE-252`. Es la clase donde se ve si los mecanismos se recuerdan cuando aparecen mezclados y sin etiqueta: el defecto no dice a qué clase pertenece.
+
+**Error conceptual que debe corregir.** Creer que una API que supera sus pruebas de camino feliz es correcta. La API del taller supera las cinco pruebas de camino feliz con diez defectos presentes: sirve a quien la usa como se espera y a quien la ataca como no se espera.
+
+**Secuencia de aprendizaje.** Antes de ejecutar, predices cuántas pruebas fallarán en cada una de tres suites (camino feliz, contrato y adversaria) contra la API con los diez defectos; después reparas todos y reintroduces uno cada vez para ver qué suite lo detecta, y por último atacas la búsqueda con doce cargas de inyección contra SQL concatenado y parametrizado. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `workshop-log.md` con la predicción, el recuento de pruebas fallidas por suite, la matriz defecto × suite, la medición de la inyección, el registro de reparación (defecto, causa, corrección, prueba de regresión) y la lista de defectos que ninguna suite detecta y por qué.
+
+**Límite de la conclusión.** La API es de laboratorio, en proceso y sin red: no hay servidor, TLS, CORS ni cabeceras. Los diez defectos y las tres suites son construcciones del autor; que la API reparada las supere no demuestra que no existan otros defectos. Un defecto dormido (D5) escapó a todas las suites. Nadie fue evaluado.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| OWASP API Security Top 10 (2023) | Cataloga los riesgos de seguridad más frecuentes de las API, entre ellos la autorización rota por objeto y por propiedad y el consumo irrestricto de recursos. | No mide cuántos de ellos hay en un producto concreto. |
+| [OWASP: Injection Flaws](https://owasp.org/www-community/Injection_Flaws) | Explica la inyección como la mezcla de datos no confiables con instrucciones y recomienda separar ambos con consultas parametrizadas. | No cubre la inyección en nombres de columnas ni en otros intérpretes. |
+| [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) | Ofrece una lista de requisitos verificables para aplicaciones y APIs, organizada por niveles. | No sustituye una revisión de seguridad ni garantiza que la API cumpla un nivel. |
+
+## Antes de empezar
+
+Recupera `SE-250`: la plataforma tiene sondeos y apagado ordenado. La pregunta activa es: **de los diez defectos que tiene esta API, ¿cuáles ve una prueba de camino feliz, cuáles una de contrato y cuáles solo un atacante?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-250` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, servidor HTTP local, curl y cola simulada.
+- Haber completado `SE-250` o poder explicar qué evidencia entregó y qué quedó abierto.
+- Haber completado las clases `SE-241` a `SE-250` o poder explicar qué mecanismo aporta cada una.
+- Python 3.11 o posterior; la API del taller usa `sqlite3`, `hashlib`, `json` y la biblioteca estándar.
+- Poder leer un fragmento de SQL con `where` y `like`.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Taller: reparar una API insegura e inconsistente**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo hereda una API de entregas que funciona: los estudiantes suben, los docentes consultan, las notas se publican. Una revisión descubre que cualquiera puede leer entregas ajenas, que un `PATCH` permite cambiar la nota, que una búsqueda con una comilla devuelve el texto de una consulta SQL, que un enlace de borrado responde a GET, que reintentar un POST duplica la entrega y que un token con firma inventada es aceptado. Nadie sabe cuántos defectos hay en total ni cómo evitar que reaparezcan.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Taller y reparar con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **servicio con contrato y procesamiento recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reintentar una operación no idempotente y duplicar efectos» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Taller | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Reparar | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| API | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Insegura | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. clasificar los defectos de la API por la clase de este curso a la que corresponden y por el tipo de prueba que los detecta;
+2. ejecutar tres suites contra la API defectuosa y medir qué ve cada una;
+3. reparar los defectos de uno en uno, con una prueba de regresión para cada uno;
+4. reintroducir cada defecto y comprobar qué suite lo detecta, identificando los que quedan dormidos;
+5. medir con una batería de cargas la diferencia entre SQL concatenado y consulta parametrizada.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Taller: reparar una API insegura e inconsistente"] --> M["Modelo: Taller"]
-    M --> D["Decisión: reparar"]
-    D --> E["Evidencia: API"]
-    E --> R["Revisión: insegura"]
-    R -->|nueva información| M
+    A[API con 10 defectos] --> S1[Suite de camino feliz]
+    A --> S2[Suite de contrato]
+    A --> S3[Suite adversaria]
+    S1 --> R[Resultados por defecto]
+    S2 --> R
+    S3 --> R
+    R --> F[Reparar uno y su prueba de regresión]
+    F --> M[Reintroducir y comprobar la detección]
+    M -->|defecto dormido| N[Nueva prueba que llegue hasta él]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Taller: reparar una API insegura e inconsistente**.
+El mapa se lee del defecto al hallazgo: las tres suites producen resultados, cada reparación añade una prueba de regresión y la reintroducción verifica que esa prueba protege de verdad. La flecha final marca el caso del defecto dormido: si nada lo detecta, hace falta una prueba que llegue hasta él. No es un proceso lineal: el ciclo se repite hasta que no quedan defectos sin prueba.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Autorización y objeto | Un acceso sin comprobar dueño y una asignación masiva rompen lo que `SE-245` fija. | Pruebas que fallan por BOLA y por asignación masiva |
+| Validación y contrato | Un cuerpo laxo y códigos de estado inconsistentes rompen `SE-242` y `SE-244`. | Pruebas de contrato que fallan |
+| Inyección y errores | La concatenación de SQL y los errores con detalles internos rompen `SE-244` y `SE-249`. | Cargas de inyección y filtración de errores |
+| Repetición y recursos | La falta de idempotencia, un cuerpo sin tope y un GET con efecto rompen `SE-242`, `SE-246` y `SE-248`. | Reintentos, cuerpo grande y recorrido de enlaces |
+| Reparación verificable | Reparar sin una prueba que reintroduzca el defecto no demuestra nada. | Matriz defecto × suite y defectos dormidos |
 
 ## Conceptos y decisiones
 
-Un backend coordina contratos, estado y trabajo síncrono o diferido; los límites de tiempo y los reintentos forman parte del comportamiento público.
+### 1. Autorización y objeto
 
-La pregunta rectora de esta parte es: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?** La respuesta debe
-apoyarse en **contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout**.
+Dos defectos son de autorización. **D1** no comprueba el dueño de la entrega: cualquier usuario autenticado lee cualquier identificador (`SE-245`). **D2** acepta en el `PATCH` campos que el cliente no debe fijar (`nota`, `owner`): asignación masiva, que `SE-244` previene con un esquema cerrado. Un tercero, **D10**, acepta un token sin verificar su firma. Los tres comparten el síntoma de que nada falla con usuarios bien intencionados.
 
-### 1. Taller: modelo
+### 2. Validación y contrato
 
-En esta clase, **Taller** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: reparar una API insegura e inconsistente**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+**D7** acepta valores fuera de rango, booleanos como enteros y textos vacíos o enormes; **D9** devuelve 200 con un error en el cuerpo para una entrega inexistente y 200 en lugar de 201 al crear. Son defectos de coherencia: la API funciona, pero un cliente que dependa de los códigos de estado se equivoca (`SE-242`, `SE-244`). Los detecta una suite de contrato, no una de camino feliz.
 
-### 2. Reparar: mecanismo
+### 3. Inyección y errores
 
-En esta clase, **reparar** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: reparar una API insegura e inconsistente**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+**D3** construye la búsqueda concatenando el texto del usuario en el SQL; con `%' or '1'='1` devuelve filas de todos. **D5** responde a un error de la base de datos con el mensaje del motor y un fragmento de la consulta. Los dos solo aparecen con entradas que nadie escribe en el camino feliz, y D5 solo se manifiesta si algo provoca un error interno, de modo que puede quedar dormido.
 
-### 3. API: evidencia
+### 4. Repetición y recursos
 
-En esta clase, **API** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: reparar una API insegura e inconsistente**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+**D4** borra con un GET; **D8** ignora `Idempotency-Key` y duplica al reintentar; **D6** acepta un cuerpo de cualquier tamaño. Corresponden a `SE-242` (métodos), `SE-246` (idempotencia) y `SE-248` (límites). Las detecta una prueba que repite, rastrea o envía un cuerpo grande: algo que un usuario normal no hace.
 
-### 4. Insegura: decisión
+### 5. Reparación verificable
 
-En esta clase, **insegura** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Taller: reparar una API insegura e inconsistente**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Reparar un defecto es cambiar el código y añadir una prueba que falle sin el cambio. La verificación es **reintroducir** el defecto en la versión reparada: si ninguna suite falla, o la prueba no protege o el defecto está dormido. Esa es la medida que da el taller: cuántos defectos detecta cada tipo de suite y cuáles ninguno.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Tres suites contra la API con diez defectos
+
+La API del taller se implementa en proceso con una clase `Api(bugs)` que activa cada defecto por su código (`D1`…`D10`) y usa SQLite en memoria. Hay tres suites: **camino feliz** (5 pruebas: crear, leer la propia, buscar, editar el texto y borrar con DELETE), **contrato** (8 pruebas: 201 al crear, 404 al buscar lo inexistente, rechazo de cuatro cuerpos inválidos, 401 sin credencial y forma `{type,title}` en los errores) y **adversaria** (9 pruebas: lectura ajena, asimetría de respuestas, asignación masiva, inyección, GET que borra, token falsificado, cuerpo de 200 kB, tres reintentos con clave y error sin detalles internos).
+
+Contra la API con los diez defectos: el camino feliz tiene **0 pruebas fallidas de 5**, el contrato **7 de 8** y la adversaria **7 de 9**. La API reparada supera las 22 pruebas. Los resultados son deterministas y la salida es idéntica en Windows y Ubuntu.
+
+![Barras con las pruebas fallidas contra la API con diez defectos: ninguna de cinco en camino feliz, siete de ocho en contrato, siete de nueve en la adversaria y ninguna de 22 en la API reparada.](../../../content/part-20/figures/se-251-api-vulnerable-frente-a-suites.svg)
+
+**Cómo leer la figura.** Cada barra cuenta las pruebas que fallan en una suite contra la API con los diez defectos; la verde muestra la API reparada. **Dónde deja de valer:** que las 22 pruebas pasen en la API reparada solo prueba que las pruebas conocidas no fallan, no que no haya defectos desconocidos. Las suites se escribieron mirando los diez defectos, así que su acierto es optimista.
+
+### Reintroducir cada defecto: qué suite lo detecta
+
+Para cada uno de los diez defectos se toma la API reparada, se reintroduce solo ese defecto y se ejecutan las tres suites. Resultado: los **siete** defectos D1 (dueño), D2 (asignación masiva), D3 (inyección), D4 (GET con efecto), D6 (cuerpo sin tope), D8 (sin idempotencia) y D10 (token sin verificar) los detecta solo la suite adversaria; D7 (validación laxa) y D9 (códigos de estado) solo la de contrato; la de camino feliz no detecta ninguno. **D5** (error con detalles internos) **no lo detecta ninguna suite** cuando se reintroduce solo.
+
+La razón de D5 es instructiva: el defecto está en el camino de error, y con la inyección corregida ya no hay ningún error de la base de datos que lo active. Es un defecto dormido: existe en el código, no tiene síntoma observable y se despertará cuando otro fallo lo ejercite. Para verlo hace falta una prueba que fuerce un error interno por otro medio.
+
+![Tabla con los diez defectos y qué suite detecta cada uno cuando se reintroduce: ninguno el camino feliz, dos el contrato, siete la adversaria y uno ninguna.](../../../content/part-20/figures/se-251-defecto-que-detecta-cada-suite.svg)
+
+**Cómo leer la figura.** Cada fila es un defecto reintroducido en la API reparada; la celda indica qué suite lo detecta. **Dónde deja de valer:** la detección depende de las pruebas que se escribieron: otra suite adversaria habría podido detectar D5 con un error forzado. La matriz es de una API de laboratorio, no de un producto.
+
+### Inyección SQL: concatenar o parametrizar
+
+La búsqueda `GET /entregas?q=` filtra por texto y dueño. Se prueban doce cargas contra la versión con SQL concatenado y contra la parametrizada (dos usuarios, una entrega cada uno): una palabra normal, `%' or '1'='1`, `' or 1=1 --`, un `union select`, `'; drop table e; --`, comodines, comillas y un patrón con `like`.
+
+```python
+# defecto D3: los datos se mezclan con la instrucción
+filas = db.execute(f"select id,owner,texto from e where borrada=0 and texto like '%{qq}%' and owner='{u}'")
+# reparación: los datos van aparte
+filas = db.execute("select id,owner,texto from e where borrada=0 and texto like ? and owner=?", (f"%{qq}%", u))
+```
+
+Con SQL concatenado, **3 de 12** cargas devuelven filas de otro usuario y **2** provocan un error del motor; con consulta parametrizada, **0** y **0**. Los parámetros no sustituyen la autorización, y no protegen los nombres de columna u orden que vengan del cliente: esos se validan contra una lista cerrada.
+
+![Barras con las cargas de inyección que filtran filas ajenas o provocan error: 3 y 2 de 12 con SQL concatenado y 0 con consulta parametrizada.](../../../content/part-20/figures/se-251-inyeccion-sql.svg)
+
+**Cómo leer la figura.** Cada barra cuenta cargas de las doce probadas; las coral son la versión con SQL concatenado y la verde la parametrizada. **Dónde deja de valer:** doce cargas no son un catálogo: un atacante creativo prueba muchas más. La comprobación `owner = ?` sigue siendo necesaria; un comodín como `%` devuelve las filas propias, que es correcto.
 
 ## Definiciones de trabajo
 
-- **Taller:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **Reparar:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **API:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **Insegura:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
+- **asignación masiva:** vulnerabilidad por la que se aceptan campos que el cliente no debería fijar.
+- **defecto dormido:** defecto que no tiene síntoma observable hasta que otro fallo lo activa.
+- **prueba de regresión:** prueba que falla si se reintroduce un defecto ya reparado.
+- **suite adversaria:** conjunto de pruebas que envía entradas hostiles o inesperadas.
+- **consulta parametrizada:** consulta en la que los datos se pasan separados de la instrucción SQL.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Taller: reparar una API insegura e inconsistente**:
+El fragmento muestra la inyección en una línea. Antes de ejecutarlo, predice cuántas filas devuelve cada versión.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import sqlite3
+db = sqlite3.connect(":memory:")
+db.execute("create table e(owner text, texto text)")
+db.executemany("insert into e values (?,?)", [("ana", "a"), ("beto", "b")])
+q = "x' or '1'='1"
+print(len(db.execute(f"select * from e where owner='beto' and texto='{q}'").fetchall()),
+      len(db.execute("select * from e where owner='beto' and texto=?", (q,)).fetchall()))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Resultado: `2 0`. En la versión concatenada, `and` se evalúa antes que `or`, de modo que la condición `... or '1'='1'` es verdadera para todas las filas y devuelve las dos, incluida la de ana; la parametrizada trata la carga como texto y no encuentra nada. Registra versión y salida; cambia la carga por `x` y predice ambos recuentos.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Taller: reparar una API insegura e inconsistente**. Parte de esta pregunta: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `openapi.yaml` y enlaza la evidencia, no solo la conclusión.
+El equipo recibe la API con los diez defectos y trabaja en seis pasos: escribe las tres suites; mide qué falla; repara por orden de riesgo (D3, D1, D10, D2, D4, D8, D6, D7, D9, D5); añade una prueba de regresión para cada reparación; reintroduce cada defecto y registra qué suite lo detecta; y publica la lista de defectos dormidos. Compara con el original en tres casos: un usuario normal, un integrador con un script y alguien que prueba la API sin permiso.
 
 ## Práctica guiada
 
-1. Crea `work/SE-251/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el servicio con contrato y procesamiento recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lee la API defectuosa sin ejecutarla y lista los defectos que ves; predice cuántas pruebas fallarán en cada suite.
+2. Ejecuta las tres suites y compara con tu predicción.
+3. Repara los defectos por orden de riesgo, uno por commit, con su prueba de regresión.
+4. Reintroduce cada defecto y rellena la matriz defecto × suite.
+5. Identifica el defecto dormido y escribe una prueba que lo active.
+6. Mide las doce cargas de inyección contra las dos versiones.
+7. Entrega `workshop-log.md` y pide a otra persona que añada un defecto nuevo y diga qué suite lo detectaría.
 
 ## Ejercicios
 
-1. **Fundamental:** define Taller y reparar con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `openapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Defecto nuevo:** añade un defecto (por ejemplo, un `DELETE` sin comprobar dueño) y decide qué suite lo detecta y qué prueba le falta.
+2. **Dormido:** escribe una prueba que fuerce un error interno y active D5 sin depender de la inyección.
+3. **Regresión:** elige tres reparaciones y escribe la prueba mínima de cada una; comprueba que falla sin la reparación.
+4. **Orden:** ordena los diez defectos por riesgo con una justificación de impacto y facilidad de explotación.
 
 ## Reto verificable
 
-Entrega el **servicio con contrato y procesamiento recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `workshop-log.md` con el recuento por suite, la matriz defecto × suite, el registro de reparaciones con pruebas de regresión, la inyección medida y la lista de defectos dormidos. Se aprueba si otra persona ejecuta la API y las suites desde un checkout limpio, obtiene la misma matriz y puede introducir un defecto nuevo que tus pruebas detecten o declaren no detectar. No se aprueba por reparar sin pruebas.
+
+## Caso conductor
+
+El taller reúne el recorrido de la Parte 20 sobre la plataforma de entregas. Recupera `SE-245` para D1, D2 y D10, `SE-246` para D8, `SE-248` para D6 y `SE-250` para el error de D5. La clase siguiente integra los mecanismos en un servicio contractual y operable. Cambia después una sola decisión, la suite adversaria, y revisa cuántos defectos quedan sin detectar.
+
+## Preguntas frecuentes
+
+### ¿Por qué reintroducir los defectos si ya los reparé?
+
+Porque una prueba de regresión solo vale si falla cuando el defecto vuelve. Reintroducirlo es la forma de comprobar que la prueba protege y no solo que pasa.
+
+### ¿Y si un defecto no lo detecta ninguna suite?
+
+Está dormido. Hace falta una prueba que llegue hasta él por otro camino (forzar el error interno), o aceptar el riesgo y documentarlo. No es una prueba que falló: es una prueba que falta.
+
+### ¿Por qué reparar por orden de riesgo y no por orden de aparición?
+
+Porque el tiempo es finito. Se repara primero lo que más daño hace y más fácil es de explotar (inyección, autorización) y se deja para después lo que solo molesta (códigos inconsistentes).
+
+### ¿Las suites adversarias sustituyen una revisión de seguridad?
+
+No. Detectan los defectos que alguien imaginó; una revisión busca los que nadie imaginó. Ambas son necesarias.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reintentar una operación no idempotente y duplicar efectos**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo de la clase: **creer que la API es correcta porque superó el camino feliz**. Ejecuta solo la suite de camino feliz contra la API con los diez defectos. **Síntoma:** 5 de 5 pruebas verdes. **Hipótesis rivales:** (a) la API es correcta; (b) las pruebas no ejercitan los defectos. **Prueba:** ejecuta la suite adversaria y observa 7 de 9 fallos; ejecuta la de contrato y observa 7 de 8. **Causa:** el camino feliz no envía entradas hostiles ni compara códigos de estado. **Corrección:** añadir las dos suites y reparar. **Regresión:** reintroducir cada defecto y exigir que alguna suite falle.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Todas las pruebas pasan y la API es vulnerable | Solo existen pruebas de camino feliz | Añadir suites de contrato y adversaria |
+| Un defecto reparado reaparece | No hay prueba de regresión que falle sin la reparación | Reintroducir el defecto y comprobar que falla |
+| Se repara en orden alfabético | No se prioriza por riesgo | Ordenar por impacto y facilidad de explotación |
+| Un defecto se declara reparado sin evidencia | No se ejercita el camino de error | Forzar el error interno y comprobar el mensaje |
+| La reparación de un defecto rompe otro | Cambios agrupados sin pruebas intermedias | Un defecto por commit con su prueba |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, servidor HTTP local, curl y cola simulada. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-251/
 ├── README.md
-│   ├── openapi.yaml
-│   ├── service.py
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── api/
+│   ├── api_defectuosa.py
+│   └── api_reparada.py
+├── tests/
+│   ├── test_feliz.py
+│   ├── test_contrato.py
+│   └── test_adversaria.py
+└── evidence/workshop-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `openapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python y comandos. La API y las suites usan solo la biblioteca estándar (`sqlite3`, `hashlib`, `json`); no hay red ni puertos, así que no se expone nada. Las salidas fueron idénticas en CPython 3.12.9 (Windows 11) y 3.12.3 (Ubuntu bajo WSL2). La clave del token es una constante sintética de laboratorio.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- prueba solo contra la API del taller o contra sistemas propios; probar una API ajena sin permiso puede ser ilegal;
+- no uses datos reales ni claves reales en las pruebas;
+- documenta cada defecto con su causa sin publicar un exploit contra sistemas en producción;
+- al reparar, no ocultes los registros de los intentos: sirven para detectar abusos;
+- escribe los mensajes de error pensando en la persona que los lee, sin revelar detalles internos.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «revisa esta API» suele listar buenas prácticas sin ejecutar nada. Pídele que escriba las tres suites, que las ejecute contra la API, que repare un defecto por vez con su prueba de regresión y que reintroduzca cada defecto para comprobar la detección. Revisa especialmente si afirma «arreglado» sin una prueba que falle sin el cambio.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el taller a otro de los dominios persistentes (por ejemplo, una API de reservas ficticia con sus propios diez defectos): cambia la API y conserva el procedimiento de tres suites, reparación con regresión y reintroducción. La transferencia está lograda cuando explicas qué defectos eran de la plataforma y cuáles son familias generales.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-251/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | clasificación de cada defecto por clase del curso y por tipo de prueba |
+| corrección | matriz defecto × suite reproducible |
+| diseño | orden de reparación y pruebas de regresión justificados |
+| diagnóstico | reproducción del falso verde del camino feliz con hipótesis y prueba |
+| incertidumbre | declaración de los defectos dormidos y de lo no probado |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- OWASP API Security Top 10 (2023) (enlace no verificado en esta ejecución; búscalo por título) — riesgos frecuentes de las API; autoridad: OWASP.
+- [OWASP: Injection Flaws](https://owasp.org/www-community/Injection_Flaws) — inyección y consultas parametrizadas; autoridad: OWASP.
+- [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/) — requisitos verificables de seguridad; autoridad: OWASP.
+- [OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) — validación en el servidor; autoridad: OWASP.
+- [OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) — registro útil sin datos sensibles; autoridad: OWASP.
+- [HTTP Semantics (RFC 9110)](https://www.rfc-editor.org/rfc/rfc9110) — métodos y códigos de estado; autoridad: IETF.
+- [Python: sqlite3](https://docs.python.org/3/library/sqlite3.html) — consultas parametrizadas; autoridad: Python Software Foundation.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — pruebas y seguridad como áreas de conocimiento; autoridad: IEEE Computer Society.
 
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **HTTP Semantics** — IETF. [https://www.rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las cifras sintéticas de esta clase describan un sistema real. Las fuentes marcadas como no verificadas se citan por título porque no se pudo comprobar su enlace en esta ejecución (sin acceso de red autorizado); se verificaron las demás por haberse comprobado en clases publicadas de otras partes.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Taller: reparar una API insegura e inconsistente**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-252`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con una API de laboratorio en proceso en Windows y Ubuntu (WSL2), con resultados idénticos. No se probó ningún servidor con red ni una API real, y nadie fue evaluado: los diez defectos y las tres suites son construcciones del autor. La siguiente clase integra los mecanismos en un servicio contractual y operable.
+
+## Glosario
+
+- **camino feliz:** recorrido de uso en el que todo se hace como el diseñador espera.
+- **superficie de ataque:** conjunto de puntos por los que una persona puede intentar interactuar con un sistema de forma no prevista.
+- **mutación:** cambio deliberado del código para comprobar si una prueba lo detecta.
+- **falso verde:** resultado satisfactorio de una prueba que no ejercita el defecto que debería detectar.
+- **registro de reparación:** tabla de defecto, causa, corrección y prueba de regresión.
 
 ---
 

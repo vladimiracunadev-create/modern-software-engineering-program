@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-11-13 — Parte 20 desarrollada y profundizada con experimentos sintéticos y modelos reproducibles de backend, APIs y procesamiento asíncrono
+
+- las clases `SE-241`–`SE-252` pasan de borradores genéricos a clases completas sobre el backend de la plataforma de entregas de tareas: fronteras de confirmación, recursos y semántica de
+  métodos, estilos de interfaz, validación y errores, identidad y autorización por objeto, idempotencia y reintentos, trabajo diferido, archivos extensos, caché y limitación de tasa,
+  sondeos y apagado ordenado, un taller de reparación de una API defectuosa y un proyecto de servicio contractual; el portal publica ahora el contenido íntegro de las doce clases y el
+  índice de la parte;
+- 36 figuras con cálculos, simulaciones y mediciones de datos sintéticos y semilla fija: cadena síncrona frente a diferida, 24 escenarios de caída con y sin outbox y tres servidores HTTP
+  locales, un GET con efecto frente a un rastreador, actualización perdida e `If-Match` y paginación por desplazamiento frente a clave, bytes por pantalla, consultas N+1 y coste de consultas
+  anidadas, 14 cargas JSON contra dos validadores, deriva de un contrato y reintentos por clase de error, ocho ataques a un token, filas ajenas con y sin comprobación de dueño y cobertura de
+  una política, duplicados con y sin clave, tormenta de reintentos y ventana de la clave, efectos duplicados en una cola, espera frente a M/M/1 y mensaje venenoso, memoria por trozos,
+  subida reanudable, nombres hostiles y bombas de descompresión, aciertos y obsolescencia de una caché, estampida y cuatro limitadores, sondeos de vida, apagado con drenaje y
+  calentamiento, tres suites contra una API con diez defectos, inyección SQL y caídas inyectadas, alertas por tasa de consumo y deriva de un contrato;
+- cada clase añade tres secciones con experimentos, `Fallo controlado`, `Errores comunes`, `Preguntas frecuentes`, `Puente hacia el trabajo con agentes` y fuentes vinculadas a afirmaciones;
+  los experimentos usan CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas deterministas idénticas; las diferencias informadas son los tiempos de servidor local, las
+  consultas al origen sin protección en una estampida de hilos, los nombres de archivo con barra invertida y los tiempos de comparación de firmas;
+- los parámetros (latencias, porcentajes de caída, capacidades, SLO, defectos de la API y mutaciones) son supuestos del autor; no se midió a ninguna persona, producto ni servicio, y las
+  fuentes sin enlace verificado en esta ejecución (por falta de acceso de red autorizado) se citan por título y se enumeran en `Evidencia medida y límites`;
+- la guía de la parte incorpora una sección «Evidencia medida y límites», el resumen operativo y el proyecto integrador.
+
 ## 2026-11-13 — Parte 21 desarrollada y profundizada con experimentos sintéticos y modelos reproducibles de software móvil, escritorio y multiplataforma
 
 - las clases `SE-253`–`SE-264` pasan de borradores genéricos a clases completas sobre el cliente de la plataforma de entregas de tareas: modelos de aplicación, ciclo de vida y restauración

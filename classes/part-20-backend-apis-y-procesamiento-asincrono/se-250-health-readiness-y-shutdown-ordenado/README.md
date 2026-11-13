@@ -2,208 +2,293 @@
 
 [← SE-249 — Caching, rate limiting y protección](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md) · [↑ Parte 20](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-250.html) · [SE-251 — Taller: reparar una API insegura e inconsistente →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-20-backend-apis-y-procesamiento-asincrono/se-251-taller-reparar-una-api-insegura-e-inconsistente/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que distingas tres preguntas que un orquestador hace al servicio —¿sigues vivo?, ¿puedes atender?, ¿ya arrancaste?—, diseñes sondeos que no conviertan la caída de una dependencia en un ciclo de reinicios, calientes una instancia antes de darle tráfico y apagues el proceso sin cortar las solicitudes en curso.
+
+**Por qué aparece aquí.** Se sitúa después de **Caching, rate limiting y protección** y antes de **Taller: reparar una API insegura e inconsistente**: `SE-249` limitó la carga que el servicio acepta; esta clase decide cuándo una instancia debe recibirla y cuándo no, y cómo se retira. Reúne lo que las anteriores producen (trabajos en curso de `SE-247`, cachés de `SE-249`, estado consultable de `SE-242`) en un comportamiento operable y prepara el taller de `SE-251` y el proyecto de `SE-252`.
+
+**Error conceptual que debe corregir.** Creer que un único endpoint de salud que consulta todas las dependencias sirve para todo. Si el sondeo de vida depende de la base de datos, una caída de la base de datos reinicia todas las instancias aunque no tengan ningún fallo propio, y el reinicio añade tiempo de arranque a la caída.
+
+**Secuencia de aprendizaje.** Antes de simular, predices cuántos reinicios provoca una caída de 120 s de la base de datos si el sondeo de vida la consulta; después mides con un servidor local real cuántas de 30 solicitudes en curso fallan al apagarlo de golpe y al drenarlo, y por último comparas tres criterios para empezar a enviar tráfico a una instancia con la caché fría. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `ops-log.md` con la predicción, el número de reinicios y de segundos sin proceso en los dos diseños de sondeos, las solicitudes completadas y fallidas con apagado abrupto y con drenaje, el porcentaje de solicitudes lentas con tres criterios de disponibilidad, y el contrato de apagado (señal, plazo y orden).
+
+**Límite de la conclusión.** Los intervalos de sondeo (5 s), el umbral de fallos (3), el arranque de 20 s y la curva lineal de calentamiento en 60 s son parámetros del autor, no valores por defecto de ninguna plataforma. El apagado abrupto se simula cortando conexiones; no se mató un proceso ni se usó un orquestador real. En Windows no se probó la entrega de la señal de terminación.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| Kubernetes: liveness, readiness and startup probes | Distingue sondeos de vida, de disponibilidad y de arranque, y advierte que consultar dependencias externas en el de vida puede provocar reinicios en cascada. | No fija los intervalos que conviene a la plataforma. |
+| Kubernetes: Pod termination | Describe la secuencia de terminación: retirar del reparto, enviar la señal, esperar un plazo de gracia y, si no basta, terminar a la fuerza. | No dice cuánto debe durar el plazo para las solicitudes de la plataforma. |
+| [Google SRE Book: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) | Propone medir las señales doradas (latencia, tráfico, errores, saturación) y alertar sobre síntomas visibles al usuario. | No define las alertas concretas de este servicio. |
+
+## Antes de empezar
+
+Recupera `SE-249`: la plataforma acota la carga que acepta. La pregunta activa es: **¿cómo sabe quien orquesta el servicio si esta instancia puede recibir tráfico, si debe reiniciarla y cómo la retira sin cortar una subida a mitad?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-249` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Python 3.11+, servidor HTTP local, curl y cola simulada.
+- Haber completado `SE-249` o poder explicar qué evidencia entregó y qué quedó abierto.
+- Python 3.11 o posterior; los experimentos usan `http.server`, `threading`, `urllib` y `random`.
+- Saber qué es un orquestador a nivel de «quien arranca, para y reparte tráfico entre instancias».
+- Haber definido en `SE-247` los estados de un trabajo y en `SE-249` un tope de solicitudes en curso.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Health, readiness y shutdown ordenado**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La base de datos de la plataforma tarda dos minutos en recuperarse de un mantenimiento. Las instancias del servicio responden al sondeo de salud con un error porque el sondeo prueba la conexión a la base de datos; el orquestador las reinicia, y cuando la base de datos vuelve, todas las instancias están arrancando a la vez con la caché fría. Más tarde, al desplegar una versión nueva, 30 estudiantes pierden una subida en curso porque el proceso se terminó mientras la atendía.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Health y readiness con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **servicio con contrato y procesamiento recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reintentar una operación no idempotente y duplicar efectos» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Health | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Readiness | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Shutdown | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Ordenado | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. distinguir vida, disponibilidad y arranque y asignar a cada sondeo lo que puede comprobar;
+2. medir los reinicios que causa un sondeo de vida que consulta una dependencia externa y compararlo con uno local;
+3. apagar un servidor local con y sin drenaje y contar las solicitudes perdidas;
+4. elegir un criterio de disponibilidad para una instancia con caché fría y medir el efecto en las solicitudes lentas;
+5. declarar el contrato de apagado: señal, plazo de gracia, orden de pasos y estado de los trabajos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Health, readiness y shutdown ordenado"] --> M["Modelo: Health"]
-    M --> D["Decisión: readiness"]
-    D --> E["Evidencia: shutdown"]
-    E --> R["Revisión: ordenado"]
-    R -->|nueva información| M
+    A[Arranque] --> S{Sondeo de arranque}
+    S --> R{Disponibilidad: dependencias y calentamiento}
+    R -->|listo| T[Recibe tráfico]
+    T --> L{Vida: proceso sano}
+    L -->|falla| K[Reinicio]
+    T -->|señal de terminación| D[Retirar del reparto]
+    D --> E[Dejar de aceptar y esperar solicitudes en curso]
+    E --> F[Salir]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Health, readiness y shutdown ordenado**.
+El mapa se lee a lo largo de la vida de una instancia: arranque, disponibilidad (con dependencias y calentamiento), vida y, al final, retirada, drenaje y salida. La vida solo comprueba que el proceso no está bloqueado; la disponibilidad decide si recibe tráfico. No son tres versiones del mismo sondeo: responden preguntas distintas y producen acciones distintas.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Vida, disponibilidad y arranque | Cada sondeo desencadena una acción diferente: reiniciar, retirar del reparto o esperar. | Tabla sondeo → pregunta → acción en `ops-log.md` |
+| Dependencias y cascadas | Un sondeo de vida que consulta una dependencia convierte su caída en una caída del servicio. | Reinicios y segundos sin proceso en dos diseños |
+| Calentamiento | Una instancia con caché fría atiende peor que una caliente; el criterio de disponibilidad lo reconoce o lo ignora. | Solicitudes lentas con tres criterios |
+| Apagado ordenado | Terminar el proceso corta lo que está haciendo; retirar, dejar de aceptar y esperar no. | Solicitudes completadas con apagado abrupto y con drenaje |
+| Observabilidad mínima | Sin correlación y señales básicas, nadie sabe por qué un sondeo falló. | Lista de señales y su origen |
 
 ## Conceptos y decisiones
 
-Un backend coordina contratos, estado y trabajo síncrono o diferido; los límites de tiempo y los reintentos forman parte del comportamiento público.
+### 1. Vida, disponibilidad y arranque
 
-La pregunta rectora de esta parte es: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?** La respuesta debe
-apoyarse en **contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout**.
+El sondeo de **vida** responde «¿está el proceso atascado?» y su fallo provoca un **reinicio**: debe depender solo del propio proceso (por ejemplo, que el bucle de eventos responda). El de **disponibilidad** responde «¿puede atender solicitudes ahora?», incluye las dependencias necesarias y su fallo **retira** la instancia del reparto sin reiniciarla. El de **arranque** da tiempo a una instancia lenta de iniciarse sin que el de vida la mate. Confundirlos produce tanto reinicios innecesarios como instancias rotas que siguen recibiendo tráfico.
 
-### 1. Health: modelo
+### 2. Dependencias y cascadas
 
-En esta clase, **Health** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Health, readiness y shutdown ordenado**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Si el sondeo de vida consulta la base de datos y esta cae durante 120 s, cada instancia falla tres sondeos seguidos y se reinicia; al volver la base de datos, las instancias están arrancando y el servicio sigue caído 20 s más por cada reinicio. El reinicio no arregla una dependencia externa y además pierde cachés y conexiones. La regla: la vida mira hacia dentro, la disponibilidad mira hacia las dependencias, y un fallo de dependencia retira del reparto en vez de reiniciar.
 
-### 2. Readiness: mecanismo
+### 3. Calentamiento
 
-En esta clase, **readiness** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Health, readiness y shutdown ordenado**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una instancia nueva tiene la caché fría, conexiones sin abrir y código sin compilar; sus primeras solicitudes son más lentas. Hay tres estrategias: recibir tráfico desde el arranque (simple, con solicitudes lentas), esperar un tiempo fijo (predecible, ignora la velocidad real) o declararse lista al alcanzar un umbral de aciertos (adaptable, exige instrumentar). El calentamiento traslada el costo: las otras instancias absorben más tráfico mientras tanto.
 
-### 3. Shutdown: evidencia
+### 4. Apagado ordenado
 
-En esta clase, **shutdown** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Health, readiness y shutdown ordenado**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando el orquestador quiere retirar una instancia envía una señal de terminación y espera un plazo de gracia antes de forzar la salida. El servicio debe, en orden: dejar de declararse disponible para que le retiren el tráfico, dejar de aceptar conexiones nuevas, esperar las solicitudes en curso hasta un máximo, interrumpir o devolver a la cola los trabajos largos y salir. Si el plazo de gracia es menor que la solicitud más larga esperable, el drenaje no basta.
 
-### 4. Ordenado: decisión
+### 5. Observabilidad mínima
 
-En esta clase, **ordenado** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?» y demostrarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Health, readiness y shutdown ordenado**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada sondeo fallido debe dejar rastro: qué comprobación falló, desde cuándo y con qué identificador de correlación. Las señales básicas (latencia, tráfico, errores y saturación) permiten decidir si un reinicio ayudó. La información de salud no debe filtrar versiones ni topología al exterior: el endpoint de salud es público para el orquestador, no para cualquiera.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Un sondeo de vida que consulta la base de datos
+
+Se simulan 600 s con sondeos cada 5 s; la base de datos cae entre los 100 s y los 220 s. Una instancia se reinicia tras 3 sondeos de vida fallidos y tarda 20 s en arrancar. En el primer diseño el sondeo de vida consulta la base de datos; en el segundo es local y solo el de disponibilidad la consulta.
+
+```python
+vivo = bd_ok if liveness_depende else True
+fallos = 0 if vivo else fallos + 1
+if fallos >= 3:
+    reinicios += 1; arranque_hasta = t + 20
+```
+
+Con la vida dependiente de la base de datos hay **4 reinicios** y **80 s sin proceso**; con la vida local, **0 reinicios** y **0 s**: la instancia sale del reparto mientras la base de datos está caída, pero sigue viva y responde en cuanto vuelve. La salida es idéntica en Windows y Ubuntu.
+
+![Tabla con dos diseños de sondeos ante una caída de la base de datos de 120 segundos: la vida dependiente reinicia cuatro veces con 80 segundos sin proceso y la vida local no reinicia nunca.](../../../content/part-20/figures/se-250-sondeo-de-vida-que-consulta-la-base.svg)
+
+**Cómo leer la figura.** Cada fila es un diseño de sondeos; los reinicios y los segundos sin proceso son el daño que añade el propio mecanismo de salud. **Dónde deja de valer:** los intervalos y umbrales son parámetros del autor y el modelo trata las instancias como una sola; con varias instancias y un reparto de tráfico el efecto agregado es mayor. Tampoco modela una base de datos que se recupera gradualmente.
+
+### Apagado abrupto o con drenaje en un servidor local real
+
+Se levanta un `ThreadingHTTPServer` cuyo manejador tarda 200 ms (diez pausas de 20 ms) y 30 clientes envían una solicitud a la vez. A los 80 ms se detiene el servidor de dos maneras. **Abrupto:** se activa una bandera que corta las conexiones en curso sin responder (el efecto visto desde el cliente de un proceso que muere). **Con drenaje:** `shutdown()` deja de aceptar conexiones y `server_close()` espera a los hilos en curso.
+
+Con el apagado abrupto, **30 de 30** solicitudes fallan; con drenaje, **30 de 30** se completan. La salida es idéntica en Windows y Ubuntu, pero el apagado abrupto aquí es una simulación: un proceso real terminado por el sistema operativo cierra sus conexiones de formas distintas según el sistema y el momento.
+
+![Barras con las solicitudes fallidas al detener un servidor local: 30 de 30 con apagado abrupto y 0 con drenaje.](../../../content/part-20/figures/se-250-apagado-abrupto-o-con-drenaje.svg)
+
+**Cómo leer la figura.** Cada barra cuenta las 30 solicitudes en curso que fallaron al detener el servidor. **Dónde deja de valer:** el drenaje funcionó porque el plazo no limitó la espera; en un orquestador real el plazo de gracia termina y fuerza la salida. No se probó la entrega de señales en Windows ni la integración con un balanceador, que debe retirar la instancia del reparto antes de que empiece el drenaje.
+
+### Cuándo declararse lista con la caché fría
+
+Se simula una instancia nueva cuya tasa de aciertos de caché sube linealmente de 0 a 0,95 en 60 s (semilla 250); una solicitud con fallo de caché tarda 400 ms (más que el objetivo de 250 ms) y 20 solicitudes por segundo llegan durante 90 s. Tres criterios: recibir tráfico desde el arranque, esperar 30 s y declararse lista al llegar a un 60 % de aciertos.
+
+Desde el arranque se sirven 1 800 solicitudes y **640 (35,6 %)** superan el objetivo; con espera de 30 s, 1 200 servidas y **181 (15,1 %)**; con umbral de aciertos del 60 %, 1 080 servidas y **137 (12,7 %)**. Esperar no elimina las solicitudes lentas: las traslada a las otras instancias y retrasa la capacidad.
+
+![Barras con el porcentaje de solicitudes más lentas que 250 milisegundos: 35,6 desde el arranque, 15,1 tras 30 segundos de calentamiento y 12,7 con un umbral de aciertos del 60 por ciento.](../../../content/part-20/figures/se-250-calentamiento-y-readiness.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de solicitudes servidas por la instancia nueva que superan el objetivo de latencia; las servidas se indican en la etiqueta. **Dónde deja de valer:** la curva lineal de calentamiento es un supuesto: las cachés reales se calientan según la popularidad de las claves. El modelo ignora la carga extra sobre las otras instancias, que es el costo real de esperar.
 
 ## Definiciones de trabajo
 
-- **Health:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **Readiness:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **Shutdown:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
-- **Ordenado:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout.
+- **sondeo de vida:** comprobación de que el proceso no está bloqueado; su fallo provoca un reinicio.
+- **sondeo de disponibilidad:** comprobación de que la instancia puede atender solicitudes; su fallo la retira del reparto.
+- **drenaje:** espera controlada a que terminen las solicitudes en curso antes de salir.
+- **plazo de gracia:** tiempo que el orquestador concede entre la señal de terminación y la salida forzada.
+- **calentamiento:** periodo en que una instancia nueva llena sus cachés y conexiones antes de rendir con normalidad.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia técnica más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Health, readiness y shutdown ordenado**:
+El fragmento ilustra un servidor que se detiene sin cortar lo que atiende. Antes de ejecutarlo, predice qué imprime.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import threading, time
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+class H(BaseHTTPRequestHandler):
+    def do_GET(self):
+        time.sleep(0.1); self.send_response(200); self.send_header("Content-Length", "0"); self.end_headers()
+    def log_message(self, *a): pass
+s = ThreadingHTTPServer(("127.0.0.1", 0), H)
+threading.Thread(target=s.serve_forever, daemon=True).start()
+s.shutdown(); s.server_close(); print("salí sin colgarme")
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Resultado: imprime la frase tras detener el servidor. Registra versión y salida; cambia `time.sleep(0.1)` por 2 y mide cuánto tarda `server_close()` si hay una solicitud en curso.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Health, readiness y shutdown ordenado**. Parte de esta pregunta: **¿qué efecto se promete, cuándo se confirma y cómo se evita duplicarlo o perderlo?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando contrato validado, pruebas de idempotencia, trazas correlacionadas y recuperación tras timeout. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `openapi.yaml` y enlaza la evidencia, no solo la conclusión.
+La plataforma expone tres sondeos: `/salud/viva` (local, sin dependencias, usado para reiniciar), `/salud/lista` (comprueba base de datos, cola y que la caché alcance el 60 % de aciertos, usado para retirar del reparto) y `/salud/arranque` (permite hasta 60 s de inicio). Al recibir la señal de terminación, la instancia se declara no lista, deja de aceptar conexiones, espera hasta 25 s a las solicitudes en curso, devuelve a la cola los trabajos largos y sale con código 0. El plazo de gracia del orquestador es 30 s. Compara con el original en tres casos: mantenimiento de la base de datos, despliegue y subida de un archivo grande en curso.
 
 ## Práctica guiada
 
-1. Crea `work/SE-250/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el servicio con contrato y procesamiento recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista qué comprueba cada sondeo de la plataforma y qué acción provoca su fallo.
+2. Predice los reinicios de una caída de 120 s con el sondeo de vida dependiente y escríbelos.
+3. Simula los dos diseños de sondeos y compara con tu predicción.
+4. Levanta el servidor local y mide solicitudes fallidas con apagado abrupto y con drenaje.
+5. Simula tres criterios de disponibilidad con caché fría y mide las lentas.
+6. Escribe el contrato de apagado con el plazo y el orden de pasos.
+7. Entrega `ops-log.md` y pide a otra persona que identifique la dependencia que no debe estar en el sondeo de vida.
 
 ## Ejercicios
 
-1. **Fundamental:** define Health y readiness con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `openapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Sondeos:** clasifica la conexión a la base de datos, el espacio en disco, la cola de trabajos y la caché según qué sondeo deben afectar y por qué.
+2. **Plazo:** si la solicitud más larga dura 25 s y el orquestador espera 30 s, calcula el margen para el drenaje y qué haces con los trabajos más largos.
+3. **Calentamiento:** cambia la curva de calentamiento a 120 s y recalcula los tres criterios; decide cuál elegirías.
+4. **Señales:** elige cuatro señales para decidir si un reinicio ayudó y dónde se leen.
 
 ## Reto verificable
 
-Entrega el **servicio con contrato y procesamiento recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `ops-log.md` con la tabla de sondeos, la simulación de reinicios, la medición de apagado, la comparación de criterios de disponibilidad y el contrato de apagado. Se aprueba si otra persona obtiene las mismas cifras deterministas desde un checkout limpio y puede decir qué comprobación quitaría del sondeo de vida. No se aprueba por tener un `/health`: debe verse qué acción produce cada sondeo.
+
+## Caso conductor
+
+La plataforma de entregas queda con un comportamiento operable: tres sondeos con propósito distinto, calentamiento declarado y apagado ordenado. Recupera `SE-247`: los trabajos largos vuelven a la cola al apagar. La clase siguiente aplica todo lo aprendido a una API deliberadamente defectuosa. Cambia después una sola decisión, el plazo de gracia de 30 a 10 s, y revisa qué artefactos hay que tocar.
+
+## Preguntas frecuentes
+
+### ¿Por qué no consultar la base de datos en el sondeo de vida?
+
+Porque reiniciar la instancia no repara la base de datos y sí pierde cachés y conexiones; además todas las instancias fallarían a la vez. La base de datos pertenece al sondeo de disponibilidad, que retira sin reiniciar.
+
+### ¿Cuánto debe durar el plazo de gracia?
+
+Más que la solicitud más larga esperable más el tiempo de retirar el tráfico, y menos de lo que tolera el despliegue. Se mide, no se supone.
+
+### ¿Qué hago con un trabajo largo cuando me apagan?
+
+Lo devuelves a la cola con su estado, o lo marcas para reanudar. La entrega al menos una vez de `SE-247` hace seguro repetirlo si el handler es idempotente.
+
+### ¿Es seguro exponer el estado de las dependencias en el endpoint?
+
+No hacia fuera. Para el orquestador basta un código de estado; el detalle va a los registros internos con correlación.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reintentar una operación no idempotente y duplicar efectos**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo de la clase: **un sondeo de vida que depende de la base de datos**. Haz que el sondeo `/salud/viva` abra una conexión a la base de datos y apágala 120 s. **Síntoma:** todas las instancias se reinician en minutos y el servicio tarda más en volver que la propia base de datos. **Hipótesis rivales:** (a) las instancias tienen un fallo propio; (b) el sondeo falla por la dependencia. **Prueba:** ejecuta el sondeo a mano contra la instancia con la base de datos caída y contra una con la base de datos sana, y observa el mismo proceso sano con resultados distintos. **Causa:** la vida depende de algo externo. **Corrección:** vida local y disponibilidad con dependencias. **Regresión:** una prueba que apaga la base de datos y exige cero reinicios.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Todas las instancias se reinician cuando cae la base de datos | El sondeo de vida consulta una dependencia externa | Vida local; dependencias en disponibilidad |
+| Una instancia recién arrancada responde con errores | Recibe tráfico sin estar lista | Sondeo de disponibilidad y de arranque |
+| Estudiantes pierden una subida al desplegar | Terminación sin drenaje | Retirar, dejar de aceptar y esperar con plazo |
+| El drenaje no termina nunca | No hay plazo máximo ni trabajos que se devuelvan a la cola | Plazo acotado y devolver los trabajos largos |
+| El endpoint de salud revela versiones y hosts | Detalle interno en una respuesta pública | Código de estado simple; detalle en registros internos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Python 3.11+, servidor HTTP local, curl y cola simulada. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-250/
 ├── README.md
-│   ├── openapi.yaml
-│   ├── service.py
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── ops/
+│   ├── sondeos.py
+│   ├── apagado.py
+│   └── calentamiento.py
+├── tests/test_apagado.py
+└── evidence/ops-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `openapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semilla (250) y comandos. Los experimentos usan `http.server`, `threading`, `urllib` y `random`; las salidas fueron idénticas en CPython 3.12.9 (Windows 11) y 3.12.3 (Ubuntu bajo WSL2). El servidor escucha solo en `127.0.0.1` en un puerto efímero y se cierra al terminar cada prueba. No se usa ningún orquestador real.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el endpoint de salud no debe revelar versiones, nombres de hosts ni estado detallado de las dependencias;
+- limita quién puede llamar a los sondeos si el orquestador no es el único que los alcanza;
+- al apagar, no registres datos personales de las solicitudes en curso;
+- una instancia que no se retira del reparto sigue sirviendo datos con una versión antigua: revisa la política de despliegue;
+- documenta el procedimiento de recuperación de forma que lo pueda seguir una persona de guardia sin conocer el código.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «añade un health check» suele escribir un único endpoint que consulta todo y devuelve el detalle. Pídele tres sondeos con la acción de cada uno, la prueba de la caída de la base de datos con cero reinicios y el contrato de apagado con el plazo. Revisa especialmente si la vida consulta una dependencia: es el defecto que causó cuatro reinicios y 80 s sin proceso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el experimento a otro de los dominios persistentes (por ejemplo, un servicio de pagos ficticio): cambia las dependencias y conserva el procedimiento de separar los sondeos, medir el drenaje y elegir el criterio de calentamiento. La transferencia está lograda cuando explicas qué dependía de la plataforma de entregas y cuál es el patrón de los tres sondeos.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-250/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de vida, disponibilidad y arranque con la acción de cada uno |
+| corrección | reinicios, solicitudes perdidas y porcentajes reproducibles |
+| diseño | sondeos, calentamiento y contrato de apagado justificados |
+| diagnóstico | reproducción de la cascada de reinicios con hipótesis, prueba y regresión |
+| incertidumbre | declaración de los supuestos de intervalos, plazos y calentamiento |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- Kubernetes: liveness, readiness and startup probes (enlace no verificado en esta ejecución; búscalo por título) — sondeos de vida, disponibilidad y arranque; autoridad: Kubernetes.
+- Kubernetes: Pod termination (enlace no verificado en esta ejecución; búscalo por título) — secuencia de terminación y plazo de gracia; autoridad: Kubernetes.
+- The Twelve-Factor App: Disposability (enlace no verificado en esta ejecución; búscalo por título) — procesos desechables y apagado ordenado; autoridad: Heroku / 12factor.net.
+- [Google SRE Book: Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) — señales de monitorización; autoridad: Google.
+- [Python: http.server](https://docs.python.org/3/library/http.server.html) — servidor local del experimento; autoridad: Python Software Foundation.
+- [Python: threading](https://docs.python.org/3/library/threading.html) — hilos y su espera al cerrar; autoridad: Python Software Foundation.
+- [Python: signal](https://docs.python.org/3/library/signal.html) — señales del sistema en Python; autoridad: Python Software Foundation.
+- [W3C Trace Context](https://www.w3.org/TR/trace-context/) — propagación de la correlación entre servicios; autoridad: W3C.
 
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **HTTP Semantics** — IETF. [https://www.rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las cifras sintéticas de esta clase describan un sistema real. Las fuentes marcadas como no verificadas se citan por título porque no se pudo comprobar su enlace en esta ejecución (sin acceso de red autorizado); se verificaron las demás por haberse comprobado en clases publicadas de otras partes.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Health, readiness y shutdown ordenado**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-251`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos; el apagado abrupto es simulado. No se usó un orquestador real ni se midió ningún servicio o persona: los intervalos, plazos y curvas son construcciones del autor. La siguiente clase aplica todo el recorrido a una API defectuosa.
+
+## Glosario
+
+- **orquestador:** sistema que arranca, para y reparte tráfico entre instancias de un servicio.
+- **señal de terminación:** aviso del sistema operativo a un proceso para que termine de forma ordenada.
+- **retirar del reparto:** dejar de enviar tráfico a una instancia sin detenerla.
+- **sondeo de arranque:** comprobación que da tiempo a una instancia lenta a iniciarse sin que se la considere muerta.
+- **cascada de reinicios:** efecto por el que el fallo de una dependencia provoca reinicios de todas las instancias.
 
 ---
 

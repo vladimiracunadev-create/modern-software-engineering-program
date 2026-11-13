@@ -94,6 +94,38 @@ QUIC integra seguridad, recuperación y control de congestión, y multiplexa str
 
 Un timeout expresa cuánto está dispuesto a esperar el consumidor; no demuestra que el servidor no ejecutó la operación. Reintentar puede duplicar efectos. La aplicación debe distinguir conexión, respuesta y deadline total, usar operaciones idempotentes o claves de deduplicación y limitar backoff.
 
+### Los estados de una conexión TCP, observados
+
+Una conexión TCP tiene un ciclo de vida con estados que el sistema operativo expone. En Linux, `ss -tan` los lista. Con un servidor y un cliente locales se observaron cuatro momentos: con solo el servidor, un socket en `LISTEN`; con la conexión abierta, dos `ESTAB` (uno por extremo) y el `LISTEN`; cuando el *cliente cerró primero* y el servidor todavía no, el servidor quedó en `CLOSE-WAIT` y el cliente en `FIN-WAIT-2`; y cuando el servidor también cerró, apareció un `TIME-WAIT`. `CLOSE-WAIT` significa que el otro extremo cerró y *la aplicación local aún no
+cerró su lado*: una acumulación de esos sockets señala conexiones que la aplicación no cierra. `TIME-WAIT` lo conserva quien cierra primero durante un tiempo para absorber paquetes tardíos y evitar confusiones con una conexión nueva; no es un error.
+
+![Figura 1. Cuatro momentos de una conexión TCP local con los estados observados con ss: LISTEN, ESTAB, CLOSE-WAIT con FIN-WAIT-2 y TIME-WAIT](../../../content/part-03/figures/se-040-estados-tcp-observados.svg)
+
+**Cómo leer la figura.** Cada columna es un momento y la caja inferior, los estados de todos los sockets vinculados al puerto. **Dónde deja de valer:** son sockets en loopback en un Linux concreto; en Windows `netstat -ano` muestra nombres parecidos, y la duración de `TIME-WAIT` y otros temporizadores depende del sistema. No se capturaron paquetes: los estados son lo que el kernel *informa*, no lo que se vio en el cable.
+
+### Flujo de bytes frente a datagramas
+
+TCP entrega un *flujo ordenado de bytes* y no conserva las fronteras de las escrituras. En una prueba, un cliente envió `AAAA` y luego `BBBBBB` con dos llamadas `send`; el receptor, con una sola lectura, recibió `AAAABBBBBB`. UDP, en cambio, conserva cada datagrama: dos `sendto` produjeron dos `recvfrom`
+(`AAAA` y `BBBBBB`). Eso obliga a las aplicaciones sobre TCP a definir su propio *framing* (una longitud por delante, un delimitador). Con UDP aparece otra diferencia: enviar un datagrama a un puerto cerrado *no da error al emisor* (`sendto` devolvió 1 byte), y la lectura posterior produjo `ConnectionResetError` en Windows y un `TimeoutError` en Linux. El mecanismo
+subyacente (un aviso ICMP de «puerto inalcanzable») se entrega de forma distinta en cada plataforma, de modo que una aplicación UDP no puede apoyarse en él para saber si su mensaje llegó.
+
+![Figura 2. Tabla con resultados reales: dos envíos TCP leídos juntos, dos datagramas UDP leídos por separado, y el error de UDP a un puerto cerrado según la plataforma](../../../content/part-03/figures/se-040-fronteras-tcp-udp.svg)
+
+**Cómo leer la figura.** Las dos primeras filas contrastan los modelos de datos; las dos últimas, la falta de confirmación de UDP. **Dónde deja de valer:** que los dos envíos TCP se leyeran juntos depende del tamaño y del momento (podrían leerse por separado); la lección es que la aplicación *no puede asumir* ninguno de los dos comportamientos. QUIC (no ejecutado aquí) construye streams con fronteras propias sobre UDP, con
+recuperación de pérdida y cifrado integrados.
+
+### Rechazo, silencio y la espera de Nagle
+
+Dos diagnósticos de transporte se confunden con frecuencia. Un puerto *cerrado* en un equipo responde con un RST y la conexión falla de inmediato: en Linux, `ConnectionRefusedError` en 0,06 ms; en Windows, la misma prueba con un timeout de 2 s terminó con `TimeoutError` (Windows reintenta las conexiones a un puerto de loopback cerrado antes de rendirse). Un destino *sin ruta* (192.0.2.1) no responde: el cliente espera todo el timeout, 2,0 s, en ambos. La diferencia es el diagnóstico: rechazo inmediato indica que el equipo
+respondió y no hay servicio; silencio indica que no hay respuesta (filtrado, ruta rota, equipo apagado).
+
+Una segunda medición muestra que reutilizar una conexión no siempre ayuda. En Linux, un servidor HTTP que escribe las cabeceras y el cuerpo en *dos* llamadas tardó 44,12 ms por petición con la conexión reutilizada; con `TCP_NODELAY` o con una sola escritura tardó 0,34 y 0,31 ms. La causa es la interacción entre el algoritmo de Nagle (que retiene un segmento pequeño hasta recibir el ACK del anterior) y el ACK retrasado del receptor (hasta unos 40 ms). En Windows, la misma prueba
+no mostró esa espera (0,60 ms).
+
+![Figura 3. Rechazo frente a silencio al conectar y la espera de Nagle: 44,12 ms con dos escrituras frente a 0,34 ms con TCP_NODELAY en Linux](../../../content/part-03/figures/se-040-rechazo-silencio-nagle.svg)
+
+**Cómo leer la figura.** El primer panel contrasta el rechazo inmediato con el silencio; el segundo, el costo de dos escrituras pequeñas sobre una conexión reutilizada. **Dónde deja de valer:** los tiempos son de loopback; con un RTT real de decenas de milisegundos, la espera de 40 ms seguiría presente pero se sumaría a la latencia de red. La solución general es escribir mensajes completos de una sola vez y fijar `TCP_NODELAY` cuando se envían mensajes pequeños y la latencia importa.
+
 ## Definiciones de trabajo
 
 - **flujo:** secuencia ordenada de octetos sin fronteras de mensaje.
@@ -127,10 +159,10 @@ La diferencia profesional es la trazabilidad: la decisión conecta requisito, me
 
 ## Ejercicios
 
-1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
-2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
-3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
-4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
+1. **Estados:** dibuja la secuencia de estados de cliente y servidor cuando el servidor cierra primero y compárala con la observada con el cliente primero.
+2. **Framing:** diseña un protocolo con prefijo de longitud de 4 bytes y describe cómo maneja un mensaje partido en dos lecturas.
+3. **Elección:** elige TCP, UDP o QUIC para una actualización de ubicación cada 100 ms y para una transferencia de un informe, justificando garantía, latencia y costo.
+4. **Reintento:** define para un pago un deadline, un máximo de reintentos y la clave que evita cobrar dos veces.
 
 ## Reto verificable
 
@@ -148,33 +180,40 @@ Una demostración que no incluye restauración solo prueba cómo romper el labor
 
 ## Preguntas frecuentes
 
-### ¿Una respuesta a `ping` demuestra que el servicio funciona?
+### ¿Cuándo conviene UDP en lugar de TCP?
 
-No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
+Cuando la actualidad importa más que la entrega completa (voz, vídeo, telemetría de alta frecuencia) o cuando la aplicación necesita sus propias reglas de fiabilidad. Se asume entonces la responsabilidad de orden, duplicados, pérdida y control de congestión; en muchos casos QUIC ofrece esas garantías sobre UDP.
 
-### ¿Puedo concluir desde una única captura?
+### ¿Por qué mi conexión queda en `TIME-WAIT` y es un problema?
 
-Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
+Normalmente no lo es: es el estado normal de quien cierra primero. Se vuelve un problema si hay una enorme cantidad de conexiones de corta vida hacia el mismo destino y se agotan los puertos de origen; la solución es reutilizar conexiones, no «desactivar» `TIME-WAIT`.
 
-### ¿Debo usar exactamente las mismas herramientas?
+### ¿Un timeout significa que el servidor no ejecutó la operación?
 
-No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+No. Significa que el cliente dejó de esperar. El servidor puede haberla ejecutado y la respuesta perderse o tardar. Por eso los reintentos exigen operaciones idempotentes o claves de deduplicación.
 
+### ¿Puedo detectar si el otro extremo se cayó sin enviar datos?
+
+No con certeza: una conexión TCP inactiva no detecta que el otro lado desapareció (sin FIN ni RST). Hacen falta *keepalives* o *heartbeats* de aplicación y un plazo (tema de `SE-045`).
 ## Fallo controlado y diagnóstico
 
 Haz que el servidor local acepte la conexión pero no responda. Comprueba la diferencia entre timeout de conexión y timeout de lectura. Añade un deadline finito y una salida diagnóstica que indique fase, sin repetir automáticamente una operación no idempotente.
 
 Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
 
+
+Una práctica compara rechazo y silencio. En tu entorno de práctica, intenta conectar con un timeout de 2 s a un puerto local sin servicio y a una dirección del rango de documentación (por ejemplo, `192.0.2.1`), midiendo el tiempo y el tipo de excepción. **Síntoma esperado:** el primero falla pronto (o por timeout en Windows) y el segundo agota el tiempo. **Hipótesis:** «el servicio está caído» frente a «no hay camino». **Prueba:**
+si el error es inmediato y de rechazo, el equipo está vivo; si es silencio, se investiga la ruta y el filtrado. Añade un deadline global y un tope de reintentos, y comprueba que una escritura no idempotente *no* se reintenta ante un timeout. Registra plataforma y versión, porque el comportamiento difiere.
+
 ## Errores comunes y cómo corregirlos
 
-| Error | Por qué falla | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
-| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
-| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
-| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
-| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+| Dos escrituras TCP llegan juntas y el receptor falla | Se asumió que TCP conserva fronteras de mensaje | Definir framing con longitud o delimitador |
+| «El servidor ignoró mi mensaje UDP» sin evidencia | UDP no confirma entrega | Añadir confirmación y reintento a nivel de aplicación o usar otro transporte |
+| Peticiones lentas con conexión reutilizada (≈40 ms) | Nagle y ACK retrasado con dos escrituras pequeñas | Escribir el mensaje completo de una vez o fijar `TCP_NODELAY` |
+| Reintentar tras un timeout una operación que cobra | El timeout no prueba que no se ejecutó | Exigir idempotencia o clave de deduplicación |
+| Concluir «servicio caído» ante cualquier fallo de conexión | Rechazo y silencio tienen causas distintas | Distinguir RST inmediato de timeout y mirar la fase |
 
 ## Entorno y archivos clave
 
@@ -202,6 +241,11 @@ Compara `healthy`, `connection_refused`, `latency_timeout` y `transient_loss` en
 - ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
 - considera que telemetría e IP pueden identificar o perfilar personas.
 
+## Puente hacia el trabajo con agentes
+
+Un agente que invoca herramientas por red enfrenta el problema del timeout ambiguo: si la llamada a una herramienta con efectos (crear un recurso, enviar un correo) expira, no sabe si se ejecutó. La regla de esta clase se vuelve un requisito de diseño de herramientas: las operaciones con efecto aceptan una clave de idempotencia, y el harness solo reintenta las que son seguras; el resto se reporta como «resultado desconocido» y se verifica leyendo el estado antes de repetir. Además, los plazos deben ser explícitos para
+cada fase (conexión, lectura, total), y los flujos de eventos hacia el agente (SSE, WebSocket) necesitan framing y límites de tamaño. Las partes de herramientas, MCP y evaluación de agentes desarrollan estos contratos.
+
 ## Transferencia
 
 Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
@@ -227,6 +271,10 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 9000 — QUIC](https://www.rfc-editor.org/rfc/rfc9000) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
+
+- [RFC 9293, Transmission Control Protocol](https://www.rfc-editor.org/rfc/rfc9293), [RFC 768, UDP](https://www.rfc-editor.org/rfc/rfc768) y [RFC 9000, QUIC](https://www.rfc-editor.org/rfc/rfc9000): especificaciones de los tres transportes; respaldan las figuras 1 y 2.
+- [RFC 896, algoritmo de Nagle](https://www.rfc-editor.org/rfc/rfc896) y [RFC 1122 §4.2.3.2, ACK retrasado](https://www.rfc-editor.org/rfc/rfc1122): origen de la espera observada en la figura 3.
+- [ss(8)](https://man7.org/linux/man-pages/man8/ss.8.html) y [tcp(7)](https://man7.org/linux/man-pages/man7/tcp.7.html): estados de socket y opciones como `TCP_NODELAY` en Linux.
 
 ## Límites y siguiente paso
 

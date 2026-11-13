@@ -94,6 +94,37 @@ En IPv4, ARP resuelve una dirección de protocolo a una dirección de enlace en 
 
 VLAN, redes invitadas y aislamiento de clientes crean dominios lógicos sobre infraestructura física. Dos dispositivos conectados al mismo punto de acceso pueden no comunicarse. La decisión de segmentar reduce movimiento lateral, pero exige documentar servicios permitidos y rutas de administración.
 
+### La trama Ethernet y el origen del límite de 1472 bytes
+
+Una trama Ethernet II tiene una cabecera de 14 bytes (direcciones de destino y origen y el tipo), una carga útil de hasta 1500 bytes —el *MTU* habitual— y 4 bytes de verificación (FCS), de modo que la trama completa mide hasta 1518 bytes. Dentro de la carga viaja un paquete IP:
+20 bytes de cabecera IPv4, 8 de la cabecera ICMP y el resto son datos. Con un ping, 20 + 8 + 1472 suman 1500: ese es el mayor tamaño de datos que cabe sin fragmentar. Se puede *comprobarlo*: `ping -f -l 1472 example.com` en Windows (la bandera `-f` activa el bit *No fragmentar*, DF) respondió
+con `bytes=1472` en 164 ms, y `ping -f -l 1473` devolvió «Es necesario fragmentar el paquete pero se especificó DF». En Linux la forma equivalente es `ping -M do -s 1472 host`.
+
+![Figura 1. Trama Ethernet de 1518 bytes con su carga de 1500, la descomposición de un ping en 20, 8 y 1472 bytes y los resultados de las pruebas con DF](../../../content/part-03/figures/se-038-trama-y-mtu.svg)
+
+**Cómo leer la figura.** La fila superior es la trama; la central, el contenido de la carga para un ping, y la tabla, los tres tamaños probados. Que 1472 funcione y 1473 no confirma que el MTU de *toda la ruta* es de 1500 bytes. **Dónde deja de valer:** esto vale para IPv4 con cabecera de 20 bytes (sin opciones); en IPv6 la cabecera es de 40 bytes y el límite de datos
+cambia; los túneles y las VPN añaden cabeceras y reducen el MTU efectivo, y Wi-Fi puede segmentar en otro nivel.
+
+### MTU medidos: del enlace a la ruta
+
+El MTU tiene tres significados que conviene no confundir. El de una *interfaz* (lo informa `ip -o link`): en el Linux de WSL2 fue de 65 536 para la interfaz de loopback (`lo`, que nunca toca un medio) y de 1500 para `eth0`. El de la *ruta* es el mínimo de todos los tramos y no se deduce de la interfaz local: se descubre con una prueba (*Path MTU Discovery*) que envía paquetes con DF y observa
+los avisos ICMP de fragmentación necesaria; en la ruta probada fue de 1500. Y el *MSS* de TCP es el MTU menos las cabeceras de IP y TCP (normalmente 1460 en IPv4) y lo negocian los extremos en el handshake. Cuando un tramo descarta los avisos ICMP, los paquetes grandes desaparecen sin explicación (un «agujero negro de PMTU»): conectar funciona,
+pero las transferencias se cuelgan.
+
+![Figura 2. Tabla con los MTU observados: loopback 65536, eth0 1500 y la ruta a example.com 1500, con cómo se obtuvo cada uno](../../../content/part-03/figures/se-038-mtu-medidos.svg)
+
+**Cómo leer la figura.** Cada fila combina un lugar, un valor y el método. **Dónde deja de valer:** el MTU de la ruta puede cambiar si cambia el camino (un balanceo, una VPN activada) y es específico de cada dirección: la ruta de ida y de vuelta pueden diferir.
+
+### Siguiente salto, ARP y la red local
+
+Un equipo decide cada entrega con su tabla de rutas. Si el destino está en el mismo prefijo, resuelve con ARP la dirección de enlace (MAC) *del destino*; si está en otro, resuelve la del *gateway* y le entrega la trama con el paquete IP intacto. Por eso la dirección MAC cambia en cada salto y la IP de destino no
+(salvo NAT). La Figura 3 lo muestra con direcciones del rango de documentación. En una red Wi-Fi la historia es parecida, con una diferencia importante: el medio es compartido y half-duplex, de modo que el acceso se arbitra (CSMA/CA), y la capa de enlace *retransmite* tramas perdidas; esas retransmisiones esconden la pérdida de las capas superiores pero aparecen
+como variación de latencia (jitter).
+
+![Figura 3. Decisión de entrega: mismo prefijo, ARP del destino; otro prefijo, ARP del gateway, con direcciones de documentación](../../../content/part-03/figures/se-038-siguiente-salto.svg)
+
+**Cómo leer la figura.** El equipo compara el destino con su prefijo y elige a quién preguntar por la dirección de enlace. **Dónde deja de valer:** es un modelo con direcciones de documentación (RFC 5737), no una captura de una red real, y no considera VLAN, puentes ni redes en malla. Los dispositivos de capa 2 pueden segmentar el dominio de difusión, pero ARP sigue siendo la pregunta que viaja en difusión.
+
 ## Definiciones de trabajo
 
 - **trama:** unidad transmitida por un protocolo de enlace.
@@ -127,10 +158,10 @@ La diferencia profesional es la trazabilidad: la decisión conecta requisito, me
 
 ## Ejercicios
 
-1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
-2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
-3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
-4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
+1. **Cálculo:** con un túnel que añade 50 bytes de cabeceras, calcula el MTU efectivo y el mayor tamaño de datos de un ping.
+2. **Predicción:** predice el resultado de `ping -f -l 1473` hacia un destino con MTU de ruta de 1400 y justifícalo.
+3. **Entrega:** para el equipo 192.0.2.10/24 con gateway 192.0.2.1, dibuja a quién se envía la trama hacia 192.0.2.77 y hacia 198.51.100.5.
+4. **Medio compartido:** explica por qué Wi-Fi puede mostrar jitter sin pérdida a nivel de IP y qué medición lo distingue.
 
 ## Reto verificable
 
@@ -148,33 +179,40 @@ Una demostración que no incluye restauración solo prueba cómo romper el labor
 
 ## Preguntas frecuentes
 
-### ¿Una respuesta a `ping` demuestra que el servicio funciona?
+### ¿Por qué 1472 y no 1500?
 
-No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
+Porque el MTU cuenta el paquete IP completo: 1500 = 20 (IPv4) + 8 (ICMP) + 1472 de datos. El límite aplica al paquete, no solo a los datos de la aplicación.
 
-### ¿Puedo concluir desde una única captura?
+### ¿Por qué el loopback tiene MTU 65 536?
 
-Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
+Porque no viaja por ningún medio físico: es una interfaz de software que entrega paquetes dentro del mismo equipo, y su límite lo fija la implementación. Medir latencia o rendimiento en loopback no dice nada del enlace real.
 
-### ¿Debo usar exactamente las mismas herramientas?
+### ¿Wi-Fi y Ethernet usan el mismo MTU?
 
-No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+En la capa de IP suelen exponer 1500, pero Wi-Fi agrega capas propias de acceso al medio, retransmisión y agregación de tramas que Ethernet cableado no tiene. El MTU igual no implica comportamiento igual: la variación de latencia y la pérdida visible difieren.
 
+### ¿Qué es un dominio de difusión?
+
+El conjunto de interfaces que reciben una trama enviada a la dirección de difusión (por ejemplo, una consulta ARP). Un enrutador separa dominios; un conmutador no, salvo que use VLAN. Acotarlos limita el ruido y el alcance de ciertos ataques.
 ## Fallo controlado y diagnóstico
 
 Configura en una red de laboratorio una puerta de enlace inexistente o desconecta el punto de acceso. Diferencia `sin asociación`, `sin dirección`, `vecino no resuelto` y `gateway sin respuesta`; restaura automáticamente la configuración original.
 
 Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
 
+
+Una práctica comprueba el descubrimiento del MTU de ruta. Con `ping` y DF, busca el mayor tamaño de datos que pasa hacia un destino propio o autorizado y compara con 1500 − 28. **Síntoma esperado:** 1472 pasa y 1473 no. Si el límite es menor (por ejemplo, 1372), hay un tramo con MTU reducido
+(túnel, VPN, PPPoE). **Hipótesis:** reducción por encapsulación. **Prueba:** repite desde otra red o sin la VPN. **Consecuencia de diseño:** el servicio debe tolerar la fragmentación o ajustar el MSS. Registra el comando, la plataforma y los dos tamaños frontera; no lo ejecutes contra destinos sin autorización.
+
 ## Errores comunes y cómo corregirlos
 
-| Error | Por qué falla | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
-| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
-| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
-| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
-| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+| «Las transferencias grandes se cuelgan pero conectar funciona» | Un tramo con MTU menor descarta paquetes con DF y los avisos ICMP se filtran | Probar PMTU, permitir ICMP «fragmentación necesaria» y ajustar el MSS |
+| Medir el rendimiento en loopback y extrapolarlo | El loopback no usa ningún medio | Medir sobre la interfaz y la ruta reales |
+| Usar 1500 como límite de datos de una prueba | El MTU incluye las cabeceras | Restar las cabeceras (28 para ping IPv4) |
+| Atribuir la latencia variable de Wi-Fi al servidor | La capa de enlace retransmite y arbitra el medio | Medir también desde un equipo cableado o declarar el medio |
+| Suponer que ARP funciona entre subredes | ARP solo opera dentro del dominio de difusión | Revisar el gateway y la tabla de rutas |
 
 ## Entorno y archivos clave
 
@@ -202,6 +240,11 @@ Usa la [petición observable](https://github.com/vladimiracunadev-create/modern-
 - ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
 - considera que telemetría e IP pueden identificar o perfilar personas.
 
+## Puente hacia el trabajo con agentes
+
+Un agente con acceso a la red hereda las mismas fronteras: sus llamadas atraviesan el enlace, el MTU y el gateway del equipo en que se ejecuta, y fallan de las mismas formas. Dos controles se derivan de esta clase. Primero, el harness debe registrar *dónde* se ejecuta el agente (equipo, red, VPN activa), porque un fallo que aparece solo en una red suele ser una cuestión de MTU, de filtrado o de ruta,
+y el agente no puede deducirlo del mensaje. Segundo, las comprobaciones de red del agente (un ping, un traceroute, un escáner) son *acciones* con efecto sobre redes que no son suyas: deben ejecutarse solo contra destinos autorizados, con límites de tasa y de alcance. Las partes de herramientas y de seguridad agentic retoman estos límites.
+
 ## Transferencia
 
 Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
@@ -227,6 +270,10 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 1122 — Requirements for Internet Hosts: Communication Layers](https://www.rfc-editor.org/rfc/rfc1122) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
+
+- [RFC 1191, Path MTU Discovery](https://www.rfc-editor.org/rfc/rfc1191) y [RFC 826, Address Resolution Protocol](https://www.rfc-editor.org/rfc/rfc826): descubrimiento del MTU de ruta y resolución de direcciones de enlace; respaldan las figuras 2 y 3.
+- [Grupo de trabajo IEEE 802.3 (Ethernet)](https://www.ieee802.org/3/) y [IEEE 802.11 (Wi-Fi)](https://www.ieee802.org/11/): estándares de las capas de enlace citadas; el texto de los estándares es de pago y aquí solo se cita su existencia y alcance.
+- [ip-link(8)](https://man7.org/linux/man-pages/man8/ip-link.8.html): interfaces, MTU y estado en Linux.
 
 ## Límites y siguiente paso
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-13 — Parte 03 profundizada con mediciones de red reales
+
+- 36 figuras para `SE-037`–`SE-048` con mediciones reales: fases de una petición HTTPS, MTU y límite de 1472 bytes,
+  aritmética y clasificación de direcciones, estados TCP, rechazo frente a silencio y la espera de Nagle, resolución DNS y TTL,
+  cabeceras y estados HTTP, certificado y veredictos TLS con una CA de laboratorio, proxy y balanceo simulados, contrapresión, variación
+  por fase, la suite del laboratorio y el reintento con retroceso y jitter;
+- tres secciones nuevas por clase, y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios, que eran idénticos en las doce clases, por
+  versiones específicas de cada una; fuentes primarias verificadas y un puente hacia el trabajo con agentes;
+- las once pruebas del laboratorio se ejecutaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3); no se capturaron paquetes ni se midió
+  Wi-Fi, QUIC o HTTP/3, y se declara como límite.
+
 ## 2026-11-13 — Parte 02 profundizada con evidencia medida en Windows y Linux
 
 - 36 figuras para `SE-025`–`SE-036` con datos reales de Windows 11 y Ubuntu 24.04 bajo WSL2: sistemas de

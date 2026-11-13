@@ -94,6 +94,33 @@ Una CDN acerca caché y cómputo al consumidor. El punto de presencia puede resp
 
 Cada terminación ve una dirección de par diferente. Cabeceras como `Forwarded` o equivalentes solo son confiables si un perímetro elimina valores aportados por el cliente y agrega los suyos. De lo contrario, autorización y auditoría pueden aceptar identidad falsificada.
 
+### Quién puede afirmar la dirección del cliente
+
+Una cabecera como `X-Forwarded-For` informa la dirección del cliente original cuando hay un proxy en medio, pero es texto que *cualquiera puede escribir*. En una prueba local con un origen HTTP y un proxy inverso: una petición enviada *directamente al origen* con `X-Forwarded-For: 203.0.113.99` fue aceptada tal cual (el origen vio el valor falsificado); la misma petición enviada *a través del proxy* llegó al origen con `X-Forwarded-For: 127.0.0.1`
+(la dirección real que el proxy vio), con el `X-Request-Id: abc-123` propagado y una cabecera `Via: 1.1 proxy-local` añadida. El proxy sustituyó la cabecera del cliente en lugar de confiar en ella. Esa es la regla de la frontera de confianza: solo un componente que controlas puede fijar los datos de identidad y los componentes interiores deben rechazar o sobrescribir lo que llega de fuera.
+
+![Figura 1. Tabla con una prueba local: el origen acepta un X-Forwarded-For falsificado directamente, y a través del proxy recibe la dirección real, un request ID propagado y una cabecera Via](../../../content/part-03/figures/se-044-proxy-y-cabeceras.svg)
+
+**Cómo leer la figura.** Cada fila es un camino y las columnas, lo que ve el origen. **Dónde deja de valer:** es un proxy mínimo en loopback; los sistemas reales encadenan varios intermediarios y cada uno añade su dirección a `X-Forwarded-For` (o usa la cabecera estándar `Forwarded`). Interpretar esa lista exige conocer *cuántos* saltos son de confianza y tomar la dirección correspondiente, no la primera. Y el origen debe aceptar conexiones solo del proxy: de lo contrario, el atajo directo elude la política.
+
+### Balanceo y conmutación por falla
+
+Un balanceador reparte peticiones entre varios orígenes y debe saber cuáles están sanos. En una simulación local con dos orígenes, A y B, 20 peticiones en turno rotatorio se repartieron 10 y 10. Al detener A, las 20 siguientes terminaron en B gracias a un reintento hacia el otro origen, y se detectaron 10 fallos de conexión. La *rapidez* de detección dependió de cómo falla la conexión: 0,35 ms en Linux (rechazo inmediato) frente a 499,9 ms en Windows
+(la prueba esperó el timeout de 0,5 s). Sin comprobaciones de salud, un balanceador seguiría enviando tráfico al origen caído; con ellas, lo saca de rotación y lo reincorpora al recuperarse.
+
+![Figura 2. Tabla con una prueba local de balanceo: reparto de 10 y 10, conmutación a B tras detener A y tiempo de detección de 0,35 ms en Linux y 499,9 ms en Windows](../../../content/part-03/figures/se-044-balanceo-y-failover.svg)
+
+**Cómo leer la figura.** Las filas son situaciones y las columnas, plataformas. **Dónde deja de valer:** es una simulación sin carga real ni estado de sesión; un balanceador de producción añade algoritmos de reparto (menos conexiones, hash consistente), comprobaciones activas y pasivas, *drenaje* de conexiones y afinidad de sesión, y su propio punto único de fallo.
+
+### Qué se ve y qué queda oculto detrás de una CDN
+
+Una red de entrega de contenido pone intermediarios entre el cliente y el origen. Desde el cliente se observaron: `Server: cloudflare`, `Age: 3521` (la copia tenía casi una hora), `alt-svc: h3`, un certificado de 90 días emitido por una CA intermedia propia del proveedor y un RTT medio de 146 ms *hasta el nodo que respondió*. No se pudo observar: qué servidor de origen existe y dónde está, si el tramo entre la CDN y el origen va cifrado, en qué nodo de borde cayó la petición ni cuándo fue la última
+validación con el origen.
+
+![Figura 3. Tabla con lo observable desde el cliente (Server, Age, alt-svc, certificado, RTT) y lo no observable (origen, cifrado hacia el origen, nodo, última validación)](../../../content/part-03/figures/se-044-cdn-observable-y-oculto.svg)
+
+**Cómo leer la figura.** La columna izquierda es evidencia directa; la derecha, preguntas que el cliente no puede responder. **Dónde deja de valer:** otras CDN exponen más o menos cabeceras (por ejemplo, el estado de caché `HIT` o `MISS`), y los proveedores ofrecen paneles y registros que el cliente final no ve. Para diagnosticar se pide al proveedor o al equipo que opera el borde la evidencia de su lado.
+
 ## Definiciones de trabajo
 
 - **forward proxy:** intermediario que actúa por clientes hacia destinos.
@@ -127,10 +154,10 @@ La diferencia profesional es la trazabilidad: la decisión conecta requisito, me
 
 ## Ejercicios
 
-1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
-2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
-3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
-4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
+1. **Confianza:** dado `X-Forwarded-For: 1.2.3.4, 10.0.0.5, 10.0.0.9` y dos proxies de confianza, indica qué dirección es la del cliente y por qué.
+2. **Salud:** diseña las comprobaciones y los umbrales para sacar un origen de rotación y volver a incluirlo.
+3. **Caché:** define las cabeceras para que una CDN guarde una página pública y no guarde una respuesta con datos personales.
+4. **Diagnóstico:** ante un 502 con `Server: cloudflare`, enumera quién puede haberlo generado y qué observación lo distingue.
 
 ## Reto verificable
 
@@ -148,33 +175,40 @@ Una demostración que no incluye restauración solo prueba cómo romper el labor
 
 ## Preguntas frecuentes
 
-### ¿Una respuesta a `ping` demuestra que el servicio funciona?
+### ¿Puedo confiar en `X-Forwarded-For`?
 
-No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
+Solo si la fija un proxy de confianza y el origen acepta conexiones únicamente de ese proxy. Los valores que el cliente envía pueden ser falsos. Cuando hay varios proxies, se toma el valor que añadió el último de confianza, contando desde el extremo derecho.
 
-### ¿Puedo concluir desde una única captura?
+### ¿Qué diferencia hay entre un proxy y un balanceador?
 
-Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
+Un proxy inverso recibe peticiones y las reenvía a uno o más orígenes; un balanceador es un proxy (u otro dispositivo) cuyo propósito es repartir carga y conmutar ante fallas. En la práctica suelen ser el mismo componente con distintas funciones.
 
-### ¿Debo usar exactamente las mismas herramientas?
+### ¿Una CDN acelera siempre?
 
-No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+Acelera contenido cacheable y reduce la carga del origen, pero añade un salto y una capa de políticas. El contenido personalizado o no cacheable puede ir más lento o requerir reglas explícitas, y una caché mal configurada puede servir datos obsoletos o de otra persona.
 
+### ¿Quién termina TLS cuando hay un intermediario?
+
+Normalmente el intermediario: el cliente valida su certificado y el proxy abre otra conexión hacia el origen. El tramo interior puede ir cifrado o no. Esa decisión se declara y se prueba, porque cambia quién puede leer el tráfico.
 ## Fallo controlado y diagnóstico
 
 Marca un backend como sano en `/health` mientras falla la dependencia usada por `/report`. Registra el falso positivo y diseña readiness separada de liveness sin convertir la prueba en una llamada destructiva.
 
 Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
 
+
+Una práctica ejercita la frontera de confianza con un origen y un proxy locales. Envía al origen una petición con `X-Forwarded-For` falsificado y otra a través del proxy; compara qué ve el origen. **Síntoma:** el origen acepta cualquier valor cuando se llega directamente. **Hipótesis:** la política de identidad depende de que nadie eluda el proxy. **Prueba:** configura el origen para que solo acepte conexiones del proxy
+(por ejemplo, vinculándolo a una dirección distinta o con una lista) y repite el atajo directo, que debe fallar. **Corrección:** el borde descarta las cabeceras de identidad entrantes y fija las suyas. Registra las cabeceras recibidas en cada camino, sin datos reales.
+
 ## Errores comunes y cómo corregirlos
 
-| Error | Por qué falla | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
-| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
-| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
-| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
-| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+| El origen registra IP falsas | Confía en `X-Forwarded-For` que viene del cliente | Sobrescribir en el borde y aceptar conexiones solo del proxy |
+| Tráfico a un origen caído tras detectarlo | Sin comprobaciones de salud o con intervalos largos | Comprobaciones activas y pasivas y reintento hacia otro origen |
+| Atribuir un error 503 al origen | El intermediario también puede generarlo | Leer `Server`, `Via` y registros de cada salto |
+| Datos de una persona servidos a otra | Caché compartida sin `Vary` ni `private` | Marcar respuestas personalizadas como no cacheables en compartidas |
+| Suponer que el tramo interior va cifrado | TLS se terminó en el borde | Declarar y probar el cifrado entre el proxy y el origen |
 
 ## Entorno y archivos clave
 
@@ -202,6 +236,11 @@ Usa el `request_id` de la [petición observable](https://github.com/vladimiracun
 - ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
 - considera que telemetría e IP pueden identificar o perfilar personas.
 
+## Puente hacia el trabajo con agentes
+
+Los sistemas con agentes también tienen intermediarios: un *gateway* de modelos, un proxy de herramientas, un servidor MCP. La regla de la frontera de confianza se aplica igual: el gateway debe fijar la identidad del agente y de la persona, propagar un identificador de correlación, descartar lo que un cliente pretenda declarar sobre sí mismo y registrar quién llamó a qué. Un balanceador de modelos con reintentos puede además duplicar acciones con efecto si el agente no usa claves de idempotencia, y
+una caché mal definida puede entregar a un agente respuestas de otra sesión. Las partes de gateways, MCP y seguridad agentic desarrollan estos controles.
+
 ## Transferencia
 
 Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
@@ -228,6 +267,10 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 7239 — Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239) — estandariza metadatos reenviados y documenta sus consideraciones de seguridad y privacidad.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
+
+- [RFC 7239, Forwarded HTTP Extension](https://www.rfc-editor.org/rfc/rfc7239) y [RFC 9110 §7.6 (Via)](https://www.rfc-editor.org/rfc/rfc9110): cabeceras de reenvío e intermediarios; respaldan la figura 1.
+- [RFC 9111, HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111): cachés compartidas y privadas, `Age` y `Vary`; respaldan la figura 3.
+- [Python `http.server`](https://docs.python.org/3/library/http.server.html) y [`http.client`](https://docs.python.org/3/library/http.client.html): componentes del proxy y del origen locales de las pruebas.
 
 ## Límites y siguiente paso
 

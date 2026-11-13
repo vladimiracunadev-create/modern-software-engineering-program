@@ -24,8 +24,9 @@ su commit está en `main` con CI verde.
 |---|---|---|
 | 00 | Profundizada con figuras, CI verde | `6e90ab8` |
 | 01 | Profundizada en contenido y figuras, CI verde | `a809280` |
-| 02 | Profundizada con evidencia medida en Windows y Linux (pendiente de CI verde) | — |
-| 03–05 | Desarrolladas; pendientes de profundizar en contenido y figuras | — |
+| 02 | Profundizada con evidencia medida en Windows y Linux, CI verde | `d8969ff` |
+| 03 | Profundizada con mediciones de red reales (pendiente de CI verde) | — |
+| 04–05 | Desarrolladas; pendientes de profundizar en contenido y figuras | — |
 | 06–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

@@ -94,6 +94,45 @@ Logs estructurados incluyen timestamp, request ID, fase, duración, outcome y ca
 
 Un servicio tolerante a fallos no promete éxito universal. Puede servir último resultado marcado con edad, omitir una dependencia opcional o devolver error claro. La recuperación se prueba restaurando la red y verificando que colas, circuitos y caches regresen a estado coherente.
 
+### Reintento con retroceso exponencial y jitter
+
+Reintentar bien exige tres decisiones: cuántas veces, con qué espera y para qué operaciones. En una prueba local, un servidor respondió `503` con `Retry-After` las dos primeras veces y `200` la tercera. Un cliente con *retroceso exponencial con jitter completo* (espera aleatoria entre 0 y 0,05 · 2^k segundos antes del intento k+1) tuvo éxito en el tercer intento: estados `[503, 503, 200]`, con un total de 99,7 ms en Windows y 70,7 ms en Linux. El azar del *jitter* es esencial: si muchos clientes
+fallan a la vez y esperan el mismo tiempo, reintentan a la vez y vuelven a saturar al servicio (*tormenta de reintentos*).
+
+```python
+import random, time
+
+def con_reintento(operacion, intentos=5, base=0.05, tope=2.0):
+    for k in range(intentos):
+        respuesta = operacion()
+        if respuesta.status != 503:
+            return respuesta
+        time.sleep(random.uniform(0, min(tope, base * 2 ** k)))
+    raise TimeoutError("agotados los intentos")
+```
+
+![Figura 1. Tabla con una prueba local: dos respuestas 503 y un 200, con esperas aleatorias crecientes y un total de 99,7 ms en Windows y 70,7 ms en Linux](../../../content/part-03/figures/se-048-reintento-con-backoff.svg)
+
+**Cómo leer la figura.** Cada fila es un intento con su respuesta y la espera máxima posible antes del siguiente. **Dónde deja de valer:** esto solo es seguro para operaciones idempotentes; reintentar un pago sin una clave de idempotencia puede cobrarlo dos veces (SE-040). Además, el reintento amplifica la carga: con tres capas que reintentan cada una tres veces, una petición puede convertirse en 27, de modo que el reintento se hace en *una* capa y con un presupuesto global.
+
+### Presupuesto de tiempo y plazos por fase
+
+Un *plazo total* (deadline) acota la experiencia de la persona; los *límites por fase* (conexión, lectura) evitan que una fase consuma todo el presupuesto y permiten saber cuál se agotó. Con las fases medidas en SE-037 (DNS 9 ms, TCP 131 ms, TLS 146 ms y espera 144 ms, unos 430 ms en total), un plazo de 2000 ms deja unos 1570 ms de margen: caben unos cuatro intentos *sin espera* y menos con retroceso. El plazo debe *propagarse*: si el cliente concede 2 s, el
+servicio que llama a otro no puede darle más de lo que queda. Un plazo sin propagar produce el peor caso: el cliente se rinde y el servidor sigue trabajando en una petición que nadie espera.
+
+![Figura 2. Barras con las fases medidas de una petición (9, 131, 146 y 144 ms) frente a un plazo total de 2000 ms](../../../content/part-03/figures/se-048-presupuesto-de-tiempo.svg)
+
+**Cómo leer la figura.** Las cuatro barras son las fases de una petición sana; la última es el plazo total. **Dónde deja de valer:** las fases medidas son de un destino y una hora; en producción hay colas, picos y fases adicionales (autenticación, base de datos). El presupuesto se calibra con percentiles altos, no con la mediana.
+
+### La matriz sana, degradada y recuperada
+
+El servicio se define por su comportamiento en tres estados. *Sano*: responde en el primer intento y no reintenta. *Degradado y recuperado*: ante una señal transitoria (un 503 o una pérdida) el cliente reintenta con límite y retroceso, y el resultado final es `recovered` con dos intentos (los escenarios `http_503` y `transient_loss` del laboratorio). *Fallido por fase*: ante DNS, rechazo, nombre TLS inválido o plazo agotado, el cliente *no reintenta a ciegas*: informa la
+fase y el código (`dns_failure`, `connection_refused`, `tls_name_mismatch`, `latency_timeout`). Un *circuito* (circuit breaker) añade una cuarta opción: tras varias fallas consecutivas deja de intentar durante un tiempo y falla rápido, protegiendo al servicio degradado y a los recursos del cliente.
+
+![Figura 3. Matriz de tres estados del servicio, sano, degradado y recuperado y fallido por fase, con su señal, la respuesta del cliente y la evidencia del laboratorio](../../../content/part-03/figures/se-048-matriz-de-degradacion.svg)
+
+**Cómo leer la figura.** Cada fila es un estado con su señal observable, la respuesta del cliente y los escenarios que la demuestran. **Dónde deja de valer:** la matriz cubre un cliente y un servicio; en un sistema real hay degradación parcial (algunas funciones sí, otras no), y la respuesta correcta incluye comunicar el estado a las personas, no solo a otros programas. Un *runbook* convierte la matriz en pasos operativos con responsables, y se prueba con ejercicios de fallo.
+
 ## Definiciones de trabajo
 
 - **SLI:** medida cuantitativa de comportamiento del servicio.
@@ -128,10 +167,10 @@ La diferencia profesional es la trazabilidad: la decisión conecta requisito, me
 
 ## Ejercicios
 
-1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
-2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
-3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
-4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
+1. **Cálculo:** con base 50 ms y tope 2 s, escribe el máximo de espera antes de los intentos 2 a 6 y el peor tiempo total con un plazo de 3 s.
+2. **Idempotencia:** diseña la clave de deduplicación para «crear un pedido» y explica qué responde el servidor al repetirla.
+3. **Presupuesto:** reparte un plazo de 2 s entre cliente, balanceador y servicio, y define qué propaga cada uno.
+4. **Runbook:** redacta los pasos de operación para el escenario `latency_timeout`, con la señal, el responsable y la acción de recuperación.
 
 ## Reto verificable
 
@@ -149,33 +188,40 @@ Una demostración que no incluye restauración solo prueba cómo romper el labor
 
 ## Preguntas frecuentes
 
-### ¿Una respuesta a `ping` demuestra que el servicio funciona?
+### ¿Cuántos reintentos son razonables?
 
-No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
+Los suficientes para absorber fallos transitorios sin multiplicar la carga: típicamente dos o tres, con retroceso y *jitter*, un plazo total y un límite global compartido por las capas. Más reintentos aumentan la probabilidad de éxito individual y empeoran la saturación colectiva.
 
-### ¿Puedo concluir desde una única captura?
+### ¿Cuándo no se debe reintentar?
 
-Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
+Cuando el error es permanente (nombre inexistente, certificado inválido, 4xx por una petición mal formada), cuando la operación no es idempotente y no hay clave de deduplicación, o cuando el plazo restante no alcanza. Reintentar un error permanente solo retrasa el diagnóstico.
 
-### ¿Debo usar exactamente las mismas herramientas?
+### ¿Qué hace un circuit breaker que no haga un reintento?
 
-No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+Un reintento insiste en una petición; el circuito deja de enviar *todas* las peticiones a un destino que está fallando, durante un tiempo, y prueba de vez en cuando si se recuperó. Protege al destino y evita que el cliente acumule esperas.
 
+### ¿Cómo sé que mi degradación funciona antes de que ocurra un incidente?
+
+Con ejercicios de fallo controlados (por ejemplo, la matriz del laboratorio en un entorno de prueba): se provoca cada fallo, se comprueba que la señal aparece y que el cliente responde según la política, y se corrige lo que no.
 ## Fallo controlado y diagnóstico
 
 Encadena DNS lento y 503 para comprobar que el deadline total impide una tormenta de reintentos. Luego restaura ambos componentes y verifica cierre del circuito, vaciado controlado y ausencia de tareas huérfanas.
 
 Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
 
+
+Una práctica provoca una tormenta de reintentos y la corrige. Con un servidor local que falla las primeras N peticiones y varios clientes simultáneos, compara dos políticas: reintento inmediato y reintento con retroceso exponencial y jitter. **Síntoma:** con reintento inmediato, las peticiones fallidas se acumulan en ráfagas y el servidor tarda más en recuperarse. **Hipótesis:** el sincronismo de los reintentos mantiene la carga. **Prueba:** mide el
+número total de peticiones recibidas y el tiempo hasta que todos los clientes tienen éxito con cada política. **Corrección:** retroceso con jitter, tope de intentos, plazo total y reintento solo de operaciones idempotentes. Limita el número de clientes y de peticiones para no presionar el equipo.
+
 ## Errores comunes y cómo corregirlos
 
-| Error | Por qué falla | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
-| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
-| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
-| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
-| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+| El servicio se satura más al fallar | Reintentos inmediatos y sincronizados de muchos clientes | Retroceso exponencial con jitter y tope de intentos |
+| Peticiones duplicadas tras un timeout | Se reintentan operaciones no idempotentes | Claves de idempotencia o consulta previa del estado |
+| Reintentos multiplicados entre capas | Cada capa reintenta por su cuenta | Reintentar en una capa y fijar un presupuesto global |
+| El servidor sigue trabajando tras la renuncia del cliente | El plazo no se propaga | Propagar el plazo restante y cancelar el trabajo |
+| Fallos permanentes que se reintentan | No se distingue error transitorio de permanente | Clasificar por código y fase; no reintentar errores permanentes |
 
 ## Entorno y archivos clave
 
@@ -202,6 +248,11 @@ El proyecto base es la [petición observable y fallos por fase](https://github.c
 - acompaña color y diagramas con orden, etiquetas y una explicación textual;
 - ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
 - considera que telemetría e IP pueden identificar o perfilar personas.
+
+## Puente hacia el trabajo con agentes
+
+Los agentes reintentan: llamadas a modelos con límites de tasa, herramientas con errores transitorios, ciclos de «intenta otra vez» que pueden no terminar. El diseño de esta clase es el contrato del harness: reintento con retroceso y *jitter*, un presupuesto global de intentos, tiempo y *costo* por tarea (porque cada reintento de un modelo cuesta dinero), claves de idempotencia para las herramientas con efecto, circuitos para los servicios degradados y una matriz explícita de qué hacer ante cada
+fallo. Un agente sin esos límites puede entrar en un bucle que consume presupuesto o duplica acciones, y la regla se verifica con pruebas de regresión que provocan cada fallo. Las partes de harness, bucles de agentes y evaluación desarrollan esos controles.
 
 ## Transferencia
 
@@ -230,6 +281,10 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 1034 — Domain Names: Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
+
+- [AWS Builders' Library: Timeouts, retries and backoff with jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/) y [Google SRE Book: Handling Overload](https://sre.google/sre-book/handling-overload/): práctica de retroceso con jitter, presupuestos de reintento y degradación; respaldan las figuras 1 y 2.
+- [RFC 9110 §10.2.3, Retry-After](https://www.rfc-editor.org/rfc/rfc9110) y [Circuit Breaker (Fowler)](https://martinfowler.com/bliki/CircuitBreaker.html): pista de reintento del servidor y patrón de circuito.
+- [Laboratorio de la Parte 03](https://github.com/vladimiracunadev-create/modern-software-engineering-program/tree/main/labs/part-03-observable-request): escenarios `http_503` y `transient_loss` y la matriz sana, degradada y recuperada.
 
 ## Límites y siguiente paso
 

@@ -36,6 +36,17 @@ El orden del diagrama es causal, no una promesa de implementación literal. Una 
 
 Podrás leer una petición como un sistema de estados y contratos. Dejarás de usar «la red está caída» como explicación suficiente: distinguirás fallo de resolución, ruta, transporte, confianza, semántica, caché o capacidad; diseñarás timeouts y reintentos con límites; y producirás trazas que otra persona pueda revisar sin acceder a secretos ni tráfico ajeno.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan mediciones reales desde un mismo equipo con Windows 11 (CPython 3.12.9) y Ubuntu 24.04 bajo
+WSL2 (CPython 3.12.3): fases de una petición HTTPS a `example.com` con `curl -w`, ping con la bandera de no fragmentar, resolución DNS
+con consultas a un resolvedor público, cabeceras, métodos y estados HTTP, una conexión TLS real y cuatro veredictos con un certificado de laboratorio,
+y pruebas locales de transporte (estados TCP, fronteras de mensaje, Nagle, contrapresión), de un proxy y de un balanceador simulados,
+y de reintentos con retroceso y jitter. Las pruebas del laboratorio (once) pasaron en Windows y en Linux. No se capturaron paquetes, no se midió Wi-Fi,
+QUIC ni HTTP/3 y el laboratorio modela DNS, validación TLS y pérdida; esas afirmaciones se presentan como documentadas o modeladas. Las únicas peticiones externas
+fueron lecturas de `example.com` (un dominio de IANA reservado para documentación). Los nombres de equipo, direcciones privadas, zonas horarias y
+direcciones públicas del equipo se omiten. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 La guía sigue una sola petición observable de extremo a extremo y cambia el punto de observación en cada clase.

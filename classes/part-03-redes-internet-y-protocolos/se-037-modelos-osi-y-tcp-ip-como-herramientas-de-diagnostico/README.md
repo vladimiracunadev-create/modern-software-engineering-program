@@ -94,6 +94,44 @@ Los paquetes de una petición pertenecen al plano de datos. DNS, descubrimiento 
 
 MTU, proxies, NAT, aceleración de hardware y QUIC muestran que las fronteras interactúan. RFC 1122 advierte que la estratificación estricta es un modelo imperfecto. El diagnóstico profesional conserva el mapa, pero acepta evidencia cruzada y documenta en qué host y momento se observó.
 
+### Descomponer una petición real en fases
+
+Un modelo de capas se vuelve útil cuando se aplica a una petición concreta. Con `curl` se puede obtener el tiempo *acumulado* hasta cada hito:
+`curl -sS -o /dev/null -w "%{time_namelookup} %{time_connect} %{time_appconnect} %{time_starttransfer} %{time_total}\n" https://example.com`. Los valores son
+acumulados desde el inicio, de modo que cada fase es la *diferencia* entre dos hitos. En cinco ejecuciones consecutivas desde un equipo con salida a Internet, el nombre se resolvió en 8 a 10 ms (el sistema ya lo tenía en caché),
+el handshake TCP tomó entre 131 y 159 ms, la negociación TLS 1.3 entre 142 y 149 ms, y la espera del primer byte entre 137 y 169 ms, para un total de 426 a 480 ms. Un `ping` al mismo destino
+dio un RTT mínimo de 129 ms, medio de 146 ms y máximo de 176 ms, sin pérdida. Cada fase de red dura *aproximadamente un viaje de ida y vuelta*: SYN y SYN-ACK en TCP, un viaje para la negociación TLS 1.3, y otro
+para la solicitud y la respuesta.
+
+![Figura 1. Barras con una medición real: DNS 9 ms, TCP 131 ms, TLS 146 ms y espera 144 ms, con un total de unos 430 ms](../../../content/part-03/figures/se-037-fases-de-una-peticion.svg)
+
+**Cómo leer la figura.** Cada barra es una fase obtenida por diferencia de tiempos acumulados. La lectura diagnóstica es comparativa: si el RTT es 146 ms y el handshake TCP dura 131 ms, la fase está en orden;
+si durara 900 ms habría pérdida o un camino anómalo. **Dónde deja de valer:** la medición es de un equipo y una ruta, con DNS ya en caché. Un primer acceso añadiría la resolución real (decenas de milisegundos), y con una
+conexión reutilizada (SE-045) TCP y TLS desaparecen de la petición. El mismo método se aplica a cualquier destino: se mide con *tu* red.
+
+### Los modelos como mapa de evidencias
+
+OSI (siete capas) y TCP/IP (cuatro) no son descripciones literales de una implementación: son vocabularios para *ubicar una observación*. La Figura 2 asigna a cada capa un dato real de esa misma petición: el estado
+`HTTP/1.1 200 OK` y los 577 bytes pertenecen a la aplicación; la negociación TLS 1.3 con `TLS_AES_256_GCM_SHA384` ocupa lo que OSI llama presentación y sesión; la conexión al puerto 443 es transporte; el `TTL = 56` de la
+respuesta de ping es evidencia de red; y el MTU de 1500 bytes es del enlace. La columna final recuerda lo que cada observación *no* demuestra: el TTL no da el número de saltos porque se desconoce el valor inicial (los sistemas usan
+típicamente 64, 128 o 255); un puerto abierto no prueba que la aplicación esté sana.
+
+![Figura 2. Tabla que asigna a cada capa de OSI y TCP/IP una evidencia real de una petición a example.com y lo que no demuestra](../../../content/part-03/figures/se-037-modelos-y-evidencia.svg)
+
+**Cómo leer la figura.** Cada fila liga una capa con un dato y con su límite. **Dónde deja de valer:** TLS no encaja limpiamente en ninguna capa (OSI lo reparte entre presentación y sesión, y TCP/IP lo deja en
+la aplicación), y protocolos como QUIC combinan transporte, cifrado y flujos. Los modelos se usan para *ordenar preguntas*, no para decidir a qué capa «pertenece» un protocolo.
+
+### Cuando las capas filtran
+
+La abstracción por capas tiene fugas, y las observaciones reales lo muestran. La respuesta de `example.com` incluyó `Server: cloudflare` y `Age: 3521`: no respondió el origen del sitio sino un intermediario (una CDN) que termina TLS y sirve una copia
+con 3521 segundos de antigüedad. La cabecera `alt-svc: h3=":443"` ofrece HTTP/3 sobre QUIC (UDP): la siguiente conexión puede ni siquiera usar TCP. Y un `ping` que responde solo demuestra una respuesta ICMP bajo esa ruta y política: no valida DNS,
+puerto, TLS ni HTTP.
+
+![Figura 3. Tres fugas de capa observadas: respuesta de una CDN con Age, oferta de HTTP/3 y ping que responde](../../../content/part-03/figures/se-037-fugas-de-capa.svg)
+
+**Cómo leer la figura.** La segunda columna es lo que parece responder y la tercera, lo que ocurre. **Dónde deja de valer:** son tres ejemplos de un sitio; otros no usan intermediarios y otros usan varios. El hábito que se conserva es
+preguntar «¿quién respondió realmente?» antes de atribuir un comportamiento a una capa o a un componente.
+
 ## Definiciones de trabajo
 
 - **capa:** agrupación conceptual de responsabilidades y servicios.
@@ -127,10 +165,10 @@ La diferencia profesional es la trazabilidad: la decisión conecta requisito, me
 
 ## Ejercicios
 
-1. **Reconstrucción:** explica el mecanismo a una persona que solo conoce la clase anterior; incluye un dibujo y un contraejemplo.
-2. **Variación:** repite el caso cambiando una sola variable —familia IP, interfaz, caché o intermediario— y justifica la diferencia.
-3. **Revisión adversarial:** escribe una hipótesis rival que también explique el síntoma y diseña la observación mínima que las separe.
-4. **Transferencia:** aplica el modelo a una actualización de software o videollamada y marca qué supuestos dejan de ser válidos.
+1. **Cálculo:** con los tiempos acumulados 0,009 / 0,141 / 0,286 / 0,430 / 0,430 s, calcula la duración de DNS, TCP, TLS y espera, y di cuál se acerca a un RTT.
+2. **Clasificación:** asigna a una capa cada observación: «RST recibido», «certificado caducado», «TTL 56», «estado 503» y «MTU 1500», y declara qué no demuestra.
+3. **Prueba que separa:** diseña una medición que distinga resolvedor lento de ruta lenta sin cambiar de red.
+4. **Fuga de capa:** explica qué cambia en el mapa cuando el servidor anuncia `alt-svc: h3` y el cliente lo usa.
 
 ## Reto verificable
 
@@ -148,33 +186,42 @@ Una demostración que no incluye restauración solo prueba cómo romper el labor
 
 ## Preguntas frecuentes
 
-### ¿Una respuesta a `ping` demuestra que el servicio funciona?
+### ¿Es OSI o TCP/IP el modelo «correcto»?
 
-No. Puede demostrar una respuesta ICMP bajo una ruta y política concretas. No valida DNS, puerto, TLS, HTTP ni la operación de negocio.
+Ninguno describe una implementación real con exactitud. TCP/IP refleja mejor los protocolos de Internet y OSI ofrece un vocabulario más fino (presentación, sesión) que sigue siendo útil. Se usa el que permita formular la pregunta diagnóstica, y se declara cuál.
 
-### ¿Puedo concluir desde una única captura?
+### ¿Por qué los tiempos de `curl -w` son acumulados?
 
-Solo afirmaciones limitadas al punto, instante y tráfico observados. Para causalidad necesitas una predicción, una intervención controlada o evidencia correlacionada adicional.
+Porque cada variable mide desde el inicio de la operación hasta ese hito: `time_connect` incluye la resolución de DNS, y `time_appconnect` incluye la conexión TCP. La duración de una fase se obtiene restando el hito anterior; leerlos como duraciones separadas produce
+conclusiones erróneas.
 
-### ¿Debo usar exactamente las mismas herramientas?
+### ¿El TTL me dice cuántos saltos hay hasta el destino?
 
-No. Debes conservar preguntas, unidades, alcance y evidencia. Documenta equivalencias y diferencias de plataforma.
+No directamente. El TTL que recibes es el inicial del emisor menos los saltos recorridos, y el inicial es desconocido (a menudo 64, 128 o 255). Un TTL de 56 sugiere unos 8 saltos si el inicial era 64, pero es una inferencia; para ver la ruta se usa `traceroute` o `tracert`, con sus propios límites.
 
+### ¿Un `ping` que responde demuestra que el servicio funciona?
+
+No. Solo demuestra que hay una respuesta ICMP bajo esa ruta y política. No valida DNS, el puerto, TLS, HTTP ni la operación de negocio, y muchos sistemas bloquean o priorizan ICMP de forma distinta al tráfico de aplicación.
 ## Fallo controlado y diagnóstico
 
 Cambia temporalmente el nombre de destino por uno reservado e inexistente. Registra que no hubo conexión TCP ni petición HTTP; luego restaura el nombre y demuestra la transición. El aprendizaje es causal: una falla temprana impide observar capas posteriores.
 
 Registra estado previo, acción, síntoma, primera divergencia, causa, corrección y estado posterior. Si la acción afecta red compartida, requiere privilegios amplios o no tiene rollback probado, reemplázala por una simulación local.
 
+
+Una práctica reproduce la atribución por fase. Levanta un servidor HTTP local que espere 1 s antes de responder (por ejemplo, con `python -m http.server` modificado para dormir) y mide `curl -w` contra
+`http://127.0.0.1:PUERTO/`. **Síntoma:** el total supera 1 s. **Hipótesis:** DNS lento, ruta lenta o servidor lento. **Prueba:** descompón por diferencias: DNS y conexión quedan en milisegundos y la espera hasta el primer byte aporta el segundo completo.
+**Conclusión:** la lentitud está en la aplicación, no en la red. Repite contra un destino remoto y compara qué fase domina. Registra el comando, los valores acumulados y las diferencias en `trace.md`, y no concluyas desde una sola medición.
+
 ## Errores comunes y cómo corregirlos
 
-| Error | Por qué falla | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| culpar al último componente nombrado | el síntoma puede aparecer lejos de la causa | localizar la primera divergencia |
-| usar éxito parcial como prueba total | cada protocolo ofrece un alcance distinto | enumerar qué capas aún no se probaron |
-| cambiar varias variables | impide atribuir el resultado | una intervención y una predicción por vez |
-| capturar todo | aumenta riesgo y ruido | limitar interfaz, destino, tiempo y campos |
-| ocultar el error con un bypass | elimina una protección sin explicar causa | aislar solo en laboratorio y restaurar |
+| «La red es lenta» sin medir | Se atribuye el total a una capa sin descomponerlo | Obtener tiempos por fase y comparar con el RTT |
+| Leer `time_connect` como la duración del handshake | Los tiempos de `curl -w` son acumulados | Restar el hito anterior para obtener cada fase |
+| Concluir saltos desde el TTL | Se desconoce el TTL inicial | Declarar la inferencia o usar `traceroute` con sus límites |
+| «El puerto 443 abre, entonces el servicio funciona» | Se confunde transporte con aplicación | Comprobar TLS y una petición HTTP real, no solo la conexión |
+| Atribuir una respuesta al origen | Un intermediario puede responder | Leer `Server`, `Via`, `Age` y comprobar quién respondió |
 
 ## Entorno y archivos clave
 
@@ -202,6 +249,12 @@ Ejecuta la suite de la [petición observable](https://github.com/vladimiracunade
 - ofrece comandos equivalentes o resultados esperados para quien no pueda modificar una red;
 - considera que telemetría e IP pueden identificar o perfilar personas.
 
+## Puente hacia el trabajo con agentes
+
+Un agente que ejecuta `curl` o llamadas a servicios recibe errores como «timeout» o «connection failed» y tiende a reintentar o a concluir que «el servicio está caído». El método de esta clase exige otra cosa: que el harness entregue al agente los tiempos *por fase* y el código de error del sistema, y que
+el agente formule una hipótesis por fase antes de actuar. Una consulta a un servicio externo desde un agente es una petición con todas las fases de la figura 1, y cada fase debe tener su propio límite de tiempo. Además, lo que el agente lee de la red es un dato no confiable: una respuesta que contiene instrucciones no es una orden. Las partes de herramientas, observabilidad y seguridad agentic desarrollan
+estos controles.
+
 ## Transferencia
 
 Traslada el mecanismo a una segunda red o protocolo sin repetir comandos mecánicamente. Conserva la pregunta y el criterio de evidencia; cambia los supuestos de dirección, intermediación y política. Escribe qué observación seguiría siendo válida y cuál depende de la topología original.
@@ -227,6 +280,10 @@ La clase no se aprueba por ejecutar comandos. Se aprueba cuando la evidencia sos
 - [RFC 8200 — Internet Protocol, Version 6](https://www.rfc-editor.org/rfc/rfc8200) — define la semántica normativa del protocolo nombrado en el título y sus límites interoperables.
 
 Las RFC describen contratos de protocolo, no certifican una red, proveedor o herramienta. Cada afirmación de comportamiento local debe contrastarse con evidencia de ese entorno.
+
+- [curl: variables de `--write-out`](https://curl.se/docs/manpage.html): definición de los tiempos acumulados (`time_namelookup`, `time_connect`, `time_appconnect`, `time_starttransfer`) usados en las figuras 1 y 2.
+- [RFC 1122, Requirements for Internet Hosts](https://www.rfc-editor.org/rfc/rfc1122) y [RFC 5737, direcciones de documentación](https://www.rfc-editor.org/rfc/rfc5737): modelo de capas de Internet y rangos reservados para ejemplos.
+- James Kurose y Keith Ross, *Computer Networking: A Top-Down Approach*, 7.ª edición (Pearson, ISBN 978-0-13-359414-0): modelos de capas, retardos y sus componentes.
 
 ## Límites y siguiente paso
 

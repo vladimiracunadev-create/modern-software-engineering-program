@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-13 — Parte 01 profundizada en contenido y figuras
+
+- 40 figuras SVG para `SE-013`–`SE-024` (de tres a cuatro por clase), varias con datos medidos
+  en CPython 3.12.9 sobre Windows y declarados como tales: tiempo de pared frente a CPU,
+  recorrido secuencial frente a barajado, memoria de una lista frente a un `array`, costo de
+  `fsync`, hilos frente a procesos, compilar frente a cargar bytecode y retención frente a flujo;
+- cada clase añade entre tres y cuatro secciones de contenido nuevo con mecanismo, ejemplos
+  ejecutados y límites (complemento a dos, aritmética de números de secuencia, UTF-8 por dentro,
+  absorción y cancelación en coma flotante, simulador de ISA con 22 instrucciones dinámicas,
+  jerarquía y durabilidad, GIL y carreras de datos, etapas de compilación y `.pyc`, conteo de
+  referencias y ciclos, protocolo de benchmark, percentiles, Amdahl, dossier de referencia y
+  estudio de ejemplo con regla de decisión previa);
+- fallos controlados ampliados, preguntas frecuentes, puentes hacia el trabajo con agentes y
+  fuentes primarias verificadas (DOI comprobados con Crossref, enlaces con respuesta 200);
+- el generador de figuras pasa a `scripts/build_figures.py`, que descubre los módulos
+  `scripts/figures_partXX_*.py`; las pruebas de figuras cubren las Partes 00 y 01.
+
 ## 2026-11-13 — Parte 00 profundizada con figuras de apoyo
 
 - 36 figuras SVG estáticas (tres por clase) para `SE-001`–`SE-012`: modelos del
@@ -11,7 +28,7 @@
   nuevas verificadas;
 - el portal publica las figuras sin JavaScript externo (`site/assets/figures/`) y el
   README de GitHub las enlaza por ruta relativa; el generador de figuras vive en
-  `scripts/build_figures_part00.py` y se comprueba con `--check`;
+  `scripts/build_figures.py` y se comprueba con `--check`;
 - nuevo documento `docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md` con la auditoría de
   brechas (metodologías de la era de la IA, patrones y arquitecturas) y el alcance
   decidido de 540 clases; el alcance no se publica en `curriculum.yaml` hasta que cada

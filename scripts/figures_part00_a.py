@@ -1,23 +1,7 @@
-"""Generate the static SVG figures of Part 00 into content/part-00/figures/.
-
-Run ``python scripts/build_figures_part00.py`` to regenerate and ``--check`` to
-verify that the committed files match the definitions below.
-"""
+"""Figures for SE-001 and SE-002."""
 from __future__ import annotations
 
-import argparse
-import sys
-from pathlib import Path
-
 from figure_kit import Fig
-from figures_part00_b import FIGURES as FIGURES_B
-from figures_part00_c import FIGURES as FIGURES_C
-from figures_part00_d import FIGURES as FIGURES_D
-from figures_part00_e import FIGURES as FIGURES_E
-from figures_part00_f import FIGURES as FIGURES_F
-
-ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "content" / "part-00" / "figures"
 
 
 def se001_fronteras() -> Fig:
@@ -198,33 +182,3 @@ FIGURES = {
     "se-002-cadena-causal.svg": se002_cadena,
     "se-002-lote-vs-integracion.svg": se002_lotes,
 }
-FIGURES.update(FIGURES_B)
-FIGURES.update(FIGURES_C)
-FIGURES.update(FIGURES_D)
-FIGURES.update(FIGURES_E)
-FIGURES.update(FIGURES_F)
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--check", action="store_true")
-    args = parser.parse_args()
-    OUT.mkdir(parents=True, exist_ok=True)
-    stale = []
-    for name, builder in FIGURES.items():
-        svg = builder().svg()
-        path = OUT / name
-        if args.check:
-            if not path.exists() or path.read_text(encoding="utf-8") != svg:
-                stale.append(name)
-        else:
-            path.write_text(svg, encoding="utf-8", newline="\n")
-    if stale:
-        print("FIGURES_STALE: " + ", ".join(stale), file=sys.stderr)
-        return 1
-    print(("FIGURES_CHECK_OK" if args.check else "FIGURES_BUILD_OK") + f": {len(FIGURES)}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

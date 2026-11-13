@@ -61,6 +61,18 @@ seis pruebas automáticas, inspección de AST/bytecode, evidencia de representac
 benchmark que conserva muestras crudas. Cada clase reutiliza solo la lente que necesita;
 el taller y el proyecto integran el recorrido completo.
 
+## Figuras, mediciones y puentes hacia agentes
+
+Cada clase incluye al menos tres figuras estáticas, con texto alternativo y un párrafo que
+explica cómo leerlas y dónde dejan de valer. Las que muestran mediciones (tiempo de pared y
+de CPU, recorrido secuencial frente a barajado, memoria de una lista frente a un `array`,
+costo de `fsync`, hilos y procesos, compilar frente a cargar) proceden de ejecuciones reales
+en CPython 3.12.9 sobre Windows, con versión y entorno declarados; son un método de
+medición, no valores esperables en otro equipo. Los gráficos que usan cifras supuestas
+(latencias sintéticas, energía hipotética) lo indican. Cada clase termina con un puente
+hacia el trabajo con agentes que traduce el criterio de la clase en un requisito verificable;
+su desarrollo completo pertenece a las partes de harness, especificación y agentes.
+
 La validación local confirma comportamiento en CPython 3.12.9 sobre Windows 11. La
 matriz de CI vuelve a ejecutar el laboratorio en Python 3.11–3.14 y en Windows/macOS;
 esa matriz demuestra compatibilidad únicamente cuando el workflow remoto termina en

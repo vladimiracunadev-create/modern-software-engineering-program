@@ -78,12 +78,34 @@ número. Una **unidad de código** es una unidad de una forma como UTF-16. Un **
 es una unidad que una persona percibe como carácter y puede reunir varios puntos. Por
 eso `len()` depende del modelo del lenguaje y no siempre cuenta símbolos percibidos.
 
+![Figura 1. Tabla de tres textos que se ven iguales o similares con sus conteos de grafemas, puntos de código, bytes UTF-8 y unidades UTF-16](../../../content/part-01/figures/se-015-contar-texto.svg)
+
+**Cómo leer la figura.** La palabra «José» escrita con la «é» compuesta (NFC) tiene cuatro puntos
+de código y cinco bytes en UTF-8; escrita con una «e» seguida de un acento combinante (NFD)
+tiene cinco puntos y seis bytes, aunque una persona ve las mismas cuatro letras. El emoji de
+familia muestra el caso extremo: un grafema, cinco puntos de código unidos por un carácter de
+unión de ancho cero (U+200D), dieciocho bytes en UTF-8 y ocho unidades en UTF-16. Las cuatro
+columnas miden cosas distintas y ninguna es «el número de caracteres». **Dónde deja de valer:**
+los conteos de grafemas siguen las reglas de segmentación de Unicode (Anexo 29), que varían
+con la versión del estándar y con el soporte de fuentes y sistemas; un mismo emoji compuesto
+puede mostrarse como uno o como varios símbolos según el entorno.
+
 ### 2. Unicode es repertorio; UTF-8 es una forma de codificación
 
 Unicode asigna puntos de código. UTF-8 los transforma en secuencias de uno a cuatro
 bytes y conserva ASCII como bytes iguales. Es reversible para secuencias válidas. El
 orden de bytes del procesador no altera UTF-8 porque se interpreta byte a byte. Un BOM
 en UTF-8 puede actuar como firma, no como indicador de endianess.
+
+![Figura 2. Tabla con cuatro caracteres, su punto de código Unicode, sus bytes en UTF-8 y sus unidades en UTF-16](../../../content/part-01/figures/se-015-punto-y-bytes.svg)
+
+**Cómo leer la figura.** Cada fila lleva un carácter desde su número Unicode hasta los bytes de
+dos codificaciones. `A` ocupa un byte en UTF-8, idéntico a ASCII; `í` ocupa dos; `€`, tres; y el emoji,
+cuatro. En UTF-16 los tres primeros caben en una unidad de 16 bits, pero el emoji, que supera
+U+FFFF, necesita un *par sustituto* de dos unidades (`D83D DE00`). Por eso «Unicode de 16 bits» es
+una frase incorrecta: Unicode no tiene ancho; las codificaciones sí. **Dónde deja de valer:** los
+valores corresponden a las formas de codificación UTF-8 y UTF-16 big-endian; UTF-16 little-endian
+invierte los bytes de cada unidad, y UTF-32 usa siempre cuatro bytes por punto.
 
 ### 3. Codificar y decodificar son operaciones inversas bajo el mismo contrato
 
@@ -106,6 +128,63 @@ Si bytes UTF-8 `C3 AD` se decodifican como Windows-1252 aparecen `Ã­`. Si ese 
 guarda en UTF-8, nace una segunda capa. Reparar exige conocer o inferir con evidencia la
 cadena; aplicar sustituciones globales puede dañar texto legítimo. Se conserva copia,
 se prueba en muestra y se valida round-trip.
+
+![Figura 3. Cadena de dos pasos que produce el mojibake de la letra í y la cadena inversa que lo repara, con validación sobre una muestra](../../../content/part-01/figures/se-015-anatomia-del-mojibake.svg)
+
+**Cómo leer la figura.** La fila superior reconstruye *cómo se rompe*: los bytes UTF-8 `C3 AD` se
+decodifican con Windows-1252, que los lee como dos caracteres (`Ã` y un guion blando U+00AD que
+no se ve); si ese texto se guarda otra vez en UTF-8 aparecen bytes nuevos (`C3 83 C2 AD`) y el error
+queda grabado en una segunda capa. La fila inferior invierte exactamente la cadena. En
+Python, `"Matr\u00c3\u00adcula".encode("cp1252").decode("utf-8")` devuelve `Matrícula`. **Dónde deja de
+valer:** la reparación solo es posible si la transformación original es reversible. Si algún
+byte fue sustituido por `?` o por U+FFFD al guardarlo, la información se perdió y ninguna
+codificación la recupera: por eso se conserva siempre el original y se prueba sobre una muestra.
+
+### 6. UTF-8 por dentro: cómo se reconoce cada byte
+
+UTF-8 reparte el número de un punto de código en uno a cuatro bytes con un esquema que permite
+reconocer, mirando solo los primeros bits, qué papel cumple cada byte: `0xxxxxxx` es un carácter
+ASCII de un byte; `110xxxxx` abre una secuencia de dos bytes; `1110xxxx`, una de tres; `11110xxx`, una de
+cuatro; y `10xxxxxx` es siempre un byte de continuación. Para la `í`, el punto U+00ED vale `1110 1101`
+en ocho bits o `000 1110 1101` en once; esos once bits se reparten como `110 00011` y `10 101101`, es
+decir, `C3 AD`. Para el euro, U+20AC se reparte en tres bytes y produce `E2 82 AC`.
+
+Este diseño tiene consecuencias prácticas. Es *autosincronizante*: si pierdes un byte puedes
+volver a alinearte buscando el siguiente byte que no empiece por `10`. Es compatible con ASCII, de
+modo que un texto ASCII es UTF-8 válido sin cambios. Y permite detectar errores: un byte `0x80`
+aislado o un `0xC0` inicial no es válido, y `bytes.decode("utf-8")` lanza `UnicodeDecodeError` con la
+posición del problema. Las secuencias «demasiado largas» (por ejemplo, codificar un carácter ASCII
+con dos bytes) están prohibidas porque eran una vía de ataque para eludir filtros; un decodificador
+estricto las rechaza.
+
+### 7. Comparar y buscar texto: normalización, mayúsculas y caracteres parecidos
+
+Comparar texto exige decidir qué se considera «igual». La normalización resuelve una parte:
+`"José"` compuesto y `"Jose\u0301"` descompuesto son canónicamente equivalentes y, tras NFC, comparan
+iguales. Pero otras diferencias no desaparecen: `ß` en mayúsculas es `SS`, de modo que `len` cambia, y
+para comparar sin distinguir mayúsculas conviene `casefold()` en lugar de `lower()`. Algunos pliegues
+dependen del idioma (la «i» turca), y ninguna función universal los resuelve sin conocer el
+contexto.
+
+Hay también una dimensión de seguridad. La letra cirílica `а` (U+0430) y la latina `a` (U+0061) se ven
+igual y son distintas; un nombre de usuario o un dominio puede suplantar a otro sin que una persona lo note, y la
+normalización no los unifica. El Informe Técnico 39 de Unicode (*Security Mechanisms*) describe
+listas de caracteres confundibles y estrategias de detección. La regla para identificadores es
+restringir el repertorio permitido y normalizar *antes* de comparar y de almacenar; para datos
+libres, conservar el original y comparar con una forma derivada.
+
+### 8. Texto en los bordes del sistema: archivos, protocolos y bases de datos
+
+Los errores de codificación nacen donde el texto cruza una frontera. Un archivo no lleva
+etiqueta de codificación; por eso `open(ruta, encoding="utf-8")` debe declararla siempre en lugar
+de heredarla de la configuración regional, que puede variar entre equipos (la PEP 686 propone que
+UTF-8 sea el valor por defecto en versiones futuras de Python, por lo que conviene verificar cuál
+aplica a la versión que uses). En HTTP, la cabecera `Content-Type` puede declarar `charset`; el JSON
+intercambiado entre sistemas debe codificarse en UTF-8 según el RFC 8259. En las bases de datos, el
+conjunto de caracteres de la conexión, de la tabla y de la columna deben coincidir. Una regla
+fiable es decodificar al entrar, trabajar con texto Unicode en el interior y codificar al salir, con
+la política de errores `strict` y una ruta de cuarentena para las filas inválidas.
+
 
 ## Caso conductor: confirmar una matrícula sin perder el nombre
 
@@ -169,10 +248,39 @@ Sí, salvo puntos sustitutos que no son valores escalares codificables.
 ### ¿Normalizar arregla mojibake?
 No. Opera sobre texto ya decodificado; el error de encoding requiere reconstruir bytes.
 
+### ¿Debo escribir un BOM al inicio de mis archivos UTF-8?
+
+Normalmente no. El BOM en UTF-8 es la secuencia `EF BB BF` y solo sirve como firma, ya que UTF-8 no
+tiene orden de bytes. Algunos programas lo exigen para reconocer la codificación y otros lo
+muestran como un carácter extraño al inicio del archivo. Decide según el consumidor y declara la
+decisión; Python lo maneja con la codificación `utf-8-sig`.
+
+### ¿Por qué `len("😀")` da 1 en Python y 2 en JavaScript?
+
+Porque cuentan unidades distintas. Python cuenta puntos de código y el emoji es uno; las cadenas de
+JavaScript se indexan por unidades UTF-16, y el emoji ocupa dos. Cuando una frontera entre sistemas
+usa índices o longitudes, hay que fijar qué se cuenta (puntos, unidades o bytes) o los cortes caerán
+en mitad de un carácter.
+
+### ¿Qué hago con bytes inválidos en un archivo que no puedo rechazar?
+
+Decide la política según el riesgo: `replace` los hace visibles con U+FFFD, `ignore` los pierde en silencio,
+`surrogateescape` los preserva para reescribirlos sin pérdida, y `strict` detiene el proceso. Para
+datos auditables conviene `strict` con cuarentena y un informe de filas. Nunca descartes datos
+inválidos sin dejar rastro.
+
 ## Fallo controlado y diagnóstico
 
 Decodifica bytes UTF-8 con una codificación incompatible. Captura bytes antes y después,
 explica cada transformación y recupera solo desde una copia verificable.
+
+Un segundo fallo controlado ataca la comparación. Crea dos cadenas que una persona ve idénticas,
+`"José"` y `"Jose\u0301"`, y úsalas como claves de un diccionario. **Síntoma:** el diccionario las trata
+como claves distintas y una búsqueda falla. **Causa:** puntos de código diferentes con la misma
+apariencia. **Corrección:** normaliza con NFC al entrar y compara con la misma forma; documenta qué
+campos se normalizan. Añade luego un par con la letra latina `a` y la cirílica `а` y comprueba que
+NFC no las unifica: ese segundo caso exige una política de repertorio permitido, no de
+normalización. Registra en `observations.md` qué problema resolvió cada técnica.
 
 ## Errores comunes y cómo corregirlos
 
@@ -192,6 +300,18 @@ Python 3.11+, `unicodedata`, `pathlib`; `unicode_probe.py`, `text-cases.json`, `
 No uses nombres reales. Conservar correctamente una escritura es una cuestión de
 identidad e inclusión. No uses transliteración como sustituto automático del original.
 
+## Puente hacia el trabajo con agentes
+
+Los modelos de lenguaje operan sobre *tokens*, no sobre caracteres ni bytes, de modo que la
+relación entre texto visible y unidad de procesamiento es otra capa más, con consecuencias
+parecidas: contar caracteres, truncar a un número de tokens o buscar un fragmento por posición puede
+caer en mitad de un grafema. Cuando un agente edita archivos, hereda los mismos riesgos de esta
+clase: puede reescribir un archivo con otra codificación, normalizar sin avisar, o «arreglar» mojibake con
+reemplazos visuales. Exige que cualquier cambio sobre texto conserve la codificación y los finales
+de línea del original, que el diff muestre los bytes cuando algo no ASCII cambia, y que existan pruebas con
+nombres con acentos, escrituras no latinas y emoji compuestos. La instrucción «no cambies nada fuera
+de lo pedido» es verificable con un diff a nivel de bytes.
+
 ## Transferencia
 
 Repite con emoji compuesto y una escritura no latina; identifica puntos, grafema y bytes.
@@ -207,6 +327,10 @@ Se exige cadena reversible, normalización explicada, error controlado y políti
 - [Unicode UTF FAQ](https://www.unicode.org/faq/utf_bom.html) explica UTF-8, UTF-16 y BOM.
 - [Unicode Normalization Annex #15](https://www.unicode.org/reports/tr15/) define las formas de normalización.
 - [Python Unicode HOWTO](https://docs.python.org/3/howto/unicode.html) respalda el laboratorio.
+- [Unicode Standard Annex #29, Text Segmentation](https://www.unicode.org/reports/tr29/): define cómo se segmentan los grafemas; respalda la distinción entre grafema, punto y byte.
+- [Unicode Technical Standard #39, Security Mechanisms](https://www.unicode.org/reports/tr39/): caracteres confundibles y detección de suplantación; respalda la sección 7.
+- [RFC 8259, The JSON Data Interchange Format](https://www.rfc-editor.org/rfc/rfc8259): exige UTF-8 para JSON intercambiado entre sistemas.
+- [PEP 686, UTF-8 mode as default](https://peps.python.org/pep-0686/): propuesta sobre la codificación predeterminada de Python; verifica su estado en la versión que uses.
 
 ## Límites y siguiente paso
 

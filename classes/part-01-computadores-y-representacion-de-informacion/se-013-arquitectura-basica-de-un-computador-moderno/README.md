@@ -114,6 +114,116 @@ que la CPU esté calculando esa solicitud.
 de CPU, tamaño de caché ni frecuencia efectiva. Virtualización, emulación y contenedores
 pueden interponer capas. Una observación correcta se acompaña de su fuente y límite.
 
+![Figura 1. Cinco capas con el contrato en su frontera, la herramienta que las observa y lo que esa observación no revela](../../../content/part-01/figures/se-013-ventanas-de-observacion.svg)
+
+**Cómo leer la figura.** Cada fila es una capa y cada columna responde una pregunta distinta:
+qué promete esa capa a la de arriba, con qué herramienta se la puede mirar y qué *no* se
+puede concluir de lo que esa herramienta muestra. La columna roja es la más importante para
+el criterio profesional: `platform.machine()` mira por la ventana de la ISA y no revela el
+modelo de CPU; `os` y `resource` miran el sistema operativo y no revelan qué hizo el
+dispositivo después de aceptar una escritura. **Dónde deja de valer:** las capas reales no
+son estrictamente cinco ni están tan limpias. Un procesador puede traducir internamente
+instrucciones a operaciones más simples, y el firmware o un hipervisor añaden capas que la
+figura omite; el principio es la lista de ventanas y límites, no el número de filas.
+
+### 6. Esperar no es calcular: tiempo de pared, tiempo de CPU y estados de un proceso
+
+Un proceso no está siempre ejecutando. El sistema operativo lo planifica y, en cada
+instante, el proceso está *ejecutando* en un núcleo, *listo* esperando turno o *bloqueado*
+esperando un evento: una lectura de disco, una respuesta de red, un temporizador. Mientras
+está bloqueado no consume CPU, pero el reloj de la pared sigue avanzando. Python expone ambas
+magnitudes por separado: `time.perf_counter()` mide el tiempo transcurrido con un reloj
+monotónico de alta resolución, y `time.process_time()` suma el tiempo de CPU del proceso
+(usuario más sistema), sin las esperas.
+
+La diferencia convierte una sospecha en una hipótesis contrastable. En una ejecución de
+ejemplo (CPython 3.12.9, Windows, AMD64) `time.sleep(0.5)` tardó 0,5 s de pared y 0,0 s de CPU,
+mientras que un bucle de tres millones de multiplicaciones tardó 0,26 s de pared y 0,27 s de
+CPU. El primer programa *espera* y el segundo *calcula*. Si un servicio muestra latencia alta
+con CPU baja, el diagnóstico apunta a espera (red, disco, bloqueo), y subir la frecuencia del
+procesador no ataca el mecanismo: es exactamente el problema auténtico de esta clase.
+
+Hay límites que debes declarar al medir. Un proceso con varios hilos o núcleos puede acumular
+más CPU que pared; el reloj de CPU puede tener una resolución gruesa
+(`time.get_clock_info("process_time")` la informa); y una sola ejecución mezcla ruido de
+arranque, cachés y planificación. La regla práctica es: pared mucho mayor que CPU indica
+espera; pared aproximadamente igual a CPU indica cómputo; ninguna de las dos reemplaza un
+perfilado, que se estudia en `SE-017` y en la parte de herramientas.
+
+![Figura 2. Gráfico de barras con una medición real: dormir 0,5 segundos consume 0,5 s de pared y 0 s de CPU; un bucle de cálculo consume 0,26 s de pared y 0,27 s de CPU](../../../content/part-01/figures/se-013-pared-frente-a-cpu.svg)
+
+**Cómo leer la figura.** Cada pareja de barras corresponde a un programa: la barra dorada es
+el tiempo transcurrido y la verde azulada el tiempo de CPU. En la primera pareja la segunda barra
+desaparece, porque dormir no consume CPU; en la segunda ambas coinciden. **Dónde deja de valer:**
+es una medición única en un entorno concreto, no un resultado universal. Repetida diez veces
+en otro equipo cambiará, y por eso el ejercicio pide registrar versión, sistema y número de
+repeticiones. La figura demuestra el *método de diagnóstico*, no los valores.
+
+### 7. La jerarquía de memoria: la distancia importa más que los GHz
+
+Un procesador moderno ejecuta miles de millones de operaciones por segundo, pero solo puede
+operar con datos que ya están cerca. Los registros viven dentro del núcleo; las cachés L1, L2
+y L3 son memorias pequeñas y rápidas entre el núcleo y la memoria principal; la memoria
+principal (DRAM) es mucho mayor y mucho más lenta; el almacenamiento persistente y la red
+están todavía más lejos. Cada escalón multiplica la latencia por uno o varios órdenes de
+magnitud, y esa diferencia, no la frecuencia del reloj, domina el comportamiento de muchos
+programas.
+
+Dos propiedades de los programas hacen que la jerarquía funcione: la *localidad temporal* (un
+dato usado hace poco se usará pronto) y la *localidad espacial* (si se usa una dirección, se
+usarán sus vecinas). Las cachés trabajan con bloques contiguos llamados líneas, de modo que
+recorrer un arreglo contiguo aprovecha cada bloque traído, mientras que saltar de forma
+dispersa por la memoria obliga a traer una línea por acceso. De ahí que dos algoritmos con la
+misma complejidad asintótica puedan diferir mucho en tiempo real, y que la estructura de
+datos importe tanto como el algoritmo.
+
+La misma lógica explica una afirmación falsa frecuente: «guardar un archivo lo escribe de
+inmediato en el disco». Al llamar a `write`, Python copia los bytes a un búfer propio;
+`flush()` los entrega al sistema operativo; el sistema operativo suele conservarlos en su
+caché de páginas y los lleva al dispositivo después; `os.fsync()` pide que se persistan en el
+dispositivo. Incluso entonces, el firmware del dispositivo puede mantener su propia caché, de
+modo que la garantía depende de toda la cadena. Un analizador que «guarda» un evento pero
+no hace `fsync` puede perderlo si el equipo se apaga justo después.
+
+![Figura 3. Barras horizontales en escala logarítmica con latencias típicas aproximadas, desde un registro hasta una red intercontinental](../../../content/part-01/figures/se-013-latencias-por-capa.svg)
+
+**Cómo leer la figura.** La longitud de cada barra es el *logaritmo* de la latencia típica:
+cada unidad de longitud multiplica por diez. Los colores agrupan memoria cercana (verde azulado),
+almacenamiento y redes locales (dorado) y distancias de área amplia (rojo), pero cada etiqueta
+también indica la magnitud. Una espera de red de cien milisegundos equivale a cientos de
+millones de accesos a caché L1. **Dónde deja de valer:** son *órdenes de magnitud típicos*, no
+mediciones. Varían con el modelo de procesador, la carga, el tipo de dispositivo y la
+distancia real; para cifras de referencia históricas puede consultarse la página de latencias
+de Colin Scott (en las fuentes), que recoge estimaciones y no garantías. Mide tu propio
+entorno antes de decidir.
+
+### 8. De una línea de Python a la ISA: qué cadena puedes inspeccionar
+
+Una línea de Python no se ejecuta directamente en el procesador. El código fuente se compila
+a *bytecode*, una secuencia de instrucciones de una máquina virtual; el intérprete de CPython,
+que es un programa escrito en C y compilado a instrucciones nativas de la ISA, ejecuta ese
+bytecode; y el intérprete pide servicios al sistema operativo mediante llamadas al sistema. Puedes
+inspeccionar el primer eslabón con el módulo estándar `dis`:
+
+```python
+import dis
+
+def f(text):
+    return len(text.encode("utf-8"))
+
+dis.dis(f)
+```
+
+En CPython 3.12.9 la salida contiene, en orden, `RESUME`, `LOAD_GLOBAL len`, `LOAD_FAST text`,
+`LOAD_ATTR encode`, `LOAD_CONST 'utf-8'`, `CALL 1`, `CALL 1` y `RETURN_VALUE`. Cada una de esas
+operaciones es bytecode, no una instrucción del procesador: ejecutar un solo `CALL` implica
+decenas o cientos de instrucciones nativas del intérprete. El bytecode además cambia entre
+versiones menores de Python (otras versiones usan operaciones distintas para llamar a un
+método), por lo que una conclusión sobre «cuántas instrucciones» tiene sentido solo para una
+versión declarada. Esta cadena confirma el límite de la clase: puedes ver el bytecode y los
+resultados del sistema, pero no demuestras instrucciones nativas, cachés ni la microarquitectura
+desde Python.
+
 ## Caso conductor: localizar el analizador local de eventos
 
 El analizador local de eventos recibe texto por argumentos, lo codifica, calcula longitud y escribe JSON. El
@@ -180,11 +290,43 @@ No. Puede describir interfaces del hardware o de un sistema de software.
 ### ¿Python impide aprender la máquina?
 No; permite observar varias capas, siempre que no confundas bytecode con ISA.
 
+### ¿Por qué `platform.machine()` devuelve valores distintos en cada sistema?
+
+Porque informa la etiqueta que cada plataforma usa para nombrar la arquitectura. La misma
+familia de procesadores de 64 bits de Intel y AMD aparece como `AMD64` en Windows y como `x86_64`
+en Linux; los procesadores ARM de 64 bits aparecen como `arm64` en macOS y `aarch64` en Linux.
+La etiqueta ayuda a decidir compatibilidad aproximada de binarios, pero depende del sistema
+que la reporta, no de una norma común.
+
+### Si ejecuto el programa en una máquina virtual o un contenedor, ¿cambia la arquitectura?
+
+Depende de la técnica. Una máquina virtual con virtualización asistida por hardware suele
+ejecutar la misma ISA que el anfitrión, con un sistema operativo propio. Un contenedor comparte
+el núcleo del anfitrión y solo aísla procesos. Una emulación (por ejemplo, ejecutar código de
+otra arquitectura) interpone una traducción y cambia el rendimiento y las propiedades
+observables. Antes de interpretar una medición, averigua en qué capa estás.
+
+### ¿Una herramienta que muestra 100 % de CPU confirma que el cuello de botella es la CPU?
+
+Solo indica que al menos un núcleo está ocupado, y algunas herramientas expresan el uso por
+núcleo, de modo que un proceso de varios hilos puede superar el 100 %. Confirma además qué
+hace ese tiempo (cómputo útil, reintentos, espera activa) con un perfil antes de optimizar.
+
 ## Fallo controlado y diagnóstico
 
 Afirma que `platform.machine()` identifica el procesador exacto. Contrasta en
 documentación qué devuelve, registra el síntoma conceptual y corrige la conclusión a
 “etiqueta de arquitectura expuesta por la plataforma”.
+
+Un segundo fallo controlado ataca la hipótesis más común de esta clase. Escribe dos funciones:
+una que duerme y otra que calcula, y *antes de medir* predice qué reportará cada reloj.
+Ejecútalas con `perf_counter` y `process_time`, repite al menos cinco veces y registra la
+dispersión. **Síntoma esperado:** la función que duerme muestra CPU cercana a cero con pared
+alta. **Causa:** el proceso estaba bloqueado y no calculando. **Corrección conceptual:**
+sustituye la afirmación «es lento por la CPU» por «el proceso espera»; la medición que podría
+haberte refutado era que la CPU hubiera crecido con la pared. Añade una tercera función que
+combine ambas conductas (por ejemplo, calcular y luego escribir un archivo con `fsync`) y
+explica qué fracción de la pared es cómputo y cuál es espera.
 
 ## Errores comunes y cómo corregirlos
 
@@ -205,6 +347,20 @@ No publiques nombres de host, identificadores o rutas privadas. Proporciona text
 alternativo al diagrama. La etiqueta de arquitectura no justifica excluir dispositivos
 sin medir la capacidad necesaria.
 
+## Puente hacia el trabajo con agentes
+
+Un asistente que propone «optimizar este bucle» sin una medición razona sobre la capa
+equivocada con la misma confianza que un equipo apresurado. El mapa de capas se convierte en
+una instrucción de trabajo: pedir al agente que declare en qué capa cree que está el problema,
+qué medición (pared frente a CPU, un perfil, una traza) lo confirmaría y qué resultado lo
+refutaría, *antes* de modificar código. Una consecuencia práctica: las llamadas a un modelo de
+lenguaje son espera de red, de modo que un flujo agentic suele ser dominado por tiempo de pared
+con CPU local casi ociosa; ahí el trabajo útil es la concurrencia controlada y los reintentos
+con límite, no el cómputo local. También importa saber qué aísla un entorno de ejecución: un
+contenedor comparte el núcleo del anfitrión y no equivale a una máquina virtual, lo que
+condiciona qué puede hacer con seguridad un agente que ejecuta comandos. Las partes de harness
+y de seguridad agentic retoman esos límites.
+
 ## Transferencia
 
 Aplica el mapa a un navegador o microcontrolador y explica qué capas desaparecen, se combinan o cambian de propietario.
@@ -219,6 +375,10 @@ Se exige mapa causal, cinco observaciones trazables, una inferencia refutada y l
 - [RISC-V Unprivileged ISA](https://docs.riscv.org/reference/isa/unpriv/) respalda la ISA como interfaz separada de microarquitectura.
 - [Python `platform`](https://docs.python.org/3/library/platform.html) define las etiquetas observables usadas en la práctica.
 - [Python `sys`](https://docs.python.org/3/library/sys.html) documenta `byteorder` y propiedades del runtime.
+- [Python `dis`](https://docs.python.org/3/library/dis.html) describe el desensamblador de bytecode usado en la sección 8; aclara que el bytecode es un detalle de implementación de CPython.
+- [Python `time`](https://docs.python.org/3/library/time.html) documenta `perf_counter`, `process_time` y `get_clock_info`, usados en la sección 6.
+- Randal E. Bryant y David R. O'Hallaron, *Computer Systems: A Programmer's Perspective*, 3.ª edición (Pearson, ISBN 978-0-13-409266-9): jerarquía de memoria, localidad y relación entre programas y máquina; respalda la sección 7.
+- [Latency numbers every programmer should know (visualización interactiva de Colin Scott)](https://colin-scott.github.io/personal_website/research/interactive_latency.html): estimaciones históricas de latencias por año; son órdenes de magnitud, no garantías.
 
 ## Límites y siguiente paso
 

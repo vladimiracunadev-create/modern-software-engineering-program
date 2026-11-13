@@ -2,207 +2,277 @@
 
 [← SE-201 — Licencias de software y obligaciones básicas](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-201-licencias-de-software-y-obligaciones-basicas/README.md) · [↑ Parte 16](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-202.html) · [SE-203 — Taller: rescatar una integración conflictiva →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-203-taller-rescatar-una-integracion-conflictiva/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que lo que un repositorio publica pueda atribuirse a quien dice haberlo escrito y no haya cambiado desde entonces, y para que las reglas que lo protegen (revisión obligatoria, comprobaciones, firmas) sean una política explícita y no una expectativa. Firmar y proteger no vuelve correcto un cambio: lo hace atribuible y más difícil de alterar sin que se note.
+
+**Por qué aparece aquí.** Se sitúa después de **Licencias de software y obligaciones básicas** y antes de **Taller: rescatar una integración conflictiva**. `SE-201` dejó la pregunta de bajo qué términos llega cada pieza; esta clase pregunta si llega de quien dice y sin alterar. Reúne las reglas de `SE-199` (propietarios) y de `SE-196` (revisión) en una política de protección, y deja el repositorio listo para el taller de `SE-203`.
+
+**Error conceptual que debe corregir.** Creer que un commit «verificado» o firmado es un commit confiable. La firma prueba que quien tiene la clave firmó ese contenido exacto; no prueba que la clave sea de quien se cree, que el contenido sea correcto ni que la persona no haya sido engañada. Y creer que un identificador de commit prueba la autoría: solo detecta la alteración.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué ocurre cuando se altera un commit firmado y cuántos commits cambian al reescribir uno antiguo; después firmas y verificas 60 commits con una clave desechable, reescribes un commit de una cadena de 50 y evalúas seis políticas de protección sobre 500 eventos sintéticos. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `provenance-log.md` con las verificaciones de firma y sus fallos, el efecto de reescribir la cadena, la tabla de políticas con los eventos que dejan pasar y una lista de lo que ninguna de ellas comprueba. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría cambiar la política.
+
+**Límite de la conclusión.** La clave es desechable y se creó para el experimento; no se probó ninguna infraestructura de confianza, ni de claves de organización, ni un servicio de firma; los 500 eventos y sus proporciones son sintéticos y el resultado «0» de la última política es consecuencia de cómo se definió un evento problemático; los tiempos de firma son de un equipo y no son comparables entre sistemas.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Pro Git: Signing Your Work](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work) | Explica cómo firmar y verificar commits y etiquetas y que la firma cubre el contenido del objeto. | No explica cómo se decide en quién confiar. |
+| [ssh-keygen (OpenBSD)](https://man.openbsd.org/ssh-keygen) | Documenta el formato del archivo de firmantes permitidos (`allowed_signers`) y la verificación de firmas SSH. | No describe la distribución segura de claves en una organización. |
+| [SLSA v1.0](https://slsa.dev/spec/v1.0/) | Define niveles y requisitos de procedencia de artefactos de software. | No afirma que un repositorio con commits firmados cumpla un nivel. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-201`: una etiqueta de licencia es una declaración, no una verificación. La pregunta activa es: **¿qué prueba una firma, qué rompe una reescritura de historia y qué cierra cada regla de protección?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-201` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Git 2.40+ y alojamiento Git compatible.
+- Haber completado `SE-201` o poder explicar la diferencia entre declarar y verificar.
+- Python 3.11 o posterior, Git 2.40 o posterior con soporte de firmas SSH y OpenSSH (`ssh-keygen`).
+- Generar claves solo para el experimento y borrarlas al terminar; nunca firmar con una clave personal real en un repositorio de práctica.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Firmas, procedencia y protección del repositorio**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un commit de la plataforma de entregas cambia el tope de prórroga de 72 a 720 horas. Aparece con el nombre de la mantenedora, pero ella dice que no lo hizo. Alguien propone reescribir la historia «para limpiarla» y otra persona reclama que no se puede saber qué commits ya habían sido revisados. A la vez, el equipo discute si exigir firma en todos los commits o solo en los de la rama principal.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Firmas y procedencia con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cambio colaborativo recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reescribir o publicar historia compartida sin evaluar a quién afecta» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Firmas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Procedencia | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Protección | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Repositorio | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. firmar commits con una clave SSH, verificarlos con un archivo de firmantes y explicar por qué una firma válida no implica confianza;
+2. predecir qué commits cambian y qué firmas dejan de valer al reescribir uno antiguo;
+3. evaluar una política de protección de rama por los problemas que deja pasar y los que cierra;
+4. distinguir lo que prueban la firma, la revisión y las comprobaciones de lo que no prueban;
+5. escribir una política de protección con sus excepciones y un procedimiento para las claves comprometidas.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Firmas, procedencia y protección del repositorio"] --> M["Modelo: Firmas"]
-    M --> D["Decisión: procedencia"]
-    D --> E["Evidencia: protección"]
-    E --> R["Revisión: repositorio"]
-    R -->|nueva información| M
+    A[Commit] --> B[Firma con clave]
+    B --> C[Verificación con firmantes permitidos]
+    D[Rama protegida] --> E[PR obligatorio]
+    E --> F[Revisión y comprobaciones]
+    F --> G[Commits firmados]
+    G --> H[Sin push forzado]
+    I[Reescritura] -->|cambia identificadores| J[Firmas inválidas]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Firmas, procedencia y protección del repositorio**.
+El mapa se lee de izquierda a derecha: una firma se verifica contra una lista de firmantes permitidos, y una rama protegida encadena PR, revisión, comprobaciones, firma y ausencia de push forzado; una reescritura rompe las firmas de los commits afectados. No describe cómo se distribuyen las claves.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Firmar un commit | Permite atribuir un contenido exacto a una clave. | Predicción, traza causal y contraejemplo de **Firmar un commit** en `provenance-log.md` |
+| Verificar y confiar | Una firma válida solo vale si la clave está en una lista que alguien administra. | Predicción, traza causal y contraejemplo de **Verificar y confiar** en `provenance-log.md` |
+| Cadena de hashes | Reescribir un commit cambia todos sus descendientes. | Predicción, traza causal y contraejemplo de **Cadena de hashes** en `provenance-log.md` |
+| Protección de rama | Convierte las reglas de revisión en condiciones técnicas. | Predicción, traza causal y contraejemplo de **Protección de rama** en `provenance-log.md` |
+| Procedencia de artefactos | Lo que se publica debe poder atribuirse a una construcción conocida. | Predicción, traza causal y contraejemplo de **Procedencia de artefactos** en `provenance-log.md` |
 
 ## Conceptos y decisiones
 
-Git conserva un grafo de objetos y referencias; la colaboración añade revisión, integración, ownership y normas para cambiar historia compartida con seguridad.
+### 1. Firmar un commit
 
-La pregunta rectora de esta parte es: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** La respuesta debe
-apoyarse en **diff enfocado, historial legible, revisión resuelta y estrategia de reversión**.
+Git puede firmar un commit con una clave GPG, X.509 o SSH. La firma se guarda en una cabecera del propio objeto y cubre su contenido (árbol, padres, autoría, mensaje). Cualquier cambio posterior invalida la firma. Firmar cuesta unos milisegundos y configuración; el costo real es la gestión de claves: quién las tiene, dónde, cómo se revocan.
 
-### 1. Firmas: modelo
+### 2. Verificar y confiar
 
-En esta clase, **Firmas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Firmas, procedencia y protección del repositorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Verificar una firma comprueba que fue hecha por la clave y sobre ese contenido. Para que sea útil hay que decidir qué claves se aceptan: con firmas SSH, un archivo de firmantes permitidos asocia identidades con claves públicas. Una firma válida de una clave que no está en la lista no es de confianza. Y que la clave esté en la lista no prueba que la persona no haya sido engañada o que la clave no se haya filtrado.
 
-### 2. Procedencia: mecanismo
+### 3. Cadena de hashes
 
-En esta clase, **procedencia** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Firmas, procedencia y protección del repositorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cada commit incluye el identificador de su padre. Si se cambia el mensaje de un commit antiguo, ese commit tiene otro identificador, su hijo apunta ahora a un padre distinto y cambia también, y así hasta la punta. Por eso reescribir historia es detectable para quien conserva la punta antigua, y por eso las firmas de todos los descendientes dejan de valer. No impide reescribir: lo hace visible.
 
-### 3. Protección: evidencia
+### 4. Protección de rama
 
-En esta clase, **protección** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Firmas, procedencia y protección del repositorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una rama protegida convierte reglas en condiciones técnicas: exigir PR, un número de aprobaciones, comprobaciones superadas, commits firmados y no permitir push forzado ni borrado. Cada regla cierra una clase de problema. Una política también tiene excepciones: las cuentas con permisos de administración pueden saltar reglas si la plataforma lo permite, y esas excepciones deben registrarse o desactivarse.
 
-### 4. Repositorio: decisión
+### 5. Procedencia de artefactos
 
-En esta clase, **repositorio** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Firmas, procedencia y protección del repositorio**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El código firmado es una parte de la cadena. Lo que se despliega es un artefacto construido a partir de ese código, y la procedencia pregunta qué lo construyó, desde qué commit y con qué entradas. Marcos como SLSA describen niveles de garantía y exigen construcciones reproducibles o atestaciones. Firmar commits es necesario y no suficiente.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Firmar y verificar con una clave desechable
+
+Se generó una clave Ed25519 desechable y un archivo de firmantes, y se firmaron **60 commits** de un repositorio temporal. Los 60 verificaron con `git verify-commit`. Se creó una copia del objeto de un commit con el mensaje cambiado y la misma firma: la verificación devolvió el **código 1** (la firma ya no corresponde al contenido). Con otro archivo de firmantes que no incluía la clave, la verificación de una firma válida también devolvió el **código 1**: la firma era correcta y el firmante no estaba permitido. La firma ocupa unas 6 líneas de la cabecera `gpgsig` del objeto. Firmar añadió unos 92 ms por commit en Windows (178 frente a 86) y unos 7 ms en Ubuntu (14 frente a 7); verificar costó 234 ms por commit en Windows y 15 ms en Ubuntu (60 repeticiones, un equipo).
+
+![Tabla con tres comprobaciones de firma: sesenta commits firmados verifican, una copia con el mensaje alterado falla y una firma válida de un firmante no permitido falla.](../../../content/part-16/figures/se-202-firmas-que-verifican.svg)
+
+**Cómo leer la figura.** Cada fila es una comprobación con `git verify-commit` y el código que devolvió; la tercera columna dice qué significa. **Dónde deja de valer:** la clave y el archivo de firmantes se crearon para el experimento; en una organización la dificultad está en distribuir claves, revocarlas y decidir quién puede añadir a la lista, nada de lo cual se probó, y los tiempos dependen de la máquina.
+
+### Reescribir un commit antiguo
+
+Se creó una cadena de 50 commits firmados y se reescribió el mensaje del commit 11 (índice 10) con `git commit-tree`, conservando el resto. Cambiaron **40 de 50** identificadores (el commit y sus 39 descendientes). Las firmas válidas pasaron de **50** a **10**: los 10 commits anteriores al cambio. El tip antiguo **no** era ancestro del nuevo: quien tuviera la punta anterior detectaría que la historia cambió.
+
+![Barras con los commits que cambian de identificador al reescribir uno antiguo y las firmas válidas antes y después.](../../../content/part-16/figures/se-202-reescribir-la-cadena.svg)
+
+**Cómo leer la figura.** La barra coral superior cuenta los identificadores que cambian; las dos inferiores, las firmas válidas antes (verde) y después (coral) sin volver a firmar. **Dónde deja de valer:** la reescritura se hizo localmente y sin firmar de nuevo; quien tiene la clave puede volver a firmar todos los commits reescritos, y entonces las firmas serán válidas pero la historia habrá cambiado, de modo que la detección depende de que alguien conserve la punta anterior.
+
+### Seis políticas sobre 500 eventos
+
+Se generaron 500 eventos de integración: 25 % empujes directos, 10 % hechos por administradores, aprobaciones de 0 a 2, comprobaciones superadas en el 85 %, firmados el 60 % y push forzado el 4 %. Un evento se define como problemático si es directo, o sin aprobación, o sin comprobaciones, o sin firma, o forzado: 387 de 500. Con **ninguna protección** pasan los 387; **exigir PR**, 255; **PR más una aprobación**, 105; **más comprobaciones**, 79; **más commits firmados**, 1; y **más prohibir push forzado**, 0. Los eventos de administradores que un bypass deja pasar y que la política habría bloqueado son 14, 26, 30, 37 y 37 en las cinco políticas con alguna regla.
+
+![Barras con los eventos problemáticos que dejan pasar seis políticas de protección sobre 500 eventos sintéticos.](../../../content/part-16/figures/se-202-politicas-de-proteccion.svg)
+
+**Cómo leer la figura.** Cada barra es una política acumulativa aplicada a los mismos 500 eventos; la cifra cuenta eventos problemáticos que pasan. **Dónde deja de valer:** el cero final es por definición (los problemas se definieron con estos controles) y las proporciones son supuestos; lo informativo es el orden de reducción y que el bypass de administración deja pasar 37 eventos incluso con la política completa si no se desactiva o se registra.
 
 ## Definiciones de trabajo
 
-- **Firmas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Procedencia:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Protección:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Repositorio:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
+- **firma de commit:** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
+- **firmantes permitidos:** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
+- **rama protegida:** rama cuyas reglas de integración se imponen técnicamente.
+- **bypass de administración:** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
+- **procedencia:** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Firmas, procedencia y protección del repositorio**:
+El fragmento firma y verifica un commit con una clave SSH desechable. Antes de ejecutarlo, predice qué código devuelve la verificación sin el archivo de firmantes.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```bash
+ssh-keygen -t ed25519 -N "" -C desechable -f clave
+git -c gpg.format=ssh -c user.signingkey=clave commit -S -m "cambio firmado"
+git -c gpg.format=ssh -c gpg.ssh.allowedSignersFile=firmantes verify-commit HEAD
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Registra versión de Git y de OpenSSH y salida, y borra la clave al terminar. Repite con un archivo de firmantes sin la clave para ver el fallo.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Firmas, procedencia y protección del repositorio**. Parte de esta pregunta: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando diff enfocado, historial legible, revisión resuelta y estrategia de reversión. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `change.md` y enlaza la evidencia, no solo la conclusión.
+La plataforma exige PR, una aprobación del propietario de código (`SE-199`), comprobaciones superadas, commits firmados en la rama principal y prohíbe el push forzado. Las claves de firma están asociadas a identidades en un archivo de firmantes versionado y revisado como cualquier otro cambio; un procedimiento documenta qué hacer si una clave se compromete (revocar, revisar los commits firmados con ella, avisar). El bypass de administración está desactivado y las excepciones se registran.
+
+Compara el caso normal con un repositorio donde todos los commits están firmados pero la rama principal permite empujar directo: la práctica es apropiada cuando la protección se verifica con un empuje de prueba rechazado; es peligrosa cuando se asume que «verificado» significa «revisado».
 
 ## Práctica guiada
 
-1. Crea `work/SE-202/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cambio colaborativo recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Genera una clave desechable y un archivo de firmantes y firma cinco commits.
+2. Predice el código de verificación de un commit con el mensaje alterado y comprueba.
+3. Verifica con un archivo de firmantes sin la clave y explica la diferencia con el caso anterior.
+4. Crea una cadena de 50 commits firmados, reescribe el 11.º y cuenta identificadores y firmas válidas.
+5. Evalúa seis políticas sobre 500 eventos sintéticos con una semilla fija y registra los problemas que pasan.
+6. Escribe el procedimiento de clave comprometida y qué commits revisarías.
+7. Pide a otra persona que reconstruya tu política solo desde `provenance-log.md` y registra qué excepción no estaba documentada.
 
 ## Ejercicios
 
-1. **Fundamental:** define Firmas y procedencia con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `change.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Revocación:** añade una línea de revocación al archivo de firmantes y explica qué commits antiguos dejan de verificar.
+2. **Refirmar:** vuelve a firmar los 40 commits reescritos y explica qué detecta y qué no detecta alguien que conserva la punta anterior.
+3. **Bypass:** cuantifica los eventos de administradores que deja pasar cada política y decide cuál desactivarías.
+4. **Procedencia:** describe qué información de construcción registrarías para un artefacto publicado y quién la firmaría.
 
 ## Reto verificable
 
-Entrega el **cambio colaborativo recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `provenance-log.md` con las verificaciones de firma, la reescritura de la cadena, la tabla de políticas y una política de protección con su procedimiento de clave comprometida. Se aprueba si otra persona ejecuta el código desde un directorio vacío, obtiene los mismos conteos y puede decir qué problema deja pasar la política elegida. No se aprueba por contar commits «verificados».
+
+## Caso conductor
+
+El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la política de protección y el procedimiento de claves. `SE-203` rescata una integración mal resuelta sobre una rama protegida y `SE-204` entrega una contribución con firma y procedencia. Cambia después un solo dato, desactivar el bypass de administración, y revisa qué eventos dejan de pasar.
+
+## Preguntas frecuentes
+
+### ¿Firmar commits es obligatorio?
+
+No: es una decisión de política. Aporta atribución y detección de alteración; no sustituye la revisión ni las comprobaciones.
+
+### ¿Qué diferencia hay entre firma SSH y firma GPG?
+
+Ambas firman el mismo contenido. SSH reutiliza claves que muchas personas ya tienen y un archivo de firmantes sencillo; GPG tiene una infraestructura de confianza más rica y más compleja. La elección es de gestión de claves.
+
+### ¿Si reescribo la historia y vuelvo a firmar, nadie se entera?
+
+Quien conserve la punta anterior ve que la nueva no desciende de ella; quien no, solo ve commits firmados. La detección depende de copias y registros externos, por eso se protege la rama y se prohíbe el push forzado.
+
+### ¿Un commit verificado es confiable?
+
+Es atribuible a una clave. La confianza depende de quién controla la clave y de si el contenido se revisó.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reescribir o publicar historia compartida sin evaluar a quién afecta**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **tomar una firma válida como prueba de que el commit se revisó**. Usa el commit del tope de 720 horas.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el commit que cambia el tope aparece como verificado y nadie lo revisó. **Hipótesis rivales:** (a) la firma prueba la revisión; (b) la rama permite empujar directo y la firma solo atribuye. **Prueba:** consulta la regla de la rama: no exige PR ni aprobación; el commit fue empujado directo por una cuenta de administración. **Conclusión:** la causa es (b): la firma atribuye, no aprueba. **Regresión:** exige PR y aprobación del propietario, desactiva el bypass y añade un empuje de prueba que debe rechazarse. No cambies a la vez la firma y la regla de revisión.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Un commit firmado no verifica | El archivo de firmantes no contiene la clave | Añadir la clave al archivo tras verificar la identidad |
+| Se confía en «verificado» como revisión | Se confunde atribución con aprobación | Exigir PR y aprobación además de firma |
+| Reescribir invalida muchas firmas | La reescritura cambia todos los descendientes | Evitarla en ramas compartidas o refirmar con aviso |
+| Los administradores se saltan las reglas | El bypass está activado | Desactivarlo o registrar y auditar su uso |
+| Una clave comprometida sigue en el archivo | No hay procedimiento de revocación | Documentar la revocación y revisar los commits firmados con ella |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Git 2.40+ y alojamiento Git compatible. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-202/
 ├── README.md
-│   ├── change.md
-│   ├── review-checklist.md
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── procedencia/
+│   ├── firmar.py
+│   ├── reescribir.py
+│   └── politicas.py
+├── firmantes
+└── evidence/provenance-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `change.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara sistema operativo, versiones de Git, OpenSSH y Python, semillas y comandos. Los experimentos usan `subprocess`, una clave Ed25519 desechable creada y borrada por el script y repositorios temporales con identidad y fechas fijas y se ejecutaron con CPython 3.12.9 y Git 2.55 en Windows 11 y con CPython 3.12.3 y Git 2.43 en Ubuntu bajo WSL2: las salidas fueron idénticas salvo los tiempos. Si adoptas una herramienta de firma, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una clave privada no se comparte, no se confirma al repositorio y se protege con contraseña o con un almacén seguro; si se filtra, se revoca;
+- las claves desechables de los experimentos se borran al terminar y no se reutilizan;
+- los archivos de firmantes con correos reales exponen identidades: usa identificadores neutros y revisa qué se publica;
+- una política que exige firma debe ofrecer una alternativa a quien no puede usar cierta tecnología, y documentarla;
+- no presentes la firma como garantía de calidad: es un dato de atribución.
+
+## Puente hacia el trabajo con agentes
+
+Un agente con acceso al repositorio puede crear commits con la clave de la persona que lo ejecuta, y esos commits aparecerán como verificados. Pídele que no firme con la clave personal sin aprobación explícita, que use una identidad y una clave propias del agente en el archivo de firmantes y que deje constancia en el mensaje de qué escribió él. Revisa especialmente cualquier cambio en el archivo de firmantes y en las reglas de protección: son el punto donde una cuenta con demasiado permiso se vuelve invisible.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra cadena de custodia (por ejemplo, los instaladores que publica un proyecto o las imágenes de contenedor): decide qué se firma, quién controla la clave y qué evidencia haría falta para decir que un artefacto procede de un commit concreto. La transferencia está lograda cuando puedes explicar qué parte de la verificación dependía de la lista de firmantes, no cuando los comandos se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-202/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de qué prueba una firma y qué no |
+| corrección | verificaciones y conteos reproducibles con las mismas semillas |
+| diseño | política de protección con excepciones y procedimiento de claves |
+| diagnóstico | reproducción del fallo «firma como revisión» con regresión |
+| incertidumbre | declaración de qué parte depende del bypass y de la gestión de claves |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Pro Git: Signing Your Work](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work) — firma de commits y etiquetas; autoridad: Pro Git.
+- [git-verify-commit](https://git-scm.com/docs/git-verify-commit) — verificación de firmas; autoridad: documentación de Git.
+- [ssh-keygen (OpenBSD)](https://man.openbsd.org/ssh-keygen) — firmantes permitidos y firmas SSH; autoridad: OpenBSD.
+- [GitHub: verificación de firmas de commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification) — qué muestra el alojamiento como verificado; autoridad: GitHub Docs.
+- [GitHub: ramas protegidas](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) — reglas de protección disponibles; autoridad: GitHub Docs.
+- [SLSA v1.0](https://slsa.dev/spec/v1.0/) — niveles de procedencia de artefactos; autoridad: proyecto SLSA, OpenSSF.
 
-- **Git documentation** — Git project. [https://git-scm.com/docs](https://git-scm.com/docs) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Collaborating with pull requests** — GitHub. [https://docs.github.com/pull-requests/collaborating-with-pull-requests](https://docs.github.com/pull-requests/collaborating-with-pull-requests) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la política de la plataforma de entregas sea suficiente para otro proyecto. Esa afirmación depende del modelo de amenazas y de la gestión de claves.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [OpenSSF Scorecard](https://scorecard.dev/) — comprobaciones automáticas de prácticas de seguridad de un repositorio.
+- [Sigstore](https://docs.sigstore.dev/) — firma de artefactos sin claves de larga duración.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Firmas, procedencia y protección del repositorio**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-203`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los tiempos de firma. La clave es desechable, los eventos y proporciones son del autor y no se probó ninguna infraestructura de claves, plataforma ni artefacto. La siguiente clase aplica todo lo anterior a un caso de rescate: una integración mal resuelta sobre una rama que otras personas ya tienen.
+
+## Glosario
+
+- **firma de commit:** firma criptográfica del contenido de un commit guardada en una cabecera del objeto.
+- **firmantes permitidos:** archivo que asocia identidades con claves públicas aceptadas para verificar firmas SSH.
+- **rama protegida:** rama cuyas reglas de integración se imponen técnicamente.
+- **bypass de administración:** excepción por la que cuentas con permisos elevados pueden saltarse las reglas de protección.
+- **procedencia:** información sobre qué construyó un artefacto, desde qué entradas y con qué proceso.
 
 ---
 

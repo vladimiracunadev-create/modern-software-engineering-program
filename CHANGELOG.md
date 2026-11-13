@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-11-13 — Parte 16 desarrollada y profundizada con experimentos reproducibles de Git y colaboración
+
+- las clases `SE-193`–`SE-204` pasan de borradores genéricos a clases completas sobre el repositorio de la plataforma de entregas de tareas: modelo de objetos y áreas de Git, commits
+  atómicos y recuperación, integración con fusión, rebase y squash, revisión por riesgo, flujos de ramas, trazabilidad de issues, propietarios y convenciones, contribución externa y
+  gobernanza, licencias, firmas y protección del repositorio, un taller de rescate de una integración y un proyecto de contribución revisable; el portal publica ahora el contenido
+  íntegro de las doce clases y el índice de la parte;
+- 36 figuras con experimentos de Git real en repositorios temporales con identidad y fechas fijas o con datos sintéticos y semilla fija: identificadores de blob, árbol y commit
+  reconstruidos a mano, estados entre las tres áreas, objetos sueltos frente a empaquetados, bisección sobre cuatro historias, qué sobrevive a seis errores, reiniciar frente a
+  revertir, fusión, rebase y squash, probabilidad de conflicto según distancia y ediciones, `rerere`, `range-diff`, triaje por riesgo de 300 pull requests sintéticos, pilas de PR,
+  conflictos según la vida de la rama, un conflicto semántico, backports, extracción de cierres con dos reglas, reproducción según el detalle del informe, una matriz de trazabilidad,
+  un archivo de propietarios sobre 600 rutas, un validador de mensajes, autoría tras un reformateo, concentración de commits, reglas de decisión, un fork desfasado, un analizador de
+  expresiones de licencia, un inventario transitivo, la huella de un texto de licencia, firmas SSH, la reescritura de una cadena de firmados, políticas de protección, seis órdenes de
+  fusión de tres ramas, tres rescates, estilos de marcas y un validador de doce comprobaciones sobre catorce contribuciones;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9 y Git 2.55) y en Ubuntu bajo WSL2 (Python 3.12.3 y Git 2.43) con salidas idénticas salvo los tiempos de firma y verificación
+  de commits; los datos son sintéticos, los parámetros son supuestos del autor, la clave de firma es desechable, la regla de cierres y el modelo de CODEOWNERS simplifican los de una
+  plataforma, y no se usó ningún alojamiento, servicio de firma ni herramienta de inventario de licencias; la parte no tiene laboratorio en `labs/` y no ofrece asesoría legal;
+- hallazgos del análisis: agrupar cuatro cambios por commit ahorra dos ejecuciones de bisección y multiplica por 2,5 las líneas que hay que leer; un cambio sin agregar o un archivo sin
+  rastrear no se recuperan tras un `reset --hard`; reiniciar y forzar la publicación hace reaparecer los commits «borrados» cuando otro clon publica; las ediciones en líneas contiguas
+  entran en conflicto el 100 % de las veces; una fusión sin conflicto de texto dejó un panel imprimiendo 42 en lugar de 60; revertir una fusión mala y volver a fusionar responde
+  «Already up to date»; una comparación literal decidió mal 146 de 300 expresiones de licencia y un análisis de dependencias directas no ve el 89 % de los paquetes fuera de política;
+  una prueba que afirma `True` pasa las doce comprobaciones de forma.
+
 ## 2026-11-13 — Parte 15 desarrollada y profundizada con simulaciones sintéticas reproducibles
 
 - las clases `SE-181`–`SE-192` pasan de borradores genéricos a clases completas sobre el plan de lanzamiento de la plataforma de entregas de tareas: modelos predictivos, iterativos

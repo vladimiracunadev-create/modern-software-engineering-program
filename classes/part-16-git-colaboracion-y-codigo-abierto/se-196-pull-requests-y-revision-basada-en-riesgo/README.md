@@ -2,207 +2,276 @@
 
 [← SE-195 — Ramas, integración, rebase y conflictos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-195-ramas-integracion-rebase-y-conflictos/README.md) · [↑ Parte 16](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-196.html) · [SE-197 — Trunk-based, GitFlow y estrategias híbridas →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que una revisión de cambios sea una decisión sobre dónde poner la atención limitada de una persona y no un trámite ni una lectura lineal de un diff. Un pull request (PR) es una propuesta de cambio con contexto, y revisarlo bien es decidir qué mirar primero y qué parte confiar a una comprobación automática.
+
+**Por qué aparece aquí.** Se sitúa después de **Ramas, integración, rebase y conflictos** y antes de **Trunk-based, GitFlow y estrategias híbridas**. `SE-195` dejó ramas que se integran con una estrategia conocida; esta clase pregunta cómo llega un cambio hasta esa integración: qué se pide al autor, qué se revisa, en qué orden y cómo se corrige tras una revisión sin perder el hilo. Deja los PR revisables sobre los que `SE-197` discute el flujo de ramas.
+
+**Error conceptual que debe corregir.** Creer que revisar es leer todo el diff de arriba abajo y que un PR grande «bien revisado» es posible. La atención se agota y los defectos no se reparten por igual: se concentran en ciertos tipos de archivo y de cambio. Revisar bien es ordenar por riesgo, y un PR bien dividido es un cambio que se puede revisar.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué muestra una herramienta de comparación tras reordenar una rama y en qué orden leerías un PR; después comparas `diff` y `range-diff`, mides cuántos defectos plantados alcanza una lectura parcial con cuatro órdenes distintos y corriges el primer PR de una pila. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `review-log.md` con la comparación de `diff` y `range-diff`, la tabla de órdenes de lectura con la predicción previa, el resultado de la pila de PR y una plantilla de PR con criterios de triaje. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría cambiar el orden de lectura.
+
+**Límite de la conclusión.** Los 300 PR son sintéticos y la densidad de defectos por tipo de archivo es un supuesto del autor, no una medición; la lectura parcial se modela como un presupuesto de líneas, no como una persona real; no se midió a ningún revisor, ni el tiempo de revisión, ni la tasa de defectos de ningún proyecto.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Sadowski et al., «Modern code review: a case study at Google» (ICSE-SEIP, 2018)](https://doi.org/10.1145/3183519.3183525) | Describe la revisión de código como práctica con cambios pequeños, revisores pocos y objetivos de conocimiento compartido además de detección de defectos. | No muestra que el modelo sirva en un equipo distinto. |
+| [Bacchelli y Bird, «Expectations, outcomes, and challenges of modern code review» (ICSE, 2013)](https://doi.org/10.1109/ICSE.2013.6606617) | Observa que las expectativas de la revisión (defectos) y sus resultados (comprensión, transferencia) difieren y que entender el cambio es una dificultad central. | No cuantifica el efecto del tamaño del cambio en un proyecto concreto. |
+| [git-range-diff](https://git-scm.com/docs/git-range-diff) | Compara dos series de commits (antes y después de reescribir una rama) y marca los que cambiaron. | No dice si el cambio entre series es correcto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-195`: rebasar reescribe commits y cambia sus identificadores. La pregunta activa es: **¿qué debe mirar primero una persona que revisa, qué le entrego para que lo vea y cómo muestro lo que cambió tras su comentario?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-195` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Git 2.40+ y alojamiento Git compatible.
+- Haber completado `SE-195` o poder explicar qué conserva un rebase y qué reescribe.
+- Python 3.11 o posterior, Git 2.40 o posterior y un terminal.
+- Trabajar en repositorios temporales y datos sintéticos; ninguna revisión de la clase toca un alojamiento real.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comunidad social debe decidir sobre **Pull requests y revisión basada en riesgo**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Un PR de la plataforma de entregas cambia el cálculo de la penalización, su configuración, tres archivos de prueba, un archivo SQL de migración y la documentación: 1 100 líneas. La persona revisora lee el diff en el orden en que aparece, comenta estilo en la mitad y el defecto está en la migración, que quedó al final. Cuando el autor corrige y rebasa, la revisora no sabe qué cambió desde su lectura.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Pull y requests con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cambio colaborativo recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reescribir o publicar historia compartida sin evaluar a quién afecta» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Pull | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Requests | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Revisión | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Basada | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. escribir un PR con contexto suficiente para que otra persona decida qué mirar primero;
+2. ordenar los archivos de un PR por riesgo esperado y justificar el criterio;
+3. mostrar a la revisora qué cambió tras reescribir una rama con `git range-diff`;
+4. decidir cuándo dividir un cambio en una pila de PR y qué cuesta corregir el primero;
+5. declarar qué parte de la revisión debe ser automática y qué parte debe ser humana.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Pull requests y revisión basada en riesgo"] --> M["Modelo: Pull"]
-    M --> D["Decisión: requests"]
-    D --> E["Evidencia: revisión"]
-    E --> R["Revisión: basada"]
-    R -->|nueva información| M
+    A[Cambio] --> B[PR con contexto]
+    B --> C[Comprobaciones automáticas]
+    B --> D[Triaje por riesgo]
+    D --> E[Lectura humana]
+    E -->|comentarios| F[Corrección]
+    F -->|range-diff| E
+    E --> G[Aprobación]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Pull requests y revisión basada en riesgo**.
+El mapa se lee de izquierda a derecha: un cambio se presenta con contexto, se comprueba automáticamente, se prioriza y se lee; cada corrección vuelve a la lectura con una comparación de lo cambiado. No describe cuántas personas revisan ni cuánto dura cada paso.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Contenido de un PR | El contexto decide si una revisión es posible: qué cambia, por qué, cómo se probó. | Predicción, traza causal y contraejemplo de **Contenido de un PR** en `review-log.md` |
+| Tamaño y división | Un cambio que no cabe en la atención de una persona no se revisa: se aprueba. | Predicción, traza causal y contraejemplo de **Tamaño y división** en `review-log.md` |
+| Triaje por riesgo | Reparte la atención donde es más probable un defecto de alto costo. | Predicción, traza causal y contraejemplo de **Triaje por riesgo** en `review-log.md` |
+| Comprobaciones automáticas | Liberan a la persona de lo que una máquina comprueba y dejan para ella el sentido. | Predicción, traza causal y contraejemplo de **Comprobaciones automáticas** en `review-log.md` |
+| Rondas de corrección | Sin ver lo que cambió entre rondas, la revisión empieza de cero cada vez. | Predicción, traza causal y contraejemplo de **Rondas de corrección** en `review-log.md` |
 
 ## Conceptos y decisiones
 
-Git conserva un grafo de objetos y referencias; la colaboración añade revisión, integración, ownership y normas para cambiar historia compartida con seguridad.
+### 1. Contenido de un PR
 
-La pregunta rectora de esta parte es: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** La respuesta debe
-apoyarse en **diff enfocado, historial legible, revisión resuelta y estrategia de reversión**.
+Un PR útil dice qué cambia, por qué, cómo se probó y qué queda fuera. El título resume la intención y la descripción enlaza el issue, los riesgos y las zonas donde el autor tiene dudas. La descripción es el único lugar donde se puede declarar lo que el diff no muestra: qué se decidió no hacer, qué se probó a mano y qué parte merece más atención. Un PR sin descripción obliga a la persona a reconstruir la intención desde el código.
 
-### 1. Pull: modelo
+### 2. Tamaño y división
 
-En esta clase, **Pull** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Pull requests y revisión basada en riesgo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La capacidad de atención de una persona es finita y un cambio grande se revisa por encima. Dividir no es solo partir un diff: cada parte debe tener sentido por sí misma, compilar y poder revertirse sola. Un PR de refactor mecánico (un renombre masivo) puede ser grande y revisable si se separa del cambio de lógica; uno de lógica no. Una pila de PR encadenados reduce lo que se lee pero tiene un costo: corregir el primero obliga a reapilar los demás.
 
-### 2. Requests: mecanismo
+### 3. Triaje por riesgo
 
-En esta clase, **requests** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Pull requests y revisión basada en riesgo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los archivos de un PR no tienen el mismo riesgo: una migración de datos, la autenticación y la configuración son más caras de equivocar que la documentación. El triaje ordena la lectura por riesgo esperado y no por orden alfabético: qué tocó cada archivo, cuánto cambió y cuánto cuesta equivocarse. Es una heurística con supuestos (qué tipos son riesgosos) que deben declararse y revisarse con los defectos reales que se escapen.
 
-### 3. Revisión: evidencia
+### 4. Comprobaciones automáticas
 
-En esta clase, **revisión** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Pull requests y revisión basada en riesgo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Compilación, pruebas, análisis estático, formato, licencias y secretos son comprobaciones que no necesitan a una persona. Deben ejecutarse antes de pedir una revisión humana, de modo que la lectura se dedique al sentido (¿es esta la regla correcta?, ¿se probó el caso límite?). Una comprobación automática detecta forma y no intención, y por eso no sustituye la lectura de los archivos de mayor riesgo.
 
-### 4. Basada: decisión
+### 5. Rondas de corrección
 
-En esta clase, **basada** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Pull requests y revisión basada en riesgo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Tras una revisión, el autor corrige y a menudo reescribe la rama. Si la corrección se añade como commits nuevos, la revisora ve lo cambiado; si se reescribe con rebase, el diff entre las dos puntas mezcla la corrección con todo lo que cambió en la rama base. `git range-diff` compara la serie anterior con la nueva commit contra commit y muestra solo lo que el autor cambió. Es la herramienta que permite una historia limpia sin perder el hilo de la revisión.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Qué muestra cada comparación
+
+Una rama de 4 commits se rebasó sobre un `main` que avanzó 12 commits, y el autor corrigió el tercero con un `--fixup` y `--autosquash`. El `git diff` entre la punta antigua y la nueva cambia **26 líneas** (los 12 cambios de `main` más la corrección). `git range-diff` marcó la serie como `==!!`: los dos primeros commits idénticos, y los dos últimos cambiados, con **6 líneas** de diferencia entre ambas versiones. El cuarto aparece cambiado porque su contexto incluye la línea corregida, no porque alguien lo editara. Los resultados fueron idénticos con Git 2.55 en Windows y 2.43 en Ubuntu.
+
+![Barras que comparan las líneas del diff plano entre dos puntas, las del range-diff y los commits marcados como cambiados.](../../../content/part-16/figures/se-196-range-diff.svg)
+
+**Cómo leer la figura.** La barra coral es el diff que vería una persona al comparar las dos puntas; la verde, lo que muestra `range-diff` dentro de los commits que cambiaron; la dorada cuenta los commits marcados. **Dónde deja de valer:** el cambio de `main` fue de una línea por commit en otra región; si `main` toca las mismas regiones que la rama, el rebase tendrá conflictos y el `range-diff` mostrará también esas resoluciones, que hay que leer con atención.
+
+### Dónde mirar primero
+
+Se generaron 300 PR sintéticos (104 530 líneas, 91 defectos plantados) con archivos de seis tipos: documentación, pruebas, código, configuración, autenticación y migraciones. La probabilidad de defecto por 100 líneas fue un supuesto (0,8 % en documentación y 30 % en autenticación) y cada lectura alcanza solo el 30 % de las líneas de cada PR. Leer en el **orden en que aparecen** los archivos halló 26 defectos; al **azar** (media de 100 barajados), 25,5; **los archivos más grandes primero**, 27; **por tres niveles de riesgo**, 29; y **por defectos esperados por línea**, 40. Ordenar por riesgo esperado alcanzó un 57 % más de defectos que el azar con el mismo esfuerzo.
+
+![Barras con los defectos que alcanza una lectura del treinta por ciento de las líneas con cinco criterios de orden.](../../../content/part-16/figures/se-196-triaje-por-riesgo.svg)
+
+**Cómo leer la figura.** Cada barra es un criterio de orden aplicado a los mismos 300 PR con el mismo presupuesto de lectura; la verde es la mejor. **Dónde deja de valer:** las probabilidades de defecto por tipo son un supuesto del autor y el triaje usa los mismos tipos que el generador, lo que favorece al criterio por riesgo; en un proyecto real el criterio se calibra con los defectos que se escaparon, y los defectos no se distribuyen solo por tipo de archivo.
+
+### Una pila de PR y la corrección del primero
+
+Cuatro PR apilados cambian cada uno una línea distinta de un archivo de 60 líneas. El autor corrige el primero y reapila con `git rebase --update-refs --onto`. Con la corrección en **una zona lejana**, el reapilado no tuvo conflictos y actualizó las 3 ramas dependientes. Con la corrección **junto a la línea que edita el segundo PR**, Git se detuvo con conflicto y no actualizó ninguna de las 3.
+
+![Tabla con la corrección del primer PR de una pila y si el reapilado tuvo conflicto.](../../../content/part-16/figures/se-196-pull-requests-apilados.svg)
+
+**Cómo leer la figura.** Cada fila es una posición de la corrección respecto de los demás PR; las columnas dicen si hubo conflicto y cuántas ramas apiladas se actualizaron. **Dónde deja de valer:** se probó una sola pila de cuatro con ediciones de una línea; pilas más largas o con cambios que tocan los mismos archivos multiplican los reapilados, y las herramientas de apilado automatizan el reapilado pero no resuelven los conflictos.
 
 ## Definiciones de trabajo
 
-- **Pull:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Requests:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Revisión:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Basada:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
+- **pull request:** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
+- **triaje por riesgo:** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
+- **range-diff:** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
+- **pila de PR:** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
+- **comprobación automática:** verificación ejecutada por una máquina antes o durante la revisión humana.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Pull requests y revisión basada en riesgo**:
+El fragmento muestra qué cambió entre dos versiones de una rama. Antes de ejecutarlo, predice qué commits aparecerán marcados.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```bash
+git range-diff <base>..<punta-antigua> <base-nueva>..<punta-nueva>
+git diff --stat <punta-antigua> <punta-nueva>    # para comparar con el diff plano
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Registra versión de Git y salida, y repite sin el cambio pedido para comprobar que todos los commits salen con `=`.
 
 ## Ejemplo profesional
 
-En la comunidad social, el equipo prepara un cambio relacionado con **Pull requests y revisión basada en riesgo**. Parte de esta pregunta: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando diff enfocado, historial legible, revisión resuelta y estrategia de reversión. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `change.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, la plantilla de PR pide qué cambia, por qué, cómo se probó y qué archivos merecen más atención. Un flujo de integración continua ejecuta formato, pruebas, análisis estático y búsqueda de secretos antes de asignar revisora. El CODEOWNERS, tema de `SE-199`, añade como revisor obligatorio al equipo dueño de las migraciones cuando un PR toca `migraciones/`. La revisora abre primero los archivos marcados como riesgo alto, lee la descripción y, tras las correcciones, usa `range-diff` para ver lo cambiado.
+
+Compara el caso normal con un PR de 1 100 líneas que mezcla un refactor, un cambio de regla y una migración. La práctica es apropiada cuando el PR se divide en un refactor mecánico, el cambio de regla y la migración, cada uno revisable; es peligrosa cuando se aprueba entero porque «las pruebas pasan».
 
 ## Práctica guiada
 
-1. Crea `work/SE-196/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cambio colaborativo recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe la descripción de un PR para un cambio de la regla de penalización y marca los archivos de riesgo alto.
+2. Predice qué commits marcará `range-diff` tras corregir uno con `--fixup` y comprueba.
+3. Compara las líneas del `diff` plano con las del `range-diff` y registra la diferencia.
+4. Genera 300 PR sintéticos con una semilla y fija tus supuestos de densidad de defectos antes de ejecutar.
+5. Compara cuatro órdenes de lectura con el mismo presupuesto y registra los defectos alcanzados.
+6. Apila cuatro PR, corrige el primero y registra el reapilado con la corrección lejos y cerca del segundo.
+7. Pide a otra persona que reconstruya tu criterio de triaje solo desde `review-log.md` y registra qué supuesto le faltó.
 
 ## Ejercicios
 
-1. **Fundamental:** define Pull y requests con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comunidad social, compara tres opciones y entrega `change.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Presupuesto distinto:** repite la comparación de órdenes con un presupuesto del 15 % y del 60 % y explica cómo cambia la ventaja del triaje.
+2. **Supuesto equivocado:** cambia la densidad de defectos de la documentación al valor de la autenticación y explica qué le pasa al criterio por riesgo de tres niveles.
+3. **División:** parte un PR de 1 100 líneas en una pila de cuatro y escribe el criterio de corte y el costo de corregir el primero.
+4. **Automático o humano:** decide qué comprobaciones de tu proyecto son automáticas, cuáles dejan de ser revisables por una persona y qué métrica te haría moverlas.
 
 ## Reto verificable
 
-Entrega el **cambio colaborativo recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `review-log.md` con la plantilla de PR, el criterio de triaje con sus supuestos, la comparación de `diff` y `range-diff`, la tabla de órdenes de lectura y el resultado de la pila. Se aprueba si otra persona ejecuta el código desde un directorio vacío, obtiene los mismos conteos y puede decir qué supuesto del triaje cambiaría si se le escaparan defectos en documentación. No se aprueba por el número de comentarios.
+
+## Caso conductor
+
+El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la plantilla de PR y el criterio de triaje. `SE-197` discute cuánto debe vivir la rama de un PR y `SE-199` automatiza la asignación de revisores. Cambia después un solo dato, el presupuesto de lectura del 30 % al 15 %, y revisa cuánto cambia la ventaja del criterio por riesgo.
+
+## Preguntas frecuentes
+
+### ¿Cuántas líneas debe tener un PR?
+
+No hay una cifra universal. La regla útil es que una persona pueda leerlo entero con atención en una sesión y que el cambio tenga una sola intención. El tamaño efectivo depende de la complejidad: mil líneas de renombre mecánico se revisan; cien de lógica de autenticación pueden requerir más cuidado.
+
+### ¿Las comprobaciones automáticas reemplazan la revisión?
+
+No: detectan forma (formato, compilación, pruebas escritas) y no intención. Una afirmación vacía pasa todas las pruebas. La revisión humana decide si el cambio es el correcto.
+
+### ¿Se puede rebasar un PR en revisión?
+
+Sí, si la revisora puede ver qué cambió: con `range-diff` o añadiendo commits de corrección que se aplastan al integrar. Reescribir sin mostrar lo cambiado obliga a revisar de nuevo.
+
+### ¿Quién debe aprobar?
+
+La persona con el conocimiento del área tocada: de ahí los propietarios de código de `SE-199`. Un autor no aprueba su propio PR; en equipos pequeños se compensa con comprobaciones y una segunda lectura de lo riesgoso.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reescribir o publicar historia compartida sin evaluar a quién afecta**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **aprobar lo que no se leyó**. Usa el PR de 1 100 líneas con la migración al final.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** un PR aprobado con diez comentarios de estilo llega a producción con una migración que borra una columna. **Hipótesis rivales:** (a) la revisora no sabía leer migraciones; (b) la migración quedó fuera del presupuesto de atención por aparecer al final. **Prueba:** reproduce la lectura con un presupuesto del 30 % en el orden de aparición: no alcanza la migración; con triaje por riesgo, la lee primero. **Conclusión:** la causa es (b): el orden de lectura dejó fuera lo más riesgoso. **Regresión:** añade al PR la lista de archivos de riesgo alto y una comprobación que exija revisión del equipo dueño de las migraciones. No cambies a la vez el tamaño del PR y el criterio de lectura.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Comentarios de estilo y defectos que se escapan | La lectura sigue el orden del diff | Ordenar por riesgo y automatizar el estilo |
+| Hay que releer todo tras cada corrección | La rama se reescribió sin mostrar lo cambiado | Usar `range-diff` o commits de corrección |
+| El PR se aprueba sin lectura real | Es demasiado grande para la atención disponible | Dividir en cambios de una sola intención |
+| Corregir el primer PR rompe la pila | Hay solapamiento entre los PR apilados | Reducir el solapamiento o integrar el primero antes |
+| Las pruebas pasan y el comportamiento es erróneo | Una prueba débil o vacía | Revisar las pruebas con el mismo cuidado que el código |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Git 2.40+ y alojamiento Git compatible. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-196/
 ├── README.md
-│   ├── change.md
-│   ├── review-checklist.md
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── revision/
+│   ├── rangediff.py
+│   ├── triaje.py
+│   └── pila.py
+├── .github/pull_request_template.md
+└── evidence/review-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `change.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara sistema operativo, versión de Git y de Python, semillas y comandos. Los experimentos usan `subprocess`, repositorios temporales con identidad y fechas fijas y un generador de PR con semilla fija, y se ejecutaron con CPython 3.12.9 y Git 2.55 en Windows 11 y con CPython 3.12.3 y Git 2.43 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si automatizas con otra biblioteca, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la revisión es una barrera de seguridad: los cambios en autenticación, permisos y datos personales deben tener revisor con conocimiento del área;
+- los comentarios se dirigen al código y no a la persona; formula observaciones accionables y explica el motivo;
+- no pegues secretos ni datos reales en descripciones o comentarios de un PR: quedan en el historial del alojamiento;
+- ofrece una alternativa textual a las tablas de resultados y describe los estados de revisión en palabras;
+- respeta la carga de quien revisa: un PR que no cabe en su atención traslada el riesgo.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «abre un PR con estos cambios» suele escribir una descripción genérica que repite el diff y mezcla varios cambios en un solo PR. Pídele que divida el cambio por intención, que escriba la descripción con el porqué y las dudas, que marque los archivos de riesgo alto y que ejecute las comprobaciones antes de pedir revisión. Revisa especialmente si el agente cambió pruebas para que pasen: es el mismo defecto de aprobar lo que no se leyó, con apariencia de verificación.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comunidad social por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra actividad de revisión (por ejemplo, la revisión de un documento de diseño o de un cambio de infraestructura como código): decide cómo ordenarías lo que se revisa por riesgo, qué comprobaciones serían automáticas y cómo mostrarías lo cambiado tras una corrección. La transferencia está lograda cuando puedes explicar qué parte del triaje dependía de los tipos de archivo, no cuando los pasos se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-196/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué el orden de lectura cambia los defectos hallados |
+| corrección | conteos reproducibles de órdenes de lectura y de `range-diff` con las mismas semillas |
+| diseño | plantilla de PR y criterio de triaje con supuestos declarados |
+| diagnóstico | reproducción del fallo «aprobar lo no leído» con regresión |
+| incertidumbre | declaración de qué parte depende de las densidades de defectos del autor |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Sadowski et al., «Modern code review: a case study at Google» (ICSE-SEIP, 2018)](https://doi.org/10.1145/3183519.3183525) — práctica de revisión en una organización grande; autoridad: ACM/IEEE ICSE-SEIP.
+- [Bacchelli y Bird, «Expectations, outcomes, and challenges of modern code review» (ICSE, 2013)](https://doi.org/10.1109/ICSE.2013.6606617) — expectativas y dificultades de la revisión; autoridad: IEEE ICSE.
+- [Google Engineering Practices: code review](https://google.github.io/eng-practices/review/) — guía de revisión y tamaño de cambios; autoridad: Google.
+- [git-range-diff](https://git-scm.com/docs/git-range-diff) — comparación entre series de commits; autoridad: documentación de Git.
+- [git-rebase](https://git-scm.com/docs/git-rebase) — `--update-refs`, `--onto` y `--autosquash`; autoridad: documentación de Git.
+- [GitHub: pull requests](https://docs.github.com/en/pull-requests) — funcionamiento de los PR en el alojamiento; autoridad: GitHub Docs.
 
-- **Git documentation** — Git project. [https://git-scm.com/docs](https://git-scm.com/docs) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Collaborating with pull requests** — GitHub. [https://docs.github.com/pull-requests/collaborating-with-pull-requests](https://docs.github.com/pull-requests/collaborating-with-pull-requests) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el criterio de triaje de la plataforma de entregas sea el adecuado para otro proyecto. Esa afirmación depende de los defectos que de verdad se escapen.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [GitHub: plantillas de issues y PR](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates) — plantillas para pedir contexto.
+- [git-diff](https://git-scm.com/docs/git-diff) — comparación plana usada como referencia.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Pull requests y revisión basada en riesgo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-197`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. Las densidades de defectos y el presupuesto de lectura son supuestos del autor, el criterio por riesgo se evaluó con los mismos tipos que usó el generador y no se midió a ningún revisor ni un proyecto real. La siguiente clase pregunta cuánto debe vivir una rama y qué flujo de ramas encaja con una revisión así.
+
+## Glosario
+
+- **pull request:** propuesta de integrar una rama que se revisa y se discute antes de aceptarse.
+- **triaje por riesgo:** orden de lectura de un cambio según el riesgo esperado de cada parte, no según su orden de aparición.
+- **range-diff:** comparación de dos series de commits que muestra qué cambió entre una versión y otra de una rama reescrita.
+- **pila de PR:** serie de pull requests encadenados donde cada uno parte de la rama del anterior.
+- **comprobación automática:** verificación ejecutada por una máquina antes o durante la revisión humana.
 
 ---
 

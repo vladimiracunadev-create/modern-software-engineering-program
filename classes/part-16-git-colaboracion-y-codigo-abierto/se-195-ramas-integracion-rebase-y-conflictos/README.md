@@ -2,207 +2,278 @@
 
 [← SE-194 — Commits atómicos, historial y recuperación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md) · [↑ Parte 16](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-195.html) · [SE-196 — Pull requests y revisión basada en riesgo →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que integrar el trabajo de varias personas sea una decisión con consecuencias conocidas y no un ritual: elegir entre fusionar, rebasar o aplastar sabiendo qué historia queda, y resolver un conflicto sabiendo qué se decidió y qué se perdió.
+
+**Por qué aparece aquí.** Se sitúa después de **Commits atómicos, historial y recuperación** y antes de **Pull requests y revisión basada en riesgo**. `SE-194` dejó una política de commits y la distinción entre revertir y reescribir; esta clase añade la bifurcación: qué ocurre cuando dos personas parten del mismo punto, cuándo Git no puede combinar sus cambios y qué estrategia de integración conserva qué información. Deja las ramas integradas que `SE-196` pone en revisión.
+
+**Error conceptual que debe corregir.** Creer que un conflicto es un fallo de Git o de la persona y que rebasar «limpia» el historial sin costo. Un conflicto es la señal de que dos cambios tocan el mismo sitio y alguien debe decidir; y un rebase reescribe los commits de la rama, de modo que cambian de identificador y solo es seguro sobre ramas que nadie más ha tomado.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices qué historia deja cada estrategia y cuándo habrá conflicto; después integras la misma rama con tres estrategias, mides la probabilidad de conflicto frente a la distancia y al número de ediciones y repites una fusión con y sin reutilización de resoluciones. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `integration-log.md` con la historia que deja cada estrategia, la probabilidad de conflicto medida, el resultado con y sin `rerere` y una regla de equipo para elegir estrategia. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría cambiar la regla.
+
+**Límite de la conclusión.** Los archivos son de 50 a 200 líneas de texto con ediciones de una línea al azar; el conflicto se mide con `git merge-file` sobre texto, no con código que pueda además romperse sin conflicto; se usaron 300 corridas por celda con una semilla fija y no se midió a ningún equipo ni la frecuencia de conflictos de un proyecto real.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [git-merge](https://git-scm.com/docs/git-merge) | Describe la fusión de tres vías, el avance rápido, `--squash` y la detección de conflictos. | No dice qué estrategia conviene a un equipo. |
+| [Pro Git: Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) | Explica que el rebase reaplica commits sobre otra base creando commits nuevos y advierte de no rebasar commits publicados. | No mide los efectos en una historia grande. |
+| [git-rerere](https://git-scm.com/docs/git-rerere) | Documenta la reutilización de resoluciones registradas de conflictos. | No garantiza que la resolución reaplicada siga siendo correcta. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-194`: un commit atómico se puede revertir y reescribir historia compartida impone trabajo a otras personas. La pregunta activa es: **¿qué historia conservo al integrar, cuándo me va a salir un conflicto y qué estoy decidiendo cuando lo resuelvo?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-194` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Git 2.40+ y alojamiento Git compatible.
+- Haber completado `SE-194` o poder explicar qué hace `git revert` y por qué reescribir lo publicado es costoso.
+- Python 3.11 o posterior, Git 2.40 o posterior y un terminal.
+- Trabajar en repositorios temporales; el rebase de la clase no debe ejecutarse sobre una rama con otras personas.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Ramas, integración, rebase y conflictos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+En la plataforma de entregas, una persona cambia el tope de prórroga en `config.py` y otra, desde la misma versión, cambia el cálculo en `penal.py` y toca la misma región de `config.py`. Al integrar, una prefiere fusionar «para no perder nada», otra rebasar «para una historia lineal» y una tercera aplastar «para un solo commit». Las tres historias resultantes tienen el mismo contenido y muy distinta información.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Ramas y integración con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cambio colaborativo recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reescribir o publicar historia compartida sin evaluar a quién afecta» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Ramas | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Integración | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Rebase | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Conflictos | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. predecir la forma de la historia (commits, fusiones, identificadores conservados) tras fusionar, rebasar y aplastar;
+2. estimar cuándo dos ramas entrarán en conflicto de texto y cómo crece la probabilidad con el número de ediciones;
+3. resolver un conflicto leyendo las tres versiones y decidiendo, no eligiendo un lado al azar;
+4. decidir cuándo reutilizar resoluciones con `rerere` y cómo comprobarlas;
+5. escribir una regla de integración del equipo con sus excepciones.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Ramas, integración, rebase y conflictos"] --> M["Modelo: Ramas"]
-    M --> D["Decisión: integración"]
-    D --> E["Evidencia: rebase"]
-    E --> R["Revisión: conflictos"]
-    R -->|nueva información| M
+    A[Base común] --> B[Rama A]
+    A --> C[Rama B]
+    B --> D{Integrar}
+    C --> D
+    D -->|fusión| E[Commit de fusión]
+    D -->|rebase| F[Commits reescritos]
+    D -->|squash| G[Un commit nuevo]
+    D -->|mismo sitio| H[Conflicto]
+    H --> I[Decisión humana]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Ramas, integración, rebase y conflictos**.
+El mapa se lee de izquierda a derecha: dos ramas parten de una base común y se integran por una de tres estrategias; si tocan el mismo sitio aparece un conflicto que exige una decisión. No describe cuál estrategia es mejor, porque eso depende de quién más tiene los commits.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Fusión de tres vías | Combina dos cambios respecto de una base común y conserva la forma de la bifurcación. | Predicción, traza causal y contraejemplo de **Fusión de tres vías** en `integration-log.md` |
+| Rebase | Reaplica commits sobre otra base y los reescribe: cambia identificadores. | Predicción, traza causal y contraejemplo de **Rebase** en `integration-log.md` |
+| Squash | Reduce una rama a un commit y descarta su historia interna. | Predicción, traza causal y contraejemplo de **Squash** en `integration-log.md` |
+| Conflictos | Son la señal de que se necesita una decisión; no un error. | Predicción, traza causal y contraejemplo de **Conflictos** en `integration-log.md` |
+| Reutilizar resoluciones | Evita repetir la misma decisión, a costa de poder arrastrar una decisión obsoleta. | Predicción, traza causal y contraejemplo de **Reutilizar resoluciones** en `integration-log.md` |
 
 ## Conceptos y decisiones
 
-Git conserva un grafo de objetos y referencias; la colaboración añade revisión, integración, ownership y normas para cambiar historia compartida con seguridad.
+### 1. Fusión de tres vías
 
-La pregunta rectora de esta parte es: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** La respuesta debe
-apoyarse en **diff enfocado, historial legible, revisión resuelta y estrategia de reversión**.
+Una fusión compara dos puntas con su ancestro común: lo que cambió solo en un lado se toma, y lo que cambió en ambos lados en sitios distintos se combina. Si el cambio toca el mismo lugar, Git no decide: deja marcas. El commit de fusión tiene dos padres, de modo que la historia conserva que hubo dos líneas de trabajo y permite ver quién hizo qué y cuándo.
 
-### 1. Ramas: modelo
+### 2. Rebase
 
-En esta clase, **Ramas** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ramas, integración, rebase y conflictos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un rebase toma los commits de una rama y los reaplica uno por uno sobre otra base. Cada commit reaplicado es un objeto nuevo, con otro identificador, aunque diga lo mismo. La historia resultante es lineal. El costo es que cualquier persona que tenga los commits originales tiene ahora commits «duplicados» con otro nombre; por eso la regla es rebasar solo ramas propias no publicadas, o ramas acordadas.
 
-### 2. Integración: mecanismo
+### 3. Squash
 
-En esta clase, **integración** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ramas, integración, rebase y conflictos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un squash junta todos los cambios de una rama en un solo commit nuevo en la rama de destino; los commits originales no entran en esa historia. Da una historia lineal con una entrada por cambio y pierde los pasos intermedios, que son útiles para una bisección fina. Conviene cuando los pasos intermedios son ruido y no cuando cada uno es atómico y comprobable.
 
-### 3. Rebase: evidencia
+### 4. Conflictos
 
-En esta clase, **rebase** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ramas, integración, rebase y conflictos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un conflicto de texto aparece cuando dos cambios afectan líneas contiguas respecto de la base. Git marca ambas versiones; el estilo `diff3` añade la base. Resolver es decidir cuál es el estado correcto, que puede ser uno de los lados, una combinación o algo nuevo. Un conflicto que no aparece no significa que la combinación sea correcta: dos cambios pueden fusionarse sin marcas y romper el programa (`SE-197` lo mide).
 
-### 4. Conflictos: decisión
+### 5. Reutilizar resoluciones
 
-En esta clase, **conflictos** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Ramas, integración, rebase y conflictos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+`git rerere` guarda cómo se resolvió un conflicto y, si vuelve a aparecer el mismo, lo resuelve igual. Es útil cuando una rama larga se rebasa varias veces o cuando se prueba una fusión y se descarta. Reduce el trabajo pero también la atención: una resolución reutilizada se aplica sin que nadie la lea, así que hay que revisarla y volver a ejecutar las pruebas.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### La misma bifurcación, tres historias
+
+Una rama de 4 commits partió de dos commits de base mientras `main` avanzaba 3. Con una **fusión sin avance rápido**, `main` quedó con 10 commits, una fusión, 6 commits en el primer padre y los 4 commits de la rama conservaron su identificador. Con **rebase y avance rápido**, `main` quedó con 9 commits, ninguna fusión y los 4 commits de la rama fueron reescritos (0 de 4 conservaron su identificador). Con **squash**, `main` quedó con 6 commits: el commit nuevo reemplaza a los cuatro, que no entran. El árbol final fue idéntico en las tres, así que el contenido es el mismo y solo cambia la información de la historia. Los resultados fueron idénticos con Git 2.55 en Windows y 2.43 en Ubuntu.
+
+![Tabla que compara fusionar, rebasar y aplastar una rama de cuatro commits sobre un main que avanzó tres.](../../../content/part-16/figures/se-195-merge-rebase-y-squash.svg)
+
+**Cómo leer la figura.** Cada fila es una estrategia aplicada a la misma bifurcación; las columnas cuentan lo que queda en `main` y cuántos commits de la rama siguen teniendo su identificador. **Dónde deja de valer:** la rama no tuvo conflictos ni firmas; con commits firmados, el rebase invalida las firmas de los reescritos, y con conflictos el rebase los resuelve commit a commit, no una vez.
+
+### Cuándo hay conflicto
+
+Dos ramas editaron una línea cada una de un archivo de 200 líneas. Con **ambas ediciones en la misma línea**, hubo conflicto en el 100 % de 300 pares; con ediciones en **líneas contiguas**, también el 100 %; con **una línea de separación**, 0 %. Con ediciones al azar en 200 líneas, la probabilidad de conflicto creció con el número de ediciones por rama: 0,3 % con 1, 5,0 % con 2, 21,0 % con 4, 60,7 % con 8 y 98,7 % con 16 (300 corridas por celda). La regla de Git es de contigüidad, no de coincidencia exacta; por eso un cambio de formato que mueve líneas vecinas multiplica los conflictos.
+
+![Barras con la probabilidad de conflicto de texto según la distancia entre ediciones y el número de ediciones por rama.](../../../content/part-16/figures/se-195-conflicto-segun-ediciones.svg)
+
+**Cómo leer la figura.** Las tres primeras barras dependen de la distancia entre dos ediciones; las siguientes, del número de ediciones al azar por rama en 200 líneas. **Dónde deja de valer:** las ediciones al azar están distribuidas de forma uniforme; en un código real se concentran en archivos y regiones calientes, lo que sube la probabilidad, y las ediciones reales tienen forma de bloque, no de línea suelta.
+
+### Repetir una fusión con rerere
+
+Se creó un conflicto entre dos ramas que cambiaban `tope=72` a 48 y a 96. Con `rerere` **inactivo**, la primera fusión dejó 1 marca de conflicto; tras resolver (a 60), deshacer la fusión y repetirla, volvió a aparecer 1 marca. Con `rerere` **activo**, la segunda fusión dejó 0 marcas y el archivo contenía `tope=60` ya resuelto, aunque el código de salida de la fusión siguió siendo 1 (Git informa del conflicto y deja el archivo para que se revise y se agregue).
+
+![Tabla con las marcas de conflicto de la primera y la segunda fusión con rerere inactivo y activo.](../../../content/part-16/figures/se-195-rerere.svg)
+
+**Cómo leer la figura.** Cada fila es una configuración de `rerere` aplicada a las mismas dos ramas; las columnas cuentan las marcas de la primera y de la segunda fusión. **Dónde deja de valer:** se repitió exactamente la misma fusión; si la base o alguno de los lados cambió ligeramente, `rerere` no reconoce el conflicto y vuelve a pedir una decisión, y una resolución reaplicada puede ser obsoleta aunque no haya marcas.
 
 ## Definiciones de trabajo
 
-- **Ramas:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Integración:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Rebase:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Conflictos:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
+- **fusión de tres vías:** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
+- **rebase:** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
+- **squash:** integración que reduce los cambios de una rama a un solo commit nuevo.
+- **conflicto de texto:** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
+- **rerere:** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Ramas, integración, rebase y conflictos**:
+El fragmento integra una rama con las tres estrategias en repositorios temporales distintos. Antes de ejecutarlo, predice cuántos commits tendrá `main` en cada caso.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```bash
+git merge --no-ff feature            # historia con dos padres
+git rebase main && git merge --ff-only feature   # lineal, commits reescritos
+git merge --squash feature && git commit -m "feature"   # un commit nuevo
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Registra versión de Git, comparte la salida de `git log --oneline --graph` de cada caso y compara los árboles con `git rev-parse main^{tree}`.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Ramas, integración, rebase y conflictos**. Parte de esta pregunta: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando diff enfocado, historial legible, revisión resuelta y estrategia de reversión. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `change.md` y enlaza la evidencia, no solo la conclusión.
+En la plataforma, las ramas de funcionalidad viven pocos días y se integran con squash porque cada una es un cambio de intención única; las ramas de varias personas se integran con fusión para conservar quién hizo qué; las correcciones urgentes se rebasan sobre `main` antes de la revisión. La regla está escrita en `CONTRIBUTING.md`, con una excepción: una rama con commits atómicos y comprobables que alguien podría querer bisecar se integra sin squash.
+
+Compara el caso normal con una rama de dos semanas que se rebasa sobre `main` tres veces: cada rebase repite los mismos conflictos y `rerere` ahorra la decisión, pero la rama larga es el problema de fondo (`SE-197`). La práctica es apropiada cuando se elige estrategia por la rama y se documenta; es peligrosa cuando se aplica una sola a todo, porque se pierde la información que la rama sí necesitaba.
 
 ## Práctica guiada
 
-1. Crea `work/SE-195/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cambio colaborativo recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Crea una bifurcación de 4 commits de rama y 3 de `main` y predice la forma de la historia con cada estrategia.
+2. Integra con fusión, rebase y squash en tres copias y registra commits, fusiones e identificadores conservados.
+3. Compara los árboles finales y explica qué se perdió con cada estrategia.
+4. Mide la probabilidad de conflicto con `git merge-file` para ediciones a distancias de 0, 1, 2, 3 y 4 líneas.
+5. Mide la probabilidad con 1, 2, 4, 8 y 16 ediciones al azar por rama y compara con tu predicción.
+6. Resuelve un conflicto con `merge.conflictStyle=diff3` y registra qué decisión tomaste y por qué.
+7. Repite la fusión con `rerere` activo y escribe cómo comprobarías que la resolución sigue siendo válida.
 
 ## Ejercicios
 
-1. **Fundamental:** define Ramas y integración con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `change.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Rebase interactivo:** reordena y fusiona dos commits de una rama propia con `git rebase -i` y explica por qué sus identificadores cambian.
+2. **Conflicto lógico:** construye dos ramas que fusionan sin marcas y rompen una prueba; explica por qué Git no pudo avisar.
+3. **Distribución concentrada:** repite la medición con el 70 % de las ediciones en el 20 % de las líneas y explica cómo cambian las probabilidades.
+4. **Regla de equipo:** escribe cuándo se permite squash, cuándo rebase y cuándo fusión y qué evidencia te haría cambiarla.
 
 ## Reto verificable
 
-Entrega el **cambio colaborativo recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `integration-log.md` con la historia que deja cada estrategia, la probabilidad de conflicto medida, la comparación de `rerere` y una regla de equipo de una página. Se aprueba si otra persona ejecuta el código desde un directorio vacío, obtiene las mismas cifras y puede decir qué estrategia usaría para una rama de commits atómicos con firmas. No se aprueba por una preferencia sin evidencia.
+
+## Caso conductor
+
+El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la regla de integración y la medición de conflictos. `SE-196` revisa los cambios que llegan por estas integraciones y `SE-197` pregunta cuánto debe vivir una rama. Cambia después un solo dato, el número de ediciones por rama de 4 a 8, y revisa cómo cambia la probabilidad de conflicto y la regla de equipo.
+
+## Preguntas frecuentes
+
+### ¿Es mejor una historia lineal?
+
+Es más fácil de leer y de recorrer con `git log`; pierde la forma de la bifurcación y, con squash, los pasos intermedios. Una historia con fusiones conserva esa información a cambio de un grafo más ancho. Ninguna es mejor en general.
+
+### ¿Se puede rebasar una rama ya publicada?
+
+Solo si todas las personas que la tienen lo saben y están de acuerdo, porque sus copias tendrán commits con otros identificadores. Sobre una rama propia que nadie ha tomado es seguro.
+
+### ¿Por qué Git marca conflicto si cambiamos líneas distintas?
+
+Porque son contiguas: sin una línea intermedia sin cambios, Git no puede asegurar el orden. Separar cambios en commits y archivos reduce los conflictos más que cualquier herramienta.
+
+### ¿Un conflicto resuelto significa que el código es correcto?
+
+No: significa que alguien eligió un texto. La corrección se comprueba con las pruebas de después de la integración, y por eso la resolución debe revisarse como cualquier otro cambio.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reescribir o publicar historia compartida sin evaluar a quién afecta**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **resolver un conflicto eligiendo un lado sin leer el otro**. Usa el conflicto del tope de prórroga.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** tras integrar, el tope de prórroga es 96 en producción aunque la decisión acordada era 48. **Hipótesis rivales:** (a) el cambio a 48 no se integró; (b) el conflicto se resolvió eligiendo el lado con 96. **Prueba:** `git log -p -- config.py` muestra el commit de fusión con `tope=96` y `git show --remerge-diff` lo compara con las dos puntas. **Conclusión:** la causa es (b): se tomó un lado sin leer el otro. **Regresión:** añade una prueba que compruebe el valor del tope y una comprobación de revisión que exija ver la resolución de cada conflicto. No cambies a la vez el valor y la regla de integración.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Aparecen commits duplicados tras un rebase | Se rebasó una rama que otra persona ya tenía | Rebasar solo ramas propias no publicadas o acordadas |
+| Un conflicto reaparece una y otra vez | La rama vive mucho tiempo y se repite el mismo rebase | Acortar la rama o activar `rerere` y revisar las resoluciones |
+| La fusión no tuvo marcas y la prueba falla | Los cambios tocan sitios distintos pero son incompatibles | Ejecutar las pruebas sobre el resultado de la fusión |
+| Se pierde la historia de una rama | Squash de una rama de commits atómicos | Elegir estrategia por rama y documentar la excepción |
+| Se resolvió eligiendo un lado | No se leyó la versión base ni el otro lado | Usar `diff3` y revisar con `--remerge-diff` |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Git 2.40+ y alojamiento Git compatible. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-195/
 ├── README.md
-│   ├── change.md
-│   ├── review-checklist.md
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── integracion/
+│   ├── estrategias.py
+│   ├── conflictos.py
+│   └── rerere.py
+└── evidence/integration-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `change.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara sistema operativo, versión de Git y de Python, semillas y comandos. Los experimentos usan `subprocess`, `git merge-file` y repositorios temporales con identidad y fechas fijas y se ejecutaron con CPython 3.12.9 y Git 2.55 en Windows 11 y con CPython 3.12.3 y Git 2.43 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si automatizas con otra biblioteca, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una resolución de conflicto es un cambio de código: debe revisarse y no puede aceptarse a ciegas, sobre todo si toca autenticación o datos personales;
+- un rebase puede descartar commits sin avisar: comprueba el resultado con `git range-diff` antes de publicar;
+- no resuelvas conflictos de archivos con secretos copiando valores a mensajes o registros;
+- ofrece una alternativa textual a las tablas y describe las marcas de conflicto en palabras;
+- atribuye los cambios que integras: un squash debe conservar los coautores.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «resuelve estos conflictos» suele elegir un lado con `--ours` o `--theirs` o fusionar ambos textos y ejecutar las pruebas hasta que pasan. Pídele que muestre las tres versiones de cada región, que explique la intención de cada lado, que proponga una resolución y que ejecute las pruebas sobre el resultado sin tocar las pruebas. Revisa especialmente si cambió una prueba para que pasara: es el mismo defecto de elegir un lado sin leer el otro, con apariencia de verificación.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro escenario de combinación de cambios concurrentes (por ejemplo, ediciones simultáneas de un documento o de un archivo de configuración compartido): decide qué sería una base común, qué es un conflicto y cuándo una combinación sin conflicto puede ser incorrecta. La transferencia está lograda cuando puedes explicar qué parte de la regla de contigüidad dependía de Git, no cuando el procedimiento se parece.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-195/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de qué conserva y qué pierde cada estrategia |
+| corrección | historias y probabilidades reproducibles con las mismas semillas |
+| diseño | regla de integración con excepciones y evidencia |
+| diagnóstico | reproducción del fallo «elegir un lado» con regresión |
+| incertidumbre | declaración de qué parte depende de la distribución uniforme de ediciones |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [git-merge](https://git-scm.com/docs/git-merge) — fusión, avance rápido y squash; autoridad: documentación de Git.
+- [git-rebase](https://git-scm.com/docs/git-rebase) — reaplicación de commits y modo interactivo; autoridad: documentación de Git.
+- [Pro Git: Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) — peligros de rebasar commits publicados; autoridad: Pro Git.
+- [git-merge-file](https://git-scm.com/docs/git-merge-file) — fusión de tres versiones de un archivo; autoridad: documentación de Git.
+- [git-rerere](https://git-scm.com/docs/git-rerere) — reutilización de resoluciones; autoridad: documentación de Git.
+- [GitHub: acerca de rebase](https://docs.github.com/en/get-started/using-git/about-git-rebase) — explicación de rebase por el alojamiento; autoridad: GitHub Docs.
 
-- **Git documentation** — Git project. [https://git-scm.com/docs](https://git-scm.com/docs) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Collaborating with pull requests** — GitHub. [https://docs.github.com/pull-requests/collaborating-with-pull-requests](https://docs.github.com/pull-requests/collaborating-with-pull-requests) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra qué estrategia conviene a la plataforma de entregas. Esa afirmación depende de cuánto viven las ramas y de quién tiene los commits.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [GitHub: fusiones de pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges) — opciones de fusión del alojamiento.
+- [git-merge-file](https://git-scm.com/docs/git-merge-file) — herramienta usada para medir conflictos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Ramas, integración, rebase y conflictos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-196`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con repositorios temporales y datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún repositorio real, las ediciones al azar son uniformes, el conflicto se midió solo sobre texto y no se midió a ningún equipo. La siguiente clase pregunta cómo se revisan los cambios que llegan por estas integraciones.
+
+## Glosario
+
+- **fusión de tres vías:** combinación de dos puntas respecto de su ancestro común que crea un commit con dos padres.
+- **rebase:** reaplicación de commits sobre otra base que crea commits nuevos con otros identificadores.
+- **squash:** integración que reduce los cambios de una rama a un solo commit nuevo.
+- **conflicto de texto:** región donde dos cambios afectan líneas contiguas respecto de la base y Git no puede decidir.
+- **rerere:** mecanismo que guarda resoluciones de conflictos y las reaplica cuando el mismo conflicto reaparece.
 
 ---
 

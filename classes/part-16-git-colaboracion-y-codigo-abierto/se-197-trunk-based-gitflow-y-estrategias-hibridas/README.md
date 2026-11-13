@@ -2,207 +2,276 @@
 
 [← SE-196 — Pull requests y revisión basada en riesgo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-196-pull-requests-y-revision-basada-en-riesgo/README.md) · [↑ Parte 16](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-197.html) · [SE-198 — Issues, discusiones y trazabilidad del cambio →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-16-git-colaboracion-y-codigo-abierto/se-198-issues-discusiones-y-trazabilidad-del-cambio/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para elegir un flujo de ramas por lo que cuesta y por lo que protege, no por moda: cuánto vive una rama, dónde se integra, qué se libera y cómo se corrige una versión ya publicada. Cada flujo es una apuesta sobre dónde prefiere el equipo pagar: en integraciones frecuentes y pequeñas, o en integraciones raras y grandes.
+
+**Por qué aparece aquí.** Se sitúa después de **Pull requests y revisión basada en riesgo** y antes de **Issues, discusiones y trazabilidad del cambio**. `SE-196` dejó cambios revisables; esta clase decide la cadencia con que llegan a la rama principal y qué ocurre con las versiones publicadas. Deja el flujo de ramas sobre el que `SE-198` ata cambios a su motivo.
+
+**Error conceptual que debe corregir.** Creer que un flujo de ramas es una convención de nombres que se adopta entera. Cada flujo (trunk-based, GitHub flow, GitFlow) es una combinación de decisiones independientes: cuánto vive una rama, quién integra, si hay ramas de versión y cómo se ocultan los cambios no terminados. Copiar el nombre sin las decisiones produce el costo sin el beneficio.
+
+**Secuencia de aprendizaje.** Antes de leer la solución, predices cómo cambia la frecuencia de conflictos con la vida de la rama y qué pasa cuando dos cambios aprobados se combinan; después simulas cinco personas integrando con ramas de 1 a 20 días, reproduces un conflicto semántico con Git real y mides los conflictos al portar correcciones a una rama de versión. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `flow-log.md` con la tabla de conflictos por vida de la rama, el caso de conflicto semántico, la medición de backports y una decisión de flujo con sus condiciones de revisión. Debe contener predicción previa, observación, explicación causal, contraejemplo y qué hallazgo haría cambiar el flujo.
+
+**Límite de la conclusión.** Las personas, el archivo de 400 líneas con zona caliente (70 % de las ediciones en el 20 % de las líneas) y los porcentajes de solapamiento son supuestos del autor; los conflictos se miden sobre texto con `git merge-file`; ningún dato procede de un equipo ni de un proyecto, y la comparación de flujos no mide productividad ni calidad de entrega.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Trunk Based Development](https://trunkbaseddevelopment.com/) | Describe el desarrollo con ramas de corta duración integradas con frecuencia en un tronco único. | No cuantifica los beneficios para un equipo concreto. |
+| [Driessen, «A successful Git branching model»](https://nvie.com/posts/a-successful-git-branching-model/) | Presenta GitFlow con ramas de desarrollo, de versión y de corrección, e indica en qué contexto se pensó. | No afirma que sea adecuado para entrega continua. |
+| [Fowler, «Continuous Integration»](https://martinfowler.com/articles/continuousIntegration.html) | Define la integración continua como integrar al menos a diario y comprobar cada integración. | No prueba que integrar a diario sea posible en cualquier base de código. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-196`: un cambio pequeño y bien descrito se puede revisar. La pregunta activa es: **¿cuánto debe vivir una rama, qué protege cada flujo y qué cuesta un cambio aprobado que choca con otro?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-196` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de Git 2.40+ y alojamiento Git compatible.
+- Haber completado `SE-196` o poder explicar por qué un PR pequeño es revisable.
+- Python 3.11 o posterior, Git 2.40 o posterior y un terminal.
+- Trabajar en repositorios temporales y con datos sintéticos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Trunk-based, GitFlow y estrategias híbridas**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de la plataforma de entregas tiene una rama `desarrollo` y ramas de funcionalidad que viven tres semanas. Cada integración exige un día de resolver conflictos, y una vez dos ramas aprobadas se fusionaron sin conflicto de texto y dejaron roto el panel de notas. Alguien propone pasar a trunk-based; otro, mantener GitFlow «porque hay versiones que mantener».
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Trunk y based con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **cambio colaborativo recuperable** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «reescribir o publicar historia compartida sin evaluar a quién afecta» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Trunk | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Based | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| GitFlow | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Estrategias | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. explicar cómo la vida de una rama afecta la frecuencia de los conflictos y medirlo en un modelo;
+2. reconocer un conflicto semántico y decidir qué comprobación lo detecta;
+3. describir las decisiones que componen un flujo (vida de rama, integración, ramas de versión, ocultación de cambios) y combinarlas;
+4. estimar el costo de portar correcciones a una rama de versión según la deriva del tronco;
+5. escribir una decisión de flujo con sus condiciones de revisión.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Trunk-based, GitFlow y estrategias híbridas"] --> M["Modelo: Trunk"]
-    M --> D["Decisión: based"]
-    D --> E["Evidencia: GitFlow"]
-    E --> R["Revisión: estrategias"]
-    R -->|nueva información| M
+    A[Rama corta] --> B[Integración frecuente]
+    B --> C[Tronco comprobado]
+    D[Rama larga] --> E[Integración rara]
+    E --> F[Conflictos y sorpresas]
+    C --> G[Etiqueta de versión]
+    G -->|corrección| H[Rama de versión]
+    I[Indicador de funcionalidad] --> B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Trunk-based, GitFlow y estrategias híbridas**.
+El mapa se lee de izquierda a derecha como dos apuestas: ramas cortas con integración frecuente, o ramas largas con integración rara; las versiones publicadas pueden necesitar una rama de mantenimiento, y un indicador de funcionalidad permite integrar sin activar. No describe cuántas personas hay ni el tamaño del equipo.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Vida de la rama | Es la variable que más afecta el costo de integrar. | Predicción, traza causal y contraejemplo de **Vida de la rama** en `flow-log.md` |
+| Trunk-based | Pone la integración continua en el centro y exige disciplina de cambios pequeños. | Predicción, traza causal y contraejemplo de **Trunk-based** en `flow-log.md` |
+| GitFlow | Separa desarrollo, versión y corrección; sirve a versiones que conviven. | Predicción, traza causal y contraejemplo de **GitFlow** en `flow-log.md` |
+| Conflictos semánticos | Un cambio puede combinarse sin marcas y romper el sistema. | Predicción, traza causal y contraejemplo de **Conflictos semánticos** en `flow-log.md` |
+| Versiones y backports | Mantener una versión publicada cuesta más cuanto más deriva el tronco. | Predicción, traza causal y contraejemplo de **Versiones y backports** en `flow-log.md` |
 
 ## Conceptos y decisiones
 
-Git conserva un grafo de objetos y referencias; la colaboración añade revisión, integración, ownership y normas para cambiar historia compartida con seguridad.
+### 1. Vida de la rama
 
-La pregunta rectora de esta parte es: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** La respuesta debe
-apoyarse en **diff enfocado, historial legible, revisión resuelta y estrategia de reversión**.
+El costo de integrar crece con el tiempo que una rama vive aislada: más cambios acumulados en la rama y más cambios en el tronco que la rama no vio. Una rama de horas casi nunca choca; una de semanas casi siempre. La decisión de flujo es, en gran parte, decidir la vida máxima de una rama y qué hace el equipo para respetarla: dividir el trabajo, esconder lo no terminado y revisar rápido.
 
-### 1. Trunk: modelo
+### 2. Trunk-based
 
-En esta clase, **Trunk** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Trunk-based, GitFlow y estrategias híbridas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El desarrollo sobre un tronco integra al menos a diario con ramas muy cortas o directamente al tronco. Exige comprobaciones rápidas y fiables, cambios pequeños, revisión ágil e indicadores para no activar lo inacabado. El beneficio es que el tronco siempre está cerca de lo liberable y que los conflictos son pequeños; el costo es la disciplina y la infraestructura de pruebas sin las cuales integrar a diario es imprudente.
 
-### 2. Based: mecanismo
+### 3. GitFlow
 
-En esta clase, **based** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Trunk-based, GitFlow y estrategias híbridas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+GitFlow mantiene una rama de desarrollo y ramas de versión y de corrección. Surgió para software con versiones distribuidas que conviven, donde publicar es costoso y se mantienen varias versiones. Su costo es la distancia entre ramas y los backports; su beneficio es separar lo que se estabiliza de lo que se desarrolla. Para un servicio que se despliega continuamente, la rama de versión añade trabajo sin aportar protección.
 
-### 3. GitFlow: evidencia
+### 4. Conflictos semánticos
 
-En esta clase, **GitFlow** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Trunk-based, GitFlow y estrategias híbridas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Dos cambios pueden fusionarse sin conflicto de texto y ser incompatibles: uno cambia la firma de una función y otro añade una llamada con la firma vieja. Git no ve esto porque no entiende el programa. La defensa es probar el resultado de la combinación antes de aceptar, no solo cada rama por separado: integración continua sobre el tronco y, con volumen alto, una cola de fusión que prueba cada cambio sobre el estado actual.
 
-### 4. Estrategias: decisión
+### 5. Versiones y backports
 
-En esta clase, **estrategias** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?» y demostrarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Trunk-based, GitFlow y estrategias híbridas**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando hay una versión publicada que recibe correcciones, cada corrección hecha en el tronco debe portarse con `cherry-pick`. Cuanto más ha derivado el tronco desde el corte, más cambia el contexto de la corrección y más probable es el conflicto. La decisión de cuántas versiones mantener, y durante cuánto tiempo, es de producto y de capacidad, no de Git.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Vida de la rama y conflictos
+
+Cinco personas editaron durante 40 días un archivo de 400 líneas, tres ediciones por persona y día, con el 70 % de las ediciones en el 20 % de las líneas. Cada persona integraba en el tronco al terminar su rama, con tres vías por `git merge-file`. Con ramas de **1 día**, 544 de 1 200 integraciones tuvieron conflicto (**45,3 %**); con **2 días**, 504 de 600 (**84,0 %**); con **5 días**, 234 de 240 (**97,5 %**); con **10 días**, 114 de 120 (**95,0 %**); y con **20 días**, 54 de 60 (**90,0 %**). Más allá de unos días el porcentaje deja de crecer: casi toda integración tiene conflicto, y lo que cambia es cuánto hay que resolver, que no se midió. Los resultados fueron idénticos en Windows y Ubuntu.
+
+![Barras con el porcentaje de integraciones con conflicto según los días que vive la rama.](../../../content/part-16/figures/se-197-vida-de-la-rama.svg)
+
+**Cómo leer la figura.** Cada barra es una vida de rama con las mismas cinco personas y la misma zona caliente; el número entre paréntesis es la cantidad de integraciones. **Dónde deja de valer:** el modelo concentra las ediciones en un solo archivo, lo que exagera el conflicto con ramas de un día; en un código con muchos módulos los porcentajes bajan, pero la tendencia (más vida, más conflicto) se conserva, y no se midió cuánto cuesta resolver cada conflicto.
+
+### Conflicto semántico
+
+En Git real, una rama invirtió el orden de los parámetros de `penalizar(nota, horas)` y actualizó `informe.py`; otra, desde la versión anterior, añadió `panel.py` con la llamada de orden antiguo. La segunda fusión terminó con **código de salida 0** (sin conflicto de texto) y `panel.py` imprimió **42** en lugar de **60**. Para estimar la frecuencia, se simularon 500 PR con una proporción de solapamiento y una probabilidad de incompatibilidad dada: con un 10 % de solapamiento, main se rompió 0,9 veces con una incompatibilidad del 2 %, 2,4 con el 5 % y 5,1 con el 10 %; con un 30 % de solapamiento, 3,0, 7,0 y 14,8 veces (media de 20 semillas). Una cola de fusión que prueba cada cambio sobre el estado actual reduce esa cifra a cero a costa de espera.
+
+![Tabla con las veces que main queda roto por 500 PR según el solapamiento y la probabilidad de incompatibilidad.](../../../content/part-16/figures/se-197-conflicto-semantico.svg)
+
+**Cómo leer la figura.** Las filas son proporciones de PR que tocan lo mismo que otro abierto; las columnas, la probabilidad de que ese solapamiento sea incompatible. **Dónde deja de valer:** ambas proporciones son supuestos del autor; el caso real prueba que ocurre, no con qué frecuencia, y en un proyecto el solapamiento se mide con los PR abiertos al mismo tiempo, que depende de cuánto tardan en integrarse.
+
+### Portar correcciones a una versión
+
+Se creó una rama de versión en un corte y el tronco avanzó 10, 20, 40 y 80 commits con una corrección de cada diez, cada una editando una línea al azar de un archivo de 120 líneas. Portar las correcciones con `cherry-pick` tuvo **0 conflictos de 4** con 10 commits de deriva, **2 de 8 (25 %)** con 20, **6 de 16 (37,5 %)** con 40 y **16 de 32 (50 %)** con 80 (cuatro semillas). Idéntico en Git 2.55 y 2.43.
+
+![Barras con el porcentaje de cherry-picks con conflicto según los commits de deriva del tronco.](../../../content/part-16/figures/se-197-backports.svg)
+
+**Cómo leer la figura.** Cada barra es una deriva del tronco desde el corte; la cifra cuenta cherry-picks con conflicto sobre correcciones portadas. **Dónde deja de valer:** las correcciones son de una línea y al azar; las reales tocan archivos que cambian más y arrastran dependencias, de modo que el costo sube, y el modelo no cubre correcciones que dependen de cambios no portados y por tanto fallan sin conflicto.
 
 ## Definiciones de trabajo
 
-- **Trunk:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Based:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **GitFlow:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
-- **Estrategias:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante diff enfocado, historial legible, revisión resuelta y estrategia de reversión.
+- **trunk-based development:** práctica de integrar en un tronco único con ramas de muy corta duración.
+- **GitFlow:** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
+- **conflicto semántico:** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
+- **cola de fusión:** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
+- **backport:** aplicación de una corrección hecha en el tronco a una versión publicada.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Trunk-based, GitFlow y estrategias híbridas**:
+El fragmento porta una corrección a una rama de versión. Antes de ejecutarlo, predice si habrá conflicto.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```bash
+git switch release/1.x
+git cherry-pick <commit-de-la-correccion>     # puede detenerse con conflicto
+git cherry-pick --abort                       # si no se puede resolver aquí
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Registra versión de Git y salida, y repite con la corrección que toca una línea contigua a un cambio no portado para provocar el conflicto.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Trunk-based, GitFlow y estrategias híbridas**. Parte de esta pregunta: **¿qué cambio atómico se propone, quién puede verse afectado y cómo se recupera?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando diff enfocado, historial legible, revisión resuelta y estrategia de reversión. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `change.md` y enlaza la evidencia, no solo la conclusión.
+La plataforma de entregas se despliega varias veces al día y mantiene una sola versión publicada. El equipo adopta ramas de un día integradas por PR, pruebas de menos de diez minutos, indicadores de funcionalidad para lo no terminado y una cola de fusión. No mantiene rama de desarrollo ni de versión: una corrección se hace en el tronco y se despliega. Para una integración con un cliente que fija versión, mantiene una rama de versión de la API con correcciones portadas durante seis meses.
+
+Compara el caso normal con un componente distribuido como biblioteca que tiene tres versiones vivas: la práctica es apropiada cuando se usa una rama de versión por línea soportada y se acota su vida; es peligrosa cuando se mantiene GitFlow completo para un servicio que se despliega a diario, porque la rama de desarrollo añade distancia sin protección.
 
 ## Práctica guiada
 
-1. Crea `work/SE-197/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el cambio colaborativo recuperable con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Predice el porcentaje de integraciones con conflicto para ramas de 1, 5 y 20 días.
+2. Simula las cinco personas con una semilla fija y registra los porcentajes; compara con la predicción.
+3. Reproduce el conflicto semántico con Git real y registra el código de salida y la salida del programa.
+4. Escribe una prueba que detecte el panel roto y explica en qué momento del flujo la ejecutarías.
+5. Crea una rama de versión, deja derivar el tronco 20 commits y porta las correcciones; registra los conflictos.
+6. Decide el flujo para la plataforma y escribe las condiciones que lo revisarían.
+7. Pide a otra persona que reconstruya tu decisión solo desde `flow-log.md` y registra qué supuesto le faltó.
 
 ## Ejercicios
 
-1. **Fundamental:** define Trunk y based con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `change.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Zona caliente:** repite la simulación con ediciones uniformes y compara con la zona caliente; explica qué cambia en la decisión.
+2. **Cola de fusión:** estima, con un tiempo de prueba de 10 minutos y 30 PR al día, la espera de una cola serial y cuándo dejaría de ser viable.
+3. **Indicador de funcionalidad:** diseña el indicador para ocultar el nuevo cálculo de penalización y lista los dos estados que hay que probar y cuándo se retira.
+4. **Decisión:** escribe una decisión de flujo para un componente con tres versiones vivas y la métrica que la cambiaría.
 
 ## Reto verificable
 
-Entrega el **cambio colaborativo recuperable** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `flow-log.md` con la tabla de conflictos por vida de la rama, el caso semántico, la medición de backports y una decisión de flujo de una página con sus condiciones de revisión. Se aprueba si otra persona ejecuta el código desde un directorio vacío, obtiene las mismas cifras y puede decir qué supuesto del modelo hace más favorable al flujo elegido. No se aprueba por adoptar un nombre de flujo.
+
+## Caso conductor
+
+El repositorio de la plataforma de entregas es el caso conductor de la Parte 16. Esta clase deja la decisión de flujo y las medidas de conflicto. `SE-198` ata cada cambio a su motivo y `SE-199` asigna propietarios al tronco. Cambia después un solo dato, la vida de la rama de 5 a 1 día, y revisa qué cambia en el tamaño de los PR y en la necesidad de indicadores de funcionalidad.
+
+## Preguntas frecuentes
+
+### ¿Trunk-based significa no tener ramas?
+
+No: significa ramas de muy corta vida. Una rama de un día integrada por PR es compatible; lo que no lo es es una rama de semanas.
+
+### ¿GitFlow está obsoleto?
+
+Es una respuesta a un contexto (versiones distribuidas que conviven). Su autor señaló que para software de entrega continua conviene algo más simple. Si el contexto cambia, la decisión cambia.
+
+### ¿Los indicadores de funcionalidad son gratis?
+
+No: cada indicador duplica estados que probar y deja código muerto si no se retira. Deben tener dueño y fecha de retirada.
+
+### ¿Cuántas versiones se deben mantener?
+
+Las que el producto pueda soportar y los clientes necesiten; cada versión añade backports. Es una decisión de capacidad que debe tener una fecha de fin.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **reescribir o publicar historia compartida sin evaluar a quién afecta**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **dar por buena una integración sin probar el resultado combinado**. Usa el caso del panel.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** dos PR aprobados y con pruebas verdes por separado dejan en main un panel que muestra 42 en lugar de 60. **Hipótesis rivales:** (a) alguno de los PR tenía una prueba débil; (b) cada PR se probó contra una versión distinta de main. **Prueba:** ejecuta las pruebas sobre la combinación: el panel falla; sobre cada rama por separado, pasan. **Conclusión:** la causa es (b): nadie probó la combinación. **Regresión:** añade una prueba de humo del panel y exige que las pruebas se ejecuten sobre el resultado de la fusión (rama actualizada o cola de fusión). No cambies a la vez el orden de los parámetros y las pruebas.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Cada integración exige un día de resolver conflictos | Las ramas viven semanas | Dividir el trabajo, acortar ramas e integrar a diario |
+| Main queda roto tras dos PR verdes | No se probó la combinación | Probar el resultado de la fusión o usar una cola de fusión |
+| Se mantienen ramas de versión que nadie usa | No hay fecha de fin de soporte | Fijar las versiones soportadas y la fecha de retirada |
+| Los indicadores de funcionalidad se acumulan | Nadie los retira | Asignar dueño y fecha de retirada a cada indicador |
+| Los backports fallan cada vez | El tronco derivó mucho desde el corte | Portar en cuanto se corrige o reducir la vida de la versión |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: Git 2.40+ y alojamiento Git compatible. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-197/
 ├── README.md
-│   ├── change.md
-│   ├── review-checklist.md
-│   ├── recovery.md
-├── activity.yaml
-└── rubric.json
+├── flujo/
+│   ├── vida_de_rama.py
+│   ├── semantico.py
+│   └── backports.py
+└── evidence/flow-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `change.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara sistema operativo, versión de Git y de Python, semillas y comandos. Los experimentos usan `subprocess`, `git merge-file` y repositorios temporales con identidad y fechas fijas y se ejecutaron con CPython 3.12.9 y Git 2.55 en Windows 11 y con CPython 3.12.3 y Git 2.43 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si automatizas con otra biblioteca, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- las ramas de versión con correcciones de seguridad deben portarse con prioridad y registrar quién decidió no portarlas;
+- un indicador de funcionalidad que esconde un cambio de datos personales sigue siendo un cambio: revísalo igual;
+- no apliques un flujo a un equipo sin acordar quién asume los costos de integración y de guardia;
+- ofrece una alternativa textual a las tablas de resultados y describe las ramas en palabras, no solo en diagramas;
+- respeta la carga de quien mantiene versiones antiguas: fija una fecha de fin.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que implementa un cambio grande suele trabajar en una rama larga y entregarlo de una vez. Pídele que divida el trabajo en cambios integrables, que use indicadores para lo no terminado, que ejecute las pruebas sobre la rama actualizada con el tronco y que declare qué cambios podrían chocar semánticamente con otros PR abiertos. Revisa especialmente si el agente probó contra una copia vieja de main: es el mismo defecto de no probar la combinación.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otra actividad con cambios concurrentes (por ejemplo, ediciones de una base de datos de configuración o de un documento compartido): decide cuánto debe vivir un cambio aislado, cómo se prueba la combinación y qué versiones antiguas hay que mantener. La transferencia está lograda cuando puedes explicar qué parte de la decisión dependía de la vida de la rama, no cuando los nombres se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-197/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de cómo la vida de la rama afecta el costo de integrar |
+| corrección | cifras reproducibles de conflictos y de backports con las mismas semillas |
+| diseño | decisión de flujo con condiciones de revisión |
+| diagnóstico | reproducción del fallo «no probar la combinación» con regresión |
+| incertidumbre | declaración de qué parte depende de la zona caliente y del solapamiento supuestos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Trunk Based Development](https://trunkbaseddevelopment.com/) — descripción de la práctica; autoridad: sitio de la comunidad de la práctica.
+- [Driessen, «A successful Git branching model»](https://nvie.com/posts/a-successful-git-branching-model/) — origen de GitFlow; autoridad: el autor del modelo.
+- [Fowler, «Continuous Integration»](https://martinfowler.com/articles/continuousIntegration.html) — definición y prácticas; autoridad: martinfowler.com.
+- [Fowler, «Feature Toggles»](https://martinfowler.com/articles/feature-toggles.html) — tipos y costos de los indicadores; autoridad: martinfowler.com.
+- [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow) — flujo de ramas cortas con PR; autoridad: GitHub Docs.
+- [GitHub: cola de fusión](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue) — prueba de cada cambio sobre el estado actual; autoridad: GitHub Docs.
 
-- **Git documentation** — Git project. [https://git-scm.com/docs](https://git-scm.com/docs) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Collaborating with pull requests** — GitHub. [https://docs.github.com/pull-requests/collaborating-with-pull-requests](https://docs.github.com/pull-requests/collaborating-with-pull-requests) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ACM Code of Ethics and Professional Conduct** — ACM. [https://www.acm.org/code-of-ethics](https://www.acm.org/code-of-ethics) — se usa para contrastar vocabulario, límites y criterios aplicables.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que un flujo mejore la entrega de la plataforma. Esa afirmación depende de las pruebas disponibles y de la capacidad del equipo.
 
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+- [git-cherry-pick](https://git-scm.com/docs/git-cherry-pick) — aplicación de commits sueltos usada para los backports.
+- [git-merge-file](https://git-scm.com/docs/git-merge-file) — herramienta usada para medir conflictos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Trunk-based, GitFlow y estrategias híbridas**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-198`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. Las personas, la zona caliente y los solapamientos son supuestos del autor, los conflictos se miden sobre texto y no se midió el costo de resolverlos, ni productividad, ni ningún equipo. La siguiente clase pregunta cómo se ata cada cambio de este flujo a su motivo.
+
+## Glosario
+
+- **trunk-based development:** práctica de integrar en un tronco único con ramas de muy corta duración.
+- **GitFlow:** modelo con ramas de desarrollo, de versión y de corrección, pensado para versiones que conviven.
+- **conflicto semántico:** incompatibilidad entre dos cambios que se fusionan sin marcas de texto.
+- **cola de fusión:** mecanismo que prueba cada cambio sobre el estado actual del tronco antes de integrarlo.
+- **backport:** aplicación de una corrección hecha en el tronco a una versión publicada.
 
 ---
 

@@ -84,6 +84,36 @@ Una solución elegante para especialistas puede ser inoperable para el equipo qu
 
 Cuando la evidencia no basta, se limita la apuesta: un slice, criterios y fecha de revisión. Una matriz ponderada ayuda a hacer supuestos visibles, no produce una verdad automática. El resultado debe registrar contraejemplos que cambiarían la decisión.
 
+### La misma regla, cinco formas: lo que se midió y lo que no
+
+Para comparar paradigmas sin discutir en abstracto se implementó una sola regla de dominio de cinco maneras, con el mismo contrato de entrada (`latency_ms`, `authorized`) y de salida (`action`, `rule`). La regla: entrada incompleta o inválida se rechaza; sin autorización se deniega; con latencia superior a 800 ms se recomienda inspeccionar el transporte; en otro caso no se actúa. Las cinco versiones fueron: imperativa (`if/elif`), funcional (tupla de predicados evaluada con `next`), orientada a objetos (una clase por regla y un motor), declarativa (condiciones como datos interpretadas por un evaluador) y lógica (hechos y cláusulas con resolución). Las cinco aprobaron los mismos 14 casos fijos y no discreparon en ninguna de 20 000 entradas aleatorias, en Windows y en Linux.
+
+El tamaño en líneas no vacías fue 12 (imperativa), 12 (funcional), 24 (objetos), 17 (declarativa) y 26 (lógica). Después se añadió una regla nueva (R4: latencia superior a 2000 ms y autorizado, escalar) y se contó cuántas líneas cambiaron: 2, 1, 5, 1 y 3. Lo que la cifra expresa es la superficie de cambio, no la calidad: la regla es una sola frase en todas, pero en la versión de objetos exige una clase nueva y su registro, y en la lógica obliga a ajustar la cláusula vecina para que sigan siendo excluyentes.
+
+![Figura 1. Tabla con las líneas de código y las líneas modificadas al añadir una regla en cinco implementaciones](../../../content/part-06/figures/se-082-tamano-y-cambio.svg)
+
+**Cómo leer la figura.** Cada fila es un paradigma; las dos columnas numéricas son el tamaño y el costo de cambio de la misma regla. **Dónde deja de valer:** una regla de una condición favorece las formas que añaden una fila; con reglas que dependen unas de otras, o con estado entre decisiones, la comparación cambiaría y el imperativo podría ser el más claro. Las líneas son una medida tosca de esfuerzo y no incluyen pruebas ni documentación.
+
+### El costo de ejecutar cada interpretación
+
+El mismo caso (900 ms, autorizado) tardó, por decisión y en Windows, unos 700 ns en la versión imperativa, 2035 ns en la funcional, 2255 ns en la de objetos, 4820 ns en la declarativa y 17 818 ns en la lógica. En Linux fueron 1333, 1617, 1856, 2898 y 8375 ns. La medición es ruidosa (la imperativa varió casi el doble entre sistemas) y solo el orden de magnitud es sólido: cuanto más se interpreta la regla en tiempo de ejecución (predicados, objetos, datos, cláusulas), más indirección se paga por decisión.
+
+Esa indirección es la contrapartida de lo que se gana: reglas que se pueden listar, cambiar sin editar el evaluador o explicar. Que cinco decisiones por segundo cuesten 90 µs o 3,6 µs no cambia nada; que cinco millones por segundo cuesten una diferencia de núcleos sí. La elección se toma con la carga prevista, no con el microbenchmark.
+
+![Figura 2. Barras con los nanosegundos por decisión de cinco implementaciones de la misma regla en Windows](../../../content/part-06/figures/se-082-costo-de-ejecucion.svg)
+
+**Cómo leer la figura.** Cada barra es la mediana de cinco repeticiones de 20 000 llamadas para una implementación, en el orden de menor a mayor interpretación. **Dónde deja de valer:** no incluye entrada y salida, serialización ni concurrencia; los motores reales (Prolog, bases de reglas) se compilan y son más rápidos que una cláusula interpretada en Python. Es una comparación de cinco programas en Python, no de cinco lenguajes.
+
+### Qué evidencia respalda cada criterio
+
+Elegir un paradigma es una decisión con criterios, y no todos se pueden medir del mismo modo. En esta práctica el costo de ejecutar se midió con `timeit`, la superficie de cambio con la diferencia de líneas entre dos versiones, y la equivalencia de comportamiento con 14 casos y 20 000 entradas aleatorias. En cambio, la legibilidad para un equipo concreto no se midió: depende de su formación. Y el ajuste al modelo del dominio es una inferencia: un problema de reglas encaja con declarativo o lógico, un flujo de eventos con reactivo y un cálculo transformador con funcional, pero ninguna medición lo prueba.
+
+Una selección responsable deja visible esa frontera. Escribe qué criterios se midieron, cuáles son juicios y con qué dato cambiaría la conclusión (por ejemplo, «si las reglas pasan de 5 a 500, o las edita un equipo no programador, se revisa»).
+
+![Figura 3. Tabla de cinco criterios de selección con cómo se obtuvo la evidencia y si fue medida, no medida o inferida](../../../content/part-06/figures/se-082-criterios-y-evidencia.svg)
+
+**Cómo leer la figura.** Las filas teal son criterios con medición reproducible; las doradas son juicio o inferencia. **Dónde deja de valer:** la lista es la de este experimento; un proyecto real añade criterios como contratación, herramientas, madurez de bibliotecas, requisitos regulatorios y dominio del equipo. Ningún criterio de la tabla es una regla universal.
+
 ## Definiciones de trabajo
 
 - **fuerzas del problema:** la elección parte de estado, temporalidad, concurrencia, tasa de cambio, auditabilidad y habilidades del equipo.
@@ -124,10 +154,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Medir:** implementa tu regla en dos paradigmas, mide líneas, líneas cambiadas al añadir una regla y tiempo por decisión, y presenta una tabla como la de la figura 1.
+2. **Frontera:** identifica en tu tabla qué criterios son medidos y cuáles son juicio, y escribe qué dato cambiaría tu elección.
+3. **Carga:** calcula a cuántas decisiones por segundo la diferencia de costo entre dos implementaciones llena un núcleo.
+4. **Combinar:** diseña un sistema donde el núcleo de decisión sea declarativo y el borde (E/S, eventos) sea otro paradigma; indica qué contrato une ambos.
 
 ## Reto verificable
 
@@ -139,17 +169,21 @@ El motor de reglas comparado recibe una observación autorizada, evalúa reglas 
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Hay un paradigma mejor?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+No. Cada uno hace explícitas unas cosas y oculta otras. La comparación de la clase mostró que lo que gana uno (cambio en una fila) se paga con indirección en ejecución. Se elige con el problema, la carga y el equipo.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Puedo combinar paradigmas en un mismo programa?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Sí, y es lo habitual: un núcleo funcional con borde imperativo, reglas declarativas dentro de un servicio orientado a objetos. Es válido si el adaptador entre ambos preserva identidad, orden y errores, y se prueba el contrato que los une.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Menos líneas significa mejor código?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+No necesariamente. La versión funcional y la declarativa añadieron una regla con una línea, pero eso no dice nada sobre si un equipo las lee mejor ni sobre el costo de ejecución.
+
+### ¿Cuánto debo creerle a un microbenchmark?
+
+Poco, salvo el orden de magnitud. La versión imperativa varió casi el doble entre ejecuciones y sistemas; solo la diferencia de entre seis y veinticinco veces entre implementaciones fue estable. Para decidir, mide con tu carga.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +191,17 @@ Elige el mayor total de una matriz sin revisar pesos. Cambia la prioridad de aud
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Práctica: toma la versión imperativa con el mutante «acepta booleanos» de `SE-083` y una versión correcta, y ejecuta ambas con una entrada que ninguna prueba contempla (`latency_ms` booleano `True`). **Síntoma esperado:** una implementación lo trata como el entero 1 y decide «no-action»; otra lo rechaza. **Hipótesis rivales:** (a) las dos son correctas, pero con otro contrato; (b) una tiene un caso sin definir. **Observación que las separa:** comparar con el contrato escrito, que dice «entero no negativo». **Corrección:** validar el tipo de forma explícita y añadir `True` a los casos. **Regresión:** el caso entra en las 14 pruebas comunes y se ejecuta contra todas las versiones.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Se elige un paradigma por moda | Falta de criterios explícitos | Escribir criterios y la evidencia de cada uno |
+| La comparación favorece al paradigma que se conoce | Reglas simples que no ejercen lo propio de otros | Incluir una regla que dependa de otra o de estado |
+| Dos versiones «equivalentes» divergen en un borde | Contrato incompleto para tipos o ausencias | Definir el contrato de entrada y probar contra todas |
+| Se concluye de un microbenchmark | Medición ruidosa y trivial | Medir con la carga real y repetir |
+| Un sistema mezcla paradigmas sin frontera | No hay adaptador con contrato | Definir el contrato entre núcleo y borde |
 
 ## Entorno y archivos clave
 
@@ -190,6 +226,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Elegir cómo expresar la lógica de un agente es la misma decisión: reglas declarativas para políticas, funciones puras para transformaciones, un bucle imperativo para la orquestación y flujos para la salida. La lección de la clase es la disciplina de registrar qué criterio sustenta la elección y qué dato la haría cambiar, algo que un agente que propone arquitecturas debe incluir en su respuesta para que una persona pueda revisarla. Las partes de arquitectura y de evaluación retoman las decisiones con evidencia y límites declarados.
 
 ## Transferencia
 
@@ -217,6 +257,12 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
+
+Fuentes verificadas para las mediciones de esta clase (enlaces comprobados con `curl` el 2026-11-13):
+
+- Van Roy, P. (2009), [«Programming Paradigms for Dummies: What Every Programmer Should Know»](https://www.info.ucl.ac.be/~pvr/VanRoyChapter.pdf): taxonomía de paradigmas por conceptos; respalda la figura 3.
+- Floyd, R. W. (1979), «The Paradigms of Programming», *Communications of the ACM* 22(8), [doi:10.1145/359138.359140](https://doi.org/10.1145/359138.359140): origen del término. El editor devolvió 403 a `curl`, por lo que el DOI no se verificó por red.
+- [`timeit`](https://docs.python.org/3/library/timeit.html) y [`difflib`](https://docs.python.org/3/library/difflib.html): herramientas de medición del experimento; respaldan las figuras 1 y 2.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 

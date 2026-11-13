@@ -84,6 +84,36 @@ La llegada no garantiza necesariamente el orden de producción y un evento puede
 
 Suscribirse crea una obligación de cancelar o desconectar. Una tarea cerrada no debe aceptar eventos tardíos. El motor de reglas comparado usa un token o estado terminal, propaga cancelación y espera limpieza; matar el proceso no es estrategia de lifecycle.
 
+### Quién atiende primero: el orden del bucle de eventos
+
+En un modelo orientado a eventos el flujo de control lo decide el entorno: el programa registra qué hacer cuando ocurra algo y un bucle lo invoca. Para ver el orden se registraron, dentro de un bucle de `asyncio`, `call_soon(1)`, `call_later(0)`, `call_soon(2)`, una tarea con `create_task` y una línea síncrona. El orden de ejecución observado, idéntico en Windows y en Linux, fue: la línea síncrona, `call_soon(1)`, `call_soon(2)`, la tarea y, al final, `call_later(0)`. Dos hechos se desprenden. El código síncrono que sigue a la programación corre antes que cualquier manejador, porque el bucle no toma el control hasta que el código actual cede. Y un temporizador con retardo cero no es lo mismo que `call_soon`: se registró segundo, pero corrió último, porque los temporizadores pasan por una estructura distinta y se promueven a la cola de listos en la iteración siguiente.
+
+La documentación de `asyncio` solo garantiza que las devoluciones de `call_soon` respetan el orden de registro entre sí. El orden entre tareas, temporizadores y devoluciones es un detalle de implementación observado en CPython 3.12, y un programa que depende de él es frágil ante una actualización.
+
+![Figura 1. Secuencia de cinco pasos con el orden observado: línea síncrona, call_soon uno y dos, la tarea y call_later con retardo cero](../../../content/part-06/figures/se-079-orden-de-despacho.svg)
+
+**Cómo leer la figura.** Los números indican el orden de ejecución, no el de registro; la caja de call_later(0) está al final aunque se registró en segundo lugar. **Dónde deja de valer:** el orden es el de `asyncio` en CPython 3.12 con el bucle por defecto; con `uvloop`, con otro lenguaje (el bucle de Node.js tiene fases distintas) o con un bucle de interfaz gráfica, el orden relativo cambia. No se probaron.
+
+### Un manejador bloqueante detiene todos los eventos
+
+Un bucle de eventos es un solo hilo que alterna entre manejadores. Si uno no cede el control, ninguno más corre. Se midió con un temporizador configurado a 10 ms: su intervalo mediano fue 11,9 ms en Windows y 10,2 ms en Linux; pero cuando otro manejador hizo `time.sleep(0.3)` (un bloqueo de 300 ms), el intervalo máximo observado fue 300,6 ms y 310,5 ms. Durante esos 300 ms no se atendió ningún evento: los temporizadores, las conexiones entrantes y los demás manejadores esperaron.
+
+La causa es la diferencia entre `time.sleep` (bloquea el hilo) y `await asyncio.sleep` (cede el control). La corrección es mover el trabajo bloqueante o intensivo a un ejecutor (hilo o proceso) y esperar su resultado con `await`. El modo de depuración de `asyncio` informa los manejadores lentos, y conviene activarlo en pruebas.
+
+![Figura 2. Barras con el intervalo mediano y el máximo entre ticks de un temporizador de 10 ms mientras otro manejador bloquea 300 ms](../../../content/part-06/figures/se-079-manejador-bloqueante.svg)
+
+**Cómo leer la figura.** Las barras teal son la mediana de los intervalos y las coral el máximo; la diferencia es el efecto del bloqueo. **Dónde deja de valer:** el bloqueo es sintético y deliberado; un manejador real puede bloquear por un cálculo, por una lectura de archivo o por una llamada a una biblioteca síncrona, con la misma consecuencia. La latencia exacta depende del planificador del sistema operativo.
+
+### Cuatro fallos de un bus de eventos
+
+Un despachador de eventos sencillo (un diccionario de manejadores por tipo) permite ver cuatro fallos. Primero, si el segundo de tres manejadores lanza una excepción, el tercero **nunca corre** y el emisor recibe el error de un manejador que no conoce. Segundo, un manejador que vuelve a emitir el mismo evento produce **reentrada**: la profundidad llegó a 5, y sin tope es una recursión disfrazada. Tercero, con **entrega duplicada** (e1, e1, e2) el consumidor sumó 13 en lugar de 8 porque no usaba el identificador del evento para descartar repetidos. Cuarto, una excepción dentro de una tarea de `asyncio` que nadie espera queda **guardada en la tarea**: la tarea terminó y su excepción se puede leer, pero si nadie la consulta el error aparece tarde o como un aviso al destruir la tarea.
+
+Cada fallo tiene un remedio de diseño: aislar los manejadores (capturar y registrar el error por manejador), poner un límite o una cola a la reentrada, hacer idempotente al consumidor con identificadores de evento y supervisar las tareas creadas.
+
+![Figura 3. Tabla con cuatro fallos de un bus de eventos: manejador que falla, reentrada, entrega duplicada y excepción en una tarea no esperada](../../../content/part-06/figures/se-079-fallos-de-un-bus.svg)
+
+**Cómo leer la figura.** Cada fila es un experimento, su resultado y la lectura de diseño. **Dónde deja de valer:** el bus es mínimo y síncrono, sin colas persistentes, reintentos ni entrega entre procesos; un broker real (con acuses, reintentos y orden por partición) añade garantías y fallos que aquí no se ejercitan.
+
 ## Definiciones de trabajo
 
 - **evento, productor y manejador:** un evento afirma que ocurrió algo relevante; contiene identidad, tipo, instante observado y datos mínimos.
@@ -124,10 +154,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Predicción:** escribe cinco registros con `call_soon`, `call_later(0)` y tareas, predice el orden y verifícalo; explica qué parte es garantía documentada y cuál es observación.
+2. **Bloqueo:** mide el intervalo máximo de un temporizador con un manejador que bloquea y con uno que usa `await`, y mueve el trabajo a `run_in_executor`.
+3. **Aislamiento:** modifica el bus para que el fallo de un manejador no impida a los demás y registra el error con el nombre del manejador.
+4. **Idempotencia:** implementa un consumidor que ignore eventos repetidos por identificador y una prueba con tres entregas del mismo evento.
 
 ## Reto verificable
 
@@ -139,17 +169,21 @@ El motor de reglas comparado recibe una observación autorizada, evalúa reglas 
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Evento es lo mismo que mensaje?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+No exactamente. Un evento describe algo que ocurrió y quien lo emite no espera una respuesta; un mensaje dirigido a un destinatario puede esperarla. En la práctica los sistemas los mezclan, y por eso conviene fijar si el emisor depende de que alguien lo atienda.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿`async` hace que mi código sea paralelo?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+No. `asyncio` ejecuta una tarea a la vez en un solo hilo y alterna cuando una cede con `await`. Ayuda a esperar muchas operaciones de E/S; no acelera el cálculo, y un bloqueo detiene todo el bucle.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Cómo garantizo que un evento se procese una sola vez?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+En general no se puede garantizar «exactamente una vez» entre sistemas; se logra el efecto con entrega «al menos una vez» y un consumidor idempotente que descarte repetidos por identificador, como en el experimento.
+
+### ¿Por qué mi tarea falló sin que yo viera el error?
+
+Porque una excepción dentro de una tarea no esperada se guarda en la tarea. Hay que esperarla, consultar su resultado o añadir un manejador de finalización; de lo contrario aparece tarde.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +191,17 @@ Programa dos callbacks: cerrar evaluación y registrar observación. Invierte su
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Práctica: añade `time.sleep(0.3)` a un manejador de un bucle de `asyncio` que también ejecuta un temporizador de 10 ms. **Síntoma esperado:** un intervalo de unos 300 ms en el temporizador. **Hipótesis rivales:** (a) el sistema operativo retrasó el proceso; (b) un manejador bloqueó el bucle. **Observación que las separa:** activar el modo de depuración de `asyncio`, que reporta la devolución lenta, o sustituir `time.sleep` por `await asyncio.sleep`: si el intervalo vuelve a 10 ms, fue el bloqueo. **Corrección:** ceder el control o delegar a un ejecutor. **Regresión:** una prueba que falla si el intervalo máximo supera un umbral.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Un temporizador se retrasa cientos de milisegundos | Un manejador bloquea el hilo del bucle | Usar `await` o delegar el trabajo a un ejecutor |
+| Un manejador no se ejecuta tras el fallo de otro | Despacho síncrono que propaga la primera excepción | Aislar y registrar el error por manejador |
+| El mismo evento se aplica dos veces | Entrega duplicada sin identificador | Descartar por identificador de evento |
+| Un manejador provoca una cadena infinita de eventos | Reentrada sin límite | Poner tope de profundidad o encolar los eventos emitidos |
+| Una excepción aparece mucho después de ocurrir | Tarea creada y nunca esperada | Esperar o supervisar las tareas creadas |
 
 ## Entorno y archivos clave
 
@@ -190,6 +226,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que reacciona a eventos externos (un correo, un webhook, un cambio en un repositorio) vive en este modelo: el entorno decide cuándo se le invoca y puede hacerlo más de una vez. Los mismos fallos aparecen con costos mayores: un evento duplicado puede enviar dos mensajes, un manejador bloqueante deja al agente sin responder y una reentrada puede disparar un bucle de acciones. El harness debe exigir identificadores de evento, idempotencia de las acciones con efecto, límites de profundidad y supervisión de las tareas. Las partes sobre sistemas multiagente y automatización retoman estos requisitos.
 
 ## Transferencia
 
@@ -217,6 +257,12 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
+
+Fuentes verificadas para las mediciones de esta clase (enlaces comprobados con `curl` el 2026-11-13):
+
+- [Bucle de eventos de asyncio](https://docs.python.org/3/library/asyncio-eventloop.html), [Tareas y corrutinas](https://docs.python.org/3/library/asyncio-task.html) y [Modo de depuración](https://docs.python.org/3/library/asyncio-dev.html): `call_soon`, `call_later`, tareas y detección de manejadores lentos; respaldan las figuras 1 y 2.
+- [Bucle de eventos de Node.js](https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick): contraste con un bucle con fases distintas.
+- [DOM Standard: despacho de eventos](https://dom.spec.whatwg.org/): modelo de eventos con propagación; contexto para la reentrada y el orden de manejadores.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 

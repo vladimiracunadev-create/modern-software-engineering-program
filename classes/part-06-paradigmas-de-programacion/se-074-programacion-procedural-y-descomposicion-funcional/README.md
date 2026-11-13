@@ -83,6 +83,34 @@ El núcleo calcula una recomendación y los adaptadores leen JSON o escriben tex
 
 Una función coordinadora debe leerse como una historia del dominio: validar, evaluar, elegir, presentar. Si mezcla detalles de bytes con reglas de autorización, obliga a razonar en dos niveles a la vez. La descomposición correcta conserva cohesión y evita una cadena de envoltorios triviales.
 
+### Cuánto cuesta separar una función
+
+Extraer un trozo de código a una función tiene un costo de ejecución fijo por llamada: preparar argumentos, crear un marco de pila, retornar. En el microbenchmark de la clase, el mismo bucle de cien iteraciones tardó unos 105 ns por iteración con el cuerpo en línea y unos 161 ns llamando a una función en Windows (un 54 % más); en Linux fueron 96 ns y 134 ns (un 40 % más). Es una diferencia de decenas de nanosegundos por llamada, invisible en un programa que llama a la función miles de veces y relevante en un bucle interno que lo hace cientos de millones.
+
+La conclusión profesional no es «no extraigas funciones», sino que la descomposición se paga y se justifica por otra cosa: un nombre que explica la intención, un contrato que se puede probar de forma aislada y un único lugar donde corregir un error. Se mide antes de deshacer una abstracción por rendimiento, y solo en el camino caliente que el perfilador señale.
+
+![Figura 1. Barras de nanosegundos por iteración de un bucle en línea y con llamada a función, en Windows y en Linux](../../../content/part-06/figures/se-074-costo-de-llamar.svg)
+
+**Cómo leer la figura.** Las barras teal son el bucle en línea y las coral el mismo bucle con una función de una línea; la diferencia entre cada par es el costo de llamar. **Dónde deja de valer:** CPython interpreta bytecode y paga cada llamada de forma visible; en lenguajes compilados con inlining (Rust, C++ con optimización) la llamada puede desaparecer por completo. Tampoco incluye el costo de pasar objetos grandes, que son referencias y no se copian.
+
+### La recursión es una descomposición con un tope
+
+Descomponer un problema en uno más pequeño del mismo tipo es natural para recorrer árboles y expresiones, pero cada nivel consume un marco de pila. CPython limita la profundidad: `sys.getrecursionlimit()` devolvió 1000 y una recursión sin salida se detuvo en la profundidad 998 con `RecursionError`, en ambos sistemas. Elevar el límite con `sys.setrecursionlimit(100000)` permitió una cuenta atrás recursiva de 50 000 niveles, pero el límite existe para proteger el proceso de agotar la pila de C: con valores excesivos el intérprete puede terminar abruptamente en lugar de lanzar una excepción manejable.
+
+Cuando la descomposición es lineal (cuenta atrás, sumas, recorridos de listas), un bucle con acumulador es más seguro y no depende del límite. Cuando es arborescente y de profundidad acotada por los datos (un árbol de decisión de pocos niveles), la recursión es la forma más clara. La decisión depende de si la profundidad máxima es conocida y pequeña.
+
+![Figura 2. Tabla con el límite de recursión por defecto, el límite elevado y la alternativa con bucle](../../../content/part-06/figures/se-074-limite-de-recursion.svg)
+
+**Cómo leer la figura.** Cada fila es una configuración y lo que ocurrió; la última muestra la alternativa sin pila. **Dónde deja de valer:** el valor de 998 niveles depende de la versión de CPython y de lo que ya hay en la pila al empezar; otros lenguajes optimizan la recursión de cola (Scheme lo garantiza) y CPython no lo hace. El experimento no mide cuánta memoria consume cada marco.
+
+### Efectos ocultos: lo que una función promete y lo que hace
+
+Un procedimiento con contrato estrecho declara qué lee, qué escribe y qué devuelve. Dos experimentos muestran qué se rompe cuando el contrato miente. Primero, una función `impure(x)` que añade a una lista y devuelve `x + 1`, envuelta con `functools.lru_cache`, ejecutó su efecto una sola vez en tres llamadas con el mismo argumento: la memoización sustituye la llamada por su resultado, y eso solo es válido si la llamada no tenía efectos. Segundo, los argumentos de una función son referencias a objetos: `mut(l)` con `l.append(1)` cambió la lista del llamador, y `rebind(l)` con `l = [9]` no, porque reasignó el nombre local. Quien lee solo la firma no puede saber cuál de las dos ocurre.
+
+![Figura 3. Tabla con tres experimentos: memoización de una función con efecto, mutación frente a reasignación de un argumento y memoización de una función pura](../../../content/part-06/figures/se-074-efectos-ocultos.svg)
+
+**Cómo leer la figura.** La primera columna es el experimento, la segunda el resultado ejecutado y la tercera la consecuencia para el diseño. **Dónde deja de valer:** son efectos sobre una lista en memoria; los efectos de E/S, de reloj o de red añaden aleatoriedad y fallos que esta clase no ejecuta. La idea que sí generaliza es que la pureza es una propiedad verificable del contrato, no del tamaño de la función.
+
 ## Definiciones de trabajo
 
 - **procedimiento y contrato:** un procedimiento agrupa una secuencia bajo un nombre y una interfaz.
@@ -124,10 +152,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Costo:** repite el bucle en línea frente a la llamada con 10 millones de iteraciones y calcula a partir de qué tamaño de cuerpo la llamada deja de importar.
+2. **Recursión:** escribe una versión recursiva y otra iterativa de la suma de una lista de 5000 elementos, y explica cuál fallaría con el límite por defecto y por qué.
+3. **Contrato:** documenta con una línea por función qué lee, qué escribe y qué devuelve en tu motor de reglas; marca cuáles se pueden memoizar.
+4. **Argumentos:** predice el valor de una lista tras `f(l)` donde `f` hace `l += [1]` y tras otra donde `f` hace `l = l + [1]`; ejecútalo y explica la diferencia.
 
 ## Reto verificable
 
@@ -139,17 +167,21 @@ El motor de reglas comparado recibe una observación autorizada, evalúa reglas 
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Una función corta siempre es mejor?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+No. Una función de una línea que solo renombra otra añade un nivel sin explicar nada. El criterio es si el nombre comunica una intención que el cuerpo no, y si el contrato se puede probar solo.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Cuántos argumentos son demasiados?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+No hay un número fijo. Cuando una función necesita muchos valores que viajan juntos, suele faltar un tipo de dato (un objeto o una estructura) que los agrupe, y el contrato se vuelve más legible.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Por qué Python tiene un límite de recursión?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Para evitar que una recursión infinita agote la pila de C y cierre el proceso. El límite convierte un error fatal en una excepción que el programa puede capturar; por eso se eleva con cuidado y no a un valor arbitrario.
+
+### ¿Puedo memoizar cualquier función?
+
+Solo las que dan el mismo resultado para los mismos argumentos y no tienen efectos observables. En la prueba, una función con efecto ejecutó ese efecto una vez en tres llamadas; el sistema pareció funcionar y dejó de registrar.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +189,17 @@ Haz que `evaluate_rules` lea una variable global `POLICY`. Cambia esa variable e
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Práctica: toma la función `impure` de la clase, envuélvela con `lru_cache` y llámala tres veces con el mismo argumento. **Síntoma esperado:** una sola entrada en la lista de efectos. **Hipótesis rivales:** (a) la caché falló; (b) la caché hizo lo que debía y la función no era pura. **Observación que las separa:** `impure.cache_info()` reporta dos aciertos; si los aciertos existen, la caché funciona y el diseño es el problema. **Corrección:** separar el cálculo puro del efecto y memoizar solo el cálculo. **Regresión:** una prueba que cuenta los efectos en tres llamadas y espera tres.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| `RecursionError` en un recorrido largo | Descomposición recursiva sobre una entrada lineal | Convertir a bucle con acumulador o pila explícita |
+| Un efecto «desaparece» tras añadir `lru_cache` | Se memoizó una función con efectos | Memoizar solo la parte pura |
+| La lista del llamador cambia sin querer | La función mutó un argumento recibido | Devolver una lista nueva o documentar la mutación |
+| Se deshace una función por rendimiento sin medir | Optimización sin perfil | Medir primero y tocar solo el camino caliente |
+| La función hace tres cosas y no se puede probar sola | Contrato demasiado ancho | Dividir por responsabilidad con una entrada y una salida claras |
 
 ## Entorno y archivos clave
 
@@ -190,6 +224,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que llama a herramientas descompone el trabajo en procedimientos: cada herramienta es una función con contrato. El diseño es el de esta clase: una herramienta debe declarar qué lee, qué escribe y si es idempotente, porque el agente puede repetir una llamada (el equivalente de la memoización con efecto) y encontrarse con un efecto duplicado o ausente. Las partes sobre protocolo de herramientas y evaluación de agentes retoman la pureza y la idempotencia como propiedades que el harness debe verificar, no suponer.
 
 ## Transferencia
 
@@ -217,6 +255,13 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
+
+Fuentes verificadas para las mediciones de esta clase (enlaces comprobados con `curl` el 2026-11-13):
+
+- [`sys.setrecursionlimit` y `sys.getrecursionlimit`](https://docs.python.org/3/library/sys.html): el tope de recursión y su riesgo; respalda la figura 2.
+- [`functools.lru_cache`](https://docs.python.org/3/library/functools.html): memoización; requisitos de pureza; respalda la figura 3.
+- [Definiciones de función en la referencia de Python](https://docs.python.org/3/reference/compound_stmts.html): semántica de la llamada y de los argumentos.
+- Parnas, D. L. (1972), «On the Criteria To Be Used in Decomposing Systems into Modules», *Communications of the ACM* 15(12), [doi:10.1145/361598.361623](https://doi.org/10.1145/361598.361623): criterio de descomposición por ocultamiento de decisiones. El editor devolvió 403 a `curl` (bloqueo de clientes automáticos), por lo que el DOI no se verificó por red.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 

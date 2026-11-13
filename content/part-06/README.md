@@ -43,6 +43,18 @@ Al finalizar podrás justificar una combinación, señalar adaptadores y pérdid
 3. **Tiempo, eventos y concurrencia:** las clases 79–81 introducen orden temporal, presión, cancelación y aislamiento.
 4. **Comparación y transferencia:** las clases 82–84 comparan, ensayan y justifican una decisión contextual.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados en un mismo equipo con Windows 11 (CPython 3.12.9) y Ubuntu 24.04 bajo
+WSL2 (CPython 3.12.3): aliasing y copias, costo de llamar funciones y límite de recursión, memoria de objetos con `__slots__`, resolución de herencia,
+comprensiones frente a `map`, costo de copiar frente a mutar, planes de consulta de SQLite, conflictos entre reglas, un unificador mínimo con retroceso,
+orden y bloqueo en el bucle de `asyncio`, generadores, contrapresión con colas, una condición de carrera forzada, hilos frente a procesos, un actor con buzón
+y una misma regla de dominio implementada de cinco maneras con 14 casos fijos, 20 000 entradas aleatorias, seis mutantes y la adición de una regla nueva.
+Las cinco implementaciones son programas de Python que imitan el estilo de cada paradigma: **no se ejecutaron** Prolog, Erlang, Rust, ReactiveX ni
+otras bibliotecas externas, y esas afirmaciones se citan de su documentación. Esta parte no tiene un laboratorio propio en `labs/`; los experimentos
+se describen en cada clase con sus resultados y límites. Los tiempos son microbenchmarks de un equipo concreto: solo el orden de magnitud es sólido. No hay
+nombres de equipo, usuarios ni direcciones reales. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 El motor de reglas comparado mantiene una regla, un corpus y un contrato observables para que la comparación

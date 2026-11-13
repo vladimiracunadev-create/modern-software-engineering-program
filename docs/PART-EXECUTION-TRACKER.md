@@ -28,6 +28,7 @@ su commit está en `main` con CI verde.
 | 03 | Profundizada con mediciones de red reales | `ddd3b90` |
 | 04 | Profundizada con cálculos y mediciones reales (pendiente de CI verde) | — |
 | 05 | Desarrollada; pendiente de profundizar en contenido y figuras | — |
-| 06–29 | Borradores; requieren desarrollo completo | — |
+| 06 | Profundizada con experimentos de paradigmas ejecutados en Windows y Linux (pendiente de CI verde) | — |
+| 07–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

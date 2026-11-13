@@ -87,6 +87,36 @@ El informe conecta fuerza, observación, consecuencia y elección por contexto. 
 
 Otra persona ejecuta un comando documentado, obtiene el mismo corpus y revisa diferencias. Versiones, plataforma y límites quedan registrados. Si una implementación es pseudocódigo, no se presenta como benchmark ejecutado.
 
+### La matriz de evidencia: qué se ejecutó y qué no
+
+El proyecto final es una comparación semántica con pruebas comunes, y lo que la distingue de una opinión es que cada afirmación apunta a algo ejecutado. La matriz del proyecto tiene cuatro comprobaciones realizadas en Windows (CPython 3.12.9) y en Linux bajo WSL2 (CPython 3.12.3): el contrato de 14 casos contra cinco implementaciones (70 de 70), la prueba diferencial de 20 000 entradas aleatorias (0 desacuerdos), la versión 2 con la regla R4 y 16 casos (80 de 80) y el costo por decisión (de 700 a 17 818 ns según la implementación y el sistema).
+
+También registra lo que no se ejecutó: Prolog (no instalado), Erlang, Rust y las bibliotecas reactivas. Las cinco «versiones» comparadas son programas de Python que imitan el estilo de cada paradigma; no son un Prolog ni un Erlang reales. Declararlo no resta valor al proyecto: evita que una conclusión sobre «el paradigma lógico» se atribuya a un intérprete de juguete.
+
+![Figura 1. Tabla con cuatro comprobaciones ejecutadas en Windows y en Linux y una fila de lenguajes no ejecutados](../../../content/part-06/figures/se-084-matriz-de-evidencia.svg)
+
+**Cómo leer la figura.** Cada fila es una comprobación con su resultado; las celdas teal son lo ejecutado y la coral lo declarado como no ejecutado. **Dónde deja de valer:** los resultados valen para estas implementaciones, esta regla y estas versiones de CPython; la matriz no certifica nada sobre otros lenguajes, otras reglas ni cargas de producción.
+
+### El tamaño de la suite no es el valor de la suite
+
+La pregunta de la evaluación es cuánta confianza da la suite de pruebas. Con los seis mutantes de `SE-083`, se evaluaron cuatro suites sobre la versión imperativa. Solo el camino feliz (un caso) detectó **1** de 6 mutantes. El camino feliz más un caso no autorizado detectó **3**. El camino feliz más los límites 800 y 801 detectó **2**. Los 14 casos detectaron **6**. Una suite de tres casos puede detectar menos que una de dos si los dos casos ejercitan reglas distintas.
+
+El valor de una prueba está en qué regla protege, no en su cantidad. Por eso el informe del proyecto relaciona cada caso con la regla que protege (la matriz de trazabilidad del proyecto) y no presenta «14 pruebas» como un mérito.
+
+![Figura 2. Barras con los mutantes detectados de seis por cuatro suites de distinto tamaño: 1, 3, 2 y 6](../../../content/part-06/figures/se-084-suites-y-mutantes.svg)
+
+**Cómo leer la figura.** Cada barra es el número de mutantes que esa suite detecta de los seis plantados. **Dónde deja de valer:** los mutantes fueron escritos por la misma persona que escribió las pruebas, lo que sesga hacia los defectos que ya imaginaba; un análisis de mutación automático generaría variantes que nadie anticipó. Es un ejercicio de razonamiento, no una métrica de calidad.
+
+### Estructura del informe: afirmación, evidencia y límite
+
+Un informe de comparación semántica que otra persona pueda reproducir tiene tres columnas para cada afirmación: qué se afirma, qué evidencia la sostiene y qué no prueba. Tres afirmaciones de este proyecto: «las cinco versiones son equivalentes en el dominio probado» (sostenida por 14 casos fijos y 20 000 entradas aleatorias; no prueba equivalencia fuera del generador); «la regla nueva cuesta menos líneas en el funcional y el declarativo» (diferencia de líneas entre la versión 1 y la 2; no prueba que el equipo las entienda mejor); y «el imperativo es el más rápido y el lógico el más lento» (`timeit` en dos sistemas con el mismo orden; no prueba que la diferencia importe para la carga real).
+
+Las afirmaciones sin evidencia reproducible se marcan como juicio. Eso incluye las recomendaciones de la parte final: «para este dominio, el núcleo declarativo con borde imperativo» es una decisión que depende del tamaño del conjunto de reglas, de quién las edita y de la carga, y el informe debe decir con qué dato se revisaría.
+
+![Figura 3. Tabla con tres afirmaciones de un informe, la evidencia que las sostiene y lo que no prueban](../../../content/part-06/figures/se-084-estructura-del-informe.svg)
+
+**Cómo leer la figura.** Cada fila es una afirmación; las dos columnas siguientes obligan a nombrar la evidencia y el límite. **Dónde deja de valer:** es una plantilla de informe, no un método de decisión; no dice qué paradigma elegir. Su utilidad es que una persona ajena pueda reproducir cada comprobación o discutir una premisa concreta.
+
 ## Definiciones de trabajo
 
 - **contrato y corpus de comparación:** el proyecto congela vocabulario, esquema de entrada, resultados y errores.
@@ -125,10 +155,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una regla del motor de reglas comparado sin alterar los fixtures anteriores.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Matriz:** construye la matriz de evidencia de tu proyecto con una fila por comprobación, el resultado y el sistema donde se ejecutó, y una fila de lo no ejecutado.
+2. **Trazabilidad:** relaciona cada caso de prueba con la regla que protege y señala las reglas sin caso.
+3. **Mutantes:** planta tres defectos en tu implementación, mide qué casos los detectan y reduce la suite al mínimo que detecte los tres.
+4. **Informe:** escribe tres afirmaciones con su evidencia y su límite y pide a otra persona que reproduzca una desde cero.
 
 ## Reto verificable
 
@@ -140,17 +170,21 @@ El motor de reglas comparado recibe una observación autorizada, evalúa reglas 
 
 ## Preguntas frecuentes
 
-### ¿Un paradigma determina toda la arquitectura?
+### ¿Qué hace que un informe de comparación sea reproducible?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar modelos es válido si los adaptadores preservan identidad, orden, errores y evidencia.
+Que cada cifra tenga un comando, una versión y un entorno, y que otra persona pueda ejecutarlos y obtener lo mismo. Las afirmaciones sin ese camino son opiniones, y se rotulan así.
 
-### ¿Menos líneas significan una solución mejor?
+### ¿Cuántos casos de prueba son suficientes?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+La pregunta no tiene respuesta numérica: depende de qué reglas protegen. En la clase, un caso bien elegido detectó un mutante y tres casos mal elegidos detectaron menos que dos buenos.
 
-### ¿Debo instalar todos los lenguajes mencionados?
+### ¿Puedo afirmar que mis cinco versiones representan los paradigmas?
 
-No. Python basta para la práctica base. Si usas Prolog, Rust o Erlang, registra versión y comandos; si solo analizas notación, decláralo como análisis no ejecutado.
+Solo como ejercicio: son programas de Python con el estilo de cada paradigma. Un Prolog real tiene indexación, tabling y corte que cambian el comportamiento; hay que decir qué no se ejecutó.
+
+### ¿Qué hago si dos versiones discrepan en una entrada?
+
+Minimizar la entrada, consultar el contrato y decidir cuál es la correcta; después se añade el caso a la suite común y se corrige la otra versión. Un desacuerdo es un hallazgo, no un fallo del experimento.
 
 ## Fallo controlado y diagnóstico
 
@@ -158,15 +192,17 @@ Modifica una implementación para devolver un error con otro nombre y normalíza
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Práctica: reduce la suite a los casos de camino feliz y ejecuta los seis mutantes. **Síntoma esperado:** cinco de seis sobreviven y la suite sigue en verde. **Hipótesis rivales:** (a) los mutantes son equivalentes al original; (b) la suite no los alcanza. **Observación que las separa:** una entrada concreta donde el original y el mutante difieran; si existe, el mutante no es equivalente. **Corrección:** añadir el caso mínimo para cada mutante vivo. **Regresión:** la suite completa detecta los seis y la matriz de evidencia lo registra.
+
 ## Errores comunes y cómo corregirlos
 
-| Síntoma | Causa probable | Corrección |
+| Síntoma | Causa | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| El informe afirma sin comando reproducible | No se registró la evidencia | Añadir comando, versión y salida a cada afirmación |
+| La suite pasa y hay defectos | Casos de camino feliz sin límites ni inválidos | Derivar casos del contrato y de los mutantes |
+| Se generaliza a un paradigma completo | Implementaciones didácticas en un solo lenguaje | Declarar lo no ejecutado y el alcance |
+| Los resultados cambian entre equipos | Medición de tiempos sin repetición ni sistema declarado | Repetir, usar la mediana y declarar el entorno |
+| Una discrepancia se descarta como ruido | Falta de política para desacuerdos | Minimizar, decidir con el contrato y añadir el caso |
 
 ## Entorno y archivos clave
 
@@ -191,6 +227,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Cuando un agente propone cambiar una implementación por otra «equivalente», la revisión debería exigir la misma matriz de evidencia: contrato común, prueba diferencial, superficie de cambio, mutantes y límites declarados. El informe de este proyecto es, en pequeño, el artefacto que un revisor humano o automático necesita para aceptar o rechazar un cambio generado. La Parte 07 aplica este tipo de comparación a estructuras de datos y algoritmos, y las partes sobre evaluación de agentes la generalizan a cambios hechos por modelos.
 
 ## Transferencia
 
@@ -218,6 +258,12 @@ Traslada un fixture al segundo modelo o lenguaje. Compara representación de aus
 - [ReactiveX Observable Contract](https://reactivex.io/documentation/contract.html) — Notificaciones, terminación, errores y control de flujo observable; autoridad: ReactiveX project.
 - [Erlang System Documentation: Processes](https://www.erlang.org/doc/system/ref_man_processes.html) — Procesos, buzones, envío de mensajes, enlaces y monitores; autoridad: Erlang/OTP project.
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — Construcción, diseño y fundamentos profesionales; autoridad: IEEE Computer Society.
+
+Fuentes verificadas para las mediciones de esta clase (enlaces comprobados con `curl` el 2026-11-13):
+
+- [`unittest`](https://docs.python.org/3/library/unittest.html), [`timeit`](https://docs.python.org/3/library/timeit.html) y [`difflib`](https://docs.python.org/3/library/difflib.html): herramientas de la matriz de evidencia; respaldan las figuras 1 y 3.
+- Jia, Y. y Harman, M. (2011), «An Analysis and Survey of the Development of Mutation Testing», *IEEE Transactions on Software Engineering* 37(5), [doi:10.1109/TSE.2010.62](https://doi.org/10.1109/TSE.2010.62): pruebas de mutación y su interpretación; respalda la figura 2.
+- [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering): prácticas de pruebas y de construcción como contexto profesional.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del motor de reglas comparado sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
 

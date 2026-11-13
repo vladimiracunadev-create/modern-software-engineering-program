@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-13 — Parte 06 profundizada con experimentos de paradigmas ejecutados
+
+- 36 figuras para `SE-073`–`SE-084` con mediciones reales: aliasing y costo de copiar, costo de llamar funciones y límite de
+  recursión, memoria con `__slots__`, resolución de herencia, formas de filtrar, planes de consulta de SQLite, conflictos entre reglas,
+  costo del orden de las metas y unificación, orden y bloqueo del bucle de `asyncio`, contrapresión, condición de carrera, hilos frente a
+  procesos y buzones, y una misma regla en cinco paradigmas con contrato común, superficie de cambio y mutantes;
+- tres secciones nuevas por clase, y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios, que eran idénticos en las
+  doce clases, por versiones específicas de cada una; fuentes primarias verificadas (los DOI de ACM bloquean `curl` y se marcan como no verificados) y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3); la parte no tiene laboratorio en `labs/`; no se ejecutaron Prolog,
+  Erlang, Rust ni bibliotecas reactivas, y se declara como límite.
+
 ## 2026-11-13 — Parte 04 profundizada con cálculos y mediciones reales
 
 - 36 figuras para `SE-049`–`SE-060`: descomposición del incidente, implicación y modelos, orden topológico y ciclos, aserciones y contratos,

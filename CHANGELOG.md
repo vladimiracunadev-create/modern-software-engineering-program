@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-13 — Parte 18 desarrollada y profundizada con experimentos sintéticos y procesos locales reproducibles
+
+- las clases `SE-217`–`SE-228` pasan de borradores genéricos a clases completas sobre `notas`, una herramienta de línea de comandos sintética de la plataforma de entregas: diseño de la
+  superficie de una CLI, entrada y salida estándar y tuberías, configuración y precedencia, códigos de salida y diagnóstico, presentación en terminales y accesibilidad, servicios y
+  ciclo de vida, planificadores, trabajadores y lotes, automatización idempotente y reanudable, distribución y actualización de binarios, telemetría opt-in, un taller de
+  endurecimiento y un paquete operable multiplataforma; el portal publica ahora el contenido íntegro de las doce clases y el índice de la parte;
+- 36 figuras con cálculos, simulaciones y mediciones de procesos locales: abreviaturas de flags que dejan de valer, contrato observable de una CLI, búfer y cierre de tuberías,
+  seis resolvedores de precedencia frente a 64 combinaciones, códigos de salida por sistema, coste de los reintentos, color y truncado en tuberías, ancho de nombres Unicode,
+  terminación y preparación de servicios, políticas de solape y trabajos venenosos, seis estrategias de escritura frente a 40 caídas, integridad y lanzamientos escalonados,
+  unicidad de atributos y sesgo del opt-in, diez fallos inyectados, citado de argumentos y trece pruebas de contrato con seis defectos y 102 mutantes de un manifiesto;
+- tres secciones nuevas por clase, preguntas frecuentes, errores, ejercicios y fallos controlados propios de cada una, fuentes primarias verificadas con `curl` y Crossref y un
+  puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Ubuntu bajo WSL2 (3.12.3) con salidas idénticas salvo las diferencias que se informan como resultados (el código
+  de salida fuera de 0–255, la excepción de una tubería cerrada, `terminate()` frente a `SIGTERM`, el reemplazo de un archivo abierto, el citado con `shell=True`, el salto de línea
+  del hash de un archivo y los tiempos); los datos son sintéticos, los parámetros son supuestos del autor, los defectos inyectados son variaciones sobre herramientas de juguete y
+  no se usó ningún terminal interactivo, servicio de Windows, systemd, orquestador, cola real ni telemetría de personas; la parte no tiene laboratorio en `labs/`;
+- `build_phase3.py` y `build_phase4.py` publican ahora el contenido de `content/part-XX/` también para las clases de la fase 4 que lo tienen (`published_markdown`);
+- hallazgos del análisis: un flag nuevo rompió 9 de 14 abreviaturas que funcionaban; `sys.exit(256)` se lee como éxito en Linux y como 256 en Windows; `false | cat` devuelve 0; el
+  color partió la búsqueda de una frase en 200 líneas; `terminate()` no ejecuta limpieza en Windows; reintentar todo gastó 24 092 intentos inútiles; la estrategia «anexar y marcar»
+  duplicó en 19 de 40 caídas; `os.replace` falla con el destino abierto en Windows; seis de diez atributos hicieron únicas a dos de cada tres instalaciones; la versión frágil de una
+  copia de seguridad dañó en silencio 7 de 10 escenarios; y una suite de contrato descubrió que `allow_abbrev` no se hereda en los subcomandos.
+
 ## 2026-11-13 — Parte 19 desarrollada y profundizada con experimentos sintéticos reproducibles
 
 - las clases `SE-229`–`SE-240` pasan de borradores genéricos a clases completas sobre una aplicación web de entregas de tareas con conectividad irregular: HTML semántico, contraste y
@@ -115,7 +137,6 @@
   distancia en deuteranopía; invertir colores hace perder el contraste a 956 de 2 441 pares que lo cumplían; la regla de «uno o plural» falla en 120 de 121 números en ruso; cinco
   participantes hallan 62 % de los problemas frente al 76,6 % de la fórmula; y declarar conformidad ignorando lo no probado permite 368 de 1 000 afirmaciones que una política
   estricta no admite.
-
 
 ## 2026-11-13 — Parte 13 desarrollada y profundizada con experimentos sintéticos reproducibles
 

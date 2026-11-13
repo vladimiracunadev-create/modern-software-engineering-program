@@ -26,10 +26,10 @@ su commit está en `main` con CI verde.
 | 01 | Profundizada en contenido y figuras, CI verde | `a809280` |
 | 02 | Profundizada con evidencia medida en Windows y Linux, CI verde | `d8969ff` |
 | 03 | Profundizada con mediciones de red reales | `ddd3b90` |
-| 04 | Profundizada con cálculos y mediciones reales (pendiente de CI verde) | — |
-| 05 | Profundizada con mediciones y mutaciones del laboratorio en Windows y Linux (pendiente de CI verde) | — |
-| 06 | Profundizada con experimentos de paradigmas ejecutados en Windows y Linux (pendiente de CI verde) | — |
-| 07 | Profundizada con experimentos de estructuras y algoritmos ejecutados en Windows y Linux (pendiente de CI verde) | — |
+| 04 | Profundizada con cálculos y mediciones reales | `e5923c21` |
+| 05 | Profundizada con mediciones y mutaciones del laboratorio en Windows y Linux | `28465a51` |
+| 06 | Profundizada con experimentos de paradigmas ejecutados en Windows y Linux | `d855d80a` |
+| 07 | Profundizada con experimentos de estructuras y algoritmos ejecutados en Windows y Linux | `9c857e4a` |
 | 08–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

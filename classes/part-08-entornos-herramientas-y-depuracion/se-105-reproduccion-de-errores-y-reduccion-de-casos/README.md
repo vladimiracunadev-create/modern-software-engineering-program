@@ -88,7 +88,7 @@ Reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la car
 
 Un fallo que ocurre con una entrada de 403 caracteres es difícil de razonar; el mismo fallo con tres caracteres casi se explica solo. La reducción automática (*delta debugging*) elimina trozos mientras el fallo persista. Se definió un defecto sintético (falla si aparece `ab[` con un corchete sin cerrar) y se aplicó el algoritmo `ddmin` a una entrada de 403 caracteres: devolvió `ab[` (3 caracteres, una reducción del 99,3 %) con 24 pruebas, frente a las 403 de eliminar un carácter cada vez. La reducción no entiende el defecto: solo exige una prueba que responda «sigue fallando o no».
 
-![Figura 1. Tabla de la reducción de una entrada de 403 caracteres al caso mínimo ab[ con 24 pruebas](../../../content/part-08/figures/se-105-reduccion-de-casos.svg)
+![Figura 1. Tabla de la reducción de una entrada de 403 caracteres al caso mínimo de tres caracteres con 24 pruebas](../../../content/part-08/figures/se-105-reduccion-de-casos.svg)
 
 **Cómo leer la figura.** Las tres filas dan la entrada, el resultado y el costo. **Dónde deja de valer:** requiere una prueba determinista; con un fallo intermitente, la reducción puede descartar un trozo necesario porque «no falló esta vez» y terminar en un caso que no es mínimo. Además, el resultado es mínimo local, no necesariamente el más corto posible.
 

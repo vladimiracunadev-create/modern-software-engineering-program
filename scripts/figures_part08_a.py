@@ -205,13 +205,14 @@ def se103_paquete() -> Fig:
 
 # ---------------------------------------------------------------- SE-104
 def se104_estado() -> Fig:
-    rows = [["Cliente de Docker", "29.9.2", "Instalado y accesible desde el terminal"],
-            ["Servidor (motor)", "No disponible", "Falló la conexión con el motor: no se ejecutó ningún contenedor"],
-            ["Archivo `devcontainer.json`", "5 claves", "name · image · features · postCreateCommand · customizations"],
-            ["Imagen base", "No descargada", "No se hicieron peticiones a registros externos"]]
-    return tab("Qué se verificó y qué no", "Tabla de lo comprobado sobre contenedores de desarrollo: el cliente de Docker 29.9.2 está instalado, el motor no estaba disponible, por lo que no se ejecutó ningún contenedor, y la configuración de ejemplo declara cinco claves.",
-               ["Elemento", "Estado", "Lectura"], rows, [250, 170, 490], row_h=56,
-               note="Esta clase se apoya en documentación y en la estructura de la configuración: no se midió el arranque de un contenedor. Es un límite declarado, no un resultado.", foot="Estado del equipo de medición: cliente instalado, motor sin conexión.")
+    rows = [["Cliente y motor de Docker", "29.9.2 · linux · overlayfs", "`docker info` respondió en 1 327 ms: el motor estaba en marcha"],
+            ["Imagen construida desde `scratch`", "9 383 bytes · 1 capa", "Un solo archivo copiado; primera construcción 4 325 ms, segunda 1 221 ms"],
+            ["Dos construcciones con `--no-cache`", "IDs distintos", "ddb3953a1aea frente a 244e4937f237 con el mismo contexto"],
+            ["`docker create` + `docker cp`", "314 ms · 373 ms", "Se creó el contenedor y se leyó el archivo sin ejecutar nada"],
+            ["Ejecutar un proceso en el contenedor", "No medido", "No se descargó ninguna imagen base de un registro externo"]]
+    return tab("Qué se midió con el motor en marcha", "Tabla de lo medido con Docker 29.9.2: docker info en 1327 ms, una imagen de 9383 bytes y una capa construida desde scratch en 4325 y 1221 ms, dos construcciones con identificadores distintos, creación del contenedor en 314 ms y copia del archivo en 373 ms; la ejecución de un proceso no se midió.",
+               ["Elemento", "Valor medido", "Lectura"], rows, [270, 210, 430], row_h=60,
+               note="Todo se hizo sin red: la imagen parte de `scratch` y no hay proceso que ejecutar. El arranque de un contenedor con un sistema base real queda sin medir, y se declara como límite.", foot="Medido con Docker 29.9.2 sobre Windows 11 (motor Linux, 8 CPU).")
 
 
 def se104_config() -> Fig:
@@ -226,11 +227,11 @@ def se104_config() -> Fig:
 
 def se104_desechable() -> Fig:
     rows = [["Entorno virtual", "180–278 ms", "Aísla paquetes; comparte intérprete y sistema"],
-            ["Contenedor", "No medido", "Aísla también el sistema de archivos y las herramientas"],
+            ["Contenedor (`docker create`)", "314 ms", "Aísla también el sistema de archivos y las herramientas"],
             ["Máquina virtual", "No medido", "Aísla el kernel; más pesada"]]
-    return tab("Niveles de aislamiento", "Tabla de niveles de aislamiento: un entorno virtual se crea en 180 a 278 ms y comparte el intérprete y el sistema; el contenedor y la máquina virtual no se midieron.",
+    return tab("Niveles de aislamiento", "Tabla de niveles de aislamiento: un entorno virtual se crea en 180 a 278 ms y comparte el intérprete y el sistema; crear un contenedor tomó 314 ms y la máquina virtual no se midió.",
                ["Nivel", "Costo medido", "Qué aísla"], rows, [260, 210, 440], row_h=56,
-               note="Más aislamiento no es mejor por defecto: cuesta tiempo y recursos. Se elige el nivel que cubre el riesgo (dependencias, herramientas o sistema operativo) y se declara el resto.", foot="Los dos últimos costos no se midieron.")
+               note="Más aislamiento no es mejor por defecto: cuesta tiempo y recursos. Se elige el nivel que cubre el riesgo (dependencias, herramientas o sistema operativo) y se declara el resto.", foot="El costo de la máquina virtual no se midió; 314 ms es crear, no arrancar, un contenedor.")
 
 
 # ---------------------------------------------------------------- SE-105
@@ -336,8 +337,8 @@ def se108_aceptacion() -> Fig:
     rows = [["Reconstruir el entorno desde cero", "Un comando", "Sin pasos manuales ni conocimiento oral"],
             ["Aislamiento comprobado", "Importa solo dentro del entorno", "`import demo_pkg` falla fuera y devuelve 1.0.0 dentro"],
             ["Versiones fijadas", "Intérprete y rueda por hash", "No se aceptan etiquetas flotantes"],
-            ["Límites declarados", "Contenedor no medido", "El motor no estaba disponible"]]
-    return tab("Criterios de aceptación del proyecto", "Tabla de cuatro criterios de aceptación: reconstrucción desde cero con un comando, aislamiento comprobado, versiones fijadas por hash y límites declarados como el contenedor no medido.",
+            ["Límites declarados", "Arranque en contenedor no medido", "No se descargó ninguna imagen base"]]
+    return tab("Criterios de aceptación del proyecto", "Tabla de cuatro criterios de aceptación: reconstrucción desde cero con un comando, aislamiento comprobado, versiones fijadas por hash y límites declarados como el arranque en contenedor no medido.",
                ["Criterio", "Evidencia", "Lectura"], rows, [310, 250, 350], row_h=56,
                note="El proyecto se acepta por lo que se puede comprobar, incluidos los límites declarados. Un entorno que «funciona en mi máquina» no cumple ninguno de los cuatro.", foot=S)
 

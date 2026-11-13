@@ -83,13 +83,13 @@ Crear, iniciar y adjuntar disparan comandos distintos. Un `postCreate` debe pode
 
 El contenedor debe poder borrarse sin perder código; volúmenes persistentes se enumeran y limpian con cuidado. Datos importantes viven en repositorio o backup explícito. `funciona en mi contenedor` sigue siendo local si nadie puede reconstruirlo.
 
-### Lo que se verificó y lo que no
+### Qué se puede medir de un contenedor sin descargar nada
 
-Esta clase se apoya en documentación y en la estructura de la configuración, no en un contenedor ejecutado. En el equipo de medición el cliente de Docker (versión 29.9.2) responde, pero el motor no estaba disponible: la conexión con el servicio falló, de modo que no se arrancó ningún contenedor, no se descargó ninguna imagen y no se midió ningún tiempo de arranque. Es un límite declarado, y es relevante: afirmar «el contenedor arranca en N segundos» sin haberlo medido sería inventar un dato. Lo que sí es comprobable es la estructura de un archivo `devcontainer.json` y las propiedades que implica.
+Con el motor de Docker en marcha (versión 29.9.2, Linux, controlador `overlayfs`) se midió lo que no exige un registro externo. `docker info` respondió en 1 327 ms. Se construyó una imagen desde `scratch` con un solo archivo: pesa 9 383 bytes y tiene una capa; la primera construcción tardó 4 325 ms y la segunda, con `--no-cache`, 1 221 ms. Las dos construcciones, con exactamente el mismo contexto, produjeron identificadores distintos (`ddb3953a1aea` y `244e4937f237`): la imagen incluye marcas de tiempo, igual que la rueda de Python de SE-108. `docker create` tomó 314 ms y `docker cp` leyó el archivo en 373 ms sin ejecutar nada. No se midió el arranque de un proceso con un sistema base real, porque eso exige descargar una imagen de un registro externo; es un límite declarado, y afirmar un tiempo de arranque sin medirlo sería inventar un dato.
 
-![Figura 1. Tabla de lo verificado: cliente instalado, motor no disponible, configuración de cinco claves e imagen sin descargar](../../../content/part-08/figures/se-104-lo-verificado.svg)
+![Figura 1. Tabla de lo medido con Docker 29.9.2: docker info, una imagen de 9383 bytes con una capa, dos construcciones con identificadores distintos y la creación de un contenedor en 314 ms](../../../content/part-08/figures/se-104-lo-verificado.svg)
 
-**Cómo leer la figura.** La columna central separa lo comprobado de lo no comprobado. **Dónde deja de valer:** el estado es el de un momento y un equipo concretos; con el motor en marcha se podrían medir arranque, tamaño de imagen y tiempo de `postCreateCommand`.
+**Cómo leer la figura.** La columna central separa lo comprobado de lo no comprobado. **Dónde deja de valer:** son tiempos de un equipo, con una imagen mínima y capas ya preparadas; una imagen con un sistema base y dependencias pesa cientos de megabytes y tarda mucho más. Falta medir el arranque de un proceso y el `postCreateCommand`.
 
 ### Anatomía de un dev container
 
@@ -101,11 +101,11 @@ Un `devcontainer.json` de ejemplo declara cinco claves: `name`, `image`, `featur
 
 ### Niveles de aislamiento y su costo
 
-Un entorno virtual se creó en 180–278 ms y aísla paquetes; comparte intérprete y sistema. Un contenedor aísla además el sistema de archivos y las herramientas; una máquina virtual aísla el kernel y pesa más. Los dos últimos costos *no se midieron* en esta clase. La conclusión práctica es elegir el nivel por el riesgo que cubre: dependencias de Python (entorno virtual), herramientas del sistema y versiones de bibliotecas nativas (contenedor), o un sistema operativo distinto (máquina virtual). Más aislamiento no es mejor por defecto: cuesta tiempo, memoria y complejidad.
+Un entorno virtual se creó en 180–278 ms y aísla paquetes; comparte intérprete y sistema. Un contenedor aísla además el sistema de archivos y las herramientas: crearlo (sin arrancar ningún proceso) tomó 314 ms. Una máquina virtual aísla el kernel y pesa más; su costo *no se midió* en esta clase. La conclusión práctica es elegir el nivel por el riesgo que cubre: dependencias de Python (entorno virtual), herramientas del sistema y versiones de bibliotecas nativas (contenedor), o un sistema operativo distinto (máquina virtual). Más aislamiento no es mejor por defecto: cuesta tiempo, memoria y complejidad.
 
 ![Figura 3. Tabla con tres niveles de aislamiento: entorno virtual de 180 a 278 ms, contenedor y máquina virtual sin medir](../../../content/part-08/figures/se-104-niveles-de-aislamiento.svg)
 
-**Cómo leer la figura.** Las celdas «No medido» son parte de la evidencia. **Dónde deja de valer:** la jerarquía entre niveles es conceptual; en la práctica, los contenedores en Windows y macOS corren sobre una máquina virtual ligera, y el costo cambia.
+**Cómo leer la figura.** Crear un contenedor (314 ms) no es lo mismo que arrancar uno; la celda «No medido» es parte de la evidencia. **Dónde deja de valer:** la jerarquía entre niveles es conceptual; en la práctica, los contenedores en Windows y macOS corren sobre una máquina virtual ligera, y el costo cambia.
 
 ## Definiciones de trabajo
 
@@ -185,7 +185,7 @@ Monta el socket del motor para resolver un comando y observa la ampliación de p
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
 
-Comprueba la dependencia de un motor que no responde. Ejecuta `docker version` y `docker info`. **Síntoma:** el cliente muestra su versión pero el servidor devuelve un error de conexión. **Hipótesis:** el motor no está en marcha. **Prueba:** arranca el servicio (Docker Desktop) o consulta si la tubería del motor existe; repite el comando. **Conclusión:** el cliente y el motor son procesos distintos; el éxito de `docker --version` no demuestra que se pueda ejecutar un contenedor. Anota en `tooling-map.md` cómo verificas el motor antes de abrir el proyecto y qué hace el equipo cuando no está disponible (un entorno virtual como alternativa degradada).
+Comprueba la dependencia de un motor que puede no estar en marcha. Con Docker Desktop cerrado ejecuta `docker version` y `docker info`. **Síntoma:** el cliente muestra su versión pero el servidor devuelve un error de conexión (esto se observó al inicio de la medición, antes de levantar el motor). **Hipótesis:** el motor no está en marcha. **Prueba:** arranca el servicio y repite `docker info`; con el motor activo responde en torno a 1,3 s. **Conclusión:** el cliente y el motor son procesos distintos; el éxito de `docker --version` no demuestra que se pueda ejecutar un contenedor. Anota en `tooling-map.md` cómo verificas el motor antes de abrir el proyecto y qué hace el equipo cuando no está disponible (un entorno virtual como alternativa degradada).
 
 ## Errores comunes y cómo corregirlos
 

@@ -55,7 +55,7 @@ Las figuras y los ejemplos de esta parte usan experimentos reales con CPython 3.
 una sesión de `pdb` y el costo de `sys.settrace` y `sys.monitoring`, `cProfile`, `tracemalloc` y un muestreo por hilo, una matriz de defectos analizados con ruff, mypy y la ejecución,
 un cuaderno ejecutado en orden y fuera de orden con un kernel real, el arranque del intérprete y los intérpretes que encuentran `where`, `py` y `uv`, la creación de entornos virtuales con y sin pip,
 la instalación de una rueda local sin red en dos entornos, una reducción con `ddmin` y una bisección de 64 commits, razones de contraste calculadas con la fórmula de WCAG y dos construcciones de una misma rueda.
-No se ejecutó ningún contenedor porque el motor de Docker no estaba disponible (solo se verificó el cliente y la estructura de un `devcontainer.json`), no se midió macOS ni PowerShell 7 y no se probó un servidor de lenguaje con completado.
+Con el motor de Docker en marcha se construyó una imagen mínima desde `scratch` y se creó un contenedor, pero no se arrancó ningún proceso en un contenedor (exigiría descargar una imagen base de un registro externo); tampoco se midió macOS ni PowerShell 7 ni se probó un servidor de lenguaje con completado.
 Los tiempos son de un equipo y se leen como razones. Cada clase termina con un puente hacia el trabajo con agentes.
 
 ## Guía razonada clase por clase

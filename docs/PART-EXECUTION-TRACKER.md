@@ -30,7 +30,7 @@ su commit está en `main` con CI verde.
 | 05 | Profundizada con mediciones y mutaciones del laboratorio en Windows y Linux | `28465a51` |
 | 06 | Profundizada con experimentos de paradigmas ejecutados en Windows y Linux | `d855d80a` |
 | 07 | Profundizada con experimentos de estructuras y algoritmos ejecutados en Windows y Linux | `9c857e4a` |
-| 08 | Profundizada con experimentos de herramientas y entornos en Windows y Linux (pendiente de CI verde) | — |
+| 08 | Profundizada con experimentos de herramientas, entornos y Docker en Windows y Linux (pendiente de CI verde) | `d88bdcce` + corrección de lint |
 | 09–29 | Borradores; requieren desarrollo completo | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

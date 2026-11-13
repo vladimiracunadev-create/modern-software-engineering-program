@@ -6,7 +6,7 @@
   por llamada, de memoria y por muestreo, la matriz de defectos de ruff y mypy, el estado oculto de un cuaderno, el arranque y la resolución de intérpretes,
   entornos virtuales, la instalación de una rueda local, reducción de casos y bisección, contraste WCAG y la reproducibilidad de una rueda;
 - tres secciones nuevas por clase y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios por versiones específicas de cada clase; fuentes verificadas y un puente hacia agentes;
-- el motor de Docker no estaba disponible: no se ejecutó ningún contenedor y se declara como límite; los tiempos son de un equipo y se leen como razones.
+- con el motor de Docker en marcha se construyó una imagen mínima desde `scratch` (9 383 bytes, dos construcciones con identificadores distintos) y se creó un contenedor en 314 ms; no se arrancó ningún proceso en un contenedor y se declara como límite; los tiempos son de un equipo y se leen como razones.
 
 ## 2026-11-13 — Parte 05 profundizada con mediciones y mutaciones del laboratorio
 

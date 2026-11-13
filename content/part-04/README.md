@@ -33,6 +33,15 @@ El ciclo vuelve al problema cuando aparece un contraejemplo. No se «arregla» u
 
 Podrás distinguir ejemplo de argumento, función de relación, estado de evento, corrección parcial de terminación y heurística de aproximación garantizada. Podrás estimar cómo crece una estrategia, decir honestamente cuándo no conoces el óptimo y entregar una especificación que una segunda persona pueda implementar y verificar.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan cálculos y mediciones reales hechos con CPython 3.12.9 en Windows 11: tablas de verdad y modelos de un ciclo de implicaciones,
+orden topológico y ciclo con `graphlib`, recorrido de un grafo con ciclo y cierre transitivo, la opción `-O` frente a `assert`, una comprobación exhaustiva de la búsqueda
+binaria (3234 casos), el límite de recursión y `fib(27)` con y sin memoización, el algoritmo de Euclides y la conjetura de Collatz, tiempos al duplicar n,
+heurísticas contra el óptimo (monedas y viajante, 100 instancias), una máquina de estados de pedido, la bisección y la repetición de pruebas intermitentes, y una
+contradicción de requisitos enumerada. Las trece pruebas del laboratorio pasaron en Windows (CPython 3.12.9) y en Linux bajo WSL2 (CPython 3.12.3). Los tiempos son de un
+equipo y se presentan como razones, no como valores absolutos; no se midió otro intérprete ni otro hardware. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 El modelo de decisión diagnóstica no se construye acumulando técnicas. Cada clase cambia la representación del

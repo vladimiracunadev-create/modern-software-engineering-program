@@ -88,6 +88,30 @@ Un oráculo decide el resultado esperado. Casos cubren normal, límite, inválid
 
 `problem.md` explica intención; `model.md` define entidades, reglas y diagramas; `checks.md` enlaza criterios con casos y argumentos. Una matriz de trazabilidad permite localizar evidencia. Las preguntas abiertas no se ocultan detrás de estado aprobado.
 
+### Trece pruebas, trece contratos
+
+El laboratorio de la Parte 04 tiene 13 pruebas y cada una protege un contrato. La Figura 1 las agrupa: **especificación** (completa, resultado ausente rechazado, conflicto sin resolver visible), **razonamiento** (implicación con una fila falsa, grafo con ciclo que termina, máquina de estados que rechaza lo imposible), **selección y observación** (excluye pruebas no autorizadas, preserva el subconjunto de candidatos, falla ante observaciones contradictorias, trata el presupuesto como precondición) y **evidencia** (el caso de referencia se resuelve con traza, los conteos separan teoría de tiempo, la salida es legible por máquina). Pasaron en Windows 11 con CPython 3.12.9 en 0,167 s y en Ubuntu bajo WSL2 con CPython 3.12.3 en 0,245 s.
+
+![Figura 1. Las trece pruebas del laboratorio agrupadas por contrato, con su resultado en Windows y Linux](../../../content/part-04/figures/se-060-trece-pruebas.svg)
+
+**Cómo leer la figura.** Cada fila agrupa pruebas que protegen una misma clase de contrato. **Dónde deja de valer:** pasar las 13 pruebas demuestra que esos 13 contratos se cumplen en ese entorno, no que el modelo sea correcto en general; el conjunto no incluye datos hostiles ni cargas grandes.
+
+### Resolver el caso de referencia, paso a paso
+
+Con la especificación y las observaciones de referencia, el modelo elige `resolve` (costo 1): el resultado `ok` descarta `dns` y deja `tls` y `http`. Luego elige `handshake` (costo 2): el resultado `fail` descarta `http` y deja solo `tls`. El estado final es `resolved`, candidato `tls`, gasto 3 de 5 y presupuesto restante 2. Cada paso queda en una traza: prueba elegida, resultado, candidatos restantes y costo acumulado. «Resuelto» significa que, dentro del modelo, solo queda una hipótesis compatible con las observaciones; no que el mundo real esté completo ni que las premisas sean verdaderas.
+
+![Figura 2. Resolución del caso de referencia en dos pasos: resolve y handshake, con candidatos y costo acumulado](../../../content/part-04/figures/se-060-resolucion-paso-a-paso.svg)
+
+**Cómo leer la figura.** Cada fila es un paso con el candidato que queda. **Dónde deja de valer:** la traza depende de que los resultados sean los declarados; con un resultado `unknown` el modelo no avanza, y con uno contradictorio falla.
+
+### Lo que la evidencia sostiene y lo que no
+
+Una evaluación honesta separa tres afirmaciones. La selección converge a una hipótesis: lo sostienen las trece pruebas y el caso de referencia, pero no que las hipótesis cubran las causas reales. La próxima prueba es una buena elección: lo sostiene una puntuación por costo y poder de descarte, pero no que la secuencia sea globalmente óptima. El procedimiento es eficiente: lo sostienen conteos de operaciones y mediciones, pero no que otro tamaño o entorno mantenga la proporción. Cambiar un resultado esperado para que una implementación pase invalida la evidencia: un contraejemplo obliga a revisar la regla, el modelo o el alcance.
+
+![Figura 3. Tres afirmaciones, la evidencia que las sostiene y lo que no demuestran](../../../content/part-04/figures/se-060-limites-de-la-evidencia.svg)
+
+**Cómo leer la figura.** La tercera columna es el límite que debe aparecer en la entrega. **Dónde deja de valer:** la tabla es una guía para redactar límites; cada proyecto añade los suyos.
+
 ## Definiciones de trabajo
 
 - **especificación:** descripción verificable de comportamiento y restricciones.
@@ -122,10 +146,10 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 
 ## Ejercicios
 
-1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
-3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
-4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
+1. **Cobertura:** asocia cada una de las 13 pruebas con el contrato que protege y señala cuál falta.
+2. **Traza:** reproduce la resolución del caso de referencia y explica cada candidato descartado.
+3. **Ruptura:** rompe un contrato y comprueba cuál prueba falla; documenta el resultado.
+4. **Límites:** redacta tres frases de límite para tu entrega que no repitan las de la clase.
 
 ## Reto verificable
 
@@ -141,33 +165,39 @@ Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder 
 
 ## Preguntas frecuentes
 
-### ¿Formal significa usar símbolos difíciles?
+### ¿Por qué el caso de referencia no basta como evaluación?
 
-No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
+Porque es un solo escenario. Sirve como regresión (si cambia, algo cambió), no como prueba de que el modelo funcione en otros casos.
 
-### ¿Un conjunto grande de pruebas demuestra corrección?
+### ¿Qué significa que el resultado sea «legible por máquina»?
 
-No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
+Que la salida es estructurada (JSON con estado, candidatos y traza) para que otra herramienta o persona la verifique sin interpretar texto libre.
 
-### ¿Puedo implementar antes de especificar todo?
+### ¿Cómo separo teoría de tiempo en los conteos?
 
-Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+Registrando el número de operaciones (reproducible) aparte del tiempo de reloj (dependiente del equipo). Una regresión de conteo es un defecto; una de tiempo puede ser ruido.
 
+### ¿Qué hago si dos personas implementan el contrato y obtienen resultados distintos?
+
+Es una ambigüedad en la especificación. Se documenta el caso, se decide la regla y se añade una prueba que lo fije.
 ## Fallo controlado y diagnóstico
 
 Añade una hipótesis sin prueba autorizada y un ciclo de dependencias. La validación debe rechazar el modelo con errores localizables, no construir un plan parcial presentado como completo.
 
 Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
 
+
+Rompe a propósito un contrato para ver cuál prueba lo detecta. Cambia la autorización de `production-capture` a verdadera y ejecuta las 13 pruebas. **Síntoma:** falla la prueba que excluye pruebas no autorizadas. **Hipótesis:** la prueba protege la restricción `authorized_only`. **Prueba:** revierte el cambio y confirma que vuelven a pasar. Repite con el presupuesto (cámbialo a 0) y con una observación contradictoria. **Conclusión:** cada contrato tiene una prueba que lo vigila; si un cambio no hace fallar ninguna, falta una prueba. Anota en `review.md` qué contratos no tienen prueba y qué caso añadirías.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
-| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
-| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
-| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
-| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+| «Pasan todas» se presenta como correcto | Evidencia confundida con garantía | Declarar qué cubren y qué no cubren las pruebas |
+| Una prueba se debilita para que pase | Se trata como obstáculo | Revisar la regla o el modelo |
+| La traza no explica la decisión | Falta registrar candidatos y costo | Guardar prueba, resultado, restantes y gasto |
+| El resultado cambia entre Windows y Linux | Dependencia del entorno | Aislar la dependencia y probar ambos |
+| Un contrato no tiene prueba | Cobertura implícita | Añadir una prueba que lo viole a propósito |
 
 ## Entorno y archivos clave
 
@@ -193,6 +223,10 @@ Entrega la [especificación y solución contrastable](https://github.com/vladimi
 - ofrece tablas y texto alternativo para diagramas y símbolos;
 - define mecanismo de revisión humana y apelación para recomendaciones;
 - no uses un modelo parcial para justificar una decisión irreversible.
+
+## Puente hacia el trabajo con agentes
+
+El laboratorio es, en miniatura, un harness de evaluación: una especificación declarada, un selector con presupuesto, una traza auditable y un conjunto de pruebas de contrato. Un agente de diagnóstico debería producir el mismo tipo de artefacto: pruebas elegidas, resultados, hipótesis restantes y gasto, de modo que una persona pueda revisar el razonamiento y no solo la conclusión. Las partes de evaluación de agentes generalizan estas ideas: casos de referencia, repetición para variabilidad, contraejemplos y límites declarados.
 
 ## Transferencia
 
@@ -220,6 +254,10 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 - [MIT 18.404J — Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/) — delimita computabilidad, complejidad y los límites de las soluciones algorítmicas.
 
 Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [Python: `unittest`](https://docs.python.org/3/library/unittest.html): marco de pruebas usado por el laboratorio para las trece pruebas.
+- [SWEBOK Guide v4.0a: pruebas de software](https://www.computer.org/education/bodies-of-knowledge/software-engineering): objetivos y límites de las pruebas.
+- [Edsger W. Dijkstra, «Notes on Structured Programming»](https://www.cs.utexas.edu/~EWD/ewd02xx/EWD249.PDF): pruebas muestran la presencia de defectos, no su ausencia.
 
 ## Límites y siguiente paso
 

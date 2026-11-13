@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-13 — Parte 04 profundizada con cálculos y mediciones reales
+
+- 36 figuras para `SE-049`–`SE-060`: descomposición del incidente, implicación y modelos, orden topológico y ciclos, aserciones y contratos,
+  recursión y memoización, terminación (Euclides y Collatz), crecimiento al duplicar n, heurísticas frente al óptimo, máquina de estados de un pedido,
+  bisección y pruebas intermitentes, requisitos contradictorios y las trece pruebas del laboratorio;
+- tres secciones nuevas por clase y sustitución de las preguntas frecuentes, errores y ejercicios idénticos por versiones propias de cada clase; fuentes verificadas y puente hacia agentes;
+- las trece pruebas del laboratorio pasaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3); los tiempos son de un equipo y se declaran como límite.
+
 ## 2026-11-13 — Parte 03 profundizada con mediciones de red reales
 
 - 36 figuras para `SE-037`–`SE-048` con mediciones reales: fases de una petición HTTPS, MTU y límite de 1472 bytes,

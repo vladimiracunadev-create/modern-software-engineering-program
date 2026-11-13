@@ -88,6 +88,30 @@ Guardar visitados usa O(V) memoria y evita repetir caminos exponencialmente. Un 
 
 El análisis predice forma de crecimiento independiente del equipo; el benchmark captura constantes, runtime y datos. Se prueban tamaños crecientes, calentamiento, repeticiones y mediana/rango. Si la curva contradice el modelo, se investiga antes de concluir.
 
+### Duplicar n y mirar la razón
+
+La notación O(·) describe cómo crece el costo, y la forma más honesta de comprobarla es duplicar el tamaño y dividir los tiempos. Medianas de cinco ejecuciones en CPython 3.12.9: la búsqueda lineal (`x in lista`) pasó de 5,89 ms con n = 4000 a 11,74 ms con 8000 (razón 1,99); la búsqueda por hash (`x in set`) se mantuvo en 0,020 ms (razón 0,99); `sorted` pasó de 0,48 a 1,01 ms (razón 2,10), y un doble bucle sobre n/4 pasó de 39,89 a 171,63 ms (razón 4,30). Una razón cercana a 2 indica crecimiento lineal; cercana a 4, cuadrático; cercana a 1, constante. La Figura 1 reúne los datos.
+
+![Figura 1. Tiempos medidos al duplicar n para búsqueda lineal, búsqueda por hash, ordenación y doble bucle, con la razón entre n=8000 y n=4000](../../../content/part-04/figures/se-055-duplicar-n.svg)
+
+**Cómo leer la figura.** Las columnas son tres tamaños y la penúltima es la razón. **Dónde deja de valer:** son medianas de cinco ejecuciones en un equipo, con los efectos de caché y del intérprete incluidos. Con tamaños pequeños el ruido domina; con muy grandes aparecen cachés y memoria. Se mide un rango amplio, no un par de puntos.
+
+### Teoría y medición deben coincidir
+
+La Figura 2 contrasta la razón esperada con la medida. Si una operación «lineal» dobla su tiempo, coinciden; si una «constante» triplica el tiempo, hay un error de análisis o un efecto oculto (por ejemplo, colisiones de hash). La coincidencia aporta confianza; la discrepancia es la pista valiosa. Ninguna fuente sustituye a la otra: el análisis explica *por qué* crece así y la medición confirma que la implementación real lo hace. Tampoco hay que confundir tiempo de reloj con conteo de operaciones: el conteo es reproducible y portable; el reloj depende del equipo.
+
+![Figura 2. Tabla que compara la razón teórica con la razón medida al duplicar n](../../../content/part-04/figures/se-055-teoria-y-medicion.svg)
+
+**Cómo leer la figura.** Cada fila compara una predicción con un dato. **Dónde deja de valer:** n log n y n comparten una razón cercana a 2 en rangos chicos, así que distinguirlos exige tamaños más grandes o más puntos.
+
+### Costo amortizado
+
+Añadir un elemento a una lista de Python es «O(1) amortizado». `sys.getsizeof` muestra por qué: al añadir elementos uno por uno el tamaño de la lista cambia solo en algunos puntos (88 bytes con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25, 376 con 33). La mayoría de las inserciones no reservan memoria; algunas sí, y son más costosas. El promedio por inserción es constante, pero una inserción concreta puede ser lenta. Esto importa en sistemas con requisitos de latencia: el promedio no es el peor caso.
+
+![Figura 3. Tamaños en bytes de una lista al crecer: 88, 120, 184, 248, 312 y 376 bytes en los puntos de reserva](../../../content/part-04/figures/se-055-capacidad-de-lista.svg)
+
+**Cómo leer la figura.** Cada fila es un punto en que la lista reservó más memoria. **Dónde deja de valer:** las cifras dependen de la versión de CPython y de la arquitectura; el patrón (reservas espaciadas) es lo que se conserva.
+
 ## Definiciones de trabajo
 
 - **complejidad:** crecimiento de recursos respecto al tamaño.
@@ -121,10 +145,10 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 
 ## Ejercicios
 
-1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
-3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
-4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
+1. **Razón:** con tiempos 3,1 / 6,3 / 12,4 ms para n = 1000 / 2000 / 4000, calcula las razones y clasifica el crecimiento.
+2. **Medición:** mide `x in lista` y `x in set` para tres tamaños y compara con la Figura 1 (declara tu equipo).
+3. **Amortizado:** explica por qué una inserción puede ser lenta aunque el promedio sea constante y qué requisito lo haría un problema.
+4. **Discrepancia:** una operación teóricamente lineal triplica su tiempo al duplicar n; enumera dos causas posibles y una prueba para cada una.
 
 ## Reto verificable
 
@@ -140,33 +164,39 @@ Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder 
 
 ## Preguntas frecuentes
 
-### ¿Formal significa usar símbolos difíciles?
+### ¿Cuál es la diferencia entre O(n) y el tiempo real?
 
-No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
+O(n) describe la forma del crecimiento, no el valor: un algoritmo O(n) puede tardar más que uno O(n²) con n pequeño. La notación sirve para predecir qué pasa al crecer, no para comparar dos tamaños fijos.
 
-### ¿Un conjunto grande de pruebas demuestra corrección?
+### ¿Cuántas ejecuciones necesito para medir?
 
-No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
+Varias, y se reporta la mediana o una distribución, no una sola. Cinco bastan para una primera idea; para decisiones se registran dispersión, versión y equipo.
 
-### ¿Puedo implementar antes de especificar todo?
+### ¿Por qué la búsqueda por hash es «constante»?
 
-Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+Porque calcula una posición a partir de la clave. Es constante en promedio con una buena función hash y pocas colisiones; con claves adversariales puede degradarse, y por eso existen hashes con semilla aleatoria.
 
+### ¿Qué es un costo amortizado?
+
+El costo promedio por operación en una secuencia, aunque alguna operación sea cara. No garantiza el tiempo de una operación individual.
 ## Fallo controlado y diagnóstico
 
 Cronometra dos algoritmos una vez con n=10 y declara ganador universal. Repite con escala, múltiples series y separación de setup; documenta el punto de cruce.
 
 Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
 
+
+Mide con un tamaño demasiado pequeño y comprueba que la conclusión falla. Repite la comparación lineal frente a hash con n = 10 y n = 20: el ruido del reloj domina y las razones oscilan entre 0,5 y 3, de modo que podrías «demostrar» cualquier crecimiento. **Síntoma:** razones inconsistentes entre ejecuciones. **Hipótesis:** el tiempo medido es menor que la resolución y la variación del sistema. **Prueba:** repite con n = 2000, 4000 y 8000 y usa la mediana. **Conclusión:** la conclusión solo vale cuando la señal supera el ruido. Registra versión, equipo, repeticiones y rango en `checks.md`.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
-| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
-| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
-| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
-| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+| Se concluye un crecimiento con dos puntos | Muestra insuficiente | Medir al menos tres tamaños y comparar razones |
+| Los resultados cambian entre ejecuciones | Una sola medición, ruido | Usar mediana de varias ejecuciones |
+| «Es O(1)» y un caso tarda mucho | Se confundió amortizado con peor caso | Declarar si el dato es promedio o peor caso |
+| La teoría dice lineal y el dato cuadrático | Costo oculto (copias, colisiones) | Buscar la operación escondida con un perfil |
+| Se compara con un tamaño pequeño | O(n²) puede ganar con n chico | Probar el rango donde se usará |
 
 ## Entorno y archivos clave
 
@@ -193,6 +223,10 @@ Genera `operation_counts()` de la [especificación contrastable](https://github.
 - define mecanismo de revisión humana y apelación para recomendaciones;
 - no uses un modelo parcial para justificar una decisión irreversible.
 
+## Puente hacia el trabajo con agentes
+
+El costo de un agente no se mide en segundos sino en llamadas, tokens y herramientas, y crece con la longitud del contexto y el número de pasos. La misma disciplina aplica: contar operaciones (llamadas, tokens) es reproducible, el tiempo de reloj no; y duplicar el tamaño de la tarea y mirar la razón revela si el costo es lineal o cuadrático (un agente que reenvía todo el historial en cada paso tiene costo cuadrático en el número de pasos). El presupuesto del harness debe expresarse en esas unidades.
+
 ## Transferencia
 
 Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
@@ -218,6 +252,10 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 - [MIT 18.404J — Theory of Computation](https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/) — delimita computabilidad, complejidad y los límites de las soluciones algorítmicas.
 
 Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [Python: complejidad de las operaciones de los tipos integrados](https://wiki.python.org/moin/TimeComplexity): costos promedio y de peor caso de lista, conjunto y diccionario, usados para contrastar la Figura 2.
+- [Python: `time.perf_counter` y `timeit`](https://docs.python.org/3/library/timeit.html): herramientas de medición y advertencias sobre su uso.
+- Thomas Cormen, Charles Leiserson, Ronald Rivest y Clifford Stein, *Introduction to Algorithms* (MIT Press): notación asintótica y análisis amortizado.
 
 ## Límites y siguiente paso
 

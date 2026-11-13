@@ -87,6 +87,30 @@ Una máquina determinista tiene a lo sumo una transición por estado y evento ba
 
 Safety afirma que algo malo nunca ocurre: no ejecutar sin autorización. Liveness afirma que algo bueno eventualmente ocurre bajo supuestos: toda ejecución termina o se cancela. Probar safety no garantiza progreso; reintentar eternamente puede mantener invariantes y violar liveness.
 
+### Estados, eventos y transiciones legales
+
+Una máquina de estados describe qué puede ocurrir en cada situación. Un pedido tiene seis estados (nuevo, pagado, enviado, entregado, cancelado, devuelto) y cinco eventos (pagar, cancelar, enviar, entregar, devolver). Eso da 6 × 5 = 30 pares estado-evento, de los cuales solo 6 son transiciones legales (nuevo/pagar, nuevo/cancelar, pagado/enviar, pagado/cancelar, enviado/entregar, enviado/devolver) y 24 son ilegales. La decisión importante es qué se hace con una ilegal: **se rechaza de forma explícita**, no se ignora ni cambia el estado en silencio. Enviar un pedido nuevo no puede ser un «éxito» silencioso.
+
+![Figura 1. Seis transiciones legales del pedido sobre 30 pares estado-evento y 24 ilegales rechazadas](../../../content/part-04/figures/se-057-maquina-de-pedido.svg)
+
+**Cómo leer la figura.** La tabla enumera las transiciones permitidas; los cuadros resumen la proporción y la política de rechazo. **Dónde deja de valer:** el modelo ignora el tiempo (un pago puede expirar) y la concurrencia (dos eventos simultáneos); esas propiedades requieren estados y reglas adicionales.
+
+### La explosión de estados
+
+Componer máquinas independientes multiplica sus estados: 6 × 5 son 30; 6 × 5 × 4 son 120; 6 × 5 × 4 × 4 × 3 son 1440. Un sistema de cinco componentes pequeños ya tiene más de mil estados combinados. Razonar sobre el producto a mano es inviable. La respuesta de ingeniería es modelar cada componente por separado, declarar sus interacciones y explorar el espacio con una herramienta (verificación de modelos), o simplificar los modelos para que el producto no se necesite. La explosión explica por qué los errores de combinaciones raras aparecen en producción.
+
+![Figura 2. Estados del producto de máquinas: 30, 120 y 1440](../../../content/part-04/figures/se-057-producto-de-maquinas.svg)
+
+**Cómo leer la figura.** Cada fila multiplica los estados de más componentes. **Dónde deja de valer:** el producto es el límite superior; muchas combinaciones no son alcanzables, y en la práctica se exploran solo las alcanzables.
+
+### Alcanzables e invariantes
+
+Explorando desde el estado nuevo se alcanzan los seis estados del pedido. Los invariantes se comprueban sobre los **estados alcanzables**, no sobre todas las combinaciones de variables. «Entregado implica pagado» se verifica recorriendo los estados alcanzables: no se puede llegar a entregado sin pasar por pagado y enviado, y no existe transición desde cancelado, por lo que un pedido cancelado no puede devolverse. Si algún estado alcanzable violara el invariante, el modelo o la regla estarían mal.
+
+![Figura 3. Preguntas sobre alcanzabilidad e invariantes del pedido con sus resultados](../../../content/part-04/figures/se-057-alcanzables-e-invariantes.svg)
+
+**Cómo leer la figura.** Cada fila es una pregunta con la respuesta que da el modelo. **Dónde deja de valer:** el modelo responde sobre sí mismo; si el sistema real tiene una transición que no está modelada (por ejemplo, un soporte que cambia un estado a mano), el modelo no la ve.
+
 ## Definiciones de trabajo
 
 - **estado:** resumen de historia relevante para comportamiento futuro.
@@ -120,10 +144,10 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 
 ## Ejercicios
 
-1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
-3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
-4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
+1. **Enumeración:** lista las transiciones legales de una máquina de tres estados y cuenta cuántos pares son ilegales.
+2. **Producto:** calcula los estados al combinar dos máquinas de 4 y 5 estados y explica por qué no todos son alcanzables.
+3. **Invariante:** enuncia un invariante del pedido y comprueba si se cumple en todos los estados alcanzables.
+4. **Ilegal:** diseña la respuesta de la API ante un evento ilegal y qué se registra.
 
 ## Reto verificable
 
@@ -139,33 +163,39 @@ Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder 
 
 ## Preguntas frecuentes
 
-### ¿Formal significa usar símbolos difíciles?
+### ¿Cuál es la diferencia entre estado y evento?
 
-No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
+El estado es la situación en que está el sistema; el evento es lo que ocurre y puede cambiarla. El mismo evento produce resultados distintos en estados distintos.
 
-### ¿Un conjunto grande de pruebas demuestra corrección?
+### ¿Qué hago con un evento ilegal?
 
-No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
+Se rechaza y se registra. Ignorarlo oculta errores; cambiar el estado lo corrompe. La política debe estar en el modelo.
 
-### ¿Puedo implementar antes de especificar todo?
+### ¿Cuándo uso una máquina de estados?
 
-Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+Cuando el comportamiento depende de la historia y hay reglas sobre qué puede venir después. Si todo evento vale en cualquier momento, una máquina sobra.
 
+### ¿Cómo controlo la explosión de estados?
+
+Separa componentes, reduce los estados con propiedades equivalentes y explora solo los alcanzables con una herramienta.
 ## Fallo controlado y diagnóstico
 
 Procesa un `completed` tardío después de iniciar un nuevo intento y observa que sobrescribe el resultado. Añade correlación y una transición explícita `late_result` sin efecto de negocio.
 
 Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
 
+
+Prueba que un evento ilegal no corrompe el estado. Con tu implementación de la máquina de pedido, envía `enviar` a un pedido en `nuevo`. **Síntoma:** si el pedido cambia a `enviado` sin haber pasado por `pagado`, el modelo permite una transición inválida. **Hipótesis:** la tabla de transiciones tiene una entrada de más o no se valida. **Prueba:** enumera los 30 pares y compara con la lista de 6 legales. **Conclusión:** los 24 restantes deben producir un error explícito y dejar el estado intacto. Guarda la enumeración como prueba en `checks.md`.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
-| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
-| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
-| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
-| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+| Un pedido sin pagar aparece enviado | Transición ilegal aceptada | Validar contra la tabla y rechazar |
+| El estado cambia al recibir un evento inválido | Error silencioso | Mantener el estado y registrar el rechazo |
+| Se razona sobre todas las combinaciones | Producto sin explorar alcanzables | Recorrer solo estados alcanzables |
+| El modelo no refleja un cambio manual | Hay transiciones fuera del modelo | Auditar y modelar o prohibir el camino |
+| Faltan los estados de error | Solo se modeló la ruta feliz | Añadir estados de fallo y tiempo de espera |
 
 ## Entorno y archivos clave
 
@@ -192,6 +222,10 @@ Ejecuta las transiciones de hipótesis de la [especificación contrastable](http
 - define mecanismo de revisión humana y apelación para recomendaciones;
 - no uses un modelo parcial para justificar una decisión irreversible.
 
+## Puente hacia el trabajo con agentes
+
+Una conversación con un agente y su flujo de herramientas es una máquina de estados: esperando entrada, planificando, ejecutando una herramienta, esperando aprobación, terminado, abortado. Hacerla explícita impide transiciones peligrosas (ejecutar una herramienta sin aprobación) y permite probar los eventos ilegales. Un agente que continúa tras una cancelación o ejecuta una acción en el estado equivocado revela una máquina implícita y sin validar.
+
 ## Transferencia
 
 Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
@@ -216,6 +250,10 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
 
 Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [David Harel, «Statecharts: a visual formalism for complex systems», *Science of Computer Programming* 8(3), 1987](https://doi.org/10.1016/0167-6423%2887%2990035-9): estados jerárquicos y concurrentes, y la explosión de estados.
+- [Leslie Lamport, *Specifying Systems*](https://lamport.azurewebsites.net/tla/book.html): especificación de sistemas con estados y exploración de espacios de estados.
+- [UML 2.5.1, máquinas de estados](https://www.omg.org/spec/UML/2.5.1): notación estándar de estados y transiciones.
 
 ## Límites y siguiente paso
 

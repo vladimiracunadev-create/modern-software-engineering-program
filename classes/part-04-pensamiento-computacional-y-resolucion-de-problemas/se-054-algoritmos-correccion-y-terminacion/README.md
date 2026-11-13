@@ -88,6 +88,30 @@ Combina corrección parcial y terminación. También requiere que operaciones pr
 
 Se parte de una especificación abstracta y se eligen pasos que la preservan. Cada optimización debe mantener invariantes y salida observable. El modelo de decisión diagnóstica vincula requisitos con lemas, casos límite y pruebas, de modo que cambiar una regla revele qué argumento revisar.
 
+### Una medida que decrece garantiza terminación
+
+El algoritmo de Euclides calcula el máximo común divisor con `gcd(a, b) = gcd(b, a mod b)`. Su **corrección** viene de esa igualdad, y su **terminación**, de que `b` decrece estrictamente en cada paso y no baja de 0. Se comprobó: `gcd(1071, 462) = 21` en 3 pasos; el peor caso son números de Fibonacci consecutivos, y `gcd(987, 610) = 1` necesitó 14 pasos. El costo es proporcional al *logaritmo* de la entrada, no a su valor. Esa estructura —regla de reducción, medida decreciente, costo acotado— es la plantilla de todo algoritmo que se pueda defender.
+
+![Figura 1. Resultados de gcd(1071, 462) en 3 pasos y gcd(987, 610) en 14 pasos, con corrección, terminación y costo](../../../content/part-04/figures/se-054-euclides-y-medida.svg)
+
+**Cómo leer la figura.** La tabla muestra dos entradas y sus pasos; el cuadro enuncia los tres argumentos. **Dónde deja de valer:** el argumento supone enteros no negativos; con otros dominios (flotantes, enteros negativos) la regla puede no terminar o exigir una definición distinta.
+
+### Cuando la terminación no se sabe demostrar
+
+El procedimiento de Collatz (si n es par, dividir entre 2; si no, multiplicar por 3 y sumar 1) termina para todo n probado: entre 1 y 99 999, el que más pasos necesita es 77 031, con 350 pasos hasta llegar a 1. Pero no existe una demostración de que termine para *todo* n; es un problema abierto. La enseñanza para el software es directa: un programa cuya terminación depende de un problema no resuelto no puede garantizarse, y necesita un límite de pasos o un plazo, como el que protege cualquier bucle en producción. «Siempre ha terminado» no es lo mismo que «termina».
+
+![Figura 2. Resultado de la conjetura de Collatz hasta 100000: el número más largo es 77031 con 350 pasos, sin demostración general](../../../content/part-04/figures/se-054-collatz.svg)
+
+**Cómo leer la figura.** La tabla recoge el rango y el caso más largo; los recuadros distinguen evidencia y garantía. **Dónde deja de valer:** el rango probado es finito; que no haya contraejemplos hasta 10^5 aporta confianza, no prueba. En el mundo real la medida decreciente existe cuando se diseña (un presupuesto, un contador), y se debe imponer.
+
+### Probar contra un oráculo y lo que eso no demuestra
+
+Comparar una implementación con una referencia fiable (un *oráculo*) es una técnica potente: una burbuja escrita a mano coincidió con `sorted` en 2000 casos aleatorios de longitud hasta 30. Esa coincidencia es evidencia sólida, pero no demuestra que el algoritmo sea correcto para todos los arreglos ni para tamaños grandes. La demostración por invariante (la cola del arreglo queda ordenada tras cada pasada) cubre todos los casos *si el código implementa el argumento*. Las pruebas exhiben fallos concretos; la demostración cubre las clases de entradas; se necesitan ambas.
+
+![Figura 3. Comparación de evidencias: 2000 casos aleatorios contra sorted y argumento de invariante, con lo que aporta y no aporta cada uno](../../../content/part-04/figures/se-054-oraculo-y-demostracion.svg)
+
+**Cómo leer la figura.** Cada fila contrasta qué sostiene y qué no una evidencia. **Dónde deja de valer:** un oráculo también puede estar equivocado, y una comprobación con datos aleatorios puede no ejercitar los casos raros (duplicados, vacíos, entradas ya ordenadas); se añaden casos deliberados además de los aleatorios.
+
 ## Definiciones de trabajo
 
 - **algoritmo:** procedimiento finito y no ambiguo para un problema.
@@ -121,10 +145,10 @@ La entrega profesional hace visible el costo de simplificar. Incluye al menos un
 
 ## Ejercicios
 
-1. **Comprensión:** define dos conceptos con ejemplo, no-ejemplo y límite.
-2. **Construcción:** aplica el mecanismo a un caso del modelo de decisión diagnóstica no usado en la explicación.
-3. **Refutación:** fabrica la entrada mínima que rompa una solución ingenua.
-4. **Transferencia:** usa el mismo razonamiento en planificación de entregas o validación de datos.
+1. **Euclides:** calcula `gcd(2024, 748)` registrando cada paso y señala la medida que decrece.
+2. **Peor caso:** explica por qué los números de Fibonacci consecutivos maximizan los pasos de Euclides.
+3. **Terminación:** diseña un bucle de reintentos con medida decreciente y un tope, y enuncia ambos.
+4. **Oráculo:** escribe una comprobación contra un oráculo para tu función de ordenamiento y añade tres bordes deliberados.
 
 ## Reto verificable
 
@@ -140,33 +164,39 @@ Entrega `problem.md`, `model.md` y `checks.md`. Una persona revisora debe poder 
 
 ## Preguntas frecuentes
 
-### ¿Formal significa usar símbolos difíciles?
+### ¿Qué significa que un algoritmo sea «correcto»?
 
-No. Significa que dominio, reglas y criterio permiten decidir si una afirmación se sostiene. Una tabla precisa puede ser más formal que una fórmula ambigua.
+Que, para toda entrada que cumpla la precondición, termina y devuelve un resultado que cumple la poscondición. La corrección parcial (si termina, es correcto) y la terminación se demuestran por separado.
 
-### ¿Un conjunto grande de pruebas demuestra corrección?
+### ¿Cómo encuentro la medida que decrece?
 
-No para un dominio ilimitado. Las pruebas aportan evidencia y detectan defectos; un argumento cubre clases de entradas, siempre bajo supuestos declarados.
+Busca una cantidad entera no negativa que cada vuelta disminuya: el tamaño del intervalo, el segundo argumento, el número de elementos sin procesar. Si no la encuentras, probablemente no hay garantía de terminación.
 
-### ¿Puedo implementar antes de especificar todo?
+### ¿Un caso de prueba que falla invalida el algoritmo?
 
-Puedes explorar, pero el prototipo no redefine silenciosamente el problema. Registra qué aprendiste y actualiza contrato y casos antes de aprobar.
+Si la entrada cumple la precondición, sí: un contraejemplo refuta la afirmación de corrección. Si no la cumple, refuta que la precondición estuviera bien declarada.
 
+### ¿Qué hago con una conjetura abierta como Collatz en producción?
+
+Impón un límite de pasos o de tiempo y decide qué se hace al alcanzarlo. La conjetura no se puede asumir.
 ## Fallo controlado y diagnóstico
 
 Permite que una prueba fallida se reinserte sin reducir intentos. El invariante puede conservarse y aun así no terminar. Añade presupuesto decreciente y explica por qué llega a cero.
 
 Conserva el modelo fallido, la entrada que lo expone, la regla violada y la corrección. No ajustes solo el resultado esperado para hacer pasar el caso.
 
+
+Verifica el borde de terminación con una variante defectuosa del algoritmo de Euclides: usa `a % b` sin intercambiar, de modo que `b` no decrece, y ejecútalo con un tope de 100 pasos. **Síntoma:** la ejecución alcanza el tope. **Hipótesis:** la medida no decrece. **Prueba:** imprime `a` y `b` en cada paso. **Conclusión:** el invariante gcd se conserva, pero sin medida decreciente no hay terminación; corregir el intercambio la restaura. Guarda el par de entradas, el tope y la corrección en `checks.md`. Además, compara tu burbuja con `sorted` en 200 casos y añade tres casos deliberados (vacío, duplicados, ya ordenado).
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa | Corrección |
 |---|---|---|
-| el ejemplo funciona pero otro caso no | generalización desde una muestra | definir dominio y buscar frontera |
-| dos personas leen reglas distintas | términos o cuantificadores implícitos | glosario y contrato observable |
-| el diagrama no cambia decisiones | notación decorativa | interpretar relaciones y límites |
-| el proceso no termina | falta medida decreciente o presupuesto | variante y condición de salida |
-| se declara «óptimo» sin prueba | confusión entre hallado y garantizado | declarar cota y calidad real |
+| El algoritmo «funciona» pero a veces no termina | Falta una medida decreciente | Identificar la medida o imponer un tope |
+| Se afirma «correcto» tras pocos ejemplos | Evidencia confundida con demostración | Argumentar con invariante para toda la clase de entradas |
+| El oráculo y la implementación coinciden y ambos fallan | La referencia es incorrecta | Validar el oráculo con casos independientes |
+| Pruebas aleatorias nunca fallan | No ejercitan los bordes | Añadir vacío, duplicados y casos extremos |
+| Un programa depende de un resultado abierto | Se asume una conjetura | Imponer límite y política de fallo |
 
 ## Entorno y archivos clave
 
@@ -193,6 +223,10 @@ Argumenta `run_model()` de la [especificación contrastable](https://github.com/
 - define mecanismo de revisión humana y apelación para recomendaciones;
 - no uses un modelo parcial para justificar una decisión irreversible.
 
+## Puente hacia el trabajo con agentes
+
+Un agente en bucle («lee, actúa, observa») es un algoritmo cuya terminación debe diseñarse: una medida que decrece (presupuesto de pasos, de tokens, de tiempo) y una condición de salida. Sin ella, la terminación depende de que el modelo «decida parar», que es como depender de Collatz. Y el oráculo tiene una versión agentic: comparar la salida de un agente con una referencia independiente (un conjunto de casos con resultado conocido) es la base de la evaluación de agentes, con la misma advertencia: coincidir en una muestra no demuestra corrección general.
+
 ## Transferencia
 
 Aplica el mecanismo a otro dominio y conserva la estructura del argumento, no los nombres del modelo de decisión diagnóstica. Explica qué dominio, invariante o medida cambia. Si el razonamiento deja de funcionar, identifica el supuesto que pertenecía al caso original.
@@ -218,6 +252,10 @@ Completar archivos no concede aprobación. La evidencia debe sostener la afirmac
 - [SWEBOK Guide v4.0a](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — sitúa la decisión dentro de construcción, diseño, pruebas y práctica profesional de ingeniería de software.
 
 Los cursos y SWEBOK aportan definiciones y métodos; no validan automáticamente el modelo del modelo de decisión diagnóstica. Cada aplicación se sostiene con el artefacto y sus casos.
+
+- [Python: `math.gcd`](https://docs.python.org/3/library/math.html#math.gcd): implementación estándar del máximo común divisor, contrastada con el algoritmo de la Figura 1.
+- [Jeffrey Lagarias, «The 3x+1 problem: an annotated bibliography»](https://arxiv.org/abs/math/0309224): estado de la conjetura de Collatz y de los resultados parciales.
+- Donald Knuth, *The Art of Computer Programming*, vol. 1 y 2: análisis del algoritmo de Euclides y su peor caso.
 
 ## Límites y siguiente paso
 

@@ -49,6 +49,23 @@ licencias y experiencia mediante evidencia de consumidor.
 3. **Extensión y procedencia:** las clases 115–117 gobiernan extensiones, generación, licencias y procedencia.
 4. **Experiencia y compatibilidad:** las clases 118–120 prueban DX, empaquetan y verifican SDK+CLI entre versiones.
 
+## Evidencia medida y límites
+
+Las figuras y los ejemplos de esta parte usan experimentos ejecutados con CPython 3.12.9 en Windows 11 y repetidos con CPython 3.12.3 en Ubuntu 24.04 bajo WSL2: pila de
+llamadas de biblioteca frente a framework, costo y efectos de importar, y el timeout por defecto de un cliente HTTP; orden de versiones de PEP 440 frente a SemVer, ocho
+cambios de firma frente a cinco formas de llamar y una misma firma con otro contrato; un resolutor de dependencias con retroceso, `pip install --dry-run` sobre ruedas locales y
+`--require-hashes` con una rueda alterada; ruedas construidas con y sin `package-data`, sombras en `sys.path` y etiquetas de compatibilidad; códigos de salida, precedencia de
+configuración y tuberías con codificación; tareas idempotentes, escritura atómica y actualización perdida con dos procesos; descubrimiento y carga de plugins, aislamiento de fallos
+y orden de `entry_points`; generación determinista, costo del dinamismo e inyección en plantillas; metadatos de licencia de 355 paquetes instalados, un validador SPDX y la
+cobertura de cabeceras de este repositorio; tiempo hasta el primer éxito, calidad de errores y avisos de obsolescencia; siete defectos de empaquetado frente a tres detectores;
+y doce mutantes de un SDK frente a un comparador de API y pruebas de contrato, el archivo de referencia de la CLI y compilaciones reproducibles.
+Los experimentos son scripts autónomos que usan ruedas y entornos sintéticos en directorios temporales y un servidor en el bucle de retorno; no tocan datos reales y no hay nombres de
+equipo, usuarios ni direcciones reales en las figuras. Los tiempos son de un equipo y se leen como razones. Límites declarados: el inventario de licencias y los 3 194 archivos son de
+un solo entorno y del árbol de trabajo al medir; el validador SPDX conoce 24 identificadores y no es asesoría legal; setuptools 84.0.0 (Windows) y 68.1.2 (Linux) produjeron ruedas
+distintas con el mismo `pyproject.toml`; la reproducibilidad de la rueda se logró dentro de cada plataforma y no entre ellas; no se midieron otros constructores (hatchling, flit),
+otros gestores (uv, npm, Cargo), otro intérprete ni macOS, ni se ejecutó la herramienta `reuse`. Esta parte no tiene laboratorio propio en `labs/`; el proyecto integrador SE-120
+define el contrato y la evidencia. Cada clase termina con un puente hacia el trabajo con agentes.
+
 ## Guía razonada clase por clase
 
 El producto reutilizable con SDK y CLI transforma la capacidad de la biblioteca de estructuras y algoritmos en un producto reusable. El recorrido

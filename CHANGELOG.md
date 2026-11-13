@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-13 — Parte 09 profundizada con experimentos de bibliotecas, paquetes, SDK y automatización
+
+- 36 figuras para `SE-109`–`SE-120` con mediciones reales: pila de llamadas de biblioteca y framework, costo de importar y timeout por defecto, versiones PEP 440
+  frente a SemVer, cambios de firma y de contrato, un resolutor con retroceso, `pip` sobre ruedas locales y hashes, ruedas sin y con `package-data`, sombras en `sys.path` y
+  etiquetas, códigos de salida, precedencia de configuración y tuberías, idempotencia, escritura atómica y actualización perdida, carga y aislamiento de plugins, generación
+  determinista e inyección en plantillas, metadatos y expresiones de licencia y cobertura SPDX de este repositorio, tiempo hasta el primer éxito, errores y obsolescencia,
+  siete defectos de empaquetado, doce mutantes de un SDK, archivo de referencia de la CLI y compilaciones reproducibles;
+- tres secciones nuevas por clase, y sustitución de las preguntas frecuentes, la tabla de errores y los ejercicios, que eran idénticos en las doce clases, por versiones
+  específicas de cada una; fuentes primarias verificadas con `curl` (dos páginas de gnu.org devolvieron 403 y se excluyeron) y un puente hacia el trabajo con agentes;
+- hallazgos del análisis: el orden de `entry_points` difiere entre Windows y Linux con el mismo código; un bloqueo `O_EXCL` mató a un proceso en Windows con `PermissionError`;
+  setuptools 84.0.0 incluye `py.typed` por sí solo y 68.1.2 no; la rueda sale distinta entre plataformas aun con `SOURCE_DATE_EPOCH`; este repositorio no tiene cabeceras SPDX
+  en ninguno de 3 176 archivos revisados;
+- los experimentos se ejecutaron en Windows (Python 3.12.9) y en Linux (Python 3.12.3); la parte no tiene laboratorio en `labs/`; los tiempos son de un equipo y no se midieron
+  otros constructores, gestores, intérpretes ni macOS.
 ## 2026-11-13 — Parte 10 desarrollada y profundizada con experimentos sintéticos reproducibles
 
 - las clases `SE-121`–`SE-132` pasan de borradores genéricos a clases completas sobre una plataforma de entregas de tareas: síntomas frente a causas, actores y contextos,

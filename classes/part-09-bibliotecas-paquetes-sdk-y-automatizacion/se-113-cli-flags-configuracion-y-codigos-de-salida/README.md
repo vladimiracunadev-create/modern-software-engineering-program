@@ -85,6 +85,36 @@ Cero indica éxito contractual; valores no cero clasifican uso inválido, datos 
 
 Ctrl+C solicita cancelación y debe limpiar archivos temporales o dejar estado recuperable. Escribir a temporal y reemplazar reduce parciales. Capturar toda excepción para devolver cero destruye observabilidad.
 
+### Códigos de salida: el contrato que lee el shell
+
+El código de salida es la parte de una CLI que el sistema operativo y la integración continua interpretan sin leer una palabra. Se midió con `subprocess` sobre diez escenarios. Terminar bien dio 0; `sys.exit(3)` dio 3; `sys.exit('mensaje')` dio 1 y el texto fue a `stderr`; una excepción sin capturar dio 1; `argparse` con una opción desconocida dio 2 y con `--help` dio 0; `os._exit(7)` dio 7. Hasta aquí Windows y Linux coinciden.
+
+Divergen donde el contrato queda fuera de 0–255 o interviene una señal. `Ctrl+C` sin capturar terminó con 3221225786 (`0xC000013A`, `STATUS_CONTROL_C_EXIT`) en Windows y con −2 en Linux (el proceso fue terminado por SIGINT; el shell lo informa como 130). `sys.exit(256)` dio 256 en Windows y 0 en Linux, y `sys.exit(-1)` dio 4294967295 frente a 255. Un contrato portable usa solo valores 0–125, documenta cada uno (`0` éxito, `1` error de ejecución, `2` uso incorrecto, `3` entrada inválida, por ejemplo) y no promete nada sobre las señales.
+
+![Tabla con nueve escenarios de salida de un programa en Python y el código observado en Windows y en Linux, con diferencias en Ctrl+C, sys.exit(256) y sys.exit(-1).](../../../content/part-09/figures/se-113-codigos-de-salida.svg)
+
+**Cómo leer la figura.** Lee por filas; las únicas en las que las dos columnas difieren son las del final. **Dónde deja de valer:** la interrupción se envió con `CTRL_BREAK_EVENT` en Windows y con `SIGINT` en Linux, que no son equivalentes; una CLI dentro de un contenedor o un servicio recibe `SIGTERM`, que no se midió. Los códigos de `argparse` (2) están documentados para ese módulo, no para toda CLI.
+
+### Precedencia de configuración: flag, entorno, archivo, valor por defecto
+
+Una CLI recibe configuración desde cuatro fuentes y necesita un orden único: el flag de la invocación manda sobre la variable de entorno, esta sobre el archivo y el archivo sobre el valor por defecto. Se probaron las ocho combinaciones de «flag presente o no», «entorno presente o no» y «archivo presente o no». Con el orden correcto todas dieron el valor esperado; con una implementación que aplica `default=1` en `argparse` antes de mirar el entorno, tres de las ocho dieron 1 en lugar de 5 (entorno) o 3 (archivo).
+
+El error es sutil porque el parser siempre devuelve un valor: si el valor por defecto está en `argparse`, el programa ya no puede saber si el usuario escribió `--level 1` o no lo escribió. La corrección es declarar `default=None`, resolver las fuentes en una función aparte, probada en una tabla de combinaciones, y registrar en la salida de diagnóstico de dónde salió cada valor (`level=5 (entorno)`). Así, el soporte puede responder «¿por qué usa 5?» sin leer el código.
+
+![Tabla con las ocho combinaciones de flag, variable de entorno y archivo, con el valor y el origen según el orden correcto y según una implementación que aplica el valor por defecto antes.](../../../content/part-09/figures/se-113-precedencia-de-configuracion.svg)
+
+**Cómo leer la figura.** Compara las dos últimas columnas: en las filas con entorno o archivo y sin flag, la implementación incorrecta devuelve el valor por defecto. **Dónde deja de valer:** es una función de ejemplo con un solo parámetro; en una CLI real hay varios, tipos distintos (booleanos, listas) y fuentes que pueden estar malformadas, y esos casos necesitan su propia tabla.
+
+### Tuberías y codificación: la misma CLI, dos comportamientos
+
+Una CLI se encadena con otras (`cli | otra`), y ahí aparecen diferencias de plataforma. Con la salida redirigida, `print('señal ✓')` falló en Windows con salida 1 y `UnicodeEncodeError: 'charmap' codec can't encode character '\u2713'`, porque la codificación de la tubería era una página de códigos heredada; en Linux produjo bytes UTF-8. Con `PYTHONUTF8=1` funcionó en ambos. Los saltos de línea de `print('a'); print('b')` fueron `61 0D 0A 62 0D 0A` (CRLF) en Windows y `61 0A 62 0A` en Linux.
+
+Cuando el consumidor cierra la tubería mientras el productor escribe, Windows terminó con salida 120 y `OSError: [Errno 22] Invalid argument`; Linux con salida 1 y `BrokenPipeError`. Y la separación `stdout` para datos y `stderr` para avisos funcionó igual en ambas. Reglas de diseño: fijar la codificación de salida en el programa (`sys.stdout.reconfigure(encoding='utf-8', newline='\n')`), tratar el cierre de la tubería como terminación normal y no mezclar diagnóstico con datos, porque `--json` solo es máquina-legible si en `stdout` no hay nada más.
+
+![Tabla con cinco comprobaciones de una CLI con la salida redirigida: error de codificación en Windows, UTF-8 con PYTHONUTF8, CRLF frente a LF, tubería cerrada y separación de stdout y stderr.](../../../content/part-09/figures/se-113-tuberias-y-codificacion.svg)
+
+**Cómo leer la figura.** Lee cada fila como una prueba que debería existir en la suite de la CLI. **Dónde deja de valer:** el comportamiento depende de la versión de Python (a partir de 3.15 UTF-8 será el modo por defecto, según PEP 686) y de la configuración regional de Windows; el intérprete era 3.12.9 y la consola, redirigida por `subprocess`.
+
 ## Definiciones de trabajo
 
 - **comandos, argumentos y flags:** un comando expresa acción; argumentos suelen identificar operandos y flags modifican comportamiento.
@@ -123,10 +153,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una capacidad pública y prueba el comportamiento desde un proyecto consumidor.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Tabla de salidas:** ejecuta diez variantes de un programa con `subprocess` y registra código de salida y destino del texto; marca las que dependen del sistema operativo.
+2. **Tabla de precedencia:** implementa la resolución de un parámetro con flag, entorno, archivo y valor por defecto; escribe las ocho combinaciones como una prueba parametrizada y rompe la implementación aplicando el default antes.
+3. **Tubería:** redirige la salida de tu CLI con un carácter fuera de ASCII; registra salida, error y bytes, y corrige la CLI para que se comporte igual con y sin `PYTHONUTF8`.
+4. **Contrato escrito:** redacta la sección «códigos de salida y formatos» de una CLI de tu programa con un ejemplo de invocación y la salida esperada en bytes.
 
 ## Reto verificable
 
@@ -138,17 +168,21 @@ El producto reutilizable con SDK y CLI empaqueta el motor de la biblioteca de es
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Qué códigos de salida debo definir?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Pocos, documentados y estables: 0 éxito, 1 error de ejecución, 2 uso incorrecto (coincide con `argparse`) y, si hace falta, uno por categoría de fallo que un script quiera distinguir. Evita valores mayores de 125 y no codifiques información en ellos.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Dónde pongo los valores por defecto de la configuración?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+En una sola función que resuelve las fuentes en orden, no en `argparse`. Con `default=None` sabes si el usuario escribió el flag; en el experimento, aplicar el valor por defecto antes dio un resultado erróneo en 3 de 8 combinaciones.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿`--json` basta para que la salida sea parseable?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+No, si el programa imprime avisos en `stdout`, usa una codificación que cambia con la plataforma o termina con un código distinto cuando falla. Parseable significa: bytes fijados, esquema versionado y diagnóstico en `stderr`.
+
+### ¿Cómo pruebo una CLI sin depender de mi terminal?
+
+Con `subprocess` y entradas explícitas: `capture_output=True`, entorno controlado y comparación de código de salida y bytes. Así se vieron la codificación y el CRLF; ejecutar la función `main()` directamente no pasa por la tubería.
 
 ## Fallo controlado y diagnóstico
 
@@ -156,15 +190,17 @@ Envía un warning a stdout antes del JSON. El consumidor falla al parsear. Mueve
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Ejecuta la CLI con la salida redirigida y un carácter fuera de la página de códigos de Windows. **Síntoma:** funciona en la terminal y termina con salida 1 y `UnicodeEncodeError` al redirigir. **Hipótesis rivales:** (a) el dato es inválido; (b) la codificación de la tubería es otra. **Prueba:** con `PYTHONUTF8=1` el mismo comando termina con salida 0 y escribe `señal ✓`; en Linux, sin ninguna variable, produce bytes UTF-8. **Conclusión:** la causa es la codificación del canal, no el dato. Corrección: `sys.stdout.reconfigure(encoding='utf-8')` en el arranque de la CLI y una prueba con `subprocess` que fija el entorno. No cambies a la vez el dato de prueba y la configuración.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| La CLI imprime bien en la terminal y falla en una tubería de Windows | La codificación de la tubería no es UTF-8 | Reconfigurar `stdout` o definir `PYTHONUTF8=1` y probar con `subprocess` |
+| Un `--help` o un error de uso devuelve un código inesperado | No se documentaron los códigos de salida | Tabla de códigos en el README y una prueba por cada valor |
+| La variable de entorno se ignora aunque está definida | El valor por defecto de `argparse` se aplicó antes de mirar el entorno | `default=None` y una función de resolución con orden explícito |
+| Canalizar la CLI hacia `head` imprime un traceback | No se trató el cierre de la tubería como terminación normal | Capturar `BrokenPipeError` / `OSError` en la salida y terminar sin traceback |
+| La prueba de salida pasa en Linux y falla en Windows | El archivo de referencia incluye `\n` y la salida lleva CRLF | Fijar `newline` en el programa y comparar bytes |
 
 ## Entorno y archivos clave
 
@@ -189,6 +225,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que escribe una CLI casi siempre la prueba llamando a `main(argv)` en el mismo proceso, con `capsys`, y declara que funciona. Eso no recorre la tubería, ni la codificación, ni el código de salida real. Exige una prueba de extremo a extremo con `subprocess` en las plataformas que soportas, que verifique código de salida, bytes de `stdout` y que `stderr` esté vacío cuando no hay error, y una tabla de precedencia de configuración con las combinaciones. Pídele que enumere los códigos de salida antes de escribir código.
 
 ## Transferencia
 
@@ -217,6 +257,14 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del producto reutilizable con SDK y CLI sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Command Line Interface Guidelines](https://clig.dev/) — guía de práctica sobre salida, códigos, errores y configuración de CLIs.
+- [Python: `argparse`](https://docs.python.org/3/library/argparse.html) — comportamiento de errores de uso y `--help`, con salida 2 y 0.
+- [Python: `signal`](https://docs.python.org/3/library/signal.html) — señales y diferencias entre Windows y Unix, incluidos `CTRL_BREAK_EVENT` y `SIGINT`.
+- [Python: `subprocess`](https://docs.python.org/3/library/subprocess.html) — captura de salida, entorno y códigos de retorno, con el signo negativo para señales.
+- [The Twelve-Factor App: Config](https://12factor.net/config) — argumento de práctica para configurar mediante entorno.
+- [Python: variables y opciones de modo UTF-8](https://docs.python.org/3/using/cmdline.html) — `PYTHONUTF8` y modos de codificación.
+- [PEP 686: Make UTF-8 mode default](https://peps.python.org/pep-0686/) — aceptado para Python 3.15; explica el origen de las diferencias de codificación en Windows.
 
 ## Límites y siguiente paso
 

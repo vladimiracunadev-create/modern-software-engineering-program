@@ -84,6 +84,36 @@ Ejemplos se prueban contra versión publicada y usan datos sintéticos. Tutorial
 
 Issues, soporte y telemetría pueden revelar fricción. Telemetría debe tener propósito, minimización, consentimiento o base adecuada, retención y opt-out. No se usa vigilancia para suplir investigación con personas.
 
+### Tiempo hasta el primer éxito
+
+La experiencia de desarrollo empieza con cuánto tarda alguien en ver funcionar algo. Se midió el recorrido más corto de un SDK mínimo: crear un entorno virtual, instalar la rueda desde un directorio local (sin red) y hacer la primera llamada. Crear el entorno tardó 11,5 s en Windows y 4,8 s en Linux; instalar la rueda 3,3 s y 0,7 s; la primera llamada 0,08 s y 0,02 s. Son tres comandos y, además de la biblioteca, se instaló un script de consola. Entre el 77 % y el 87 % del tiempo total se fue en crear el entorno, algo que el SDK no controla.
+
+Lo que sí controla es el número de pasos, que el primer ejemplo funcione sin configuración previa, que el mensaje cuando falta algo diga qué hacer, y que el resultado de la primera llamada demuestre algo (no un `None`). Medir tiempo-hasta-el-primer-éxito con una persona que no conoce el producto, cronometrando y anotando dónde se detiene, es la prueba de DX más barata y más reveladora. Esta medición excluye la descarga y no sustituye esa observación.
+
+![Barras con el tiempo de crear un entorno virtual, instalar una rueda sin red y hacer la primera llamada en Windows y Linux.](../../../content/part-09/figures/se-118-tiempo-hasta-el-primer-exito.svg)
+
+**Cómo leer la figura.** Compara las barras de un mismo sistema: la del entorno virtual domina. **Dónde deja de valer:** una sola pasada por plataforma, con ruedas locales y sin red; en un equipo con antivirus activo o disco lento el entorno tarda más, y una instalación real descarga el paquete y sus dependencias. No se midió tiempo de lectura de documentación.
+
+### Calidad del error: qué dice la última línea
+
+Un error es la parte de la interfaz que el usuario ve cuando algo salió mal. Se compararon cuatro. Un `KeyError: 'endpoint'` crudo dio 8 líneas de traceback y ninguna acción. Una excepción propia con causa y solución («Falta 'endpoint' en la configuración. Causa: … Solución: …») dio 8 líneas y la acción. Una pila de tres funciones sin envolver dio 20 líneas y el mismo `KeyError`. Envuelta en la frontera del SDK con `raise … from None`, volvió a 8 líneas con causa y solución.
+
+La regla es que el error de la frontera diga qué ocurrió, por qué y cómo arreglarlo, en el vocabulario del usuario y no en el de la implementación. `from None` oculta la excepción original: bueno para quien usa el SDK, malo para quien lo depura, así que conviene conservar la cadena en un modo de depuración o en un registro. Un atributo estructurado en la excepción (qué clave faltó) permite al consumidor reaccionar sin analizar texto.
+
+![Tabla con cuatro errores: KeyError crudo, excepción propia con causa y solución, pila profunda sin envolver y la misma pila envuelta, con líneas de traceback y si dicen cómo arreglarlo.](../../../content/part-09/figures/se-118-calidad-del-error.svg)
+
+**Cómo leer la figura.** Observa la columna de líneas y la última: el error útil es corto y con acción. **Dónde deja de valer:** el conteo de líneas es del traceback de Python 3.12 con tres funciones; una pila real con bibliotecas es más profunda. La calidad de un mensaje también depende del idioma y del nivel del lector, algo que esta medición no evalúa.
+
+### Avisos de obsolescencia: quién los ve
+
+Una función obsoleta emite `DeprecationWarning`, y por defecto Python solo lo muestra si el código que llama está en `__main__`. Se comprobó con cuatro ejecuciones: llamada desde el script principal, aviso visible; la misma llamada desde un módulo de la aplicación, silencio; con `-W default`, aviso visible; con `-W error::DeprecationWarning`, salida 1. El resultado fue idéntico en Windows y Linux.
+
+La consecuencia es que un SDK que deprecia con un `DeprecationWarning` y espera que los usuarios se enteren, probablemente esperará en vano: casi todo el código real llama desde módulos. La práctica es usar `stacklevel=2` para que el aviso apunte al llamador, documentar el plazo y la alternativa en el mensaje, ejecutar la propia integración continua con `-W error`, y recomendar a los consumidores hacer lo mismo en sus pruebas. Una política de depreciación escrita (cuántas versiones, qué aviso) forma parte del contrato.
+
+![Tabla con cuatro ejecuciones de una función obsoleta: llamada desde el script principal, desde un módulo, con -W default y con -W error, con el código de salida y si el aviso fue visible.](../../../content/part-09/figures/se-118-avisos-de-obsolescencia.svg)
+
+**Cómo leer la figura.** La segunda fila es la importante: el aviso existe y nadie lo ve. Las otras dos muestran cómo hacerlo visible. **Dónde deja de valer:** el filtro por defecto cambió entre versiones de Python y marcos de prueba como `unittest` o pytest lo activan por su cuenta; lo medido es `python script.py` en 3.12. Una obsolescencia seria también se comunica en el registro de cambios y en la documentación.
+
 ## Definiciones de trabajo
 
 - **journey de desarrollador:** la experiencia abarca descubrir, evaluar, instalar, lograr primer éxito, integrar, depurar, actualizar y abandonar.
@@ -124,10 +154,10 @@ Compara el caso normal con autorización falsa, evidencia incompleta, empate y r
 
 ## Ejercicios
 
-1. **Lectura:** dibuja una traza de cinco pasos y marca dónde cambia estado o control.
-2. **Construcción:** añade una capacidad pública y prueba el comportamiento desde un proyecto consumidor.
-3. **Frontera:** cubre vacío, empate, no autorizado e inválido con resultados distintos.
-4. **Contraste:** reescribe una pieza con otro modelo y explica una mejora y una pérdida.
+1. **Primer éxito:** cronometra crear un entorno, instalar tu paquete desde una rueda local y hacer la primera llamada; después pídele a otra persona que lo haga y anota dónde se detuvo.
+2. **Cuatro errores:** provoca el mismo fallo de configuración de cuatro maneras (error crudo, excepción propia, pila profunda sin envolver y envuelta) y cuenta las líneas de traceback y si dicen cómo arreglarlo.
+3. **Aviso invisible:** escribe una función obsoleta con y sin `stacklevel`, llámala desde `__main__` y desde un módulo, con `-W default` y `-W error`; registra qué se ve y la salida.
+4. **Guía de migración:** redacta el aviso y la sección de migración para renombrar un parámetro con un plazo de dos versiones; incluye una prueba que falla cuando el plazo vence.
 
 ## Reto verificable
 
@@ -139,17 +169,21 @@ El producto reutilizable con SDK y CLI empaqueta el motor de la biblioteca de es
 
 ## Preguntas frecuentes
 
-### ¿Una técnica o herramienta determina toda la arquitectura?
+### ¿Cómo mido la experiencia de desarrollo si no tengo usuarios?
 
-No. Puede organizar un núcleo o una frontera sin dominar el sistema completo. Combinar técnicas es válido si las fronteras preservan identidad, orden, errores y evidencia.
+Con una persona que no conozca el producto, un cronómetro y una hoja: anota dónde se detiene, qué lee y qué intenta. Con la medición de comandos y tiempos obtienes el piso técnico; la observación te da el resto.
 
-### ¿Más automatización o menos líneas significan una solución mejor?
+### ¿Debo envolver todas las excepciones del SDK?
 
-No. La brevedad puede quitar duplicación o esconder decisiones. Se evalúan semántica, diagnóstico, costo de cambio y adecuación a la carga.
+Las que cruzan la frontera pública, sí, con un tipo propio y un mensaje con acción. Las internas pueden quedarse como están. Conserva la causa original en un modo de depuración para quien mantiene el SDK.
 
-### ¿Debo instalar todas las herramientas mencionadas?
+### ¿Por qué mi `DeprecationWarning` no aparece?
 
-No. Instala solo lo necesario para la práctica elegida. Registra versión y comandos; si solo analizas una notación o salida, decláralo como análisis no ejecutado.
+Porque el filtro por defecto lo oculta si la llamada no viene de `__main__`. Usa `stacklevel=2`, comprueba con `-W default` y exige `-W error::DeprecationWarning` en la integración continua de tu SDK.
+
+### ¿Cuántos pasos debe tener un «inicio rápido»?
+
+Los menos que sean ciertos. En el experimento fueron tres comandos hasta el primer resultado. Cada paso adicional (variables, cuentas, archivos) debe justificar por qué no puede ser un valor por defecto.
 
 ## Fallo controlado y diagnóstico
 
@@ -157,15 +191,17 @@ Prueba el quickstart en checkout del mantenedor y pasa por imports locales. Ejec
 
 Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. No cambies simultáneamente implementación, fixture y expectativa.
 
+Llama a una función obsoleta desde un módulo de la aplicación y ejecuta el script con la configuración por defecto. **Síntoma:** no hay aviso y la migración no ocurre. **Hipótesis rivales:** (a) la función no emite el aviso; (b) el filtro por defecto lo oculta. **Prueba:** con `-W default` el aviso aparece apuntando a la línea del llamador, y con `-W error::DeprecationWarning` la ejecución termina con salida 1. **Conclusión:** el aviso se emitía y estaba oculto por el filtro; corrección: `stacklevel=2`, texto con plazo y alternativa, y `-W error` en la integración continua del SDK; regresión: una prueba que exige el aviso con ese texto. No cambies a la vez el mensaje y el filtro.
+
 ## Errores comunes y cómo corregirlos
 
 | Síntoma | Causa probable | Corrección |
 |---|---|---|
-| dos pruebas aisladas pasan y juntas fallan | estado o dependencia compartida | aislar propietario y reiniciar fixture |
-| implementación corta pero opaca | semántica delegada sin contrato | documentar transición, error y orden |
-| modelos “equivalentes” divergen | fixtures normalizan diferencias reales | comparar contrato antes de presentación |
-| reintento duplica resultado | efecto sin identidad ni idempotencia | correlacionar y probar repetición |
-| diagrama y código cuentan historias distintas | visual ornamental o desactualizado | trazar el mismo caso en ambos |
+| Los usuarios abandonan antes de la primera llamada | Demasiados pasos o requisitos previos ocultos | Medir el recorrido con alguien nuevo y eliminar pasos o dar valores por defecto |
+| Los reportes de error son «no funciona» sin datos | El mensaje no dice qué faltó ni cómo arreglarlo | Excepción propia con causa, solución y atributos estructurados |
+| El traceback de un error de configuración ocupa 20 líneas de código interno | No se envolvió en la frontera | `raise … from None` en la frontera y causa original en modo de depuración |
+| Nadie migra tras una obsolescencia | El aviso no se ve en código fuera de `__main__` | `stacklevel=2`, plazo en el mensaje y `-W error` en CI |
+| El quickstart de la documentación ya no funciona | El ejemplo no se ejecuta en CI | Ejecutar los ejemplos de la documentación en un entorno limpio en cada cambio |
 
 ## Entorno y archivos clave
 
@@ -190,6 +226,10 @@ El `README` declara plataforma, runtimes, comandos, limpieza y límites. Evita d
 - redacta trazas y conserva una explicación textual además de color o animación;
 - una recomendación automatizada debe poder revisarse, impugnarse y corregirse;
 - respeta licencias de ejemplos y atribuye adaptaciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente que escribe un SDK optimiza el código de la ruta feliz y deja mensajes genéricos («invalid input») y un README que nadie ejecuta. Exige que cada ejemplo del README se ejecute en CI desde un entorno limpio, que los errores de la frontera tengan causa y solución con una prueba por cada uno, y que toda depreciación venga con `stacklevel`, plazo, alternativa y una prueba. Pídele que cronometre el recorrido desde la instalación hasta el primer resultado y que reporte el número de pasos; si crece entre cambios, es una regresión de DX.
 
 ## Transferencia
 
@@ -218,6 +258,12 @@ Traslada un fixture al segundo modelo, herramienta, plataforma o lenguaje. Compa
 - [REUSE Specification](https://reuse.software/spec-3.3/) — Declaración inequívoca y verificable de copyright y licencias por archivo; autoridad: Free Software Foundation Europe.
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que la implementación del producto reutilizable con SDK y CLI sea correcta. Esa afirmación depende de fixtures, pruebas, trazas y revisión reproducible.
+
+- [Python: `warnings`](https://docs.python.org/3/library/warnings.html) — filtros, `DeprecationWarning`, `stacklevel` y opciones `-W`.
+- [PEP 387: Backwards Compatibility Policy](https://peps.python.org/pep-0387/) — política de depreciación de Python como ejemplo de plazos y avisos.
+- [Python: excepciones integradas](https://docs.python.org/3/library/exceptions.html) — jerarquía y semántica de `raise … from`.
+- [Python: `venv`](https://docs.python.org/3/library/venv.html) — creación de entornos virtuales usada para el recorrido medido.
+- [Command Line Interface Guidelines](https://clig.dev/) — guía de práctica sobre mensajes de error y ayuda en la línea de comandos.
 
 ## Límites y siguiente paso
 

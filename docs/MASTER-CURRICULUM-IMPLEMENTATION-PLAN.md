@@ -625,18 +625,18 @@ evita una explicación genérica.
 
 ### Parte 31 — Calidad, rendimiento y resiliencia
 
-- [ ] `SE-373` — aplicar las nueve características ISO 25010:2023.
-- [ ] `SE-374` — usar métricas y gates con límites explícitos.
-- [ ] `SE-375` — ejecutar load, stress, spike y soak.
-- [ ] `SE-376` — trabajar percentiles y capacidad.
-- [ ] `SE-377` — validar metodología de benchmark.
-- [ ] `SE-378` — diseñar retries con presupuesto.
-- [ ] `SE-379` — probar aislamiento y degradación.
-- [ ] `SE-380` — contrastar RTO/RPO mediante restore.
-- [ ] `SE-381` — verificar compatibilidad.
-- [ ] `SE-382` — fijar performance budgets.
-- [ ] `SE-383` — ejecutar un game day.
-- [ ] `SE-384` — entregar informe con evidencia cruda.
+- [x] `SE-373` — aplicar las nueve características ISO 25010:2023.
+- [x] `SE-374` — usar métricas y gates con límites explícitos.
+- [x] `SE-375` — ejecutar load, stress, spike y soak.
+- [x] `SE-376` — trabajar percentiles y capacidad.
+- [x] `SE-377` — validar metodología de benchmark.
+- [x] `SE-378` — diseñar retries con presupuesto.
+- [x] `SE-379` — probar aislamiento y degradación.
+- [x] `SE-380` — contrastar RTO/RPO mediante restore.
+- [x] `SE-381` — verificar compatibilidad.
+- [x] `SE-382` — fijar performance budgets.
+- [x] `SE-383` — ejecutar un game day.
+- [x] `SE-384` — entregar informe con evidencia cruda.
 
 ### Parte 32 — Seguridad, privacidad y compliance
 

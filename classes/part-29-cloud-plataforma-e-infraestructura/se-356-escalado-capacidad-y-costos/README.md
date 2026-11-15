@@ -2,209 +2,326 @@
 
 [← SE-355 — Entornos, cuentas y separación de responsabilidades](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-355-entornos-cuentas-y-separacion-de-responsabilidades/README.md) · [↑ Parte 29](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-356.html) · [SE-357 — Multi-cloud, híbrido y portabilidad real →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que puedas decidir cuánta capacidad tener, cuándo cambiarla y cuánto pagar por ella con evidencia y no con una impresión. Hay tres relaciones que gobiernan casi todo: el escalado reactivo siempre llega tarde por lo que tarda en arrancar, la latencia se dispara antes de que la capacidad se agote y el precio más bajo por unidad exige comprometer una cantidad que hay que elegir bien.
+
+**Por qué aparece aquí.** Sigue a **Entornos, cuentas y separación de responsabilidades**: ya sabes dónde vive cada entorno; ahora preguntas cuántas instancias necesita y a qué precio. El caso conductor de la parte es la plataforma de entregas llevada a una infraestructura gestionada, y esta clase decide cómo se dimensiona para la semana de cierre sin pagarla todo el año.
+
+**Error conceptual que debe corregir.** Creer que el escalado automático absorbe cualquier pico. Reacciona a lo que ya ocurrió, tarda en tener instancias listas y no hace nada por la demanda que llega mientras tanto; y que la capacidad «sobra» mientras la utilización sea del 90 %, cuando es justo ahí donde la espera se multiplica.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices qué porcentaje de demanda se pierde si las instancias tardan cinco minutos en arrancar, cuánto crece el tiempo en el sistema al pasar de una utilización del 80 % al 95 % y cuántas instancias conviene comprometer para ahorrar; después lo calculas con una simulación de siete días de tráfico, una cola de un servidor y un modelo de precios. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `capacidad-y-costos.md` con la predicción, las tres figuras reproducidas, la política de escalado de la aplicación web con sus parámetros justificados, el nivel de compromiso elegido con su cálculo y una nota con qué cambia si el patrón de tráfico cambia.
+
+**Límite de la conclusión.** El tráfico es sintético (una curva diaria con picos que el autor inventó), la capacidad por instancia, el objetivo de utilización, el arranque y los precios son supuestos del autor, y los precios no son los de ningún proveedor. No se midió ninguna plataforma ni un autoescalador real; la cola es un modelo de un servidor con llegadas y servicio exponenciales.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Kubernetes: Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) | Escala el número de réplicas con una relación entre la métrica observada y la deseada, y aplica ventanas de estabilización para evitar oscilaciones. | No dice qué objetivo de utilización conviene ni cuánto tarda en arrancar una réplica. |
+| [Little, «A Proof for the Queuing Formula: L = λW» (1961)](https://doi.org/10.1287/opre.9.3.383) | Establece que el número medio de elementos en un sistema estable es la tasa de llegada por el tiempo medio que pasan en él. | No dice cómo se distribuye el tiempo ni qué pasa en picos. |
+| [Google, «Site Reliability Engineering»](https://sre.google/sre-book/table-of-contents/) | Trata la planificación de capacidad y la gestión de la sobrecarga como parte de la ingeniería de fiabilidad. | No fija un porcentaje de utilización universal. |
+| [FinOps Foundation: Framework](https://www.finops.org/framework/) | Describe prácticas para informar, optimizar y operar el gasto en la nube, entre ellas la optimización de tarifas por compromiso. | No da precios ni dice qué compromiso conviene a cada carga. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-355`: cada entorno tiene sus propias reglas y su propia factura. La pregunta activa es: **¿cuántas instancias necesito en cada minuto, cuánto tardan en llegar y qué parte de ellas conviene reservar de antemano?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-355` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de contenedores OCI, Kubernetes local y Terraform en modo plan.
+- Haber completado `SE-355` o poder explicar por qué un entorno de producción tiene su propia cuenta.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `math`, `statistics`) y no necesitan cuenta en un proveedor.
+- Saber qué es la utilización, la latencia y una tasa de llegada por segundo.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Escalado, capacidad y costos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas atendía cerca de 120 solicitudes por segundo en horas normales y 600 en los picos de cierre. El equipo fijó 30 instancias para cubrir el peor pico y pagó, siete días a la semana, una capacidad que usaba cuatro horas al mes. Luego activó el escalado automático con arranque de cinco minutos y, en el siguiente cierre, el 0,8 % de las solicitudes se perdió durante el minuto de la subida. Finalmente alguien propuso comprometer toda la flota por un descuento y el gasto subió, porque el compromiso cubría los picos y no el uso típico. Tres decisiones, tres mecanismos.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Escalado y capacidad con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **plataforma reproducible con infraestructura declarativa** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «aplicar infraestructura sin revisar plan, estado, permisos ni costo» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Escalado | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Capacidad | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Costos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Recurso | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. generar un patrón de demanda con ritmo diario y picos y calcular cuántas instancias hacen falta por minuto;
+2. comparar políticas de escalado por demanda sin atender y por instancias-hora, incluido el efecto del tiempo de arranque;
+3. calcular cómo crece el tiempo en el sistema con la utilización y dónde está el codo;
+4. encontrar el nivel de compromiso que minimiza el costo con un patrón de demanda y un descuento dados;
+5. escribir la política de capacidad de la plataforma con sus supuestos y su revisión.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Escalado, capacidad y costos"] --> M["Modelo: Escalado"]
-    M --> D["Decisión: capacidad"]
-    D --> E["Evidencia: costos"]
-    E --> R["Revisión: recurso"]
-    R -->|nueva información| M
+    A[Demanda por minuto] --> B[Capacidad necesaria]
+    B --> C{Política: fija, reactiva, programada}
+    C --> D[Instancias listas tras el arranque]
+    D --> E[Demanda atendida o perdida]
+    D --> F[Instancias-hora pagadas]
+    F --> G{Tarifa: bajo demanda o comprometida}
+    G --> H[Costo total]
+    E --> I[Nivel de servicio]
+    H --> J[Decisión y revisión]
+    I --> J
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Escalado, capacidad y costos**.
+El mapa tiene dos salidas que se comparan, el **nivel de servicio** (qué demanda se atendió) y el **costo** (qué se pagó), y las dos dependen de una política que decide cuántas instancias hay en cada momento. La tarifa es una segunda decisión, independiente de la primera: cuántas de esas instancias se compran por adelantado.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Patrón de demanda | Un promedio oculta los picos y la forma del día. | Mínimo, mediana, percentil 99 y máximo del tráfico |
+| Políticas de escalado | El arranque tarda y eso se paga en demanda perdida. | Demanda sin atender e instancias-hora por política |
+| Latencia y utilización | La espera se dispara antes de saturar. | Tiempo en el sistema según la utilización |
+| Compromiso de capacidad | Una base reservada abarata lo constante. | Costo según el nivel comprometido |
+| Revisión | El patrón cambia y la decisión caduca. | Fecha y señal que reabre la política |
 
 ## Conceptos y decisiones
 
-Cloud y platform engineering convierten recursos y políticas en productos internos declarativos; elasticidad, seguridad, costo y operación son parte del diseño.
+### 1. Patrón de demanda
 
-La pregunta rectora de esta parte es: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** La respuesta debe
-apoyarse en **plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada**.
+La capacidad no se dimensiona con el promedio sino con la forma: un ritmo diario, uno semanal y picos que ocurren por razones del negocio, como el cierre de entregas. Conviene describir la demanda con unos pocos números, el mínimo, la mediana, un percentil alto y el máximo, porque cada uno responde a una decisión distinta: la mediana, a lo que se puede comprometer; el máximo, a lo que ninguna política reactiva cubrirá. Una demanda con picos de cuatro veces la mediana obliga a elegir qué parte del pico se cubre con reserva, qué parte con escalado y qué parte se acepta perder o degradar.
 
-### 1. Escalado: modelo
+### 2. Políticas de escalado
 
-En esta clase, **Escalado** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Escalado, capacidad y costos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una política **fija** mantiene un número de instancias; una **reactiva** lo ajusta según una métrica observada; una **programada** lo ajusta según un calendario conocido. La reactiva, como el autoescalador horizontal de Kubernetes, calcula las réplicas deseadas como la relación entre la métrica observada y la deseada, y usa ventanas de estabilización para no oscilar. Su límite es que actúa sobre el pasado: observa, decide y espera el arranque. La programada anticipa lo que sigue un patrón y no lo que no lo sigue. Combinarlas es lo habitual: una base programada y un margen reactivo.
 
-### 2. Capacidad: mecanismo
+### 3. Latencia y utilización
 
-En esta clase, **capacidad** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Escalado, capacidad y costos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Con llegadas y servicios aleatorios, una cola crece de forma no lineal con la utilización. Para el modelo más simple, un servidor con llegadas de Poisson y servicio exponencial, el tiempo medio en el sistema es el tiempo de servicio dividido entre uno menos la utilización, y el percentil 99 es unas cuatro veces y media mayor. La ley de Little, que relaciona el número de elementos en el sistema con la tasa de llegada y el tiempo en él, permite pasar de latencia a cantidad de trabajo en curso. La consecuencia es práctica: funcionar al 90 % de utilización no es «aprovechar bien» sino vivir junto a un precipicio.
 
-### 3. Costos: evidencia
+### 4. Compromiso de capacidad
 
-En esta clase, **costos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Escalado, capacidad y costos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los proveedores ofrecen un precio menor por unidad si te comprometes a pagar una cantidad durante un plazo. Pagas lo comprometido lo uses o no, así que conviene comprometer la parte de la demanda que casi siempre está presente y dejar el resto bajo demanda. El nivel óptimo está cerca de la mediana de la demanda, no del promedio ni del máximo: comprometer de más cuesta más que no comprometer. FinOps incluye esta optimización de tarifas como práctica, y la acompaña de una advertencia: el patrón debe repetirse durante todo el plazo.
 
-### 4. Recurso: decisión
+### 5. Revisión
 
-En esta clase, **recurso** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Escalado, capacidad y costos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una política de capacidad es una apuesta sobre el futuro del tráfico. Cuando el patrón cambia, por una nueva universidad cliente o un cambio de calendario, la política se vuelve incorrecta sin que nada falle. Por eso se escribe con su señal de revisión: qué métrica la reabre y cada cuánto se mira.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Siete días con picos
+
+Se genera, con semilla fija, el tráfico por minuto de siete días: una curva diaria entre 60 y 180 solicitudes por segundo, ruido gaussiano del 5 % y dos picos al día de diez minutos con factor 2,5, 3 o 4. El resultado tiene mínimo 50,3, mediana 120,8, percentil 99 de 267,9 y máximo 598,2 solicitudes por segundo. Con 20 solicitudes por segundo por instancia, el máximo exige 30 instancias. Se simulan seis políticas con objetivo de utilización del 60 %.
+
+```python
+want = math.ceil(d / (cap * target))
+have = n + sum(k for _, k in pend)            # instancias en camino cuentan
+if want > have: pend.append((m + delay, want - have))
+elif want < have and m - last_in >= cooldown: n = max(want, 1)   # reducir tras 10 min
+unmet += max(0.0, d - n * cap)
+```
+
+| Política | Demanda sin atender | Instancias-hora |
+|---|---:|---:|
+| Fijo en el pico diurno (12) | 1,64 % | 2 016 |
+| Fijo en el pico de los picos (30) | 0 % | 5 040 |
+| Reactivo, arranque inmediato | 0 % | 1 910 |
+| Reactivo, arranque de 2 minutos | 0,34 % | 1 866 |
+| Reactivo, arranque de 5 minutos | 0,84 % | 1 813 |
+| Programado (solo la curva diaria) | 1,85 % | 1 762 |
+
+Reservar para el pico absoluto cubre todo y cuesta 2,6 veces más que escalar con reacción. Cada minuto de arranque añade unos 0,17 puntos porcentuales de demanda perdida. La política programada es la más barata y la que más pierde, porque no ve los picos aleatorios; combinada con un margen reactivo reuniría lo bueno de ambas. El resultado enseña la forma del compromiso, no el mejor punto: esa elección depende de cuánto cueste perder una solicitud.
+
+![Tabla con la demanda sin atender y las instancias-hora de seis políticas de escalado sobre siete días de tráfico con picos.](../../../content/part-29/figures/se-356-politicas-de-escalado.svg)
+
+**Cómo leer la figura.** Cada fila es una política y las dos columnas son el servicio perdido y el costo en instancias-hora de los mismos siete días. **Dónde deja de valer:** el tráfico lo generé yo, y los picos de un cierre de entregas real tienen una subida más brusca o más lenta; la solicitud no atendida se pierde, sin cola ni reintento, que es una simplificación.
+
+### La espera se dispara antes de saturar
+
+Se simula una cola de un servidor con llegadas de Poisson y servicio exponencial de media 1, con 200 000 clientes por utilización, y se mide el tiempo en el sistema (espera más servicio) con la recurrencia de Lindley.
+
+```python
+w = max(0.0, w + prev_s - a)        # espera del cliente actual
+soj.append(w + s)                   # tiempo en el sistema
+```
+
+| Utilización | Media simulada / teórica | Percentil 99 simulado / teórico |
+|---|---|---|
+| 50 % | 2,00 / 2,00 | 9,3 / 9,2 |
+| 70 % | 3,35 / 3,33 | 15,6 / 15,4 |
+| 80 % | 5,07 / 5,00 | 23,7 / 23,0 |
+| 90 % | 10,1 / 10,0 | 48,3 / 46,1 |
+| 95 % | 20,7 / 20,0 | 103 / 92 |
+
+De 80 % a 95 % de utilización el tiempo medio se cuadruplica y el percentil 99 pasa de 24 a 103 veces el tiempo de servicio. La simulación coincide con la fórmula 1 ÷ (μ − λ) para la media y es algo mayor para el percentil con 95 %, donde el muestreo converge más despacio. Por eso el objetivo de utilización de un autoescalador es del 50 al 70 % y no del 90: el margen no se desperdicia, es lo que absorbe la variabilidad.
+
+![Tabla con el tiempo medio en el sistema y el percentil 99 simulados y teóricos de una cola de un servidor con utilizaciones del 50 al 95 por ciento.](../../../content/part-29/figures/se-356-latencia-segun-la-utilizacion.svg)
+
+**Cómo leer la figura.** Cada fila es una utilización; las columnas dan la media y el percentil 99 del tiempo en el sistema, en unidades del tiempo de servicio, simulados y teóricos. **Dónde deja de valer:** es un servidor con llegadas y servicios exponenciales; un servicio con varias réplicas, servicios más regulares o ráfagas se comporta distinto, y la utilización de un sistema real no es una constante.
+
+### Cuánto conviene comprometer
+
+Con la demanda de los siete días convertida en instancias necesarias por minuto, se calcula el costo para siete niveles de compromiso: lo comprometido se paga siempre a 0,6 por instancia-hora, y lo que excede se paga bajo demanda a 1,0. Los precios son unidades inventadas con una rebaja del 40 %.
+
+```python
+extra = sum(max(0, x - c) for x in need) / 60.0
+cost = c * horas * 0.6 + extra * 1.0
+```
+
+| Compromiso | Instancias | Costo |
+|---|---:|---:|
+| Todo bajo demanda | 0 | 1 124 |
+| Percentil 25 | 4 | 862 |
+| Mediana | 7 | 854 |
+| Percentil 75 y 90 | 9 | 943 |
+| Percentil 99 | 14 | 1 426 |
+| Máximo | 30 | 3 024 |
+
+El mínimo, 854, está en la mediana, que es 24 % más barato que todo bajo demanda; comprometer el máximo cuesta 3,5 veces el mínimo. La curva es plana cerca del óptimo y empinada a la derecha: equivocarse por defecto cuesta poco y por exceso cuesta mucho. Eso sugiere comprometer un poco menos que la mediana y revisar.
+
+![Barras con el costo de siete días de demanda según cuántas instancias se comprometen, con un mínimo cerca de la mediana de la demanda.](../../../content/part-29/figures/se-356-nivel-de-compromiso-y-coste.svg)
+
+**Cómo leer la figura.** Cada barra es el costo total de los mismos siete días con un nivel de compromiso distinto; la más corta es la mejor. **Dónde deja de valer:** los precios son inventados y el descuento del 40 % es un supuesto; el cálculo supone que la demanda de las próximas semanas tendrá la misma forma, y si el patrón de un curso cambia, el compromiso queda sobredimensionado hasta que vence.
 
 ## Definiciones de trabajo
 
-- **Escalado:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Capacidad:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Costos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Recurso:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
+- **escalado reactivo:** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
+- **escalado programado:** ajuste del número de instancias según un calendario basado en un patrón conocido.
+- **utilización:** fracción del tiempo o de la capacidad que un recurso está ocupado.
+- **ley de Little:** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
+- **compromiso de capacidad:** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada herramienta usan estos términos con matices y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Escalado, capacidad y costos**:
+El fragmento calcula el tiempo medio en el sistema de una cola de un servidor con la fórmula. Antes de ejecutarlo, predice cuánto vale con utilización 0,8 y con 0,9.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+mu = 1.0
+for rho in (0.5, 0.8, 0.9, 0.95):
+    print(rho, round(1 / (mu - rho * mu), 1))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La salida es `0.5 2.0`, `0.8 5.0`, `0.9 10.0` y `0.95 20.0`: cada diez puntos de utilización pasan de duplicar a cuadruplicar la espera. Registra versión de Python, comando y salida; después aplica la ley de Little para obtener cuántos clientes hay en el sistema con una llegada de 50 por segundo y un tiempo de 0,04 s.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Escalado, capacidad y costos**. Parte de esta pregunta: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `Containerfile` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma describe la demanda de siete días con mínimo, mediana, percentil 99 y máximo, y concluye que 12 instancias cubren el día normal y 30 el peor pico. Elige una política programada con una base de 7 instancias, una subida programada para las horas del cierre y un margen reactivo con objetivo de utilización del 60 % y arranque de 2 minutos, y mide con su propio tráfico cuánta demanda pierde en los picos aleatorios. Para las notificaciones, que toleran retraso, usa una cola en lugar de instancias. Compromete 7 instancias, la mediana, con revisión cada trimestre y una alerta si la demanda mediana baja o sube un 25 %. Registra el costo con y sin compromiso. Compara con el estado inicial: ya no paga el pico absoluto todo el año ni pierde solicitudes por un arranque de cinco minutos.
 
 ## Práctica guiada
 
-1. Crea `work/SE-356/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el plataforma reproducible con infraestructura declarativa con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Predice la demanda sin atender con arranque de 5 minutos y las instancias que comprometerías.
+2. Genera el tráfico de siete días con semilla fija y describe sus cuatro números clave.
+3. Simula las seis políticas y reproduce la tabla de demanda sin atender e instancias-hora.
+4. Cambia el objetivo de utilización a 80 % y mide el efecto sobre el servicio perdido.
+5. Simula la cola con cinco utilizaciones y compara con la fórmula.
+6. Calcula el costo para siete niveles de compromiso y localiza el mínimo.
+7. Entrega `capacidad-y-costos.md` y pide a otra persona que identifique qué supuesto cambiaría el nivel de compromiso.
 
 ## Ejercicios
 
-1. **Fundamental:** define Escalado y capacidad con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `Containerfile` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Pico:** con un pico de cuatro veces la mediana durante diez minutos y arranque de 5, calcula cuánta demanda se pierde y qué política la reduciría.
+2. **Cola:** explica por qué el percentil 99 crece más que la media al acercarse a la saturación.
+3. **Little:** con 600 solicitudes por segundo y un tiempo en el sistema de 0,05 s, ¿cuántas hay en curso? ¿Cuántas instancias de 20 en curso por instancia hacen falta?
+4. **Compromiso:** si el descuento fuera del 20 % en lugar del 40 %, ¿sube o baja el nivel óptimo? Razona sin repetir el cálculo.
 
 ## Reto verificable
 
-Entrega el **plataforma reproducible con infraestructura declarativa** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `capacidad-y-costos.md` con la predicción, las tres tablas reproducidas con las mismas semillas, la política de escalado de la aplicación web con sus parámetros y el nivel de compromiso con su cálculo. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene las mismas cifras y puede decir qué le pasaría al servicio si el pico de cierre llegara con un arranque de diez minutos. No se aprueba por afirmar que el escalado automático «absorbe los picos» sin medir el arranque, ni por comprometer capacidad con el promedio.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 29. Esta clase deja el octavo artefacto: la política de capacidad y el nivel de compromiso. `SE-357` pregunta qué pasa si parte de esta capacidad está en otro proveedor o en una instalación propia. Cambia un supuesto, por ejemplo el tiempo de arranque, y observa cuánto se mueve la demanda sin atender.
+
+## Preguntas frecuentes
+
+### ¿Por qué no usar siempre un objetivo de utilización alto para ahorrar?
+
+Porque la espera crece más que proporcionalmente y porque el autoescalador necesita margen para el arranque. Un objetivo del 90 % ahorra instancias y paga con latencia y con demanda perdida en cada pico.
+
+### ¿El escalado programado reemplaza al reactivo?
+
+No: cubre lo que sigue un patrón y es ciego a lo que no. En la tabla pierde más que el reactivo con arranque de 5 minutos. Combinados dan el costo bajo del primero y la respuesta a lo inesperado del segundo.
+
+### ¿Se puede comprometer sin conocer bien la demanda?
+
+Se puede comprometer poco, por debajo de la mediana, donde la curva es plana y el riesgo pequeño. Comprometer más exige una historia de demanda y la confianza de que el patrón seguirá durante el plazo.
+
+### ¿Qué pasa con las solicitudes que no se atienden?
+
+En el modelo se pierden. En un sistema real se encolan, se reintentan o se degradan; cada una de esas opciones tiene su costo de latencia y de estado y es una decisión de diseño de la Parte 28.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **aplicar infraestructura sin revisar plan, estado, permisos ni costo**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **el pico llega antes de que lleguen las instancias**. Aplica la política reactiva con arranque de 5 minutos sobre el tráfico con un pico de cuatro veces.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** durante la subida del pico, una fracción visible de las solicitudes de ese cuarto de hora se pierde y después todo se normaliza. **Hipótesis rivales:** (a) el autoescalador está mal configurado; (b) hay un defecto en la aplicación; (c) las instancias nuevas tardan en estar listas. **Prueba:** compara en el tiempo la demanda, las instancias pedidas y las instancias listas; si las pedidas suben de inmediato y las listas lo hacen cinco minutos después, la causa es el arranque. **Conclusión:** el escalado reactivo no cubre el primer tramo del pico. **Regresión:** añade una subida programada previa al cierre y repite la simulación comprobando la pérdida. No arregles a la vez el objetivo de utilización y el calendario.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Se pierden solicitudes en cada pico aunque el autoescalador funcione | El arranque tarda más que la subida | Subida programada previa o instancias de reserva |
+| Se paga el pico todo el año | Capacidad fija dimensionada al máximo | Escalado reactivo con base programada |
+| La latencia se dispara con 90 % de utilización | Objetivo demasiado alto | Bajar el objetivo al 50–70 % |
+| El compromiso aumenta el gasto | Se comprometió el pico o el promedio de un patrón que cambió | Comprometer por debajo de la mediana y revisar |
+| La política se vuelve incorrecta sin avisar | El patrón de tráfico cambió | Señal de revisión sobre la mediana y los picos |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: contenedores OCI, Kubernetes local y Terraform en modo plan. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-356/
 ├── README.md
-│   ├── Containerfile
-│   ├── platform.md
-│   ├── main.tf
-├── activity.yaml
-└── rubric.json
+├── capacidad/
+│   ├── trafico.py
+│   ├── escalado.py
+│   ├── cola.py
+│   └── compromiso.py
+├── tests/test_capacidad.py
+└── evidence/capacidad-y-costos.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `Containerfile` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. No se usó ninguna plataforma; si usas una, declara región, tarifa y limpieza.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- los precios del ejemplo son inventados y no son una oferta: no tomes una decisión de compra con ellos;
+- una solicitud perdida en el cierre es una entrega de un estudiante que no se confirmó: decide qué se garantiza antes de decidir qué se ahorra;
+- escalar a cero puede dejar sin servicio a quien lo necesita fuera del horario esperado: documenta qué se tolera;
+- describe la política de capacidad en texto además del gráfico, para que un lector de pantalla pueda seguirla;
+- respeta las condiciones de los proveedores al comprometer capacidad y registra quién autoriza el gasto.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «configura el escalado automático de la plataforma» producirá una regla con un objetivo de utilización alto y sin base programada, y no medirá el tiempo de arranque. Pídele en cambio que declare el patrón de demanda con sus cuatro números, que calcule la demanda perdida con el arranque medido y que incluya una prueba que simule el pico y falle si la pérdida supera un umbral. Revisa especialmente el objetivo de utilización, los mínimos y máximos de instancias y el tiempo de enfriamiento: son los tres parámetros donde un escalado correcto pierde solicitudes o paga de más.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, un servicio de reservas con picos de fin de semana): cambia la curva y conserva el procedimiento de generar la demanda, comparar políticas por servicio perdido y costo, calcular el codo de la cola y buscar el nivel de compromiso. La transferencia está lograda cuando puedes decir qué parte de la demanda cubrirías con reserva y cuál con escalado, no cuando las tablas se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-356/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación del efecto del arranque, del codo de la cola y del compromiso |
+| corrección | simulaciones y fórmulas reproducibles con las mismas semillas |
+| decisión | política de escalado y nivel de compromiso con su señal de revisión |
+| diagnóstico | reproducción del fallo «pico antes que las instancias» con regresión |
+| incertidumbre | declaración de que el tráfico y los precios son supuestos del autor |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Kubernetes: Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) — cálculo de réplicas y ventanas de estabilización; autoridad: documentación oficial de Kubernetes.
+- [Little (1961), A Proof for the Queuing Formula: L = λW](https://doi.org/10.1287/opre.9.3.383) — relación entre llegadas, tiempo y elementos en el sistema; autoridad: artículo original (Operations Research, 9(3)).
+- [Site Reliability Engineering](https://sre.google/sre-book/table-of-contents/) — capacidad y sobrecarga como ingeniería; autoridad: libro de Google publicado en línea.
+- [FinOps Framework](https://www.finops.org/framework/) — optimización de tarifas y compromisos; autoridad: FinOps Foundation.
+- [Python: random](https://docs.python.org/3/library/random.html) — generador usado en los experimentos; autoridad: documentación de Python.
 
-- **Kubernetes documentation** — Cloud Native Computing Foundation. [https://kubernetes.io/docs/](https://kubernetes.io/docs/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Open Container Initiative specifications** — Open Container Initiative. [https://opencontainers.org/release-notices/overview/](https://opencontainers.org/release-notices/overview/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Terraform language documentation** — HashiCorp. [https://developer.hashicorp.com/terraform/language](https://developer.hashicorp.com/terraform/language) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AWS Well-Architected Framework** — Amazon Web Services. [https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Secure Software Development Framework** — NIST. [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 0,84 %, el 95 % de utilización con 103 veces el servicio ni el costo de 854 se observen en una plataforma real. Esa afirmación depende del tráfico, de los precios y del arranque de cada servicio.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Escalado, capacidad y costos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-357`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ninguna plataforma ni un autoescalador real: el tráfico, la capacidad por instancia, el arranque y los precios son supuestos del autor y la cola es un modelo de un servidor. La siguiente clase mira qué pasa cuando parte de esta capacidad vive en otro proveedor o en una instalación propia: multi-cloud, híbrido y portabilidad real.
+
+## Glosario
+
+- **escalado reactivo:** ajuste del número de instancias según una métrica observada, con un retardo hasta que las nuevas estén listas.
+- **escalado programado:** ajuste del número de instancias según un calendario basado en un patrón conocido.
+- **utilización:** fracción del tiempo o de la capacidad que un recurso está ocupado.
+- **ley de Little:** relación L = λW entre el número medio de elementos en un sistema estable, la tasa de llegada y el tiempo medio que pasan en él.
+- **compromiso de capacidad:** acuerdo de pagar una cantidad de capacidad por un plazo a cambio de un precio unitario menor.
 
 ---
 

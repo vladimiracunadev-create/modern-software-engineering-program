@@ -155,6 +155,16 @@ personas con experiencia en datos y operación, y no presentan un modelo, un exp
 sustitutos de una prueba de restauración con los datos reales, de una revisión del esquema con sus
 consumidores ni de la normativa de privacidad aplicable.
 
+## Avance editorial de la Parte 29
+
+Las clases `SE-349`–`SE-360` se reconstruyeron en `content/part-29/` alrededor de la plataforma de entregas de tareas llevada a una infraestructura gestionada, un caso sintético que recorre la
+parte: responsabilidad compartida, aislamiento, orquestación, ejecución gestionada, redes, identidad y secretos, infraestructura como código y su estado, cuentas y entornos, capacidad y costos,
+portabilidad, plataformas internas, un taller de despliegue y destrucción de un entorno y un paquete reproducible. Cada clase incluye tres experimentos con datos sintéticos y semilla fija, ejecutados
+en Windows y Ubuntu (WSL2) con cifras idénticas salvo las mediciones reales de tiempo, que se publican como rangos, y declara que no se usó ningún proveedor, orquestador, función sin servidores ni
+herramienta de infraestructura, que los precios son unidades ficticias, que los proveedores de `SE-357` son ficticios y que el detector de secretos, el verificador de políticas y el validador de
+paquetes se afinaron con los mismos casos que los evalúan. Las doce clases todavía requieren revisión por personas con experiencia en operación de plataformas, y no presentan un modelo, un
+experimento o un validador como sustitutos de una prueba en un proveedor real, de una revisión de seguridad ni de la responsabilidad de quien decide.
+
 ## Gate pendiente
 
 Las Partes 27–29 continúan como borrador hasta demostrar cobertura específica de todos sus

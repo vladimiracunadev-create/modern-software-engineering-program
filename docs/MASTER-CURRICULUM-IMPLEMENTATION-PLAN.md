@@ -595,18 +595,18 @@ evita una explicación genérica.
 
 ### Parte 29 — Cloud y plataforma
 
-- [ ] `SE-349` — aplicar responsabilidad compartida.
-- [ ] `SE-350` — comparar aislamiento de cómputo.
-- [ ] `SE-351` — diseñar scheduling y capacidad.
-- [ ] `SE-352` — medir cold start y lock-in serverless.
-- [ ] `SE-353` — aplicar IAM y secretos con mínimo privilegio.
-- [ ] `SE-354` — gestionar estado y drift de IaC.
-- [ ] `SE-355` — separar cuentas y entornos.
-- [ ] `SE-356` — integrar FinOps y carbono.
-- [ ] `SE-357` — probar portabilidad sin prometer neutralidad total.
-- [ ] `SE-358` — construir platform-as-product y golden path.
-- [ ] `SE-359` — desplegar y destruir de forma segura.
-- [ ] `SE-360` — reconstruir una plataforma desde evidencia.
+- [x] `SE-349` — aplicar responsabilidad compartida.
+- [x] `SE-350` — comparar aislamiento de cómputo.
+- [x] `SE-351` — diseñar scheduling y capacidad.
+- [x] `SE-352` — medir cold start y lock-in serverless.
+- [x] `SE-353` — aplicar IAM y secretos con mínimo privilegio.
+- [x] `SE-354` — gestionar estado y drift de IaC.
+- [x] `SE-355` — separar cuentas y entornos.
+- [x] `SE-356` — integrar FinOps y carbono.
+- [x] `SE-357` — probar portabilidad sin prometer neutralidad total.
+- [x] `SE-358` — construir platform-as-product y golden path.
+- [x] `SE-359` — desplegar y destruir de forma segura.
+- [x] `SE-360` — reconstruir una plataforma desde evidencia.
 
 ### Parte 30 — Testing
 

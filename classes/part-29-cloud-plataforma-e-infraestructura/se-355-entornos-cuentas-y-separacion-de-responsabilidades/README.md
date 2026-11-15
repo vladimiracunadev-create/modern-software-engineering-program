@@ -2,209 +2,319 @@
 
 [← SE-354 — Infraestructura como código y estado](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-354-infraestructura-como-codigo-y-estado/README.md) · [↑ Parte 29](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-355.html) · [SE-356 — Escalado, capacidad y costos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que puedas decidir dónde viven los entornos de la plataforma, quién puede cambiar cada uno y cómo se mueve un cambio de desarrollo a producción sin que un error ni una persona puedan hacerlo todo. La cuenta o el proyecto de nube es la frontera más barata de crear y la que más limita el daño de un error, y la separación de funciones convierte «confiamos en esta persona» en una propiedad que se puede comprobar.
+
+**Por qué aparece aquí.** Sigue a **Infraestructura como código y estado**: allí había un estado y un plan que alguien aplicaba; ahora hay que decidir sobre qué cuenta, con qué credencial y tras qué revisión. El caso conductor de la parte es la plataforma de entregas llevada a una infraestructura gestionada, y esta clase decide cómo se separan sus tres entornos y quién puede aprobar un cambio en producción.
+
+**Error conceptual que debe corregir.** Creer que separar entornos es poner nombres distintos a los recursos. Una etiqueta no limita nada: lo que acota el daño es una frontera de credenciales y permisos que el error no pueda cruzar, y lo que mantiene los entornos parecidos es un proceso, no la buena voluntad de quien edita.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices qué probabilidad hay de que un error cometido en desarrollo toque producción con una sola cuenta, cuántas claves de configuración divergen tras un año con y sin promoción, y qué porcentaje de personas acumula una combinación de permisos incompatible al asignarles varios roles; después lo calculas con tres simulaciones. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `entornos-y-cuentas.md` con la predicción, las tres figuras reproducidas, el mapa de cuentas y entornos de la plataforma con quién puede qué en cada uno, la lista de pares de permisos incompatibles y el procedimiento de acceso de emergencia.
+
+**Límite de la conclusión.** Los 24 recursos, la frecuencia de acciones comodín, la probabilidad de edición manual, los 12 permisos y los 6 pares prohibidos son supuestos del autor y los datos son sintéticos. No se evaluó ninguna organización, estructura de cuentas ni política de un proveedor, y no se midió un incidente real.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [AWS: Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html) | Plantea separar cargas en varias cuentas para aislar el efecto de errores y simplificar permisos y facturación. | No indica cuántas cuentas conviene tener ni cuesta cada una. |
+| [Google Cloud: jerarquía de recursos](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) | Describe organización, carpetas y proyectos como niveles donde se heredan políticas. | No dice qué política conviene en cada nivel. |
+| [The Twelve-Factor App: paridad entre desarrollo y producción](https://12factor.net/dev-prod-parity) | Argumenta que mantener los entornos lo más parecidos posible reduce las brechas de tiempo, de personal y de herramientas. | No mide cuánto reduce los incidentes. |
+| [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) | Incluye entre sus controles la separación de funciones para impedir que una persona complete por sí sola una actividad crítica. | No dice qué pares de funciones son incompatibles en una plataforma concreta. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-354`: un plan se revisa antes de aplicarse. La pregunta activa es: **¿qué credencial aplica, sobre qué cuenta y quién más tiene que decir que sí?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-354` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de contenedores OCI, Kubernetes local y Terraform en modo plan.
+- Haber completado `SE-354` o poder explicar qué es un plan y por qué se revisa.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `statistics`) y no necesitan cuenta en un proveedor.
+- Saber qué es un entorno de desarrollo, de preproducción y de producción, y qué es un rol de acceso.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Entornos, cuentas y separación de responsabilidades**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas usaba una sola cuenta de nube para desarrollo, preproducción y producción, separadas por prefijos en los nombres. Un script de limpieza escrito para desarrollo, con un comodín mal acotado, borró los depósitos de entregas de producción un viernes. En paralelo, la configuración de preproducción llevaba meses sin parecerse a la de producción: «en preproducción funcionaba» dejó de ser una garantía. Y la misma persona que escribía los cambios de producción los aprobaba y podía modificar el registro de auditoría. Tres problemas distintos con una causa común: nada limitaba lo que un error o una persona podía alcanzar.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Entornos y cuentas con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **plataforma reproducible con infraestructura declarativa** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «aplicar infraestructura sin revisar plan, estado, permisos ni costo» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Entornos | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Cuentas | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Separación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Responsabilidades | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. comparar estructuras de cuentas por el alcance del daño de un error y no por su costo de administración;
+2. medir cuánto divergen dos entornos con y sin un proceso de promoción;
+3. identificar combinaciones de permisos incompatibles y calcular cuántas personas las acumulan al sumar roles;
+4. diseñar un acceso de emergencia que no deshaga la separación de funciones;
+5. escribir el mapa de cuentas y entornos de la plataforma con quién puede qué en cada uno.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Entornos, cuentas y separación de responsabilidades"] --> M["Modelo: Entornos"]
-    M --> D["Decisión: cuentas"]
-    D --> E["Evidencia: separación"]
-    E --> R["Revisión: responsabilidades"]
-    R -->|nueva información| M
+    A[Cambio en el código] --> B[Desarrollo: cuenta propia]
+    B -->|promoción automática tras pruebas| C[Preproducción: cuenta propia]
+    C -->|aprobación de otra persona| D[Producción: cuenta propia]
+    E[Credencial de una persona] -->|solo su entorno| B
+    F[Acceso de emergencia] -.->|registrado y limitado en el tiempo| D
+    D --> G[Registro de auditoría: escritura separada]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Entornos, cuentas y separación de responsabilidades**.
+El mapa separa los tres entornos en cuentas distintas, mueve los cambios por una **promoción** que exige pruebas y aprobación de otra persona, y deja el acceso de emergencia como una excepción punteada con registro. El registro de auditoría vive aparte para que quien cambia no pueda editar la evidencia.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Cuentas como frontera | Una credencial solo alcanza lo de su cuenta; el error no cruza. | Porcentaje de errores que tocan producción por estructura |
+| Paridad de entornos | Un entorno que no se parece a producción no predice su comportamiento. | Divergencia de configuración con y sin promoción |
+| Promoción de cambios | Los cambios viajan por un proceso y no por una edición directa. | Semanas con divergencia según el proceso |
+| Separación de funciones | Quien escribe, aprueba y audita no debe ser la misma persona. | Pares de permisos incompatibles y su incidencia |
+| Acceso de emergencia | La excepción debe ser rápida, acotada y visible. | Procedimiento con registro y caducidad |
 
 ## Conceptos y decisiones
 
-Cloud y platform engineering convierten recursos y políticas en productos internos declarativos; elasticidad, seguridad, costo y operación son parte del diseño.
+### 1. Cuentas como frontera
 
-La pregunta rectora de esta parte es: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** La respuesta debe
-apoyarse en **plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada**.
+Las guías de AWS y de Google Cloud coinciden en que las cuentas o proyectos son una unidad de aislamiento: una credencial concedida en una no abre las demás, los límites de cuota y de costos son propios, y las políticas se heredan desde la organización. Separar por entorno y por carga reduce el **radio de explosión**: el máximo daño posible de una credencial robada o de un comando mal escrito. El costo es administrativo: más cuentas que crear, enlazar y vigilar, lo que se resuelve con automatización y no con menos cuentas. Una sola cuenta con prefijos es barata hasta el primer error que cruza el prefijo.
 
-### 1. Entornos: modelo
+### 2. Paridad de entornos
 
-En esta clase, **Entornos** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Entornos, cuentas y separación de responsabilidades**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La metodología de las doce factores sostiene que los entornos deben parecerse en lo posible para evitar las brechas de tiempo (código que tarda semanas en llegar a producción), de personal (quien escribe no despliega) y de herramientas (una base distinta en desarrollo). Un entorno de preproducción que ya no se parece a producción da una falsa seguridad: pasa pruebas que producción no pasaría. La paridad no es identidad: el tamaño, los datos y los secretos son distintos y deben serlo; lo que debe coincidir es la forma, las versiones y la configuración que afecta al comportamiento.
 
-### 2. Cuentas: mecanismo
+### 3. Promoción de cambios
 
-En esta clase, **cuentas** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Entornos, cuentas y separación de responsabilidades**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La forma de mantener la paridad es que los cambios no se editen en cada entorno sino que se **promuevan**: un artefacto o una configuración que pasó pruebas en uno se copia al siguiente con las diferencias declaradas. La promoción convierte la divergencia en una excepción registrada, y las ediciones manuales en un fallo que el siguiente ciclo corrige. No evita que alguien edite a mano; evita que la edición dure. Su límite es el ritmo: si se promueve cada cuatro semanas, una divergencia puede durar cuatro semanas.
 
-### 3. Separación: evidencia
+### 4. Separación de funciones
 
-En esta clase, **separación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Entornos, cuentas y separación de responsabilidades**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El control de separación de funciones de NIST busca que una actividad crítica no la complete una sola persona: quien propone un cambio no es quien lo aprueba, quien despliega no puede alterar el registro de auditoría, quien crea usuarios no puede asignarles administración. Cada par prohibido se escribe como una regla comprobable sobre los permisos efectivos. La dificultad es la combinación: un rol puede ser inocuo y la suma de dos, no. Por eso se revisa la unión de los roles de cada persona y no cada rol por separado.
 
-### 4. Responsabilidades: decisión
+### 5. Acceso de emergencia
 
-En esta clase, **responsabilidades** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Entornos, cuentas y separación de responsabilidades**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando algo falla en producción hay que poder actuar rápido, y los permisos mínimos del día a día no bastan. El acceso de emergencia es una excepción deliberada: concede más permisos por un tiempo limitado, exige una justificación y deja un registro que otra persona revisa después. Lo que no debe hacer es convertirse en el camino normal, ni deshacer la separación de funciones: quien usa el acceso de emergencia no debería poder borrar su registro. Un acceso de emergencia sin registro es un administrador permanente con otro nombre.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### El radio de un error
+
+Se modelan 24 recursos (3 entornos, 4 servicios, 2 clases) y 20 000 acciones cuya intención es desarrollo o preproducción, con servicio al azar. El 5 % son comodines que afectan a todo lo que la credencial alcanza; el resto afecta a un solo recurso. Se comparan tres estructuras: una cuenta, una por entorno y una por entorno y servicio.
+
+```python
+topo = {"una cuenta": lambda e, s: "x", "por entorno": lambda e, s: e, "por entorno y servicio": lambda e, s: (e, s)}
+hit = [x for x in res if f(x[0], x[1]) == f(e, s)] if wild else [x for x in res if x[:2] == (e, s)][:1]
+```
+
+| Estructura de cuentas | Errores que tocan producción | Recursos afectados por error |
+|---|---:|---:|
+| Una sola cuenta | 5,54 % | 2,28 |
+| Una cuenta por entorno | 0 % | 1,39 |
+| Una cuenta por entorno y servicio | 0 % | 1,06 |
+
+Con una sola cuenta, uno de cada dieciocho errores hechos en desarrollo o preproducción alcanza producción; con una cuenta por entorno, ninguno. Separar por servicio no añade protección frente a producción en este modelo y reduce el alcance dentro de cada entorno de 1,39 a 1,06 recursos por error. La frontera no evita el error, acota su alcance: el comodín sigue destruyendo, pero ya no cruza.
+
+![Tabla con el porcentaje de errores de desarrollo que tocan producción y los recursos afectados por error según tres estructuras de cuentas.](../../../content/part-29/figures/se-355-radio-de-un-error-segun-las-cuentas.svg)
+
+**Cómo leer la figura.** Cada fila es una estructura de cuentas; las columnas son el porcentaje de errores que llegan a producción y el promedio de recursos afectados. **Dónde deja de valer:** el modelo supone que la credencial solo alcanza su cuenta; una confianza entre cuentas, un rol que se puede asumir desde otra o un recurso compartido reabren el cruce. El 5 % de comodines y la intención uniforme son supuestos del autor.
+
+### Cuánto divergen los entornos
+
+Se simulan 52 semanas con 80 claves de configuración por entorno, 8 de las cuales difieren a propósito entre preproducción y producción. Cada semana, con probabilidad `p`, alguien edita a mano una clave de un entorno elegido al azar (producción con doble peso). Con promoción, cada cuatro semanas se copian las 72 claves compartidas desde desarrollo a preproducción y de ahí a producción. Se cuentan las semanas con alguna clave distinta entre preproducción y producción y las claves distintas al final, en 300 años simulados.
+
+```python
+if w % 4 == 3 and promote:
+    for k in range(8, 80):
+        cfg["stage"][k] = cfg["dev"][k]; cfg["prod"][k] = cfg["stage"][k]
+bad = sum(1 for k in range(8, 80) if cfg["stage"][k] != cfg["prod"][k])
+```
+
+| Proceso | Ediciones manuales por semana | Semanas con divergencia | Claves distintas al final |
+|---|---:|---:|---:|
+| Sin promoción | 0,1 | 38,0 | 3,34 |
+| Sin promoción | 0,3 | 48,3 | 9,32 |
+| Sin promoción | 0,6 | 50,5 | 17,39 |
+| Con promoción cada 4 semanas | 0,1 | 5,0 | 0 |
+| Con promoción cada 4 semanas | 0,3 | 13,7 | 0 |
+| Con promoción cada 4 semanas | 0,6 | 24,1 | 0 |
+
+Sin promoción, con una edición cada diez semanas, hay divergencia durante 38 de 52 semanas, y las diferencias se acumulan. Con promoción, el final siempre coincide y la divergencia dura mientras llega la siguiente copia. La promoción no impide la edición manual: acorta su vida, y por eso conviene que sea más frecuente que el ciclo de despliegue.
+
+![Tabla con las semanas con divergencia y las claves distintas al final entre preproducción y producción con y sin promoción y tres frecuencias de edición manual.](../../../content/part-29/figures/se-355-divergencia-entre-entornos.svg)
+
+**Cómo leer la figura.** Cada fila es un proceso y una frecuencia de ediciones manuales; las columnas son las semanas con alguna clave distinta y las claves distintas al final del año. **Dónde deja de valer:** la frecuencia de edición es un supuesto y las ediciones se modelan como cambios de un valor independiente; una edición manual real puede ser un arreglo necesario que conviene incorporar al código, no copiar encima.
+
+### Combinaciones tóxicas
+
+Se definen 12 permisos y seis pares incompatibles (por ejemplo, desplegar en producción y aprobar en producción, o escribir en producción y escribir en el registro de auditoría). Se generan 40 roles con entre dos y cuatro permisos al azar, y se calcula, con 2 000 personas por valor, qué porcentaje reúne un par tóxico al asignarles entre uno y cuatro roles.
+
+```python
+eff = set()
+for ro in r.sample(roles, k):
+    eff |= ro
+bad += any(a in eff and b in eff for a, b in toxic)
+```
+
+| Roles asignados | Personas con una combinación tóxica |
+|---|---:|
+| 1 | 27,1 % |
+| 2 | 61,8 % |
+| 3 | 82,7 % |
+| 4 | 92,3 % |
+
+Once de los 40 roles ya contienen un par tóxico dentro de sí mismos, y los demás se vuelven tóxicos al sumarse. Revisar cada rol por separado no detecta el problema: el riesgo está en la unión de los roles de una persona. En una organización real los roles no se asignan al azar y los pares incompatibles son pocos y conocidos, pero la tendencia, que la probabilidad crece con cada rol añadido, es robusta.
+
+![Barras con el porcentaje de personas que reúnen una combinación tóxica de permisos según cuántos roles se les asignan.](../../../content/part-29/figures/se-355-combinaciones-toxicas-de-permisos.svg)
+
+**Cómo leer la figura.** Cada barra es el porcentaje de personas con un par de permisos incompatibles al asignarles ese número de roles. **Dónde deja de valer:** los 40 roles, los 12 permisos y los 6 pares son sintéticos y los roles se asignan al azar; en la práctica unos pares son más graves que otros y una persona con un par tóxico puede estar cubierta por un control compensatorio, como la aprobación de otra.
 
 ## Definiciones de trabajo
 
-- **Entornos:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Cuentas:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Separación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Responsabilidades:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
+- **radio de explosión:** conjunto de recursos que un error o una credencial comprometida puede afectar.
+- **paridad de entornos:** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
+- **promoción:** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
+- **separación de funciones:** principio de que ninguna persona complete sola una actividad crítica.
+- **acceso de emergencia:** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. Cada proveedor y cada norma usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Entornos, cuentas y separación de responsabilidades**:
+El fragmento revisa si una persona con dos roles acumula un par incompatible. Antes de ejecutarlo, predice el resultado.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+roles = {"desarrollo": {"escribir_codigo", "desplegar_prod"}, "revision": {"aprobar_prod", "ver_costos"}}
+toxicos = [("desplegar_prod", "aprobar_prod")]
+efectivos = set().union(*(roles[r] for r in ("desarrollo", "revision")))
+print(any(a in efectivos and b in efectivos for a, b in toxicos))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La salida es `True`: cada rol es razonable y su suma no lo es. Registra versión de Python, comando y salida; después quita uno de los roles y observa el resultado.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Entornos, cuentas y separación de responsabilidades**. Parte de esta pregunta: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `Containerfile` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma crea tres cuentas, una por entorno, administradas desde una organización que fija políticas comunes: ningún usuario puede desactivar el registro, y los depósitos de producción deniegan el borrado masivo. Los cambios llegan a preproducción por promoción automática tras las pruebas y a producción solo con la aprobación de una persona que no escribió el cambio. Un proceso compara cada semana las 72 claves compartidas entre preproducción y producción y abre una incidencia con cada diferencia. Las 8 diferencias declaradas (tamaño de las instancias, nombres, volumen de datos) están en un archivo revisable. Para los permisos, escribe los seis pares incompatibles como pruebas sobre los permisos efectivos de cada persona y las ejecuta al asignar un rol. El acceso de emergencia se concede por una hora con una justificación y envía su registro a una cuenta de auditoría que ninguna de las personas que lo usan puede escribir. Compara con el estado inicial: el script de limpieza de desarrollo ya no puede ver los depósitos de producción.
 
 ## Práctica guiada
 
-1. Crea `work/SE-355/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el plataforma reproducible con infraestructura declarativa con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Predice qué porcentaje de errores de desarrollo tocan producción con una sola cuenta.
+2. Genera los 24 recursos y las 20 000 acciones con semilla fija y reproduce la tabla de tres estructuras.
+3. Simula 52 semanas con y sin promoción para tres frecuencias de edición y reproduce la tabla.
+4. Cambia la promoción a cada semana y mide el efecto sobre las semanas con divergencia.
+5. Genera 40 roles y calcula las combinaciones tóxicas por número de roles.
+6. Escribe los pares incompatibles de la plataforma y la prueba que los comprueba sobre los permisos efectivos.
+7. Entrega `entornos-y-cuentas.md` y pide a otra persona que encuentre un camino que cruce la frontera de cuentas.
 
 ## Ejercicios
 
-1. **Fundamental:** define Entornos y cuentas con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `Containerfile` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Frontera:** explica por qué una cuenta por servicio no reduce los errores que tocan producción en el modelo y qué sí reduce.
+2. **Promoción:** con edición manual de 0,3 por semana, ¿cuánto bajan las semanas con divergencia si se promueve cada semana en lugar de cada cuatro? Razona sin simular.
+3. **Roles:** diseña dos roles que no sumen un par tóxico y explica qué compromiso supone.
+4. **Emergencia:** describe el procedimiento de acceso de emergencia y qué evidencia deja.
 
 ## Reto verificable
 
-Entrega el **plataforma reproducible con infraestructura declarativa** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `entornos-y-cuentas.md` con la predicción, las tres tablas reproducidas con las mismas semillas, el mapa de cuentas y entornos de la plataforma, los pares incompatibles con su prueba y el procedimiento de emergencia. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene las mismas cifras y puede decir quién aprueba un cambio en producción y qué ve si la aprobación falta. No se aprueba por afirmar que los entornos están separados por prefijos ni por escribir una política sin una prueba que la compruebe.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 29. Esta clase deja el séptimo artefacto: el mapa de cuentas, la promoción y las separaciones de funciones. `SE-356` pregunta cuánta capacidad hay en cada entorno y cuánto cuesta. Cambia una estructura, por ejemplo fusionar preproducción y producción, y mira cuánto crece el porcentaje de errores que cruzan.
+
+## Preguntas frecuentes
+
+### ¿No es demasiado administrar tantas cuentas?
+
+Es un costo real y se paga con automatización: la creación y la política de cada cuenta salen del código. La alternativa es una cuenta única, cuyo costo se paga en el primer error que cruza la frontera. La clase mide el segundo; el primero depende de tu organización.
+
+### ¿Por qué copiar la configuración en vez de dejar que cada equipo la ajuste?
+
+Porque lo que se ajusta a mano diverge y deja de predecir. Las diferencias legítimas se declaran; las demás se promueven. Es la misma idea que el estado compartido de la clase anterior.
+
+### ¿Quién audita al que audita?
+
+Nadie del todo: se reduce con registros que no pueda escribir quien actúa y con revisiones de otra persona. La separación de funciones es una cadena de controles que acota el abuso y no lo elimina.
+
+### ¿La separación de funciones frena la entrega?
+
+Añade un paso, y el paso se acorta con automatización: pruebas, plantillas y revisiones pequeñas. Para cambios de bajo riesgo, un control compensatorio, como la aprobación automática tras pruebas y un registro, puede reemplazar a la persona.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **aplicar infraestructura sin revisar plan, estado, permisos ni costo**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **un error de desarrollo borra recursos de producción por compartir cuenta**. Aplica un comodín sobre el modelo de una sola cuenta.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** se borran recursos de producción tras ejecutar un script de desarrollo. **Hipótesis rivales:** (a) el script apuntaba a producción por una variable mal puesta; (b) un permiso excesivo lo permitió; (c) la frontera entre entornos era un prefijo y no una cuenta. **Prueba:** lista los recursos afectados y su cuenta y comprueba qué credencial se usó y a qué cuentas alcanza. **Conclusión:** la credencial de desarrollo alcanzaba producción porque estaban en la misma cuenta. **Regresión:** crea una cuenta por entorno y añade una prueba que intente, con la credencial de desarrollo, listar producción y falle. No arregles a la vez la frontera y el script.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Un script de desarrollo afecta producción | Misma cuenta y prefijos como frontera | Una cuenta por entorno con políticas heredadas |
+| Preproducción pasa y producción falla | Configuraciones que divergieron | Promoción periódica y comparación semanal |
+| Una persona aprueba sus propios cambios | Roles que suman un par incompatible | Pruebas sobre permisos efectivos al asignar un rol |
+| El acceso de emergencia no deja rastro | Registro escribible por quien lo usa | Registro en una cuenta de auditoría separada |
+| Se acumulan cuentas sin dueño | Creación manual sin automatización | Crear cuentas desde código con dueño y vencimiento |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: contenedores OCI, Kubernetes local y Terraform en modo plan. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-355/
 ├── README.md
-│   ├── Containerfile
-│   ├── platform.md
-│   ├── main.tf
-├── activity.yaml
-└── rubric.json
+├── entornos/
+│   ├── radio.py
+│   ├── divergencia.py
+│   └── toxicas.py
+├── tests/test_entornos.py
+└── evidence/entornos-y-cuentas.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `Containerfile` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. No se usó ninguna cuenta de proveedor; si usas una, declara región, costo y limpieza.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el modelo no usa credenciales ni datos reales; no pegues claves de acceso en los ejemplos ni en el repositorio;
+- los pares incompatibles protegen a las personas afectadas por un cambio malicioso o erróneo: documenta por qué cada uno existe y quién decide una excepción;
+- un acceso de emergencia sin límite de tiempo es un administrador permanente: fija caducidad y revisión posterior;
+- documenta el mapa de cuentas en texto además del diagrama, para que un lector de pantalla pueda seguirlo;
+- respeta las condiciones de los proveedores al crear cuentas y no crees cuentas con datos personales de terceros.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «prepara los entornos de desarrollo y producción» producirá recursos con prefijos distintos en la misma cuenta y con una sola credencial de despliegue con permisos amplios, porque eso evita errores de permisos. Pídele en cambio que declare una cuenta por entorno, que genere la promoción como un proceso con pruebas y aprobación y que incluya una prueba que intente cruzar la frontera con la credencial de desarrollo y falle. Revisa especialmente qué credenciales usa y con qué alcance, y si puede aprobar sus propios cambios: son los dos lugares donde la separación se rompe sin que nadie lo decida.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, una tienda con pagos y un panel de administración): cambia los recursos y conserva el procedimiento de medir el alcance de un error por estructura de cuentas, medir la divergencia con y sin promoción, escribir los pares incompatibles y calcular su incidencia. La transferencia está lograda cuando puedes decir qué frontera pondrías primero y por qué, no cuando los mapas se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-355/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de cuenta como frontera, promoción y separación de funciones |
+| corrección | simulaciones reproducibles con las mismas semillas |
+| decisión | mapa de cuentas, pares incompatibles y procedimiento de emergencia |
+| diagnóstico | reproducción del fallo «error que cruza a producción» con regresión |
+| incertidumbre | declaración de que los parámetros son supuestos y no se midió una organización |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [AWS: Organizing Your AWS Environment Using Multiple Accounts](https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html) — separación en varias cuentas; autoridad: documentación del proveedor.
+- [Google Cloud: jerarquía de recursos](https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) — organización, carpetas y proyectos; autoridad: documentación del proveedor.
+- [The Twelve-Factor App: dev/prod parity](https://12factor.net/dev-prod-parity) — paridad entre entornos; autoridad: metodología publicada por sus autores.
+- [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) — catálogo de controles, incluida la separación de funciones; autoridad: NIST.
+- [Python: random](https://docs.python.org/3/library/random.html) — generador usado en los experimentos; autoridad: documentación de Python.
 
-- **Kubernetes documentation** — Cloud Native Computing Foundation. [https://kubernetes.io/docs/](https://kubernetes.io/docs/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Open Container Initiative specifications** — Open Container Initiative. [https://opencontainers.org/release-notices/overview/](https://opencontainers.org/release-notices/overview/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Terraform language documentation** — HashiCorp. [https://developer.hashicorp.com/terraform/language](https://developer.hashicorp.com/terraform/language) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AWS Well-Architected Framework** — Amazon Web Services. [https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Secure Software Development Framework** — NIST. [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 5,54 %, las 38 semanas ni el 27,1 % se observen en una organización real. Esa afirmación depende de la estructura de cuentas, del proceso de cambios y de los roles de cada organización.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Entornos, cuentas y separación de responsabilidades**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-356`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ninguna organización ni estructura real: los 24 recursos, el 5 % de acciones comodín, la frecuencia de edición manual, los 12 permisos y los 6 pares son supuestos del autor. La siguiente clase mira cuánta capacidad necesita cada entorno y cuánto cuesta: escalado, capacidad y costos.
+
+## Glosario
+
+- **radio de explosión:** conjunto de recursos que un error o una credencial comprometida puede afectar.
+- **paridad de entornos:** grado en que los entornos coinciden en forma, versiones y configuración que afecta al comportamiento.
+- **promoción:** movimiento de un cambio ya probado de un entorno al siguiente por un proceso definido.
+- **separación de funciones:** principio de que ninguna persona complete sola una actividad crítica.
+- **acceso de emergencia:** concesión excepcional, limitada en el tiempo y registrada, de permisos mayores a los habituales.
 
 ---
 

@@ -2,209 +2,347 @@
 
 [← SE-352 — Serverless y ejecución gestionada](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada/README.md) · [↑ Parte 29](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-353.html) · [SE-354 — Infraestructura como código y estado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-354-infraestructura-como-codigo-y-estado/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que puedas responder, sobre cualquier despliegue en la nube, tres preguntas que suelen contestarse con una impresión: qué puede hablar con qué, quién puede hacer qué y dónde viven las credenciales que lo permiten. Cada una tiene un mecanismo medible, y la medida muestra que lo peligroso rara vez es una sola regla errónea sino la distancia que queda entre un atacante y un dato.
+
+**Por qué aparece aquí.** Sigue a **Serverless y ejecución gestionada**: allí cada pieza podía disparar a otra con permisos propios. Ahora esas conexiones y permisos se hacen explícitos. El caso conductor de la parte es la plataforma de entregas llevada a una infraestructura gestionada, y esta clase decide qué puede alcanzar la base de datos con las entregas de los estudiantes.
+
+**Error conceptual que debe corregir.** Creer que una red privada es una frontera de confianza. Que algo no tenga una dirección pública no lo protege si un servicio alcanzable puede llegar a él: la seguridad de una red se mide en saltos y en reglas, y la identidad que usa cada pieza importa más que su posición.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuántos saltos separan internet de la base de datos, qué fracción de los permisos de un rol se usa de verdad y si un detector por entropía encontrará los secretos con pocos falsos positivos; después mides los saltos sobre un grafo de doce servicios tras cada regla posible, comparas cuatro estilos de política en 25 roles y evalúas cinco reglas de un detector sobre 260 cadenas sintéticas. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `red-identidad-secretos.md` con la predicción, las tres figuras reproducidas, el grafo de flujos permitidos de la plataforma con los saltos a la base de datos, una política de permisos mínimos por servicio generada desde el uso y un inventario de secretos con su dueño y su rotación.
+
+**Límite de la conclusión.** La red, los roles, el registro de uso y los secretos son sintéticos y fabricados por el autor; no se evaluó ningún proveedor, ninguna regla de un cortafuegos real ni ninguna política de identidad real. Los 80 secretos y los 180 señuelos del detector los generé yo, y sus reglas se escribieron conociendo esos datos, así que sus cifras no miden un escáner real.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [NIST SP 800-207, «Zero Trust Architecture»](https://csrc.nist.gov/pubs/sp/800/207/final) | Describe una arquitectura en la que no se concede confianza implícita por la ubicación en la red y cada acceso se autentica y autoriza. | No prescribe una implementación ni mide cuánto reduce incidentes. |
+| [AWS IAM: lógica de evaluación de políticas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) | Documenta que todo se deniega por defecto y que una denegación explícita prevalece sobre cualquier permiso. | Es la lógica de ese proveedor; otros difieren en detalles. |
+| [OWASP: Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) | Recomienda centralizar, controlar el acceso, rotar y auditar los secretos, y no incluirlos en el código. | No dice cada cuánto rotar un secreto concreto. |
+| [RFC 1918, «Address Allocation for Private Internets»](https://www.rfc-editor.org/rfc/rfc1918) | Reserva rangos de direcciones para uso privado que no se enrutan en la red pública. | Una dirección privada no es una barrera de seguridad. |
+| [RFC 4632, «CIDR»](https://www.rfc-editor.org/rfc/rfc4632) | Define la notación y la agregación de prefijos con la que se delimitan subredes y reglas. | No dice cómo dividir una red para una plataforma concreta. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-352`: una función se dispara por eventos y tiene permisos propios. La pregunta activa es: **¿cuántas barreras hay entre internet y mi dato, qué permisos sobran en cada rol y dónde están las credenciales que abren todo esto?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-352` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de contenedores OCI, Kubernetes local y Terraform en modo plan.
+- Haber completado `SE-352` o poder explicar qué permisos necesita una función para leer un evento y escribir un resultado.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `fnmatch`, `math`, `collections`) y no necesitan cuenta en un proveedor.
+- Saber qué es una dirección IP privada, una regla de entrada y una política de permisos.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una control de agentes debe decidir sobre **Redes, identidad y secretos en cloud**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas pasó a una red privada con tres capas: balanceador, aplicación y base de datos. El informe de seguridad concluyó «la base de datos no es accesible desde internet». Tres meses después, un componente de monitoreo con credenciales amplias fue comprometido y, con ellas, alguien leyó la base de datos sin tocar una regla de red. En una revisión posterior se halló además una clave de acceso al almacén de archivos en un script del repositorio. Cada hallazgo es de una capa distinta: la red decía la verdad y la identidad la desmentía, y el secreto hacía innecesario atacar cualquiera de las dos.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Redes y identidad con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **plataforma reproducible con infraestructura declarativa** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «aplicar infraestructura sin revisar plan, estado, permisos ni costo» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Redes | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Identidad | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Secretos | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Cloud | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. modelar los flujos permitidos de una plataforma como un grafo y calcular los saltos mínimos desde internet hasta un dato sensible;
+2. medir qué reglas nuevas acortan esa distancia y distinguirlas de las que no cambian nada;
+3. comparar estilos de política de permisos por lo concedido frente a lo usado y por las rutas de escalada que dejan;
+4. evaluar un detector de secretos por precisión y exhaustividad y explicar qué reglas son ciegas a qué;
+5. diseñar la rotación de un secreto con su ventana de exposición.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Redes, identidad y secretos en cloud"] --> M["Modelo: Redes"]
-    M --> D["Decisión: identidad"]
-    D --> E["Evidencia: secretos"]
-    E --> R["Revisión: cloud"]
-    R -->|nueva información| M
+    A[Atacante en internet] --> B[Servicio expuesto]
+    B -->|regla de red permitida| C[Servicio interno]
+    C -->|regla permitida| D[Base de datos]
+    B -.->|credencial robada o filtrada| E[Identidad con permisos]
+    E -.->|permiso concedido| D
+    F[Repositorio, script, registro] -.->|secreto en claro| E
+    D --> G[Dato sensible]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Redes, identidad y secretos en cloud**.
+El mapa tiene dos vías hacia el dato: la de **red** (líneas continuas), que cuenta saltos entre reglas permitidas, y la de **identidad** (líneas punteadas), que salta las reglas de red con una credencial. Reforzar una no cierra la otra, y por eso se miden por separado.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Segmentación de red | Cada regla permitida es una arista; el atacante camina por el grafo. | Saltos mínimos antes y después de cada regla posible |
+| Identidad y políticas | Los permisos concedidos y no usados son superficie sin beneficio. | Concedido frente a usado por rol |
+| Menor privilegio y escalada | Un permiso para cambiar permisos equivale a todos los permisos. | Roles con ruta de escalada por estilo de política |
+| Secretos | Una credencial en claro hace inútil cualquier otra barrera. | Detector evaluado por precisión y exhaustividad |
+| Rotación | La ventana de exposición de un secreto filtrado depende del plazo y de la detección. | Días expuestos según plazo de rotación |
 
 ## Conceptos y decisiones
 
-Cloud y platform engineering convierten recursos y políticas en productos internos declarativos; elasticidad, seguridad, costo y operación son parte del diseño.
+### 1. Segmentación de red
 
-La pregunta rectora de esta parte es: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** La respuesta debe
-apoyarse en **plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada**.
+Una red de nube se divide en subredes y se controla con reglas que permiten orígenes, destinos y puertos. El direccionamiento privado de RFC 1918 evita que un servicio sea alcanzable directamente desde internet, pero no impide que otro servicio alcanzable llegue a él. Cada regla permitida es una arista de un grafo y la seguridad de la red es una propiedad de ese grafo: cuántos servicios alcanza un atacante que compromete uno, y cuántos saltos necesita para llegar a un dato. La delimitación con notación CIDR hace que una regla amplia permita más de lo que parece: un prefijo corto abarca miles de direcciones.
 
-### 1. Redes: modelo
+### 2. Identidad y evaluación de políticas
 
-En esta clase, **Redes** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Redes, identidad y secretos en cloud**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una identidad, de una persona o de un servicio, recibe permisos mediante políticas que listan acciones sobre recursos. La lógica documentada por AWS ilustra el patrón general: todo se deniega por defecto, un permiso explícito lo permite y una denegación explícita prevalece sobre cualquier permiso. Que las denegaciones ganen es lo que permite escribir barreras que ningún permiso futuro derriba. Pero también obliga a leer todas las políticas que alcanzan a una identidad, no solo la última que se tocó: el permiso efectivo es la combinación de todas.
 
-### 2. Identidad: mecanismo
+### 3. Menor privilegio y escalada
 
-En esta clase, **identidad** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Redes, identidad y secretos en cloud**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El menor privilegio concede solo lo necesario para la tarea. Su dificultad es práctica: lo necesario se descubre usando, y los permisos amplios ahorran el descubrimiento. Por eso es habitual conceder «todas las acciones de este servicio» y olvidarlo. El riesgo grave no es lo concedido sino la **escalada**: una identidad que puede modificar políticas, crear credenciales o asumir otros roles puede concederse el resto. Un rol con permiso para adjuntar políticas equivale, en la práctica, a un administrador aunque su lista de acciones parezca corta.
 
-### 3. Secretos: evidencia
+### 4. Secretos
 
-En esta clase, **secretos** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Redes, identidad y secretos en cloud**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un secreto, como una clave o un token, se usa para demostrar identidad y se vuelve una vulnerabilidad cuando se copia al lugar equivocado: el repositorio, un registro, una imagen, un mensaje de chat. OWASP recomienda centralizarlos en un almacén con control de acceso y auditoría, rotarlos, no incluirlos en el código y preferir credenciales de vida corta emitidas a cada servicio. La razón es la contención: un secreto en un solo lugar y con caducidad corta limita cuánto tiempo y a quién sirve si se filtra.
 
-### 4. Cloud: decisión
+### 5. Confianza cero
 
-En esta clase, **cloud** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?» y demostrarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Redes, identidad y secretos en cloud**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+NIST SP 800-207 describe una arquitectura que no concede confianza por estar «dentro» de la red: cada solicitud se autentica y se autoriza según identidad, estado del dispositivo y contexto, con el menor acceso posible. El principio es el contrario de la red privada como frontera. No elimina la segmentación, la complementa: la red reduce los caminos y la identidad decide quién los recorre. Es una orientación de diseño y no un producto, y adoptarla es sobre todo un trabajo de inventario de flujos y de identidades.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Saltos hasta la base de datos
+
+Se modela la plataforma como 13 nodos (internet, balanceador, dos servidores web, dos de aplicación, un procesador de trabajos, base de datos, caché, cola, almacén de secretos, bastión y monitoreo) y 17 flujos permitidos. Se calculan los saltos mínimos desde internet con una búsqueda en anchura y después se añade, una a una, cada regla posible que no exista (127 en total, sin contar reglas hacia internet), recalculando la distancia.
+
+```python
+def hops(edges, src):
+    d, q = {src: 0}, deque([src])
+    while q:
+        u = q.popleft()
+        for v in adj.get(u, []):
+            if v not in d: d[v] = d[u] + 1; q.append(v)
+    return d
+# para cada regla (a, c) ausente: hops(base + [(a, c)], "internet")["db"]
+```
+
+| Destino | Saltos al inicio | Reglas que lo dejan a 1 / 2 / 3 saltos | Reglas sin efecto |
+|---|---:|---|---:|
+| Base de datos | 4 | 1 / 5 / 9 | 112 |
+| Almacén de secretos | 4 | 1 / 3 / 7 | 116 |
+
+Nueve de cada diez reglas nuevas no acercan nada, pero 15 de 127 acercan la base de datos y una sola, la regla desde internet, la deja directa. La distancia de cuatro saltos no es una garantía: es la consecuencia de que cada servicio solo habla con el siguiente. Además, el grafo muestra que un componente de monitoreo con conexión a la aplicación y a un servidor web añade caminos que la vista «tres capas» no dibuja.
+
+![Tabla con los saltos mínimos desde internet hasta la base de datos y el almacén de secretos y el número de reglas añadidas que los acortan.](../../../content/part-29/figures/se-353-saltos-hasta-la-base-de-datos.svg)
+
+**Cómo leer la figura.** Cada fila es un destino sensible; las columnas dicen su distancia inicial, cuántas de las 127 reglas posibles lo dejan a uno, dos o tres saltos y cuántas no cambian nada. **Dónde deja de valer:** un salto es una regla permitida, sin puertos, protocolos ni reglas de salida, y supone que el atacante puede usar cualquier servicio alcanzable; la red real de un proveedor tiene capas adicionales, como las reglas por instancia y por subred.
+
+### Permisos concedidos y usados
+
+Se generan 25 roles con semilla fija; cada uno usa entre 4 y 8 pares «acción, recurso» dentro de uno o dos servicios de seis (60 acciones, 40 recursos, 400 pares válidos), y una acción de «adjuntar políticas» en el servicio de identidad. Se comparan cuatro estilos de política y se cuentan los pares concedidos, los usados y los roles con ruta de escalada.
+
+```python
+if style == "administrador (* sobre *)":    return universe                         # 400
+if style == "servicio:* sobre *":           return sum(10 * res[s] for s in svs)
+if style == "acciones usadas sobre *":      return sum(res[s] for a, s in names)
+else:                                       return len(used)                        # pares usados
+```
+
+| Estilo de política | Pares concedidos (media) | Usados | Proporción usada | Roles con ruta de escalada |
+|---|---:|---:|---:|---:|
+| Administrador (`*` sobre `*`) | 400 | 5,8 | 1,4 % | 25 |
+| Todo el servicio sobre * | 80,8 | 5,8 | 7,2 % | 6 |
+| Acciones usadas sobre * | 32,4 | 5,8 | 17,9 % | 2 |
+| Pares acción-recurso usados | 5,8 | 5,8 | 100 % | 2 |
+
+Bajar de administrador a «todo el servicio» elimina el 80 % de lo concedido y deja 19 de los 25 roles sin ruta de escalada. Limitarse a lo usado mantiene dos roles con la ruta porque su uso real incluye la acción de adjuntar políticas: el menor privilegio mide lo concedido contra lo usado, pero no juzga si lo usado es prudente. Hay además una condición: generar la política desde el registro de uso supone que el registro fue completo; una función que se ejecuta una vez al año no aparece en un registro de un mes.
+
+![Tabla con los pares acción-recurso concedidos y usados y los roles con ruta de escalada para cuatro estilos de política.](../../../content/part-29/figures/se-353-permisos-concedidos-y-usados.svg)
+
+**Cómo leer la figura.** Cada fila es un estilo de política; las columnas son lo concedido, lo usado, su proporción y los roles de los 25 que pueden cambiar sus propios permisos. **Dónde deja de valer:** los roles y su uso los generé yo con una distribución uniforme; en una organización real el uso está agrupado y cambia con el tiempo, y una denegación explícita puede acotar la escalada que esta tabla cuenta.
+
+### Un detector de secretos con límites
+
+Se generan 80 secretos sintéticos (40 cadenas de 32 caracteres en base 64, 20 hexadecimales de 40 y 20 contraseñas hechas con una palabra, cuatro cifras y un símbolo) y 180 señuelos que se les parecen (60 identificadores de commit de 40 hexadecimales, 60 UUID y 60 resúmenes SHA-256 en base 64). El 70 % de los secretos aparece asignado a un nombre como `clave` o `token`. Se evalúan cinco reglas.
+
+```python
+def ent(s):
+    c = Counter(s)
+    return -sum(v / len(s) * math.log2(v / len(s)) for v in c.values())
+# regla: len(v) >= 20 and ent(v) >= 4.5      (entropía de Shannon por carácter)
+# regla: el nombre de la variable contiene clave, token o secreto
+```
+
+| Regla | Hallados | Falsos positivos | Omitidos | Precisión | Exhaustividad |
+|---|---:|---:|---:|---:|---:|
+| Entropía ≥ 3,5 | 60 | 173 | 20 | 25,8 % | 75,0 % |
+| Entropía ≥ 4,0 | 40 | 60 | 40 | 40,0 % | 50,0 % |
+| Entropía ≥ 4,5 | 32 | 60 | 48 | 34,8 % | 40,0 % |
+| Solo nombre de variable | 52 | 0 | 28 | 100 % | 65,0 % |
+| Nombre o entropía ≥ 4,5 | 62 | 60 | 18 | 50,8 % | 77,5 % |
+
+La entropía media de una cadena en base 64 de 32 caracteres es 4,58 bits, la de un hexadecimal de 40, 3,72, igual que un UUID. Por eso ningún umbral separa bien: uno que atrape los hexadecimales atrapa los 120 señuelos hexadecimales, y uno alto deja pasar los secretos hexadecimales y las contraseñas con palabras, que tienen poca entropía. Los 60 resúmenes SHA-256 en base 64 son falsos positivos a cualquier umbral razonable, porque tienen la misma entropía que una clave. El nombre de la variable es mucho más preciso y es ciego a los secretos que no lo llevan: aquí, 28 de 80.
+
+![Tabla con los secretos hallados, los falsos positivos, los omitidos, la precisión y la exhaustividad de cinco reglas de detección.](../../../content/part-29/figures/se-353-detector-de-secretos.svg)
+
+**Cómo leer la figura.** Cada fila es una regla; los secretos hallados más los omitidos suman 80 y los falsos positivos cuentan señuelos señalados de 180. **Dónde deja de valer:** los datos son sintéticos y las proporciones de cada familia las elegí yo, de modo que las cifras describen estas reglas sobre estos datos; un escáner real usa además patrones de formatos conocidos y verificación contra el servicio, y se evalúa sobre repositorios reales.
+
+### Cuánto dura un secreto filtrado
+
+Si un secreto se filtra en un instante al azar entre dos rotaciones, la exposición media hasta la siguiente rotación es la mitad del plazo. Con detección a los 14 días, que obliga a rotar de inmediato, la exposición se acota por el menor de los dos tiempos. Se calculó con 20 000 filtraciones simuladas por celda.
+
+| Plazo de rotación | Exposición media sin detección | Con detección a los 14 días |
+|---|---:|---:|
+| 7 días | 3,5 días | 3,5 días |
+| 30 días | 15,1 días | 10,7 días |
+| 90 días | 45,2 días | 12,9 días |
+| 365 días | 183,2 días | 13,7 días |
+
+La detección aporta más que acortar el plazo cuando el plazo es largo: con 365 días, detectar a los 14 reduce la exposición de 183 a 14 días. Con credenciales de vida corta emitidas por solicitud el plazo baja a horas y la detección importa menos.
 
 ## Definiciones de trabajo
 
-- **Redes:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Identidad:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Secretos:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
-- **Cloud:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada.
+- **segmentación:** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
+- **política de permisos:** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
+- **menor privilegio:** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
+- **escalada de privilegios:** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
+- **entropía de Shannon:** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. Cada proveedor usa estos términos con matices y debe contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Redes, identidad y secretos en cloud**:
+El fragmento calcula los saltos desde internet a la base de datos en una red de cuatro nodos y después añade una regla. Antes de ejecutarlo, predice la distancia antes y después de la regla `("web", "db")`.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+from collections import deque
+def saltos(aristas, origen, destino):
+    adj = {}
+    for a, b in aristas: adj.setdefault(a, []).append(b)
+    d, q = {origen: 0}, deque([origen])
+    while q:
+        u = q.popleft()
+        for v in adj.get(u, []):
+            if v not in d: d[v] = d[u] + 1; q.append(v)
+    return d.get(destino)
+base = [("internet", "lb"), ("lb", "web"), ("web", "app"), ("app", "db")]
+print(saltos(base, "internet", "db"), saltos(base + [("web", "db")], "internet", "db"))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La salida es `4 3`: una regla acorta la distancia. Registra versión de Python, comando y salida; después añade `("internet", "db")` y observa el resultado.
 
 ## Ejemplo profesional
 
-En la control de agentes, el equipo prepara un cambio relacionado con **Redes, identidad y secretos en cloud**. Parte de esta pregunta: **¿qué capacidad autoservicio se ofrece y qué guardrail limita su impacto?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando plan declarativo, política, estimación de costo, prueba de despliegue local y destrucción controlada. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `Containerfile` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma dibuja el grafo de flujos permitidos a partir de las reglas reales, no de su diagrama, calcula los saltos a la base de datos y al almacén de secretos y encuentra que el monitoreo abre dos caminos de tres saltos. Quita la regla del monitoreo hacia la aplicación y la sustituye por una lectura de métricas que la aplicación publica. Para los permisos, exporta el registro de acceso de tres meses, genera una política por servicio con los pares usados, la revisa con quien conoce el negocio, añade una denegación explícita sobre el borrado de entregas y elimina el permiso de adjuntar políticas de todos los roles salvo uno con aprobación de dos personas. Para los secretos, mueve las claves a un almacén con acceso por identidad del servicio, emite credenciales de vida corta, activa el análisis de secretos en cada confirmación y rota las claves que estuvieron en el repositorio. Compara con el estado inicial: el monitoreo comprometido ya no alcanza la base de datos y una clave filtrada vale horas.
 
 ## Práctica guiada
 
-1. Crea `work/SE-353/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el plataforma reproducible con infraestructura declarativa con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Predice la distancia de internet a la base de datos y cuántas de las reglas nuevas posibles la acortan.
+2. Define 12 nodos y 17 flujos y reproduce los saltos y la tabla de 127 reglas.
+3. Genera 25 roles con semilla fija y compara los cuatro estilos de política.
+4. Genera 80 secretos y 180 señuelos y evalúa las cinco reglas.
+5. Añade una regla que reconozca resúmenes SHA-256 en base 64 por su longitud y mide el efecto sobre los falsos positivos y las omisiones.
+6. Calcula la exposición con plazos de 7 a 365 días y con detección a los 14.
+7. Entrega `red-identidad-secretos.md` y pide a otra persona que encuentre un camino que tu grafo no dibuja.
 
 ## Ejercicios
 
-1. **Fundamental:** define Redes y identidad con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la control de agentes, compara tres opciones y entrega `Containerfile` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Saltos:** si la caché se vuelve alcanzable desde internet, ¿cambia la distancia a la base de datos? Razona con el grafo.
+2. **Escalada:** explica por qué un rol que puede crear credenciales equivale a un administrador y qué denegación explícita lo acotaría.
+3. **Detector:** propón una regla que reduzca los 60 falsos positivos de resúmenes en base 64 sin perder secretos y di qué costaría.
+4. **Rotación:** con un plazo de 60 días y detección a los 10, calcula la exposición media aproximada y compárala con 30 sin detección.
 
 ## Reto verificable
 
-Entrega el **plataforma reproducible con infraestructura declarativa** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `red-identidad-secretos.md` con la predicción, las tres tablas reproducidas con las mismas semillas, el grafo de flujos de la plataforma con los saltos calculados, la política mínima de un servicio con su justificación y el inventario de secretos. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene las mismas cifras y puede decir qué haría un atacante que comprometiera el monitoreo. No se aprueba por afirmar que la red es privada y por tanto segura, ni por generar una política desde un registro sin decir qué periodo cubre.
+
+## Caso conductor
+
+La plataforma de entregas es el caso conductor de la Parte 29. Esta clase deja el quinto artefacto: el grafo de flujos, la política mínima y el inventario de secretos. `SE-354` pregunta cómo se declara todo esto de forma repetible. Cambia una regla, por ejemplo abre el puerto de la base de datos al bastión, y observa qué otro camino aparece.
+
+## Preguntas frecuentes
+
+### ¿Una red privada es una defensa suficiente?
+
+No: reduce los caminos pero no decide quién los recorre. El caso del monitoreo comprometido muestra que una identidad con permisos amplios evita las reglas de red. Se necesitan ambas capas.
+
+### ¿Por qué no basta con rotar los secretos con frecuencia?
+
+La rotación acota la ventana, pero no evita la filtración ni sustituye la detección: con un plazo de 90 días, una filtración dura 45 días de media si nadie la detecta. Rotar, detectar y emitir credenciales de vida corta se complementan.
+
+### ¿Se puede automatizar el menor privilegio?
+
+En parte: generar políticas desde el registro de uso reduce lo concedido, y una persona debe revisarlas, porque el registro puede omitir usos poco frecuentes y puede incluir usos que no deberían existir.
+
+### ¿Un detector de entropía sirve entonces?
+
+Sirve como una señal más, no como una regla única: tiene muchos falsos positivos con resúmenes y UUID y omite secretos de poca entropía. Combinado con el nombre de la variable, patrones de formatos conocidos y verificación, mejora; ninguna combinación es completa.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **aplicar infraestructura sin revisar plan, estado, permisos ni costo**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una regla de red nueva acorta el camino a un dato sin que nadie lo note**. Añade al grafo de la plataforma una regla del monitoreo hacia la base de datos y recalcula la distancia.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** una revisión de seguridad dice que la base de datos «sigue a cuatro saltos» pero un análisis del grafo da dos. **Hipótesis rivales:** (a) el análisis usa una lista de reglas obsoleta; (b) el monitoreo no tiene credenciales para usar la regla; (c) la regla nueva creó un camino corto. **Prueba:** recalcula los saltos con y sin la regla y lista los caminos de longitud mínima. **Conclusión:** la regla abrió un camino de dos saltos a través del monitoreo. **Regresión:** añade una prueba que calcule los saltos al dato sensible desde la configuración real y falle si bajan de un mínimo acordado. No arregles a la vez la regla y el proceso de revisión.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| «La base de datos no es accesible desde internet» y alguien llega a ella | Se miró la exposición directa y no el grafo | Calcular saltos mínimos desde la configuración real |
+| Un rol de servicio puede borrar o listar todo | Política de servicio completo sobre todos los recursos | Generar la política desde el uso y añadir denegaciones explícitas |
+| Un rol «de solo lectura» se vuelve administrador | Conserva un permiso de modificar políticas | Quitar la escalada o exigir aprobación de dos personas |
+| Una clave aparece en el repositorio | Secreto copiado a un script | Mover al almacén, rotar la clave y activar el análisis en cada confirmación |
+| El detector avisa de cientos de cadenas inofensivas | Umbral de entropía sin contexto | Combinar con nombres, formatos y verificación |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: contenedores OCI, Kubernetes local y Terraform en modo plan. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-353/
 ├── README.md
-│   ├── Containerfile
-│   ├── platform.md
-│   ├── main.tf
-├── activity.yaml
-└── rubric.json
+├── seguridad/
+│   ├── grafo.py
+│   ├── permisos.py
+│   └── secretos.py
+├── tests/test_seguridad.py
+└── evidence/red-identidad-secretos.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `Containerfile` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2 con salidas idénticas. Los «secretos» son cadenas aleatorias generadas para el experimento y no abren nada; si usas un proveedor, no pongas claves reales en ejemplos ni en el repositorio.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- los secretos del experimento son sintéticos: nunca uses un secreto real, ni siquiera caducado, para probar un detector;
+- si un detector halla un secreto real en un repositorio, trátalo como filtrado: rota y revoca antes de limpiar el historial;
+- un registro de acceso contiene datos sobre personas: minimiza lo que conservas y quién lo lee;
+- documenta el grafo en texto además del diagrama, para que un lector de pantalla pueda recorrerlo;
+- respeta los términos de los servicios que analices y no pruebes reglas sobre redes que no sean tuyas.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «configura la red y los permisos de la plataforma» producirá reglas que funcionan, a menudo con orígenes amplios y roles con acciones comodín porque eso evita errores de permiso. Pídele en cambio que declare el grafo de flujos permitidos, que calcule los saltos a los datos sensibles y que genere los permisos desde el uso, con una prueba que falle si un rol puede modificar sus políticas. Revisa especialmente los comodines, los orígenes abiertos y cualquier credencial que el agente haya pegado en un archivo: son los tres lugares donde un despliegue funcional se vuelve inseguro.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la control de agentes por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, una tienda con pagos y un panel de administración): cambia los nodos y conserva el procedimiento de dibujar el grafo desde la configuración, calcular saltos, generar permisos desde el uso, evaluar un detector y planificar la rotación. La transferencia está lograda cuando puedes decir qué camino cerraría primero y por qué, no cuando los diagramas se parecen.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-353/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de red, identidad y secretos como tres vías distintas hacia el dato |
+| corrección | grafo, permisos y detector reproducibles con las mismas semillas |
+| decisión | política mínima, grafo con saltos e inventario de secretos con rotación |
+| diagnóstico | reproducción del fallo «regla nueva que acorta el camino» con regresión |
+| incertidumbre | declaración de que los datos son sintéticos y el detector se afinó con sus propios datos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [NIST SP 800-207, Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/800/207/final) — principios de confianza cero; autoridad: NIST.
+- [AWS IAM: lógica de evaluación de políticas](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) — denegación por defecto y denegación explícita; autoridad: documentación del proveedor.
+- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html) — gestión, rotación y auditoría de secretos; autoridad: proyecto OWASP.
+- [RFC 1918](https://www.rfc-editor.org/rfc/rfc1918) — direcciones privadas; autoridad: IETF.
+- [RFC 4632](https://www.rfc-editor.org/rfc/rfc4632) — notación CIDR y agregación de prefijos; autoridad: IETF.
 
-- **Kubernetes documentation** — Cloud Native Computing Foundation. [https://kubernetes.io/docs/](https://kubernetes.io/docs/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Open Container Initiative specifications** — Open Container Initiative. [https://opencontainers.org/release-notices/overview/](https://opencontainers.org/release-notices/overview/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Terraform language documentation** — HashiCorp. [https://developer.hashicorp.com/terraform/language](https://developer.hashicorp.com/terraform/language) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **AWS Well-Architected Framework** — Amazon Web Services. [https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **Secure Software Development Framework** — NIST. [https://csrc.nist.gov/pubs/sp/800/218/final](https://csrc.nist.gov/pubs/sp/800/218/final) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los cuatro saltos, el 1,4 % de uso ni el 25,8 % de precisión se observen en una plataforma real. Esa afirmación depende de las reglas, los roles y los repositorios de cada organización.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Redes, identidad y secretos en cloud**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-354`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún proveedor, política real ni repositorio real: la red, los roles, el registro de uso y los secretos son fabricados por el autor, el detector se escribió conociendo sus datos y la rotación supone filtraciones uniformes. La siguiente clase mira cómo se declara y se mantiene todo esto de forma repetible: infraestructura como código y su estado.
+
+## Glosario
+
+- **segmentación:** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
+- **política de permisos:** conjunto de reglas que concede o deniega acciones sobre recursos a una identidad.
+- **menor privilegio:** principio de conceder a cada identidad solo los permisos necesarios para su tarea.
+- **escalada de privilegios:** obtención de más permisos de los concedidos, por ejemplo modificando las propias políticas.
+- **entropía de Shannon:** medida, en bits por carácter, de la imprevisibilidad de una cadena según la frecuencia de sus caracteres.
 
 ---
 

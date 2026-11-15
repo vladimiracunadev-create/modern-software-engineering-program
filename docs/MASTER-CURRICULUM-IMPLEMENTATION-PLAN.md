@@ -565,18 +565,18 @@ evita una explicación genérica.
 
 ### Parte 27 — Integración y eventos
 
-- [ ] `SE-325` — elegir sincronía o asincronía por fuerzas.
-- [ ] `SE-326` — formalizar semántica de mensajes.
-- [ ] `SE-327` — comparar modelos de broker.
-- [ ] `SE-328` — probar entrega, orden y duplicación.
-- [ ] `SE-329` — combinar outbox, inbox y saga.
-- [ ] `SE-330` — evolucionar CDC y esquemas.
-- [ ] `SE-331` — comparar webhook, polling y suscripción.
-- [ ] `SE-332` — gobernar schemas.
-- [ ] `SE-333` — traducir ACL entre dominios.
-- [ ] `SE-334` — conservar trazas y autorización.
-- [ ] `SE-335` — inyectar duplicados y reconciliar.
-- [ ] `SE-336` — entregar retries y compensaciones verificadas.
+- [x] `SE-325` — elegir sincronía o asincronía por fuerzas.
+- [x] `SE-326` — formalizar semántica de mensajes.
+- [x] `SE-327` — comparar modelos de broker.
+- [x] `SE-328` — probar entrega, orden y duplicación.
+- [x] `SE-329` — combinar outbox, inbox y saga.
+- [x] `SE-330` — evolucionar CDC y esquemas.
+- [x] `SE-331` — comparar webhook, polling y suscripción.
+- [x] `SE-332` — gobernar schemas.
+- [x] `SE-333` — traducir ACL entre dominios.
+- [x] `SE-334` — conservar trazas y autorización.
+- [x] `SE-335` — inyectar duplicados y reconciliar.
+- [x] `SE-336` — entregar retries y compensaciones verificadas.
 
 ### Parte 28 — Sistemas distribuidos
 

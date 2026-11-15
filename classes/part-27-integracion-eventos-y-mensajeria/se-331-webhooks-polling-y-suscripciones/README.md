@@ -2,208 +2,331 @@
 
 [← SE-330 — CDC, ETL, ELT y sincronización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/README.md) · [↑ Parte 27](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-331.html) · [SE-332 — Compatibilidad de esquemas y registros →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que decidas cómo se entera tu sistema de lo que ocurre en otro que no controlas, con el costo de cada opción a la vista: aprenderás a medir cuántas peticiones vacías cuesta sondear a un intervalo dado y cuánto retrasa un evento, qué ataques cierra cada capa de verificación de un webhook y cuántos eventos se pierden o se repiten según la política de reintentos del emisor.
+
+**Por qué aparece aquí.** Sigue a **CDC, ETL, ELT y sincronización**: allí el origen y el destino eran bases de la misma organización; aquí el otro lado es un sistema ajeno (el proveedor de correo, la plataforma de videollamadas del curso, el sistema académico externo) que no ofrece acceso a su base, solo una interfaz pública. En el flujo de la plataforma de entregas, un proveedor externo avisa de una nota importada o de un correo rebotado y hay que decidir si esperar su llamada o ir a preguntarle.
+
+**Error conceptual que debe corregir.** Creer que un webhook es una forma gratuita de recibir eventos «en tiempo real» y que el sondeo es la opción anticuada. El webhook traslada al receptor la obligación de estar disponible, autenticar quién llama, tolerar repeticiones y desorden y reconciliar lo que nunca llegó; el sondeo cuesta peticiones, pero el receptor controla cuándo y qué pregunta.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices qué fracción de las peticiones de un sondeo cada 60 segundos vuelve vacía con 12 eventos por hora, cuáles de siete entregas maliciosas o accidentales acepta una verificación que solo firma el cuerpo y cuántos de 1 440 eventos se pierden si el receptor cae dos horas y el emisor reintenta tres veces en tres segundos; después mides las tres cosas y comparas con tu predicción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `avisos-log.md` con las predicciones, las tres figuras reproducidas, el contrato de recepción de un webhook de la plataforma (verificación, respuesta, idempotencia y reconciliación) y una tabla que justifique, para dos proveedores, si se usa webhook, sondeo o ambos con su intervalo de reconciliación.
+
+**Límite de la conclusión.** Los eventos (una tasa fija de 12 por hora), la pérdida de respuesta del 5 % por intento y los calendarios de reintento son supuestos del autor; los sondeos y los reintentos se simulan sin reloj ni red. El único componente real es un servidor HTTP en la interfaz de bucle local con un puerto efímero que verifica firmas sobre los bytes recibidos. No se usó ningún proveedor ni dominio externo: los números muestran mecanismos, no el comportamiento de ningún servicio.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Stripe: webhooks](https://docs.stripe.com/webhooks) | Documenta firmas de las entregas, verificación sobre el cuerpo crudo, tolerancia de marca de tiempo, reintentos y la posibilidad de recibir un evento más de una vez. | No describe a otros proveedores ni fija los valores de la plataforma. |
+| [GitHub: validar entregas de webhooks](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries) | Describe firmar la carga con HMAC-SHA256 y compararla con una comparación de tiempo constante. | No cubre la repetición de una entrega válida. |
+| [Standard Webhooks](https://www.standardwebhooks.com/) | Propone una convención común de identificador, marca de tiempo y firma en los encabezados de un webhook. | No es una obligación para los proveedores ni mide su adopción. |
+| [RFC 2104: HMAC](https://www.rfc-editor.org/rfc/rfc2104) | Define el código de autenticación de mensajes con clave basado en una función hash. | No fija la duración de la ventana ni el almacenamiento del secreto. |
+| [RFC 9110: semántica de HTTP](https://www.rfc-editor.org/rfc/rfc9110) | Define las peticiones condicionales y los validadores (`ETag`, fecha de modificación) que permiten sondear sin transferir lo que no cambió. | No dice qué intervalo de sondeo conviene a la plataforma. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-328` sobre repeticiones y ventanas de deduplicación, en `SE-325` sobre reintentos y en la Parte 19 sobre seguridad web: toda entrada que llega de fuera es no confiable hasta que se verifica. La pregunta activa es: **¿qué debe ocurrir si esta llamada llega dos veces, tarde, alterada o nunca?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-330` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de broker local o simulador, validador de esquemas y trazas.
+- Haber completado `SE-330` o poder explicar por qué sincronizar exige idempotencia.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`hmac`, `hashlib`, `http.server`) y generadores con semilla fija.
+- Entender qué es un código de autenticación de mensajes con clave y una petición HTTP `POST` con cuerpo.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Webhooks, polling y suscripciones**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma de entregas importa notas desde un sistema académico externo. Al principio consultaba su interfaz cada cinco minutos: 288 peticiones al día para unos 12 cambios por hora, con la mayoría vacías, y un estudiante podía esperar hasta cinco minutos para ver su nota. El equipo contrata el aviso por webhook y expone una dirección pública que recibe las notas. Una semana después una persona de otro equipo prueba la dirección con una herramienta y crea 40 notas falsas porque nadie verificaba quién llamaba; luego el proveedor tiene una caída y reintenta durante horas, y el receptor aplica algunas notas dos veces. En un mantenimiento del receptor se pierde una hora de avisos que el proveedor ya había dado por fallidos. Cada problema pertenece a un lado distinto: la autenticidad, la repetición y la disponibilidad.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Webhooks y polling con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **flujo de integración con contrato, reintento y reconciliación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «procesar dos veces un mensaje y producir efectos no reconciliables» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Webhooks | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Polling | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Suscripciones | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Mensaje | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. calcular el costo de un sondeo (peticiones al día, peticiones vacías, retraso medio y en el percentil 95) para un intervalo dado;
+2. verificar la firma de un webhook sobre los bytes recibidos y explicar qué ataque cierra la marca de tiempo y cuál el identificador visto;
+3. medir cuántos eventos se entregan, se pierden o se repiten según el calendario de reintentos del emisor;
+4. diseñar el contrato de recepción: verificación, respuesta rápida, idempotencia y reconciliación periódica;
+5. decidir entre webhook, sondeo o ambos para dos proveedores con criterios explícitos.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Webhooks, polling y suscripciones"] --> M["Modelo: Webhooks"]
-    M --> D["Decisión: polling"]
-    D --> E["Evidencia: suscripciones"]
-    E --> R["Revisión: mensaje"]
-    R -->|nueva información| M
+    A[Cambio en el proveedor] --> B{¿Quién inicia?}
+    B -->|el proveedor empuja| C[Webhook]
+    B -->|la plataforma pregunta| D[Sondeo con petición condicional]
+    C --> E[Verificar: firma, marca de tiempo, identificador]
+    E --> F[Responder rápido y encolar]
+    F --> G[Procesar de forma idempotente]
+    D --> G
+    G --> H[Reconciliar por listado periódico]
+    H -->|diferencia| A
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Webhooks, polling y suscripciones**.
+El mapa separa quién inicia la comunicación del tratamiento posterior, que es el mismo en ambos casos. La reconciliación vuelve al proveedor porque ni el webhook ni el sondeo garantizan haberlo visto todo.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Empujar o tirar | Reparte la disponibilidad y el costo entre emisor y receptor. | Predicción, traza causal y contraejemplo de **Empujar o tirar** en `avisos-log.md` |
+| Webhooks | Exponen una dirección pública que debe autenticar y tolerar repeticiones. | Predicción, traza causal y contraejemplo de **Webhooks** en `avisos-log.md` |
+| Autenticidad y repetición | La firma no basta: una entrega válida puede reenviarse. | Predicción, traza causal y contraejemplo de **Autenticidad y repetición** en `avisos-log.md` |
+| Sondeo y peticiones condicionales | Cambia peticiones por retraso y puede evitar transferir lo que no cambió. | Predicción, traza causal y contraejemplo de **Sondeo y peticiones condicionales** en `avisos-log.md` |
+| Suscripciones y reconciliación | El aviso es una pista y el listado es la verdad. | Predicción, traza causal y contraejemplo de **Suscripciones y reconciliación** en `avisos-log.md` |
 
 ## Conceptos y decisiones
 
-Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.
+### 1. Empujar o tirar
 
-La pregunta rectora de esta parte es: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** La respuesta debe
-apoyarse en **esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación**.
+En el modelo de **empujar** (webhook), el proveedor llama al receptor cuando algo ocurre; en el de **tirar** (sondeo), el receptor pregunta cada cierto tiempo. El primero da baja latencia y pocas peticiones, pero obliga al receptor a exponer un punto de entrada, estar disponible cuando el proveedor llama y aceptar el calendario de reintentos del otro. El segundo conserva el control (cuándo, cuánto, qué), no requiere exponer nada y es sencillo de depurar, a cambio de peticiones vacías y de un retraso que depende del intervalo. No son excluyentes: la combinación habitual usa el webhook como pista de baja latencia y el sondeo como red de seguridad.
 
-### 1. Webhooks: modelo
+### 2. Webhooks
 
-En esta clase, **Webhooks** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Webhooks, polling y suscripciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **webhook** es una petición HTTP `POST` que el proveedor dirige a una dirección del receptor con un cuerpo que describe el evento. Su contrato implícito tiene cuatro partes: el receptor debe responder rápido con un código de éxito (el proveedor considera fallida cualquier respuesta lenta o de error y reintenta), no se garantiza orden entre eventos, se puede recibir el mismo evento más de una vez y no hay garantía de haber recibido todos. Por eso el cuerpo debe tratarse como un **aviso** y el tratamiento real (aplicar la nota) hacerse de forma asíncrona e idempotente: el manejador verifica, guarda en una cola y responde, y un trabajador procesa.
 
-### 2. Polling: mecanismo
+### 3. Autenticidad y repetición
 
-En esta clase, **polling** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Webhooks, polling y suscripciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La dirección de un webhook es pública, así que cualquiera puede enviarle una petición. La defensa es una firma: el proveedor calcula un **HMAC** del cuerpo con un secreto compartido y lo envía en un encabezado; el receptor lo recalcula y lo compara con una función de tiempo constante. Hay dos detalles que fallan con frecuencia. Se firman y verifican los **bytes recibidos**, no el objeto reconstruido: volver a serializar el JSON cambia espacios y orden de campos y la firma deja de coincidir. Y la firma no impide la **repetición**: un atacante que capturó una entrega válida puede reenviarla. Se cierra incluyendo una marca de tiempo firmada con una tolerancia corta (rechazar lo más viejo) y guardando los identificadores vistos para rechazar el reenvío inmediato.
 
-### 3. Suscripciones: evidencia
+### 4. Sondeo y peticiones condicionales
 
-En esta clase, **suscripciones** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Webhooks, polling y suscripciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El sondeo cuesta peticiones y retraso: con un intervalo T, el retraso medio es T/2 y el peor caso T. Se abarata con **peticiones condicionales**: el receptor envía el validador de la última respuesta (`If-None-Match` con un `ETag`, o la fecha de modificación) y el servidor responde sin cuerpo si nada cambió, con lo que la petición vacía casi no cuesta transferencia. Para listas largas se usa un **cursor** (la posición del último elemento visto) o un filtro «desde»; el receptor guarda el cursor y lo avanza solo cuando procesó. El sondeo tiene el mismo problema de las bajas de `SE-330`: si el listado no muestra lo borrado, un borrado no se ve.
 
-### 4. Mensaje: decisión
+### 5. Suscripciones y reconciliación
 
-En esta clase, **mensaje** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Webhooks, polling y suscripciones**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Muchos proveedores exigen **registrar** una suscripción: la dirección, los tipos de evento y un secreto. Esa suscripción tiene ciclo de vida: el secreto puede rotar (el receptor debe aceptar el viejo y el nuevo durante un tiempo), la dirección puede dejar de responder y el proveedor la desactiva tras demasiados fallos, y alguien debe notarlo. La red de seguridad es una **reconciliación** periódica: listar los eventos o los objetos del proveedor desde el último punto de control y compararlos con lo recibido, procesando lo que falte. Con ella, perder un aviso deja de ser un incidente y pasa a ser un retraso; sin ella, es una pérdida permanente de la que nadie se entera.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuánto cuesta sondear
+
+Se generan los eventos de un día con una tasa de 12 por hora (proceso de Poisson, semilla 3311), 311 eventos. Para cada intervalo se cuentan las peticiones al día, las vacías (sin ningún evento nuevo) y el retraso entre cada evento y el siguiente sondeo.
+
+```python
+sig = (int(e // iv) + 1) * iv           # el siguiente sondeo tras el evento
+retraso = sig - e
+vacias = 1 - len({int(e // iv) for e in eventos}) / (86400 // iv)
+```
+
+| Intervalo | Peticiones al día | Vacías | Retraso medio | Retraso p95 |
+|---:|---:|---:|---:|---:|
+| 10 s | 8 640 | 96,5 % | 5,1 s | 9,5 s |
+| 60 s | 1 440 | 81,3 % | 31,6 s | 57,1 s |
+| 5 min | 288 | 34,4 % | 146,4 s | 289,7 s |
+| 15 min | 96 | 2,1 % | 447,3 s | 856,1 s |
+| 1 h | 24 | 0,0 % | 1 807,5 s | 3 379,3 s |
+
+Pasar de una hora a un minuto multiplica por 60 las peticiones y baja el retraso medio de 30 a 0,5 minutos; por debajo de un minuto, casi todo es ruido. Un webhook costaría 311 entregas al día sin ninguna vacía. El sondeo cada cinco minutos que usaba la plataforma (288 peticiones) deja un tercio de ellas vacías y un retraso medio de casi dos minutos y medio.
+
+![Tabla con las peticiones al día, el porcentaje de peticiones vacías y el retraso medio y en el percentil 95 al sondear cada 10 segundos, 60 segundos, 5 minutos, 15 minutos y 1 hora, para 311 eventos de un día.](../../../content/part-27/figures/se-331-sondeo-y-latencia.svg)
+
+**Cómo leer la figura.** Cada fila es un intervalo; las dos primeras columnas son el costo y las dos últimas, el retraso. **Dónde deja de valer:** los eventos llegan a una tasa constante; en la plataforma se concentran en los cierres de entrega y en horas de clase, donde un intervalo corto vale y fuera de ellas es desperdicio. Tampoco se modeló la respuesta condicional, que abarata las peticiones vacías, ni el límite de peticiones del proveedor.
+
+### Qué ataque cierra cada capa de verificación
+
+Se prueban siete entregas contra cuatro políticas: sin verificar, HMAC del cuerpo, HMAC de la marca de tiempo y el cuerpo con tolerancia de 300 s, y esa política más el rechazo de identificadores ya vistos. Las entregas son: una válida, una con el cuerpo alterado, una firmada con otro secreto, una sin firma, una repetición válida 10 minutos después, una repetición inmediata del mismo identificador y una cuyo JSON se reserializó con espacios.
+
+```python
+def firmar(ts, cuerpo, secreto):
+    return hmac.new(secreto, f"{ts}.".encode() + cuerpo, hashlib.sha256).hexdigest()
+ok = hmac.compare_digest(recibida, firmar(ts, cuerpo_crudo, SECRETO))
+ok = ok and abs(ahora - ts) <= 300 and id_evento not in vistos
+```
+
+| Caso | Sin verificar | HMAC del cuerpo | HMAC con marca de tiempo | Más id ya visto |
+|---|---|---|---|---|
+| Válido | Acepta | Acepta | Acepta | Acepta |
+| Cuerpo alterado | Acepta | Rechaza | Rechaza | Rechaza |
+| Firmado con otro secreto | Acepta | Rechaza | Rechaza | Rechaza |
+| Sin firma | Acepta | Rechaza | Rechaza | Rechaza |
+| Repetición 10 min después | Acepta | Acepta | Rechaza | Rechaza |
+| Repetición inmediata del mismo id | Acepta | Acepta | Acepta | Rechaza |
+| JSON reserializado con espacios | Acepta | Rechaza | Rechaza | Rechaza |
+
+Cada capa cierra un ataque distinto: la firma cierra la manipulación y la suplantación; la marca de tiempo, la repetición tardía; el identificador, la repetición inmediata. La última fila es un fallo del **receptor**, no del atacante: si el servidor reconstruye el JSON antes de verificar, rechaza entregas legítimas. En una prueba con un servidor HTTP real en el bucle local, el cuerpo original devolvió 204 y el reserializado 401.
+
+![Tabla con la aceptación o el rechazo de siete entregas por una verificación nula, por una firma HMAC del cuerpo, por una firma con marca de tiempo y por la anterior más el rechazo de identificadores ya vistos.](../../../content/part-27/figures/se-331-firmas-y-repeticiones.svg)
+
+**Cómo leer la figura.** Cada fila es una entrega y cada columna una política; «Acepta» en una fila maliciosa es un hueco. **Dónde deja de valer:** el secreto de ensayo está en el código, algo que en producción debe evitarse (`SE-334`); la tolerancia de 300 s es la del autor; los identificadores vistos se guardan en un conjunto en memoria, sin las ventanas y el almacenamiento que exigiría un volumen real (`SE-328`). Quien conoce el secreto y la marca puede forjar una entrega válida: la firma autentica al que posee el secreto, no a una persona.
+
+### Reintentos del emisor ante una caída del receptor
+
+Un proveedor emite un evento cada 10 segundos durante cuatro horas (1 440 eventos). El receptor está caído entre la hora 1 y la hora 3 (720 eventos caen en ese tramo). Con probabilidad 0,05 por intento, el receptor procesa pero la respuesta se pierde, y el emisor reintenta. Se comparan tres calendarios: tres reintentos fijos de un segundo, cinco reintentos exponenciales (1, 5, 30, 120 y 600 s) y nueve reintentos hasta unas 6 horas con aleatoriedad.
+
+```python
+for i, espera in enumerate([0] + calendario):
+    t += espera * (0.5 + r.random()) if jitter and i else espera
+    if caido[0] <= t < caido[1]: continue         # el receptor no responde
+    procesados += 1
+    if r.random() < 0.05: continue                # procesó, se perdió la respuesta
+    entregado = True; break
+```
+
+| Política de reintentos del emisor | Entregados | Perdidos | Entregas repetidas |
+|---|---:|---:|---:|
+| 3 reintentos fijos de 1 s | 720 | 720 | 34 |
+| 5 exponenciales (1, 5, 30, 120, 600 s) | 792 | 648 | 33 |
+| 9 hasta unas 6 h con aleatoriedad | 1 440 | 0 | 71 |
+
+Con una caída de dos horas, tres reintentos en tres segundos son un descarte rápido: 720 eventos perdidos, justo los de la caída. El calendario exponencial recupera 72 (los de los últimos 12 minutos de la caída) y descarta el resto. Solo el calendario largo entrega todo, y paga con el doble de repeticiones: cuanto más insiste el emisor, más veces recibe el mismo evento el receptor. La idempotencia es entonces un requisito, no una mejora.
+
+![Tabla con los eventos entregados, perdidos y repetidos de 1 440 con un receptor caído dos horas, según tres calendarios de reintento del emisor.](../../../content/part-27/figures/se-331-reintentos-del-emisor.svg)
+
+**Cómo leer la figura.** Cada fila es un calendario de reintentos; las columnas cuentan el resultado final por evento. **Dónde deja de valer:** el emisor es una simulación; los proveedores reales fijan su propio calendario, a veces lo desactivan tras demasiados fallos y no siempre lo documentan. Un sondeo de reconciliación recuperaría los eventos perdidos del primer y segundo calendario, pero no se midió aquí.
 
 ## Definiciones de trabajo
 
-- **Webhooks:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Polling:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Suscripciones:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Mensaje:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
+- **webhook:** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
+- **sondeo:** consulta periódica de un sistema a otro para saber si hubo cambios.
+- **HMAC:** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
+- **petición condicional:** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
+- **reconciliación:** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Webhooks, polling y suscripciones**:
+El fragmento firma un cuerpo y verifica la firma sobre los bytes recibidos y sobre una reserialización. Antes de ejecutarlo, predice cuál de las dos comprobaciones es verdadera.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import hmac, hashlib, json
+S = b"secreto-de-ensayo"
+cuerpo = b'{"id":"e1","nota":6.5}'
+firma = hmac.new(S, cuerpo, hashlib.sha256).hexdigest()
+re_serializado = json.dumps(json.loads(cuerpo)).encode()      # añade espacios
+ok = lambda b: hmac.compare_digest(firma, hmac.new(S, b, hashlib.sha256).hexdigest())
+print(ok(cuerpo), ok(re_serializado))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+La primera es `True` y la segunda `False`. Registra versión de Python y salida; después añade la marca de tiempo al texto firmado y comprueba que una repetición con una marca de hace diez minutos se rechaza.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Webhooks, polling y suscripciones**. Parte de esta pregunta: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `asyncapi.yaml` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma documenta el contrato de recepción del webhook del sistema académico. **Verificación:** el manejador lee el cuerpo crudo, comprueba la firma HMAC con comparación de tiempo constante, rechaza marcas de tiempo con más de cinco minutos de diferencia y rechaza identificadores ya vistos, y acepta la firma del secreto vigente y del anterior durante la rotación. **Respuesta:** guarda el evento en una tabla de entrada con el identificador como clave única y responde 204 en milisegundos; ningún trabajo pesado ocurre en el manejador. **Procesamiento:** un trabajador lee la tabla, aplica la nota con guarda de versión y marca el evento. **Reconciliación:** cada 15 minutos lista las notas modificadas desde el último punto de control en la interfaz del proveedor y procesa las que no estén registradas; alerta si el punto de control no avanza. Para el segundo proveedor (correo), que solo ofrece consulta, sondean cada cinco minutos con petición condicional. Antes de activar el webhook, prueban con un emisor falso: cuerpo alterado, sin firma, repetición, reserializado y caída del receptor durante dos horas. Compara con el diseño inicial: ya nadie crea notas con una herramienta y una caída de dos horas no pierde ninguna nota.
 
 ## Práctica guiada
 
-1. Crea `work/SE-331/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el flujo de integración con contrato, reintento y reconciliación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja el camino de una nota desde el sistema académico hasta la plataforma e indica qué puede salir mal en cada tramo.
+2. Predice el porcentaje de peticiones vacías de un sondeo cada 60 segundos y escribe el número.
+3. Reproduce la tabla de sondeo con las mismas semillas y compara con tu predicción.
+4. Implementa la verificación en cuatro capas y comprueba las siete entregas, incluida la reserializada contra un servidor local.
+5. Simula la caída de dos horas con los tres calendarios y cuenta entregados, perdidos y repetidos.
+6. Escribe el contrato de recepción: encabezados, verificación, respuesta, idempotencia y reconciliación.
+7. Entrega `avisos-log.md` y pide a otra persona que encuentre una entrega que tu verificación acepte y no debería.
 
 ## Ejercicios
 
-1. **Fundamental:** define Webhooks y polling con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `asyncapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Costo:** un proveedor limita a 600 peticiones por hora; calcula el intervalo mínimo de sondeo y el retraso medio y el p95 resultantes.
+2. **Firma:** el proveedor firma solo el cuerpo y no incluye marca de tiempo; diseña la defensa contra la repetición con lo que sí tienes y razona qué ventana de identificadores usarías.
+3. **Reintentos:** el proveedor reintenta durante 24 horas con retroceso exponencial; estima cuántas veces puede recibirse el mismo evento y qué almacenamiento necesita la deduplicación.
+4. **Reconciliación:** diseña el listado desde un punto de control, qué ocurre si dos eventos tienen la misma marca y cómo evitas procesar dos veces los que ya llegaron por webhook.
 
 ## Reto verificable
 
-Entrega el **flujo de integración con contrato, reintento y reconciliación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `avisos-log.md` con las predicciones, las tres tablas reproducidas con las mismas semillas, el contrato de recepción y la decisión de webhook, sondeo o ambos para dos proveedores. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene 81,3 % de peticiones vacías a 60 s, las siete respuestas de cada política de verificación (la repetición inmediata la aceptan la segunda y la tercera) y 720 eventos perdidos con tres reintentos fijos, y puede decir qué evento se perdería si la reconciliación fallara. No se aprueba por firmar el JSON reserializado ni por responder al proveedor después de procesar el evento.
+
+## Caso conductor
+
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 27. Esta clase deja el séptimo artefacto: el contrato de recepción de avisos de un proveedor externo con su reconciliación. `SE-332` pregunta qué ocurre cuando el proveedor cambia la forma de los mensajes. Cambia después una sola decisión, el intervalo de reconciliación, y observa cuánto tarda en repararse un aviso perdido.
+
+## Preguntas frecuentes
+
+### ¿Es mejor un webhook o un sondeo?
+
+Depende de quién debe soportar el costo y el riesgo. Un webhook da baja latencia pero expone una dirección y exige verificar, tolerar repeticiones y reconciliar; el sondeo cuesta peticiones y retraso pero el receptor controla el ritmo. Para cosas que importan, la combinación (webhook como pista y sondeo de reconciliación) es la más robusta.
+
+### ¿Por qué responder rápido y procesar después?
+
+Porque el proveedor da por fallida una respuesta lenta y reintenta, con lo que el receptor recibe el mismo evento varias veces mientras aún procesa el primero. Guardar el evento y responder en milisegundos separa la recepción del tratamiento y permite aplicar los reintentos y la deduplicación con calma.
+
+### ¿Basta con restringir las direcciones IP del proveedor?
+
+Es una capa útil pero débil: las direcciones cambian, pueden compartirse y no autentican el contenido. La firma es la defensa principal; el filtro de direcciones es un complemento cuando el proveedor publica sus rangos.
+
+### ¿Qué pasa si rotamos el secreto?
+
+Durante la rotación el receptor debe aceptar ambos secretos, el viejo y el nuevo, hasta que el proveedor empiece a firmar con el nuevo. Un corte brusco rechaza entregas legítimas y deja a la plataforma con huecos que solo la reconciliación repara.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **procesar dos veces un mensaje y producir efectos no reconciliables**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **verificar la firma sobre el JSON reconstruido**. Haz que el manejador lea el cuerpo, lo convierta en objeto y firme `json.dumps(objeto)`.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el receptor rechaza con 401 entregas que el proveedor firmó correctamente, y el proveedor las reintenta sin éxito. **Hipótesis rivales:** (a) el secreto está mal configurado; (b) el proveedor cambió el algoritmo de firma; (c) el receptor modifica el cuerpo antes de verificar. **Prueba:** verifica la misma entrega con los bytes recibidos; si con los bytes crudos la firma coincide y con el objeto reconstruido no, la causa es la reserialización. **Conclusión:** se firmó una representación distinta de la enviada. **Regresión:** verificar siempre sobre los bytes recibidos, y una prueba que envíe el mismo cuerpo con y sin espacios extra y compruebe que ambos se verifican contra los bytes originales. No cambies a la vez el secreto y la lectura del cuerpo.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Alguien crea eventos falsos con una herramienta | La dirección del webhook no verifica firma | Firma HMAC con secreto y comparación de tiempo constante |
+| Se reprocesa una entrega capturada | Firma sin marca de tiempo ni identificador | Marca de tiempo firmada con tolerancia corta e identificadores vistos |
+| Entregas legítimas rechazadas con 401 | Verificación sobre el JSON reconstruido | Verificar sobre los bytes recibidos |
+| El proveedor desactiva el webhook | Respuestas lentas o de error durante mucho tiempo | Responder rápido, encolar y procesar aparte; alarmar por fallos |
+| Se pierden avisos tras un mantenimiento | No hay reconciliación periódica | Listado desde un punto de control y alerta si no avanza |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: broker local o simulador, validador de esquemas y trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-331/
 ├── README.md
-│   ├── asyncapi.yaml
-│   ├── flow.md
-│   ├── reconciliation.md
-├── activity.yaml
-└── rubric.json
+├── avisos/
+│   ├── sondeo.py
+│   ├── verificar.py
+│   └── reintentos.py
+├── tests/test_avisos.py
+└── evidence/avisos-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `asyncapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. El código de los tres experimentos está en `scripts/experiments_part27_b.py` (funciones `e331_sondeo`, `e331_firma`, `e331_transporte_real` y `e331_reintentos`) y se ejecuta con `python scripts/experiments_part27_b.py`. Solo usa la biblioteca estándar y se ejecutó con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. El servidor de la prueba real escucha solo en la interfaz de bucle local y en un puerto efímero. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el secreto del webhook es una credencial: guárdalo fuera del código y del repositorio, rótalo y no lo registres en los mensajes de error;
+- no registres el cuerpo completo de las entregas ni las cabeceras de firma (`SE-334`): pueden contener datos personales y permiten forjar entregas;
+- el manejador es un punto de entrada público: limita el tamaño del cuerpo, el ritmo de peticiones y el trabajo antes de verificar para evitar abusos;
+- las notas y estados llegan de un tercero y afectan a personas: valida su forma antes de aplicarlas y conserva el evento original para auditar;
+- los datos de ensayo y el secreto de las pruebas son sintéticos; no envíes eventos reales a un servidor de ensayo.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «recibe el webhook del proveedor» suele escribir un manejador que lee el JSON, lo procesa en la misma petición y responde 200, sin firma o con la firma calculada sobre el objeto reconstruido, y sin tratar repeticiones. Pídele en cambio que verifique sobre los bytes crudos con comparación de tiempo constante, que valide la marca de tiempo y el identificador, que encole y responda rápido, que procese de forma idempotente y que añada la reconciliación periódica con una prueba que simule firma alterada, repetición, reserialización y caída de dos horas. Revisa especialmente si verifica sobre el objeto y si procesa dentro de la petición: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, un comercio que recibe confirmaciones de pago de una pasarela): cambia el proveedor y los eventos y conserva el procedimiento de calcular el costo de sondear, verificar firma, marca de tiempo e identificador, responder rápido y reconciliar con un listado. La transferencia está lograda cuando puedes decir qué se perdería sin la reconciliación, no cuando el manejador devuelve 200.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-331/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de qué cierra cada capa de verificación y de por qué se firma el cuerpo crudo |
+| corrección | tablas de sondeo, verificación y reintentos reproducibles con las mismas semillas |
+| diseño | contrato de recepción y decisión webhook/sondeo/ambos para dos proveedores |
+| diagnóstico | reproducción de la verificación sobre el JSON reconstruido con regresión |
+| incertidumbre | declaración de que los eventos, las tasas y los calendarios son supuestos y no se usó un proveedor |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Stripe: webhooks](https://docs.stripe.com/webhooks) — firmas, tolerancia de marca de tiempo, reintentos y eventos repetidos; autoridad: documentación oficial de Stripe.
+- [GitHub: validar entregas de webhooks](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries) — HMAC-SHA256 y comparación de tiempo constante; autoridad: documentación oficial de GitHub.
+- [Standard Webhooks](https://www.standardwebhooks.com/) — convención de identificador, marca de tiempo y firma; autoridad: especificación comunitaria.
+- [RFC 2104: HMAC](https://www.rfc-editor.org/rfc/rfc2104) — código de autenticación de mensajes; autoridad: IETF.
+- [RFC 9110: semántica de HTTP](https://www.rfc-editor.org/rfc/rfc9110) — validadores y peticiones condicionales; autoridad: IETF.
 
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **CloudEvents specification** — Cloud Native Computing Foundation. [https://cloudevents.io/](https://cloudevents.io/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 81,3 % de peticiones vacías, los 720 eventos perdidos o los 71 repetidos se observen con un proveedor real. Esa afirmación depende de la tasa de eventos, del calendario del emisor y de la disponibilidad del receptor.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Webhooks, polling y suscripciones**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-332`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún proveedor, dominio externo ni red más allá del bucle local: la tasa de eventos, la pérdida de respuestas, la ventana de 300 s y los calendarios de reintento son construcciones del autor, y los resultados no se extrapolan a ningún servicio. La siguiente clase pregunta qué ocurre cuando cambia la forma de los mensajes que se intercambian: compatibilidad de esquemas y registros.
+
+## Glosario
+
+- **webhook:** petición HTTP que un sistema envía a una dirección de otro para avisarle de un evento.
+- **sondeo:** consulta periódica de un sistema a otro para saber si hubo cambios.
+- **HMAC:** código de autenticación de mensajes calculado con una función hash y un secreto compartido.
+- **petición condicional:** petición que incluye el validador de una respuesta anterior para que el servidor responda sin cuerpo si no hay cambios.
+- **reconciliación:** comparación periódica entre lo recibido y el listado del proveedor para procesar lo que faltó.
 
 ---
 

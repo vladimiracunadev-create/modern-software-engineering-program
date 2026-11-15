@@ -2,208 +2,338 @@
 
 [← SE-331 — Webhooks, polling y suscripciones](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/README.md) · [↑ Parte 27](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-332.html) · [SE-333 — Anti-corruption layers y traducción de modelos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-333-anti-corruption-layers-y-traduccion-de-modelos/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que cambies la forma de un mensaje sin romper a quien ya lo consume: aprenderás a comprobar con código, y no de memoria, qué cambios de esquema son compatibles hacia atrás y hacia adelante para un lector tolerante y para uno estricto, cuántos mensajes fallan durante un despliegue gradual según qué lado se actualiza primero y qué hace cada política de un consumidor cuando aparece un valor nuevo de una enumeración.
+
+**Por qué aparece aquí.** Sigue a **Webhooks, polling y suscripciones**: allí el proveedor externo enviaba avisos y la plataforma los aceptaba; ahora se pregunta qué pasa cuando cualquiera de los dos cambia la forma de los datos. Los mensajes viven más que el código que los escribió (un log retenido, una cola con retraso, un consumidor que nadie despliega desde hace meses), así que el esquema es un contrato con quien aún no existe.
+
+**Error conceptual que debe corregir.** Creer que «añadir un campo es compatible» o que basta con avisar a los equipos. La compatibilidad depende de quién lee y de cómo lee: un lector estricto convierte cualquier campo nuevo en un fallo, un lector tolerante lo ignora; y durante un despliegue gradual conviven versiones nuevas y viejas de productores y consumidores, de modo que los cambios incompatibles producen fallos aunque cada equipo haya hecho «lo correcto».
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuáles de siete cambios de esquema rompen a un lector tolerante y a uno estricto en cada sentido, cuántos mensajes fallan si se despliega primero el productor o primero el consumidor, y qué ocurre con los mensajes que siguen a un valor desconocido de una enumeración; después mides los tres casos y comparas con tu predicción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `esquemas-log.md` con las predicciones, las tres figuras reproducidas, el esquema versionado de `EntregaRecibida` con sus reglas de cambio, una tabla de órdenes de despliegue para tres cambios y la política del consumidor ante valores desconocidos.
+
+**Límite de la conclusión.** Los esquemas son diccionarios de campos con tipo y obligatoriedad, y los lectores son funciones de Python de unas pocas líneas: no se usó Avro, Protocol Buffers, JSON Schema ni registro de esquemas real. El despliegue gradual en cinco pasos del 20 %, el 6 % de valores nuevos en la segunda mitad del flujo y el tamaño de los lotes son supuestos del autor. Los resultados muestran la lógica de la compatibilidad, no el comportamiento de un formato concreto.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Confluent: evolución de esquemas y compatibilidad](https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html) | Define los modos de compatibilidad hacia atrás, hacia adelante y completa y explica cómo un registro los verifica y qué cambios los respetan en Avro. | No fija el modo adecuado para la plataforma de entregas ni cubre otros formatos. |
+| [Apache Avro: especificación](https://avro.apache.org/docs/current/specification/) | Define la resolución de esquemas entre el del escritor y el del lector, con valores por defecto para campos que faltan. | No describe la resolución en JSON simple ni en otros formatos. |
+| [Fowler, «Tolerant Reader»](https://martinfowler.com/bliki/TolerantReader.html) | Recomienda que el lector use solo los campos que necesita e ignore el resto, para tolerar la evolución del emisor. | No elimina la necesidad de validar lo que el lector sí usa. |
+| [Versionado semántico](https://semver.org/) | Propone distinguir cambios compatibles e incompatibles de una interfaz con el número de versión. | No es un mecanismo de verificación ni cubre el comportamiento. |
+| [CloudEvents: especificación](https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md) | Incluye un atributo para el tipo del evento y otro para el esquema de datos, de modo que el consumidor identifique la versión. | No obliga a ningún esquema concreto ni a una política de cambios. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-326` (el mensaje tiene un sobre con versión) y en `SE-318` sobre migraciones compatibles de bases de datos: expandir, migrar y contraer. La estrategia es la misma, con una diferencia que cambia todo: en una migración de base el equipo controla cuándo termina la convivencia; con mensajes retenidos o consumidores ajenos, no. La pregunta activa es: **¿quién puede estar leyendo esto con una versión distinta de la mía, y qué le pasa?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-331` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de broker local o simulador, validador de esquemas y trazas.
+- Haber completado `SE-331` o poder explicar por qué un receptor externo es no confiable.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar y generadores con semilla fija.
+- Entender qué es un campo opcional, uno obligatorio, un valor por defecto y una enumeración.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una comercio responsable debe decidir sobre **Compatibilidad de esquemas y registros**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El mensaje `EntregaRecibida` tiene `id`, `estudiante`, `curso` y `estado`. Un martes el equipo de analítica pide añadir `intento` y lo marca como obligatorio; el productor se despliega por la tarde y el consumidor de avisos, que no se había actualizado, empieza a rechazar los mensajes nuevos porque su lector estricto no admite campos que no conoce. Al día siguiente otro equipo renombra `estudiante` a `alumno` «para ser consistente», y la cola retenida de la semana anterior queda ilegible para el consumidor nuevo. Una semana después aparece un estado nuevo, `revision_pendiente`, y un consumidor que lanza una excepción ante lo desconocido se detiene en el primer mensaje y bloquea los demás. Los tres equipos creyeron que su cambio era compatible; ninguno lo comprobó contra los lectores reales.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Compatibilidad y esquemas con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **flujo de integración con contrato, reintento y reconciliación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «procesar dos veces un mensaje y producir efectos no reconciliables» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Compatibilidad | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Esquemas | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Registros | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Mensaje | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. clasificar siete cambios de esquema como compatibles hacia atrás, hacia adelante o ninguno, según el tipo de lector, y comprobarlo con código;
+2. medir cuántos mensajes fallan en un despliegue gradual según se actualice primero el productor o el consumidor;
+3. comparar cuatro políticas de un consumidor ante un valor desconocido de una enumeración por mensajes bloqueados, perdidos y conservados;
+4. escribir las reglas de evolución de un esquema (qué cambios se permiten, cuáles requieren fases) y la verificación que las exige;
+5. diseñar el orden de despliegue de un cambio incompatible en pasos compatibles.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Compatibilidad de esquemas y registros"] --> M["Modelo: Compatibilidad"]
-    M --> D["Decisión: esquemas"]
-    D --> E["Evidencia: registros"]
-    E --> R["Revisión: mensaje"]
-    R -->|nueva información| M
+    A[Esquema v1] --> B[Cambio propuesto]
+    B --> C{¿Compatible?}
+    C -->|nuevo lee viejos| D[Hacia atrás]
+    C -->|viejo lee nuevos| E[Hacia adelante]
+    C -->|ambos| F[Completa]
+    C -->|ninguno| G[Incompatible: fases expandir-migrar-contraer]
+    D --> H[Desplegar consumidores primero]
+    E --> I[Desplegar productores primero]
+    F --> J[Cualquier orden]
+    G --> K[Nuevo tópico o campo paralelo]
+    H --> L[Registro de esquemas verifica en CI]
+    I --> L
+    J --> L
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Compatibilidad de esquemas y registros**.
+El mapa separa el **tipo de compatibilidad** del **orden de despliegue** que cada tipo permite. Un cambio incompatible no se prohíbe: se divide en pasos compatibles, como en las migraciones de base de datos.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Tipos de compatibilidad | Decide quién puede desplegar primero y cuántas versiones deben convivir. | Predicción, traza causal y contraejemplo de **Tipos de compatibilidad** en `esquemas-log.md` |
+| Lector tolerante y estricto | La misma evolución es compatible o no según cómo lee el consumidor. | Predicción, traza causal y contraejemplo de **Lector tolerante y estricto** en `esquemas-log.md` |
+| Cambios seguros y peligrosos | Añadir es casi seguro; renombrar, cambiar un tipo o hacer obligatorio no lo es. | Predicción, traza causal y contraejemplo de **Cambios seguros y peligrosos** en `esquemas-log.md` |
+| Registro de esquemas | Convierte una regla de equipo en una comprobación automática. | Predicción, traza causal y contraejemplo de **Registro de esquemas** en `esquemas-log.md` |
+| Orden de despliegue y enumeraciones | Los fallos ocurren en la ventana de convivencia y con el valor nuevo. | Predicción, traza causal y contraejemplo de **Orden de despliegue y enumeraciones** en `esquemas-log.md` |
 
 ## Conceptos y decisiones
 
-Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.
+### 1. Tipos de compatibilidad
 
-La pregunta rectora de esta parte es: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** La respuesta debe
-apoyarse en **esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación**.
+Un cambio de esquema es **compatible hacia atrás** si un lector con el esquema **nuevo** puede leer datos escritos con el **viejo**; es **compatible hacia adelante** si un lector con el esquema **viejo** puede leer datos escritos con el **nuevo**; y es **completo** si lo es en ambos sentidos. Se necesita hacia atrás cuando hay datos viejos que leer (un log retenido, una cola atrasada, un consumidor que se despliega primero); se necesita hacia adelante cuando hay lectores viejos activos mientras los productores ya escriben con el esquema nuevo. Un log retenido durante meses exige compatibilidad hacia atrás durante meses, y esa duración, no el código, es lo que fija cuánto vive cada versión.
 
-### 1. Compatibilidad: modelo
+### 2. Lector tolerante y estricto
 
-En esta clase, **Compatibilidad** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compatibilidad de esquemas y registros**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La compatibilidad no es una propiedad solo del esquema: depende de **cómo** lee el consumidor. Un **lector tolerante** usa los campos que conoce e ignora los demás (la recomendación de Fowler); un **lector estricto** rechaza cualquier campo que no esté en su esquema. Con un lector tolerante, añadir un campo es compatible hacia adelante; con uno estricto, no lo es. El lector tolerante no es una excusa para no validar: debe comprobar tipo y rango de los campos que sí usa, y no debe confiar en que un campo desconocido sea inocuo si lo reenvía a otro sistema. La regla práctica es escribir lectores tolerantes con los campos que necesitan y estrictos con sus tipos.
 
-### 2. Esquemas: mecanismo
+### 3. Cambios seguros y peligrosos
 
-En esta clase, **esquemas** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compatibilidad de esquemas y registros**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Los cambios se ordenan por riesgo. **Añadir un campo opcional con valor por defecto** es el cambio más seguro. **Añadir uno obligatorio** rompe a los lectores nuevos con datos viejos, que no lo tienen. **Quitar un campo opcional** rompe a un lector estricto que lo esperaba; **quitar uno obligatorio**, a todos los lectores viejos. **Renombrar** equivale a quitar y añadir a la vez: rompe en los dos sentidos. **Cambiar el tipo** también rompe en ambos. **Volver obligatorio un campo opcional** rompe la lectura de datos viejos. Para los cambios peligrosos se aplica la misma estrategia de `SE-318`: añadir lo nuevo en paralelo, migrar a los consumidores, dejar de escribir lo viejo y solo entonces quitarlo.
 
-### 3. Registros: evidencia
+### 4. Registro de esquemas
 
-En esta clase, **registros** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compatibilidad de esquemas y registros**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **registro de esquemas** guarda las versiones de cada esquema y comprueba, antes de aceptar una nueva, que respete el modo de compatibilidad configurado para ese tema. El mensaje lleva el identificador de su esquema y el lector lo recupera para interpretar los datos. Así la regla pasa de estar en un documento a ser una comprobación que se ejecuta en la integración continua del productor: un cambio incompatible no llega a publicarse. No sustituye el diseño (el registro solo conoce la forma, no el sentido de un campo renombrado) ni el ensayo con los consumidores reales, pero cierra la mayor parte de los errores de forma.
 
-### 4. Mensaje: decisión
+### 5. Orden de despliegue y enumeraciones
 
-En esta clase, **mensaje** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Compatibilidad de esquemas y registros**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+El orden en que se actualizan productores y consumidores decide quién ve mensajes que no entiende. Con un cambio compatible hacia atrás se despliegan **primero los consumidores**: leen lo nuevo y lo viejo, y el productor puede cambiar después. Con uno compatible solo hacia adelante se despliegan **primero los productores**. Con uno incompatible no hay orden seguro y hay que dividirlo en fases. Las **enumeraciones** merecen atención propia: un valor nuevo es un cambio de datos que ningún registro de formas detecta, y la política del consumidor ante lo desconocido (excepción, descarte, valor por defecto, conservar y revisar) decide si es un incidente, una pérdida silenciosa o una tarea.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Qué cambios rompen a qué lector
+
+Se definen esquemas como diccionarios `campo → (tipo, obligatorio)` y dos lectores: el tolerante ignora campos extra y el estricto los rechaza; ambos exigen los obligatorios y comprueban el tipo. Para cada cambio se genera un mensaje mínimo (solo obligatorios) y uno máximo (todos los campos) con cada esquema, y se prueba si el lector nuevo lee los del escritor viejo (hacia atrás) y si el lector viejo lee los del escritor nuevo (hacia adelante); el resultado es verdadero solo si ambos mensajes se leen.
+
+```python
+def leer(esquema, msg, estricto):
+    for campo, (tipo, obligatorio) in esquema.items():
+        if campo not in msg:
+            if obligatorio: raise KeyError(campo)
+        elif not isinstance(msg[campo], tipo): raise TypeError(campo)
+    if estricto and set(msg) - set(esquema): raise ValueError("campos desconocidos")
+```
+
+| Cambio | Tolerante: nuevo lee viejos | Tolerante: viejo lee nuevos | Estricto: nuevo lee viejos | Estricto: viejo lee nuevos |
+|---|---|---|---|---|
+| Añadir un campo opcional | Sí | Sí | Sí | No |
+| Añadir un campo obligatorio | No | Sí | No | No |
+| Quitar un campo opcional | Sí | Sí | No | Sí |
+| Quitar un campo obligatorio | Sí | No | No | No |
+| Renombrar un campo | No | No | No | No |
+| Cambiar el tipo de un campo | No | No | No | No |
+| Volver obligatorio un campo opcional | No | Sí | No | Sí |
+
+Con lectores tolerantes, los únicos cambios completos son añadir y quitar un campo opcional. Con lectores estrictos, ni siquiera añadir un opcional es seguro hacia adelante. Renombrar y cambiar el tipo no son compatibles en ninguna combinación: son la prueba de que «renombrar» no es un cambio, es una eliminación seguida de una adición.
+
+![Tabla con siete cambios de esquema y si un lector tolerante y uno estricto, con el esquema nuevo leen datos viejos y con el viejo leen datos nuevos.](../../../content/part-27/figures/se-332-matriz-de-compatibilidad.svg)
+
+**Cómo leer la figura.** Cada fila es un cambio; las cuatro columnas combinan el tipo de lector con el sentido de la lectura. **Dónde deja de valer:** los esquemas solo tienen campos simples y tipos primitivos; un registro real también distingue uniones, valores por defecto, alias y listas. Los lectores son los más sencillos posibles, y un lector que además valide rangos o formatos añadiría casos que esta tabla no cubre.
+
+### Despliegue gradual y orden
+
+Se simula un despliegue en cinco pasos: en cada paso se actualiza un 20 % más de instancias. Se comparan dos órdenes: productores primero (llevan una etapa de ventaja sobre los consumidores) y consumidores primero. Para cada paso se procesan 2 000 mensajes: cada uno lo escribe una instancia nueva con probabilidad igual a la fracción de productores actualizados y lo lee una instancia nueva con la de consumidores; fallan los que su lector no puede leer. Se cuentan los fallos de 10 000 mensajes para tres cambios y los dos tipos de lector.
+
+```python
+fp, fc = (f, max(0, f - 0.2)) if orden == "productores primero" else (max(0, f - 0.2), f)
+esc = nuevo if r.random() < fp else viejo
+lec = nuevo if r.random() < fc else viejo
+```
+
+| Cambio | Lector | Productores primero | Consumidores primero |
+|---|---|---:|---:|
+| Añadir campo opcional | Tolerante | 0 | 0 |
+| Añadir campo opcional | Estricto | 2 825 | 820 |
+| Añadir campo obligatorio | Tolerante | 801 | 2 809 |
+| Añadir campo obligatorio | Estricto | 3 626 | 3 629 |
+| Renombrar campo | Tolerante | 3 626 | 3 629 |
+| Renombrar campo | Estricto | 3 626 | 3 629 |
+
+Añadir un opcional con lectores tolerantes no falla en ningún orden; con estrictos falla en ambos, más cuando los productores van primero (los estrictos viejos reciben campos que no conocen). Añadir un obligatorio con lectores tolerantes falla menos si los productores van primero (801 frente a 2 809): los consumidores nuevos casi siempre reciben datos nuevos. Renombrar falla en torno a 3 600 mensajes en cualquier orden, porque el desfase entre versiones existe siempre: no hay orden que lo evite, solo fases.
+
+![Tabla con los mensajes que fallan de 10 000 en un despliegue gradual de cinco pasos según el cambio, el tipo de lector y qué lado se despliega primero.](../../../content/part-27/figures/se-332-fallos-en-un-despliegue-gradual.svg)
+
+**Cómo leer la figura.** Cada fila es un cambio con un tipo de lector; las dos últimas columnas son el número de mensajes que fallan según el orden. **Dónde deja de valer:** el despliegue por pasos iguales del 20 % y la ventaja de una etapa son un modelo; en un despliegue real el desfase puede ser de días (un consumidor sin mantenimiento) o de segundos. Tampoco se modelan los mensajes retenidos que se leen semanas después, que alargan la ventana de compatibilidad hacia atrás.
+
+### Un valor nuevo en una enumeración
+
+Se generan 10 000 mensajes con tres estados (`recibida`, `calificada`, `devuelta`); desde la mitad del flujo, el 6 % de los mensajes lleva un estado nuevo, `revision_pendiente` (338 mensajes, el primero en la posición 5 009). Se comparan cuatro políticas de consumidor ante el valor desconocido.
+
+```python
+if estado not in CONOCIDOS:
+    if politica == "excepcion":  raise ValueError(estado)           # y se reintenta sin fin
+    if politica == "descartar":  continue
+    if politica == "por_defecto": estado = "desconocido"
+    if politica == "conservar":   enviar_a_revision(msg)           # se guarda el valor original
+```
+
+| Política del consumidor | Mensajes bloqueados | Mensajes perdidos | Mensajes con el valor nuevo procesados |
+|---|---:|---:|---:|
+| Lanzar una excepción y reintentar sin fin | 4 991 | 0 | 0 |
+| Descartar el valor desconocido | 0 | 338 | 0 |
+| Sustituir por «desconocido» | 0 | 0 | 338 sin su significado |
+| Conservar el valor y enviarlo a revisión | 0 | 0 | 338 con su valor |
+
+La excepción convierte un valor nuevo en una parada: el primer mensaje con `revision_pendiente` y los 4 990 siguientes (4 991 en total) esperan a que alguien intervenga. Descartar evita la parada y pierde 338 mensajes sin aviso. Sustituir conserva los mensajes pero borra lo que los distinguía. Conservar el valor original y derivar esos mensajes a una revisión es la única política que mantiene el flujo, la información y la visibilidad.
+
+![Tabla con los mensajes bloqueados, perdidos y procesados con un estado nuevo de una enumeración según cuatro políticas del consumidor, sobre 10 000 mensajes.](../../../content/part-27/figures/se-332-valor-nuevo-de-un-enum.svg)
+
+**Cómo leer la figura.** Cada fila es una política del consumidor ante lo desconocido; las columnas cuentan el efecto sobre el flujo y sobre los 338 mensajes con el valor nuevo. **Dónde deja de valer:** el 6 % y el momento en que aparece el valor son supuestos, y la política de excepción supone un reintento infinito sobre la partición, algo que depende del corredor. La figura no dice que conservar sea siempre posible: exige que haya a quién derivar los mensajes y que alguien los revise.
 
 ## Definiciones de trabajo
 
-- **Compatibilidad:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Esquemas:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Registros:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Mensaje:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
+- **compatibilidad hacia atrás:** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
+- **compatibilidad hacia adelante:** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
+- **lector tolerante:** consumidor que usa los campos que conoce e ignora los demás.
+- **registro de esquemas:** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
+- **expandir y contraer:** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Compatibilidad de esquemas y registros**:
+El fragmento prueba si añadir un campo opcional rompe a un lector estricto viejo. Antes de ejecutarlo, predice el resultado para el lector tolerante y para el estricto.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+V1 = {"id": (str, True), "curso": (str, True)}
+dato_nuevo = {"id": "e1", "curso": "c1", "comentario": "hola"}
+def leer(esq, m, estricto):
+    for k, (t, req) in esq.items():
+        if req and k not in m: return False
+    return not (estricto and set(m) - set(esq))
+print(leer(V1, dato_nuevo, False), leer(V1, dato_nuevo, True))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El tolerante lee (`True`) y el estricto no (`False`). Registra versión de Python y salida; después marca `comentario` como obligatorio en el esquema nuevo y prueba si el lector nuevo lee un mensaje viejo.
 
 ## Ejemplo profesional
 
-En la comercio responsable, el equipo prepara un cambio relacionado con **Compatibilidad de esquemas y registros**. Parte de esta pregunta: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `asyncapi.yaml` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma fija las reglas de evolución de `EntregaRecibida`. **Modo del registro:** compatibilidad completa, porque el log se retiene 14 días y hay consumidores que se despliegan con semanas de desfase. **Reglas:** se permite añadir campos opcionales con valor por defecto y quitar campos opcionales; se prohíbe renombrar, cambiar tipos y volver obligatorio un campo. **Lectores:** todos los consumidores usan lectores tolerantes sobre los campos que necesitan y validan su tipo; los estados desconocidos se conservan y se derivan a una cola de revisión con una alarma. Para el cambio que pidió analítica, `intento` obligatorio, definen las fases: primero añadir `intento` como opcional con valor por defecto 1; luego migrar los productores para que siempre lo envíen; cuando el log retenido ya no contiene mensajes sin él, marcarlo obligatorio. Para «renombrar estudiante a alumno» definen la alternativa: escribir ambos campos durante un periodo, migrar a los consumidores y quitar el viejo cuando nadie lo lea. El registro verifica las reglas en la integración continua del productor. Compara con el cambio original: el consumidor de avisos no se rompe y la cola retenida sigue siendo legible.
 
 ## Práctica guiada
 
-1. Crea `work/SE-332/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el flujo de integración con contrato, reintento y reconciliación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Escribe el esquema actual de `EntregaRecibida` y lista quién lo lee y con qué versión.
+2. Predice cuáles de los siete cambios rompen a un lector estricto en cada sentido.
+3. Implementa los dos lectores y reproduce la matriz de siete cambios.
+4. Simula el despliegue en cinco pasos con productores primero y consumidores primero para tres cambios.
+5. Implementa las cuatro políticas ante un valor desconocido y cuenta bloqueados, perdidos y conservados.
+6. Escribe las fases de un cambio incompatible (obligatorio y renombrado) con las condiciones para pasar de una a otra.
+7. Entrega `esquemas-log.md` y pide a otra persona que proponga un cambio que tus reglas permitan y que rompa a un consumidor.
 
 ## Ejercicios
 
-1. **Fundamental:** define Compatibilidad y esquemas con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la comercio responsable, compara tres opciones y entrega `asyncapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Clasificación:** `calificacion` pasa de entero a decimal; clasifica el cambio por lector y propone las fases.
+2. **Orden:** un cambio es compatible solo hacia adelante; indica quién se despliega primero y qué ocurre con el log retenido.
+3. **Enumeración:** el estado `devuelta` se divide en `devuelta_con_nota` y `devuelta_sin_nota`; diseña una transición que no rompa consumidores estrictos.
+4. **Registro:** escribe tres reglas de compatibilidad que verificaría tu registro y una que no puede verificar y requiere una prueba con los consumidores.
 
 ## Reto verificable
 
-Entrega el **flujo de integración con contrato, reintento y reconciliación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `esquemas-log.md` con las predicciones, las tres tablas reproducidas con las mismas semillas, las reglas de evolución, las fases de un cambio incompatible y la política ante valores desconocidos. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene la matriz de siete cambios, 2 825 y 820 fallos para el opcional con lectores estrictos y 4 991 mensajes bloqueados por la política de excepción, y puede decir qué cambio de los siete no tiene ningún orden de despliegue seguro. No se aprueba por afirmar que «añadir campos es compatible» sin indicar el tipo de lector ni por renombrar un campo en un solo paso.
+
+## Caso conductor
+
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 27. Esta clase deja el octavo artefacto: las reglas de evolución de los mensajes con su verificación y la política ante lo desconocido. `SE-333` pregunta cómo traducir los modelos de un sistema externo al de la plataforma sin que sus cambios la contaminen. Cambia después una sola decisión, el tipo de lector de un consumidor, y observa qué cambios dejan de romperlo.
+
+## Preguntas frecuentes
+
+### ¿Siempre debo usar un registro de esquemas?
+
+No hace falta para dos servicios del mismo equipo que se despliegan juntos. Se vuelve valioso cuando hay varios equipos, mensajes retenidos o consumidores ajenos, porque convierte las reglas en una comprobación automática. Sin registro, la misma disciplina puede lograrse con pruebas de contrato en la integración continua.
+
+### ¿Por qué no versionar el mensaje y mantener todas las versiones?
+
+Se puede, pero cada versión es un código que mantener y los consumidores deben elegir cuál leen. Es razonable para cambios incompatibles inevitables (`EntregaRecibidaV2` en un tema nuevo), no como política para cada cambio: la compatibilidad evita multiplicar versiones.
+
+### ¿Un lector tolerante no es peligroso?
+
+Lo es si ignora campos que le importaban o si reenvía lo desconocido sin revisarlo. El lector tolerante sigue validando tipo y rango de lo que usa. Lo que no hace es fallar por lo que no usa.
+
+### ¿Cómo se renombra un campo de verdad?
+
+En fases: se añade el nombre nuevo y se escriben ambos, se migra a cada consumidor, se verifica con las métricas que nadie lee el viejo y se deja de escribir. Cada fase es compatible; el renombrado completo ocurre en varios despliegues y puede durar semanas.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **procesar dos veces un mensaje y producir efectos no reconciliables**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **añadir un campo obligatorio a un mensaje con lectores en versiones mezcladas**. Despliega el productor con `intento` obligatorio mientras un consumidor sigue con el esquema viejo.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el consumidor de avisos rechaza mensajes con «campos desconocidos» o el nuevo consumidor rechaza los de la cola retenida por no tener `intento`. **Hipótesis rivales:** (a) el productor envía mensajes mal formados; (b) el mensaje se corrompió en el transporte; (c) el lector no tolera el campo nuevo o el dato viejo no lo tiene. **Prueba:** lee el mismo mensaje con cada versión del lector; si el viejo falla por el campo nuevo y el nuevo falla con el dato viejo, la causa es la combinación de versiones. **Conclusión:** el cambio no era compatible en ningún sentido para estos lectores. **Regresión:** añadir `intento` como opcional con valor por defecto, migrar productores y luego volverlo obligatorio, con una prueba que lea mensajes de ambos esquemas con ambos lectores. No cambies a la vez el esquema y el lector.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Un consumidor viejo rechaza mensajes nuevos | Lector estricto frente a un campo añadido | Lector tolerante para campos desconocidos |
+| Un consumidor nuevo no lee la cola retenida | Campo obligatorio añadido sin valor por defecto | Añadir como opcional con valor por defecto y migrar |
+| Dos versiones del mismo mensaje sin camino de migración | Renombrado en un solo paso | Escribir ambos nombres, migrar y retirar el viejo |
+| Un consumidor se detiene con un estado nuevo | Excepción ante un valor desconocido | Conservar el valor original y derivarlo a revisión |
+| Los cambios incompatibles llegan a producción | No hay verificación automática de compatibilidad | Registro de esquemas o prueba de contrato en la integración continua |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: broker local o simulador, validador de esquemas y trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-332/
 ├── README.md
-│   ├── asyncapi.yaml
-│   ├── flow.md
-│   ├── reconciliation.md
-├── activity.yaml
-└── rubric.json
+├── esquemas/
+│   ├── entrega-recibida.v1.json
+│   ├── lectores.py
+│   └── despliegue.py
+├── tests/test_esquemas.py
+└── evidence/esquemas-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `asyncapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. El código de los tres experimentos está en `scripts/experiments_part27_b.py` (funciones `e332_matriz`, `e332_despliegue` y `e332_enum`) y se ejecuta con `python scripts/experiments_part27_b.py`. Solo usa la biblioteca estándar y se ejecutó con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia (por ejemplo, un validador de esquemas), fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un lector tolerante que reenvía campos desconocidos puede propagar datos que no debía: lista los campos que se reenvían y revisa si alguno es personal;
+- un campo nuevo puede introducir datos personales en todos los consumidores a la vez: evalúa el impacto de privacidad antes de añadirlo (`SE-322`);
+- un estado desconocido derivado a revisión debe tener dueño y plazo, o se convierte en una cola de personas sin respuesta;
+- documenta los esquemas y las reglas de cambio en texto navegable y con ejemplos, no solo en un archivo de esquema;
+- los datos de prueba son sintéticos; no uses mensajes retenidos reales para ensayar migraciones.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «añade este campo al evento» suele marcarlo como obligatorio, renombrar un campo «por claridad» o cambiar un tipo sin considerar a los lectores, y actualiza solo el productor. Pídele en cambio que clasifique el cambio como compatible hacia atrás, hacia adelante o ninguno para cada tipo de lector, que proponga las fases y el orden de despliegue, que actualice el registro o la prueba de contrato y que incluya una prueba que lea mensajes de la versión anterior con el lector nuevo y viceversa. Revisa especialmente si renombra o vuelve obligatorio un campo en un solo paso y si trata los valores desconocidos de una enumeración: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la comercio responsable por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, la interfaz de un proveedor de pagos con varias versiones de clientes): cambia el esquema y conserva el procedimiento de clasificar el cambio por sentido y por tipo de lector, elegir el orden de despliegue y dividir lo incompatible en fases. La transferencia está lograda cuando puedes decir qué lector rompe un cambio, no cuando el esquema «valida».
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-332/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de compatibilidad hacia atrás, hacia adelante y completa y del papel del lector |
+| corrección | matriz, fallos de despliegue y políticas de enumeración reproducibles con las mismas semillas |
+| diseño | reglas de evolución, fases de un cambio incompatible y política ante lo desconocido |
+| diagnóstico | reproducción de un campo obligatorio con versiones mezcladas y regresión |
+| incertidumbre | declaración de que los esquemas y lectores son mínimos y de que el despliegue es un modelo |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Confluent: evolución de esquemas y compatibilidad](https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html) — modos de compatibilidad y su verificación en un registro; autoridad: documentación de Confluent.
+- [Apache Avro: especificación](https://avro.apache.org/docs/current/specification/) — resolución de esquemas entre escritor y lector; autoridad: proyecto Apache Avro.
+- [Fowler, «Tolerant Reader»](https://martinfowler.com/bliki/TolerantReader.html) — lector que ignora lo que no necesita; autoridad: autor del texto.
+- [Versionado semántico](https://semver.org/) — distinguir cambios compatibles e incompatibles; autoridad: especificación del proyecto.
+- [CloudEvents: especificación](https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md) — tipo del evento y esquema de datos como atributos; autoridad: proyecto CloudEvents de la CNCF.
 
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **CloudEvents specification** — Cloud Native Computing Foundation. [https://cloudevents.io/](https://cloudevents.io/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 2 825 fallos, los 4 991 mensajes bloqueados o las clasificaciones de la matriz se observen en un formato o un registro concretos. Esa afirmación depende del formato, del lector y del calendario de despliegue de cada sistema.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Compatibilidad de esquemas y registros**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-333`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó Avro, Protocol Buffers, JSON Schema ni registro de esquemas: los esquemas, los lectores, el despliegue en cinco pasos del 20 % y el 6 % de valores nuevos son construcciones del autor, y los resultados no se extrapolan a ningún formato ni producto. La siguiente clase pregunta cómo protegerse de los cambios de un modelo ajeno traduciéndolo en una frontera propia: las capas anticorrupción.
+
+## Glosario
+
+- **compatibilidad hacia atrás:** propiedad de un cambio de esquema por la cual un lector con el esquema nuevo lee datos escritos con el viejo.
+- **compatibilidad hacia adelante:** propiedad por la cual un lector con el esquema viejo lee datos escritos con el nuevo.
+- **lector tolerante:** consumidor que usa los campos que conoce e ignora los demás.
+- **registro de esquemas:** servicio que guarda versiones de esquemas y verifica su compatibilidad antes de aceptar una nueva.
+- **expandir y contraer:** estrategia de cambio incompatible en fases: añadir lo nuevo en paralelo, migrar a los consumidores y retirar lo viejo.
 
 ---
 

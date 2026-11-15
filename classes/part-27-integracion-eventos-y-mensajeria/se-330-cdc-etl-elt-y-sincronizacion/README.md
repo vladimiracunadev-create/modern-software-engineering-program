@@ -2,208 +2,328 @@
 
 [← SE-329 — Outbox, inbox, sagas y compensación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/README.md) · [↑ Parte 27](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-330.html) · [SE-331 — Webhooks, polling y suscripciones →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que eligas cómo se entera una segunda base de lo que cambió en la primera con criterios medibles y no por costumbre: aprenderás a contar qué filas faltan, cuáles están viejas y cuáles sobran en una réplica según el método de detección, cuánto lee y cuánto escribe cada enfoque, y qué aplica o rompe un flujo de cambios que llega repetido y fuera de orden.
+
+**Por qué aparece aquí.** Sigue a **Outbox, inbox, sagas y compensación**: allí el servicio publicaba mensajes de negocio; aquí se pregunta cómo llevar el **estado** de una base a otra (el portal de reportes, la analítica, un índice de búsqueda) sin que el reporte semanal contradiga a la plataforma. En el flujo de la plataforma de entregas, la analítica necesita las entregas, sus notas y también sus borrados.
+
+**Error conceptual que debe corregir.** Creer que sincronizar es «copiar lo que cambió desde la última vez». Un sondeo por marca de tiempo no ve un borrado, pierde las filas modificadas en el mismo instante que la última marca y trata el orden de llegada como el orden de los hechos; sincronizar bien es elegir un mecanismo que capture altas, cambios y bajas, en orden, y aplicarlos de forma idempotente.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuántas filas borradas siguen en la réplica tras sondear por marca de tiempo, cuánto más escribe el origen cuando un disparador registra cada cambio y cuántas claves quedan mal si los cambios se aplican tal como llegan con un 10 % de repetidos tardíos; después mides las tres cosas y comparas con tu predicción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `sincronizacion-log.md` con las predicciones, las tres figuras reproducidas, una tabla de decisión del mecanismo de sincronización para tres destinos de la plataforma (portal, analítica, búsqueda), el procedimiento de arranque y reconciliación y una nota que diga qué divergencia no detectaría cada mecanismo.
+
+**Límite de la conclusión.** El origen y la réplica son bases SQLite en memoria con datos sintéticos; el ritmo de cinco operaciones por segundo, la resolución de un segundo, el sondeo cada 47 operaciones y los porcentajes de reordenado y duplicado son supuestos del autor. No se usó ningún motor con registro lógico de cambios (PostgreSQL, MySQL), ningún conector real ni almacén analítico: se midieron mecanismos, no el rendimiento ni los retrasos de un producto.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [PostgreSQL: decodificación lógica](https://www.postgresql.org/docs/current/logicaldecoding.html) | Describe cómo extraer los cambios de la base a partir de su registro de escritura anticipada, en el orden en que se confirmaron. | No garantiza que los consumidores apliquen los cambios correctamente ni mide su costo. |
+| [Debezium: conector de PostgreSQL](https://debezium.io/documentation/reference/stable/connectors/postgresql.html) | Documenta el flujo de captura de cambios con una instantánea inicial seguida de los cambios del registro, con entrega al menos una vez. | No describe cómo se comporta la plataforma de entregas ni sus tasas de cambio. |
+| [SQLite: CREATE TRIGGER](https://www.sqlite.org/lang_createtrigger.html) | Define disparadores que se ejecutan en la misma transacción que el cambio que los provoca. | No compara disparadores con captura sobre el registro del motor. |
+| [Microsoft: ETL y ELT](https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl) | Distingue transformar antes de cargar (ETL) y cargar los datos crudos para transformar en el destino (ELT). | No decide cuál conviene a la analítica de la plataforma. |
+| [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/) | Trata la captura de cambios como forma de mantener sistemas derivados coherentes con el sistema de registro. | No es una especificación de ningún producto. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-328` sobre orden y versiones y en `SE-329` sobre outbox: el outbox publica **eventos de negocio** elegidos por el servicio; la captura de cambios publica **cambios de filas** tal como ocurrieron en la base. Recupera de la Parte 26 qué es una réplica y su retraso. La pregunta activa es: **si el destino se queda atrás o se equivoca, ¿cómo lo sabría y cómo lo corregiría?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-329` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de broker local o simulador, validador de esquemas y trazas.
+- Haber completado `SE-329` o poder explicar qué resuelve un outbox.
+- Python 3.11 o posterior con el módulo `sqlite3`; el resto usa solo la biblioteca estándar y generadores con semilla fija.
+- Leer sentencias `INSERT`, `UPDATE`, `DELETE` y un disparador de SQLite, y entender qué es una marca de tiempo.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una suite familiar privada debe decidir sobre **CDC, ETL, ELT y sincronización**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El equipo de analítica copia cada noche las entregas a su propia base con una consulta: «traer las filas con `modificado_en` posterior a la última copia». Funciona hasta que los números de notas dejan de cuadrar con el portal: faltan entregas que se modificaron en el mismo segundo de la última lectura, y hay entregas **que ya no existen** en la plataforma y siguen contando en las estadísticas. Para arreglarlo, alguien activa una copia completa cada noche y el origen empieza a tardar más en responder durante el horario de uso. Otro propone transformar los datos antes de cargarlos y, cuando se corrige la regla de cálculo del promedio, descubre que los datos crudos ya no están. Cada problema pertenece a una decisión distinta: cómo detectar el cambio, cuánto copiar y dónde transformar.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar CDC y ETL con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **flujo de integración con contrato, reintento y reconciliación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «procesar dos veces un mensaje y producir efectos no reconciliables» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| CDC | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| ETL | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| ELT | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Sincronización | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. medir cuántas filas faltan, están viejas o sobran en una réplica según el método de detección de cambios;
+2. comparar la lectura que ahorra una copia incremental con el costo de escritura que añade registrar los cambios;
+3. mostrar que aplicar cambios con versión produce la misma réplica aunque lleguen repetidos y desordenados;
+4. decidir con criterios entre ETL y ELT y entre captura por disparadores y por registro de la base;
+5. escribir un procedimiento de arranque (instantánea y cambios) y de reconciliación entre origen y destino.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: CDC, ETL, ELT y sincronización"] --> M["Modelo: CDC"]
-    M --> D["Decisión: ETL"]
-    D --> E["Evidencia: ELT"]
-    E --> R["Revisión: sincronización"]
-    R -->|nueva información| M
+    A[Origen: base de la plataforma] --> B{¿Cómo se detecta el cambio?}
+    B -->|marca de tiempo| C[Sondeo: ve altas y cambios, no bajas]
+    B -->|registro de cambios| D[Captura de cambios: altas, cambios y bajas en orden]
+    B -->|comparación completa| E[Copia completa: cara, ve todo]
+    D --> F[Flujo de cambios]
+    F --> G[Aplicar con versión y de forma idempotente]
+    C --> G
+    E --> G
+    G --> H[Destino: crudo y transformado]
+    H --> I[Reconciliar con el origen]
+    I -->|divergencia| B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **CDC, ETL, ELT y sincronización**.
+El mapa separa **detectar** de **aplicar**. Los tres métodos de detección alimentan el mismo paso de aplicación, y la reconciliación vuelve al origen para encontrar lo que ninguno vio.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Consistencia eventual | Define cuánta diferencia entre origen y destino es aceptable y por cuánto tiempo. | Predicción, traza causal y contraejemplo de **Consistencia eventual** en `sincronizacion-log.md` |
+| Detección de cambios | Un método que no ve las bajas deja filas fantasma. | Predicción, traza causal y contraejemplo de **Detección de cambios** en `sincronizacion-log.md` |
+| Captura de cambios | Trae altas, cambios y bajas en orden, a costa de operar el mecanismo. | Predicción, traza causal y contraejemplo de **Captura de cambios** en `sincronizacion-log.md` |
+| ETL y ELT | Decide si el dato crudo sobrevive para recalcular. | Predicción, traza causal y contraejemplo de **ETL y ELT** en `sincronizacion-log.md` |
+| Reconciliación | Es la única defensa contra lo que ningún mecanismo ve. | Predicción, traza causal y contraejemplo de **Reconciliación** en `sincronizacion-log.md` |
 
 ## Conceptos y decisiones
 
-Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.
+### 1. Consistencia eventual
 
-La pregunta rectora de esta parte es: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** La respuesta debe
-apoyarse en **esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación**.
+Sincronizar dos bases significa aceptar que durante un tiempo discrepan: el destino converge hacia el origen, no lo refleja al instante. La pregunta de diseño es cuánta diferencia y durante cuánto tiempo es tolerable para cada destino: un tablero de analítica con una hora de retraso es aceptable; un índice de búsqueda que no encuentra la entrega recién subida durante una hora, probablemente no. También hay que decidir cuál es la **fuente de verdad**: ante una discrepancia, el origen gana y el destino se corrige, nunca al revés. Un destino que acepta escrituras propias sobre los mismos datos convierte la sincronización en un problema de conflictos que esta clase no aborda.
 
-### 1. CDC: modelo
+### 2. Detección de cambios
 
-En esta clase, **CDC** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **CDC, ETL, ELT y sincronización**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Hay cuatro formas de enterarse. **Comparar todo** (copia completa) ve cualquier diferencia pero lee todo el origen en cada ciclo. **Sondear por marca de tiempo** lee solo las filas modificadas después de la última marca, barato y fácil, con tres huecos: no ve las filas borradas (ya no están), pierde las filas modificadas en el mismo instante que la marca si la comparación es estricta (`>`), y depende de que cada escritura actualice la marca (una que la olvide es invisible). **Columnas de versión** resuelven el orden pero no las bajas. El **registro de cambios** captura cada alta, cambio y baja en el orden de confirmación, y es el único de los cuatro que ve las bajas sin ayuda de una lápida.
 
-### 2. ETL: mecanismo
+### 3. Captura de cambios
 
-En esta clase, **ETL** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **CDC, ETL, ELT y sincronización**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La **captura de cambios** (CDC) produce un flujo de eventos de fila: «se insertó la fila X», «se actualizó la fila Y de este valor a este», «se borró la fila Z». Puede hacerse con **disparadores** (cada escritura inserta en una tabla de cambios en la misma transacción) o leyendo el **registro de escritura anticipada** del motor, como hacen la decodificación lógica de PostgreSQL y conectores como Debezium. Los disparadores son simples y se ven en el esquema, pero añaden escritura a cada operación; el registro del motor no toca las operaciones y exige permisos y operación del conector. Un flujo de cambios real empieza con una **instantánea** (el estado en un momento dado) seguida de los cambios posteriores a ese momento, y se entrega al menos una vez: el destino debe aplicar de forma idempotente.
 
-### 3. ELT: evidencia
+### 4. ETL y ELT
 
-En esta clase, **ELT** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **CDC, ETL, ELT y sincronización**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+En **ETL** los datos se transforman antes de cargarse al destino, de modo que el destino guarda solo el resultado limpio; en **ELT** se cargan crudos y se transforman dentro del destino. ETL ahorra espacio y mantiene fuera del destino lo que no debe estar (datos personales que no hacen falta), pero cualquier error en la transformación obliga a volver a extraer del origen, que quizá ya cambió. ELT conserva el crudo y permite recalcular tras corregir una regla, pero guarda más y sitúa datos sensibles en más lugares. La decisión depende de cuánto cambian las reglas, de qué datos pueden salir del origen y de quién paga el almacenamiento y la privacidad.
 
-### 4. Sincronización: decisión
+### 5. Reconciliación
 
-En esta clase, **sincronización** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **CDC, ETL, ELT y sincronización**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Ningún mecanismo es infalible: una lápida olvidada, un conector parado dos días o un esquema que cambió sin aviso dejan divergencias. La **reconciliación** compara periódicamente origen y destino con conteos, sumas de control por rangos o muestras, y reporta las diferencias antes de que las encuentre un usuario. Es también la herramienta de arranque y reparación: cuando se detecta una divergencia, se vuelve a tomar una instantánea del rango afectado. Su costo se acota comparando agregados por rango y descendiendo solo donde difieren.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Qué ve cada método de detección
+
+Se crea un origen SQLite con 10 000 filas, un destino por método y 2 000 operaciones (20 % altas, 70 % cambios, 10 % bajas) a razón de cinco por segundo, con marca de tiempo de resolución de un segundo. Cada 47 operaciones se sincroniza: con marca `>` (estricto), con marca `>=` y con un registro de cambios alimentado por disparadores. Al final se compara cada destino con el origen (10 195 filas).
+
+```python
+src.execute("create trigger tu after update of v on t begin "
+            "insert into log(id,op,v) values(new.id,'u',new.v); end")
+src.execute("create trigger td after delete on t begin "
+            "insert into log(id,op,v) values(old.id,'d',null); end")
+filas = src.execute("select id,v,ts from t where ts > ?", (marca,))   # o ts >= ?
+```
+
+| Método de detección | Filas faltantes | Filas desactualizadas | Filas que debían borrarse |
+|---|---:|---:|---:|
+| Marca con mayor estricto (`>`) | 11 | 50 | 194 |
+| Marca con mayor o igual (`>=`) | 0 | 0 | 194 |
+| Registro de cambios con disparadores | 0 | 0 | 0 |
+
+El mayor estricto pierde 61 filas (11 altas y 50 cambios) que se produjeron en el mismo segundo que la última marca vista; `>=` las recupera a cambio de releer la fila límite en cada ciclo. Ninguno de los dos ve las 194 bajas: esas filas siguen en el destino para siempre. Solo el registro de cambios deja la réplica idéntica al origen.
+
+![Tabla con las filas faltantes, desactualizadas y que debían borrarse en una réplica tras 2 000 operaciones según se sondee por marca con mayor estricto, con mayor o igual o con un registro de cambios.](../../../content/part-27/figures/se-330-detectar-cambios.svg)
+
+**Cómo leer la figura.** Cada fila es un método de detección; las tres columnas cuentan los tres tipos de divergencia. **Dónde deja de valer:** la marca solo tiene resolución de un segundo y el sondeo ocurre a mitad de segundo por construcción; con una marca de microsegundos y sin cambios simultáneos el estricto perdería menos, pero seguiría sin ver las bajas. Tampoco se midió el retraso de ningún mecanismo ni se probó captura sobre el registro de un motor real.
+
+### Cuánto ahorra y cuánto cobra la copia incremental
+
+Para un origen de 100 000 filas se compara lo que lee una copia completa por ciclo (todas) con lo que lee una incremental (solo los cambios) para cuatro tasas de cambio. El costo de registrar los cambios se mide como pasos de la máquina virtual de SQLite (`set_progress_handler`) al actualizar 10 000 filas con y sin disparador.
+
+```python
+con.set_progress_handler(contar, 1)       # cuenta instrucciones de la máquina virtual
+for i in range(10_000):
+    con.execute("update t set v=v+1 where id=?", (i,))
+```
+
+| Cambios por ciclo | Copia completa lee | Incremental lee | Ahorro de lectura |
+|---:|---:|---:|---:|
+| 0,1 % (100 filas) | 100 000 | 100 | 99,9 % |
+| 1 % (1 000 filas) | 100 000 | 1 000 | 99 % |
+| 10 % (10 000 filas) | 100 000 | 10 000 | 90 % |
+| 50 % (50 000 filas) | 100 000 | 50 000 | 50 % |
+
+El ahorro de lectura es la diferencia directa de filas; la parte medida es el costo en escritura: 10 000 actualizaciones cuestan 210 006 pasos de la máquina virtual sin disparador y 560 001 con él en Windows (SQLite 3.45.3), 2,7 veces más; en Ubuntu (SQLite 3.45.1) son 220 006 y 570 001, con la misma proporción. El origen paga más por cada escritura para que el ciclo de lectura sea barato. Cuando la mitad de las filas cambia en cada ciclo, la copia completa y la incremental se parecen y el disparador solo añade costo.
+
+![Tabla con las filas que lee una copia completa y una incremental por ciclo sobre 100 000 filas y el ahorro de lectura para cuatro tasas de cambio.](../../../content/part-27/figures/se-330-costo-de-sincronizar.svg)
+
+**Cómo leer la figura.** Cada fila es una tasa de cambio por ciclo; la última columna es la fracción de lectura que se evita. **Dónde deja de valer:** el ahorro por filas no es tiempo ni bytes (filas anchas, índices y red cambian la relación) y los pasos de la máquina virtual de SQLite no son milisegundos; un registro de cambios del motor no añade escritura en las operaciones del mismo modo que un disparador. Ni el costo de operar el conector ni el de la instantánea inicial están incluidos.
+
+### Aplicar cambios repetidos y desordenados
+
+Se genera una historia de 5 000 eventos sobre 50 claves (cada uno con su versión, el 10 % son borrados). Los eventos llegan en cuatro condiciones: en orden, retrasados hasta 20 posiciones, con un 10 % repetido más tarde (hasta 60 posiciones) y ambas cosas. Se comparan dos receptores: el que aplica cada evento tal cual llega y el que aplica un evento solo si su versión supera la guardada para esa clave (incluidos los borrados, que dejan su versión como lápida).
+
+```python
+if guard and v <= versiones.get(k, 0): continue
+versiones[k] = v
+if op == "d": estado.pop(k, None)
+else: estado[k] = v
+```
+
+| Cómo llegan los eventos | Aplicar sin versión | Aplicar solo si la versión es mayor |
+|---|---:|---:|
+| En orden y sin repetir | 0 | 0 |
+| Reordenado hasta 20 posiciones | 4 | 0 |
+| 10 % de duplicados tardíos | 3 | 0 |
+| Ambos | 6 | 0 |
+
+Los errores son pocos porque cada clave cambia unas cien veces y solo se nota el último estado, pero no son cero y no avisan: 6 de 50 claves terminan con un valor viejo o con una fila que debía estar borrada. La guarda deja 0 porque ignora todo evento más viejo que lo que ya sabe. Un borrado reordenado antes de un alta anterior habría revivido la fila: por eso la versión del borrado se conserva como lápida.
+
+![Tabla con las claves erróneas de 50 tras aplicar 5 000 eventos de cambio en orden, reordenados, con duplicados tardíos y con ambos, con y sin una guarda de versión.](../../../content/part-27/figures/se-330-orden-y-repeticion.svg)
+
+**Cómo leer la figura.** Cada fila es una condición de llegada; las columnas comparan aplicar tal cual y aplicar con guarda. **Dónde deja de valer:** el destino es un diccionario, las versiones son enteros asignados en el origen y los eventos de cada clave llegan completos; en un sistema real las versiones salen del registro de la base y los esquemas cambian a mitad del flujo. La figura mide el principio, no la tasa de error de un conector.
 
 ## Definiciones de trabajo
 
-- **CDC:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **ETL:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **ELT:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Sincronización:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
+- **captura de cambios (CDC):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
+- **instantánea:** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+- **ETL:** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
+- **ELT:** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
+- **lápida:** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **CDC, ETL, ELT y sincronización**:
+El fragmento muestra que sondear por marca no ve un borrado. Antes de ejecutarlo, predice qué contiene el destino al final.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+import sqlite3
+o = sqlite3.connect(":memory:"); o.execute("create table t(id int primary key, ts int)")
+o.executemany("insert into t values(?,?)", [(1, 1), (2, 1)])
+destino = {i for (i,) in o.execute("select id from t where ts > 0")}
+o.execute("delete from t where id = 2")
+destino |= {i for (i,) in o.execute("select id from t where ts > 0")}
+print(sorted(destino), [i for (i,) in o.execute("select id from t")])
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+El destino conserva `[1, 2]` y el origen `[1]`. Registra versión de Python y de SQLite y salida; después añade un disparador de borrado que escriba en una tabla de cambios y aplícalo al destino.
 
 ## Ejemplo profesional
 
-En la suite familiar privada, el equipo prepara un cambio relacionado con **CDC, ETL, ELT y sincronización**. Parte de esta pregunta: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `asyncapi.yaml` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma decide por destino. **Portal de reportes:** consulta una vista del propio origen, sin copia, porque tolera la carga y necesita el valor actual. **Analítica:** captura de cambios sobre el registro de la base con instantánea inicial, carga cruda (ELT) en una zona sin datos de contacto y transformación posterior, con la versión de cada fila como guarda; el flujo se aplica de forma idempotente y se descarta cualquier cambio con versión menor. **Búsqueda de entregas:** los eventos de negocio del outbox de `SE-329`, porque solo le interesan los cambios con significado de negocio. Cada día una tarea de reconciliación compara el conteo y la suma de control de las notas por curso entre origen y analítica, y reporta cualquier diferencia con el rango afectado. Antes de activar el flujo, miden en un entorno de ensayo cuánto escribe el origen más con el mecanismo elegido y lo dejan registrado. Compara con la copia nocturna: ya no hay filas fantasma por bajas, el recálculo de promedios no exige volver a extraer y el retraso del tablero se mide en minutos.
 
 ## Práctica guiada
 
-1. Crea `work/SE-330/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el flujo de integración con contrato, reintento y reconciliación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Dibuja el origen y los tres destinos de la plataforma y escribe qué retraso tolera cada uno.
+2. Predice cuántas filas borradas quedan en un destino sincronizado por marca de tiempo y escribe el número.
+3. Reproduce la tabla de detección con las mismas semillas y compara con tu predicción.
+4. Mide los pasos de la máquina virtual de 10 000 actualizaciones con y sin disparador en tu equipo.
+5. Aplica 5 000 eventos desordenados y repetidos con y sin guarda de versión.
+6. Escribe el procedimiento de arranque (instantánea, punto de corte, cambios posteriores) y el de reconciliación por rangos.
+7. Entrega `sincronizacion-log.md` y pide a otra persona que busque una divergencia que tu reconciliación no detectaría.
 
 ## Ejercicios
 
-1. **Fundamental:** define CDC y ETL con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la suite familiar privada, compara tres opciones y entrega `asyncapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Detección:** una tabla tiene `modificado_en` pero un proceso antiguo actualiza notas con SQL directo sin tocarlo; explica qué filas serían invisibles y cómo lo detectarías.
+2. **Costo:** con 200 000 filas y un 4 % de cambios por ciclo, calcula el ahorro de lectura y estima cuántos ciclos al día compensan un disparador que triplica el costo de escritura.
+3. **ETL o ELT:** el informe pasa a calcular el promedio ponderado con una regla nueva; razona qué ocurre con cada modelo y qué dato personal habría en el destino con ELT.
+4. **Reconciliación:** diseña una comparación por rangos de identificador con suma de control para 1 000 000 de filas y calcula cuántas consultas hacen falta si difieren 3 filas.
 
 ## Reto verificable
 
-Entrega el **flujo de integración con contrato, reintento y reconciliación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `sincronizacion-log.md` con las predicciones, las tres tablas reproducidas con las mismas semillas, la decisión por destino, el procedimiento de arranque y la reconciliación. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene 194 filas que debían borrarse con la marca de tiempo, 0 con el registro de cambios y 6 claves erróneas sin guarda de versión, y puede decir qué divergencia no vería tu reconciliación. No se aprueba por afirmar que «la copia es incremental» sin contar las bajas ni por una reconciliación que solo compara conteos.
+
+## Caso conductor
+
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 27. Esta clase deja el sexto artefacto: el mecanismo de sincronización de cada destino con su procedimiento de arranque y reconciliación. `SE-331` pregunta cómo avisarse entre sistemas de organizaciones distintas: webhooks, sondeo y suscripciones. Cambia después una sola decisión, la marca `>` por `>=`, y observa qué divergencia desaparece y cuál queda.
+
+## Preguntas frecuentes
+
+### ¿CDC y outbox son lo mismo?
+
+No. El outbox publica eventos de negocio que el servicio decide; la captura de cambios publica cambios de filas tal como ocurren en la base. Se pueden combinar: algunos conectores leen la tabla outbox desde el registro de la base. La captura es genérica y expone el esquema interno; el outbox expone un contrato elegido.
+
+### ¿Cuándo basta con una copia completa?
+
+Cuando el volumen es pequeño, el origen aguanta la lectura y la tolerancia al retraso es de horas. Su gran ventaja es la simplicidad y que ve cualquier diferencia, incluidas las bajas. Pasa a ser un problema cuando la lectura compite con el uso normal.
+
+### ¿Los disparadores son una mala idea?
+
+No necesariamente: son sencillos, se prueban y viven con el esquema. Su costo es la escritura adicional en cada operación y que alguien puede deshabilitarlos o saltárselos. Para volúmenes altos o bases con muchos escritores suele preferirse leer el registro del motor.
+
+### ¿Qué hago con un esquema que cambia en el origen?
+
+Una columna nueva debe llegar al destino de forma compatible (`SE-332`); una columna eliminada o de tipo distinto puede romper la carga. La reconciliación detecta la deriva y un ensayo de la migración contra el flujo de cambios debería formar parte de su procedimiento (`SE-318`).
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **procesar dos veces un mensaje y producir efectos no reconciliables**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **filas fantasma por sincronizar solo altas y cambios**. Sincroniza el destino por marca de tiempo y borra filas en el origen.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el total de entregas de analítica supera al de la plataforma y no se reconoce qué entregas sobran. **Hipótesis rivales:** (a) entregas duplicadas por una carga repetida; (b) entregas de otro curso mal asignadas; (c) entregas borradas en el origen que el destino nunca eliminó. **Prueba:** busca en el destino identificadores que no existan en el origen; si todos los sobrantes tienen un identificador ausente en el origen, la causa es la falta de bajas. **Conclusión:** el sondeo por marca no puede ver los borrados. **Regresión:** pasar a registro de cambios o a lápidas, aplicar bajas en el destino y una prueba que borre filas y compruebe que el destino queda igual al origen. No cambies a la vez el mecanismo y la reconciliación.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El destino tiene filas que ya no existen en el origen | La detección por marca no ve las bajas | Registro de cambios o lápidas con borrado lógico |
+| Faltan filas modificadas en el último segundo | Comparación estricta con la última marca | Comparar con mayor o igual y aplicar de forma idempotente |
+| El origen tarda más al escribir | Un disparador por cada operación | Medir el costo; leer el registro del motor si es alto |
+| Un cambio antiguo reaparece en el destino | Se aplicó fuera de orden sin guarda | Versión por fila y regla de aplicar solo si es mayor |
+| No se puede recalcular tras corregir una regla | ETL sin conservar el dato crudo | ELT, o conservar el dato crudo en una zona controlada |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: broker local o simulador, validador de esquemas y trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-330/
 ├── README.md
-│   ├── asyncapi.yaml
-│   ├── flow.md
-│   ├── reconciliation.md
-├── activity.yaml
-└── rubric.json
+├── sincronizacion/
+│   ├── deteccion.py
+│   ├── costo.py
+│   └── aplicar.py
+├── tests/test_sincronizacion.py
+└── evidence/sincronizacion-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `asyncapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python y de SQLite, semillas y comandos. El código de los tres experimentos está en `scripts/experiments_part27_a.py` (funciones `e330_cambios`, `e330_costo` y `e330_orden`) y se ejecuta con `python scripts/experiments_part27_a.py`. Solo usa la biblioteca estándar y se ejecutó con CPython 3.12.9 en Windows 11 (SQLite 3.45.3) y 3.12.3 en Ubuntu bajo WSL2 (SQLite 3.45.1): las salidas fueron idénticas salvo los pasos de la máquina virtual de SQLite, que difirieron un 5 % o menos entre las dos versiones del motor con la misma proporción. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- el destino de la sincronización suele tener un perfil de acceso más amplio (analistas, herramientas): copia solo los campos necesarios y no lleves datos de contacto si no hacen falta;
+- un borrado en el origen (por una solicitud de supresión) debe llegar al destino y a sus copias crudas: la sincronización de bajas es un requisito de privacidad (`SE-322`);
+- una divergencia en notas o estados que alimenta informes puede afectar decisiones sobre personas: reconcilia antes de publicar cifras;
+- documenta el flujo de datos con una descripción en texto además del diagrama, para que cualquiera pueda revisarlo;
+- los datos de ensayo son sintéticos; no uses una copia real de la plataforma para probar la captura.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «sincroniza estas dos bases» suele escribir una consulta por `updated_at` con comparación estricta y un `upsert`, sin tratar los borrados, el empate de marcas ni el orden. Pídele en cambio que enumere los tipos de cambio (alta, cambio, baja), que justifique el mecanismo de detección, que aplique con una guarda de versión y que incluya una prueba que borre filas, repita eventos y los desordene. Revisa especialmente si trata las bajas y si la comparación de marcas es estricta: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la suite familiar privada por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, un inventario con un almacén y una tienda en línea): cambia las tablas y conserva el procedimiento de preguntar si el método ve las bajas, medir el costo de registrar cambios, aplicar con versión y reconciliar por rangos. La transferencia está lograda cuando puedes decir qué divergencia deja pasar tu mecanismo, no cuando el destino «parece igual».
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-330/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué la marca de tiempo no ve bajas y qué ve la captura de cambios |
+| corrección | tablas de detección, costo y orden reproducibles con las mismas semillas |
+| diseño | decisión por destino, arranque y reconciliación documentados |
+| diagnóstico | reproducción de las filas fantasma con regresión |
+| incertidumbre | declaración de que son bases en memoria y de que las tasas son supuestos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [PostgreSQL: decodificación lógica](https://www.postgresql.org/docs/current/logicaldecoding.html) — extracción de cambios desde el registro de escritura anticipada; autoridad: documentación oficial de PostgreSQL.
+- [Debezium: conector de PostgreSQL](https://debezium.io/documentation/reference/stable/connectors/postgresql.html) — instantánea y flujo de cambios con entrega al menos una vez; autoridad: proyecto Debezium.
+- [SQLite: CREATE TRIGGER](https://www.sqlite.org/lang_createtrigger.html) — disparadores en la misma transacción; autoridad: documentación oficial de SQLite.
+- [Microsoft: ETL y ELT](https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl) — transformar antes o después de cargar; autoridad: documentación de Microsoft.
+- [Kleppmann, «Designing Data-Intensive Applications»](https://dataintensive.net/) — captura de cambios y sistemas derivados; autoridad: autor del libro.
 
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **CloudEvents specification** — Cloud Native Computing Foundation. [https://cloudevents.io/](https://cloudevents.io/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 194 bajas perdidas, el factor 2,7 de escritura o las 6 claves erróneas se observen en una plataforma real. Esa afirmación depende del motor, de la tasa de cambios y del mecanismo de captura de cada despliegue.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **CDC, ETL, ELT y sincronización**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-331`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos salvo los pasos de la máquina virtual. No se usó ningún motor con registro lógico, conector, almacén analítico ni red: el ritmo de operaciones, la resolución de la marca, los porcentajes de reordenado y duplicado y las tasas de cambio son construcciones del autor, y los resultados no se extrapolan a ningún producto. La siguiente clase pregunta cómo se avisan sistemas de organizaciones distintas: webhooks, sondeo y suscripciones.
+
+## Glosario
+
+- **captura de cambios (CDC):** mecanismo que produce un flujo ordenado de altas, cambios y bajas de filas de una base de datos.
+- **instantánea:** copia consistente del estado en un momento dado, punto de partida de un flujo de cambios.
+- **ETL:** modelo en el que los datos se extraen, se transforman y luego se cargan al destino.
+- **ELT:** modelo en el que los datos se extraen, se cargan crudos y se transforman dentro del destino.
+- **lápida:** registro de que una clave fue borrada, con su versión, que impide que un cambio anterior la reviva.
 
 ---
 

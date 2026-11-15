@@ -2,208 +2,324 @@
 
 [← SE-332 — Compatibilidad de esquemas y registros](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/README.md) · [↑ Parte 27](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-333.html) · [SE-334 — Observabilidad y seguridad de integraciones →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-27-integracion-eventos-y-mensajeria/se-334-observabilidad-y-seguridad-de-integraciones/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que protejas el modelo de tu sistema de las rarezas de otro que no controlas: aprenderás a medir qué ocurre cuando los datos de un sistema externo entran sin traducir (cuántos registros rompen el sistema y cuántos entran con otro significado), cuántos puntos de tu código se ven afectados cuando el proveedor cambia un nombre y cuánta información pierde una traducción que resume varios códigos en uno.
+
+**Por qué aparece aquí.** Sigue a **Compatibilidad de esquemas y registros**: allí el problema era evolucionar un contrato propio; aquí el contrato es ajeno, no negociable y con vocabulario distinto. La plataforma de entregas importa calificaciones de un sistema académico externo que usa códigos de estudiante con prefijo, notas en tres formatos y nueve códigos de estado, y su modelo de dominio tiene otro lenguaje.
+
+**Error conceptual que debe corregir.** Creer que adaptar un sistema externo es «convertir tipos» y que el código interno puede usar directamente sus nombres. Sin una frontera, el vocabulario del otro sistema se infiltra en todo el código, cada cambio suyo se vuelve un cambio tuyo en muchos lugares y sus ambigüedades pasan a ser tuyas sin que nadie lo decida. Por otro lado, traducir también es resumir: cada traducción pierde información que quizá se necesite después.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuántas de 5 000 notas externas rompe una conversión directa y cuántas deja pasar con un significado distinto, cuántas funciones fallan cuando el proveedor renombra un campo con y sin capa de traducción y qué fracción de los registros no se puede recuperar tras traducir nueve estados a cuatro; después mides las tres cosas y comparas con tu predicción. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `traduccion-log.md` con las predicciones, las tres figuras reproducidas, el mapa de traducción del sistema académico (campo, tipo, unidad, vocabulario y estado), la política de cuarentena para lo ambiguo y una nota que diga qué información del sistema externo se conserva y cuál se descarta.
+
+**Límite de la conclusión.** El «sistema externo» es un generador sintético del autor con cuatro rarezas inventadas (coma decimal, escala de 0 a 100, «N/P» y vacío); los porcentajes de cada formato, la asignación de nueve códigos a cuatro estados y las seis funciones de ejemplo son construcciones didácticas. No se usó ningún sistema académico real ni una API de terceros: los resultados muestran un mecanismo, no la calidad de ningún proveedor.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Microsoft: patrón Anti-Corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer) | Describe una capa que traduce entre dos subsistemas con semánticas distintas para que el nuevo no adopte el modelo del anterior. | No dice cuánto cuesta mantenerla ni cuándo es excesiva. |
+| [Evans, «Domain-Driven Design Reference»](https://www.domainlanguage.com/ddd/reference/) | Resume el patrón de capa anticorrupción y otras relaciones entre contextos delimitados, como el conformista o el núcleo compartido. | No decide qué relación conviene con el sistema académico. |
+| [Fowler, «Bounded Context»](https://martinfowler.com/bliki/BoundedContext.html) | Explica que cada contexto tiene su propio modelo y vocabulario y que el mismo término puede significar cosas distintas. | No mide el costo de traducir entre contextos. |
+| [EIP: Message Translator](https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageTranslator.html) | Describe un componente que convierte un mensaje de un formato a otro para que los sistemas no dependan del formato del otro. | No trata los casos ambiguos ni la pérdida de información. |
+| [RFC 3339: fechas y horas en Internet](https://www.rfc-editor.org/rfc/rfc3339) | Define un formato de fecha y hora sin ambigüedad de orden de campos ni zona. | No resuelve qué formato usa un sistema que no lo declara. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-332` (los esquemas evolucionan y los lectores tolerantes limitan el daño) y en la Parte 25 sobre contextos delimitados: cada parte del sistema tiene su propio lenguaje. La pregunta activa es: **¿qué palabra de ese sistema ha entrado en mi código sin que yo la eligiera, y qué pasa el día que la cambien?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-332` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de broker local o simulador, validador de esquemas y trazas.
+- Haber completado `SE-332` o poder explicar la diferencia entre un lector tolerante y uno estricto.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar y generadores con semilla fija.
+- Leer funciones de Python de pocas líneas y entender qué es un diccionario y una excepción.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Anti-corruption layers y traducción de modelos**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+La plataforma importa las calificaciones de un sistema académico externo. El primer integrador escribió un fragmento que lee `cod_alumno`, convierte `nota` con `float` y guarda `estado` tal cual. Funcionó con los datos de prueba, que venían con punto decimal. En producción, el 70 % de las notas llega con coma (`"6,5"`), unas pocas son `"N/P"` o están vacías y un 8 % viene en una escala de 0 a 100 que `float` acepta sin quejarse: la nota `"65"` se guarda como 65,0 en un campo que va de 1,0 a 7,0 y arruina los promedios. Seis funciones de la plataforma usan el nombre `cod_alumno` directamente; cuando el proveedor lo renombra a `alumno_id` sin avisar, seis lugares fallan a la vez. Más tarde, para devolver notas corregidas, descubren que el estado externo tiene nueve códigos y el interno cuatro, y no pueden reconstruir cuál era el original. Los tres problemas se resuelven con una frontera, y cada uno se resuelve de forma distinta.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Anti y corruption con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **flujo de integración con contrato, reintento y reconciliación** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «procesar dos veces un mensaje y producir efectos no reconciliables» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Anti | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Corruption | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Layers | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Traducción | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. medir cuántos registros externos rompe una conversión directa y cuántos deja entrar con otro significado;
+2. implementar una traducción con normalización, rechazo con motivo y cuarentena, y comparar sus resultados con la conversión directa;
+3. contar cuántos puntos del código dependen de un nombre externo con y sin capa, y ejecutar un cambio del proveedor para ver qué falla;
+4. medir qué información se pierde al traducir varios códigos externos a menos conceptos y cómo se conserva el original;
+5. escribir el mapa de traducción y la política de cuarentena de un sistema externo.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Anti-corruption layers y traducción de modelos"] --> M["Modelo: Anti"]
-    M --> D["Decisión: corruption"]
-    D --> E["Evidencia: layers"]
-    E --> R["Revisión: traducción"]
-    R -->|nueva información| M
+    A[Sistema externo: su modelo y su vocabulario] --> B[Capa anticorrupción]
+    B --> C{¿Se puede traducir sin ambigüedad?}
+    C -->|sí| D[Modelo de dominio propio]
+    C -->|no| E[Cuarentena con motivo]
+    B --> F[Original conservado]
+    D --> G[Resto del sistema]
+    E --> H[Revisión humana o regla nueva]
+    A -->|cambia el proveedor| B
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Anti-corruption layers y traducción de modelos**.
+El mapa muestra la capa como **única** puerta entre los dos modelos: lo ambiguo no entra, lo traducible se normaliza y los cambios del proveedor se absorben en un lugar.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Contaminación del modelo | El vocabulario ajeno se extiende por el código y lo hace dependiente. | Predicción, traza causal y contraejemplo de **Contaminación del modelo** en `traduccion-log.md` |
+| Traducción | Convertir formato, unidad y vocabulario en un solo lugar. | Predicción, traza causal y contraejemplo de **Traducción** en `traduccion-log.md` |
+| Cuarentena | Lo ambiguo no se adivina: se aparta con un motivo. | Predicción, traza causal y contraejemplo de **Cuarentena** en `traduccion-log.md` |
+| Pérdida de información | Traducir resume, y lo resumido no vuelve. | Predicción, traza causal y contraejemplo de **Pérdida de información** en `traduccion-log.md` |
+| Ubicación y alternativas | La capa tiene dueño y costo; hay relaciones que no la necesitan. | Predicción, traza causal y contraejemplo de **Ubicación y alternativas** en `traduccion-log.md` |
 
 ## Conceptos y decisiones
 
-Integrar sistemas introduce fronteras de propiedad, tiempo y fallo; mensajes y eventos necesitan contrato, semántica de entrega y reconciliación.
+### 1. Contaminación del modelo
 
-La pregunta rectora de esta parte es: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** La respuesta debe
-apoyarse en **esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación**.
+Un **contexto delimitado** es el ámbito donde un modelo y su vocabulario tienen un significado único. «Nota» en la plataforma es un número de 1,0 a 7,0; en el sistema académico es una cadena que puede tener coma, estar vacía o significar un porcentaje. Cuando el código de la plataforma usa los nombres y tipos del sistema externo, el modelo ajeno se filtra: los nombres `cod_alumno` y `estado = "E"` aparecen en cálculos, informes y pruebas, y cada cambio o rareza del proveedor se convierte en un cambio o un defecto interno. La **contaminación** no es un error de sintaxis; es una dependencia que nadie decidió y que crece con cada función que toca el dato externo.
 
-### 1. Anti: modelo
+### 2. Traducción
 
-En esta clase, **Anti** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Anti-corruption layers y traducción de modelos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una **capa anticorrupción** es un componente cuya única tarea es traducir entre el modelo externo y el propio, y es el único lugar que conoce ambos. Traduce cuatro cosas: **nombres** (`cod_alumno` a `estudiante_id`), **formatos y unidades** (coma decimal, escala de 0 a 100, formatos de fecha), **vocabulario** (nueve códigos de estado a los cuatro conceptos de la plataforma) y **estructura** (un registro plano a un agregado). Todo lo que sale de ella ya es lenguaje del dominio propio y valida sus invariantes: una nota fuera de 1,0 a 7,0 no cruza la frontera. El resto del código no importa el módulo externo ni usa sus nombres.
 
-### 2. Corruption: mecanismo
+### 3. Cuarentena
 
-En esta clase, **corruption** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Anti-corruption layers y traducción de modelos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+No todo se puede traducir sin ambigüedad. Una nota vacía no es una nota cero; `"N/P"` puede significar «no presentó» o «no procede»; una fecha `03/04/2026` es el 3 de abril o el 4 de marzo según una convención que el proveedor puede no haber declarado. Adivinar es fabricar datos. La política correcta es **apartar** el registro a una cuarentena con su motivo, contar cuántos hay por motivo y decidir con el dueño del dato si se añade una regla, se pide una aclaración o se descarta. La capa que rechaza en silencio es tan peligrosa como la que acepta todo; la cuarentena hace visible lo que no se pudo traducir.
 
-### 3. Layers: evidencia
+### 4. Pérdida de información
 
-En esta clase, **layers** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Anti-corruption layers y traducción de modelos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Traducir es **resumir**. Si nueve códigos externos de estado se convierten en cuatro conceptos internos, el original no se puede recuperar del resultado: dos códigos distintos producen el mismo estado interno. Lo mismo ocurre con una nota de 0 a 100 convertida a una escala de 1,0 a 7,0 con un decimal: varias notas externas caen en la misma interna. Esto es aceptable mientras ningún proceso necesite devolver el dato al sistema externo. Si lo necesita, la traducción debe **conservar el original** junto al traducido, o ampliar la precisión del modelo interno. La decisión es explícita: qué se descarta, qué se guarda y por qué.
 
-### 4. Traducción: decisión
+### 5. Ubicación y alternativas
 
-En esta clase, **traducción** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?» y demostrarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Anti-corruption layers y traducción de modelos**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+La capa tiene un dueño (el equipo que integra con el proveedor), un lugar (un módulo o un servicio) y pruebas propias con ejemplos reales del proveedor, incluidas sus rarezas. No es gratuita: añade código, retrasa los cambios que sí quieres adoptar y puede esconder semánticas que convendría discutir con el proveedor. Hay relaciones en que no hace falta: si el modelo externo es bueno y estable, se puede adoptar tal cual (**conformista**); si dos equipos cooperan estrechamente, pueden compartir un modelo (**núcleo compartido**). La capa se justifica cuando el modelo ajeno es peor que el propio, cambia sin avisar o no se puede influir.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Qué entra cuando no hay frontera
+
+Se generan con semilla fija 5 000 registros externos. La nota llega como `"6,5"` (70 %), `"6.5"` (15 %), escala de 0 a 100 como `"65"` (8 %), `"N/P"` (4 %) o vacía (3 %). La conversión directa hace `float(nota)`. La capa normaliza la coma, convierte la escala de 0 a 100 a 1,0 a 7,0 y aparta `"N/P"`, los vacíos y cualquier valor fuera de rango.
+
+```python
+v = float(n.replace(",", "."))
+if "," not in n and "." not in n and v > 7:
+    v = round(1 + 6 * v / 100, 1)          # escala 0-100 -> 1,0-7,0
+if not 1.0 <= v <= 7.0:
+    cuarentena.append((registro, "fuera de rango"))
+```
+
+| Adaptador | Aceptadas | Rotas por excepción | Aceptadas fuera de rango | En cuarentena |
+|---|---:|---:|---:|---:|
+| Conversión directa con `float` | 1 132 | 3 868 | 411 | 0 |
+| Capa anticorrupción | 4 627 | 0 | 0 | 373 (198 «N/P», 175 vacías) |
+
+La conversión directa rompe con 3 868 de los 5 000 registros (los de coma, los «N/P» y los vacíos) y, peor, **acepta** 411 notas de la escala de 0 a 100 como si fueran notas válidas: un `"65"` se guarda como 65,0. La capa entrega 4 627 notas normalizadas (3 906 necesitaron coma o escala) y aparta 373 con su motivo. Un detalle que ninguna regla resuelve: 1 112 de las fechas del proveedor (`dd/mm/aaaa` con el día en 1 a 12) son ambiguas entre día y mes sin una convención declarada.
+
+![Tabla con las notas aceptadas, las rotas por excepción, las aceptadas fuera de rango y las puestas en cuarentena de 5 000 registros externos con una conversión directa y con una capa anticorrupción.](../../../content/part-27/figures/se-333-registros-del-sistema-externo.svg)
+
+**Cómo leer la figura.** Cada fila es un adaptador; las cuatro columnas cuentan el destino de los 5 000 registros. **Dónde deja de valer:** el reparto de formatos es una invención del autor y las reglas se escribieron mirando estos mismos formatos, así que no hay estimación de cuántos formatos reales faltarían. Convertir la escala de 0 a 100 por una fórmula lineal es una suposición que el proveedor debería confirmar: la capa sabe lo que se le dijo, no lo que el proveedor quiso decir.
+
+### Qué ocurre cuando el proveedor cambia un nombre
+
+Se escribe un mini-sistema de seis funciones (boletín, promedio, alertas, informe, exportar y auditar) en dos versiones: la primera usa `cod_alumno` y `nota` directamente; la segunda recibe el registro ya traducido por una función `traducir` que es la única que menciona `cod_alumno`. Se ejecutan ambas con el formato actual y con el campo renombrado a `alumno_id`, y se cuentan las funciones que lanzan una excepción.
+
+```python
+def traducir(r):
+    return {"estudiante_id": r["cod_alumno"], "nota": float(r["nota"].replace(",", ".")), "estado": r["estado"]}
+```
+
+| Situación | Sin capa anticorrupción | Con capa anticorrupción |
+|---|---|---|
+| Datos con el formato actual | 0 de 6 funciones fallan | 0 de 6 funciones fallan |
+| El proveedor renombra `cod_alumno` a `alumno_id` | 6 de 6 funciones fallan | 1 falla: el traductor, con error explícito |
+| Lugares del código que mencionan `cod_alumno` | 6 | 1 |
+
+Con la capa, el cambio del proveedor produce **un** error en **un** lugar, con un mensaje que nombra el campo que falta, y el resto del código ni se entera. Sin ella, seis funciones fallan cada una a su manera y quien depura debe descubrir qué tienen en común. La capa no evita el cambio, lo acota; sigue haciendo falta una alarma que avise cuando el traductor empiece a fallar.
+
+![Tabla con las funciones que fallan y los lugares que mencionan un campo externo, sin y con una capa anticorrupción, con datos actuales y con un campo renombrado por el proveedor.](../../../content/part-27/figures/se-333-cambio-del-proveedor.svg)
+
+**Cómo leer la figura.** Las dos primeras filas comparan qué falla; la tercera cuenta cuántos lugares dependen del nombre externo. **Dónde deja de valer:** las seis funciones las escribió el autor para el ejercicio y se ejecutaron con `exec`; no son una medida de ningún proyecto real, y un proyecto con la dependencia más repartida tendría más que contar. La cuenta de lugares es exacta para este código, no un indicador general.
+
+### Lo que no vuelve tras la traducción
+
+Se toman 5 000 registros con un estado externo entre nueve códigos y una nota entera de 0 a 100. Los nueve estados se traducen a cuatro (`entregada`, `calificada`, `pendiente`, `anulada`); la nota se convierte a la escala de 1,0 a 7,0 con uno o con tres decimales. Se vuelve al modelo externo y se cuentan los registros que no recuperan su valor original.
+
+```python
+a_dom = lambda n: round(1 + 6 * n / 100, 1)
+a_ext = lambda v: round((v - 1) * 100 / 6)
+alterada = a_ext(a_dom(n)) != n
+```
+
+| Traducción | No se recuperan | Se recuperan |
+|---|---:|---:|
+| Estado: 9 códigos externos a 4 del dominio | 2 813 | 2 187 |
+| Nota: de 0 a 100 a 1,0 a 7,0 con un decimal | 1 912 | 3 088 |
+| Ambas traducciones a la vez | 3 659 | 1 341 |
+| Nota con tres decimales | 0 | 5 000 |
+| Estado traducido con el código externo conservado | 0 | 5 000 |
+
+Resumir nueve estados en cuatro impide recuperar el original en el 56 % de los registros; un decimal de nota pierde el 38 %; las dos juntas alteran el 73 %. Con tres decimales la nota vuelve exacta, y conservar el código externo junto al traducido devuelve todos los estados. La decisión no es «traducir o no»: es qué se guarda además del traducido.
+
+![Tabla con los registros que no se recuperan tras traducir nueve estados a cuatro y una nota de 0 a 100 a 1,0 a 7,0, con uno y tres decimales y con el código externo conservado.](../../../content/part-27/figures/se-333-traduccion-con-perdida.svg)
+
+**Cómo leer la figura.** Cada fila es una traducción; las dos columnas dividen los 5 000 registros en los que no se recuperan y los que sí. **Dónde deja de valer:** el reparto uniforme de los nueve estados y de las notas es del autor, y la asignación de nueve a cuatro también; con otro mapa los porcentajes cambian. El experimento no dice cuánta información es relevante para el negocio, solo que existe y se pierde.
 
 ## Definiciones de trabajo
 
-- **Anti:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Corruption:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Layers:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
-- **Traducción:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación.
+- **contexto delimitado:** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
+- **capa anticorrupción:** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
+- **cuarentena:** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
+- **traducción con pérdida:** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
+- **conformista:** relación en la que un sistema adopta tal cual el modelo de otro.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Anti-corruption layers y traducción de modelos**:
+El fragmento convierte una nota con coma y una en escala de 0 a 100. Antes de ejecutarlo, predice el resultado de `float` directo sobre cada una y el de la traducción.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+def traducir_nota(n):
+    v = float(n.replace(",", "."))
+    if "," not in n and "." not in n and v > 7: v = round(1 + 6 * v / 100, 1)
+    if not 1.0 <= v <= 7.0: raise ValueError(f"fuera de rango: {n}")
+    return v
+for n in ["6,5", "65"]:
+    try: print(n, "float:", float(n))
+    except ValueError: print(n, "float: falla")
+    print(n, "traducida:", traducir_nota(n))
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+`float("6,5")` falla y `float("65")` da 65,0; la traducción da 6,5 y 4,9. Registra versión de Python y salida; después añade `"N/P"` y decide qué hace la traducción con él.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Anti-corruption layers y traducción de modelos**. Parte de esta pregunta: **¿quién posee el hecho, cuántas veces puede llegar y cómo se corrige una divergencia?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando esquema versionado, identificadores, trazas, prueba de duplicado y procedimiento de reconciliación. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `asyncapi.yaml` y enlaza la evidencia, no solo la conclusión.
+El equipo de la plataforma crea el módulo `integracion/academico/` con tres archivos. **`mapa.md`** documenta cada campo (nombre externo, tipo, unidad, nombre interno y regla), los nueve estados y su traducción a los cuatro conceptos de la plataforma, y qué se conserva. **`traducir.py`** es la única parte del código que importa el esquema externo: produce objetos del dominio, aparta a la cuarentena (con motivo) lo que no puede traducir y guarda siempre el código de estado original junto al traducido. **`tests/`** contiene 30 registros reales anonimizados del proveedor, cada uno con su rareza, y una prueba de contrato que falla si el proveedor cambia un nombre. Las notas se validan contra la invariante del dominio (1,0 a 7,0) en la frontera, no en cada consumidor. Una alarma cuenta los registros en cuarentena por motivo y avisa si superan el 2 % de un lote. Antes de activar el flujo, el equipo pide al proveedor que declare la convención de fechas y la escala de notas, y lo anota en el mapa. Compara con el fragmento original: ninguna función del dominio menciona `cod_alumno`, las notas fuera de rango no entran y el cambio de nombre produce un solo error con el nombre del campo.
 
 ## Práctica guiada
 
-1. Crea `work/SE-333/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el flujo de integración con contrato, reintento y reconciliación con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista los nombres y códigos del sistema externo que hoy aparecen en tu código y cuenta en cuántos lugares.
+2. Predice cuántas de 5 000 notas rompe `float` y cuántas deja pasar con otro significado.
+3. Genera los 5 000 registros con la semilla dada y reproduce la tabla del adaptador directo y la capa.
+4. Escribe las seis funciones en dos versiones y ejecuta el cambio de nombre para contar las que fallan.
+5. Traduce nueve estados a cuatro y la nota con uno y tres decimales y mide los registros que no se recuperan.
+6. Escribe `mapa.md` con campo, unidad, regla y qué se conserva, y la política de cuarentena con su umbral de alarma.
+7. Entrega `traduccion-log.md` y pide a otra persona que encuentre un valor externo que tu capa traduciría mal.
 
 ## Ejercicios
 
-1. **Fundamental:** define Anti y corruption con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `asyncapi.yaml` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Ambigüedad:** una fecha llega como `04/05/2026`; propone tres formas de resolverla y la que dejarías en la cuarentena.
+2. **Mapa:** diseña la traducción de los nueve estados a cuatro y marca qué pares pierden diferencia relevante para el negocio.
+3. **Costo:** el proveedor cambia de forma el registro cada tres meses; estima cuántas pruebas de contrato necesitas y qué parte del cambio debe absorber la capa.
+4. **Alternativa:** razona si para un proveedor con un modelo estable y bien documentado usarías la capa o adoptarías su modelo como conformista, y qué te haría cambiar de opinión.
 
 ## Reto verificable
 
-Entrega el **flujo de integración con contrato, reintento y reconciliación** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `traduccion-log.md` con las predicciones, las tres tablas reproducidas con las mismas semillas, `mapa.md` con la política de cuarentena y la lista de lo que se conserva. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene 3 868 registros rotos y 411 aceptados fuera de rango con la conversión directa, 373 en cuarentena con la capa y 6 de 6 funciones fallando sin capa frente a 1 con ella, y puede decir qué información no se recupera tras traducir. No se aprueba por convertir con `float` sin validar el rango ni por una capa que rechaza en silencio.
+
+## Caso conductor
+
+El flujo de entrega, calificación, aviso y registro de la plataforma es el caso conductor de la Parte 27. Esta clase deja el noveno artefacto: el mapa de traducción del sistema académico con su política de cuarentena. `SE-334` pregunta cómo ver y proteger el flujo completo: observabilidad y seguridad de las integraciones. Cambia después una sola decisión, la precisión de la nota interna, y observa qué información deja de perderse.
+
+## Preguntas frecuentes
+
+### ¿Una capa anticorrupción es un servicio aparte?
+
+No necesariamente. Puede ser un módulo dentro del mismo proceso o un adaptador pequeño; lo esencial es que sea el único lugar que conoce el modelo externo. Se separa en un servicio cuando varios sistemas internos necesitan la misma traducción o cuando su despliegue debe ser independiente.
+
+### ¿Qué hago con los registros en cuarentena?
+
+Se revisan por motivo con el dueño del dato: unos se resuelven con una regla nueva, otros requieren una aclaración del proveedor y otros se descartan con registro de la decisión. La cuarentena sin dueño ni plazo es un cajón donde los datos desaparecen.
+
+### ¿Traducir no duplica el modelo?
+
+Sí, y esa es su función: tener dos modelos y una frontera explícita cuesta menos que uno solo contaminado cuando el modelo ajeno cambia o es peor que el propio. Si el modelo ajeno fuera adecuado y estable, la traducción sería un costo sin beneficio.
+
+### ¿Cómo pruebo la capa?
+
+Con ejemplos reales (anonimizados) de cada rareza del proveedor y con una prueba de contrato que falla si cambia un nombre o un tipo. Las pruebas con datos «bonitos» de documentación no encuentran los problemas que el proveedor tiene en producción.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **procesar dos veces un mensaje y producir efectos no reconciliables**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una nota en otra escala que entra como válida**. Importa registros con `"65"` usando `float` directo y calcula el promedio del curso.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el promedio de un curso es de 12,3 en una escala de 1,0 a 7,0. **Hipótesis rivales:** (a) un error de cálculo del promedio; (b) notas duplicadas; (c) valores fuera de la escala entraron como si fueran notas. **Prueba:** busca el máximo y el mínimo de la columna; si aparecen valores como 65,0 y 88,0, la causa son notas en otra escala. **Conclusión:** la conversión aceptó una cadena numérica sin validar la escala. **Regresión:** traducir la escala en la frontera, rechazar lo fuera de rango con motivo y una prueba que importe `"65"` y compruebe que entra como 4,9 o que se aparta, nunca como 65,0. No cambies a la vez la conversión y el cálculo del promedio.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| El sistema falla en muchas funciones cuando el proveedor cambia | El nombre externo se usa en todo el código | Capa de traducción como único lugar que conoce el modelo externo |
+| Valores absurdos en un cálculo | Datos externos aceptados sin validar la invariante | Validar rango y unidad en la frontera |
+| No se puede devolver el dato al proveedor | La traducción resumió varios valores en uno | Conservar el original o ampliar la precisión |
+| Registros que desaparecen sin rastro | La capa rechaza en silencio | Cuarentena con motivo, conteo y alarma |
+| La capa crece sin control | Hace más de traducir | Mantener solo traducción, validación y cuarentena |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: broker local o simulador, validador de esquemas y trazas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-333/
 ├── README.md
-│   ├── asyncapi.yaml
-│   ├── flow.md
-│   ├── reconciliation.md
-├── activity.yaml
-└── rubric.json
+├── integracion/academico/
+│   ├── mapa.md
+│   ├── traducir.py
+│   └── cuarentena.py
+├── tests/test_traduccion.py
+└── evidence/traduccion-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `asyncapi.yaml` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas y comandos. El código de los tres experimentos está en `scripts/experiments_part27_b.py` (funciones `e333_registros`, `e333_cambio` y `e333_fidelidad`) y se ejecuta con `python scripts/experiments_part27_b.py`. Solo usa la biblioteca estándar y se ejecutó con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- la capa es el lugar donde validar lo que llega de fuera: trata el dato externo como no confiable y rechaza lo que no cumpla la invariante;
+- una nota mal traducida afecta a una persona: conserva el original y la traza de la conversión para poder explicar y corregir una calificación;
+- la cuarentena guarda datos personales sin procesar: limita su acceso y su retención (`SE-322`);
+- una decisión de resumir estados (por ejemplo, tratar «N/P» como cero) tiene consecuencias para quien la sufre: documenta la regla y quién la aprobó;
+- los registros de prueba son sintéticos; no guardes datos reales sin anonimizar en el repositorio.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «integra con este sistema externo» suele usar directamente los nombres y tipos del proveedor en todo el código, convertir con `float` o `int` sin validar rango y escribir pruebas solo con datos bien formados. Pídele en cambio que cree un módulo de traducción que sea el único que conozca el esquema externo, que valide las invariantes del dominio, que aparte lo ambiguo a una cuarentena con motivo y que incluya pruebas con las rarezas conocidas y una de contrato. Revisa especialmente si el nombre externo aparece fuera del módulo de traducción y si algún valor fuera de rango puede entrar: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, un comercio que importa catálogos de un proveedor con códigos propios): cambia los campos y conserva el procedimiento de localizar los nombres externos, traducir y validar en la frontera, apartar lo ambiguo y decidir qué original conservar. La transferencia está lograda cuando puedes decir en cuántos lugares aparece el modelo del otro, no cuando existe una carpeta llamada `adapters`.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-333/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de la contaminación del modelo y del papel de la capa |
+| corrección | tablas de registros, cambios del proveedor y fidelidad reproducibles con las mismas semillas |
+| diseño | mapa de traducción, política de cuarentena y lista de lo que se conserva |
+| diagnóstico | reproducción de la nota en otra escala con regresión |
+| incertidumbre | declaración de que el sistema externo y sus formatos son sintéticos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Microsoft: patrón Anti-Corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer) — capa que traduce entre subsistemas con semánticas distintas; autoridad: documentación de Microsoft.
+- [Evans, «Domain-Driven Design Reference»](https://www.domainlanguage.com/ddd/reference/) — capa anticorrupción y otras relaciones entre contextos; autoridad: autor del libro.
+- [Fowler, «Bounded Context»](https://martinfowler.com/bliki/BoundedContext.html) — cada contexto con su modelo y vocabulario; autoridad: autor del texto.
+- [EIP: Message Translator](https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageTranslator.html) — conversión entre formatos de mensaje; autoridad: autores del libro.
+- [RFC 3339: fechas y horas en Internet](https://www.rfc-editor.org/rfc/rfc3339) — formato de fecha sin ambigüedad; autoridad: IETF.
 
-- **AsyncAPI Specification** — AsyncAPI Initiative. [https://www.asyncapi.com/docs/reference/specification/latest](https://www.asyncapi.com/docs/reference/specification/latest) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **CloudEvents specification** — Cloud Native Computing Foundation. [https://cloudevents.io/](https://cloudevents.io/) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **OpenAPI Specification** — OpenAPI Initiative. [https://spec.openapis.org/oas/latest.html](https://spec.openapis.org/oas/latest.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 3 868 registros rotos, los 411 fuera de rango o el 73 % de alteración se observen con un sistema académico real. Esa afirmación depende del formato de cada proveedor, de su documentación y de la calidad de sus datos.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Anti-corruption layers y traducción de modelos**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-334`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se usó ningún sistema académico, API ni dato real: los formatos y sus proporciones, el mapa de nueve a cuatro estados, las seis funciones y la escala lineal son construcciones del autor, y los resultados no se extrapolan a ningún proveedor. Las reglas de normalización se escribieron mirando estos mismos formatos. La siguiente clase pregunta cómo ver y proteger el flujo: observabilidad y seguridad de las integraciones.
+
+## Glosario
+
+- **contexto delimitado:** ámbito dentro del cual un modelo y su vocabulario tienen un significado único.
+- **capa anticorrupción:** componente que traduce entre el modelo de otro sistema y el propio, y es el único que conoce ambos.
+- **cuarentena:** destino de los registros que no se pueden traducir sin ambigüedad, con el motivo del rechazo.
+- **traducción con pérdida:** conversión en la que dos valores de origen distintos producen el mismo valor de destino.
+- **conformista:** relación en la que un sistema adopta tal cual el modelo de otro.
 
 ---
 

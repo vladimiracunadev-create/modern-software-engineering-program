@@ -124,7 +124,7 @@ def se333_cambio() -> Fig:
     return tab("Un proveedor renombra un campo: qué falla sin y con capa anticorrupción",
                "Tabla: con datos en el formato actual nada falla en ninguno de los dos diseños; cuando el proveedor renombra un campo, seis de seis funciones del diseño sin capa fallan y solo falla el traductor, con un error explícito, en el diseño con capa; el nombre externo aparece en seis lugares sin capa y en uno con ella.",
                ["Situación", "Sin capa anticorrupción", "Con capa anticorrupción"], rows, [370, 260, 290], row_h=52, size=13,
-               note="La capa no evita el cambio del proveedor; limita su alcance a un lugar y lo convierte en un error con nombre. El código de seis funciones lo escribió el autor para el ejercicio, ejecutado de verdad con exec; no es una medida de ningún proyecto real.",
+               note="La capa no evita el cambio del proveedor; limita su alcance a un lugar y lo convierte en un error con nombre. El código de seis funciones lo escribió el autor para el ejercicio, ejecutado de verdad con el campo original y con el renombrado; no es una medida de ningún proyecto real.",
                note_kind="teal", foot=SINT)
 
 

@@ -483,8 +483,8 @@ def e330_cambios():
 
     def poll():
         nonlocal last_seq
-        for k, op in (("gt", ">"), ("ge", ">=")):
-            rows = src.execute(f"select id,v,ts from t where ts {op} ?", (wm[k],)).fetchall()
+        for k, consulta in (("gt", "select id,v,ts from t where ts > ?"), ("ge", "select id,v,ts from t where ts >= ?")):
+            rows = src.execute(consulta, (wm[k],)).fetchall()
             for i, v, ts in rows: rep[k][i] = v
             if rows: wm[k] = max(ts for _, _, ts in rows)
         for seq, i, op, v in src.execute("select seq,id,op,v from log where seq>? order by seq", (last_seq,)).fetchall():

@@ -4,8 +4,7 @@ Uso: python scripts/experiments_part27_b.py   (imprime una línea JSON por exper
 """
 import hashlib, hmac, json, random, re, sqlite3, sys, threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.request import Request, urlopen
-from urllib.error import HTTPError
+from http.client import HTTPConnection
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -107,10 +106,10 @@ def e331_transporte_real():
     cuerpo = b'{"id":"evt_9","entrega":9}'
     out = []
     for nombre, c in (("bytes originales", cuerpo), ("reserializado", json.dumps(json.loads(cuerpo)).encode())):
-        rq = Request(url, data=c, headers={"X-Marca": "1800000000", "X-Firma": firmar("1800000000", cuerpo)})
-        try: code = urlopen(rq, timeout=5).status
-        except HTTPError as e: code = e.code
-        out.append((nombre, code))
+        conexion = HTTPConnection("127.0.0.1", srv.server_port, timeout=5)
+        conexion.request("POST", "/", body=c, headers={"X-Marca": "1800000000", "X-Firma": firmar("1800000000", cuerpo)})
+        out.append((nombre, conexion.getresponse().status))
+        conexion.close()
     srv.shutdown()
     return out
 
@@ -313,46 +312,42 @@ def e333_registros():
 
 
 def e333_cambio():
+    """Seis funciones que usan el nombre externo y las mismas seis detrás de una capa que traduce."""
     ext = '{"cod_alumno": "A-000001", "nota": "6,5", "estado": "E"}'
     renombrado = '{"alumno_id": "A-000001", "nota": "6,5", "estado": "E"}'
-    sin_acl = {
-        "boletin": "def boletin(r): return r['cod_alumno'] + ':' + r['nota']",
-        "promedio": "def promedio(rs): return sum(float(r['nota'].replace(',','.')) for r in rs if r['cod_alumno'])",
-        "alertas": "def alertas(r): return r['estado'] == 'E' and r['cod_alumno']",
-        "informe": "def informe(rs): return sorted({r['cod_alumno'] for r in rs})",
-        "exportar": "def exportar(r): return {'id': r['cod_alumno']}",
-        "auditar": "def auditar(r): return ('A', r['cod_alumno'])",
-    }
-    con_acl = {"acl": "def traducir(r):\n    return {'estudiante_id': r['cod_alumno'], 'nota': float(r['nota'].replace(',','.')), 'estado': r['estado']}",
-               "boletin": "def boletin(d): return d['estudiante_id']",
-               "promedio": "def promedio(ds): return sum(d['nota'] for d in ds if d['estudiante_id'])",
-               "alertas": "def alertas(d): return d['estado'] == 'E' and d['estudiante_id']",
-               "informe": "def informe(ds): return sorted({d['estudiante_id'] for d in ds})",
-               "exportar": "def exportar(d): return {'id': d['estudiante_id']}",
-               "auditar": "def auditar(d): return ('A', d['estudiante_id'])"}
 
-    def probar(mods, payload, usa_acl):
-        env = {}
-        for src in mods.values(): exec(src, env)
+    def num(texto): return float(texto.replace(",", "."))
+    sin_acl = {
+        "boletin": lambda r: r["cod_alumno"] + ":" + r["nota"],
+        "alertas": lambda r: r["estado"] == "E" and r["cod_alumno"],
+        "exportar": lambda r: {"id": r["cod_alumno"]},
+        "auditar": lambda r: ("A", r["cod_alumno"]),
+        "promedio": lambda rs: sum(num(r["nota"]) for r in rs if r["cod_alumno"]),
+        "informe": lambda rs: sorted({r["cod_alumno"] for r in rs}),
+    }
+
+    def traducir(r):
+        return {"estudiante_id": r["cod_alumno"], "nota": num(r["nota"]), "estado": r["estado"]}
+    con_acl = {
+        "boletin": lambda d: d["estudiante_id"],
+        "alertas": lambda d: d["estado"] == "E" and d["estudiante_id"],
+        "exportar": lambda d: {"id": d["estudiante_id"]},
+        "auditar": lambda d: ("A", d["estudiante_id"]),
+        "promedio": lambda ds: sum(d["nota"] for d in ds if d["estudiante_id"]),
+        "informe": lambda ds: sorted({d["estudiante_id"] for d in ds}),
+    }
+    unitarias = ("boletin", "alertas", "exportar", "auditar")
+
+    def probar(funciones, payload, usa_acl):
         r = json.loads(payload)
         fallos = []
         if usa_acl:
-            try: d = env["traducir"](r)
-            except KeyError as e:
+            try: r = traducir(r)
+            except KeyError:
                 return ["acl"]
-            for n in ("boletin", "alertas", "exportar", "auditar"):
-                try: env[n](d)
-                except Exception: fallos.append(n)
-            for n in ("promedio", "informe"):
-                try: env[n]([d])
-                except Exception: fallos.append(n)
-        else:
-            for n in ("boletin", "alertas", "exportar", "auditar"):
-                try: env[n](r)
-                except Exception: fallos.append(n)
-            for n in ("promedio", "informe"):
-                try: env[n]([r])
-                except Exception: fallos.append(n)
+        for nombre, f in funciones.items():
+            try: f(r if nombre in unitarias else [r])
+            except Exception: fallos.append(nombre)
         return fallos
     return {"sin_ok": probar(sin_acl, ext, False), "sin_ren": probar(sin_acl, renombrado, False),
             "con_ok": probar(con_acl, ext, True), "con_ren": probar(con_acl, renombrado, True)}

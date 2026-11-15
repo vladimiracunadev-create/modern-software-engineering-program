@@ -140,7 +140,7 @@ Con la capa, el cambio del proveedor produce **un** error en **un** lugar, con u
 
 ![Tabla con las funciones que fallan y los lugares que mencionan un campo externo, sin y con una capa anticorrupción, con datos actuales y con un campo renombrado por el proveedor.](../../../content/part-27/figures/se-333-cambio-del-proveedor.svg)
 
-**Cómo leer la figura.** Las dos primeras filas comparan qué falla; la tercera cuenta cuántos lugares dependen del nombre externo. **Dónde deja de valer:** las seis funciones las escribió el autor para el ejercicio y se ejecutaron con `exec`; no son una medida de ningún proyecto real, y un proyecto con la dependencia más repartida tendría más que contar. La cuenta de lugares es exacta para este código, no un indicador general.
+**Cómo leer la figura.** Las dos primeras filas comparan qué falla; la tercera cuenta cuántos lugares dependen del nombre externo. **Dónde deja de valer:** las seis funciones las escribió el autor para el ejercicio y se ejecutaron de verdad con el campo original y con el renombrado; no son una medida de ningún proyecto real, y un proyecto con la dependencia más repartida tendría más que contar. La cuenta de lugares es exacta para este código, no un indicador general.
 
 ### Lo que no vuelve tras la traducción
 

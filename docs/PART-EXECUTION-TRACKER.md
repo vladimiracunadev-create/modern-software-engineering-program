@@ -49,6 +49,7 @@ su commit está en `main` con CI verde.
 | 24 | Desarrollada y profundizada con análisis de código y simulaciones sintéticas de diseño, patrones y refactorización ejecutados en Windows y Linux, CI verde | `4a8cd0b6` |
 | 25 | Desarrollada y profundizada con simulaciones sintéticas y mediciones de arquitectura ejecutadas en Windows y Linux, CI verde | `30386e11` |
 | 26 | Desarrollada y profundizada con experimentos sintéticos y modelos de datos, persistencia y recuperación ejecutados en Windows y Linux CI verde | `d50af249` |
-| 27–29 | Borradores; requieren desarrollo completo | — |
+| 27, 29 | Borradores; requieren desarrollo completo | — |
+| 28 | Desarrollada y profundizada con experimentos y modelos sintéticos de concurrencia y sistemas distribuidos ejecutados en Windows y Linux, CI pendiente | — |
 | 30–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

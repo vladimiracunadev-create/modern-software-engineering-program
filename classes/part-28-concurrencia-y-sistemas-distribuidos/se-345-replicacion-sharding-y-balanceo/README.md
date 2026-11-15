@@ -2,208 +2,322 @@
 
 [← SE-344 — Idempotencia y procesamiento distribuido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/README.md) · [↑ Parte 28](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-345.html) · [SE-346 — Caos controlado y pruebas de distribución →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-346-caos-controlado-y-pruebas-de-distribucion/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que decidas, con números, cómo repartir el trabajo y los datos de un servicio entre varias máquinas: qué política de balanceo mantiene bajo el percentil 99 cuando los trabajos son de tamaños muy distintos, cuántas escrituras confirmadas puedes perder al conmutar según cuántas réplicas esperes, y qué clave de reparto conviene a las consultas de la plataforma sin crear un fragmento caliente.
+
+**Por qué aparece aquí.** Sigue a **Idempotencia y procesamiento distribuido**: con piezas repetibles, ahora se pueden repartir. En la Parte 26 (`SE-319`) se vio la replicación y el reparto de datos desde la base de datos; aquí se mira desde el servicio: los balanceadores, la conmutación por error y el reparto de la carga cuando crece. El caso conductor es el cierre de plazo: diez servidores reciben entregas de tamaños muy distintos.
+
+**Error conceptual que debe corregir.** Creer que repartir las solicitudes por igual reparte el trabajo por igual, o que la replicación asíncrona «copia» sin pérdida: lo primero ignora la cola pesada de los tamaños, lo segundo ignora el retraso de la réplica.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices qué política de balanceo da el menor percentil 99 con diez servidores y tamaños de cola pesada, y cuántas escrituras confirmadas se pierden al conmutar con replicación asíncrona; después comparas el reparto por hash y por rango de fecha en dónde caen las escrituras nuevas y cuántos fragmentos toca una consulta por tramo. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `reparto-log.md` con la predicción, las tres figuras reproducidas, la política de balanceo elegida con su percentil 99, el modo de replicación por dato con la pérdida que acepta y la clave de reparto con las consultas que abarata y encarece.
+
+**Límite de la conclusión.** Los tamaños (Pareto de forma 1,5), la carga del 85 %, el retraso de réplica (exponencial de media 30 ms) y el tiempo de ida y vuelta (lognormal) son supuestos del autor con semilla fija. No se midió ningún balanceador, ninguna base replicada ni ninguna red. El hash MD5 se usa solo por su reparto, no por seguridad.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Mitzenmacher, «The power of two choices in randomized load balancing» (2001)](https://doi.org/10.1109/71.963420) | Elegir dos servidores al azar y enviar al menos cargado reduce de forma exponencial la carga máxima frente a elegir uno al azar. | No cubre tamaños de solicitud de cola pesada ni el costo de consultar el estado. |
+| [Karger et al., «Consistent hashing and random trees» (1997)](https://doi.org/10.1145/258533.258660) | Presenta el hash consistente: añadir o quitar un nodo mueve solo una fracción de las claves. | No resuelve el desequilibrio por claves calientes. |
+| [PostgreSQL: servidores en espera y alta disponibilidad](https://www.postgresql.org/docs/current/warm-standby.html) | Documenta la replicación síncrona y asíncrona y qué datos se pueden perder al conmutar en cada modo. | No mide cuánto se pierde en una carga concreta. |
+| [DeCandia et al., «Dynamo» (2007)](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf) | Describe un almacén que reparte por hash consistente y replica con cuórums configurables. | Es el diseño de un sistema concreto; no prueba que convenga a la plataforma. |
+| [Chang et al., «Bigtable» (2008)](https://doi.org/10.1145/1365815.1365816) | Reparte las filas por rango ordenado y muestra el efecto de las claves monótonas en un fragmento. | No compara con el reparto por hash ni mide la plataforma. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-344`: una operación repetible puede ejecutarse en cualquier nodo. La pregunta activa es: **¿cómo reparto el trabajo sin que unos servidores se atasquen mientras otros esperan, y cuánto cuesta no perder nada al conmutar?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-344` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de procesos locales o contenedores, reloj monotónico y trazas correlacionadas.
+- Haber completado `SE-344` o poder explicar por qué la idempotencia permite reintentar en otro nodo.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `heapq`, `hashlib`, `statistics`).
+- Haber visto en la Parte 26 (`SE-319`) el hash consistente y las lecturas obsoletas.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una servicio financiero debe decidir sobre **Replicación, sharding y balanceo**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+Con diez servidores, el balanceador de la plataforma repartía las entregas por turnos: la solicitud número 11 al servidor 1, la 12 al 2. Las pruebas de carga con archivos del mismo tamaño daban un percentil 99 de 300 ms. En el cierre de plazo, con archivos de 20 KB y de 200 MB mezclados, algunos servidores acumulaban cola mientras otros estaban casi ociosos, y el percentil 99 pasó de segundos. Otro día, el servidor primario de la base cayó; el equipo conmutó a la réplica y 6 escrituras que el servicio había confirmado a estudiantes no estaban allí. Por último, para repartir los datos de entregas por fecha, un ingeniero eligió «un fragmento por rango de fechas»: el último fragmento recibía todas las escrituras nuevas, mientras los otros siete dormían. Cada decisión se tomó con la mejor intención y ninguna se midió con la forma real de la carga.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Replicación y sharding con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **experimento distribuido con fallos y garantías declaradas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir orden global o exactamente-una-vez desde observaciones locales» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Replicación | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Sharding | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Balanceo | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Concurrencia | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. comparar cuatro políticas de balanceo con tamaños de cola pesada por su percentil 99 y explicar el efecto de «dos opciones al azar»;
+2. calcular cuántas escrituras confirmadas se pierden al conmutar con replicación asíncrona y qué latencia cuesta evitarlo;
+3. comparar el reparto por hash y por rango en la distribución de las escrituras nuevas y en los fragmentos que toca una consulta;
+4. decidir una política de balanceo, un modo de replicación y una clave de reparto para un dato de la plataforma, con su costo;
+5. declarar qué métricas vigilarías (cola por servidor, retraso de réplica, desequilibrio por fragmento) para saber que la decisión sigue valiendo.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Replicación, sharding y balanceo"] --> M["Modelo: Replicación"]
-    M --> D["Decisión: sharding"]
-    D --> E["Evidencia: balanceo"]
-    E --> R["Revisión: concurrencia"]
-    R -->|nueva información| M
+    A[Carga: solicitudes de tamaños muy distintos] --> B[Balanceo]
+    B --> C[Turnos o azar: iguala solicitudes, no trabajo]
+    B --> D[Dos opciones o menos conexiones: iguala la cola]
+    E[Datos: escrituras confirmadas] --> F[Replicación]
+    F --> G[Asíncrona: pérdida al conmutar]
+    F --> H[Síncrona o semisíncrona: latencia]
+    E --> I[Reparto]
+    I --> J[Hash: esparce escrituras, dispersa consultas]
+    I --> K[Rango: agrupa consultas, acumula escrituras]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Replicación, sharding y balanceo**.
+El mapa separa tres decisiones que se confunden en una palabra («escalar»): **balancear** la carga de cómputo, **replicar** los datos para sobrevivir a una caída y **repartir** los datos entre fragmentos para crecer. Cada una tiene su propia métrica de éxito y su propio defecto característico.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Balanceo y cola de espera | Igualar solicitudes no iguala trabajo. | Predicción, traza causal y contraejemplo de **Balanceo y cola de espera** en `reparto-log.md` |
+| Replicación y conmutación | Define qué se pierde al fallar el primario. | Predicción, traza causal y contraejemplo de **Replicación y conmutación** en `reparto-log.md` |
+| Reparto por hash o por rango | Decide qué consultas son baratas y qué fragmento se calienta. | Predicción, traza causal y contraejemplo de **Reparto por hash o por rango** en `reparto-log.md` |
+| Rebalanceo | Mover datos cuesta tiempo y tráfico. | Predicción, traza causal y contraejemplo de **Rebalanceo** en `reparto-log.md` |
+| Observabilidad del reparto | Sin métrica por fragmento no se ve el desequilibrio. | Predicción, traza causal y contraejemplo de **Observabilidad del reparto** en `reparto-log.md` |
 
 ## Conceptos y decisiones
 
-Concurrencia y distribución eliminan supuestos de orden, tiempo y conocimiento compartido; las garantías deben declararse bajo fallos concretos.
+### 1. Balanceo y cola de espera
 
-La pregunta rectora de esta parte es: **¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?** La respuesta debe
-apoyarse en **modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte**.
+Un **balanceador** decide a qué servidor va cada solicitud. La política de **turnos** (*round robin*) y la **aleatoria** reparten por igual el *número* de solicitudes; no reparten el *trabajo* cuando los tamaños son muy distintos, porque una solicitud enorme ocupa a un servidor mientras recibe más del reparto. La política de **menos conexiones** envía al servidor con menos trabajo en curso y exige conocer el estado de todos. La de **dos opciones al azar** (*power of two choices*) elige dos servidores al azar y envía al menos cargado de los dos: consigue casi todo el beneficio de la anterior consultando solo dos servidores. El percentil 99 es la métrica relevante, porque la experiencia de las personas la fijan las colas largas, no la media.
 
-### 1. Replicación: modelo
+### 2. Replicación y conmutación
 
-En esta clase, **Replicación** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Replicación, sharding y balanceo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una réplica asíncrona recibe los cambios después de que el primario confirma; si el primario cae antes de enviar los últimos, esos cambios, ya confirmados a las personas, se pierden al conmutar. El **objetivo de punto de recuperación** (RPO) es cuánto se acepta perder; con replicación asíncrona es el retraso de la réplica. La replicación **síncrona** espera la confirmación de la réplica antes de responder: RPO cero, a cambio de latencia (el tiempo de ida y vuelta) y de disponibilidad (si la réplica cae, el primario espera o degrada). La **semisíncrona** exige confirmar con al menos una réplica y mantiene las demás asíncronas. Elegir es dato por dato: lo que no puede perderse, síncrono; lo reconstruible, asíncrono.
 
-### 2. Sharding: mecanismo
+### 3. Reparto por hash o por rango
 
-En esta clase, **sharding** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Replicación, sharding y balanceo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Para repartir los datos entre fragmentos hay dos familias. El **hash** de la clave esparce las filas de forma uniforme: las escrituras se reparten bien, pero una consulta por tramo (las entregas del 10 al 15 de noviembre) debe preguntar a todos los fragmentos. El **rango** agrupa las claves cercanas en un fragmento: una consulta por tramo toca uno o pocos, pero si la clave crece con el tiempo (una fecha, un identificador secuencial), todas las escrituras nuevas caen en el último fragmento. La clave de reparto es una decisión sobre qué consulta se abarata y qué carga se concentra, y es difícil de cambiar después.
 
-### 3. Balanceo: evidencia
+### 4. Rebalanceo
 
-En esta clase, **balanceo** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Replicación, sharding y balanceo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Cuando se añaden o quitan fragmentos hay que mover datos. Un reparto por módulo mueve casi todas las claves; el **hash consistente** (`SE-319`) mueve solo una fracción. Mover datos consume ancho de banda y puede degradar el servicio mientras se hace; se limita la velocidad, se mueve por partes pequeñas y se continúa atendiendo con la ubicación antigua hasta confirmar la nueva. Un fragmento demasiado grande o caliente se divide, y uno vacío se fusiona, pero cada operación tiene un costo y una ventana en la que hay que decidir dónde viven las claves.
 
-### 4. Concurrencia: decisión
+### 5. Observabilidad del reparto
 
-En esta clase, **concurrencia** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Replicación, sharding y balanceo**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un reparto sano no se ve en los promedios. Se vigilan la **cola por servidor** y el percentil 99 de cada uno, el **retraso de réplica** (el RPO real) y la **carga por fragmento** (escrituras, lecturas y tamaño). Una alerta sobre el promedio de CPU no detecta un fragmento caliente; una sobre el retraso medio no detecta una réplica rezagada. La métrica correcta es la de la cola larga y la del peor elemento, porque es ahí donde el reparto falla primero.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuatro políticas con tamaños de cola pesada
+
+Diez servidores reciben 200 000 solicitudes cuyos tamaños siguen una distribución de Pareto de forma 1,5 (truncada en 200) con carga del 85 %. Se simula un sistema de eventos discretos con cuatro políticas y se mide el tiempo hasta terminar cada solicitud (espera más servicio), en unidades de tiempo en las que el tamaño medio de una solicitud es 3,0.
+
+```python
+elif policy == "menos-conexiones":
+    s = min(range(servers), key=lambda i: len(outstanding[i]))
+else:                                    # dos opciones al azar
+    a, b = r.sample(range(servers), 2)
+    s = a if len(outstanding[a]) <= len(outstanding[b]) else b
+```
+
+| Política | Mediana | Percentil 99 | Percentil 99,9 |
+|---|---:|---:|---:|
+| Turnos rotativos | 13,3 | 316,8 | 535,1 |
+| Aleatorio | 19,9 | 361,6 | 632,4 |
+| Dos opciones al azar, la menos cargada | 4,5 | 95,4 | 203,6 |
+| Menos conexiones (estado global) | 2,7 | 52,6 | 188,5 |
+
+Los turnos y el azar dejan colas con percentil 99 de unas 100 veces el tamaño medio de una solicitud; mirar solo dos servidores lo baja a 95 y mirar los diez a 53. La ventaja de «dos opciones» es que no necesita el estado global: basta consultar dos servidores. En el percentil 99,9 las diferencias se reducen, porque una solicitud muy grande ocupa su servidor de todos modos.
+
+![Tabla con la mediana y los percentiles 99 y 99,9 del tiempo hasta terminar una solicitud en cuatro políticas de balanceo con tamaños de cola pesada y una carga del 85 por ciento.](../../../content/part-28/figures/se-345-balanceo-y-cola-pesada.svg)
+
+**Cómo leer la figura.** Cada fila es una política y las columnas muestran la experiencia de la mediana y de las colas largas. **Dónde deja de valer:** la simulación supone servidores idénticos, llegadas aleatorias (exponenciales) y que el tamaño se conoce solo al servir; un balanceador real tiene conexiones persistentes, sesiones, servidores de capacidades distintas y retardos al consultar el estado, que cambian el ranking. La carga de 85 % y la forma 1,5 de Pareto son supuestos del autor.
+
+### Lo que se pierde al conmutar
+
+Un primario recibe 200 escrituras por segundo. La réplica asíncrona tiene un retraso exponencial de media 30 ms; la semisíncrona espera a una réplica y la síncrona a dos, con un tiempo de ida y vuelta lognormal. Se simulan 2 000 conmutaciones tras la caída del primario y se mide la pérdida de escrituras confirmadas y la latencia de confirmación.
+
+```python
+lag = r.expovariate(1 / 30.0)                 # ms de retraso de la réplica asíncrona
+lost = writes_per_s * lag / 1000.0            # escrituras confirmadas que la réplica no vio
+ack = 1.0 + rtt                               # semisíncrona: espera a una réplica
+```
+
+| Replicación | Escrituras confirmadas perdidas (media) | Confirmación (mediana) | Confirmación (p99) |
+|---|---:|---:|---:|
+| Asíncrona | 6,11 | 1,0 ms | 1,0 ms |
+| Semisíncrona (una réplica confirma) | 0 | 21,1 ms | 63,6 ms |
+| Síncrona (dos réplicas confirman) | 0 | 27,5 ms | 75,3 ms |
+
+La asíncrona pierde en promedio 6,11 escrituras ya confirmadas por conmutación, que son entregas a las que se mostró un acuse. Esperar a una réplica elimina la pérdida y multiplica por 21 la latencia mediana de confirmación. Esperar a dos añade 6 ms de mediana y no mejora la pérdida (ya es cero), pero reduce la dependencia de una sola réplica.
+
+![Tabla con las escrituras confirmadas perdidas al conmutar y la latencia de confirmación con replicación asíncrona, semisíncrona y síncrona.](../../../content/part-28/figures/se-345-conmutacion-y-perdida.svg)
+
+**Cómo leer la figura.** Cada fila es un modo de replicación; las columnas dan lo que se pierde y lo que cuesta la confirmación. **Dónde deja de valer:** el retraso de 30 ms y el tiempo de ida y vuelta lognormal son supuestos del autor; no se modelan caídas simultáneas de réplica y primario ni la espera de las réplicas cuando están rezagadas. El resultado transferible es la relación: pérdida y latencia se intercambian.
+
+### Hash o rango
+
+Ocho fragmentos reparten 100 000 claves ordenadas por fecha. Se mide cómo se reparten las 5 000 escrituras más recientes con hash (MD5 módulo 8) y con rangos de 12 500 claves definidos al inicio, y cuántos fragmentos toca una consulta de un tramo de claves consecutivas.
+
+```python
+def shard_hash(k):          return int(hashlib.md5(str(k).encode()).hexdigest(), 16) % shards
+def shard_range_fixed(k):   return min(k // 12_500, shards - 1)
+```
+
+| Operación | Reparto por hash | Reparto por rango fijo |
+|---|---|---|
+| 5 000 escrituras de las entregas más recientes | 674 a 578 por fragmento (8 fragmentos) | 5 000 en un fragmento |
+| Consulta de 100 claves consecutivas | 8 fragmentos | 1 fragmento |
+| Consulta de 10 000 claves consecutivas | 8 fragmentos | 1 fragmento |
+| Consulta de 50 000 claves consecutivas | 8 fragmentos | 5 fragmentos |
+
+Con hash, las escrituras recientes se reparten casi por igual (entre 578 y 674) y toda consulta por tramo debe preguntar a los 8 fragmentos. Con rango, la consulta toca 1 fragmento y las 5 000 escrituras se concentran en uno solo. Ningún reparto es mejor: cada uno abarata una pregunta y encarece la otra.
+
+![Tabla con la distribución de las escrituras recientes y los fragmentos que toca una consulta por tramo con reparto por hash y por rango fijo.](../../../content/part-28/figures/se-345-hash-o-rango.svg)
+
+**Cómo leer la figura.** Cada fila es una operación y las columnas, el reparto. **Dónde deja de valer:** los ocho fragmentos y los rangos iguales definidos al inicio son una construcción del autor; sistemas reales con rangos que se dividen automáticamente atenúan la acumulación en el último fragmento, pero no eliminan el calor de una clave monótona. El hash MD5 se usa por su reparto uniforme, no por seguridad.
 
 ## Definiciones de trabajo
 
-- **Replicación:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Sharding:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Balanceo:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Concurrencia:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
+- **balanceo de carga:** reparto de las solicitudes entre servidores según una política.
+- **objetivo de punto de recuperación (RPO):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
+- **replicación semisíncrona:** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
+- **fragmento (*shard*):** subconjunto de los datos alojado en un nodo o grupo de nodos.
+- **fragmento caliente:** fragmento que recibe una fracción desproporcionada de la carga.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Replicación, sharding y balanceo**:
+El fragmento muestra que repartir por turnos no iguala el trabajo. Antes de ejecutarlo, predice cuánto trabajo recibe cada servidor.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+tamanos = [1, 100, 1, 100]          # dos servidores, solicitudes alternadas
+turnos = [0, 0]
+for i, t in enumerate(tamanos):
+    turnos[i % 2] += t
+assert turnos == [2, 200]
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Cada servidor recibe dos solicitudes, pero uno recibe 2 unidades de trabajo y el otro 200. Registra versión de Python y salida; después envía cada solicitud al servidor con menos trabajo acumulado y compara el reparto.
 
 ## Ejemplo profesional
 
-En la servicio financiero, el equipo prepara un cambio relacionado con **Replicación, sharding y balanceo**. Parte de esta pregunta: **¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `model.md` y enlaza la evidencia, no solo la conclusión.
+El equipo del servicio de entregas cambia el balanceador de turnos a «dos opciones al azar» con una métrica de conexiones activas, y fija la cola máxima por servidor para rechazar rápido antes de que la espera crezca (`SE-348`). La base de entregas usa replicación semisíncrona hacia una réplica en el mismo centro de datos, con RPO cero, y asíncrona hacia otra región, con un RPO declarado de 30 segundos; los acuses de recibo solo se emiten tras la confirmación semisíncrona. Para los archivos y metadatos de entregas elige reparto por hash del identificador de entrega, porque la consulta principal es por entrega; para los informes por fecha mantiene una tabla aparte con reparto por rango y un fragmento más pequeño al final. Cada decisión queda en `reparto-log.md` con la métrica que la respalda y la que vigilará: cola por servidor, retraso de réplica y escrituras por fragmento.
 
 ## Práctica guiada
 
-1. Crea `work/SE-345/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el experimento distribuido con fallos y garantías declaradas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista las solicitudes de la plataforma con su tamaño típico y el más grande observado.
+2. Predice qué política de balanceo da el menor percentil 99 con tamaños de cola pesada.
+3. Simula 200 000 solicitudes con cuatro políticas y compara medianas y percentiles.
+4. Simula 2 000 conmutaciones con replicación asíncrona, semisíncrona y síncrona y registra pérdida y latencia.
+5. Reparte 100 000 claves por hash y por rango en ocho fragmentos y cuenta dónde caen las 5 000 escrituras más recientes.
+6. Cuenta cuántos fragmentos toca una consulta por tramo en cada reparto.
+7. Entrega `reparto-log.md` y pide a otra persona que encuentre la consulta que tu clave de reparto encarece.
 
 ## Ejercicios
 
-1. **Fundamental:** define Replicación y sharding con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la servicio financiero, compara tres opciones y entrega `model.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Cálculo:** con RPO de 30 ms y 200 escrituras por segundo, ¿cuántas escrituras pierdes por conmutación de media? Compara con la tabla.
+2. **Diseño:** el listado de entregas de un curso debe responder en una sola consulta; ¿qué clave de reparto eliges y qué escritura se vuelve difícil?
+3. **Contraejemplo:** describe una carga en que «dos opciones al azar» sea peor que los turnos.
+4. **Diagnóstico:** un fragmento tiene el 40 % de las escrituras. Formula tres hipótesis y la observación que descarta cada una.
 
 ## Reto verificable
 
-Entrega el **experimento distribuido con fallos y garantías declaradas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `reparto-log.md` con la predicción, las tres tablas, la política de balanceo, el modo de replicación por dato y la clave de reparto con la consulta que abarata y la que encarece. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos percentiles con las mismas semillas y puede decir cuántas escrituras confirmadas se pueden perder en una conmutación. No se aprueba por declarar «balanceado» sin un percentil 99 ni por elegir una clave de reparto sin nombrar su consulta más cara.
+
+## Caso conductor
+
+La distribución del cierre de plazo es el artefacto de esta clase en el caso conductor de la Parte 28. `SE-346` pregunta cómo comprobar que el sistema aguanta fallos reales: caos controlado. Cambia después una sola decisión, la clave de reparto, y observa qué otra (la consulta por tramo) se ve afectada.
+
+## Preguntas frecuentes
+
+### ¿Por qué «dos opciones al azar» y no siempre el menos cargado?
+
+Porque consultar el estado de todos los servidores cuesta, se desactualiza al instante y concentra el tráfico en el que parece más libre a todos los balanceadores a la vez. Dos opciones logran casi lo mismo con un costo mínimo.
+
+### ¿Replicación síncrona significa cero pérdida?
+
+Solo para lo que se confirmó con la réplica. Si el primario y la réplica fallan juntos, o si la réplica es del mismo disco, no hay protección. La garantía depende de dónde vive la réplica.
+
+### ¿Puedo cambiar la clave de reparto después?
+
+Es costoso: hay que reescribir todos los datos y migrar con doble escritura (`SE-318`). Conviene elegirla con las consultas reales y revisar el patrón de acceso antes de comprometerla.
+
+### ¿Cómo sé que un fragmento está caliente?
+
+Con la carga por fragmento (escrituras, lecturas y tamaño) y su razón respecto a la mediana. Un promedio de CPU del conjunto lo esconde.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **inferir orden global o exactamente-una-vez desde observaciones locales**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **una clave de reparto que crece con el tiempo concentra las escrituras en un fragmento**. Reparte 100 000 claves por fecha en rangos fijos y cuenta dónde caen las 5 000 escrituras más recientes.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** un fragmento está al 100 % de CPU mientras los otros siete están por debajo del 10 %. **Hipótesis rivales:** (a) un fragmento con hardware más lento; (b) una consulta pesada concreta; (c) la clave de reparto envía todas las escrituras nuevas al mismo fragmento. **Prueba:** cuenta las escrituras por fragmento en la última hora; si un fragmento concentra casi todas y su rango incluye las claves más recientes, la causa es la clave monótona. **Conclusión:** el reparto por rango acumula las escrituras recientes. **Regresión:** cambia a hash o añade un prefijo de reparto, y añade una prueba que simule escrituras crecientes y compruebe que ningún fragmento supera el doble de la mediana. No cambies a la vez la clave y el tamaño de los fragmentos.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Algunos servidores saturados y otros ociosos | Balanceo por turnos con tamaños de cola pesada | Dos opciones al azar o menos conexiones |
+| Estudiantes con acuse y sin registro tras una conmutación | Replicación asíncrona con acuse previo | Confirmar con una réplica antes del acuse |
+| Un fragmento recibe casi todas las escrituras | Clave de reparto monótona por rango | Hash o prefijo de reparto |
+| Las consultas por tramo son lentas con hash | Toda consulta toca todos los fragmentos | Índice o tabla por rango para esas consultas |
+| Mover fragmentos degrada el servicio | Rebalanceo sin límite de velocidad | Mover por partes con tope de tráfico |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: procesos locales o contenedores, reloj monotónico y trazas correlacionadas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-345/
 ├── README.md
-│   ├── model.md
-│   ├── experiment.py
-│   ├── failure-trace.md
-├── activity.yaml
-└── rubric.json
+├── modelo/
+│   ├── balanceo.py
+│   ├── conmutacion.py
+│   └── reparto.py
+├── tests/test_reparto.py
+└── evidence/reparto-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `model.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas (345, 3451) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `heapq`, `hashlib`, `statistics`, `collections`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- una réplica en otra región puede estar sujeta a otra jurisdicción: decide dónde se replican los datos de estudiantes antes de copiarlos (`SE-322`);
+- un acuse emitido antes de que el dato sea durable es una promesa falsa a una persona: documenta qué significa «recibido»;
+- un balanceador que enruta por contenido puede discriminar sin querer; revisa las claves de enrutamiento;
+- documenta la política de reparto y de replicación en texto accesible, además del diagrama;
+- respeta las licencias de los artículos citados y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «escala el servicio a diez servidores» configurará un balanceador por turnos, una réplica asíncrona y un reparto por fecha, porque son los valores más simples. Pídele en cambio que declare el tamaño máximo y el percentil 99 de las solicitudes, que justifique la política de balanceo con una simulación de cola pesada, que indique el RPO por dato y que nombre la consulta que su clave de reparto encarece. Revisa especialmente si emite acuses antes de la confirmación de la réplica y si la clave de reparto crece con el tiempo: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la servicio financiero por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, una galería de fotos con subidas de tamaños muy distintos): cambia las solicitudes y conserva el procedimiento de medir con cola pesada, elegir la política con el percentil 99, declarar el RPO por dato y escoger la clave de reparto por la consulta. La transferencia está lograda cuando puedes decir qué consulta paga la clave elegida, no cuando el servicio tiene diez servidores.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-345/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué igualar solicitudes no iguala trabajo |
+| corrección | percentiles, pérdidas por conmutación y reparto por fragmento reproducibles |
+| diseño | política de balanceo, RPO por dato y clave de reparto con su consulta cara |
+| diagnóstico | reproducción del fragmento caliente con regresión |
+| incertidumbre | declaración de que la carga, los tamaños y los retrasos son supuestos |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Mitzenmacher, «The power of two choices…»](https://doi.org/10.1109/71.963420) — dos opciones al azar; autoridad: artículo original (2001).
+- [Karger et al., «Consistent hashing and random trees»](https://doi.org/10.1145/258533.258660) — hash consistente; autoridad: artículo original (1997).
+- [PostgreSQL: servidores en espera](https://www.postgresql.org/docs/current/warm-standby.html) — replicación síncrona y asíncrona; autoridad: documentación oficial de PostgreSQL.
+- [DeCandia et al., «Dynamo»](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf) — hash consistente y cuórums configurables; autoridad: artículo de los autores (2007).
+- [Chang et al., «Bigtable»](https://doi.org/10.1145/1365815.1365816) — reparto por rango; autoridad: artículo de los autores (2008).
 
-- **In Search of an Understandable Consensus Algorithm** — Stanford University. [https://raft.github.io/raft.pdf](https://raft.github.io/raft.pdf) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Go Memory Model** — Go project. [https://go.dev/ref/mem](https://go.dev/ref/mem) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que los 316,8 de percentil 99, las 6,11 escrituras perdidas o las 5 000 escrituras en un fragmento se observen en un sistema real. Esa afirmación depende de la carga, de la red y del motor.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Replicación, sharding y balanceo**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-346`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún balanceador, ninguna base replicada ni ninguna red: los tamaños, la carga, los retrasos y los ocho fragmentos son construcciones del autor. La siguiente clase pregunta cómo comprobar que todo esto resiste fallos reales: caos controlado y pruebas de distribución.
+
+## Glosario
+
+- **balanceo de carga:** reparto de las solicitudes entre servidores según una política.
+- **objetivo de punto de recuperación (RPO):** cantidad máxima de datos que se acepta perder, medida como intervalo de tiempo o número de escrituras.
+- **replicación semisíncrona:** replicación en que el primario espera la confirmación de al menos una réplica antes de responder.
+- **fragmento (*shard*):** subconjunto de los datos alojado en un nodo o grupo de nodos.
+- **fragmento caliente:** fragmento que recibe una fracción desproporcionada de la carga.
 
 ---
 

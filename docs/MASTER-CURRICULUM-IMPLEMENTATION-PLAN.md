@@ -580,18 +580,18 @@ evita una explicación genérica.
 
 ### Parte 28 — Sistemas distribuidos
 
-- [ ] `SE-337` — distinguir concurrencia, paralelismo y distribución.
-- [ ] `SE-338` — reproducir y diagnosticar una race.
-- [ ] `SE-339` — aplicar cancelación estructurada.
-- [ ] `SE-340` — razonar con relojes y orden parcial.
-- [ ] `SE-341` — definir el modelo de fallos.
-- [ ] `SE-342` — aplicar CAP y PACELC sin eslóganes.
-- [ ] `SE-343` — explicar consenso y elección de líder.
-- [ ] `SE-344` — implementar idempotencia distribuida.
-- [ ] `SE-345` — comparar replicación y sharding.
-- [ ] `SE-346` — diseñar hipótesis de chaos.
-- [ ] `SE-347` — combinar race y partición controlada.
-- [ ] `SE-348` — demostrar degradación y recuperación.
+- [x] `SE-337` — distinguir concurrencia, paralelismo y distribución.
+- [x] `SE-338` — reproducir y diagnosticar una race.
+- [x] `SE-339` — aplicar cancelación estructurada.
+- [x] `SE-340` — razonar con relojes y orden parcial.
+- [x] `SE-341` — definir el modelo de fallos.
+- [x] `SE-342` — aplicar CAP y PACELC sin eslóganes.
+- [x] `SE-343` — explicar consenso y elección de líder.
+- [x] `SE-344` — implementar idempotencia distribuida.
+- [x] `SE-345` — comparar replicación y sharding.
+- [x] `SE-346` — diseñar hipótesis de chaos.
+- [x] `SE-347` — combinar race y partición controlada.
+- [x] `SE-348` — demostrar degradación y recuperación.
 
 ### Parte 29 — Cloud y plataforma
 

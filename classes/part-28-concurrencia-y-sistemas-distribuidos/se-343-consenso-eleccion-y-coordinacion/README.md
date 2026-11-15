@@ -2,208 +2,327 @@
 
 [← SE-342 — Consistencia, disponibilidad y particiones](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/README.md) · [↑ Parte 28](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-343.html) · [SE-344 — Idempotencia y procesamiento distribuido →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/README.md)
 
-> [!WARNING]
-> Este material se publica para revisión editorial. Debe contrastarse como parte
-> completa antes de presentarse como contenido terminado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que sepas cuándo un sistema necesita que varios nodos se pongan de acuerdo sobre un único valor o un único líder, qué hace que ese acuerdo sea seguro (mayorías que se cruzan, mandatos crecientes, testigos de cerco) y qué parte conviene delegar en un servicio de coordinación en lugar de implementarla a mano con relojes y tiempos límite.
+
+**Por qué aparece aquí.** Sigue a **Consistencia, disponibilidad y particiones**: allí se aceptó divergir o se rechazó; aquí hay datos y funciones que no admiten dos verdades, como «quién es el único que corrige hoy los envíos» o «qué nodo posee el cupo de esta tutoría». En el caso conductor, un trabajo programado que cierra el plazo y publica notas debe ejecutarlo un solo nodo, aunque haya tres.
+
+**Error conceptual que debe corregir.** Creer que «el nodo con el identificador mayor que veo vivo es el líder» o que «un arrendamiento con tiempo de expiración basta para ser el único titular»: ambas reglas producen dos líderes o un titular caducado que escribe.
+
+**Secuencia de aprendizaje.** Antes de leer los resultados, predices cuántos líderes produce una partición de cinco nodos con una regla ingenua y con una de mayoría; después mides cuántas escrituras de un titular caducado acepta un almacén con y sin testigo de cerco, y cuántas rondas necesita una elección con plazos aleatorios según su dispersión. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) exige conectar conocimiento previo, contexto y transferencia; la [práctica de recuperación](https://pubmed.ncbi.nlm.nih.gov/16507066/) respalda producir de nuevo la explicación tras una demora; y [Education for Life and Work](https://nap.nationalacademies.org/resource/13398/dbasse_084153.pdf) exige devolución que explique la causa del error.
+
+**Evidencia de aprendizaje.** `consenso-log.md` con la predicción, las tres figuras reproducidas, la decisión de qué funciones requieren un único líder o titular, el mecanismo elegido (servicio de coordinación, mayoría con mandato) y la regla de cerco aplicada a cada recurso compartido.
+
+**Límite de la conclusión.** Los modelos son enumeraciones y simulaciones del autor con semilla fija: no se ejecutó Raft, Paxos ni ningún servicio de coordinación, y las pausas, los retardos de 5 a 25 ms y los plazos de 150 ms en adelante son supuestos. El modelo de elección es una simplificación inspirada en Raft, no una implementación.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [Lamport, «The part-time parliament» (1998)](https://doi.org/10.1145/279227.279229) | Presenta Paxos, un protocolo de consenso tolerante a fallos de parada con mayorías. | No describe cómo operar un servicio concreto basado en él. |
+| [Ongaro y Ousterhout, «In search of an understandable consensus algorithm» (Raft)](https://raft.github.io/raft.pdf) | Describe la elección de líder con mandatos, plazos aleatorios y mayorías, y el registro replicado. | No mide el desempeño en la plataforma ni cubre todos los modos de fallo. |
+| [Fischer, Lynch y Paterson (1985)](https://doi.org/10.1145/3149.214121) | Demuestra que en un sistema asíncrono ningún protocolo determinista garantiza consenso si un proceso puede fallar. | No impide los protocolos prácticos que usan tiempos límite o aleatoriedad. |
+| [Kleppmann, «How to do distributed locking»](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html) | Explica por qué un cerrojo con expiración necesita un testigo de cerco creciente para ser seguro. | No evalúa un producto concreto de cerrojos distribuidos. |
+| [Burrows, «The Chubby lock service for loosely-coupled distributed systems»](https://research.google/pubs/the-chubby-lock-service-for-loosely-coupled-distributed-systems/) | Muestra el uso de un servicio de coordinación pequeño, con consenso, para elegir líderes y guardar metadatos. | Es la experiencia de una empresa; no mide el sistema de esta plataforma. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-342`: durante una partición un lado debe rechazar o divergir. La pregunta activa es: **¿qué funciones no admiten dos titulares a la vez, quién decide quién es el titular y cómo se impide que uno caducado siga actuando?**
 
 ## Prerrequisitos
 
-- Haber completado o diagnosticado `SE-342` y poder explicar qué evidencia produjo.
-- Manejar archivos de texto, rutas y control de versiones a nivel básico.
-- Disponer de procesos locales o contenedores, reloj monotónico y trazas correlacionadas.
+- Haber completado `SE-342` o poder explicar qué se rechaza y qué se acepta durante una partición.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`random`, `collections`).
+- Entender qué es una mayoría absoluta y por qué dos mayorías se cruzan.
 
 ## Problema auténtico
 
-Un equipo que trabaja en una plataforma educativa debe decidir sobre **Consenso, elección y coordinación**. Tiene información incompleta, restricciones de tiempo y personas afectadas por una decisión incorrecta. El reto no es repetir definiciones: es convertir el tema en un resultado revisable, distinguir observación de supuesto y conservar evidencia para que otra persona pueda continuar o cuestionar el trabajo.
+El cierre de cada plazo lanza un trabajo que publica las calificaciones. Para que no se ejecute tres veces, el equipo hizo que «el servidor con el identificador mayor entre los vivos» fuera el único que lo ejecutara. Una noche, un corte entre dos centros de datos dejó a cada lado creyéndose el mayor de los que veía: se publicaron las notas dos veces, con datos distintos. Se sustituyó la regla por un cerrojo con expiración de diez segundos en una base de datos compartida. Semanas después, el servidor titular sufrió una pausa de recolección de memoria de doce segundos justo antes de escribir; el cerrojo había caducado, otro servidor lo tomó y escribió, y al despertar el primero escribió encima. Ninguna de las dos reglas era absurda: las dos olvidaban qué pasa cuando el que cree mandar ya no manda.
 
 ## Objetivos observables
 
 Al terminar podrás:
 
-1. explicar Consenso y elección con un ejemplo y un contraejemplo;
-2. comparar al menos dos opciones usando evidencia, riesgo, costo y reversibilidad;
-3. producir el artefacto **experimento distribuido con fallos y garantías declaradas** para que otra persona pueda revisarlo;
-4. diagnosticar el fallo «inferir orden global o exactamente-una-vez desde observaciones locales» sin ocultar incertidumbre;
-5. transferir la decisión a otra plataforma o dominio sin depender de una marca.
-
-## Temas y por qué importan
-
-| Tema | Función en la clase | Por qué importa |
-| --- | --- | --- |
-| Consenso | Modelo | Delimita qué entidad, estado o relación se estudia y qué queda fuera. |
-| Elección | Mecanismo | Explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. |
-| Coordinación | Evidencia | Define la señal observable que permite contrastar el modelo sin confundir correlación con causa. |
-| Concurrencia | Decisión | Convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. |
+1. explicar qué es el consenso y qué dice el resultado de Fischer, Lynch y Paterson sobre sus límites;
+2. mostrar con una enumeración por qué una regla de mayoría nunca produce dos líderes y una regla ingenua sí;
+3. medir cuántas escrituras de un titular caducado acepta un almacén con y sin testigo de cerco;
+4. relacionar la dispersión de los plazos de elección con las rondas necesarias para elegir líder;
+5. decidir qué funciones de la plataforma requieren un único titular y qué mecanismo las protege.
 
 ## Mapa conceptual
 
 ```mermaid
 flowchart LR
-    P["Problema: Consenso, elección y coordinación"] --> M["Modelo: Consenso"]
-    M --> D["Decisión: elección"]
-    D --> E["Evidencia: coordinación"]
-    E --> R["Revisión: concurrencia"]
-    R -->|nueva información| M
+    A[Función que admite un único titular] --> B[Elegir titular]
+    B --> C{Regla}
+    C -->|el mayor que veo| D[Varios líderes en una partición]
+    C -->|mayoría con mandato| E[A lo sumo un líder por mandato]
+    E --> F[Arrendamiento: el titular puede caducar]
+    F --> G[Pausa del titular]
+    G --> H[Testigo de cerco en el recurso]
+    E --> I[Tamaño del grupo: 2f+1 tolera f caídas]
 ```
 
-El diagrama se lee de izquierda a derecha: el problema obliga a construir un
-modelo; el modelo permite decidir; la decisión solo se sostiene con evidencia; y
-la revisión devuelve nueva información al modelo. No es una secuencia lineal de
-entrega, sino un ciclo de aprendizaje aplicado a **Consenso, elección y coordinación**.
+El mapa muestra que elegir es solo el primer paso. Un líder elegido por mayoría puede perder el mandato sin enterarse, y el recurso que protege debe poder rechazarlo: de ahí el testigo de cerco. El tamaño del grupo fija cuántas caídas se toleran.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Consenso y sus límites | Fija qué puede prometer un protocolo de acuerdo. | Predicción, traza causal y contraejemplo de **Consenso y sus límites** en `consenso-log.md` |
+| Elección de líder y mayorías | Impide dos líderes en una partición. | Predicción, traza causal y contraejemplo de **Elección de líder y mayorías** en `consenso-log.md` |
+| Mandatos y plazos de elección | Hacen que la elección termine en pocas rondas. | Predicción, traza causal y contraejemplo de **Mandatos y plazos de elección** en `consenso-log.md` |
+| Arrendamientos y testigos de cerco | Protegen el recurso del titular caducado. | Predicción, traza causal y contraejemplo de **Arrendamientos y testigos de cerco** en `consenso-log.md` |
+| Servicios de coordinación y tamaño del grupo | Evitan reimplementar lo difícil y fijan cuántas caídas se toleran. | Predicción, traza causal y contraejemplo de **Servicios de coordinación y tamaño del grupo** en `consenso-log.md` |
 
 ## Conceptos y decisiones
 
-Concurrencia y distribución eliminan supuestos de orden, tiempo y conocimiento compartido; las garantías deben declararse bajo fallos concretos.
+### 1. Consenso y sus límites
 
-La pregunta rectora de esta parte es: **¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?** La respuesta debe
-apoyarse en **modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte**.
+El **consenso** exige que un conjunto de nodos decida un valor con tres propiedades: acuerdo (todos los que deciden eligen el mismo), validez (el valor decidido fue propuesto por alguien) y terminación (los nodos correctos terminan por decidir). Fischer, Lynch y Paterson demostraron que, en un sistema asíncrono, no existe un protocolo determinista que garantice las tres si un solo proceso puede fallar: no se distingue un nodo lento de uno caído. Los protocolos prácticos esquivan el límite renunciando a la terminación en el peor caso: Paxos y Raft nunca violan el acuerdo, pero pueden no avanzar durante periodos de inestabilidad, y confían en tiempos límite y aleatoriedad para avanzar casi siempre. La seguridad (nunca dos valores) no depende del tiempo; la vivacidad (terminar) sí.
 
-### 1. Consenso: modelo
+### 2. Elección de líder y mayorías
 
-En esta clase, **Consenso** se estudia como modelo. Su función es delimita qué entidad, estado o relación se estudia y qué queda fuera. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Consenso, elección y coordinación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Una regla local como «soy líder si tengo el identificador mayor entre los nodos que veo» es insegura: en una partición cada lado tiene su mayor y habrá un líder por lado. La regla segura exige una **mayoría absoluta**: se es líder solo si más de la mitad del grupo total lo reconoce. Dos mayorías absolutas siempre comparten al menos un nodo, y ese nodo no puede votar por dos líderes en el mismo mandato; por eso, a lo sumo uno puede reunir la mayoría. El precio es que un grupo sin mayoría no elige a nadie: se pierde disponibilidad para conservar la unicidad, exactamente la decisión de `SE-342`.
 
-### 2. Elección: mecanismo
+### 3. Mandatos y plazos de elección
 
-En esta clase, **elección** se estudia como mecanismo. Su función es explica la cadena causal: qué entrada cambia qué estado y mediante qué regla. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Consenso, elección y coordinación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+En Raft, el tiempo se divide en **mandatos** numerados. Cada nodo que no oye a un líder dentro de su plazo de elección se postula para el siguiente mandato y pide votos. Si dos nodos se postulan casi a la vez, los votos se reparten y ninguno alcanza la mayoría: el mandato termina sin líder y hay que repetir. La solución de Raft es aleatorizar el plazo de cada nodo dentro de un intervalo, de modo que casi siempre uno se postule bastante antes que los demás y gane antes de que otros se despierten. La dispersión debe superar el retardo de los mensajes: si no, los plazos no separan lo suficiente a los candidatos.
 
-### 3. Coordinación: evidencia
+### 4. Arrendamientos y testigos de cerco
 
-En esta clase, **coordinación** se estudia como evidencia. Su función es define la señal observable que permite contrastar el modelo sin confundir correlación con causa. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Consenso, elección y coordinación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Un **arrendamiento** (*lease*) concede un derecho por un tiempo; al caducar, otro puede obtenerlo. Es útil porque el titular caído libera el derecho sin que nadie tenga que declararlo muerto. Pero el titular puede estar vivo y pausado (recolección de memoria, suspensión de la máquina virtual, red lenta) y actuar cuando ya caducó. Ningún tiempo de expiración lo evita, porque el titular no puede saber cuánto tardó. La defensa es un **testigo de cerco** (*fencing token*): un número creciente que el servicio entrega con cada concesión y que el recurso comprueba en cada escritura, rechazando cualquier número menor que el último visto. Así, la seguridad no depende de que el titular crea estar vigente, sino de que el recurso sepa quién lo está.
 
-### 4. Concurrencia: decisión
+### 5. Servicios de coordinación y tamaño del grupo
 
-En esta clase, **concurrencia** se estudia como decisión. Su función es convierte el conocimiento en opciones comparables, límites, riesgos y condiciones de reversión. Debe conectarse con la pregunta «¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?» y demostrarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. Un tratamiento superficial solo lo nombraría; un tratamiento útil identifica precondiciones, transición, resultado observable y caso en que la explicación deja de sostenerse. Aplica esa secuencia a **Consenso, elección y coordinación**, registra los supuestos y explica qué decisión concreta cambia al comprenderla.
+Implementar consenso es difícil y los errores no se ven en las pruebas. Por eso se delega en un **servicio de coordinación** pequeño (Chubby en Google, y servicios de código abierto equivalentes) que ofrece cerrojos, elección y metadatos sobre un núcleo de consenso, y que se usa desde las aplicaciones como cliente. Su tamaño se elige por tolerancia: un grupo de 2*f* + 1 nodos tolera *f* caídas y mantiene la mayoría; con 3 nodos se tolera 1 caída, con 5, 2, y con 7, 3. Los grupos de tamaño par no ayudan: 4 nodos toleran 1 caída, igual que 3, a cambio de más mensajes.
 
-La regla de trabajo es conservar trazabilidad: problema → supuesto → opción → decisión → evidencia → revisión. Una solución técnicamente posible puede seguir siendo inadecuada si excluye personas, desplaza riesgos o no puede mantenerse. La herramienta concreta se elige después de fijar el comportamiento y el criterio de aceptación.
+### Cuántos líderes cree haber cada regla
+
+Se enumeran particiones de un grupo de cinco nodos y se cuenta cuántos grupos se creen con derecho a tener líder: con la regla del identificador mayor que cada uno ve (un líder por grupo visible) y con la regla de mayoría absoluta. Se recorren además las 15 formas de partir el grupo en dos.
+
+```python
+def leaders_naive(groups):  return sum(1 for g in groups if g)
+def leaders_quorum(groups, n):  return sum(1 for g in groups if len(g) > n // 2)
+```
+
+| Situación | Regla «el mayor que veo» | Regla de mayoría |
+|---|---:|---:|
+| Sin partición | 1 | 1 |
+| Partición en 2 y 3 | 2 | 1 |
+| Partición en 1 y 4 | 2 | 1 |
+| Partición en 1, 1 y 3 | 3 | 1 |
+| Partición en 2, 2 y 1 | 3 | 0 |
+| Las 15 biparticiones de 5 nodos | 2 en las 15 | nunca más de 1 |
+
+La regla ingenua produce dos o tres líderes en toda partición; la de mayoría produce uno, o ninguno cuando ningún grupo tiene mayoría (2 | 2 | 1). El caso sin líder es el precio de la seguridad: el servicio se detiene en lugar de mentir.
+
+![Tabla con el número de líderes que se cree cada regla de elección en distintas particiones de cinco nodos y en las 15 biparticiones posibles.](../../../content/part-28/figures/se-343-lideres-que-se-creen-legitimos.svg)
+
+**Cómo leer la figura.** Cada fila es una forma de partir los cinco nodos; las columnas cuentan cuántos grupos se creen con un líder según cada regla. **Dónde deja de valer:** el modelo enumera conjuntos de nodos y no incluye mensajes, retrasos ni nodos que cambian de grupo durante la elección; un protocolo real debe además garantizar que un líder anterior deje de actuar. La tabla muestra por qué la mayoría es necesaria, no que sea suficiente.
+
+### Un titular caducado que escribe
+
+Un titular recibe el testigo 1 y se pausa un tiempo exponencial de media 4 s; su arrendamiento dura 10 s. Si la pausa lo supera, otro titular recibe el testigo 2 y escribe, y luego el primero despierta y escribe. El almacén acepta todo (sin cerco) o rechaza cualquier escritura con un testigo menor que el máximo visto (con cerco). Se repite con 10 000 tareas; aparte se cuentan cuántas superan los 10 s según la media de la pausa.
+
+```python
+def write(self, token, who):
+    if self.fencing and token < self.max_token:
+        return False                      # el recurso rechaza al titular caducado
+    self.max_token = max(self.max_token, token); self.log.append((token, who))
+    return True
+```
+
+| Pausa media del titular | Tareas cuyo arrendamiento caduca antes de escribir |
+|---:|---:|
+| 1 s | 1 de 10 000 |
+| 2 s | 73 de 10 000 |
+| 4 s | 854 de 10 000 |
+| 8 s | 2 918 de 10 000 |
+
+En la corrida de media 4 s hay 849 escrituras de un titular caducado (otra semilla da 854 caducados): sin cerco el almacén las acepta todas, con cerco las rechaza todas. Con pausa media de 1 s el problema es raro y por eso pasa las pruebas; con 8 s afecta a casi tres de cada diez tareas. Alargar el arrendamiento reduce la frecuencia sin eliminar el defecto.
+
+![Tabla con la fracción de tareas cuyo arrendamiento caduca antes de escribir según la pausa media del titular, y el efecto de aceptar o rechazar sus escrituras con un testigo de cerco.](../../../content/part-28/figures/se-343-testigo-de-cerco.svg)
+
+**Cómo leer la figura.** Cada fila es una pausa media; el número es cuántas tareas de 10 000 escriben después de que su arrendamiento caducó. **Dónde deja de valer:** la distribución exponencial de pausas es un supuesto del autor; las pausas reales (recolección de memoria, suspensión) tienen colas largas y correlación. El cerco exige que el *recurso* compare testigos: si el recurso es una API externa que no lo hace, el cerco no protege.
+
+### Plazos de elección y rondas
+
+Cinco nodos se postulan tras un plazo de 150 ms más un valor aleatorio uniforme de 0 a *w* ms; los mensajes tardan hasta 25 ms. Un candidato gana si ningún otro se postula en los 25 ms siguientes al primero; si hay empate, se repite la ronda (tope de 50). Se repite 20 000 veces para seis anchuras.
+
+```python
+tos = [150 + r.uniform(0, width) for _ in range(n)]
+first = min(tos)
+cands = [i for i, t in enumerate(tos) if t - first < delay[1]]
+if len(cands) == 1: break              # un solo candidato dentro de la ventana de mensajes
+```
+
+| Plazo de elección | Rondas medias (tope 50) | Líder en la primera ronda | Tiempo medio hasta tener líder |
+|---|---:|---:|---:|
+| 150 ms (sin aleatoriedad) | 51,0 (no converge) | 0,0 % | 7 650 ms |
+| 150 a 175 ms | 51,0 (no converge) | 0,0 % | 7 863 ms |
+| 150 a 200 ms | 25,5 | 3,1 % | 4 057 ms |
+| 150 a 250 ms | 4,20 | 24,0 % | 725 ms |
+| 150 a 300 ms | 2,49 | 40,3 % | 461 ms |
+| 150 a 450 ms | 1,54 | 64,7 % | 333 ms |
+
+Con la misma dispersión que el retardo de los mensajes (25 ms) la elección no converge: los candidatos siempre se pisan. Al ampliar la dispersión a 100 ms o más, converge en pocas rondas y el tiempo total baja pese a que cada ronda espera más. El ajuste depende de la red, y los valores de Raft (150 a 300 ms) son una guía, no una regla.
+
+![Tabla con las rondas medias, el porcentaje de líderes elegidos en la primera ronda y el tiempo medio hasta tener líder según la anchura del plazo de elección aleatorio.](../../../content/part-28/figures/se-343-plazos-de-eleccion.svg)
+
+**Cómo leer la figura.** Cada fila es un intervalo para el plazo de elección; las columnas miden cuánto tarda en haber líder. **Dónde deja de valer:** el modelo supone retardos uniformes de hasta 25 ms y trata cualquier empate como fracaso, sin reparto parcial de votos; un protocolo real tiene mandatos que crecen y votos que se pueden repartir. Es un modelo para entender por qué aleatorizar, no un simulador de Raft.
 
 ## Definiciones de trabajo
 
-- **Consenso:** concepto usado aquí como modelo; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Elección:** concepto usado aquí como mecanismo; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Coordinación:** concepto usado aquí como evidencia; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
-- **Concurrencia:** concepto usado aquí como decisión; se acepta solo si puede observarse o justificarse mediante modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte.
+- **consenso:** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
+- **mayoría absoluta:** más de la mitad de los nodos del grupo completo, no de los que se ven.
+- **mandato (*term*):** periodo numerado durante el cual a lo sumo un líder puede ejercer.
+- **arrendamiento (*lease*):** derecho concedido por un tiempo limitado que caduca solo.
+- **testigo de cerco (*fencing token*):** número creciente concedido con cada derecho y comprobado por el recurso para rechazar titulares caducados.
 
-Estas definiciones son operativas para el borrador: deberán sustituirse o
-precisarse con terminología de las fuentes de la clase durante la revisión
-cualitativa. No son un glosario normativo.
+Las definiciones son operativas para la plataforma de entregas. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Registra una sola decisión sobre **Consenso, elección y coordinación**:
+El fragmento muestra que dos mayorías absolutas se cruzan. Antes de ejecutarlo, predice si existen dos subconjuntos disjuntos de tres nodos entre cinco.
 
-| Elemento | Ejemplo contrastable |
-| --- | --- |
-| Contexto | el equipo necesita una decisión en una iteración y carece de una medición directa |
-| Supuesto | la opción elegida reduce el riesgo principal sin crear uno mayor |
-| Evidencia | ejemplo, medición o revisión que una segunda persona puede repetir |
-| Límite | el resultado no representa producción ni todas las poblaciones usuarias |
-| Próxima señal | un dato que confirmaría, refutaría o modificaría la decisión |
+```python
+from itertools import combinations
+nodos = range(5)
+mayorias = [set(c) for c in combinations(nodos, 3)]
+assert all(a & b for a in mayorias for b in mayorias)
+```
 
-El valor del ejemplo no está en “tener razón”, sino en que el razonamiento pueda ser inspeccionado.
+Todas las parejas de mayorías comparten al menos un nodo, porque 3 + 3 > 5. Registra versión de Python y salida; después repite con cuatro nodos y subconjuntos de dos, y comprueba que existen pares disjuntos.
 
 ## Ejemplo profesional
 
-En la plataforma educativa, el equipo prepara un cambio relacionado con **Consenso, elección y coordinación**. Parte de esta pregunta: **¿qué puede conocer cada participante y qué propiedad se mantiene durante una partición?** Antes de implementarlo, registra personas afectadas, estados normales y degradados, datos utilizados, costo de reversión y señales de éxito. Dos opciones se comparan con la misma tabla y se contrastan usando modelo de estados, ejecución controlada, historia de eventos y contraejemplo de una garantía más fuerte. La alternativa ganadora queda condicionada a una prueba pequeña. La revisión incluye a producto, ingeniería y una persona que no participó en la propuesta. El resultado se archiva como `model.md` y enlaza la evidencia, no solo la conclusión.
+El equipo clasifica las funciones de la plataforma. Publicar notas al cierre del plazo exige un único ejecutor: usa el servicio de coordinación que ya opera la plataforma, con un grupo de cinco nodos (tolera dos caídas), y pide un cerrojo cuya concesión incluye un testigo de cerco. La publicación escribe en la base con el testigo en cada sentencia y la base rechaza cualquier número menor que el último visto; así una pausa de recolección de memoria no puede pisar la publicación del siguiente titular. Las tareas repetibles (enviar un recordatorio) no usan titular: se hacen idempotentes (`SE-344`). El equipo no implementa Raft: mide cuántas tareas superan el arrendamiento con sus pausas reales, ajusta su duración y registra que el cerco es la defensa real. Cada decisión queda en `consenso-log.md` con la medida que la respalda.
 
 ## Práctica guiada
 
-1. Crea `work/SE-343/` sin copiar datos personales ni secretos.
-2. Formula el problema en una frase que incluya actor, necesidad y consecuencia.
-3. Separa en una tabla hechos observados, inferencias, incógnitas y restricciones.
-4. Propón dos opciones y una opción de no actuar; explicita costos y riesgos.
-5. Construye el experimento distribuido con fallos y garantías declaradas con los archivos indicados abajo.
-6. Introduce deliberadamente el fallo controlado y registra síntomas antes de corregirlo.
-7. Pide una revisión: la otra persona debe reconstruir la decisión solo con el artefacto.
-8. Actualiza la conclusión y anota qué evidencia cambiaría la decisión.
+1. Lista las funciones de la plataforma que no admiten dos ejecutores y clasifícalas.
+2. Predice cuántos líderes produce cada regla en una partición 2 | 3 de cinco nodos.
+3. Enumera las 15 biparticiones de cinco nodos y cuenta los líderes de cada regla.
+4. Simula 10 000 tareas con pausas exponenciales de media 4 s y arrendamiento de 10 s, con y sin testigo de cerco.
+5. Varía la pausa media (1, 2, 4 y 8 s) y registra cuántas tareas superan el arrendamiento.
+6. Simula la elección con seis dispersiones de plazo y encuentra la menor que converge.
+7. Entrega `consenso-log.md` y pide a otra persona que encuentre un recurso que acepte escrituras sin comprobar el testigo.
 
 ## Ejercicios
 
-1. **Fundamental:** define Consenso y elección con un ejemplo propio, un contraejemplo y un criterio que permita distinguirlos.
-2. **Aplicado:** resuelve el caso de la plataforma educativa, compara tres opciones y entrega `model.md` con trazabilidad completa.
-3. **Avanzado:** cambia una restricción crítica —plataforma, escala, conectividad, regulación o capacidad del equipo— y demuestra qué partes de la decisión se conservan y cuáles deben revisarse.
+1. **Tamaño:** ¿cuántos nodos necesitas para tolerar tres caídas con mayoría? ¿Qué ganas con ocho en vez de siete?
+2. **Cálculo:** con una pausa media de 3 s y un arrendamiento de 10 s, ¿qué fracción de tareas caduca (distribución exponencial)? Calcula `exp(-10/3)` y compara con la tabla.
+3. **Contraejemplo:** describe un recurso para el que el testigo de cerco no sirve (por ejemplo, una API externa) y qué alternativa tienes.
+4. **Diagnóstico:** las notas se publican dos veces una vez al mes. Formula tres hipótesis y la observación que descarta cada una.
 
 ## Reto verificable
 
-Entrega el **experimento distribuido con fallos y garantías declaradas** de forma que una persona que no participó en
-la clase pueda reconstruir problema, supuestos, opciones, decisión y evidencia.
-El reto se acepta únicamente si esa persona puede señalar una condición concreta
-que cambiaría la decisión y reproducir al menos una comprobación sin pedir contexto
-oral adicional.
+Entrega `consenso-log.md` con la predicción, las tres tablas, la clasificación de funciones con titular único y el mecanismo y testigo por recurso. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos conteos con las mismas semillas y puede decir qué recurso rechaza al titular caducado. No se aprueba por afirmar que «el cerrojo con expiración garantiza un único ejecutor» sin analizar la pausa del titular ni por proponer escribir Raft en el servicio.
+
+## Caso conductor
+
+El ejecutor único del cierre de plazo es el artefacto de esta clase en el caso conductor de la Parte 28. `SE-344` pregunta qué hacer con lo que aun así se ejecuta dos veces: el procesamiento idempotente. Cambia después una sola decisión, el tamaño del grupo de coordinación, y observa qué otra (cuántas caídas se toleran) se ve afectada.
+
+## Preguntas frecuentes
+
+### ¿Necesito implementar Raft o Paxos?
+
+Casi nunca. Implementarlos bien exige pruebas que cubran fallos y particiones difíciles. Lo habitual es usar un servicio de coordinación o una base que ya lo implementa y aprender qué garantiza y cómo comprobar el cerco.
+
+### ¿Por qué no basta un cerrojo con expiración corta?
+
+Porque la pausa del titular puede ser más larga que cualquier expiración razonable y porque acortarla aumenta los falsos desalojos. El cerco hace seguro el sistema sin depender del tiempo.
+
+### ¿Por qué cinco nodos y no cuatro?
+
+Con cuatro, la mayoría es tres y se tolera una caída, igual que con tres; el cuarto nodo añade mensajes y un punto de fallo sin mejorar la tolerancia. Los grupos impares son más eficientes.
+
+### ¿Un servicio de coordinación elimina las particiones?
+
+No. Un lado sin mayoría no puede elegir ni conceder cerrojos y sus clientes deben tolerarlo: dejar de actuar como titulares cuando no puedan renovar su derecho.
 
 ## Fallo controlado y diagnóstico
 
-Provoca de forma segura este fallo: **inferir orden global o exactamente-una-vez desde observaciones locales**. No lo ejecutes sobre producción ni datos reales. Captura la decisión inicial, el síntoma observable y la primera hipótesis. Después reduce el caso, busca evidencia que pueda refutar tu hipótesis y corrige la causa, no solo el síntoma. Cierra con una medida preventiva y un procedimiento de recuperación.
+Reproduce el fallo clásico de la clase: **un titular pausado escribe después de que otro lo reemplazó**. Simula la pausa de un titular con arrendamiento de 10 s y almacén sin comprobación de testigo.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** las notas publicadas una noche se sobrescriben con datos más antiguos a los pocos segundos. **Hipótesis rivales:** (a) dos trabajos programados por un error de configuración; (b) una réplica con datos viejos que repuso lo anterior; (c) un titular caducado que escribió después del nuevo. **Prueba:** registra el testigo de cada escritura y su origen; si la escritura antigua lleva un testigo menor que la nueva y llegó después, la causa es el titular caducado. **Conclusión:** el almacén no comprobaba el testigo. **Regresión:** añade la comprobación en la escritura y una prueba que simule la pausa y compruebe que la escritura caducada se rechaza. No cambies a la vez el cerco y la duración del arrendamiento.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Dos líderes tras un corte de red | Regla local de elección | Mayoría absoluta del grupo completo |
+| Un trabajo se ejecuta dos veces | Titular caducado que sigue actuando | Testigo de cerco comprobado por el recurso |
+| La elección tarda o no termina | Plazos sin aleatoriedad o con poca dispersión | Aleatorizar con dispersión mayor que el retardo |
+| El servicio se detiene sin mayoría | Grupo sin cuórum | Dimensionar el grupo y diseñar el degradado |
+| Se prueba el cerrojo y nunca falla | La prueba no provoca pausas largas | Simular la pausa y el reemplazo |
 
 ## Entorno y archivos clave
-
-Entorno de referencia: procesos locales o contenedores, reloj monotónico y trazas correlacionadas. La actividad es documental y portable; cualquier comando adicional debe declarar sistema operativo y versión.
 
 ```text
 work/SE-343/
 ├── README.md
-│   ├── model.md
-│   ├── experiment.py
-│   ├── failure-trace.md
-├── activity.yaml
-└── rubric.json
+├── modelo/
+│   ├── lideres.py
+│   ├── cerco.py
+│   └── eleccion.py
+├── tests/test_consenso.py
+└── evidence/consenso-log.md
 ```
 
-`README.md` explica cómo reproducir la actividad; `model.md` contiene el resultado principal; los demás archivos separan evidencia y revisión. `activity.yaml` y `rubric.json` son contratos generados junto a esta guía.
+El `README` declara plataforma, versión de Python, semillas (343, 3431 y 3432) y comandos. Los experimentos usan solo la biblioteca estándar (`random`, `collections`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-- usa datos sintéticos o anonimizados y aplica minimización;
-- no incluyas tokens, rutas privadas ni información personal en evidencias;
-- identifica personas que reciben beneficios, cargas o riesgo de exclusión;
-- ofrece una alternativa textual a diagramas y no uses color como única señal;
-- verifica navegación por teclado y lenguaje comprensible cuando exista interfaz;
-- detén la práctica si requiere acceso no autorizado o puede afectar sistemas reales.
+- un líder que publica notas dos veces con datos distintos afecta a calificaciones reales: define quién valida el resultado antes de publicarlo;
+- un servicio de coordinación es un punto de control del sistema: restringe quién puede tomar cerrojos y audita los cambios de líder;
+- un cerco que el recurso no comprueba da una falsa sensación de seguridad: pruébalo con una escritura caducada deliberada;
+- documenta la lista de funciones con titular único en texto accesible;
+- respeta las licencias de los artículos citados y atribuye lo adaptado.
+
+## Puente hacia el trabajo con agentes
+
+Un agente al que se le pide «asegura que solo un nodo ejecute este trabajo» propondrá un cerrojo con expiración en la base o una elección por identificador mayor, y dará el trabajo por resuelto. Pídele en cambio que identifique qué recurso protege el trabajo, que exija un testigo de cerco comprobado por ese recurso, que use una mayoría del grupo completo si propone elegir líder y que incluya una prueba que pause al titular más allá del arrendamiento. Revisa especialmente si el recurso rechaza testigos antiguos y si la regla de elección depende de lo que cada nodo ve: son los dos defectos que esta clase mostró sin aviso.
 
 ## Transferencia
 
-Repite la decisión en un segundo contexto: cambia la plataforma educativa por otro de los dominios persistentes, o cambia Windows por Linux/macOS cuando aplique. Conserva problema, criterios y evidencia; modifica únicamente los supuestos dependientes del entorno. Explica por escrito qué conocimiento fue transferible y qué parte pertenecía a la herramienta.
+Traslada el análisis a otro dominio (por ejemplo, un servicio de facturación mensual que debe ejecutarse una sola vez): cambia el recurso y conserva el procedimiento de identificar la función con titular único, elegir por mayoría, proteger el recurso con cerco y dimensionar el grupo. La transferencia está lograda cuando puedes explicar qué ocurre si el titular se pausa, no cuando existe un cerrojo.
 
 ## Evaluación y evidencia
 
 | Criterio | Evidencia para aprobar |
-| --- | --- |
-| Comprensión | conceptos explicados con ejemplo, contraejemplo y límites |
-| Decisión | opciones comparadas con criterios explícitos y alternativa de no actuar |
-| Reproducibilidad | archivos, pasos y entorno permiten repetir la revisión |
-| Diagnóstico | fallo controlado conserva síntomas, hipótesis, causa y recuperación |
-| Responsabilidad | seguridad, privacidad, accesibilidad y personas afectadas fueron consideradas |
-
-Entrega el directorio `work/SE-343/` y una reflexión de máximo 300 palabras. La rúbrica machine-readable está en `rubric.json`; no se aprueba solo por completar pasos.
+|---|---|
+| comprensión | explicación de por qué la mayoría impide dos líderes y del límite del consenso |
+| corrección | conteos de líderes, escrituras caducadas y rondas reproducibles |
+| diseño | clasificación de funciones con titular único, cerco por recurso y tamaño del grupo |
+| diagnóstico | reproducción del titular caducado con regresión por testigo |
+| incertidumbre | declaración de que no se ejecutó ningún protocolo de consenso real |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-Fuentes verificadas el 2026-09-30:
+- [Lamport, «The part-time parliament»](https://doi.org/10.1145/279227.279229) — Paxos; autoridad: artículo original (1998).
+- [Ongaro y Ousterhout, Raft](https://raft.github.io/raft.pdf) — elección con mandatos y plazos aleatorios; autoridad: artículo de los autores.
+- [Fischer, Lynch y Paterson, «Impossibility of distributed consensus…»](https://doi.org/10.1145/3149.214121) — límite del consenso asíncrono; autoridad: artículo original (1985).
+- [Kleppmann, «How to do distributed locking»](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html) — cerrojos con expiración y testigos de cerco; autoridad: autor del texto.
+- [Burrows, «The Chubby lock service…»](https://research.google/pubs/the-chubby-lock-service-for-loosely-coupled-distributed-systems/) — servicio de coordinación en producción; autoridad: artículo de Google.
+- [Gray y Cheriton, «Leases»](https://doi.org/10.1145/74850.74870) — origen de los arrendamientos; autoridad: artículo original (1989).
 
-- **In Search of an Understandable Consensus Algorithm** — Stanford University. [https://raft.github.io/raft.pdf](https://raft.github.io/raft.pdf) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **The Go Memory Model** — Go project. [https://go.dev/ref/mem](https://go.dev/ref/mem) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **ISO/IEC 25010:2023** — ISO. [https://www.iso.org/standard/78176.html](https://www.iso.org/standard/78176.html) — se usa para contrastar vocabulario, límites y criterios aplicables.
-- **SWEBOK Guide v4.0a** — IEEE Computer Society. [https://www.computer.org/education/bodies-of-knowledge/software-engineering](https://www.computer.org/education/bodies-of-knowledge/software-engineering) — se usa para contrastar vocabulario, límites y criterios aplicables.
-
-## Preguntas frecuentes
-
-### ¿Basta con definir los términos del título?
-
-No. Debes mostrar cómo se relacionan, qué mecanismo explican, qué evidencia los
-contrasta y qué decisión profesional cambia gracias a esa comprensión.
-
-### ¿La herramienta recomendada es obligatoria?
-
-No. El entorno de referencia hace reproducible la práctica, pero puedes usar otro
-si documentas equivalencias, versiones, diferencias y procedimiento de recuperación.
-
-### ¿Completar los archivos aprueba automáticamente la clase?
-
-No. Los archivos son contenedores de evidencia. La aprobación depende de la calidad
-del razonamiento, la reproducibilidad, el diagnóstico y la revisión contra las fuentes.
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que las 849 escrituras caducadas, las 4,20 rondas o los tres líderes se observen en un sistema real. Esa afirmación depende de las pausas, de la red y del protocolo.
 
 ## Límites y siguiente paso
 
-Esta guía enseña a razonar y producir evidencia sobre **Consenso, elección y coordinación**; no certifica dominio profesional ni valida una implementación productiva. El siguiente enlace curricular es `SE-344`. Si la actividad necesita código o infraestructura real, debe añadir pruebas y documentar versiones, limpieza, resultados y recuperación antes de afirmar que fue ejecutada.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos. No se ejecutó Raft, Paxos ni ningún servicio de coordinación: las particiones se enumeran como conjuntos, las pausas son exponenciales y el modelo de elección es una simplificación del autor. La siguiente clase trata lo que aun con un titular único puede ejecutarse dos veces: el procesamiento idempotente.
+
+## Glosario
+
+- **consenso:** acuerdo de un conjunto de nodos sobre un único valor, con acuerdo, validez y terminación.
+- **mayoría absoluta:** más de la mitad de los nodos del grupo completo, no de los que se ven.
+- **mandato (*term*):** periodo numerado durante el cual a lo sumo un líder puede ejercer.
+- **arrendamiento (*lease*):** derecho concedido por un tiempo limitado que caduca solo.
+- **testigo de cerco (*fencing token*):** número creciente concedido con cada derecho y comprobado por el recurso para rechazar titulares caducados.
 
 ---
 

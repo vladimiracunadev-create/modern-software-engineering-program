@@ -612,6 +612,11 @@ def class_page(
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Estructura curricular {lesson['id']}: {html.escape(lesson['title'])}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">{lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Esta posición está definida dentro del recorrido, pero su contenido pedagógico todavía debe desarrollarse.</p></header>{progress}<div class="notice">Consulta el roadmap para conocer el alcance que se incorporará a esta parte.</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido previsto"><strong>En esta ficha</strong><ol><li><a href="#contrato-previsto">Contrato previsto</a></li><li><a href="#fuentes-iniciales">Fuentes iniciales</a></li></ol></nav><article class="lesson-content"><h2 id="contrato-previsto">Contrato previsto</h2><p>Problema, objetivos, conceptos, ejemplos, práctica, tres ejercicios, fallo controlado, entorno, transferencia, evaluación, evidencia y límites.</p><h2 id="fuentes-iniciales">Fuentes iniciales</h2><ul>{source_list}</ul><p>Se ampliarán y vincularán a afirmaciones cuando la clase sea construida.</p></article></div>{navigation}</main><footer>Programa de Ingeniería de Software Moderna</footer></body></html>\n"""
 
 
+def has_editorial_class(part: dict, lesson: dict) -> bool:
+    """True si la clase tiene texto editorial íntegro en content/part-XX/SE-NNN.md."""
+    return (ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md").is_file()
+
+
 def validate_scaffold(path: Path, lesson: dict, failures: list[str]) -> None:
     if not path.exists():
         failures.append(f"missing scaffold: {relative(path)}")
@@ -667,7 +672,8 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             scaffold_path = lesson_dir / "README.md"
             if check:
                 validate_scaffold(scaffold_path, lesson, failures)
-            elif lesson["number"] > 360:
+            elif lesson["number"] > 360 and not has_editorial_class(part, lesson):
+                # Las clases con texto editorial en content/ las publica build_phase4.
                 write_generated(
                     scaffold_path,
                     class_scaffold(part, lesson, source_ids, previous, following),
@@ -682,7 +688,9 @@ def build(check: bool) -> tuple[list[str], list[str]]:
             )
             generated_target = program.get("phase_4_target", {}).get("last_class", "SE-180")
             generated_number = int(generated_target.split("-")[1])
-            if lesson["number"] > generated_number:
+            if lesson["number"] > generated_number and not (
+                lesson["number"] > 360 and has_editorial_class(part, lesson)
+            ):
                 write_generated(
                     ROOT / "site/classes" / f"{lesson['id']}.html",
                     class_page(part, lesson, source_ids, previous, following),

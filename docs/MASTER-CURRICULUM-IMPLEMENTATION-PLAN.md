@@ -610,18 +610,18 @@ evita una explicación genérica.
 
 ### Parte 30 — Testing
 
-- [ ] `SE-361` — seleccionar por riesgo y declarar qué no probar.
-- [ ] `SE-362` — conectar unit tests y testabilidad.
-- [ ] `SE-363` — probar integración y contratos.
-- [ ] `SE-364` — delimitar E2E, aceptación y snapshots.
-- [ ] `SE-365` — aplicar property-based y model-based testing.
-- [ ] `SE-366` — medir mutation y fuzzing.
-- [ ] `SE-367` — usar dobles y virtualización con límites.
-- [ ] `SE-368` — controlar fixtures y determinismo.
-- [ ] `SE-369` — integrar exploración, accesibilidad y seguridad.
-- [ ] `SE-370` — diagnosticar flakiness.
-- [ ] `SE-371` — demostrar que una prueba detecta el defecto.
-- [ ] `SE-372` — entregar una estrategia ejecutable.
+- [x] `SE-361` — seleccionar por riesgo y declarar qué no probar.
+- [x] `SE-362` — conectar unit tests y testabilidad.
+- [x] `SE-363` — probar integración y contratos.
+- [x] `SE-364` — delimitar E2E, aceptación y snapshots.
+- [x] `SE-365` — aplicar property-based y model-based testing.
+- [x] `SE-366` — medir mutation y fuzzing.
+- [x] `SE-367` — usar dobles y virtualización con límites.
+- [x] `SE-368` — controlar fixtures y determinismo.
+- [x] `SE-369` — integrar exploración, accesibilidad y seguridad.
+- [x] `SE-370` — diagnosticar flakiness.
+- [x] `SE-371` — demostrar que una prueba detecta el defecto.
+- [x] `SE-372` — entregar una estrategia ejecutable.
 
 ### Parte 31 — Calidad, rendimiento y resiliencia
 

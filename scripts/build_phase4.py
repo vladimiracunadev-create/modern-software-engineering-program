@@ -77,6 +77,21 @@ def expected_files(program: dict) -> dict[Path, str]:
             result[ROOT / "site/classes" / f"{lesson['id']}.html"] = shared.site_page(
                 part, lesson, markdown, previous, following
             )
+    # Clases posteriores a SE-360 con texto editorial íntegro en content/: se
+    # publican (README y página del portal) sin actividad ni rúbrica, porque los
+    # contratos de actividad cubren solo SE-001 a SE-360.
+    for part in program["parts"]:
+        for lesson in part["lessons"]:
+            if lesson["number"] <= LAST_CLASS:
+                continue
+            if not (ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md").is_file():
+                continue
+            _, _, previous, following = entries[lesson["id"]]
+            markdown = shared.published_markdown(part, lesson)
+            result[ROOT / lesson["path"] / "README.md"] = markdown
+            result[ROOT / "site/classes" / f"{lesson['id']}.html"] = shared.site_page(
+                part, lesson, markdown, previous, following
+            )
     return result
 
 

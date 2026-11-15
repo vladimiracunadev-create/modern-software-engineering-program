@@ -52,5 +52,6 @@ su commit está en `main` con CI verde.
 | 27 | Desarrollada y profundizada con experimentos sintéticos y modelos de integración, eventos y mensajería ejecutados en Windows y Linux, CI verde (la corrección de Bandit y el CI verde corresponden al commit `35da5ee3`) | `68757419` |
 | 28 | Desarrollada y profundizada con experimentos y modelos sintéticos de concurrencia y sistemas distribuidos ejecutados en Windows y Linux, CI verde | `166da6a5` |
 | 29 | Borrador; requiere desarrollo completo | — |
-| 30–39 | Estructura; requieren desarrollo completo | — |
+| 30 | Desarrollada y profundizada con experimentos sintéticos y modelos de estrategia y técnicas de prueba ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 31–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

@@ -8,6 +8,11 @@ import sys
 from pathlib import Path
 
 
+try:
+    import program_state as ps
+except ModuleNotFoundError:  # importado como scripts.build_phase2
+    from scripts import program_state as ps
+
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 SOURCE_PATH = ROOT / "sources/baseline.json"
@@ -79,6 +84,144 @@ PART_SOURCE_MAP = {
     "38": ["NIST-AI-RMF", "NIST-AI-600-1", "NIST-SSDF-800-218"],
     "39": ["GITHUB-SPEC-KIT", "MCP-2026-07-28", "NIST-AI-RMF", "NIST-AI-600-1"],
 }
+
+README_FOCUS = {
+    "40": "TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD",
+    "41": "contexto, herramientas, bucles y recuperación",
+    "42": "patrones de agentes, evaluación y límites",
+    "43": "GoF, GRASP, repositorio, mensajería y resiliencia",
+    "44": "microkernel, microservicios, celular, data mesh y 12-factor",
+}
+
+
+def readme_state_blocks(program: dict) -> dict[str, str]:
+    """Textos del README que dependen del estado real (partes con contenido)."""
+    scope = program["planned_scope"]
+    developed = ps.developed_parts()
+    planned = ps.planned_parts()
+    n_parts = program["part_count"]
+    n_classes = program["class_count"]
+    dev_label = ps.developed_label()
+    dev_ranges = ps.class_ranges(developed)
+    if planned:
+        plan_clause = (
+            f" {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)}, sin clases publicadas."
+        )
+        plan_clause_short = f"{len(planned) * 12} planificadas ({ps.parts_label(planned)}, {ps.class_ranges(planned)}) sin publicar"
+        nav_clause = f"las {ps.parts_label(planned)} figuran como planificadas, sin enlaces"
+    else:
+        plan_clause = " No quedan partes planificadas sin publicar."
+        plan_clause_short = "0 planificadas sin publicar"
+        nav_clause = "no quedan partes planificadas"
+    blocks = {}
+    blocks["headline"] = (
+        "> [!IMPORTANT]\n"
+        f"> **Cobertura real, sin inflar cifras:** el alcance planificado es de **{scope['class_count']} clases en\n"
+        f"> {scope['part_count']} partes (00–{scope['part_count'] - 1})**, de las cuales {n_classes} clases ({dev_label}, {dev_ranges}) están\n"
+        "> desarrolladas y publicadas en el portal con texto íntegro, figuras, experimentos\n"
+        "> reproducibles y fuentes; todavía no pasaron una revisión editorial humana independiente.\n"
+        f">{plan_clause} Una\n"
+        "> carpeta o página generada no cuenta como aprendizaje terminado."
+    )
+    blocks["parts-note"] = "\n".join([
+        f"> {ps.the_parts(developed)} ({dev_ranges}) {'está' if len(developed) == 1 else 'están'} desarrolladas y publicadas en el portal.",
+        "> Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron al",
+        "> alcance el 13 de noviembre de 2026 sin renumerar las anteriores (ver",
+        "> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) y la",
+        "> [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Una parte nueva solo cuenta",
+        "> como desarrollada cuando existe su contenido completo; `curriculum.yaml`, el catálogo y el portal",
+        f"> cuentan hoy {n_classes} clases y {n_parts} partes desarrolladas.{plan_clause}",
+        f"> «{scope['part_count']} partes» expresa la cantidad planificada; la Parte 00 es la primera unidad.",
+    ])
+    plan_by_id = {part["id"]: part for part in build_full_plan_cached()}
+    rows = []
+    for number in range(40, scope["part_count"]):
+        part = plan_by_id[f"{number:02d}"]
+        first, last = part["lessons"][0]["id"], part["lessons"][-1]["id"]
+        if number in developed:
+            link = f"[📘 leer]({part['path']}/README.md)"
+        else:
+            link = "planificada"
+        rows.append(f"| {part['id']} | {part['title']} | {first}–{last} | {README_FOCUS[part['id']]} | {link} |")
+    blocks["part-rows"] = "\n".join(rows)
+    blocks["flat-index"] = f"➡️ [Abrir el índice plano con enlaces directos a las {n_classes} clases publicadas](classes/README.md)."
+    blocks["coverage"] = "\n".join([
+        "| Superficie | Evidencia verificable |",
+        "| --- | --- |",
+        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004) |",
+        f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges}), pendientes de revisión editorial humana independiente; {plan_clause_short} |",
+        f"| contratos | {n_classes} metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |",
+        "| fuentes | línea base y registros por clase y por parte |",
+        f"| navegación | índice global, {n_parts} índices de parte y enlaces anterior/siguiente |",
+        f"| portal | {1 + n_parts + n_classes} páginas generadas y desplegadas por CI |",
+        f"| carrera | 42 guías profesionales enlazadas a partes reales; {nav_clause} |",
+    ])
+    blocks["is-bullet"] = (
+        f"una arquitectura curricular **secuencial** de {scope['class_count']} clases planificadas en {scope['part_count']} partes, "
+        f"con {n_classes} clases y {n_parts} partes publicadas;"
+    )
+    return blocks
+
+
+_FULL_PLAN: list[dict] = []
+
+
+def build_full_plan_cached() -> list[dict]:
+    if not _FULL_PLAN:
+        try:
+            import build_program_blueprint as blueprint
+        except ModuleNotFoundError:
+            from scripts import build_program_blueprint as blueprint
+        _FULL_PLAN.extend(blueprint.build_full_plan())
+    return _FULL_PLAN
+
+
+INLINE_BLOCKS = {"is-bullet"}
+README_MARKER = re.compile(r"<!-- state:([a-z-]+) -->\n?(.*?)\n?<!-- /state:\1 -->", re.DOTALL)
+
+
+def render_readme(original: str, blocks: dict[str, str]) -> str:
+    seen: set[str] = set()
+
+    def replace(match: re.Match[str]) -> str:
+        name = match.group(1)
+        if name not in blocks:
+            raise ValueError(f"Unknown README state block: {name}")
+        seen.add(name)
+        sep = "" if name in INLINE_BLOCKS else "\n"
+        return f"<!-- state:{name} -->{sep}{blocks[name]}{sep}<!-- /state:{name} -->"
+
+    rendered = README_MARKER.sub(replace, original)
+    missing = set(blocks) - seen
+    if missing:
+        raise ValueError(f"README lacks state markers for: {sorted(missing)}")
+    return rendered
+
+
+
+def part_meta(part_id: str) -> dict:
+    """Metadatos opcionales de una parte nueva: `content/part-NN/part.json`.
+
+    `sources`: ids de fuentes iniciales de la parte (deben existir en baseline.json o en
+    `extra_sources`). `extra_sources`: entradas nuevas con el mismo formato que baseline.json.
+    Así una parte nueva no toca archivos compartidos de fuentes.
+    """
+    path = ROOT / "content" / f"part-{part_id}" / "part.json"
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def part_source_ids(part_id: str) -> list[str]:
+    if part_id in PART_SOURCE_MAP:
+        return PART_SOURCE_MAP[part_id]
+    sources = part_meta(part_id).get("sources")
+    if not sources:
+        raise ValueError(
+            f"Part {part_id} has no sources: add content/part-{part_id}/part.json with a non-empty 'sources' list"
+        )
+    return sources
+
 
 PART_00_PATH = [
     ("Encuadrar", "Delimita sistema, producto y responsabilidad", "Mapa de fronteras"),
@@ -292,27 +435,49 @@ def classes_index(program: dict) -> str:
             f"## [Parte {part['id']} — {part['title']}]({part_folder}/README.md)\n\n"
             + "\n".join(lesson_links)
         )
+    scope = program["planned_scope"]
+    pending = scope["unpublished_parts"]
+    counters_line = (
+        f"{program['class_count']} clases desarrolladas · {program['part_count']} partes desarrolladas "
+        f"({ps.class_ranges(ps.developed_parts())})"
+    )
+    planned_section = ""
+    if pending:
+        counters_line += (
+            f" · {len(pending) * 12} clases planificadas sin publicar · "
+            f"alcance total {scope['class_count']} clases en {scope['part_count']} partes "
+            f"(`{scope['first_class']}`–`{scope['last_class']}`)."
+        )
+        planned_rows = "\n".join(
+            f"| {item['id']} | {item['title']} | {item['first_class']}–{item['last_class']} | planificada, sin clases publicadas |"
+            for item in pending
+        )
+        planned_section = (
+            "\n## Partes planificadas sin publicar\n\n"
+            "| Parte | Título | Clases | Estado |\n| --- | --- | --- | --- |\n"
+            f"{planned_rows}\n"
+        )
+    else:
+        counters_line += f" · alcance completo: {scope['class_count']} clases en {scope['part_count']} partes."
     return f"""# Índice completo del currículo
 
-480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
+{counters_line}
 
 > [!WARNING]
-> Las Partes 00–39 (`SE-001`–`SE-480`) contienen clases desarrolladas, con texto íntegro,
-> figuras y evidencia reproducible, pendientes de revisión editorial humana independiente.
-> Las Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
+> {ps.status_sentence()}
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 40 partes
+## Las {program['part_count']} partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
 {chr(10).join(rows)}
-
+{planned_section}
 ---
 
-## Índice plano de las 480 clases
+## Índice plano de las {program['class_count']} clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -326,9 +491,11 @@ Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.
 
 def source_registry(program: dict, baseline: dict) -> dict:
     baseline_ids = {item["id"] for item in baseline["sources"]}
+    for part in program["parts"]:
+        baseline_ids |= {item["id"] for item in part_meta(part["id"]).get("extra_sources", [])}
     entries = {}
     for part in program["parts"]:
-        source_ids = PART_SOURCE_MAP[part["id"]]
+        source_ids = part_source_ids(part["id"])
         unresolved = set(source_ids) - baseline_ids
         if unresolved:
             raise ValueError(f"Unknown sources for part {part['id']}: {sorted(unresolved)}")
@@ -352,6 +519,12 @@ def source_registry(program: dict, baseline: dict) -> dict:
 def status_document(program: dict) -> str:
     phase3 = program.get("phase_3_target", {"classes": 0})
     phase4 = program.get("phase_4_target", {"classes": 0})
+    scope = program["planned_scope"]
+    pending = scope["unpublished_parts"]
+    planned_text = (
+        f"{ps.planned_label()} ({ps.class_ranges(ps.planned_parts())}), sin clases publicadas"
+        if pending else "ninguno"
+    )
     return f"""# Estado verificable
 
 Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
@@ -360,20 +533,20 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | {len(program['stages'])} especificadas |
-| Partes | {program['part_count']} indexadas |
-| Clases | {program['class_count']} posiciones curriculares consecutivas |
-| Contenido desarrollado | Partes 00–39 (`SE-001`–`SE-480`), pendiente de revisión editorial humana independiente |
+| Partes | {program['part_count']} desarrolladas de {scope['part_count']} planificadas |
+| Clases | {program['class_count']} desarrolladas de {scope['class_count']} planificadas |
+| Contenido desarrollado | {ps.developed_label()} ({ps.class_ranges(ps.developed_parts())}), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado | Partes 40–44 (`SE-481`–`SE-540`), sin clases publicadas |
+| Alcance planificado sin publicar | {planned_text} |
 | Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
-| Horas | {program['estimated_hours']:,} estimadas; pendientes de validación por contenido |
+| Horas | {ps.format_thousands(program['estimated_hours'])} estimadas en las partes desarrolladas ({ps.format_thousands(scope['estimated_hours'])} en el alcance planificado); pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | 521 páginas HTML generadas desde el manifiesto |
-| Portal definitivo | catálogo navegable con las 480 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
+| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto |
+| Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado
@@ -386,7 +559,7 @@ La auditoría reproducible de las carencias actuales está documentada en
 [`docs/PHASE3-CONTENT-AUDIT.md`](docs/PHASE3-CONTENT-AUDIT.md).
 La fase 4 se audita en
 [`docs/PHASE4-CONTENT-AUDIT.md`](docs/PHASE4-CONTENT-AUDIT.md).
-""".replace("2,160", "2.160")
+"""
 
 
 def file_index(program: dict) -> str:
@@ -419,7 +592,7 @@ def file_index(program: dict) -> str:
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` | 521 |
+| Páginas del sitio | `site/**/*.html` | {1 + program['part_count'] + program['class_count']} |
 
 Todos los conteos se validan contra `curriculum.yaml`.
 """
@@ -466,15 +639,30 @@ def site_index(program: dict) -> str:
             f'<h3>{html.escape(stage["title"])}</h3><p>{len(parts)} partes · {len(parts)*12} clases</p>'
             f'<p>{links}</p></article>'
         )
+    scope = program["planned_scope"]
+    pending = scope["unpublished_parts"]
+    dev_parts = ps.developed_parts()
+    first_class = f"SE-{ps.part_first_class(dev_parts[0]):03d}"
+    last_class = f"SE-{ps.part_last_class(dev_parts[-1]):03d}"
+    notice_text = (
+        f"{ps.the_parts(dev_parts).lower().replace('las partes', 'las Partes').replace('la parte', 'la Parte')} "
+        f"({ps.class_ranges(dev_parts, markup=False)}) contienen clases desarrolladas; "
+        + (
+            f"{ps.the_parts(ps.planned_parts()).lower().replace('las partes', 'las Partes').replace('la parte', 'la Parte')} "
+            f"({ps.class_ranges(ps.planned_parts(), markup=False)}) {ps.verb_planned(ps.planned_parts()).replace('*', '')} y todavía no existen, "
+            f"según el roadmap, que planifica {scope['class_count']} clases en total."
+            if pending else f"el alcance planificado de {scope['class_count']} clases está completo."
+        )
+    )
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Programa profesional de ingeniería de software: 480 clases desarrolladas (SE-001 a SE-480), pendientes de revisión editorial humana independiente; 540 planificadas en total.">
+<meta name="description" content="Programa profesional de ingeniería de software: {program['class_count']} clases desarrolladas ({first_class} a {last_class}), pendientes de revisión editorial humana independiente; {scope['class_count']} planificadas en total.">
 <title>Programa de Ingeniería de Software Moderna</title><link rel="stylesheet" href="assets/styles.css"></head>
     <body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><div class="hero-grid"><div><p class="eyebrow">Programa profesional · aprender haciendo visible el criterio</p>
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
-<div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–39 (SE-001 a SE-480) contienen clases desarrolladas; las Partes 40–44 (SE-481 a SE-540) están planificadas y todavía no existen, según el roadmap, que planifica 540 clases en total.</div>
+<div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>{program['part_count']}</strong><span>partes desarrolladas</span></div><div class="metric"><strong>{program['class_count']}</strong><span>clases desarrolladas</span></div><div class="metric"><strong>{ps.format_thousands(program['estimated_hours'])}</strong><span>horas estimadas</span></div></div></header>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> {notice_text}</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>
@@ -486,7 +674,7 @@ def site_index(program: dict) -> str:
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · contenido desarrollado</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Estudiar la Parte 07 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · contenido desarrollado</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Estudiar la Parte 08 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · contenido desarrollado</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Estudiar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
-<h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
+<h2>Explorar las {program['class_count']} clases desarrolladas</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
 <footer>Generado desde curriculum.yaml · Línea base {program['baseline_date']}</footer><script src="assets/app.js"></script></body></html>\n"""
 
@@ -498,10 +686,8 @@ def part_page(part: dict) -> str:
     )
     if part["lessons"][-1]["number"] <= 72:
         state = "Doce clases desarrolladas como un recorrido pedagógico conectado."
-    elif part["lessons"][-1]["number"] <= 480:
-        state = "Doce clases desarrolladas con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente."
     else:
-        state = "Contenido planificado para una fase posterior."
+        state = "Doce clases desarrolladas con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente."
     editorial_source = ROOT / "content" / f"part-{part['id']}" / "README.md"
     editorial_content = ""
     editorial_toc = ""
@@ -639,6 +825,13 @@ def build(check: bool) -> tuple[list[str], list[str]]:
 
     write_generated(ROOT / "sources/class-sources.json", dump_json(sources), check, stale)
     write_generated(ROOT / "classes/README.md", classes_index(program), check, stale)
+    readme_path = ROOT / "README.md"
+    write_generated(
+        readme_path,
+        render_readme(readme_path.read_text(encoding="utf-8"), readme_state_blocks(program)),
+        check,
+        stale,
+    )
 
     web_catalog = {"generated_on": program["baseline_date"], "classes": []}
     flat_lessons = [lesson for part in program["parts"] for lesson in part["lessons"]]
@@ -663,7 +856,7 @@ def build(check: bool) -> tuple[list[str], list[str]]:
         else:
             part_markdown = part_index(part)
         write_generated(part_dir / "README.md", part_markdown, check, stale)
-        source_ids = PART_SOURCE_MAP[part["id"]]
+        source_ids = part_source_ids(part["id"])
         write_generated(ROOT / "site/parts" / f"{part['id']}.html", part_page(part), check, stale)
         for lesson in part["lessons"]:
             previous, following = neighbors[lesson["id"]]
@@ -733,7 +926,8 @@ def main() -> int:
             print(f"... {len(stale) + len(failures) - 40} additional failures", file=sys.stderr)
         return 1
     action = "PHASE2_CHECK_OK" if args.check else "PHASE2_BUILD_OK"
-    print(f"{action}: 40 parts, 480 class records, phase-aware site")
+    program = load_json(PROGRAM_PATH)
+    print(f"{action}: {program['part_count']} parts, {program['class_count']} class records, phase-aware site")
     return 0
 
 

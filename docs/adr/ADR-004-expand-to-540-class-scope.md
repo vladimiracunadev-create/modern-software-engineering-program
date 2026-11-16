@@ -1,6 +1,6 @@
 # ADR-004 — Ampliar el alcance planificado de 480 a 540 clases
 
-- Estado: aceptada el 2026-11-13; implementación pendiente.
+- Estado: aceptada el 2026-11-13; implementada por [ADR-005](ADR-005-publish-parts-40-44-from-content.md) el 2026-11-16 (la infraestructura deriva el estado del contenido).
 - Contexto: la [auditoría de brechas](../METHODOLOGY-GAP-AUDIT-2026-11-13.md) halló que las
   metodologías de desarrollo guiadas por IA (TDD, BDD, ATDD, DDD, contratos, SDD, EDD,
   ODD, harness engineering), los patrones de diseño y los estilos arquitectónicos no

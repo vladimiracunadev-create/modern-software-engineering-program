@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_phase2 import REQUIRED_CLASS_SECTIONS
+import program_state as ps
 
 
 def main() -> int:
@@ -38,8 +39,8 @@ def main() -> int:
     if failures:
         print("\n".join(failures[:50]), file=sys.stderr)
         return 1
-    if checked != 480:
-        print(f"Expected 480 classes, checked {checked}", file=sys.stderr)
+    if checked != ps.developed_class_count():
+        print(f"Expected {ps.developed_class_count()} developed classes, checked {checked}", file=sys.stderr)
         return 1
     print(f"CLASS_CONTRACTS_OK: {checked}")
     return 0

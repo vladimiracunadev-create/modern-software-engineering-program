@@ -1,6 +1,6 @@
 # Programa de Ingeniería de Software Moderna
 
-Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. The curriculum defines 480 classes, all developed (Parts 00-39, SE-001..SE-480), pending independent human editorial review; Parts 40-44 (SE-481..SE-540) are planned only, with no published classes.
+Purpose: coordinate a professional, evidence-based software engineering program across specialized repositories. The curriculum plans 540 classes in 45 parts (SE-001..SE-540). A part counts as developed only when its full content exists in content/part-NN/; the current developed and planned counts are generated in STATUS.md, catalog.json and curriculum.yaml (planned_scope). All developed classes are pending independent human editorial review; parts without content are planned only, with no published classes.
 
 Read first:
 - README.md

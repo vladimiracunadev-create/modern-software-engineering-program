@@ -8,10 +8,14 @@ import sys
 from pathlib import Path
 
 
+try:
+    import program_state as ps
+except ModuleNotFoundError:  # importado como scripts.build_phase3
+    from scripts import program_state as ps
+
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 480
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 181)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(181, 193)}
@@ -975,10 +979,10 @@ def site_page(
     previous_link = f'<a href="{previous["id"]}.html">← {previous["id"]}</a>' if previous else '<span>Inicio</span>'
     following_link = f'<a href="{following["id"]}.html">{following["id"]} →</a>' if following else '<span>Fin</span>'
     navigation = f'<nav class="class-nav" aria-label="Navegación entre clases">{previous_link}<a href="../parts/{part["id"]}.html">Parte {part["id"]}</a><a href="../index.html">Índice</a>{following_link}</nav>'
-    developed = lesson["number"] <= DEVELOPED_LAST_CLASS
+    developed = ps.is_developed((lesson["number"] - 1) // ps.CLASSES_PER_PART)
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–39."
+        "Contenido desarrollado como parte del recorrido completo del programa."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

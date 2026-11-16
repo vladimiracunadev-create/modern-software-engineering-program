@@ -534,9 +534,17 @@ PROFILES = {
 
 
 # Estado editorial de cada parte. Debe coincidir con STATUS.md (generado por build_phase2.py).
-PART_STATUS = {
-    **{f"{n:02d}": "desarrollada" for n in range(0, 40)},
-}
+def _part_status() -> dict[str, str]:
+    import program_state
+
+    developed = set(program_state.developed_parts())
+    return {
+        f"{n:02d}": "desarrollada" if n in developed else "planificada"
+        for n in range(program_state.PLANNED_PART_COUNT)
+    }
+
+
+PART_STATUS = _part_status()
 
 # Clases desarrolladas de apoyo (Partes 00-39, SE-001..SE-480) que sostienen cada ruta además de su núcleo.
 # Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
@@ -585,7 +593,8 @@ DEVELOPED = {
     "domain-methodology-engineer.md": [52, 57, 60, 146, 153, 208, 305],
 }
 
-# Partes 40-44: planificadas (ADR-004). No existen en curriculum.yaml ni como carpetas.
+# Partes 40-44 (ADR-004): título y rango fijos. Una parte deja de estar planificada cuando existe su
+# contenido en content/part-NN/; el estado real lo decide scripts/program_state.py, no este diccionario.
 PLANNED_PARTS = {
     "40": ("Metodologías de desarrollo: de TDD a ODD", "SE-481", "SE-492"),
     "41": ("Harness y agentic engineering", "SE-493", "SE-504"),

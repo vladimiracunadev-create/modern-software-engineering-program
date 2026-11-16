@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 from urllib.parse import quote
 
+import program_state as ps
 from role_profiles import (
     DEVELOPED,
     PART_CONTEXT,
@@ -102,12 +103,33 @@ def planned_range(part_id: str) -> str:
     return f"{first}–{last}"
 
 
+def pending_for_role(filename: str) -> dict[str, str]:
+    """Partes 40-44 que este rol espera y que siguen sin contenido."""
+
+    return {
+        part_id: text
+        for part_id, text in PLANNED_BY_ROLE[filename].items()
+        if PART_STATUS[part_id] == "planificada"
+    }
+
+
+def new_part_support_numbers(filename: str) -> list[int]:
+    """Primera, sexta y última clase de cada parte nueva ya desarrollada que el rol esperaba."""
+
+    numbers: list[int] = []
+    for part_id in sorted(PLANNED_BY_ROLE[filename]):
+        if PART_STATUS[part_id] == "desarrollada":
+            first = ps.part_first_class(int(part_id))
+            numbers.extend([first, first + 5, first + ps.CLASSES_PER_PART - 1])
+    return numbers
+
+
 def developed_support(filename: str, core: dict[str, list[str]], classes: dict[str, dict[str, str]]) -> list[str]:
-    """Clases desarrolladas de apoyo (Partes 00-39) no repetidas en el núcleo; verifica cada id."""
+    """Clases desarrolladas de apoyo no repetidas en el núcleo; verifica cada id."""
 
     in_core = {item for ids in core.values() for item in ids}
     result: list[str] = []
-    for number in DEVELOPED[filename]:
+    for number in [*DEVELOPED[filename], *new_part_support_numbers(filename)]:
         class_id = se_id(number)
         if class_id not in classes:
             raise AssertionError(f"Clase de apoyo inexistente en curriculum.yaml: {class_id} ({filename})")
@@ -189,11 +211,13 @@ def render_role_depth(
         f"| {detailed_class_link(item, classes, '../')} | Parte {classes[item]['part']} |"
         for item in support_ids
     )
-    planned = PLANNED_BY_ROLE[filename]
+    planned = pending_for_role(filename)
     planned_rows = chr(10).join(
         f"| **Parte {part_id} · {PLANNED_PARTS[part_id][0]}** | `{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}` | {text} |"
         for part_id, text in sorted(planned.items())
-    )
+    ) or "| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |"
+    developed_text = f"{ps.developed_label()} ({ps.class_ranges(ps.developed_parts())})"
+    extension_block = render_extension_block()
 
     decision_rows = "\n".join(
         f"| **{name}** | {sentence(criterion)}. | {sentence(proof)}. |"
@@ -285,7 +309,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+de las {developed_text}, también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -300,27 +324,11 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> El mapa expresa el currículo vigente. {ps.the_parts(ps.developed_parts())} ({ps.class_ranges(ps.developed_parts())}) {"está" if len(ps.developed_parts()) == 1 else "están"}
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
-
-> [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas** desde el 13 de noviembre
-> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
-> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
-
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-{planned_rows}
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
+{extension_block.format(planned_rows=planned_rows)}
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 
@@ -494,15 +502,17 @@ def render_compact_map(
             support = developed_support(filename, core, classes)
             support_links = " · ".join(class_link(class_id, classes, prefix) for class_id in support)
             blocks.append(
-                f"- **✅ Ya desarrolladas de apoyo (Partes 00–39):** {support_links}."
+                f"- **✅ Ya desarrolladas de apoyo ({ps.developed_label()}):** {support_links}."
             )
-            planned_text = " · ".join(
-                f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
-                for part_id in sorted(PLANNED_BY_ROLE[filename])
-            )
-            blocks.append(
-                f"- **🔭 Planificada, sin clases publicadas:** {planned_text}."
-            )
+            pending = pending_for_role(filename)
+            if pending:
+                planned_text = " · ".join(
+                    f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
+                    for part_id in sorted(pending)
+                )
+                blocks.append(
+                    f"- **🔭 Planificada, sin clases publicadas:** {planned_text}."
+                )
             blocks.extend(
                 (
                     f"- **🧪 Proyecto profesional:** **{project[0]}** — {project[1]}.",
@@ -514,7 +524,58 @@ def render_compact_map(
     return "\n".join(blocks).rstrip()
 
 
+def render_extension_block() -> str:
+    """Sección de ampliación 40-44; deja `{planned_rows}` para rellenarlo por rol."""
+
+    planned = ps.planned_parts()
+    if not planned:
+        return (
+            ps.roles_extension_heading()
+            + "\n\n> [!NOTE]\n> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas "
+            "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las "
+            "clases de apoyo de esta guía.\n"
+        )
+    return (
+        ps.roles_extension_heading()
+        + f"""
+
+> [!NOTE]
+> {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} desde el 13 de noviembre
+> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
+> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
+
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+{{planned_rows}}
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción."""
+    )
+
+
+def planned_notes() -> tuple[str, str]:
+    planned = ps.planned_parts()
+    if not planned:
+        text = "No quedan partes planificadas sin publicar."
+        return text, text
+    detail = (
+        f"{ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)}: "
+        "no tienen clases publicadas, por eso se nombran sin enlace en cada ruta."
+    )
+    short = (
+        f"{ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} "
+        "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin clases publicadas: "
+        "aparecen como «Planificada» y sin enlaces."
+    )
+    return detail, short
+
+
 def render_main_map(classes: dict[str, dict[str, str]], parts: dict[str, dict[str, object]]) -> str:
+    planned_note, planned_note_index = planned_notes()
     return f'''### 🧱 Partes núcleo y clases asociadas por rol
 
 Este mapa separa la **parte** que desarrolla una capacidad, las **clases concretas**
@@ -523,12 +584,10 @@ No es una lista de materias optativas: cada guía explica prerrequisitos, límit
 trade-offs y evidencia esperada.
 
 > [!NOTE]
-> Estado real de las partes que aparecen en los mapas: las Partes 00–39
-> (`SE-001`–`SE-480`) están **desarrolladas**, a falta de revisión editorial humana
-> independiente. Las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD,
-> harness y agentic engineering, patrones agénticos, patrones de diseño y estilos
-> arquitectónicos) están **planificadas**: no tienen clases publicadas, por eso se
-> nombran sin enlace en cada ruta. Cada rol añade «Ya desarrolladas de apoyo» para
+> Estado real de las partes que aparecen en los mapas: {ps.the_parts(ps.developed_parts()).lower().replace("las partes", "las Partes").replace("la parte", "la Parte")}
+> ({ps.class_ranges(ps.developed_parts())}) {"está" if len(ps.developed_parts()) == 1 else "están"} **desarrolladas**, a falta de revisión editorial humana
+> independiente. {planned_note}
+> Cada rol añade «Ya desarrolladas de apoyo» para
 > practicar hoy con contenido existente.
 
 {render_compact_map(classes, parts, from_roles=False)}
@@ -539,6 +598,7 @@ añade el mapa de transiciones entre familias.'''
 
 
 def render_index_depth(classes: dict[str, dict[str, str]], parts: dict[str, dict[str, object]]) -> str:
+    _, planned_note_index = planned_notes()
     return f'''<div align="center">
 
 [![Rutas](https://img.shields.io/badge/rutas-{len(PROFILES)}-6f42c1?style=for-the-badge)](#mapa-de-{len(PROFILES)}-roles)
@@ -567,10 +627,8 @@ revisión y fuentes. La estructura común permite comparar; los mecanismos y dec
 son específicos de cada profesión.
 
 > [!NOTE]
-> Los mapas distinguen el estado real de cada parte: 00–39 desarrolladas. Las Partes 40–44 (`SE-481`–`SE-540`) están
-> **planificadas** ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin
-> clases publicadas: aparecen como «Planificada» y sin enlaces. «Ya desarrolladas de
-> apoyo» lista clases existentes de las Partes 00–39 con las que se puede practicar además del núcleo.
+> Los mapas distinguen el estado real de cada parte: {ps.part_ranges(ps.developed_parts())} desarrolladas. {planned_note_index}
+> «Ya desarrolladas de apoyo» lista clases existentes de las {ps.developed_label()} con las que se puede practicar además del núcleo.
 
 ## 🧱 Parte → clases → evidencia
 

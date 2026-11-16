@@ -6,15 +6,15 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | 8 especificadas |
-| Partes | 40 indexadas |
-| Clases | 480 posiciones curriculares consecutivas |
+| Partes | 40 desarrolladas de 45 planificadas |
+| Clases | 480 desarrolladas de 540 planificadas |
 | Contenido desarrollado | Partes 00–39 (`SE-001`–`SE-480`), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado | Partes 40–44 (`SE-481`–`SE-540`), sin clases publicadas |
+| Alcance planificado sin publicar | Partes 40–44 (`SE-481`–`SE-540`), sin clases publicadas |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | 180 clases (`SE-181`–`SE-360`) |
-| Horas | 2.160 estimadas; pendientes de validación por contenido |
+| Horas | 2.160 estimadas en las partes desarrolladas (2.430 en el alcance planificado); pendientes de validación por contenido |
 | Metadatos de clase | 480 archivos generados |
 | Registro bibliográfico | 480 entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |

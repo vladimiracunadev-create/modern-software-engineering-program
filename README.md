@@ -30,13 +30,15 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 
 ---
 
+<!-- state:headline -->
 > [!IMPORTANT]
 > **Cobertura real, sin inflar cifras:** el alcance planificado es de **540 clases en
 > 45 partes (00–44)**, de las cuales 480 clases (Partes 00–39, `SE-001`–`SE-480`) están
 > desarrolladas y publicadas en el portal con texto íntegro, figuras, experimentos
 > reproducibles y fuentes; todavía no pasaron una revisión editorial humana independiente.
-> Las Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas. Una
+> Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas**, sin clases publicadas. Una
 > carpeta o página generada no cuenta como aprendizaje terminado.
+<!-- /state:headline -->
 
 ## 🎯 Qué es esto
 
@@ -146,14 +148,16 @@ Cada parte contiene doce clases: diez clases nucleares, un taller y un proyecto.
 README enlaza el recorrido y el [roadmap](ROADMAP.md) explica qué contenido, artefacto
 y comprobación debe incorporar.
 
+<!-- state:parts-note -->
 > Las Partes 00–39 (`SE-001`–`SE-480`) están desarrolladas y publicadas en el portal.
 > Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron al
 > alcance el 13 de noviembre de 2026 sin renumerar las anteriores (ver
 > [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) y la
-> [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)): están
-> **planificadas**, sin clases ni README todavía. Por eso `curriculum.yaml`, el catálogo
-> y el portal siguen contando 480 clases y 40 partes hasta que cada parte nueva tenga
-> contenido completo. «45 partes» expresa la cantidad; la Parte 00 es la primera unidad.
+> [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Una parte nueva solo cuenta
+> como desarrollada cuando existe su contenido completo; `curriculum.yaml`, el catálogo y el portal
+> cuentan hoy 480 clases y 40 partes desarrolladas. Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas**, sin clases publicadas.
+> «45 partes» expresa la cantidad planificada; la Parte 00 es la primera unidad.
+<!-- /state:parts-note -->
 
 | # | Parte | Clases | Foco | README |
 | ---: | --- | --- | --- | --- |
@@ -197,13 +201,17 @@ y comprobación debe incorporar.
 | 37 | Gestión, liderazgo y práctica profesional | SE-445–SE-456 | equipos, comunicación y decisiones | [📘 leer](classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) |
 | 38 | Desarrollo de software asistido por IA | SE-457–SE-468 | copilots, contexto, evals y seguridad | [📘 leer](classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) |
 | 39 | SPEC, agentes y ciclo de vida agentic | SE-469–SE-480 | MCP, agentes, delegación y control | [📘 leer](classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) |
-| 40 | Metodologías de desarrollo de TDD a ODD | SE-481–SE-492 | TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD | planificada |
+<!-- state:part-rows -->
+| 40 | Metodologías de desarrollo: de TDD a ODD | SE-481–SE-492 | TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD | planificada |
 | 41 | Harness y agentic engineering | SE-493–SE-504 | contexto, herramientas, bucles y recuperación | planificada |
 | 42 | Patrones agénticos y sistemas con LLM | SE-505–SE-516 | patrones de agentes, evaluación y límites | planificada |
 | 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | GoF, GRASP, repositorio, mensajería y resiliencia | planificada |
 | 44 | Estilos arquitectónicos | SE-529–SE-540 | microkernel, microservicios, celular, data mesh y 12-factor | planificada |
+<!-- /state:part-rows -->
 
+<!-- state:flat-index -->
 ➡️ [Abrir el índice plano con enlaces directos a las 480 clases publicadas](classes/README.md).
+<!-- /state:flat-index -->
 
 ## 🧪 Práctica y producto transversal
 
@@ -230,7 +238,7 @@ distribuido, modernización legacy, análisis económico e IA controlada.
 ## 🌐 Portal y navegación
 
 El [sitio del programa](https://vladimiracunadev-create.github.io/modern-software-engineering-program/)
-publica 521 páginas: portada, 40 partes y 480 clases. Permite buscar por ID o título,
+publica la portada, una página por cada parte desarrollada y una por cada clase desarrollada. Permite buscar por ID o título,
 filtrar por etapa y recorrer anterior / parte / índice / siguiente.
 
 - 📚 [Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/).
@@ -286,10 +294,8 @@ trade-offs y evidencia esperada.
 > [!NOTE]
 > Estado real de las partes que aparecen en los mapas: las Partes 00–39
 > (`SE-001`–`SE-480`) están **desarrolladas**, a falta de revisión editorial humana
-> independiente. Las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD,
-> harness y agentic engineering, patrones agénticos, patrones de diseño y estilos
-> arquitectónicos) están **planificadas**: no tienen clases publicadas, por eso se
-> nombran sin enlace en cada ruta. Cada rol añade «Ya desarrolladas de apoyo» para
+> independiente. Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas**: no tienen clases publicadas, por eso se nombran sin enlace en cada ruta.
+> Cada rol añade «Ya desarrolladas de apoyo» para
 > practicar hoy con contenido existente.
 
 ### Ingeniería general
@@ -1118,8 +1124,8 @@ plataformas.
 
 | ⚙️ Workflow | Qué cubre |
 | --- | --- |
-| [🧪 `validate.yml`](.github/workflows/validate.yml) | manifiestos reproducibles, 480 contratos de clase, fases 3–4, UTF-8, enlaces, políticas, tests y portabilidad en Linux, Windows y macOS |
-| [🚀 `pages.yml`](.github/workflows/pages.yml) | integridad de las 521 páginas, artefacto y despliegue en GitHub Pages |
+| [🧪 `validate.yml`](.github/workflows/validate.yml) | manifiestos reproducibles, contratos de cada clase desarrollada, fases 3–4, UTF-8, enlaces, políticas, tests y portabilidad en Linux, Windows y macOS |
+| [🚀 `pages.yml`](.github/workflows/pages.yml) | integridad de las páginas generadas, artefacto y despliegue en GitHub Pages |
 | [🛡️ `security.yml`](.github/workflows/security.yml) | secretos con Gitleaks, SAST Python con Bandit y gobernanza de licencias en push, PR y revisión semanal |
 
 Las acciones externas están fijadas por SHA, los permisos son mínimos por job y las
@@ -1154,6 +1160,7 @@ Requiere Python 3.11 o posterior y no instala dependencias para estas validacion
 
 ## 🔎 Cobertura disponible hoy
 
+<!-- state:coverage -->
 | Superficie | Evidencia verificable |
 | --- | --- |
 | arquitectura | 8 etapas, 40 partes publicadas, 480 IDs únicos y 2.160 horas estimadas; el alcance planificado es de 45 partes y 540 clases (ADR-004) |
@@ -1163,6 +1170,7 @@ Requiere Python 3.11 o posterior y no instala dependencias para estas validacion
 | navegación | índice global, 40 índices de parte y enlaces anterior/siguiente |
 | portal | 521 páginas generadas y desplegadas por CI |
 | carrera | 42 guías profesionales enlazadas a partes reales; las Partes 40–44 figuran como planificadas, sin enlaces |
+<!-- /state:coverage -->
 
 La evidencia detallada y las brechas están en [STATUS.md](STATUS.md), la
 [auditoría de fase 3](docs/PHASE3-CONTENT-AUDIT.md), la
@@ -1172,7 +1180,7 @@ La evidencia detallada y las brechas están en [STATUS.md](STATUS.md), la
 ## 🧱 Estructura del repositorio
 
 ```text
-curriculum.yaml    manifiesto generado de las 480 clases
+curriculum.yaml    manifiesto generado de las partes desarrolladas y del alcance planificado
 catalog.json       conteos canónicos del programa
 classes/           clases, índices de parte, actividades y rúbricas
 roles/             índice y 42 guías profesionales
@@ -1181,7 +1189,7 @@ docs/              arquitectura, cobertura, gobierno y decisiones
 manifest/          mapa de la familia de repositorios
 sources/           fuentes primarias, oficiales y trazabilidad pedagógica
 schemas/           contratos legibles por máquinas
-site/              521 páginas estáticas generadas para GitHub Pages
+site/              páginas estáticas generadas para GitHub Pages
 blueprints/        producto documental de referencia
 projects/          dominios y proyectos transversales
 assessments/       diagnóstico y rúbrica
@@ -1198,7 +1206,7 @@ tests/             pruebas estructurales y de navegación
 
 ### ✅ Lo que sí es
 
-- 📚 una arquitectura curricular **secuencial** de 540 clases planificadas en 45 partes, con 480 clases y 40 partes publicadas;
+- 📚 <!-- state:is-bullet -->una arquitectura curricular **secuencial** de 540 clases planificadas en 45 partes, con 480 clases y 40 partes publicadas;<!-- /state:is-bullet -->
 - 🧭 un recorrido que conecta **profesión, producto, construcción, operación y retiro**;
 - 🧪 una base de **artefactos profesionales**, actividades, rúbricas y producto transversal;
 - 👥 **42 rutas profesionales** con responsabilidades, límites, evidencia y progresión;

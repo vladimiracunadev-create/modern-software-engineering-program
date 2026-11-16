@@ -17,10 +17,10 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | Elemento | Cantidad | Evidencia disponible |
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
-| Partes | 40 | especificadas |
-| Clases | 480 | 480 desarrolladas (`SE-001`–`SE-480`), a falta de revisión editorial humana independiente |
+| Partes | 45 planificadas | las desarrolladas se calculan desde `content/part-NN/` (ver `STATUS.md`) |
+| Clases | 540 planificadas | al 2026-11-16, 480 desarrolladas (`SE-001`–`SE-480`), a falta de revisión editorial humana independiente; el resto, planificadas |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
-| Horas estimadas | 2.160 | sujetas a validación al construir contenido |
+| Horas estimadas | 2.430 planificadas | 54 por parte; sujetas a validación al construir contenido |
 
 Las cifras no significan que las clases estén escritas. Las afirmaciones sobre una
 clase —contenido desarrollado, práctica ejecutada, pruebas realizadas, integración u

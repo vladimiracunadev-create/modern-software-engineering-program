@@ -16,6 +16,51 @@
   "part_count": 40,
   "class_count": 480,
   "estimated_hours": 2160,
+  "planned_scope": {
+    "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
+    "part_count": 45,
+    "class_count": 540,
+    "estimated_hours": 2430,
+    "first_class": "SE-001",
+    "last_class": "SE-540",
+    "unpublished_parts": [
+      {
+        "id": "40",
+        "title": "Metodologías de desarrollo: de TDD a ODD",
+        "first_class": "SE-481",
+        "last_class": "SE-492",
+        "status": "planned"
+      },
+      {
+        "id": "41",
+        "title": "Harness y agentic engineering",
+        "first_class": "SE-493",
+        "last_class": "SE-504",
+        "status": "planned"
+      },
+      {
+        "id": "42",
+        "title": "Patrones agénticos y sistemas con LLM",
+        "first_class": "SE-505",
+        "last_class": "SE-516",
+        "status": "planned"
+      },
+      {
+        "id": "43",
+        "title": "Patrones de diseño, empresariales y de resiliencia",
+        "first_class": "SE-517",
+        "last_class": "SE-528",
+        "status": "planned"
+      },
+      {
+        "id": "44",
+        "title": "Estilos arquitectónicos",
+        "first_class": "SE-529",
+        "last_class": "SE-540",
+        "status": "planned"
+      }
+    ]
+  },
   "stages": [
     {
       "id": "A",

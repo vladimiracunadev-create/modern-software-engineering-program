@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-16 — Infraestructura para publicar las Partes 40–44 (SE-481–SE-540) sin tocar scripts
+
+- nuevo `scripts/program_state.py`: una parte está desarrollada si y solo si existen `content/part-NN/README.md` y los doce `SE-NNN.md`; de ahí salen contadores, rangos y textos de estado
+- `scripts/build_program_blueprint.py` define las 45 partes y los 540 títulos; `curriculum.yaml` lista solo las partes desarrolladas y declara el alcance en `planned_scope` (45 partes, 540 clases, 2.430 horas, partes sin publicar con `status: planned`); `catalog.json` añade `planned_parts`, `planned_classes` y `unpublished_parts`
+- `build_phase2/3/4.py`, `build_role_guides.py`, los validadores, las pruebas y `pages.yml` dejan de usar 40, 480 o 521 como constantes; el README regenera su bloque de estado entre marcadores `<!-- state:… -->`; las filas de las Partes 40–44 pasan de «planificada» a enlace al tener contenido
+- metadatos de fuentes propios de cada parte en `content/part-NN/part.json`; `tests/test_figures.py` incluye automáticamente toda parte desarrollada
+- plan maestro y ROADMAP incorporan las Partes 40–44 (60 casillas sin marcar); nuevos `docs/adr/ADR-005-publish-parts-40-44-from-content.md` y `docs/ADDING-A-PART.md`
+- el estado real no cambia: 480 clases desarrolladas (Partes 00–39) y 60 planificadas (Partes 40–44), sin presentar como existente lo que no lo es
+
 ## 2026-11-16 — Documentación alineada con las Partes 00–39 (480 clases desarrolladas)
 
 - las 480 clases del catálogo (`SE-001`–`SE-480`, Partes 00–39) tienen texto íntegro en `content/` y figuras; se verificó contando archivos: 480 documentos en `content/part-*/SE-*.md`, 480 README de clase, 480 `lesson.json`, 480 páginas `site/classes`, 40 páginas `site/parts`, 360 actividades y 360 rúbricas (fases 3–4) y 42 guías de rol; las Partes 40–44 (`SE-481`–`SE-540`) siguen solo planificadas, sin clases ni carpetas, y los contadores generados de 480 clases y 40 partes no cambian;

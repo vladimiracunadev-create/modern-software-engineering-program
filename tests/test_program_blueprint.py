@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import program_state as ps  # noqa: E402
 
 
 def load_builder():
@@ -26,15 +30,35 @@ class ProgramBlueprintTests(unittest.TestCase):
         cls.payload = cls.builder.build_payload()
 
     def test_program_has_expected_shape(self) -> None:
+        developed = ps.developed_parts()
         self.assertEqual(8, len(self.payload["stages"]))
-        self.assertEqual(40, len(self.payload["parts"]))
-        self.assertEqual(480, self.payload["class_count"])
-        self.assertEqual(2160, self.payload["estimated_hours"])
+        self.assertEqual(len(developed), len(self.payload["parts"]))
+        self.assertEqual(len(developed), self.payload["part_count"])
+        self.assertEqual(12 * len(developed), self.payload["class_count"])
+        self.assertEqual(ps.developed_hours(), self.payload["estimated_hours"])
+
+    def test_planned_scope_is_declared_and_honest(self) -> None:
+        scope = self.payload["planned_scope"]
+        self.assertEqual((45, 540, ps.planned_hours()), (scope["part_count"], scope["class_count"], scope["estimated_hours"]))
+        self.assertEqual("SE-540", scope["last_class"])
+        pending = [item["id"] for item in scope["unpublished_parts"]]
+        self.assertEqual([f"{n:02d}" for n in ps.planned_parts()], pending)
+        published = {part["id"] for part in self.payload["parts"]}
+        self.assertFalse(published & set(pending))
+        self.assertTrue(all(item["status"] == "planned" for item in scope["unpublished_parts"]))
+
+    def test_full_plan_defines_540_classes_in_45_parts(self) -> None:
+        plan = self.builder.build_full_plan()
+        self.assertEqual(45, len(plan))
+        numbers = [lesson["number"] for part in plan for lesson in part["lessons"]]
+        self.assertEqual(list(range(1, 541)), numbers)
+        titles = [lesson["title"].casefold() for part in plan for lesson in part["lessons"]]
+        self.assertEqual(len(titles), len(set(titles)))
 
     def test_identifiers_are_unique_and_sequential(self) -> None:
         lessons = [lesson for part in self.payload["parts"] for lesson in part["lessons"]]
         self.assertEqual(
-            [f"SE-{number:03d}" for number in range(1, 481)],
+            [class_id for number in ps.developed_parts() for class_id in ps.class_ids(number)],
             [lesson["id"] for lesson in lessons],
         )
 

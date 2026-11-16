@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import json
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import program_state as ps  # noqa: E402
 
 
 class PhaseTwoGenerationTests(unittest.TestCase):
@@ -23,20 +27,24 @@ class PhaseTwoGenerationTests(unittest.TestCase):
     def test_part_and_class_counts_on_disk(self) -> None:
         parts = list((ROOT / "classes").glob("part-*"))
         metadata = list((ROOT / "classes").glob("part-*/se-*/lesson.json"))
-        self.assertEqual(40, len(parts))
-        self.assertEqual(480, len(metadata))
+        self.assertEqual(len(ps.developed_parts()), len(parts))
+        self.assertEqual(ps.developed_class_count(), len(metadata))
 
     def test_source_registry_covers_every_class(self) -> None:
         registry = json.loads((ROOT / "sources/class-sources.json").read_text(encoding="utf-8"))
-        self.assertEqual(480, registry["class_count"])
-        self.assertEqual({f"SE-{number:03d}" for number in range(1, 481)}, set(registry["classes"]))
+        expected = {class_id for number in ps.developed_parts() for class_id in ps.class_ids(number)}
+        self.assertEqual(len(expected), registry["class_count"])
+        self.assertEqual(expected, set(registry["classes"]))
         self.assertTrue(all(item["source_ids"] for item in registry["classes"].values()))
 
     def test_site_contains_landing_parts_and_classes(self) -> None:
         pages = list((ROOT / "site").rglob("*.html"))
-        self.assertEqual(521, len(pages))
+        self.assertEqual(1 + len(ps.developed_parts()) + ps.developed_class_count(), len(pages))
         self.assertTrue((ROOT / "site/index.html").is_file())
-        self.assertTrue((ROOT / "site/classes/SE-480.html").is_file())
+        for number in ps.developed_parts():
+            self.assertTrue((ROOT / "site/classes" / f"{ps.class_ids(number)[-1]}.html").is_file())
+        for number in ps.planned_parts():
+            self.assertFalse((ROOT / "site/classes" / f"{ps.class_ids(number)[0]}.html").exists())
 
     def test_site_uses_current_program_name(self) -> None:
         current_name = "Programa de Ingeniería de Software Moderna"
@@ -48,9 +56,9 @@ class PhaseTwoGenerationTests(unittest.TestCase):
 
     def test_web_catalog_matches_manifest(self) -> None:
         catalog = json.loads((ROOT / "site/assets/catalog.json").read_text(encoding="utf-8"))
-        self.assertEqual(480, len(catalog["classes"]))
+        self.assertEqual(ps.developed_class_count(), len(catalog["classes"]))
         self.assertEqual("SE-001", catalog["classes"][0]["id"])
-        self.assertEqual("SE-480", catalog["classes"][-1]["id"])
+        self.assertEqual(ps.class_ids(ps.developed_parts()[-1])[-1], catalog["classes"][-1]["id"])
 
     def test_class_index_links_every_class_and_portal_page(self) -> None:
         index = (ROOT / "classes/README.md").read_text(encoding="utf-8")

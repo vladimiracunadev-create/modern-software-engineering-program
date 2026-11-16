@@ -118,10 +118,8 @@ revisión y fuentes. La estructura común permite comparar; los mecanismos y dec
 son específicos de cada profesión.
 
 > [!NOTE]
-> Los mapas distinguen el estado real de cada parte: 00–39 desarrolladas. Las Partes 40–44 (`SE-481`–`SE-540`) están
-> **planificadas** ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin
-> clases publicadas: aparecen como «Planificada» y sin enlaces. «Ya desarrolladas de
-> apoyo» lista clases existentes de las Partes 00–39 con las que se puede practicar además del núcleo.
+> Los mapas distinguen el estado real de cada parte: 00–39 desarrolladas. Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas** ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin clases publicadas: aparecen como «Planificada» y sin enlaces.
+> «Ya desarrolladas de apoyo» lista clases existentes de las Partes 00–39 con las que se puede practicar además del núcleo.
 
 ## 🧱 Parte → clases → evidencia
 

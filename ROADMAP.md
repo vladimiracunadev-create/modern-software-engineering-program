@@ -17,16 +17,20 @@ de verdad sobre el producto educativo y su secuencia.
 
 ## Estado verificable de partida
 
-- La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,
-  de `SE-001` a `SE-480`, sin renumerar el material existente.
-- Las Partes 00–39 contienen 480 clases desarrolladas y profundizadas con explicación,
-  práctica, figuras interpretadas, experimentos reproducibles, fuentes y navegación
-  (`SE-001`–`SE-480`), con laboratorios ejecutables en las Partes 01–05; falta una revisión
-  editorial humana independiente. No quedan borradores ni estructuras sin desarrollar entre
-  las 480 posiciones; lo que sigue sin existir son las Partes 40–44.
+- La arquitectura curricular planifica 8 etapas, 45 partes y 540 posiciones de clase,
+  de `SE-001` a `SE-540`, sin renumerar el material existente. Qué partes están
+  desarrolladas lo decide el contenido real (`content/part-NN/`), no este documento: el
+  estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
+  (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)).
+- Al 2026-11-16 las Partes 00–39 contienen 480 clases desarrolladas y profundizadas con
+  explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
+  navegación (`SE-001`–`SE-480`), con laboratorios ejecutables en las Partes 01–05; falta
+  una revisión editorial humana independiente. No quedan borradores ni estructuras sin
+  desarrollar entre esas 480 posiciones.
 - El alcance planificado es de 540 clases: las Partes 40–44 (`SE-481`–`SE-540`:
   metodologías de TDD a ODD, harness y agentic engineering, patrones agénticos, patrones
-  de diseño y estilos arquitectónicos) están decididas pero sin clases publicadas. Ver
+  de diseño y estilos arquitectónicos) están decididas y figuran como planificadas hasta
+  que cada una tenga su contenido completo. Ver
   [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md).
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
@@ -97,6 +101,11 @@ se demuestra aprendizaje.
 | 37 · Gestión, liderazgo y práctica profesional (`SE-445`–`SE-456`) | Rutas técnicas y de gestión, mentoring, reviews, negociación, priorización, Conway, Team Topologies, carga cognitiva, ownership y crisis. | Propuesta técnica defendida ante intereses en conflicto, plan organizacional y retrospectiva de una decisión bajo incertidumbre. |
 | 38 · Desarrollo de software asistido por IA (`SE-457`–`SE-468`) | IA en requisitos, diseño, código, review, pruebas, documentación, debugging, DevOps, seguridad, incidentes, legacy, evals y costes. | Cambio asistido con trazabilidad de prompts y herramientas, pruebas deterministas, revisión humana, seguridad y comparación de coste/latencia. |
 | 39 · SPEC, agentes y ciclo de vida agentic (`SE-469`–`SE-480`) | Coding/terminal agents, MCP, tools, skills, memoria, contexto, instrucciones de repositorio, multiagente, guardrails, loops y regresiones. | Flujo agentic evaluable donde HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN → HUMANO REVISA → SISTEMA VALIDA. |
+| 40 · Metodologías de desarrollo: de TDD a ODD (`SE-481`–`SE-492`) | Mapa de metodologías, TDD y sus escuelas, BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD en tres niveles, EDD, ODD y su contraste con SDD. | Un mismo cambio resuelto con cinco metodologías y una política de equipo que dice cuándo usar cada una, con la evidencia que cada una produce. |
+| 41 · Harness y agentic engineering (`SE-493`–`SE-504`) | Anatomía de un harness, instrucciones de repositorio, herramientas y permisos, contexto, loops y paradas, sandboxes, gates, multiagente, evals del harness, AI-DLC y gobierno. | Harness mínimo gobernado y evaluado, con diagnóstico de un fallo real y criterios de parada y recuperación. |
+| 42 · Patrones agénticos y sistemas con LLM (`SE-505`–`SE-516`) | Workflows frente a agentes, encadenado, enrutamiento, paralelización, orquestador-trabajadores, evaluador-optimizador, ReAct, memoria, RAG, MCP y A2A, ejecución durable, evals, coste y seguridad. | Sistema con LLM evaluado y operable, con el patrón elegido justificado frente a un flujo fijo y una degradación probada. |
+| 43 · Patrones de diseño, empresariales y de resiliencia (`SE-517`–`SE-528`) | Criterios de catálogo, GoF en tres clases, GRASP, Repository, Unit of Work y Active Record, Enterprise Integration Patterns, patrones de resiliencia y antipatrones. | Refactorización con patrones medida en coste y catálogo de patrones de un sistema real con sus antipatrones. |
+| 44 · Estilos arquitectónicos (`SE-529`–`SE-540`) | Estilos como respuestas a fuerzas, microkernel, pipes and filters, microservicios y sus costes, BFF, gateway y mesh, multi-tenancy, data mesh, arquitectura celular, 12-factor y migración entre estilos. | Decisión arquitectónica defendida con escenarios de calidad y ADR, con el estilo descartado y su coste explícito. |
 
 ## Ejes transversales obligatorios
 

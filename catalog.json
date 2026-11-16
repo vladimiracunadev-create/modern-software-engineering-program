@@ -5,6 +5,15 @@
   "parts": 40,
   "classes": 480,
   "estimated_hours": 2160,
+  "planned_parts": 45,
+  "planned_classes": 540,
+  "unpublished_parts": [
+    "40",
+    "41",
+    "42",
+    "43",
+    "44"
+  ],
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",

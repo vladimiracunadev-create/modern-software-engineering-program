@@ -1,16 +1,14 @@
 # Índice completo del currículo
 
-480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
+480 clases desarrolladas · 40 partes desarrolladas (`SE-001`–`SE-480`) · 60 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
 
 > [!WARNING]
-> Las Partes 00–39 (`SE-001`–`SE-480`) contienen clases desarrolladas, con texto íntegro,
-> figuras y evidencia reproducible, pendientes de revisión editorial humana independiente.
-> Las Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
+> Las Partes 00–39 (`SE-001`–`SE-480`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 40 partes
+## Las 40 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -55,9 +53,19 @@
 | 38 | [Desarrollo de software asistido por IA](part-38-desarrollo-de-software-asistido-por-ia/README.md) | H | SE-457–SE-468 | `suite` |
 | 39 | [SPEC, agentes y ciclo de vida agentic](part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | H | SE-469–SE-480 | `suite` |
 
+## Partes planificadas sin publicar
+
+| Parte | Título | Clases | Estado |
+| --- | --- | --- | --- |
+| 40 | Metodologías de desarrollo: de TDD a ODD | SE-481–SE-492 | planificada, sin clases publicadas |
+| 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
+| 42 | Patrones agénticos y sistemas con LLM | SE-505–SE-516 | planificada, sin clases publicadas |
+| 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | planificada, sin clases publicadas |
+| 44 | Estilos arquitectónicos | SE-529–SE-540 | planificada, sin clases publicadas |
+
 ---
 
-## Índice plano de las 480 clases
+## Índice plano de las 480 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación

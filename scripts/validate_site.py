@@ -8,6 +8,9 @@ from urllib.parse import unquote, urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import program_state as ps  # noqa: E402
+
 SITE = ROOT / "site"
 PROGRAM_NAME = "Programa de Ingeniería de Software Moderna"
 RETIRED_PROGRAM_NAME = "Software Engineering Learning Suite"
@@ -38,8 +41,9 @@ class LinkParser(HTMLParser):
 def main() -> int:
     failures: list[str] = []
     pages = sorted(SITE.rglob("*.html"))
-    if len(pages) != 521:
-        failures.append(f"expected 521 HTML pages, found {len(pages)}")
+    expected_pages = 1 + len(ps.developed_parts()) + ps.developed_class_count()
+    if len(pages) != expected_pages:
+        failures.append(f"expected {expected_pages} HTML pages, found {len(pages)}")
     for page in pages:
         page_text = page.read_text(encoding="utf-8")
         parser = LinkParser()
@@ -69,8 +73,9 @@ def main() -> int:
             if not resolved.exists():
                 failures.append(f"broken site link: {name} -> {link}")
     catalog = json.loads((SITE / "assets/catalog.json").read_text(encoding="utf-8"))
-    if len(catalog.get("classes", [])) != 480:
-        failures.append("site catalog does not contain 480 classes")
+    expected_classes = ps.developed_class_count()
+    if len(catalog.get("classes", [])) != expected_classes:
+        failures.append(f"site catalog does not contain {expected_classes} developed classes")
     for number in range(1, 181):
         draft = (SITE / "classes" / f"SE-{number:03d}.html").read_text(encoding="utf-8")
         for marker in ("Problema auténtico", "Ejercicios", "Fuentes"):

@@ -56,7 +56,7 @@ jobs:
           python scripts/validate_phase4.py
           python scripts/validate_encoding.py
           python scripts/validate_site.py
-          python -c "from pathlib import Path; pages=list(Path('site').rglob('*.html')); assert len(pages)==521, len(pages)"
+          python -c "import json; from pathlib import Path; c=json.loads(Path('curriculum.yaml').read_text(encoding='utf-8')); pages=list(Path('site').rglob('*.html')); n=1+c['part_count']+c['class_count']; assert len(pages)==n, (len(pages), n)"
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6

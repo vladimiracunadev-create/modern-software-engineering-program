@@ -9,6 +9,9 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import program_state as ps  # noqa: E402
+
 REQUIRED = [
     "README.md",
     "AGENTS.md",
@@ -107,22 +110,33 @@ def validate_manifest() -> None:
 def validate_program_blueprint() -> None:
     payload = read_json("curriculum.yaml")
     catalog = read_json("catalog.json")
-    if payload["part_count"] != 40 or len(payload["parts"]) != 40:
-        raise AssertionError("Program blueprint must contain exactly 40 parts")
+    partial = ps.partial_parts()
+    if partial:
+        raise AssertionError(
+            f"Parts with incomplete content (README plus 12 classes are all required): {ps.part_ranges(partial)}"
+        )
+    developed = ps.developed_parts()
+    if payload["part_count"] != len(developed) or len(payload["parts"]) != len(developed):
+        raise AssertionError(f"Program blueprint must contain exactly the {len(developed)} developed parts")
     if len(payload["stages"]) != 8:
         raise AssertionError("Program blueprint must contain exactly 8 stages")
-    expected_part_ids = [f"{number:02d}" for number in range(40)]
+    expected_part_ids = [f"{number:02d}" for number in developed]
     part_ids = [part["id"] for part in payload["parts"]]
     if part_ids != expected_part_ids:
-        raise AssertionError(f"Expected part IDs 00 through 39, found {part_ids}")
+        raise AssertionError(f"Expected developed part IDs {expected_part_ids}, found {part_ids}")
 
     lessons = [lesson for part in payload["parts"] for lesson in part["lessons"]]
-    if len(lessons) != 480 or payload["class_count"] != 480:
-        raise AssertionError("Program blueprint must contain exactly 480 classes")
-    expected_ids = [f"SE-{number:03d}" for number in range(1, 481)]
+    if len(lessons) != ps.developed_class_count() or payload["class_count"] != ps.developed_class_count():
+        raise AssertionError(f"Program blueprint must contain exactly {ps.developed_class_count()} developed classes")
+    expected_ids = [class_id for number in developed for class_id in ps.class_ids(number)]
     ids = [lesson["id"] for lesson in lessons]
     if ids != expected_ids or len(ids) != len(set(ids)):
-        raise AssertionError("Class IDs must be unique and sequential from SE-001 to SE-480")
+        raise AssertionError("Class IDs must be unique and follow the fixed numbering of the 540-class plan")
+    scope = payload["planned_scope"]
+    if (scope["part_count"], scope["class_count"], scope["estimated_hours"]) != (45, 540, ps.planned_hours()):
+        raise AssertionError("planned_scope must declare 45 parts, 540 classes and the planned hours")
+    if [item["id"] for item in scope["unpublished_parts"]] != [f"{n:02d}" for n in ps.planned_parts()]:
+        raise AssertionError("planned_scope.unpublished_parts must list exactly the parts without content")
     titles = [lesson["title"].strip().casefold() for lesson in lessons]
     if len(titles) != len(set(titles)):
         raise AssertionError("Class titles must be unique")
@@ -141,8 +155,11 @@ def validate_program_blueprint() -> None:
         raise AssertionError("Estimated hours do not match the class manifest")
     expected_catalog = {
         "stages": 8,
-        "parts": 40,
-        "classes": 480,
+        "parts": len(developed),
+        "classes": ps.developed_class_count(),
+        "planned_parts": 45,
+        "planned_classes": 540,
+        "unpublished_parts": [f"{n:02d}" for n in ps.planned_parts()],
         "estimated_hours": hours,
         "phase_3_target": {
             "first_class": "SE-001",
@@ -226,10 +243,11 @@ def validate_role_guides() -> None:
             raise AssertionError(f"Role guide has too few associated class links: {guide.name}")
         if "style=for-the-badge" not in text:
             raise AssertionError(f"Role guide has no visual identity badges: {guide.name}")
-        if "## 🔭 Ampliación planificada: Partes 40–44" not in text:
-            raise AssertionError(f"Role guide lacks the planned Parts 40-44 section: {guide.name}")
-        if re.search(r"classes/part-4[0-4]", text):
-            raise AssertionError(f"Role guide links an unpublished planned part: {guide.name}")
+        if ps.roles_extension_heading() not in text:
+            raise AssertionError(f"Role guide lacks the Parts 40-44 extension section: {guide.name}")
+        for planned_number in ps.planned_parts():
+            if re.search(rf"classes/part-{planned_number:02d}-", text):
+                raise AssertionError(f"Role guide links an unpublished planned part: {guide.name}")
         link = f"roles/{guide.name}"
         if link not in root_readme:
             raise AssertionError(f"Role guide is not linked from README.md: {guide.name}")
@@ -277,9 +295,9 @@ def validate_sources() -> None:
             raise AssertionError(f"Source must declare its purpose: {source['id']}")
 
     class_sources = read_json("sources/class-sources.json")
-    expected_ids = {f"SE-{number:03d}" for number in range(1, 481)}
-    if class_sources.get("class_count") != 480 or set(class_sources.get("classes", {})) != expected_ids:
-        raise AssertionError("Class source registry must cover SE-001 through SE-480")
+    expected_ids = {class_id for number in ps.developed_parts() for class_id in ps.class_ids(number)}
+    if class_sources.get("class_count") != len(expected_ids) or set(class_sources.get("classes", {})) != expected_ids:
+        raise AssertionError("Class source registry must cover exactly the developed classes")
     for class_id, entry in class_sources["classes"].items():
         if not entry.get("source_ids") or not set(entry["source_ids"]).issubset(set(ids)):
             raise AssertionError(f"Class source registry has unresolved sources: {class_id}")
@@ -305,12 +323,14 @@ def validate_phase2_outputs() -> None:
     pages = sorted((ROOT / "site").rglob("*.html"))
     activities = sorted((ROOT / "classes").glob("part-*/se-*/activity.yaml"))
     rubrics = sorted((ROOT / "classes").glob("part-*/se-*/rubric.json"))
-    if len(part_directories) != 40:
-        raise AssertionError(f"Expected 40 generated part directories, found {len(part_directories)}")
-    if len(metadata) != 480 or len(scaffolds) != 480:
-        raise AssertionError(f"Expected 480 class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
-    if len(pages) != 521:
-        raise AssertionError(f"Expected 521 generated HTML pages, found {len(pages)}")
+    developed_parts = len(ps.developed_parts())
+    developed_classes = ps.developed_class_count()
+    if len(part_directories) != developed_parts:
+        raise AssertionError(f"Expected {developed_parts} generated part directories, found {len(part_directories)}")
+    if len(metadata) != developed_classes or len(scaffolds) != developed_classes:
+        raise AssertionError(f"Expected {developed_classes} class metadata/scaffolds, found {len(metadata)}/{len(scaffolds)}")
+    if len(pages) != 1 + developed_parts + developed_classes:
+        raise AssertionError(f"Expected {1 + developed_parts + developed_classes} generated HTML pages, found {len(pages)}")
     if len(activities) != 360 or len(rubrics) != 360:
         raise AssertionError(f"Expected 360 phase 3-4 activities/rubrics, found {len(activities)}/{len(rubrics)}")
 
@@ -370,8 +390,8 @@ def validate_program_roadmap() -> None:
             raise AssertionError(f"Program roadmap contract missing: {token}")
 
     part_rows = re.findall(r"^\| \d{2} · .+\(`SE-\d{3}`–`SE-\d{3}`\)", roadmap, re.MULTILINE)
-    if len(part_rows) != 40:
-        raise AssertionError(f"Program roadmap must define all 40 parts, found {len(part_rows)}")
+    if len(part_rows) != 45:
+        raise AssertionError(f"Program roadmap must define all 45 parts, found {len(part_rows)}")
 
     audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-06.md").read_text(encoding="utf-8")
     if "| Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |" not in audit:
@@ -411,11 +431,11 @@ def validate_master_curriculum_plan() -> None:
     end = text.index("## Orden de ejecución y registro")
     class_plan = text[start:end]
     rows = re.findall(r"^- \[([ x])\] `(SE-\d{3})` — .+$", class_plan, re.MULTILINE)
-    expected_ids = [f"SE-{number:03d}" for number in range(1, 481)]
+    expected_ids = [f"SE-{number:03d}" for number in range(1, ps.PLANNED_CLASS_COUNT + 1)]
     found_ids = [class_id for _, class_id in rows]
     if found_ids != expected_ids:
         raise AssertionError(
-            "Master curriculum plan must cover SE-001 through SE-480 exactly once and in order"
+            "Master curriculum plan must cover SE-001 through SE-540 exactly once and in order"
         )
     if any(marker != "x" for marker, _ in rows[:72]):
         raise AssertionError("The first 72 developed classes must stay recorded as reviewed")

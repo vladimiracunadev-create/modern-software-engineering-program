@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import json
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import program_state as ps  # noqa: E402
 
 
 class PhaseThreeGenerationTests(unittest.TestCase):
@@ -106,7 +110,8 @@ class PhaseThreeGenerationTests(unittest.TestCase):
 
     def test_portal_reports_program_shape_without_class_states(self) -> None:
         home = (ROOT / "site/index.html").read_text(encoding="utf-8")
-        self.assertIn("480</strong><span>clases en el recorrido", home)
+        self.assertIn(f"{ps.developed_class_count()}</strong><span>clases desarrolladas", home)
+        self.assertIn(f"{len(ps.developed_parts())}</strong><span>partes desarrolladas", home)
         self.assertNotIn("data-status", home)
         self.assertNotIn("class-status", home)
 

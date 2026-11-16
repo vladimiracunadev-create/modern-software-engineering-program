@@ -4,7 +4,7 @@ Estado: **fuente canónica operativa**
 
 Creado: 2026-10-06
 
-Alcance base: `SE-001`–`SE-480`
+Alcance base: `SE-001`–`SE-480`; ampliado a `SE-001`–`SE-540` por ADR-004
 
 ## Cómo recuperar el contexto
 
@@ -756,6 +756,84 @@ evita una explicación genérica.
 - [x] `SE-479` — detener, recuperar y evaluar loops.
 - [x] `SE-480` — entregar un producto validado por el sistema, no por autodeclaración.
 
+Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron por ADR-004; cada casilla se marca `[x]`
+solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
+
+### Parte 40 — Metodologías de TDD a ODD
+
+- [ ] `SE-481` — mapa de metodologías: qué decide cada una y cómo elegir.
+- [ ] `SE-482` — tDD: ciclo rojo-verde-refactor y diseño emergente.
+- [ ] `SE-483` — tDD en la práctica: escuelas de Londres y clásica, y sus límites.
+- [ ] `SE-484` — bDD: ejemplos, conversación y lenguaje compartido.
+- [ ] `SE-485` — aTDD y Specification by Example: aceptación ejecutable.
+- [ ] `SE-486` — dDD como lenguaje ubicuo y contexto para agentes.
+- [ ] `SE-487` — diseño por contrato y pruebas de contrato como oráculo.
+- [ ] `SE-488` — sDD: spec-first, spec-anchored y spec-as-source.
+- [ ] `SE-489` — eDD: evaluaciones como especificación y puerta de release.
+- [ ] `SE-490` — oDD: desarrollo orgánico y su contraste con SDD.
+- [ ] `SE-491` — taller: un mismo cambio con cinco metodologías.
+- [ ] `SE-492` — proyecto: política metodológica de equipo con evidencia.
+
+### Parte 41 — Harness y agentic engineering
+
+- [ ] `SE-493` — anatomía de un harness: modelo, contexto, herramientas y bucles.
+- [ ] `SE-494` — instrucciones de repositorio y cumplimiento determinista.
+- [ ] `SE-495` — herramientas, permisos y superficies de acción.
+- [ ] `SE-496` — gestión de contexto, resets y handoffs.
+- [ ] `SE-497` — loops de agentes y criterios de parada.
+- [ ] `SE-498` — sandboxes, reversibilidad y control de daño.
+- [ ] `SE-499` — verificación, gates y menú único de validación.
+- [ ] `SE-500` — multiagente y coordinación dentro del harness.
+- [ ] `SE-501` — observabilidad y evals del propio harness.
+- [ ] `SE-502` — aI-DLC, gobierno y vibe coding frente a agentic engineering.
+- [ ] `SE-503` — taller: diagnosticar el fallo de un harness.
+- [ ] `SE-504` — proyecto: harness mínimo gobernado y evaluado.
+
+### Parte 42 — Patrones agénticos y sistemas con LLM
+
+- [ ] `SE-505` — workflows frente a agentes: cuándo no usar un agente.
+- [ ] `SE-506` — encadenado, enrutamiento y paralelización.
+- [ ] `SE-507` — orquestador-trabajadores y evaluador-optimizador.
+- [ ] `SE-508` — reAct, plan-and-execute y reflexión.
+- [ ] `SE-509` — memoria y gestión de estado de agentes.
+- [ ] `SE-510` — embeddings, recuperación y agentic RAG.
+- [ ] `SE-511` — interoperabilidad entre agentes: MCP y A2A.
+- [ ] `SE-512` — ejecución durable, reintentos e idempotencia.
+- [ ] `SE-513` — evals y LLMOps de sistemas con LLM.
+- [ ] `SE-514` — costo, latencia y seguridad en sistemas con LLM.
+- [ ] `SE-515` — taller: elegir y degradar un patrón agéntico.
+- [ ] `SE-516` — proyecto: sistema con LLM evaluado y operable.
+
+### Parte 43 — Patrones de diseño, empresariales y de resiliencia
+
+- [ ] `SE-517` — criterios para usar un catálogo de patrones.
+- [ ] `SE-518` — goF creacionales: Factory, Builder, Singleton y Prototype.
+- [ ] `SE-519` — goF estructurales: Adapter, Decorator, Facade, Proxy y Composite.
+- [ ] `SE-520` — goF conductuales: Strategy, Observer, Command, State y Template Method.
+- [ ] `SE-521` — gRASP y asignación de responsabilidades.
+- [ ] `SE-522` — repository, Unit of Work y Active Record.
+- [ ] `SE-523` — enterprise Integration Patterns como lenguaje común.
+- [ ] `SE-524` — resiliencia: timeout, retry con jitter y circuit breaker.
+- [ ] `SE-525` — resiliencia: bulkhead, sidecar, ambassador y degradación.
+- [ ] `SE-526` — antipatrones y deuda de diseño.
+- [ ] `SE-527` — taller: refactorizar con patrones y medir su costo.
+- [ ] `SE-528` — proyecto: catálogo de patrones de un sistema real.
+
+### Parte 44 — Estilos arquitectónicos
+
+- [ ] `SE-529` — estilos como respuestas a fuerzas de calidad.
+- [ ] `SE-530` — microkernel y arquitecturas de plugins.
+- [ ] `SE-531` — pipes and filters y arquitecturas de flujo.
+- [ ] `SE-532` — microservicios y sus costes reales.
+- [ ] `SE-533` — bFF, API gateway y service mesh.
+- [ ] `SE-534` — multi-tenancy y aislamiento.
+- [ ] `SE-535` — data mesh y propiedad de los datos.
+- [ ] `SE-536` — arquitectura celular y radio de impacto.
+- [ ] `SE-537` — 12-factor y aplicaciones nativas de la nube.
+- [ ] `SE-538` — evolución y migración entre estilos.
+- [ ] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
+- [ ] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
+
 ## Orden de ejecución y registro
 
 | Orden | Unidad | Estado inicial | Condición de cierre |
@@ -769,7 +847,7 @@ evita una explicación genérica.
 | 7 | Partes 30–37 | estructuras | enseñanza completa, casos y laboratorios operativos |
 | 8 | Partes 38–39 | estructuras | evals, guardrails, coste, seguridad y regresión |
 | 9 | Integración | parcial | glosario, bibliografía, rutas y proyectos reconciliados |
-| 10 | Expansión | no habilitada | auditoría demuestra brechas indivisibles y aprueba nuevos IDs |
+| 10 | Expansión (Partes 40–44, ADR-004) | habilitada | una parte por commit; solo se marca como desarrollada con su contenido completo, figuras y CI verde |
 
 ## Validación final obligatoria
 

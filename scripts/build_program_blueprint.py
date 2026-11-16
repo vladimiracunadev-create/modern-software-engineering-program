@@ -4,7 +4,11 @@ import argparse
 import json
 import re
 import unicodedata
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import program_state as state  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -589,6 +593,76 @@ PARTS = [
         "Taller: detener, recuperar y evaluar un agente",
         "Proyecto final: producto operable construido desde SPEC",
     ]),
+    ("40", "H", "Metodologías de desarrollo: de TDD a ODD", "suite", [
+        "Mapa de metodologías: qué decide cada una y cómo elegir",
+        "TDD: ciclo rojo-verde-refactor y diseño emergente",
+        "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
+        "BDD: ejemplos, conversación y lenguaje compartido",
+        "ATDD y Specification by Example: aceptación ejecutable",
+        "DDD como lenguaje ubicuo y contexto para agentes",
+        "Diseño por contrato y pruebas de contrato como oráculo",
+        "SDD: spec-first, spec-anchored y spec-as-source",
+        "EDD: evaluaciones como especificación y puerta de release",
+        "ODD: desarrollo orgánico y su contraste con SDD",
+        "Taller: un mismo cambio con cinco metodologías",
+        "Proyecto: política metodológica de equipo con evidencia",
+    ]),
+    ("41", "H", "Harness y agentic engineering", "suite", [
+        "Anatomía de un harness: modelo, contexto, herramientas y bucles",
+        "Instrucciones de repositorio y cumplimiento determinista",
+        "Herramientas, permisos y superficies de acción",
+        "Gestión de contexto, resets y handoffs",
+        "Loops de agentes y criterios de parada",
+        "Sandboxes, reversibilidad y control de daño",
+        "Verificación, gates y menú único de validación",
+        "Multiagente y coordinación dentro del harness",
+        "Observabilidad y evals del propio harness",
+        "AI-DLC, gobierno y vibe coding frente a agentic engineering",
+        "Taller: diagnosticar el fallo de un harness",
+        "Proyecto: harness mínimo gobernado y evaluado",
+    ]),
+    ("42", "H", "Patrones agénticos y sistemas con LLM", "suite", [
+        "Workflows frente a agentes: cuándo no usar un agente",
+        "Encadenado, enrutamiento y paralelización",
+        "Orquestador-trabajadores y evaluador-optimizador",
+        "ReAct, plan-and-execute y reflexión",
+        "Memoria y gestión de estado de agentes",
+        "Embeddings, recuperación y agentic RAG",
+        "Interoperabilidad entre agentes: MCP y A2A",
+        "Ejecución durable, reintentos e idempotencia",
+        "Evals y LLMOps de sistemas con LLM",
+        "Costo, latencia y seguridad en sistemas con LLM",
+        "Taller: elegir y degradar un patrón agéntico",
+        "Proyecto: sistema con LLM evaluado y operable",
+    ]),
+    ("43", "E", "Patrones de diseño, empresariales y de resiliencia", "suite", [
+        "Criterios para usar un catálogo de patrones",
+        "GoF creacionales: Factory, Builder, Singleton y Prototype",
+        "GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite",
+        "GoF conductuales: Strategy, Observer, Command, State y Template Method",
+        "GRASP y asignación de responsabilidades",
+        "Repository, Unit of Work y Active Record",
+        "Enterprise Integration Patterns como lenguaje común",
+        "Resiliencia: timeout, retry con jitter y circuit breaker",
+        "Resiliencia: bulkhead, sidecar, ambassador y degradación",
+        "Antipatrones y deuda de diseño",
+        "Taller: refactorizar con patrones y medir su costo",
+        "Proyecto: catálogo de patrones de un sistema real",
+    ]),
+    ("44", "E", "Estilos arquitectónicos", "suite", [
+        "Estilos como respuestas a fuerzas de calidad",
+        "Microkernel y arquitecturas de plugins",
+        "Pipes and filters y arquitecturas de flujo",
+        "Microservicios y sus costes reales",
+        "BFF, API gateway y service mesh",
+        "Multi-tenancy y aislamiento",
+        "Data mesh y propiedad de los datos",
+        "Arquitectura celular y radio de impacto",
+        "12-factor y aplicaciones nativas de la nube",
+        "Evolución y migración entre estilos",
+        "Taller: seleccionar un estilo con escenarios de calidad",
+        "Proyecto: decisión arquitectónica defendida con ADR",
+    ]),
 ]
 
 
@@ -598,12 +672,13 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", ascii_value).strip("-")
 
 
-def build_payload() -> dict:
+def build_full_plan() -> list[dict]:
+    """Las 45 partes del alcance planificado (ADR-004), con numeración secuencial fija."""
     stage_names = dict(STAGES)
     lesson_number = 1
     parts = []
     for part_id, stage_id, title, owner, lesson_titles in PARTS:
-        if len(lesson_titles) != 12:
+        if len(lesson_titles) != state.CLASSES_PER_PART:
             raise ValueError(f"Part {part_id} must define exactly 12 classes")
         part_slug = slugify(title)
         part_path = f"classes/part-{part_id}-{part_slug}"
@@ -631,6 +706,19 @@ def build_payload() -> dict:
             "path": part_path,
             "lessons": lessons,
         })
+    if [part["id"] for part in parts] != [f"{n:02d}" for n in range(state.PLANNED_PART_COUNT)]:
+        raise ValueError("The blueprint must define parts 00 through 44 in order")
+    if lesson_number - 1 != state.PLANNED_CLASS_COUNT:
+        raise ValueError("The blueprint must define exactly 540 classes")
+    return parts
+
+
+def build_payload() -> dict:
+    """`parts` contiene solo las partes con contenido; el resto va en `planned_scope`."""
+    full_plan = build_full_plan()
+    developed_ids = {f"{n:02d}" for n in state.developed_parts()}
+    parts = [part for part in full_plan if part["id"] in developed_ids]
+    planned = [part for part in full_plan if part["id"] not in developed_ids]
     return {
         "schema_version": 1,
         "program": "modern-software-engineering-program",
@@ -651,6 +739,26 @@ def build_payload() -> dict:
         "estimated_hours": sum(
             lesson["estimated_hours"] for part in parts for lesson in part["lessons"]
         ),
+        "planned_scope": {
+            "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
+            "part_count": len(full_plan),
+            "class_count": sum(len(part["lessons"]) for part in full_plan),
+            "estimated_hours": sum(
+                lesson["estimated_hours"] for part in full_plan for lesson in part["lessons"]
+            ),
+            "first_class": full_plan[0]["lessons"][0]["id"],
+            "last_class": full_plan[-1]["lessons"][-1]["id"],
+            "unpublished_parts": [
+                {
+                    "id": part["id"],
+                    "title": part["title"],
+                    "first_class": part["lessons"][0]["id"],
+                    "last_class": part["lessons"][-1]["id"],
+                    "status": "planned",
+                }
+                for part in planned
+            ],
+        },
         "stages": [{"id": key, "title": value} for key, value in STAGES],
         "parts": parts,
     }
@@ -681,6 +789,9 @@ def main() -> int:
         "parts": payload["part_count"],
         "classes": payload["class_count"],
         "estimated_hours": payload["estimated_hours"],
+        "planned_parts": payload["planned_scope"]["part_count"],
+        "planned_classes": payload["planned_scope"]["class_count"],
+        "unpublished_parts": [part["id"] for part in payload["planned_scope"]["unpublished_parts"]],
         "phase_3_target": payload["phase_3_target"],
         "phase_4_target": payload["phase_4_target"],
     }

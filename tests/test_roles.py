@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import sys
 import unittest
 import re
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import program_state as ps  # noqa: E402
 EXPECTED_GUIDES = {
     "accessibility-engineer.md",
     "agentic-harness-engineer.md",
@@ -130,21 +134,24 @@ class RoleGuideTests(unittest.TestCase):
         for name in EXPECTED_GUIDES:
             text = (ROOT / "roles" / name).read_text(encoding="utf-8")
             with self.subTest(role=name):
-                self.assertIn("## 🔭 Ampliación planificada: Partes 40–44", text)
+                self.assertIn(ps.roles_extension_heading(), text)
                 self.assertIn("✅ Clases ya desarrolladas que sostienen la ruta hoy", text)
-                self.assertNotRegex(text, r"classes/part-4[0-4]")
+                for number in ps.planned_parts():
+                    self.assertNotRegex(text, rf"classes/part-{number:02d}-")
         for document in (main, index):
-            self.assertNotRegex(document, r"classes/part-4[0-4]")
-            self.assertIn("Planificada, sin clases publicadas", document)
+            for number in ps.planned_parts():
+                self.assertNotRegex(document, rf"classes/part-{number:02d}-")
+            if ps.planned_parts():
+                self.assertIn("lanificada", document)
 
     def test_support_classes_are_developed_and_exist(self) -> None:
-        pattern = re.compile(r"Ya desarrolladas de apoyo \(Partes 00–39\):(.+)")
+        pattern = re.compile(r"Ya desarrolladas de apoyo \(" + re.escape(ps.developed_label()) + r"\):(.+)")
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         matches = pattern.findall(main)
         self.assertEqual(len(matches), len(EXPECTED_GUIDES))
         for line in matches:
             for number in re.findall(r"\[SE-(\d{3})\]", line):
-                self.assertLessEqual(int(number), 480)
+                self.assertLessEqual(int(number), ps.developed_class_count())
 
     def test_entry_points_expose_part_class_evidence_map(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")

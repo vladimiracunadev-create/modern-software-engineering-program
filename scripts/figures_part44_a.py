@@ -1,8 +1,8 @@
 """Figures for SE-529 to SE-534 (architectural styles: runs of real CPython code and seeded models over the Avisos case; Windows CPython 3.12.9; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+
 from figures_part40_a import bars, flow
 
 EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten y los tiempos varían de un equipo a otro."
@@ -11,15 +11,14 @@ MODELO = "Modelo con parámetros del autor y semilla fija 44; muestra un mecanis
 
 # ---------------------------------------------------------------- SE-529
 def se529_cuatro_contextos() -> Fig:
-    rows = [['Equipo de 6, producto nuevo', 'Monolito modular', '4,00', 'Monolito en capas', '0,35'],
-            ['12 equipos, 120 personas', 'Microservicios', '3,45', 'Arquitectura celular', '0,30'],
-            ['Plataforma con extensiones de terceros', 'Microkernel', '3,75', 'Microservicios', '0,65'],
-            ['Crítico y multi-inquilino', 'Arquitectura celular', '3,50', 'Microservicios', '0,20']]
-    return tab('Cuatro contextos, cuatro estilos distintos: la misma matriz de valoraciones con pesos de cada contexto',
-               'Tabla con cuatro contextos de decisión y el estilo que gana en cada uno con la misma matriz de seis estilos y siete atributos: un equipo de seis gana el monolito modular con 4,00 puntos, doce equipos ganan los microservicios con 3,45, una plataforma con extensiones de terceros gana el microkernel con 3,75 y un sistema crítico y multi-inquilino gana la arquitectura celular con 3,50; las diferencias con el segundo van de 0,20 a 0,65.',
-               ['Contexto', 'Ganador', 'Puntaje', 'Segundo', 'Diferencia'], rows, [330, 210, 90, 210, 110], row_h=60, size=13,
-               note='La matriz de valoraciones es la misma en los cuatro casos; solo cambian los pesos. Cuatro estilos distintos ganan, y en el contexto crítico la ventaja sobre el segundo es de 0,20 puntos, menos que el margen de error de un juicio de 1 a 5. Las valoraciones y los pesos los fijó el autor.',
-               note_kind='gold', foot=MODELO)
+    return grouped_bars(
+        "Cuatro contextos, cuatro estilos distintos: la misma matriz de valoraciones con pesos de cada contexto",
+        "Barras agrupadas con el puntaje del estilo ganador y del segundo en cuatro contextos con la misma matriz de seis estilos y siete atributos: un equipo de seis gana el monolito modular con 4,00 frente a 3,65, doce equipos los microservicios con 3,45 frente a 3,15, una plataforma con extensiones de terceros el microkernel con 3,75 frente a 3,10 y un sistema crítico y multi-inquilino la arquitectura celular con 3,50 frente a 3,30.",
+        ["Equipo de 6: gana monolito modular (2.º: monolito en capas)", "12 equipos: gana microservicios (2.º: celular)", "Plataforma con terceros: gana microkernel (2.º: microservicios)", "Crítico y multi-inquilino: gana celular (2.º: microservicios)"],
+        [("Ganador", [4.00, 3.45, 3.75, 3.50], "teal"), ("Segundo", [3.65, 3.15, 3.10, 3.30], "grey")],
+        unit="Puntaje ponderado", decimals=2, horizontal=True, label_w=330,
+        note="El puntaje del segundo es el del ganador menos la diferencia: 0,35, 0,30, 0,65 y 0,20. La matriz de valoraciones es la misma en los cuatro casos; solo cambian los pesos. Cuatro estilos distintos ganan, y en el contexto crítico la ventaja sobre el segundo es de 0,20 puntos, menos que el margen de error de un juicio de 1 a 5. Las valoraciones y los pesos los fijó el autor.",
+        note_kind="gold", foot=MODELO)
 
 
 def se529_de_fuerza_a_estilo() -> Fig:
@@ -42,35 +41,35 @@ def se529_victorias_por_estilo() -> Fig:
 
 # ---------------------------------------------------------------- SE-530
 def se530_alta_de_canales() -> Fig:
-    rows = [['Monolito con if y elif', '8 líneas', '14 líneas', '6 líneas del núcleo'],
-            ['Núcleo con complementos descubiertos', 'misma huella SHA-256', 'misma huella SHA-256', '0 líneas del núcleo']]
-    return tab('Añadir tres canales de aviso: líneas tocadas del núcleo en un monolito con if y elif y en un núcleo con complementos',
-               'Tabla con dos estructuras: un monolito con if y elif pasa de 8 a 14 líneas y toca 6 líneas del núcleo al añadir tres canales, y un núcleo con complementos descubiertos en un directorio conserva la misma huella del código y toca 0 líneas porque los tres canales son archivos nuevos.',
-               ['Estructura', 'Con 3 canales', 'Con 6 canales', 'Líneas tocadas al añadir 3'], rows, [330, 200, 200, 230], row_h=66, size=13,
-               note='La huella del núcleo se calcula con SHA-256 del código fuente de la clase del núcleo antes y después de añadir los complementos, y es idéntica. Esto mide la extensión sin tocar el núcleo, no que el contrato del complemento sea bueno: ese contrato es el costo del estilo.',
-               note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        "Añadir tres canales de aviso: líneas tocadas del núcleo en un monolito con if y elif y en un núcleo con complementos",
+        "Barras con las líneas del núcleo que se tocan al añadir tres canales: un monolito con if y elif toca 6 líneas, pasando de 8 a 14, y un núcleo con complementos descubiertos en un directorio toca 0 porque los tres canales son archivos nuevos y la huella del código no cambia.",
+        ["Monolito con if y elif", "Núcleo con complementos descubiertos"], [("Líneas tocadas del núcleo", [6, 0], "navy")],
+        unit="Líneas del núcleo tocadas al añadir 3 canales", decimals=0, plot_h=240,
+        note="El monolito pasa de 8 líneas con 3 canales a 14 con 6; el núcleo con complementos conserva la misma huella SHA-256 del código fuente de su clase antes y después. La huella se calcula con SHA-256 del código fuente de la clase del núcleo. Esto mide la extensión sin tocar el núcleo, no que el contrato del complemento sea bueno: ese contrato es el costo del estilo.",
+        note_kind="teal", foot=EJEC)
 
 
 def se530_aislamiento() -> Fig:
-    rows = [['En el mismo hilo, sin protección', 'Detiene la entrega a los demás', 'Bloquea 1,00 s', '0,30 µs'],
-            ['En el mismo hilo, con try y except', 'Aislada: 7 de 8 resultados', 'Bloquea 1,00 s', '0,30 µs'],
-            ['En un proceso con límite de 0,3 s', 'Aislada: código de error', 'Cortada a los 314 ms', '122 ms']]
-    return tab('Tres formas de ejecutar un complemento: qué pasa con uno que falla y con uno lento, y cuánto cuesta cada una',
-               'Tabla con tres formas de ejecutar complementos: en el mismo hilo sin protección la excepción detiene la entrega a los demás y un complemento lento bloquea un segundo, con try y except se aísla la excepción y se entregan 7 de 8 resultados pero el lento sigue bloqueando 1,00 segundos, y en un proceso con límite de 0,3 segundos se aísla el error y el lento se corta a los 314 milisegundos, con una mediana de 122 milisegundos por llamada frente a 0,30 microsegundos.',
-               ['Forma de ejecutar', 'Complemento que falla', 'Complemento lento', 'Costo por llamada'], rows, [310, 270, 220, 160], row_h=66, size=13,
-               note='El aislamiento por proceso protege del complemento lento y del que cuelga, pero cuesta más de cinco órdenes de magnitud por llamada. Una excepción se contiene con una línea; un bloqueo exige otro proceso o un hilo con límite.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Tres formas de ejecutar un complemento: qué pasa con uno que falla y con uno lento, y cuánto cuesta cada una",
+        "Barras agrupadas en escala logarítmica con el bloqueo por un complemento lento y el costo por llamada de tres formas de ejecutar complementos: en el mismo hilo, con o sin try y except, el lento bloquea 1000 milisegundos y la llamada cuesta 0,0003; en un proceso con límite de 0,3 segundos el lento se corta a los 314 milisegundos y la llamada cuesta una mediana de 122.",
+        ["Mismo hilo, sin protección", "Mismo hilo, con try y except", "Proceso con límite de 0,3 s"],
+        [("Bloqueo por el complemento lento", [1000, 1000, 314], "coral"), ("Costo por llamada", [0.0003, 0.0003, 122], "navy")],
+        unit="Milisegundos", log=True, plot_h=280,
+        note="Sin protección, la excepción detiene la entrega a los demás; con try y except queda aislada y se entregan 7 de 8 resultados; con un proceso, el error se aísla con un código de error. El aislamiento por proceso protege del complemento lento y del que cuelga, pero cuesta más de cinco órdenes de magnitud por llamada (0,30 µs frente a 122 ms). Una excepción se contiene con una línea; un bloqueo exige otro proceso o un hilo con límite.",
+        note_kind="gold", foot=EJEC)
 
 
 def se530_version_del_contrato() -> Fig:
-    rows = [['Sin comprobar la versión', '0 correctos y 6 rotos', 'En plena ejecución'],
-            ['Exigir la API 2', '1 cargado y 5 rechazados', 'Al arrancar, con motivo'],
-            ['Adaptador para la API 1', '6 cargados, 0 rechazados', 'Sin cambios para los autores']]
-    return tab('Un núcleo que sube su contrato a la versión 2: seis complementos, cinco escritos para la versión 1',
-               'Tabla con tres políticas de un núcleo que cambia su contrato: sin comprobar la versión, los seis complementos fallan en plena ejecución con 0 correctos; si exige la API 2 carga uno y rechaza cinco al arrancar con su motivo; con un adaptador para la API 1 carga los seis sin cambios para sus autores.',
-               ['Política del núcleo', 'Resultado', 'Cuándo se descubre'], rows, [330, 330, 300], row_h=62, size=13,
-               note='El contrato entre núcleo y complemento es la parte más cara de un microkernel: cambiarlo rompe a quien no controlas. La versión declarada convierte un fallo en ejecución en un rechazo al arrancar; el adaptador lo convierte en una deuda del núcleo.',
-               note_kind='coral', foot=EJEC)
+    return stacked_bars(
+        "Un núcleo que sube su contrato a la versión 2: seis complementos, cinco escritos para la versión 1",
+        "Barras apiladas horizontales con los seis complementos según la política del núcleo: sin comprobar la versión, 0 correctos y 6 rotos en plena ejecución; si exige la API 2, 1 cargado y 5 rechazados al arrancar con su motivo; con un adaptador para la API 1, 6 cargados y 0 rechazados, sin cambios para sus autores.",
+        ["Sin comprobar la versión", "Exigir la API 2", "Adaptador para la API 1"],
+        [("Correctos o cargados", [0, 1, 6], "teal"), ("Rotos o rechazados", [6, 5, 0], "coral")],
+        unit="Complementos de 6", horizontal=True, decimals=0, label_w=190,
+        note="Cuándo se descubre: sin comprobar, en plena ejecución; exigiendo la API 2, al arrancar y con motivo; con adaptador, no hay nada que descubrir. El contrato entre núcleo y complemento es la parte más cara de un microkernel: cambiarlo rompe a quien no controlas. La versión declarada convierte un fallo en ejecución en un rechazo al arrancar; el adaptador lo convierte en una deuda del núcleo.",
+        note_kind="coral", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-531
@@ -84,74 +83,79 @@ def se531_memoria() -> Fig:
 
 
 def se531_orden_de_filtros() -> Fig:
-    rows = [['Filtro caro antes del selectivo', '90 079', 'Enriquece todo lo válido'],
-            ['Filtro selectivo antes del caro', '16 259', '82,0 % menos llamadas']]
-    return tab('Orden de dos filtros en una cadena de 100 000 registros: llamadas al filtro caro de enriquecer',
-               'Tabla con dos órdenes de la misma cadena: si el filtro caro de enriquecer va antes del selectivo se llama 90 079 veces y si va después se llama 16 259 veces, un 82,0 por ciento menos, con la misma salida.',
-               ['Orden de la cadena', 'Llamadas al filtro caro', 'Efecto'], rows, [400, 270, 290], row_h=62, size=13,
-               note='En una cadena de filtros el orden cambia el costo sin cambiar el resultado, siempre que los filtros conmuten. Poner primero el que descarta más y cuesta menos es una decisión de diseño que se comprueba contando llamadas.',
-               note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        "Orden de dos filtros en una cadena de 100 000 registros: llamadas al filtro caro de enriquecer",
+        "Barras horizontales con las llamadas al filtro caro de enriquecer: si va antes del selectivo se llama 90079 veces y si va después 16259, un 82,0 por ciento menos, con la misma salida.",
+        ["Filtro caro antes del selectivo", "Filtro selectivo antes del caro"], [("Llamadas al filtro caro", [90079, 16259], "navy")],
+        unit="Llamadas al filtro caro", horizontal=True, decimals=0, label_w=250,
+        note="En la primera cadena se enriquece todo lo válido; en la segunda, un 82,0 % menos de llamadas. En una cadena de filtros el orden cambia el costo sin cambiar el resultado, siempre que los filtros conmuten. Poner primero el que descarta más y cuesta menos es una decisión de diseño que se comprueba contando llamadas.",
+        note_kind="teal", foot=EJEC)
 
 
 def se531_contrapresion() -> Fig:
-    rows = [['Cola ilimitada', 'Hasta 5 000 (todo)', 'El productor nunca espera'],
-            ['Cola acotada a 100', '100', 'El productor espera cuando se llena'],
-            ['Filtro que falla sin manejo', 'Se detiene en el registro 5', '19 procesados y 1 rechazado si hay cola de rechazos']]
-    return tab('Productor rápido y consumidor lento con 5 000 mensajes: profundidad máxima de la cola y qué ocurre con un registro malformado',
-               'Tabla con tres situaciones de un flujo: con una cola ilimitada la profundidad máxima llega a unos 5 000 mensajes y el productor nunca espera, con una cola acotada a 100 la profundidad máxima es 100 y el productor espera cuando se llena, y un filtro que falla sin manejo detiene el flujo en el registro 5, mientras que con una cola de rechazos se procesan 19 registros y se rechaza 1.',
-               ['Situación', 'Profundidad máxima o efecto', 'Consecuencia'], rows, [310, 290, 360], row_h=70, size=13,
-               note='La cola acotada convierte la sobrecarga en espera del productor en lugar de memoria sin límite; es contrapresión. La profundidad de la cola ilimitada depende del reparto de hilos del sistema (entre 4 999 y 5 000 en las ejecuciones hechas).',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Productor rápido y consumidor lento con 5 000 mensajes: profundidad máxima de la cola y qué ocurre con un registro malformado",
+        "Barras con la profundidad máxima de la cola en dos situaciones: con una cola ilimitada llega a unos 5000 mensajes y el productor nunca espera; con una cola acotada a 100 es 100 y el productor espera cuando se llena.",
+        ["Cola ilimitada", "Cola acotada a 100"], [("Profundidad máxima de la cola", [5000, 100], "navy")],
+        unit="Mensajes en la cola", decimals=0, plot_h=240,
+        note="Un filtro que falla sin manejo detiene el flujo en el registro 5; con una cola de rechazos se procesan 19 registros y se rechaza 1. La cola acotada convierte la sobrecarga en espera del productor en lugar de memoria sin límite; es contrapresión. La profundidad de la cola ilimitada depende del reparto de hilos del sistema (entre 4 999 y 5 000 en las ejecuciones hechas).",
+        note_kind="gold", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-532
 def se532_costo_de_llamada() -> Fig:
-    rows = [['Llamada en el mismo proceso', '0,0002', '0,0002'], ['Serializar y deserializar JSON', '0,0051', '0,0162'],
-            ['HTTP local con conexión reutilizada', '0,3237', '0,6739'], ['HTTP local con conexión nueva', '1,0791', '1,8198']]
-    return tab('Costo medido de una consulta de aviso según cómo se llame: en proceso, serializada y por HTTP en la misma máquina',
-               'Tabla con cuatro formas de hacer la misma consulta, con mediana y percentil 99 en milisegundos: en el mismo proceso 0,0002 y 0,0002, serializar y deserializar JSON 0,0051 y 0,0162, HTTP local con conexión reutilizada 0,3237 y 0,6739, y HTTP local con conexión nueva 1,0791 y 1,8198.',
-               ['Camino', 'Mediana (ms)', 'p99 (ms)'], rows, [450, 250, 250], row_h=58, size=13,
-               note='Cruzar un límite de proceso cuesta más de mil veces lo que una llamada en proceso aun en la misma máquina y sin red real; con red, balanceador y TLS el costo sube. Una ejecución en Windows 11: las proporciones son estables y los valores absolutos no.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Costo medido de una consulta de aviso según cómo se llame: en proceso, serializada y por HTTP en la misma máquina",
+        "Barras agrupadas en escala logarítmica con la mediana y el percentil 99 en milisegundos de cuatro formas de hacer la misma consulta: en el mismo proceso 0,0002 y 0,0002, serializar y deserializar JSON 0,0051 y 0,0162, HTTP local con conexión reutilizada 0,3237 y 0,6739, y HTTP local con conexión nueva 1,0791 y 1,8198.",
+        ["En el mismo proceso", "JSON ida y vuelta", "HTTP, conexión reutilizada", "HTTP, conexión nueva"],
+        [("Mediana", [0.0002, 0.0051, 0.3237, 1.0791], "teal"), ("p99", [0.0002, 0.0162, 0.6739, 1.8198], "coral")],
+        unit="Milisegundos", log=True, decimals=4, plot_h=280, width=1000,
+        note="Cruzar un límite de proceso cuesta más de mil veces lo que una llamada en proceso aun en la misma máquina y sin red real; con red, balanceador y TLS el costo sube. Una ejecución en Windows 11: las proporciones son estables y los valores absolutos no.",
+        note_kind="coral", foot=EJEC)
 
 
 def se532_cadena_de_servicios() -> Fig:
-    rows = [['1', '99,900 %', '99,915 %', '20,1', '79,2'], ['2', '99,800 %', '99,750 %', '43,3', '120,6'],
-            ['4', '99,601 %', '99,655 %', '90,7', '193,9'], ['8', '99,203 %', '99,150 %', '186,1', '316,7']]
-    return tab('Una petición que atraviesa k servicios en serie, cada uno al 99,9 % y con latencia mediana de 20 ms: disponibilidad y latencia',
-               'Tabla con una cadena de k servicios síncronos: con 1 servicio la disponibilidad analítica es 99,900 por ciento y la simulada 99,915, con 2 es 99,800 y 99,750, con 4 es 99,601 y 99,655, y con 8 es 99,203 y 99,150; la latencia mediana sube de 20,1 a 186,1 milisegundos y el percentil 99 de 79,2 a 316,7 milisegundos.',
-               ['Servicios en la cadena', 'Disponibilidad analítica', 'Disponibilidad simulada', 'p50 (ms)', 'p99 (ms)'], rows, [180, 240, 240, 140, 140], row_h=56, size=13,
-               note='La disponibilidad de una cadena es el producto de las de sus eslabones: ocho servicios al 99,9 % dan 99,2 %, unas cinco horas más de caída al mes que un solo servicio. Los 20 000 casos simulados con semilla 44 coinciden con la fórmula dentro de su ruido. La latencia de cada salto es una distribución lognormal del autor.',
-               note_kind='coral', foot=MODELO)
+    ks = [1, 2, 4, 8]
+    return line_chart(
+        "Una petición que atraviesa k servicios en serie, cada uno al 99,9 % y con latencia mediana de 20 ms: disponibilidad y latencia",
+        "Líneas con la latencia mediana y el percentil 99 de una petición que atraviesa k servicios en serie: la mediana sube de 20,1 a 186,1 milisegundos y el percentil 99 de 79,2 a 316,7 con 1, 2, 4 y 8 servicios; la disponibilidad analítica baja de 99,900 a 99,203 por ciento.",
+        [("p50", list(zip(ks, [20.1, 43.3, 90.7, 186.1])), "teal"), ("p99", list(zip(ks, [79.2, 120.6, 193.9, 316.7])), "coral")],
+        x_label="Servicios en la cadena", y_label="Milisegundos", x_ticks=[(k, str(k)) for k in ks], y_ticks=[0, 100, 200, 300, 400], point_labels="all", decimals=1, plot_h=300,
+        note="Disponibilidad analítica y simulada con 1, 2, 4 y 8 servicios: 99,900 % y 99,915 %; 99,800 % y 99,750 %; 99,601 % y 99,655 %; 99,203 % y 99,150 %. La disponibilidad de una cadena es el producto de las de sus eslabones: ocho servicios al 99,9 % dan 99,2 %, unas cinco horas más de caída al mes que un solo servicio. Los 20 000 casos simulados con semilla 44 coinciden con la fórmula dentro de su ruido. La latencia de cada salto es una distribución lognormal del autor.",
+        note_kind="coral", foot=MODELO)
 
 
 def se532_acoplamiento() -> Fig:
-    rows = [['Cadena de ocho servicios', '7', '1', '0'], ['Siete servicios que llaman a uno', '7', '7', '0']]
-    return tab('Cambio incompatible del contrato de s7 en ocho servicios: cuántos deben cambiar o desplegarse a la vez',
-               'Tabla con dos topologías de ocho servicios y un cambio incompatible en el servicio s7: en una cadena deben coordinarse 7 servicios transitivos y 1 directo, en una estrella con siete servicios que llaman a s7 deben coordinarse 7 transitivos y 7 directos, y con un cambio compatible y consumidores tolerantes el número de despliegues coordinados es 0 en ambos casos.',
-               ['Topología', 'Servicios afectados (transitivos)', 'Servicios afectados (directos)', 'Con cambio compatible'], rows, [330, 220, 220, 190], row_h=64, size=13,
-               note='Un servicio con consumidores que dependen de su forma exacta se despliega con ellos: es un monolito distribuido con más latencia. Lo que desacopla es la compatibilidad de los contratos, no la separación de procesos.',
-               note_kind='teal', foot=MODELO)
+    return grouped_bars(
+        "Cambio incompatible del contrato de s7 en ocho servicios: cuántos deben cambiar o desplegarse a la vez",
+        "Barras agrupadas con los servicios afectados por un cambio incompatible en s7 en dos topologías de ocho servicios: en una cadena, 7 transitivos y 1 directo; en una estrella con siete servicios que llaman a s7, 7 transitivos y 7 directos; con un cambio compatible y consumidores tolerantes, 0 despliegues coordinados en ambas.",
+        ["Cadena de ocho servicios", "Siete servicios que llaman a uno"],
+        [("Afectados (transitivos)", [7, 7], "gold"), ("Afectados (directos)", [1, 7], "coral"), ("Con cambio compatible", [0, 0], "teal")],
+        unit="Servicios que coordinar", decimals=0, plot_h=260,
+        note="Un servicio con consumidores que dependen de su forma exacta se despliega con ellos: es un monolito distribuido con más latencia. Lo que desacopla es la compatibilidad de los contratos, no la separación de procesos.",
+        note_kind="teal", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-533
 def se533_rondas_y_bytes() -> Fig:
-    rows = [['El cliente llama a cuatro servicios', '2', '6 692', '173'], ['Gateway de agregación (carga completa)', '1', '6 692', '93'],
-            ['BFF móvil (carga proyectada)', '1', '163', '80'], ['BFF web (carga proyectada)', '1', '1 169', '82']]
-    return tab('Una pantalla de avisos con cuatro servicios detrás: rondas, bytes y tiempo modelado según quién agrega',
-               'Tabla con cuatro caminos para armar la pantalla de avisos: el cliente llama a cuatro servicios en dos rondas con 6 692 bytes y 173 milisegundos modelados, un gateway de agregación usa una ronda con los mismos 6 692 bytes y 93 milisegundos, un BFF móvil usa una ronda con 163 bytes y 80 milisegundos y un BFF web usa una ronda con 1 169 bytes y 82 milisegundos.',
-               ['Camino', 'Rondas', 'Bytes', 'Tiempo modelado (ms)'], rows, [450, 110, 160, 240], row_h=58, size=13,
-               note='La agregación ahorra una ronda; la proyección por cliente ahorra bytes: el móvil necesita el 2,4 % de la carga completa. Los tiempos usan 80 ms de ida y vuelta y 0,5 MB/s, supuestos del autor, no una medición de red; los tamaños sí son medidos sobre datos sintéticos.',
-               note_kind='teal', foot=MODELO)
+    return grouped_bars(
+        "Una pantalla de avisos con cuatro servicios detrás: rondas, bytes y tiempo modelado según quién agrega",
+        "Barras horizontales en escala logarítmica con los bytes y el tiempo modelado de cuatro caminos para armar la pantalla: el cliente llama a cuatro servicios en dos rondas con 6692 bytes y 173 milisegundos, un gateway de agregación usa una ronda con 6692 bytes y 93, un BFF móvil una ronda con 163 bytes y 80 y un BFF web una ronda con 1169 bytes y 82.",
+        ["El cliente llama a cuatro servicios (2 rondas)", "Gateway de agregación, carga completa (1 ronda)", "BFF móvil, carga proyectada (1 ronda)", "BFF web, carga proyectada (1 ronda)"],
+        [("Bytes", [6692, 6692, 163, 1169], "navy"), ("Tiempo modelado (ms)", [173, 93, 80, 82], "coral")],
+        unit="Bytes o milisegundos", horizontal=True, log=True, decimals=0, label_w=300,
+        note="La agregación ahorra una ronda; la proyección por cliente ahorra bytes: el móvil necesita el 2,4 % de la carga completa. Los tiempos usan 80 ms de ida y vuelta y 0,5 MB/s, supuestos del autor, no una medición de red; los tamaños sí son medidos sobre datos sintéticos.",
+        note_kind="teal", foot=MODELO)
 
 
 def se533_confianza_en_el_borde() -> Fig:
-    rows = [['Cada servicio confía en el gateway', '4 de 4', 'No hay otra barrera'], ['Cada servicio valida la firma del token', '0 de 4', 'La petición válida pasa en 4 de 4']]
-    return tab('Una petición interna falsificada que no pasa por el gateway: cuántos de cuatro servicios la aceptan',
-               'Tabla con dos políticas de autenticación frente a una petición interna falsificada que salta el gateway: si los cuatro servicios confían en el gateway la aceptan 4 de 4, y si cada servicio valida la firma HMAC del token la aceptan 0 de 4 y aceptan la petición válida 4 de 4.',
-               ['Política', 'Servicios que aceptan la falsa', 'Observación'], rows, [380, 270, 310], row_h=64, size=13,
-               note='El gateway centraliza la autenticación en el borde, pero no sustituye la validación en cada servicio: cualquier camino interno que lo evite hereda la confianza. Defensa en profundidad cuesta una verificación de firma por llamada.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Una petición interna falsificada que no pasa por el gateway: cuántos de cuatro servicios la aceptan",
+        "Barras con los servicios de cuatro que aceptan una petición interna falsificada que salta el gateway: si cada servicio confía en el gateway la aceptan 4 de 4; si cada uno valida la firma HMAC del token la aceptan 0 de 4, y aceptan la petición válida 4 de 4.",
+        ["Cada servicio confía en el gateway", "Cada servicio valida la firma del token"], [("Servicios que aceptan la petición falsa", [4, 0], "coral")],
+        unit="Servicios de 4 que la aceptan", decimals=0, plot_h=240,
+        note="Con la validación de firma, la petición válida pasa en 4 de 4; con la confianza en el gateway no hay otra barrera. El gateway centraliza la autenticación en el borde, pero no sustituye la validación en cada servicio: cualquier camino interno que lo evite hereda la confianza. Defensa en profundidad cuesta una verificación de firma por llamada.",
+        note_kind="coral", foot=EJEC)
 
 
 def se533_saltos_de_proxy() -> Fig:
@@ -165,33 +169,36 @@ def se533_saltos_de_proxy() -> Fig:
 
 # ---------------------------------------------------------------- SE-534
 def se534_fugas() -> Fig:
-    rows = [['Consultas sobre la tabla compartida sin protección', '4 de 12', 'Q09, Q10, Q11 y Q12'],
-            ['Linter: busca «tenant_id = ?» en el texto', 'Señala 3 de 4', 'No ve Q12 (filtro anulado por OR)'],
-            ['Vista temporal del inquilino en cada solicitud', '0 de 12', 'Las mismas consultas, sin cambios']]
-    return tab('Doce consultas sobre una tabla compartida por cinco inquilinos: cuántas filtran datos ajenos según la protección',
-               'Tabla con tres estrategias sobre doce consultas: sin protección cuatro consultas devuelven datos ajenos, un linter que busca el filtro por tenant_id en el texto señala tres y no ve la consulta Q12 cuyo filtro se anula con OR, y una vista temporal del inquilino creada en cada solicitud deja cero fugas en las doce consultas sin cambiarlas.',
-               ['Estrategia', 'Fugas', 'Detalle'], rows, [400, 190, 370], row_h=64, size=13,
-               note='La regla «filtrar por inquilino» escrita en cada consulta falla donde un humano la olvida o la anula; una barrera que no depende de la consulta (la vista que tapa el nombre de la tabla) falla solo si alguien usa otra conexión. Doce consultas escritas por el autor, no una muestra de código real.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Doce consultas sobre una tabla compartida por cinco inquilinos: cuántas filtran datos ajenos según la protección",
+        "Barras horizontales con las consultas de doce que filtran o se señalan según la estrategia: sin protección cuatro consultas devuelven datos ajenos, un linter que busca el filtro por tenant_id en el texto señala tres y no ve la Q12, cuyo filtro se anula con OR, y una vista temporal del inquilino creada en cada solicitud deja cero fugas sin cambiar las consultas.",
+        ["Sin protección: consultas que filtran (Q09, Q10, Q11, Q12)", "Linter de «tenant_id = ?»: fugas señaladas (no ve Q12)", "Vista temporal del inquilino: consultas que filtran"],
+        [("Consultas", [4, 3, 0], "coral")],
+        unit="Consultas de 12", horizontal=True, decimals=0, label_w=330,
+        note="La regla «filtrar por inquilino» escrita en cada consulta falla donde un humano la olvida o la anula; una barrera que no depende de la consulta (la vista que tapa el nombre de la tabla) falla solo si alguien usa otra conexión. Doce consultas escritas por el autor, no una muestra de código real.",
+        note_kind="gold", foot=EJEC)
 
 
 def se534_costo_de_aislar() -> Fig:
-    rows = [['Crear la estructura', '3 619 ms para 200', 'Una tabla creada una vez'], ['Disco por inquilino', '12 288 bytes', 'Filas con inquilino_id'],
-            ['Migrar el esquema', '1 401 ms en 200 bases', '0,18 ms en una tabla']]
-    return tab('Una base de datos por inquilino frente a una tabla compartida: crear 200 inquilinos y migrar el esquema',
-               'Tabla con el costo de aislar por base de datos con 200 inquilinos de SQLite frente a una tabla compartida: crear las 200 bases tarda 3 619 milisegundos, cada una ocupa 12 288 bytes y migrar el esquema en las 200 tarda 1 401 milisegundos, mientras que alterar la tabla compartida tarda 0,18 milisegundos.',
-               ['Operación', 'Una base por inquilino', 'Tabla compartida'], rows, [300, 330, 330], row_h=62, size=13,
-               note='El aislamiento fuerte se paga en operaciones que se multiplican por el número de inquilinos; con 200 es tolerable y con 20 000 la migración deja de ser un comando para ser un proyecto. Tiempos de escritura con sincronización de disco en Windows: varían mucho entre equipos.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Una base de datos por inquilino frente a una tabla compartida: crear 200 inquilinos y migrar el esquema",
+        "Barras horizontales en escala logarítmica con el tiempo de aislar por base de datos con 200 inquilinos de SQLite: crear las 200 bases tarda 3619 milisegundos y migrar el esquema en las 200 tarda 1401, mientras que alterar la tabla compartida tarda 0,18 milisegundos.",
+        ["Crear 200 bases, una por inquilino", "Migrar el esquema en las 200 bases", "Migrar el esquema en la tabla compartida"],
+        [("Tiempo", [3619, 1401, 0.18], "navy")],
+        unit="Milisegundos", horizontal=True, log=True, decimals=2, label_w=290,
+        note="Cada base ocupa 12 288 bytes, mientras que la tabla compartida se crea una vez y guarda filas con inquilino_id. El aislamiento fuerte se paga en operaciones que se multiplican por el número de inquilinos; con 200 es tolerable y con 20 000 la migración deja de ser un comando para ser un proyecto. Tiempos de escritura con sincronización de disco en Windows: varían mucho entre equipos.",
+        note_kind="coral", foot=EJEC)
 
 
 def se534_vecino_ruidoso() -> Fig:
-    rows = [['Ninguna (cola común)', '7,96', '7,84'], ['Tope de 1 trabajador de 4 para el ruidoso', '0,16', '54,24']]
-    return tab('Un inquilino ruidoso a 40 solicitudes por segundo durante 20 s con cuatro trabajadores: espera p95 por política',
-               'Tabla con dos políticas de planificación: sin ninguna política la espera p95 de los nueve inquilinos normales es 7,96 segundos y la del ruidoso 7,84; con un tope de un trabajador de cuatro para el inquilino ruidoso la espera p95 de los normales baja a 0,16 segundos y la del ruidoso sube a 54,24 segundos; las solicitudes son 1 056 normales y 818 ruidosas en ambos casos.',
-               ['Política', 'Espera p95 normales (s)', 'Espera p95 ruidoso (s)'], rows, [420, 270, 270], row_h=62, size=13,
-               note='El tope no hace desaparecer la sobrecarga: la traslada a quien la causa. Los inquilinos normales vuelven a 0,16 s y el ruidoso espera 54 s. Simulación de eventos con semilla 44; los tiempos de servicio son exponenciales de media 0,1 s, un supuesto del autor.',
-               note_kind='teal', foot=MODELO)
+    return grouped_bars(
+        "Un inquilino ruidoso a 40 solicitudes por segundo durante 20 s con cuatro trabajadores: espera p95 por política",
+        "Barras agrupadas con la espera p95 de los inquilinos normales y del ruidoso por política: sin política 7,96 segundos y 7,84; con un tope de un trabajador de cuatro para el ruidoso, 0,16 y 54,24.",
+        ["Ninguna (cola común)", "Tope de 1 trabajador de 4 para el ruidoso"],
+        [("Espera p95 de los normales", [7.96, 0.16], "teal"), ("Espera p95 del ruidoso", [7.84, 54.24], "coral")],
+        unit="Segundos de espera (p95)", decimals=2, plot_h=260,
+        note="Las solicitudes son 1 056 normales y 818 ruidosas en ambos casos. El tope no hace desaparecer la sobrecarga: la traslada a quien la causa. Los inquilinos normales vuelven a 0,16 s y el ruidoso espera 54 s. Simulación de eventos con semilla 44; los tiempos de servicio son exponenciales de media 0,1 s, un supuesto del autor.",
+        note_kind="teal", foot=MODELO)
 
 
 FIGURES = {

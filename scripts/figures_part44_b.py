@@ -1,8 +1,8 @@
 """Figures for SE-535 to SE-540 (architectural styles: runs of real CPython code and seeded models over the Avisos case; Windows CPython 3.12.9; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+
 from figures_part40_a import bars, flow
 
 EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; los recuentos se repiten y los tiempos varían de un equipo a otro."
@@ -11,45 +11,49 @@ MODELO = "Modelo con parámetros del autor y semilla fija 44; muestra un mecanis
 
 # ---------------------------------------------------------------- SE-535
 def se535_cola_central() -> Fig:
-    rows = [['5', '19 %', '0,00', '0,00', '0,00'], ['10', '38 %', '0,03', '0,03', '0,00'], ['15', '56 %', '0,14', '0,14', '0,50'],
-            ['20', '75 %', '0,53', '0,51', '1,66'], ['24', '90 %', '2,17', '1,97', '5,65']]
-    return tab('Un equipo de datos central de cuatro personas atendiendo a D dominios: espera por solicitud de un conjunto de datos nuevo',
-               'Tabla con un equipo central de cuatro personas que atiende solicitudes de D dominios, cada uno con 0,15 solicitudes por semana: con 5 dominios la utilización es 19 por ciento y la espera media 0,00 semanas, con 10 es 38 por ciento y 0,03, con 15 es 56 por ciento y 0,14, con 20 es 75 por ciento y 0,53 y con 24 es 90 por ciento y 2,17 semanas; la espera analítica de Erlang C coincide dentro del ruido y el percentil 90 llega a 5,65 semanas con 24 dominios.',
-               ['Dominios', 'Utilización', 'Espera media simulada (semanas)', 'Espera media analítica', 'Espera p90 simulada'], rows, [150, 170, 280, 200, 180], row_h=56, size=13,
-               note='La espera no crece en línea recta: pasar de 20 a 24 dominios (un 20 % más de demanda) multiplica la espera media por cuatro. La simulación coincide con la fórmula de Erlang C hasta el 90 % de utilización, lo que valida la simulación, no el modelo de organización.',
-               note_kind='coral', foot=MODELO)
+    xs = [5, 10, 15, 20, 24]
+    return line_chart(
+        "Un equipo de datos central de cuatro personas atendiendo a D dominios: espera por solicitud de un conjunto de datos nuevo",
+        "Líneas con la espera por solicitud según los dominios atendidos por un equipo central de cuatro personas, cada dominio con 0,15 solicitudes por semana: la espera media simulada es 0,00 semanas con 5 dominios, 0,03 con 10, 0,14 con 15, 0,53 con 20 y 2,17 con 24; la analítica de Erlang C coincide y el percentil 90 llega a 5,65 semanas con 24.",
+        [("Espera media simulada", list(zip(xs, [0.00, 0.03, 0.14, 0.53, 2.17])), "teal"), ("Espera media analítica", list(zip(xs, [0.00, 0.03, 0.14, 0.51, 1.97])), "navy"),
+         ("Espera p90 simulada", list(zip(xs, [0.00, 0.00, 0.50, 1.66, 5.65])), "coral")],
+        x_label="Dominios atendidos", y_label="Semanas de espera", x_ticks=[(x, str(x)) for x in xs], y_ticks=[0, 1, 2, 3, 4, 5, 6], point_labels="none", decimals=2, plot_h=300,
+        note="Utilización del equipo con 5, 10, 15, 20 y 24 dominios: 19 %, 38 %, 56 %, 75 % y 90 %. La espera no crece en línea recta: pasar de 20 a 24 dominios (un 20 % más de demanda) multiplica la espera media por cuatro. La simulación coincide con la fórmula de Erlang C hasta el 90 % de utilización, lo que valida la simulación, no el modelo de organización.",
+        note_kind="coral", foot=MODELO)
 
 
 def se535_personas_necesarias() -> Fig:
-    rows = [['Equipo central, sin penalización de contexto', '5 personas', '0,12'], ['Equipo central, penalización 0,5', '6 personas', '0,44'],
-            ['Equipo central, penalización 1,0', '8 personas', '0,38'], ['Un equipo por dominio, 0,5 persona cada uno', '10 personas', '0,87'],
-            ['Un equipo por dominio, 0,65 persona cada uno', '13 personas', '0,47']]
-    return tab('Con 20 dominios, personas necesarias para que la espera media no pase de 0,5 semanas según quién es dueño del dato',
-               'Tabla con las personas necesarias con 20 dominios para que la espera media no pase de 0,5 semanas: un equipo central necesita 5 personas sin penalización de contexto, 6 con penalización 0,5 y 8 con penalización 1,0, y unos equipos por dominio necesitan 10 personas en total con 0,5 persona por dominio, con una espera de 0,87 que no cumple, y 13 con 0,65 persona por dominio.',
-               ['Modelo de propiedad', 'Personas en total', 'Espera media (semanas)'], rows, [460, 240, 260], row_h=58, size=13,
-               note='En este modelo la propiedad por dominio no ahorra personas: mueve el trabajo y necesita más. Lo que compra es que el conocimiento del dominio deje de ser una penalización del equipo central y que el producto de datos tenga un dueño. La penalización de contexto es un supuesto del autor.',
-               note_kind='gold', foot=MODELO)
+    return grouped_bars(
+        "Con 20 dominios, personas necesarias para que la espera media no pase de 0,5 semanas según quién es dueño del dato",
+        "Barras horizontales con las personas necesarias con 20 dominios para que la espera media no pase de 0,5 semanas: un equipo central necesita 5 personas sin penalización de contexto, 6 con penalización 0,5 y 8 con 1,0; equipos por dominio necesitan 10 en total con 0,5 persona por dominio, con una espera de 0,87 que no cumple, y 13 con 0,65.",
+        ["Central, sin penalización de contexto (0,12 semanas)", "Central, penalización 0,5 (0,44)", "Central, penalización 1,0 (0,38)", "Un equipo por dominio, 0,5 persona cada uno (0,87: no cumple)", "Un equipo por dominio, 0,65 persona cada uno (0,47)"],
+        [("Personas en total", [5, 6, 8, 10, 13], "navy")],
+        unit="Personas en total", horizontal=True, decimals=0, label_w=350,
+        note="Entre paréntesis, la espera media en semanas. En este modelo la propiedad por dominio no ahorra personas: mueve el trabajo y necesita más. Lo que compra es que el conocimiento del dominio deje de ser una penalización del equipo central y que el producto de datos tenga un dueño. La penalización de contexto es un supuesto del autor.",
+        note_kind="gold", foot=MODELO)
 
 
 def se535_derivas() -> Fig:
-    rows = [['D1 columna renombrada', 'esquema', 'sí'], ['D2 tipo cambiado a texto', 'esquema', 'sí'], ['D3 columna eliminada', 'esquema', 'sí'],
-            ['D4 nulos en estudiante (12,5 %)', 'esquema y completitud', 'sí'], ['D5 identificadores duplicados', 'unicidad', 'sí'], ['D6 datos atrasados (30 h)', 'frescura', 'sí'],
-            ['D7 unidad cambiada a minutos', 'distribución', 'sí'], ['D8 significado invertido', 'distribución', 'sí'], ['L1 cambio legítimo de temporada', 'distribución', 'falsa alarma']]
-    return tab('Ocho derivas de un producto de datos y un cambio legítimo: qué comprobación del contrato las detecta',
-               'Tabla con nueve cambios sobre un producto de datos de 1 000 filas: las derivas D1 a D3 las detecta la comprobación de esquema, D4 la completitud y el esquema, D5 la unicidad, D6 la frescura y D7 y D8 la comprobación de distribución; el cambio legítimo de temporada L1 también falla la distribución y es una falsa alarma; solo con el esquema se detectan 4 de las 8 derivas.',
-               ['Cambio', 'Comprobaciones que fallan', 'Resultado'], rows, [430, 330, 200], row_h=44, size=13,
-               note='Las ocho derivas se detectan con cinco comprobaciones; con solo el esquema se detectarían 4. La unidad cambiada y el significado invertido son válidos para el esquema y solo se ven por su efecto en la distribución, que no distingue un defecto de un cambio real del negocio.',
-               note_kind='teal', foot=EJEC)
+    return heatmap(
+        "Ocho derivas de un producto de datos y un cambio legítimo: qué comprobación del contrato las detecta",
+        "Mapa de calor con nueve cambios sobre un producto de datos de 1000 filas y las comprobaciones que fallan: D1 a D3 las detecta el esquema, D4 la completitud y el esquema, D5 la unicidad, D6 la frescura y D7 y D8 la distribución; el cambio legítimo de temporada L1 también falla la distribución y es una falsa alarma; solo con el esquema se detectan 4 de las 8 derivas.",
+        ["D1 columna renombrada", "D2 tipo cambiado a texto", "D3 columna eliminada", "D4 nulos en estudiante (12,5 %)", "D5 identificadores duplicados", "D6 datos atrasados (30 h)", "D7 unidad cambiada a minutos", "D8 significado invertido", "L1 cambio legítimo de temporada"],
+        ["Esquema", "Completitud", "Unicidad", "Frescura", "Distribución"],
+        [[1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1]],
+        unit="falla", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "falla" if v else "—", highlight=[(8, 4)], cell_h=36, label_w=290,
+        note="Las ocho derivas se detectan con cinco comprobaciones; con solo el esquema se detectarían 4. La celda resaltada es la falsa alarma: el cambio legítimo de temporada también falla la distribución. La unidad cambiada y el significado invertido son válidos para el esquema y solo se ven por su efecto en la distribución, que no distingue un defecto de un cambio real del negocio.",
+        note_kind="teal", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-536
 def se536_reubicacion() -> Fig:
-    rows = [['Módulo del hash (h mod n)', '88 985', '89,0 %'], ['Hash por encuentro (rendezvous)', '11 176', '11,2 %'], ['Mínimo teórico (1/9)', '11 111', '11,1 %']]
-    return tab('Pasar de 8 a 9 celdas con 100 000 inquilinos: cuántos cambian de celda según la función de asignación',
-               'Tabla con tres funciones de asignación al pasar de 8 a 9 celdas con 100 000 inquilinos: el módulo del hash reubica 88 985 inquilinos, un 89,0 por ciento, el hash por encuentro reubica 11 176, un 11,2 por ciento, y el mínimo teórico es un noveno, 11,1 por ciento.',
-               ['Función de asignación', 'Inquilinos reubicados', 'Proporción'], rows, [430, 280, 250], row_h=58, size=13,
-               note='Con el módulo, añadir una celda mueve casi todo; con el hash por encuentro solo se mueve lo que la celda nueva se queda. Mover un inquilino es una migración de datos, de modo que la función de asignación decide el costo de crecer. El reparto entre las 8 celdas fue de 12 339 a 12 713 inquilinos por celda.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Pasar de 8 a 9 celdas con 100 000 inquilinos: cuántos cambian de celda según la función de asignación",
+        "Barras horizontales con los inquilinos reubicados al pasar de 8 a 9 celdas con 100000 inquilinos: el módulo del hash reubica 88985, un 89,0 por ciento; el hash por encuentro 11176, un 11,2 por ciento; el mínimo teórico es un noveno, 11111, un 11,1 por ciento.",
+        ["Módulo del hash (89,0 %)", "Hash por encuentro (11,2 %)", "Mínimo teórico, 1/9 (11,1 %)"], [("Inquilinos reubicados", [88985, 11176, 11111], "navy")],
+        unit="Inquilinos reubicados de 100 000", horizontal=True, decimals=0, label_w=250,
+        note="Entre paréntesis, la proporción reubicada. Con el módulo, añadir una celda mueve casi todo; con el hash por encuentro solo se mueve lo que la celda nueva se queda. Mover un inquilino es una migración de datos, de modo que la función de asignación decide el costo de crecer. El reparto entre las 8 celdas fue de 12 339 a 12 713 inquilinos por celda.",
+        note_kind="gold", foot=EJEC)
 
 
 def se536_radio() -> Fig:
@@ -63,23 +67,25 @@ def se536_radio() -> Fig:
 
 
 def se536_costo_de_celdas() -> Fig:
-    rows = [['Capacidad para cubrir el p99 de la carga', '1 824 unidades', '2 184 unidades (19,8 % más)'], ['Disponibilidad de un inquilino', '99,9 % de la flota', '99,890 % (enrutador por celda)'],
-            ['Punto de fallo compartido', 'La flota entera', 'El enrutador']]
-    return tab('Costo de repartir 1 000 inquilinos en 8 celdas frente a una flota compartida: capacidad, disponibilidad y punto de fallo',
-               'Tabla con tres comparaciones entre una flota compartida y ocho celdas: la capacidad para cubrir el percentil 99 de la carga es 1 824 unidades frente a 2 184, un 19,8 por ciento más, la disponibilidad de un inquilino es la de la flota frente a 99,890 por ciento con el enrutador al 99,99 y la celda al 99,9, y el punto de fallo compartido es la flota entera frente al enrutador.',
-               ['Comparación', 'Flota compartida', 'Ocho celdas'], rows, [370, 280, 310], row_h=62, size=13,
-               note='Repartir cuesta capacidad (cada celda se dimensiona a su propio p99, y los picos no se compensan entre celdas) y mueve el punto de fallo al enrutador. La carga de cada inquilino es lognormal con semilla 44; una carga real tiene otra forma.',
-               note_kind='coral', foot=MODELO)
+    return grouped_bars(
+        "Costo de repartir 1 000 inquilinos en 8 celdas frente a una flota compartida: capacidad, disponibilidad y punto de fallo",
+        "Barras con la capacidad necesaria para cubrir el percentil 99 de la carga: 1824 unidades con una flota compartida y 2184 con ocho celdas, un 19,8 por ciento más.",
+        ["Capacidad para cubrir el p99 de la carga"], [("Flota compartida", [1824], "teal"), ("Ocho celdas", [2184], "coral")],
+        unit="Unidades de capacidad", decimals=0, plot_h=240, width=700,
+        note="Disponibilidad de un inquilino: la de la flota (99,9 %) frente a 99,890 % con el enrutador al 99,99 % y la celda al 99,9 %. Punto de fallo compartido: la flota entera frente al enrutador. Repartir cuesta capacidad (cada celda se dimensiona a su propio p99, y los picos no se compensan entre celdas) y mueve el punto de fallo al enrutador. La carga de cada inquilino es lognormal con semilla 44; una carga real tiene otra forma.",
+        note_kind="coral", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-537
 def se537_linter() -> Fig:
-    rows = [['URL fija en el código', '1', '0'], ['Estado en memoria del proceso', '2', '0'], ['Registro en archivo local', '1', '0'], ['Lecturas del entorno', '1', '2']]
-    return tab('Un linter de cuatro señales de 12-factor sobre una aplicación con defectos y su versión corregida',
-               'Tabla con cuatro señales contadas por un linter de árbol sintáctico sobre dos versiones de la misma aplicación: URL fija 1 y 0, estado en memoria del proceso 2 y 0, registro en archivo local 1 y 0, y lecturas del entorno 1 y 2 en la versión corregida.',
-               ['Señal', 'Aplicación con defectos', 'Aplicación corregida'], rows, [400, 280, 280], row_h=56, size=13,
-               note='El linter ve la forma del código, no su comportamiento: una URL construida por concatenación o un estado guardado en un atributo de clase pasarían. Detecta cuatro señales de dos aplicaciones de juguete; no certifica que una aplicación sea 12-factor.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Un linter de cuatro señales de 12-factor sobre una aplicación con defectos y su versión corregida",
+        "Barras agrupadas con las señales contadas por un linter de árbol sintáctico sobre dos versiones de la misma aplicación: URL fija 1 y 0, estado en memoria del proceso 2 y 0, registro en archivo local 1 y 0, y lecturas del entorno 1 y 2 en la versión corregida.",
+        ["URL fija en el código", "Estado en memoria del proceso", "Registro en archivo local", "Lecturas del entorno"],
+        [("Aplicación con defectos", [1, 2, 1, 1], "coral"), ("Aplicación corregida", [0, 0, 0, 2], "teal")],
+        unit="Señales encontradas", decimals=0, plot_h=260,
+        note="Las tres primeras señales son defectos y desaparecen al corregir; las lecturas del entorno son la señal buena y suben de 1 a 2. El linter ve la forma del código, no su comportamiento: una URL construida por concatenación o un estado guardado en un atributo de clase pasarían. Detecta cuatro señales de dos aplicaciones de juguete; no certifica que una aplicación sea 12-factor.",
+        note_kind="gold", foot=EJEC)
 
 
 def se537_sesiones() -> Fig:
@@ -92,100 +98,110 @@ def se537_sesiones() -> Fig:
 
 
 def se537_desechabilidad() -> Fig:
-    rows = [['Corte inmediato con 100 trabajos', '40 completados, 60 perdidos'], ['Drenaje ordenado, devuelve lo pendiente', '41 completados, 60 devueltos a la cola, 0 perdidos'],
-            ['Mismo artefacto, configuración de desarrollo', 'Código 0 y umbrales 12 y 48'], ['Mismo artefacto, configuración de producción', 'Código 0 y umbrales 1, 24 y 72'],
-            ['Mismo artefacto, sin configurar', 'Código 1: «falta AVISOS_UMBRALES»'], ['Arranque de un proceso Python (mediana)', '116 ms vacío; 249 ms con cuatro módulos']]
-    return tab('Desechabilidad y configuración: qué pasa al parar un proceso, y un mismo artefacto con tres entornos',
-               'Tabla con seis comprobaciones: un corte inmediato con 100 trabajos en una cola en memoria completa 40 y pierde 60, un drenaje ordenado completa 41 y devuelve 60 a la cola sin perder ninguno, el mismo artefacto con configuración de desarrollo sale con código 0, con configuración de producción sale con código 0 y otros umbrales y sin configurar sale con código 1 y un mensaje, y el arranque de un proceso de Python tarda una mediana de 116 milisegundos vacío y 249 con cuatro módulos.',
-               ['Comprobación', 'Resultado'], rows, [470, 490], row_h=58, size=13,
-               note='La misma huella del archivo con configuración distinta es la paridad que pide el factor de configuración; fallar de inmediato cuando falta es mejor que arrancar con un valor por defecto invisible. Los trabajos y el corte son un modelo; el arranque y la ejecución del artefacto sí se midieron.',
-               note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        "Desechabilidad y configuración: qué pasa al parar un proceso, y un mismo artefacto con tres entornos",
+        "Barras agrupadas con el resultado de parar un proceso con 100 trabajos en una cola en memoria: un corte inmediato completa 40 y pierde 60; un drenaje ordenado completa 41, devuelve 60 a la cola y no pierde ninguno.",
+        ["Corte inmediato con 100 trabajos", "Drenaje ordenado, devuelve lo pendiente"],
+        [("Completados", [40, 41], "teal"), ("Perdidos", [60, 0], "coral"), ("Devueltos a la cola", [0, 60], "gold")],
+        unit="Trabajos", decimals=0, plot_h=260,
+        note="El mismo artefacto con configuración de desarrollo sale con código 0 y umbrales 12 y 48; con la de producción, con código 0 y umbrales 1, 24 y 72; sin configurar, con código 1 y el mensaje «falta AVISOS_UMBRALES». El arranque de un proceso Python tarda una mediana de 116 ms vacío y 249 ms con cuatro módulos. La misma huella del archivo con configuración distinta es la paridad que pide el factor de configuración; fallar de inmediato cuando falta es mejor que arrancar con un valor por defecto invisible. Los trabajos y el corte son un modelo; el arranque y la ejecución del artefacto sí se midieron.",
+        note_kind="teal", foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-538
 def se538_divergencias() -> Fig:
-    rows = [['Redondeo en el borde (el módulo nuevo trunca minutos)', '145', '71,4 %'], ['Plazo de extensión (el módulo nuevo lo olvidó)', '57', '28,1 %'],
-            ['Cambio de hora (solo 2 días al año)', '1', '0,5 %'], ['Total de divergencias en 20 000 peticiones', '203', '1,01 %']]
-    return tab('Módulo heredado y módulo nuevo ejecutados sobre las mismas 20 000 peticiones: divergencias por causa',
-               'Tabla con las divergencias entre un módulo de avisos heredado y su reemplazo sobre 20 000 peticiones sintéticas: 145 por redondeo en el borde, 57 por el plazo de extensión que el módulo nuevo olvidó y 1 por cambio de hora, 203 en total, un 1,01 por ciento.',
-               ['Causa', 'Divergencias', 'Proporción'], rows, [560, 200, 200], row_h=58, size=13,
-               note='Tres defectos sembrados por el autor, con frecuencias tan distintas como 145, 57 y 1. Ejecutar los dos módulos en paralelo y comparar las salidas es la forma más barata de encontrar lo que ninguna prueba imaginó, pero solo encuentra lo que el tráfico real contiene.',
-               note_kind='gold', foot=MODELO)
+    return grouped_bars(
+        "Módulo heredado y módulo nuevo ejecutados sobre las mismas 20 000 peticiones: divergencias por causa",
+        "Barras horizontales con las divergencias entre un módulo de avisos heredado y su reemplazo sobre 20000 peticiones sintéticas: 145 por redondeo en el borde, 57 por el plazo de extensión que el módulo nuevo olvidó y 1 por cambio de hora, 203 en total, un 1,01 por ciento.",
+        ["Redondeo en el borde, el módulo nuevo trunca minutos (71,4 %)", "Plazo de extensión, el módulo nuevo lo olvidó (28,1 %)", "Cambio de hora, solo 2 días al año (0,5 %)"],
+        [("Divergencias", [145, 57, 1], "navy")],
+        unit="Divergencias (203 en total)", horizontal=True, decimals=0, label_w=340,
+        note="Entre paréntesis, la proporción de las divergencias. Tres defectos sembrados por el autor, con frecuencias tan distintas como 145, 57 y 1. Ejecutar los dos módulos en paralelo y comparar las salidas es la forma más barata de encontrar lo que ninguna prueba imaginó, pero solo encuentra lo que el tráfico real contiene.",
+        note_kind="gold", foot=MODELO)
 
 
 def se538_modo_sombra() -> Fig:
-    rows = [['1 %', '46 %', '1 %', '75 %'], ['5 %', '95 %', '6 %', '100 %'], ['25 %', '100 %', '27 %', '100 %'], ['100 %', '100 %', '100 %', '100 %']]
-    return tab('Probabilidad de ver cada causa de divergencia según la fracción del tráfico que se compara (500 repeticiones por fila)',
-               'Tabla con la probabilidad de observar cada divergencia según la fracción del tráfico comparada en modo sombra: con 1 por ciento se ve el plazo de extensión el 46 por ciento de las veces, el cambio de hora el 1 por ciento y el redondeo el 75 por ciento; con 5 por ciento 95, 6 y 100; con 25 por ciento 100, 27 y 100; con todo el tráfico se ven los tres siempre.',
-               ['Fracción comparada', 'Plazo de extensión', 'Cambio de hora', 'Redondeo en el borde'], rows, [230, 250, 230, 250], row_h=56, size=13,
-               note='Un defecto que ocurre una vez en 20 000 peticiones no se ve comparando el 1 % ni el 25 % del tráfico con fiabilidad: su probabilidad es la fracción comparada. Comparar todo es la única forma de ver lo raro, y aun así solo si ocurre durante la comparación.',
-               note_kind='coral', foot=MODELO)
+    xs = [1, 5, 25, 100]
+    return line_chart(
+        "Probabilidad de ver cada causa de divergencia según la fracción del tráfico que se compara (500 repeticiones por fila)",
+        "Líneas en escala logarítmica con la probabilidad de observar cada divergencia según la fracción del tráfico comparada en modo sombra: con 1 por ciento se ve el plazo de extensión el 46 por ciento de las veces, el cambio de hora el 1 y el redondeo el 75; con 5 por ciento, 95, 6 y 100; con 25 por ciento, 100, 27 y 100; con todo el tráfico, siempre los tres.",
+        [("Plazo de extensión", list(zip(xs, [46, 95, 100, 100])), "gold"), ("Cambio de hora", list(zip(xs, [1, 6, 27, 100])), "coral"), ("Redondeo en el borde", list(zip(xs, [75, 100, 100, 100])), "teal")],
+        x_label="Fracción del tráfico comparada (%)", y_label="Probabilidad de verla (%)", log_x=True, x_ticks=[(x, f"{x} %") for x in xs], y_ticks=[0, 20, 40, 60, 80, 100],
+        point_labels="none", decimals=0, plot_h=300,
+        note="Un defecto que ocurre una vez en 20 000 peticiones no se ve comparando el 1 % ni el 25 % del tráfico con fiabilidad: su probabilidad es la fracción comparada. Comparar todo es la única forma de ver lo raro, y aun así solo si ocurre durante la comparación.",
+        note_kind="coral", foot=MODELO)
 
 
 def se538_escalones() -> Fig:
-    rows = [['1 %', '0,8', '4,7 %'], ['5 %', '4,0', '76,2 %'], ['25 %', '20,0', '100,0 %'], ['50 %', '40,0', '100,0 %'], ['100 %', '80,0', '100,0 %']]
-    return tab('Un defecto visible en 0,4 % de las peticiones con 20 000 peticiones por escalón: usuarios afectados y probabilidad de detectarlo',
-               'Tabla con cinco escalones de tráfico para un defecto que afecta al 0,4 por ciento de las peticiones: con 1 por ciento hay 0,8 afectados esperados y 4,7 por ciento de probabilidad de ver al menos 3 errores, con 5 por ciento hay 4,0 y 76,2 por ciento, con 25 por ciento hay 20,0 y 100 por ciento, con 50 por ciento 40,0 y con 100 por ciento 80,0.',
-               ['Escalón de tráfico', 'Usuarios afectados esperados', 'Probabilidad de ver al menos 3 errores'], rows, [270, 330, 360], row_h=56, size=13,
-               note='Un escalón demasiado pequeño no detecta y uno demasiado grande daña: con 1 % no se alcanza a ver el defecto (4,7 %) y con 5 % se ve tres de cada cuatro veces afectando a unos 4 usuarios. Si el 5 % lo detiene, el daño acumulado es de 4,8 usuarios frente a 80 si se cambia de golpe.',
-               note_kind='teal', foot=MODELO)
+    xs = [1, 5, 25, 50, 100]
+    return line_chart(
+        "Un defecto visible en 0,4 % de las peticiones con 20 000 peticiones por escalón: usuarios afectados y probabilidad de detectarlo",
+        "Línea con la probabilidad de ver al menos 3 errores de un defecto que afecta al 0,4 por ciento de las peticiones según el escalón de tráfico: 4,7 por ciento con el 1 por ciento, 76,2 con el 5 y 100 desde el 25; los usuarios afectados esperados son 0,8, 4,0, 20,0, 40,0 y 80,0.",
+        [("Probabilidad de ver al menos 3 errores", [(1, 4.7, "4,7 %", "t"), (5, 76.2, "76,2 %", "b"), (25, 100.0, "100 %", "t"), (50, 100.0, "100 %", "t"), (100, 100.0, "100 %", "t")], "teal")],
+        x_label="Escalón de tráfico (%)", y_label="Probabilidad (%)", log_x=True, x_ticks=[(x, f"{x} %") for x in xs], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none", decimals=1, plot_h=280,
+        note="Usuarios afectados esperados por escalón: 0,8, 4,0, 20,0, 40,0 y 80,0. Un escalón demasiado pequeño no detecta y uno demasiado grande daña: con 1 % no se alcanza a ver el defecto (4,7 %) y con 5 % se ve tres de cada cuatro veces afectando a unos 4 usuarios. Si el 5 % lo detiene, el daño acumulado es de 4,8 usuarios frente a 80 si se cambia de golpe.",
+        note_kind="teal", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-539
 def se539_escenarios() -> Fig:
-    rows = [['S1 latencia', 'p99 ≤ 200 ms', 'Alta', 'Alta'], ['S2 disponibilidad', '≥ 99,9 %', 'Alta', 'Alta'], ['S3 radio de impacto', '≤ 15 % de inquilinos', 'Alta', 'Baja'],
-            ['S4 coordinación de despliegue', '≤ 2 equipos', 'Media', 'Media'], ['S5 costo', '≤ 12 unidades', 'Media', 'Media'], ['S6 extensión', 'canal nuevo sin tocar el núcleo', 'Media', 'Media']]
-    return tab('Seis escenarios de calidad de Avisos con su medida y su importancia en dos contextos',
-               'Tabla con seis escenarios de calidad con su medida y su importancia en dos contextos: latencia con p99 de hasta 200 milisegundos y disponibilidad de al menos 99,9 por ciento son de importancia alta en ambos, el radio de impacto de hasta 15 por ciento de los inquilinos es alta con un cliente dominante y baja sin él, y la coordinación de despliegue, el costo y la extensión son de importancia media en ambos.',
-               ['Escenario', 'Medida de respuesta', 'Con cliente dominante', 'Sin cliente dominante'], rows, [320, 330, 160, 160], row_h=56, size=13,
-               note='Cada escenario tiene una medida que se puede comprobar; la importancia es una decisión de negocio, no una medición. El único escenario que cambia de importancia entre los dos contextos es el radio de impacto, y eso es suficiente para cambiar el resultado.',
-               note_kind='gold', foot=MODELO)
+    return heatmap(
+        "Seis escenarios de calidad de Avisos con su medida y su importancia en dos contextos",
+        "Mapa de calor con la importancia de seis escenarios de calidad en dos contextos: latencia y disponibilidad son de importancia alta en ambos, el radio de impacto de hasta 15 por ciento de los inquilinos es alta con un cliente dominante y baja sin él, y la coordinación de despliegue, el costo y la extensión son de importancia media en ambos.",
+        ["S1 latencia: p99 ≤ 200 ms", "S2 disponibilidad: ≥ 99,9 %", "S3 radio de impacto: ≤ 15 % de inquilinos", "S4 coordinación de despliegue: ≤ 2 equipos", "S5 costo: ≤ 12 unidades", "S6 extensión: canal nuevo sin tocar el núcleo"],
+        ["Con cliente dominante", "Sin cliente dominante"],
+        [[3, 3], [3, 3], [3, 1], [2, 2], [2, 2], [2, 2]],
+        unit="Importancia", scale="navy", vmin=1, vmax=3, cell_fmt=lambda v: {3: "alta", 2: "media", 1: "baja"}[int(v)], label_w=340, cell_h=40,
+        note="Cada escenario tiene una medida que se puede comprobar; la importancia es una decisión de negocio, no una medición. El único escenario que cambia de importancia entre los dos contextos es el radio de impacto, y eso es suficiente para cambiar el resultado.",
+        note_kind="gold", foot=MODELO)
 
 
 def se539_candidatos() -> Fig:
-    rows = [['Monolito modular', '80', '99,950 %', '11', '3', '0,596', '0,685'], ['Microservicios (4)', '194', '99,601 %', '0', '16', '0,583', '0,670'],
-            ['Celdas (8) con monolito modular', '125', '99,890 %', '11', '18', '0,710', '0,652']]
-    return tab('Tres candidatos con 12 equipos: valores que produce el modelo y utilidad ponderada en cada contexto',
-               'Tabla con tres candidatos evaluados con 12 equipos: el monolito modular tiene p99 de 80 milisegundos, disponibilidad de 99,950 por ciento, 11 equipos a coordinar, costo 3 y utilidad 0,596 con cliente dominante y 0,685 sin él; los microservicios 194, 99,601, 0, 16, 0,583 y 0,670; las celdas con monolito modular 125, 99,890, 11, 18, 0,710 y 0,652.',
-               ['Candidato', 'p99 (ms)', 'Disponibilidad', 'Equipos', 'Costo', 'Con cliente', 'Sin cliente'], rows, [290, 100, 150, 100, 90, 120, 120], row_h=66, size=13,
-               note='Ningún candidato cumple los seis escenarios y los tres dejan tres o cuatro sin cumplir; las utilidades difieren en menos de 0,13. Con cliente dominante ganan las celdas y sin él el monolito modular; la decisión depende del contexto antes que del estilo.',
-               note_kind='teal', foot=MODELO)
+    return grouped_bars(
+        "Tres candidatos con 12 equipos: valores que produce el modelo y utilidad ponderada en cada contexto",
+        "Barras agrupadas con la utilidad ponderada de tres candidatos con 12 equipos en dos contextos: el monolito modular 0,596 con cliente dominante y 0,685 sin él; los microservicios 0,583 y 0,670; las celdas con monolito modular 0,710 y 0,652.",
+        ["Monolito modular", "Microservicios (4)", "Celdas (8) con monolito modular"],
+        [("Con cliente dominante", [0.596, 0.583, 0.710], "teal"), ("Sin cliente dominante", [0.685, 0.670, 0.652], "navy")],
+        unit="Utilidad ponderada", decimals=3, plot_h=260,
+        note="Valores del modelo (p99 en ms, disponibilidad, equipos a coordinar, costo): monolito modular 80, 99,950 %, 11 y 3; microservicios 194, 99,601 %, 0 y 16; celdas 125, 99,890 %, 11 y 18. Ningún candidato cumple los seis escenarios y los tres dejan tres o cuatro sin cumplir; las utilidades difieren en menos de 0,13. Con cliente dominante ganan las celdas y sin él el monolito modular; la decisión depende del contexto antes que del estilo.",
+        note_kind="teal", foot=MODELO)
 
 
 def se539_sensibilidad() -> Fig:
-    rows = [['Con cliente dominante', 'Celdas', 'Celdas', 'Celdas'], ['Sin cliente dominante', 'Monolito modular', 'Monolito modular', 'Microservicios (desde 26)'],
-            ['Con cliente dominante y cadena al 99,95 %', 'Microservicios', 'Microservicios', 'Microservicios'], ['Sin cliente dominante y cadena al 99,95 %', 'Microservicios', 'Microservicios', 'Microservicios']]
-    return tab('Qué candidato gana según el contexto, el número de equipos y la disponibilidad supuesta de la cadena de microservicios',
-               'Tabla con el candidato de mayor utilidad según el contexto y el número de equipos: con cliente dominante ganan las celdas con 4, 12 y 30 equipos, sin cliente dominante gana el monolito modular con 4 y 12 equipos y los microservicios desde 26, y si la disponibilidad de la cadena de microservicios fuese 99,95 por ciento en lugar de 99,601 ganan los microservicios en ambos contextos con cualquier número de equipos.',
-               ['Situación', '4 equipos', '12 equipos', '30 equipos'], rows, [380, 190, 190, 200], row_h=62, size=13,
-               note='El punto de sensibilidad más fuerte no es el número de equipos sino un supuesto: que la cadena de cuatro servicios tenga 99,601 % de disponibilidad. Cambiarlo a 99,95 % (con degradación y reintentos) invierte la decisión en todos los casos, y por eso esa medida debe ir al ADR como supuesto a verificar.',
-               note_kind='coral', foot=MODELO)
+    return stacked_bars(
+        "Qué candidato gana según el contexto, el número de equipos y la disponibilidad supuesta de la cadena de microservicios",
+        "Barras apiladas horizontales con los casos, de tres tamaños de equipo, en que gana cada candidato en cuatro situaciones: con cliente dominante ganan las celdas en los 3; sin él, el monolito modular en 2 y los microservicios desde 26 equipos en 1; con la cadena de microservicios al 99,95 por ciento ganan los microservicios en los 3 casos de ambos contextos.",
+        ["Con cliente dominante", "Sin cliente dominante", "Con cliente dominante y cadena al 99,95 %", "Sin cliente dominante y cadena al 99,95 %"],
+        [("Celdas", [3, 0, 0, 0], "teal"), ("Monolito modular", [0, 2, 0, 0], "navy"), ("Microservicios", [0, 1, 3, 3], "coral")],
+        unit="Casos de 3 tamaños de equipo (4, 12 y 30)", horizontal=True, decimals=0, label_w=290,
+        note="Sin cliente dominante, el monolito modular gana con 4 y 12 equipos y los microservicios con 30 (desde 26). El punto de sensibilidad más fuerte no es el número de equipos sino un supuesto: que la cadena de cuatro servicios tenga 99,601 % de disponibilidad. Cambiarlo a 99,95 % (con degradación y reintentos) invierte la decisión en todos los casos, y por eso esa medida debe ir al ADR como supuesto a verificar.",
+        note_kind="coral", foot=MODELO)
 
 
 # ---------------------------------------------------------------- SE-540
 def se540_lint_de_adr() -> Fig:
-    names = ['Sección Contexto', 'Sección Decisión', 'Sección Alternativas', 'Sección Consecuencias', 'Sección Reversibilidad', 'Sección Disparador de revisión',
-             'Sección Evidencia', 'Al menos 2 alternativas con motivo', 'Consecuencia negativa declarada', 'Criterio medible', 'Disparador numérico']
-    a = ['sí'] * 11
-    b = ['sí', 'sí', 'NO', 'sí', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO']
-    c = ['sí', 'sí', 'sí', 'sí', 'NO', 'NO', 'sí', 'sí', 'sí', 'sí', 'NO']
-    rows = [[n, x, y, z] for n, x, y, z in zip(names, a, b, c)]
-    rows.append(['Criterios cumplidos', '11 de 11', '3 de 11', '8 de 11'])
-    return tab('Un linter de once criterios sobre tres ADR: el completo, el que justifica con una moda y el que olvida su reversibilidad',
-               'Tabla con once criterios aplicados a tres registros de decisión: el ADR-A, monolito modular con disparador de revisión, cumple 11 de 11; el ADR-B, que dice usar microservicios porque son la mejor práctica, cumple 3 de 11 y le faltan alternativas, reversibilidad, disparador, evidencia, consecuencias negativas y criterio medible; el ADR-C, celdas para el cliente grande, cumple 8 de 11 y le faltan la reversibilidad, el disparador de revisión y su criterio numérico.',
-               ['Criterio', 'ADR-A', 'ADR-B', 'ADR-C'], rows, [440, 170, 170, 170], row_h=44, size=13,
-               note='El linter comprueba presencia y forma, no verdad: un ADR con once criterios cumplidos puede decidir mal. Sirve para rechazar lo evidentemente incompleto (el ADR-B) antes de gastar tiempo de revisión humana.',
-               note_kind='gold', foot=EJEC)
+    names = ["Sección Contexto", "Sección Decisión", "Sección Alternativas", "Sección Consecuencias", "Sección Reversibilidad", "Sección Disparador de revisión",
+             "Sección Evidencia", "Al menos 2 alternativas con motivo", "Consecuencia negativa declarada", "Criterio medible", "Disparador numérico"]
+    b = [1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    c = [1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0]
+    return heatmap(
+        "Un linter de once criterios sobre tres ADR: el completo, el que justifica con una moda y el que olvida su reversibilidad",
+        "Mapa de calor con once criterios aplicados a tres registros de decisión: el ADR-A, monolito modular con disparador de revisión, cumple 11 de 11; el ADR-B, que dice usar microservicios porque son la mejor práctica, cumple 3 de 11 y le faltan alternativas, reversibilidad, disparador, evidencia, consecuencias negativas y criterio medible; el ADR-C, celdas para el cliente grande, cumple 8 de 11 y le faltan la reversibilidad, el disparador y su criterio numérico.",
+        names, ["ADR-A", "ADR-B", "ADR-C"], [[1, y, z] for y, z in zip(b, c)],
+        unit="cumple", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "cumple" if v else "falta", cell_h=34, label_w=300,
+        note="Criterios cumplidos: 11 de 11 el ADR-A, 3 de 11 el ADR-B y 8 de 11 el ADR-C. El linter comprueba presencia y forma, no verdad: un ADR con once criterios cumplidos puede decidir mal. Sirve para rechazar lo evidentemente incompleto (el ADR-B) antes de gastar tiempo de revisión humana.",
+        note_kind="gold", foot=EJEC)
 
 
 def se540_funcion_de_aptitud() -> Fig:
-    rows = [['Limpia', '0', '0', 'Pasa'], ['El dominio importa la infraestructura', '1', '1', 'Falla'], ['Dos módulos de aplicación se importan entre sí', '0', '1', 'Falla'],
-            ['Importación dinámica de la infraestructura', '0', '0', 'Pasa (no la ve)']]
-    return tab('Una función de aptitud de capas sobre un paquete de juguete: violaciones y ciclos que detecta en cuatro variantes',
-               'Tabla con una prueba de arquitectura basada en el árbol sintáctico sobre cuatro variantes de un paquete: la limpia no tiene violaciones ni ciclos y pasa, cuando el dominio importa la infraestructura hay 1 violación de capa y 1 ciclo y falla, cuando dos módulos de aplicación se importan entre sí hay 0 violaciones y 1 ciclo y falla, y una importación dinámica de la infraestructura no se detecta y pasa.',
-               ['Variante del paquete', 'Violaciones de capa', 'Ciclos', 'Resultado'], rows, [430, 180, 130, 220], row_h=62, size=13,
-               note='La prueba corre en unos 10 a 40 ms y detecta lo que está escrito como importación; una importación por nombre en una cadena la elude. Una función de aptitud protege una decisión contra la deriva solo en la medida en que su mecanismo ve la forma en que se rompe.',
-               note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        "Una función de aptitud de capas sobre un paquete de juguete: violaciones y ciclos que detecta en cuatro variantes",
+        "Barras agrupadas con las violaciones de capa y los ciclos que detecta una prueba de arquitectura sobre cuatro variantes de un paquete: la limpia no tiene ninguno y pasa; cuando el dominio importa la infraestructura hay 1 violación y 1 ciclo y falla; cuando dos módulos de aplicación se importan entre sí hay 0 violaciones y 1 ciclo y falla; una importación dinámica no se detecta y pasa.",
+        ["Limpia (pasa)", "El dominio importa la infraestructura (falla)", "Dos módulos de aplicación se importan entre sí (falla)", "Importación dinámica de la infraestructura (pasa, no la ve)"],
+        [("Violaciones de capa", [0, 1, 0, 0], "coral"), ("Ciclos", [0, 1, 1, 0], "gold")],
+        unit="Violaciones o ciclos detectados", horizontal=True, decimals=0, label_w=330,
+        note="La última variante tiene una violación real que la prueba no ve. La prueba corre en unos 10 a 40 ms y detecta lo que está escrito como importación; una importación por nombre en una cadena la elude. Una función de aptitud protege una decisión contra la deriva solo en la medida en que su mecanismo ve la forma en que se rompe.",
+        note_kind="teal", foot=EJEC)
 
 
 def se540_ciclo_de_decision() -> Fig:

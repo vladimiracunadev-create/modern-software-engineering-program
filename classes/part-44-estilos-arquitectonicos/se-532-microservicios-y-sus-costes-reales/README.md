@@ -123,25 +123,25 @@ Separar tiene sentido cuando hay evidencia de al menos una de tres fuerzas: equi
 
 La primera comparación mide la misma consulta de aviso de cuatro maneras.
 
-![Tabla con cuatro formas de hacer la misma consulta, con mediana y p99 en milisegundos: en el mismo proceso 0,0002 y 0,0002, serializar y deserializar JSON 0,0051 y 0,0162, HTTP local con conexión reutilizada 0,3237 y 0,6739, y HTTP local con conexión nueva 1,0791 y 1,8198.](../../../content/part-44/figures/se-532-costo-de-llamada.svg)
+![Barras agrupadas en escala logarítmica con la mediana y el percentil 99 en milisegundos de cuatro formas de hacer la misma consulta: en el mismo proceso 0,0002 y 0,0002, serializar JSON 0,0051 y 0,0162, HTTP local con conexión reutilizada 0,3237 y 0,6739 y HTTP local con conexión nueva 1,0791 y 1,8198.](../../../content/part-44/figures/se-532-costo-de-llamada.svg)
 
-**Cómo leer la figura.** Cada fila es un camino distinto para la misma operación; la última fila incluye abrir una conexión. El salto relevante es entre la segunda y la tercera: pasar de serializar a enviar por HTTP multiplica por unos sesenta el tiempo. **Dónde deja de valer:** es una ejecución en una máquina con un servidor de la biblioteca estándar y sin red; los valores absolutos cambian de un equipo a otro y con el sistema operativo. Con red, cifrado y balanceador el costo sube. Las proporciones son lo que se traslada.
+**Cómo leer la figura.** Cada grupo es una forma de hacer la llamada; la barra verde es la mediana y la roja el percentil 99, en milisegundos y en escala logarítmica. Mira primero cuántas décadas separan la primera barra de la última: más de tres. **Dónde deja de valer:** es una ejecución en una máquina con un servidor de la biblioteca estándar y sin red; los valores absolutos cambian de un equipo a otro y con el sistema operativo. Con red, cifrado y balanceador el costo sube. Las proporciones son lo que se traslada.
 
 ## Una cadena de servicios en serie
 
 La segunda comparación simula una petición que atraviesa k servicios y mide disponibilidad y latencia.
 
-![Tabla con una cadena de k servicios síncronos: disponibilidad analítica de 99,900 por ciento con 1, 99,800 con 2, 99,601 con 4 y 99,203 con 8; la simulada de 99,915, 99,750, 99,655 y 99,150; la latencia mediana sube de 20,1 a 186,1 ms y el percentil 99 de 79,2 a 316,7 ms.](../../../content/part-44/figures/se-532-cadena-de-servicios.svg)
+![Líneas con la latencia mediana y el percentil 99 de una petición que atraviesa k servicios en serie: la mediana sube de 20,1 a 186,1 milisegundos y el percentil 99 de 79,2 a 316,7 con 1, 2, 4 y 8 servicios; la disponibilidad analítica baja de 99,900 a 99,203 por ciento.](../../../content/part-44/figures/se-532-cadena-de-servicios.svg)
 
-**Cómo leer la figura.** Las dos columnas de disponibilidad coinciden dentro del ruido: la cadena multiplica. La latencia mediana crece casi en proporción a k y el p99 crece más despacio, pero su valor absoluto es el que ve el usuario en el peor caso. **Dónde deja de valer:** los fallos de la simulación son independientes y de igual probabilidad; en la realidad fallan juntos (una caída de la red o de una base compartida derriba varios servicios a la vez) y la disponibilidad real es peor que el producto. Las latencias son una distribución lognormal elegida por el autor.
+**Cómo leer la figura.** El eje horizontal son los servicios en la cadena y el vertical la latencia en milisegundos; la línea verde es la mediana y la roja el percentil 99. Mira primero cómo las dos suben casi linealmente con cada servicio; la disponibilidad, analítica y simulada, está en la nota. **Dónde deja de valer:** los fallos de la simulación son independientes y de igual probabilidad; en la realidad fallan juntos (una caída de la red o de una base compartida derriba varios servicios a la vez) y la disponibilidad real es peor que el producto. Las latencias son una distribución lognormal elegida por el autor.
 
 ## Coordinación ante un cambio de contrato
 
 La tercera comparación cuenta los servicios afectados por un cambio incompatible en `s7`.
 
-![Tabla con dos topologías de ocho servicios y un cambio incompatible en el servicio s7: en una cadena se coordinan 7 servicios transitivos y 1 directo, en una estrella 7 transitivos y 7 directos, y con un cambio compatible el número es 0 en ambos casos.](../../../content/part-44/figures/se-532-acoplamiento.svg)
+![Barras agrupadas con los servicios afectados por un cambio incompatible en s7 en dos topologías de ocho servicios: en cadena, 7 transitivos y 1 directo; en estrella, 7 transitivos y 7 directos; con un cambio compatible, 0 despliegues coordinados en ambas.](../../../content/part-44/figures/se-532-acoplamiento.svg)
 
-**Cómo leer la figura.** La columna de la derecha es el contraste: el mismo cambio con compatibilidad no obliga a coordinar a nadie. El número de servicios o la forma del grafo importan menos que la política de compatibilidad. **Dónde deja de valer:** el cálculo supone que todo cambio incompatible obliga a coordinar con todos los dependientes, y en la práctica se puede acotar con versiones paralelas de un contrato; el grafo es de ocho nodos inventados y no representa la topología de ningún sistema real.
+**Cómo leer la figura.** Cada grupo es una topología; las barras son los servicios afectados transitivamente (dorada), directamente (roja) y con un cambio compatible (verde). Mira primero que la barra verde es cero en las dos: lo que desacopla es la compatibilidad del contrato, no la topología. **Dónde deja de valer:** el cálculo supone que todo cambio incompatible obliga a coordinar con todos los dependientes, y en la práctica se puede acotar con versiones paralelas de un contrato; el grafo es de ocho nodos inventados y no representa la topología de ningún sistema real.
 
 ## Definiciones de trabajo
 

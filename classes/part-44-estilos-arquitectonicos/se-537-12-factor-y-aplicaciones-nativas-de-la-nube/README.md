@@ -120,9 +120,9 @@ Una aplicación con un estado local legítimo (un motor de base de datos, un sis
 
 La primera medida es la salida del linter sobre dos aplicaciones.
 
-![Tabla con cuatro señales contadas por un linter de árbol sintáctico sobre dos versiones de la misma aplicación: URL fija 1 y 0, estado en memoria del proceso 2 y 0, registro en archivo local 1 y 0, y lecturas del entorno 1 y 2 en la versión corregida.](../../../content/part-44/figures/se-537-linter.svg)
+![Barras agrupadas con las señales contadas por un linter de árbol sintáctico sobre dos versiones de la misma aplicación: URL fija 1 y 0, estado en memoria 2 y 0, registro en archivo local 1 y 0, y lecturas del entorno 1 y 2 en la versión corregida.](../../../content/part-44/figures/se-537-linter.svg)
 
-**Cómo leer la figura.** Cada fila es una señal; la columna central es la aplicación con defectos y la derecha la corregida. Las tres primeras bajan a cero; la cuarta sube, porque ahora la configuración viene del entorno. **Dónde deja de valer:** el linter es de cuatro reglas sobre dos programas de juguete; una aplicación real tiene configuración construida con concatenación, estado en atributos y registros por bibliotecas. Ver cero señales no demuestra que la aplicación cumpla los factores.
+**Cómo leer la figura.** Cada grupo es una señal; la barra roja es lo que encuentra el linter en la aplicación con defectos y la verde en la corregida. Mira primero que las tres señales de defecto desaparecen y que solo las lecturas del entorno, la señal buena, suben. **Dónde deja de valer:** el linter es de cuatro reglas sobre dos programas de juguete; una aplicación real tiene configuración construida con concatenación, estado en atributos y registros por bibliotecas. Ver cero señales no demuestra que la aplicación cumpla los factores.
 
 ## Sesiones con varias instancias
 
@@ -136,9 +136,9 @@ La segunda medida simula tres instancias y una caída.
 
 La tercera medida reúne la parada ordenada, un artefacto con tres configuraciones y el arranque de un proceso.
 
-![Tabla con seis comprobaciones: un corte inmediato con 100 trabajos en una cola en memoria completa 40 y pierde 60, un drenaje ordenado completa 41 y devuelve 60 sin perder ninguno, el mismo artefacto sale con código 0 con configuración de desarrollo y de producción con distintos umbrales y con código 1 sin configurar, y el arranque de un proceso Python tarda una mediana de 116 ms vacío y 249 con cuatro módulos.](../../../content/part-44/figures/se-537-desechabilidad.svg)
+![Barras agrupadas con el resultado de parar un proceso con 100 trabajos en una cola en memoria: un corte inmediato completa 40 y pierde 60; un drenaje ordenado completa 41, devuelve 60 a la cola y no pierde ninguno.](../../../content/part-44/figures/se-537-desechabilidad.svg)
 
-**Cómo leer la figura.** Las dos primeras filas son un modelo de parada; las tres siguientes son el mismo archivo ejecutado de verdad con tres entornos; la última es una medida de arranque. **Dónde deja de valer:** la cola es un modelo en memoria, no un orquestador; el arranque es de un intérprete sin conexiones ni calentamiento y varía entre máquinas. Las tres filas del artefacto sí son ejecuciones reales: el mismo archivo y la misma huella con resultados distintos según el entorno.
+**Cómo leer la figura.** Cada grupo es una forma de parar el proceso; las barras son los trabajos completados (verde), perdidos (roja) y devueltos a la cola (dorada). Mira primero que la barra roja del corte inmediato se convierte en la dorada del drenaje: los trabajos no se pierden, se devuelven. **Dónde deja de valer:** la cola es un modelo en memoria, no un orquestador; el arranque es de un intérprete sin conexiones ni calentamiento y varía entre máquinas. Las tres filas del artefacto sí son ejecuciones reales: el mismo archivo y la misma huella con resultados distintos según el entorno.
 
 ## Definiciones de trabajo
 

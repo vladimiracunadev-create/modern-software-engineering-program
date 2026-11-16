@@ -124,17 +124,17 @@ Con un cliente, pocos servicios y un equipo, el cliente puede llamar a un servic
 
 La primera comparación mide lo que cambia armar la pantalla de avisos con cada arreglo.
 
-![Tabla con cuatro caminos para armar la pantalla de avisos: el cliente llama a cuatro servicios en dos rondas con 6 692 bytes y 173 ms modelados, un gateway de agregación usa una ronda con 6 692 bytes y 93 ms, un BFF móvil una ronda con 163 bytes y 80 ms y un BFF web una ronda con 1 169 bytes y 82 ms.](../../../content/part-44/figures/se-533-rondas-y-bytes.svg)
+![Barras horizontales en escala logarítmica con los bytes y el tiempo modelado de cuatro caminos para armar la pantalla: el cliente llama a cuatro servicios en dos rondas con 6692 bytes y 173 milisegundos, un gateway de agregación 6692 y 93, un BFF móvil 163 y 80 y un BFF web 1169 y 82.](../../../content/part-44/figures/se-533-rondas-y-bytes.svg)
 
-**Cómo leer la figura.** Las filas son cuatro arreglos del mismo flujo. La agregación mueve la columna «Rondas»; la proyección mueve la de «Bytes». El BFF móvil es el mejor porque hace las dos cosas. **Dónde deja de valer:** los tiempos son un modelo con 80 ms de ida y vuelta y 0,5 MB/s, no una medición de red; los tamaños son de datos sintéticos con campos de relleno. En una red rápida y con cargas pequeñas la diferencia entre las filas desaparece, y entonces ninguno de los tres componentes se justifica por rendimiento.
+**Cómo leer la figura.** Cada grupo es un camino, con sus rondas entre paréntesis; la barra azul oscura son los bytes y la roja el tiempo modelado, en escala logarítmica. Mira primero que el gateway acorta el tiempo pero no los bytes, y que solo los BFF reducen la barra azul. **Dónde deja de valer:** los tiempos son un modelo con 80 ms de ida y vuelta y 0,5 MB/s, no una medición de red; los tamaños son de datos sintéticos con campos de relleno. En una red rápida y con cargas pequeñas la diferencia entre las filas desaparece, y entonces ninguno de los tres componentes se justifica por rendimiento.
 
 ## Confianza en el borde frente a validación en cada servicio
 
 La segunda comparación prueba una petición interna falsificada contra dos políticas.
 
-![Tabla con dos políticas de autenticación frente a una petición interna falsificada que salta el gateway: si los cuatro servicios confían en el gateway la aceptan 4 de 4, y si cada servicio valida la firma HMAC del token la aceptan 0 de 4 y aceptan la petición válida 4 de 4.](../../../content/part-44/figures/se-533-confianza-en-el-borde.svg)
+![Barras con los servicios de cuatro que aceptan una petición interna falsificada que salta el gateway: 4 de 4 si cada servicio confía en el gateway y 0 de 4 si cada uno valida la firma HMAC del token.](../../../content/part-44/figures/se-533-confianza-en-el-borde.svg)
 
-**Cómo leer la figura.** La segunda columna es el número de servicios, de cuatro, que aceptan la petición falsa. La observación de la tercera columna dice qué hay detrás: en la primera política no existe otra barrera. **Dónde deja de valer:** el modelo valida una firma con una clave que comparten los servicios; en un sistema real hay que distribuir y rotar claves o usar tokens firmados con clave asimétrica y verificar caducidad, audiencia y revocación. La prueba demuestra que la confianza en el borde falla, no que una firma HMAC compartida sea la solución completa.
+**Cómo leer la figura.** Cada barra es una política de autenticación y su altura los servicios, de cuatro, que aceptan la petición falsa. Mira primero la barra de la confianza en el gateway: llega a 4 porque no hay otra barrera detrás; la de la validación de firma no existe. **Dónde deja de valer:** el modelo valida una firma con una clave que comparten los servicios; en un sistema real hay que distribuir y rotar claves o usar tokens firmados con clave asimétrica y verificar caducidad, audiencia y revocación. La prueba demuestra que la confianza en el borde falla, no que una firma HMAC compartida sea la solución completa.
 
 ## Cuánto añade cada salto
 

@@ -121,25 +121,25 @@ El aislamiento se prueba con dos inquilinos: se crea un dato en cada uno y se co
 
 La primera comparación mide las fugas de las doce consultas con tres estrategias.
 
-![Tabla con tres estrategias sobre doce consultas: sin protección cuatro devuelven datos ajenos, un analizador que busca el filtro en el texto señala tres y no ve la Q12 cuyo filtro se anula con OR, y una vista temporal del inquilino creada por solicitud deja cero fugas sin cambiar las consultas.](../../../content/part-44/figures/se-534-fugas.svg)
+![Barras horizontales con las consultas de doce que filtran o se señalan según la estrategia: sin protección cuatro devuelven datos ajenos, un linter de «tenant_id = ?» señala tres y no ve la Q12, y una vista temporal del inquilino deja cero fugas.](../../../content/part-44/figures/se-534-fugas.svg)
 
-**Cómo leer la figura.** La segunda columna es el número de fugas o de señalamientos; la tercera dice cuáles. La Q12 es la lección: el texto contiene el filtro y la lógica lo anula. **Dónde deja de valer:** las doce consultas son del autor y cubren los patrones conocidos; una consulta que pasa por un ORM, una vista materializada o una función puede filtrar de otra forma. La vista temporal funciona solo en las conexiones que la crean y solo en lectura. Cero fugas de doce no es prueba de ausencia.
+**Cómo leer la figura.** Cada barra es una estrategia y su longitud el número de consultas, de doce; la primera son las que filtran sin protección, la segunda las que señala el linter y la tercera las que filtran con la vista temporal. Mira primero que el linter se queda a una de las cuatro, la anulada con OR, y que la vista las cierra sin tocar las consultas. **Dónde deja de valer:** las doce consultas son del autor y cubren los patrones conocidos; una consulta que pasa por un ORM, una vista materializada o una función puede filtrar de otra forma. La vista temporal funciona solo en las conexiones que la crean y solo en lectura. Cero fugas de doce no es prueba de ausencia.
 
 ## Costo de aislar con una base por inquilino
 
 La segunda comparación mide crear y migrar 200 inquilinos con una base cada uno frente a una tabla compartida.
 
-![Tabla con el costo de aislar por base de datos con 200 inquilinos de SQLite frente a una tabla compartida: crear las 200 bases tarda 3 619 ms, cada una ocupa 12 288 bytes y migrar el esquema en las 200 tarda 1 401 ms, mientras que alterar la tabla compartida tarda 0,18 ms.](../../../content/part-44/figures/se-534-costo-de-aislar.svg)
+![Barras horizontales en escala logarítmica con el tiempo de aislar con 200 inquilinos de SQLite: crear 200 bases tarda 3619 milisegundos, migrar el esquema en las 200 tarda 1401 y alterar la tabla compartida tarda 0,18.](../../../content/part-44/figures/se-534-costo-de-aislar.svg)
 
-**Cómo leer la figura.** Cada fila es una operación; la relación entre las dos columnas es el costo de aislar. El esquema se paga N veces. **Dónde deja de valer:** son archivos de SQLite en un disco de una máquina de desarrollo con sincronización a disco; un motor cliente-servidor con una base por inquilino tiene otros costos (conexiones, memoria por base, catálogos). La conclusión estable es que las operaciones de esquema escalan con N y las de la tabla compartida no.
+**Cómo leer la figura.** Cada barra es una operación y su longitud el tiempo en milisegundos, en escala logarítmica. Mira primero la distancia de casi cuatro décadas entre migrar 200 bases y migrar una tabla compartida. **Dónde deja de valer:** son archivos de SQLite en un disco de una máquina de desarrollo con sincronización a disco; un motor cliente-servidor con una base por inquilino tiene otros costos (conexiones, memoria por base, catálogos). La conclusión estable es que las operaciones de esquema escalan con N y las de la tabla compartida no.
 
 ## Vecino ruidoso con y sin tope
 
 La tercera comparación simula una campaña masiva de un inquilino contra los demás.
 
-![Tabla con dos políticas de planificación: sin política la espera p95 de los nueve inquilinos normales es 7,96 s y la del ruidoso 7,84 s; con un tope de un trabajador de cuatro para el ruidoso la de los normales baja a 0,16 s y la del ruidoso sube a 54,24 s.](../../../content/part-44/figures/se-534-vecino-ruidoso.svg)
+![Barras agrupadas con la espera p95 de los inquilinos normales y del ruidoso por política: sin política 7,96 segundos y 7,84; con un tope de un trabajador de cuatro para el ruidoso, 0,16 y 54,24.](../../../content/part-44/figures/se-534-vecino-ruidoso.svg)
 
-**Cómo leer la figura.** Cada fila es una política; las dos columnas de espera son la de los inquilinos normales y la del ruidoso. El tope reparte el costo de forma diferente: los normales recuperan su servicio y el ruidoso espera más. **Dónde deja de valer:** es una simulación con llegadas de Poisson, servicio exponencial y un tope fijo de un trabajador; un sistema real tiene prioridades, colas por inquilino, reintentos y cargas con otra forma. El tope de un trabajador cubre este caso y deja el ruidoso con una espera de casi un minuto: la política debe elegirse con ese número a la vista.
+**Cómo leer la figura.** Cada grupo es una política de planificación; la barra verde es la espera p95 de los inquilinos normales y la roja la del ruidoso. Mira primero cómo con el tope la verde cae a casi cero y la roja se dispara: la sobrecarga se traslada a quien la causa. **Dónde deja de valer:** es una simulación con llegadas de Poisson, servicio exponencial y un tope fijo de un trabajador; un sistema real tiene prioridades, colas por inquilino, reintentos y cargas con otra forma. El tope de un trabajador cubre este caso y deja el ruidoso con una espera de casi un minuto: la política debe elegirse con ese número a la vista.
 
 ## Definiciones de trabajo
 

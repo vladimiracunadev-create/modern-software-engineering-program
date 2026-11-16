@@ -123,17 +123,17 @@ Defender una decisión no es evitar que se discuta; es discutirla con evidencia.
 
 La primera medida pasa tres registros por once criterios.
 
-![Tabla con once criterios aplicados a tres registros de decisión: el ADR-A cumple 11 de 11; el ADR-B, que dice usar microservicios por ser la mejor práctica, cumple 3 de 11 y le faltan alternativas, reversibilidad, disparador, evidencia, consecuencias negativas y criterio medible; el ADR-C cumple 8 de 11 y le faltan la reversibilidad, el disparador y su criterio numérico.](../../../content/part-44/figures/se-540-lint-de-adr.svg)
+![Mapa de calor con once criterios aplicados a tres registros de decisión: el ADR-A cumple 11 de 11; el ADR-B, que justifica con una moda, cumple 3 de 11; el ADR-C, celdas para el cliente grande, cumple 8 de 11 y le faltan la reversibilidad, el disparador y su criterio numérico.](../../../content/part-44/figures/se-540-lint-de-adr.svg)
 
-**Cómo leer la figura.** Cada fila es un criterio y cada columna un registro; los «NO» son lo que le falta a cada uno. Las diferencias son de forma y de contenido numérico. **Dónde deja de valer:** el analizador comprueba la presencia de secciones y de patrones (un número con unidad, la palabra «descartada porque»), de modo que un texto vacío que contenga las palabras pasaría; no juzga si las alternativas son reales ni si la decisión es acertada. Sirve para rechazar lo evidentemente incompleto antes de gastar tiempo de revisión humana.
+**Cómo leer la figura.** Cada fila es un criterio del linter y cada columna un ADR; una celda oscura cumple el criterio y una clara falta. Mira primero la columna del ADR-B, casi toda clara, y la fila del disparador numérico, clara en los dos ADR incompletos. **Dónde deja de valer:** el analizador comprueba la presencia de secciones y de patrones (un número con unidad, la palabra «descartada porque»), de modo que un texto vacío que contenga las palabras pasaría; no juzga si las alternativas son reales ni si la decisión es acertada. Sirve para rechazar lo evidentemente incompleto antes de gastar tiempo de revisión humana.
 
 ## La función de aptitud
 
 La segunda medida ejecuta la prueba de capas sobre cuatro variantes de un paquete.
 
-![Tabla con una prueba de arquitectura basada en el árbol sintáctico sobre cuatro variantes de un paquete: la limpia no tiene violaciones ni ciclos y pasa, cuando el dominio importa la infraestructura hay 1 violación de capa y 1 ciclo y falla, cuando dos módulos de aplicación se importan entre sí hay 0 violaciones y 1 ciclo y falla, y una importación dinámica de la infraestructura no se detecta y pasa.](../../../content/part-44/figures/se-540-funcion-de-aptitud.svg)
+![Barras agrupadas con las violaciones de capa y los ciclos que detecta una prueba de arquitectura sobre cuatro variantes de un paquete: la limpia pasa sin ninguno; cuando el dominio importa la infraestructura hay 1 violación y 1 ciclo y falla; con dos módulos que se importan entre sí hay 1 ciclo y falla; una importación dinámica no se detecta y pasa.](../../../content/part-44/figures/se-540-funcion-de-aptitud.svg)
 
-**Cómo leer la figura.** Cada fila es una variante del paquete; las columnas centrales son lo que detecta la prueba y la última su resultado. La última fila es un falso negativo deliberado. **Dónde deja de valer:** el paquete tiene siete archivos y tres capas inventadas; un sistema real tiene miles de módulos, importaciones relativas, reexportaciones y código generado. La prueba es de forma estática; el comportamiento en ejecución (una llamada por reflexión, una inyección de dependencias por configuración) queda fuera.
+**Cómo leer la figura.** Cada grupo es una variante del paquete, con su resultado entre paréntesis; la barra roja son las violaciones de capa y la dorada los ciclos que detecta la prueba. Mira primero la última variante: tiene una violación real y ninguna barra, porque la importación dinámica elude el mecanismo. **Dónde deja de valer:** el paquete tiene siete archivos y tres capas inventadas; un sistema real tiene miles de módulos, importaciones relativas, reexportaciones y código generado. La prueba es de forma estática; el comportamiento en ejecución (una llamada por reflexión, una inyección de dependencias por configuración) queda fuera.
 
 ## El ciclo de la decisión
 

@@ -120,25 +120,25 @@ La recomendación es una frase con un contexto, un candidato, un margen, un supu
 
 La primera figura resume los escenarios con su medida y su importancia en los dos contextos.
 
-![Tabla con seis escenarios de calidad de Avisos con su medida y su importancia: latencia p99 de hasta 200 ms y disponibilidad de al menos 99,9 por ciento son de importancia alta en ambos contextos, el radio de impacto de hasta 15 por ciento es alta con cliente dominante y baja sin él, y la coordinación de despliegue, el costo y la extensión son de importancia media en ambos.](../../../content/part-44/figures/se-539-escenarios.svg)
+![Mapa de calor con la importancia de seis escenarios de calidad en dos contextos: latencia y disponibilidad son de importancia alta en ambos, el radio de impacto es alta con un cliente dominante y baja sin él, y coordinación de despliegue, costo y extensión son de importancia media en ambos.](../../../content/part-44/figures/se-539-escenarios.svg)
 
-**Cómo leer la figura.** Cada fila es un escenario con su medida de respuesta; las dos últimas columnas son la importancia en cada contexto. La diferencia entre columnas se concentra en una fila. **Dónde deja de valer:** las importancias son una decisión del autor y de los contextos supuestos; en un caso real las fija quien conoce el negocio, y se obtienen con un taller de partes interesadas, no con una opinión individual.
+**Cómo leer la figura.** Cada fila es un escenario con su medida y cada columna un contexto; cuanto más oscura la celda, más importante es el escenario. Mira primero la fila del radio de impacto, la única que cambia de oscura a clara entre los dos contextos. **Dónde deja de valer:** las importancias son una decisión del autor y de los contextos supuestos; en un caso real las fija quien conoce el negocio, y se obtienen con un taller de partes interesadas, no con una opinión individual.
 
 ## Los candidatos con 12 equipos
 
 La segunda figura muestra lo que el modelo produce para cada candidato y su utilidad en los dos contextos.
 
-![Tabla con tres candidatos evaluados con 12 equipos: el monolito modular tiene p99 de 80 ms, disponibilidad de 99,950 por ciento, 11 equipos a coordinar, costo 3 y utilidad 0,596 con cliente dominante y 0,685 sin él; los microservicios 194, 99,601, 0, 16, 0,583 y 0,670; las celdas con monolito modular 125, 99,890, 11, 18, 0,710 y 0,652.](../../../content/part-44/figures/se-539-candidatos.svg)
+![Barras agrupadas con la utilidad ponderada de tres candidatos con 12 equipos en dos contextos: el monolito modular 0,596 con cliente dominante y 0,685 sin él; los microservicios 0,583 y 0,670; las celdas con monolito modular 0,710 y 0,652.](../../../content/part-44/figures/se-539-candidatos.svg)
 
-**Cómo leer la figura.** Las cinco primeras columnas son las medidas que produce el modelo; las dos últimas, la utilidad ponderada. Se lee por fila el perfil de cada candidato y por columna quién gana. **Dónde deja de valer:** las medidas salen de un modelo con supuestos declarados (latencia lognormal, fallos independientes, coordinación igual a equipos menos uno); sus diferencias son menores que el error de esos supuestos. La figura es el material para la discusión, no su veredicto.
+**Cómo leer la figura.** Cada grupo es un candidato; la barra verde es su utilidad con cliente dominante y la azul oscura sin él. Mira primero qué barra es la más alta en cada color: las celdas con cliente dominante y el monolito modular sin él, y que las diferencias son pequeñas. **Dónde deja de valer:** las medidas salen de un modelo con supuestos declarados (latencia lognormal, fallos independientes, coordinación igual a equipos menos uno); sus diferencias son menores que el error de esos supuestos. La figura es el material para la discusión, no su veredicto.
 
 ## Qué cambia el ganador
 
 La tercera figura reúne el efecto del contexto, del número de equipos y del supuesto de disponibilidad.
 
-![Tabla con el candidato de mayor utilidad según el contexto y el número de equipos: con cliente dominante ganan las celdas con 4, 12 y 30 equipos, sin cliente dominante gana el monolito modular con 4 y 12 equipos y los microservicios desde 26, y si la disponibilidad de la cadena de microservicios fuese 99,95 por ciento ganan los microservicios en ambos contextos con cualquier número de equipos.](../../../content/part-44/figures/se-539-sensibilidad.svg)
+![Barras apiladas horizontales con los casos, de tres tamaños de equipo, en que gana cada candidato en cuatro situaciones: con cliente dominante ganan las celdas en los 3; sin él, el monolito modular en 2 y los microservicios en 1; con la cadena de microservicios al 99,95 por ciento ganan los microservicios en los 3 casos de ambos contextos.](../../../content/part-44/figures/se-539-sensibilidad.svg)
 
-**Cómo leer la figura.** Las dos primeras filas son el modelo base; las dos últimas cambian un solo supuesto. La inversión completa de la tabla con un cambio es lo que define a un punto de sensibilidad. **Dónde deja de valer:** el barrido varía un parámetro cada vez; en la realidad varían juntos, y una combinación puede producir otro ganador. La tabla muestra qué supuesto vigilar, no una predicción.
+**Cómo leer la figura.** Cada barra es una situación partida entre los tamaños de equipo (4, 12 y 30) según el candidato que gana: celdas (verde), monolito modular (azul oscuro) o microservicios (rojo). Mira primero que las dos últimas barras son enteramente rojas: cambiar un solo supuesto, la disponibilidad de la cadena, invierte la decisión. **Dónde deja de valer:** el barrido varía un parámetro cada vez; en la realidad varían juntos, y una combinación puede producir otro ganador. La tabla muestra qué supuesto vigilar, no una predicción.
 
 ## Definiciones de trabajo
 

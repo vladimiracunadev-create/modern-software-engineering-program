@@ -821,18 +821,18 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 
 ### Parte 44 — Estilos arquitectónicos
 
-- [ ] `SE-529` — estilos como respuestas a fuerzas de calidad.
-- [ ] `SE-530` — microkernel y arquitecturas de plugins.
-- [ ] `SE-531` — pipes and filters y arquitecturas de flujo.
-- [ ] `SE-532` — microservicios y sus costes reales.
-- [ ] `SE-533` — bFF, API gateway y service mesh.
-- [ ] `SE-534` — multi-tenancy y aislamiento.
-- [ ] `SE-535` — data mesh y propiedad de los datos.
-- [ ] `SE-536` — arquitectura celular y radio de impacto.
-- [ ] `SE-537` — 12-factor y aplicaciones nativas de la nube.
-- [ ] `SE-538` — evolución y migración entre estilos.
-- [ ] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
-- [ ] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
+- [x] `SE-529` — estilos como respuestas a fuerzas de calidad.
+- [x] `SE-530` — microkernel y arquitecturas de plugins.
+- [x] `SE-531` — pipes and filters y arquitecturas de flujo.
+- [x] `SE-532` — microservicios y sus costes reales.
+- [x] `SE-533` — bFF, API gateway y service mesh.
+- [x] `SE-534` — multi-tenancy y aislamiento.
+- [x] `SE-535` — data mesh y propiedad de los datos.
+- [x] `SE-536` — arquitectura celular y radio de impacto.
+- [x] `SE-537` — 12-factor y aplicaciones nativas de la nube.
+- [x] `SE-538` — evolución y migración entre estilos.
+- [x] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
+- [x] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
 
 ## Orden de ejecución y registro
 

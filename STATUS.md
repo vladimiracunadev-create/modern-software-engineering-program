@@ -6,20 +6,20 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | 8 especificadas |
-| Partes | 43 desarrolladas de 45 planificadas |
-| Clases | 516 desarrolladas de 540 planificadas |
-| Contenido desarrollado | Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`), pendiente de revisión editorial humana independiente |
+| Partes | 44 desarrolladas de 45 planificadas |
+| Clases | 528 desarrolladas de 540 planificadas |
+| Contenido desarrollado | Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado sin publicar | Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`), sin clases publicadas |
+| Alcance planificado sin publicar | Parte 41 (`SE-493`–`SE-504`), sin clases publicadas |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | 180 clases (`SE-181`–`SE-360`) |
-| Horas | 2.322 estimadas en las partes desarrolladas (2.430 en el alcance planificado); pendientes de validación por contenido |
-| Metadatos de clase | 516 archivos generados |
-| Registro bibliográfico | 516 entradas sembradas desde fuentes base |
+| Horas | 2.376 estimadas en las partes desarrolladas (2.430 en el alcance planificado); pendientes de validación por contenido |
+| Metadatos de clase | 528 archivos generados |
+| Registro bibliográfico | 528 entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | 560 páginas HTML generadas desde el manifiesto |
-| Portal definitivo | catálogo navegable con las 516 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
+| Sitio | 573 páginas HTML generadas desde el manifiesto |
+| Portal definitivo | catálogo navegable con las 528 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado

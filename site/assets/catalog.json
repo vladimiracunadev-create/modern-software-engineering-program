@@ -5676,6 +5676,138 @@
       "hours": 8,
       "phase": "futura",
       "url": "classes/SE-528.html"
+    },
+    {
+      "id": "SE-529",
+      "title": "Estilos como respuestas a fuerzas de calidad",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-529.html"
+    },
+    {
+      "id": "SE-530",
+      "title": "Microkernel y arquitecturas de plugins",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-530.html"
+    },
+    {
+      "id": "SE-531",
+      "title": "Pipes and filters y arquitecturas de flujo",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-531.html"
+    },
+    {
+      "id": "SE-532",
+      "title": "Microservicios y sus costes reales",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-532.html"
+    },
+    {
+      "id": "SE-533",
+      "title": "BFF, API gateway y service mesh",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-533.html"
+    },
+    {
+      "id": "SE-534",
+      "title": "Multi-tenancy y aislamiento",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-534.html"
+    },
+    {
+      "id": "SE-535",
+      "title": "Data mesh y propiedad de los datos",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-535.html"
+    },
+    {
+      "id": "SE-536",
+      "title": "Arquitectura celular y radio de impacto",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-536.html"
+    },
+    {
+      "id": "SE-537",
+      "title": "12-factor y aplicaciones nativas de la nube",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-537.html"
+    },
+    {
+      "id": "SE-538",
+      "title": "Evolución y migración entre estilos",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-538.html"
+    },
+    {
+      "id": "SE-539",
+      "title": "Taller: seleccionar un estilo con escenarios de calidad",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-539.html"
+    },
+    {
+      "id": "SE-540",
+      "title": "Proyecto: decisión arquitectónica defendida con ADR",
+      "part": "44",
+      "part_title": "Estilos arquitectónicos",
+      "stage": "E",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-540.html"
     }
   ]
 }

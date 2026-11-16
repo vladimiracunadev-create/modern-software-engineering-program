@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-516 clases desarrolladas · 43 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-528`) · 24 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
+528 clases desarrolladas · 44 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-540`) · 12 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
 
 > [!WARNING]
-> Las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 41 (`SE-493`–`SE-504`) está **planificada**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 43 partes desarrolladas
+## Las 44 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -55,17 +55,17 @@
 | 40 | [Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-481–SE-492 | `suite` |
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
+| 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
 
 ## Partes planificadas sin publicar
 
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
 | 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
-| 44 | Estilos arquitectónicos | SE-529–SE-540 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 516 clases desarrolladas
+## Índice plano de las 528 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -673,5 +673,19 @@ sin recorrer carpetas manualmente.
 - [SE-526 — Antipatrones y deuda de diseño](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-526.html)
 - [SE-527 — Taller: refactorizar con patrones y medir su costo](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-527.html)
 - [SE-528 — Proyecto: catálogo de patrones de un sistema real](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-528.html)
+## [Parte 44 — Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md)
+
+- [SE-529 — Estilos como respuestas a fuerzas de calidad](part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-529.html)
+- [SE-530 — Microkernel y arquitecturas de plugins](part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-530.html)
+- [SE-531 — Pipes and filters y arquitecturas de flujo](part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-531.html)
+- [SE-532 — Microservicios y sus costes reales](part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-532.html)
+- [SE-533 — BFF, API gateway y service mesh](part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-533.html)
+- [SE-534 — Multi-tenancy y aislamiento](part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-534.html)
+- [SE-535 — Data mesh y propiedad de los datos](part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-535.html)
+- [SE-536 — Arquitectura celular y radio de impacto](part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-536.html)
+- [SE-537 — 12-factor y aplicaciones nativas de la nube](part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-537.html)
+- [SE-538 — Evolución y migración entre estilos](part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-538.html)
+- [SE-539 — Taller: seleccionar un estilo con escenarios de calidad](part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-539.html)
+- [SE-540 — Proyecto: decisión arquitectónica defendida con ADR](part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html)
 
 Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.

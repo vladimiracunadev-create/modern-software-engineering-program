@@ -131,7 +131,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`), también tienen contenido desarrollado y
+de las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -145,6 +145,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-505 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 42 |
 | [SE-510 · Embeddings, recuperación y agentic RAG](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) | Parte 42 |
 | [SE-516 · Proyecto: sistema con LLM evaluado y operable](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 42 |
+| [SE-529 · Estilos como respuestas a fuerzas de calidad](../classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 44 |
+| [SE-534 · Multi-tenancy y aislamiento](../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) | Parte 44 |
+| [SE-540 · Proyecto: decisión arquitectónica defendida con ADR](../classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) | Parte 44 |
 
 **Cómo recorrerla.** Empieza por [SE-134](../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) para fijar el
 primer mecanismo, usa [SE-441](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/README.md) para integrar el
@@ -154,14 +157,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 41, 44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Parte 41 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> La Parte 41 (`SE-493`–`SE-504`) está **planificada** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -170,7 +173,6 @@ no constituye competencia.
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
 | **Parte 41 · Harness y agentic engineering** | `SE-493`–`SE-504` | Fija política de autonomía, riesgo y gobierno de agentes en la organización. |
-| **Parte 44 · Estilos arquitectónicos** | `SE-529`–`SE-540` | Sitúa la estrategia de plataforma y de organización frente a los estilos arquitectónicos disponibles. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
 desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es

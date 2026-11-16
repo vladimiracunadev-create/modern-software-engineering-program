@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 43,
-  "class_count": 516,
-  "estimated_hours": 2322,
+  "part_count": 44,
+  "class_count": 528,
+  "estimated_hours": 2376,
   "planned_scope": {
     "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
     "part_count": 45,
@@ -29,13 +29,6 @@
         "title": "Harness y agentic engineering",
         "first_class": "SE-493",
         "last_class": "SE-504",
-        "status": "planned"
-      },
-      {
-        "id": "44",
-        "title": "Estilos arquitectónicos",
-        "first_class": "SE-529",
-        "last_class": "SE-540",
         "status": "planned"
       }
     ]
@@ -4630,6 +4623,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real"
+        }
+      ]
+    },
+    {
+      "id": "44",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Estilos arquitectónicos",
+      "owner": "suite",
+      "path": "classes/part-44-estilos-arquitectonicos",
+      "lessons": [
+        {
+          "id": "SE-529",
+          "number": 529,
+          "title": "Estilos como respuestas a fuerzas de calidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad"
+        },
+        {
+          "id": "SE-530",
+          "number": 530,
+          "title": "Microkernel y arquitecturas de plugins",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins"
+        },
+        {
+          "id": "SE-531",
+          "number": 531,
+          "title": "Pipes and filters y arquitecturas de flujo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo"
+        },
+        {
+          "id": "SE-532",
+          "number": 532,
+          "title": "Microservicios y sus costes reales",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales"
+        },
+        {
+          "id": "SE-533",
+          "number": 533,
+          "title": "BFF, API gateway y service mesh",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh"
+        },
+        {
+          "id": "SE-534",
+          "number": 534,
+          "title": "Multi-tenancy y aislamiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento"
+        },
+        {
+          "id": "SE-535",
+          "number": 535,
+          "title": "Data mesh y propiedad de los datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos"
+        },
+        {
+          "id": "SE-536",
+          "number": 536,
+          "title": "Arquitectura celular y radio de impacto",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto"
+        },
+        {
+          "id": "SE-537",
+          "number": 537,
+          "title": "12-factor y aplicaciones nativas de la nube",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube"
+        },
+        {
+          "id": "SE-538",
+          "number": 538,
+          "title": "Evolución y migración entre estilos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos"
+        },
+        {
+          "id": "SE-539",
+          "number": 539,
+          "title": "Taller: seleccionar un estilo con escenarios de calidad",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad"
+        },
+        {
+          "id": "SE-540",
+          "number": 540,
+          "title": "Proyecto: decisión arquitectónica defendida con ADR",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr"
         }
       ]
     }

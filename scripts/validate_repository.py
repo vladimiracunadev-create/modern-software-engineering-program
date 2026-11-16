@@ -294,6 +294,15 @@ def validate_sources() -> None:
         if not source.get("used_for"):
             raise AssertionError(f"Source must declare its purpose: {source['id']}")
 
+    extra_ids: set[str] = set()
+    for meta_path in sorted((ROOT / "content").glob("part-*/part.json")):
+        for extra in json.loads(meta_path.read_text(encoding="utf-8")).get("extra_sources", []):
+            if not extra["url"].startswith("https://") or not extra.get("used_for"):
+                raise AssertionError(f"Extra source must use HTTPS and declare its purpose: {extra['id']}")
+            if extra["id"] in ids or extra["id"] in extra_ids:
+                raise AssertionError(f"Extra source repeats an existing id: {extra['id']}")
+            extra_ids.add(extra["id"])
+    ids = ids + sorted(extra_ids)
     class_sources = read_json("sources/class-sources.json")
     expected_ids = {class_id for number in ps.developed_parts() for class_id in ps.class_ids(number)}
     if class_sources.get("class_count") != len(expected_ids) or set(class_sources.get("classes", {})) != expected_ids:

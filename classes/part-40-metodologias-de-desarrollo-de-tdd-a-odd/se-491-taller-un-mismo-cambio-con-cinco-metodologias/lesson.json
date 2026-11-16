@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "SE-491",
+  "title": "Taller: un mismo cambio con cinco metodologías",
+  "stage": "H",
+  "part": "40",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "CANON-TDD",
+    "MOCKS-ARENT-STUBS",
+    "CUCUMBER-BDD",
+    "DDD-REFERENCE",
+    "DESIGN-BY-CONTRACT",
+    "BOCKELER-SDD",
+    "ANTHROPIC-EVALS",
+    "GENTLE-AI-ODD",
+    "GITHUB-SPEC-KIT"
+  ],
+  "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias"
+}

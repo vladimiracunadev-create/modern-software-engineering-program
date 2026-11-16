@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-480 clases desarrolladas · 40 partes desarrolladas (`SE-001`–`SE-480`) · 60 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
+492 clases desarrolladas · 41 partes desarrolladas (`SE-001`–`SE-492`) · 48 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
 
 > [!WARNING]
-> Las Partes 00–39 (`SE-001`–`SE-480`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–40 (`SE-001`–`SE-492`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41–44 (`SE-493`–`SE-540`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 40 partes desarrolladas
+## Las 41 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -52,12 +52,12 @@
 | 37 | [Gestión, liderazgo y práctica profesional](part-37-gestion-liderazgo-y-practica-profesional/README.md) | G | SE-445–SE-456 | `suite` |
 | 38 | [Desarrollo de software asistido por IA](part-38-desarrollo-de-software-asistido-por-ia/README.md) | H | SE-457–SE-468 | `suite` |
 | 39 | [SPEC, agentes y ciclo de vida agentic](part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | H | SE-469–SE-480 | `suite` |
+| 40 | [Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-481–SE-492 | `suite` |
 
 ## Partes planificadas sin publicar
 
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
-| 40 | Metodologías de desarrollo: de TDD a ODD | SE-481–SE-492 | planificada, sin clases publicadas |
 | 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
 | 42 | Patrones agénticos y sistemas con LLM | SE-505–SE-516 | planificada, sin clases publicadas |
 | 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | planificada, sin clases publicadas |
@@ -65,7 +65,7 @@
 
 ---
 
-## Índice plano de las 480 clases desarrolladas
+## Índice plano de las 492 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -631,5 +631,19 @@ sin recorrer carpetas manualmente.
 - [SE-478 — Seguridad agentic, prompt injection y auditoría](part-39-spec-agentes-y-ciclo-de-vida-agentic/se-478-seguridad-agentic-prompt-injection-y-auditoria/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-478.html)
 - [SE-479 — Taller: detener, recuperar y evaluar un agente](part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-479.html)
 - [SE-480 — Proyecto final: producto operable construido desde SPEC](part-39-spec-agentes-y-ciclo-de-vida-agentic/se-480-proyecto-final-producto-operable-construido-desde-spec/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-480.html)
+## [Parte 40 — Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md)
+
+- [SE-481 — Mapa de metodologías: qué decide cada una y cómo elegir](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-481.html)
+- [SE-482 — TDD: ciclo rojo-verde-refactor y diseño emergente](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-482.html)
+- [SE-483 — TDD en la práctica: escuelas de Londres y clásica, y sus límites](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-483.html)
+- [SE-484 — BDD: ejemplos, conversación y lenguaje compartido](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-484.html)
+- [SE-485 — ATDD y Specification by Example: aceptación ejecutable](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-485.html)
+- [SE-486 — DDD como lenguaje ubicuo y contexto para agentes](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-486.html)
+- [SE-487 — Diseño por contrato y pruebas de contrato como oráculo](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-487.html)
+- [SE-488 — SDD: spec-first, spec-anchored y spec-as-source](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-488.html)
+- [SE-489 — EDD: evaluaciones como especificación y puerta de release](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-489.html)
+- [SE-490 — ODD: desarrollo orgánico y su contraste con SDD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-490.html)
+- [SE-491 — Taller: un mismo cambio con cinco metodologías](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-491.html)
+- [SE-492 — Proyecto: política metodológica de equipo con evidencia](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-492.html)
 
 Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.

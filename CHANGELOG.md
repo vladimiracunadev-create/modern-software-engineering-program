@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-16 — Parte 40 desarrollada con experimentos reales y simulaciones de metodologías de desarrollo (SE-481 a SE-492)
+
+- las clases `SE-481`–`SE-492` pasan de planificadas a clases completas sobre el núcleo de *Avisos*: mapa de metodologías, TDD (ciclo y escuelas), BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD, EDD, ODD, taller de cinco metodologías y política de equipo
+- 36 figuras con experimentos ejecutados con la biblioteca estándar en Windows (CPython 3.12.9) y Ubuntu/WSL2 (3.12.3): 20 mutantes y cinco oráculos, un ciclo rojo-verde de ocho pasos, dos estilos de prueba ante refactores, nueve escenarios ejecutados, cuatro conjuntos de ejemplos, un recuento de «entrega» en 4 249 frases del corpus, doce cambios de proveedor con tres detectores, diez derivas de especificación, una simulación de puerta de evaluación, dos historiales de Git reales y una simulación de cinco políticas; no se invocó ningún modelo ni se ejecutó ninguna herramienta de terceros
+- `content/part-40/part.json` aporta las fuentes de la parte (primer uso del mecanismo de ADR-005); `validate_repository.py` valida las fuentes extra; se corrige la descripción de ODD en `role_profiles.py` (Organic Driven Development, no observabilidad)
+- los contadores pasan de 40 a 41 partes desarrolladas y de 480 a 492 clases; 48 clases (Partes 41–44) siguen planificadas
+
 ## 2026-11-16 — Infraestructura para publicar las Partes 40–44 (SE-481–SE-540) sin tocar scripts
 
 - nuevo `scripts/program_state.py`: una parte está desarrollada si y solo si existen `content/part-NN/README.md` y los doce `SE-NNN.md`; de ahí salen contadores, rangos y textos de estado

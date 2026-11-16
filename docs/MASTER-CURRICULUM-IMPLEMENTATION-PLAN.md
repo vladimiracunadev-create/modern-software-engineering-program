@@ -761,18 +761,18 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 
 ### Parte 40 — Metodologías de TDD a ODD
 
-- [ ] `SE-481` — mapa de metodologías: qué decide cada una y cómo elegir.
-- [ ] `SE-482` — tDD: ciclo rojo-verde-refactor y diseño emergente.
-- [ ] `SE-483` — tDD en la práctica: escuelas de Londres y clásica, y sus límites.
-- [ ] `SE-484` — bDD: ejemplos, conversación y lenguaje compartido.
-- [ ] `SE-485` — aTDD y Specification by Example: aceptación ejecutable.
-- [ ] `SE-486` — dDD como lenguaje ubicuo y contexto para agentes.
-- [ ] `SE-487` — diseño por contrato y pruebas de contrato como oráculo.
-- [ ] `SE-488` — sDD: spec-first, spec-anchored y spec-as-source.
-- [ ] `SE-489` — eDD: evaluaciones como especificación y puerta de release.
-- [ ] `SE-490` — oDD: desarrollo orgánico y su contraste con SDD.
-- [ ] `SE-491` — taller: un mismo cambio con cinco metodologías.
-- [ ] `SE-492` — proyecto: política metodológica de equipo con evidencia.
+- [x] `SE-481` — mapa de metodologías: qué decide cada una y cómo elegir.
+- [x] `SE-482` — tDD: ciclo rojo-verde-refactor y diseño emergente.
+- [x] `SE-483` — tDD en la práctica: escuelas de Londres y clásica, y sus límites.
+- [x] `SE-484` — bDD: ejemplos, conversación y lenguaje compartido.
+- [x] `SE-485` — aTDD y Specification by Example: aceptación ejecutable.
+- [x] `SE-486` — dDD como lenguaje ubicuo y contexto para agentes.
+- [x] `SE-487` — diseño por contrato y pruebas de contrato como oráculo.
+- [x] `SE-488` — sDD: spec-first, spec-anchored y spec-as-source.
+- [x] `SE-489` — eDD: evaluaciones como especificación y puerta de release.
+- [x] `SE-490` — oDD: desarrollo orgánico y su contraste con SDD.
+- [x] `SE-491` — taller: un mismo cambio con cinco metodologías.
+- [x] `SE-492` — proyecto: política metodológica de equipo con evidencia.
 
 ### Parte 41 — Harness y agentic engineering
 

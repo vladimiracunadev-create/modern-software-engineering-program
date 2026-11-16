@@ -64,4 +64,5 @@ su commit está en `main` con CI verde.
 | 39 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de especificación, agentes y ciclo de vida agentic en Windows y Linux , CI verde (Validate, Pages y Security) | `5fe0dc2e` |
 | doc | Documentación, portal y About alineados con las Partes 00–39 (480 clases desarrolladas), CI verde (Validate, Pages y Security) | `9055cb1d` |
 | infra | Infraestructura de publicación de las Partes 40–44 (ADR-005): estado derivado del contenido, contadores reales, guía `docs/ADDING-A-PART.md` | _pendiente_ |
-| 40–44 | Planificadas (ADR-004); aún sin publicar. Procedimiento: `docs/ADDING-A-PART.md` | — |
+| 40 | Desarrollada y profundizada con experimentos reales y simulaciones sintéticas de metodologías de desarrollo (mutantes, escenarios, contratos, especificación, evaluaciones, Git real y política de equipo) ejecutados en Windows y Linux | _pendiente_ |
+| 41–44 | Planificadas (ADR-004); aún sin publicar. Procedimiento: `docs/ADDING-A-PART.md` | — |

@@ -5280,6 +5280,138 @@
       "hours": 8,
       "phase": "futura",
       "url": "classes/SE-480.html"
+    },
+    {
+      "id": "SE-481",
+      "title": "Mapa de metodologías: qué decide cada una y cómo elegir",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-481.html"
+    },
+    {
+      "id": "SE-482",
+      "title": "TDD: ciclo rojo-verde-refactor y diseño emergente",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-482.html"
+    },
+    {
+      "id": "SE-483",
+      "title": "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-483.html"
+    },
+    {
+      "id": "SE-484",
+      "title": "BDD: ejemplos, conversación y lenguaje compartido",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-484.html"
+    },
+    {
+      "id": "SE-485",
+      "title": "ATDD y Specification by Example: aceptación ejecutable",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-485.html"
+    },
+    {
+      "id": "SE-486",
+      "title": "DDD como lenguaje ubicuo y contexto para agentes",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-486.html"
+    },
+    {
+      "id": "SE-487",
+      "title": "Diseño por contrato y pruebas de contrato como oráculo",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-487.html"
+    },
+    {
+      "id": "SE-488",
+      "title": "SDD: spec-first, spec-anchored y spec-as-source",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-488.html"
+    },
+    {
+      "id": "SE-489",
+      "title": "EDD: evaluaciones como especificación y puerta de release",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-489.html"
+    },
+    {
+      "id": "SE-490",
+      "title": "ODD: desarrollo orgánico y su contraste con SDD",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-490.html"
+    },
+    {
+      "id": "SE-491",
+      "title": "Taller: un mismo cambio con cinco metodologías",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-491.html"
+    },
+    {
+      "id": "SE-492",
+      "title": "Proyecto: política metodológica de equipo con evidencia",
+      "part": "40",
+      "part_title": "Metodologías de desarrollo: de TDD a ODD",
+      "stage": "H",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-492.html"
     }
   ]
 }

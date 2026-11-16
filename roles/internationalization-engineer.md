@@ -124,7 +124,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+de las Partes 00–40 (`SE-001`–`SE-492`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -134,6 +134,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-175 · Diseño visual, tipografía, color y contraste](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-175-diseno-visual-tipografia-color-y-contraste/README.md) | Parte 14 |
 | [SE-176 · Responsive, adaptativo y preferencias del usuario](../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-176-responsive-adaptativo-y-preferencias-del-usuario/README.md) | Parte 14 |
 | [SE-238 · SEO, metadatos y descubribilidad](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/README.md) | Parte 19 |
+| [SE-481 · Mapa de metodologías: qué decide cada una y cómo elegir](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) | Parte 40 |
+| [SE-486 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | Parte 40 |
+| [SE-492 · Proyecto: política metodológica de equipo con evidencia](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) | Parte 40 |
 
 **Cómo recorrerla.** Empieza por [SE-015](../classes/part-01-computadores-y-representacion-de-informacion/se-015-texto-unicode-codificaciones-y-mojibake/README.md) para fijar el
 primer mecanismo, usa [SE-233](../classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/README.md) para integrar el
@@ -143,14 +146,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40 (`SE-001`–`SE-492`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 41–44 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> Las Partes 41–44 (`SE-493`–`SE-540`) están **planificadas** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -158,7 +161,7 @@ no constituye competencia.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 40 · Metodologías de desarrollo: de TDD a ODD** | `SE-481`–`SE-492` | Lleva reglas de formato, plural y dirección de escritura a ejemplos ejecutables y pruebas de contrato. |
+| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
 desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es

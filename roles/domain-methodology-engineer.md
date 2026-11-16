@@ -152,7 +152,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+de las Partes 00–40 (`SE-001`–`SE-492`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -163,6 +163,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-146 · Requisitos funcionales y reglas de negocio](../classes/part-12-ingenieria-de-requisitos/se-146-requisitos-funcionales-y-reglas-de-negocio/README.md) | Parte 12 |
 | [SE-153 · Gestión de cambios y líneas base](../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) | Parte 12 |
 | [SE-208 · ADRs, RFCs y registro de decisiones](../classes/part-17-documentacion-y-conocimiento-tecnico/se-208-adrs-rfcs-y-registro-de-decisiones/README.md) | Parte 17 |
+| [SE-481 · Mapa de metodologías: qué decide cada una y cómo elegir](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) | Parte 40 |
+| [SE-486 · DDD como lenguaje ubicuo y contexto para agentes](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) | Parte 40 |
+| [SE-492 · Proyecto: política metodológica de equipo con evidencia](../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) | Parte 40 |
 
 **Cómo recorrerla.** Empieza por [SE-069](../classes/part-05-fundamentos-de-programacion/se-069-pruebas-tempranas-y-diseno-por-ejemplos/README.md) para fijar el
 primer mecanismo, usa [SE-167](../classes/part-13-especificaciones-contratos-y-modelos/se-167-taller-convertir-intencion-en-contrato-comprobable/README.md) para integrar el
@@ -172,14 +175,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40 (`SE-001`–`SE-492`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 41–44 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> Las Partes 41–44 (`SE-493`–`SE-540`) están **planificadas** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -187,7 +190,6 @@ no constituye competencia.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 40 · Metodologías de desarrollo: de TDD a ODD** | `SE-481`–`SE-492` | Es la parte central del rol: TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD como prácticas de equipo con evidencia. |
 | **Parte 43 · Patrones de diseño, empresariales y de resiliencia** | `SE-517`–`SE-528` | Conecta el modelo de dominio con patrones de persistencia (Repository, Unit of Work, Active Record) y sus antipatrones. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases

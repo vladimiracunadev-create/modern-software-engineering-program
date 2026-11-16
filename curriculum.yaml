@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 40,
-  "class_count": 480,
-  "estimated_hours": 2160,
+  "part_count": 41,
+  "class_count": 492,
+  "estimated_hours": 2214,
   "planned_scope": {
     "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
     "part_count": 45,
@@ -24,13 +24,6 @@
     "first_class": "SE-001",
     "last_class": "SE-540",
     "unpublished_parts": [
-      {
-        "id": "40",
-        "title": "Metodologías de desarrollo: de TDD a ODD",
-        "first_class": "SE-481",
-        "last_class": "SE-492",
-        "status": "planned"
-      },
       {
         "id": "41",
         "title": "Harness y agentic engineering",
@@ -4333,6 +4326,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-480-proyecto-final-producto-operable-construido-desde-spec"
+        }
+      ]
+    },
+    {
+      "id": "40",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Metodologías de desarrollo: de TDD a ODD",
+      "owner": "suite",
+      "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd",
+      "lessons": [
+        {
+          "id": "SE-481",
+          "number": 481,
+          "title": "Mapa de metodologías: qué decide cada una y cómo elegir",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir"
+        },
+        {
+          "id": "SE-482",
+          "number": 482,
+          "title": "TDD: ciclo rojo-verde-refactor y diseño emergente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente"
+        },
+        {
+          "id": "SE-483",
+          "number": 483,
+          "title": "TDD en la práctica: escuelas de Londres y clásica, y sus límites",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites"
+        },
+        {
+          "id": "SE-484",
+          "number": 484,
+          "title": "BDD: ejemplos, conversación y lenguaje compartido",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido"
+        },
+        {
+          "id": "SE-485",
+          "number": 485,
+          "title": "ATDD y Specification by Example: aceptación ejecutable",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable"
+        },
+        {
+          "id": "SE-486",
+          "number": 486,
+          "title": "DDD como lenguaje ubicuo y contexto para agentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes"
+        },
+        {
+          "id": "SE-487",
+          "number": 487,
+          "title": "Diseño por contrato y pruebas de contrato como oráculo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo"
+        },
+        {
+          "id": "SE-488",
+          "number": 488,
+          "title": "SDD: spec-first, spec-anchored y spec-as-source",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source"
+        },
+        {
+          "id": "SE-489",
+          "number": 489,
+          "title": "EDD: evaluaciones como especificación y puerta de release",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release"
+        },
+        {
+          "id": "SE-490",
+          "number": 490,
+          "title": "ODD: desarrollo orgánico y su contraste con SDD",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd"
+        },
+        {
+          "id": "SE-491",
+          "number": 491,
+          "title": "Taller: un mismo cambio con cinco metodologías",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias"
+        },
+        {
+          "id": "SE-492",
+          "number": 492,
+          "title": "Proyecto: política metodológica de equipo con evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia"
         }
       ]
     }

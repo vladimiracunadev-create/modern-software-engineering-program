@@ -1,0 +1,13 @@
+{
+  "sources": ["CANON-TDD", "MOCKS-ARENT-STUBS", "CUCUMBER-BDD", "DDD-REFERENCE", "DESIGN-BY-CONTRACT", "BOCKELER-SDD", "ANTHROPIC-EVALS", "GENTLE-AI-ODD", "GITHUB-SPEC-KIT"],
+  "extra_sources": [
+    {"id": "CANON-TDD", "title": "Canon TDD", "authority": "Kent Beck", "url": "https://tidyfirst.substack.com/p/canon-tdd", "status": "living", "used_for": ["tdd", "test-list"]},
+    {"id": "MOCKS-ARENT-STUBS", "title": "Mocks Aren't Stubs", "authority": "Martin Fowler", "url": "https://martinfowler.com/articles/mocksArentStubs.html", "status": "living", "used_for": ["test-doubles", "classical-vs-mockist"]},
+    {"id": "CUCUMBER-BDD", "title": "Behaviour-Driven Development", "authority": "Cucumber", "url": "https://cucumber.io/docs/bdd/", "status": "living", "used_for": ["bdd", "examples"]},
+    {"id": "DDD-REFERENCE", "title": "Domain-Driven Design Reference", "authority": "Eric Evans / Domain Language", "url": "https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf", "status": "stable", "used_for": ["ubiquitous-language", "bounded-context"]},
+    {"id": "DESIGN-BY-CONTRACT", "title": "Applying Design by Contract", "authority": "Bertrand Meyer / IEEE Computer", "url": "https://doi.org/10.1109/2.161279", "status": "stable", "used_for": ["contracts", "preconditions"]},
+    {"id": "BOCKELER-SDD", "title": "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl", "authority": "Birgitta Böckeler / martinfowler.com", "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html", "status": "living", "used_for": ["sdd", "spec-levels"]},
+    {"id": "ANTHROPIC-EVALS", "title": "Demystifying evals for AI agents", "authority": "Anthropic", "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents", "status": "living", "used_for": ["evals", "non-determinism"]},
+    {"id": "GENTLE-AI-ODD", "title": "Gentle AI: Intended Usage (Organic Driven Development)", "authority": "Gentle AI project", "url": "https://github.com/Gentleman-Programming/gentle-ai/blob/main/docs/intended-usage.md", "status": "living", "used_for": ["odd", "agent-workflow"]}
+  ]
+}

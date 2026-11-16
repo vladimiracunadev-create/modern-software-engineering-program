@@ -692,7 +692,7 @@ PLANNED_BY_ROLE = {
         "43": "Sistematiza patrones de resiliencia que sostienen SLO: timeouts, retries, circuit breakers y degradación elegante.",
     },
     "observability-engineer.md": {
-        "40": "Trata la observabilidad como práctica de desarrollo (ODD): preguntas de producción definidas antes de escribir el cambio.",
+        "40": "Incorpora a la política de equipo las señales de producción que el cambio debe dejar; ODD en esta parte es el flujo de trabajo para agentes (Organic Driven Development), no una práctica de observabilidad.",
         "41": "Define las trazas, el registro de herramientas y las señales que hacen auditable un bucle agentic.",
     },
     "platform-engineer.md": {

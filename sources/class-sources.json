@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verified_on": "2026-10-02",
-  "class_count": 480,
+  "class_count": 492,
   "classes": {
     "SE-001": {
       "source_ids": [
@@ -3804,6 +3804,174 @@
         "MCP-2026-07-28",
         "NIST-AI-RMF",
         "NIST-AI-600-1"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-481": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-482": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-483": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-484": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-485": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-486": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-487": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-488": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-489": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-490": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-491": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-492": {
+      "source_ids": [
+        "CANON-TDD",
+        "MOCKS-ARENT-STUBS",
+        "CUCUMBER-BDD",
+        "DDD-REFERENCE",
+        "DESIGN-BY-CONTRACT",
+        "BOCKELER-SDD",
+        "ANTHROPIC-EVALS",
+        "GENTLE-AI-ODD",
+        "GITHUB-SPEC-KIT"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     }

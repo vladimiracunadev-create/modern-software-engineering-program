@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-16 — Parte 34 desarrollada y profundizada con experimentos sintéticos de CI/CD, infraestructura como código y plataforma
+
+- las clases `SE-409`–`SE-420` pasan de estructura sin contenido a clases completas sobre la canalización de la API de entregas: integración continua, pipelines y cachés, compuertas, credenciales efímeras y OIDC, entrega y despliegue, infraestructura como código, GitOps, entornos de vista previa y datos seguros, plataformas internas, métricas DORA, un taller de endurecimiento y un proyecto de camino a producción con retroceso; el portal publica el contenido íntegro y el índice de la parte, sin cambiar los conteos de 480 clases ni de 40 partes;
+- 36 figuras con experimentos de semilla fija en tiempo virtual: choque de ramas y lotes, ruta crítica, matrices y cachés, orden de etapas, reglas sobre workflows y reintentos, verificación de tokens, ventana de exposición y detectores de secretos, estrategias de despliegue y potencia del canario, estado concurrente, deriva, disputa de controladores y poda, reidentificación y costo de entornos, adopción y catálogo, definiciones DORA y ruido, endurecimiento, inyección ejecutada de verdad y retroceso con SQLite real;
+- tres secciones nuevas por clase, preguntas, errores, ejercicios y fallos controlados propios, fuentes verificadas con `curl` y Crossref y un puente hacia el trabajo con agentes;
+- los experimentos se ejecutaron en Windows (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3) con cifras publicadas idénticas; los parámetros son supuestos del autor, no se midió ningún sistema ni herramienta reales, los verificadores se afinaron con los mismos casos que los evalúan y el contenido sigue pendiente de revisión humana independiente; `DEVELOPED_LAST_CLASS` y los textos globales no cambian.
+
 ## 2026-11-16 — Parte 32 desarrollada y profundizada con experimentos sintéticos de seguridad, privacidad y cumplimiento
 
 - las clases `SE-385`–`SE-396` pasan de estructura sin contenido a clases completas sobre la plataforma de entregas vista desde quien la ataca y quien la protege: modelos de amenaza, identidad y sesiones, autorización y mínimo privilegio, inyección y codificación, criptografía y claves, secretos y ambientes, privacidad por diseño, secure SDLC y abuso, vulnerabilidades y divulgación, cumplimiento y evidencia, un taller de controles aparentes y un proyecto de paquete de seguridad verificable; el portal publica el contenido íntegro de las doce clases y el índice de la parte, sin cambiar los conteos de 480 clases ni de 40 partes;

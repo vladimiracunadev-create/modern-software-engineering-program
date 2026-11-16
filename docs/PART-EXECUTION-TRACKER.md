@@ -58,5 +58,6 @@ su commit está en `main` con CI verde.
 | 35 | Desarrollada y profundizada con experimentos sintéticos y mediciones de observabilidad, SRE e incidentes ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
 | 33 | Desarrollada y profundizada con experimentos sintéticos, firmas reales y escaneo de flujos de CI ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
 | 32 | Desarrollada y profundizada con experimentos sintéticos de seguridad, privacidad y cumplimiento ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
-| 34, 37–39 | Estructura; requieren desarrollo completo | — |
+| 34 | Desarrollada y profundizada con experimentos sintéticos y modelos de CI/CD, infraestructura como código y plataforma ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 37–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

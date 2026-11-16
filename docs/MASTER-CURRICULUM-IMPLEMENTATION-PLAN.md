@@ -670,18 +670,18 @@ evita una explicación genérica.
 
 ### Parte 34 — CI/CD y Platform Engineering
 
-- [ ] `SE-409` — acortar feedback sin ocultar riesgo.
-- [ ] `SE-410` — asegurar matrices y cachés de CI.
-- [ ] `SE-411` — diseñar gates según riesgo.
-- [ ] `SE-412` — usar OIDC y credenciales efímeras.
-- [ ] `SE-413` — desplegar progresivamente.
-- [ ] `SE-414` — validar una pipeline de IaC.
-- [ ] `SE-415` — explicar GitOps y reconciliación.
-- [ ] `SE-416` — crear previews con datos seguros.
-- [ ] `SE-417` — estudiar Backstage como caso, no receta.
-- [ ] `SE-418` — usar DORA y SPACE sin gaming.
-- [ ] `SE-419` — reparar una pipeline vulnerable.
-- [ ] `SE-420` — entregar rollback probado.
+- [x] `SE-409` — acortar feedback sin ocultar riesgo.
+- [x] `SE-410` — asegurar matrices y cachés de CI.
+- [x] `SE-411` — diseñar gates según riesgo.
+- [x] `SE-412` — usar OIDC y credenciales efímeras.
+- [x] `SE-413` — desplegar progresivamente.
+- [x] `SE-414` — validar una pipeline de IaC.
+- [x] `SE-415` — explicar GitOps y reconciliación.
+- [x] `SE-416` — crear previews con datos seguros.
+- [x] `SE-417` — estudiar Backstage como caso, no receta.
+- [x] `SE-418` — usar DORA y SPACE sin gaming.
+- [x] `SE-419` — reparar una pipeline vulnerable.
+- [x] `SE-420` — entregar rollback probado.
 
 ### Parte 35 — Observabilidad, SRE e incidentes
 

@@ -112,9 +112,9 @@ Se modela un repositorio de 400 archivos y ocho personas que modifican tres arch
 
 La probabilidad pasa de 21 % a 89 % en un día y medio y deja de crecer, mientras que los archivos en choque, que son el trabajo de resolverlos, se multiplican por 140 entre medio día y veinte días.
 
-![Tabla de la vida de una rama de medio día a veinte días con la fracción de ramas con algún archivo en choque, que pasa del 21 al 100 por ciento, y la media de archivos en choque, de 0,2 a 31.](../../../content/part-34/figures/se-409-vida-de-la-rama-y-conflictos.svg)
+![Barras con el porcentaje de ramas que tocan algún archivo que otra persona también cambió según su vida: con medio día el 21 por ciento, con un día el 49, con dos días el 89 y con cinco días o más prácticamente todas.](../../../content/part-34/figures/se-409-vida-de-la-rama-y-conflictos.svg)
 
-**Cómo leer la figura.** Cada fila es una vida de rama; la segunda columna es la probabilidad de que haya al menos un choque y la tercera, cuánto trabajo hay que resolver. **Dónde deja de valer:** las tres modificaciones diarias, los 400 archivos y el exponente de concentración son supuestos del autor. En un repositorio con cambios muy dispersos el choque sería menor; en uno con un archivo que todos tocan, mayor. Además, un choque de texto no es un choque de significado: la tabla cuenta archivos compartidos, no defectos.
+**Cómo leer la figura.** Cada barra es una vida de la rama y su altura el porcentaje de ramas con algún archivo en choque con la troncal. Mira primero cómo sube de 21 % a 89 % en un día y medio y después se aplana junto al 100 %; los archivos en choque, que siguen creciendo, están en la nota. **Dónde deja de valer:** las tres modificaciones diarias, los 400 archivos y el exponente de concentración son supuestos del autor. En un repositorio con cambios muy dispersos el choque sería menor; en uno con un archivo que todos tocan, mayor. Además, un choque de texto no es un choque de significado: la tabla cuenta archivos compartidos, no defectos.
 
 ### Lotes y aislamiento de fallos
 
@@ -144,9 +144,9 @@ def aislar(trozo):
 
 En todos los casos se encuentran los mismos 974 cambios defectuosos. Pasar de verificar cada cambio a lotes de diez reduce las construcciones por cambio de 1,00 a 0,35; seguir creciendo no ahorra más, porque casi todos los lotes salen rojos y la bisección hace el trabajo que el lote pretendía evitar.
 
-![Tabla con el tamaño del lote de 1 a 50 cambios, la fracción de lotes en rojo, de 4,1 a 85,2 por ciento, y las construcciones por cambio, que bajan de 1,00 a 0,35 y vuelven a subir a 0,37.](../../../content/part-34/figures/se-409-lotes-y-aislamiento-de-fallos.svg)
+![Línea con las construcciones por cambio, con bisección, según el tamaño del lote: un cambio por lote exige 1,00; con lotes de 5 baja a 0,38; el mínimo está en lotes de 10 con 0,35 y con lotes de 50 vuelve a 0,37.](../../../content/part-34/figures/se-409-lotes-y-aislamiento-de-fallos.svg)
 
-**Cómo leer la figura.** La tercera columna es el costo de computación por cambio; la segunda es la fracción de lotes que no se pueden integrar de una vez. **Dónde deja de valer:** el 4 % de defectos y la independencia entre cambios son supuestos; si los defectos se agrupan (los hace la misma persona, en el mismo módulo) la bisección cuesta menos. El modelo mide construcciones, no tiempo: el cambio bueno que espera a su lote pierde horas que esta tabla no cuenta, y el aislamiento supone que el defecto se manifiesta siempre, algo que no ocurre con defectos intermitentes.
+**Cómo leer la figura.** El eje horizontal es el número de cambios por lote, en escala logarítmica, y el vertical las construcciones por cambio hasta aislar el defectuoso. Mira primero dónde está el punto más bajo, en lotes de 10, y cómo la curva vuelve a subir con lotes de 50; los lotes en rojo están en la nota. **Dónde deja de valer:** el 4 % de defectos y la independencia entre cambios son supuestos; si los defectos se agrupan (los hace la misma persona, en el mismo módulo) la bisección cuesta menos. El modelo mide construcciones, no tiempo: el cambio bueno que espera a su lote pierde horas que esta tabla no cuenta, y el aislamiento supone que el defecto se manifiesta siempre, algo que no ocurre con defectos intermitentes.
 
 ### La troncal rota por un choque que ningún cambio ve
 
@@ -158,9 +158,9 @@ Doce cambios al día entran por un proceso de Poisson y cada uno vive 0,25, 1 o 
 | 1 día | 213 | 0 (se detectan al entrar) |
 | 3 días | 490 | 0 (se detectan al entrar) |
 
-![Tabla de la vida del cambio de un cuarto de día a tres días con la troncal rota por cada mil integraciones sin cola, 54, 213 y 490, y cero con cola de integración porque los choques se detectan al entrar.](../../../content/part-34/figures/se-409-troncal-rota-sin-cola.svg)
+![Barras con las veces que la troncal queda en rojo por cada mil integraciones: sin cola, 54 con cambios que viven un cuarto de día, 213 con un día y 490 con tres; con una cola que prueba el resultado combinado, 0.](../../../content/part-34/figures/se-409-troncal-rota-sin-cola.svg)
 
-**Cómo leer la figura.** La columna central cuenta cuántas de cada mil integraciones dejan la troncal en rojo; la última dice qué ocurre con la cola. **Dónde deja de valer:** el «0» de la cola no significa que el choque no exista: significa que se descubre antes de integrar, como un rechazo con su costo de espera y de reconstrucción, que este modelo no mide. La probabilidad de choque del 2 % por pareja y la tasa de 12 cambios por día son supuestos; una vida de tres días no es típica de un equipo que integra a diario.
+**Cómo leer la figura.** Cada grupo es la vida de un cambio; la barra roja son las veces que la troncal queda en rojo sin cola, por cada mil integraciones, y la verde con cola de integración. Mira primero cómo crece la roja con la vida del cambio y que la verde no existe. **Dónde deja de valer:** el «0» de la cola no significa que el choque no exista: significa que se descubre antes de integrar, como un rechazo con su costo de espera y de reconstrucción, que este modelo no mide. La probabilidad de choque del 2 % por pareja y la tasa de 12 cambios por día son supuestos; una vida de tres días no es típica de un equipo que integra a diario.
 
 ## Definiciones de trabajo
 

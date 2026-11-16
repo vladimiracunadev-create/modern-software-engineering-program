@@ -137,9 +137,9 @@ En el código del experimento, el marcador `<TOKEN_EJEMPLO_CON_FORMA_DE_TOKEN_DE
 
 Cada cambio elimina exactamente un hallazgo. El flujo final es más corto y no ejecuta nada que no esté en el repositorio. La credencial del último cambio sigue en el historial y debe revocarse.
 
-![Tabla del endurecimiento paso a paso de un flujo de trabajo vulnerable: el original tiene 8 hallazgos y cada uno de los 8 cambios elimina uno, fijar la acción a un SHA, permisos mínimos, pull_request en lugar de pull_request_target, título por variable de entorno, script versionado, no escribir el secreto, que el trabajo falle cuando falla y sin credencial en el texto, hasta llegar a 0.](../../../content/part-34/figures/se-419-hallazgos-tras-cada-cambio.svg)
+![Barras horizontales con los hallazgos del verificador tras cada cambio: el workflow original tiene 8 y cada uno de los 8 cambios elimina exactamente uno hasta llegar a 0.](../../../content/part-34/figures/se-419-hallazgos-tras-cada-cambio.svg)
 
-**Cómo leer la figura.** Cada fila es el estado del flujo tras un cambio; la columna es el número de hallazgos del verificador. **Dónde deja de valer:** el verificador es el de reglas de texto de `SE-411`; un cero no prueba seguridad, solo ausencia de ocho patrones. El orden de los cambios es didáctico: en un caso real el cambio 3 (el evento) podría ser el primero por riesgo, y varios cambios dependen de decisiones de diseño (cómo se ejecutará el script versionado).
+**Cómo leer la figura.** Cada barra es un paso del endurecimiento, empezando por el workflow original, y su longitud los hallazgos que quedan. Mira primero que cada barra mide uno menos que la anterior: cada cambio es pequeño y elimina un hallazgo concreto. **Dónde deja de valer:** el verificador es el de reglas de texto de `SE-411`; un cero no prueba seguridad, solo ausencia de ocho patrones. El orden de los cambios es didáctico: en un caso real el cambio 3 (el evento) podría ser el primero por riesgo, y varios cambios dependen de decisiones de diseño (cómo se ejecutará el script versionado).
 
 ### La inyección, ejecutada de verdad
 
@@ -156,9 +156,9 @@ Se simula la expansión de una expresión dentro de un script. El «script» es 
 
 Cuatro de seis títulos se convierten en código al expandirse en el programa; con la variable de entorno los seis son datos.
 
-![Tabla de seis títulos insertados en un programa antes de ejecutarlo o pasados como variable de entorno: cuatro se ejecutan como código al expandirse en el programa y los seis son inertes por variable de entorno.](../../../content/part-34/figures/se-419-inyeccion-en-el-script.svg)
+![Barras apiladas horizontales con el resultado de seis títulos: expandirlos dentro del texto del programa ejecuta 4 como código; pasarlos por una variable de entorno deja los 6 como datos.](../../../content/part-34/figures/se-419-inyeccion-en-el-script.svg)
 
-**Cómo leer la figura.** Cada fila es una entrada; la segunda columna es lo que ocurre cuando el texto pasa a formar parte del programa y la tercera cuando se pasa como dato. **Dónde deja de valer:** el intérprete es Python y la carga es inofensiva; con un intérprete de comandos la sintaxis de la inyección difiere (sustituciones de comandos, punto y coma) pero el principio es el mismo. La ejecución es real en cada máquina; el experimento no ataca ningún sistema ni usa red.
+**Cómo leer la figura.** Cada barra es una forma de insertar el título y se parte entre lo que se ejecuta como código (rojo), lo que rompe el programa (dorado), lo inerte (verde) y lo alterado (gris). Mira primero el segmento rojo de la primera barra, que no existe en la segunda. **Dónde deja de valer:** el intérprete es Python y la carga es inofensiva; con un intérprete de comandos la sintaxis de la inyección difiere (sustituciones de comandos, punto y coma) pero el principio es el mismo. La ejecución es real en cada máquina; el experimento no ataca ningún sistema ni usa red.
 
 ### Permisos y fijación por huella
 
@@ -175,9 +175,9 @@ Se cuentan los ámbitos con escritura que recibe cada trabajo con `write-all` fr
 
 Con permisos amplios cada trabajo puede escribir en 16 ámbitos; con el mínimo, entre cero y tres. Mover la etiqueta cambia el contenido que se descargaría, y la huella fijada lo detecta.
 
-![Tabla de ámbitos con escritura del token por trabajo con write-all frente al mínimo: cada trabajo recibe 16 con permisos amplios y 0, 0, 1, 3 y 2 con el mínimo para lint, test, build, publicar y desplegar; si alguien mueve la etiqueta de una acción su contenido ya no coincide con la huella fijada.](../../../content/part-34/figures/se-419-permisos-y-fijacion-por-huella.svg)
+![Barras horizontales con los ámbitos con escritura del token por job: con permisos amplios cada job recibe 16; con el mínimo, lint y pruebas 0, la construcción 1, la publicación 3 y el despliegue 2.](../../../content/part-34/figures/se-419-permisos-y-fijacion-por-huella.svg)
 
-**Cómo leer la figura.** Las cinco primeras filas comparan permisos; la última, la diferencia entre una etiqueta y un SHA. **Dónde deja de valer:** el mínimo de cada trabajo es una elección del autor para esta canalización; una acción de publicación real puede necesitar más. El árbol de la acción es una abstracción: en una plataforma real el SHA es el de un commit de git, que identifica su árbol completo.
+**Cómo leer la figura.** Cada grupo es un job de la canalización; la barra roja son los ámbitos con escritura con permisos amplios y la verde con el mínimo. Mira primero la distancia entre ambas en el job de lint; la etiqueta que se mueve frente al SHA está en la nota. **Dónde deja de valer:** el mínimo de cada trabajo es una elección del autor para esta canalización; una acción de publicación real puede necesitar más. El árbol de la acción es una abstracción: en una plataforma real el SHA es el de un commit de git, que identifica su árbol completo.
 
 ## Definiciones de trabajo
 

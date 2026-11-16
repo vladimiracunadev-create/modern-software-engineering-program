@@ -127,9 +127,9 @@ def verificar(token, nivel):
 
 La firma sola rechaza los tres tokens con firma o algoritmo inválidos y acepta nueve. El prefijo no cambia nada respecto al nivel anterior: los cuatro que quedan empiezan por «repo:org». Solo el sujeto exacto y la vida corta dejan fuera los doce y mantienen los legítimos.
 
-![Tabla de cinco niveles de verificación de un token con los manipulados aceptados de doce y los legítimos aceptados de tres: solo firma 9, con vigencia 6, con emisor y audiencia 4, con prefijo del sujeto 4 y con sujeto exacto y vida corta 0, siempre 3 legítimos.](../../../content/part-34/figures/se-412-validacion-de-tokens-por-niveles.svg)
+![Barras horizontales con los tokens que acepta cada nivel de verificación: solo la firma acepta 9 de 12 manipulados; la vigencia, 6; emisor y audiencia, 4; el sujeto con prefijo sigue aceptando 4; el sujeto exacto con vida corta, ninguno, y los 3 legítimos se aceptan siempre.](../../../content/part-34/figures/se-412-validacion-de-tokens-por-niveles.svg)
 
-**Cómo leer la figura.** Cada fila es un verificador más estricto que el anterior; la columna central cuenta cuántos tokens manipulados deja pasar y la siguiente, si sigue aceptando a los legítimos. **Dónde deja de valer:** los doce operadores y los tres legítimos son construcciones del autor y el verificador usa una clave compartida; un token real se verifica con las claves públicas del emisor y el proveedor aplica más comprobaciones. El resultado muestra el efecto de cada notificación, no la tasa de aciertos de un proveedor.
+**Cómo leer la figura.** Cada grupo es un nivel de verificación, de menos a más comprobaciones; la barra roja son los tokens manipulados aceptados, de 12, y la verde los legítimos aceptados, de 3. Mira primero cuánto cuesta bajar la barra roja y que se mantiene en 4 aun con el prefijo del sujeto. **Dónde deja de valer:** los doce operadores y los tres legítimos son construcciones del autor y el verificador usa una clave compartida; un token real se verifica con las claves públicas del emisor y el proveedor aplica más comprobaciones. El resultado muestra el efecto de cada notificación, no la tasa de aciertos de un proveedor.
 
 ### La ventana de exposición
 
@@ -161,9 +161,9 @@ Se generan 1 200 líneas sintéticas: 460 contienen un secreto (con prefijo cono
 
 La entropía señala 170 SHA de git, 153 UUID y 91 imágenes como secretos y aun así pierde las contraseñas débiles. Los 67 que pierde el mejor detector son cabeceras de autorización y URL con credencial.
 
-![Tabla con cuatro detectores de secretos sobre 1200 líneas con 460 secretos: prefijos conocidos 258 aciertos y 202 perdidos, entropía 343 aciertos y 414 falsos positivos, asignación sospechosa 393 aciertos con 4 falsos positivos y 67 perdidos, prefijos más asignación igual.](../../../content/part-34/figures/se-412-detectores-de-secretos.svg)
+![Barras horizontales con aciertos, falsos positivos y secretos perdidos de cuatro detectores: los prefijos conocidos no dan falsos positivos pero pierden 202 de 460; la entropía encuentra 343 y señala 414 falsos; las asignaciones sospechosas encuentran 393 con 4 falsos y pierden 67.](../../../content/part-34/figures/se-412-detectores-de-secretos.svg)
 
-**Cómo leer la figura.** Cada fila es un detector; los falsos positivos cuestan atención y los perdidos cuestan seguridad. **Dónde deja de valer:** el corpus, las proporciones de cada tipo y los señuelos son del autor y los secretos son cadenas inventadas; los 67 perdidos son una consecuencia de las dos formas que se sembraron, no de las que existan en tu repositorio. Un detector real incluye muchos más formatos y verificación contra el proveedor.
+**Cómo leer la figura.** Cada grupo es un detector; las barras son los aciertos (verde), los falsos positivos (roja) y los secretos perdidos (dorada). Mira primero la barra roja de la entropía y la dorada de los prefijos: cada detector falla de una forma distinta. **Dónde deja de valer:** el corpus, las proporciones de cada tipo y los señuelos son del autor y los secretos son cadenas inventadas; los 67 perdidos son una consecuencia de las dos formas que se sembraron, no de las que existan en tu repositorio. Un detector real incluye muchos más formatos y verificación contra el proveedor.
 
 ## Definiciones de trabajo
 

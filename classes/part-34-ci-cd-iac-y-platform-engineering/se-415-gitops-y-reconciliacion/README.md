@@ -110,9 +110,9 @@ Se simulan 6 000 derivas manuales con llegada aleatoria dentro del intervalo y s
 
 Pasar de una hora a 30 segundos acorta la deriva 120 veces y multiplica las lecturas por 120. Un aviso del repositorio reduce la última columna a unos 2 segundos, pero no cambia las derivas del clúster.
 
-![Tabla con el intervalo de reconciliación de 30 segundos a una hora: espera media de una deriva manual de 15, 91, 453 y 1803 segundos, percentil 95 de 28, 171, 857 y 3417 segundos y 1152000, 192000, 38400 y 9600 lecturas por día para 200 aplicaciones.](../../../content/part-34/figures/se-415-intervalo-de-reconciliacion.svg)
+![Barras agrupadas en escala logarítmica con la espera media y el percentil 95 hasta corregir una deriva manual: reconciliar cada 30 segundos da 15 y 28 segundos, cada 3 minutos 91 y 171, cada 15 minutos 453 y 857 y cada hora 1 803 y 3 417.](../../../content/part-34/figures/se-415-intervalo-de-reconciliacion.svg)
 
-**Cómo leer la figura.** Cada fila es un intervalo; las dos primeras columnas dicen cuánto vive una deriva y la tercera, cuánto cuesta vigilar. **Dónde deja de valer:** el reparto uniforme de las derivas y las dos lecturas por ciclo son supuestos; una herramienta real cachea el repositorio y lee solo lo que cambió, y el costo depende de la API del clúster. El tiempo que tarda en aplicarse una corrección tras detectarla no está incluido.
+**Cómo leer la figura.** Cada grupo es un intervalo de reconciliación; la barra verde es la espera media y la roja el percentil 95, en segundos y en escala logarítmica. Mira primero que las dos crecen casi en la misma proporción que el intervalo; las lecturas por día que cuesta cada uno están en la nota. **Dónde deja de valer:** el reparto uniforme de las derivas y las dos lecturas por ciclo son supuestos; una herramienta real cachea el repositorio y lee solo lo que cambió, y el costo depende de la API del clúster. El tiempo que tarda en aplicarse una corrección tras detectarla no está incluido.
 
 ### Dos controladores sobre un mismo campo
 
@@ -125,9 +125,9 @@ Se simulan 24 horas (1 440 minutos) con una carga sinusoidal entre unas 150 y 1 
 
 Con el campo en disputa el servicio pasa 361 minutos (6 horas) con menos capacidad que carga y ambos controladores ejecutan más acciones; con una propiedad única no falla ningún minuto.
 
-![Tabla de un controlador de GitOps y un escalador automático que se disputan el número de réplicas en 24 horas: con el repositorio fijando tres réplicas hay 361 minutos sin capacidad, 854 acciones del escalador y 425 reversiones; si el repositorio omite el campo hay 0 minutos, 640 acciones y ninguna reversión.](../../../content/part-34/figures/se-415-controladores-que-se-disputan.svg)
+![Barras agrupadas con los minutos sin capacidad, las acciones del escalador y las reversiones del reconciliador: si el repositorio fija tres réplicas son 361, 854 y 425; si omite el campo, 0, 640 y 0.](../../../content/part-34/figures/se-415-controladores-que-se-disputan.svg)
 
-**Cómo leer la figura.** La segunda columna es el daño al servicio; las otras dos, el trabajo inútil de los controladores. **Dónde deja de valer:** la carga, la capacidad por réplica y la reacción instantánea del escalador son supuestos; uno real tiene retardos y márgenes. El resultado no depende del intervalo: cambiarlo cambia cuánto dura cada oscilación, no su causa.
+**Cómo leer la figura.** Cada grupo es una configuración; las barras son los minutos sin capacidad (roja), las acciones del escalador (azul oscura) y las reversiones del reconciliador (dorada). Mira primero las barras roja y dorada del primer grupo, que desaparecen en el segundo. **Dónde deja de valer:** la carga, la capacidad por réplica y la reacción instantánea del escalador son supuestos; uno real tiene retardos y márgenes. El resultado no depende del intervalo: cambiarlo cambia cuánto dura cada oscilación, no su causa.
 
 ### Qué borra la poda al refactorizar
 
@@ -141,9 +141,9 @@ Se simulan 4 000 repositorios de 40 manifiestos, el 15 % de recursos con estado;
 
 Con poda, una refactorización que parece inofensiva borra casi dos recursos y, en uno de cada tres casos, uno con datos. La protección no impide los borrados sin estado, que se recrean, pero evita los que no tienen vuelta atrás.
 
-![Tabla de tres políticas de poda al refactorizar manifiestos: sin poda no se borra nada; con poda se borran 1,97 recursos por refactorización y 0,32 tienen estado; con poda y protección de los recursos con estado se borran 1,71 y ninguno tiene estado.](../../../content/part-34/figures/se-415-poda-y-recursos-con-estado.svg)
+![Barras agrupadas con los recursos borrados por refactorización y los que tienen estado: sin poda no se borra nada; con poda, 1,97 y 0,32 con estado; con poda y protección de lo que tiene estado, 1,71 y ninguno con estado.](../../../content/part-34/figures/se-415-poda-y-recursos-con-estado.svg)
 
-**Cómo leer la figura.** La primera columna numérica cuenta lo que se destruye y se recrea; la segunda, lo que no se puede recrear. **Dónde deja de valer:** el 15 % de manifiestos con estado, la frecuencia de refactorizaciones y el número de archivos movidos son supuestos; una herramienta real puede reconocer un renombrado por una anotación de identidad y evitar el borrado. El cálculo ilustra el riesgo de la configuración por defecto, no el de un producto concreto.
+**Cómo leer la figura.** Cada grupo es una política de poda; la barra roja son los recursos borrados por cada refactorización y la dorada los que tienen estado. Mira primero que la protección casi no reduce los borrados pero lleva la barra dorada a cero. **Dónde deja de valer:** el 15 % de manifiestos con estado, la frecuencia de refactorizaciones y el número de archivos movidos son supuestos; una herramienta real puede reconocer un renombrado por una anotación de identidad y evitar el borrado. El cálculo ilustra el riesgo de la configuración por defecto, no el de un producto concreto.
 
 ## Definiciones de trabajo
 

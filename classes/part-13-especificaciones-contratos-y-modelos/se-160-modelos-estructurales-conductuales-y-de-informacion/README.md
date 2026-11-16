@@ -111,9 +111,9 @@ def comprobar(m):
     return errores
 ```
 
-![Tabla con seis tipos de defecto de un modelo y cuántos detecta un comprobador estructural.](../../../content/part-13/figures/se-160-defectos-que-ve-el-comprobador.svg)
+![Barras horizontales con las mutaciones inyectadas y detectadas por un comprobador de un modelo de ocho entidades: detecta todas las referencias inexistentes, herencias circulares, campos duplicados e identificadores ausentes (197 de 197) y ninguna de las 103 que cambian una cardinalidad o invierten una relación.](../../../content/part-13/figures/se-160-defectos-que-ve-el-comprobador.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de defecto con cuántas veces se inyectó y cuántas se detectó; las dos últimas son semánticas. **Dónde deja de valer:** el comprobador solo ve propiedades que alguien escribió como regla; un modelo con la cardinalidad equivocada es estructuralmente perfecto. La corrección semántica exige que una persona con el dominio lea el modelo y lo contraste con la política.
+**Cómo leer la figura.** Cada grupo es una familia de defecto inyectado: la barra gris son las mutaciones inyectadas y la turquesa las que detecta el comprobador. Mira que las cuatro primeras familias, estructurales, se detectan todas y las dos últimas, semánticas, no se detecta ninguna: el comprobador ve la forma del modelo, no su verdad. **Dónde deja de valer:** el comprobador solo ve propiedades que alguien escribió como regla; un modelo con la cardinalidad equivocada es estructuralmente perfecto. La corrección semántica exige que una persona con el dominio lea el modelo y lo contraste con la política.
 
 ### Deriva entre el modelo y el código
 
@@ -126,9 +126,9 @@ def extraer(src, con_tipos):
                   for s in c.body if isinstance(s, ast.AnnAssign)}
 ```
 
-![Tabla con cinco mutaciones del código y cuántas detecta comparar solo nombres frente a comparar nombres y tipos.](../../../content/part-13/figures/se-160-deriva-modelo-codigo.svg)
+![Barras horizontales con las mutaciones del código que detecta cada comparación: comparar solo nombres detecta los renombrados, borrados y agregados pero ninguno de los 55 cambios de tipo; comparar nombres y anotaciones de tipo detecta todas.](../../../content/part-13/figures/se-160-deriva-modelo-codigo.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de cambio en el código; las dos columnas finales cuentan cuántos detecta cada criterio de comparación. **Dónde deja de valer:** `ast` lee la forma del código, no su significado: un campo que sigue llamándose `plazo` y siendo `int` pero pasa de horas a minutos no cambia ninguna comparación. El criterio crece con más propiedades (valores por defecto, restricciones), no con más fe.
+**Cómo leer la figura.** Cada grupo es un tipo de mutación del código y trae tres barras: las aplicadas (gris), las que detecta una comparación de solo nombres (dorada) y las que detecta una comparación de nombres y tipos (turquesa). Mira el último grupo: la comparación de nombres no ve ninguno de los 55 cambios de tipo y la que añade los tipos los ve todos. **Dónde deja de valer:** `ast` lee la forma del código, no su significado: un campo que sigue llamándose `plazo` y siendo `int` pero pasa de horas a minutos no cambia ninguna comparación. El criterio crece con más propiedades (valores por defecto, restricciones), no con más fe.
 
 ### Qué elimina la normalización
 
@@ -139,9 +139,9 @@ con.execute("create table curso(id integer primary key, nombre text)")
 con.execute("create table entrega(id integer primary key, curso_id integer, estudiante integer)")
 ```
 
-![Tabla con el tamaño, las filas actualizadas y los nombres distintos tras una actualización interrumpida en una base desnormalizada y en una normalizada.](../../../content/part-13/figures/se-160-normalizacion-en-sqlite.svg)
+![Puntos unidos por una línea con cuánto queda al normalizar, tomando lo desnormalizado como 100: el archivo pasa de 245 760 a 73 728 bytes (30 por ciento), las filas que toca el cambio de nombre de un curso de 54 a 1 (1,9 por ciento) y los nombres distintos para el curso 7 tras interrumpir de 2 a 0.](../../../content/part-13/figures/se-160-normalizacion-en-sqlite.svg)
 
-**Cómo leer la figura.** Cada fila es una medida; las dos columnas comparan el diseño desnormalizado y el normalizado. **Dónde deja de valer:** el tamaño depende del generador (nombres largos y repetidos) y no se extrapola a un sistema real; la ganancia de la normalización se paga leyendo con uniones, algo que este experimento no midió, y una transacción habría evitado la interrupción a medias, otra defensa distinta de normalizar.
+**Cómo leer la figura.** Cada fila es una medida y el eje es lo que queda al normalizar, tomando lo desnormalizado como 100: el círculo hueco es el punto de partida, el relleno el resultado y la línea turquesa la mejora, con la reducción escrita a la derecha. Los valores absolutos están en la etiqueta de cada fila y las unidades exactas en la tabla. **Dónde deja de valer:** el tamaño depende del generador (nombres largos y repetidos) y no se extrapola a un sistema real; la ganancia de la normalización se paga leyendo con uniones, algo que este experimento no midió, y una transacción habría evitado la interrupción a medias, otra defensa distinta de normalizar.
 
 ## Definiciones de trabajo
 

@@ -1,43 +1,35 @@
 """Figures for SE-163 to SE-168 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time or a hash is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, grouped_bars, heatmap, line_chart
+from figure_diagrams import fan
+from figures_part07_a import bars
+
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2), salvo lo indicado."
 
 
 # ---------------------------------------------------------------- SE-163
 def se163_linter() -> Fig:
-    rows = [
-        ["Parámetro de ruta sin declarar", "28", "28"],
-        ["Renombrar el parámetro solo en la ruta", "31", "31"],
-        ["operationId repetido", "25", "25"],
-        ["Operación de escritura sin respuesta de error", "32", "32"],
-        ["Parámetro de ruta no marcado como requerido", "30", "30"],
-        ["Operación sin respuestas", "27", "27"],
-        ["Cambiar el código de éxito de 201 a 200", "29", "0"],
-        ["Descripción que miente («devuelve una lista»)", "38", "0"],
-    ]
-    return tab("Linter de un documento OpenAPI mínimo: 240 mutaciones",
-               "Tabla de ocho tipos de defecto inyectados en un documento OpenAPI mínimo: el linter detecta los 173 defectos de estructura y no detecta los 67 que cambian el significado, como un código de éxito distinto o una descripción falsa.",
-               ["Defecto inyectado", "Inyectados", "Detectados"], rows, [500, 160, 160], row_h=38, size=13,
-               note="Un documento puede ser sintácticamente impecable y describir otra cosa. El linter protege la forma del contrato; que el servicio responda lo que el documento promete lo comprueba una prueba contractual (SE-166).",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        'Linter de un documento OpenAPI mínimo: 240 mutaciones',
+        "Barras horizontales con las mutaciones inyectadas y detectadas por un linter de un documento OpenAPI mínimo: detecta las seis familias de defectos de forma (173 de 173) y ninguna de las 67 que cambian el código de éxito o hacen que una descripción mienta.",
+        ["Parámetro de ruta sin declarar", "Renombrar el parámetro solo en la ruta", "operationId repetido", "Operación de escritura sin respuesta de error",
+         "Parámetro de ruta no marcado como requerido", "Operación sin respuestas", "Cambiar el código de éxito de 201 a 200", "Descripción que miente («devuelve una lista»)"],
+        [("Inyectados", [28, 31, 25, 32, 30, 27, 29, 38], "grey"), ("Detectados", [28, 31, 25, 32, 30, 27, 0, 0], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=290, ticks=[0, 10, 20, 30, 40],
+        note='Un documento puede ser sintácticamente impecable y describir otra cosa. El linter protege la forma del contrato; que el servicio responda lo que el documento promete lo comprueba una prueba contractual (SE-166).', note_kind='coral', foot=SINT)
 
 
 def se163_coste() -> Fig:
-    rows = [
-        ["100 entregas completas (recurso REST)", "69 629 bytes", "100 %"],
-        ["Las mismas 100 con solo id y nota (selección de campos)", "3 193 bytes", "4,6 %"],
-        ["Consulta anidada: profundidad 3, ramificación 10", "1 111 resolvedores", "sin tope"],
-        ["Consulta anidada: profundidad 3, ramificación 50", "127 551 resolvedores", "sin tope"],
-    ]
-    return tab("Quién decide qué viaja: tamaño de la respuesta y coste de una consulta anidada",
-               "Tabla: cien entregas sintéticas pesan 69 629 bytes completas y 3 193 con solo id y nota; una consulta anidada de profundidad 3 invoca 1 111 resolvedores con ramificación 10 y 127 551 con ramificación 50.",
-               ["Caso", "Medida", "Frente a la respuesta completa"], rows, [520, 230, 180], row_h=44, size=13,
-               note="Dejar al cliente elegir campos reduce los bytes y desplaza el riesgo al servidor: sin límite de profundidad o de coste, una consulta pequeña puede costar miles de llamadas. El número de resolvedores es un cálculo (1 + b + b² + b³), no una medición de un servidor.",
-               note_kind="gold", foot=SINT)
+    pts = [(b, 1 + b + b ** 2 + b ** 3) for b in (2, 5, 10, 20, 50)]
+    return line_chart(
+        'Quién decide qué viaja: coste de una consulta anidada de profundidad 3 según la ramificación',
+        "Línea en escalas logarítmicas con los resolvedores que ejecuta una consulta anidada de profundidad 3 según la ramificación, 1 más b más b al cuadrado más b al cubo: 15 con ramificación 2, 1 111 con 10 y 127 551 con 50, sin tope; las dos cifras medidas son 10 y 50.",
+        [("Resolvedores de la consulta", [(b, v, f"{v:,}".replace(",", " ") + (" · medido" if b in (10, 50) else ""), "t") for b, v in pts], "coral")],
+        x_label="Ramificación b (hijos por nodo)", y_label="Resolvedores ejecutados", log_x=True, log_y=True,
+        x_ticks=[(2, "2"), (5, "5"), (10, "10"), (20, "20"), (50, "50"), (100, "")], y_ticks=[10, 100, 1000, 10000, 100000, 1000000], point_labels="none",
+        note='Dejar al cliente elegir campos reduce los bytes y desplaza el riesgo al servidor: sin límite de profundidad o de coste, una consulta pequeña puede costar miles de llamadas. El número de resolvedores es un cálculo (1 + b + b² + b³), no una medición de un servidor.', note_kind='gold', foot=SINT)
 
 
 def se163_eventos() -> Fig:
@@ -55,23 +47,16 @@ def se163_eventos() -> Fig:
 
 # ---------------------------------------------------------------- SE-164
 def se164_matriz() -> Fig:
-    rows = [
-        ["Agregar campo opcional", "2000", "2000", "1027"],
-        ["Agregar campo requerido", "0", "2000", "0"],
-        ["Quitar campo opcional", "2000", "2000", "2000"],
-        ["Quitar campo requerido", "2000", "0", "0"],
-        ["Opcional pasa a requerido", "995", "2000", "2000"],
-        ["Requerido pasa a opcional", "2000", "1014", "977"],
-        ["Ampliar tipo de entero a decimal", "2000", "997", "1025"],
-        ["Agregar valor de enum", "2000", "1338", "1313"],
-        ["Quitar valor de enum", "1016", "2000", "2000"],
-        ["Renombrar un campo", "0", "0", "0"],
-    ]
-    return tab("Documentos legibles de 2 000 tras cada cambio de esquema",
-               "Tabla de diez cambios de esquema con tres lecturas: un consumidor nuevo que lee documentos viejos, un consumidor viejo tolerante que lee documentos nuevos y uno estricto; solo quitar un campo opcional es legible siempre, y renombrar rompe las tres.",
-               ["Cambio", "Nuevo lee viejos", "Viejo tolerante lee nuevos", "Viejo estricto lee nuevos"], rows, [380, 190, 240, 240], row_h=33, size=12,
-               note="Un cambio es compatible solo si lee 2 000 de 2 000 en la dirección que importa. «Agregar campo opcional» es seguro para el consumidor tolerante y rompe la mitad de los documentos para el estricto.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        'Documentos legibles de 2 000 tras cada cambio de esquema',
+        "Mapa de calor con los documentos legibles, de 2 000, tras cada cambio de esquema según quién lee: el lector nuevo lee todos salvo con campo requerido agregado, campo renombrado u opcional que pasa a requerido; el viejo estricto falla con 0 en agregar un requerido, quitar un requerido y renombrar, y con 2 000 en quitar un opcional.",
+        ["Agregar campo opcional", "Agregar campo requerido", "Quitar campo opcional", "Quitar campo requerido", "Opcional pasa a requerido", "Requerido pasa a opcional",
+         "Ampliar tipo de entero a decimal", "Agregar valor de enum", "Quitar valor de enum", "Renombrar un campo"],
+        ["Nuevo lee viejos", "Viejo tolerante lee nuevos", "Viejo estricto lee nuevos"],
+        [[2000, 2000, 1027], [0, 2000, 0], [2000, 2000, 2000], [2000, 0, 0], [995, 2000, 2000], [2000, 1014, 977], [2000, 997, 1025], [2000, 1338, 1313], [1016, 2000, 2000], [0, 0, 0]],
+        unit="documentos legibles, de 2 000", row_title="Cambio de esquema", col_title="Documentos legibles (de 2 000)",
+        scale="teal", vmin=0, vmax=2000, cell_fmt=lambda v: f"{int(v):,}".replace(",", " "), cell_h=34, label_w=250,
+        note='Un cambio es compatible solo si lee 2 000 de 2 000 en la dirección que importa. «Agregar campo opcional» es seguro para el consumidor tolerante y rompe la mitad de los documentos para el estricto.', note_kind='gold', foot=SINT)
 
 
 def se164_estrictos() -> Fig:
@@ -115,16 +100,14 @@ def se165_deriva() -> Fig:
 
 
 def se165_regeneracion() -> Fig:
-    rows = [
-        ["Se editan 3 líneas a mano dentro del archivo generado", "3 de 21 líneas distintas del generador", "Regenerar las sobrescribe"],
-        ["Código manual fuera de la región delimitada", "Sobrevive a la regeneración", "Hace falta un límite explícito"],
-        ["Lo editado dentro de la región delimitada", "Se pierde igualmente", "La región es del generador"],
-    ]
-    return tab("Regenerar código desde la especificación: qué se pierde",
-               "Tabla de un experimento de regeneración: tres líneas editadas a mano en un archivo generado se pierden al regenerar; el código manual fuera de una región delimitada sobrevive y lo editado dentro de ella se pierde.",
-               ["Situación", "Resultado", "Consecuencia"], rows, [380, 290, 260], row_h=52, size=13,
-               note="Spec-as-source exige que lo editable no viva en lo generado. Delimitar una región resuelve la pérdida silenciosa y no resuelve la pregunta de fondo: ¿quién es dueño de ese comportamiento, la especificación o el código?",
-               note_kind="gold", foot=SINT)
+    return fan(
+        'Regenerar código desde la especificación: qué se pierde',
+        "Diagrama de lo que pasa al regenerar código desde la especificación: las 3 líneas editadas a mano dentro del archivo generado, de 21 distintas del generador, se sobrescriben; el código manual fuera de una región delimitada sobrevive; lo editado dentro de la región delimitada se pierde igualmente porque la región es del generador.",
+        ("Regenerar desde la especificación", "el generador reescribe lo que considera suyo", "navy"),
+        [("3 líneas editadas a mano dentro del archivo generado", "3 de 21 líneas distintas del generador: regenerar las sobrescribe", "coral"),
+         ("Código manual fuera de la región delimitada", "sobrevive a la regeneración; hace falta un límite explícito", "teal"),
+         ("Lo editado dentro de la región delimitada", "se pierde igualmente: la región es del generador", "coral")],
+        note='Spec-as-source exige que lo editable no viva en lo generado. Delimitar una región resuelve la pérdida silenciosa y no resuelve la pregunta de fondo: ¿quién es dueño de ese comportamiento, la especificación o el código?', note_kind='gold', foot=SINT)
 
 
 def se165_huella() -> Fig:
@@ -140,21 +123,13 @@ def se165_huella() -> Fig:
 
 # ---------------------------------------------------------------- SE-166
 def se166_matriz() -> Fig:
-    rows = [
-        ["Quitar nota", "3: panel, exporta, informes", "0"],
-        ["Renombrar plazo a vence", "2: avisos, informes", "0"],
-        ["Nota pasa a texto", "3: panel, exporta, informes", "0"],
-        ["Nota pasa a decimal (80.0)", "3: panel, exporta, informes", "0"],
-        ["Archivos pasa a nulo", "1: exporta", "0"],
-        ["Agregar campo", "0", "0"],
-        ["Reordenar campos", "0", "0"],
-        ["Anidar el enlace «links»", "0", "0"],
-    ]
-    return tab("Ocho cambios del proveedor y cinco consumidores con contratos propios",
-               "Tabla de ocho cambios de un proveedor: los contratos dirigidos por los consumidores detectan qué consumidores rompe cada cambio, entre cero y tres, mientras que las pruebas del proveedor sobre su propio esquema no detectan ninguno.",
-               ["Cambio del proveedor", "Consumidores rotos (detecta el contrato del consumidor)", "Detecta la prueba propia del proveedor"], rows, [320, 420, 230], row_h=36, size=12,
-               note="Cada consumidor fija solo los campos que usa; por eso agregar un campo no rompe a nadie, y por eso un contrato que fijara los seis campos habría rechazado 1 de los 3 cambios inocuos. Un proveedor que genera su esquema desde su código siempre se aprueba a sí mismo.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        'Ocho cambios del proveedor y cinco consumidores con contratos propios',
+        "Barras horizontales con los consumidores rotos, de cinco, por cada cambio del proveedor que detecta el contrato del consumidor, frente a la prueba propia del proveedor, que no detecta ninguno: quitar la nota, pasarla a texto o a decimal rompe a 3, renombrar el plazo a 2 y archivos nulo a 1; agregar, reordenar o anidar no rompe a nadie.",
+        ["Quitar nota", "Renombrar plazo a vence", "Nota pasa a texto", "Nota pasa a decimal (80.0)", "Archivos pasa a nulo", "Agregar campo", "Reordenar campos", "Anidar el enlace «links»"],
+        [("Contratos de los consumidores", [3, 2, 3, 3, 1, 0, 0, 0], "teal"), ("Prueba propia del proveedor", [0, 0, 0, 0, 0, 0, 0, 0], "grey")],
+        unit="Consumidores rotos detectados, de 5", horizontal=True, label_w=240, ticks=[0, 1, 2, 3, 4, 5],
+        note='Cada consumidor fija solo los campos que usa; por eso agregar un campo no rompe a nadie, y por eso un contrato que fijara los seis campos habría rechazado 1 de los 3 cambios inocuos. Un proveedor que genera su esquema desde su código siempre se aprueba a sí mismo.', note_kind='gold', foot=SINT)
 
 
 def se166_reduccion() -> Fig:
@@ -184,19 +159,13 @@ def se166_doble() -> Fig:
 
 # ---------------------------------------------------------------- SE-167
 def se167_clausulas() -> Fig:
-    rows = [
-        ["Ninguna estudiante podrá entregar después del cierre, excepto con prórroga aprobada por escrito.", "Completa", "Rechaza", "Falso negativo: «excepto» y «estudiante» no están en la lista"],
-        ["El servicio debe responder 429 si una cuenta supera 5 envíos por minuto…", "Completa", "Acepta", "Acierto"],
-        ["La plataforma debe ser segura y cumplir la ley.", "Incompleta", "Rechaza", "Acierto: sin observable ni límite"],
-        ["El sistema muestra siempre un mensaje de error comprensible y rápido.", "Incompleta", "Rechaza", "Acierto: sin modal «debe»"],
-        ["El docente debe corregir cada entrega.", "Incompleta", "Rechaza", "Acierto: sin observable"],
-        ["La plataforma debe devolver exactamente 3 campos y rechaza los demás.", "Completa", "Acepta", "Acierto"],
-    ]
-    return tab("Linter de cláusulas de contrato con seis cláusulas que no vio al escribirse",
-               "Tabla de seis cláusulas nuevas: la regla léxica, que acertó 8 de 8 en sus ejemplos de ajuste, acierta 5 de 6 con las nuevas y falla en una cláusula completa redactada con palabras que no estaban en sus listas.",
-               ["Cláusula", "Juicio del autor", "Regla", "Lectura"], rows, [430, 130, 100, 280], row_h=58, size=11,
-               note="Ajuste: 4 aceptadas y 4 rechazadas correctas (8 de 8). Casos nuevos: 5 de 6. La regla mide forma (actor, modal, observable, límite) y no verdad; una cláusula completa puede ser falsa y una incompleta, intencionalmente abierta.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        'Linter de cláusulas de contrato con seis cláusulas que no vio al escribirse',
+        "Mapa de calor de seis cláusulas nuevas según el juicio del autor y la decisión de la regla: dos completas aceptadas, una completa rechazada (el falso negativo con «excepto» y «estudiante») y tres incompletas rechazadas; ninguna incompleta aceptada.",
+        ["Cláusula completa (juicio del autor)", "Cláusula incompleta (juicio del autor)"], ["La regla acepta", "La regla rechaza"],
+        [[2, 1], [0, 3]], unit="cláusulas, de 6", row_title="Juicio", col_title="Decisión de la regla",
+        scale="gold", vmin=0, vmax=3, decimals=0, highlight=[(0, 1)], cell_h=52, label_w=280,
+        note='Ajuste: 4 aceptadas y 4 rechazadas correctas (8 de 8). Casos nuevos: 5 de 6. La regla mide forma (actor, modal, observable, límite) y no verdad; una cláusula completa puede ser falsa y una incompleta, intencionalmente abierta.', note_kind='gold', foot=SINT)
 
 
 def se167_rondas() -> Fig:
@@ -217,39 +186,25 @@ def se167_rondas() -> Fig:
 
 
 def se167_contrato() -> Fig:
-    rows = [
-        ["Estrechar el rango de horas", "33", "33"],
-        ["Quitar el ejemplo de un código de error", "29", "29"],
-        ["Agregar un error sin ejemplo", "27", "27"],
-        ["Agregar un invariante sin prueba", "29", "29"],
-        ["Cambiar el texto de un invariante", "21", "0"],
-        ["Cambiar el mensaje de un error", "38", "0"],
-        ["Ensanchar el rango de horas", "33", "0"],
-    ]
-    return tab("Revisor del propio contrato: 210 mutaciones",
-               "Tabla de siete mutaciones de un contrato con ejemplos, errores e invariantes: el revisor detecta las 118 que dejan ejemplos fuera del rango, errores sin ejemplo o invariantes sin prueba, y no detecta las 92 que cambian el sentido sin romper la coherencia interna.",
-               ["Mutación del contrato", "Inyectadas", "Detectadas"], rows, [500, 160, 160], row_h=38, size=13,
-               note="El revisor garantiza que el contrato sea coherente consigo mismo. Un contrato más permisivo, un mensaje que miente o un invariante con el sentido contrario pasan: esa revisión es de una persona con el dominio.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        'Revisor del propio contrato: 210 mutaciones',
+        "Barras horizontales con las mutaciones inyectadas y detectadas por un revisor del propio contrato: detecta las cuatro familias de coherencia interna (118 de 118) y ninguna de las 92 que cambian el texto de un invariante, el mensaje de un error o ensanchan el rango de horas.",
+        ["Estrechar el rango de horas", "Quitar el ejemplo de un código de error", "Agregar un error sin ejemplo", "Agregar un invariante sin prueba", "Cambiar el texto de un invariante", "Cambiar el mensaje de un error", "Ensanchar el rango de horas"],
+        [("Inyectadas", [33, 29, 27, 29, 21, 38, 33], "grey"), ("Detectadas", [33, 29, 27, 29, 0, 0, 0], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=270, ticks=[0, 10, 20, 30, 40],
+        note='El revisor garantiza que el contrato sea coherente consigo mismo. Un contrato más permisivo, un mensaje que miente o un invariante con el sentido contrario pasan: esa revisión es de una persona con el dominio.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-168
 def se168_trazabilidad() -> Fig:
-    rows = [
-        ["Enlace a un identificador inexistente", "33", "33"],
-        ["Requisito sin contrato (huérfano)", "32", "32"],
-        ["Contrato sin ejemplo ni prueba", "34", "34"],
-        ["Ciclo entre artefactos", "35", "35"],
-        ["Prueba enlazada a una intención (tipo no permitido)", "26", "26"],
-        ["Contenido cambiado sin actualizar el rastro", "29", "29"],
-        ["Renombrar un identificador sin actualizar enlaces", "27", "27"],
-        ["Texto cambiado de sentido, con el rastro intacto", "24", "0"],
-    ]
-    return tab("Validador de un paquete trazable de 41 artefactos: 240 mutaciones",
-               "Tabla de ocho mutaciones de un paquete con intenciones, requisitos, contratos, ejemplos y pruebas: el validador detecta las 216 que rompen enlaces, tipos, ciclos o huellas y ninguna de las 24 que cambian el sentido de un texto.",
-               ["Mutación del paquete", "Inyectadas", "Detectadas"], rows, [560, 160, 160], row_h=36, size=13,
-               note="La trazabilidad mecánica prueba que los eslabones existen y no se han movido, no que digan lo mismo. Si el texto de un requisito cambia de sentido y su rastro queda intacto, el validador lo da por bueno.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        'Validador de un paquete trazable de 41 artefactos: 240 mutaciones',
+        "Barras horizontales con las mutaciones inyectadas y detectadas por un validador de un paquete trazable: detecta las siete familias mecánicas (216 de 216) y ninguna de las 24 en que el texto cambia de sentido con el rastro intacto.",
+        ["Enlace a un identificador inexistente", "Requisito sin contrato (huérfano)", "Contrato sin ejemplo ni prueba", "Ciclo entre artefactos", "Prueba enlazada a una intención (tipo no permitido)",
+         "Contenido cambiado sin actualizar el rastro", "Renombrar un identificador sin actualizar enlaces", "Texto cambiado de sentido, con el rastro intacto"],
+        [("Inyectadas", [33, 32, 34, 35, 26, 29, 27, 24], "grey"), ("Detectadas", [33, 32, 34, 35, 26, 29, 27, 0], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=300, ticks=[0, 10, 20, 30, 40],
+        note='La trazabilidad mecánica prueba que los eslabones existen y no se han movido, no que digan lo mismo. Si el texto de un requisito cambia de sentido y su rastro queda intacto, el validador lo da por bueno.', note_kind='coral', foot=SINT)
 
 
 def se168_impacto() -> Fig:
@@ -268,17 +223,15 @@ def se168_impacto() -> Fig:
 
 
 def se168_huella() -> Fig:
-    rows = [
-        ["Escribir archivos con el modo de texto por defecto", "480485af12cf44f9", "55f841e9f3d4b56f"],
-        ["Escribir con newline=\"\\n\" fijo", "55f841e9f3d4b56f", "55f841e9f3d4b56f"],
-        ["Alterar 3 bytes de un archivo (comprobación de manipulación)", "Huella cambia", "Huella cambia"],
-        ["Calcular la huella de 200 archivos (un equipo)", "0,033 s", "0,004 s"],
-    ]
-    return tab("Huella de un paquete de 200 archivos en dos sistemas",
-               "Tabla: el mismo paquete de 200 documentos produce la huella 480485af12cf44f9 en Windows y 55f841e9f3d4b56f en Ubuntu cuando se escribe con el modo de texto por defecto, y la misma huella en ambos cuando se fija el salto de línea; alterar tres bytes cambia la huella.",
-               ["Situación", "Windows", "Ubuntu (WSL2)"], rows, [480, 220, 220], row_h=44, size=13,
-               note="Sin fijar el salto de línea, el mismo contenido tiene dos huellas: un manifiesto firmado en un sistema no verifica en el otro. La huella detecta cambios en los bytes, no su autoría ni su sentido. Los tiempos son de un equipo y no son comparables entre sistemas.",
-               note_kind="coral", foot="Datos sintéticos; las huellas son deterministas, los tiempos no.")
+    return fan(
+        'Huella de un paquete de 200 archivos en dos sistemas',
+        "Diagrama de la huella de un paquete de 200 archivos en dos sistemas: con el modo de texto por defecto Windows da 480485af12cf44f9 y Ubuntu 55f841e9f3d4b56f; con el salto de línea fijo los dos dan 55f841e9f3d4b56f; alterar 3 bytes cambia la huella en ambos y calcularla tarda 0,033 s en Windows y 0,004 s en Ubuntu.",
+        ("Mismo contenido, 200 archivos", "huella calculada en Windows y en Ubuntu (WSL2)", "navy"),
+        [("Modo de texto por defecto: dos huellas", "Windows 480485af12cf44f9 · Ubuntu 55f841e9f3d4b56f", "coral"),
+         ("Salto de línea fijo (newline=\"\\n\"): una huella", "55f841e9f3d4b56f en los dos sistemas", "teal"),
+         ("Alterar 3 bytes de un archivo", "la huella cambia en los dos sistemas: se detecta la manipulación", "gold"),
+         ("Calcular la huella de 200 archivos", "0,033 s en Windows · 0,004 s en Ubuntu, de un equipo", "grey")],
+        note='Sin fijar el salto de línea, el mismo contenido tiene dos huellas: un manifiesto firmado en un sistema no verifica en el otro. La huella detecta cambios en los bytes, no su autoría ni su sentido. Los tiempos son de un equipo y no son comparables entre sistemas.', note_kind='coral', foot="Datos sintéticos; las huellas son deterministas, los tiempos no.")
 
 
 FIGURES = {

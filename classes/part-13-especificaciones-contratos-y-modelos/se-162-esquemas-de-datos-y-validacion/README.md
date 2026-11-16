@@ -119,9 +119,9 @@ def validar(doc, sch, cerrado=False):
             return False
 ```
 
-![Tabla con tres situaciones y los documentos que rechaza el esquema abierto y el cerrado.](../../../content/part-13/figures/se-162-esquema-abierto-o-cerrado.svg)
+![Barras horizontales con los documentos rechazados, de 1 000, por cada esquema: ambos rechazan los mil con un campo requerido mal escrito; solo el cerrado rechaza el campo opcional mal escrito y, a la vez, rechaza los mil con un campo nuevo legítimo que el abierto acepta.](../../../content/part-13/figures/se-162-esquema-abierto-o-cerrado.svg)
 
-**Cómo leer la figura.** Cada fila es una situación; las dos columnas finales dicen cuántos de los 1 000 documentos rechaza cada diseño. **Dónde deja de valer:** el experimento supone un único error por documento; en producción el mismo documento puede tener varios, y el motivo de un rechazo del esquema cerrado debe decir qué campo sobra para que no parezca un fallo del proveedor. Elegir es decidir quién paga: el productor que añade campos o el consumidor que pierde errores de escritura.
+**Cómo leer la figura.** Cada grupo es una situación y las barras son los documentos rechazados, de 1 000, por el esquema abierto (turquesa) y por el cerrado (coral). Mira que la barra coral es siempre completa y la turquesa solo en la primera: el cerrado atrapa más errores y también rechaza el campo nuevo legítimo. **Dónde deja de valer:** el experimento supone un único error por documento; en producción el mismo documento puede tener varios, y el motivo de un rechazo del esquema cerrado debe decir qué campo sobra para que no parezca un fallo del proveedor. Elegir es decidir quién paga: el productor que añade campos o el consumidor que pierde errores de escritura.
 
 ### Un patrón que parece inocente
 

@@ -119,9 +119,9 @@ def regenerar_con_ancla(archivo, spec):
     return generar(spec)[:-1] + archivo[fin:]   # solo se reescribe la región
 ```
 
-![Tabla con tres situaciones de regeneración: ediciones dentro del archivo generado, código fuera de la región y ediciones dentro de la región.](../../../content/part-13/figures/se-165-regeneracion-y-ediciones-manuales.svg)
+![Diagrama de lo que pasa al regenerar código desde la especificación: las 3 líneas editadas a mano dentro del archivo generado, de 21 distintas del generador, se sobrescriben; el código manual fuera de una región delimitada sobrevive; lo editado dentro de la región delimitada se pierde igualmente porque la región es del generador.](../../../content/part-13/figures/se-165-regeneracion-y-ediciones-manuales.svg)
 
-**Cómo leer la figura.** Cada fila es una situación; la columna central dice qué ocurre al regenerar y la última, la consecuencia de diseño. **Dónde deja de valer:** el experimento regenera un archivo sencillo; en un generador real con plantillas, imports y formateo la frontera entre región y resto es más difícil de mantener. Delimitar la región evita la pérdida silenciosa, no decide quién es dueño del comportamiento.
+**Cómo leer la figura.** A la izquierda está la regeneración desde la especificación y a la derecha tres situaciones. Las cajas coral son pérdidas (lo editado a mano dentro del archivo o de la región delimitada) y la turquesa es lo que sobrevive, el código fuera de la región, lo que exige un límite explícito. **Dónde deja de valer:** el experimento regenera un archivo sencillo; en un generador real con plantillas, imports y formateo la frontera entre región y resto es más difícil de mantener. Delimitar la región evita la pérdida silenciosa, no decide quién es dueño del comportamiento.
 
 ### Un generador que cambia de salida por sí solo
 

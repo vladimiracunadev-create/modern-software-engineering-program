@@ -106,9 +106,9 @@ def completa(c):
     return all(re.search(p, c) for p in (ACTORES, MODAL, OBSERVABLE, LIMITE))
 ```
 
-![Tabla con seis cláusulas nuevas, el juicio del autor y el resultado de la regla, con un falso negativo.](../../../content/part-13/figures/se-167-linter-de-clausulas.svg)
+![Mapa de calor de seis cláusulas nuevas según el juicio del autor y la decisión de la regla: dos completas aceptadas, una completa rechazada (el falso negativo con «excepto» y «estudiante») y tres incompletas rechazadas; ninguna incompleta aceptada.](../../../content/part-13/figures/se-167-linter-de-clausulas.svg)
 
-**Cómo leer la figura.** Cada fila es una cláusula con el juicio del autor, el resultado de la regla y la lectura; la fila superior es el falso negativo. **Dónde deja de valer:** seis cláusulas son una muestra mínima y el autor las etiquetó, de modo que 5 de 6 no es una estimación de exactitud; la regla mide forma y no verdad, y una cláusula completa puede ser falsa. Úsala como revisión previa y registra cada falso negativo.
+**Cómo leer la figura.** Las filas son el juicio del autor sobre las seis cláusulas y las columnas la decisión de la regla; el número es cuántas cláusulas caen en cada celda. Mira la celda enmarcada, el único falso negativo (una cláusula completa que la regla rechaza), y que ninguna cláusula incompleta fue aceptada. **Dónde deja de valer:** seis cláusulas son una muestra mínima y el autor las etiquetó, de modo que 5 de 6 no es una estimación de exactitud; la regla mide forma y no verdad, y una cláusula completa puede ser falsa. Úsala como revisión previa y registra cada falso negativo.
 
 ### Un bucle de contraejemplos para los ejemplos del contrato
 
@@ -134,9 +134,9 @@ if {c for c, _ in c["ejemplos"]} < set(c["errores"]) | {"ok"}: e.add("error sin 
 if set(c["invariantes"]) - set(c["pruebas"]): e.add("invariante sin prueba")
 ```
 
-![Tabla con siete mutaciones de un contrato y cuántas detecta el revisor de coherencia.](../../../content/part-13/figures/se-167-revisor-del-contrato.svg)
+![Barras horizontales con las mutaciones inyectadas y detectadas por un revisor del propio contrato: detecta las cuatro familias de coherencia interna (118 de 118) y ninguna de las 92 que cambian el texto de un invariante, el mensaje de un error o ensanchan el rango de horas.](../../../content/part-13/figures/se-167-revisor-del-contrato.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación con cuántas se inyectaron y cuántas se detectaron; las tres últimas cambian el sentido sin romper la coherencia. **Dónde deja de valer:** el revisor es mínimo y los tipos de mutación los eligió el autor; un revisor con más reglas detectaría otras. La conclusión que importa es el mapa: lo que no detecta (92 de 210) es lo que una persona con el dominio debe leer.
+**Cómo leer la figura.** Cada grupo es una mutación del contrato, con una barra gris de inyectadas y una turquesa de detectadas. Mira los tres últimos grupos: ensanchar un rango, cambiar un mensaje o el texto de un invariante pasan sin aviso, porque el revisor comprueba coherencia interna, no el sentido. **Dónde deja de valer:** el revisor es mínimo y los tipos de mutación los eligió el autor; un revisor con más reglas detectaría otras. La conclusión que importa es el mapa: lo que no detecta (92 de 210) es lo que una persona con el dominio debe leer.
 
 ## Definiciones de trabajo
 

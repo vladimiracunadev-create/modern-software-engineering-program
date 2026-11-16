@@ -108,9 +108,9 @@ if met in ("post", "put", "patch", "delete") and not any(c.startswith("4") for c
     errores.add("sin respuesta de error")
 ```
 
-![Tabla con ocho tipos de defecto de un documento OpenAPI y cuántos detecta el linter.](../../../content/part-13/figures/se-163-linter-de-un-documento-openapi.svg)
+![Barras horizontales con las mutaciones inyectadas y detectadas por un linter de un documento OpenAPI mínimo: detecta las seis familias de defectos de forma (173 de 173) y ninguna de las 67 que cambian el código de éxito o hacen que una descripción mienta.](../../../content/part-13/figures/se-163-linter-de-un-documento-openapi.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de defecto con cuántas veces se inyectó y cuántas se detectó; las dos últimas cambian el significado. **Dónde deja de valer:** el linter es una réplica mínima de cinco reglas; los linters reales cubren más, pero ninguno sabe qué responde el servicio. Esa brecha es el objeto de las pruebas contractuales de `SE-166`.
+**Cómo leer la figura.** Cada grupo es una familia de defecto inyectado, con una barra gris de mutaciones inyectadas y una turquesa de las detectadas. Mira los dos últimos grupos: el linter no detecta ningún cambio del código de éxito ni ninguna descripción que miente, porque protege la forma del contrato y no su sentido. **Dónde deja de valer:** el linter es una réplica mínima de cinco reglas; los linters reales cubren más, pero ninguno sabe qué responde el servicio. Esa brecha es el objeto de las pruebas contractuales de `SE-166`.
 
 ### Quién decide qué viaja y qué cuesta una consulta
 
@@ -121,9 +121,9 @@ def llamadas(b, d):
     return sum(b ** i for i in range(d + 1))
 ```
 
-![Tabla con los bytes de 100 entregas completas y con campos elegidos y los resolvedores de una consulta anidada.](../../../content/part-13/figures/se-163-bytes-y-resolvedores.svg)
+![Línea en escalas logarítmicas con los resolvedores que ejecuta una consulta anidada de profundidad 3 según la ramificación, 1 más b más b al cuadrado más b al cubo: 15 con ramificación 2, 1 111 con 10 y 127 551 con 50, sin tope; las dos cifras medidas son 10 y 50.](../../../content/part-13/figures/se-163-bytes-y-resolvedores.svg)
 
-**Cómo leer la figura.** Las dos primeras filas comparan bytes; las dos últimas, resolvedores invocados. **Dónde deja de valer:** los bytes son de un generador sintético con huellas de 64 caracteres y no de un servicio real; el número de resolvedores es un cálculo del peor caso y no mide un servidor, donde cachés y agrupación de consultas pueden reducirlo. Sin embargo, la dirección es sólida: sin límite de profundidad o de coste, el servidor queda expuesto a consultas pequeñas y caras.
+**Cómo leer la figura.** El eje horizontal es la ramificación de una consulta anidada de profundidad 3 y el vertical los resolvedores que ejecuta, los dos en escala logarítmica. Mira cómo una recta en esas escalas es un crecimiento cúbico: con b = 10 son 1 111 resolvedores y con b = 50 son 127 551, sin tope. La reducción de bytes por selección de campos está en la tabla. **Dónde deja de valer:** los bytes son de un generador sintético con huellas de 64 caracteres y no de un servicio real; el número de resolvedores es un cálculo del peor caso y no mide un servidor, donde cachés y agrupación de consultas pueden reducirlo. Sin embargo, la dirección es sólida: sin límite de profundidad o de coste, el servidor queda expuesto a consultas pequeñas y caras.
 
 ### Eventos duplicados y desordenados
 

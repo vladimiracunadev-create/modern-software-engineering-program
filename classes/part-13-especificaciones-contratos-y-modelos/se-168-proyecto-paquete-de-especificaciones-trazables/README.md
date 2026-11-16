@@ -109,9 +109,9 @@ if (v["tipo"], n[d]["tipo"]) not in VALIDO: errores.add("enlace de tipo no permi
 if v["hash"] != esperado.get(k, v["hash"]): errores.add("contenido cambiado sin actualizar el rastro")
 ```
 
-![Tabla con ocho mutaciones de un paquete trazable y cuántas detecta el validador.](../../../content/part-13/figures/se-168-validador-de-trazabilidad.svg)
+![Barras horizontales con las mutaciones inyectadas y detectadas por un validador de un paquete trazable: detecta las siete familias mecánicas (216 de 216) y ninguna de las 24 en que el texto cambia de sentido con el rastro intacto.](../../../content/part-13/figures/se-168-validador-de-trazabilidad.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación con cuántas veces se inyectó y cuántas se detectó; la última cambia el sentido de un texto. **Dónde deja de valer:** el validador comprueba forma y huellas, y el paquete es sintético; en uno real, los enlaces los escribe una persona que puede enlazar mal, y un enlace válido puede apuntar al artefacto equivocado. La detección de «contenido cambiado» supone que la huella del manifiesto la actualiza una persona o un proceso consciente.
+**Cómo leer la figura.** Cada grupo es una mutación del paquete, con una barra gris de inyectadas y una turquesa de detectadas. Mira el último grupo: un texto que cambia de sentido con el rastro intacto no se detecta, porque el validador prueba que los eslabones existen y no se han movido. **Dónde deja de valer:** el validador comprueba forma y huellas, y el paquete es sintético; en uno real, los enlaces los escribe una persona que puede enlazar mal, y un enlace válido puede apuntar al artefacto equivocado. La detección de «contenido cambiado» supone que la huella del manifiesto la actualiza una persona o un proceso consciente.
 
 ### Cuánto alcanza un cambio
 
@@ -139,9 +139,9 @@ with open(ruta, "w", encoding="utf-8", newline="\n") as f:
     f.write(texto)               # sin newline="\n", Windows escribe \r\n
 ```
 
-![Tabla con la huella de un paquete de 200 archivos en Windows y Ubuntu con y sin fijar el salto de línea.](../../../content/part-13/figures/se-168-huella-del-paquete.svg)
+![Diagrama de la huella de un paquete de 200 archivos en dos sistemas: con el modo de texto por defecto Windows da 480485af12cf44f9 y Ubuntu 55f841e9f3d4b56f; con el salto de línea fijo los dos dan 55f841e9f3d4b56f; alterar 3 bytes cambia la huella en ambos y calcularla tarda 0,033 s en Windows y 0,004 s en Ubuntu.](../../../content/part-13/figures/se-168-huella-del-paquete.svg)
 
-**Cómo leer la figura.** Las dos primeras filas comparan la huella entre sistemas con y sin salto de línea fijo; la tercera, la detección de una alteración, y la cuarta, el tiempo. **Dónde deja de valer:** la huella es sensible a todo lo que cambie los bytes (codificación, orden, saltos de línea, conversiones de un sistema de control de versiones) y no dice nada sobre el sentido; los tiempos son de un equipo y no son comparables entre sistemas. Un archivo `.gitattributes` que fije los saltos de línea evita que el sistema de control de versiones los convierta.
+**Cómo leer la figura.** A la izquierda está el mismo contenido de 200 archivos y a la derecha cuatro resultados. La caja coral es el riesgo, dos huellas distintas según el sistema; la turquesa es la corrección, fijar el salto de línea; la dorada, que alterar bytes cambia la huella, y la gris, el tiempo de calcularla, que es de un equipo y no es comparable. **Dónde deja de valer:** la huella es sensible a todo lo que cambie los bytes (codificación, orden, saltos de línea, conversiones de un sistema de control de versiones) y no dice nada sobre el sentido; los tiempos son de un equipo y no son comparables entre sistemas. Un archivo `.gitattributes` que fije los saltos de línea evita que el sistema de control de versiones los convierta.
 
 ## Definiciones de trabajo
 

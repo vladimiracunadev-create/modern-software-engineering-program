@@ -1,8 +1,10 @@
 """Figures for SE-157 to SE-162 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, grouped_bars, heatmap, line_chart
+from figure_diagrams import fan
+from figures_part07_a import bars
+
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2), salvo los tiempos indicados."
 
@@ -67,17 +69,15 @@ def se158_mutantes() -> Fig:
 
 
 def se158_gherkin() -> Fig:
-    rows = [
-        ["1", "plazo 24 h · entrega con 30 h · nota 90", "El paso 2 encaja con dos patrones", "Ambiguo: el ejecutor no sabe cuál usar"],
-        ["2", "entrega con 0 h de retraso · nota 100", "El paso 2 encaja con dos patrones", "Ambiguo, igual que el anterior"],
-        ["3", "«envía con 30 h de retraso»", "Ningún patrón reconoce «envía»", "Indefinido por un cambio de redacción"],
-        ["4", "paso 2 ambiguo y «se muestra una alerta»", "Un paso con dos patrones y otro sin ninguno", "Ambiguo e indefinido: no comprueba nada"],
-    ]
-    return tab("Mini ejecutor de Gherkin: pasos indefinidos, ambiguos y definiciones sin uso",
-               "Tabla de cuatro escenarios con doce pasos contra cinco definiciones: dos pasos indefinidos, tres ambiguos y una definición sin uso, lo que muestra qué errores de redacción detecta un ejecutor antes de probar el producto.",
-               ["N.º", "Pasos del escenario", "Resultado del emparejamiento", "Lectura"], rows, [60, 330, 330, 290], row_h=58, size=12,
-               note="En total: 12 pasos, 2 indefinidos, 3 ambiguos (la definición «la estudiante entrega (.+)» solapa con la específica) y 1 de 5 definiciones sin uso. El ejecutor detecta forma, no significado.",
-               note_kind="gold", foot=SINT)
+    return fan(
+        'Mini ejecutor de Gherkin: pasos indefinidos, ambiguos y definiciones sin uso',
+        "Diagrama de lo que detecta un ejecutor de Gherkin sobre cuatro escenarios con doce pasos y cinco definiciones: dos pasos indefinidos, tres ambiguos porque encajan con dos patrones y una definición de cinco sin uso; detecta la forma de la redacción, no su significado.",
+        ("Ejecutor de Gherkin", "4 escenarios, 12 pasos y 5 definiciones", "navy"),
+        [("Ambiguo (escenarios 1 y 2)", "el paso 2 encaja con dos patrones y el ejecutor no sabe cuál usar", "gold"),
+         ("Indefinido (escenario 3)", "ningún patrón reconoce «envía»: un cambio de redacción deja el paso sin definición", "coral"),
+         ("Ambiguo e indefinido (escenario 4)", "un paso con dos patrones y otro sin ninguno: no comprueba nada", "coral"),
+         ("En total: 2 indefinidos, 3 ambiguos y 1 definición sin uso", "de 12 pasos y 5 definiciones; el ejecutor detecta forma, no significado", "grey")],
+        note='En total: 12 pasos, 2 indefinidos, 3 ambiguos (la definición «la estudiante entrega (.+)» solapa con la específica) y 1 de 5 definiciones sin uso. El ejecutor detecta forma, no significado.', note_kind='gold', foot=SINT)
 
 
 def se158_pares() -> Fig:
@@ -96,21 +96,14 @@ def se158_pares() -> Fig:
 
 # ---------------------------------------------------------------- SE-159
 def se159_contratos() -> Fig:
-    rows = [
-        ["1", "Nota sin acotar", "No", "117 de 200"],
-        ["2", "Salta a «publicada» al calificar", "No", "200 de 200"],
-        ["3", "Nota sin cota inferior", "No", "62 de 200"],
-        ["4", "Estado redundante", "No (equivalente)", "0 de 200"],
-        ["5", "Prórroga duplicada, tope intacto", "No", "0 de 200"],
-        ["6, 7", "Prórroga sin tope", "No", "198 de 200"],
-        ["8", "Publicar conserva la nota (equivalente)", "No (equivalente)", "0 de 200"],
-        ["9", "Publicar borra la nota", "No", "200 de 200"],
-    ]
-    return tab("Nueve mutantes de una clase con contratos: pruebas de ejemplo frente a contratos",
-               "Tabla de nueve mutantes de una clase de calificación: cinco pruebas de ejemplo no matan ninguno; los contratos con un conductor aleatorio de 200 ejecuciones saltan en cinco familias de defecto y no detectan el mutante 5, donde la prórroga queda duplicada pero dentro del tope.",
-               ["Mutante", "Defecto", "Cinco pruebas de ejemplo", "Ejecuciones en que salta un contrato"], rows, [110, 380, 250, 270], row_h=34, size=12,
-               note="Los contratos detectan lo que afirman: nota acotada, estado válido, prórroga ≤ 72. El mutante 5 duplica la prórroga sin pasar el tope y nadie declaró cuánto debía valer: lo no escrito no se comprueba. Sobrecoste de comprobar: 1,44 veces en Windows y 1,47 en Ubuntu (100 000 llamadas).",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        'Nueve mutantes de una clase con contratos: pruebas de ejemplo frente a contratos',
+        "Barras horizontales con las ejecuciones, de 200, en que salta un contrato en cada uno de nueve mutantes de una clase de calificación, frente a las cinco pruebas de ejemplo, que no matan ninguno: los contratos saltan en 200 de 200 con el estado que salta a publicada y con publicar que borra la nota, y en 0 con el mutante 5 y con los equivalentes 4 y 8.",
+        ["1 · Nota sin acotar", "2 · Salta a «publicada» al calificar", "3 · Nota sin cota inferior", "4 · Estado redundante (equivalente)",
+         "5 · Prórroga duplicada, tope intacto", "6 y 7 · Prórroga sin tope", "8 · Publicar conserva la nota (equivalente)", "9 · Publicar borra la nota"],
+        [("Cinco pruebas de ejemplo", [0, 0, 0, 0, 0, 0, 0, 0], "grey"), ("Contratos con conductor aleatorio", [117, 200, 62, 0, 0, 198, 0, 200], "teal")],
+        unit="Ejecuciones en que salta, de 200", horizontal=True, label_w=270, ticks=[0, 50, 100, 150, 200],
+        note='Los contratos detectan lo que afirman: nota acotada, estado válido, prórroga ≤ 72. El mutante 5 duplica la prórroga sin pasar el tope y nadie declaró cuánto debía valer: lo no escrito no se comprueba. Sobrecoste de comprobar: 1,44 veces en Windows y 1,47 en Ubuntu (100 000 llamadas).', note_kind='gold', foot=SINT)
 
 
 def se159_subtipos() -> Fig:
@@ -140,47 +133,33 @@ def se159_distancia() -> Fig:
 
 # ---------------------------------------------------------------- SE-160
 def se160_defectos() -> Fig:
-    rows = [
-        ["Referencia a una entidad inexistente", "53", "53", "Estructural"],
-        ["Herencia circular", "50", "50", "Estructural"],
-        ["Campo duplicado", "46", "46", "Estructural"],
-        ["Entidad sin identificador", "48", "48", "Estructural"],
-        ["Cardinalidad cambiada (1 pasa a 0..*)", "49", "0", "Semántico"],
-        ["Relación invertida (Tarea↔Curso)", "54", "0", "Semántico"],
-    ]
-    return tab("Comprobador de un modelo de ocho entidades: qué defectos ve",
-               "Tabla de 300 mutaciones de un modelo estructural: el comprobador detecta las 197 mutaciones de referencias, herencia, duplicados e identificadores y ninguna de las 103 que cambian la cardinalidad o invierten una relación.",
-               ["Defecto inyectado", "Inyectados", "Detectados", "Tipo"], rows, [450, 150, 150, 200], row_h=40, size=13,
-               note="Un modelo puede ser estructuralmente perfecto y falso: la regla «una tarea pertenece a un curso» sobrevive a un cambio a «0..*» porque ambas versiones son consistentes. La semántica la revisa una persona con el dominio.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        'Comprobador de un modelo de ocho entidades: qué defectos ve',
+        "Barras horizontales con las mutaciones inyectadas y detectadas por un comprobador de un modelo de ocho entidades: detecta todas las referencias inexistentes, herencias circulares, campos duplicados e identificadores ausentes (197 de 197) y ninguna de las 103 que cambian una cardinalidad o invierten una relación.",
+        ["Referencia a una entidad inexistente", "Herencia circular", "Campo duplicado", "Entidad sin identificador", "Cardinalidad cambiada (1 pasa a 0..*)", "Relación invertida (Tarea↔Curso)"],
+        [("Inyectados", [53, 50, 46, 48, 49, 54], "grey"), ("Detectados", [53, 50, 46, 48, 0, 0], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=270, ticks=[0, 10, 20, 30, 40, 50, 60],
+        note='Un modelo puede ser estructuralmente perfecto y falso: la regla «una tarea pertenece a un curso» sobrevive a un cambio a «0..*» porque ambas versiones son consistentes. La semántica la revisa una persona con el dominio.', note_kind='coral', foot=SINT)
 
 
 def se160_deriva() -> Fig:
-    rows = [
-        ["Renombrar un campo", "40", "40", "40"],
-        ["Borrar un campo", "49", "49", "49"],
-        ["Agregar un campo", "44", "44", "44"],
-        ["Renombrar una clase", "62", "62", "62"],
-        ["Cambiar el tipo de un campo", "55", "0", "55"],
-    ]
-    return tab("Deriva entre el modelo y el código leída con ast: nombres frente a nombres y tipos",
-               "Tabla de 250 mutaciones del código fuente de seis clases: comparar solo nombres detecta renombrados, borrados y agregados pero ninguno de los 55 cambios de tipo; comparar nombres y anotaciones de tipo los detecta todos.",
-               ["Mutación del código", "Aplicadas", "Detecta solo nombres", "Detecta nombres y tipos"], rows, [330, 140, 220, 260], row_h=42, size=13,
-               note="Comparar más propiedades detecta más deriva; ninguna comparación estática ve que un campo conserva nombre y tipo pero cambió de significado (por ejemplo, horas por minutos).",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        'Deriva entre el modelo y el código leída con ast: nombres frente a nombres y tipos',
+        "Barras horizontales con las mutaciones del código que detecta cada comparación: comparar solo nombres detecta los renombrados, borrados y agregados pero ninguno de los 55 cambios de tipo; comparar nombres y anotaciones de tipo detecta todas.",
+        ["Renombrar un campo", "Borrar un campo", "Agregar un campo", "Renombrar una clase", "Cambiar el tipo de un campo"],
+        [("Aplicadas", [40, 49, 44, 62, 55], "grey"), ("Detecta solo nombres", [40, 49, 44, 62, 0], "gold"), ("Detecta nombres y tipos", [40, 49, 44, 62, 55], "teal")],
+        unit="Mutaciones del código", horizontal=True, label_w=230, ticks=[0, 10, 20, 30, 40, 50, 60, 70],
+        note='Comparar más propiedades detecta más deriva; ninguna comparación estática ve que un campo conserva nombre y tipo pero cambió de significado (por ejemplo, horas por minutos).', note_kind='gold', foot=SINT)
 
 
 def se160_normalizacion() -> Fig:
-    rows = [
-        ["Tamaño del archivo (5 000 entregas, 50 cursos)", "245 760 bytes", "73 728 bytes"],
-        ["Filas que toca el cambio de nombre de un curso", "54 de 109 (interrumpido)", "1"],
-        ["Nombres distintos para el curso 7 tras interrumpir", "2", "0"],
-    ]
-    return tab("SQLite 3.45: la misma información desnormalizada y normalizada",
-               "Tabla comparativa con SQLite: con el nombre del curso repetido en cada entrega el archivo pesa 245 760 bytes y una actualización interrumpida deja dos nombres para el mismo curso; normalizado pesa 73 728 bytes y cambiar el nombre toca una sola fila.",
-               ["Medida", "Desnormalizado", "Normalizado"], rows, [440, 270, 220], row_h=44, size=13,
-               note="La normalización elimina una clase de inconsistencia a cambio de uniones al leer. Los tamaños son de este generador sintético (SQLite 3.45.3 en Windows y 3.45.1 en Ubuntu, mismas cifras) y no se extrapolan a un sistema real.",
-               note_kind="teal", foot=SINT)
+    return dumbbell(
+        'SQLite 3.45: la misma información desnormalizada y normalizada',
+        "Puntos unidos por una línea con cuánto queda al normalizar, tomando lo desnormalizado como 100: el archivo pasa de 245 760 a 73 728 bytes (30 por ciento), las filas que toca el cambio de nombre de un curso de 54 a 1 (1,9 por ciento) y los nombres distintos para el curso 7 tras interrumpir de 2 a 0.",
+        [("Tamaño del archivo (245 760 → 73 728 bytes)", 100, 30.0), ("Filas que toca el cambio de nombre (54 → 1)", 100, 1.9), ("Nombres distintos para el curso 7 tras interrumpir (2 → 0)", 100, 0)],
+        unit="Valor normalizado, % de lo desnormalizado", names=("Desnormalizado (100 %)", "Normalizado"), decimals=1, label_w=300,
+        delta=lambda a, b: f"−{100 - b:.1f} %".replace(".", ","),
+        note='La normalización elimina una clase de inconsistencia a cambio de uniones al leer. Los tamaños son de este generador sintético (SQLite 3.45.3 en Windows y 3.45.1 en Ubuntu, mismas cifras) y no se extrapolan a un sistema real.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-161
@@ -243,16 +222,13 @@ def se162_semantica() -> Fig:
 
 
 def se162_abierto_cerrado() -> Fig:
-    rows = [
-        ["Campo requerido mal escrito (1 000 documentos)", "1 000", "1 000"],
-        ["Campo opcional mal escrito: «comentaro»", "0", "1 000"],
-        ["Campo nuevo legítimo «prioridad» (1 000 documentos)", "0 rechazados", "1 000 rechazados"],
-    ]
-    return tab("Esquema abierto frente a cerrado: qué errores atrapa y qué cambios rechaza",
-               "Tabla con mil documentos: ambos esquemas detectan un campo requerido mal escrito; solo el cerrado detecta un campo opcional mal escrito, y el cerrado rechaza también un campo nuevo legítimo que el abierto acepta.",
-               ["Situación", "Esquema abierto", "Esquema cerrado"], rows, [480, 220, 220], row_h=44, size=13,
-               note="El esquema abierto deja pasar el error de escritura y descarta el comentario sin avisar; el cerrado lo atrapa pero convierte cada campo nuevo del productor en un cambio incompatible. Elegir uno es decidir cómo evoluciona el contrato.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        'Esquema abierto frente a cerrado: qué errores atrapa y qué cambios rechaza',
+        "Barras horizontales con los documentos rechazados, de 1 000, por cada esquema: ambos rechazan los mil con un campo requerido mal escrito; solo el cerrado rechaza el campo opcional mal escrito y, a la vez, rechaza los mil con un campo nuevo legítimo que el abierto acepta.",
+        ["Campo requerido mal escrito", "Campo opcional mal escrito: «comentaro»", "Campo nuevo legítimo: «prioridad»"],
+        [("Esquema abierto", [1000, 0, 0], "teal"), ("Esquema cerrado", [1000, 1000, 1000], "coral")],
+        unit="Documentos rechazados, de 1 000", horizontal=True, label_w=270, ticks=[0, 250, 500, 750, 1000],
+        note='El esquema abierto deja pasar el error de escritura y descarta el comentario sin avisar; el cerrado lo atrapa pero convierte cada campo nuevo del productor en un cambio incompatible. Elegir uno es decidir cómo evoluciona el contrato.', note_kind='gold', foot=SINT)
 
 
 def se162_regex() -> Fig:

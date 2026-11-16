@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-16 — Parte 23: figuras rediseñadas como gráficos
+
+- las 34 figuras de `SE-277` a `SE-288` que redibujaban la tabla Markdown pasan a gráficos con los mismos números medidos: barras agrupadas, líneas (algunas en escala logarítmica), mapas de calor, un dumbbell, intervalos de mínimo y máximo, una línea de tiempo del año con cambio de hora y un diagrama por bloques para las seis comprobaciones de dinero
+- cada clase reescribe el texto alternativo y el bloque «Cómo leer la figura. Dónde deja de valer» para describir el gráfico; las figuras `tab()` y los `alt` que empiezan por «Tabla» de la Parte 23 bajan de 34 a 0 en `scripts/figure_tab_baseline.json`
+- commit `33d2208d`, CI verde (Validate, Pages y Security)
+
 ## 2026-11-16 — Parte 25: figuras como gráficos, no como tablas
 
 - las 31 figuras `tab()` de SE-301 a SE-312 se rediseñan con las primitivas del kit y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón

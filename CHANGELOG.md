@@ -130,6 +130,11 @@
 - las figuras `tab()` de la Parte 35 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
 - `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 35 (commit `8ffcc798`)
 
+## 2026-11-16 — Partes 02 y 03: figuras que dibujaban tablas, rediseñadas
+
+- las 24 figuras de la Parte 02 y las 26 de la Parte 03 que dibujaban una tabla con `Fig.table()` pasan a diagramas de mecanismo o gráficos con los mismos datos; la tabla Markdown se conserva
+- `embedded_tables` queda en 0 para las Partes 02 y 03 en `figure_tab_baseline.json`; ayudantes nuevos en `scripts/figure_flows.py` (commits `2d0ea288`, `4a0bfb73` y `21a1cc80`)
+
 ## 2026-11-16 — Parte 40: figuras como gráficos, no como tablas
 
 - las figuras `tab()` de la Parte 40 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón

@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 TARGET_LAST_CLASS = 180
-DEVELOPED_LAST_CLASS = 324
+DEVELOPED_LAST_CLASS = 480
 VERIFIED_ON = "2026-09-30"
 PUBLISHED_EDITORIAL_IDS = {f"SE-{number:03d}" for number in range(1, 181)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(181, 193)}
@@ -204,7 +204,7 @@ def source_catalog(program: dict) -> dict:
         "$schema": "https://vladimiracunadev-create.github.io/modern-software-engineering-program/schemas/activity.schema.json",
         "schema_version": 1,
         "verified_on": VERIFIED_ON,
-        "scope": "Fase 3 en reconstrucción: SE-001 a SE-180",
+        "scope": "Fase 3: SE-001 a SE-180, desarrolladas",
         "policy": "Fuentes primarias u oficiales; la guía indica el uso pedagógico y evita atribuirles afirmaciones no contenidas.",
         "sources": [
             {"id": source_id, "title": SOURCES[source_id][0], "authority": SOURCES[source_id][1], "url": SOURCES[source_id][2], "status": "verified"}
@@ -978,7 +978,7 @@ def site_page(
     developed = lesson["number"] <= DEVELOPED_LAST_CLASS
     description = ("Clase desarrollada" if developed else "Contenido en revisión") + f" {lesson['id']}: {lesson['title']}"
     notice = (
-        "Contenido desarrollado como parte del recorrido completo de las Partes 00–26."
+        "Contenido desarrollado como parte del recorrido completo de las Partes 00–39."
         if developed else
         "Texto íntegro publicado para revisión editorial; todavía debe evaluarse junto con toda su parte."
     )

@@ -125,15 +125,14 @@ propias páginas ni convierten en opcional la base común.
 | ---: | --- | --- | --- | --- | --- |
 | 1 | [Parte 08 · Entornos, herramientas y depuración](../classes/part-08-entornos-herramientas-y-depuracion/README.md) | desarrollada | [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md)<br>[SE-107 · Taller: diagnosticar un fallo desconocido](../classes/part-08-entornos-herramientas-y-depuracion/se-107-taller-diagnosticar-un-fallo-desconocido/README.md)<br>[SE-108 · Proyecto: entorno de desarrollo autocontenido](../classes/part-08-entornos-herramientas-y-depuracion/se-108-proyecto-entorno-de-desarrollo-autocontenido/README.md) | Profundiza **depuración, profiling y reproducción de fallos** desde la responsabilidad del rol. | Expediente de causa raíz. |
 | 2 | [Parte 24 · Diseño, patrones y refactorización](../classes/part-24-diseno-patrones-y-refactorizacion/README.md) | desarrollada | [SE-294 · Code smells y diagnóstico contextual](../classes/part-24-diseno-patrones-y-refactorizacion/se-294-code-smells-y-diagnostico-contextual/README.md)<br>[SE-295 · Refactorización segura apoyada por pruebas](../classes/part-24-diseno-patrones-y-refactorizacion/se-295-refactorizacion-segura-apoyada-por-pruebas/README.md)<br>[SE-298 · Deuda técnica, interés y opciones](../classes/part-24-diseno-patrones-y-refactorizacion/se-298-deuda-tecnica-interes-y-opciones/README.md) | Profundiza **diseño, patrones y refactorización segura** desde la responsabilidad del rol. | Evolución compatible protegida por pruebas. |
-| 3 | [Parte 36 · Mantenimiento y modernización legacy](../classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) | estructura | [SE-434 · Arqueología de código y recuperación de conocimiento](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md)<br>[SE-435 · Pruebas de caracterización y seams](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams/README.md)<br>[SE-444 · Proyecto: migración incremental reversible](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/README.md) | Profundiza **mantenimiento, modernización y retiro** desde la responsabilidad del rol. | Migración incremental reversible. |
-| 4 | [Parte 37 · Gestión, liderazgo y práctica profesional](../classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) | estructura | [SE-450 · Gestión de riesgos y decisiones ejecutivas](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)<br>[SE-451 · Compras, proveedores y evaluación técnica](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/README.md)<br>[SE-453 · Economía del software y costo total](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) | Profundiza **liderazgo, organización y decisiones** desde la responsabilidad del rol. | Propuesta defendida ante conflicto. |
+| 3 | [Parte 36 · Mantenimiento y modernización legacy](../classes/part-36-mantenimiento-y-modernizacion-legacy/README.md) | desarrollada | [SE-434 · Arqueología de código y recuperación de conocimiento](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento/README.md)<br>[SE-435 · Pruebas de caracterización y seams](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams/README.md)<br>[SE-444 · Proyecto: migración incremental reversible](../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/README.md) | Profundiza **mantenimiento, modernización y retiro** desde la responsabilidad del rol. | Migración incremental reversible. |
+| 4 | [Parte 37 · Gestión, liderazgo y práctica profesional](../classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) | desarrollada | [SE-450 · Gestión de riesgos y decisiones ejecutivas](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)<br>[SE-451 · Compras, proveedores y evaluación técnica](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/README.md)<br>[SE-453 · Economía del software y costo total](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) | Profundiza **liderazgo, organización y decisiones** desde la responsabilidad del rol. | Propuesta defendida ante conflicto. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
-El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
-tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
-resto del currículo:
+El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
+de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
@@ -153,10 +152,9 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
-> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
-> estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
-> esas clases ni reemplaza el [roadmap](../ROADMAP.md).
+> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
+> declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
 ## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
 

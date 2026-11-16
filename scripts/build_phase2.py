@@ -297,9 +297,9 @@ def classes_index(program: dict) -> str:
 480 clases · 40 partes · numeración secuencial `SE-001`–`SE-480`.
 
 > [!WARNING]
-> Las Partes 00–26 contienen material desarrollado. Las partes 27–29 publican borradores
-> para revisión, las partes 30–39 conservan la estructura pendiente de desarrollo y las
-> Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
+> Las Partes 00–39 (`SE-001`–`SE-480`) contienen clases desarrolladas, con texto íntegro,
+> figuras y evidencia reproducible, pendientes de revisión editorial humana independiente.
+> Las Partes 40–44 (`SE-481`–`SE-540`) están planificadas, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
@@ -358,13 +358,13 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 
 | Superficie | Estado actual |
 | --- | --- |
-| Arquitectura | fases 1 y 2 completadas; fases 3 y 4 en reconstrucción cualitativa |
+| Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | {len(program['stages'])} especificadas |
 | Partes | {program['part_count']} indexadas |
 | Clases | {program['class_count']} posiciones curriculares consecutivas |
-| Contenido desarrollado | Partes 00–26 (`SE-001`–`SE-324`) |
-| Borradores publicados | Partes 27–29 (`SE-325`–`SE-360`) |
-| Estructura pendiente | Partes 30–39 (`SE-361`–`SE-480`) |
+| Contenido desarrollado | Partes 00–39 (`SE-001`–`SE-480`), pendiente de revisión editorial humana independiente |
+| Borradores publicados | ninguno |
+| Estructura pendiente | ninguna |
 | Alcance planificado | Partes 40–44 (`SE-481`–`SE-540`), sin clases publicadas |
 | Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
@@ -373,7 +373,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | 521 páginas HTML generadas desde el manifiesto |
-| Portal definitivo | catálogo navegable; borradores visibles sin presentarlos como clases aprobadas |
+| Portal definitivo | catálogo navegable con las 480 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado
@@ -412,10 +412,10 @@ def file_index(program: dict) -> str:
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | {program['class_count']} |
 | Fuentes por clase | `sources/class-sources.json` | {program['class_count']} entradas |
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
-| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 borradores |
-| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
-| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 borradores |
-| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
+| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 contratos |
+| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 contratos |
+| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 contratos |
+| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 contratos |
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
@@ -468,13 +468,13 @@ def site_index(program: dict) -> str:
         )
     return f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Programa profesional de ingeniería de software: 480 clases planificadas; fases 3 y 4 publican SE-001 a SE-360 para revisión pedagógica.">
+<meta name="description" content="Programa profesional de ingeniería de software: 480 clases desarrolladas (SE-001 a SE-480), pendientes de revisión editorial humana independiente; 540 planificadas en total.">
 <title>Programa de Ingeniería de Software Moderna</title><link rel="stylesheet" href="assets/styles.css"></head>
     <body><a class="skip" href="#content">Saltar al contenido</a><header class="hero"><div class="hero-grid"><div><p class="eyebrow">Programa profesional · aprender haciendo visible el criterio</p>
 <h1>Programa de Ingeniería de Software Moderna</h1><p class="hero-copy">Un recorrido conectado desde el problema hasta un producto que puede explicarse, verificarse, operarse y evolucionar responsablemente.</p></div>
 <figure class="hero-map" aria-labelledby="hero-map-title"><figcaption id="hero-map-title">El ciclo de aprendizaje del programa</figcaption><div class="hero-loop"><span data-step="1">Comprender el contexto</span><span data-step="2">Modelar una decisión</span><span data-step="3">Practicar con evidencia</span><span data-step="4">Revisar, transferir y mejorar</span></div></figure></div>
 <div class="metrics"><div class="metric"><strong>8</strong><span>etapas conectadas</span></div><div class="metric"><strong>40</strong><span>partes progresivas</span></div><div class="metric"><strong>480</strong><span>clases en el recorrido</span></div><div class="metric"><strong>2.160</strong><span>horas estimadas</span></div></div></header>
-<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–26 contienen material desarrollado; las siguientes se incorporan parte por parte según el roadmap, que planifica 540 clases en total.</div>
+<main id="content"><div class="notice"><strong>Desarrollo incremental:</strong> las Partes 00–39 (SE-001 a SE-480) contienen clases desarrolladas; las Partes 40–44 (SE-481 a SE-540) están planificadas y todavía no existen, según el roadmap, que planifica 540 clases en total.</div>
 <h2>Cómo se aprende aquí</h2><p class="section-intro">Cada clase comienza recuperando una decisión previa, introduce un problema profesional, explica el mecanismo, lo representa visualmente y termina con evidencia que alimenta la clase siguiente.</p><div class="learning-principles"><article class="learning-principle"><strong>Contexto antes que herramienta</strong><p>Primero se entiende el sistema, las personas y el límite de la decisión.</p></article><article class="learning-principle"><strong>Mecanismo antes que receta</strong><p>Cada práctica explica qué señal recibe, qué cambia y qué no garantiza.</p></article><article class="learning-principle"><strong>Evidencia antes que sensación</strong><p>Leer no basta: se producen artefactos que otra persona puede revisar.</p></article><article class="learning-principle"><strong>Conexión antes que acumulación</strong><p>La salida de una clase se convierte en entrada de la siguiente.</p></article></div>
 <h2>Rutas publicadas</h2><div class="featured-path"><div><p class="eyebrow">Parte 00 · contenido desarrollado</p><h3>Ingeniería de software como profesión</h3><p>Campus Abierto enlaza fronteras, ciclo de vida, ética, evidencia, calidad, riesgo, impacto y desarrollo profesional.</p></div><a href="parts/00.html">Comenzar la Parte 00 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 01 · contenido desarrollado y laboratorio ejecutable</p><h3>Computadores y representación de información</h3><p>Un analizador local de eventos permite seguir el mismo dato por bytes, Unicode, aritmética, CPU, memoria, runtime y medición reproducible.</p></div><a href="parts/01.html">Estudiar la Parte 01 →</a></div>
@@ -482,10 +482,10 @@ def site_index(program: dict) -> str:
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 03 · contenido desarrollado y laboratorio ejecutable</p><h3>Redes, Internet y protocolos</h3><p>Una petición observable se sigue desde el enlace local hasta DNS, transporte, TLS, HTTP, intermediarios y recuperación.</p></div><a href="parts/03.html">Estudiar la Parte 03 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 04 · contenido desarrollado y laboratorio ejecutable</p><h3>Pensamiento computacional y resolución de problemas</h3><p>Un modelo de decisión diagnóstica convierte incidentes ambiguos en invariantes, algoritmos, límites y especificaciones contrastables.</p></div><a href="parts/04.html">Estudiar la Parte 04 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 05 · contenido desarrollado y laboratorio Python/Rust</p><h3>Fundamentos de programación</h3><p>Una CLI diagnóstica implementa el modelo de decisión con tipos estrictos, módulos, pruebas, errores explícitos y un contrato contrastado entre lenguajes.</p></div><a href="parts/05.html">Estudiar la Parte 05 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 06 · 12 borradores en auditoría</p><h3>Paradigmas de programación</h3><p>Un motor de reglas común permite comparar estado, objetos, funciones, reglas, eventos, flujos y actores bajo el mismo contrato.</p></div><a href="parts/06.html">Revisar la Parte 06 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · 12 borradores en auditoría</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Revisar la Parte 07 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · 12 borradores en auditoría</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Revisar la Parte 08 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · 12 borradores en auditoría</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Revisar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 06 · contenido desarrollado</p><h3>Paradigmas de programación</h3><p>Un motor de reglas común permite comparar estado, objetos, funciones, reglas, eventos, flujos y actores bajo el mismo contrato.</p></div><a href="parts/06.html">Estudiar la Parte 06 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · contenido desarrollado</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Estudiar la Parte 07 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · contenido desarrollado</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Estudiar la Parte 08 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · contenido desarrollado</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Estudiar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las 480 clases</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
 <footer>Generado desde curriculum.yaml · Línea base {program['baseline_date']}</footer><script src="assets/app.js"></script></body></html>\n"""
@@ -498,9 +498,8 @@ def part_page(part: dict) -> str:
     )
     if part["lessons"][-1]["number"] <= 72:
         state = "Doce clases desarrolladas como un recorrido pedagógico conectado."
-    elif part["lessons"][-1]["number"] <= 360:
-        phase = 3 if part["lessons"][-1]["number"] <= 180 else 4
-        state = f"Fase {phase} en reconstrucción: doce borradores visibles, todavía sin aprobación pedagógica."
+    elif part["lessons"][-1]["number"] <= 480:
+        state = "Doce clases desarrolladas con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente."
     else:
         state = "Contenido planificado para una fase posterior."
     editorial_source = ROOT / "content" / f"part-{part['id']}" / "README.md"

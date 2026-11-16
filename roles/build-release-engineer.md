@@ -118,15 +118,14 @@ propias páginas ni convierten en opcional la base común.
 | ---: | --- | --- | --- | --- | --- |
 | 1 | [Parte 09 · Bibliotecas, paquetes, SDK y automatización](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/README.md) | desarrollada | [SE-110 · SemVer, compatibilidad y contratos públicos](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md)<br>[SE-111 · Resolución de dependencias y lockfiles](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-111-resolucion-de-dependencias-y-lockfiles/README.md)<br>[SE-112 · Paquetes, módulos y publicación](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-112-paquetes-modulos-y-publicacion/README.md) | Profundiza **paquetes, SDK, dependencias y compatibilidad** desde la responsabilidad del rol. | Paquete versionado y consumible. |
 | 2 | [Parte 16 · Git, colaboración y código abierto](../classes/part-16-git-colaboracion-y-codigo-abierto/README.md) | desarrollada | [SE-194 · Commits atómicos, historial y recuperación](../classes/part-16-git-colaboracion-y-codigo-abierto/se-194-commits-atomicos-historial-y-recuperacion/README.md)<br>[SE-197 · Trunk-based, GitFlow y estrategias híbridas](../classes/part-16-git-colaboracion-y-codigo-abierto/se-197-trunk-based-gitflow-y-estrategias-hibridas/README.md)<br>[SE-202 · Firmas, procedencia y protección del repositorio](../classes/part-16-git-colaboracion-y-codigo-abierto/se-202-firmas-procedencia-y-proteccion-del-repositorio/README.md) | Profundiza **Git, revisión, ownership y colaboración abierta** desde la responsabilidad del rol. | Contribución completa y auditable. |
-| 3 | [Parte 33 · Build, release y cadena de suministro](../classes/part-33-build-release-y-cadena-de-suministro/README.md) | estructura | [SE-397 · Build reproducible y hermético](../classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md)<br>[SE-400 · SBOM, procedencia y atestaciones](../classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/README.md)<br>[SE-407 · Taller: verificar la procedencia de un release](../classes/part-33-build-release-y-cadena-de-suministro/se-407-taller-verificar-la-procedencia-de-un-release/README.md) | Profundiza **build, release y cadena de suministro** desde la responsabilidad del rol. | Release firmado y verificable. |
-| 4 | [Parte 34 · CI/CD, IaC y platform engineering](../classes/part-34-ci-cd-iac-y-platform-engineering/README.md) | estructura | [SE-409 · Integración continua y feedback temprano](../classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano/README.md)<br>[SE-410 · Pipelines, jobs, matrices y cachés](../classes/part-34-ci-cd-iac-y-platform-engineering/se-410-pipelines-jobs-matrices-y-caches/README.md)<br>[SE-419 · Taller: endurecer un pipeline vulnerable](../classes/part-34-ci-cd-iac-y-platform-engineering/se-419-taller-endurecer-un-pipeline-vulnerable/README.md) | Profundiza **CI/CD, IaC, plataforma y DevEx** desde la responsabilidad del rol. | Camino autoservicio con rollback. |
+| 3 | [Parte 33 · Build, release y cadena de suministro](../classes/part-33-build-release-y-cadena-de-suministro/README.md) | desarrollada | [SE-397 · Build reproducible y hermético](../classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md)<br>[SE-400 · SBOM, procedencia y atestaciones](../classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/README.md)<br>[SE-407 · Taller: verificar la procedencia de un release](../classes/part-33-build-release-y-cadena-de-suministro/se-407-taller-verificar-la-procedencia-de-un-release/README.md) | Profundiza **build, release y cadena de suministro** desde la responsabilidad del rol. | Release firmado y verificable. |
+| 4 | [Parte 34 · CI/CD, IaC y platform engineering](../classes/part-34-ci-cd-iac-y-platform-engineering/README.md) | desarrollada | [SE-409 · Integración continua y feedback temprano](../classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano/README.md)<br>[SE-410 · Pipelines, jobs, matrices y cachés](../classes/part-34-ci-cd-iac-y-platform-engineering/se-410-pipelines-jobs-matrices-y-caches/README.md)<br>[SE-419 · Taller: endurecer un pipeline vulnerable](../classes/part-34-ci-cd-iac-y-platform-engineering/se-419-taller-endurecer-un-pipeline-vulnerable/README.md) | Profundiza **CI/CD, IaC, plataforma y DevEx** desde la responsabilidad del rol. | Camino autoservicio con rollback. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
-El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
-tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
-resto del currículo:
+El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
+de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
@@ -143,10 +142,9 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
-> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
-> estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
-> esas clases ni reemplaza el [roadmap](../ROADMAP.md).
+> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
+> declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
 ## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
 

@@ -117,15 +117,14 @@ propias páginas ni convierten en opcional la base común.
 | ---: | --- | --- | --- | --- | --- |
 | 1 | [Parte 12 · Ingeniería de requisitos](../classes/part-12-ingenieria-de-requisitos/README.md) | desarrollada | [SE-151 · Trazabilidad desde necesidad hasta evidencia](../classes/part-12-ingenieria-de-requisitos/se-151-trazabilidad-desde-necesidad-hasta-evidencia/README.md)<br>[SE-152 · Requisitos regulatorios, de datos y seguridad](../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md)<br>[SE-153 · Gestión de cambios y líneas base](../classes/part-12-ingenieria-de-requisitos/se-153-gestion-de-cambios-y-lineas-base/README.md) | Profundiza **requisitos, restricciones y trazabilidad** desde la responsabilidad del rol. | Baseline de requisitos revisable. |
 | 2 | [Parte 23 · Software especializado y dominios](../classes/part-23-software-especializado-y-dominios/README.md) | desarrollada | [SE-283 · Salud, datos sensibles y sistemas regulados](../classes/part-23-software-especializado-y-dominios/se-283-salud-datos-sensibles-y-sistemas-regulados/README.md)<br>[SE-287 · Taller: comparar riesgos entre dominios](../classes/part-23-software-especializado-y-dominios/se-287-taller-comparar-riesgos-entre-dominios/README.md)<br>[SE-288 · Proyecto: diseño profundo de un dominio elegido](../classes/part-23-software-especializado-y-dominios/se-288-proyecto-diseno-profundo-de-un-dominio-elegido/README.md) | Profundiza **dominios especializados, regulación y safety** desde la responsabilidad del rol. | Análisis de riesgo de dominio. |
-| 3 | [Parte 32 · Seguridad, privacidad y cumplimiento](../classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) | estructura | [SE-391 · Privacidad por diseño y minimización](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md)<br>[SE-394 · Cumplimiento, evidencia y límites legales](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md)<br>[SE-396 · Proyecto: producto con seguridad verificable](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
-| 4 | [Parte 37 · Gestión, liderazgo y práctica profesional](../classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) | estructura | [SE-450 · Gestión de riesgos y decisiones ejecutivas](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)<br>[SE-451 · Compras, proveedores y evaluación técnica](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/README.md)<br>[SE-452 · Propiedad intelectual, contratos y ética](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/README.md) | Profundiza **liderazgo, organización y decisiones** desde la responsabilidad del rol. | Propuesta defendida ante conflicto. |
+| 3 | [Parte 32 · Seguridad, privacidad y cumplimiento](../classes/part-32-seguridad-privacidad-y-cumplimiento/README.md) | desarrollada | [SE-391 · Privacidad por diseño y minimización](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md)<br>[SE-394 · Cumplimiento, evidencia y límites legales](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md)<br>[SE-396 · Proyecto: producto con seguridad verificable](../classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable/README.md) | Profundiza **seguridad, privacidad y cumplimiento** desde la responsabilidad del rol. | Controles con pruebas y evidencia. |
+| 4 | [Parte 37 · Gestión, liderazgo y práctica profesional](../classes/part-37-gestion-liderazgo-y-practica-profesional/README.md) | desarrollada | [SE-450 · Gestión de riesgos y decisiones ejecutivas](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md)<br>[SE-451 · Compras, proveedores y evaluación técnica](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/README.md)<br>[SE-452 · Propiedad intelectual, contratos y ética](../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/README.md) | Profundiza **liderazgo, organización y decisiones** desde la responsabilidad del rol. | Propuesta defendida ante conflicto. |
 
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
-El núcleo anterior apunta a la capacidad profesional completa y puede incluir partes
-en borrador o estructura. Estas clases, de las Partes 00–26 (`SE-001`–`SE-324`), ya
-tienen contenido desarrollado y permiten empezar a practicar el rol sin esperar al
-resto del currículo:
+El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
+de las Partes 00–39 (`SE-001`–`SE-480`), también tienen contenido desarrollado y
+permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
 | --- | --- |
@@ -143,10 +142,9 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo previsto. Las Partes 00–26 (`SE-001`–`SE-324`) están
-> desarrolladas; las Partes 27–29 son borradores y las Partes 30–39 conservan sólo
-> estructura, y deben superar revisión cualitativa. Esta ruta no declara terminadas
-> esas clases ni reemplaza el [roadmap](../ROADMAP.md).
+> El mapa expresa el currículo vigente. Las Partes 00–39 (`SE-001`–`SE-480`) están
+> desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
+> declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
 ## 🔭 Ampliación planificada: Partes 40–44 (sin clases publicadas)
 

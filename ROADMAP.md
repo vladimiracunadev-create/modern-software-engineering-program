@@ -19,12 +19,11 @@ de verdad sobre el producto educativo y su secuencia.
 
 - La arquitectura curricular contiene 8 etapas, 40 partes y 480 posiciones de clase,
   de `SE-001` a `SE-480`, sin renumerar el material existente.
-- Las Partes 00–26 contienen 324 clases desarrolladas y profundizadas con explicación,
+- Las Partes 00–39 contienen 480 clases desarrolladas y profundizadas con explicación,
   práctica, figuras interpretadas, experimentos reproducibles, fuentes y navegación
-  (`SE-001`–`SE-324`), con laboratorios ejecutables en las Partes 01–05; falta una revisión
-  editorial humana independiente. Las partes 27–29 conservan 36 borradores que deben
-  revisarse y profundizarse. Las partes 30–39 disponen de estructura curricular y
-  requieren aún el desarrollo íntegro de sus 120 clases.
+  (`SE-001`–`SE-480`), con laboratorios ejecutables en las Partes 01–05; falta una revisión
+  editorial humana independiente. No quedan borradores ni estructuras sin desarrollar entre
+  las 480 posiciones; lo que sigue sin existir son las Partes 40–44.
 - El alcance planificado es de 540 clases: las Partes 40–44 (`SE-481`–`SE-540`:
   metodologías de TDD a ODD, harness y agentic engineering, patrones agénticos, patrones
   de diseño y estilos arquitectónicos) están decididas pero sin clases publicadas. Ver
@@ -181,9 +180,9 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | 4 | Parte 05 | CLI diagnóstica, fronteras y transferencia Python/Rust | completada con quince contratos y compilación remota del puerto Rust |
 | 5 | Partes 06–09 | paradigmas, algoritmos, depuración y empaquetado | contenido editorial existente; falta aprobación cualitativa y ejecución |
 | 6 | Partes 10–14 | discovery, economía, requisitos, contratos, UX, accesibilidad e i18n | contenido editorial existente; falta aprobación cualitativa y evidencia |
-| 7 | Partes 15–29 | planificación, colaboración, superficies, arquitectura, datos y cloud | Partes 15–26 desarrolladas; 27–29 borradores por reconstruir en orden y preservar proyectos |
-| 8 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | estructura curricular; desarrollar prácticas y casos reales |
-| 9 | Partes 38–39 | IA asistida, SPEC y agentes controlados | estructura curricular; exigir evals, guardrails, coste y regresión |
+| 7 | Partes 15–29 | planificación, colaboración, superficies, arquitectura, datos y cloud | Partes 15–29 desarrolladas (`SE-181`–`SE-360`), a falta de revisión editorial humana independiente |
+| 8 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | Partes 30–37 desarrolladas (`SE-361`–`SE-456`), a falta de revisión editorial humana independiente |
+| 9 | Partes 38–39 | IA asistida, SPEC y agentes controlados | Partes 38–39 desarrolladas (`SE-457`–`SE-480`), a falta de revisión editorial humana independiente |
 | 10 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
 | 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-480` |
 

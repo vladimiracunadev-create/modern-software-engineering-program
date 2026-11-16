@@ -156,6 +156,11 @@ Estado de ejecución (2026-11-13): se profundizaron las Partes 00–26 (`SE-001`
 quedan por desarrollar las Partes 27–29 (borradores), 30–39 (estructura) y crear 40–44
 (planificadas, sin clases). El orden restante es: 27–29, 38–39 y 40–44, luego 30–37.
 
+Actualización (2026-11-16): las Partes 27–39 (`SE-325`–`SE-480`) ya están desarrolladas; las
+Partes 00–39 (`SE-001`–`SE-480`) completan las 480 posiciones del catálogo, a falta de
+revisión editorial humana independiente. Solo siguen planificadas, sin clases, las Partes
+40–44 (`SE-481`–`SE-540`).
+
 Se adopta el alcance de **540 clases** (Partes 40–44). Orden de ejecución: profundizar
 las Partes 00–05 con visuales; desarrollar 38–39; crear 40–44; retomar 06–37. La
 estructura nueva no se publica en `curriculum.yaml`, README, Pages ni About hasta que

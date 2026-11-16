@@ -121,8 +121,7 @@ presentarlas como aprobadas.
 ## Alcance de fase 4
 
 La fase 4 comprende **180 clases consecutivas**, de `SE-181` a `SE-360`, agrupadas
-en las partes 15–29. Las Partes 15–26 (`SE-181`–`SE-324`) están desarrolladas y profundizadas con
-figuras y evidencia reproducible, a falta de una revisión editorial humana independiente; las
-Partes 27–29 (`SE-325`–`SE-360`) conservan borradores que deben superar la revisión completa.
+en las partes 15–29. Las Partes 15–29 (`SE-181`–`SE-360`) están desarrolladas y profundizadas con
+figuras y evidencia reproducible, a falta de una revisión editorial humana independiente.
 Aplica la misma revisión cualitativa: disponer de guía, actividad,
 rúbrica, fuentes y publicación no demuestra por sí solo que la clase esté terminada.

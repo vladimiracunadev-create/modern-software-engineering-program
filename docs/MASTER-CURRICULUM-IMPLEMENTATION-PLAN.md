@@ -132,12 +132,10 @@ Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 pági
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
-Estado actual (2026-11-13): las Partes 00–26 (`SE-001`–`SE-324`) están desarrolladas y
+Estado actual (2026-11-16): las Partes 00–39 (`SE-001`–`SE-480`) están desarrolladas y
 publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. Las
-Partes 27–29 (`SE-325`–`SE-360`) siguen como borradores, las Partes 30–39
-(`SE-361`–`SE-480`) como estructura y las Partes 40–44 (`SE-481`–`SE-540`) están
-planificadas (ADR-004) sin clases publicadas. Falta la revisión editorial humana
-independiente.
+Partes 40–44 (`SE-481`–`SE-540`) están planificadas (ADR-004) sin clases publicadas.
+Falta la revisión editorial humana independiente.
 
 Brechas detectadas que se atienden parte a parte:
 

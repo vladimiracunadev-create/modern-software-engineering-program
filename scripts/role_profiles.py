@@ -535,12 +535,10 @@ PROFILES = {
 
 # Estado editorial de cada parte. Debe coincidir con STATUS.md (generado por build_phase2.py).
 PART_STATUS = {
-    **{f"{n:02d}": "desarrollada" for n in range(0, 27)},
-    **{f"{n:02d}": "borrador" for n in range(27, 30)},
-    **{f"{n:02d}": "estructura" for n in range(30, 40)},
+    **{f"{n:02d}": "desarrollada" for n in range(0, 40)},
 }
 
-# Clases YA desarrolladas (Partes 00-26, SE-001..SE-324) que sostienen cada ruta hoy.
+# Clases desarrolladas de apoyo (Partes 00-39, SE-001..SE-480) que sostienen cada ruta además de su núcleo.
 # Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
 DEVELOPED = {
     "software-engineer.md": [65, 100, 105, 196, 208, 295],

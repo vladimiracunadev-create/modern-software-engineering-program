@@ -173,7 +173,9 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         part_page = (ROOT / "site/parts/02.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
         self.assertIn("Contenido desarrollado", next_developed_page)
-        self.assertIn("Contenido en revisión", draft_page)
+        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        self.assertIn("Contenido desarrollado", draft_page)
+        self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
         self.assertNotIn("doce borradores visibles", part_page)
 
@@ -198,7 +200,9 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/03.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        self.assertIn("Contenido en revisión", draft_page)
+        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        self.assertIn("Contenido desarrollado", draft_page)
+        self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
         self.assertNotIn("doce borradores visibles", part_page)
 
@@ -225,7 +229,9 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/04.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        self.assertIn("Contenido en revisión", draft_page)
+        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        self.assertIn("Contenido desarrollado", draft_page)
+        self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
 
     def test_part_five_has_a_packaged_cross_language_cli_laboratory(self) -> None:
@@ -258,7 +264,9 @@ class PhaseThreeGenerationTests(unittest.TestCase):
         draft_page = (ROOT / "site/classes/SE-325.html").read_text(encoding="utf-8")
         part_page = (ROOT / "site/parts/05.html").read_text(encoding="utf-8")
         self.assertIn("Contenido desarrollado", developed_page)
-        self.assertIn("Contenido en revisión", draft_page)
+        # SE-325 ya no es un borrador: todas las clases del catálogo están desarrolladas.
+        self.assertIn("Contenido desarrollado", draft_page)
+        self.assertNotIn("Contenido en revisión", draft_page)
         self.assertIn("Doce clases desarrolladas", part_page)
 
     def test_prerequisite_renders_identifier_not_internal_record(self) -> None:

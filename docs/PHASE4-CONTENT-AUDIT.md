@@ -9,9 +9,8 @@ arquitectura, persistencia, integración, sistemas distribuidos y cloud.
 
 ## Estado verificable
 
-Estado actual (2026-11-13): las Partes 15–26 (`SE-181`–`SE-324`, 144 clases) están
-desarrolladas y publicadas con CI verde; las Partes 27–29 (`SE-325`–`SE-360`, 36 clases)
-siguen como borradores estructurales ampliados. Ninguna se presenta como aprobada: falta
+Estado actual (2026-11-16): las Partes 15–29 (`SE-181`–`SE-360`, 180 clases) están
+desarrolladas y publicadas con CI verde. Ninguna se presenta como aprobada: falta
 la revisión editorial humana independiente. La tabla siguiente describe la línea base de
 artefactos estructurados, no el estado editorial.
 
@@ -25,7 +24,7 @@ artefactos estructurados, no el estado editorial.
 | fuentes primarias u oficiales registradas | 34 |
 | clases aprobadas | 0 |
 
-Los documentos son **borradores estructurales ampliados**. Incorporan problema,
+(Histórico) Los documentos de la línea base eran **borradores estructurales ampliados**. Incorporan problema,
 objetivos, temas, conceptos, ejemplos, práctica, reto, fallo controlado, entorno,
 evaluación, FAQ y fuentes. Esa cobertura estructural no equivale a una revisión
 técnica y pedagógica clase por clase.
@@ -165,10 +164,11 @@ herramienta de infraestructura, que los precios son unidades ficticias, que los 
 paquetes se afinaron con los mismos casos que los evalúan. Las doce clases todavía requieren revisión por personas con experiencia en operación de plataformas, y no presentan un modelo, un
 experimento o un validador como sustitutos de una prueba en un proveedor real, de una revisión de seguridad ni de la responsabilidad de quien decide.
 
-## Gate pendiente
+## Gate de las Partes 27–29
 
-Las Partes 27–29 continúan como borrador hasta demostrar cobertura específica de todos sus
-temas, ejemplos no intercambiables, práctica reproducible, fuentes ligadas a
-afirmaciones y revisión cualitativa contra
-[`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md). La fase no se contabiliza
-por archivos creados, sino por clases que superan ese gate.
+Las Partes 27–29 se publican como desarrolladas con cobertura específica de todos sus
+temas, ejemplos no intercambiables, práctica reproducible y fuentes ligadas a
+afirmaciones, contrastadas contra
+[`PEDAGOGICAL-STANDARD.md`](PEDAGOGICAL-STANDARD.md); la revisión editorial humana
+independiente sigue pendiente. La fase no se contabiliza por archivos creados, sino por
+clases que superan ese gate.

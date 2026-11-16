@@ -20,10 +20,10 @@
 | Metadatos de clase | `classes/part-*/se-*/lesson.json` | 480 |
 | Fuentes por clase | `sources/class-sources.json` | 480 entradas |
 | Fuentes verificadas de fase 3 | `sources/phase3.json` | 15 partes |
-| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 borradores |
-| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 borradores |
-| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 borradores |
-| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 borradores |
+| Contratos de actividad de fase 3 | `classes/part-*/se-*/activity.yaml` | 180 contratos |
+| Rúbricas de fase 3 | `classes/part-*/se-*/rubric.json` | 180 contratos |
+| Contratos de actividad de fase 4 | `classes/part-15..29/se-*/activity.yaml` | 180 contratos |
+| Rúbricas de fase 4 | `classes/part-15..29/se-*/rubric.json` | 180 contratos |
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |

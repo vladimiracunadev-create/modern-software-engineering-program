@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-16 — Parte 42 desarrollada con experimentos reales y simulaciones de patrones agénticos y sistemas con LLM (SE-505 a SE-516)
+
+- las clases `SE-505`–`SE-516` pasan de planificadas a clases completas sobre el asistente de *Avisos*: workflows frente a agentes, encadenado, enrutamiento y paralelización, orquestador-trabajadores y evaluador-optimizador, ReAct, plan-and-execute y reflexión, memoria, embeddings y recuperación, MCP y A2A, ejecución durable e idempotencia, evals y LLMOps, costo, latencia y seguridad, taller de selección y degradación, y proyecto con puerta de entrada
+- 36 figuras con experimentos ejecutados con la biblioteca estándar: modelo sintético con semilla fija y tasas declaradas, y código real para las herramientas, el enrutador, el verificador, los hilos, la recuperación sobre 835 fragmentos de las Partes 39 y 40, un servidor JSON-RPC por un proceso hijo, un diario SQLite con caídas inyectadas y un motor de política de capacidades; no se invocó ningún modelo de lenguaje ni se ejecutó ningún producto de terceros
+- `content/part-42/part.json` aporta 23 fuentes nuevas verificadas (Anthropic, MCP, A2A, JSON-RPC, Temporal, IETF, OWASP, OpenTelemetry y artículos de referencia)
+- los contadores pasan de 41 a 42 partes desarrolladas y de 492 a 504 clases; las Partes 41, 43 y 44 siguen planificadas y la revisión editorial humana independiente sigue pendiente
+
 ## 2026-11-16 — Parte 40 desarrollada con experimentos reales y simulaciones de metodologías de desarrollo (SE-481 a SE-492)
 
 - las clases `SE-481`–`SE-492` pasan de planificadas a clases completas sobre el núcleo de *Avisos*: mapa de metodologías, TDD (ciclo y escuelas), BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD, EDD, ODD, taller de cinco metodologías y política de equipo

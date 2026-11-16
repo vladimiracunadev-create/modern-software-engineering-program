@@ -123,7 +123,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40 (`SE-001`–`SE-492`), también tienen contenido desarrollado y
+de las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -137,6 +137,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-315 · Transacciones, aislamiento y concurrencia](../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md) | Parte 26 |
 | [SE-319 · Replicación, partición y distribución](../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/README.md) | Parte 26 |
 | [SE-320 · Cachés y consistencia entre capas](../classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/README.md) | Parte 26 |
+| [SE-505 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 42 |
+| [SE-510 · Embeddings, recuperación y agentic RAG](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) | Parte 42 |
+| [SE-516 · Proyecto: sistema con LLM evaluado y operable](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 42 |
 
 **Cómo recorrerla.** Empieza por [SE-328](../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/README.md) para fijar el
 primer mecanismo, usa [SE-378](../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md) para integrar el
@@ -146,14 +149,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40 (`SE-001`–`SE-492`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 41–44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 41, 43–44 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 41–44 (`SE-493`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> Las Partes 41, 43–44 (`SE-493`–`SE-504`, `SE-517`–`SE-540`) están **planificadas** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -161,7 +164,6 @@ no constituye competencia.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 42 · Patrones agénticos y sistemas con LLM** | `SE-505`–`SE-516` | Introduce ejecución durable, orquestación y coordinación entre agentes como casos de sistemas distribuidos con modelo de fallo propio. |
 | **Parte 43 · Patrones de diseño, empresariales y de resiliencia** | `SE-517`–`SE-528` | Sistematiza patrones de resiliencia y de integración (retry con jitter, circuit breaker, bulkhead) con condiciones de aplicación. |
 | **Parte 44 · Estilos arquitectónicos** | `SE-529`–`SE-540` | Compara estilos celulares, orientados a eventos y mallas con el modelo de consistencia que cada uno supone. |
 

@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-492 clases desarrolladas · 41 partes desarrolladas (`SE-001`–`SE-492`) · 48 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
+504 clases desarrolladas · 42 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-516`) · 36 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
 
 > [!WARNING]
-> Las Partes 00–40 (`SE-001`–`SE-492`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41–44 (`SE-493`–`SE-540`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41, 43–44 (`SE-493`–`SE-504`, `SE-517`–`SE-540`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 41 partes desarrolladas
+## Las 42 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -53,19 +53,19 @@
 | 38 | [Desarrollo de software asistido por IA](part-38-desarrollo-de-software-asistido-por-ia/README.md) | H | SE-457–SE-468 | `suite` |
 | 39 | [SPEC, agentes y ciclo de vida agentic](part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | H | SE-469–SE-480 | `suite` |
 | 40 | [Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-481–SE-492 | `suite` |
+| 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 
 ## Partes planificadas sin publicar
 
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
 | 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
-| 42 | Patrones agénticos y sistemas con LLM | SE-505–SE-516 | planificada, sin clases publicadas |
 | 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | planificada, sin clases publicadas |
 | 44 | Estilos arquitectónicos | SE-529–SE-540 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 492 clases desarrolladas
+## Índice plano de las 504 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -645,5 +645,19 @@ sin recorrer carpetas manualmente.
 - [SE-490 — ODD: desarrollo orgánico y su contraste con SDD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-490.html)
 - [SE-491 — Taller: un mismo cambio con cinco metodologías](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-491.html)
 - [SE-492 — Proyecto: política metodológica de equipo con evidencia](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-492.html)
+## [Parte 42 — Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md)
+
+- [SE-505 — Workflows frente a agentes: cuándo no usar un agente](part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-505.html)
+- [SE-506 — Encadenado, enrutamiento y paralelización](part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-506.html)
+- [SE-507 — Orquestador-trabajadores y evaluador-optimizador](part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-507.html)
+- [SE-508 — ReAct, plan-and-execute y reflexión](part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-508.html)
+- [SE-509 — Memoria y gestión de estado de agentes](part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-509.html)
+- [SE-510 — Embeddings, recuperación y agentic RAG](part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-510.html)
+- [SE-511 — Interoperabilidad entre agentes: MCP y A2A](part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-511.html)
+- [SE-512 — Ejecución durable, reintentos e idempotencia](part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-512.html)
+- [SE-513 — Evals y LLMOps de sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-513.html)
+- [SE-514 — Costo, latencia y seguridad en sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-514.html)
+- [SE-515 — Taller: elegir y degradar un patrón agéntico](part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-515.html)
+- [SE-516 — Proyecto: sistema con LLM evaluado y operable](part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-516.html)
 
 Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.

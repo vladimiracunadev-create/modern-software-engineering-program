@@ -791,18 +791,18 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 
 ### Parte 42 — Patrones agénticos y sistemas con LLM
 
-- [ ] `SE-505` — workflows frente a agentes: cuándo no usar un agente.
-- [ ] `SE-506` — encadenado, enrutamiento y paralelización.
-- [ ] `SE-507` — orquestador-trabajadores y evaluador-optimizador.
-- [ ] `SE-508` — reAct, plan-and-execute y reflexión.
-- [ ] `SE-509` — memoria y gestión de estado de agentes.
-- [ ] `SE-510` — embeddings, recuperación y agentic RAG.
-- [ ] `SE-511` — interoperabilidad entre agentes: MCP y A2A.
-- [ ] `SE-512` — ejecución durable, reintentos e idempotencia.
-- [ ] `SE-513` — evals y LLMOps de sistemas con LLM.
-- [ ] `SE-514` — costo, latencia y seguridad en sistemas con LLM.
-- [ ] `SE-515` — taller: elegir y degradar un patrón agéntico.
-- [ ] `SE-516` — proyecto: sistema con LLM evaluado y operable.
+- [x] `SE-505` — workflows frente a agentes: cuándo no usar un agente.
+- [x] `SE-506` — encadenado, enrutamiento y paralelización.
+- [x] `SE-507` — orquestador-trabajadores y evaluador-optimizador.
+- [x] `SE-508` — reAct, plan-and-execute y reflexión.
+- [x] `SE-509` — memoria y gestión de estado de agentes.
+- [x] `SE-510` — embeddings, recuperación y agentic RAG.
+- [x] `SE-511` — interoperabilidad entre agentes: MCP y A2A.
+- [x] `SE-512` — ejecución durable, reintentos e idempotencia.
+- [x] `SE-513` — evals y LLMOps de sistemas con LLM.
+- [x] `SE-514` — costo, latencia y seguridad en sistemas con LLM.
+- [x] `SE-515` — taller: elegir y degradar un patrón agéntico.
+- [x] `SE-516` — proyecto: sistema con LLM evaluado y operable.
 
 ### Parte 43 — Patrones de diseño, empresariales y de resiliencia
 

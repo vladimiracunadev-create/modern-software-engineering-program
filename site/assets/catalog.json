@@ -5412,6 +5412,138 @@
       "hours": 8,
       "phase": "futura",
       "url": "classes/SE-492.html"
+    },
+    {
+      "id": "SE-505",
+      "title": "Workflows frente a agentes: cuándo no usar un agente",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-505.html"
+    },
+    {
+      "id": "SE-506",
+      "title": "Encadenado, enrutamiento y paralelización",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-506.html"
+    },
+    {
+      "id": "SE-507",
+      "title": "Orquestador-trabajadores y evaluador-optimizador",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-507.html"
+    },
+    {
+      "id": "SE-508",
+      "title": "ReAct, plan-and-execute y reflexión",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-508.html"
+    },
+    {
+      "id": "SE-509",
+      "title": "Memoria y gestión de estado de agentes",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-509.html"
+    },
+    {
+      "id": "SE-510",
+      "title": "Embeddings, recuperación y agentic RAG",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-510.html"
+    },
+    {
+      "id": "SE-511",
+      "title": "Interoperabilidad entre agentes: MCP y A2A",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-511.html"
+    },
+    {
+      "id": "SE-512",
+      "title": "Ejecución durable, reintentos e idempotencia",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-512.html"
+    },
+    {
+      "id": "SE-513",
+      "title": "Evals y LLMOps de sistemas con LLM",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-513.html"
+    },
+    {
+      "id": "SE-514",
+      "title": "Costo, latencia y seguridad en sistemas con LLM",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-514.html"
+    },
+    {
+      "id": "SE-515",
+      "title": "Taller: elegir y degradar un patrón agéntico",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-515.html"
+    },
+    {
+      "id": "SE-516",
+      "title": "Proyecto: sistema con LLM evaluado y operable",
+      "part": "42",
+      "part_title": "Patrones agénticos y sistemas con LLM",
+      "stage": "H",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-516.html"
     }
   ]
 }

@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 41,
-  "class_count": 492,
-  "estimated_hours": 2214,
+  "part_count": 42,
+  "class_count": 504,
+  "estimated_hours": 2268,
   "planned_scope": {
     "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
     "part_count": 45,
@@ -29,13 +29,6 @@
         "title": "Harness y agentic engineering",
         "first_class": "SE-493",
         "last_class": "SE-504",
-        "status": "planned"
-      },
-      {
-        "id": "42",
-        "title": "Patrones agénticos y sistemas con LLM",
-        "first_class": "SE-505",
-        "last_class": "SE-516",
         "status": "planned"
       },
       {
@@ -4432,6 +4425,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia"
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Patrones agénticos y sistemas con LLM",
+      "owner": "suite",
+      "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm",
+      "lessons": [
+        {
+          "id": "SE-505",
+          "number": 505,
+          "title": "Workflows frente a agentes: cuándo no usar un agente",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente"
+        },
+        {
+          "id": "SE-506",
+          "number": 506,
+          "title": "Encadenado, enrutamiento y paralelización",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion"
+        },
+        {
+          "id": "SE-507",
+          "number": 507,
+          "title": "Orquestador-trabajadores y evaluador-optimizador",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador"
+        },
+        {
+          "id": "SE-508",
+          "number": 508,
+          "title": "ReAct, plan-and-execute y reflexión",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion"
+        },
+        {
+          "id": "SE-509",
+          "number": 509,
+          "title": "Memoria y gestión de estado de agentes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes"
+        },
+        {
+          "id": "SE-510",
+          "number": 510,
+          "title": "Embeddings, recuperación y agentic RAG",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag"
+        },
+        {
+          "id": "SE-511",
+          "number": 511,
+          "title": "Interoperabilidad entre agentes: MCP y A2A",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a"
+        },
+        {
+          "id": "SE-512",
+          "number": 512,
+          "title": "Ejecución durable, reintentos e idempotencia",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia"
+        },
+        {
+          "id": "SE-513",
+          "number": 513,
+          "title": "Evals y LLMOps de sistemas con LLM",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm"
+        },
+        {
+          "id": "SE-514",
+          "number": 514,
+          "title": "Costo, latencia y seguridad en sistemas con LLM",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm"
+        },
+        {
+          "id": "SE-515",
+          "number": 515,
+          "title": "Taller: elegir y degradar un patrón agéntico",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico"
+        },
+        {
+          "id": "SE-516",
+          "number": 516,
+          "title": "Proyecto: sistema con LLM evaluado y operable",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable"
         }
       ]
     }

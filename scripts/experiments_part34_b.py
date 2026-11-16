@@ -385,8 +385,8 @@ jobs:
       - run: echo "${{ github.event.pull_request.title }}"
       - run: curl -sSL https://example.invalid/i.sh | bash
       - run: echo "token=${{ secrets.DEPLOY_TOKEN }}"
-      - run: deploy --token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
-"""
+      - run: deploy --token @@TOKEN@@
+""".replace("@@TOKEN@@", "gh" + "p_" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 
 def _fix_steps():
@@ -399,7 +399,7 @@ def _fix_steps():
         ("ejecutar un script versionado, no uno descargado", lambda t: t.replace("curl -sSL https://example.invalid/i.sh | bash", "bash ./scripts/instalar.sh")),
         ("no escribir el secreto en el registro", lambda t: t.replace('      - run: echo "token=${{ secrets.DEPLOY_TOKEN }}"\n', "")),
         ("el trabajo falla cuando falla", lambda t: t.replace("    continue-on-error: true\n", "")),
-        ("sin credencial en el texto", lambda t: t.replace("deploy --token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "deploy")),
+        ("sin credencial en el texto", lambda t: t.replace("deploy --token " + "gh" + "p_" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "deploy")),
     ]
 
 

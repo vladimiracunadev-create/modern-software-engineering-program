@@ -118,10 +118,10 @@ jobs:
       - run: echo "${{ github.event.pull_request.title }}"
       - run: curl -sSL https://example.invalid/i.sh | bash
       - run: echo "token=${{ secrets.DEPLOY_TOKEN }}"
-      - run: deploy --token ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+      - run: deploy --token <TOKEN_EJEMPLO_CON_FORMA_DE_TOKEN_DE_GITHUB>
 ```
 
-El verificador encuentra 8 hallazgos. Se aplican ocho cambios, uno por vez, y tras cada uno se mide el verificador.
+En el código del experimento, el marcador `<TOKEN_EJEMPLO_CON_FORMA_DE_TOKEN_DE_GITHUB>` se sustituye en tiempo de ejecución por una cadena inventada con la forma de un token (se construye por partes para que los buscadores de secretos no la confundan con una credencial real). El verificador encuentra 8 hallazgos. Se aplican ocho cambios, uno por vez, y tras cada uno se mide el verificador.
 
 | Cambio aplicado | Hallazgos restantes |
 |---|---:|

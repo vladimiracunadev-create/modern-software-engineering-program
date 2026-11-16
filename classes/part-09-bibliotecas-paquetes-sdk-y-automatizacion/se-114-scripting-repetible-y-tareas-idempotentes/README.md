@@ -90,9 +90,9 @@ Se ejecutaron seis tareas tres veces seguidas. Añadir una línea a un archivo l
 
 La regla que se extrae no es «no hacer nada la segunda vez» sino «el estado final es el mismo». Las tareas que declaran el estado deseado («asegurar», «fijar», «crear si falta») se pueden repetir tras un fallo parcial; las que describen un cambio («añadir», «incrementar», «enviar») no, a menos que lleven una identidad (un identificador de operación) que permita saber si ya se aplicaron. Un script de automatización se diseña pensando en la ejecución interrumpida y repetida, no solo en la ejecución limpia.
 
-![Tabla con seis tareas ejecutadas tres veces: añadir línea crece, asegurar línea no, mkdir sin exist_ok falla, mkdir con exist_ok no, incrementar cambia y fijar un valor no.](../../../content/part-09/figures/se-114-idempotencia-de-tareas.svg)
+![Barras agrupadas del estado tras tres ejecuciones de cuatro tareas, dividido por el estado de la primera: añadir una línea e incrementar un contador crecen 1, 2 y 3 veces; asegurar la línea y fijar un valor se quedan en 1 en las tres ejecuciones.](../../../content/part-09/figures/se-114-idempotencia-de-tareas.svg)
 
-**Cómo leer la figura.** Mira cada fila en horizontal: si las tres columnas son iguales, la tarea es idempotente; si crecen o fallan, no. **Dónde deja de valer:** se midió estado de archivos locales; una tarea sobre un servicio remoto (crear un recurso, enviar un mensaje) necesita además identidad de operación, y su idempotencia depende del servicio.
+**Cómo leer la figura.** Cada grupo es una tarea y cada barra una ejecución; la longitud es el estado dividido por el que dejó la primera ejecución, así que la primera barra siempre vale 1. Una tarea idempotente tiene tres barras iguales; una que describe un cambio crece con cada repetición. Los valores absolutos (bytes o contador) van en el rótulo de cada grupo. **Dónde deja de valer:** se midió estado de archivos locales; una tarea sobre un servicio remoto (crear un recurso, enviar un mensaje) necesita además identidad de operación, y su idempotencia depende del servicio.
 
 ### Escritura atómica: nunca dejar un archivo a medias
 
@@ -100,9 +100,9 @@ Se simuló un proceso que muere (`os._exit`) tras escribir 2 000 bytes. Con la r
 
 El reemplazo (`os.replace`) tiene diferencias de plataforma importantes. Con el destino abierto por otro lector, Windows lanzó `PermissionError` (WinError 5) y Linux reemplazó sin error; borrar un archivo abierto también falló en Windows y funcionó en Linux. La receta completa: escribir el temporal en el mismo directorio, vaciar el búfer, reemplazar y, en Windows, reintentar con una espera acotada ante `PermissionError`; al arrancar, limpiar temporales huérfanos conocidos. La atomicidad ante un corte de energía requiere además `fsync`, que no se midió aquí.
 
-![Tabla con cuatro casos: reescritura directa con corte, escritura con temporal y reemplazo con corte, reemplazo con el destino abierto y borrado de un archivo abierto, en Windows y Linux.](../../../content/part-09/figures/se-114-escritura-atomica.svg)
+![Diagrama de dos estrategias de escritura con una muerte a mitad: reescribir con open en modo w deja un archivo de 2000 bytes con contenido a medias y pierde el original de 60 bytes; escribir en un temporal y morir antes de os.replace deja el original intacto y un temporal huérfano; en Windows os.replace y borrar con el destino abierto fallan con PermissionError.](../../../content/part-09/figures/se-114-escritura-atomica.svg)
 
-**Cómo leer la figura.** Compara las dos primeras filas: el mismo fallo, dos destinos distintos para el archivo. Las dos últimas son diferencias de plataforma. **Dónde deja de valer:** el corte fue una terminación abrupta del proceso, no un apagón; sin `fsync` el contenido puede perderse aunque `os.replace` haya sido atómico. En sistemas de archivos de red las garantías cambian.
+**Cómo leer la figura.** Cada carril es una secuencia de pasos de izquierda a derecha y la caja con ✖ es el instante de la muerte del proceso; la última caja es lo que queda en el destino. Compara los dos finales: el primero pierde el original y el segundo no. Las dos cajas inferiores son diferencias de plataforma, no del patrón. **Dónde deja de valer:** el corte fue una terminación abrupta del proceso, no un apagón; sin `fsync` el contenido puede perderse aunque `os.replace` haya sido atómico. En sistemas de archivos de red las garantías cambian.
 
 ### Actualización perdida: dos procesos, un contador
 

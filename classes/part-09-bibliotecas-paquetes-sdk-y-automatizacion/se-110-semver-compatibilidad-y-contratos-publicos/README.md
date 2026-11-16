@@ -89,9 +89,9 @@ SemVer 2.0.0 y PEP 440 se parecen lo bastante como para confundirse y difieren e
 
 La consecuencia es práctica: un SDK que publica en PyPI y usa números de SemVer con sufijos tiene dos sentidos de orden, el del autor y el del instalador. También se comprobó el error más común de quien compara a mano: ordenar `1.10.0`, `1.2.0` y `1.9.0` como cadenas da `1.10.0` primero; como versiones da `1.2.0`, `1.9.0`, `1.10.0`. La política es declarar el esquema, usar siempre un parser y no inventar comparaciones.
 
-![Tabla con siete comparaciones de versiones hechas con packaging: normalización de rc, igualdad de 1.0 y 1.0.0, post-releases, números en prereleases, metadatos de construcción y versiones inválidas.](../../../content/part-09/figures/se-110-versiones-pep440-y-semver.svg)
+![Diagrama del orden de PEP 440 medido con packaging: 1.0.0a2, 1.0.0a10, 1.0.0rc1 y 1.0.0 (igual a 1.0) de menor a mayor, con 1.0.0+build5 y 1.0.post1 por encima de 1.0.0, y aparte 1.0.0-alpha.beta inválida y 1.0.0-01 leída como post-release.](../../../content/part-09/figures/se-110-versiones-pep440-y-semver.svg)
 
-**Cómo leer la figura.** Cada fila es un par que un instalador compara por ti. La tercera columna es lo que cambiaría si pensaras en SemVer. **Dónde deja de valer:** las comparaciones corresponden a `packaging` 26.2 y a PEP 440; otro instalador (npm, Cargo) implementa su propio esquema. Una versión puede ser válida y aun así no comunicar nada si el autor no define qué es su API pública.
+**Cómo leer la figura.** La franja superior es una regla de menor a mayor: los tres primeros valores son prerrelease, el cuarto es la versión final y las dos cajas amarillas quedan por encima de `1.0.0`. La franja inferior reúne lo que no entra en el orden. Cada etiqueta gris dice qué regla de PEP 440 lo explica, y lo que cambiaría si pensaras en SemVer está en la nota inferior. **Dónde deja de valer:** las comparaciones corresponden a `packaging` 26.2 y a PEP 440; otro instalador (npm, Cargo) implementa su propio esquema. Una versión puede ser válida y aun así no comunicar nada si el autor no define qué es su API pública.
 
 ### Ocho cambios de firma frente a cinco formas de llamar
 
@@ -99,9 +99,9 @@ Se partió de `f(a, b, *, timeout=10)` y se aplicaron ocho cambios de firma, pro
 
 Dos cambios no produjeron ningún error y cambiaron el resultado de `f(1, 2)`: reordenar `a, b` a `b, a` (devuelve la tupla con los valores intercambiados) y cambiar el valor por defecto de `timeout` de 10 a 0. Son los cambios más peligrosos porque ninguna herramienta que mire «¿compila?» o «¿la llamada funciona?» los ve. Por eso una política de compatibilidad define además qué parámetros son posicionales o por nombre (`/` y `*`), y las pruebas de contrato ejercen cada forma de llamada documentada.
 
-![Matriz de ocho cambios sobre una función frente a cinco llamadas, con celdas ok, TypeError y la indicación de si el resultado de f(1, 2) es igual o distinto.](../../../content/part-09/figures/se-110-cambios-de-firma.svg)
+![Mapa de calor de ocho cambios sobre una función frente a cuatro formas de llamar: las celdas oscuras son TypeError y las claras son ok; añadir un parámetro obligatorio rompe las cuatro llamadas, renombrar b rompe las dos que lo nombran, y reordenar o cambiar el valor por defecto no rompen ninguna pero cambian el resultado (celdas con contorno).](../../../content/part-09/figures/se-110-cambios-de-firma.svg)
 
-**Cómo leer la figura.** Recorre una fila: cada celda es una forma de llamar que un consumidor real podría usar. Las últimas dos columnas distinguen error de cambio silencioso. **Dónde deja de valer:** son ocho cambios elegidos; no cubren cambios de tipo de los argumentos ni de lo que devuelve la función. Una firma compatible no garantiza un contrato compatible, como muestra la sección siguiente.
+**Cómo leer la figura.** Cada fila es un cambio de firma y cada columna una forma de llamar que un consumidor real podría usar; el color oscuro es `TypeError` y el claro es una llamada que funciona. Recorre una fila para ver qué consumidores rompe. Las celdas con contorno son las peligrosas: la llamada funciona y devuelve otro valor, de modo que ningún error avisa. **Dónde deja de valer:** son ocho cambios elegidos; no cubren cambios de tipo de los argumentos ni de lo que devuelve la función. Una firma compatible no garantiza un contrato compatible, como muestra la sección siguiente.
 
 ### Misma firma, otro contrato
 

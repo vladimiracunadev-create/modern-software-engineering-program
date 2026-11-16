@@ -91,9 +91,9 @@ Los plugins se descubren por metadatos (`importlib.metadata.entry_points(group=.
 
 Lo que sí escala es la carga ansiosa. Cargar los 50 plugins ligeros costó 27,9 ms en Windows y 4,6 en Linux; cargar 50 que importan siete módulos de la biblioteca estándar cada uno costó 277,4 y 51,0 ms, aunque el programa solo use uno. La carga perezosa (cargar el plugin solicitado por nombre) paga solo ese costo. Por eso un host que quiera arrancar rápido separa el catálogo (nombres y metadatos, barato) de la activación (código, caro) y la dispara por uso.
 
-![Tabla con el costo de descubrir y de cargar 0, 10 y 50 plugins, ligeros y pesados, en Windows y Linux.](../../../content/part-09/figures/se-115-descubrir-y-cargar.svg)
+![Barras horizontales con el tiempo de descubrir y de cargar 0, 10 y 50 plugins ligeros y 50 que importan siete módulos, en Windows y Linux: descubrir queda en torno a 102 a 125 ms en Windows y 6 a 11 ms en Linux sin depender del número, y cargar los 50 pesados llega a 277,4 y 51,0 ms.](../../../content/part-09/figures/se-115-descubrir-y-cargar.svg)
 
-**Cómo leer la figura.** Compara las dos columnas de descubrimiento (casi planas) con las de carga (crecen con la cantidad y con el peso). **Dónde deja de valer:** son distribuciones sintéticas en un directorio temporal añadido a `sys.path`; en un entorno real el recorrido de metadatos crece con el total de paquetes instalados, no solo con los plugins, y un plugin real puede abrir conexiones o procesos al cargarse.
+**Cómo leer la figura.** Cada grupo es un escenario y las cuatro barras son descubrir y cargar en las dos plataformas, con el mismo eje de milisegundos. Compara las barras de descubrimiento (casi iguales en los cuatro grupos) con las de carga (crecen con la cantidad y con el peso de lo que importan los plugins); «—» es que con cero plugins no hay nada que cargar. **Dónde deja de valer:** son distribuciones sintéticas en un directorio temporal añadido a `sys.path`; en un entorno real el recorrido de metadatos crece con el total de paquetes instalados, no solo con los plugins, y un plugin real puede abrir conexiones o procesos al cargarse.
 
 ### Cinco formas de fallar de un plugin, con y sin aislamiento
 
@@ -101,9 +101,9 @@ Se escribieron plugins que fallan de cinco maneras y un host sin protección y o
 
 El plugin que se cuelga (esperaba 30 s) es distinto: `try/except` no lo detiene. Se ejecutó en un subproceso con `timeout=1.0` y `subprocess.TimeoutExpired` saltó a 1,0 s. La enseñanza es una escala: capturar excepciones aísla errores, validar resultados aísla contratos rotos, y solo otro proceso con límite de tiempo (y, si hace falta, de memoria) aísla el consumo y el cuelgue. Cuanto más aislado, más costosa la comunicación; es una decisión de confianza: un plugin de la misma organización no se trata como uno de un tercero.
 
-![Tabla con cinco fallos de plugin (ImportError, excepción, tipo equivocado, cuelgue y plugins sanos) y el resultado con y sin aislamiento.](../../../content/part-09/figures/se-115-aislamiento-de-fallos.svg)
+![Diagrama de capas de aislamiento: un subproceso con timeout de 1,0 s envuelve un bloque try/except con validación del resultado, que envuelve al plugin; ImportError, RuntimeError y el tipo equivocado los corta el try/except y el cuelgue de 30 s lo corta el timeout, y a la derecha lo que pasa sin aislamiento.](../../../content/part-09/figures/se-115-aislamiento-de-fallos.svg)
 
-**Cómo leer la figura.** Lee cada fila de izquierda a derecha: el fallo, lo que pasa si el host no se protege y lo que pasa si lo hace. La cuarta fila es la única que exige un proceso aparte. **Dónde deja de valer:** el aislamiento por subproceso se midió con un plugin que duerme; un plugin malicioso puede leer el entorno, escribir en disco o consumir memoria, y para eso hace falta un sandbox real, que no se evaluó.
+**Cómo leer la figura.** Las capas anidadas son las defensas del anfitrión; cada caja dice qué fallo corta esa capa. A la derecha, en coral, lo que ocurriría sin ellas. Mira que el cuelgue está fuera del bloque `try/except`: solo lo alcanza el proceso aparte con límite de tiempo. **Dónde deja de valer:** el aislamiento por subproceso se midió con un plugin que duerme; un plugin malicioso puede leer el entorno, escribir en disco o consumir memoria, y para eso hace falta un sandbox real, que no se evaluó.
 
 ### Orden de carga y versión de la API
 
@@ -111,9 +111,9 @@ El mismo código y los mismos plugins devolvieron un orden distinto: `entry_poin
 
 La versión de la API es la otra mitad del contrato. Con un host en la versión mayor 2, un plugin que declara 1 o 3 se rechazó y los que declaran 2 o 2.5 se aceptaron, con una regla simple de «misma versión mayor». El host debe ordenar de forma explícita (por prioridad y nombre), validar la versión antes de cargar y decir por qué rechaza un plugin. Un mensaje que nombra el plugin, su versión declarada y la versión soportada convierte un fallo misterioso en un trámite.
 
-![Tabla con el orden de entry_points en Windows y Linux, el efecto del orden al componer dos transformaciones, y la negociación de versión mayor de la API.](../../../content/part-09/figures/se-115-orden-y-version-de-api.svg)
+![Diagrama de tres comprobaciones de plugins: entry_points devuelve el orden alfabético en Windows y plug5, plug3, plug4, plug0, plug1, plug2 en Linux; componer por 2 y sumar 3 con x = 5 da 13 y en el otro orden da 16; con la API del anfitrión en 2, se aceptan los plugins que declaran 2 o 2.5 y se rechazan 1 y 3.](../../../content/part-09/figures/se-115-orden-y-version-de-api.svg)
 
-**Cómo leer la figura.** La primera fila es el hallazgo: el mismo código, dos órdenes. Las dos siguientes muestran por qué importa. **Dónde deja de valer:** el orden de Linux es el del sistema de archivos del directorio temporal y puede variar entre sistemas o ejecuciones; no se afirma que sea aleatorio sino que no está garantizado. La regla de «misma mayor» es un ejemplo; SemVer para APIs de plugin puede requerir rangos.
+**Cómo leer la figura.** El primer panel compara dos órdenes de carga del mismo código; el segundo muestra con una cuenta por qué importa (dos caminos desde `x = 5` que terminan en 13 y 16); el tercero es una recta de versiones de la API con lo que el anfitrión acepta y rechaza. Lo importante del primero es que el orden de Linux no está garantizado, no que sea aleatorio. **Dónde deja de valer:** el orden de Linux es el del sistema de archivos del directorio temporal y puede variar entre sistemas o ejecuciones; no se afirma que sea aleatorio sino que no está garantizado. La regla de «misma mayor» es un ejemplo; SemVer para APIs de plugin puede requerir rangos.
 
 ## Definiciones de trabajo
 

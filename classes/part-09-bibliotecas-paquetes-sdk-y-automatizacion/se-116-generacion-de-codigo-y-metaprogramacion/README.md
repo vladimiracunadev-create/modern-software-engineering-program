@@ -90,9 +90,9 @@ Se escribió un generador de clases a partir de un esquema y se comprobaron sus 
 
 La verificación operativa es simple: en CI se regenera y se ejecuta `git diff --exit-code`; si hay diferencia, alguien editó lo generado o cambió el esquema sin regenerar. Para que eso funcione, el generador no puede depender del reloj, del orden de un diccionario sin ordenar, de rutas absolutas ni del nombre de la máquina. Y lo generado debe llevar un encabezado que diga que no se edite y de qué esquema proviene.
 
-![Tabla con cinco comprobaciones sobre un generador de código: determinismo, independencia del orden del esquema, efecto de una marca de tiempo, detección de edición manual y validación de sintaxis con ast.](../../../content/part-09/figures/se-116-generacion-determinista.svg)
+![Diagrama de cuatro variaciones de un generador de clases frente al SHA-256 de la salida: generar dos veces y cambiar el orden de las claves dan el mismo hash; una marca de tiempo da uno distinto cada vez y una edición manual da uno distinto del regenerado, y regenerar y comparar detecta la deriva; ast.parse valida la sintaxis con 43 nodos.](../../../content/part-09/figures/se-116-generacion-determinista.svg)
 
-**Cómo leer la figura.** Cada fila es una propiedad que el generador debe cumplir y que se puede probar sin ejecutar lo generado. **Dónde deja de valer:** el generador es de cincuenta líneas y escribe una sola forma de clase; uno real también formatea, importa tipos y maneja versiones del esquema. Un formateador que cambie de versión (black, ruff) puede alterar el hash aunque el generador no cambie.
+**Cómo leer la figura.** Cada flecha va de una variación de la entrada al SHA-256 que produce: las dos de arriba conservan el hash y las dos de abajo lo cambian. La columna derecha es la consecuencia práctica. Un hash estable es lo que permite que una comprobación de CI regenere y compare. **Dónde deja de valer:** el generador es de cincuenta líneas y escribe una sola forma de clase; uno real también formatea, importa tipos y maneja versiones del esquema. Un formateador que cambie de versión (black, ruff) puede alterar el hash aunque el generador no cambie.
 
 ### El costo del dinamismo: leer un atributo y crear clases
 
@@ -110,9 +110,9 @@ Una plantilla que inserta un valor entre comillas (`NAME = "{v}"`) con un valor 
 
 Los nombres necesitan su propia defensa. `str.isidentifier()` y la lista de `keyword` aceptaron `valido` y `ok_1` y rechazaron `class`, `2x`, `a b` y `a;b`. La política es validar los nombres que vienen del esquema antes de interpolar, escapar los valores con `repr` o serializarlos con `json.dumps`, analizar la salida con `ast` antes de escribirla, y no usar `exec` o `eval` sobre texto de origen no confiable: no hay arreglo posible. La metaprogramación es una herramienta con superficie de ataque; el generador se revisa como código de producción.
 
-![Tabla con cuatro comprobaciones: plantilla sin escapar que produce Import y Call, la misma plantilla con repr sin nodos nuevos, identificadores válidos y rechazo de class, 2x, a b y a;b.](../../../content/part-09/figures/se-116-inyeccion-en-plantillas.svg)
+![Diagrama de dos canalizaciones con un valor hostil: en la plantilla sin escapar el análisis con ast encuentra 1 Import y 1 Call y el dato se convirtió en código; con repr encuentra 0 Import y 0 Call; debajo, los identificadores valido y ok_1 se aceptan y class, 2x, a b y a;b se rechazan antes de generar.](../../../content/part-09/figures/se-116-inyeccion-en-plantillas.svg)
 
-**Cómo leer la figura.** Las dos primeras filas son el mismo dato con y sin escape; las dos últimas muestran la validación de nombres. **Dónde deja de valer:** se analizó una cadena sintética inocua y no se ejecutó nada; una inyección real puede explotar contextos distintos (comentarios, f-strings, SQL, HTML) que cada uno exige su propio escape.
+**Cómo leer la figura.** Las dos filas siguen el mismo valor hostil por tres pasos; la diferencia está en el segundo, interpolar tal cual o con `repr`, y se ve en el recuento de nodos del tercero. La franja inferior es la segunda defensa: validar nombres antes de usarlos como identificadores. **Dónde deja de valer:** se analizó una cadena sintética inocua y no se ejecutó nada; una inyección real puede explotar contextos distintos (comentarios, f-strings, SQL, HTML) que cada uno exige su propio escape.
 
 ## Definiciones de trabajo
 

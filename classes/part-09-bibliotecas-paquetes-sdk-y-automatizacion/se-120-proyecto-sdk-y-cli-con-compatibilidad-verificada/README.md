@@ -91,9 +91,9 @@ El proyecto necesita demostrar compatibilidad entre versiones con algo más que 
 
 Las pruebas detectaron los cambios de comportamiento que la firma no ve: el desempate (M4), el tipo devuelto (M8), el valor por defecto de `limit` (M9) y, con fixtures frescas, la mutación de la entrada (M5). Cada detector falló donde el otro acertó: solo el comparador vio M3 (el renombre de un parámetro que las pruebas pasaban por posición), M7 y el control M1; solo las pruebas vieron M4 y M8; ambos vieron cinco; ninguno vio M11, el cambio del texto de un error. Con fixtures compartidas, tampoco M5: la primera prueba ordenó la lista en sitio y la prueba de no mutación leyó una lista ya ordenada.
 
-![Tabla con doce mutantes de un SDK de ejemplo, la clasificación del comparador de API y el número de pruebas de contrato que fallan con fixtures compartidas y frescas.](../../../content/part-09/figures/se-120-detectores-de-incompatibilidad.svg)
+![Diagrama de conjuntos de doce cambios a un SDK: la comparación de API y las pruebas de contrato ven cinco a la vez, solo la comparación ve M3, M7 y el control M1, solo las pruebas ven M4 y M8, M5 solo lo ve una prueba con fixtures frescas y M11 no lo ve ninguno.](../../../content/part-09/figures/se-120-detectores-de-incompatibilidad.svg)
 
-**Cómo leer la figura.** Lee cada fila como un cambio que un colaborador, o un agente, podría hacer. Las filas con «—» y cero en las dos últimas columnas son las ciegas del sistema. **Dónde deja de valer:** son doce mutantes de un SDK de doce líneas; no cubren concurrencia, rendimiento ni dependencias. Que el conjunto detecte diez de once cambios no implica que detecte esa proporción de los cambios reales.
+**Cómo leer la figura.** Las tres columnas superiores son quién detecta cada cambio: la comparación de API sola, las dos a la vez y las pruebas de contrato solas; el número junto a cada mutante es cuántas pruebas fallan. Las dos cajas de abajo son los casos ciegos: M5 solo con fixtures frescas y M11, que ningún detector ve. **Dónde deja de valer:** son doce mutantes de un SDK de doce líneas; no cubren concurrencia, rendimiento ni dependencias. Que el conjunto detecte diez de once cambios no implica que detecte esa proporción de los cambios reales.
 
 ### Salida de la CLI como archivo de referencia: los bytes, no el texto
 
@@ -101,9 +101,9 @@ La CLI del proyecto es parte del contrato, y su salida con `--json` se prueba co
 
 Un archivo de referencia comparado sin fijar codificación y salto de línea hace que la misma prueba pase en Linux y falle en Windows, y el fallo parece un defecto del SDK cuando es un detalle de plataforma. Dos decisiones lo evitan: el programa fija sus bytes de salida (UTF-8, LF, claves ordenadas), y la prueba compara bytes, no cadenas decodificadas. Además, el formato `--json` lleva una versión de esquema propia, para que cambiarlo sea un cambio de versión mayor documentado y no una sorpresa.
 
-![Tabla con la salida de una CLI en cuatro configuraciones: Windows por defecto (43 bytes, 2 CRLF), Windows con codificación y salto de línea fijados, Linux por defecto y Linux con la misma configuración, con sus SHA-256 abreviados.](../../../content/part-09/figures/se-120-salida-golden.svg)
+![Diagrama de cómo la salida de una CLI pasa de 42 a 43 bytes en Windows por defecto: base de 42 bytes con LF y UTF-8, más 2 bytes por dos saltos CRLF, menos 1 byte porque la ñ ocupa 1 byte en cp1252, con SHA-256 distinto; con la configuración fijada y en Linux el resultado es de 42 bytes con el mismo SHA-256.](../../../content/part-09/figures/se-120-salida-golden.svg)
 
-**Cómo leer la figura.** Mira la columna de bytes y la de CRLF: solo la primera fila difiere. La conclusión es que el contrato debe fijar los bytes. **Dónde deja de valer:** es una salida de dos líneas; una CLI real con tablas, colores o anchos de terminal necesita desactivarlos en modo máquina. No se midió macOS ni consolas con otra página de códigos.
+**Cómo leer la figura.** La cadena superior es la aritmética de bytes de Windows por defecto: parte de la salida de Linux y suma o resta lo que cambia cada configuración hasta un hash distinto. Las dos cajas inferiores son las configuraciones que se quedan en 42 bytes. La conclusión es que el contrato debe fijar los bytes, no el texto. **Dónde deja de valer:** es una salida de dos líneas; una CLI real con tablas, colores o anchos de terminal necesita desactivarlos en modo máquina. No se midió macOS ni consolas con otra página de códigos.
 
 ### Compilaciones reproducibles: mismo código, mismo hash
 
@@ -111,9 +111,9 @@ El release del SDK necesita un hash estable. Se construyó dos veces la misma ru
 
 Entre plataformas siguieron siendo distintos: los permisos guardados en la rueda (`external_attr`) eran `0o100666` en Windows y `0o100644` en Linux. La reproducibilidad exige fijar las entradas: fecha, versión de las herramientas y plataforma. Esta medición logró reproducibilidad dentro de cada plataforma, no entre ellas, y por eso la evidencia del release debe registrar dónde se construyó y declarar que el hash es válido para ese entorno. El hash prueba integridad, no ausencia de defectos.
 
-![Tabla con los hashes de la misma rueda construida dos veces en Windows y Linux, con y sin SOURCE_DATE_EPOCH, y los permisos guardados en el archivo.](../../../content/part-09/figures/se-120-compilaciones-reproducibles.svg)
+![Diagrama de hashes de una rueda construida dos veces en Windows y en Linux: sin SOURCE_DATE_EPOCH los dos hashes de cada sistema difieren; con la variable cada sistema repite el suyo; entre sistemas difieren porque los permisos guardados son 0o100666 en Windows y 0o100644 en Linux.](../../../content/part-09/figures/se-120-compilaciones-reproducibles.svg)
 
-**Cómo leer la figura.** Compara primero las filas 1 y 2 (misma plataforma, con y sin la variable), luego la 3 (entre plataformas). **Dónde deja de valer:** el proyecto era de un módulo, con setuptools y sin extensiones compiladas; una rueda con código compilado depende además del compilador y su versión. Los hashes cambian si cambia la versión de setuptools o de `wheel`.
+**Cómo leer la figura.** Las dos columnas son plataformas y los símbolos entre hashes son la comparación: `≠` entre dos construcciones sin la variable, `=` con ella. La última franja compara las plataformas entre sí y la causa está en la fila de permisos. Mira primero que fijar la fecha basta dentro de una plataforma y después que no basta entre plataformas. **Dónde deja de valer:** el proyecto era de un módulo, con setuptools y sin extensiones compiladas; una rueda con código compilado depende además del compilador y su versión. Los hashes cambian si cambia la versión de setuptools o de `wheel`.
 
 ## Definiciones de trabajo
 

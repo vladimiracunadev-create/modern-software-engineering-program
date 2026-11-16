@@ -90,9 +90,9 @@ Un resolutor no suma dependencias: busca un conjunto de versiones que satisfaga 
 
 Además, `graphlib` ordenó el resultado como `core, libA, libB, app` (las dependencias antes de quien las usa) y detectó el ciclo `app → core → libA → app` con `CycleError`. Estos conteos son del juguete, no de pip, pero muestran lo esencial: la «versión más nueva de todo» puede no existir como conjunto, la solución depende del orden de exploración y un ciclo se detecta y se rechaza, no se resuelve.
 
-![Tabla con cinco casos de un resolutor de juguete: sin retroceso no hay solución, con retroceso se encuentra libA 1.0 y core 1.0, un índice sin solución termina, y graphlib ordena y detecta el ciclo.](../../../content/part-09/figures/se-111-resolutor-con-retroceso.svg)
+![Diagrama de dependencias de un índice de cuatro paquetes: app depende de libA 2.0, que pide core 2 o mayor, y de libB, que pide core menor que 2, así que ninguna versión de core cumple ambas; debajo, tres búsquedas (sin solución, con retroceso con 15 candidatos y sin combinación válida) y el orden de instalación core, libA, libB, app frente al ciclo.](../../../content/part-09/figures/se-111-resolutor-con-retroceso.svg)
 
-**Cómo leer la figura.** Compara la primera y la segunda fila: el mismo índice, con y sin retroceso. La última columna cuenta lo que cuesta cada estrategia. **Dónde deja de valer:** el índice es de cuatro paquetes y sin rangos complejos; los resolutores reales (como el de pip, basado en `resolvelib`) también deben tratar extras, marcadores de entorno y versiones yanked, y su complejidad en el peor caso puede crecer exponencialmente.
+**Cómo leer la figura.** El árbol de arriba es el conflicto: dos ramas piden a `core` rangos que no se tocan. Las tres cajas del medio son lo que hace cada estrategia con el índice y cuántos candidatos evalúa; las dos de abajo son el orden de instalación que sigue de un grafo sin ciclos y el error de uno con ciclo. **Dónde deja de valer:** el índice es de cuatro paquetes y sin rangos complejos; los resolutores reales (como el de pip, basado en `resolvelib`) también deben tratar extras, marcadores de entorno y versiones yanked, y su complejidad en el peor caso puede crecer exponencialmente.
 
 ### pip resuelve sobre ruedas locales: lo que cambia sin tocar tu código
 
@@ -100,9 +100,9 @@ Con ruedas hechas a mano en un directorio local y `pip install --dry-run --no-in
 
 El último caso importa más que el resto: tras publicar `coreX 3.1` en el directorio, la misma orden `pip install libaX` pasó a elegir `coreX 3.1`. Nada en tu proyecto cambió y la instalación es otra. Eso es lo que significa «dependencia sin fijar»: el resultado depende del estado del índice en el momento de instalar. Mismos resultados en Windows (pip 24.3.1) y Linux (pip 24.0).
 
-![Tabla con cinco órdenes de pip sobre ruedas locales y lo que habría instalado cada una, incluido un conflicto sin solución y el cambio de resultado tras publicarse una versión nueva.](../../../content/part-09/figures/se-111-pip-resuelve.svg)
+![Líneas de versiones de coreX para cinco órdenes de pip con dry-run: la barra es el rango permitido y la marca oscura la versión elegida; libaX instala coreX 3.0, libbX baja a coreX 1.0, la combinación retrocede a libaX 1.0, libbX con coreX 3 o mayor deja dos rangos disjuntos y falla, y tras publicar coreX 3.1 se elige 3.1.](../../../content/part-09/figures/se-111-pip-resuelve.svg)
 
-**Cómo leer la figura.** Lee la columna central como lo que pip decidió y la tercera como el porqué. Las filas tercera y quinta son las que sorprenden. **Dónde deja de valer:** el índice era un directorio local con nueve ruedas; un índice real tiene miles de versiones, ruedas por plataforma y metadatos que pueden estar mal declarados. En Linux se usó el intérprete del sistema con `--dry-run` y `PIP_BREAK_SYSTEM_PACKAGES` (PEP 668); no se instaló nada.
+**Cómo leer la figura.** Cada carril es una orden de `pip install`; la barra coloreada es el rango de `coreX` que satisface todas las restricciones y la marca oscura es la versión que pip elige, la más nueva dentro del rango. Mira el cuarto carril, donde los dos rangos no se tocan y no hay elección posible, y el quinto, donde la misma orden que el primero elige otra versión solo porque se publicó 3.1. **Dónde deja de valer:** el índice era un directorio local con nueve ruedas; un índice real tiene miles de versiones, ruedas por plataforma y metadatos que pueden estar mal declarados. En Linux se usó el intérprete del sistema con `--dry-run` y `PIP_BREAK_SYSTEM_PACKAGES` (PEP 668); no se instaló nada.
 
 ### Fijar con hashes: aceptar bytes, no nombres
 
@@ -110,9 +110,9 @@ Un archivo de requisitos con `==` y `--hash=sha256:...` cambia el criterio de ac
 
 Qué prueba y qué no: el hash demuestra que los bytes son los que alguien revisó, no que sean seguros ni que la dependencia transitiva sea la deseada (por eso el archivo debe incluir todas las transitivas). La reproducibilidad no está en la orden de instalación sino en el archivo que la fija; y el archivo debe regenerarse deliberadamente cuando se quiere actualizar, con revisión del diff. Resultados idénticos en Windows y Linux.
 
-![Tabla con cuatro casos de pip --require-hashes: hash correcto se acepta, rueda alterada se rechaza con salida 1, requisito sin fijar se rechaza y sin fijar se instala la versión nueva.](../../../content/part-09/figures/se-111-hashes-y-fijacion.svg)
+![Árbol de decisión de pip con la opción de exigir hashes: sin versión fijada con == sale con error 1; fijado con el hash correcto se acepta con salida 0; con un byte alterado se rechaza con salida 1 y muestra Expected y Got; sin la opción y sin fijar se instala la versión nueva del índice.](../../../content/part-09/figures/se-111-hashes-y-fijacion.svg)
 
-**Cómo leer la figura.** Cada fila es una variación de un mismo archivo de requisitos. La columna central incluye el código de salida porque es lo que mira la integración continua. **Dónde deja de valer:** la alteración fue de un byte en una rueda local; un ataque real puede ocurrir antes de que calcules el hash. Fijar hashes tampoco sustituye auditar las dependencias ni vigilar avisos de seguridad.
+**Cómo leer la figura.** Lee el diagrama de izquierda a derecha como las dos preguntas que hace pip: ¿está fijado con `==`? y ¿coincide el SHA-256? Cada salida es un código de salida, que es lo que mira la integración continua. La caja amarilla es el caso sin la opción, en el que nada protege contra una versión nueva. **Dónde deja de valer:** la alteración fue de un byte en una rueda local; un ataque real puede ocurrir antes de que calcules el hash. Fijar hashes tampoco sustituye auditar las dependencias ni vigilar avisos de seguridad.
 
 ## Definiciones de trabajo
 

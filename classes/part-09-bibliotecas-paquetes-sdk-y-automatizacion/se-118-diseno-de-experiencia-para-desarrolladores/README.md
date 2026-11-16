@@ -100,9 +100,9 @@ Un error es la parte de la interfaz que el usuario ve cuando algo salió mal. Se
 
 La regla es que el error de la frontera diga qué ocurrió, por qué y cómo arreglarlo, en el vocabulario del usuario y no en el de la implementación. `from None` oculta la excepción original: bueno para quien usa el SDK, malo para quien lo depura, así que conviene conservar la cadena en un modo de depuración o en un registro. Un atributo estructurado en la excepción (qué clave faltó) permite al consumidor reaccionar sin analizar texto.
 
-![Tabla con cuatro errores: KeyError crudo, excepción propia con causa y solución, pila profunda sin envolver y la misma pila envuelta, con líneas de traceback y si dicen cómo arreglarlo.](../../../content/part-09/figures/se-118-calidad-del-error.svg)
+![Barras horizontales con las líneas de traceback de cuatro errores: KeyError crudo 8 líneas sin acción, excepción propia con causa y arreglo 8 líneas con acción, pila de tres funciones sin envolver 20 líneas sin acción y la misma pila con raise from None 8 líneas con acción.](../../../content/part-09/figures/se-118-calidad-del-error.svg)
 
-**Cómo leer la figura.** Observa la columna de líneas y la última: el error útil es corto y con acción. **Dónde deja de valer:** el conteo de líneas es del traceback de Python 3.12 con tres funciones; una pila real con bibliotecas es más profunda. La calidad de un mensaje también depende del idioma y del nivel del lector, algo que esta medición no evalúa.
+**Cómo leer la figura.** Cada barra es un error y su largo son las líneas de traceback; el color dice si el mensaje final indica cómo arreglarlo (verde azulado) o no (coral). El error útil es corto y con acción; el envuelto baja la pila de 20 a 8 líneas y cambia el color. **Dónde deja de valer:** el conteo de líneas es del traceback de Python 3.12 con tres funciones; una pila real con bibliotecas es más profunda. La calidad de un mensaje también depende del idioma y del nivel del lector, algo que esta medición no evalúa.
 
 ### Avisos de obsolescencia: quién los ve
 
@@ -110,9 +110,9 @@ Una función obsoleta emite `DeprecationWarning`, y por defecto Python solo lo m
 
 La consecuencia es que un SDK que deprecia con un `DeprecationWarning` y espera que los usuarios se enteren, probablemente esperará en vano: casi todo el código real llama desde módulos. La práctica es usar `stacklevel=2` para que el aviso apunte al llamador, documentar el plazo y la alternativa en el mensaje, ejecutar la propia integración continua con `-W error`, y recomendar a los consumidores hacer lo mismo en sus pruebas. Una política de depreciación escrita (cuántas versiones, qué aviso) forma parte del contrato.
 
-![Tabla con cuatro ejecuciones de una función obsoleta: llamada desde el script principal, desde un módulo, con -W default y con -W error, con el código de salida y si el aviso fue visible.](../../../content/part-09/figures/se-118-avisos-de-obsolescencia.svg)
+![Diagrama del filtro de avisos de Python para una función obsoleta: con la configuración por defecto el aviso se ve desde el script principal y se silencia desde un módulo de la aplicación; con -W default se ve siempre y con -W error se convierte en excepción y la salida es 1.](../../../content/part-09/figures/se-118-avisos-de-obsolescencia.svg)
 
-**Cómo leer la figura.** La segunda fila es la importante: el aviso existe y nadie lo ve. Las otras dos muestran cómo hacerlo visible. **Dónde deja de valer:** el filtro por defecto cambió entre versiones de Python y marcos de prueba como `unittest` o pytest lo activan por su cuenta; lo medido es `python script.py` en 3.12. Una obsolescencia seria también se comunica en el registro de cambios y en la documentación.
+**Cómo leer la figura.** La función emite el aviso y dos filtros deciden qué ocurre: el de Python por defecto (izquierda) y los que elige el consumidor (derecha). La caja coral es la importante: el aviso existe y nadie lo ve. Las otras tres muestran cuándo se ve y cómo se vuelve un error. **Dónde deja de valer:** el filtro por defecto cambió entre versiones de Python y marcos de prueba como `unittest` o pytest lo activan por su cuenta; lo medido es `python script.py` en 3.12. Una obsolescencia seria también se comunica en el registro de cambios y en la documentación.
 
 ## Definiciones de trabajo
 

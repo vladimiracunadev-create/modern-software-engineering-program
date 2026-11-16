@@ -100,9 +100,9 @@ Se escribió un validador mínimo (identificadores conocidos, `AND`, `OR`, `WITH
 
 La utilidad está en el rechazo: una gramática detecta lo que un lector humano «entiende» pero una herramienta no puede usar. Su límite es igual de importante: que una expresión sea válida no dice si las licencias son compatibles entre sí, si el uso previsto las respeta ni si el archivo realmente está bajo ella. Esas son decisiones legales y de procedencia; esta clase enseña a hacer la información comprobable, no a dar asesoría jurídica.
 
-![Tabla con doce expresiones de licencia y el veredicto de un validador mínimo: seis válidas y seis inválidas con la razón de cada rechazo.](../../../content/part-09/figures/se-117-expresiones-spdx.svg)
+![Diagrama de la gramática de un validador mínimo de expresiones SPDX: seis expresiones válidas (MIT, MIT OR Apache-2.0, GPL-2.0-only WITH Classpath-exception-2.0, MIT AND (BSD-3-Clause OR Apache-2.0), Apache-2.0+ y LicenseRef-propietaria) y seis inválidas, cada una agrupada bajo la regla que rompe: operador, identificador, ambigüedad, operando, paréntesis y espacio.](../../../content/part-09/figures/se-117-expresiones-spdx.svg)
 
-**Cómo leer la figura.** Cada fila es una cadena que podría aparecer en un campo de licencia; la segunda columna dice por qué se acepta o se rechaza. **Dónde deja de valer:** el validador conoce 24 identificadores, no los más de seiscientos de SPDX, y no aplica las reglas de excepciones ni de identificadores obsoletos. No es asesoría legal.
+**Cómo leer la figura.** La franja verde son las seis cadenas que cumplen la gramática y las seis columnas inferiores son las que no, agrupadas por la regla que cada una rompe (operador, identificador, ambigüedad, operando, paréntesis, espacio); la caja coral da el motivo exacto del rechazo. Lee de arriba abajo en una columna para pasar del nombre de la regla al ejemplo y a su causa. **Dónde deja de valer:** el validador conoce 24 identificadores, no los más de seiscientos de SPDX, y no aplica las reglas de excepciones ni de identificadores obsoletos. No es asesoría legal.
 
 ### Cobertura de licencia por archivo en este repositorio
 
@@ -110,9 +110,9 @@ Se aplicó la misma lógica al propio repositorio: de 3 194 archivos versionados
 
 Eso es una declaración a nivel de repositorio, no archivo por archivo. REUSE pide una declaración inequívoca por archivo, por cabecera o por un archivo de mapeo, y esa propiedad no se cumple hoy; no se ejecutó la herramienta `reuse`, solo se buscó la cadena y los directorios, así que la afirmación es «no hay cabeceras SPDX ni directorio de licencias», no «incumple REUSE» en todos los sentidos. Lo que el hallazgo enseña es la diferencia entre procedencia declarada y procedencia comprobable: cuando alguien copia un archivo suelto, la licencia de la raíz no viaja con él.
 
-![Tabla con seis tipos de archivo del repositorio, la cantidad revisada de cada uno y cuántos contienen un identificador SPDX, que es cero en todos.](../../../content/part-09/figures/se-117-cobertura-de-licencia-del-repo.svg)
+![Barras horizontales de los archivos versionados de seis tipos y cuántos contienen SPDX-License-Identifier: JSON 866, Markdown 779, SVG 582, HTML 522, YAML 365 y Python 62, y cero en todos.](../../../content/part-09/figures/se-117-cobertura-de-licencia-del-repo.svg)
 
-**Cómo leer la figura.** Lee la última columna: cero en todas las filas es el hallazgo. La nota inferior enumera dónde sí está la declaración. **Dónde deja de valer:** el conteo corresponde al árbol de trabajo al medir y crece con cada commit; la búsqueda cubre solo los primeros 2 000 caracteres y no mira los archivos binarios ni los mapeos de `REUSE.toml`, que no existen. Un repositorio puede cumplir REUSE sin cabeceras si usa ese mapeo.
+**Cómo leer la figura.** Cada grupo es un tipo de archivo; la barra azul oscuro es cuántos archivos se revisaron y la coral, cuántos llevan `SPDX-License-Identifier`. El hallazgo es que la barra coral no existe en ningún tipo: el cero está rotulado. La nota inferior enumera dónde sí está la declaración. **Dónde deja de valer:** el conteo corresponde al árbol de trabajo al medir y crece con cada commit; la búsqueda cubre solo los primeros 2 000 caracteres y no mira los archivos binarios ni los mapeos de `REUSE.toml`, que no existen. Un repositorio puede cumplir REUSE sin cabeceras si usa ese mapeo.
 
 ## Definiciones de trabajo
 

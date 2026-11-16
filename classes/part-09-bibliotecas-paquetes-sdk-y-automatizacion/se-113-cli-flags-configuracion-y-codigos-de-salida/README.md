@@ -91,9 +91,9 @@ El código de salida es la parte de una CLI que el sistema operativo y la integr
 
 Divergen donde el contrato queda fuera de 0–255 o interviene una señal. `Ctrl+C` sin capturar terminó con 3221225786 (`0xC000013A`, `STATUS_CONTROL_C_EXIT`) en Windows y con −2 en Linux (el proceso fue terminado por SIGINT; el shell lo informa como 130). `sys.exit(256)` dio 256 en Windows y 0 en Linux, y `sys.exit(-1)` dio 4294967295 frente a 255. Un contrato portable usa solo valores 0–125, documenta cada uno (`0` éxito, `1` error de ejecución, `2` uso incorrecto, `3` entrada inválida, por ejemplo) y no promete nada sobre las señales.
 
-![Tabla con nueve escenarios de salida de un programa en Python y el código observado en Windows y en Linux, con diferencias en Ctrl+C, sys.exit(256) y sys.exit(-1).](../../../content/part-09/figures/se-113-codigos-de-salida.svg)
+![Diagrama de nueve escenarios de salida de un programa en Python: seis dan el mismo código en Windows y Linux (0, 3, 1, 1, 2 y 0) y tres difieren, sys.exit(256) con 256 y 0, sys.exit(-1) con 4294967295 y 255 y Ctrl+C con 3221225786 y menos 2.](../../../content/part-09/figures/se-113-codigos-de-salida.svg)
 
-**Cómo leer la figura.** Lee por filas; las únicas en las que las dos columnas difieren son las del final. **Dónde deja de valer:** la interrupción se envió con `CTRL_BREAK_EVENT` en Windows y con `SIGINT` en Linux, que no son equivalentes; una CLI dentro de un contenedor o un servicio recibe `SIGTERM`, que no se midió. Los códigos de `argparse` (2) están documentados para ese módulo, no para toda CLI.
+**Cómo leer la figura.** La franja verde reúne los escenarios en los que los dos sistemas coinciden y la roja, los tres que dependen del sistema; en cada columna de la franja roja la caja coral es Windows y la verde azulada es Linux. Fíjate en la regla que explica el reparto: Windows conserva el número completo de 32 bits sin signo y Linux entrega solo el byte bajo. **Dónde deja de valer:** la interrupción se envió con `CTRL_BREAK_EVENT` en Windows y con `SIGINT` en Linux, que no son equivalentes; una CLI dentro de un contenedor o un servicio recibe `SIGTERM`, que no se midió. Los códigos de `argparse` (2) están documentados para ese módulo, no para toda CLI.
 
 ### Precedencia de configuración: flag, entorno, archivo, valor por defecto
 
@@ -101,9 +101,9 @@ Una CLI recibe configuración desde cuatro fuentes y necesita un orden único: e
 
 El error es sutil porque el parser siempre devuelve un valor: si el valor por defecto está en `argparse`, el programa ya no puede saber si el usuario escribió `--level 1` o no lo escribió. La corrección es declarar `default=None`, resolver las fuentes en una función aparte, probada en una tabla de combinaciones, y registrar en la salida de diagnóstico de dónde salió cada valor (`level=5 (entorno)`). Así, el soporte puede responder «¿por qué usa 5?» sin leer el código.
 
-![Tabla con las ocho combinaciones de flag, variable de entorno y archivo, con el valor y el origen según el orden correcto y según una implementación que aplica el valor por defecto antes.](../../../content/part-09/figures/se-113-precedencia-de-configuracion.svg)
+![Mapa de calor del valor efectivo de level en las ocho combinaciones de flag, entorno y archivo: con el orden correcto gana el flag, luego el entorno, luego el archivo; si el valor por defecto se aplica antes, tres combinaciones dan 1 en vez de 3, 5 y 5 (celdas con contorno).](../../../content/part-09/figures/se-113-precedencia-de-configuracion.svg)
 
-**Cómo leer la figura.** Compara las dos últimas columnas: en las filas con entorno o archivo y sin flag, la implementación incorrecta devuelve el valor por defecto. **Dónde deja de valer:** es una función de ejemplo con un solo parámetro; en una CLI real hay varios, tipos distintos (booleanos, listas) y fuentes que pueden estar malformadas, y esos casos necesitan su propia tabla.
+**Cómo leer la figura.** Cada fila es una combinación de fuentes presentes y cada columna una implementación; el tono es el valor que termina usando el programa. Compara las dos columnas: son iguales cuando hay flag o no hay nada, y difieren en las tres filas con contorno, donde el valor por defecto aplicado antes borra el entorno y el archivo. **Dónde deja de valer:** es una función de ejemplo con un solo parámetro; en una CLI real hay varios, tipos distintos (booleanos, listas) y fuentes que pueden estar malformadas, y esos casos necesitan su propia tabla.
 
 ### Tuberías y codificación: la misma CLI, dos comportamientos
 
@@ -111,9 +111,9 @@ Una CLI se encadena con otras (`cli | otra`), y ahí aparecen diferencias de pla
 
 Cuando el consumidor cierra la tubería mientras el productor escribe, Windows terminó con salida 120 y `OSError: [Errno 22] Invalid argument`; Linux con salida 1 y `BrokenPipeError`. Y la separación `stdout` para datos y `stderr` para avisos funcionó igual en ambas. Reglas de diseño: fijar la codificación de salida en el programa (`sys.stdout.reconfigure(encoding='utf-8', newline='\n')`), tratar el cierre de la tubería como terminación normal y no mezclar diagnóstico con datos, porque `--json` solo es máquina-legible si en `stdout` no hay nada más.
 
-![Tabla con cinco comprobaciones de una CLI con la salida redirigida: error de codificación en Windows, UTF-8 con PYTHONUTF8, CRLF frente a LF, tubería cerrada y separación de stdout y stderr.](../../../content/part-09/figures/se-113-tuberias-y-codificacion.svg)
+![Diagrama de tres etapas de una CLI con la salida redirigida, en Windows y en Linux: la codificación falla con UnicodeEncodeError en Windows y escribe UTF-8 en Linux, los saltos de línea son CRLF frente a LF, y cerrar la tubería da salida 120 con OSError frente a salida 1 con BrokenPipeError.](../../../content/part-09/figures/se-113-tuberias-y-codificacion.svg)
 
-**Cómo leer la figura.** Lee cada fila como una prueba que debería existir en la suite de la CLI. **Dónde deja de valer:** el comportamiento depende de la versión de Python (a partir de 3.15 UTF-8 será el modo por defecto, según PEP 686) y de la configuración regional de Windows; el intérprete era 3.12.9 y la consola, redirigida por `subprocess`.
+**Cómo leer la figura.** Cada fila es el recorrido de una misma salida por tres etapas, en Windows (coral) y en Linux (verde azulado). Mira dónde se bifurcan: en la codificación el fallo es una excepción, en los saltos de línea son bytes distintos y en el cierre es un código de salida distinto. La franja inferior dice qué lo corrige. **Dónde deja de valer:** el comportamiento depende de la versión de Python (a partir de 3.15 UTF-8 será el modo por defecto, según PEP 686) y de la configuración regional de Windows; el intérprete era 3.12.9 y la consola, redirigida por `subprocess`.
 
 ## Definiciones de trabajo
 

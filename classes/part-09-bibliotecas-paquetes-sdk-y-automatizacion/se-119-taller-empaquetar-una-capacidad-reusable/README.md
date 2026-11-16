@@ -90,9 +90,9 @@ Se construyó un paquete de ejemplo con una CLI, un archivo de datos y `py.typed
 
 Las pruebas unitarias pasaron en los siete casos salvo uno en Linux (D4, donde la dependencia no estaba instalada); en Windows pasaron en todos, porque la dependencia sí estaba en el sistema: el entorno ambiente ocultó el defecto. La inspección detectó cinco defectos en Windows y seis en Linux, y el humo cinco en ambos; D3 y D6 pasan el humo, porque no cambian la ejecución. Ningún detector aislado cubre todo, y las pruebas unitarias casi no ven nada de empaquetado, porque corren contra el árbol y no contra el artefacto.
 
-![Matriz de siete defectos de empaquetado por tres detectores: pruebas unitarias en el árbol, inspección de la rueda y prueba de humo en entorno limpio, con el resultado de cada celda.](../../../content/part-09/figures/se-119-matriz-de-defectos.svg)
+![Mapa de calor de siete defectos de empaquetado frente a tres detectores en Windows y Linux: las pruebas del árbol casi no ven nada (solo D4 en Linux), la inspección de la rueda ve cinco defectos en Windows y seis en Linux, y el humo en entorno limpio ve cinco; las celdas con contorno son diferencias entre plataformas.](../../../content/part-09/figures/se-119-matriz-de-defectos.svg)
 
-**Cómo leer la figura.** Lee cada fila como un defecto y las tres columnas como tres oportunidades de verlo. Las celdas «pasan» u «ok» son las que dan falsa seguridad. **Dónde deja de valer:** los defectos fueron siete elegidos por el autor, no un catálogo; la medición se hizo con setuptools y un solo paquete; y D4 depende de qué hay instalado en el sistema de quien ejecuta las pruebas.
+**Cómo leer la figura.** Cada fila es un defecto y cada columna un detector en una plataforma; la celda oscura es que lo ve y la clara, que pasa sin verlo, que es la falsa seguridad. Las primeras dos columnas casi vacías son el hallazgo; el contorno marca dónde Windows y Linux discrepan, y el patrón por filas muestra que D3 y D6 escapan al humo. **Dónde deja de valer:** los defectos fueron siete elegidos por el autor, no un catálogo; la medición se hizo con setuptools y un solo paquete; y D4 depende de qué hay instalado en el sistema de quien ejecuta las pruebas.
 
 ### Qué detecta cada capa y por qué difieren las plataformas
 
@@ -110,9 +110,9 @@ El tamaño de la rueda es una señal barata de que algo cambió. La base midió 
 
 La verificación recomendada es abrir la rueda con `zipfile` y comparar `namelist()` con una lista esperada (incluidas las que no deben estar: `tests/`, archivos de configuración local) y comprobar `RECORD` contra los hashes de los archivos. El tamaño solo sirve como alarma: un cambio inesperado entre dos construcciones obliga a mirar qué entró o salió. Una rueda que incluya pruebas o archivos de entorno no es solo un asunto de peso: puede exponer información que no debía publicarse.
 
-![Tabla con el tamaño de cuatro ruedas en Windows y Linux y lo que cambia en el contenido: base, sin package-data, sin py.typed y con include de todos los paquetes.](../../../content/part-09/figures/se-119-contenido-de-la-rueda.svg)
+![Barras horizontales con el tamaño en bytes de cuatro ruedas en Windows y Linux: la base mide 2048 y 2043; sin package-data 1867 y 1710; sin py.typed 2048 y 1891; con include de todo 2473 y 2472.](../../../content/part-09/figures/se-119-contenido-de-la-rueda.svg)
 
-**Cómo leer la figura.** Compara las filas: cada una cambia una sola línea de configuración. La última columna dice qué entró o salió. **Dónde deja de valer:** los tamaños incluyen metadatos que dependen de la versión de setuptools; dos tamaños distintos pueden esconder el mismo contenido y dos iguales pueden esconder contenido distinto, por eso se compara el listado y no solo el tamaño.
+**Cómo leer la figura.** Cada grupo es una variante que cambia una línea de configuración y las dos barras son el tamaño en bytes de la rueda en cada plataforma, medido desde cero. Una barra que se desvía de la base avisa de que algo entró o salió; la nota inferior dice qué. Dos tamaños casi iguales (la última variante) pueden esconder contenido distinto. **Dónde deja de valer:** los tamaños incluyen metadatos que dependen de la versión de setuptools; dos tamaños distintos pueden esconder el mismo contenido y dos iguales pueden esconder contenido distinto, por eso se compara el listado y no solo el tamaño.
 
 ## Definiciones de trabajo
 

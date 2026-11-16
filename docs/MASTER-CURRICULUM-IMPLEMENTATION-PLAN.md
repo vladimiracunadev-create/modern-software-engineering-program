@@ -715,18 +715,18 @@ evita una explicación genérica.
 
 ### Parte 37 — Liderazgo
 
-- [ ] `SE-445` — liderar mediante contexto y decisiones.
-- [ ] `SE-446` — diseñar ownership y reducir bus factor.
-- [ ] `SE-447` — resolver conflicto técnico-organizacional.
-- [ ] `SE-448` — practicar mentoring observable.
-- [ ] `SE-449` — comunicar compromisos probabilísticos.
-- [ ] `SE-450` — presentar una decisión ejecutiva.
-- [ ] `SE-451` — defender build-vs-buy.
-- [ ] `SE-452` — considerar IP y contratos.
-- [ ] `SE-453` — calcular TCO, ROI, CAPEX y OPEX.
-- [ ] `SE-454` — diferenciar niveles y rutas profesionales.
-- [ ] `SE-455` — superar una revisión técnica adversarial.
-- [ ] `SE-456` — entregar dossier de portafolio defendible.
+- [x] `SE-445` — liderar mediante contexto y decisiones.
+- [x] `SE-446` — diseñar ownership y reducir bus factor.
+- [x] `SE-447` — resolver conflicto técnico-organizacional.
+- [x] `SE-448` — practicar mentoring observable.
+- [x] `SE-449` — comunicar compromisos probabilísticos.
+- [x] `SE-450` — presentar una decisión ejecutiva.
+- [x] `SE-451` — defender build-vs-buy.
+- [x] `SE-452` — considerar IP y contratos.
+- [x] `SE-453` — calcular TCO, ROI, CAPEX y OPEX.
+- [x] `SE-454` — diferenciar niveles y rutas profesionales.
+- [x] `SE-455` — superar una revisión técnica adversarial.
+- [x] `SE-456` — entregar dossier de portafolio defendible.
 
 ### Parte 38 — Ingeniería asistida por IA
 

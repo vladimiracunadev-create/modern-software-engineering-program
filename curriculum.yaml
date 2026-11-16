@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 42,
-  "class_count": 504,
-  "estimated_hours": 2268,
+  "part_count": 43,
+  "class_count": 516,
+  "estimated_hours": 2322,
   "planned_scope": {
     "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
     "part_count": 45,
@@ -29,13 +29,6 @@
         "title": "Harness y agentic engineering",
         "first_class": "SE-493",
         "last_class": "SE-504",
-        "status": "planned"
-      },
-      {
-        "id": "43",
-        "title": "Patrones de diseño, empresariales y de resiliencia",
-        "first_class": "SE-517",
-        "last_class": "SE-528",
         "status": "planned"
       },
       {
@@ -4531,6 +4524,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable"
+        }
+      ]
+    },
+    {
+      "id": "43",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Patrones de diseño, empresariales y de resiliencia",
+      "owner": "suite",
+      "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia",
+      "lessons": [
+        {
+          "id": "SE-517",
+          "number": 517,
+          "title": "Criterios para usar un catálogo de patrones",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones"
+        },
+        {
+          "id": "SE-518",
+          "number": 518,
+          "title": "GoF creacionales: Factory, Builder, Singleton y Prototype",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype"
+        },
+        {
+          "id": "SE-519",
+          "number": 519,
+          "title": "GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite"
+        },
+        {
+          "id": "SE-520",
+          "number": 520,
+          "title": "GoF conductuales: Strategy, Observer, Command, State y Template Method",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method"
+        },
+        {
+          "id": "SE-521",
+          "number": 521,
+          "title": "GRASP y asignación de responsabilidades",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades"
+        },
+        {
+          "id": "SE-522",
+          "number": 522,
+          "title": "Repository, Unit of Work y Active Record",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record"
+        },
+        {
+          "id": "SE-523",
+          "number": 523,
+          "title": "Enterprise Integration Patterns como lenguaje común",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun"
+        },
+        {
+          "id": "SE-524",
+          "number": 524,
+          "title": "Resiliencia: timeout, retry con jitter y circuit breaker",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker"
+        },
+        {
+          "id": "SE-525",
+          "number": 525,
+          "title": "Resiliencia: bulkhead, sidecar, ambassador y degradación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion"
+        },
+        {
+          "id": "SE-526",
+          "number": 526,
+          "title": "Antipatrones y deuda de diseño",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno"
+        },
+        {
+          "id": "SE-527",
+          "number": 527,
+          "title": "Taller: refactorizar con patrones y medir su costo",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo"
+        },
+        {
+          "id": "SE-528",
+          "number": 528,
+          "title": "Proyecto: catálogo de patrones de un sistema real",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real"
         }
       ]
     }

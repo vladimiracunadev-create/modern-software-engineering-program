@@ -123,7 +123,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`), también tienen contenido desarrollado y
+de las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -134,6 +134,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-163 · OpenAPI, AsyncAPI, GraphQL y contratos de eventos](../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md) | Parte 13 |
 | [SE-209 · Diagramas, modelos y documentación visual](../classes/part-17-documentacion-y-conocimiento-tecnico/se-209-diagramas-modelos-y-documentacion-visual/README.md) | Parte 17 |
 | [SE-303 · Monolito, modular monolith y servicios](../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/README.md) | Parte 25 |
+| [SE-517 · Criterios para usar un catálogo de patrones](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md) | Parte 43 |
+| [SE-522 · Repository, Unit of Work y Active Record](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md) | Parte 43 |
+| [SE-528 · Proyecto: catálogo de patrones de un sistema real](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) | Parte 43 |
 
 **Cómo recorrerla.** Empieza por [SE-121](../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md) para fijar el
 primer mecanismo, usa [SE-349](../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/README.md) para integrar el
@@ -143,14 +146,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 41, 43–44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 41, 44 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 41, 43–44 (`SE-493`–`SE-504`, `SE-517`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> Las Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`) están **planificadas** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -158,7 +161,6 @@ no constituye competencia.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 43 · Patrones de diseño, empresariales y de resiliencia** | `SE-517`–`SE-528` | Da patrones de integración empresarial para conectar terceros y sistemas heredados con modos de fallo explícitos. |
 | **Parte 44 · Estilos arquitectónicos** | `SE-529`–`SE-540` | Compara estilos de integración y de despliegue (BFF, gateway, mesh, multi-tenant) con su coste de adopción. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases

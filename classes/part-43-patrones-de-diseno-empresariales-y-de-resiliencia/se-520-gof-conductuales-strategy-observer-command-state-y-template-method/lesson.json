@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "SE-520",
+  "title": "GoF conductuales: Strategy, Observer, Command, State y Template Method",
+  "stage": "E",
+  "part": "43",
+  "kind": "class",
+  "owner": "suite",
+  "estimated_hours": 4,
+  "source_ids": [
+    "PYTHON-3",
+    "ISO-25010-2023",
+    "IEEE-SWEBOK-4A",
+    "PAT-GOF",
+    "PAT-PEAA",
+    "PAT-EIP",
+    "PAT-RELEASE-IT",
+    "PAT-AZURE",
+    "PAT-AWS-JITTER",
+    "PAT-AWS-RETRIES",
+    "PAT-SRE-CASCADE",
+    "PAT-SRE-OVERLOAD",
+    "PAT-CIRCUIT-BREAKER",
+    "PAT-NORVIG",
+    "PAT-REFACTORING",
+    "PAT-TECH-DEBT",
+    "PAT-BIG-BALL-OF-MUD"
+  ],
+  "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method"
+}

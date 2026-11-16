@@ -124,7 +124,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`), también tienen contenido desarrollado y
+de las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -135,6 +135,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-272 · Identidad de dispositivo y gestión de claves](../classes/part-22-embedded-iot-y-tiempo-real/se-272-identidad-de-dispositivo-y-gestion-de-claves/README.md) | Parte 22 |
 | [SE-274 · Safety, seguridad y vida útil prolongada](../classes/part-22-embedded-iot-y-tiempo-real/se-274-safety-seguridad-y-vida-util-prolongada/README.md) | Parte 22 |
 | [SE-276 · Proyecto: dispositivo simulado operable y actualizable](../classes/part-22-embedded-iot-y-tiempo-real/se-276-proyecto-dispositivo-simulado-operable-y-actualizable/README.md) | Parte 22 |
+| [SE-517 · Criterios para usar un catálogo de patrones](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md) | Parte 43 |
+| [SE-522 · Repository, Unit of Work y Active Record](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md) | Parte 43 |
+| [SE-528 · Proyecto: catálogo de patrones de un sistema real](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) | Parte 43 |
 
 **Cómo recorrerla.** Empieza por [SE-017](../classes/part-01-computadores-y-representacion-de-informacion/se-017-cpu-instrucciones-registros-y-ciclos-de-ejecucion/README.md) para fijar el
 primer mecanismo, usa [SE-376](../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md) para integrar el
@@ -144,14 +147,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`) están
+> El mapa expresa el currículo vigente. Las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 41, 43–44 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 41, 44 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 41, 43–44 (`SE-493`–`SE-504`, `SE-517`–`SE-540`) están **planificadas** desde el 13 de noviembre
+> Las Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`) están **planificadas** desde el 13 de noviembre
 > de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
 > [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
@@ -159,7 +162,6 @@ no constituye competencia.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 43 · Patrones de diseño, empresariales y de resiliencia** | `SE-517`–`SE-528` | Añade patrones de resiliencia para fallos físicos, con límites de memoria y tiempo explícitos. |
 | **Parte 44 · Estilos arquitectónicos** | `SE-529`–`SE-540` | Describe estilos como pipes and filters y microkernel en dispositivos con recursos acotados. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases

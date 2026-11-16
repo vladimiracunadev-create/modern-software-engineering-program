@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-16 — Parte 43 desarrollada con experimentos reales y simulaciones de patrones de diseño, empresariales y de resiliencia (SE-517 a SE-528)
+
+- las clases `SE-517`–`SE-528` pasan de planificadas a clases completas sobre el servicio *Avisos*: criterios para usar un catálogo, patrones GoF creacionales, estructurales y conductuales, GRASP, Repository, Unit of Work y Active Record, patrones de integración, timeout, reintentos con jitter y circuit breaker, bulkhead, sidecar, ambassador y degradación, antipatrones y deuda de diseño, un taller de refactor y un catálogo de patrones
+- 36 figuras con experimentos ejecutados con la biblioteca estándar en Windows (CPython 3.12) y sin invocar ningún modelo de lenguaje: costo de Strategy frente a `if/elif` medido con `ast`, 24 ordenaciones de pruebas con un Singleton, dos órdenes de una pila de decoradores, 10.000 secuencias contra banderas y máquina de estados, un cambio de regla en dos diseños, consultas contadas en una base `sqlite3` en memoria, un canal con 208 duplicados y receptor idempotente, cuatro políticas de reintento con 1000 clientes y un circuit breaker, compartimentos y degradación simulados, un salto medido con sockets locales, métricas de cohesión y ciclos, un maestro dorado con seis mutantes y dos detectores de patrones sobre un corpus etiquetado
+- `content/part-43/part.json` aporta las fuentes de la parte (catorce fuentes nuevas con enlaces verificados); los contadores pasan a una parte desarrollada más y doce clases más
+
 ## 2026-11-16 — Parte 42 desarrollada con experimentos reales y simulaciones de patrones agénticos y sistemas con LLM (SE-505 a SE-516)
 
 - las clases `SE-505`–`SE-516` pasan de planificadas a clases completas sobre el asistente de *Avisos*: workflows frente a agentes, encadenado, enrutamiento y paralelización, orquestador-trabajadores y evaluador-optimizador, ReAct, plan-and-execute y reflexión, memoria, embeddings y recuperación, MCP y A2A, ejecución durable e idempotencia, evals y LLMOps, costo, latencia y seguridad, taller de selección y degradación, y proyecto con puerta de entrada

@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-504 clases desarrolladas · 42 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-516`) · 36 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
+516 clases desarrolladas · 43 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-528`) · 24 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
 
 > [!WARNING]
-> Las Partes 00–40, 42 (`SE-001`–`SE-492`, `SE-505`–`SE-516`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41, 43–44 (`SE-493`–`SE-504`, `SE-517`–`SE-540`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–40, 42–43 (`SE-001`–`SE-492`, `SE-505`–`SE-528`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 41, 44 (`SE-493`–`SE-504`, `SE-529`–`SE-540`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 42 partes desarrolladas
+## Las 43 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -54,18 +54,18 @@
 | 39 | [SPEC, agentes y ciclo de vida agentic](part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | H | SE-469–SE-480 | `suite` |
 | 40 | [Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-481–SE-492 | `suite` |
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
+| 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 
 ## Partes planificadas sin publicar
 
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
 | 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
-| 43 | Patrones de diseño, empresariales y de resiliencia | SE-517–SE-528 | planificada, sin clases publicadas |
 | 44 | Estilos arquitectónicos | SE-529–SE-540 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 504 clases desarrolladas
+## Índice plano de las 516 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -659,5 +659,19 @@ sin recorrer carpetas manualmente.
 - [SE-514 — Costo, latencia y seguridad en sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-514.html)
 - [SE-515 — Taller: elegir y degradar un patrón agéntico](part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-515.html)
 - [SE-516 — Proyecto: sistema con LLM evaluado y operable](part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-516.html)
+## [Parte 43 — Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md)
+
+- [SE-517 — Criterios para usar un catálogo de patrones](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-517.html)
+- [SE-518 — GoF creacionales: Factory, Builder, Singleton y Prototype](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-518.html)
+- [SE-519 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-519.html)
+- [SE-520 — GoF conductuales: Strategy, Observer, Command, State y Template Method](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-520.html)
+- [SE-521 — GRASP y asignación de responsabilidades](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-521.html)
+- [SE-522 — Repository, Unit of Work y Active Record](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-522.html)
+- [SE-523 — Enterprise Integration Patterns como lenguaje común](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-523.html)
+- [SE-524 — Resiliencia: timeout, retry con jitter y circuit breaker](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-524.html)
+- [SE-525 — Resiliencia: bulkhead, sidecar, ambassador y degradación](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-525.html)
+- [SE-526 — Antipatrones y deuda de diseño](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-526.html)
+- [SE-527 — Taller: refactorizar con patrones y medir su costo](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-527.html)
+- [SE-528 — Proyecto: catálogo de patrones de un sistema real](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-528.html)
 
 Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.

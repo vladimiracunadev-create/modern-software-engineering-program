@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "SE-527",
+  "title": "Taller: refactorizar con patrones y medir su costo",
+  "stage": "E",
+  "part": "43",
+  "kind": "studio",
+  "owner": "suite",
+  "estimated_hours": 6,
+  "source_ids": [
+    "PYTHON-3",
+    "ISO-25010-2023",
+    "IEEE-SWEBOK-4A",
+    "PAT-GOF",
+    "PAT-PEAA",
+    "PAT-EIP",
+    "PAT-RELEASE-IT",
+    "PAT-AZURE",
+    "PAT-AWS-JITTER",
+    "PAT-AWS-RETRIES",
+    "PAT-SRE-CASCADE",
+    "PAT-SRE-OVERLOAD",
+    "PAT-CIRCUIT-BREAKER",
+    "PAT-NORVIG",
+    "PAT-REFACTORING",
+    "PAT-TECH-DEBT",
+    "PAT-BIG-BALL-OF-MUD"
+  ],
+  "path": "classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo"
+}

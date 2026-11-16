@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "verified_on": "2026-10-02",
-  "class_count": 504,
+  "class_count": 516,
   "classes": {
     "SE-001": {
       "source_ids": [
@@ -4308,6 +4308,270 @@
         "ANTHROPIC-PROMPT-CACHING",
         "OWASP-LLM-TOP10",
         "LETHAL-TRIFECTA"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-517": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-518": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-519": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-520": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-521": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-522": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-523": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-524": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-525": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-526": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-527": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
+      ],
+      "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
+    },
+    "SE-528": {
+      "source_ids": [
+        "PYTHON-3",
+        "ISO-25010-2023",
+        "IEEE-SWEBOK-4A",
+        "PAT-GOF",
+        "PAT-PEAA",
+        "PAT-EIP",
+        "PAT-RELEASE-IT",
+        "PAT-AZURE",
+        "PAT-AWS-JITTER",
+        "PAT-AWS-RETRIES",
+        "PAT-SRE-CASCADE",
+        "PAT-SRE-OVERLOAD",
+        "PAT-CIRCUIT-BREAKER",
+        "PAT-NORVIG",
+        "PAT-REFACTORING",
+        "PAT-TECH-DEBT",
+        "PAT-BIG-BALL-OF-MUD"
       ],
       "note": "Fuentes iniciales de la parte; deben ampliarse y vincularse a afirmaciones al construir la clase."
     }

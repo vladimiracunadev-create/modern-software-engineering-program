@@ -5544,6 +5544,138 @@
       "hours": 8,
       "phase": "futura",
       "url": "classes/SE-516.html"
+    },
+    {
+      "id": "SE-517",
+      "title": "Criterios para usar un catálogo de patrones",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-517.html"
+    },
+    {
+      "id": "SE-518",
+      "title": "GoF creacionales: Factory, Builder, Singleton y Prototype",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-518.html"
+    },
+    {
+      "id": "SE-519",
+      "title": "GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-519.html"
+    },
+    {
+      "id": "SE-520",
+      "title": "GoF conductuales: Strategy, Observer, Command, State y Template Method",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-520.html"
+    },
+    {
+      "id": "SE-521",
+      "title": "GRASP y asignación de responsabilidades",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-521.html"
+    },
+    {
+      "id": "SE-522",
+      "title": "Repository, Unit of Work y Active Record",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-522.html"
+    },
+    {
+      "id": "SE-523",
+      "title": "Enterprise Integration Patterns como lenguaje común",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-523.html"
+    },
+    {
+      "id": "SE-524",
+      "title": "Resiliencia: timeout, retry con jitter y circuit breaker",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-524.html"
+    },
+    {
+      "id": "SE-525",
+      "title": "Resiliencia: bulkhead, sidecar, ambassador y degradación",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-525.html"
+    },
+    {
+      "id": "SE-526",
+      "title": "Antipatrones y deuda de diseño",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-526.html"
+    },
+    {
+      "id": "SE-527",
+      "title": "Taller: refactorizar con patrones y medir su costo",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-527.html"
+    },
+    {
+      "id": "SE-528",
+      "title": "Proyecto: catálogo de patrones de un sistema real",
+      "part": "43",
+      "part_title": "Patrones de diseño, empresariales y de resiliencia",
+      "stage": "E",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-528.html"
     }
   ]
 }

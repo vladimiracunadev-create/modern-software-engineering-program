@@ -806,18 +806,18 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 
 ### Parte 43 — Patrones de diseño, empresariales y de resiliencia
 
-- [ ] `SE-517` — criterios para usar un catálogo de patrones.
-- [ ] `SE-518` — goF creacionales: Factory, Builder, Singleton y Prototype.
-- [ ] `SE-519` — goF estructurales: Adapter, Decorator, Facade, Proxy y Composite.
-- [ ] `SE-520` — goF conductuales: Strategy, Observer, Command, State y Template Method.
-- [ ] `SE-521` — gRASP y asignación de responsabilidades.
-- [ ] `SE-522` — repository, Unit of Work y Active Record.
-- [ ] `SE-523` — enterprise Integration Patterns como lenguaje común.
-- [ ] `SE-524` — resiliencia: timeout, retry con jitter y circuit breaker.
-- [ ] `SE-525` — resiliencia: bulkhead, sidecar, ambassador y degradación.
-- [ ] `SE-526` — antipatrones y deuda de diseño.
-- [ ] `SE-527` — taller: refactorizar con patrones y medir su costo.
-- [ ] `SE-528` — proyecto: catálogo de patrones de un sistema real.
+- [x] `SE-517` — criterios para usar un catálogo de patrones.
+- [x] `SE-518` — goF creacionales: Factory, Builder, Singleton y Prototype.
+- [x] `SE-519` — goF estructurales: Adapter, Decorator, Facade, Proxy y Composite.
+- [x] `SE-520` — goF conductuales: Strategy, Observer, Command, State y Template Method.
+- [x] `SE-521` — gRASP y asignación de responsabilidades.
+- [x] `SE-522` — repository, Unit of Work y Active Record.
+- [x] `SE-523` — enterprise Integration Patterns como lenguaje común.
+- [x] `SE-524` — resiliencia: timeout, retry con jitter y circuit breaker.
+- [x] `SE-525` — resiliencia: bulkhead, sidecar, ambassador y degradación.
+- [x] `SE-526` — antipatrones y deuda de diseño.
+- [x] `SE-527` — taller: refactorizar con patrones y medir su costo.
+- [x] `SE-528` — proyecto: catálogo de patrones de un sistema real.
 
 ### Parte 44 — Estilos arquitectónicos
 

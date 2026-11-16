@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-11-16 — Parte 11: figuras como gráficos, no como tablas
+
+- las figuras `tab()` de la Parte 11 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 11 (commit `c512b06d`)
+
+## 2026-11-16 — Parte 15: figuras como gráficos, no como tablas
+
+- las figuras `tab()` de la Parte 15 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 15 (commit `9b7813cf`)
+
+## 2026-11-16 — Parte 20: figuras como gráficos, no como tablas
+
+- las figuras `tab()` de la Parte 20 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 20 (commit `68039829`)
+
+## 2026-11-16 — Parte 35: figuras como gráficos, no como tablas
+
+- las figuras `tab()` de la Parte 35 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 35 (commit `8ffcc798`)
+
+## 2026-11-16 — Parte 40: figuras como gráficos, no como tablas
+
+- las figuras `tab()` de la Parte 40 se rediseñan con las primitivas del kit y los mismos números; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 40 (commit `867c36b0`)
+
 ## 2026-11-16 — Parte 31: figuras como gráficos, no como tablas
 
 - las 35 figuras `tab()` de SE-373 a SE-384 se rediseñan con las primitivas del kit y los mismos números medidos: barras agrupadas y apiladas, líneas (con eje logarítmico donde el rango lo exige), una dispersión, intervalos, dumbbells, mapas de calor y una línea de tiempo

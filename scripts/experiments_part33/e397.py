@@ -38,7 +38,7 @@ def build(tree, env, leak, fix_os=True):
 
 def env_for(i, seed):
     rng = random.Random(seed * 1000 + i)
-    return {"rng": rng, "crlf": i % 2 == 1, "path": f"/tmp/build-{rng.randint(1000, 9999)}", "stamp": f"2026-11-{1 + i % 28}T{i % 24:02d}:00:00",
+    return {"rng": rng, "crlf": i % 2 == 1, "path": f"/work/build-{rng.randint(1000, 9999)}", "stamp": f"2026-11-{1 + i % 28}T{i % 24:02d}:00:00",
             "user": f"runner{i % 5}", "mtime": (2026, 11, 1 + i % 28, i % 24, i % 60, 0), "mode": rng.choice([0o644, 0o664, 0o755])}
 
 if __name__ == "__main__":

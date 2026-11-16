@@ -88,17 +88,17 @@ Reducir demasiado puede cambiar el mecanismo: quitar concurrencia elimina la car
 
 Un fallo que ocurre con una entrada de 403 caracteres es difícil de razonar; el mismo fallo con tres caracteres casi se explica solo. La reducción automática (*delta debugging*) elimina trozos mientras el fallo persista. Se definió un defecto sintético (falla si aparece `ab[` con un corchete sin cerrar) y se aplicó el algoritmo `ddmin` a una entrada de 403 caracteres: devolvió `ab[` (3 caracteres, una reducción del 99,3 %) con 24 pruebas, frente a las 403 de eliminar un carácter cada vez. La reducción no entiende el defecto: solo exige una prueba que responda «sigue fallando o no».
 
-![Figura 1. Tabla de la reducción de una entrada de 403 caracteres al caso mínimo de tres caracteres con 24 pruebas](../../../content/part-08/figures/se-105-reduccion-de-casos.svg)
+![Cadena de una reducción automática: una entrada de 403 caracteres que falla se reduce con 24 pruebas al caso mínimo de 3 caracteres (ab y un corchete abierto), una reducción del 99,3 por ciento; probar un carácter cada vez habría exigido 403 pruebas.](../../../content/part-08/figures/se-105-reduccion-de-casos.svg)
 
-**Cómo leer la figura.** Las tres filas dan la entrada, el resultado y el costo. **Dónde deja de valer:** requiere una prueba determinista; con un fallo intermitente, la reducción puede descartar un trozo necesario porque «no falló esta vez» y terminar en un caso que no es mínimo. Además, el resultado es mínimo local, no necesariamente el más corto posible.
+**Cómo leer la figura.** A la izquierda está la entrada que falla y a la derecha el caso mínimo; la flecha lleva el costo, 24 pruebas. Mira la distancia entre las dos cajas: de 403 a 3 caracteres, una reducción del 99,3 %, con el fallo intacto. **Dónde deja de valer:** requiere una prueba determinista; con un fallo intermitente, la reducción puede descartar un trozo necesario porque «no falló esta vez» y terminar en un caso que no es mínimo. Además, el resultado es mínimo local, no necesariamente el más corto posible.
 
 ### Localizar el cambio con bisección
 
 Cuando el defecto está en la historia, `git bisect run` lo localiza automáticamente. En una historia sintética de 64 commits, con el defecto introducido en el commit 41, la bisección con una prueba automática terminó en 6 pasos y señaló `c41`, coherente con log₂ 64 = 6. Cada paso descarta la mitad. La bisección entrega *el primer commit en que falla la prueba*, no la causa: ese commit puede ser solo el que expuso un defecto latente. Y asume que antes funcionaba y después falla siempre; un defecto intermitente o dos defectos distintos la engañan.
 
-![Figura 2. Tabla de la bisección de 64 commits: defecto en el commit 41, 6 pasos y commit señalado c41](../../../content/part-08/figures/se-105-biseccion-de-64-commits.svg)
+![Línea de tiempo de una historia de 64 commits: la prueba pasa hasta el commit 40 y falla desde el 41, donde se introdujo el defecto a propósito; git bisect run señala el commit 41 en 6 pasos porque cada paso descarta la mitad.](../../../content/part-08/figures/se-105-biseccion-de-64-commits.svg)
 
-**Cómo leer la figura.** La relación entre 64 commits y 6 pasos es logarítmica. **Dónde deja de valer:** una historia con confirmaciones que no compilan obliga a omitirlas (`git bisect skip`) y aumenta el número de pasos; una historia no lineal (fusiones) complica la lectura.
+**Cómo leer la figura.** El eje es el número de commit, de 1 a 64. El tramo turquesa es la historia en que la prueba pasa y el coral aquella en que falla; la línea vertical marca el primer commit que falla, el 41, que `git bisect run` encuentra en 6 pasos porque cada paso descarta la mitad. **Dónde deja de valer:** una historia con confirmaciones que no compilan obliga a omitirlas (`git bisect skip`) y aumenta el número de pasos; una historia no lineal (fusiones) complica la lectura.
 
 ### Elegir la estrategia por su costo
 

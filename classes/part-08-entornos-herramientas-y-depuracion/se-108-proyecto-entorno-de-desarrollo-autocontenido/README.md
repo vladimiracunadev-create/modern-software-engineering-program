@@ -88,25 +88,25 @@ La guía enumera artefactos creados y ofrece eliminación acotada dentro del wor
 
 Un entorno de desarrollo autocontenido se puede reconstruir desde el repositorio y comprobar. El inventario medido en la parte reúne: intérprete fijado a una versión exacta (CPython 3.12.9 en Windows, 3.12.3 en Linux), un entorno virtual que se crea con un comando (7 archivos sin pip, 860 con pip), dependencias instaladas desde una rueda local con `--no-index --no-deps` y una verificación que compara `pip freeze` en dos entornos nuevos (idéntico). Cada fila del inventario necesita su comprobación; lo que solo se asume queda como riesgo declarado.
 
-![Figura 1. Tabla del inventario: intérprete exacto, entorno virtual, rueda local y verificación con pip freeze idéntico](../../../content/part-08/figures/se-108-inventario-del-entorno.svg)
+![Cadena de cuatro elementos de un entorno autocontenido: intérprete CPython 3.12.9 en Windows y 3.12.3 en Linux, entorno virtual de 7 archivos sin pip y 860 con pip, una rueda local como dependencia y pip freeze idéntico en dos entornos como verificación.](../../../content/part-08/figures/se-108-inventario-del-entorno.svg)
 
-**Cómo leer la figura.** Cada fila asocia un elemento con su valor y con la forma en que se fija. **Dónde deja de valer:** el inventario no incluye herramientas del sistema (compiladores, bibliotecas nativas), que un contenedor fijaría pero que aquí no se midieron.
+**Cómo leer la figura.** Léela de izquierda a derecha: cada caja es una pieza del entorno con su valor medido y cómo se fija. Las tres navy se construyen y la turquesa, la verificación, es la que compara el estado en lugar de suponerlo. **Dónde deja de valer:** el inventario no incluye herramientas del sistema (compiladores, bibliotecas nativas), que un contenedor fijaría pero que aquí no se midieron.
 
 ### Reproducir el entorno no es reproducir los bytes
 
 Se construyó dos veces la misma rueda a partir del mismo código. Los hashes SHA-256 abreviados fueron distintos: `b384a5f15d7d` la primera vez y `762d3c781a63` la segunda, aunque el código no cambió (la rueda incluye marcas de tiempo). En cambio, instalar la misma rueda en dos entornos nuevos produjo un `pip freeze` idéntico. La conclusión es operativa: el estado instalado es reproducible si se instala *el mismo archivo*; reconstruir el archivo en cada entorno rompe la identidad. Por eso se fija el archivo que se instala por su hash y no se reconstruye en cada máquina.
 
-![Figura 2. Tabla con dos construcciones de la rueda con hashes distintos y la comparación idéntica de pip freeze](../../../content/part-08/figures/se-108-hash-de-la-rueda.svg)
+![Diagrama de dos construcciones de la misma rueda con el mismo código: la primera da el hash b384a5f15d7d y la segunda 762d3c781a63, distintos porque las marcas de tiempo entran en la rueda; instalar la misma rueda en dos entornos da el mismo pip freeze.](../../../content/part-08/figures/se-108-hash-de-la-rueda.svg)
 
-**Cómo leer la figura.** Las dos primeras filas muestran la no reproducibilidad de los bytes; la tercera, la reproducibilidad del estado. **Dónde deja de valer:** existen herramientas y variables (como `SOURCE_DATE_EPOCH`) para producir ruedas reproducibles bit a bit; aquí no se aplicaron, y el resultado describe el comportamiento por defecto.
+**Cómo leer la figura.** En la fila superior el mismo código produce dos ruedas con hashes distintos (cajas coral); en la inferior, instalar la misma rueda en dos entornos da el mismo `pip freeze` (caja turquesa). Se reproduce el estado del entorno, no los bytes de la rueda. **Dónde deja de valer:** existen herramientas y variables (como `SOURCE_DATE_EPOCH`) para producir ruedas reproducibles bit a bit; aquí no se aplicaron, y el resultado describe el comportamiento por defecto.
 
 ### Criterios de aceptación
 
 El proyecto se acepta por lo que se puede comprobar: reconstruir el entorno desde cero con un comando, sin pasos manuales ni conocimiento oral; comprobar el aislamiento (`import` falla fuera y devuelve la versión dentro); fijar versiones del intérprete y de los archivos por hash, sin etiquetas flotantes; y declarar los límites, como el arranque de un proceso en un contenedor, que no se midió. Un entorno que «funciona en mi máquina» no cumple ninguno de los cuatro. Los criterios no premian la complejidad: un entorno sencillo y comprobable vale más que uno sofisticado que nadie puede reconstruir.
 
-![Figura 3. Tabla de los criterios de aceptación: reconstrucción, aislamiento, versiones fijadas por hash y límites declarados](../../../content/part-08/figures/se-108-criterios-de-aceptacion.svg)
+![Diagrama de cuatro criterios que deben cumplirse para aceptar el proyecto: reconstruir el entorno desde cero con un comando, aislamiento comprobado, versiones fijadas por hash y límites declarados como el arranque en contenedor no medido.](../../../content/part-08/figures/se-108-criterios-de-aceptacion.svg)
 
-**Cómo leer la figura.** Cada criterio tiene su evidencia y su lectura. **Dónde deja de valer:** son criterios mínimos de un entorno individual; un equipo añade actualización de dependencias, escaneo de vulnerabilidades y plazos de revisión.
+**Cómo leer la figura.** Las cuatro cajas de la izquierda son los criterios y todas deben cumplirse para llegar a la caja de la derecha: cada una trae la evidencia que la sostiene. Si falta una, el proyecto no se acepta. **Dónde deja de valer:** son criterios mínimos de un entorno individual; un equipo añade actualización de dependencias, escaneo de vulnerabilidades y plazos de revisión.
 
 ## Definiciones de trabajo
 

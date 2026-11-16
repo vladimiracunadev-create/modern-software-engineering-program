@@ -1,8 +1,10 @@
 """Figures for SE-097 to SE-108 (values measured with CPython 3.12.9 on Windows 11; Linux 3.12.3 where noted)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab, bars
+from figure_kit import Fig, _kit_finish, _kit_start, grouped_bars, heatmap, timeline
+from figure_diagrams import card, chain, fan, merge, nested
+from figures_part07_a import bars
+
 
 M = "Medido con CPython 3.12.9 en Windows 11 (ruff 0.15.20, mypy 2.1.0); los tiempos dependen del equipo y se leen como razones."
 S = "Medido con CPython 3.12.9 en Windows 11; Linux (WSL2, CPython 3.12.3) donde se indica."
@@ -10,46 +12,52 @@ S = "Medido con CPython 3.12.9 en Windows 11; Linux (WSL2, CPython 3.12.3) donde
 
 # ---------------------------------------------------------------- SE-097
 def se097_intercambio() -> Fig:
-    rows = [["initialize → respuesta", "240 ms", "El servidor arranca y declara sus capacidades"],
-            ["didOpen → publishDiagnostics", "351 ms", "Tres diagnósticos: F401 (línea 1), F401 (línea 2) y F841 (línea 5)"],
-            ["didChange → publishDiagnostics", "5 ms", "Dos diagnósticos: F401 (línea 1) y F841 (línea 4); `os` ya no se importa"],
-            ["Mensaje `initialized`", "79 bytes", "Cabecera Content-Length más cuerpo JSON-RPC"]]
-    return tab("Un intercambio LSP real con ruff server", "Tabla de mediciones de un intercambio con un servidor de lenguaje real: initialize tardó 240 ms, el primer análisis tras didOpen 351 ms y la actualización tras didChange 5 ms; el mensaje initialized ocupa 79 bytes.",
-               ["Mensaje", "Tiempo o tamaño", "Qué ocurrió"], rows, [270, 160, 480], row_h=56,
-               note="El primer análisis es mucho más lento que las ediciones siguientes (351 ms frente a 5 ms): el editor no recibe diagnósticos con la misma latencia en el arranque que durante la edición.", foot=M)
+    return grouped_bars(
+        'Un intercambio LSP real con ruff server',
+        "Barras horizontales con el tiempo de cada mensaje de un intercambio real con ruff server: initialize tarda 240 milisegundos, el primer análisis tras didOpen 351 y la actualización tras didChange 5; el arranque y el primer análisis pesan decenas de veces más que una edición.",
+        ["initialize → respuesta", "didOpen → publishDiagnostics", "didChange → publishDiagnostics"],
+        [("Tiempo", [240, 351, 5], "teal")],
+        unit="Tiempo hasta la respuesta (ms)", horizontal=True, label_w=270,
+        note='El primer análisis es mucho más lento que las ediciones siguientes (351 ms frente a 5 ms): el editor no recibe diagnósticos con la misma latencia en el arranque que durante la edición.', note_kind='gold', foot=M)
 
 
 def se097_capacidades() -> Fig:
-    rows = [["textDocumentSync", "Sí", "El editor envía el texto con didOpen y didChange"],
-            ["diagnosticProvider", "Sí", "Calcula diagnósticos y los publica"],
-            ["codeActionProvider · documentFormattingProvider", "Sí", "Ofrece correcciones y formato"],
-            ["hoverProvider", "Sí", "Información al pasar el cursor"],
-            ["completionProvider · definitionProvider", "No", "No aparecen entre las 10 capacidades declaradas: este servidor no completa ni navega"]]
-    return tab("Protocolo no es capacidad", "Tabla de las diez capacidades que declaró ruff server en la respuesta initialize: sincronización de texto, diagnósticos, acciones de código, formato y hover están declaradas; completado y definición no aparecen.",
-               ["Capacidad", "¿Declarada?", "Consecuencia"], rows, [330, 120, 460], row_h=56,
-               note="Hablar LSP no equivale a ofrecer todas las funciones. Si el editor muestra completado, lo ofrece otro servidor; si no lo muestra, no es un fallo del protocolo sino una capacidad ausente.", foot=M)
+    f, y = _kit_start('Protocolo no es capacidad',
+                      "Diagrama del intercambio initialize entre el editor y ruff server: el servidor declara en su respuesta cinco grupos de capacidades, entre ellas sincronización de texto, diagnósticos, acciones de código, formato y hover, y no declara completado ni definición.",
+                      940, None)
+    card(f, 14, y + 70, 150, 120, "Editor", "pide initialize", "navy")
+    f.group(250, y + 4, 676, 270, "Respuesta de initialize: 10 capacidades declaradas", "teal")
+    f.arrow([(164, y + 130), (248, y + 130)], "initialize", label_at=(206, y + 118))
+    f.arrow([(248, y + 160), (164, y + 160)])
+    card(f, 268, y + 38, 300, 56, "textDocumentSync", "didOpen y didChange", "teal")
+    card(f, 580, y + 38, 330, 56, "diagnosticProvider", "diagnósticos publicados", "teal")
+    card(f, 268, y + 104, 300, 70, "codeActionProvider · documentFormattingProvider", "correcciones y formato", "teal")
+    card(f, 580, y + 104, 330, 70, "hoverProvider", "información al pasar el cursor", "teal")
+    card(f, 268, y + 190, 642, 66, "completionProvider · definitionProvider: no declaradas", "este servidor no completa ni navega; el completado lo ofrece otro servidor o falta", "coral", True)
+    out = _kit_finish(f, y + 286, 'Hablar LSP no equivale a ofrecer todas las funciones. Si el editor muestra completado, lo ofrece otro servidor; si no lo muestra, no es un fallo del protocolo sino una capacidad ausente.', 'gold', M)
+    out.kind = "diagram"
+    return out
 
 
 def se097_tolerancia() -> Fig:
-    rows = [["ast.parse del código roto", "SyntaxError en la línea 1", "'(' was never closed: se detiene en el primer error"],
-            ["tokenize del mismo código", "TokenError", "El analizador léxico también se detiene antes del final"],
-            ["ast.parse de 59 999 líneas válidas", "432 ms", "Reanalizar el archivo completo en cada pulsación no es viable"],
-            ["didChange de ruff en un archivo pequeño", "5 ms", "El servidor mantiene el documento en memoria"]]
-    return tab("Editar código roto y mantener la latencia", "Tabla que muestra que ast.parse y tokenize se detienen en el primer error del código roto, que analizar 59999 líneas con ast.parse tarda 432 ms y que una actualización incremental en el servidor tarda 5 ms.",
-               ["Prueba", "Resultado", "Lectura"], rows, [320, 220, 370], row_h=56,
-               note="Un editor trabaja casi siempre con código incompleto. Por eso los servidores usan analizadores tolerantes a errores y actualizaciones incrementales; la biblioteca estándar es un compilador, no un servicio interactivo.", foot=M)
+    return fan(
+        'Editar código roto y mantener la latencia',
+        "Diagrama de lo que ocurre al editar código roto con un paréntesis sin cerrar: ast.parse lanza SyntaxError en la línea 1 y tokenize TokenError, los dos se detienen en el primer error; reanalizar 59999 líneas válidas con ast.parse tarda 432 ms, mientras ruff server mantiene el documento en memoria y actualiza en 5 ms.",
+        ("Código roto en el editor", "un «(» sin cerrar", "navy"),
+        [("ast.parse: SyntaxError en la línea 1", "se detiene en el primer error; reanalizar 59 999 líneas válidas cuesta 432 ms", "coral"),
+         ("tokenize: TokenError", "el analizador léxico también se detiene antes del final", "coral"),
+         ("Servidor de ruff: didChange en 5 ms", "mantiene el documento en memoria y actualiza sin reanalizar todo", "teal")],
+        note='Un editor trabaja casi siempre con código incompleto. Por eso los servidores usan analizadores tolerantes a errores y actualizaciones incrementales; la biblioteca estándar es un compilador, no un servicio interactivo.', note_kind='gold', foot=M)
 
 
 # ---------------------------------------------------------------- SE-098
 def se098_sesion() -> Fig:
-    rows = [["b 3", "Breakpoint 1 at …t.py:3", "Se fija el punto en la línea de `c = b + 1`"],
-            ["c", "> …(3)f() → c = b + 1", "La ejecución continúa y se detiene en la línea 3"],
-            ["p b · p a", "10 · 5", "Estado observado: a = 5 y b = 10"],
-            ["bt", "run() → <module> → f()", "La pila muestra el llamador y la función"],
-            ["n · p c", "11 (esperado: 5·2+1)", "Un paso y se imprime el resultado"]]
-    return tab("Una sesión de pdb guionada", "Tabla de una sesión real de pdb ejecutada con comandos por entrada estándar: un breakpoint en la línea 3, continuar, imprimir b igual a 10 y a igual a 5, mostrar la pila y avanzar un paso.",
-               ["Comando", "Salida", "Qué se aprende"], rows, [140, 330, 440], row_h=52,
-               note="Un depurador no «arregla»: muestra el estado en un instante. La hipótesis (¿b vale 10?) se formula antes del comando y el resultado la confirma o la refuta.", foot=S)
+    return chain(
+        'Una sesión de pdb guionada',
+        "Cadena de cinco comandos de una sesión real de pdb: b 3 fija el punto en la línea 3, c continúa y se detiene allí, p b y p a muestran 10 y 5, bt muestra la pila y n más p c imprime 11, el resultado esperado de 5 por 2 más 1.",
+        [("b 3", "Breakpoint 1 en la línea 3", "navy"), ("c", "se detiene en la línea 3: c = b + 1", "navy"), ("p b · p a", "10 · 5", "teal"),
+         ("bt", "run() → <module> → f()", "teal"), ("n · p c", "11 (esperado: 5·2+1)", "teal")],
+        note='Un depurador no «arregla»: muestra el estado en un instante. La hipótesis (¿b vale 10?) se formula antes del comando y el resultado la confirma o la refuta.', note_kind='gold', foot=S)
 
 
 def se098_costo() -> Fig:
@@ -60,12 +68,14 @@ def se098_costo() -> Fig:
 
 
 def se098_breakpoint() -> Fig:
-    rows = [["`breakpoint()` con PYTHONBREAKPOINT=0", "Imprime «siguio 1»", "La llamada no hace nada: se puede dejar sin querer"],
-            ["`breakpoint()` sin la variable", "Detiene el proceso y espera entrada", "En un servicio sin terminal queda colgado"],
-            ["`python -m pdb script.py`", "Arranca en la primera línea", "No requiere modificar el código"]]
-    return tab("Controlar los puntos de interrupción", "Tabla que compara tres formas de entrar en el depurador: breakpoint con PYTHONBREAKPOINT igual a cero continúa y la ejecución imprime siguio 1, sin la variable detiene el proceso y python -m pdb arranca en la primera línea.",
-               ["Forma de entrar", "Resultado medido", "Riesgo o ventaja"], rows, [310, 280, 320], row_h=56,
-               note="Un breakpoint() olvidado en el código es un defecto: puede colgar un proceso sin terminal. La política es una regla de revisión y una variable de entorno de entornos no interactivos.", foot=S)
+    return fan(
+        'Controlar los puntos de interrupción',
+        "Diagrama de tres formas de entrar en el depurador: breakpoint con PYTHONBREAKPOINT igual a cero no hace nada y la ejecución imprime siguio 1; sin la variable detiene el proceso y espera entrada, y en un servicio sin terminal queda colgado; python -m pdb script.py arranca en la primera línea sin tocar el código.",
+        ("Un breakpoint() en el código", "tres formas de entrar", "navy"),
+        [("PYTHONBREAKPOINT=0", "la llamada no hace nada: imprime «siguio 1» y se puede dejar sin querer", "gold"),
+         ("Sin la variable", "detiene el proceso y espera entrada; sin terminal queda colgado", "coral"),
+         ("python -m pdb script.py", "arranca en la primera línea; no requiere modificar el código", "teal")],
+        note='Un breakpoint() olvidado en el código es un defecto: puede colgar un proceso sin terminal. La política es una regla de revisión y una variable de entorno de entornos no interactivos.', note_kind='gold', foot=S)
 
 
 # ---------------------------------------------------------------- SE-099
@@ -78,30 +88,30 @@ def se099_cprofile() -> Fig:
 def se099_memoria() -> Fig:
     items = [("Asignar 200 000 cadenas, sin tracemalloc", 44, "teal", "44 ms"), ("Con tracemalloc activo", 2719, "coral", "2 719 ms · ≈62×")]
     return bars("Medir memoria también cuesta", "Barras con el tiempo de crear 200 000 cadenas: 44 milisegundos sin tracemalloc y 2 719 milisegundos con tracemalloc, unas 62 veces más; el pico medido fue de 14 910 KiB.",
-                items, 0.3, "tracemalloc midió un pico de 14 910 KiB para 200 000 cadenas, pero multiplicó el tiempo por unas 62. La memoria se perfila en una ejecución dedicada, no en la medición de tiempos.", label_w=330, foot=M)
+                items, 0.17, "tracemalloc midió un pico de 14 910 KiB para 200 000 cadenas, pero multiplicó el tiempo por unas 62. La memoria se perfila en una ejecución dedicada, no en la medición de tiempos.", label_w=330, foot=M)
 
 
 def se099_muestreo() -> Fig:
-    rows = [["<genexpr>", "21", "Es donde estaba la ejecución la mayor parte del tiempo"],
-            ["helper", "7", "La función llamada desde el generador"],
-            ["cold · wait", "1 y 1", "Casi sin muestras: no es el cuello de botella"],
-            ["Tiempo con muestreo", "205 ms", "Frente a 192 ms sin muestrear: +7 %"]]
-    return tab("Un perfil por muestreo con poca perturbación", "Tabla del resultado de muestrear la pila del hilo principal cada milisegundo: 21 muestras en el generador, 7 en helper y una en cold y wait; el tiempo con muestreo fue 205 ms frente a 192 ms sin muestrear.",
-               ["Función observada", "Muestras", "Lectura"], rows, [240, 150, 520], row_h=52,
-               note="Con 30 muestras en total la precisión es baja: el muestreo señala dónde se gasta el tiempo con un margen amplio. Perturba mucho menos (+7 % frente a 4,8×), a cambio de menos detalle y de funciones rápidas que pueden no aparecer.", foot=S)
+    return grouped_bars(
+        'Un perfil por muestreo con poca perturbación',
+        "Barras horizontales con las muestras de la pila del hilo principal tomadas cada milisegundo: 21 en el generador, 7 en helper y una en cold y otra en wait; el muestreo añade solo un 7 por ciento al tiempo (205 ms frente a 192 ms).",
+        ["<genexpr>", "helper", "cold", "wait"],
+        [("Muestras", [21, 7, 1, 1], "teal")],
+        unit="Muestras de la pila (30 en total)", horizontal=True, label_w=130, ticks=[0, 5, 10, 15, 20, 25],
+        note='Con 30 muestras en total la precisión es baja: el muestreo señala dónde se gasta el tiempo con un margen amplio. Perturba mucho menos (+7 % frente a 4,8×), a cambio de menos detalle y de funciones rápidas que pueden no aparecer.', note_kind='gold', foot=S)
 
 
 # ---------------------------------------------------------------- SE-100
 def se100_matriz() -> Fig:
-    rows = [["Importación sin usar", "F401", "0", "ok", "Lo ve el linter"],
-            ["Nombre no definido (en función no llamada)", "F821", "0", "ok", "Falla solo si la función se ejecuta"],
-            ["`f('a')` con `x: int`", "—", "1", "ok", "Lo ve el verificador; las anotaciones no se aplican en ejecución"],
-            ["`x: Any` y `x + 1` con una cadena", "—", "0", "TypeError", "`Any` apaga la verificación"],
-            ["`d['k']` sobre un dict vacío", "—", "0", "KeyError", "Solo la ejecución lo revela"],
-            ["Argumento mutable por defecto", "—", "0", "ok", "No lo marca el conjunto de reglas por defecto"]]
-    return tab("Qué detecta cada herramienta", "Matriz de seis fragmentos con lo que detectan ruff y mypy y lo que ocurre al ejecutar: ruff detecta F401 y F821, mypy detecta el argumento mal tipado y los demás defectos solo aparecen al ejecutar o con reglas no activas.",
-               ["Fragmento", "ruff", "Errores de mypy", "Ejecución", "Lectura"], rows, [290, 70, 110, 100, 340], row_h=60,
-               note="Ninguna herramienta cubre todo: el linter, el verificador de tipos y la ejecución detectan clases distintas de defectos. Un conjunto de reglas por defecto no incluye todas las reglas relevantes.", foot=M)
+    return heatmap(
+        'Qué detecta cada herramienta',
+        "Mapa de calor con lo que detecta cada herramienta en seis fragmentos: ruff detecta la importación sin usar y el nombre no definido; mypy solo el argumento mal tipado; la ejecución solo el TypeError con Any y el KeyError; el argumento mutable por defecto no lo detecta ninguna.",
+        ["Importación sin usar", "Nombre no definido (función no llamada)", "f('a') con x: int", "x: Any y x + 1 con una cadena", "d['k'] sobre un dict vacío", "Argumento mutable por defecto"],
+        ["ruff", "mypy", "Ejecución"],
+        [[1, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, 1], [0, 0, 0]],
+        unit="detección", row_title="Fragmento", col_title="¿La herramienta lo detecta?",
+        scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "detecta" if v else "no lo ve", cell_h=42, label_w=300,
+        note='Ninguna herramienta cubre todo: el linter, el verificador de tipos y la ejecución detectan clases distintas de defectos. Un conjunto de reglas por defecto no incluye todas las reglas relevantes.', note_kind='gold', foot=M)
 
 
 def se100_velocidad() -> Fig:
@@ -111,22 +121,30 @@ def se100_velocidad() -> Fig:
 
 
 def se100_formato() -> Fig:
-    rows = [["Aplicar black dos veces", "Misma salida", "El formateo es idempotente: aplicarlo de nuevo no cambia nada"],
-            ["Linters integrados en ruff", "59", "Familias de reglas; cada una se activa o desactiva por separado"],
-            ["Reglas activas por defecto", "E y F", "Estilo básico y errores de nombres; el resto se elige"],
-            ["Argumento mutable por defecto", "Sin aviso", "La regla B006 existe pero no está activa por defecto"]]
-    return tab("Formato, reglas y configuración", "Tabla con tres comprobaciones: black es idempotente, ruff integra 59 familias de reglas y el argumento mutable por defecto no genera aviso con el conjunto por defecto.",
-               ["Comprobación", "Resultado", "Lectura"], rows, [280, 160, 470], row_h=56,
-               note="La configuración es parte del resultado: el mismo código pasa o falla según las reglas activas. Por eso el conjunto de reglas se versiona junto con el código.", foot=M)
+    f, y = _kit_start('Formato, reglas y configuración',
+                      "Diagrama de la configuración de ruff: de 59 familias de reglas solo E y F están activas por defecto; la regla B006 del argumento mutable existe pero no está activa y no da aviso; aplicar black dos veces da la misma salida.",
+                      940, None)
+    f.group(14, y + 4, 640, 214, "ruff: 59 familias de reglas, cada una se activa por separado", "grey")
+    card(f, 34, y + 40, 290, 70, "E y F: activas por defecto", "estilo básico y errores de nombres", "teal")
+    card(f, 344, y + 40, 290, 70, "Resto de familias", "se eligen en la configuración", "plain", True)
+    card(f, 34, y + 126, 600, 74, "B006 (argumento mutable por defecto): existe pero no está activa", "con el conjunto por defecto el código con ese defecto no recibe aviso", "coral", True)
+    card(f, 680, y + 40, 246, 100, "black aplicado dos veces", "misma salida: el formateo es idempotente", "teal")
+    f.arrow([(680 + 123, y + 140), (680 + 123, y + 160)])
+    card(f, 680, y + 160, 246, 58, "La configuración se versiona con el código", "", "gold")
+    out = _kit_finish(f, y + 234, 'La configuración es parte del resultado: el mismo código pasa o falla según las reglas activas. Por eso el conjunto de reglas se versiona junto con el código.', 'gold', M)
+    out.kind = "diagram"
+    return out
 
 
 # ---------------------------------------------------------------- SE-101
 def se101_orden() -> Fig:
-    rows = [["Orden 1, 2, 3 (de arriba abajo)", "11", "22", "El resultado coincide con el texto del cuaderno"],
-            ["Se ejecuta la celda 2 dos veces y luego la 3", "11 → 21", "42", "El mismo cuaderno produce otra salida"]]
-    return tab("El estado oculto de un cuaderno", "Tabla con la misma secuencia de celdas ejecutada en orden y fuera de orden: en orden las salidas son 11 y 22 y con la segunda celda ejecutada dos veces son 11, 21 y 42.",
-               ["Secuencia de ejecución", "Celda 2", "Celda 3", "Lectura"], rows, [310, 130, 110, 360], row_h=56,
-               note="El kernel conserva variables entre celdas. Ejecutar la celda 2 dos veces cambió el valor de x y el resultado final pasó de 22 a 42 sin que el texto del cuaderno cambiara. Un cuaderno reproducible se ejecuta completo desde un kernel nuevo.", foot=S)
+    return timeline(
+        'El estado oculto de un cuaderno',
+        "Líneas de ejecución de las mismas celdas de un cuaderno: en orden 1, 2, 3 la celda 2 da 11 y la 3 da 22; si se ejecuta la celda 2 dos veces antes de la 3, la celda 2 da 11 y luego 21 y la 3 da 42, con el mismo texto en el cuaderno.",
+        [("Orden 1, 2, 3 (de arriba abajo)", [(0, 1, "celda 1", "grey"), (1, 2, "celda 2 → 11", "teal"), (2, 3, "celda 3 → 22", "teal")]),
+         ("Celda 2 dos veces, luego la 3", [(0, 1, "celda 1", "grey"), (1, 2, "celda 2 → 11", "teal"), (2, 3, "celda 2 → 21", "gold"), (3, 4, "celda 3 → 42", "coral")])],
+        unit="Orden de ejecución (número de celda ejecutada)", ticks=[0, 1, 2, 3, 4], t_max=4, lane_h=58, label_w=250,
+        note='El kernel conserva variables entre celdas. Ejecutar la celda 2 dos veces cambió el valor de x y el resultado final pasó de 22 a 42 sin que el texto del cuaderno cambiara. Un cuaderno reproducible se ejecuta completo desde un kernel nuevo.', note_kind='gold', foot=S)
 
 
 def se101_json() -> Fig:
@@ -136,13 +154,13 @@ def se101_json() -> Fig:
 
 
 def se101_exploracion() -> Fig:
-    rows = [["Identificador de celda en el JSON", "Presente", "Permite referirse a una celda concreta entre versiones"],
-            ["Salidas guardadas en el archivo", "Sí", "Pueden contener datos o secretos que se confirman sin querer"],
-            ["Ejecución completa desde un kernel nuevo", "11 → 22", "Es la comprobación de reproducibilidad"],
-            ["REPL de Python (`python -i`)", "Sin archivo", "El estado vive en la sesión y no queda registrado"]]
-    return tab("De la exploración al código reproducible", "Tabla con cuatro propiedades de los cuadernos y del REPL: identificadores de celda presentes, salidas guardadas, ejecución completa desde un kernel nuevo con resultado 11 y 22 y el REPL sin archivo asociado.",
-               ["Propiedad", "Valor medido", "Consecuencia"], rows, [340, 150, 420], row_h=56,
-               note="La exploración es valiosa si termina en un artefacto que otra persona pueda ejecutar de arriba abajo. Lo explorado en una sesión sin registro es una conjetura, no evidencia.", foot=S)
+    return chain(
+        'De la exploración al código reproducible',
+        "Cadena de tres etapas de la exploración al código reproducible: el REPL no deja archivo, el cuaderno guarda identificadores de celda y salidas que pueden contener datos o secretos, y la ejecución completa desde un kernel nuevo da 11 y 22 y es la comprobación de reproducibilidad.",
+        [("REPL de Python (python -i)", "sin archivo: el estado vive en la sesión y no queda registrado", "coral"),
+         ("Cuaderno .ipynb", "id de cada celda presente; salidas guardadas que pueden contener datos o secretos", "gold"),
+         ("Ejecución completa desde un kernel nuevo", "11 → 22: es la comprobación de reproducibilidad", "teal")],
+        labels=["", ""], note='La exploración es valiosa si termina en un artefacto que otra persona pueda ejecutar de arriba abajo. Lo explorado en una sesión sin registro es una conjetura, no evidencia.', note_kind='gold', foot=S)
 
 
 # ---------------------------------------------------------------- SE-102
@@ -154,127 +172,144 @@ def se102_arranque() -> Fig:
 
 
 def se102_resolucion() -> Fig:
-    rows = [["`where python`", "3 candidatos", "Varios ejecutables cumplen el nombre; gana el primero en PATH"],
-            ["`py -0`", "3 entradas", "El lanzador lista versiones registradas, incluida una de 32 bits"],
-            ["`uv python list --only-installed`", "4 entradas", "Otra herramienta ve un conjunto distinto"],
-            ["`sys.executable`", "Uno", "El intérprete que ejecutó el script"]]
-    return tab("Qué Python se ejecuta", "Tabla de tres formas de listar intérpretes en la misma máquina: where encontró tres candidatos, el lanzador py listó tres versiones y uv listó cuatro; sys.executable identifica el que realmente se ejecuta.",
-               ["Consulta", "Resultado", "Lectura"], rows, [310, 160, 440], row_h=56,
-               note="«python» no identifica un intérprete: depende de PATH, del lanzador y de la herramienta. La evidencia es `sys.executable` y `sys.version` dentro del propio proceso.", foot=S)
+    return grouped_bars(
+        'Qué Python se ejecuta',
+        "Barras horizontales con cuántos intérpretes lista cada consulta en la misma máquina: where python encuentra 3 candidatos, py -0 lista 3 versiones, uv python list lista 4 y sys.executable identifica uno solo, el que ejecutó el script.",
+        ["where python", "py -0", "uv python list --only-installed", "sys.executable"],
+        [("Intérpretes listados", [3, 3, 4, 1], "gold")],
+        unit="Intérpretes que lista la consulta", horizontal=True, label_w=250, ticks=[0, 1, 2, 3, 4, 5],
+        note='«python» no identifica un intérprete: depende de PATH, del lanzador y de la herramienta. La evidencia es `sys.executable` y `sys.version` dentro del propio proceso.', note_kind='gold', foot=S)
 
 
 def se102_versiones() -> Fig:
-    rows = [["Windows", "3.12.9", "3.12.9 (64 bits) en PATH; también 3.14 de 32 bits y otros"],
-            ["Linux (WSL2)", "3.12.3", "Versión menor distinta de la de Windows con la misma serie 3.12"],
-            ["Archivo de versión del proyecto", "Falta", "Ni una ni otra quedan fijadas por el repositorio"]]
-    return tab("Una misma serie, dos compilaciones", "Tabla que compara las versiones medidas: Windows ejecutó CPython 3.12.9 y Linux 3.12.3, ambas de la serie 3.12, y el repositorio no fija una versión exacta.",
-               ["Entorno", "Versión", "Lectura"], rows, [220, 160, 530], row_h=56,
-               note="Un resultado medido en 3.12.9 puede no repetirse en 3.12.3 o en 3.14. Fijar la versión exacta (en un archivo de versión del gestor o en la configuración del contenedor) convierte la suposición en un requisito comprobable.", foot=S)
+    f, y = _kit_start('Una misma serie, dos compilaciones',
+                      "Diagrama de las versiones medidas dentro de la serie 3.12: Windows ejecutó CPython 3.12.9 y Linux 3.12.3; el repositorio no tiene un archivo de versión, así que ninguna de las dos queda fijada.",
+                      940, None)
+    f.group(14, y + 4, 912, 120, "Serie 3.12 de CPython", "teal")
+    card(f, 34, y + 40, 430, 72, "Windows: 3.12.9", "64 bits en PATH; también hay 3.14 de 32 bits y otros", "teal")
+    card(f, 484, y + 40, 422, 72, "Linux (WSL2): 3.12.3", "versión menor distinta de la de Windows", "teal")
+    f.arrow([(470, y + 124), (470, y + 148)], color="#c0432f")
+    card(f, 14, y + 148, 912, 62, "Archivo de versión del proyecto: falta", "ni una ni otra quedan fijadas por el repositorio", "coral", True)
+    out = _kit_finish(f, y + 224, 'Un resultado medido en 3.12.9 puede no repetirse en 3.12.3 o en 3.14. Fijar la versión exacta (en un archivo de versión del gestor o en la configuración del contenedor) convierte la suposición en un requisito comprobable.', 'gold', S)
+    out.kind = "diagram"
+    return out
 
 
 # ---------------------------------------------------------------- SE-103
 def se103_tamano() -> Fig:
-    rows = [["venv con pip (Windows)", "11 344 ms", "860", "11 550 KiB"],
-            ["venv --without-pip (Windows)", "180 ms", "7", "557 KiB"],
-            ["uv venv (Windows)", "278 ms", "16", "555 KiB"],
-            ["venv --without-pip (Linux)", "118 ms", "8", "enlace simbólico a python"],
-            ["venv con pip (Linux)", "6 376 ms", "—", "pip y setuptools incluidos"]]
-    return tab("Crear un entorno virtual cuesta lo que se instala", "Tabla de la creación de entornos virtuales: con pip en Windows 11 344 ms, 860 archivos y 11 550 KiB; sin pip 180 ms, 7 archivos y 557 KiB; con uv 278 ms; en Linux sin pip 118 ms y con pip 6376 ms.",
-               ["Creación", "Tiempo", "Archivos", "Tamaño o nota"], rows, [310, 150, 130, 320], row_h=52,
-               note="Casi todo el costo del entorno es pip: 860 archivos frente a 7. En Linux el intérprete del entorno es un enlace simbólico; en Windows se copia un ejecutable lanzador.", foot=S)
+    return grouped_bars(
+        'Crear un entorno virtual cuesta lo que se instala',
+        "Barras horizontales en escala logarítmica con el tiempo de crear un entorno virtual: con pip tarda 11 344 ms en Windows y 6 376 ms en Linux; sin pip 180 ms en Windows y 118 en Linux; uv venv en Windows 278 ms; casi todo el costo es pip.",
+        ["Windows · venv con pip", "Windows · venv --without-pip", "Windows · uv venv", "Linux · venv con pip", "Linux · venv --without-pip"],
+        [("Tiempo de creación", [11344, 180, 278, 6376, 118], "gold")],
+        unit="Tiempo de creación (ms)", horizontal=True, log=True, label_w=250, ticks=[10, 100, 1000, 10000, 100000],
+        note='Casi todo el costo del entorno es pip: 860 archivos frente a 7. En Linux el intérprete del entorno es un enlace simbólico; en Windows se copia un ejecutable lanzador.', note_kind='gold', foot=S)
 
 
 def se103_cfg() -> Fig:
-    rows = [["`pyvenv.cfg`", "home · include-system-site-packages · version · executable · command", "Cinco claves que enlazan el entorno con su intérprete"],
-            ["`sys.prefix == sys.base_prefix`", "False dentro del entorno", "Así se detecta que se ejecuta dentro de un venv"],
-            ["Longitud de `sys.path`", "7 (entorno) · 16 (sistema)", "El entorno ve menos rutas que el intérprete global"]]
-    return tab("Cómo se aísla un entorno", "Tabla de lo medido en un entorno virtual: pyvenv.cfg tiene cinco claves, sys.prefix difiere de sys.base_prefix y sys.path tiene 7 entradas dentro del entorno frente a 16 en el intérprete del sistema.",
-               ["Elemento", "Valor medido", "Lectura"], rows, [250, 340, 320], row_h=60,
-               note="El aislamiento no es un contenedor: es una configuración de rutas. El entorno comparte el intérprete base y el sistema operativo; solo cambia dónde se buscan e instalan los paquetes.", foot=S)
+    f, y = _kit_start('Cómo se aísla un entorno',
+                      "Diagrama de cómo se aísla un entorno virtual: pyvenv.cfg con cinco claves lo enlaza con el intérprete base; dentro del entorno sys.prefix difiere de sys.base_prefix y sys.path tiene 7 rutas frente a 16 del intérprete global.",
+                      940, None)
+    f.group(14, y + 4, 560, 246, "Entorno virtual", "teal")
+    card(f, 34, y + 40, 520, 64, "pyvenv.cfg: cinco claves", "home · include-system-site-packages · version · executable · command", "teal")
+    card(f, 34, y + 116, 520, 56, "sys.prefix == sys.base_prefix → False", "así se detecta que se ejecuta dentro de un venv", "teal")
+    card(f, 34, y + 182, 520, 56, "sys.path: 7 rutas", "", "teal")
+    card(f, 700, y + 40, 226, 76, "Intérprete base compartido", "el entorno solo cambia dónde se instala", "grey")
+    card(f, 700, y + 182, 226, 56, "sys.path: 16 rutas", "intérprete global", "grey")
+    f.arrow([(554, y + 72), (700, y + 72)], "home", label_at=(627, y + 62))
+    out = _kit_finish(f, y + 266, 'El aislamiento no es un contenedor: es una configuración de rutas. El entorno comparte el intérprete base y el sistema operativo; solo cambia dónde se buscan e instalan los paquetes.', 'gold', S)
+    out.kind = "diagram"
+    return out
 
 
 def se103_paquete() -> Fig:
-    rows = [["`import demo_pkg` en el intérprete global", "Falla", "El paquete no está instalado allí"],
-            ["`import demo_pkg` dentro del entorno", "1.0.0", "Instalado con `--no-index --no-deps` desde un archivo local"],
-            ["`pip list` dentro del entorno", "2 paquetes", "pip y demo-pkg; nada más"],
-            ["`pip freeze` de dos entornos nuevos", "Idéntico", "Misma rueda instalada produce el mismo estado"]]
-    return tab("Instalar sin contaminar el sistema", "Tabla de una instalación local: demo_pkg no se puede importar en el intérprete global, se importa dentro del entorno con versión 1.0.0, pip list muestra dos paquetes y pip freeze de dos entornos nuevos es idéntico.",
-               ["Comprobación", "Resultado", "Lectura"], rows, [330, 160, 420], row_h=56,
-               note="Se instaló una rueda construida localmente, sin red. La reproducibilidad del entorno depende de poder instalar los mismos archivos exactos, no de la versión escrita en un archivo de requisitos.", foot=S)
+    return fan(
+        'Instalar sin contaminar el sistema',
+        "Diagrama de la instalación local de una rueda: demo_pkg no se importa en el intérprete global; dentro del entorno se importa con versión 1.0.0 y pip list muestra dos paquetes; dos entornos nuevos con la misma rueda dan el mismo pip freeze.",
+        ("Rueda demo_pkg 1.0.0", "instalada con --no-index --no-deps desde un archivo local", "navy"),
+        [("Intérprete global: import falla", "el paquete no está instalado allí", "coral"),
+         ("Entorno: import → 1.0.0", "pip list: 2 paquetes, pip y demo-pkg; nada más", "teal"),
+         ("Dos entornos nuevos: pip freeze idéntico", "la misma rueda produce el mismo estado", "teal")],
+        note='Se instaló una rueda construida localmente, sin red. La reproducibilidad del entorno depende de poder instalar los mismos archivos exactos, no de la versión escrita en un archivo de requisitos.', note_kind='gold', foot=S)
 
 
 # ---------------------------------------------------------------- SE-104
 def se104_estado() -> Fig:
-    rows = [["Cliente y motor de Docker", "29.9.2 · linux · overlayfs", "`docker info` respondió en 1 327 ms: el motor estaba en marcha"],
-            ["Imagen construida desde `scratch`", "9 383 bytes · 1 capa", "Un solo archivo copiado; primera construcción 4 325 ms, segunda 1 221 ms"],
-            ["Dos construcciones con `--no-cache`", "IDs distintos", "ddb3953a1aea frente a 244e4937f237 con el mismo contexto"],
-            ["`docker create` + `docker cp`", "314 ms · 373 ms", "Se creó el contenedor y se leyó el archivo sin ejecutar nada"],
-            ["Ejecutar un proceso en el contenedor", "No medido", "No se descargó ninguna imagen base de un registro externo"]]
-    return tab("Qué se midió con el motor en marcha", "Tabla de lo medido con Docker 29.9.2: docker info en 1327 ms, una imagen de 9383 bytes y una capa construida desde scratch en 4325 y 1221 ms, dos construcciones con identificadores distintos, creación del contenedor en 314 ms y copia del archivo en 373 ms; la ejecución de un proceso no se midió.",
-               ["Elemento", "Valor medido", "Lectura"], rows, [270, 210, 430], row_h=60,
-               note="Todo se hizo sin red: la imagen parte de `scratch` y no hay proceso que ejecutar. El arranque de un contenedor con un sistema base real queda sin medir, y se declara como límite.", foot="Medido con Docker 29.9.2 sobre Windows 11 (motor Linux, 8 CPU).")
+    return grouped_bars(
+        'Qué se midió con el motor en marcha',
+        "Barras horizontales con los tiempos medidos con el motor de Docker 29.9.2 en marcha: docker info 1 327 ms, primera construcción de la imagen desde scratch 4 325 ms, segunda 1 221 ms, docker create 314 ms y docker cp 373 ms; la ejecución de un proceso no se midió.",
+        ["docker info", "Construcción de la imagen, 1.ª vez", "Construcción de la imagen, 2.ª vez", "docker create", "docker cp"],
+        [("Tiempo", [1327, 4325, 1221, 314, 373], "teal")],
+        unit="Tiempo medido (ms)", horizontal=True, label_w=270,
+        note='Todo se hizo sin red: la imagen parte de `scratch` y no hay proceso que ejecutar. El arranque de un contenedor con un sistema base real queda sin medir, y se declara como límite.', note_kind='gold', foot="Medido con Docker 29.9.2 sobre Windows 11 (motor Linux, 8 CPU).")
 
 
 def se104_config() -> Fig:
-    rows = [["image", "Imagen base", "Una etiqueta cambia; un digest fija el contenido"],
-            ["features", "Piezas instalables", "Añaden herramientas sin editar la imagen"],
-            ["postCreateCommand", "pip install -r requirements.txt", "Se ejecuta después de crear el contenedor, con red"],
-            ["customizations", "Extensiones del editor", "La extensión de ruff queda en la configuración, no en la memoria de alguien"]]
-    return tab("Anatomía de un dev container", "Tabla de las cinco claves de un devcontainer.json de ejemplo y su efecto: image, features, postCreateCommand y customizations con una extensión de ruff.",
-               ["Clave", "Contenido de ejemplo", "Efecto"], rows, [180, 280, 450], row_h=56,
-               note="Un dev container declara el entorno como código. La garantía depende de lo que se fije: una etiqueta de imagen puede apuntar a otro contenido mañana; un digest no.", foot="Estructura de una configuración de ejemplo; no se ejecutó.")
+    return merge(
+        'Anatomía de un dev container',
+        "Diagrama de las cuatro claves de un devcontainer.json de ejemplo que definen el contenedor de desarrollo: image fija la imagen base, features añade piezas instalables, postCreateCommand instala dependencias después de crear y customizations deja la extensión de ruff en la configuración.",
+        [("image", "imagen base: una etiqueta cambia, un digest fija el contenido", "gold"),
+         ("features", "piezas instalables: añaden herramientas sin editar la imagen", "plain"),
+         ("postCreateCommand: pip install -r requirements.txt", "se ejecuta después de crear el contenedor, con red", "plain"),
+         ("customizations", "extensiones del editor: la de ruff queda en la configuración", "plain")],
+        ("Contenedor de desarrollo", "el entorno declarado como código", "teal"),
+        note='Un dev container declara el entorno como código. La garantía depende de lo que se fije: una etiqueta de imagen puede apuntar a otro contenido mañana; un digest no.', note_kind='gold', foot="Estructura de una configuración de ejemplo; no se ejecutó.")
 
 
 def se104_desechable() -> Fig:
-    rows = [["Entorno virtual", "180–278 ms", "Aísla paquetes; comparte intérprete y sistema"],
-            ["Contenedor (`docker create`)", "314 ms", "Aísla también el sistema de archivos y las herramientas"],
-            ["Máquina virtual", "No medido", "Aísla el kernel; más pesada"]]
-    return tab("Niveles de aislamiento", "Tabla de niveles de aislamiento: un entorno virtual se crea en 180 a 278 ms y comparte el intérprete y el sistema; crear un contenedor tomó 314 ms y la máquina virtual no se midió.",
-               ["Nivel", "Costo medido", "Qué aísla"], rows, [260, 210, 440], row_h=56,
-               note="Más aislamiento no es mejor por defecto: cuesta tiempo y recursos. Se elige el nivel que cubre el riesgo (dependencias, herramientas o sistema operativo) y se declara el resto.", foot="El costo de la máquina virtual no se midió; 314 ms es crear, no arrancar, un contenedor.")
+    return nested(
+        'Niveles de aislamiento',
+        "Niveles de aislamiento anidados: el entorno virtual aísla paquetes y se crea en 180 a 278 ms; el contenedor aísla además el sistema de archivos y las herramientas y crearlo tomó 314 ms; la máquina virtual aísla el kernel y su costo no se midió.",
+        [("Máquina virtual", "aísla el kernel; más pesada · costo no medido", "grey", True),
+         ("Contenedor", "aísla también el sistema de archivos y las herramientas · crear: 314 ms", "gold", False),
+         ("Entorno virtual", "aísla paquetes; comparte intérprete y sistema · 180 a 278 ms", "teal", False)],
+        note='Más aislamiento no es mejor por defecto: cuesta tiempo y recursos. Se elige el nivel que cubre el riesgo (dependencias, herramientas o sistema operativo) y se declara el resto.', note_kind='gold', foot="El costo de la máquina virtual no se midió; 314 ms es crear, no arrancar, un contenedor.")
 
 
 # ---------------------------------------------------------------- SE-105
 def se105_ddmin() -> Fig:
-    rows = [["Entrada que falla", "403 caracteres", "Contiene un `[` sin cerrar tras «ab»"],
-            ["Caso mínimo", "`ab[` (3 caracteres)", "Reducción del 99,3 %"],
-            ["Pruebas ejecutadas", "24", "Frente a 403 pruebas de un carácter cada una"]]
-    return tab("Reducir un caso hasta lo esencial", "Tabla de una reducción automática: una entrada de 403 caracteres que falla se redujo a los tres caracteres ab[ con 24 pruebas.",
-               ["Magnitud", "Valor", "Lectura"], rows, [250, 230, 430], row_h=52,
-               note="La reducción no entiende el defecto: solo elimina trozos mientras el fallo persista. Funciona si la prueba es determinista; con una prueba intermitente puede quedarse con un caso que no es mínimo.", foot=S)
+    return chain(
+        'Reducir un caso hasta lo esencial',
+        "Cadena de una reducción automática: una entrada de 403 caracteres que falla se reduce con 24 pruebas al caso mínimo de 3 caracteres (ab y un corchete abierto), una reducción del 99,3 por ciento; probar un carácter cada vez habría exigido 403 pruebas.",
+        [("Entrada que falla", "403 caracteres: contiene un «[» sin cerrar tras «ab»", "coral"),
+         ("Caso mínimo", "ab[ (3 caracteres): reducción del 99,3 %", "teal")],
+        labels=["24 pruebas"], note='La reducción no entiende el defecto: solo elimina trozos mientras el fallo persista. Funciona si la prueba es determinista; con una prueba intermitente puede quedarse con un caso que no es mínimo.', note_kind='gold', foot=S)
 
 
 def se105_bisect() -> Fig:
-    rows = [["Historia", "64 commits", "El defecto se introduce en el commit 41"],
-            ["`git bisect run`", "6 pasos", "log₂ 64 = 6: cada paso descarta la mitad"],
-            ["Commit señalado", "c41", "Coincide con el cambio introducido a propósito"]]
-    return tab("Buscar el cambio culpable", "Tabla de una bisección automática en una historia de 64 commits: el defecto se introdujo en el commit 41 y git bisect run lo encontró en 6 pasos.",
-               ["Elemento", "Resultado", "Lectura"], rows, [250, 190, 470], row_h=52,
-               note="La bisección da el primer commit en que falla la prueba, no la causa. Asume que antes funcionaba y después falla siempre; un defecto intermitente o dos defectos distintos la engañan.", foot=S)
+    return timeline(
+        'Buscar el cambio culpable',
+        "Línea de tiempo de una historia de 64 commits: la prueba pasa hasta el commit 40 y falla desde el 41, donde se introdujo el defecto a propósito; git bisect run señala el commit 41 en 6 pasos porque cada paso descarta la mitad.",
+        [("Historia de 64 commits", [(0, 40, "la prueba pasa", "teal"), (40, 64, "la prueba falla", "coral")])],
+        unit="Commit (1 a 64)", events=[(40, "c41: primer commit que falla · 6 pasos"),], ticks=[0, 16, 32, 40, 48, 64], t_max=64, lane_h=62, label_w=200,
+        note='La bisección da el primer commit en que falla la prueba, no la causa. Asume que antes funcionaba y después falla siempre; un defecto intermitente o dos defectos distintos la engañan.', note_kind='gold', foot=S)
 
 
 def se105_pasos() -> Fig:
     items = [("Eliminar un carácter cada vez", 403, "coral", "403 pruebas"), ("ddmin (reducción por trozos)", 24, "teal", "24 pruebas"), ("Bisección de 64 commits", 6, "teal", "6 pruebas")]
     return bars("Cuántas pruebas necesita cada estrategia", "Barras con las pruebas necesarias: 403 eliminando un carácter cada vez, 24 con ddmin y 6 para bisecar 64 commits.",
-                items, 2.0, "Elegir la estrategia cambia el costo en órdenes de magnitud. El conteo de pruebas es reproducible; el tiempo de cada prueba depende de lo que se ejecute.", label_w=290, foot=S)
+                items, 1.3, "Elegir la estrategia cambia el costo en órdenes de magnitud. El conteo de pruebas es reproducible; el tiempo de cada prueba depende de lo que se ejecute.", label_w=290, foot=S)
 
 
 # ---------------------------------------------------------------- SE-106
 def se106_contraste() -> Fig:
-    rows = [["Negro sobre blanco", "21,00", "Cumple"], ["Gris #767676 sobre blanco", "4,54", "Cumple AA (≥ 4,5)"],
-            ["Gris #777777 sobre blanco", "4,48", "No cumple AA"], ["Verde #00aa00 sobre blanco", "3,11", "No cumple para texto normal"],
-            ["Azul #0000ff sobre fondo #1e1e1e", "1,94", "Prácticamente ilegible"]]
-    return tab("Contraste calculado con la fórmula de WCAG", "Tabla de razones de contraste calculadas: negro sobre blanco 21,00, gris 767676 sobre blanco 4,54 que cumple AA, gris 777777 sobre blanco 4,48 que no cumple, verde 00aa00 sobre blanco 3,11 y azul 0000ff sobre fondo 1e1e1e 1,94.",
-               ["Combinación", "Razón", "Veredicto"], rows, [400, 150, 360], row_h=44,
-               note="Una diferencia imperceptible en el color (#767676 frente a #777777) cruza el umbral de 4,5. El contraste se calcula, no se juzga a ojo, y vale para el texto normal; el grande admite 3.", foot="Calculado con la fórmula de luminancia relativa de WCAG 2.2.")
+    return grouped_bars(
+        'Contraste calculado con la fórmula de WCAG',
+        "Barras horizontales con la razón de contraste WCAG de cinco combinaciones: negro sobre blanco 21,00, gris 767676 4,54 que cumple AA, gris 777777 4,48 que queda bajo el umbral de 4,5, verde 00aa00 3,11 y azul sobre fondo oscuro 1,94.",
+        ["Azul #0000ff sobre #1e1e1e", "Verde #00aa00 sobre blanco", "Gris #777777 sobre blanco", "Gris #767676 sobre blanco", "Negro sobre blanco"],
+        [("Razón de contraste", [1.94, 3.11, 4.48, 4.54, 21.00], "navy")],
+        unit="Razón de contraste (WCAG)", horizontal=True, label_w=250, decimals=2, ref_lines=[(4.5, "AA: 4,5")],
+        note='Una diferencia imperceptible en el color (#767676 frente a #777777) cruza el umbral de 4,5. El contraste se calcula, no se juzga a ojo, y vale para el texto normal; el grande admite 3.', note_kind='gold', foot="Calculado con la fórmula de luminancia relativa de WCAG 2.2.")
 
 
 def se106_tema() -> Fig:
-    rows = [["Comentario #6a9955 sobre #1e1e1e (tema oscuro)", "5,00", "Cumple AA"], ["Comentario #008000 sobre blanco (tema claro)", "5,14", "Cumple AA"],
-            ["Rojo #ff0000 sobre negro", "5,25", "Cumple, pero el color no es el único canal"]]
-    return tab("Temas del editor y accesibilidad", "Tabla de contraste de colores de comentarios en temas del editor: 5,00 en el tema oscuro, 5,14 en el claro y 5,25 el rojo sobre negro.",
-               ["Combinación", "Razón", "Veredicto"], rows, [440, 130, 340], row_h=52,
-               note="Cumplir el contraste no basta: el color no debe ser el único modo de distinguir un error. El editor debe ofrecer también un símbolo o un texto.", foot="Calculado con la fórmula de luminancia relativa de WCAG 2.2.")
+    return grouped_bars(
+        'Temas del editor y accesibilidad',
+        "Barras horizontales con la razón de contraste de colores de comentarios en temas del editor: 5,00 en el tema oscuro, 5,14 en el claro y 5,25 el rojo sobre negro, los tres sobre el umbral AA de 4,5.",
+        ["Comentario #6a9955 sobre #1e1e1e (oscuro)", "Comentario #008000 sobre blanco (claro)", "Rojo #ff0000 sobre negro"],
+        [("Razón de contraste", [5.00, 5.14, 5.25], "teal")],
+        unit="Razón de contraste (WCAG)", horizontal=True, label_w=270, decimals=2, ref_lines=[(4.5, "AA: 4,5")],
+        note='Cumplir el contraste no basta: el color no debe ser el único modo de distinguir un error. El editor debe ofrecer también un símbolo o un texto.', note_kind='gold', foot="Calculado con la fórmula de luminancia relativa de WCAG 2.2.")
 
 
 def se106_latencia() -> Fig:
@@ -285,62 +320,85 @@ def se106_latencia() -> Fig:
 
 # ---------------------------------------------------------------- SE-107
 def se107_flujo() -> Fig:
-    rows = [["1. Reproducir", "Prueba determinista que falla", "Sin ella, ninguna técnica posterior es fiable"],
-            ["2. Reducir", "403 → 3 caracteres en 24 pruebas", "El caso mínimo apunta al mecanismo"],
-            ["3. Localizar", "6 pasos para 64 commits", "Encuentra el cambio, no la causa"],
-            ["4. Observar", "pdb: b = 10 y a = 5 en la línea 3", "Confirma o refuta la hipótesis"],
-            ["5. Verificar", "Nueva prueba, falla antes y pasa después", "Evita declarar resuelto lo que solo dejó de verse"]]
-    return tab("Diagnosticar un fallo desconocido: la secuencia", "Tabla de cinco pasos con datos medidos: reproducir con una prueba determinista, reducir 403 caracteres a 3 en 24 pruebas, bisecar 64 commits en 6 pasos, observar el estado con pdb y verificar con una prueba nueva.",
-               ["Paso", "Dato medido", "Por qué importa"], rows, [190, 330, 390], row_h=52,
-               note="Cada paso reduce el espacio de búsqueda y deja un registro. El orden no es rígido, pero saltarse la reproducción deja el resto sin base.", foot=S)
+    return chain(
+        'Diagnosticar un fallo desconocido: la secuencia',
+        "Cadena de cinco pasos de diagnóstico con su dato medido: reproducir con una prueba determinista, reducir de 403 a 3 caracteres en 24 pruebas, localizar el commit en 6 pasos para 64, observar con pdb que b vale 10 y a vale 5, y verificar con una prueba nueva.",
+        [("1. Reproducir", "prueba determinista que falla", "navy"), ("2. Reducir", "403 → 3 caracteres en 24 pruebas", "navy"),
+         ("3. Localizar", "6 pasos para 64 commits", "navy"), ("4. Observar", "pdb: b = 10 y a = 5 en la línea 3", "navy"),
+         ("5. Verificar", "nueva prueba: falla antes y pasa después", "teal")],
+        note='Cada paso reduce el espacio de búsqueda y deja un registro. El orden no es rígido, pero saltarse la reproducción deja el resto sin base.', note_kind='gold', foot=S)
 
 
 def se107_hipotesis() -> Fig:
-    rows = [["H1: el defecto está en el analizador", "Se reduce a `ab[`", "Se confirma: el caso mínimo lo fuerza"],
-            ["H2: el defecto lo introdujo el commit 41", "Bisect señala c41", "Se confirma con la prueba automática"],
-            ["H3: depende del estado de `b`", "pdb muestra b = 10", "Se descarta: el valor es el esperado"]]
-    return tab("Registro de hipótesis", "Tabla de un registro de tres hipótesis: el analizador, el commit 41 y el valor de b; las dos primeras se confirman con la reducción y la bisección, y la tercera se descarta con la observación en pdb.",
-               ["Hipótesis", "Prueba", "Resultado"], rows, [340, 240, 330], row_h=56,
-               note="Descartar es información. Una hipótesis descartada con su prueba evita volver a investigarla y muestra qué se comprobó.", foot=S)
+    return fan(
+        'Registro de hipótesis',
+        "Diagrama de tres hipótesis ante un fallo: el analizador y el commit 41 se confirman con la reducción a un caso mínimo y con la bisección que señala c41; que dependa del estado de b se descarta porque pdb muestra b igual a 10, el valor esperado.",
+        ("Fallo observado", "tres hipótesis con su prueba", "navy"),
+        [("H1: el defecto está en el analizador", "se reduce a ab[: el caso mínimo lo fuerza → confirmada", "teal"),
+         ("H2: lo introdujo el commit 41", "bisect señala c41 y la prueba automática lo confirma → confirmada", "teal"),
+         ("H3: depende del estado de b", "pdb muestra b = 10, el valor esperado → descartada", "coral", True)],
+        note='Descartar es información. Una hipótesis descartada con su prueba evita volver a investigarla y muestra qué se comprobó.', note_kind='gold', foot=S)
 
 
 def se107_limites() -> Fig:
-    rows = [["Reducción", "Funciona con pruebas deterministas", "Falla con fallos intermitentes"],
-            ["Bisección", "Funciona con un solo cambio culpable", "Dos defectos o interacciones la confunden"],
-            ["Depurador", "Muestra el estado en un instante", "Perturba tiempos (hasta 9,7× de costo)"]]
-    return tab("Cada técnica tiene su condición", "Tabla de las condiciones de cada técnica de diagnóstico: la reducción requiere pruebas deterministas, la bisección un único cambio culpable y el depurador perturba los tiempos hasta 9,7 veces.",
-               ["Técnica", "Cuándo funciona", "Cuándo falla"], rows, [190, 360, 360], row_h=56,
-               note="Elegir mal la técnica produce conclusiones falsas con aspecto de evidencia. Antes de aplicarla se comprueba su condición.", foot=S)
+    f, y = _kit_start('Cada técnica tiene su condición',
+                      "Diagrama de la condición de cada técnica de diagnóstico: la reducción funciona con pruebas deterministas y falla con fallos intermitentes; la bisección funciona con un solo cambio culpable y la confunden dos defectos; el depurador muestra el estado en un instante pero perturba los tiempos hasta 9,7 veces.",
+                      940, None)
+    rows = [("Reducción", "funciona con pruebas deterministas", "falla con fallos intermitentes"),
+            ("Bisección", "funciona con un solo cambio culpable", "dos defectos o interacciones la confunden"),
+            ("Depurador", "muestra el estado en un instante", "perturba tiempos (hasta 9,7× de costo)")]
+    for i, (name, ok, bad) in enumerate(rows):
+        ry = y + 6 + i * 84
+        card(f, 14, ry, 170, 72, name, "", "navy")
+        f.arrow([(184, ry + 36), (246, ry + 36)], "", color="#32505f")
+        card(f, 246, ry, 330, 72, "Cuándo funciona", ok, "teal")
+        f.arrow([(576, ry + 36), (626, ry + 36)], "", color="#c0432f", dashed=True)
+        card(f, 626, ry, 300, 72, "Cuándo falla", bad, "coral", True)
+    out = _kit_finish(f, y + 6 + 3 * 84 - 4, 'Elegir mal la técnica produce conclusiones falsas con aspecto de evidencia. Antes de aplicarla se comprueba su condición.', 'gold', S)
+    out.kind = "diagram"
+    return out
 
 
 # ---------------------------------------------------------------- SE-108
 def se108_inventario() -> Fig:
-    rows = [["Intérprete", "CPython 3.12.9 (Windows) · 3.12.3 (Linux)", "Se fija con la versión exacta"],
-            ["Entorno virtual", "7 archivos sin pip · 860 con pip", "Se crea desde cero con un comando"],
-            ["Dependencias", "Una rueda local", "Se instala con `--no-index --no-deps`"],
-            ["Verificación", "`pip freeze` idéntico en dos entornos", "Se compara el estado, no se asume"]]
-    return tab("Inventario de un entorno autocontenido", "Tabla del inventario de un entorno autocontenido: intérprete con versión exacta, entorno virtual de 7 archivos sin pip y 860 con pip, dependencias desde una rueda local y verificación con pip freeze idéntico en dos entornos.",
-               ["Elemento", "Valor medido", "Cómo se fija"], rows, [190, 380, 340], row_h=56,
-               note="Un entorno autocontenido es el que se puede reconstruir desde el repositorio y comprobar. Cada fila debe tener su comprobación; lo que solo se asume queda como riesgo.", foot=S)
+    return chain(
+        'Inventario de un entorno autocontenido',
+        "Cadena de cuatro elementos de un entorno autocontenido: intérprete CPython 3.12.9 en Windows y 3.12.3 en Linux, entorno virtual de 7 archivos sin pip y 860 con pip, una rueda local como dependencia y pip freeze idéntico en dos entornos como verificación.",
+        [("Intérprete", "CPython 3.12.9 (Windows) · 3.12.3 (Linux): se fija con la versión exacta", "navy"),
+         ("Entorno virtual", "7 archivos sin pip · 860 con pip: se crea desde cero con un comando", "navy"),
+         ("Dependencias", "una rueda local: se instala con --no-index --no-deps", "navy"),
+         ("Verificación", "pip freeze idéntico en dos entornos: se compara el estado", "teal")],
+        note='Un entorno autocontenido es el que se puede reconstruir desde el repositorio y comprobar. Cada fila debe tener su comprobación; lo que solo se asume queda como riesgo.', note_kind='gold', foot=S)
 
 
 def se108_hash() -> Fig:
-    rows = [["Primera construcción de la rueda", "b384a5f15d7d", "SHA-256 abreviado"],
-            ["Segunda construcción, mismo código", "762d3c781a63", "Distinto aunque el código no cambió"],
-            ["`pip freeze` en dos entornos", "Idéntico", "Instalar la misma rueda reproduce el estado"]]
-    return tab("Reproducir el entorno no es reproducir los bytes", "Tabla de dos construcciones de la misma rueda con hashes distintos, b384a5f15d7d y 762d3c781a63, aunque el código no cambió, mientras que dos entornos con la misma rueda producen el mismo pip freeze.",
-               ["Comprobación", "Resultado", "Lectura"], rows, [350, 190, 370], row_h=56,
-               note="Dos construcciones del mismo código dieron archivos distintos (las marcas de tiempo entran en la rueda). Por eso se fija el archivo que se instala por su hash, y no se reconstruye en cada entorno.", foot=S)
+    f, y = _kit_start('Reproducir el entorno no es reproducir los bytes',
+                      "Diagrama de dos construcciones de la misma rueda con el mismo código: la primera da el hash b384a5f15d7d y la segunda 762d3c781a63, distintos porque las marcas de tiempo entran en la rueda; instalar la misma rueda en dos entornos da el mismo pip freeze.",
+                      940, None)
+    card(f, 14, y + 20, 220, 60, "Mismo código", "sin cambios", "navy")
+    card(f, 330, y + 4, 596, 44, "Primera construcción: b384a5f15d7d", "", "coral")
+    card(f, 330, y + 56, 596, 44, "Segunda construcción: 762d3c781a63", "", "coral")
+    f.arrow([(234, y + 50), (282, y + 50), (282, y + 26), (330, y + 26)])
+    f.arrow([(234, y + 50), (282, y + 50), (282, y + 78), (330, y + 78)])
+    f.text(628, y + 118, "SHA-256 abreviado: distintos aunque el código no cambió", 13, "middle", 400, "#5c1f14")
+    card(f, 14, y + 150, 220, 60, "Misma rueda", "instalada en dos entornos", "navy")
+    card(f, 330, y + 150, 596, 60, "pip freeze idéntico", "instalar la misma rueda reproduce el estado", "teal")
+    f.arrow([(234, y + 180), (330, y + 180)])
+    out = _kit_finish(f, y + 226, 'Dos construcciones del mismo código dieron archivos distintos (las marcas de tiempo entran en la rueda). Por eso se fija el archivo que se instala por su hash, y no se reconstruye en cada entorno.', 'gold', S)
+    out.kind = "diagram"
+    return out
 
 
 def se108_aceptacion() -> Fig:
-    rows = [["Reconstruir el entorno desde cero", "Un comando", "Sin pasos manuales ni conocimiento oral"],
-            ["Aislamiento comprobado", "Importa solo dentro del entorno", "`import demo_pkg` falla fuera y devuelve 1.0.0 dentro"],
-            ["Versiones fijadas", "Intérprete y rueda por hash", "No se aceptan etiquetas flotantes"],
-            ["Límites declarados", "Arranque en contenedor no medido", "No se descargó ninguna imagen base"]]
-    return tab("Criterios de aceptación del proyecto", "Tabla de cuatro criterios de aceptación: reconstrucción desde cero con un comando, aislamiento comprobado, versiones fijadas por hash y límites declarados como el arranque en contenedor no medido.",
-               ["Criterio", "Evidencia", "Lectura"], rows, [310, 250, 350], row_h=56,
-               note="El proyecto se acepta por lo que se puede comprobar, incluidos los límites declarados. Un entorno que «funciona en mi máquina» no cumple ninguno de los cuatro.", foot=S)
+    return merge(
+        'Criterios de aceptación del proyecto',
+        "Diagrama de cuatro criterios que deben cumplirse para aceptar el proyecto: reconstruir el entorno desde cero con un comando, aislamiento comprobado, versiones fijadas por hash y límites declarados como el arranque en contenedor no medido.",
+        [("Reconstruir el entorno desde cero", "un comando; sin pasos manuales ni conocimiento oral", "plain"),
+         ("Aislamiento comprobado", "import demo_pkg falla fuera y devuelve 1.0.0 dentro", "plain"),
+         ("Versiones fijadas", "intérprete y rueda por hash; no se aceptan etiquetas flotantes", "plain"),
+         ("Límites declarados", "arranque en contenedor no medido: no se descargó ninguna imagen base", "plain")],
+        ("Proyecto aceptado", "por lo que se puede comprobar", "teal"),
+        note='El proyecto se acepta por lo que se puede comprobar, incluidos los límites declarados. Un entorno que «funciona en mi máquina» no cumple ninguno de los cuatro.', note_kind='gold', foot=S)
 
 
 FIGURES = {

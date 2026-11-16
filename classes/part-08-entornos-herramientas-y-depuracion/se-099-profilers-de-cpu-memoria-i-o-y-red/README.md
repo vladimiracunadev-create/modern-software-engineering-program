@@ -103,9 +103,9 @@ Un perfilador responde dónde se gasta el tiempo, pero la respuesta depende de c
 
 Un perfilador por muestreo no registra cada llamada: pregunta periódicamente en qué función está el programa. Un hilo muestreador consultó `sys._current_frames()` cada milisegundo mientras se ejecutaban un generador intensivo y una ordenación. Resultado: 21 muestras en `<genexpr>`, 7 en `helper` y una en `cold` y en `wait`; el tiempo total fue 205 ms frente a 192 ms sin muestrear, un 7 % más. Perturba mucho menos (4,8× frente a 1,07×), a cambio de menos detalle y de incertidumbre: con 30 muestras, una función que gasta el 5 % del tiempo puede no aparecer.
 
-![Figura 3. Tabla con el recuento de muestras por función y el sobrecosto del muestreo, 205 ms frente a 192 ms](../../../content/part-08/figures/se-099-perfil-por-muestreo.svg)
+![Barras horizontales con las muestras de la pila del hilo principal tomadas cada milisegundo: 21 en el generador, 7 en helper y una en cold y otra en wait; el muestreo añade solo un 7 por ciento al tiempo (205 ms frente a 192 ms).](../../../content/part-08/figures/se-099-perfil-por-muestreo.svg)
 
-**Cómo leer la figura.** Las filas son funciones y su número de muestras; la última compara tiempos. **Dónde deja de valer:** el muestreo sobre hilos de Python depende del intérprete y del bloqueo global; no ve el tiempo fuera de Python (extensiones nativas) con el mismo detalle.
+**Cómo leer la figura.** Cada barra es una función observada y su longitud las muestras de la pila del hilo principal que cayeron en ella (30 en total). Mira cómo `<genexpr>` concentra la mayoría y `cold` y `wait` quedan con una sola: ahí no está el cuello de botella. El tiempo con y sin muestreo (205 y 192 ms) está en la tabla. **Dónde deja de valer:** el muestreo sobre hilos de Python depende del intérprete y del bloqueo global; no ve el tiempo fuera de Python (extensiones nativas) con el mismo detalle.
 
 ## Definiciones de trabajo
 

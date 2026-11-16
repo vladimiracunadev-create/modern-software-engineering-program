@@ -87,9 +87,9 @@ Detener cambia temporización, locks y timeouts. Un fallo concurrente puede desa
 
 Depurar es observar el estado en un instante preciso, y conviene hacerlo con una hipótesis previa. Con `python -m pdb` y órdenes por entrada estándar se ejecutó una sesión reproducible sobre una función de tres líneas: `b 3` fijó un punto de interrupción en `c = b + 1`, `c` continuó hasta ese punto, `p b` y `p a` imprimieron 10 y 5, `bt` mostró la pila (`run()` → `<module>` → `f()`) y `n` avanzó una línea. La hipótesis era «b vale 10 cuando a vale 5»; la observación la confirma. Lo valioso no es el comando, sino que el resultado puede contradecir la hipótesis.
 
-![Figura 1. Tabla de una sesión de pdb con el punto de interrupción, los valores observados y la pila](../../../content/part-08/figures/se-098-sesion-pdb.svg)
+![Cadena de cinco comandos de una sesión real de pdb: b 3 fija el punto en la línea 3, c continúa y se detiene allí, p b y p a muestran 10 y 5, bt muestra la pila y n más p c imprime 11, el resultado esperado de 5 por 2 más 1.](../../../content/part-08/figures/se-098-sesion-pdb.svg)
 
-**Cómo leer la figura.** Cada fila es una orden, su salida y lo que se aprende. **Dónde deja de valer:** un depurador muestra el estado, no la causa; para entender por qué `b` tiene ese valor hay que retroceder hasta quien lo calculó, y la sesión sola no lo hace.
+**Cómo leer la figura.** Cada caja es un comando de la sesión de pdb, de izquierda a derecha, con la salida que produjo debajo del nombre. Las dos primeras (navy) preparan el estado y las turquesa lo observan: primero se fija el punto, después se detiene la ejecución y recién entonces se leen valores, pila y resultado. **Dónde deja de valer:** un depurador muestra el estado, no la causa; para entender por qué `b` tiene ese valor hay que retroceder hasta quien lo calculó, y la sesión sola no lo hace.
 
 ### Cuánto cuesta observar
 
@@ -103,9 +103,9 @@ Los depuradores se apoyan en ganchos del intérprete. Con 300 000 llamadas a una
 
 `breakpoint()` es una llamada ordinaria que consulta la variable `PYTHONBREAKPOINT`. Con `PYTHONBREAKPOINT=0` no hace nada y el programa continúa (se comprobó: imprime «siguio 1»); sin la variable detiene el proceso y espera entrada. En un servicio sin terminal eso significa un proceso colgado. La política es doble: una regla de revisión que rechace `breakpoint()` en código confirmado y una variable de entorno en los entornos no interactivos. Entrar en el depurador sin tocar el código, con `python -m pdb`, evita el problema de raíz.
 
-![Figura 3. Tabla de tres formas de entrar en el depurador y el riesgo de cada una](../../../content/part-08/figures/se-098-breakpoint-olvidado.svg)
+![Diagrama de tres formas de entrar en el depurador: breakpoint con PYTHONBREAKPOINT igual a cero no hace nada y la ejecución imprime siguio 1; sin la variable detiene el proceso y espera entrada, y en un servicio sin terminal queda colgado; python -m pdb script.py arranca en la primera línea sin tocar el código.](../../../content/part-08/figures/se-098-breakpoint-olvidado.svg)
 
-**Cómo leer la figura.** La columna central es lo observado; la derecha, la consecuencia operativa. **Dónde deja de valer:** otros lenguajes y entornos tienen sus propios mecanismos; la idea general es que un punto de interrupción en el código es un efecto secundario que debe controlarse.
+**Cómo leer la figura.** A la izquierda está un `breakpoint()` en el código y a la derecha las tres formas de entrar en el depurador. La caja coral es el riesgo (un proceso sin terminal que queda colgado), la dorada es una llamada que no hace nada y la turquesa es la que no exige tocar el código. **Dónde deja de valer:** otros lenguajes y entornos tienen sus propios mecanismos; la idea general es que un punto de interrupción en el código es un efecto secundario que debe controlarse.
 
 ## Definiciones de trabajo
 

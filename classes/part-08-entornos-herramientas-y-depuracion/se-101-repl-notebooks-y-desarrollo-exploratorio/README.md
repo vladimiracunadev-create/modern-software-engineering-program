@@ -89,9 +89,9 @@ Una explicación ordena pregunta, método, resultado y límite. Output rico pued
 
 Un cuaderno ejecuta celdas sobre un *kernel* que conserva variables. Se creó un cuaderno con tres celdas (`x = 1`; `x = x + 10` y mostrar `x`; `print(x * 2)`). Ejecutado de arriba abajo da 11 y 22. Con un kernel real, ejecutando la segunda celda dos veces y luego la tercera, las salidas fueron 11, 21 y 42. El texto del cuaderno no cambió; cambió el orden de ejecución, y con él el resultado. Un cuaderno puede mostrar una salida que ninguna ejecución ordenada reproduce, y quien lo lee no tiene forma de saberlo sin volver a ejecutarlo desde cero.
 
-![Figura 1. Tabla que compara la ejecución en orden, con salidas 11 y 22, y fuera de orden, con salidas 11, 21 y 42](../../../content/part-08/figures/se-101-estado-oculto.svg)
+![Líneas de ejecución de las mismas celdas de un cuaderno: en orden 1, 2, 3 la celda 2 da 11 y la 3 da 22; si se ejecuta la celda 2 dos veces antes de la 3, la celda 2 da 11 y luego 21 y la 3 da 42, con el mismo texto en el cuaderno.](../../../content/part-08/figures/se-101-estado-oculto.svg)
 
-**Cómo leer la figura.** La segunda fila repite una celda y cambia el resultado final de 22 a 42 con el mismo texto. **Dónde deja de valer:** el ejemplo usa estado numérico explícito; los efectos más insidiosos vienen de conexiones, archivos abiertos o generadores aleatorios que sobreviven en el kernel.
+**Cómo leer la figura.** Cada línea es una forma de ejecutar las mismas celdas y cada bloque una ejecución; el eje es el orden en que se ejecutan. Mira el último bloque coral: la misma celda 3, ejecutada tras repetir la celda 2, da 42 en lugar de 22 sin que cambie el texto del cuaderno. **Dónde deja de valer:** el ejemplo usa estado numérico explícito; los efectos más insidiosos vienen de conexiones, archivos abiertos o generadores aleatorios que sobreviven en el kernel.
 
 ### Lo que guarda el archivo
 
@@ -105,9 +105,9 @@ Un `.ipynb` es JSON. El cuaderno sin ejecutar ocupó 587 bytes; tras ejecutarlo,
 
 La exploración en un cuaderno o en el REPL es valiosa por su rapidez, pero su producto es una conjetura hasta que se convierta en un artefacto que otra persona pueda ejecutar de arriba abajo. La prueba de reproducibilidad de un cuaderno es sencilla: reiniciar el kernel y ejecutar todas las celdas en orden; si el resultado coincide (aquí, 11 y 22), el cuaderno es reproducible. El REPL de Python no deja archivo: el estado vive en la sesión y no queda registro. En ambos casos, lo que debe sobrevivir a la exploración es un script o una función con pruebas, no una sesión.
 
-![Figura 3. Tabla de propiedades de los cuadernos y del REPL: identificadores de celda, salidas guardadas, ejecución completa y ausencia de archivo en el REPL](../../../content/part-08/figures/se-101-de-la-exploracion-al-codigo.svg)
+![Cadena de tres etapas de la exploración al código reproducible: el REPL no deja archivo, el cuaderno guarda identificadores de celda y salidas que pueden contener datos o secretos, y la ejecución completa desde un kernel nuevo da 11 y 22 y es la comprobación de reproducibilidad.](../../../content/part-08/figures/se-101-de-la-exploracion-al-codigo.svg)
 
-**Cómo leer la figura.** Cada fila liga una propiedad con una consecuencia para la reproducibilidad. **Dónde deja de valer:** hay herramientas que ejecutan el cuaderno entero de forma automática y lo convierten en un script; el principio es el mismo, la comprobación se automatiza.
+**Cómo leer la figura.** Léela de izquierda a derecha como un camino: el REPL no deja registro, el cuaderno guarda celdas y salidas (con el riesgo de confirmar datos o secretos) y solo la ejecución completa desde un kernel nuevo demuestra que otra persona obtiene 11 y 22. **Dónde deja de valer:** hay herramientas que ejecutan el cuaderno entero de forma automática y lo convierten en un script; el principio es el mismo, la comprobación se automatiza.
 
 ## Definiciones de trabajo
 

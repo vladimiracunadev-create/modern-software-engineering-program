@@ -87,25 +87,25 @@ Variables y archivos locales pueden entrar al proceso pese al aislamiento de paq
 
 Crear un entorno con `python -m venv` tomó 11 344 ms en Windows y dejó 860 archivos y 11 550 KiB. Con `--without-pip` tomó 180 ms, 7 archivos y 557 KiB. Con `uv venv`, 278 ms, 16 archivos y 555 KiB. En Linux (WSL2), `venv --without-pip` tomó 118 ms con 8 archivos y con pip 6 376 ms. Casi todo el costo es instalar pip: 860 archivos frente a 7. En Linux, además, el intérprete del entorno es un enlace simbólico al base; en Windows se copia un lanzador. Un entorno es barato; lo caro es lo que se instala dentro.
 
-![Figura 1. Tabla de la creación de entornos: con pip 11 344 ms y 860 archivos, sin pip 180 ms y 7 archivos, con uv 278 ms, y los valores de Linux](../../../content/part-08/figures/se-103-costo-del-entorno.svg)
+![Barras horizontales en escala logarítmica con el tiempo de crear un entorno virtual: con pip tarda 11 344 ms en Windows y 6 376 ms en Linux; sin pip 180 ms en Windows y 118 en Linux; uv venv en Windows 278 ms; casi todo el costo es pip.](../../../content/part-08/figures/se-103-costo-del-entorno.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de crear el entorno con su tiempo y tamaño. **Dónde deja de valer:** el tiempo de 11 s incluye la instalación de pip desde la copia empaquetada con Python y el antivirus del equipo; en otra máquina cambia. Que `uv` sea 40 veces más rápido en este caso no significa que lo sea con un conjunto grande de dependencias.
+**Cómo leer la figura.** Cada barra es una forma de crear un entorno y su longitud el tiempo en milisegundos, en escala logarítmica: cada marca vale diez veces la anterior. Mira la distancia entre las barras con pip (11 344 y 6 376 ms) y sin pip (180 y 118 ms): casi todo el costo es pip. Los archivos y el tamaño están en la tabla. **Dónde deja de valer:** el tiempo de 11 s incluye la instalación de pip desde la copia empaquetada con Python y el antivirus del equipo; en otra máquina cambia. Que `uv` sea 40 veces más rápido en este caso no significa que lo sea con un conjunto grande de dependencias.
 
 ### Cómo se aísla realmente
 
 Un entorno virtual no es un contenedor: es un archivo `pyvenv.cfg` y una forma de calcular rutas. El archivo del entorno medido tiene cinco claves (`home`, `include-system-site-packages`, `version`, `executable`, `command`). Dentro del entorno, `sys.prefix` difiere de `sys.base_prefix` (así se detecta que se ejecuta dentro de un entorno) y `sys.path` tiene 7 entradas frente a 16 del intérprete del sistema. El entorno comparte el intérprete base y el sistema operativo; solo cambia dónde se buscan e instalan los paquetes. Por eso un entorno no protege de variables de entorno, de bibliotecas del sistema ni de la versión del sistema.
 
-![Figura 2. Tabla con las claves de pyvenv.cfg, la diferencia entre sys.prefix y sys.base_prefix y las entradas de sys.path](../../../content/part-08/figures/se-103-como-se-aisla.svg)
+![Diagrama de cómo se aísla un entorno virtual: pyvenv.cfg con cinco claves lo enlaza con el intérprete base; dentro del entorno sys.prefix difiere de sys.base_prefix y sys.path tiene 7 rutas frente a 16 del intérprete global.](../../../content/part-08/figures/se-103-como-se-aisla.svg)
 
-**Cómo leer la figura.** Cada fila es un hecho comprobable dentro y fuera del entorno. **Dónde deja de valer:** con `include-system-site-packages = true` el entorno ve también los paquetes del sistema, y el aislamiento desaparece.
+**Cómo leer la figura.** El recuadro de la izquierda es el entorno virtual y la caja de la derecha el intérprete base, al que apunta `pyvenv.cfg` mediante `home`. Las dos cajas con rutas comparan 7 rutas de `sys.path` dentro del entorno con 16 en el intérprete global: el aislamiento es una configuración de rutas, no un contenedor. **Dónde deja de valer:** con `include-system-site-packages = true` el entorno ve también los paquetes del sistema, y el aislamiento desaparece.
 
 ### Instalar sin tocar el sistema
 
 Se construyó una rueda local de un paquete diminuto (`demo-pkg`) y se instaló con `--no-index --no-deps` en dos entornos nuevos. `import demo_pkg` falló en el intérprete global y devolvió `1.0.0` dentro del entorno; `pip list` mostró solo dos paquetes (pip y `demo-pkg`) y `pip freeze` fue idéntico en los dos entornos. Esa es la comprobación de aislamiento: lo instalado en un entorno no aparece fuera, y el mismo archivo instalado dos veces produce el mismo estado. La instalación sin red es también una propiedad útil: demuestra que no se depende de un índice externo para reconstruir el entorno.
 
-![Figura 3. Tabla con la importación fallida fuera del entorno, 1.0.0 dentro, pip list con 2 paquetes y pip freeze idéntico en dos entornos](../../../content/part-08/figures/se-103-instalacion-local.svg)
+![Diagrama de la instalación local de una rueda: demo_pkg no se importa en el intérprete global; dentro del entorno se importa con versión 1.0.0 y pip list muestra dos paquetes; dos entornos nuevos con la misma rueda dan el mismo pip freeze.](../../../content/part-08/figures/se-103-instalacion-local.svg)
 
-**Cómo leer la figura.** Las filas comparan dentro y fuera, y entre dos entornos. **Dónde deja de valer:** con dependencias transitivas la instalación sin red exige tener todos los archivos; aquí se usó `--no-deps` porque el paquete no tiene ninguna.
+**Cómo leer la figura.** A la izquierda está la rueda local y a la derecha los tres resultados de instalarla. La caja coral es el intérprete global, donde no existe el paquete; las turquesa son el entorno y la repetición en dos entornos nuevos, que dan el mismo estado. **Dónde deja de valer:** con dependencias transitivas la instalación sin red exige tener todos los archivos; aquí se usó `--no-deps` porque el paquete no tiene ninguna.
 
 ## Definiciones de trabajo
 

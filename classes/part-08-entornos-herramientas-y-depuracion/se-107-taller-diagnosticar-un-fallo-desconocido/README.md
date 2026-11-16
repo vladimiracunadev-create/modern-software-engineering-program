@@ -88,25 +88,25 @@ La causa explica mecanismo y condiciones; la corrección cambia ese mecanismo; l
 
 El taller aplica las técnicas de la parte a un fallo desconocido. La secuencia usada tiene cinco pasos y cada uno deja una cifra. **Reproducir:** una prueba determinista que falla; sin ella nada posterior es fiable. **Reducir:** una entrada de 403 caracteres bajó a 3 con 24 pruebas. **Localizar:** 6 pasos de bisección para 64 commits señalaron `c41`. **Observar:** `pdb` mostró `b = 10` y `a = 5` en la línea 3. **Verificar:** una prueba nueva que falla antes y pasa después. Cada paso reduce el espacio de búsqueda y deja un registro que otra persona puede revisar.
 
-![Figura 1. Tabla de la secuencia reproducir, reducir, localizar, observar y verificar con los datos medidos de cada paso](../../../content/part-08/figures/se-107-secuencia-de-diagnostico.svg)
+![Cadena de cinco pasos de diagnóstico con su dato medido: reproducir con una prueba determinista, reducir de 403 a 3 caracteres en 24 pruebas, localizar el commit en 6 pasos para 64, observar con pdb que b vale 10 y a vale 5, y verificar con una prueba nueva.](../../../content/part-08/figures/se-107-secuencia-de-diagnostico.svg)
 
-**Cómo leer la figura.** Cada fila liga un paso con su dato y su motivo. **Dónde deja de valer:** el orden no es rígido (a veces se observa antes de reducir), pero saltarse la reproducción deja el resto sin base. Los datos son de un defecto sintético y sencillo; uno real tiene más ruido.
+**Cómo leer la figura.** Léela de izquierda a derecha: cada caja es un paso del diagnóstico con el dato medido que lo respalda. Las cuatro primeras reducen el espacio de búsqueda y la última, en turquesa, cierra el ciclo con una prueba que falla antes y pasa después. **Dónde deja de valer:** el orden no es rígido (a veces se observa antes de reducir), pero saltarse la reproducción deja el resto sin base. Los datos son de un defecto sintético y sencillo; uno real tiene más ruido.
 
 ### Registrar hipótesis y descartes
 
 Un diagnóstico sin registro se repite. El registro del taller tiene tres hipótesis: H1 (el defecto está en el analizador) se confirma, porque el caso mínimo `ab[` lo fuerza; H2 (lo introdujo el commit 41) se confirma, porque la bisección lo señala con una prueba automática; H3 (depende del estado de `b`) se descarta, porque `pdb` muestra el valor esperado. Descartar es información: evita que otra persona vuelva a investigar H3 y muestra qué se comprobó. El registro también protege contra el sesgo de confirmación, porque la predicción se escribe antes del resultado.
 
-![Figura 2. Tabla con tres hipótesis: dos confirmadas por reducción y bisección y una descartada por observación](../../../content/part-08/figures/se-107-registro-de-hipotesis.svg)
+![Diagrama de tres hipótesis ante un fallo: el analizador y el commit 41 se confirman con la reducción a un caso mínimo y con la bisección que señala c41; que dependa del estado de b se descarta porque pdb muestra b igual a 10, el valor esperado.](../../../content/part-08/figures/se-107-registro-de-hipotesis.svg)
 
-**Cómo leer la figura.** Cada hipótesis tiene su prueba y su veredicto. **Dónde deja de valer:** un registro formal tiene un costo; para fallos triviales basta una nota. Se justifica cuando el diagnóstico dura más de una sesión o participan varias personas.
+**Cómo leer la figura.** A la izquierda está el fallo y a la derecha las tres hipótesis con su prueba y su resultado. Las turquesa se confirman y la coral de borde discontinuo se descarta; la lectura es que la hipótesis descartada también queda registrada. **Dónde deja de valer:** un registro formal tiene un costo; para fallos triviales basta una nota. Se justifica cuando el diagnóstico dura más de una sesión o participan varias personas.
 
 ### Cada técnica tiene su condición
 
 La reducción funciona con pruebas deterministas y falla con fallos intermitentes. La bisección funciona con un único cambio culpable y la confunden dos defectos o una interacción. El depurador muestra el estado en un instante, pero perturba los tiempos (hasta 9,7 veces de costo con trazado de líneas). Aplicar una técnica fuera de su condición produce conclusiones falsas con aspecto de evidencia: por eso, antes de aplicarla, se comprueba que se cumple su condición, y si no se cumple, se elige otra o se estabiliza el problema primero.
 
-![Figura 3. Tabla con la condición de cada técnica: reducción, bisección y depurador, y cuándo falla](../../../content/part-08/figures/se-107-condiciones-de-cada-tecnica.svg)
+![Diagrama de la condición de cada técnica de diagnóstico: la reducción funciona con pruebas deterministas y falla con fallos intermitentes; la bisección funciona con un solo cambio culpable y la confunden dos defectos; el depurador muestra el estado en un instante pero perturba los tiempos hasta 9,7 veces.](../../../content/part-08/figures/se-107-condiciones-de-cada-tecnica.svg)
 
-**Cómo leer la figura.** La tercera columna es la que se olvida en la práctica. **Dónde deja de valer:** existen variantes tolerantes a ruido de cada técnica (bisección estadística, reducción con repeticiones) con un costo mayor, y su condición es otra.
+**Cómo leer la figura.** Cada fila es una técnica: la caja turquesa dice cuándo funciona y la coral de borde discontinuo cuándo falla. Mira la columna de la derecha, porque lo que importa antes de aplicar una técnica es comprobar su condición. **Dónde deja de valer:** existen variantes tolerantes a ruido de cada técnica (bisección estadística, reducción con repeticiones) con un costo mayor, y su condición es otra.
 
 ## Definiciones de trabajo
 

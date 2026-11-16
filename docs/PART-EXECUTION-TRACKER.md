@@ -59,7 +59,7 @@ su commit está en `main` con CI verde.
 | 33 | Desarrollada y profundizada con experimentos sintéticos, firmas reales y escaneo de flujos de CI ejecutados en Windows y Linux, CI verde salvo Gitleaks ajeno de la Parte 34 | `db80b671` |
 | 32 | Desarrollada y profundizada con experimentos sintéticos de seguridad, privacidad y cumplimiento ejecutados en Windows y Linux ; Validate y Pages verdes, Security rojo por hallazgos ajenos de las Partes 33 y 34 | `141d5942` |
 | 34 | Desarrollada y profundizada con experimentos sintéticos y modelos de CI/CD, infraestructura como código y plataforma ejecutados en Windows y Linux, CI verde (la corrección de Gitleaks y el CI verde corresponden al commit `af1c70ac`) | `808ef333` |
-| 37 | Desarrollada y profundizada con experimentos sintéticos y verificadores propios de liderazgo, equipos, riesgo, economía y práctica profesional ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 37 | Desarrollada y profundizada con experimentos sintéticos y verificadores propios de liderazgo, equipos, riesgo, economía y práctica profesional ejecutados en Windows y Linux, CI verde (Validate, Pages y Security en verde sobre `41a1d015`) | `41a1d015` |
 | 38 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de desarrollo de software asistido por IA en Windows y Linux, CI verde (Validate, Pages y Security) | `302a4011` |
 | 39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

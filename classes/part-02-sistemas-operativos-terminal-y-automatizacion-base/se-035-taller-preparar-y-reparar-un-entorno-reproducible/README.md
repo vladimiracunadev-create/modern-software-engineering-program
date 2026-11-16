@@ -135,9 +135,9 @@ las pruebas son costosas o arriesgadas; el orden se conserva (de lo barato y rev
 Cada hipótesis debe poder *refutarse* con una prueba barata. En el incidente: `command -v bash` descarta la ausencia del intérprete; `head -1 script.sh | cat -A` muestra si el shebang termina en `^M`; `file script.sh` informa los finales de línea; y `ls -l` junto con `bash script.sh` separa contenido y permiso. La Figura 2 las ordena con qué resultado
 confirma o descarta cada una. La regla es probar primero lo más *barato* y lo que más *discrimina*, y no cambiar nada hasta tener una hipótesis que la prueba haya sostenido: un cambio al azar (reinstalar, reiniciar, copiar de nuevo) puede «arreglar» el síntoma sin enseñar la causa, y a veces borra la evidencia.
 
-![Figura 2. Tabla con cuatro hipótesis para el script que falla, la prueba barata de cada una y qué resultado la confirma o la descarta](../../../content/part-02/figures/se-035-hipotesis-por-capa.svg)
+![Cuatro hipótesis para el script que falla; de cada una sale una prueba barata y dos desenlaces posibles: el resultado que la confirma y el que la descarta.](../../../content/part-02/figures/se-035-hipotesis-por-capa.svg)
 
-**Cómo leer la figura.** Las dos últimas columnas hacen explícito qué observación refuta la hipótesis, que es lo que la vuelve una hipótesis. **Dónde deja de valer:** las pruebas del ejemplo son de Linux y usan herramientas habituales (`file`, `cat -A`); en otros sistemas se usan equivalentes (por ejemplo, un editor hexadecimal o un visor de finales de línea), y los resultados dependen de que el archivo no se haya modificado al copiarlo.
+**Cómo leer la figura.** Cada fila es una hipótesis que lleva a una prueba barata, y de la prueba salen dos desenlaces: lo que la confirma (teal) y lo que la descarta (coral). Las dos cajas finales hacen explícito qué observación refuta la hipótesis, que es lo que la vuelve una hipótesis. **Dónde deja de valer:** las pruebas del ejemplo son de Linux y usan herramientas habituales (`file`, `cat -A`); en otros sistemas se usan equivalentes (por ejemplo, un editor hexadecimal o un visor de finales de línea), y los resultados dependen de que el archivo no se haya modificado al copiarlo.
 
 ### Reparar con límites: la secuencia real del laboratorio
 
@@ -145,9 +145,9 @@ El laboratorio de la Parte 02 convierte el taller en una secuencia reproducible.
 el mensaje `invalid settings.json`, con código de salida 2; `repair` restauró la configuración y `inspect` volvió a `healthy`; `clean` con un archivo ajeno (`student-notes.txt`) dentro se negó con código 3 y dejó el directorio con cuatro archivos; y tras retirar ese archivo, `clean` terminó con 0 dejando el workspace vacío. Lo notable es lo que *no* hace: `repair` solo repone dos archivos conocidos y no toca el marker de propiedad, y `clean`
 se niega a borrar lo que no reconoce.
 
-![Figura 3. Tabla con la secuencia real del laboratorio: prepare, inspect, corrupción, repair, clean rechazado y clean aceptado, con resultados y códigos](../../../content/part-02/figures/se-035-secuencia-del-laboratorio.svg)
+![Seis pasos observados en Linux con el laboratorio de la Parte 02, cada uno con su código de salida: prepare cambia y repite sin cambios (0); inspect informa healthy (0); con settings.json corrupto inspect informa degraded (2); repair restaura (0); clean con un archivo ajeno se niega (3) y, tras retirarlo, termina (0) dejando el workspace vacío.](../../../content/part-02/figures/se-035-secuencia-del-laboratorio.svg)
 
-**Cómo leer la figura.** Cada fila es un paso con su resultado y su código; la columna final explica qué propiedad del diseño demuestra. **Dónde deja de valer:** es una ejecución en Linux con el adaptador de Bash; los adaptadores y sistemas distintos se prueban por separado (la clase siguiente reúne las diez pruebas en Windows y en Linux). Un resultado correcto sobre un workspace desechable no demuestra seguridad sobre un entorno real con datos de producción.
+**Cómo leer la figura.** Los seis pasos van de izquierda a derecha y de arriba abajo. El círculo de cada paso es su código de salida (0 en teal, 2 en dorado, 3 en coral) y la caja inferior, el resultado observado y la propiedad del diseño que demuestra. **Dónde deja de valer:** es una ejecución en Linux con el adaptador de Bash; los adaptadores y sistemas distintos se prueban por separado (la clase siguiente reúne las diez pruebas en Windows y en Linux). Un resultado correcto sobre un workspace desechable no demuestra seguridad sobre un entorno real con datos de producción.
 
 ## Definiciones de trabajo
 

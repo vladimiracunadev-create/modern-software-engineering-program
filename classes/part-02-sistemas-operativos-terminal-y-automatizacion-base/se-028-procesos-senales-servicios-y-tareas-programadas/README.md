@@ -128,11 +128,9 @@ La forma en que un proceso termina deja un rastro: su *código de salida*. Desde
 (`TerminateProcess` no deja una señal), y `-15` en Linux, donde el signo negativo significa «terminado por la señal 15 (SIGTERM)»; `SIGKILL` produjo `-9`; y un proceso con un manejador de SIGTERM que limpia y sale
 terminó con `0` tras imprimir «limpiando». `subprocess.run(timeout=1)` lanzó `TimeoutExpired` en ambos, el mecanismo portable para que un proceso colgado no bloquee a quien lo espera.
 
-![Figura 1. Tabla con los códigos de salida reales de seis formas de terminar un proceso en Windows y en Linux](../../../content/part-02/figures/se-028-codigos-de-salida.svg)
+![Seis formas de terminar un proceso observadas desde Python. Tres dan el mismo resultado en ambos sistemas (sys.exit(3), una excepción sin tratar y el tiempo agotado de subprocess.run) y tres divergen: terminate() da 1 en Windows y -15 en Linux, SIGKILL solo existe como señal en Linux (-9) y un manejador de SIGTERM limpia y sale con 0.](../../../content/part-02/figures/se-028-codigos-de-salida.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de terminar y cada columna una plataforma. Las filas de `terminate()` y de `SIGKILL` muestran que el *mismo* código de salida significa cosas
-distintas según el sistema. **Dónde deja de valer:** el valor `1` en Windows es una convención de `TerminateProcess`, no una señal; los códigos mayores a 255 o negativos dependen de
-cómo cada sistema los empaqueta y de cómo el lenguaje los presenta. Un contrato entre un supervisor y un programa debe definir qué códigos significan qué, y probarlo en cada plataforma.
+**Cómo leer la figura.** Cada fila es una forma de terminar un proceso y de ella salen dos cajas, una por plataforma; cuando coinciden se funden en una (`sys.exit(3)`, la excepción sin tratar y el tiempo agotado). Las filas de `terminate()` y de `SIGKILL` muestran que una misma acción da códigos distintos, o ninguno, según el sistema. **Dónde deja de valer:** el valor `1` en Windows es una convención de `TerminateProcess`, no una señal; los códigos mayores a 255 o negativos dependen de cómo cada sistema los empaqueta y de cómo el lenguaje los presenta. Un contrato entre un supervisor y un programa debe definir qué códigos significan qué, y probarlo en cada plataforma.
 
 ### Apagado ordenado frente a terminación forzada
 

@@ -130,13 +130,9 @@ puede no ofrecer la función en esa versión, la API del sistema puede no existi
 operación y el recurso puede no haber podido atenderla. Elegir la pregunta *antes* de cambiar algo evita la intervención al azar,
 que es la forma más cara de diagnosticar.
 
-![Figura 1. Cinco capas con la pregunta que permite ubicar un fallo y la evidencia que la discrimina](../../../content/part-02/figures/se-025-pregunta-por-frontera.svg)
+![Cinco capas apiladas de la aplicación al hardware. De cada capa sale una pregunta que permite ubicar un fallo y una evidencia que la discrimina.](../../../content/part-02/figures/se-025-pregunta-por-frontera.svg)
 
-**Cómo leer la figura.** Cada fila es una frontera. La columna central es una pregunta con respuesta sí o no; la derecha, el
-dato concreto que la responde. Por ejemplo, un `WinError 1314` en una llamada de la API de Windows apunta a una capa distinta de un
-`AttributeError` de la biblioteca. **Dónde deja de valer:** las capas reales se solapan: una política corporativa (capa de
-configuración) puede bloquear una llamada que el kernel permitiría, y una biblioteca puede traducir un error del sistema en uno propio. El mapa
-ordena las hipótesis; no sustituye la evidencia de cada caso.
+**Cómo leer la figura.** La columna izquierda es la pila de capas, de la aplicación al hardware, unidas por flechas verticales. De cada capa sale una pregunta con respuesta sí o no (centro) y el dato concreto que la responde (derecha). Por ejemplo, un `WinError 1314` en una llamada de la API de Windows apunta a una capa distinta de un `AttributeError` de la biblioteca. **Dónde deja de valer:** las capas reales se solapan: una política corporativa (capa de configuración) puede bloquear una llamada que el kernel permitiría, y una biblioteca puede traducir un error del sistema en uno propio. El mapa ordena las hipótesis; no sustituye la evidencia de cada caso.
 
 ### Mismo programa, dos sistemas: una ficha observada
 
@@ -147,13 +143,9 @@ enseñan más: `platform.machine()` devuelve `AMD64` en uno y `x86_64` en otro, 
 «Linux» de este equipo no corre directamente sobre el hardware, sino dentro de una máquina virtual ligera, lo que revelan la cadena del
 kernel (`microsoft-standard-WSL2`) y `systemd-detect-virt`, que informa `wsl`.
 
-![Figura 2. Tabla con valores reales del mismo script en Windows 11 y en Ubuntu 24.04 bajo WSL2](../../../content/part-02/figures/se-025-misma-etiqueta-otro-sistema.svg)
+![Cada dato que consulta el mismo script de Python sale por dos caminos, uno hacia Windows 11 y otro hacia Ubuntu 24.04 bajo WSL2; en los siete datos observados el valor difiere: sistema, versión, arquitectura, separadores, fin de línea, nombre del sistema de módulos y proceso de inicio.](../../../content/part-02/figures/se-025-misma-etiqueta-otro-sistema.svg)
 
-**Cómo leer la figura.** Cada fila es un dato que un programa podría usar para decidir. Las dos columnas son *el mismo equipo físico*: lo que cambia es la
-plataforma efectiva que el programa ve. **Dónde deja de valer:** es una comparación entre Windows y *una* distribución de Linux virtualizada; no
-describe macOS (no se ejecutó aquí) ni otras distribuciones, y la información de versión depende de cada configuración. La ficha
-omite deliberadamente el nombre del equipo y del usuario, que `platform.uname()` sí devuelve: un diagnóstico minimiza los
-identificadores que recoge.
+**Cómo leer la figura.** Cada fila es un dato que un programa podría usar para decidir, y de ella salen dos cajas: la dorada es Windows y la teal es Linux. Las dos son *el mismo equipo físico*: lo que cambia es la plataforma efectiva que el programa ve, y en estos siete datos ninguno coincide. **Dónde deja de valer:** es una comparación entre Windows y *una* distribución de Linux virtualizada; no describe macOS (no se ejecutó aquí) ni otras distribuciones, y la información de versión depende de cada configuración. La ficha omite deliberadamente el nombre del equipo y del usuario, que `platform.uname()` sí devuelve: un diagnóstico minimiza los identificadores que recoge.
 
 ### Tres mensajes reales y la capa que señalan
 
@@ -165,12 +157,9 @@ invocarlo directamente y funciona con `bash script.sh`, lo que prueba que el con
 enlace simbólico en NTFS sin el privilegio correspondiente falla con `WinError 1314`, mientras el mismo código funciona en ext4: es
 una política de Windows (que se puede levantar activando el modo de desarrollador o con un privilegio explícito), no un defecto del código.
 
-![Figura 3. Tres mensajes de error reales con la capa que señalan y la prueba que los discrimina](../../../content/part-02/figures/se-025-tres-mensajes-reales.svg)
+![Tres errores observados, cada uno con su capa y la prueba que lo discrimina: un script con finales de línea de Windows en Linux, un script sin bit de ejecución y la creación de un enlace simbólico sin privilegio en Windows.](../../../content/part-02/figures/se-025-tres-mensajes-reales.svg)
 
-**Cómo leer la figura.** La tercera columna es lo importante: una prueba barata que separa las hipótesis. Si el script funciona con `bash script.sh`, el
-problema no es el contenido sino el permiso. **Dónde deja de valer:** los mensajes cambian con el idioma, la versión y el
-shell, y un mismo síntoma puede tener varias causas. Se registra el comando exacto, la versión y el mensaje completo, y no solo la
-interpretación.
+**Cómo leer la figura.** Cada fila va de un mensaje observado a la capa que señala y de ahí a la prueba que lo discrimina. La prueba es lo importante: una acción barata que separa las hipótesis. Si el script funciona con `bash script.sh`, el problema no es el contenido sino el permiso. **Dónde deja de valer:** los mensajes cambian con el idioma, la versión y el shell, y un mismo síntoma puede tener varias causas. Se registra el comando exacto, la versión y el mensaje completo, y no solo la interpretación.
 
 ## Definiciones de trabajo
 

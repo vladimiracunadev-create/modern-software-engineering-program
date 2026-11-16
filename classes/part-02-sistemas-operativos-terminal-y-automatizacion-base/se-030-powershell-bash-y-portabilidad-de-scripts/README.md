@@ -124,11 +124,9 @@ propiedades (`BasePriority`, `Id`) se consultan por nombre; una lista de cadenas
 analizar texto frágil; el texto es la interfaz común y estable de las herramientas POSIX. Las conversiones también difieren: en PowerShell, `1 + '2'` es `3` (se convierte el operando derecho al tipo del izquierdo) y `'1' + 2` es `12`;
 en Bash todo es texto hasta que un programa lo interpreta.
 
-![Figura 1. Tabla con cuatro aspectos en los que PowerShell 5.1 y Bash difieren: qué viaja por el pipeline, acceso a datos, tipos y conversiones](../../../content/part-02/figures/se-030-objetos-frente-a-texto.svg)
+![Cuatro aspectos con la respuesta de cada shell: en PowerShell 5.1 el pipeline lleva objetos System.Diagnostics.Process con propiedades como BasePriority y una lista de cadenas es un arreglo de objetos String; en Bash los comandos intercambian bytes de texto que cada programa debe analizar.](../../../content/part-02/figures/se-030-objetos-frente-a-texto.svg)
 
-**Cómo leer la figura.** Cada fila contrasta un aspecto. Las dos últimas son las que más sorprenden a quien cambia de shell: el tipo de una lista y la conversión implícita. **Dónde deja de valer:** los
-resultados provienen de PowerShell 5.1 (el de Windows); PowerShell 7 es multiplataforma y tiene diferencias de comportamiento y de módulos. Y en cualquiera de los dos se puede serializar a un formato estructurado (JSON) para
-intercambiar datos sin depender del modelo del shell.
+**Cómo leer la figura.** Cada fila es un aspecto y de ella salen la respuesta de PowerShell 5.1 (dorada) y la de Bash (teal). Las dos últimas son las que más sorprenden a quien cambia de shell: el tipo de una lista y la conversión implícita. **Dónde deja de valer:** los resultados provienen de PowerShell 5.1 (el de Windows); PowerShell 7 es multiplataforma y tiene diferencias de comportamiento y de módulos. Y en cualquiera de los dos se puede serializar a un formato estructurado (JSON) para intercambiar datos sin depender del modelo del shell.
 
 ### Errores en dos shells
 
@@ -136,10 +134,9 @@ Cada shell tiene varios canales de error. En PowerShell 5.1, un comando que fall
 (`ItemNotFoundException`, en la prueba) que `try/catch` captura. Un programa nativo deja su código en `$LASTEXITCODE` (5, en la prueba), y `$?` es falso. Con `Set-StrictMode -Version Latest`, usar una variable no definida es un error («no se puede recuperar porque no se ha establecido»).
 En Bash, `$?` guarda el código del último comando, `set -e` detiene el script y `set -u` convierte una variable no definida en error. La consecuencia es que no basta traducir comandos: hay que traducir *qué significa fallar*.
 
-![Figura 2. Tabla con cuatro situaciones de error y su tratamiento observado en PowerShell 5.1 y en Bash](../../../content/part-02/figures/se-030-errores-en-dos-shells.svg)
+![Cuatro situaciones con la respuesta de PowerShell 5.1 y de Bash: un error no terminante deja $? en falso y sigue; con -ErrorAction Stop se lanza ItemNotFoundException que se captura; un programa nativo deja su código en $LASTEXITCODE; con Set-StrictMode una variable no definida es un error. En Bash, $? guarda el código del último comando y set -e detiene el script.](../../../content/part-02/figures/se-030-errores-en-dos-shells.svg)
 
-**Cómo leer la figura.** Las filas son situaciones y las columnas, los mecanismos que cada shell usa. **Dónde deja de valer:** el comportamiento de `$ErrorActionPreference` y de los errores de programas nativos cambió entre versiones
-de PowerShell, de modo que un script debe fijar su configuración y probarse en las versiones que declara soportar. `set -e` en Bash tiene excepciones y no es una garantía universal.
+**Cómo leer la figura.** Las filas son situaciones y de cada una salen los mecanismos que usa cada shell: PowerShell 5.1 en la caja dorada y Bash en la teal. **Dónde deja de valer:** el comportamiento de `$ErrorActionPreference` y de los errores de programas nativos cambió entre versiones de PowerShell, de modo que un script debe fijar su configuración y probarse en las versiones que declara soportar. `set -e` en Bash tiene excepciones y no es una garantía universal.
 
 ### Niveles de portabilidad
 
@@ -147,10 +144,9 @@ de PowerShell, de modo que un script debe fijar su configuración y probarse en 
 lenguaje con adaptadores finos exige un runtime declarado. El diseño del laboratorio de la Parte 02 elige el último nivel: un núcleo en Python con un adaptador de Bash y otro de PowerShell que solo traducen argumentos y
 códigos de salida. Probar el mismo contrato en Windows y en Linux (el laboratorio pasó sus diez pruebas en ambos, en Python 3.12.9 y 3.12.3) es lo que lo hace portable, no la sintaxis.
 
-![Figura 3. Cuatro niveles de portabilidad con lo que exigen de la plataforma y lo que no garantizan](../../../content/part-02/figures/se-030-niveles-de-portabilidad.svg)
+![Cuatro niveles de portabilidad, de lo más estrecho a lo más amplio: un script de Bash, un script POSIX sh, un script de PowerShell y un núcleo en un lenguaje con adaptadores finos; de cada nivel salen lo que exige de la plataforma y lo que no garantiza.](../../../content/part-02/figures/se-030-niveles-de-portabilidad.svg)
 
-**Cómo leer la figura.** Cada nivel amplía el alcance a costa de una dependencia: la última fila no elimina las diferencias, las aísla en adaptadores finos que se prueban en cada plataforma. **Dónde deja de valer:** un núcleo en un lenguaje
-añade el costo de arranque de su runtime (la medición de `SE-028`: unos 140 ms en Windows) y la obligación de distribuirlo; para scripts triviales, un script de shell puede seguir siendo la herramienta correcta.
+**Cómo leer la figura.** La pila va del nivel más estrecho (arriba) al más amplio (abajo), y de cada nivel salen lo que exige de la plataforma y lo que no garantiza. Cada nivel amplía el alcance a costa de una dependencia: el último no elimina las diferencias, las aísla en adaptadores finos que se prueban en cada plataforma. **Dónde deja de valer:** un núcleo en un lenguaje añade el costo de arranque de su runtime (la medición de `SE-028`: unos 140 ms en Windows) y la obligación de distribuirlo; para scripts triviales, un script de shell puede seguir siendo la herramienta correcta.
 
 ## Definiciones de trabajo
 

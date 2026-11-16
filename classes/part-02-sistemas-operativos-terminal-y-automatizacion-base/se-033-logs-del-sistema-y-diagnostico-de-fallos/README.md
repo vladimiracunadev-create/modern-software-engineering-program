@@ -128,10 +128,9 @@ Un buen registro tiene campos. Tres eventos reales del registro *Application* de
 («Información») y el proveedor que lo emitió («VSS», «Microsoft-Windows-System-Restore»). El registro es *circular*: cuando se llena, los eventos más antiguos se sobrescriben, por lo que la evidencia de un incidente se exporta antes de que se pierda.
 En Linux con `systemd`, `journalctl` entrega campos parecidos con otra forma: una marca de tiempo ISO 8601 con desfase, el nombre del equipo, la unidad y el mensaje.
 
-![Figura 1. Tabla con tres eventos reales del registro Application de Windows y sus campos: hora, identificador, nivel y proveedor](../../../content/part-02/figures/se-033-anatomia-de-un-evento.svg)
+![Tres eventos reales del registro Application en orden cronológico, cada uno con su hora de creación, identificador, nivel y proveedor: 8302 de System-Restore a las 11:25:41 y dos eventos 8224 de VSS, 12 segundos y 12 minutos y 7 segundos después. El registro es circular.](../../../content/part-02/figures/se-033-anatomia-de-un-evento.svg)
 
-**Cómo leer la figura.** Cada fila es un evento y cada columna, un campo. El identificador y el proveedor permiten buscar y agrupar sin leer el mensaje; el nivel prioriza. **Dónde deja de valer:** los identificadores son específicos de cada proveedor (el 8224 de VSS no
-significa nada para otro proveedor), y el texto del mensaje depende del idioma del sistema; un análisis automático se apoya en proveedor e identificador, no en el texto. El ejemplo no contiene datos personales: los nombres del equipo se omiten.
+**Cómo leer la figura.** Las tres tarjetas son tres eventos del registro, de izquierda a derecha en orden cronológico, y cada una muestra sus campos: la hora en la cabecera, el identificador, el nivel y el proveedor. Las flechas dicen cuánto tiempo pasó entre un evento y el siguiente. El identificador y el proveedor permiten buscar y agrupar sin leer el mensaje; el nivel prioriza. **Dónde deja de valer:** los identificadores son específicos de cada proveedor (el 8224 de VSS no significa nada para otro proveedor), y el texto del mensaje depende del idioma del sistema; un análisis automático se apoya en proveedor e identificador, no en el texto. El ejemplo no contiene datos personales: los nombres del equipo se omiten.
 
 ### Tiempo y orden: el mismo instante en dos escrituras
 

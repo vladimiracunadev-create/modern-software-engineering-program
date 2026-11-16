@@ -160,10 +160,9 @@ mal un argumento); por eso las pruebas ejercitan el núcleo y los adaptadores se
 El contrato de salida tiene tres estados con sus códigos: `healthy` o completado (código 0), `degraded` por una precondición o integridad inválida (código 2) y `refused` por seguridad (código 3). Son *parte de la interfaz*: un script que consume el kit decide con ellos, no analizando el texto del mensaje. La Figura 2 resume cuándo ocurre cada uno y la acción que corresponde. Este diseño aplica
 la clase `SE-029`: el código de salida es una interfaz pequeña pero crítica, y se documenta, se prueba y se mantiene estable.
 
-![Figura 2. Tabla con los tres estados del kit, su código de salida, cuándo ocurren y qué acción corresponde](../../../content/part-02/figures/se-036-estados-y-codigos.svg)
+![Tres estados del kit con su código de salida y la acción que corresponde: healthy o completado con código 0, degraded por precondición inválida con código 2 y refused por seguridad con código 3.](../../../content/part-02/figures/se-036-estados-y-codigos.svg)
 
-**Cómo leer la figura.** Cada fila es un estado: la tercera columna dice cuándo ocurre y la cuarta qué hacer. La diferencia entre 2 y 3 es importante: el primero se corrige arreglando el fixture; el segundo exige revisar la *propiedad*, porque el kit se negó a actuar por seguridad. **Dónde deja de valer:** tres códigos cubren este alcance; un sistema mayor
-necesitará más categorías, y debe versionarlas para no romper a sus consumidores.
+**Cómo leer la figura.** Cada fila va de un estado, con lo que lo provoca, a su código de salida (0 en teal, 2 en dorado, 3 en coral) y de ahí a la acción. La diferencia entre 2 y 3 es importante: el primero se corrige arreglando el fixture; el segundo exige revisar la *propiedad*, porque el kit se negó a actuar por seguridad. **Dónde deja de valer:** tres códigos cubren este alcance; un sistema mayor necesitará más categorías, y debe versionarlas para no romper a sus consumidores.
 
 ### Verificar el contrato en dos plataformas
 
@@ -171,10 +170,9 @@ Las diez pruebas del laboratorio ejercitan el contrato: idempotencia de `prepare
 bloquea la reparación y la limpieza. En la validación de esta parte las diez pasaron en Windows 11 con Python 3.12.9 (0,257 s) y en Ubuntu 24.04 bajo WSL2 con Python 3.12.3 (1,710 s). Eso es evidencia de que el *mismo contrato* se cumple en dos plataformas reales, pero no de todas: la matriz de integración continua ejecuta además macOS y otras versiones de
 Python, y solo esa matriz en verde sustenta una afirmación de compatibilidad.
 
-![Figura 3. Tabla con los contratos que prueban las diez pruebas y su resultado en Windows y en Linux](../../../content/part-02/figures/se-036-matriz-de-pruebas.svg)
+![Barras horizontales con la duración de las diez pruebas del laboratorio, todas aprobadas: 0,257 segundos en Windows 11 con Python 3.12.9 y 1,710 segundos en Ubuntu 24.04 bajo WSL2 con Python 3.12.3.](../../../content/part-02/figures/se-036-matriz-de-pruebas.svg)
 
-**Cómo leer la figura.** Cada fila es un contrato y cada columna una plataforma; todas pasan. La fila final registra el tiempo. **Dónde deja de valer:** una prueba que pasa demuestra que el contrato se cumple *para esa entrada*, no para todas; faltan pruebas con rutas largas, nombres Unicode complejos, enlaces simbólicos y permisos
-restringidos. Esas ausencias se declaran como límites y se convierten en las próximas pruebas.
+**Cómo leer la figura.** Cada barra es la duración de las diez pruebas en una plataforma: 0,257 s en Windows y 1,710 s en Linux. Todas pasan en ambas (los contratos que prueban están en la nota debajo del gráfico). No se atribuye una causa a la diferencia de tiempo: depende del equipo y del entorno. **Dónde deja de valer:** una prueba que pasa demuestra que el contrato se cumple *para esa entrada*, no para todas; faltan pruebas con rutas largas, nombres Unicode complejos, enlaces simbólicos y permisos restringidos. Esas ausencias se declaran como límites y se convierten en las próximas pruebas.
 
 ### Entregar y mantener
 

@@ -120,9 +120,9 @@ acierta = cand and min(cand, key=lambda q: abs(te - 1.0 - q.t)).id == id_verdade
 
 La correlación se pierde en multiplicación: con solo el 5 % de pérdida por salto, casi 14 de cada 100 flujos quedan incompletos, y con el 20 % lo está la mitad. La reconstrucción por tiempo y estudiante acertó el 99,4 % con 1 solicitud por segundo, el 93,6 % con 10 y el 74,8 % con 50: sirve como último recurso en un entorno tranquilo y se degrada justo cuando hay más carga y más necesidad.
 
-![Tabla con las trazas completas de tres saltos de 10 000, el porcentaje medido y el esperado si cada salto pierde el encabezado de correlación con probabilidad 0, 1, 5 y 20 por ciento.](../../../content/part-27/figures/se-334-propagar-la-correlacion.svg)
+![Líneas con el porcentaje de trazas completas de tres saltos según la probabilidad de que cada salto pierda el encabezado de correlación: 100,0, 97,1, 86,1 y 51,5 por ciento medidos con pérdidas de 0, 1, 5 y 20 por ciento, casi iguales a 1 menos la pérdida elevado al cubo.](../../../content/part-27/figures/se-334-propagar-la-correlacion.svg)
 
-**Cómo leer la figura.** Cada fila es una probabilidad de pérdida por salto; la comparación entre el medido y el esperado confirma que las pérdidas se multiplican. **Dónde deja de valer:** las pérdidas son independientes entre saltos, algo optimista: un servicio que ignora el encabezado lo pierde siempre, no una vez de cada veinte. La reconstrucción por tiempo supone eventos con un retardo de entre 0,5 y 1,5 segundos y estudiantes uniformemente repartidos; con retardos mayores o pocos estudiantes activos sería peor.
+**Cómo leer la figura.** El eje horizontal es la pérdida del encabezado por salto y el vertical, el porcentaje de trazas completas; la línea coral es lo medido y la azul oscura la curva esperada (1 − d)³. Mira cómo se superponen: la pérdida se multiplica a lo largo de la cadena, y con 20 % por salto solo la mitad de las trazas llega entera. **Dónde deja de valer:** las pérdidas son independientes entre saltos, algo optimista: un servicio que ignora el encabezado lo pierde siempre, no una vez de cada veinte. La reconstrucción por tiempo supone eventos con un retardo de entre 0,5 y 1,5 segundos y estudiantes uniformemente repartidos; con retardos mayores o pocos estudiantes activos sería peor.
 
 ### Qué señal ve cada falla
 
@@ -144,9 +144,9 @@ errores_30s = sum(errores[t - 29:t + 1])
 
 El consumidor lento solo lo ven las señales de acumulación y tarda más de un minuto y medio; el colgado lo ve primero la tasa de procesados, a los 25 segundos. El veneno lo ve la tasa de errores a los 10 segundos, antes que ninguna otra. Y el productor parado activa la alarma de procesados, que es una **falsa alarma** respecto de la falla del consumidor: no hay nada que arreglar en él. Ninguna señal sola cubre las cuatro fallas, y la que cubre más (procesados) las confunde.
 
-![Tabla con los segundos hasta la primera alarma desde el inicio de cuatro fallas de un consumidor (lento, colgado, mensaje venenoso y productor parado) para cuatro señales: profundidad, edad, procesados y errores.](../../../content/part-27/figures/se-334-senales-de-un-consumidor.svg)
+![Mapa de calor con los segundos hasta la primera alarma de cuatro fallas de un consumidor según cuatro señales: el lento se ve a 101 y 123 segundos y no en procesados ni errores; el colgado a 50, 61 y 25; el venenoso a 50, 61, 25 y 10; el productor parado solo da una falsa alarma a los 25 segundos.](../../../content/part-27/figures/se-334-senales-de-un-consumidor.svg)
 
-**Cómo leer la figura.** Cada fila es una falla y cada columna una señal; «nunca» es un punto ciego y «falsa alarma» es una alarma sin falla del consumidor. **Dónde deja de valer:** los umbrales y la ventana de 30 segundos son del autor, la llegada es constante y no hay estacionalidad; con tráfico real los umbrales fijos producen más falsas alarmas fuera de horario. La figura enseña a cruzar señales, no valores de umbral.
+**Cómo leer la figura.** Cada fila es una falla y cada columna una señal; el color más oscuro es una alarma más lenta, el guion es una señal que nunca alarma (punto ciego) y el contorno marca una falsa alarma. Mira cuántos guiones hay en cada fila y cada columna: ninguna señal cubre todas las fallas y la falla del productor solo aparece como una falsa alarma. **Dónde deja de valer:** los umbrales y la ventana de 30 segundos son del autor, la llegada es constante y no hay estacionalidad; con tráfico real los umbrales fijos producen más falsas alarmas fuera de horario. La figura enseña a cruzar señales, no valores de umbral.
 
 ### Qué filtra cada política de registro
 
@@ -169,9 +169,9 @@ def con_lista(m): return json.dumps({k: m[k] for k in ("entrega", "nota")})
 
 Registrar todo filtra todo. Cada expresión regular cierra un tipo de dato y deja abierto el siguiente: tras sustituir correos aún salen 2 000 tokens, y tras sustituir ambos aún salen los 200 comentarios, porque un identificador escrito como «alumno7 [arroba] ejemplo.test» no coincide con ningún patrón. La lista de permitidos no filtra nada de lo medido porque no registra lo que no se le dijo que registrara.
 
-![Tabla con los correos, los tokens y los comentarios con identificador que aparecen en los registros de 2 000 mensajes según cuatro políticas: cuerpo completo, expresión regular para correos, para correos y tokens, y lista de campos permitidos.](../../../content/part-27/figures/se-334-fugas-en-los-registros.svg)
+![Barras horizontales con los correos, los tokens y los comentarios con identificador que aparecen en los registros de 2 000 mensajes: el cuerpo completo filtra 2 000, 2 000 y 200; sustituir correos deja 2 000 tokens y 200 comentarios; sustituir correos y tokens deja 200 comentarios; los campos permitidos no filtran nada.](../../../content/part-27/figures/se-334-fugas-en-los-registros.svg)
 
-**Cómo leer la figura.** Cada fila es una política de registro; las columnas cuentan lo que se puede encontrar buscando en los registros. **Dónde deja de valer:** los datos son sintéticos y los patrones son simples; las expresiones más completas filtran más, pero el principio no cambia. La lista de permitidos puede dejar sin información útil para depurar: su costo es que hay que añadir campos con criterio cuando hacen falta.
+**Cómo leer la figura.** Cada grupo es una política de registro y cada color, un tipo de dato sensible que se puede encontrar buscando en los registros. Mira cómo cada expresión regular borra una barra y deja las otras, hasta que solo la lista de campos permitidos deja el gráfico vacío. **Dónde deja de valer:** los datos son sintéticos y los patrones son simples; las expresiones más completas filtran más, pero el principio no cambia. La lista de permitidos puede dejar sin información útil para depurar: su costo es que hay que añadir campos con criterio cuando hacen falta.
 
 ## Definiciones de trabajo
 

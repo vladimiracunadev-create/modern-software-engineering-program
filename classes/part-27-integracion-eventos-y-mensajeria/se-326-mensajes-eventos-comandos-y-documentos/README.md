@@ -121,9 +121,9 @@ wrong_st = cambiaron if necesita == "actual" else 0
 
 Con la notificación, cuatro consumidores hacen mil llamadas cada uno y dos de ellos leen un valor distinto del que motivó el evento en 299 casos. Con el estado dentro, nadie llama, pero los dos que querían el valor actual quedan desactualizados en esos mismos 299. El evento más grande (3,2 veces) ahorra 4 000 llamadas y traslada el error de un par de consumidores al otro.
 
-![Tabla con las llamadas de vuelta, las lecturas del instante equivocado y las lecturas desactualizadas de cinco consumidores con una notificación mínima y con el estado dentro del evento.](../../../content/part-27/figures/se-326-lo-que-lleva-el-mensaje.svg)
+![Barras horizontales por consumidor de las llamadas de vuelta, las lecturas del instante equivocado y las lecturas desactualizadas de 1 000 eventos: la notificación obliga a 1 000 llamadas en cuatro consumidores, y el estado dentro del evento deja 299 desactualizadas en notificaciones y analítica.](../../../content/part-27/figures/se-326-lo-que-lleva-el-mensaje.svg)
 
-**Cómo leer la figura.** Cada fila es un consumidor con una necesidad distinta; las tres columnas cuentan las llamadas y los errores que produce cada forma del mensaje. **Dónde deja de valer:** el 30 % de cambios es un supuesto y el cambio ocurre siempre antes de la lectura; con entidades casi inmutables (un archivo entregado) la diferencia desaparece, y con entidades que cambian a cada segundo ninguna de las dos formas basta y hace falta un número de versión. Los bytes son de JSON compacto, no de un formato binario.
+**Cómo leer la figura.** Cada grupo de barras es un consumidor con una necesidad distinta y el color de la barra dice qué mide: verde azulado, llamadas de vuelta de la notificación; coral, lecturas del instante equivocado de la notificación; dorado, lecturas desactualizadas con el estado dentro del evento. Mira primero que las barras verdes azuladas son las más largas y que cada consumidor solo tropieza con una de las otras dos. **Dónde deja de valer:** el 30 % de cambios es un supuesto y el cambio ocurre siempre antes de la lectura; con entidades casi inmutables (un archivo entregado) la diferencia desaparece, y con entidades que cambian a cada segundo ninguna de las dos formas basta y hace falta un número de versión. Los bytes son de JSON compacto, no de un formato binario.
 
 ### El mismo mensaje como comando y como evento
 
@@ -149,9 +149,9 @@ def publicar_evento(msg):
 
 Con cero manejadores, el comando falla en voz alta 1 000 veces y el evento desaparece 1 000 veces sin ruido. Con tres, un comando exigido se rechaza por ambiguo y uno difundido se ejecuta 3 000 veces: tres calificaciones por entrega. Para un evento tres entregas son exactamente lo esperado. La diferencia de contrato no está en el cuerpo del mensaje sino en cuántos destinatarios se espera.
 
-![Tabla con rechazos y ejecuciones de un comando exigido y uno difundido, y con entregas y pérdidas de un evento, según 0, 1 o 3 manejadores registrados.](../../../content/part-27/figures/se-326-comando-o-evento.svg)
+![Barras agrupadas de los rechazos y ejecuciones de un comando exigido y uno difundido, y de las entregas y pérdidas de un evento, con 0, 1 y 3 manejadores registrados: con cero manejadores hay 1 000 rechazos y 1 000 eventos perdidos sin aviso; con tres, 3 000 ejecuciones y 3 000 entregas.](../../../content/part-27/figures/se-326-comando-o-evento.svg)
 
-**Cómo leer la figura.** Las filas son el número de manejadores y las columnas los resultados de cada contrato. **Dónde deja de valer:** el bus de un diccionario no modela fallos, reintentos ni orden; en un corredor real un tópico sin suscriptores puede retener o descartar según su configuración. La figura es una forma de ver la diferencia de contrato, no un modelo de un corredor.
+**Cómo leer la figura.** Cada grupo es un número de manejadores registrados (0, 1 y 3) y cada color, un resultado de los 1 000 mensajes: rechazos del comando exigido, ejecuciones del comando difundido, entregas del evento y eventos perdidos sin aviso. Mira primero el grupo de cero manejadores, donde el comando falla a gritos y el evento falla en silencio, y después el de tres, donde el comando difundido se ejecuta tres veces y el evento se entrega tres veces. **Dónde deja de valer:** el bus de un diccionario no modela fallos, reintentos ni orden; en un corredor real un tópico sin suscriptores puede retener o descartar según su configuración. La figura es una forma de ver la diferencia de contrato, no un modelo de un corredor.
 
 ### Qué campos del sobre sostienen qué capacidades
 
@@ -171,9 +171,9 @@ orden_t = sorted(lst, key=lambda m: m["t"])              # ties con 4 mensajes p
 
 Deduplicar por contenido quita los 200 duplicados y además 635 mensajes distintos que casualmente comparten estudiante y cuerpo, entre ellos los reenvíos legítimos. Ordenar por reloj deja casi la mitad de los mensajes en el lugar equivocado porque varios comparten la misma marca. La reconstrucción por ventana propone 254 pares de los cuales la mitad son correctos y encuentra 128 de los 2 302 que existen: precisión del 50 % y cobertura del 5,6 %.
 
-![Tabla con el efecto de quitar el identificador, la secuencia o la correlación del sobre sobre la deduplicación, el orden y el seguimiento de una operación.](../../../content/part-27/figures/se-326-campos-del-sobre.svg)
+![Mancuernas de los resultados erróneos con el campo en el sobre y con la heurística que lo sustituye: deduplicar por contenido descarta 635 mensajes distintos, ordenar por marca de tiempo deja 992 eventos fuera de lugar y seguir por estudiante y ventana propone 126 pares falsos, frente a cero con el campo.](../../../content/part-27/figures/se-326-campos-del-sobre.svg)
 
-**Cómo leer la figura.** Cada fila es una capacidad; la segunda columna usa el campo y la tercera su sustituto improvisado. **Dónde deja de valer:** el reparto de reenvíos legítimos (100 de 2 300), el tamaño de la ventana y la resolución del reloj son decisiones del autor, y un reloj sincronizado con resolución de nanosegundos mejoraría el orden sin eliminar los empates entre procesos. La figura no prueba que haya que usar CloudEvents: prueba que hay que decidir un sobre.
+**Cómo leer la figura.** Cada fila es una capacidad y la mancuerna une los errores con el campo en el sobre (a la izquierda, siempre cero) con los de la heurística improvisada; la longitud del segmento es el daño. Mira primero que el punto con campo está siempre en cero y que el costo de prescindir del campo cambia de tamaño según la capacidad. **Dónde deja de valer:** el reparto de reenvíos legítimos (100 de 2 300), el tamaño de la ventana y la resolución del reloj son decisiones del autor, y un reloj sincronizado con resolución de nanosegundos mejoraría el orden sin eliminar los empates entre procesos. La figura no prueba que haya que usar CloudEvents: prueba que hay que decidir un sobre.
 
 ## Definiciones de trabajo
 

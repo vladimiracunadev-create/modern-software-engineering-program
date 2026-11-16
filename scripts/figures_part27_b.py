@@ -1,283 +1,254 @@
-"""Figures for SE-331 to SE-336 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-331 to SE-336 (synthetic data, fixed seeds; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
+
+Every figure is a chart or a diagram of the mechanism; the Markdown tables of the classes keep the exact values.
+"""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, stacked_bars
 
 SINT = "Datos sintéticos con semilla fija; CPython 3.12 en Windows y Ubuntu (WSL2); cifras idénticas salvo donde se indica."
 
 
 # ---------------------------------------------------------------- SE-331
 def se331_sondeo() -> Fig:
-    rows = [
-        ["10 s", "8 640", "96,5 %", "5,1 s", "9,5 s"],
-        ["30 s", "2 880", "89,9 %", "15,7 s", "28,9 s"],
-        ["60 s", "1 440", "81,3 %", "31,6 s", "57,1 s"],
-        ["5 min", "288", "34,4 %", "146,4 s", "289,7 s"],
-        ["15 min", "96", "2,1 %", "447,3 s", "856,1 s"],
-        ["1 h", "24", "0,0 %", "1 807,5 s", "3 379,3 s"],
-    ]
-    return tab("Sondeo cada cierto intervalo frente a 311 eventos de un día (unos 12 por hora)",
-               "Tabla: sondear cada 10 segundos cuesta 8 640 peticiones al día, el 96,5 por ciento vacías, y detecta un evento en 5,1 segundos de media; sondear cada hora cuesta 24 peticiones sin ninguna vacía pero tarda 1 807 segundos de media y 3 379 en el percentil 95; un webhook costaría una entrega por evento, 311 al día.",
-               ["Intervalo", "Peticiones al día", "Peticiones vacías", "Retraso medio", "Retraso p95"], rows, [150, 190, 190, 190, 190], row_h=44, size=13,
-               note="El sondeo cambia peticiones por retraso: el retraso medio es la mitad del intervalo y las peticiones vacías crecen cuando el intervalo baja. Un webhook empuja 311 entregas sin peticiones vacías, a cambio de recibir tráfico que no controlas. Eventos de Poisson de tasa fija: supuesto del autor.",
-               note_kind="gold", foot=SINT)
+    mean = [5.1, 15.7, 31.6, 146.4, 447.3, 1807.5]
+    p95 = [9.5, 28.9, 57.1, 289.7, 856.1, 3379.3]
+    reqs = [8640, 2880, 1440, 288, 96, 24]
+    names = ["10 s", "30 s", "60 s", "5 min", "15 min", "1 h"]
+    return line_chart(
+        "Sondeo cada cierto intervalo frente a 311 eventos de un día (unos 12 por hora)",
+        "Líneas en escala logarítmica con las peticiones al día según el retraso con que se detecta un evento: sondear cada 10 segundos cuesta 8 640 peticiones y detecta un evento en 5,1 segundos de media y 9,5 en el percentil 95; cada hora cuesta 24 peticiones y tarda 1 807 segundos de media y 3 379 en el percentil 95; un webhook costaría 311 entregas al día.",
+        [("Retraso medio", [(x, y, n, "t") for x, y, n in zip(mean, reqs, names)], "teal"),
+         ("Retraso p95", list(zip(p95, reqs)), "coral")],
+        x_label="Retraso hasta detectar un evento (s)", y_label="Peticiones al día", log_x=True, log_y=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1 000"), (10000, "10 000")], y_ticks=[10, 100, 1000, 10000],
+        hlines=[(311, "Webhook: 311 entregas al día")], point_labels="none",
+        note="El sondeo cambia peticiones por retraso: el retraso medio es la mitad del intervalo y las peticiones vacías crecen cuando el intervalo baja (96,5 % vacías a 10 s, 0,0 % a 1 h). Un webhook empuja 311 entregas sin peticiones vacías, a cambio de recibir tráfico que no controlas. Eventos de Poisson de tasa fija: supuesto del autor.",
+        note_kind="gold", foot=SINT)
 
 
 def se331_firma() -> Fig:
-    rows = [
-        ["Válido", "Acepta", "Acepta", "Acepta", "Acepta"],
-        ["Cuerpo alterado", "Acepta", "Rechaza", "Rechaza", "Rechaza"],
-        ["Firmado con otro secreto", "Acepta", "Rechaza", "Rechaza", "Rechaza"],
-        ["Sin firma", "Acepta", "Rechaza", "Rechaza", "Rechaza"],
-        ["Repetición 10 min después", "Acepta", "Acepta", "Rechaza", "Rechaza"],
-        ["Repetición inmediata del mismo id", "Acepta", "Acepta", "Acepta", "Rechaza"],
-        ["JSON reserializado con espacios", "Acepta", "Rechaza", "Rechaza", "Rechaza"],
-    ]
-    return tab("Siete entregas de webhook frente a cuatro políticas de verificación",
-               "Tabla: sin verificar se acepta cualquier entrega; una firma HMAC del cuerpo rechaza las alteradas, las de otro secreto, las sin firma y las reserializadas pero acepta repeticiones; añadir una marca de tiempo firmada con tolerancia de 300 segundos rechaza la repetición tardía; solo guardar los identificadores vistos rechaza la repetición inmediata.",
-               ["Caso", "Sin verificar", "HMAC del cuerpo", "HMAC con marca de tiempo", "Más id ya visto"], rows, [330, 140, 150, 160, 140], row_h=44, size=13,
-               note="Cada capa cierra un ataque distinto: la firma, la manipulación; la marca de tiempo, la repetición tardía; el identificador, la repetición inmediata. Se firman los bytes recibidos, no el objeto: en un servidor real en el bucle local el cuerpo original dio 204 y el reserializado 401.",
-               note_kind="coral", foot=SINT)
+    labels = {0: "Rechaza", 0.5: "Acepta", 1: "Acepta (hueco)"}
+    return heatmap(
+        "Siete entregas de webhook frente a cuatro políticas de verificación",
+        "Mapa de calor de siete entregas frente a cuatro políticas: sin verificar se acepta todo; la firma HMAC del cuerpo rechaza las alteradas, las de otro secreto, las sin firma y las reserializadas pero acepta repeticiones; la marca de tiempo firmada con tolerancia de 300 segundos rechaza la repetición tardía; guardar los identificadores vistos rechaza también la repetición inmediata. Los huecos se van cerrando de izquierda a derecha.",
+        ["Entrega válida", "Cuerpo alterado", "Firmada con otro secreto", "Sin firma", "Repetición 10 min después", "Repetición inmediata del mismo id", "JSON reserializado con espacios"],
+        ["Sin verificar", "HMAC del cuerpo", "HMAC con marca de tiempo", "Más id ya visto"],
+        [[0.5, 0.5, 0.5, 0.5], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0]],
+        unit="hueco", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: labels[v], label_w=250,
+        col_title="Política de verificación", row_title="Entrega",
+        note="Cada capa cierra un ataque distinto: la firma, la manipulación; la marca de tiempo, la repetición tardía; el identificador, la repetición inmediata. «Acepta (hueco)» es una entrega maliciosa o repetida que pasa. Se firman los bytes recibidos, no el objeto: en un servidor real en el bucle local el cuerpo original dio 204 y el reserializado 401.",
+        note_kind="coral", foot=SINT)
 
 
 def se331_reintentos() -> Fig:
-    rows = [
-        ["3 reintentos fijos de 1 s", "720", "720", "34"],
-        ["5 reintentos exponenciales (1, 5, 30, 120, 600 s)", "792", "648", "33"],
-        ["9 reintentos hasta 6 h con jitter", "1 440", "0", "71"],
-    ]
-    return tab("Receptor caído 2 horas: 1 440 eventos (uno cada 10 s durante 4 horas) y tres políticas del emisor",
-               "Tabla: tres reintentos de un segundo entregan 720 de 1 440 eventos y pierden 720; cinco reintentos exponenciales entregan 792 y pierden 648; nueve reintentos hasta seis horas entregan los 1 440 pero producen 71 entregas repetidas porque algunas respuestas se perdieron después de procesar.",
-               ["Política de reintentos del emisor", "Entregados", "Perdidos", "Entregas repetidas"], rows, [450, 150, 150, 180], row_h=52, size=13,
-               note="Con una caída de dos horas los reintentos cortos son un descarte lento. Cuanto más persiste el emisor, más repeticiones recibe el receptor, por lo que el receptor debe ser idempotente. Un sondeo de reconciliación recuperaría los perdidos, pero no se midió aquí. Pérdida de respuesta del 5 % por intento: supuesto del autor.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Receptor caído 2 horas: 1 440 eventos (uno cada 10 s durante 4 horas) y tres políticas del emisor",
+        "Barras horizontales con los eventos entregados, perdidos y repetidos de 1 440 según la política de reintentos del emisor: tres reintentos de un segundo entregan 720 y pierden 720; cinco exponenciales entregan 792 y pierden 648; nueve hasta seis horas con jitter entregan los 1 440 pero producen 71 entregas repetidas.",
+        ["3 reintentos fijos de 1 s", "5 reintentos exponenciales (1, 5, 30, 120, 600 s)", "9 reintentos hasta 6 h con jitter"],
+        [("Entregados", [720, 792, 1440], "teal"), ("Perdidos", [720, 648, 0], "coral"), ("Entregas repetidas", [34, 33, 71], "gold")],
+        unit="Eventos de 1 440", horizontal=True, label_w=260, ticks=[0, 400, 800, 1200, 1600],
+        note="Con una caída de dos horas los reintentos cortos son un descarte lento. Cuanto más persiste el emisor, más repeticiones recibe el receptor, por lo que el receptor debe ser idempotente. Un sondeo de reconciliación recuperaría los perdidos, pero no se midió aquí. Pérdida de respuesta del 5 % por intento: supuesto del autor.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-332
 def se332_matriz() -> Fig:
-    rows = [
-        ["Añadir un campo opcional", "Sí", "Sí", "Sí", "No"],
-        ["Añadir un campo obligatorio", "No", "Sí", "No", "No"],
-        ["Quitar un campo opcional", "Sí", "Sí", "No", "Sí"],
-        ["Quitar un campo obligatorio", "Sí", "No", "No", "No"],
-        ["Renombrar un campo", "No", "No", "No", "No"],
-        ["Cambiar el tipo de un campo", "No", "No", "No", "No"],
-        ["Volver obligatorio un campo opcional", "No", "Sí", "No", "Sí"],
-    ]
-    return tab("Siete cambios de esquema: si el lector nuevo lee datos viejos y el lector viejo lee datos nuevos",
-               "Tabla: añadir un campo opcional es compatible en ambos sentidos con un lector tolerante y solo hacia atrás con uno estricto; renombrar un campo o cambiar su tipo no es compatible en ningún sentido ni con ningún lector; añadir un campo obligatorio rompe a los lectores nuevos con datos viejos; quitar un obligatorio rompe a los lectores viejos con datos nuevos.",
-               ["Cambio", "Tolerante: nuevo lee viejos", "Tolerante: viejo lee nuevos", "Estricto: nuevo lee viejos", "Estricto: viejo lee nuevos"], rows, [250, 170, 170, 170, 170], row_h=44, size=13,
-               note="La compatibilidad depende de quién lee y de cómo: un lector estricto convierte cualquier campo nuevo en un fallo. Se probó con instancias mínimas y máximas de cada versión. Solo se modelan campos simples y tipos primitivos; no se ejecutó ningún registro de esquemas real.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        "Siete cambios de esquema: compatibilidad según quién lee y en qué sentido",
+        "Mapa de calor de siete cambios de esquema ordenados por cuántas de las cuatro combinaciones de lector y sentido siguen siendo compatibles: añadir o quitar un campo opcional es compatible en tres, volver obligatorio un campo opcional en dos, añadir o quitar un obligatorio en una, y renombrar un campo o cambiar su tipo en ninguna.",
+        ["Añadir un campo opcional (3 de 4)", "Quitar un campo opcional (3 de 4)", "Volver obligatorio un campo opcional (2 de 4)",
+         "Añadir un campo obligatorio (1 de 4)", "Quitar un campo obligatorio (1 de 4)", "Renombrar un campo (0 de 4)", "Cambiar el tipo de un campo (0 de 4)"],
+        ["Tolerante: nuevo lee viejos", "Tolerante: viejo lee nuevos", "Estricto: nuevo lee viejos", "Estricto: viejo lee nuevos"],
+        [[1, 1, 1, 0], [1, 1, 0, 1], [0, 1, 0, 1], [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+        unit="1 = compatible", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "Sí" if v else "No", label_w=300,
+        col_title="Tipo de lector y sentido de la lectura", row_title="Cambio",
+        note="La compatibilidad depende de quién lee y de cómo: un lector estricto convierte cualquier campo nuevo en un fallo. Las filas están ordenadas por cuántas combinaciones sobreviven; renombrar y cambiar el tipo no sobreviven en ninguna. Se probó con instancias mínimas y máximas de cada versión; no se ejecutó ningún registro de esquemas real.",
+        note_kind="gold", foot=SINT)
 
 
 def se332_despliegue() -> Fig:
-    rows = [
-        ["Añadir campo opcional", "Tolerante", "0", "0"],
-        ["Añadir campo opcional", "Estricto", "2 825", "820"],
-        ["Añadir campo obligatorio", "Tolerante", "801", "2 809"],
-        ["Añadir campo obligatorio", "Estricto", "3 626", "3 629"],
-        ["Renombrar campo", "Tolerante", "3 626", "3 629"],
-        ["Renombrar campo", "Estricto", "3 626", "3 629"],
-    ]
-    return tab("Despliegue gradual en cinco pasos: mensajes que fallan de 10 000 según qué lado se actualiza primero",
-               "Tabla: añadir un campo opcional no falla con lectores tolerantes en ningún orden pero falla 2 825 veces con lectores estrictos si los productores se actualizan primero y 820 si lo hacen los consumidores; añadir un campo obligatorio falla 801 o 2 809 veces con lectores tolerantes; renombrar un campo falla unas 3 600 veces en cualquier orden.",
-               ["Cambio", "Lector", "Productores primero", "Consumidores primero"], rows, [300, 160, 220, 240], row_h=44, size=13,
-               note="Un despliegue gradual convive con dos versiones durante un rato y los fallos aparecen en ese rato. Añadir obligatorio es seguro solo si primero se actualizan los productores en dos pasos (opcional y luego obligatorio). Renombrar nunca es seguro de una vez. Cinco pasos del 20 %: supuesto del autor.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Despliegue gradual en cinco pasos: mensajes que fallan de 10 000 según qué lado se actualiza primero",
+        "Barras horizontales con los mensajes que fallan de 10 000 según el cambio, el tipo de lector y qué lado se actualiza primero: añadir un campo opcional falla 0 veces con lectores tolerantes y 2 825 o 820 con estrictos; añadir un obligatorio falla 801 o 2 809 con tolerantes y 3 626 o 3 629 con estrictos; renombrar falla unas 3 600 veces en cualquier orden.",
+        ["Añadir opcional · tolerante", "Añadir opcional · estricto", "Añadir obligatorio · tolerante", "Añadir obligatorio · estricto",
+         "Renombrar · tolerante", "Renombrar · estricto"],
+        [("Productores primero", [0, 2825, 801, 3626, 3626, 3626], "coral"), ("Consumidores primero", [0, 820, 2809, 3629, 3629, 3629], "teal")],
+        unit="Mensajes que fallan de 10 000", horizontal=True, label_w=240, ticks=[0, 1000, 2000, 3000, 4000],
+        note="Un despliegue gradual convive con dos versiones durante un rato y los fallos aparecen en ese rato. Añadir obligatorio es seguro solo si primero se actualizan los productores en dos pasos (opcional y luego obligatorio). Renombrar nunca es seguro de una vez. Cinco pasos del 20 %: supuesto del autor.",
+        note_kind="coral", foot=SINT)
 
 
 def se332_enum() -> Fig:
-    rows = [
-        ["Lanzar una excepción y reintentar sin fin", "4 991", "0", "0"],
-        ["Descartar el valor desconocido", "0", "338", "0"],
-        ["Sustituir por «desconocido»", "0", "0", "338 sin su significado"],
-        ["Conservar el valor y enviarlo a revisión", "0", "0", "338 con su valor"],
-    ]
-    return tab("Un estado nuevo aparece en 338 de 10 000 mensajes desde la mitad del flujo",
-               "Tabla: un consumidor que lanza una excepción con un valor desconocido bloquea 4 991 mensajes, desde el primero con el valor nuevo; uno que descarta pierde 338 mensajes; uno que sustituye por desconocido conserva los 338 pero sin su significado; uno que conserva el valor y lo envía a revisión los conserva con su valor.",
-               ["Política del consumidor", "Mensajes bloqueados", "Mensajes perdidos", "Mensajes con el valor nuevo procesados"], rows, [380, 160, 160, 220], row_h=52, size=13,
-               note="Un valor nuevo de una enumeración es el cambio más común y el que más se subestima: la política por defecto del consumidor decide si es un incidente, una pérdida silenciosa o una tarea de revisión. 6 % de valores nuevos en la segunda mitad: supuesto del autor.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Un estado nuevo aparece en 338 de 10 000 mensajes desde la mitad del flujo",
+        "Barras horizontales con los mensajes bloqueados, perdidos y procesados con el valor nuevo según la política del consumidor: lanzar una excepción bloquea 4 991; descartar pierde 338; sustituir por desconocido procesa los 338 sin su significado; conservar el valor y enviarlo a revisión procesa los 338 con su valor.",
+        ["Lanzar una excepción y reintentar sin fin", "Descartar el valor desconocido", "Sustituir por «desconocido» (sin su significado)", "Conservar el valor y enviarlo a revisión (con su valor)"],
+        [("Mensajes bloqueados", [4991, 0, 0, 0], "coral"), ("Mensajes perdidos", [0, 338, 0, 0], "gold"), ("Procesados con el valor nuevo", [0, 0, 338, 338], "teal")],
+        unit="Mensajes de 10 000", horizontal=True, label_w=330, ticks=[0, 1000, 2000, 3000, 4000, 5000],
+        note="Un valor nuevo de una enumeración es el cambio más común y el que más se subestima: la política por defecto del consumidor decide si es un incidente, una pérdida silenciosa o una tarea de revisión. 6 % de valores nuevos en la segunda mitad: supuesto del autor.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-333
 def se333_registros() -> Fig:
-    rows = [
-        ["Conversión directa con float", "1 132", "3 868", "411", "0"],
-        ["Capa anticorrupción", "4 627", "0", "0", "373 (198 N/P, 175 vacías)"],
-    ]
-    return tab("5 000 notas de un sistema externo con cuatro formatos distintos",
-               "Tabla: convertir la nota con float acepta 1 132 de 5 000 registros, rompe con 3 868 y deja pasar 411 notas fuera del rango de 1,0 a 7,0 porque vienen en escala de 0 a 100; una capa anticorrupción acepta 4 627 normalizados, no deja pasar ninguna fuera de rango y pone 373 en cuarentena con su motivo.",
-               ["Adaptador", "Aceptadas", "Rotas por excepción", "Aceptadas fuera de rango", "En cuarentena"], rows, [250, 120, 170, 170, 210], row_h=52, size=13,
-               note="El modelo externo usa coma decimal, punto decimal, escala de 0 a 100, «N/P» y vacío. La conversión directa no solo rompe: acepta como válidas 411 notas que significan otra cosa. La capa traduce, rechaza con motivo y deja un lugar único donde mirar. Distribución de formatos del autor.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "5 000 notas de un sistema externo con cuatro formatos distintos",
+        "Barras apiladas horizontales con el destino de 5 000 notas: la conversión directa con float acepta 721 dentro de rango y 411 fuera de rango, y rompe con 3 868; la capa anticorrupción acepta 4 627 normalizadas y pone 373 en cuarentena con su motivo, sin dejar pasar ninguna fuera de rango.",
+        ["Conversión directa con float", "Capa anticorrupción"],
+        [("Aceptadas dentro de rango", [721, 4627], "teal"), ("Aceptadas fuera de rango", [411, 0], "coral"),
+         ("Rotas por excepción", [3868, 0], "navy"), ("En cuarentena", [0, 373], "gold")],
+        unit="Registros de 5 000", horizontal=True, label_w=200,
+        note="El modelo externo usa coma decimal, punto decimal, escala de 0 a 100, «N/P» y vacío. La conversión directa acepta 1 132 notas, de las cuales 411 son válidas solo en apariencia porque vienen de 0 a 100 (721 = 1 132 − 411). La capa traduce, rechaza con motivo (198 N/P y 175 vacías) y deja un lugar único donde mirar. Distribución de formatos del autor.",
+        note_kind="coral", foot=SINT)
 
 
 def se333_cambio() -> Fig:
-    rows = [
-        ["Datos con el formato actual", "0 de 6 funciones fallan", "0 de 6 funciones fallan"],
-        ["El proveedor renombra cod_alumno a alumno_id", "6 de 6 funciones fallan", "1 falla: el traductor, con error explícito"],
-        ["Lugares del código que mencionan cod_alumno", "6", "1"],
-    ]
-    return tab("Un proveedor renombra un campo: qué falla sin y con capa anticorrupción",
-               "Tabla: con datos en el formato actual nada falla en ninguno de los dos diseños; cuando el proveedor renombra un campo, seis de seis funciones del diseño sin capa fallan y solo falla el traductor, con un error explícito, en el diseño con capa; el nombre externo aparece en seis lugares sin capa y en uno con ella.",
-               ["Situación", "Sin capa anticorrupción", "Con capa anticorrupción"], rows, [370, 260, 290], row_h=52, size=13,
-               note="La capa no evita el cambio del proveedor; limita su alcance a un lugar y lo convierte en un error con nombre. El código de seis funciones lo escribió el autor para el ejercicio, ejecutado de verdad con el campo original y con el renombrado; no es una medida de ningún proyecto real.",
-               note_kind="teal", foot=SINT)
+    title = "Un proveedor renombra un campo: qué falla sin y con capa anticorrupción"
+    f = Fig(940, 430, title,
+            "Diagrama de dos diseños cuando el proveedor renombra cod_alumno a alumno_id: sin capa, las seis funciones mencionan el nombre externo y las seis fallan; con capa, solo lo menciona el traductor, que falla con un error explícito, y las seis funciones siguen funcionando. Con datos en el formato actual no falla ninguna en ningún diseño.")
+    f.text(14, 27, title, 15, "start", 700)
+    f.group(10, 46, 450, 300, "Sin capa: 6 lugares mencionan cod_alumno", "grey")
+    f.group(480, 46, 450, 300, "Con capa: 1 lugar menciona cod_alumno", "grey")
+    f.box(110, 84, 250, 44, "Proveedor: ahora envía alumno_id", "gold", 14, bold=True)
+    for i in range(6):
+        x = 24 + (i % 3) * 142
+        y = 190 + (i // 3) * 74
+        f.arrow([(235, 128), (x + 64, y)], color="#c0432f")
+        f.box(x, y, 128, 52, f"Función {i + 1}\nfalla", "coral", 13)
+    f.box(580, 84, 250, 44, "Proveedor: ahora envía alumno_id", "gold", 14, bold=True)
+    f.arrow([(705, 128), (705, 156)], color="#c0432f")
+    f.box(560, 156, 290, 46, "Traductor: falla con un error explícito", "coral", 13, bold=True)
+    for i in range(6):
+        x = 494 + (i % 3) * 142
+        y = 244 + (i // 3) * 48
+        f.box(x, y, 128, 38, f"Función {i + 1}: sigue", "teal", 13)
+    f.arrow([(705, 202), (705, 240)])
+    f.box(10, 360, 920, 58, "Con datos en el formato actual no falla ninguna de las 6 funciones en ninguno de los dos diseños: la capa no evita el cambio del proveedor, limita su alcance a un lugar y lo convierte en un error con nombre.", "plain", 13)
+    return f
 
 
 def se333_fidelidad() -> Fig:
-    rows = [
-        ["Estado: 9 códigos externos a 4 del dominio", "2 813", "2 187"],
-        ["Nota: de 0 a 100 a 1,0 a 7,0 con un decimal", "1 912", "3 088"],
-        ["Ambas traducciones a la vez", "3 659", "1 341"],
-        ["Nota con tres decimales", "0", "5 000"],
-        ["Estado traducido y código externo original conservado", "0", "5 000"],
-    ]
-    return tab("Ida y vuelta de 5 000 registros: qué se recupera al volver al modelo externo",
-               "Tabla: traducir nueve códigos de estado externos a cuatro del dominio impide recuperar el original en 2 813 de 5 000 registros; convertir la nota de 0 a 100 a una escala de 1,0 a 7,0 con un decimal altera 1 912; ambas juntas alteran 3 659; con tres decimales o conservando el código externo original no se altera ninguno.",
-               ["Traducción", "No se recuperan", "Se recuperan"], rows, [520, 180, 180], row_h=48, size=13,
-               note="Traducir es resumir y resumir pierde información. Si algún proceso debe devolver el dato al sistema externo, hay que conservar el original junto al traducido o ampliar la precisión del modelo. Asignación de estados 9 a 4 y reparto uniforme: supuestos del autor.",
-               note_kind="gold", foot=SINT)
+    return stacked_bars(
+        "Ida y vuelta de 5 000 registros: qué se recupera al volver al modelo externo",
+        "Barras apiladas horizontales con los registros de 5 000 que se recuperan o no al volver al modelo externo: traducir nueve estados a cuatro impide recuperar el original en 2 813; convertir la nota de 0 a 100 a 1,0 a 7,0 con un decimal altera 1 912; ambas juntas alteran 3 659; con tres decimales o conservando el código externo original no se altera ninguno.",
+        ["Estado: 9 códigos externos a 4 del dominio", "Nota: de 0 a 100 a 1,0 a 7,0 con un decimal", "Ambas traducciones a la vez",
+         "Nota con tres decimales", "Estado traducido y código externo original conservado"],
+        [("No se recuperan", [2813, 1912, 3659, 0, 0], "coral"), ("Se recuperan", [2187, 3088, 1341, 5000, 5000], "teal")],
+        unit="Registros de 5 000", horizontal=True, label_w=340,
+        note="Traducir es resumir y resumir pierde información. Si algún proceso debe devolver el dato al sistema externo, hay que conservar el original junto al traducido o ampliar la precisión del modelo. Asignación de estados 9 a 4 y reparto uniforme: supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-334
 def se334_correlacion() -> Fig:
-    rows = [
-        ["0 %", "10 000", "100,0 %", "100,0 %"],
-        ["1 %", "9 712", "97,1 %", "97,0 %"],
-        ["5 %", "8 610", "86,1 %", "85,7 %"],
-        ["20 %", "5 154", "51,5 %", "51,2 %"],
-    ]
-    return tab("Trazas completas de tres saltos si cada salto puede perder el encabezado de correlación",
-               "Tabla: si cada uno de tres saltos pierde el encabezado de correlación con probabilidad 0, 1, 5 y 20 por ciento, quedan completas 10 000, 9 712, 8 610 y 5 154 trazas de 10 000, muy cerca de uno menos la pérdida elevado al cubo; la reconstrucción por estudiante y ventana de dos segundos acierta el 99,4, 93,6 y 74,8 por ciento con 1, 10 y 50 solicitudes por segundo.",
-               ["Pérdida por salto", "Trazas completas de 10 000", "Porcentaje medido", "Esperado (1 − d)³"], rows, [200, 270, 200, 220], row_h=44, size=13,
-               note="La correlación se pierde en multiplicación: un salto que no propaga el encabezado rompe la traza entera. Reconstruir por tiempo y estudiante funciona con poca concurrencia (99,4 %) y se degrada con mucha (74,8 %). Pérdidas independientes entre saltos: supuesto del autor.",
-               note_kind="gold", foot=SINT)
+    xs = [0, 1, 5, 20]
+    return line_chart(
+        "Trazas completas de tres saltos si cada salto puede perder el encabezado de correlación",
+        "Líneas con el porcentaje de trazas completas de 10 000 según la probabilidad de que cada uno de tres saltos pierda el encabezado: 100,0, 97,1, 86,1 y 51,5 por ciento medidos con pérdidas de 0, 1, 5 y 20 por ciento, casi iguales a lo esperado, uno menos la pérdida elevado al cubo: 100,0, 97,0, 85,7 y 51,2.",
+        [("Medido", list(zip(xs, [100.0, 97.1, 86.1, 51.5])), "coral"), ("Esperado (1 − d)³", list(zip(xs, [100.0, 97.0, 85.7, 51.2])), "navy")],
+        x_label="Pérdida del encabezado por salto (%)", y_label="Trazas completas (%)",
+        x_ticks=[(x, str(x)) for x in [0, 5, 10, 15, 20]], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        annotations=[(20, 51.5, "Con 20 % por salto solo la mitad de las trazas llega completa", -330, -40)],
+        note="La correlación se pierde en multiplicación: un salto que no propaga el encabezado rompe la traza entera. Reconstruir por tiempo y estudiante funciona con poca concurrencia (99,4 % con 1 solicitud por segundo; 93,6 % con 10) y se degrada con mucha (74,8 % con 50). Pérdidas independientes entre saltos: supuesto del autor.",
+        note_kind="gold", foot=SINT)
 
 
 def se334_senales() -> Fig:
-    rows = [
-        ["Consumidor lento (mitad de capacidad)", "101 s", "123 s", "nunca", "nunca"],
-        ["Consumidor colgado", "50 s", "61 s", "25 s", "nunca"],
-        ["Mensaje venenoso que se reintenta", "50 s", "61 s", "25 s", "10 s"],
-        ["Productor parado", "nunca", "nunca", "25 s (falsa alarma)", "nunca"],
-    ]
-    return tab("Segundos hasta la primera alarma desde el inicio de cada falla, según la señal vigilada",
-               "Tabla: la profundidad de la cola detecta al consumidor lento a los 101 segundos pero nunca al productor parado; la edad del mensaje más viejo es más lenta que la profundidad; la tasa de procesados detecta consumidores colgados y venenosos a los 25 segundos pero da una falsa alarma cuando el productor se detiene; la tasa de errores solo detecta el mensaje venenoso, a los 10 segundos.",
-               ["Falla", "Profundidad > 50", "Edad > 60 s", "Procesados < 5 en 30 s", "Errores > 10 en 30 s"], rows, [330, 140, 120, 200, 130], row_h=52, size=13,
-               note="Ninguna señal detecta todo: cada falla se ve en una señal distinta y una misma señal confunde fallas diferentes. Se vigilan al menos profundidad, edad, procesados y errores, y se interpretan juntas. Umbrales fijos y llegada de un mensaje por segundo: supuestos del autor.",
-               note_kind="coral", foot=SINT)
+    return heatmap(
+        "Segundos hasta la primera alarma desde el inicio de cada falla, según la señal vigilada",
+        "Mapa de calor con los segundos hasta la primera alarma de cuatro fallas según cuatro señales: el consumidor lento se ve a los 101 segundos en la profundidad y a los 123 en la edad; el colgado a los 50, 61 y 25; el mensaje venenoso a los 50, 61, 25 y 10; el productor parado solo produce una falsa alarma a los 25 segundos en los procesados. Un guion indica que la señal nunca alarma.",
+        ["Consumidor lento (mitad de capacidad)", "Consumidor colgado", "Mensaje venenoso que se reintenta", "Productor parado"],
+        ["Profundidad > 50", "Edad > 60 s", "Procesados < 5 en 30 s", "Errores > 10 en 30 s"],
+        [[101, 123, None, None], [50, 61, 25, None], [50, 61, 25, 10], [None, None, 25, None]],
+        unit="segundos hasta la alarma", scale="gold", decimals=0, suffix=" s", highlight=[(3, 2)], label_w=270,
+        col_title="Señal vigilada (— = la señal nunca alarma; contorno = falsa alarma)", row_title="Falla",
+        note="Ninguna señal detecta todo: cada falla se ve en una señal distinta y una misma señal confunde fallas diferentes (los procesados dan falsa alarma cuando el productor se detiene). Se vigilan al menos profundidad, edad, procesados y errores, y se interpretan juntas. Umbrales fijos y llegada de un mensaje por segundo: supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
 def se334_fugas() -> Fig:
-    rows = [
-        ["Registrar el cuerpo completo", "2 000", "2 000", "200"],
-        ["Sustituir correos con una expresión regular", "0", "2 000", "200"],
-        ["Sustituir correos y tokens con expresiones regulares", "0", "0", "200"],
-        ["Registrar solo los campos permitidos", "0", "0", "0"],
-    ]
-    return tab("Datos sensibles que aparecen en los registros de 2 000 mensajes según la política",
-               "Tabla: registrar el cuerpo completo filtra 2 000 correos y 2 000 tokens; sustituir correos con una expresión regular deja salir 2 000 tokens; sustituir ambos aún deja 200 comentarios con el identificador del estudiante escrito de otra forma; registrar solo campos permitidos no filtra nada de lo medido.",
-               ["Política de registro", "Correos filtrados", "Tokens filtrados", "Comentarios con identificador"], rows, [420, 150, 150, 200], row_h=52, size=13,
-               note="Una lista de lo permitido falla cerrada: lo nuevo no se registra. Una lista de lo prohibido falla abierta: lo que no previste se registra. Los correos y tokens son sintéticos (dominio de ensayo y cadenas aleatorias); el comentario ofuscado muestra por qué la expresión regular no basta.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Datos sensibles que aparecen en los registros de 2 000 mensajes según la política",
+        "Barras horizontales con los correos, los tokens y los comentarios con identificador que aparecen en los registros de 2 000 mensajes: registrar el cuerpo completo filtra 2 000 correos, 2 000 tokens y 200 comentarios; sustituir correos deja 2 000 tokens y 200 comentarios; sustituir correos y tokens deja 200 comentarios; registrar solo los campos permitidos no filtra nada.",
+        ["Registrar el cuerpo completo", "Sustituir correos con una expresión regular", "Sustituir correos y tokens con expresiones regulares", "Registrar solo los campos permitidos"],
+        [("Correos filtrados", [2000, 0, 0, 0], "coral"), ("Tokens filtrados", [2000, 2000, 0, 0], "gold"), ("Comentarios con identificador", [200, 200, 200, 0], "navy")],
+        unit="Apariciones en los registros de 2 000 mensajes", horizontal=True, label_w=320, ticks=[0, 500, 1000, 1500, 2000],
+        note="Una lista de lo permitido falla cerrada: lo nuevo no se registra. Una lista de lo prohibido falla abierta: lo que no previste se registra. Los correos y tokens son sintéticos (dominio de ensayo y cadenas aleatorias); el comentario ofuscado muestra por qué la expresión regular no basta.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-335
 def se335_causas() -> Fig:
-    rows = [
-        ["Caída del consumidor antes de acusar", "5 % de los mensajes", "106"],
-        ["Acuse perdido en la red", "5 % de los acuses", "122"],
-        ["Reintento del productor tras un tiempo agotado", "5 % de los envíos, con otro id", "103"],
-        ["Visibilidad de 30 s menor que el proceso", "Proceso lognormal, mediana 16 s", "378"],
-        ["Reinicio de desplazamientos", "200 mensajes releídos", "200"],
-    ]
-    return tab("Cinco formas de provocar duplicados en un consumidor sin defensa (2 000 mensajes)",
-               "Tabla: sin ninguna defensa, la caída antes de acusar produce 106 efectos duplicados de 2 000, el acuse perdido 122, el reintento del productor 103, una visibilidad de 30 segundos menor que el tiempo de proceso 378 y reiniciar los desplazamientos de 200 mensajes produce 200.",
-               ["Causa provocada", "Parámetro", "Efectos duplicados"], rows, [430, 330, 160], row_h=48, size=13,
-               note="Cinco causas distintas producen el mismo síntoma, un efecto repetido, y se defienden de formas distintas. La de visibilidad es la más cara porque depende del tiempo de proceso y no de un fallo. Las probabilidades y la distribución del tiempo de proceso son supuestos del autor.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Cinco formas de provocar duplicados en un consumidor sin defensa (2 000 mensajes)",
+        "Barras horizontales con los efectos duplicados de 2 000 mensajes que produce cada causa en un consumidor sin defensa: la visibilidad de 30 segundos menor que el proceso 378, el reinicio de desplazamientos 200, el acuse perdido 122, la caída antes de acusar 106 y el reintento del productor 103.",
+        ["Visibilidad de 30 s menor que el proceso (mediana 16 s)", "Reinicio de desplazamientos (200 releídos)", "Acuse perdido en la red (5 % de los acuses)",
+         "Caída del consumidor antes de acusar (5 %)", "Reintento del productor tras un tiempo agotado (5 %, otro id)"],
+        [("Efectos duplicados", [378, 200, 122, 106, 103], "coral")],
+        unit="Efectos duplicados de 2 000 mensajes", horizontal=True, label_w=340, ticks=[0, 100, 200, 300, 400],
+        note="Cinco causas distintas producen el mismo síntoma, un efecto repetido, y se defienden de formas distintas. La de visibilidad es la más cara porque depende del tiempo de proceso y no de un fallo. Las probabilidades y la distribución del tiempo de proceso son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 def se335_defensas() -> Fig:
-    rows = [
-        ["Ninguna", "106", "122", "103", "378", "200"],
-        ["Clave del mensaje", "0", "0", "103", "0", "0"],
-        ["Clave de negocio única", "0", "0", "0", "0", "0"],
-        ["Actualización condicionada por versión", "0", "0", "0", "0", "0"],
-        ["Operación naturalmente idempotente", "0", "0", "0", "0", "0"],
-    ]
-    return tab("Efectos duplicados que quedan según la defensa y la causa del duplicado",
-               "Tabla: sin defensa quedan 106, 122, 103, 378 y 200 duplicados según la causa; una clave del identificador del mensaje elimina todos salvo los 103 del reintento del productor, que llegan con otro identificador; una clave de negocio única, una actualización condicionada por versión y una operación idempotente dejan cero en todas las causas.",
-               ["Defensa", "Caída", "Acuse", "Productor", "Visibilidad", "Desplazamientos"], rows, [310, 100, 100, 120, 130, 160], row_h=48, size=13,
-               note="La clave del mensaje no ve duplicados que nacen antes del corredor: el reintento del productor crea un mensaje nuevo con el mismo contenido. La clave de negocio atrapa todas las causas porque no depende de cómo llegó el duplicado, pero exige saber qué identifica una operación. SQLite real.",
-               note_kind="teal", foot=SINT)
+    return heatmap(
+        "Efectos duplicados que quedan según la defensa y la causa del duplicado",
+        "Mapa de calor con los efectos duplicados de 2 000 mensajes que quedan según cinco defensas y cinco causas: sin defensa quedan 106, 122, 103, 378 y 200; la clave del mensaje elimina todos salvo los 103 del reintento del productor, que llegan con otro identificador; la clave de negocio única, la actualización condicionada por versión y la operación idempotente dejan cero en todas las causas.",
+        ["Ninguna", "Clave del mensaje", "Clave de negocio única", "Actualización condicionada por versión", "Operación naturalmente idempotente"],
+        ["Caída", "Acuse", "Productor", "Visibilidad", "Desplazamientos"],
+        [[106, 122, 103, 378, 200], [0, 0, 103, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
+        unit="efectos duplicados", scale="coral", decimals=0, label_w=270, highlight=[(1, 2)],
+        col_title="Causa del duplicado", row_title="Defensa",
+        note="La clave del mensaje no ve duplicados que nacen antes del corredor: el reintento del productor (contorno) crea un mensaje nuevo con el mismo contenido. La clave de negocio atrapa todas las causas porque no depende de cómo llegó el duplicado, pero exige saber qué identifica una operación. SQLite real.",
+        note_kind="teal", foot=SINT)
 
 
 def se335_orden_clave() -> Fig:
-    rows = [
-        ["Guardar la clave y luego el efecto (dos transacciones)", "100", "0", "—"],
-        ["Guardar el efecto y luego la clave (dos transacciones)", "0", "100", "—"],
-        ["Clave y efecto en una sola transacción", "0", "0", "—"],
-        ["Clave gruesa: solo el estudiante", "0", "0", "309"],
-        ["Clave fina: estudiante e intento", "0", "0", "0"],
-    ]
-    return tab("Dónde falla la defensa de idempotencia: orden de los pasos y alcance de la clave",
-               "Tabla: guardar la clave de idempotencia y después el efecto en dos transacciones pierde 100 efectos de 2 000 cuando hay una caída entre ambos; guardar primero el efecto duplica 100; hacerlo en una sola transacción no pierde ni duplica; una clave solo por estudiante descarta 309 intentos legítimos de 609 y una clave por estudiante e intento no descarta ninguno.",
-               ["Diseño de la defensa", "Efectos perdidos", "Efectos duplicados", "Intentos legítimos descartados"], rows, [430, 150, 150, 180], row_h=52, size=13,
-               note="Una defensa mal ubicada produce el fallo contrario al que prevenía: perder en lugar de duplicar. La clave y el efecto deben confirmarse juntos, y la clave debe identificar la operación, no a la persona. Caída del 5 % entre pasos y 100 duplicados reales entre 609 intentos legítimos: supuestos del autor.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Dónde falla la defensa de idempotencia: orden de los pasos y alcance de la clave",
+        "Barras horizontales con los efectos perdidos, los duplicados y los intentos legítimos descartados según el diseño de la defensa: guardar la clave y luego el efecto en dos transacciones pierde 100 de 2 000; guardar el efecto y luego la clave duplica 100; una sola transacción no pierde ni duplica; una clave solo por estudiante descarta 309 de 609 intentos legítimos y una clave por estudiante e intento ninguno.",
+        ["Clave y luego efecto (dos transacciones)", "Efecto y luego clave (dos transacciones)", "Clave y efecto en una sola transacción",
+         "Clave gruesa: solo el estudiante", "Clave fina: estudiante e intento"],
+        [("Efectos perdidos", [100, 0, 0, 0, 0], "coral"), ("Efectos duplicados", [0, 100, 0, 0, 0], "gold"), ("Intentos legítimos descartados", [0, 0, 0, 309, 0], "navy")],
+        unit="De 2 000 efectos (descartados: de 609 intentos legítimos)", horizontal=True, label_w=300, ticks=[0, 100, 200, 300, 400],
+        note="Una defensa mal ubicada produce el fallo contrario al que prevenía: perder en lugar de duplicar. La clave y el efecto deben confirmarse juntos, y la clave debe identificar la operación, no a la persona. Los tres primeros diseños no miden intentos descartados (la tabla escribe un guion; aquí 0). Caída del 5 % entre pasos y 100 duplicados reales entre 609 intentos legítimos: supuestos del autor.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-336
 def se336_validador() -> Fig:
-    rows = [
-        ["Quitar o vaciar una sección", "100", "100"],
-        ["Ventana de deduplicación menor que el horizonte de reintentos", "10", "10"],
-        ["Cero intentos o espera mal contada", "20", "20"],
-        ["Bandeja de entrada sin restricción de unicidad", "10", "10"],
-        ["Sin firma, aunque aparezca la palabra HMAC", "10", "0"],
-        ["Reintentos sin jitter o con horizonte incoherente", "20", "0"],
-        ["Cola de fallidos sin alarma ni dueño", "10", "0"],
-        ["Clave de idempotencia demasiado gruesa", "10", "0"],
-        ["Registrar datos personales", "10", "0"],
-    ]
-    return tab("Un validador sobre 200 mutaciones de un paquete de integración: 140 detectadas",
-               "Tabla: el validador detecta las 100 mutaciones estructurales, las 10 de ventana de deduplicación demasiado corta, las 20 de cero intentos o espera mal contada y las 10 de bandeja de entrada sin unicidad; no detecta ninguna de las 10 sin firma con la palabra HMAC presente, las 20 sin jitter o con horizonte incoherente, ni las de cola sin alarma, clave gruesa o datos personales.",
-               ["Tipo de mutación", "Mutaciones", "Detectadas"], rows, [560, 160, 160], row_h=38, size=13,
-               note="Un paquete completo no es un paquete correcto: el validador ve la forma y algunas incoherencias numéricas, y deja pasar todo lo que requiere entender el sentido. Las reglas se escribieron mirando estos mismos casos, por lo que 140 de 200 no estima su exactitud real.",
-               note_kind="gold", foot=SINT)
+    return stacked_bars(
+        "Un validador sobre 200 mutaciones de un paquete de integración: 140 detectadas",
+        "Barras apiladas horizontales con las mutaciones detectadas y no detectadas por tipo: el validador detecta las 100 estructurales, las 10 de ventana de deduplicación corta, las 20 de cero intentos o espera mal contada y las 10 de bandeja de entrada sin unicidad; no detecta ninguna de las 10 sin firma con la palabra HMAC, las 20 sin jitter, ni las 10 de cola sin alarma, clave gruesa o datos personales.",
+        ["Quitar o vaciar una sección", "Ventana de deduplicación menor que el horizonte", "Cero intentos o espera mal contada", "Bandeja de entrada sin unicidad",
+         "Sin firma, aunque aparezca HMAC", "Reintentos sin jitter o con horizonte incoherente", "Cola de fallidos sin alarma ni dueño", "Clave de idempotencia demasiado gruesa", "Registrar datos personales"],
+        [("Detectadas", [100, 10, 20, 10, 0, 0, 0, 0, 0], "teal"), ("No detectadas", [0, 0, 0, 0, 10, 20, 10, 10, 10], "coral")],
+        unit="Mutaciones de 200", horizontal=True, label_w=330, totals=False,
+        note="Un paquete completo no es un paquete correcto: el validador ve la forma y algunas incoherencias numéricas, y deja pasar todo lo que requiere entender el sentido. Las reglas se escribieron mirando estos mismos casos, por lo que 140 de 200 no estima su exactitud real.",
+        note_kind="gold", foot=SINT)
 
 
 def se336_flujo() -> Fig:
-    rows = [
-        ["Entregas sin calificación", "74", "0"],
-        ["Entregas con calificación doble", "171", "0"],
-        ["Calificadas sin aviso al estudiante", "291", "0"],
-        ["Estudiantes avisados dos veces", "153", "0"],
-        ["15 mensajes venenosos", "Bloquean 2 793 mensajes tras el primero", "15 en la cola de fallidos; nadie bloqueado"],
-    ]
-    return tab("Flujo de entrega, calificación y aviso con fallas inyectadas (3 000 entregas)",
-               "Tabla: sin outbox, bandeja de entrada ni cola de fallidos el flujo deja 74 entregas sin calificar, 171 calificadas dos veces, 291 sin aviso, 153 avisadas dos veces y un mensaje venenoso que bloquea los 2 793 que le siguen; el flujo tolerante deja cero en todas las invariantes y aparta los 15 venenosos.",
-               ["Invariante", "Flujo ingenuo", "Flujo tolerante"], rows, [350, 290, 280], row_h=52, size=13,
-               note="El flujo tolerante combina cuatro mecanismos de las clases anteriores: outbox, bandeja de entrada, versión por entidad y cola de fallidos. Las fallas (2 % de caída del relevo, 3 % de duplicados, desorden, 15 venenosos, notificador caído) son inyecciones del autor sobre SQLite y listas en memoria.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Flujo de entrega, calificación y aviso con fallas inyectadas (3 000 entregas)",
+        "Barras horizontales con las violaciones de cinco invariantes en un flujo ingenuo y en uno tolerante: 74 entregas sin calificar, 171 calificadas dos veces, 291 sin aviso, 153 avisadas dos veces y 2 793 mensajes bloqueados tras un venenoso en el ingenuo; el tolerante deja cero en todas y aparta los 15 venenosos en la cola de fallidos.",
+        ["Entregas sin calificación", "Entregas con calificación doble", "Calificadas sin aviso al estudiante", "Estudiantes avisados dos veces", "Mensajes bloqueados tras un venenoso (15 venenosos)"],
+        [("Flujo ingenuo", [74, 171, 291, 153, 2793], "coral"), ("Flujo tolerante", [0, 0, 0, 0, 0], "teal")],
+        unit="Violaciones de la invariante (de 3 000 entregas)", horizontal=True, label_w=330, ticks=[0, 500, 1000, 1500, 2000, 2500, 3000],
+        note="El flujo tolerante combina cuatro mecanismos de las clases anteriores: outbox, bandeja de entrada, versión por entidad y cola de fallidos (donde quedan los 15 venenosos sin bloquear a nadie). Las fallas (2 % de caída del relevo, 3 % de duplicados, desorden, 15 venenosos, notificador caído) son inyecciones del autor sobre SQLite y listas en memoria.",
+        note_kind="teal", foot=SINT)
 
 
 def se336_tormenta() -> Fig:
-    rows = [
-        ["Espera fija de 30 s, 8 intentos", "4 800", "600", "8"],
-        ["Exponencial 10, 20, 40... s, sin jitter", "3 600", "600", "6"],
-        ["Exponencial 10, 20, 40... s, con jitter completo", "3 600", "93", "468"],
-    ]
-    return tab("600 mensajes que fallan a la vez y reintentan: carga que recibe el servicio por segundo",
-               "Tabla: con espera fija o exponencial sin jitter los 600 mensajes reintentan juntos y el servicio recibe un pico de 600 reintentos en un segundo, en 8 y 6 instantes; con jitter completo el pico baja a 93 y los reintentos se reparten en 468 segundos distintos.",
-               ["Política de reintentos", "Reintentos totales", "Pico por segundo", "Segundos con reintentos"], rows, [430, 160, 150, 180], row_h=52, size=13,
-               note="El retardo exponencial espacia los reintentos de un mensaje pero no los desincroniza entre mensajes: 600 mensajes que fallaron a la vez vuelven a la vez. El jitter reparte la carga y no cambia cuántos reintentos hay. Fallo simultáneo de todos los mensajes: supuesto del autor.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "600 mensajes que fallan a la vez y reintentan: carga que recibe el servicio",
+        "Barras agrupadas en escala logarítmica con los reintentos totales y el pico de reintentos en un segundo según la política: con espera fija de 30 segundos y ocho intentos hay 4 800 reintentos y un pico de 600 en 8 instantes; con exponencial sin jitter, 3 600 y un pico de 600 en 6 instantes; con jitter completo, 3 600 y un pico de 93 repartidos en 468 segundos distintos.",
+        ["Espera fija de 30 s, 8 intentos", "Exponencial 10, 20, 40... s, sin jitter", "Exponencial 10, 20, 40... s, con jitter completo"],
+        [("Reintentos totales", [4800, 3600, 3600], "navy"), ("Pico en un segundo", [600, 600, 93], "coral")],
+        unit="Reintentos", log=True, ticks=[10, 100, 1000, 10000],
+        note="El retardo exponencial espacia los reintentos de un mensaje pero no los desincroniza entre mensajes: 600 mensajes que fallaron a la vez vuelven a la vez (en 8, 6 y 468 segundos distintos con reintentos). El jitter reparte la carga y no cambia cuántos reintentos hay. Fallo simultáneo de todos los mensajes: supuesto del autor.",
+        note_kind="coral", foot=SINT)
 
 
 FIGURES = {

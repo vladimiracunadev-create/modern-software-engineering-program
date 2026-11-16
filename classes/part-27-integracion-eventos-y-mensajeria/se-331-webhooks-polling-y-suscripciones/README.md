@@ -119,9 +119,9 @@ vacias = 1 - len({int(e // iv) for e in eventos}) / (86400 // iv)
 
 Pasar de una hora a un minuto multiplica por 60 las peticiones y baja el retraso medio de 30 a 0,5 minutos; por debajo de un minuto, casi todo es ruido. Un webhook costaría 311 entregas al día sin ninguna vacía. El sondeo cada cinco minutos que usaba la plataforma (288 peticiones) deja un tercio de ellas vacías y un retraso medio de casi dos minutos y medio.
 
-![Tabla con las peticiones al día, el porcentaje de peticiones vacías y el retraso medio y en el percentil 95 al sondear cada 10 segundos, 60 segundos, 5 minutos, 15 minutos y 1 hora, para 311 eventos de un día.](../../../content/part-27/figures/se-331-sondeo-y-latencia.svg)
+![Líneas en escala logarítmica con las peticiones al día según el retraso con que se detecta un evento: sondear cada 10 segundos cuesta 8 640 y detecta en 5,1 s de media, y cada hora cuesta 24 y tarda 1 807 s de media y 3 379 en el percentil 95; un webhook costaría 311 entregas al día.](../../../content/part-27/figures/se-331-sondeo-y-latencia.svg)
 
-**Cómo leer la figura.** Cada fila es un intervalo; las dos primeras columnas son el costo y las dos últimas, el retraso. **Dónde deja de valer:** los eventos llegan a una tasa constante; en la plataforma se concentran en los cierres de entrega y en horas de clase, donde un intervalo corto vale y fuera de ellas es desperdicio. Tampoco se modeló la respuesta condicional, que abarata las peticiones vacías, ni el límite de peticiones del proveedor.
+**Cómo leer la figura.** El eje horizontal es el retraso con que se detecta un evento y el vertical, las peticiones al día, ambos en escala logarítmica; la línea verde azulada usa el retraso medio (con el intervalo de sondeo rotulado) y la coral el percentil 95, y la línea punteada marca las 311 entregas de un webhook. Mira cómo bajar el costo desplaza el punto hacia la derecha y cómo el percentil 95 queda siempre casi al doble de la media. **Dónde deja de valer:** los eventos llegan a una tasa constante; en la plataforma se concentran en los cierres de entrega y en horas de clase, donde un intervalo corto vale y fuera de ellas es desperdicio. Tampoco se modeló la respuesta condicional, que abarata las peticiones vacías, ni el límite de peticiones del proveedor.
 
 ### Qué ataque cierra cada capa de verificación
 
@@ -146,9 +146,9 @@ ok = ok and abs(ahora - ts) <= 300 and id_evento not in vistos
 
 Cada capa cierra un ataque distinto: la firma cierra la manipulación y la suplantación; la marca de tiempo, la repetición tardía; el identificador, la repetición inmediata. La última fila es un fallo del **receptor**, no del atacante: si el servidor reconstruye el JSON antes de verificar, rechaza entregas legítimas. En una prueba con un servidor HTTP real en el bucle local, el cuerpo original devolvió 204 y el reserializado 401.
 
-![Tabla con la aceptación o el rechazo de siete entregas por una verificación nula, por una firma HMAC del cuerpo, por una firma con marca de tiempo y por la anterior más el rechazo de identificadores ya vistos.](../../../content/part-27/figures/se-331-firmas-y-repeticiones.svg)
+![Mapa de calor de siete entregas de webhook frente a cuatro políticas de verificación: sin verificar se acepta todo; la firma del cuerpo rechaza alteradas, sin firma y reserializadas; la marca de tiempo añade el rechazo de la repetición tardía y el identificador visto el de la repetición inmediata.](../../../content/part-27/figures/se-331-firmas-y-repeticiones.svg)
 
-**Cómo leer la figura.** Cada fila es una entrega y cada columna una política; «Acepta» en una fila maliciosa es un hueco. **Dónde deja de valer:** el secreto de ensayo está en el código, algo que en producción debe evitarse (`SE-334`); la tolerancia de 300 s es la del autor; los identificadores vistos se guardan en un conjunto en memoria, sin las ventanas y el almacenamiento que exigiría un volumen real (`SE-328`). Quien conoce el secreto y la marca puede forjar una entrega válida: la firma autentica al que posee el secreto, no a una persona.
+**Cómo leer la figura.** Cada fila es una entrega y cada columna una política, de la más laxa a la más estricta; la celda oscura con «Acepta (hueco)» es una entrega que debía rechazarse y pasa, la clara es un rechazo y la intermedia, la entrega válida aceptada. Mira cómo la zona oscura se encoge hacia abajo y hacia la izquierda: cada capa cierra un hueco distinto. **Dónde deja de valer:** el secreto de ensayo está en el código, algo que en producción debe evitarse (`SE-334`); la tolerancia de 300 s es la del autor; los identificadores vistos se guardan en un conjunto en memoria, sin las ventanas y el almacenamiento que exigiría un volumen real (`SE-328`). Quien conoce el secreto y la marca puede forjar una entrega válida: la firma autentica al que posee el secreto, no a una persona.
 
 ### Reintentos del emisor ante una caída del receptor
 
@@ -171,9 +171,9 @@ for i, espera in enumerate([0] + calendario):
 
 Con una caída de dos horas, tres reintentos en tres segundos son un descarte rápido: 720 eventos perdidos, justo los de la caída. El calendario exponencial recupera 72 (los de los últimos 12 minutos de la caída) y descarta el resto. Solo el calendario largo entrega todo, y paga con el doble de repeticiones: cuanto más insiste el emisor, más veces recibe el mismo evento el receptor. La idempotencia es entonces un requisito, no una mejora.
 
-![Tabla con los eventos entregados, perdidos y repetidos de 1 440 con un receptor caído dos horas, según tres calendarios de reintento del emisor.](../../../content/part-27/figures/se-331-reintentos-del-emisor.svg)
+![Barras horizontales de los eventos entregados, perdidos y repetidos de 1 440 con un receptor caído dos horas, según tres calendarios de reintento: tres fijos de un segundo entregan 720, cinco exponenciales 792 y nueve hasta seis horas con jitter entregan los 1 440 con 71 repetidos.](../../../content/part-27/figures/se-331-reintentos-del-emisor.svg)
 
-**Cómo leer la figura.** Cada fila es un calendario de reintentos; las columnas cuentan el resultado final por evento. **Dónde deja de valer:** el emisor es una simulación; los proveedores reales fijan su propio calendario, a veces lo desactivan tras demasiados fallos y no siempre lo documentan. Un sondeo de reconciliación recuperaría los eventos perdidos del primer y segundo calendario, pero no se midió aquí.
+**Cómo leer la figura.** Cada grupo es un calendario de reintentos del emisor y las barras cuentan el resultado por evento (entregados, perdidos y entregas repetidas); los eventos emitidos son 1 440. Mira cómo la barra verde azulada llega a 1 440 solo con el calendario largo y cómo ese mismo calendario es el que más repeticiones produce. **Dónde deja de valer:** el emisor es una simulación; los proveedores reales fijan su propio calendario, a veces lo desactivan tras demasiados fallos y no siempre lo documentan. Un sondeo de reconciliación recuperaría los eventos perdidos del primer y segundo calendario, pero no se midió aquí.
 
 ## Definiciones de trabajo
 

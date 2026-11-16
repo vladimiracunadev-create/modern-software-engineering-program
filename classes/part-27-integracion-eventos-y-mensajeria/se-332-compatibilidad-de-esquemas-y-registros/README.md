@@ -128,9 +128,9 @@ def leer(esquema, msg, estricto):
 
 Con lectores tolerantes, los únicos cambios completos son añadir y quitar un campo opcional. Con lectores estrictos, ni siquiera añadir un opcional es seguro hacia adelante. Renombrar y cambiar el tipo no son compatibles en ninguna combinación: son la prueba de que «renombrar» no es un cambio, es una eliminación seguida de una adición.
 
-![Tabla con siete cambios de esquema y si un lector tolerante y uno estricto, con el esquema nuevo leen datos viejos y con el viejo leen datos nuevos.](../../../content/part-27/figures/se-332-matriz-de-compatibilidad.svg)
+![Mapa de calor de siete cambios de esquema frente a cuatro combinaciones de lector tolerante o estricto y sentido de lectura, ordenados por cuántas combinaciones siguen compatibles: añadir o quitar un campo opcional, tres de cuatro; volver obligatorio un opcional, dos; añadir o quitar un obligatorio, una; renombrar o cambiar el tipo, ninguna.](../../../content/part-27/figures/se-332-matriz-de-compatibilidad.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio; las cuatro columnas combinan el tipo de lector con el sentido de la lectura. **Dónde deja de valer:** los esquemas solo tienen campos simples y tipos primitivos; un registro real también distingue uniones, valores por defecto, alias y listas. Los lectores son los más sencillos posibles, y un lector que además valide rangos o formatos añadiría casos que esta tabla no cubre.
+**Cómo leer la figura.** Cada fila es un cambio y cada columna una combinación de tipo de lector y de sentido de la lectura; las celdas oscuras con «Sí» son compatibles. Las filas van ordenadas de más a menos compatible, de modo que la mancha oscura se deshace de arriba abajo hasta quedarse vacía en renombrar y en cambiar el tipo. **Dónde deja de valer:** los esquemas solo tienen campos simples y tipos primitivos; un registro real también distingue uniones, valores por defecto, alias y listas. Los lectores son los más sencillos posibles, y un lector que además valide rangos o formatos añadiría casos que esta figura no cubre.
 
 ### Despliegue gradual y orden
 
@@ -153,9 +153,9 @@ lec = nuevo if r.random() < fc else viejo
 
 Añadir un opcional con lectores tolerantes no falla en ningún orden; con estrictos falla en ambos, más cuando los productores van primero (los estrictos viejos reciben campos que no conocen). Añadir un obligatorio con lectores tolerantes falla menos si los productores van primero (801 frente a 2 809): los consumidores nuevos casi siempre reciben datos nuevos. Renombrar falla en torno a 3 600 mensajes en cualquier orden, porque el desfase entre versiones existe siempre: no hay orden que lo evite, solo fases.
 
-![Tabla con los mensajes que fallan de 10 000 en un despliegue gradual de cinco pasos según el cambio, el tipo de lector y qué lado se despliega primero.](../../../content/part-27/figures/se-332-fallos-en-un-despliegue-gradual.svg)
+![Barras horizontales con los mensajes que fallan de 10 000 en un despliegue gradual según el cambio, el tipo de lector y qué lado se despliega primero: añadir un opcional falla 0 con lectores tolerantes y 2 825 o 820 con estrictos; añadir un obligatorio, 801 o 2 809 con tolerantes; renombrar, unos 3 600 en cualquier orden.](../../../content/part-27/figures/se-332-fallos-en-un-despliegue-gradual.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio con un tipo de lector; las dos últimas columnas son el número de mensajes que fallan según el orden. **Dónde deja de valer:** el despliegue por pasos iguales del 20 % y la ventaja de una etapa son un modelo; en un despliegue real el desfase puede ser de días (un consumidor sin mantenimiento) o de segundos. Tampoco se modelan los mensajes retenidos que se leen semanas después, que alargan la ventana de compatibilidad hacia atrás.
+**Cómo leer la figura.** Cada grupo es un cambio con un tipo de lector y las dos barras son los mensajes que fallan según se actualicen primero los productores (coral) o los consumidores (verde azulada). Mira dónde las dos barras difieren, porque el orden importa, y dónde son del mismo tamaño, porque ningún orden salva el cambio. **Dónde deja de valer:** el despliegue por pasos iguales del 20 % y la ventaja de una etapa son un modelo; en un despliegue real el desfase puede ser de días (un consumidor sin mantenimiento) o de segundos. Tampoco se modelan los mensajes retenidos que se leen semanas después, que alargan la ventana de compatibilidad hacia atrás.
 
 ### Un valor nuevo en una enumeración
 
@@ -178,9 +178,9 @@ if estado not in CONOCIDOS:
 
 La excepción convierte un valor nuevo en una parada: el primer mensaje con `revision_pendiente` y los 4 990 siguientes (4 991 en total) esperan a que alguien intervenga. Descartar evita la parada y pierde 338 mensajes sin aviso. Sustituir conserva los mensajes pero borra lo que los distinguía. Conservar el valor original y derivar esos mensajes a una revisión es la única política que mantiene el flujo, la información y la visibilidad.
 
-![Tabla con los mensajes bloqueados, perdidos y procesados con un estado nuevo de una enumeración según cuatro políticas del consumidor, sobre 10 000 mensajes.](../../../content/part-27/figures/se-332-valor-nuevo-de-un-enum.svg)
+![Barras horizontales con los mensajes bloqueados, perdidos y procesados con el valor nuevo de una enumeración en 338 de 10 000 mensajes: lanzar una excepción bloquea 4 991, descartar pierde 338, sustituir por desconocido procesa 338 sin su significado y conservar y enviar a revisión procesa 338 con su valor.](../../../content/part-27/figures/se-332-valor-nuevo-de-un-enum.svg)
 
-**Cómo leer la figura.** Cada fila es una política del consumidor ante lo desconocido; las columnas cuentan el efecto sobre el flujo y sobre los 338 mensajes con el valor nuevo. **Dónde deja de valer:** el 6 % y el momento en que aparece el valor son supuestos, y la política de excepción supone un reintento infinito sobre la partición, algo que depende del corredor. La figura no dice que conservar sea siempre posible: exige que haya a quién derivar los mensajes y que alguien los revise.
+**Cómo leer la figura.** Cada grupo es una política del consumidor ante lo desconocido y cada color mide un efecto sobre el flujo: bloqueados (coral), perdidos (dorado) y procesados con el valor nuevo (verde azulado). Mira que solo la excepción produce una barra enorme y que las dos últimas políticas tienen la misma barra, pero se distinguen por si el valor se conserva. **Dónde deja de valer:** el 6 % y el momento en que aparece el valor son supuestos, y la política de excepción supone un reintento infinito sobre la partición, algo que depende del corredor. La figura no dice que conservar sea siempre posible: exige que haya a quién derivar los mensajes y que alguien los revise.
 
 ## Definiciones de trabajo
 

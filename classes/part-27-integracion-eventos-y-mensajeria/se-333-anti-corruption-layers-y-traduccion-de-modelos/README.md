@@ -117,9 +117,9 @@ if not 1.0 <= v <= 7.0:
 
 La conversión directa rompe con 3 868 de los 5 000 registros (los de coma, los «N/P» y los vacíos) y, peor, **acepta** 411 notas de la escala de 0 a 100 como si fueran notas válidas: un `"65"` se guarda como 65,0. La capa entrega 4 627 notas normalizadas (3 906 necesitaron coma o escala) y aparta 373 con su motivo. Un detalle que ninguna regla resuelve: 1 112 de las fechas del proveedor (`dd/mm/aaaa` con el día en 1 a 12) son ambiguas entre día y mes sin una convención declarada.
 
-![Tabla con las notas aceptadas, las rotas por excepción, las aceptadas fuera de rango y las puestas en cuarentena de 5 000 registros externos con una conversión directa y con una capa anticorrupción.](../../../content/part-27/figures/se-333-registros-del-sistema-externo.svg)
+![Barras apiladas horizontales con el destino de 5 000 notas de un sistema externo: la conversión directa acepta 721 dentro de rango y 411 fuera de rango, y rompe con 3 868; la capa anticorrupción acepta 4 627 normalizadas y pone 373 en cuarentena con su motivo.](../../../content/part-27/figures/se-333-registros-del-sistema-externo.svg)
 
-**Cómo leer la figura.** Cada fila es un adaptador; las cuatro columnas cuentan el destino de los 5 000 registros. **Dónde deja de valer:** el reparto de formatos es una invención del autor y las reglas se escribieron mirando estos mismos formatos, así que no hay estimación de cuántos formatos reales faltarían. Convertir la escala de 0 a 100 por una fórmula lineal es una suposición que el proveedor debería confirmar: la capa sabe lo que se le dijo, no lo que el proveedor quiso decir.
+**Cómo leer la figura.** Cada barra es un adaptador y sus segmentos reparten los 5 000 registros por destino. Mira primero el segmento coral de la conversión directa: son notas aceptadas que significan otra cosa, y el segmento dorado de la capa: registros apartados con motivo en lugar de aceptados mal. **Dónde deja de valer:** el reparto de formatos es una invención del autor y las reglas se escribieron mirando estos mismos formatos, así que no hay estimación de cuántos formatos reales faltarían. Convertir la escala de 0 a 100 por una fórmula lineal es una suposición que el proveedor debería confirmar: la capa sabe lo que se le dijo, no lo que el proveedor quiso decir.
 
 ### Qué ocurre cuando el proveedor cambia un nombre
 
@@ -138,9 +138,9 @@ def traducir(r):
 
 Con la capa, el cambio del proveedor produce **un** error en **un** lugar, con un mensaje que nombra el campo que falta, y el resto del código ni se entera. Sin ella, seis funciones fallan cada una a su manera y quien depura debe descubrir qué tienen en común. La capa no evita el cambio, lo acota; sigue haciendo falta una alarma que avise cuando el traductor empiece a fallar.
 
-![Tabla con las funciones que fallan y los lugares que mencionan un campo externo, sin y con una capa anticorrupción, con datos actuales y con un campo renombrado por el proveedor.](../../../content/part-27/figures/se-333-cambio-del-proveedor.svg)
+![Diagrama de dos diseños cuando el proveedor renombra un campo: sin capa anticorrupción las seis funciones mencionan el nombre externo y las seis fallan; con capa solo lo menciona el traductor, que falla con un error explícito, y las seis funciones siguen funcionando.](../../../content/part-27/figures/se-333-cambio-del-proveedor.svg)
 
-**Cómo leer la figura.** Las dos primeras filas comparan qué falla; la tercera cuenta cuántos lugares dependen del nombre externo. **Dónde deja de valer:** las seis funciones las escribió el autor para el ejercicio y se ejecutaron de verdad con el campo original y con el renombrado; no son una medida de ningún proyecto real, y un proyecto con la dependencia más repartida tendría más que contar. La cuenta de lugares es exacta para este código, no un indicador general.
+**Cómo leer la figura.** Cada panel es un diseño: a la izquierda, seis funciones conectadas directamente con el proveedor; a la derecha, un traductor entre el proveedor y las seis funciones. Los recuadros coral fallan y los verdes azulados siguen. Mira cuántos recuadros coral hay en cada panel: ese número es el alcance del cambio del proveedor. **Dónde deja de valer:** las seis funciones las escribió el autor para el ejercicio y se ejecutaron de verdad con el campo original y con el renombrado; no son una medida de ningún proyecto real, y un proyecto con la dependencia más repartida tendría más que contar. La cuenta de lugares es exacta para este código, no un indicador general.
 
 ### Lo que no vuelve tras la traducción
 
@@ -162,9 +162,9 @@ alterada = a_ext(a_dom(n)) != n
 
 Resumir nueve estados en cuatro impide recuperar el original en el 56 % de los registros; un decimal de nota pierde el 38 %; las dos juntas alteran el 73 %. Con tres decimales la nota vuelve exacta, y conservar el código externo junto al traducido devuelve todos los estados. La decisión no es «traducir o no»: es qué se guarda además del traducido.
 
-![Tabla con los registros que no se recuperan tras traducir nueve estados a cuatro y una nota de 0 a 100 a 1,0 a 7,0, con uno y tres decimales y con el código externo conservado.](../../../content/part-27/figures/se-333-traduccion-con-perdida.svg)
+![Barras apiladas horizontales con los registros de 5 000 que no se recuperan al volver al modelo externo: traducir nueve estados a cuatro deja 2 813, convertir la nota a 1,0 a 7,0 con un decimal 1 912, ambas 3 659, y con tres decimales o conservando el código original ninguno.](../../../content/part-27/figures/se-333-traduccion-con-perdida.svg)
 
-**Cómo leer la figura.** Cada fila es una traducción; las dos columnas dividen los 5 000 registros en los que no se recuperan y los que sí. **Dónde deja de valer:** el reparto uniforme de los nueve estados y de las notas es del autor, y la asignación de nueve a cuatro también; con otro mapa los porcentajes cambian. El experimento no dice cuánta información es relevante para el negocio, solo que existe y se pierde.
+**Cómo leer la figura.** Cada barra es una traducción y su segmento coral es la parte de los 5 000 registros que no se recupera al volver; el verde azulado es la que sí. Mira cuántas barras llegan al final sin segmento coral y por qué: ampliar la precisión o conservar el original evita la pérdida. **Dónde deja de valer:** el reparto uniforme de los nueve estados y de las notas es del autor, y la asignación de nueve a cuatro también; con otro mapa los porcentajes cambian. El experimento no dice cuánta información es relevante para el negocio, solo que existe y se pierde.
 
 ## Definiciones de trabajo
 

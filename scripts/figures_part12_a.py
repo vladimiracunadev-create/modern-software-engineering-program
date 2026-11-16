@@ -1,8 +1,9 @@
 """Figures for SE-145 to SE-150 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3 unless a timing is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_cases import case_cards
+from figure_kit import Fig, dumbbell, fmt_es, grouped_bars, line_chart, scatter
+from figures_part07_a import bars
 from figures_part10_a import SINT, intervals
 
 MEDIDO = "Tiempos medidos con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu (WSL2); dependen del equipo y se leen como razones."
@@ -22,49 +23,50 @@ def se145_cobertura() -> Fig:
 
 
 def se145_revision() -> Fig:
-    rows = [["1", "39,1 %", "39,2 %", "0,1"], ["2", "62,9 %", "55,8 %", "−7,1"], ["3", "77,4 %", "64,7 %", "−12,7"],
-            ["4", "86,2 %", "70,4 %", "−15,8"], ["5", "91,6 %", "74,1 %", "−17,5"], ["6", "94,9 %", "77,1 %", "−17,8"]]
-    return tab("Revisar con más personas: modelo independiente frente a defectos de dificultad desigual",
-               "Tabla de la fracción de 30 defectos hallada por 1 a 6 revisores: el modelo de independencia predice 39,1, 62,9, 77,4, 86,2, 91,6 y 94,9 por ciento; la simulación con dificultad desigual da 39,2, 55,8, 64,7, 70,4, 74,1 y 77,1.",
-               ["Revisores", "Predicción 1−(1−p)^k", "Simulación (5 000 corridas)", "Diferencia (puntos)"], rows, [140, 280, 300, 200], row_h=40, size=13,
-               note="El modelo independiente usa la probabilidad media (0,391) para todos los defectos. Cuando algunos son difíciles para todos, los revisores adicionales repiten los mismos aciertos: con seis personas la simulación se queda 17,8 puntos por debajo.", note_kind="gold", foot=SINT)
+    ks = [1, 2, 3, 4, 5, 6]
+    return line_chart("Revisar con más personas: modelo independiente frente a defectos de dificultad desigual",
+                      "Líneas con la fracción de 30 defectos hallada por 1 a 6 revisores: el modelo de independencia sube a 39,1, 62,9, 77,4, 86,2, 91,6 y 94,9 por ciento y la simulación con dificultad desigual solo a 39,2, 55,8, 64,7, 70,4, 74,1 y 77,1; la brecha llega a 17,8 puntos con seis revisores.",
+                      [("Predicción 1−(1−p)^k (independiente)", [(k, v, fmt_es(v, 1), "t") for k, v in zip(ks, [39.1, 62.9, 77.4, 86.2, 91.6, 94.9])], "gold"),
+                       ("Simulación con dificultad desigual (5 000 corridas)", [(k, v, fmt_es(v, 1), "b") for k, v in zip(ks, [39.2, 55.8, 64.7, 70.4, 74.1, 77.1])], "coral")],
+                      x_label="Revisores", y_label="Defectos hallados (%)", x_ticks=[(k, str(k)) for k in ks], y_ticks=[0, 20, 40, 60, 80, 100],
+                      note="El modelo independiente usa la probabilidad media (0,391) para todos los defectos. Cuando algunos son difíciles para todos, los revisores adicionales repiten los mismos aciertos: con seis personas la simulación se queda 17,8 puntos por debajo (diferencias: 0,1; −7,1; −12,7; −15,8; −17,5; −17,8).",
+                      note_kind="gold", foot=SINT)
 
 
 def se145_conflictos() -> Fig:
-    rows = [["Retención (días)", "≥ 730 (Auditoría)", "≤ 365 (Privacidad)", "Conflicto"],
-            ["Cupo por entrega (MB)", "≥ 50 (Docencia)", "≤ 25 (Operaciones)", "Conflicto"],
-            ["Intentos de acceso", "≥ 8 (Estudiantes)", "≤ 5 (Seguridad)", "Conflicto"],
-            ["Tiempo de respuesta (ms)", "≥ 800 (Seguridad)", "≤ 1 500 (Estudiantes)", "Factible: 800–1 500"],
-            ["Ventana de edición (h)", "≥ 48 (Estudiantes)", "≤ 48 (Auditoría)", "Factible: solo 48"]]
-    return tab("Restricciones de cinco interesados sobre cinco parámetros: intersección de intervalos",
-               "Tabla de cinco parámetros con cotas inferior y superior de distintos interesados: retención, cupo e intentos de acceso tienen intersección vacía; tiempo de respuesta admite 800 a 1500 milisegundos y la ventana de edición exactamente 48 horas.",
-               ["Parámetro", "Cota inferior más alta", "Cota superior más baja", "Resultado"], rows, [250, 250, 260, 190], row_h=44, size=13,
-               kinds=["plain", "plain", "plain", ("coral", "coral", "coral", "teal", "gold")],
-               note="Tres de cinco parámetros no tienen valor posible: ninguna negociación de redacción los arregla, hay que cambiar una de las dos cotas o separar casos (por ejemplo, archivo legal frente a datos de operación). El caso «solo 48 h» es factible pero frágil.", note_kind="coral", foot=SINT)
+    return case_cards("Restricciones de cinco interesados sobre cinco parámetros: intersección de intervalos",
+                      "Cinco parámetros con la cota inferior más alta y la superior más baja de distintos interesados: retención, cupo e intentos de acceso tienen intersección vacía; el tiempo de respuesta admite de 800 a 1500 milisegundos y la ventana de edición exactamente 48 horas.",
+                      [("Retención (días): ≥ 730 (Auditoría) y ≤ 365 (Privacidad)", "Conflicto: ningún valor cumple las dos cotas", "El mayor mínimo está por encima del menor máximo.", "coral"),
+                       ("Cupo por entrega (MB): ≥ 50 (Docencia) y ≤ 25 (Operaciones)", "Conflicto: ningún valor", "Las cotas se cruzan.", "coral"),
+                       ("Intentos de acceso: ≥ 8 (Estudiantes) y ≤ 5 (Seguridad)", "Conflicto: ningún valor", "Las cotas se cruzan.", "coral"),
+                       ("Tiempo de respuesta (ms): ≥ 800 (Seguridad) y ≤ 1 500 (Estudiantes)", "Factible: 800–1 500", "Hay un intervalo no vacío.", "teal"),
+                       ("Ventana de edición (h): ≥ 48 (Estudiantes) y ≤ 48 (Auditoría)", "Factible: solo 48", "El intervalo es un punto: frágil.", "gold")],
+                      note="Tres de cinco parámetros no tienen valor posible: ninguna negociación de redacción los arregla, hay que cambiar una de las dos cotas o separar casos (por ejemplo, archivo legal frente a datos de operación). El caso «solo 48 h» es factible pero frágil.",
+                      note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-146
 def se146_tabla() -> Fig:
-    rows = [["En gracia, sin prórroga, sin adaptación", "R2", "−10 % de nota", "Una regla: correcto"],
-            ["En gracia, con prórroga, sin reentrega ni adaptación", "ninguna", "—", "Hueco: ¿qué pasa?"],
-            ["En gracia, con prórroga, con reentrega, sin adaptación", "ninguna", "—", "Hueco: ¿qué pasa?"],
-            ["En gracia, sin prórroga, con adaptación", "R2 y R5", "−10 % y sin penalización", "Conflicto de resultado"],
-            ["En gracia, sin prórroga, con reentrega y adaptación", "R2 y R5", "−10 % y sin penalización", "Conflicto de resultado"]]
-    return tab("Tabla de decisión de la penalización por entrega tardía: 24 combinaciones, 4 defectuosas",
-               "Tabla con cinco de las 24 combinaciones de estado, prórroga, reentrega y adaptación: dos no tienen regla aplicable y dos activan a la vez R2 y R5 con resultados distintos; las otras 20 combinaciones se resuelven con una sola regla.",
-               ["Combinación", "Reglas aplicables", "Resultado", "Diagnóstico"], rows, [380, 150, 210, 210], row_h=48, size=13,
-               kinds=["plain", "plain", "plain", ("teal", "coral", "coral", "coral", "coral")],
-               note="Cinco reglas redactadas con sentido común dejan 2 de 24 combinaciones sin respuesta y 2 con respuestas contradictorias. Ninguna regla es incorrecta por separado: el defecto está en la combinación, y solo la enumeración lo muestra.", note_kind="coral", foot=SINT)
+    return case_cards("Tabla de decisión de la penalización por entrega tardía: 24 combinaciones, 4 defectuosas",
+                      "Cinco de las 24 combinaciones de estado, prórroga, reentrega y adaptación como tarjetas: dos no tienen regla aplicable y dos activan a la vez R2 y R5 con resultados distintos; las otras 20 combinaciones se resuelven con una sola regla, como la primera.",
+                      [("En gracia, sin prórroga, sin adaptación", "R2: −10 % de nota (una regla)", "Correcto.", "teal"),
+                       ("En gracia, con prórroga, sin reentrega ni adaptación", "Ninguna regla aplicable", "Hueco: ¿qué pasa?", "coral"),
+                       ("En gracia, con prórroga, con reentrega, sin adaptación", "Ninguna regla aplicable", "Hueco: ¿qué pasa?", "coral"),
+                       ("En gracia, sin prórroga, con adaptación", "R2 y R5: −10 % y sin penalización", "Conflicto de resultado.", "gold"),
+                       ("En gracia, sin prórroga, con reentrega y adaptación", "R2 y R5: −10 % y sin penalización", "Conflicto de resultado.", "gold")],
+                      note="Cinco reglas redactadas con sentido común dejan 2 de 24 combinaciones sin respuesta y 2 con respuestas contradictorias. Ninguna regla es incorrecta por separado: el defecto está en la combinación, y solo la enumeración lo muestra.",
+                      note_kind="coral", foot=SINT)
 
 
 def se146_medianoche() -> Fig:
-    rows = [["Santiago de Chile", "00:00", "364", "0", "1 (6 sep)"], ["Santiago de Chile", "23:59", "364", "1 (4 abr)", "0"],
-            ["Nueva York", "02:30", "364", "0", "1 (8 mar)"], ["Nueva York", "00:00", "365", "0", "0"],
-            ["UTC", "cualquiera", "365", "0", "0"]]
-    return tab("Una hora local de plazo en 2026: cuántos días existe, se repite o no existe",
-               "Tabla de 365 días de 2026 por zona y hora local: medianoche en Santiago no existe una vez; 23:59 se repite una vez; 02:30 en Nueva York no existe una vez; en UTC siempre existe una sola vez.",
-               ["Zona", "Hora local", "Días normales", "Días en que se repite", "Días en que no existe"], rows, [220, 140, 160, 220, 200], row_h=40, size=13,
-               note="El día calendario local de Santiago midió 24 h en 363 días, 25 h en uno y 23 h en otro. «Hasta la medianoche» y «dentro de 24 horas» no son el mismo plazo esos dos días; el requisito debe fijar zona y regla.", note_kind="gold", foot="Calculado con zoneinfo (CPython 3.12.9 en Windows y 3.12.3 en Ubuntu); el resultado depende de la versión de la base de zonas.")
+    return scatter("Una hora local de plazo en 2026: cuántos días existe, se repite o no existe",
+                   "Puntos con los días de 2026 en que una hora local no ocurre exactamente una vez: la medianoche de Santiago no existe el 6 de septiembre, las 23:59 de Santiago se repiten el 4 de abril y las 02:30 de Nueva York no existen el 8 de marzo; los otros 364 días la hora ocurre una vez y en UTC o a la medianoche de Nueva York siempre.",
+                   [("00:00 en Santiago: no existe", [(249, 0, "6 sep", "r")], "coral"), ("23:59 en Santiago: se repite", [(94, 2, "4 abr", "r")], "gold"),
+                    ("02:30 en Nueva York: no existe", [(67, 0, "8 mar", "r")], "navy")],
+                   x_label="Día de 2026", y_label="Veces que ocurre la hora ese día", x_ticks=[(1, "1 ene"), (91, "1 abr"), (182, "1 jul"), (274, "1 oct"), (365, "31 dic")],
+                   y_ticks=[0, 1, 2], hlines=[(1, "día normal: existe una vez")],
+                   note="Los otros 364 días la hora ocurre una vez. En UTC y a las 00:00 de Nueva York (365 días normales) no hay excepciones. El día calendario local de Santiago midió 24 h en 363 días, 25 h en uno y 23 h en otro. «Hasta la medianoche» y «dentro de 24 horas» no son el mismo plazo esos dos días; el requisito debe fijar zona y regla.",
+                   note_kind="gold", foot="Calculado con zoneinfo (CPython 3.12.9 en Windows y 3.12.3 en Ubuntu); el resultado depende de la versión de la base de zonas.")
 
 
 def se146_mutantes() -> Fig:
@@ -86,12 +88,13 @@ def se147_percentil() -> Fig:
 
 
 def se147_disponibilidad() -> Fig:
-    rows = [["99 %", "432 min", "87,6 h"], ["99,5 %", "216 min", "43,8 h"], ["99,9 %", "43,2 min", "8,76 h"],
-            ["99,95 %", "21,6 min", "4,38 h"], ["99,99 %", "4,3 min", "0,88 h"], ["3 servicios en serie de 99,9 %", "≈ 130 min", "99,70 % conjunto"]]
-    return tab("Disponibilidad: cuánta caída permite cada objetivo y cómo se compone",
-               "Tabla de tiempo de caída permitido por mes de 30 días y por año según el objetivo de disponibilidad, de 99 a 99,99 por ciento, más el caso de tres servicios en serie de 99,9 por ciento que dan 99,70 por ciento.",
-               ["Objetivo", "Caída permitida por mes (30 días)", "Caída permitida por año"], rows, [310, 330, 270], row_h=38, size=13,
-               note="Con los mismos incidentes simulados (semilla 1473), 85,8 % de los meses cumplió 99,9 % mensual, pero 99,8 % de los años cumplió 99,9 % anual. El objetivo no es completo sin su ventana de medición.", note_kind="gold", foot=SINT)
+    return grouped_bars("Disponibilidad: cuánta caída permite cada objetivo y cómo se compone",
+                        "Barras horizontales con los minutos de caída permitidos por mes de 30 días: 432 con 99 por ciento, 216 con 99,5, 43,2 con 99,9, 21,6 con 99,95 y 4,3 con 99,99, y unos 130 minutos para tres servicios en serie de 99,9 por ciento que dan 99,70 por ciento conjunto.",
+                        ["99 % (87,6 h al año)", "99,5 % (43,8 h al año)", "99,9 % (8,76 h al año)", "99,95 % (4,38 h al año)", "99,99 % (0,88 h al año)", "3 servicios en serie de 99,9 % (99,70 % conjunto)"],
+                        [("Caída permitida por mes", [432, 216, 43.2, 21.6, 4.3, 130], "teal")],
+                        unit="minutos de caída por mes de 30 días", horizontal=True, label_w=300,
+                        note="Con los mismos incidentes simulados (semilla 1473), 85,8 % de los meses cumplió 99,9 % mensual, pero 99,8 % de los años cumplió 99,9 % anual. El objetivo no es completo sin su ventana de medición.",
+                        note_kind="gold", foot=SINT)
 
 
 def se147_pbkdf2() -> Fig:
@@ -105,22 +108,23 @@ def se147_pbkdf2() -> Fig:
 
 # ---------------------------------------------------------------- SE-148
 def se148_caminos() -> Fig:
-    rows = [["Solo el flujo principal (8 pasos)", "—", "1"], ["Tras añadir «guardar»: sesión expirada (vuelve), almacenamiento caído (termina)", "2", "3"],
-            ["Tras añadir «revisar plazo»: en gracia (vuelve), vencido (termina)", "2", "7"],
-            ["Tras añadir «validar tamaño»: comprimible (vuelve), demasiado grande (termina)", "2", "15"],
-            ["Tras añadir «validar formato»: no admitido (termina)", "1", "16"]]
-    return tab("Escenarios de un caso de uso de entrega: de 1 flujo a 16 caminos con 7 alternativas",
-               "Tabla acumulada del caso de uso entregar una tarea: al añadir cuatro puntos de decisión con siete alternativas, el número de caminos completos pasa de 1 a 3, 7, 15 y 16.",
-               ["Decisión añadida", "Alternativas", "Caminos completos"], rows, [560, 150, 200], row_h=46, size=13,
-               note="Las alternativas que vuelven al flujo multiplican los caminos; las que terminan solo los suman. Cubrir cada alternativa una vez exige 5 escenarios; cubrir todas las combinaciones exige 16. El requisito debe decir cuál se promete.", note_kind="gold", foot=SINT)
+    return grouped_bars("Escenarios de un caso de uso de entrega: de 1 flujo a 16 caminos con 7 alternativas",
+                        "Barras agrupadas con los caminos completos del caso de uso entregar una tarea al añadir cuatro puntos de decisión con siete alternativas: 1, 3, 7, 15 y 16 caminos, con 0, 2, 2, 2 y 1 alternativas añadidas en cada paso.",
+                        ["Solo el flujo principal (8 pasos)", "+ «guardar»", "+ «revisar plazo»", "+ «validar tamaño»", "+ «validar formato»"],
+                        [("Alternativas añadidas en el paso", [0, 2, 2, 2, 1], "gold"), ("Caminos completos acumulados", [1, 3, 7, 15, 16], "teal")],
+                        unit="cantidad",
+                        note="Guardar: sesión expirada (vuelve) y almacenamiento caído (termina). Revisar plazo: en gracia (vuelve) y vencido (termina). Validar tamaño: comprimible (vuelve) y demasiado grande (termina). Validar formato: no admitido (termina). Las alternativas que vuelven al flujo multiplican los caminos; las que terminan solo los suman. Cubrir cada alternativa una vez exige 5 escenarios; cubrir todas las combinaciones exige 16.",
+                        note_kind="gold", foot=SINT)
 
 
 def se148_valor() -> Fig:
-    rows = [["Por capas (datos, reglas, interfaz)", "0", "0", "5"], ["Por rebanadas verticales (una historia completa)", "1", "3", "5"]]
-    return tab("Historias completas disponibles al final de cada iteración (5 historias, 3 capas, 5 unidades por iteración)",
-               "Tabla de historias entregadas con valor visible tras cada una de tres iteraciones: cortar por capas da 0, 0 y 5; cortar por rebanadas verticales da 1, 3 y 5.",
-               ["Estrategia de corte", "Iteración 1", "Iteración 2", "Iteración 3"], rows, [450, 150, 150, 150], row_h=52, size=13,
-               note="Las dos estrategias cuestan lo mismo y terminan igual. La diferencia es cuándo se puede mostrar algo a quien lo usará y, por tanto, cuándo se puede descubrir un error de requisito. Es un modelo aritmético, no una medición de equipos reales.", note_kind="teal", foot=SINT)
+    return grouped_bars("Historias completas disponibles al final de cada iteración (5 historias, 3 capas, 5 unidades por iteración)",
+                        "Barras agrupadas con las historias entregadas con valor visible tras cada una de tres iteraciones: cortar por capas da 0, 0 y 5, y cortar por rebanadas verticales da 1, 3 y 5; las dos terminan igual pero solo la vertical muestra algo antes.",
+                        ["Iteración 1", "Iteración 2", "Iteración 3"],
+                        [("Por capas (datos, reglas, interfaz)", [0, 0, 5], "coral"), ("Por rebanadas verticales (una historia completa)", [1, 3, 5], "teal")],
+                        unit="historias completas",
+                        note="Las dos estrategias cuestan lo mismo y terminan igual. La diferencia es cuándo se puede mostrar algo a quien lo usará y, por tanto, cuándo se puede descubrir un error de requisito. Es un modelo aritmético, no una medición de equipos reales.",
+                        note_kind="teal", foot=SINT)
 
 
 def se148_actores() -> Fig:
@@ -143,34 +147,35 @@ def se149_mutantes() -> Fig:
 
 
 def se149_pairwise() -> Fig:
-    rows = [["Todas las combinaciones", "1 296", "100 % (por definición)", "100 % (por definición)"],
-            ["Pairwise voraz (cubre 166 de 166 pares)", "18", "100 %", "47,6 % (cubre 45,4 % de 732 tercias)"],
-            ["18 casos elegidos al azar", "18", "81,6 %", "39,8 %"]]
-    return tab("Seis parámetros de prueba: 1 296 combinaciones frente a 18 casos que cubren todos los pares",
-               "Tabla con 6 parámetros de prueba: el producto completo tiene 1296 combinaciones; una suite voraz de 18 casos cubre los 166 pares y el 45,4 por ciento de las 732 tercias; detecta 100 por ciento de fallas de dos factores y 47,6 de tres.",
-               ["Suite", "Casos", "Detecta fallas de 2 factores", "Detecta fallas de 3 factores"], rows, [310, 100, 260, 300], row_h=52, size=13,
-               note="Cubrir pares reduce 72 veces el número de casos, pero una falla que exige tres valores a la vez se detecta menos de la mitad de las veces. Los ejemplos de aceptación deben elegirse por riesgo, no solo por combinatoria.", note_kind="gold", foot=SINT)
+    return grouped_bars("Seis parámetros de prueba: 1 296 combinaciones frente a 18 casos que cubren todos los pares",
+                        "Barras agrupadas con el porcentaje de fallas detectadas por tres suites: todas las combinaciones (1296 casos) detectan 100 por ciento de las de dos y de tres factores; una suite voraz de 18 casos cubre los 166 pares y detecta 100 y 47,6 por ciento; 18 casos al azar detectan 81,6 y 39,8.",
+                        ["Todas (1 296 casos)", "Pairwise voraz (18 casos)", "18 casos al azar"],
+                        [("Fallas de 2 factores", [100, 100, 81.6], "teal"), ("Fallas de 3 factores", [100, 47.6, 39.8], "coral")],
+                        unit="% de fallas detectadas",
+                        note="La suite voraz cubre 166 de 166 pares y 45,4 % de 732 tercias. Cubrir pares reduce 72 veces el número de casos, pero una falla que exige tres valores a la vez se detecta menos de la mitad de las veces. Los ejemplos de aceptación deben elegirse por riesgo, no solo por combinatoria.",
+                        note_kind="gold", foot=SINT)
 
 
 def se149_redondeo() -> Fig:
-    rows = [["2,5", "2 (round de Python)", "3 (mitad hacia arriba)", "Difiere"], ["4,5", "4", "5", "Difiere"], ["6,5", "6", "7", "Difiere"],
-            ["3,5", "4", "4", "Igual"], ["5,5", "6", "6", "Igual"], ["1,5", "2", "2", "Igual"]]
-    return tab("Redondear una nota a entero: dos implementaciones razonables, tres notas de 61 que difieren",
-               "Tabla de redondeo de notas a entero: con 2,5, 4,5 y 6,5 la función round de Python da 2, 4 y 6 y la regla de mitad hacia arriba da 3, 5 y 7; con 1,5, 3,5 y 5,5 coinciden; de las 61 notas de 1,0 a 7,0 con un decimal difieren 3.",
-               ["Nota", "Implementación A", "Implementación B", "Resultado"], rows, [130, 280, 290, 200], row_h=38, size=13,
-               kinds=["plain", "plain", "plain", ("coral", "coral", "coral", "teal", "teal", "teal")],
-               note="Un criterio de aceptación con ejemplos como 6,4 → 6 y 6,6 → 7 lo cumplen ambas implementaciones. Solo un ejemplo en el empate (6,5) distingue la regla. Entre 61 notas, 3 dependen de ese ejemplo.", note_kind="coral", foot="Calculado con round y decimal.ROUND_HALF_UP; idéntico en Windows y Ubuntu.")
+    return dumbbell("Redondear una nota a entero: dos implementaciones razonables, tres notas de 61 que difieren",
+                    "Puntos unidos con el redondeo de seis notas por dos implementaciones: con 2,5, 4,5 y 6,5 la función round de Python da 2, 4 y 6 y la regla de mitad hacia arriba da 3, 5 y 7, y con 1,5, 3,5 y 5,5 coinciden en 2, 4 y 6; de las 61 notas de 1,0 a 7,0 con un decimal difieren 3.",
+                    [("2,5", 2, 3), ("4,5", 4, 5), ("6,5", 6, 7), ("1,5", 2, 2), ("3,5", 4, 4), ("5,5", 6, 6)],
+                    unit="nota redondeada", names=("round de Python", "Mitad hacia arriba"), decimals=0,
+                    delta=lambda a, b: "difiere" if a != b else "igual", lower_is_better=True,
+                    note="Un criterio de aceptación con ejemplos como 6,4 → 6 y 6,6 → 7 lo cumplen ambas implementaciones. Solo un ejemplo en el empate (6,5) distingue la regla. Entre 61 notas, 3 dependen de ese ejemplo.",
+                    note_kind="coral", foot="Calculado con round y decimal.ROUND_HALF_UP; idéntico en Windows y Ubuntu.")
 
 
 # ---------------------------------------------------------------- SE-150
 def se150_dependencias() -> Fig:
-    rows = [["3", "A, C, F", "F necesita D", "No entregable"], ["4", "A, C, E, F", "E necesita B; F necesita D", "No entregable"],
-            ["5", "A, C, E, F, H", "E, F y H necesitan B, D, G", "No entregable"], ["6", "A, C, E, F, H, J", "las mismas", "No entregable"]]
-    return tab("Los k primeros por valor/costo no forman un conjunto entregable",
-               "Tabla de diez requisitos con dependencias: los 3, 4, 5 y 6 primeros por valor sobre costo violan dependencias; entre 3 628 800 ordenaciones solo 1000 respetan el grafo y el óptimo con presupuesto 12 entrega valor 27 mientras el voraz promete 33 sin poder entregarlo.",
-               ["k", "Conjunto", "Dependencias que faltan", "Estado"], rows, [80, 250, 380, 200], row_h=40, size=13,
-               kinds=["plain", "plain", "plain", "coral"],
-               note="De 3 628 800 ordenaciones de 10 requisitos solo 1 000 respetan las dependencias. Con presupuesto 12, el voraz ignora el grafo y promete valor 33 (A, C, E, F, H) que no puede entregarse; el mejor conjunto cerrado vale 27 (A, B, C, J).", note_kind="gold", foot=SINT)
+    return case_cards("Los k primeros por valor/costo no forman un conjunto entregable",
+                      "Cuatro conjuntos de los k primeros por valor sobre costo en diez requisitos con dependencias, todos no entregables porque violan dependencias; entre 3 628 800 ordenaciones solo 1000 respetan el grafo y el óptimo con presupuesto 12 entrega valor 27 mientras el voraz promete 33.",
+                      [("k = 3: A, C, F", "No entregable: F necesita D", "Falta una dependencia.", "coral"),
+                       ("k = 4: A, C, E, F", "No entregable: E necesita B; F necesita D", "Faltan dos dependencias.", "coral"),
+                       ("k = 5: A, C, E, F, H", "No entregable: E, F y H necesitan B, D, G", "Faltan tres dependencias.", "coral"),
+                       ("k = 6: A, C, E, F, H, J", "No entregable: las mismas dependencias", "Añadir J no resuelve ninguna.", "coral")],
+                      note="De 3 628 800 ordenaciones de 10 requisitos solo 1 000 respetan las dependencias. Con presupuesto 12, el voraz ignora el grafo y promete valor 33 (A, C, E, F, H) que no puede entregarse; el mejor conjunto cerrado vale 27 (A, B, C, J).",
+                      note_kind="gold", foot=SINT)
 
 
 def se150_must() -> Fig:
@@ -183,14 +188,14 @@ def se150_must() -> Fig:
 
 
 def se150_mayoria() -> Fig:
-    rows = [["3 votantes, 3 alternativas: perfiles con ciclo de mayoría", "12 de 216", "5,56 %"],
-            ["3 votantes, 3 alternativas: pluralidad y Borda eligen distinto", "54 de 216", "25,0 %"],
-            ["5 votantes, 3 alternativas (100 000 perfiles al azar): ciclo", "—", "6,87 %"],
-            ["5 votantes, 4 alternativas (100 000 perfiles): sin ganador de Condorcet", "—", "13,99 %"]]
-    return tab("Decidir por mayoría entre alternativas: ciclos y reglas que discrepan",
-               "Tabla de frecuencia de ciclos de mayoría: con 3 votantes y 3 alternativas ocurren en 12 de 216 perfiles, 5,56 por ciento; pluralidad y Borda discrepan en 25 por ciento; con 5 votantes sube a 6,87 por ciento y con 4 alternativas el 13,99 por ciento no tiene ganador de Condorcet.",
-               ["Situación", "Casos", "Frecuencia"], rows, [610, 150, 150], row_h=48, size=13,
-               note="Que A venza a B, B a C y C a A no es un error de cómputo: es una propiedad de las preferencias agregadas. Una negociación que pide «lo que apoye la mayoría» puede no tener respuesta, o tener una distinta según el método.", note_kind="coral", foot="Perfiles de preferencias sintéticos con todas las permutaciones equiprobables (semillas 1502 y 1503); supuesto de cultura imparcial.")
+    return grouped_bars("Decidir por mayoría entre alternativas: ciclos y reglas que discrepan",
+                        "Barras horizontales con la frecuencia de ciclos de mayoría y desacuerdos: 5,56 por ciento de los perfiles con 3 votantes y 3 alternativas tienen ciclo, pluralidad y Borda discrepan en 25 por ciento, con 5 votantes el ciclo es 6,87 por ciento y con 4 alternativas el 13,99 por ciento no tiene ganador de Condorcet.",
+                        ["3 votantes, 3 alternativas: ciclo de mayoría (12 de 216)", "3 votantes, 3 alternativas: pluralidad y Borda eligen distinto (54 de 216)",
+                         "5 votantes, 3 alternativas: ciclo (100 000 perfiles)", "5 votantes, 4 alternativas: sin ganador de Condorcet (100 000 perfiles)"],
+                        [("Frecuencia", [5.56, 25.0, 6.87, 13.99], "coral")],
+                        unit="% de los perfiles", horizontal=True, label_w=340, decimals=2,
+                        note="Que A venza a B, B a C y C a A no es un error de cómputo: es una propiedad de las preferencias agregadas. Una negociación que pide «lo que apoye la mayoría» puede no tener respuesta, o tener una distinta según el método.",
+                        note_kind="coral", foot="Perfiles de preferencias sintéticos con todas las permutaciones equiprobables (semillas 1502 y 1503); supuesto de cultura imparcial.")
 
 
 FIGURES = {

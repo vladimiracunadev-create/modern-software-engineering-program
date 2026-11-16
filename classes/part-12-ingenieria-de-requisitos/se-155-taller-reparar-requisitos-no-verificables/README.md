@@ -128,9 +128,9 @@ def puntos(texto):
 
 Resultado, idéntico en Windows y Ubuntu: los 10 originales puntúan 0 (uno puntúa 1 por coincidir con «al » en «al estudiante»); los 10 reparados puntúan 4, 2, 3, 3, 3, 3, 3, 3, 0 y 3. La regla clasifica bien 10 de 10 originales y 8 de 10 reparados. Las dos que falla son reparaciones correctas: «completará la revisión» (puntúa 2) porque «completará» no está en su lista de verbos, y la de redondeo (puntúa 0) porque «redondeará» tampoco y «25 casos» no es una unidad reconocida. Con seis enunciados nuevos escritos después de fijar la regla, acierta 6 de 6 (tres verificables y tres no); muestra demasiado pequeña para estimar su exactitud y que ya exhibe el sesgo de léxico. Sirve para mirar primero lo más vago; no para aprobar.
 
-![Tabla del resultado de una regla léxica de verificabilidad sobre diez originales, diez reparados y seis enunciados nuevos.](../../../content/part-12/figures/se-155-regla-de-verificabilidad.svg)
+![Barras apiladas con los enunciados bien y mal clasificados por una regla léxica: 10 de 10 enunciados vagos, 8 de 10 reparados y 6 de 6 nuevos.](../../../content/part-12/figures/se-155-regla-de-verificabilidad.svg)
 
-**Cómo leer la figura.** Cada fila es un conjunto de enunciados con el resultado de la regla y una lectura de sus fallos. **Dónde deja de valer:** la regla no entiende nada, cuenta palabras; un enunciado puede tener las cuatro señales y ser un sinsentido, y uno bien reparado puede quedar fuera por usar sinónimos. Las etiquetas «verificable» y «no verificable» son juicios del autor, no un criterio externo.
+**Cómo leer la figura.** Cada barra es un conjunto de enunciados y se reparte en los que la regla clasifica como se esperaba (verde azulado) y los que clasifica mal (coral). Mira el segmento coral de las reparaciones: dos fallos, por vocabulario, en el conjunto donde importa más. **Dónde deja de valer:** la regla no entiende nada, cuenta palabras; un enunciado puede tener las cuatro señales y ser un sinsentido, y uno bien reparado puede quedar fuera por usar sinónimos. Las etiquetas «verificable» y «no verificable» son juicios del autor, no un criterio externo.
 
 ### Medir un percentil: qué significa «verificar»
 
@@ -144,9 +144,9 @@ ms = (time.perf_counter() - t) * 1000
 
 Resultado: con un cliente, el percentil 95 fue de 1,88 a 2,02 ms en Windows 11 y de 1,47 a 1,71 ms en Ubuntu bajo WSL2; con ocho clientes, de 5,56 a 6,04 ms y de 9,69 a 10,89 ms. La variación entre corridas es de 7 % a 15 % del valor, y la diferencia entre sistemas operativos cambia de signo con la concurrencia. Un requisito «p95 ≤ 800 ms» se verifica con este tipo de procedimiento, pero debe decir cuántas corridas, qué tolerancia y en qué entorno. Las cifras de esta tabla no dicen nada sobre la plataforma de entregas: el servidor es trivial y la red es el bucle local.
 
-![Tabla del percentil 95 de 400 peticiones a un servidor local con uno y con ocho clientes en Windows y Ubuntu, tres corridas.](../../../content/part-12/figures/se-155-latencia-en-bucle-local.svg)
+![Rangos del percentil 95 de tres corridas: con un cliente 1,88–2,02 ms en Windows y 1,47–1,71 en Ubuntu; con ocho clientes 5,56–6,04 y 9,69–10,89.](../../../content/part-12/figures/se-155-latencia-en-bucle-local.svg)
 
-**Cómo leer la figura.** Cada fila es un escenario de carga y las columnas muestran el rango de percentiles 95 observado en tres corridas en cada sistema. **Dónde deja de valer:** un solo equipo, una sola respuesta de dos bytes, bucle local sin red y sin base de datos; el valor absoluto es irrelevante. Lo que ilustra es que verificar es ejecutar un procedimiento con variación conocida, no comparar con un número.
+**Cómo leer la figura.** Cada fila es un escenario de carga en un sistema y el segmento va del mínimo al máximo del percentil 95 de las tres corridas. Mira el ancho de los segmentos: la variación entre corridas es parte del resultado, y con ocho clientes los dos sistemas ni siquiera ordenan igual. **Dónde deja de valer:** un solo equipo, una sola respuesta de dos bytes, bucle local sin red y sin base de datos; el valor absoluto es irrelevante. Lo que ilustra es que verificar es ejecutar un procedimiento con variación conocida, no comparar con un número.
 
 ### Cuántas pruebas sin fallos hacen falta para un «nunca»
 
@@ -159,9 +159,9 @@ pasa = sum(all(rng.random() > 0.02 for _ in range(100)) for _ in range(20000)) /
 
 Resultado: para acotar la tasa por debajo de 1 por 100 hacen falta 299 pruebas sin fallos; por debajo de 1 por 1 000, 2 995; de 1 por 10 000, 29 956; de 1 por millón, 2 995 731. La regla de tres da 300, 3 000, 30 000 y 3 000 000. Con 100 pruebas sin fallos solo se puede afirmar que la tasa es menor que 2,95 % (exacto) o 3 % (regla de tres). Un sistema que falla 2 % de las veces supera esas 100 pruebas en 12,8 % de las ocasiones, y uno que falla 0,5 % las supera en 60,3 %. «Nunca» es una intención; «menos de 1 por 10 000 con 30 000 pruebas sin fallos» es un criterio.
 
-![Tabla con el número de pruebas sin fallos necesario para acotar la tasa de fallo en 95 por ciento de confianza y la regla de tres.](../../../content/part-12/figures/se-155-pruebas-sin-fallos.svg)
+![Barras agrupadas en escala logarítmica con las pruebas sin fallo necesarias para acotar la tasa con 95 % de confianza: 299, 2 995, 29 956 y 2 995 731, casi iguales a la regla de tres.](../../../content/part-12/figures/se-155-pruebas-sin-fallos.svg)
 
-**Cómo leer la figura.** Cada fila es una tasa máxima aceptada y las columnas el número exacto de pruebas sin fallo y la aproximación 3/p. **Dónde deja de valer:** supone pruebas independientes e idénticamente distribuidas y ningún fallo observado; con fallos observados el cálculo cambia, y las pruebas sobre un sistema que cambia entre ejecuciones no son una muestra. La confianza del 95 % es una convención, no una propiedad del sistema.
+**Cómo leer la figura.** Cada grupo es una tasa máxima aceptada; la barra verde azulada es el número exacto de pruebas y la gris, la aproximación 3/p. Mira que casi se tocan y que cada paso en la escala logarítmica cuesta diez veces más pruebas. **Dónde deja de valer:** supone pruebas independientes e idénticamente distribuidas y ningún fallo observado; con fallos observados el cálculo cambia, y las pruebas sobre un sistema que cambia entre ejecuciones no son una muestra. La confianza del 95 % es una convención, no una propiedad del sistema.
 
 ## Definiciones de trabajo
 

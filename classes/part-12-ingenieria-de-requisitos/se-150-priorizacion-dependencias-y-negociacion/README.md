@@ -112,9 +112,9 @@ def n_ordenes(mascara):
 
 Resultado, idéntico en Windows y Ubuntu: los prefijos de 3, 4, 5 y 6 no son entregables (por ejemplo, el de tres incluye F sin D). De 3 628 800 ordenaciones solo 1 000 respetan las dependencias. Con presupuesto 12, tomar en orden de ratio lo que cabe da A, C, E, F, H con valor 33, que no se puede entregar (E necesita B; F, D; H, G); por fuerza bruta el mejor conjunto cerrado es A, B, C, J con valor 27 y costo 11. El «mejor» según la fórmula vale 33 y no existe; el real vale 27.
 
-![Tabla de los prefijos por valor sobre costo de diez requisitos que violan dependencias, con el óptimo cerrado de valor 27 frente al voraz de valor 33.](../../../content/part-12/figures/se-150-dependencias-y-top-k.svg)
+![Cuatro tarjetas con los k primeros por valor sobre costo para k de 3 a 6, todos no entregables porque faltan dependencias.](../../../content/part-12/figures/se-150-dependencias-y-top-k.svg)
 
-**Cómo leer la figura.** Cada fila es un prefijo del orden por valor/costo y las columnas dicen qué dependencias le faltan; todas son «no entregable». **Dónde deja de valer:** valores, costos y dependencias son un ejemplo del autor, y la búsqueda exhaustiva sobre 2^10 subconjuntos es viable solo con pocos requisitos; con cientos se usa programación entera o una heurística que respete el cierre.
+**Cómo leer la figura.** Cada tarjeta es un prefijo del orden por valor sobre costo y, a la derecha, las dependencias que le faltan; todas son coral porque ninguno es entregable. Mira que ir de k = 3 a k = 6 no arregla nada: añadir requisitos de valor alto no cierra el grafo. **Dónde deja de valer:** valores, costos y dependencias son un ejemplo del autor, y la búsqueda exhaustiva sobre 2^10 subconjuntos es viable solo con pocos requisitos; con cientos se usa programación entera o una heurística que respete el cierre.
 
 ### La inflación de «Must»
 
@@ -143,9 +143,9 @@ ciclo = (gana("X","Y") and gana("Y","Z") and gana("Z","X")) or (gana("Y","X") an
 
 Resultado: 12 de 216 perfiles (5,56 %) producen un ciclo de mayoría; en 54 de 216 (25,0 %) los conjuntos ganadores de pluralidad y Borda difieren. Con cinco votantes y tres alternativas, 100 000 perfiles al azar dan 6,87 % de ciclos; con cinco votantes y cuatro alternativas, 13,99 % no tienen un ganador de Condorcet. No es un error del cómputo: A puede vencer a B, B a C y C a A. Un comité que decida por mayoría sin declarar qué hacer si no hay ganador acabará decidiendo por el orden en que se vota.
 
-![Tabla con la frecuencia de ciclos de mayoría y de discrepancias entre pluralidad y Borda según votantes y alternativas.](../../../content/part-12/figures/se-150-ciclos-de-mayoria.svg)
+![Barras horizontales con la frecuencia de ciclos y desacuerdos: 5,56 % de ciclo con 3 votantes y 3 alternativas, 25,00 % de discrepancia entre pluralidad y Borda, 6,87 % de ciclo con 5 votantes y 13,99 % sin ganador de Condorcet con 4 alternativas.](../../../content/part-12/figures/se-150-ciclos-de-mayoria.svg)
 
-**Cómo leer la figura.** Cada fila es una situación con el número de casos y su frecuencia; los porcentajes son de perfiles de preferencias equiprobables. **Dónde deja de valer:** las preferencias reales están correlacionadas (la gente de un mismo área vota parecido), y con ellas los ciclos son menos frecuentes; la ausencia de ciclo no prueba que el método sea el correcto, solo que existe un ganador.
+**Cómo leer la figura.** Cada barra es una situación con su número de casos en la etiqueta y su longitud es el porcentaje de perfiles de preferencias equiprobables en que ocurre. Mira que la discrepancia entre dos reglas razonables es cuatro veces más frecuente que un ciclo. **Dónde deja de valer:** las preferencias reales están correlacionadas (la gente de un mismo área vota parecido), y con ellas los ciclos son menos frecuentes; la ausencia de ciclo no prueba que el método sea el correcto, solo que existe un ganador.
 
 ## Definiciones de trabajo
 

@@ -111,9 +111,9 @@ def caminos(i):
 
 Resultado, idéntico en Windows y Ubuntu: añadir la decisión de guardar da 3 caminos; la de plazo, 7; la de tamaño, 15; la de formato, 16. Las alternativas que vuelven multiplican; las que terminan suman. Cubrir cada alternativa al menos una vez requiere 5 escenarios (uno que toma las tres alternativas que vuelven y uno por cada alternativa que termina), mientras que cubrir todas las combinaciones requiere 16. Con ocho decisiones, la diferencia sería mucho mayor.
 
-![Tabla acumulada de caminos completos del caso de uso entregar una tarea al añadir cada decisión.](../../../content/part-12/figures/se-148-caminos-de-un-caso-de-uso.svg)
+![Barras agrupadas con los caminos completos de un caso de uso al añadir cuatro decisiones: 1, 3, 7, 15 y 16 caminos, con 0, 2, 2, 2 y 1 alternativas añadidas en cada paso.](../../../content/part-12/figures/se-148-caminos-de-un-caso-de-uso.svg)
 
-**Cómo leer la figura.** Cada fila añade una decisión con sus alternativas y muestra cuántos caminos completos hay en total. **Dónde deja de valer:** el conteo supone que las decisiones son independientes y que cada alternativa puede ocurrir en cualquier combinación; en la plataforma, «archivo demasiado grande» impide todo lo que sigue y la tabla ya lo reconoce al sumarlo como camino final. Si dos decisiones se excluyen entre sí, los caminos reales son menos.
+**Cómo leer la figura.** Cada grupo es un paso en que se añade una decisión; la barra dorada es el número de alternativas que añade y la verde azulada, los caminos completos acumulados. Mira que los caminos casi se duplican con cada decisión de dos alternativas y que la última, que solo termina, suma uno. **Dónde deja de valer:** el conteo supone que las decisiones son independientes y que cada alternativa puede ocurrir en cualquier combinación; en la plataforma, «archivo demasiado grande» impide todo lo que sigue y la tabla ya lo reconoce al sumarlo como camino final. Si dos decisiones se excluyen entre sí, los caminos reales son menos.
 
 ### Valor visible por iteración: capas frente a rebanadas
 
@@ -132,9 +132,9 @@ def simular(orden, cap=5):
 
 Resultado: por capas, historias completas al cierre de cada iteración 0, 0 y 5; por rebanadas verticales, 1, 3 y 5. Ambas terminan a la vez. La diferencia es cuándo una docente puede ver algo funcionando y, por lo tanto, cuándo puede decir «esto no es lo que pedí». El modelo es aritmético y no considera el costo de coordinación entre capas, que penalizaría a la estrategia B.
 
-![Tabla con el número de historias completas al cierre de cada iteración al cortar por capas o por rebanadas verticales.](../../../content/part-12/figures/se-148-valor-por-iteracion.svg)
+![Barras agrupadas con las historias completas al final de cada una de tres iteraciones: por capas 0, 0 y 5; por rebanadas verticales 1, 3 y 5.](../../../content/part-12/figures/se-148-valor-por-iteracion.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia y cada columna una iteración; los números son historias que ya entregan valor. **Dónde deja de valer:** supone historias de igual tamaño, independientes y sin retrabajo; en la práctica, algunas capas compartidas (autenticación) deben hacerse una vez y favorecen cierto trabajo horizontal. El experimento enseña la forma de la ventaja, no su magnitud.
+**Cómo leer la figura.** Cada grupo es una iteración; la barra coral es el corte por capas y la verde azulada, el corte por rebanadas verticales. Mira que las dos barras coinciden al final y que la diferencia está en las dos primeras iteraciones: son historias que ya entregan valor y pueden mostrarse. **Dónde deja de valer:** supone historias de igual tamaño, independientes y sin retrabajo; en la práctica, algunas capas compartidas (autenticación) deben hacerse una vez y favorecen cierto trabajo horizontal. El experimento enseña la forma de la ventaja, no su magnitud.
 
 ### Actores que no existen y actores sin historias
 

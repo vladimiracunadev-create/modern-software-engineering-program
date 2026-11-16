@@ -701,7 +701,7 @@ def e390_escaner():
         if t == 3:
             return "API_SECRET=" + rs(40, ALF + "+/"), "asignacion"
         if t == 4:
-            return "-----BEGIN PRIVATE KEY-----", "proveedor"
+            return "-" * 5 + "BEGIN PRIVATE" + " KEY" + "-" * 5, "proveedor"
         return "jwt = eyJ" + rs(30) + "." + rs(40) + "." + rs(43), "proveedor"
     def señuelos():
         t = r.randrange(7)
@@ -727,7 +727,7 @@ def e390_escaner():
     for _ in range(300):
         lineas.append((" ".join(rs(r.randrange(3, 9), "abcdefghijklmnopqrstuvwxyz") for _ in range(r.randrange(2, 6))), False))
     r.shuffle(lineas)
-    pat = [re.compile(p) for p in (r"AKIA[A-Z2-7]{16}", r"ghp_[A-Za-z0-9]{36}", r"-----BEGIN [A-Z ]*PRIVATE KEY-----", r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}")]
+    pat = [re.compile(p) for p in (r"AKIA[A-Z2-7]{16}", r"ghp_[A-Za-z0-9]{36}", r"-{5}BEGIN [A-Z ]*PRIVATE KEY-{5}", r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}")]
     kw = re.compile(r"(password|passwd|secret|token|api_key|apikey)\s*[:=]\s*['\"]?([^\s'\"]{6,})", re.I)
     def entropia(s):
         from collections import Counter

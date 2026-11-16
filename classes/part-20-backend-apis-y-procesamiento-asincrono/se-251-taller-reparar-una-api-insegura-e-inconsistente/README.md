@@ -114,9 +114,9 @@ Para cada uno de los diez defectos se toma la API reparada, se reintroduce solo 
 
 La razón de D5 es instructiva: el defecto está en el camino de error, y con la inyección corregida ya no hay ningún error de la base de datos que lo active. Es un defecto dormido: existe en el código, no tiene síntoma observable y se despertará cuando otro fallo lo ejercite. Para verlo hace falta una prueba que fuerce un error interno por otro medio.
 
-![Tabla con los diez defectos y qué suite detecta cada uno cuando se reintroduce: ninguno el camino feliz, dos el contrato, siete la adversaria y uno ninguna.](../../../content/part-20/figures/se-251-defecto-que-detecta-cada-suite.svg)
+![Mapa de calor de diez defectos y tres suites: la suite de camino feliz no detecta ninguno; la de contrato detecta la validación laxa y los estados inconsistentes; la adversaria detecta siete; el error con detalles internos no lo detecta ninguna cuando se reintroduce solo.](../../../content/part-20/figures/se-251-defecto-que-detecta-cada-suite.svg)
 
-**Cómo leer la figura.** Cada fila es un defecto reintroducido en la API reparada; la celda indica qué suite lo detecta. **Dónde deja de valer:** la detección depende de las pruebas que se escribieron: otra suite adversaria habría podido detectar D5 con un error forzado. La matriz es de una API de laboratorio, no de un producto.
+**Cómo leer la figura.** Cada fila es un defecto reintroducido en la API reparada y cada columna una suite de pruebas; la celda oscura dice detecta y la clara dice que no. La columna del camino feliz está vacía: cinco pruebas que pasan por el caso normal no ven ninguno de los diez defectos. La suite de contrato ve solo los dos que rompen el contrato de la API (validación laxa y estados inconsistentes) y la adversaria ve siete; el error con detalles internos (D5) no lo ve ninguna cuando se reintroduce solo. **Dónde deja de valer:** la detección depende de las pruebas que se escribieron: otra suite adversaria habría podido detectar D5 con un error forzado. La matriz es de una API de laboratorio, no de un producto.
 
 ### Inyección SQL: concatenar o parametrizar
 

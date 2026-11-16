@@ -1,8 +1,8 @@
 """Figures for SE-241 to SE-246 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time or a thread count is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, grouped_bars, line_chart, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2), salvo los tiempos y los recuentos de hilos indicados."
 
@@ -22,14 +22,13 @@ def se241_cadena() -> Fig:
 
 
 def se241_caidas() -> Fig:
-    rows = [["Sin outbox: 6 órdenes de archivo, fila y evento × 4 puntos de caída", "10 de 24 con violación grave", "fila sin archivo 4 · fila sin evento 4 · evento sin fila 4 · archivo huérfano 4"],
-            ["Con outbox: archivo, luego fila y outbox en una transacción, luego relevo (3 puntos de caída)", "0 de 3", "fila sin archivo 0 · fila sin evento 0 · evento sin fila 0 · archivo huérfano 1 (limpiable)"],
-            ["Caída dentro de la transacción", "0 filas, 0 eventos", "SQLite revierte las dos inserciones a la vez"],
-            ["El relevo publica y cae antes de marcar el evento como enviado", "2 publicaciones del mismo evento", "entrega al menos una vez: el consumidor debe tolerar el duplicado"]]
-    return tab("Qué estados quedan tras una caída en el alta de una entrega",
-               "Tabla: sin outbox, 10 de 24 combinaciones de orden y punto de caída dejan una violación grave; con archivo, fila más outbox transaccional y relevo, no queda ninguna violación grave, solo un archivo huérfano limpiable, y el relevo puede publicar un evento dos veces.",
-               ["Diseño", "Resultado", "Qué queda inconsistente"], rows, [380, 220, 400], row_h=74, size=12,
-               note="El modelo enumera todos los puntos de caída de tres pasos; no incluye caídas de disco, corrupción ni varios procesos concurrentes. La transacción atómica se comprobó con SQLite real; el archivo y el bus son simulados.", note_kind="gold", foot=SINT)
+    return stacked_bars(
+        "Qué estados quedan tras una caída en el alta de una entrega",
+        "Barras apiladas con las combinaciones de orden y punto de caída que dejan una violación grave: sin outbox, 10 de 24; con archivo, fila más outbox transaccional y relevo, 0 de 3, con solo un archivo huérfano limpiable.",
+        ["Sin outbox: 6 órdenes × 4 puntos de caída", "Con outbox: archivo, transacción y relevo (3 puntos)"],
+        [("Violación grave", [10, 0], "coral"), ("Sin violación grave", [14, 3], "teal")],
+        unit="Combinaciones de orden y punto de caída", horizontal=True, label_w=290,
+        note="El modelo enumera todos los puntos de caída de tres pasos; no incluye caídas de disco, corrupción ni varios procesos concurrentes. La transacción atómica se comprobó con SQLite real; el archivo y el bus son simulados.", note_kind="gold", foot=SINT)
 
 
 def se241_servidor() -> Fig:
@@ -57,22 +56,23 @@ def se242_prefetcher() -> Fig:
 
 
 def se242_if_match() -> Fig:
-    rows = [["PUT sin precondición", "1 000 de 1 000 rondas pierden una edición en silencio", "0", "0 de 1 000"],
-            ["PUT con If-Match y 412", "0", "1 000 (el segundo escritor se entera)", "0 de 1 000"],
-            ["If-Match, 412 y reaplicar el cambio sobre la versión nueva", "0", "1 000", "1 000 de 1 000"]]
-    return tab("Dos clientes editan la misma entrega: qué ocurre con el segundo PUT",
-               "Tabla de 1 000 rondas: sin If-Match el segundo PUT pisa al primero en las 1 000 rondas; con If-Match el servidor responde 412 al segundo y no se pierde nada; si el cliente relee y reaplica su cambio, las 1 000 rondas terminan con las dos ediciones.",
-               ["Diseño", "Ediciones perdidas en silencio", "Respuestas 412", "Rondas con ambas ediciones"], rows, [330, 270, 240, 190], row_h=64, size=12,
-               note="El orden de ejecución se sorteó con semilla fija, pero el resultado no depende de ella: es una propiedad del protocolo. Lo que no se midió es la tasa real de conflictos de un producto, que depende de cuántas personas editan el mismo recurso.", note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Dos clientes editan la misma entrega: qué ocurre con el segundo PUT (1 000 rondas)",
+        "Barras agrupadas de 1 000 rondas: sin precondición el segundo PUT pisa al primero en las 1 000 y no hay respuestas 412; con If-Match y 412 no se pierde ninguna edición y el segundo escritor se entera 1 000 veces; si además reaplica el cambio sobre la versión nueva, las 1 000 rondas terminan con las dos ediciones.",
+        ["PUT sin precondición", "PUT con If-Match y 412", "If-Match, 412 y reaplicar el cambio"],
+        [("Ediciones perdidas en silencio", [1000, 0, 0], "coral"), ("Respuestas 412", [0, 1000, 1000], "gold"), ("Rondas con ambas ediciones", [0, 0, 1000], "teal")],
+        unit="Rondas (de 1 000)",
+        note="El orden de ejecución se sorteó con semilla fija, pero el resultado no depende de ella: es una propiedad del protocolo. Lo que no se midió es la tasa real de conflictos de un producto, que depende de cuántas personas editan el mismo recurso.", note_kind="gold", foot=SINT)
 
 
 def se242_paginacion() -> Fig:
-    rows = [["Offset 50 (order by ts desc)", "1 168", "161", "1 000 de 1 000"],
-            ["Keyset (ts < último visto)", "1 007", "0", "1 000 de 1 000"]]
-    return tab("Paginar 1 000 entregas mientras llegan 7 nuevas antes de cada página",
-               "Tabla: con paginación por desplazamiento (offset) se devuelven 1 168 filas con 161 repetidas; con paginación por clave (keyset) se devuelven 1 007 filas sin repetidas; las dos terminan viendo las 1 000 originales.",
-               ["Estrategia", "Filas devueltas", "Filas repetidas", "Originales vistas"], rows, [330, 200, 200, 220], row_h=56, size=13,
-               note="Las inserciones empujan las filas hacia abajo y el offset las vuelve a entregar. Keyset elimina las repetidas, pero no permite saltar a la página 40 y exige un orden total (marca de tiempo más identificador). Si se borran filas, el offset en cambio omite filas; aquí no se simuló el borrado.", note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Paginar 1 000 entregas mientras llegan 7 nuevas antes de cada página",
+        "Barras agrupadas con las filas devueltas y las repetidas al paginar: con desplazamiento (offset) se devuelven 1 168 filas y 161 están repetidas; con paginación por clave (keyset) se devuelven 1 007 y ninguna está repetida; las dos ven las 1 000 originales.",
+        ["Offset 50 (order by ts desc)", "Keyset (ts < último visto)"],
+        [("Filas devueltas", [1168, 1007], "gold"), ("Filas repetidas", [161, 0], "coral")],
+        unit="Filas",
+        note="Las inserciones empujan las filas hacia abajo y el offset las vuelve a entregar. Keyset elimina las repetidas, pero no permite saltar a la página 40 y exige un orden total (marca de tiempo más identificador). Si se borran filas, el offset en cambio omite filas; aquí no se simuló el borrado.", note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-243
@@ -100,24 +100,24 @@ def se243_n_mas_1() -> Fig:
 
 
 def se243_profundidad() -> Fig:
-    rows = [["1", "20", "43,15 %"], ["2", "420", "18,62 %"], ["3", "8 420", "7,89 %"], ["4", "168 420", "3,31 %"],
-            ["5", "3 368 420", "1,48 %"], ["6", "67 368 420", "0,00 %"]]
-    return tab("Límite de profundidad: nodos que permite y consultas legítimas que rechaza",
-               "Tabla: con 20 elementos por nivel, una consulta de profundidad 6 resuelve 67 368 420 nodos; un límite de profundidad 2 rechaza 18,62 por ciento de 10 000 consultas legítimas sintéticas, uno de 3 el 7,89, uno de 4 el 3,31 y uno de 5 el 1,48.",
-               ["Límite de profundidad", "Nodos de la consulta más profunda permitida (20 por nivel)", "Consultas legítimas rechazadas por ese límite"], rows, [160, 330, 480], row_h=40, size=13,
-               note="Se acotan el coste y no solo la forma: un límite de 10 000 nodos acepta hasta profundidad 3 y uno de 1 000 solo hasta 2. La distribución de consultas legítimas es una suposición del autor (exponencial, media 1,2 niveles), no una medición de clientes reales.", note_kind="coral", foot=SINT)
+    return line_chart(
+        "Límite de profundidad: nodos que permite y consultas legítimas que rechaza",
+        "Línea en escala logarítmica con el porcentaje de 10 000 consultas legítimas sintéticas que rechaza cada límite de profundidad frente a los nodos de la consulta más profunda que permite con 20 elementos por nivel: el límite 1 permite 20 nodos y rechaza 43,15 por ciento, el 2 permite 420 y rechaza 18,62, el 3 permite 8 420 y 7,89, el 4 permite 168 420 y 3,31, el 5 permite 3 368 420 y 1,48 y el 6 permite 67 368 420 y 0,00.",
+        [("Consultas legítimas rechazadas", [(20, 43.15, "límite 1", "t"), (420, 18.62, "límite 2", "t"), (8420, 7.89, "límite 3", "t"), (168420, 3.31, "límite 4", "t"), (3368420, 1.48, "límite 5", "t"), (67368420, 0.0, "límite 6", "t")], "coral")],
+        x_label="Nodos de la consulta más profunda permitida (20 por nivel)", y_label="Consultas legítimas rechazadas (%)", log_x=True,
+        x_ticks=[(20, "20"), (420, "420"), (8420, "8 420"), (168420, "168 420"), (3368420, "3,4 millones"), (67368420, "67 millones")], decimals=2,
+        note="Se acotan el coste y no solo la forma: un límite de 10 000 nodos acepta hasta profundidad 3 y uno de 1 000 solo hasta 2. La distribución de consultas legítimas es una suposición del autor (exponencial, media 1,2 niveles), no una medición de clientes reales.", note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-244
 def se244_validadores() -> Fig:
-    rows = [["alumno_id = true", "acepta", "rechaza"], ["horas_retraso = 2.5", "acepta", "rechaza"], ["horas_retraso = Infinity", "acepta", "rechaza"],
-            ["alumno_id = 99999999999999999999", "acepta", "rechaza"], ["campo extra is_admin", "acepta", "rechaza"],
-            ["clave alumno_id repetida (gana la última)", "acepta", "rechaza"], ["texto de 6 000 caracteres", "acepta", "rechaza"],
-            ["horas_retraso = NaN", "rechaza (por azar: NaN ≥ 0 es falso)", "rechaza"]]
-    return tab("14 cargas JSON límite: errores de un validador con isinstance y de uno estricto",
-               "Tabla: de 14 cargas JSON, el validador basado en isinstance se equivoca en 11 y el estricto en 0; aceptó booleanos como enteros, decimales, Infinity, enteros enormes, campos extra, claves repetidas y textos de 6 000 caracteres.",
-               ["Carga que debe rechazarse", "Validador ingenuo", "Validador estricto"], rows, [400, 330, 210], row_h=40, size=12,
-               note="Errores: ingenuo 11 de 14, estricto 0 de 14. En Python bool es subclase de int y json.loads acepta NaN e Infinity por defecto. Que el estricto acierte las 14 solo prueba que se escribió mirándolas: otras cargas (unicode normalizado, enteros con ceros) no se probaron.", note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "14 cargas JSON límite: errores de un validador con isinstance y de uno estricto",
+        "Barras apiladas de las 14 cargas JSON límite: el validador basado en isinstance se equivoca en 11 y acierta en 3; el estricto se equivoca en 0 y acierta en las 14.",
+        ["Validador ingenuo (isinstance)", "Validador estricto"],
+        [("Se equivoca", [11, 0], "coral"), ("Acierta", [3, 14], "teal")],
+        unit="Cargas JSON", horizontal=True, label_w=230,
+        note="Errores: ingenuo 11 de 14, estricto 0 de 14. En Python bool es subclase de int y json.loads acepta NaN e Infinity por defecto. Que el estricto acierte las 14 solo prueba que se escribió mirándolas: otras cargas (unicode normalizado, enteros con ceros) no se probaron.", note_kind="coral", foot=SINT)
 
 
 def se244_deriva() -> Fig:
@@ -143,13 +143,13 @@ def se244_reintentos() -> Fig:
 
 # ---------------------------------------------------------------- SE-245
 def se245_ataques() -> Fig:
-    rows = [["Alg none sin firma", "acepta", "rechaza"], ["Payload alterado con firma vieja", "rechaza", "rechaza"], ["Firma truncada", "rechaza", "rechaza"],
-            ["Token expirado", "acepta", "rechaza"], ["Audiencia de otra API", "acepta", "rechaza"], ["Emisor desconocido", "acepta", "rechaza"],
-            ["Aún no válido (nbf futuro)", "acepta", "rechaza"], ["Clave equivocada", "rechaza", "rechaza"]]
-    return tab("Ocho ataques a un token firmado: verificador ingenuo y verificador estricto",
-               "Tabla: de ocho ataques, el verificador que solo comprueba la firma y confía en la cabecera acepta cinco (alg none, expirado, audiencia ajena, emisor desconocido y nbf futuro); el estricto, que fija el algoritmo y comprueba emisor, audiencia y vigencia, rechaza los ocho.",
-               ["Ataque", "Ingenuo", "Estricto"], rows, [430, 190, 190], row_h=40, size=13,
-               note="El token y la clave son sintéticos; el esquema es de laboratorio y no sustituye una biblioteca revisada. La firma válida solo dice quién emitió el token: pertenencia, audiencia y vigencia son reglas aparte. Aceptados: ingenuo 5 de 8, estricto 0 de 8.", note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Ocho ataques a un token firmado: verificador ingenuo y verificador estricto",
+        "Barras apiladas de los ocho ataques: el verificador que solo comprueba la firma y confía en la cabecera acepta cinco y rechaza tres; el estricto, que fija el algoritmo y comprueba emisor, audiencia y vigencia, rechaza los ocho.",
+        ["Verificador ingenuo", "Verificador estricto"],
+        [("Acepta el ataque", [5, 0], "coral"), ("Rechaza el ataque", [3, 8], "teal")],
+        unit="Ataques", horizontal=True, label_w=200,
+        note="El token y la clave son sintéticos; el esquema es de laboratorio y no sustituye una biblioteca revisada. La firma válida solo dice quién emitió el token: pertenencia, audiencia y vigencia son reglas aparte. Aceptados: ingenuo 5 de 8, estricto 0 de 8.", note_kind="coral", foot=SINT)
 
 
 def se245_ids() -> Fig:
@@ -187,11 +187,13 @@ def se246_duplicados() -> Fig:
 
 
 def se246_tormenta() -> Fig:
-    rows = [["Intervalo fijo de 1 s", "2 000", "3 s", "800"], ["Exponencial sin jitter", "2 000", "4 s", "0"], ["Exponencial con jitter total", "372", "0 s", "0"]]
-    return tab("2 000 clientes reintentan tras una caída de 5 s con capacidad de 400 solicitudes por segundo",
-               "Tabla: tras la caída, con intervalo fijo el pico es de 2 000 solicitudes por segundo, hay 3 segundos sobre la capacidad y 800 clientes abandonan tras 8 intentos; con retroceso exponencial sin jitter el pico es 2 000 y hay 4 segundos sobre la capacidad; con jitter total el pico baja a 372 y no se supera la capacidad.",
-               ["Política de reintento", "Pico tras la caída (solicitudes por segundo)", "Segundos sobre la capacidad", "Clientes que abandonan"], rows, [330, 270, 210, 190], row_h=56, size=12,
-               note="Sin aleatoriedad, los clientes que fallaron a la vez vuelven a la vez: el retroceso exponencial solo los espacia en oleadas. El jitter reparte la carga. El modelo supone una capacidad fija y clientes idénticos; no representa colas del servidor ni presión posterior.", note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Pico de solicitudes tras una caída de 5 s con 2 000 clientes y capacidad de 400 por segundo",
+        "Barras horizontales con el pico de solicitudes por segundo tras la caída: 2 000 con intervalo fijo de 1 s, 2 000 con retroceso exponencial sin jitter y 372 con jitter total, frente a una capacidad de 400; con intervalo fijo hay 3 segundos sobre la capacidad y 800 clientes abandonan, con exponencial sin jitter 4 segundos y con jitter total ninguno.",
+        ["Intervalo fijo de 1 s", "Exponencial sin jitter", "Exponencial con jitter total"],
+        [("Pico tras la caída", [2000, 2000, 372], "coral")],
+        unit="Solicitudes por segundo", horizontal=True, ref_lines=[(400, "capacidad 400")], label_w=230,
+        note="Sin aleatoriedad, los clientes que fallaron a la vez vuelven a la vez: el retroceso exponencial solo los espacia en oleadas. El jitter reparte la carga. El modelo supone una capacidad fija y clientes idénticos; no representa colas del servidor ni presión posterior.", note_kind="gold", foot=SINT)
 
 
 def se246_ventana() -> Fig:

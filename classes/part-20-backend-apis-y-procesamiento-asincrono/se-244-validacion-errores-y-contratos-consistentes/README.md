@@ -109,9 +109,9 @@ def ingenuo(d):
 
 Resultado, idéntico en Windows y Ubuntu: el ingenuo se equivoca en **11 de 14** cargas; el estricto, en **0 de 14**. El ingenuo acepta `true` como id y como horas, `2.5`, `Infinity`, `1e308`, el id enorme, el id cero, el campo `is_admin`, la clave duplicada, el texto vacío y el de 6 000 caracteres. Rechaza las horas negativas y `NaN`, este último por azar (la comparación `NaN >= 0` es falsa). Además `int('٣')` vale 3 y `'٣'.isdigit()` es verdadero mientras `'٣'.isascii()` es falso: validar con `isdigit` admite dígitos que otros componentes no esperan.
 
-![Tabla de cargas JSON límite con el resultado de un validador ingenuo, que acepta casi todas, y de uno estricto, que las rechaza.](../../../content/part-20/figures/se-244-validador-ingenuo-frente-a-estricto.svg)
+![Barras apiladas de las 14 cargas JSON límite: el validador basado en isinstance se equivoca en 11 y acierta en 3; el estricto se equivoca en 0 y acierta en las 14.](../../../content/part-20/figures/se-244-validador-ingenuo-frente-a-estricto.svg)
 
-**Cómo leer la figura.** Cada fila es una carga que debía rechazarse; la columna del medio es el validador basado en tipos y la derecha el estricto. **Dónde deja de valer:** que el estricto acierte las 14 solo prueba que fue escrito mirándolas; otras cargas (normalización de unicode, enteros con ceros iniciales, fechas) no se probaron. Un buen validador no sustituye la decisión de qué rango tiene sentido para el negocio.
+**Cómo leer la figura.** Cada barra es un validador de la carga JSON y cada tramo cuenta cuántas de las 14 cargas límite resuelve mal (coral) o bien (teal). El validador con isinstance se equivoca en 11 porque acepta booleanos como enteros, decimales, Infinity, enteros enormes, campos extra, claves repetidas y textos de 6 000 caracteres; el estricto no se equivoca en ninguna. La tabla anterior lista ocho de esas cargas y qué hace cada validador. **Dónde deja de valer:** que el estricto acierte las 14 solo prueba que fue escrito mirándolas; otras cargas (normalización de unicode, enteros con ceros iniciales, fechas) no se probaron. Un buen validador no sustituye la decisión de qué rango tiene sentido para el negocio.
 
 ### Deriva entre contrato y respuesta: qué capa la detecta
 

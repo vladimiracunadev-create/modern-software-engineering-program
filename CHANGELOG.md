@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-16 — Casos de estudio: estructura de la superficie
+
+- nueva superficie propia «Casos de estudio» (no son clases ni roles; los contadores 540/45 no cambian): páginas `casos/exito/` y `casos/fallo/` con mapa visual e índice, 16 casos fijados en esqueleto, `casos/GUIDE.md` con el esquema único y las reglas editoriales.
+- `scripts/build_cases.py` (portal `site/casos/`, sección del README entre las partes y los roles), contrato `scripts/figures_case_<slug>.py` descubierto por `build_figures.py`, `scripts/validate_cases.py`, `tests/test_cases.py` y trinquete de tablas con tope 0 para los casos (commit `29c2943d`, CI verde: Validate, Pages y Security).
+
 ## 2026-11-16 — Esquema único de README de parte y navegación doble en las 540 clases
 
 - las Partes 18, 19 y 26-44 sustituyen los enlaces «Abrir la clase» sueltos dentro de la guía por la tabla «Resumen operativo del recorrido» (12 filas con enlace, núcleo profesional y aporte acumulativo); `scripts/part_summary_tables.py` reemplaza a `link_part_classes.py` y las 45 partes comparten el orden guía → resumen

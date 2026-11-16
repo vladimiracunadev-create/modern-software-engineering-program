@@ -36,6 +36,7 @@ PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(421, 433)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(385, 397)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(409, 421)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(445, 457)}
+PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(457, 469)}
 
 PRODUCTS = [
     "plataforma educativa", "comercio responsable", "servicio financiero",

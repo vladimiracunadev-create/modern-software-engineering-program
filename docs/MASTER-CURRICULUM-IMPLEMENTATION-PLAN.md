@@ -730,18 +730,18 @@ evita una explicación genérica.
 
 ### Parte 38 — Ingeniería asistida por IA
 
-- [ ] `SE-457` — medir límites y APIs alucinadas.
-- [ ] `SE-458` — especificar criterios antes de generar.
-- [ ] `SE-459` — probar pérdida de contexto y memoria.
-- [ ] `SE-460` — comparar trabajo manual y asistido.
-- [ ] `SE-461` — detectar deuda de scaffolding.
-- [ ] `SE-462` — encontrar tests y docs convincentes pero incorrectos.
-- [ ] `SE-463` — detectar drift arquitectónico.
-- [ ] `SE-464` — practicar context engineering.
-- [ ] `SE-465` — ejecutar evals de coste, latencia y regresión.
-- [ ] `SE-466` — revisar privacidad, licencias y provenance.
-- [ ] `SE-467` — comparar flujo manual, asistido y agentic.
-- [ ] `SE-468` — entregar un cambio real con revisión humana.
+- [x] `SE-457` — medir límites y APIs alucinadas.
+- [x] `SE-458` — especificar criterios antes de generar.
+- [x] `SE-459` — probar pérdida de contexto y memoria.
+- [x] `SE-460` — comparar trabajo manual y asistido.
+- [x] `SE-461` — detectar deuda de scaffolding.
+- [x] `SE-462` — encontrar tests y docs convincentes pero incorrectos.
+- [x] `SE-463` — detectar drift arquitectónico.
+- [x] `SE-464` — practicar context engineering.
+- [x] `SE-465` — ejecutar evals de coste, latencia y regresión.
+- [x] `SE-466` — revisar privacidad, licencias y provenance.
+- [x] `SE-467` — comparar flujo manual, asistido y agentic.
+- [x] `SE-468` — entregar un cambio real con revisión humana.
 
 ### Parte 39 — SPEC y agentes
 

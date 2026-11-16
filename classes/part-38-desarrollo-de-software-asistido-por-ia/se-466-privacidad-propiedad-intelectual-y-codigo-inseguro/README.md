@@ -1,79 +1,333 @@
 # SE-466 — Privacidad, propiedad intelectual y código inseguro
 
-[← SE-465 — Evals de exactitud, utilidad, costo y latencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-466.html) · [SE-467 — Taller: comparar flujos manual, asistido y automatizado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/README.md)
+[← SE-465 — Evals de exactitud, utilidad, costo y latencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md) · [↑ Parte 38](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-466.html) · [SE-467 — Taller: comparar flujos manual, asistido y automatizado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/README.md)
 
-> [!WARNING]
-> Este archivo define la ubicación y el contrato de la clase, pero su contenido
-> pedagógico todavía no ha sido desarrollado.
+## Punto profesional y fundamento pedagógico
+
+**Punto profesional.** La clase existe para que veas los tres riesgos que acompañan a todo flujo con asistente y que ninguna medida de exactitud captura: lo que sale de tu entorno (datos personales, secretos y código propietario que viajan en el contexto), lo que entra con una procedencia incierta (código cuya licencia y origen nadie conoce) y lo que entra con un defecto de seguridad que parece correcto. Cada uno tiene mecanismos de control distintos: minimizar y filtrar antes de enviar, comprobar similitud y procedencia antes de integrar, y analizar y revisar con criterio de seguridad antes de aceptar. La habilidad es instalar esos controles en el proceso para que no dependan de la memoria de cada persona, y saber qué controla cada uno y qué no.
+
+**Por qué aparece aquí.** Sigue a **Evals de exactitud, utilidad, costo y latencia**: `SE-465` midió si el asistente acierta, cuesta poco y responde pronto; ahora la pregunta es qué se arriesga al usarlo aunque acierte. Las clases anteriores insinuaron los tres riesgos (`SE-459` los datos indexados, `SE-460` el código aceptado a ciegas, `SE-464` el archivo de instrucciones como superficie de ataque). El caso conductor es el **módulo de calificaciones de la plataforma educativa**, que contiene datos de estudiantes. Es un caso sintético; no se envió ningún dato real a ningún servicio y los secretos de los experimentos se generan al azar en tiempo de ejecución.
+
+**Error conceptual que debe corregir.** Creer que un riesgo se gestiona con una instrucción («no pegues datos sensibles», «no uses código con licencia») en lugar de con un control que actúe aunque la persona olvide la instrucción. Una política que depende de la atención de cada integrante falla en el peor momento, cuando hay prisa; el control que funciona es el que se ejecuta de forma automática antes del envío, antes de la integración y antes del despliegue.
+
+**Secuencia de aprendizaje.** Antes de ver los resultados, predices qué fracción de datos sensibles detecta una regla de patrones y qué dejan pasar; después ejecutas un escáner sobre 240 mensajes con tres reglas distintas, comparas la búsqueda de texto con el recorrido del árbol sintáctico sobre 17 fragmentos de Python con patrones inseguros y mides el parecido de fragmentos generados con un corpus con licencia, literal y normalizado. La secuencia usa predicción, explicación propia, contraste y recuperación. [ICAP](https://icap.education.asu.edu/research) distingue participación de construcción de conocimiento; [How People Learn II](https://nap.nationalacademies.org/catalog/24783/how-people-learn-ii-learners-contexts-and-cultures) respalda diseñar la práctica con contextos reales y retroalimentación.
+
+**Evidencia de aprendizaje.** `riesgos-controles.md` con la predicción, las tres figuras reproducidas, la clasificación de los datos del módulo por sensibilidad y destino, un escáner previo al envío con sus casos, una lista de patrones inseguros revisados con su técnica de detección y una política de procedencia y licencia, y una nota que separe qué es medido, inferido y supuesto.
+
+**Límite de la conclusión.** Los mensajes, los fragmentos de código, el corpus de una función y los patrones de detección son construcciones del autor, escritas sabiendo qué se busca. Las cadenas aleatorias que simulan secretos se generan en tiempo de ejecución y no son datos reales. Esta clase no es asesoría legal: no determina qué es dato personal ni qué licencia obliga en una jurisdicción, y nombra normas y orientaciones que deben consultarse con quien corresponda.
+
+### Trazabilidad fuente → afirmación
+
+| Fuente primaria u oficial | Afirmación que respalda | Lo que no prueba |
+|---|---|---|
+| [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) | Cataloga riesgos de aplicaciones con modelos de lenguaje, entre ellos la inyección de instrucciones, la divulgación de información sensible y la cadena de suministro. | No es una norma ni un método de medición. |
+| [Greshake et al., «Not what you've signed up for»](https://arxiv.org/abs/2302.12173) | Demuestra ataques de inyección indirecta de instrucciones: contenido externo recuperado por una aplicación puede llevar instrucciones que alteran su comportamiento. | No mide la prevalencia en herramientas actuales. |
+| [Perry et al., «Do Users Write More Insecure Code with AI Assistants?»](https://arxiv.org/abs/2211.03622) | Los participantes con asistente escribieron código menos seguro y estuvieron más convencidos de su seguridad. | Estudio con un modelo concreto de su época. |
+| [Pearce et al., «Asleep at the Keyboard?»](https://arxiv.org/abs/2108.09293) | Evalúa sistemáticamente la seguridad del código sugerido por un asistente en escenarios asociados a debilidades conocidas y encuentra una fracción significativa de sugerencias vulnerables. | No generaliza a otros asistentes ni versiones. |
+| [Spracklen et al., «We Have a Package for You!»](https://arxiv.org/abs/2406.10279) | Analiza las «alucinaciones de paquetes»: código generado que referencia paquetes inexistentes, lo que abre una vía de ataque a la cadena de suministro. | No cuantifica la frecuencia en tu entorno. |
+| [CWE Top 25](https://cwe.mitre.org/top25/) | Lista las debilidades de software más peligrosas y comunes (inyección, validación, autorización) con identificadores estables. | No asigna riesgo a tu código. |
+| [NIST SP 800-218A](https://csrc.nist.gov/pubs/sp/800/218/a/final) | Extiende el marco de desarrollo seguro SSDF con prácticas para el desarrollo de modelos de IA generativa y su uso. | No sustituye el marco SSDF general ni es una certificación. |
+| [Reglamento (UE) 2016/679 (RGPD)](https://eur-lex.europa.eu/eli/reg/2016/679/oj) | Establece principios como la minimización de datos y la limitación de la finalidad para el tratamiento de datos personales. | No es asesoría para tu jurisdicción. |
+| [U.S. Copyright Office: Copyright and Artificial Intelligence](https://www.copyright.gov/ai/) | Publica análisis oficiales sobre la autoría y los usos de obras con IA en el derecho de autor estadounidense. | No rige en otras jurisdicciones ni resuelve casos concretos. |
+
+## Antes de empezar
+
+Recupera lo aprendido en `SE-465`: una configuración se elige con evidencia y costo por solución aceptada. La pregunta activa es: **¿qué datos del módulo de calificaciones podrían haber viajado en el contexto de tu último encargo, y quién decidió que podían salir?**
 
 ## Prerrequisitos
 
-Pendiente de desarrollar en la fase de contenido.
+- Haber completado `SE-465` o poder explicar por qué una eval necesita un conjunto reservado y no se publica en claro.
+- Python 3.11 o posterior; los experimentos usan solo la biblioteca estándar (`ast`, `re`, `math`, `random`, `keyword`).
+- Saber leer una expresión regular sencilla y un árbol sintáctico a nivel básico.
 
 ## Problema auténtico
 
-Pendiente de desarrollar en la fase de contenido.
+El equipo del módulo de calificaciones pegaba trazas de error en el chat del asistente para pedir ayuda. Un día una traza incluía el correo y el identificador de un estudiante; otro día, una cadena de conexión con una credencial. Un compañero aceptó una función generada que construía una consulta SQL concatenando el identificador, y pasó la revisión porque «funcionaba». Otra función generada contenía un bloque casi idéntico a uno publicado con una licencia que obliga a conservar su aviso, y nadie lo supo hasta que un tercero lo notó. Además el asistente recomendó instalar un paquete cuyo nombre sonaba plausible y no existía. Cada incidente tenía una instrucción posible («cuidado con los datos»), y ninguna evitó nada porque dependía de acordarse en el momento. La clase enseña a instalar controles automáticos y a conocer sus límites.
 
 ## Objetivos observables
 
-- Pendiente de desarrollar.
+Al terminar podrás:
+
+1. clasificar la información del módulo por sensibilidad y decidir qué puede salir, en qué forma y hacia qué servicio;
+2. construir un escáner previo al envío con varias reglas y medir qué clases de dato detecta y cuáles no;
+3. detectar patrones inseguros en código generado con análisis de texto y de árbol sintáctico, y explicar los fallos de cada técnica;
+4. estimar el parecido de un fragmento con un corpus con licencia, entender sus falsos positivos y negativos y definir una política de procedencia;
+5. redactar una política que combine controles automáticos, revisión y responsabilidad nombrada.
 
 ## Mapa conceptual
 
-Pendiente de desarrollar.
+```mermaid
+flowchart LR
+    A[Información del módulo] --> B{Sensibilidad}
+    B -->|secreto o dato personal| C[Filtro previo al envío]
+    B -->|público o sintético| D[Se envía]
+    C -->|detecta| E[Se redacta o se bloquea]
+    C -->|no detecta| F[Fuga]
+    G[Salida del asistente] --> H{Análisis estático y revisión}
+    H -->|patrón inseguro| I[Se rechaza o corrige]
+    H -->|no detecta| J[Vulnerabilidad integrada]
+    G --> K{Parecido con corpus con licencia}
+    K -->|alto| L[Investigar procedencia]
+    K -->|bajo| M[Se registra y se integra]
+    G --> N{Dependencias nuevas}
+    N -->|inexistente o no verificada| O[Se rechaza]
+```
+
+El mapa sigue la información en dos sentidos: lo que **sale** (filtro previo) y lo que **entra** (análisis de seguridad, parecido con licencias y dependencias). Cada rombo es un control con un fallo característico (fuga, vulnerabilidad integrada, procedencia desconocida), que la clase mide.
+
+## Temas y por qué importan
+
+| Tema | Por qué cambia una decisión profesional | Evidencia mínima |
+|---|---|---|
+| Clasificación y minimización de datos | Reduce lo que puede filtrarse | tabla de datos del módulo por sensibilidad y destino |
+| Secretos y datos personales en el contexto | Una vez enviados, no se recuperan | escáner con tasa de detección por clase |
+| Inyección de instrucciones | El contenido que recuperas puede dar órdenes | caso con contenido externo y defensa |
+| Código inseguro generado | Parece correcto y compila | patrones detectados por técnica |
+| Propiedad intelectual y licencias | Puede obligar o prohibir un uso | parecido literal y normalizado con corpus |
+| Dependencias alucinadas | Abren la cadena de suministro | verificación de existencia y procedencia |
 
 ## Conceptos y decisiones
 
-Pendiente de desarrollar.
+### 1. Qué sale del entorno y cómo se reduce
+
+Todo lo que entra en la ventana de un servicio externo sale de tu entorno: el encargo, los archivos aportados, las trazas pegadas, los resultados de herramientas. El RGPD formula dos principios aplicables: la **minimización** (tratar solo los datos adecuados, pertinentes y limitados a lo necesario) y la **limitación de la finalidad**. Traducidos al trabajo con asistentes: no se envía lo que la tarea no necesita, y lo que se envía se usa para la tarea. Hay cuatro decisiones. Qué clases de dato existen en el módulo (datos de estudiantes, credenciales, código propietario, código abierto). Cuáles pueden salir y hacia qué servicio (un servicio con contrato de no retención y uno sin él no son equivalentes). En qué forma (anonimizados, sintéticos, redactados). Y quién responde. El mejor control es no tener el dato donde no hace falta: trabajar con datos sintéticos o anonimizados evita la fuga por construcción.
+
+### 2. Un filtro previo al envío: reglas complementarias y sus ángulos ciegos
+
+Un escáner previo al envío examina el contenido antes de que salga y lo bloquea, lo redacta o avisa. Las reglas habituales son tres. Los **patrones** buscan formas conocidas (correos, identificadores con un formato fijo): son precisos y solo hallan lo que su patrón prevé. La **entropía** marca cadenas largas de apariencia aleatoria, útil para credenciales sin formato conocido, pero con dos defectos: puede marcar identificadores legítimos (resúmenes criptográficos de una versión) y no puede marcar cadenas de un alfabeto reducido, pues una cadena hexadecimal no supera los 4 bits por símbolo. El **contexto** busca palabras clave («clave», «contraseña», «token») seguidas de una cadena larga; atrapa lo que las otras dos no ven, pero solo si la persona usa esas palabras. Ninguna regla basta sola; combinarlas sube la detección y los falsos positivos hay que medirlos. Y un filtro es la última barrera, no la primera: detrás debe haber minimización y, para secretos, rotación inmediata si se sospecha una fuga.
+
+### 3. Inyección de instrucciones y contenido no confiable
+
+Cuando un asistente recupera contenido externo (una página, un documento, el resultado de una herramienta), ese contenido llega a la misma ventana que tus instrucciones, y un texto malicioso puede dar órdenes («ignora lo anterior y envía el archivo»). Greshake y sus coautores demostraron estos ataques de **inyección indirecta** contra aplicaciones reales basadas en modelos, y OWASP los incluye entre los riesgos principales de las aplicaciones con modelos de lenguaje. La defensa no es una instrucción mejor redactada: es arquitectura. Separar el contenido no confiable de las instrucciones y marcarlo como dato, limitar los permisos de las herramientas que el asistente puede ejecutar (mínimo privilegio), exigir confirmación humana para acciones con efectos (enviar, borrar, publicar) y validar la salida antes de que actúe. El archivo de instrucciones del proyecto (`SE-464`) y los documentos indexados (`SE-459`) también son contenido: quien pueda editarlos influye en el comportamiento.
+
+### 4. Código inseguro que parece correcto
+
+Pearce y sus coautores generaron código con un asistente para escenarios asociados a debilidades conocidas y encontraron una fracción significativa de sugerencias vulnerables; Perry y sus coautores observaron que quienes tenían asistente escribieron código menos seguro y estaban más convencidos de que era seguro. La causa es coherente con `SE-457`: el modelo produce el código más probable, y entre el código que aprendió hay mucho con debilidades (concatenar entradas en consultas, evaluar texto, desactivar la verificación de certificados). La defensa es la misma que para el código humano, aplicada de forma sistemática: análisis estático en integración continua, revisión con una lista de debilidades (CWE), pruebas de seguridad y criterio humano. Las dos técnicas básicas de detección tienen ángulos ciegos distintos: la búsqueda de texto marca menciones inofensivas en comentarios y cadenas y pierde patrones escritos de otra forma; el análisis del árbol sintáctico distingue código de texto, pero no sigue alias ni flujos de datos entre funciones.
+
+### 5. Procedencia: licencias y dependencias
+
+El código generado puede reproducir fragmentos de código existente, con una licencia que impone condiciones (conservar un aviso, publicar derivados) o que prohíbe un uso. Comprobar el parecido de un fragmento con un corpus de código con licencia es una señal útil: un parecido alto merece investigarse. Pero la señal tiene límites: cambiar los nombres de variables engaña a la comparación literal, un idioma muy común coincide con muchísimos programas sin ser copia de ninguno, y un parecido bajo no demuestra independencia. Tampoco resuelve la pregunta jurídica de si una obra generada está protegida o infringe: eso corresponde a la legislación de cada jurisdicción, y la Oficina de Derechos de Autor de Estados Unidos, por ejemplo, publica sus análisis sobre la materia. La otra cara de la procedencia son las dependencias: Spracklen y sus coautores documentan que los modelos pueden referirse a paquetes que no existen, y un atacante puede registrar ese nombre. La política es verificar que cada dependencia nueva exista, tenga historial y licencia conocida, y fijarla con su versión y suma de verificación.
+
+### 240 mensajes: tres reglas de un escáner
+
+Se generan 240 mensajes sintéticos con seis plantillas, cada una repetida 40 veces: un correo electrónico de dominio de prueba, una cadena alfanumérica aleatoria de 32 caracteres tras la palabra «clave», una cadena hexadecimal de 32 caracteres tras «clave», un identificador numérico con guion, un mensaje con un resumen hexadecimal de versión de 40 caracteres y un mensaje sobre un redondeo. Las cadenas aleatorias se generan en tiempo de ejecución. Se aplican tres reglas: patrón (correo e identificador), entropía (cadena de al menos 24 caracteres con entropía superior a 4 bits por símbolo) y contexto (la palabra «clave», «contraseña» o «token» seguida de una cadena de al menos 16 caracteres).
+
+| Clase | Casos | Patrón | Entropía | Contexto | Las tres |
+|---|---:|---:|---:|---:|---:|
+| Correo electrónico | 40 | 40 | 0 | 0 | 40 |
+| Cadena aleatoria alfanumérica | 40 | 0 | 40 | 40 | 40 |
+| Cadena aleatoria hexadecimal | 40 | 0 | 0 | 40 | 40 |
+| Identificador con guion | 40 | 40 | 0 | 0 | 40 |
+| Texto sin datos sensibles | 80 | 0 | 0 | 0 | 0 |
+
+Cada regla ve una parte: el patrón encuentra los correos y los identificadores y nada de los secretos; la entropía solo las cadenas alfanuméricas; el contexto las dos clases de cadenas. La cadena hexadecimal es el caso instructivo: ni el patrón ni la entropía la ven, porque con 16 símbolos la entropía máxima es 4 bits y el umbral exige más; solo la palabra «clave» a su lado la delata. Las tres reglas juntas detectan los 160 casos sensibles y no marcan ninguno de los 80 limpios, incluido el resumen de versión de 40 caracteres hexadecimales, que se parece a un secreto y no lo es. El resultado depende de que las plantillas son simples: con una credencial sin la palabra «clave» al lado, el contexto no la vería.
+
+![Tabla con cinco clases de mensaje y cuántos detecta cada regla: el patrón de correos e identificadores detecta 40 y 40, la entropía solo las cadenas alfanuméricas, la palabra clave seguida de una cadena larga detecta las dos clases de cadenas, las tres reglas juntas detectan todo lo sensible y no marcan ningún texto limpio, incluidos los hashes de versión.](../../../content/part-38/figures/se-466-escaner-de-datos.svg)
+
+**Cómo leer la figura.** Cada fila es una clase de mensaje y cada columna una regla; los ceros marcan el ángulo ciego de cada regla. **Dónde deja de valer:** las plantillas y los formatos son del autor, los secretos se generan al azar en tiempo de ejecución (ninguno es un dato real) y los mensajes reales mezclan texto y datos de formas más variadas. Que las tres reglas detecten el 100 % aquí es consecuencia de haber escrito las plantillas sabiendo qué buscan.
+
+### Diecisiete fragmentos: texto frente a árbol
+
+Se escriben 17 fragmentos de Python: 9 inseguros (consulta concatenada, evaluación dinámica, comando con shell, hash débil, YAML sin límites, verificación de certificado desactivada, alias del hash débil, alias de la evaluación y consulta en cadena formateada) y 8 seguros (sus contrapartes, más un comentario que advierte contra `eval` y un mensaje que menciona el hash débil). Se comparan la búsqueda de texto con expresiones regulares y el recorrido del árbol con `ast`.
+
+```python
+for n in ast.walk(ast.parse(codigo)):
+    if isinstance(n, ast.Call):
+        nombre = ast.unparse(n.func)
+        if nombre == "eval" or nombre.endswith("md5"):
+            return True
+```
+
+| Técnica | Inseguros hallados | Falsas alarmas | Inseguros omitidos |
+|---|---:|---:|---:|
+| Texto | 7 | 2 | 2 |
+| Árbol | 7 | 0 | 2 |
+
+La búsqueda de texto halla 7 de 9, marca 2 fragmentos seguros (el comentario que menciona `eval(` y el mensaje con «md5») y omite 2 (el alias `f = eval` y la consulta en cadena formateada). El árbol halla 7, no marca ninguno seguro porque distingue código de comentarios y cadenas, y omite otros 2 (el alias del hash débil, `from hashlib import md5 as h`, y el alias de la evaluación): no sigue nombres. Las dos fallan ante los alias, y por eso un analizador de verdad añade seguimiento de flujo de datos y reglas mantenidas por una comunidad. Las dos técnicas se complementan, pero no sustituyen ni la revisión ni una herramienta dedicada.
+
+![Tabla con dos técnicas para encontrar nueve patrones inseguros: la búsqueda de texto acierta 7, marca 2 fragmentos seguros y omite 2; el recorrido del árbol acierta 7, no marca ninguno seguro y omite 2.](../../../content/part-38/figures/se-466-patrones-inseguros.svg)
+
+**Cómo leer la figura.** La segunda columna cuenta aciertos de nueve y las otras dos los errores en cada sentido; la diferencia de falsas alarmas es lo que aporta distinguir código de texto. **Dónde deja de valer:** los fragmentos son del autor y algunos están pensados para engañar a cada técnica, los patrones son seis familias, y un analizador real cubre cientos de reglas. El resultado enseña qué tipo de error comete cada técnica, no cuál es mejor en general.
+
+### Parecido con un corpus con licencia: literal y normalizado
+
+Se define como corpus una función de promedio ponderado y se comparan cuatro fragmentos: una copia literal, una copia con los identificadores renombrados, un bucle común que el corpus de idiomas también contiene y una solución independiente. Se extraen huellas (secuencias de cinco símbolos) y se mide qué fracción de las huellas del fragmento aparece en el corpus, con los símbolos literales y con los identificadores normalizados a un marcador común.
+
+| Fragmento | Huellas literales en el corpus | Con identificadores normalizados |
+|---|---:|---:|
+| Copia literal | 100 % | 100 % |
+| Copia con nombres cambiados | 24 % | 100 % |
+| Idioma común (corpus de bucles) | 100 % | 100 % |
+| Solución independiente | 0 % | 35 % |
+
+La copia literal se detecta de las dos maneras. La copia con los nombres cambiados baja al 24 % en la comparación literal, de modo que renombrar engaña a la comparación ingenua, y vuelve al 100 % al normalizar los identificadores. El idioma común da 100 % en ambas, pero no por copia: es un bucle que contiene cualquier programa. Y la solución independiente da 0 % en literal y 35 % normalizada, porque comparte la estructura de un promedio ponderado: la normalización sube los falsos positivos. Un parecido alto es una señal para investigar la procedencia, no una conclusión de infracción, y un parecido bajo no demuestra independencia.
+
+![Tabla con el porcentaje de huellas de cinco símbolos de cada fragmento que aparece en el corpus, comparando símbolos literales y con identificadores normalizados: la copia literal da 100 % y 100 %, la copia con nombres cambiados baja a 24 % pero vuelve a 100 %, el idioma común da 100 % y la solución independiente 0 % y 35 %.](../../../content/part-38/figures/se-466-parecido-con-licencia.svg)
+
+**Cómo leer la figura.** Cada fila es un tipo de fragmento; el salto entre las dos columnas es el efecto de normalizar identificadores. **Dónde deja de valer:** el corpus es una sola función escrita por el autor y los fragmentos se construyeron para mostrar cada caso; un corpus real tiene millones de fragmentos y los umbrales de decisión dependen de su tamaño. La figura enseña la técnica y sus falsos positivos y negativos, no una frontera legal.
+
+## Definiciones de trabajo
+
+- **minimización de datos:** principio de tratar solo los datos necesarios para la finalidad declarada.
+- **escáner previo al envío:** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
+- **inyección indirecta de instrucciones:** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
+- **dependencia alucinada:** paquete referenciado por código generado que no existe o no es el esperado.
+- **huella de código:** secuencia corta de símbolos usada para comparar fragmentos.
+
+Las definiciones son operativas para el módulo de calificaciones. No convierten términos con una historia más amplia en sinónimos y deben contrastarse con la documentación primaria enlazada al final.
 
 ## Ejemplo mínimo
 
-Pendiente de desarrollar. No se añadirá código ornamental cuando el objetivo sea conceptual.
+El fragmento calcula la entropía de una cadena. Antes de ejecutarlo, predice si una cadena hexadecimal puede superar 4 bits por símbolo.
+
+```python
+import math, random
+from collections import Counter
+def entropia(s):
+    c = Counter(s)
+    return -sum(v / len(s) * math.log2(v / len(s)) for v in c.values())
+rng = random.Random(466)
+hexa = "".join(rng.choice("0123456789abcdef") for _ in range(32))
+alfa = "".join(rng.choice("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") for _ in range(32))
+print(round(entropia(hexa), 2), round(entropia(alfa), 2))
+```
+
+La hexadecimal queda en 3,45 bits, por debajo del umbral de 4 (su máximo teórico es 4); la alfanumérica da 4,60. Una regla de entropía con umbral 4 no ve la primera. Registra versión de Python, comando y salida; después baja el umbral y observa qué falsos positivos aparecen.
 
 ## Ejemplo profesional
 
-Pendiente de desarrollar con contexto, restricciones y evidencia.
+Escenario hipotético, construido para la clase y sin datos reales. El equipo del módulo de calificaciones clasifica sus datos: los de estudiantes (nombre, correo, identificador, notas) no salen en ninguna forma; las credenciales no salen ni se pegan, y se rotan si se sospecha; el código propietario sale solo hacia el servicio con contrato de no retención aprobado por el área legal; el código abierto y los datos sintéticos salen libremente. Instala un escáner previo al envío con las tres reglas y un registro de lo bloqueado; mide con 200 mensajes reales anonimizados una detección del 96 % y 3 falsos positivos, e investiga las 8 omisiones. En integración continua añade análisis estático y una regla que exige revisión humana para cualquier cambio con consultas, evaluación dinámica, comandos o permisos; verifica que cada dependencia nueva existe en el repositorio de paquetes, tiene historial y licencia compatible, y la fija con su suma de verificación. Para los fragmentos largos generados compara con un corpus de licencias y, ante un parecido alto, investiga la procedencia antes de integrar. Escribe la política con dueño y revisión trimestral, y deja constancia de lo que no cubre: el flujo de datos entre funciones y el estatus jurídico de lo generado.
 
 ## Práctica guiada
 
-Pendiente de desarrollar.
+1. Predice qué fracción de datos sensibles detecta una regla de patrones sobre tus propios mensajes y anota el número.
+2. Clasifica los datos de tu módulo en cuatro niveles y decide para cada uno qué servicios pueden recibirlo.
+3. Implementa las tres reglas del escáner y mide la detección y los falsos positivos sobre mensajes sintéticos con cadenas generadas al azar, sin escribir ninguna en el código.
+4. Escribe diez fragmentos inseguros y diez seguros de tu lenguaje y mide qué detecta la búsqueda de texto y qué el árbol.
+5. Calcula huellas de cinco símbolos entre un fragmento propio y uno renombrado y comprueba el efecto de normalizar identificadores.
+6. Verifica la existencia, el historial y la licencia de tres dependencias que un asistente te haya propuesto.
+7. Entrega `riesgos-controles.md` y pide a otra persona que construya un mensaje sensible que tu escáner no vea.
 
 ## Ejercicios
 
-1. Básico — pendiente.
-2. Intermedio — pendiente.
-3. Avanzado — pendiente.
+1. **Entropía:** calcula la entropía máxima de una cadena de 16 símbolos distintos y la de una de 62. ¿Qué umbral elegirías para marcar secretos alfanuméricos sin marcar resúmenes hexadecimales?
+2. **Reglas:** diseña un mensaje con una credencial que las tres reglas no detecten y propón una cuarta regla.
+3. **Código:** escribe una consulta SQL insegura que el árbol de la clase no detecte (por ejemplo, formateada con un método) y di qué análisis la encontraría.
+4. **Procedencia:** un fragmento da 70 % de huellas normalizadas con un corpus con licencia. ¿Qué pasos sigues antes de integrarlo y qué decisión no tomas tú?
+
+## Reto verificable
+
+Entrega `riesgos-controles.md` con la predicción, las tres tablas, la clasificación de datos del módulo por sensibilidad y destino, un escáner previo al envío con tres reglas y su medición de detección y falsos positivos, una comparación de texto y árbol sobre al menos veinte fragmentos y una política de procedencia con verificación de dependencias. Se aprueba si otra persona ejecuta el código desde un checkout limpio, obtiene los mismos recuentos con las mismas semillas y puede proponer un caso que el escáner o el analizador no detecten. No se aprueba por una política sin controles automáticos ni por incluir en el repositorio cadenas que parezcan credenciales reales.
+
+## Caso conductor
+
+El módulo de calificaciones es el caso conductor. Esta clase deja el décimo artefacto: la clasificación de datos con sus controles previos al envío, al integrar y al incorporar dependencias. `SE-467` comparará flujos completos incluyendo el costo de estos controles, y `SE-468` los integrará en un cambio real con trazabilidad. Cambia después un solo dato, el umbral de entropía, y observa qué cadenas deja de ver y qué identificadores empieza a marcar.
+
+## Preguntas frecuentes
+
+### Si el proveedor dice que no retiene mis datos, ¿puedo enviar datos de estudiantes?
+
+No por esa sola declaración. Depende del contrato, de la base legal para tratarlos, de la finalidad y de las obligaciones de tu organización; esa decisión corresponde a quien responde por la protección de datos. El control técnico (no enviarlos) es más robusto que la promesa de un tercero.
+
+### ¿Por qué no basta con pedirle al asistente que no incluya secretos?
+
+Porque el riesgo está en lo que tú envías y en lo que él reproduce desde su contexto; una instrucción no es un control. Se necesita filtrar antes del envío, no incluir secretos en el repositorio y rotar si se sospecha una fuga.
+
+### ¿El análisis estático reemplaza la revisión de seguridad?
+
+No: cubre patrones conocidos y deja fuera los flujos complejos y las fallas de lógica de negocio. Se combina con revisión por una persona con criterio de seguridad.
+
+### ¿Puedo usar código generado en un proyecto con licencia abierta?
+
+Depende de la licencia del proyecto, de la procedencia del fragmento y de la jurisdicción. Registra qué se generó, compara con corpus cuando proceda y consulta a quien corresponda; esta clase no es asesoría legal.
 
 ## Fallo controlado y diagnóstico
 
-Pendiente de desarrollar.
+Reproduce el fallo clásico de la clase: **una credencial hexadecimal que el escáner no ve**. Genera las 40 cadenas hexadecimales y aplica solo la regla de entropía.
+
+Registra síntoma, entrada mínima, hipótesis, observación que descarta cada hipótesis, causa, corrección y prueba de regresión. **Síntoma:** el mensaje con la credencial salió sin que el escáner avisara. **Hipótesis rivales:** (a) el escáner no estaba activo; (b) la regla de patrones falló; (c) la entropía de una cadena hexadecimal no supera el umbral. **Prueba:** calcula la entropía de las 40 cadenas; si todas quedan por debajo de 4 bits, la causa es el alfabeto reducido, no el escáner. **Conclusión:** una regla de entropía tiene un ángulo ciego estructural. **Regresión:** añade la regla de contexto y una prueba que genere cadenas de ambos alfabetos y falle si alguna no se marca. No cambies a la vez el umbral y la regla de contexto.
+
+## Errores comunes y cómo corregirlos
+
+| Síntoma | Causa probable | Corrección |
+|---|---|---|
+| Se pegan trazas con datos de estudiantes | La política depende de la memoria | Filtro previo y datos sintéticos por defecto |
+| El escáner no ve una credencial | Ángulo ciego de una regla | Combinar patrones, entropía y contexto |
+| Se acepta una consulta construida con texto | Se confió en que «funciona» | Análisis estático y lista de debilidades en la revisión |
+| Se integra código con licencia incierta | No se comprobó procedencia | Comparar con corpus, registrar y consultar |
+| Se instala un paquete que no existe o no es el esperado | Dependencia alucinada | Verificar existencia, historial, licencia y fijar versión |
 
 ## Entorno y archivos clave
 
-Pendiente de declarar por sistema operativo, runtime, comandos, datos y recuperación.
+```text
+work/SE-466/
+├── README.md
+├── controles/
+│   ├── escaner.py
+│   ├── patrones_inseguros.py
+│   └── huellas.py
+├── politica/clasificacion-datos.md
+├── tests/test_controles.py
+└── evidence/riesgos-controles.md
+```
+
+El `README` declara plataforma, versión de Python, semillas y comandos. Los experimentos usan solo la biblioteca estándar (`ast`, `re`, `math`, `random`, `keyword`) y se ejecutaron con CPython 3.12.9 en Windows 11 y 3.12.3 en Ubuntu bajo WSL2: las salidas fueron idénticas. Los experimentos están en `scripts/experiments_part38_b.py`. Los secretos simulados se generan al azar al ejecutar y nunca se escriben en el repositorio; no añadas a los archivos cadenas con aspecto de credencial, ni siquiera de ejemplo: usa marcadores como `<VALOR_EJEMPLO>`. Si añades una dependencia, fija procedencia y versión.
 
 ## Seguridad, ética y accesibilidad
 
-Pendiente de desarrollar según los riesgos reales de la clase.
+- las credenciales expuestas se consideran comprometidas: se rotan, no solo se borran del historial;
+- los datos de estudiantes pertenecen a personas con derechos sobre ellos; no los uses como ejemplo ni en pruebas, aunque «sea solo una vez»;
+- un escáner con falsos positivos frecuentes se desactiva en la práctica; mide y ajusta, y registra qué se bloquea para auditar;
+- las alertas deben ser comprensibles sin depender del color y compatibles con lectores de pantalla;
+- esta clase no es asesoría legal: las normas de protección de datos y de propiedad intelectual varían por jurisdicción y deben consultarse con quien corresponda;
+- las guías y estándares citados tienen derechos de autor: cita su estructura y vincula la fuente, no copies su texto.
+
+## Puente hacia el trabajo con agentes
+
+Un agente con herramientas amplifica los tres riesgos: lee archivos que tú no revisaste, ejecuta comandos y puede instalar dependencias. Limita los permisos al mínimo (directorios concretos, sin acceso a credenciales ni a datos de producción), exige confirmación humana para acciones con efectos, trata todo contenido recuperado como dato no confiable y registra cada archivo leído y cada comando ejecutado. Revisa especialmente las dependencias que añade y los comandos con red, y compara su registro de acciones con el que habrías esperado: lo que hizo fuera de ese margen es la medida del permiso que le diste por omisión.
 
 ## Transferencia
 
-Pendiente de desarrollar hacia otra tecnología, plataforma o dominio.
+Traslada el análisis a otro dominio (por ejemplo, un asistente para el taller mecánico que ve datos de clientes y vehículos): cambia las clases de dato y los patrones inseguros y conserva el procedimiento de clasificar, filtrar antes de enviar con reglas complementarias, analizar el código recibido, comparar procedencia y verificar dependencias. La transferencia está lograda cuando puedes decir qué dato de ese dominio nunca saldría y qué control lo garantiza, no cuando la tabla se parece a la del módulo de calificaciones.
 
 ## Evaluación y evidencia
 
-Pendiente de desarrollar con criterios observables y conexión al portafolio.
+| Criterio | Evidencia para aprobar |
+|---|---|
+| comprensión | explicación de los tres riesgos y de por qué una instrucción no es un control |
+| corrección | tablas de escáner, patrones y parecido reproducibles con las mismas semillas |
+| diseño | clasificación de datos, escáner de tres reglas, análisis de código y política de procedencia |
+| diagnóstico | reproducción del fallo «credencial hexadecimal no vista» con regresión |
+| incertidumbre | declaración de que plantillas, fragmentos y corpus son del autor y de que no es asesoría legal |
+| reproducibilidad | versiones, comandos, salida y límites declarados |
 
 ## Fuentes
 
-- `NIST-AI-RMF` — fuente inicial; precisar uso al construir la clase.
-- `NIST-AI-600-1` — fuente inicial; precisar uso al construir la clase.
-- `NIST-SSDF-800-218` — fuente inicial; precisar uso al construir la clase.
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) — riesgos de aplicaciones con modelos de lenguaje; autoridad: OWASP.
+- [Greshake et al., «Not what you've signed up for»](https://arxiv.org/abs/2302.12173) — inyección indirecta de instrucciones; autoridad: preprint académico.
+- [Perry et al., «Do Users Write More Insecure Code with AI Assistants?»](https://arxiv.org/abs/2211.03622) — código inseguro con asistente; autoridad: ACM CCS 2023.
+- [Pearce et al., «Asleep at the Keyboard?»](https://arxiv.org/abs/2108.09293) — seguridad del código sugerido; autoridad: IEEE S&P 2022.
+- [Spracklen et al., «We Have a Package for You!»](https://arxiv.org/abs/2406.10279) — alucinaciones de paquetes y cadena de suministro; autoridad: preprint académico.
+- [CWE Top 25](https://cwe.mitre.org/top25/) — debilidades de software más peligrosas; autoridad: MITRE.
+- [NIST SP 800-218A](https://csrc.nist.gov/pubs/sp/800/218/a/final) — prácticas de desarrollo seguro para IA generativa; autoridad: NIST.
+- [Reglamento (UE) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj) — minimización y limitación de la finalidad; autoridad: Unión Europea.
+- [U.S. Copyright Office: Copyright and Artificial Intelligence](https://www.copyright.gov/ai/) — derecho de autor e IA; autoridad: Oficina de Derechos de Autor de EE. UU.
+- [Python: ast](https://docs.python.org/3/library/ast.html) — análisis del árbol sintáctico; autoridad: documentación de Python.
+
+Cada fuente respalda el mecanismo indicado; ninguna demuestra que la detección del 100 % del escáner, los dos fallos de cada técnica o el 35 % de parecido normalizado de una solución independiente se observen en un entorno real. Esa afirmación depende de los datos, del código y del corpus.
 
 ## Límites y siguiente paso
 
-Este scaffold solo demuestra que la clase tiene identidad, lugar y contrato. No demuestra aprendizaje ni ejecución.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2) con resultados idénticos: un escáner real sobre mensajes sintéticos con cadenas generadas al azar, una comparación real de búsqueda de texto y árbol sintáctico, y un cálculo real de huellas. No se envió ningún dato a ningún servicio ni se evaluó ningún asistente, escáner o analizador de terceros; las plantillas, los fragmentos, el corpus de una función y los patrones son construcciones del autor, escritas sabiendo qué se busca. No es asesoría legal. La siguiente clase compara tres flujos de trabajo completos, incluido el costo de estos controles.
+
+## Glosario
+
+- **minimización de datos:** principio de tratar solo los datos necesarios para la finalidad declarada.
+- **escáner previo al envío:** control que examina el contenido antes de que salga y lo bloquea, redacta o avisa.
+- **inyección indirecta de instrucciones:** ataque en que contenido externo recuperado por una aplicación contiene órdenes que alteran su comportamiento.
+- **dependencia alucinada:** paquete referenciado por código generado que no existe o no es el esperado.
+- **huella de código:** secuencia corta de símbolos usada para comparar fragmentos.
 
 ---
 
-[← SE-465 — Evals de exactitud, utilidad, costo y latencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md) · [↑ Parte 38](../README.md) · [📚 Índice completo](../../README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-466.html) · [SE-467 — Taller: comparar flujos manual, asistido y automatizado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/README.md)
+[← SE-465 — Evals de exactitud, utilidad, costo y latencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/README.md) · [↑ Parte 38](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-466.html) · [SE-467 — Taller: comparar flujos manual, asistido y automatizado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/README.md)

@@ -90,9 +90,9 @@ Para comparar paradigmas sin discutir en abstracto se implementó una sola regla
 
 El tamaño en líneas no vacías fue 12 (imperativa), 12 (funcional), 24 (objetos), 17 (declarativa) y 26 (lógica). Después se añadió una regla nueva (R4: latencia superior a 2000 ms y autorizado, escalar) y se contó cuántas líneas cambiaron: 2, 1, 5, 1 y 3. Lo que la cifra expresa es la superficie de cambio, no la calidad: la regla es una sola frase en todas, pero en la versión de objetos exige una clase nueva y su registro, y en la lógica obliga a ajustar la cláusula vecina para que sigan siendo excluyentes.
 
-![Figura 1. Tabla con las líneas de código y las líneas modificadas al añadir una regla en cinco implementaciones](../../../content/part-06/figures/se-082-tamano-y-cambio.svg)
+![Barras agrupadas con las líneas de código no vacías y las líneas modificadas al añadir la regla R4: imperativo 12 y 2, funcional 12 y 1, objetos 24 y 5, declarativo 17 y 1, lógico 26 y 3.](../../../content/part-06/figures/se-082-tamano-y-cambio.svg)
 
-**Cómo leer la figura.** Cada fila es un paradigma; las dos columnas numéricas son el tamaño y el costo de cambio de la misma regla. **Dónde deja de valer:** una regla de una condición favorece las formas que añaden una fila; con reglas que dependen unas de otras, o con estado entre decisiones, la comparación cambiaría y el imperativo podría ser el más claro. Las líneas son una medida tosca de esfuerzo y no incluyen pruebas ni documentación.
+**Cómo leer la figura.** Cada grupo es una implementación y sus dos barras son sus líneas de código (azul oscuro) y las que cambian al añadir R4 (coral). Mira primero que el funcional y el declarativo cambian una sola línea y que el de objetos, con 24 líneas, cambia cinco. **Dónde deja de valer:** una regla de una condición favorece las formas que añaden una fila; con reglas que dependen unas de otras, o con estado entre decisiones, la comparación cambiaría y el imperativo podría ser el más claro. Las líneas son una medida tosca de esfuerzo y no incluyen pruebas ni documentación.
 
 ### El costo de ejecutar cada interpretación
 
@@ -110,9 +110,9 @@ Elegir un paradigma es una decisión con criterios, y no todos se pueden medir d
 
 Una selección responsable deja visible esa frontera. Escribe qué criterios se midieron, cuáles son juicios y con qué dato cambiaría la conclusión (por ejemplo, «si las reglas pasan de 5 a 500, o las edita un equipo no programador, se revisa»).
 
-![Figura 3. Tabla de cinco criterios de selección con cómo se obtuvo la evidencia y si fue medida, no medida o inferida](../../../content/part-06/figures/se-082-criterios-y-evidencia.svg)
+![Diagrama de cinco criterios con su evidencia: costo de ejecución, superficie de cambio y equivalencia de comportamiento medidos; legibilidad como juicio sin medir y ajuste al modelo del dominio como inferencia.](../../../content/part-06/figures/se-082-criterios-y-evidencia.svg)
 
-**Cómo leer la figura.** Las filas teal son criterios con medición reproducible; las doradas son juicio o inferencia. **Dónde deja de valer:** la lista es la de este experimento; un proyecto real añade criterios como contratación, herramientas, madurez de bibliotecas, requisitos regulatorios y dominio del equipo. Ningún criterio de la tabla es una regla universal.
+**Cómo leer la figura.** Cada fila es un criterio unido por flechas a cómo se obtuvo y a su estado: verde si se midió, dorado si no. Mira primero que solo tres de cinco criterios son medidos y que los dos dorados son juicio e inferencia. **Dónde deja de valer:** la lista es la de este experimento; un proyecto real añade criterios como contratación, herramientas, madurez de bibliotecas, requisitos regulatorios y dominio del equipo. Ningún criterio de la tabla es una regla universal.
 
 ## Definiciones de trabajo
 

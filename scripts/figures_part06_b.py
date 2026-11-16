@@ -1,7 +1,9 @@
 """Figures for SE-079 to SE-084 (CPython 3.12.9 on Windows 11 and 3.12.3 on Ubuntu 24.04 under WSL2)."""
 from __future__ import annotations
 
-from figure_kit import Fig
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, grouped_bars
+
 
 OBS = "Medido con CPython 3.12 en un equipo concreto; las magnitudes cambian con la máquina, el orden relativo es lo que importa."
 
@@ -40,18 +42,18 @@ def se079_bloqueo() -> Fig:
 
 
 def se079_fallos() -> Fig:
-    f = Fig(960, 400, "Cuatro fallos típicos de un bus de eventos ejecutados",
-            "Tabla: si el segundo de tres manejadores lanza una excepción el tercero nunca corre; un manejador que emite el mismo evento llega a profundidad 5; "
-            "sin identificador de evento una entrega duplicada suma 13 en vez de 8; y una excepción dentro de una tarea no esperada queda guardada en la tarea sin interrumpir al resto.")
-    heads = ["Experimento", "Resultado ejecutado", "Lectura"]
     rows = [
-        ["Tres manejadores; el segundo lanza RuntimeError", "El registro quedó [h1]; h3 nunca corrió", "Un despachador síncrono ligado a sus manejadores propaga el fallo al emisor"],
-        ["Un manejador de «y» vuelve a emitir «y»", "Profundidad máxima de 5", "Sin límite ni cola, la reentrada es recursión disfrazada"],
-        ["Eventos e1 (5), e1 (5), e2 (3) entregados dos veces el primero", "Suma 13 sin id; 8 con id de evento", "Con entrega «al menos una vez» el consumidor debe ser idempotente"],
-        ["Tarea creada con create_task que lanza ValueError y nadie la espera", "La tarea terminó con la excepción guardada", "Si nadie la consulta, el error aparece tarde o nunca como un aviso"],
+        [("Tres manejadores; el segundo lanza RuntimeError", "plain"), ("El registro quedó [h1]; h3 nunca corrió", "coral"), ("Un despachador síncrono ligado a sus manejadores propaga el fallo al emisor", "plain")],
+        [("Un manejador de «y» vuelve a emitir «y»", "plain"), ("Profundidad máxima de 5", "coral"), ("Sin límite ni cola, la reentrada es recursión disfrazada", "plain")],
+        [("Eventos e1 (5), e1 (5), e2 (3): el primero entregado dos veces", "plain"), ("Suma 13 sin id; 8 con id de evento", "gold"), ("Con entrega «al menos una vez» el consumidor debe ser idempotente", "plain")],
+        [("Tarea creada con create_task que lanza ValueError y nadie la espera", "plain"), ("La tarea terminó con la excepción guardada", "gold"), ("Si nadie la consulta, el error aparece tarde o nunca como un aviso", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [320, 280, 340], row_h=78, size=12)
-    return f
+    return chain_rows(
+        "Cuatro fallos típicos de un bus de eventos ejecutados, de la causa a la lectura",
+        "Diagrama de cuatro experimentos: si el segundo de tres manejadores lanza una excepción el tercero nunca corre; un manejador que emite el mismo evento llega a profundidad 5; sin identificador de evento una entrega duplicada suma 13 en vez de 8; y una excepción dentro de una tarea no esperada queda guardada en la tarea sin interrumpir al resto.",
+        ["Experimento", "Resultado ejecutado", "Lectura"], rows, [290, 260, 300], gap=26,
+        note="Los cuatro fallos pasan en silencio o tarde: la propagación de la excepción, la reentrada, la entrega duplicada y la tarea sin esperar no avisan en el momento en que ocurren.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-080
@@ -79,19 +81,18 @@ def se080_contrapresion() -> Fig:
 
 
 def se080_semantica() -> Fig:
-    f = Fig(960, 430, "Semántica de flujos observada: agotamiento, error final y debounce",
-            "Tabla: un generador agotado devuelve vacío, un error termina el flujo después de entregar 1 y 2 sin llegar a 3, "
-            "y un debounce de 100 ms sobre eventos en 0, 10, 20, 400, 410 y 900 ms emite solo los de 20, 410 y 900.")
-    heads = ["Experimento", "Resultado ejecutado", "Contrato que implica"]
     rows = [
-        ["list(g) dos veces sobre el mismo generador", "[0, 1, 2] y luego []", "Un flujo caliente o un generador no se rebobinan"],
-        ["Flujo que entrega 1 y 2 y lanza ValueError antes de 3", "Se recibieron [1, 2]; error «fin con error»", "Error y finalización son terminales: no hay elementos después"],
-        ["Debounce de 100 ms sobre 0, 10, 20, 400, 410, 900", "Emite 20, 410 y 900", "Un operador de tiempo cambia la cardinalidad de salida"],
-        ["Suscribirse dos veces a un flujo frío con efecto", "El efecto se ejecutó dos veces", "Frío: cada suscripción empieza de nuevo; caliente: comparten"],
+        [("list(g) dos veces sobre el mismo generador", "plain"), ("[0, 1, 2] y luego []", "gold"), ("Un flujo caliente o un generador no se rebobinan", "plain")],
+        [("Flujo que entrega 1 y 2 y lanza ValueError antes de 3", "plain"), ("Se recibieron [1, 2]; error «fin con error»", "coral"), ("Error y finalización son terminales: no hay elementos después", "plain")],
+        [("Debounce de 100 ms sobre 0, 10, 20, 400, 410, 900", "plain"), ("Emite 20, 410 y 900", "teal"), ("Un operador de tiempo cambia la cardinalidad de salida", "plain")],
+        [("Suscribirse dos veces a un flujo frío con efecto", "plain"), ("El efecto se ejecutó dos veces", "gold"), ("Frío: cada suscripción empieza de nuevo; caliente: comparten", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [330, 300, 310], row_h=70, size=12)
-    f.box(10, 372, 940, 40, "El contrato de ReactiveX fija que tras un error o una finalización no hay más notificaciones.", "gold", 13)
-    return f
+    return chain_rows(
+        "Semántica de flujos observada: agotamiento, error final, debounce y flujos fríos",
+        "Diagrama de cuatro experimentos: un generador agotado devuelve vacío, un error termina el flujo después de entregar 1 y 2 sin llegar a 3, un debounce de 100 ms sobre eventos en 0, 10, 20, 400, 410 y 900 ms emite solo los de 20, 410 y 900, y suscribirse dos veces a un flujo frío ejecuta el efecto dos veces.",
+        ["Experimento", "Resultado ejecutado", "Contrato que implica"], rows, [290, 260, 300], gap=26,
+        note="El contrato de ReactiveX fija que tras un error o una finalización no hay más notificaciones.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-081
@@ -120,35 +121,29 @@ def se081_cpu() -> Fig:
 
 
 def se081_buzon() -> Fig:
-    f = Fig(960, 400, "Actores como buzones: orden, bloqueo mutuo y buzón sin límite",
-            "Tabla: un actor con buzón recibió 4 emisores por 50000 mensajes y su estado fue 200000 sin cerrojos; dos hilos que toman dos cerrojos en orden opuesto con espera acotada terminaron con A fallando y B teniendo éxito; "
-            "y un buzón sin límite aceptó un millón de mensajes sin rechazar ninguno.")
-    heads = ["Experimento", "Resultado ejecutado", "Lectura"]
     rows = [
-        ["Actor: un hilo dueño del estado y un buzón; 4 emisores × 50 000 mensajes", "Estado final = 200 000", "El estado tiene un solo escritor; la sincronización está en la cola"],
-        ["Dos cerrojos tomados en orden opuesto por A y B, con timeout de 0,3 s", "A no obtuvo el segundo; B sí", "Sin timeout habría bloqueo mutuo; el timeout lo convierte en fallo observable"],
-        ["Buzón sin límite: poner un millón de mensajes", "Aceptó todos; qsize = 1 000 000", "Sin límite de buzón no hay contrapresión: el productor no se entera"],
+        [("Actor: un hilo dueño del estado y un buzón; 4 emisores × 50 000 mensajes", "plain"), ("Estado final = 200 000", "teal"), ("El estado tiene un solo escritor; la sincronización está en la cola", "plain")],
+        [("Dos cerrojos tomados en orden opuesto por A y B, con timeout de 0,3 s", "plain"), ("A no obtuvo el segundo; B sí", "gold"), ("Sin timeout habría bloqueo mutuo; el timeout lo convierte en fallo observable", "plain")],
+        [("Buzón sin límite: poner un millón de mensajes", "plain"), ("Aceptó todos; qsize = 1 000 000", "coral"), ("Sin límite de buzón no hay contrapresión: el productor no se entera", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [340, 270, 330], row_h=88, size=12)
-    f.box(10, 332, 940, 56, "Los actores evitan los datos compartidos, no los fallos: el orden entre emisores distintos no está garantizado y el buzón es un recurso finito.", "coral", 13)
-    return f
+    return chain_rows(
+        "Actores como buzones: orden, bloqueo mutuo y buzón sin límite",
+        "Diagrama de tres experimentos: un actor con buzón recibió 4 emisores por 50000 mensajes y su estado fue 200000 sin cerrojos; dos hilos que toman dos cerrojos en orden opuesto con espera acotada terminaron con A fallando y B teniendo éxito; y un buzón sin límite aceptó un millón de mensajes sin rechazar ninguno.",
+        ["Experimento", "Resultado ejecutado", "Lectura"], rows, [300, 240, 310], gap=26,
+        note="Los actores evitan los datos compartidos, no los fallos: el orden entre emisores distintos no está garantizado y el buzón es un recurso finito.",
+        note_kind="coral", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-082
 def se082_tamano() -> Fig:
-    f = Fig(960, 430, "Cinco implementaciones de la misma regla: tamaño y costo de añadir una regla",
-            "Tabla con el tamaño en líneas no vacías y las líneas modificadas al añadir la regla R4: imperativo 12 y 2, funcional 12 y 1, objetos 24 y 5, declarativo 17 y 1, lógico 26 y 3.")
-    heads = ["Paradigma", "Líneas de código", "Líneas cambiadas al añadir R4", "Dónde está la regla nueva"]
-    rows = [
-        ["Imperativo (if/elif)", "12", "2", "Una rama en la cadena, en el sitio correcto"],
-        ["Funcional (predicados y next)", "12", "1", "Una fila en la tupla de reglas"],
-        ["Objetos (una clase por regla)", "24", "5", "Una clase nueva y su registro en la lista"],
-        ["Declarativo (condiciones como datos)", "17", "1", "Una fila en la tabla de datos"],
-        ["Lógico (hechos y cláusulas)", "26", "3", "Una cláusula y un ajuste de otra"],
-    ]
-    f.table(heads, rows, 10, 12, [270, 140, 230, 300], row_h=50, size=12, head_h=46)
-    f.box(10, 370, 940, 44, "Menos líneas no significa mejor: la regla es corta en todos; cambian el lugar donde viven y cuánto del resto hay que tocar.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Cinco implementaciones de la misma regla: tamaño y líneas que cambian al añadir la regla R4",
+        "Barras agrupadas con las líneas de código no vacías y las líneas modificadas al añadir la regla R4: imperativo 12 y 2, funcional 12 y 1, objetos 24 y 5, declarativo 17 y 1, lógico 26 y 3.",
+        ["Imperativo (if/elif)", "Funcional (predicados y next)", "Objetos (una clase por regla)", "Declarativo (condiciones como datos)", "Lógico (hechos y cláusulas)"],
+        [("Líneas de código", [12, 12, 24, 17, 26], "navy"), ("Líneas cambiadas al añadir R4", [2, 1, 5, 1, 3], "coral")],
+        unit="Líneas", horizontal=True, label_w=260, ticks=[0, 5, 10, 15, 20, 25],
+        note="Dónde vive la regla nueva: una rama en la cadena (imperativo), una fila en la tupla de reglas (funcional), una clase y su registro (objetos), una fila de datos (declarativo), una cláusula y un ajuste (lógico). Menos líneas no significa mejor: cambian el lugar donde viven y cuánto del resto hay que tocar.",
+        note_kind="gold", foot=OBS)
 
 
 def se082_costo() -> Fig:
@@ -164,19 +159,19 @@ def se082_costo() -> Fig:
 
 
 def se082_matriz() -> Fig:
-    f = Fig(960, 450, "Qué evidencia respalda cada criterio de selección de paradigma",
-            "Tabla de criterios con su evidencia: tamaño y cambio medidos por diferencia de líneas, costo de ejecución medido, legibilidad y modelo del dominio como juicio sin medir, y acoplamiento declarado como inferencia.")
-    heads = ["Criterio", "Cómo se obtuvo aquí", "Estado"]
     rows = [
-        ["Costo de ejecutar", "timeit, mediana de cinco repeticiones, dos sistemas", "Medido"],
-        ["Superficie de cambio", "difflib entre la versión 1 y la 2 de cada implementación", "Medido"],
-        ["Equivalencia de comportamiento", "14 casos fijos más 20 000 entradas aleatorias, 0 desacuerdos", "Medido"],
-        ["Legibilidad para un equipo", "Juicio sobre el equipo y su formación", "No medido"],
-        ["Ajuste al modelo del dominio", "Depende de si el problema se expresa mejor como reglas, flujo o estado", "Inferencia"],
+        [("Costo de ejecutar", "plain"), ("timeit, mediana de cinco repeticiones, dos sistemas", "plain"), ("Medido", "teal")],
+        [("Superficie de cambio", "plain"), ("difflib entre la versión 1 y la 2 de cada implementación", "plain"), ("Medido", "teal")],
+        [("Equivalencia de comportamiento", "plain"), ("14 casos fijos más 20 000 entradas aleatorias, 0 desacuerdos", "plain"), ("Medido", "teal")],
+        [("Legibilidad para un equipo", "plain"), ("Juicio sobre el equipo y su formación", "plain"), ("No medido", "gold")],
+        [("Ajuste al modelo del dominio", "plain"), ("Depende de si el problema se expresa mejor como reglas, flujo o estado", "plain"), ("Inferencia", "gold")],
     ]
-    f.table(heads, rows, 10, 12, [260, 500, 180], row_h=56, size=13, kinds=["plain", "plain", ("teal", "teal", "teal", "gold", "gold")])
-    f.box(10, 392, 940, 44, "Una selección responsable separa lo medido de lo supuesto y deja los supuestos visibles para revisarlos.", "grey", 13)
-    return f
+    return chain_rows(
+        "Qué evidencia respalda cada criterio de selección de paradigma",
+        "Diagrama de cinco criterios con su evidencia: costo de ejecución, superficie de cambio y equivalencia de comportamiento medidos; legibilidad como juicio sin medir y ajuste al modelo del dominio como inferencia.",
+        ["Criterio", "Cómo se obtuvo aquí", "Estado"], rows, [270, 420, 130], gap=30,
+        note="Una selección responsable separa lo medido de lo supuesto y deja los supuestos visibles para revisarlos.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-083
@@ -208,38 +203,31 @@ def se083_superficie() -> Fig:
 
 
 def se083_mutantes() -> Fig:
-    f = Fig(960, 430, "Mutantes de la versión imperativa y qué caso los detecta",
-            "Tabla de seis mutantes: cambiar mayor por mayor o igual lo detecta solo el caso de latencia 800; quitar la autorización los casos no autorizados; "
-            "invalidar menos de -5 el caso -1; permitir booleanos el caso True; invertir autorización y latencia los casos 3 y 12; y mover el umbral a 900 los casos feliz y 801.")
-    heads = ["Mutante", "Casos que lo detectan", "Lección"]
-    rows = [
-        ["> 800 por >= 800", "Solo el caso de latencia 800", "El valor límite exacto es el único que lo delata"],
-        ["Sin chequeo de autorización", "Tres casos con authorized = false", "Un camino feliz nunca lo detecta"],
-        ["Invalidez: latencia < 0 pasa a < -5", "Solo el caso -1", "Sin un caso inválido cercano, el error pasa"],
-        ["Aceptar booleanos como latencia", "Solo el caso True", "Python trata True como entero; solo un caso lo delata"],
-        ["Orden: latencia antes de autorización", "Casos 900 no autorizado y 5000 no autorizado", "El orden de las reglas es semántica"],
-        ["Umbral 800 pasa a 900", "Caso 900 y caso 801", "Un caso feliz bien elegido ya lo detecta"],
-    ]
-    f.table(heads, rows, 10, 12, [300, 320, 320], row_h=52, size=12)
-    return f
+    return grouped_bars(
+        "Mutantes de la versión imperativa: cuántos casos del contrato detecta cada uno",
+        "Barras horizontales con los casos que detectan cada uno de seis mutantes: cambiar mayor por mayor o igual lo detecta 1 caso, el de latencia 800; quitar la autorización, 3 casos no autorizados; invalidar menos de -5, 1 caso; permitir booleanos, 1 caso; invertir el orden de autorización y latencia, 2 casos; y mover el umbral a 900, 2 casos.",
+        ["> 800 por >= 800", "Sin chequeo de autorización", "Invalidez: latencia < 0 pasa a < -5", "Aceptar booleanos como latencia", "Orden: latencia antes de autorización", "Umbral 800 pasa a 900"],
+        [("Casos que lo detectan", [1, 3, 1, 1, 2, 2], "teal")],
+        unit="Casos que detectan el mutante", horizontal=True, label_w=270, ticks=[0, 1, 2, 3],
+        note="Un solo caso delata tres mutantes: el valor límite exacto (800), el caso inválido cercano (−1) y el caso con True. Un camino feliz nunca detecta la falta de autorización, y el orden de las reglas es semántica.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-084
 def se084_matriz() -> Fig:
-    f = Fig(960, 420, "Matriz de evidencia común: qué se ejecutó y en qué sistema",
-            "Tabla de cuatro comprobaciones: contrato común de 14 casos en cinco implementaciones, 20000 entradas aleatorias con 0 desacuerdos, versión 2 con 16 de 16 casos y costo medido; "
-            "las cuatro se ejecutaron en Windows y Linux.")
-    heads = ["Comprobación", "Resultado", "Windows 3.12.9", "Linux 3.12.3"]
     rows = [
-        ["Contrato: 14 casos fijos × 5 implementaciones", "70 de 70", "Ejecutado", "Ejecutado"],
-        ["Prueba diferencial: 20 000 entradas aleatorias", "0 desacuerdos", "Ejecutado", "Ejecutado"],
-        ["Versión 2 con R4: 16 casos × 5", "80 de 80", "Ejecutado", "Ejecutado"],
-        ["Costo por decisión (timeit)", "700 a 17 818 ns", "Ejecutado", "Ejecutado"],
-        ["Prolog real, Erlang, Rust, Rx", "—", "No ejecutado", "No ejecutado"],
+        [("Contrato: 14 casos fijos × 5 implementaciones", "plain"), ("70 de 70", "teal"), ("Ejecutado", "teal"), ("Ejecutado", "teal")],
+        [("Prueba diferencial: 20 000 entradas aleatorias", "plain"), ("0 desacuerdos", "teal"), ("Ejecutado", "teal"), ("Ejecutado", "teal")],
+        [("Versión 2 con R4: 16 casos × 5", "plain"), ("80 de 80", "teal"), ("Ejecutado", "teal"), ("Ejecutado", "teal")],
+        [("Costo por decisión (timeit)", "plain"), ("700 a 17 818 ns", "teal"), ("Ejecutado", "teal"), ("Ejecutado", "teal")],
+        [("Prolog real, Erlang, Rust, Rx", "plain"), ("—", "grey"), ("No ejecutado", "coral"), ("No ejecutado", "coral")],
     ]
-    f.table(heads, rows, 10, 12, [380, 190, 190, 180], row_h=52, size=13, kinds=["plain", "plain", ("teal", "teal", "teal", "teal", "coral"), ("teal", "teal", "teal", "teal", "coral")])
-    f.box(10, 366, 940, 40, "Los lenguajes que no estaban instalados se declaran como no ejecutados, no se dan por equivalentes.", "gold", 13)
-    return f
+    return chain_rows(
+        "Matriz de evidencia común: qué se ejecutó y en qué sistema",
+        "Diagrama de cinco comprobaciones: contrato común de 14 casos en cinco implementaciones, 20000 entradas aleatorias con 0 desacuerdos, versión 2 con 16 de 16 casos y costo medido, ejecutadas en Windows y Linux; Prolog real, Erlang, Rust y Rx no se ejecutaron.",
+        ["Comprobación", "Resultado", "Windows 3.12.9", "Linux 3.12.3"], rows, [330, 170, 150, 150], gap=30,
+        note="Los lenguajes que no estaban instalados se declaran como no ejecutados, no se dan por equivalentes.",
+        note_kind="gold", foot=OBS)
 
 
 def se084_suites() -> Fig:
@@ -254,17 +242,17 @@ def se084_suites() -> Fig:
 
 
 def se084_informe() -> Fig:
-    f = Fig(960, 430, "Estructura del informe de comparación: afirmación, evidencia y límite",
-            "Tabla de tres afirmaciones con su evidencia y lo que no prueban: equivalencia en los casos probados, costo de cambio medido por diferencia de líneas y costo de ejecución medido en un microbenchmark.")
-    heads = ["Afirmación del informe", "Evidencia que la sostiene", "Lo que no prueba"]
     rows = [
-        ["Las cinco versiones son equivalentes sobre el dominio probado", "14 casos fijos y 20 000 entradas aleatorias, 0 desacuerdos", "Equivalencia sobre entradas fuera del generador, incluidos tipos exóticos"],
-        ["La regla nueva cuesta menos líneas en el funcional y el declarativo", "Diferencia de líneas entre versión 1 y 2", "Que el equipo entienda mejor esas formas"],
-        ["El imperativo es el más rápido y el lógico el más lento", "timeit en dos sistemas, mismo orden", "Que la diferencia importe para la carga real"],
+        [("Las cinco versiones son equivalentes sobre el dominio probado", "gold"), ("14 casos fijos y 20 000 entradas aleatorias, 0 desacuerdos", "teal"), ("Equivalencia sobre entradas fuera del generador, incluidos tipos exóticos", "coral")],
+        [("La regla nueva cuesta menos líneas en el funcional y el declarativo", "gold"), ("Diferencia de líneas entre versión 1 y 2", "teal"), ("Que el equipo entienda mejor esas formas", "coral")],
+        [("El imperativo es el más rápido y el lógico el más lento", "gold"), ("timeit en dos sistemas, mismo orden", "teal"), ("Que la diferencia importe para la carga real", "coral")],
     ]
-    f.table(heads, rows, 10, 12, [330, 320, 290], row_h=96, size=13)
-    f.box(10, 366, 940, 44, "Cada afirmación del informe enlaza un artefacto reproducible; las que no lo tienen se marcan como juicio.", "coral", 13)
-    return f
+    return chain_rows(
+        "Estructura del informe de comparación: afirmación, evidencia y límite",
+        "Diagrama de tres afirmaciones con su evidencia y lo que no prueban: equivalencia en los casos probados, costo de cambio medido por diferencia de líneas y costo de ejecución medido en un microbenchmark.",
+        ["Afirmación del informe", "Evidencia que la sostiene", "Lo que no prueba"], rows, [290, 270, 290], gap=26,
+        note="Cada afirmación del informe enlaza un artefacto reproducible; las que no lo tienen se marcan como juicio.",
+        note_kind="coral", foot=OBS)
 
 
 FIGURES = {

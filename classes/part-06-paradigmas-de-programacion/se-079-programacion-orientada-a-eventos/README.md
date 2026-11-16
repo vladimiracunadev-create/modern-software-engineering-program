@@ -110,9 +110,9 @@ Un despachador de eventos sencillo (un diccionario de manejadores por tipo) perm
 
 Cada fallo tiene un remedio de diseño: aislar los manejadores (capturar y registrar el error por manejador), poner un límite o una cola a la reentrada, hacer idempotente al consumidor con identificadores de evento y supervisar las tareas creadas.
 
-![Figura 3. Tabla con cuatro fallos de un bus de eventos: manejador que falla, reentrada, entrega duplicada y excepción en una tarea no esperada](../../../content/part-06/figures/se-079-fallos-de-un-bus.svg)
+![Diagrama de cuatro experimentos: si el segundo de tres manejadores lanza una excepción el tercero nunca corre; un manejador que emite el mismo evento llega a profundidad 5; sin identificador de evento una entrega duplicada suma 13 en vez de 8; y una excepción dentro de una tarea no esperada queda guardada en la tarea sin interrumpir al resto.](../../../content/part-06/figures/se-079-fallos-de-un-bus.svg)
 
-**Cómo leer la figura.** Cada fila es un experimento, su resultado y la lectura de diseño. **Dónde deja de valer:** el bus es mínimo y síncrono, sin colas persistentes, reintentos ni entrega entre procesos; un broker real (con acuses, reintentos y orden por partición) añade garantías y fallos que aquí no se ejercitan.
+**Cómo leer la figura.** Cada fila es un experimento, su resultado ejecutado y la lectura. Mira primero las dos cajas coral, la excepción que impide correr al tercer manejador y la reentrada hasta profundidad 5. **Dónde deja de valer:** el bus es mínimo y síncrono, sin colas persistentes, reintentos ni entrega entre procesos; un broker real (con acuses, reintentos y orden por partición) añade garantías y fallos que aquí no se ejercitan.
 
 ## Definiciones de trabajo
 

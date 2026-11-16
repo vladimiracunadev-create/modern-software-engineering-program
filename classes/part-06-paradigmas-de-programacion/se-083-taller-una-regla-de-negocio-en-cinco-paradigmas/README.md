@@ -112,9 +112,9 @@ La lectura útil no es «ganó el funcional» sino dónde vive el conocimiento d
 
 Cada caso de prueba existe porque protege una regla concreta; cada mutante que sobrevive indica un hueco. Si se suprime el caso `True`, el mutante de booleanos sobrevive y nadie se entera.
 
-![Figura 3. Tabla de seis mutantes de la versión imperativa con los casos que los detectan y la lección de cada uno](../../../content/part-06/figures/se-083-mutantes.svg)
+![Barras horizontales con los casos que detectan cada uno de seis mutantes: cambiar mayor por mayor o igual lo detecta 1 caso, el de latencia 800; quitar la autorización, 3 casos no autorizados; invalidar menos de -5, 1 caso; permitir booleanos, 1 caso; invertir el orden de autorización y latencia, 2 casos; y mover el umbral a 900, 2 casos.](../../../content/part-06/figures/se-083-mutantes.svg)
 
-**Cómo leer la figura.** Cada fila describe un defecto plantado, qué casos lo detectan y qué enseña sobre diseño de pruebas. **Dónde deja de valer:** seis mutantes escritos a mano no son un análisis de mutación sistemático (que genera cientos de variantes automáticamente); sirven para razonar sobre la relación entre casos y reglas, no para estimar la calidad de la suite.
+**Cómo leer la figura.** Cada barra son los casos del contrato que detectan un mutante de la versión imperativa. Mira primero que tres de los seis mutantes los detecta un solo caso y que ninguno queda sin detector. **Dónde deja de valer:** seis mutantes escritos a mano no son un análisis de mutación sistemático (que genera cientos de variantes automáticamente); sirven para razonar sobre la relación entre casos y reglas, no para estimar la calidad de la suite.
 
 ## Definiciones de trabajo
 

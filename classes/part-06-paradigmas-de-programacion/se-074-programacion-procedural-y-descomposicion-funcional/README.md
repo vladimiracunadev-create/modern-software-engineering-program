@@ -99,17 +99,17 @@ Descomponer un problema en uno más pequeño del mismo tipo es natural para reco
 
 Cuando la descomposición es lineal (cuenta atrás, sumas, recorridos de listas), un bucle con acumulador es más seguro y no depende del límite. Cuando es arborescente y de profundidad acotada por los datos (un árbol de decisión de pocos niveles), la recursión es la forma más clara. La decisión depende de si la profundidad máxima es conocida y pequeña.
 
-![Figura 2. Tabla con el límite de recursión por defecto, el límite elevado y la alternativa con bucle](../../../content/part-06/figures/se-074-limite-de-recursion.svg)
+![Diagrama de tres situaciones: con el límite por defecto de 1000 la recursión se detiene en profundidad 998 con RecursionError; elevando el límite a 100000 una recursión de 50000 niveles funciona en ambos sistemas; una iteración con pila explícita no depende del límite.](../../../content/part-06/figures/se-074-limite-de-recursion.svg)
 
-**Cómo leer la figura.** Cada fila es una configuración y lo que ocurrió; la última muestra la alternativa sin pila. **Dónde deja de valer:** el valor de 998 niveles depende de la versión de CPython y de lo que ya hay en la pila al empezar; otros lenguajes optimizan la recursión de cola (Scheme lo garantiza) y CPython no lo hace. El experimento no mide cuánta memoria consume cada marco.
+**Cómo leer la figura.** Cada fila es una situación, lo que se observó (coral si falla, verde si funciona) y su lectura. Mira primero que la recursión se detiene en 998 con el límite de 1000 y que el bucle no tiene ese tope. **Dónde deja de valer:** el valor de 998 niveles depende de la versión de CPython y de lo que ya hay en la pila al empezar; otros lenguajes optimizan la recursión de cola (Scheme lo garantiza) y CPython no lo hace. El experimento no mide cuánta memoria consume cada marco.
 
 ### Efectos ocultos: lo que una función promete y lo que hace
 
 Un procedimiento con contrato estrecho declara qué lee, qué escribe y qué devuelve. Dos experimentos muestran qué se rompe cuando el contrato miente. Primero, una función `impure(x)` que añade a una lista y devuelve `x + 1`, envuelta con `functools.lru_cache`, ejecutó su efecto una sola vez en tres llamadas con el mismo argumento: la memoización sustituye la llamada por su resultado, y eso solo es válido si la llamada no tenía efectos. Segundo, los argumentos de una función son referencias a objetos: `mut(l)` con `l.append(1)` cambió la lista del llamador, y `rebind(l)` con `l = [9]` no, porque reasignó el nombre local. Quien lee solo la firma no puede saber cuál de las dos ocurre.
 
-![Figura 3. Tabla con tres experimentos: memoización de una función con efecto, mutación frente a reasignación de un argumento y memoización de una función pura](../../../content/part-06/figures/se-074-efectos-ocultos.svg)
+![Diagrama de tres experimentos: al envolver con lru_cache una función que registra un efecto, tres llamadas producen un solo efecto; una función que añade a la lista recibida modifica la lista del llamador mientras reasignar el parámetro no; y una función pura se puede memoizar sin cambiar su significado.](../../../content/part-06/figures/se-074-efectos-ocultos.svg)
 
-**Cómo leer la figura.** La primera columna es el experimento, la segunda el resultado ejecutado y la tercera la consecuencia para el diseño. **Dónde deja de valer:** son efectos sobre una lista en memoria; los efectos de E/S, de reloj o de red añaden aleatoriedad y fallos que esta clase no ejecuta. La idea que sí generaliza es que la pureza es una propiedad verificable del contrato, no del tamaño de la función.
+**Cómo leer la figura.** Cada fila es un experimento, su resultado ejecutado y la consecuencia para el diseño. Mira primero la caja coral: tres llamadas con caché dejaron un solo efecto, así que memoizar cambió el comportamiento de una función impura. **Dónde deja de valer:** son efectos sobre una lista en memoria; los efectos de E/S, de reloj o de red añaden aleatoriedad y fallos que esta clase no ejecuta. La idea que sí generaliza es que la pureza es una propiedad verificable del contrato, no del tamaño de la función.
 
 ## Definiciones de trabajo
 

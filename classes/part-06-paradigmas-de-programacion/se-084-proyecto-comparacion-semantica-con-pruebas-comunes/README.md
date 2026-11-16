@@ -93,9 +93,9 @@ El proyecto final es una comparación semántica con pruebas comunes, y lo que l
 
 También registra lo que no se ejecutó: Prolog (no instalado), Erlang, Rust y las bibliotecas reactivas. Las cinco «versiones» comparadas son programas de Python que imitan el estilo de cada paradigma; no son un Prolog ni un Erlang reales. Declararlo no resta valor al proyecto: evita que una conclusión sobre «el paradigma lógico» se atribuya a un intérprete de juguete.
 
-![Figura 1. Tabla con cuatro comprobaciones ejecutadas en Windows y en Linux y una fila de lenguajes no ejecutados](../../../content/part-06/figures/se-084-matriz-de-evidencia.svg)
+![Diagrama de cinco comprobaciones: contrato común de 14 casos en cinco implementaciones, 20000 entradas aleatorias con 0 desacuerdos, versión 2 con 16 de 16 casos y costo medido, ejecutadas en Windows y Linux; Prolog real, Erlang, Rust y Rx no se ejecutaron.](../../../content/part-06/figures/se-084-matriz-de-evidencia.svg)
 
-**Cómo leer la figura.** Cada fila es una comprobación con su resultado; las celdas teal son lo ejecutado y la coral lo declarado como no ejecutado. **Dónde deja de valer:** los resultados valen para estas implementaciones, esta regla y estas versiones de CPython; la matriz no certifica nada sobre otros lenguajes, otras reglas ni cargas de producción.
+**Cómo leer la figura.** Cada fila es una comprobación unida por flechas a su resultado y a su ejecución en Windows y en Linux; verde es ejecutado y coral, no ejecutado. Mira primero la última fila: los lenguajes que no estaban instalados no se dan por equivalentes. **Dónde deja de valer:** los resultados valen para estas implementaciones, esta regla y estas versiones de CPython; la matriz no certifica nada sobre otros lenguajes, otras reglas ni cargas de producción.
 
 ### El tamaño de la suite no es el valor de la suite
 
@@ -113,9 +113,9 @@ Un informe de comparación semántica que otra persona pueda reproducir tiene tr
 
 Las afirmaciones sin evidencia reproducible se marcan como juicio. Eso incluye las recomendaciones de la parte final: «para este dominio, el núcleo declarativo con borde imperativo» es una decisión que depende del tamaño del conjunto de reglas, de quién las edita y de la carga, y el informe debe decir con qué dato se revisaría.
 
-![Figura 3. Tabla con tres afirmaciones de un informe, la evidencia que las sostiene y lo que no prueban](../../../content/part-06/figures/se-084-estructura-del-informe.svg)
+![Diagrama de tres afirmaciones con su evidencia y lo que no prueban: equivalencia en los casos probados, costo de cambio medido por diferencia de líneas y costo de ejecución medido en un microbenchmark.](../../../content/part-06/figures/se-084-estructura-del-informe.svg)
 
-**Cómo leer la figura.** Cada fila es una afirmación; las dos columnas siguientes obligan a nombrar la evidencia y el límite. **Dónde deja de valer:** es una plantilla de informe, no un método de decisión; no dice qué paradigma elegir. Su utilidad es que una persona ajena pueda reproducir cada comprobación o discutir una premisa concreta.
+**Cómo leer la figura.** Cada fila es una afirmación del informe (dorado), la evidencia que la sostiene (verde) y lo que esa evidencia no prueba (coral). Mira primero que cada afirmación declara su propio límite. **Dónde deja de valer:** es una plantilla de informe, no un método de decisión; no dice qué paradigma elegir. Su utilidad es que una persona ajena pueda reproducir cada comprobación o discutir una premisa concreta.
 
 ## Definiciones de trabajo
 

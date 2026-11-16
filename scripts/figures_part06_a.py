@@ -1,7 +1,9 @@
 """Figures for SE-073 to SE-078 (CPython 3.12.9 on Windows 11 and 3.12.3 on Ubuntu 24.04 under WSL2)."""
 from __future__ import annotations
 
-from figure_kit import Fig
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, grouped_bars
+
 
 OBS = "Medido con CPython 3.12 en un equipo concreto; las magnitudes cambian con la máquina, el orden relativo es lo que importa."
 
@@ -12,20 +14,14 @@ def _note(f: Fig, y: float, text: str = OBS) -> None:
 
 # ---------------------------------------------------------------- SE-073
 def se073_alias() -> Fig:
-    f = Fig(960, 430, "Alias, copia superficial y copia profunda sobre el mismo diccionario",
-            "Tabla de cuatro operaciones sobre un diccionario con listas internas: la asignación comparte todo; copy.copy crea otro contenedor pero comparte las listas internas; "
-            "deepcopy aísla todo y cuesta unos 4,9 ms frente a unos 9,7 microsegundos de la copia superficial en mil claves.")
-    heads = ["Operación", "¿Mismo objeto?", "¿Comparte lo interno?", "Costo (1000 claves con listas)"]
-    rows = [
-        ["b = a", "Sí (a is b)", "Sí, todo", "Ninguno: solo un nombre nuevo"],
-        ["dict(a) / copy.copy(a)", "No", "Sí: las listas internas son las mismas", "≈ 9,7 µs (Windows) y 9,6 µs (Linux)"],
-        ["copy.deepcopy(a)", "No", "No: copia recursiva", "≈ 4,9 ms (Windows) y 4,1 ms (Linux)"],
-        ["Función que devuelve estado nuevo", "No", "Solo lo que se copie a propósito", "Depende de qué se copie"],
-    ]
-    f.table(heads, rows, 10, 12, [240, 160, 300, 240], row_h=62, size=12, head_h=46)
-    f.box(10, 332, 940, 52, "Copiar en profundidad cuesta unas 500 veces más que copiar en superficie. Aislar estado es una decisión de costo, no un hábito gratuito.", "gold", 13)
-    _note(f, 412)
-    return f
+    return grouped_bars(
+        "Costo de aislar estado: copia superficial frente a copia profunda de un diccionario de mil claves con listas",
+        "Barras agrupadas en escala logarítmica con el costo de copiar un diccionario de mil claves con listas: la copia superficial tarda unos 9,7 microsegundos en Windows y 9,6 en Linux; deepcopy tarda unos 4 900 en Windows y 4 100 en Linux; la asignación b igual a a no cuesta nada porque solo crea un nombre nuevo.",
+        ["dict(a) o copy.copy(a): otro contenedor, mismas listas internas", "copy.deepcopy(a): copia recursiva, todo aislado"],
+        [("Windows", [9.7, 4900], "gold"), ("Linux", [9.6, 4100], "teal")],
+        unit="Microsegundos por copia", horizontal=True, log=True, label_w=330,
+        note="b = a no copia nada: comparte todo. La copia superficial comparte las listas internas; deepcopy las aísla y cuesta unas 500 veces más. Una función que devuelve estado nuevo cuesta según lo que copie. Aislar estado es una decisión de costo, no un hábito gratuito.",
+        note_kind="gold", foot=OBS)
 
 
 def se073_retorno() -> Fig:
@@ -50,18 +46,17 @@ def se073_retorno() -> Fig:
 
 
 def se073_sorpresas() -> Fig:
-    f = Fig(960, 400, "Tres sorpresas de estado mutable observadas en Python",
-            "Tabla con tres observaciones: el orden de dos reglas que modifican la misma prioridad produce 9 o 5 según el orden; un argumento por defecto mutable acumula [1], [1, 2], [1, 2, 3]; "
-            "y un atributo marcado con guion bajo se puede dejar en -100 porque la privacidad es solo una convención.")
-    heads = ["Observación", "Resultado ejecutado", "Causa"]
     rows = [
-        ["Dos reglas sobre la misma prioridad (+2 y ×3), partiendo de 1", "r1 luego r2 = 9; r2 luego r1 = 5", "La secuencia es parte de la semántica: las operaciones no conmutan"],
-        ["def f(x, acc=[]) llamada tres veces", "[1], luego [1, 2], luego [1, 2, 3] (el mismo objeto)", "El valor por defecto se crea una vez, al definir la función"],
-        ["Atributo _bal de una cuenta con property sin setter", "a.bal = 99 falla; a._bal = -100 funciona", "El guion bajo es convención, no barrera: la invariante debe vivir en un método"],
+        [("Dos reglas sobre la misma prioridad (+2 y ×3), partiendo de 1", "plain"), ("r1 luego r2 = 9; r2 luego r1 = 5", "gold"), ("La secuencia es parte de la semántica: las operaciones no conmutan", "plain")],
+        [("def f(x, acc=[]) llamada tres veces", "plain"), ("[1], luego [1, 2], luego [1, 2, 3]: el mismo objeto", "gold"), ("El valor por defecto se crea una vez, al definir la función", "plain")],
+        [("Atributo _bal de una cuenta con property sin setter", "plain"), ("a.bal = 99 falla; a._bal = -100 funciona", "gold"), ("El guion bajo es convención, no barrera: la invariante debe vivir en un método", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [330, 320, 290], row_h=96, size=13)
-    f.box(10, 344, 940, 40, "Cada sorpresa desaparece al hacer explícito quién posee el estado y cuándo cambia.", "gold", 13)
-    return f
+    return chain_rows(
+        "Tres sorpresas de estado mutable observadas en Python, de la observación a su causa",
+        "Diagrama de tres observaciones y su causa: el orden de dos reglas que modifican la misma prioridad produce 9 o 5; un argumento por defecto mutable acumula las listas 1; 1 y 2; 1, 2 y 3; y un atributo con guion bajo se puede dejar en -100 porque la privacidad es solo una convención.",
+        ["Observación", "Resultado ejecutado", "Causa"], rows, [290, 270, 290], gap=26,
+        note="Cada sorpresa desaparece al hacer explícito quién posee el estado y cuándo cambia.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-074
@@ -80,33 +75,31 @@ def se074_llamar() -> Fig:
 
 
 def se074_recursion() -> Fig:
-    f = Fig(960, 400, "El límite de recursión de CPython frente a una descomposición recursiva",
-            "Tabla: con el límite por defecto de 1000 la recursión se detiene en profundidad 998 con RecursionError; elevando el límite a 100000 una recursión de 50000 niveles funciona en ambos sistemas; "
-            "una iteración con pila explícita no depende del límite.")
-    heads = ["Situación", "Resultado observado", "Lectura"]
     rows = [
-        ["Límite por defecto", "sys.getrecursionlimit() = 1000; se alcanzó profundidad 998", "La pila de llamadas es un recurso finito con tope configurable"],
-        ["Límite elevado a 100000, recursión de 50000", "Devolvió 50000 en Windows y en Linux", "Funciona, pero el tope existe para proteger el proceso de agotar la pila de C"],
-        ["Cuenta atrás con bucle y acumulador", "Sin límite de profundidad", "Cuando la descomposición es lineal, un bucle es más seguro"],
+        [("Límite por defecto", "plain"), ("sys.getrecursionlimit() = 1000; se alcanzó profundidad 998", "coral"), ("La pila de llamadas es un recurso finito con tope configurable", "plain")],
+        [("Límite elevado a 100000, recursión de 50000", "plain"), ("Devolvió 50000 en Windows y en Linux", "teal"), ("Funciona, pero el tope existe para proteger el proceso de agotar la pila de C", "plain")],
+        [("Cuenta atrás con bucle y acumulador", "plain"), ("Sin límite de profundidad", "teal"), ("Cuando la descomposición es lineal, un bucle es más seguro", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [250, 360, 330], row_h=86, size=13)
-    f.box(10, 328, 940, 52, "El límite se eleva con sys.setrecursionlimit, pero un valor excesivo puede cerrar el intérprete en vez de lanzar RecursionError.", "coral", 13)
-    return f
+    return chain_rows(
+        "El límite de recursión de CPython frente a una descomposición recursiva",
+        "Diagrama de tres situaciones: con el límite por defecto de 1000 la recursión se detiene en profundidad 998 con RecursionError; elevando el límite a 100000 una recursión de 50000 niveles funciona en ambos sistemas; una iteración con pila explícita no depende del límite.",
+        ["Situación", "Resultado observado", "Lectura"], rows, [260, 300, 290], gap=26,
+        note="El límite se eleva con sys.setrecursionlimit, pero un valor excesivo puede cerrar el intérprete en vez de lanzar RecursionError.",
+        note_kind="coral", foot=OBS)
 
 
 def se074_efectos() -> Fig:
-    f = Fig(960, 420, "Efectos ocultos en funciones: caché de una función con efecto y paso de objetos",
-            "Tabla con tres observaciones: al envolver con lru_cache una función que registra un efecto, tres llamadas producen un solo efecto; "
-            "una función que añade a la lista recibida modifica la lista del llamador mientras reasignar el parámetro no; y una función pura se puede memoizar sin cambiar su significado.")
-    heads = ["Experimento", "Resultado ejecutado", "Consecuencia para el diseño"]
     rows = [
-        ["impure(x) agrega a una lista y devuelve x + 1; envuelta con lru_cache; tres llamadas con 1", "1 efecto registrado en 3 llamadas", "Memoizar una función con efecto cambia el comportamiento; solo es válido si la función es pura"],
-        ["mut(l): l.append(1) y rebind(l): l = [9]", "Tras ambas, la lista del llamador es [1]", "Los argumentos pasan por referencia al objeto: mutar se ve, reasignar el nombre local no"],
-        ["pure(x) = x + 1 con la misma envoltura", "Mismo resultado con y sin caché", "La pureza es lo que permite sustituir una llamada por su resultado"],
+        [("impure(x) agrega a una lista y devuelve x + 1; con lru_cache; tres llamadas con 1", "plain"), ("1 efecto registrado en 3 llamadas", "coral"), ("Memoizar una función con efecto cambia el comportamiento; solo es válido si es pura", "plain")],
+        [("mut(l): l.append(1) y rebind(l): l = [9]", "plain"), ("Tras ambas, la lista del llamador es [1]", "gold"), ("Los argumentos pasan por referencia al objeto: mutar se ve, reasignar el nombre local no", "plain")],
+        [("pure(x) = x + 1 con la misma envoltura", "plain"), ("Mismo resultado con y sin caché", "teal"), ("La pureza es lo que permite sustituir una llamada por su resultado", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [330, 260, 350], row_h=92, size=13)
-    f.box(10, 366, 940, 40, "Un contrato de procedimiento debe declarar si lee, escribe o solo calcula.", "gold", 13)
-    return f
+    return chain_rows(
+        "Efectos ocultos en funciones: caché de una función con efecto y paso de objetos",
+        "Diagrama de tres experimentos: al envolver con lru_cache una función que registra un efecto, tres llamadas producen un solo efecto; una función que añade a la lista recibida modifica la lista del llamador mientras reasignar el parámetro no; y una función pura se puede memoizar sin cambiar su significado.",
+        ["Experimento", "Resultado ejecutado", "Consecuencia para el diseño"], rows, [290, 250, 290], gap=26,
+        note="Un contrato de procedimiento debe declarar si lee, escribe o solo calcula.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-075
@@ -125,7 +118,7 @@ def se075_slots() -> Fig:
 def se075_mro() -> Fig:
     f = Fig(960, 440, "Herencia en diamante y encapsulación: lo que garantiza el lenguaje y lo que es convención",
             "Diagrama: la clase D hereda de B y C que heredan de A; el orden de resolución observado es D, B, C, A, object y D().m() devuelve «DBCA». "
-            "Debajo, tabla de encapsulación: property sin setter falla, el guion bajo es convención y el prefijo doble guion bajo cambia el nombre a _M__x.")
+            "Debajo, tres mecanismos de encapsulación y su resultado: property sin setter falla, el guion bajo es convención y el prefijo doble guion bajo cambia el nombre a _M__x.")
     f.box(400, 14, 160, 40, "A: m() → «A»", "plain", 13)
     f.box(260, 84, 160, 40, "B(A): «B» + super()", "teal", 12)
     f.box(540, 84, 160, 40, "C(A): «C» + super()", "teal", 12)
@@ -135,11 +128,24 @@ def se075_mro() -> Fig:
     f.text(780, 112, "MRO observado:", 13, "start", 700)
     f.text(780, 132, "D, B, C, A, object", 13, "start")
     f.text(780, 152, "D().m() = «DBCA»", 13, "start")
-    f.table(["Mecanismo", "Resultado ejecutado", "Garantía real"],
-            [["property sin setter", "a.bal = 99 → AttributeError", "Impide la asignación por ese nombre"],
-             ["_bal con guion bajo", "a._bal = -100 acepta el valor", "Ninguna: es una convención"],
-             ["__x con doble guion bajo", "El atributo se guarda como _M__x", "Evita colisiones, no es seguridad"]],
-            10, 220, [240, 380, 320], row_h=46, size=12)
+    widths, gap, x0 = [250, 340, 280], 25, 15
+    heads = ["Mecanismo", "Resultado ejecutado", "Garantía real"]
+    rows = [[("property sin setter", "plain"), ("a.bal = 99 → AttributeError", "teal"), ("Impide la asignación por ese nombre", "teal")],
+            [("_bal con guion bajo", "plain"), ("a._bal = -100 acepta el valor", "coral"), ("Ninguna: es una convención", "coral")],
+            [("__x con doble guion bajo", "plain"), ("El atributo se guarda como _M__x", "gold"), ("Evita colisiones, no es seguridad", "gold")]]
+    x = x0
+    for w, h in zip(widths, heads):
+        f.text(x + w / 2, 232, h, 13, "middle", 700, "#5c6b73")
+        x += w + gap
+    y = 244
+    for row in rows:
+        x = x0
+        for i, ((text, kind), w) in enumerate(zip(row, widths)):
+            f.box(x, y, w, 46, text, kind, 12, bold=(i == 0))
+            if i < len(row) - 1:
+                f.arrow([(x + w + 3, y + 23), (x + w + gap - 3, y + 23)])
+            x += w + gap
+        y += 58
     return f
 
 
@@ -171,34 +177,29 @@ def se076_comprension() -> Fig:
 
 
 def se076_copiar() -> Fig:
-    f = Fig(960, 400, "El precio de no mutar: actualizar un elemento copiando frente a hacerlo en sitio",
-            "Tabla con dos mediciones: cambiar un elemento de una lista de 10000 copiando tarda unos 98 microsegundos frente a unos 81 nanosegundos en sitio, unas 1200 veces más; "
-            "y calcular fib(25) con memoización hace 26 cálculos y 23 aciertos en vez de recomputar.")
-    heads = ["Operación", "Windows", "Linux", "Lectura"]
-    rows = [
-        ["Actualizar un elemento de 10000 copiando (lst[:k] + [x] + lst[k+1:])", "98 291 ns", "94 720 ns", "Cuesta O(n) por actualización"],
-        ["Actualizar el mismo elemento en sitio", "81 ns", "56 ns", "Cuesta O(1) pero destruye el valor anterior"],
-        ["fib(25) sin memoización", "27,2 ms", "—", "Recomputa subproblemas"],
-        ["fib(25) con lru_cache", "26 fallos, 23 aciertos", "igual", "Solo es válido porque fib es pura"],
-    ]
-    f.table(heads, rows, 10, 12, [360, 150, 140, 290], row_h=62, size=12)
-    f.box(10, 332, 940, 52, "Las estructuras persistentes comparten partes en vez de copiar todo; Python no las trae en su biblioteca estándar, así que copiar tiene un costo real que debe medirse.", "coral", 12)
-    return f
+    return grouped_bars(
+        "El precio de no mutar: actualizar un elemento de una lista de 10 000 copiando frente a hacerlo en sitio",
+        "Barras agrupadas en escala logarítmica con el costo de cambiar un elemento de una lista de 10000: copiando tarda unos 98 291 nanosegundos en Windows y 94 720 en Linux; en sitio, 81 y 56, unas 1 200 veces menos. Calcular fib(25) con memoización hace 26 cálculos y 23 aciertos en vez de recomputar.",
+        ["Copiando: lst[:k] + [x] + lst[k+1:]", "En sitio"],
+        [("Windows", [98291, 81], "gold"), ("Linux", [94720, 56], "teal")],
+        unit="Nanosegundos por actualización", horizontal=True, log=True, label_w=260,
+        note="Copiar cuesta O(n) por actualización y en sitio O(1), pero destruye el valor anterior. fib(25) sin memoización tardó 27,2 ms en Windows; con lru_cache hizo 26 fallos y 23 aciertos, válido solo porque fib es pura. Las estructuras persistentes comparten partes; Python no las trae en la biblioteca estándar, así que copiar tiene un costo real que debe medirse.",
+        note_kind="coral", foot=OBS)
 
 
 def se076_cierres() -> Fig:
-    f = Fig(960, 400, "Cuatro comportamientos funcionales que sorprenden en Python",
-            "Tabla: las lambdas creadas en un bucle ven la variable final y devuelven [2, 2, 2], mientras que fijar el valor con un argumento por defecto da [0, 1, 2]; "
-            "una tupla puede contener una lista mutable; la composición no es conmutativa: componer inc y dbl da 8 y dbl e inc da 7; y reduce sobre una lista vacía sin valor inicial falla.")
-    heads = ["Experimento", "Resultado ejecutado", "Qué enseña"]
     rows = [
-        ["[lambda: i for i in range(3)]", "[2, 2, 2]; con lambda i=i: i → [0, 1, 2]", "Un cierre captura la variable, no su valor en ese instante"],
-        ["t = (1, [2]); t[1].append(3)", "(1, [2, 3]); t[0] = 9 falla", "Inmutabilidad superficial: la tupla protege sus referencias, no los objetos"],
-        ["compose(inc, dbl)(3) y compose(dbl, inc)(3)", "8 y 7", "Composición asociativa, no conmutativa: el orden es significado"],
-        ["reduce(suma, []) sin valor inicial", "TypeError", "Una operación sin elemento neutro necesita un caso vacío explícito"],
+        [("[lambda: i for i in range(3)]", "plain"), ("[2, 2, 2]; con lambda i=i: i → [0, 1, 2]", "coral"), ("Un cierre captura la variable, no su valor en ese instante", "plain")],
+        [("t = (1, [2]); t[1].append(3)", "plain"), ("(1, [2, 3]); t[0] = 9 falla", "gold"), ("Inmutabilidad superficial: la tupla protege sus referencias, no los objetos", "plain")],
+        [("compose(inc, dbl)(3) y compose(dbl, inc)(3)", "plain"), ("8 y 7", "gold"), ("Composición asociativa, no conmutativa: el orden es significado", "plain")],
+        [("reduce(suma, []) sin valor inicial", "plain"), ("TypeError", "coral"), ("Una operación sin elemento neutro necesita un caso vacío explícito", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [300, 330, 310], row_h=72, size=12)
-    return f
+    return chain_rows(
+        "Cuatro comportamientos funcionales que sorprenden en Python",
+        "Diagrama de cuatro experimentos: las lambdas creadas en un bucle ven la variable final y devuelven 2, 2 y 2, mientras que fijar el valor con un argumento por defecto da 0, 1 y 2; una tupla puede contener una lista mutable; la composición no es conmutativa: componer inc y dbl da 8 y dbl e inc da 7; y reduce sobre una lista vacía sin valor inicial falla.",
+        ["Experimento", "Resultado ejecutado", "Qué enseña"], rows, [290, 270, 290], gap=26,
+        note="Cada sorpresa nace de una regla del lenguaje que se aplica sin avisar: la captura por variable, la inmutabilidad superficial, el orden de la composición y el caso vacío.",
+        note_kind="gold", foot=OBS)
 
 
 # ---------------------------------------------------------------- SE-077
@@ -217,17 +218,14 @@ def se077_indice() -> Fig:
 
 
 def se077_conflictos() -> Fig:
-    f = Fig(960, 430, "Reglas como datos: cuántas se activan a la vez y qué decide el orden",
-            "Con tres reglas y diez mil observaciones sintéticas, ninguna observación queda sin regla, 7511 activan una regla y 2489 activan dos. "
-            "Para una observación con latencia 900 y no autorizada, usar la primera coincidencia da R1, usar la prioridad da R2 y la lista invertida da R2.")
-    f.text(20, 28, "Coincidencias por observación (10 000 sintéticas)", 14, "start", 700)
-    f.hbars([("0 reglas", 0.01, "plain", "0"), ("1 regla", 7511, "teal", "7511"), ("2 reglas (conflicto)", 2489, "coral", "2489")], 20, 44, 0.08, label_w=210, step=44)
-    f.table(["Política de resolución", "Resultado para 900 ms, no autorizado"],
-            [["Primera coincidencia, orden R1, R2, R3", "R1 (inspect-transport)"],
-             ["Mayor prioridad (R2 = 2)", "R2 (deny)"],
-             ["Primera coincidencia, orden invertido", "R2 (deny)"]], 20, 196, [430, 470], row_h=46, size=13)
-    f.box(20, 360, 900, 52, "El resultado depende de la política de conflictos, que es parte de la regla aunque no figure en ella. Sin definirla, dos revisores leen programas distintos.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Reglas como datos: cuántas reglas se activan a la vez en 10 000 observaciones sintéticas",
+        "Barras con las observaciones según las reglas que activan: ninguna observación queda sin regla, 7511 activan una regla y 2489 activan dos. Para una observación con latencia 900 y no autorizada, usar la primera coincidencia da R1, usar la prioridad da R2 y la lista invertida da R2.",
+        ["0 reglas", "1 regla", "2 reglas (conflicto)"],
+        [("Observaciones", [0, 7511, 2489], "gold")],
+        unit="Observaciones de 10 000", horizontal=True, label_w=170, ticks=[0, 2000, 4000, 6000, 8000],
+        note="Para 900 ms y no autorizado: la primera coincidencia con el orden R1, R2, R3 da R1 (inspect-transport); la mayor prioridad (R2 = 2) da R2 (deny); la primera coincidencia con el orden invertido da R2 (deny). El resultado depende de la política de conflictos, que es parte de la regla aunque no figure en ella.",
+        note_kind="coral", foot=OBS)
 
 
 def se077_tabla() -> Fig:
@@ -254,17 +252,17 @@ def se078_orden() -> Fig:
 
 
 def se078_unificacion() -> Fig:
-    f = Fig(960, 400, "Unificación: tres casos ejecutados con un unificador mínimo",
-            "Tabla de tres casos: f(a,2) con f(1,b) unifica con a=1 y b=2; f(1) con f(2) falla; y X con f(X) es aceptado porque el unificador mínimo no hace la comprobación de ocurrencia.")
-    heads = ["Términos", "Resultado ejecutado", "Lectura"]
     rows = [
-        ["f(A, 2)  =  f(1, B)", "Éxito: A = 1 y B = 2", "Las variables se ligan en ambos sentidos: no hay entrada y salida fijas"],
-        ["f(1)  =  f(2)", "Fallo (None)", "Dos constantes distintas no unifican; la búsqueda retrocede"],
-        ["X  =  f(X)", "Aceptado sin comprobación de ocurrencia", "Crea una estructura infinita; Prolog estándar lo permite salvo que se use unify_with_occurs_check"],
+        [("f(A, 2)  =  f(1, B)", "plain"), ("Éxito: A = 1 y B = 2", "teal"), ("Las variables se ligan en ambos sentidos: no hay entrada y salida fijas", "plain")],
+        [("f(1)  =  f(2)", "plain"), ("Fallo (None)", "coral"), ("Dos constantes distintas no unifican; la búsqueda retrocede", "plain")],
+        [("X  =  f(X)", "plain"), ("Aceptado sin comprobación de ocurrencia", "gold"), ("Crea una estructura infinita; Prolog estándar lo permite salvo con unify_with_occurs_check", "plain")],
     ]
-    f.table(heads, rows, 10, 12, [230, 300, 410], row_h=92, size=13)
-    f.box(10, 350, 940, 40, "El unificador de este experimento es una herramienta didáctica, no el motor de un Prolog real.", "coral", 12)
-    return f
+    return chain_rows(
+        "Unificación: tres casos ejecutados con un unificador mínimo",
+        "Diagrama de tres casos: f(a,2) con f(1,b) unifica con a=1 y b=2; f(1) con f(2) falla; y X con f(X) es aceptado porque el unificador mínimo no hace la comprobación de ocurrencia.",
+        ["Términos", "Resultado ejecutado", "Lectura"], rows, [230, 290, 330], gap=26,
+        note="El unificador de este experimento es una herramienta didáctica, no el motor de un Prolog real.",
+        note_kind="coral", foot=OBS)
 
 
 def se078_ciclo() -> Fig:
@@ -273,9 +271,13 @@ def se078_ciclo() -> Fig:
             "un recorrido con conjunto de visitados responde falso para el destino z y verdadero para c.")
     f.box(60, 60, 70, 46, "a", "teal", 15, bold=True); f.box(260, 60, 70, 46, "b", "teal", 15, bold=True); f.box(160, 200, 70, 46, "c", "teal", 15, bold=True)
     f.arrow([(130, 83), (260, 83)]); f.arrow([(295, 106), (210, 200)]); f.arrow([(160, 223), (95, 106)])
-    f.table(["Estrategia", "ancestro(a, z)", "ancestro(a, c)"],
-            [["Recursión directa sin memoria", "RecursionError (profundidad > 1000)", "no medido"],
-             ["Recorrido con conjunto de visitados", "False", "True"]], 400, 40, [230, 160, 130], row_h=78, size=12, gap=6)
+    f.text(560, 44, "Consulta ancestro(a, z) y ancestro(a, c)", 13, "middle", 700, "#5c6b73")
+    f.box(400, 60, 220, 70, "Recursión directa sin memoria", "plain", 13, bold=True)
+    f.box(680, 60, 240, 70, "ancestro(a, z): RecursionError (profundidad > 1000); ancestro(a, c): no medido", "coral", 12)
+    f.arrow([(624, 95), (676, 95)])
+    f.box(400, 160, 220, 70, "Recorrido con conjunto de visitados", "plain", 13, bold=True)
+    f.box(680, 160, 240, 70, "ancestro(a, z): False; ancestro(a, c): True", "teal", 12)
+    f.arrow([(624, 195), (676, 195)])
     f.box(20, 292, 900, 56, "El tabling de SWI-Prolog resuelve esto de forma declarativa memorizando subobjetivos; aquí se reproduce el efecto con un conjunto de visitados.", "gold", 13)
     f.box(20, 358, 900, 40, "Prolog no se ejecutó (no estaba instalado): el comportamiento del tabling se cita de la documentación.", "coral", 12)
     return f

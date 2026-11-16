@@ -9,7 +9,6 @@
   },
   "embedded_tables": {
     "03": 26,
-    "06": 18,
     "09": 29
   },
   "goal": "0 en todas las partes; la excepción solo entra por allowed_tables con justificación"

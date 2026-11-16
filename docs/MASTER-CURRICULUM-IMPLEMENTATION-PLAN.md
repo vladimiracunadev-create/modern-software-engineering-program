@@ -700,18 +700,18 @@ evita una explicación genérica.
 
 ### Parte 36 — Legacy y retiro
 
-- [ ] `SE-433` — clasificar mantenimiento y riesgo.
-- [ ] `SE-434` — practicar arqueología de software.
-- [ ] `SE-435` — crear caracterización y seams.
-- [ ] `SE-436` — gestionar runtime obsoleto y EOL.
-- [ ] `SE-437` — comparar strangler, branch by abstraction y ACL.
-- [ ] `SE-438` — migrar runtime con compatibilidad.
-- [ ] `SE-439` — migrar datos progresivamente.
-- [ ] `SE-440` — controlar coexistencia y double write.
-- [ ] `SE-441` — ejecutar EOL, retención y borrado seguro.
-- [ ] `SE-442` — comparar TCO de reescritura y evolución.
-- [ ] `SE-443` — estabilizar un sistema ajeno.
-- [ ] `SE-444` — entregar una migración reversible.
+- [x] `SE-433` — clasificar mantenimiento y riesgo.
+- [x] `SE-434` — practicar arqueología de software.
+- [x] `SE-435` — crear caracterización y seams.
+- [x] `SE-436` — gestionar runtime obsoleto y EOL.
+- [x] `SE-437` — comparar strangler, branch by abstraction y ACL.
+- [x] `SE-438` — migrar runtime con compatibilidad.
+- [x] `SE-439` — migrar datos progresivamente.
+- [x] `SE-440` — controlar coexistencia y double write.
+- [x] `SE-441` — ejecutar EOL, retención y borrado seguro.
+- [x] `SE-442` — comparar TCO de reescritura y evolución.
+- [x] `SE-443` — estabilizar un sistema ajeno.
+- [x] `SE-444` — entregar una migración reversible.
 
 ### Parte 37 — Liderazgo
 

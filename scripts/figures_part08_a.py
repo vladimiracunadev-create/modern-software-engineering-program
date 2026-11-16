@@ -368,7 +368,7 @@ def se108_inventario() -> Fig:
          ("Entorno virtual", "7 archivos sin pip · 860 con pip: se crea desde cero con un comando", "navy"),
          ("Dependencias", "una rueda local: se instala con --no-index --no-deps", "navy"),
          ("Verificación", "pip freeze idéntico en dos entornos: se compara el estado", "teal")],
-        note='Un entorno autocontenido es el que se puede reconstruir desde el repositorio y comprobar. Cada fila debe tener su comprobación; lo que solo se asume queda como riesgo.', note_kind='gold', foot=S)
+        note='Un entorno autocontenido es el que se puede reconstruir desde el repositorio y comprobar. Cada pieza debe tener su comprobación; lo que solo se asume queda como riesgo.', note_kind='gold', foot=S)
 
 
 def se108_hash() -> Fig:

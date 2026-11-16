@@ -4,14 +4,12 @@
     "se-263-diferencias-medidas-entre-windows-y-ubuntu.svg": "Contraste cualitativo de siete comportamientos de texto entre Windows y Ubuntu (barra, salto de línea, borrar un archivo abierto): no comparten magnitud numérica y la tabla es la evidencia."
   },
   "tables": {
-    "33": 30,
     "38": 29,
     "43": 21,
     "44": 29
   },
   "table_alts": {
     "09": 27,
-    "33": 30,
     "38": 29,
     "43": 21,
     "44": 29

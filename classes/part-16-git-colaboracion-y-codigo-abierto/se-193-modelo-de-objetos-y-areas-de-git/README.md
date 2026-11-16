@@ -104,17 +104,17 @@ datos = b"hola entrega\n"
 print(hashlib.sha1(b"blob %d\0" % len(datos) + datos).hexdigest()[:12])   # 1b4e1e83facf
 ```
 
-![Tabla con la reconstrucción a mano de un blob, dos árboles y un commit comparada con la salida de Git.](../../../content/part-16/figures/se-193-identificadores-reconstruidos.svg)
+![Diagrama de flujo de cuatro objetos de Git reconstruidos con hashlib: del contenido y el formato al identificador; el blob, el árbol con el orden correcto y el commit coinciden con Git y el árbol con orden ingenuo da otro identificador.](../../../content/part-16/figures/se-193-identificadores-reconstruidos.svg)
 
-**Cómo leer la figura.** Cada fila es un objeto construido con `hashlib` sin llamar a Git; la tercera columna dice si el identificador coincidió con el de Git. **Dónde deja de valer:** el cálculo vale para repositorios con SHA-1 y objetos sin compresión especial; un repositorio SHA-256 usa otro hash y otro tamaño de identificador, y los objetos con firma o con extensiones añaden cabeceras que el ejemplo no incluye.
+**Cómo leer la figura.** Cada fila es un objeto y las flechas llevan de lo que se construyó a mano al resultado frente a Git; el cuadro verde es un identificador idéntico y el coral, uno distinto. Mira primero la fila coral: el mismo árbol con el orden ingenuo da otro identificador. **Dónde deja de valer:** el cálculo vale para repositorios con SHA-1 y objetos sin compresión especial; un repositorio SHA-256 usa otro hash y otro tamaño de identificador, y los objetos con firma o con extensiones añaden cabeceras que el ejemplo no incluye.
 
 ### Dónde está un cambio
 
 Sobre un repositorio con `a.py` de tres líneas se recorrieron seis situaciones. Un archivo nuevo sin agregar aparece como `??`; agregado, como `A·`; agregado y luego editado, como `AM` (el índice tiene la versión vieja y el árbol de trabajo la nueva); un archivo editado sin agregar, como `·M`; editado y agregado, como `M·`; y quitado solo del índice con `git rm --cached`, como `D·` más un `??` porque el archivo sigue en disco. Con `a.py` de 3 líneas en HEAD, 1 línea agregada y 2 líneas más sin agregar, `git diff` cuenta 2, `git diff --cached` cuenta 1 y `git diff HEAD` cuenta 3. Un `git restore a.py` posterior dejó el archivo con las 4 líneas: borró las 2 sin agregar y conservó la agregada.
 
-![Tabla con seis situaciones de un archivo, el código de git status y qué significa en términos de árbol de trabajo, índice y HEAD.](../../../content/part-16/figures/se-193-las-tres-areas.svg)
+![Diagrama de las tres áreas de Git, HEAD, índice y árbol de trabajo, con los comandos que mueven el contenido entre ellas y las líneas que cuenta cada diff: git diff cuenta 2 entre el índice y el árbol de trabajo, git diff --cached cuenta 1 entre HEAD y el índice y git diff HEAD cuenta 3.](../../../content/part-16/figures/se-193-las-tres-areas.svg)
 
-**Cómo leer la figura.** El código tiene dos letras: la primera compara el índice con HEAD y la segunda el árbol de trabajo con el índice; el punto reemplaza al espacio que imprime Git. **Dónde deja de valer:** la tabla describe archivos de texto sin conflictos, sin submódulos y sin `assume-unchanged`; durante una fusión conflictiva aparecen otros códigos (como `UU`) y el índice contiene tres versiones del mismo archivo.
+**Cómo leer la figura.** Las tres cajas son las áreas de Git, los comandos de las flechas mueven el contenido entre ellas y cada corchete inferior dice qué líneas cuenta un diff entre dos áreas. Mira primero que los tres números (2, 1 y 3) salen de comparar pares distintos de áreas sobre el mismo archivo. **Dónde deja de valer:** el diagrama describe archivos de texto sin conflictos, sin submódulos y sin `assume-unchanged`; durante una fusión conflictiva aparecen otros códigos (como `UU`) y el índice contiene tres versiones del mismo archivo.
 
 ### Sueltos frente a empaquetados
 

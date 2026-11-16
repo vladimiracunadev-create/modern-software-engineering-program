@@ -101,9 +101,9 @@ Un conflicto de texto aparece cuando dos cambios afectan líneas contiguas respe
 
 Una rama de 4 commits partió de dos commits de base mientras `main` avanzaba 3. Con una **fusión sin avance rápido**, `main` quedó con 10 commits, una fusión, 6 commits en el primer padre y los 4 commits de la rama conservaron su identificador. Con **rebase y avance rápido**, `main` quedó con 9 commits, ninguna fusión y los 4 commits de la rama fueron reescritos (0 de 4 conservaron su identificador). Con **squash**, `main` quedó con 6 commits: el commit nuevo reemplaza a los cuatro, que no entran. El árbol final fue idéntico en las tres, así que el contenido es el mismo y solo cambia la información de la historia. Los resultados fueron idénticos con Git 2.55 en Windows y 2.43 en Ubuntu.
 
-![Tabla que compara fusionar, rebasar y aplastar una rama de cuatro commits sobre un main que avanzó tres.](../../../content/part-16/figures/se-195-merge-rebase-y-squash.svg)
+![Barras agrupadas con los commits en main, las fusiones y los commits de la rama que conservan su identificador al integrar una rama de cuatro commits: merge deja 10 commits, 1 fusión y 4 de 4 hashes; rebase deja 9, ninguna fusión y 0 de 4; squash deja 6, ninguna fusión y 0 de 4.](../../../content/part-16/figures/se-195-merge-rebase-y-squash.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia aplicada a la misma bifurcación; las columnas cuentan lo que queda en `main` y cuántos commits de la rama siguen teniendo su identificador. **Dónde deja de valer:** la rama no tuvo conflictos ni firmas; con commits firmados, el rebase invalida las firmas de los reescritos, y con conflictos el rebase los resuelve commit a commit, no una vez.
+**Cómo leer la figura.** Cada grupo es una estrategia y sus tres barras son los commits en main (azul oscuro), las fusiones (dorado) y los commits de la rama que conservan su identificador (verde). Mira primero la barra verde: solo merge conserva los 4 commits. **Dónde deja de valer:** la rama no tuvo conflictos ni firmas; con commits firmados, el rebase invalida las firmas de los reescritos, y con conflictos el rebase los resuelve commit a commit, no una vez.
 
 ### Cuándo hay conflicto
 
@@ -117,9 +117,9 @@ Dos ramas editaron una línea cada una de un archivo de 200 líneas. Con **ambas
 
 Se creó un conflicto entre dos ramas que cambiaban `tope=72` a 48 y a 96. Con `rerere` **inactivo**, la primera fusión dejó 1 marca de conflicto; tras resolver (a 60), deshacer la fusión y repetirla, volvió a aparecer 1 marca. Con `rerere` **activo**, la segunda fusión dejó 0 marcas y el archivo contenía `tope=60` ya resuelto, aunque el código de salida de la fusión siguió siendo 1 (Git informa del conflicto y deja el archivo para que se revise y se agregue).
 
-![Tabla con las marcas de conflicto de la primera y la segunda fusión con rerere inactivo y activo.](../../../content/part-16/figures/se-195-rerere.svg)
+![Barras agrupadas con el número de fusiones que dejan marcas de conflicto en la primera y la segunda fusión de las mismas ramas: con rerere inactivo hay marcas en las dos; con rerere activo solo en la primera y la segunda reaplica la resolución previa.](../../../content/part-16/figures/se-195-rerere.svg)
 
-**Cómo leer la figura.** Cada fila es una configuración de `rerere` aplicada a las mismas dos ramas; las columnas cuentan las marcas de la primera y de la segunda fusión. **Dónde deja de valer:** se repitió exactamente la misma fusión; si la base o alguno de los lados cambió ligeramente, `rerere` no reconoce el conflicto y vuelve a pedir una decisión, y una resolución reaplicada puede ser obsoleta aunque no haya marcas.
+**Cómo leer la figura.** Cada grupo es una de las dos fusiones de las mismas ramas y cada barra, las marcas de conflicto que dejó con rerere inactivo (coral) o activo (verde). Mira primero que en la segunda fusión la barra verde desaparece. **Dónde deja de valer:** se repitió exactamente la misma fusión; si la base o alguno de los lados cambió ligeramente, `rerere` no reconoce el conflicto y vuelve a pedir una decisión, y una resolución reaplicada puede ser obsoleta aunque no haya marcas.
 
 ## Definiciones de trabajo
 

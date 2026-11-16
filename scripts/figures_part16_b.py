@@ -1,8 +1,10 @@
 """Figures for SE-199 to SE-204 (Git real en repositorios temporales o datos sintéticos con semilla fija; resultados idénticos en Windows y Ubuntu salvo los tiempos)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, fmt_exact, grouped_bars, heatmap, line_chart, stacked_bars
+from figures_part07_a import bars
+
 
 GIT = "Git real en repositorios temporales con identidad y fechas fijas; salidas idénticas con Git 2.55 (Windows) y 2.43 (Ubuntu, WSL2)."
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2). Los parámetros son supuestos del autor."
@@ -10,19 +12,14 @@ SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2). 
 
 # ---------------------------------------------------------------- SE-199
 def se199_codeowners() -> Fig:
-    rows = [
-        ["Rutas evaluadas / reglas", "600 / 24", "Rutas y reglas sintéticas del autor"],
-        ["Rutas sin propietario", "0", "La regla «*» del principio cubre todo"],
-        ["Rutas sin propietario si se quita «*»", "31", "Archivos de informes y carpetas sin regla propia"],
-        ["Reglas que nunca ganan", "1 de 24", "«/CODEOWNERS»: ninguna ruta de la muestra la usa"],
-        ["Rutas que cambian de propietario al invertir el orden", "520 de 600", "El último patrón que coincide gana, así que el orden es la semántica"],
-        ["Carga del equipo más cargado / del menos cargado", "108 / 25", "108 de 600 rutas recaen en un solo equipo"],
-    ]
-    return tab("Un CODEOWNERS sintético evaluado sobre 600 rutas",
-               "Tabla con las métricas de un archivo de propietarios de 24 reglas evaluado sobre 600 rutas: rutas sin propietario, reglas que nunca ganan, efecto de invertir el orden y carga por equipo.",
-               ["Medida", "Valor", "Lectura"], rows, [380, 150, 450], row_h=46, size=12,
-               note="El modelo de coincidencia es una simplificación de lo que describe la documentación, no el motor de una plataforma. Sirve para auditar reglas, no para sustituir la comprobación en el alojamiento real.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Un CODEOWNERS sintético de 24 reglas evaluado sobre 600 rutas",
+        "Barras horizontales con rutas de 600: ninguna sin propietario con la regla «*» y 31 sin ella; 520 cambian de propietario al invertir el orden de las reglas; el equipo más cargado recibe 108 rutas y el menos cargado 25.",
+        ["Sin propietario, con la regla «*» al principio", "Sin propietario si se quita «*»", "Cambian de propietario al invertir el orden", "Carga del equipo más cargado", "Carga del equipo menos cargado"],
+        [("Rutas", [0, 31, 520, 108, 25], "teal")],
+        unit="Rutas de 600", horizontal=True, label_w=330, ticks=[0, 150, 300, 450, 600],
+        note="El último patrón que coincide gana, así que el orden es la semántica; 1 regla de 24 («/CODEOWNERS») nunca gana. El modelo de coincidencia es una simplificación de lo que describe la documentación, no el motor de una plataforma: sirve para auditar reglas, no para sustituir la comprobación en el alojamiento real.",
+        note_kind="gold", foot=SINT)
 
 
 def se199_mensajes() -> Fig:
@@ -41,44 +38,38 @@ def se199_mensajes() -> Fig:
 
 
 def se199_blame() -> Fig:
-    rows = [
-        ["git blame sin ignorar", "120", "30", "150", "El bot que reformateó figura como autor de 150 líneas"],
-        ["git blame --ignore-rev del reformateo", "270", "30", "0", "Cada línea vuelve a su autoría real"],
-        ["git blame --ignore-revs-file", "270", "30", "0", "Mismo resultado con un archivo versionado"],
-    ]
-    return tab("Autoría de 300 líneas tras un commit que solo cambia la sangría de 150",
-               "Tabla de líneas atribuidas a la autora, a otra persona y a un bot según se ignore o no el commit de reformateo.",
-               ["Comando", "Autora", "Otra persona", "Bot", "Lectura"], rows, [310, 90, 120, 70, 380], row_h=58, size=12,
-               note="Ignorar el reformateo recupera la autoría solo porque cada línea cambió de forma pero no de sentido. Un commit que mezcla reformateo y lógica no puede ignorarse sin ocultar la lógica.",
-               note_kind="teal", foot=GIT)
+    return stacked_bars(
+        "Autoría de 300 líneas tras un commit que solo cambia la sangría de 150",
+        "Barras apiladas horizontales con las líneas atribuidas a la autora, a otra persona y a un bot: git blame sin ignorar atribuye 150 líneas al bot que reformateó; con --ignore-rev o --ignore-revs-file el bot no figura y la autora recupera 270 líneas y la otra persona 30.",
+        ["git blame sin ignorar", "git blame --ignore-rev del reformateo", "git blame --ignore-revs-file"],
+        [("Autora", [120, 270, 270], "teal"), ("Otra persona", [30, 30, 30], "gold"), ("Bot que reformateó", [150, 0, 0], "coral")],
+        unit="Líneas atribuidas (de 300)", horizontal=True, label_w=250,
+        note="Ignorar el reformateo recupera la autoría solo porque cada línea cambió de forma pero no de sentido. Un commit que mezcla reformateo y lógica no puede ignorarse sin ocultar la lógica.",
+        note_kind="teal", foot=GIT)
 
 
 # ---------------------------------------------------------------- SE-200
 def se200_concentracion() -> Fig:
-    rows = [
-        ["0,5 (reparto casi uniforme)", "9,1", "2,6 %"],
-        ["1,0", "4,1", "7,6 %"],
-        ["1,5", "2,0", "17,1 %"],
-        ["2,0 (muy concentrado)", "1,0", "31,6 %"],
-    ]
-    return tab("Concentración de commits entre 30 contribuyentes sintéticos (400 commits, 300 archivos)",
-               "Tabla con cuatro exponentes de concentración: cuántos autores cubren la mitad de los commits y qué porcentaje de archivos solo tocó la persona más activa.",
-               ["Exponente de la distribución", "Autores que cubren el 50 % de los commits", "Archivos que solo tocó la persona más activa"], rows, [320, 330, 330], row_h=46, size=12,
-               note="Con un exponente de 2 una sola persona produce la mitad de los commits y 3 de cada 10 archivos pierden a la única persona que los conocía si se va. Los exponentes son supuestos; sirven para ver la sensibilidad, no para describir un proyecto real.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Archivos que solo tocó la persona más activa según la concentración de commits (30 contribuyentes, 400 commits)",
+        "Línea con el porcentaje de archivos que solo tocó la persona más activa según el exponente de concentración: 2,6 por ciento con 0,5, 7,6 con 1,0, 17,1 con 1,5 y 31,6 con 2,0; los rótulos añaden los autores que cubren la mitad de los commits: 9,1, 4,1, 2,0 y 1,0.",
+        [("Archivos que solo tocó la persona más activa", [(0.5, 2.6, "2,6 % · 9,1 autores cubren el 50 %", "r"), (1.0, 7.6, "7,6 % · 4,1 autores", "t"),
+                                                           (1.5, 17.1, "17,1 % · 2,0 autores", "t"), (2.0, 31.6, "31,6 % · 1,0 autor", "l")], "coral")],
+        x_label="Exponente de la distribución de commits", y_label="Archivos que solo tocó la persona más activa (%)",
+        x_ticks=[(0.5, "0,5"), (1.0, "1,0"), (1.5, "1,5"), (2.0, "2,0")], y_ticks=[0, 10, 20, 30, 40], point_labels="none",
+        note="Con un exponente de 2 una sola persona produce la mitad de los commits y 3 de cada 10 archivos pierden a la única persona que los conocía si se va. Los exponentes son supuestos; sirven para ver la sensibilidad, no para describir un proyecto real.",
+        note_kind="coral", foot=SINT)
 
 
 def se200_decision() -> Fig:
-    rows = [
-        ["Consenso perezoso (72 h sin objeción)", "40,5 %", "12,3 %", "0 %"],
-        ["Mayoría de 3 de 5", "1,0 %", "3,1 %", "83,5 %"],
-        ["Unanimidad de quienes votan, mínimo 3", "0,5 %", "4,1 %", "83,5 %"],
-    ]
-    return tab("Reglas de decisión cuando solo el 30 % de las personas mantenedoras lee la propuesta",
-               "Tabla de tres reglas de decisión con 30 por ciento de disponibilidad: propuestas dañinas aceptadas, propuestas buenas rechazadas y propuestas sin decisión.",
-               ["Regla", "Dañinas aceptadas", "Buenas rechazadas", "Sin decisión"], rows, [400, 190, 190, 190], row_h=46, size=12,
-               note="Con 90 % de disponibilidad el consenso perezoso acepta 2,6 % de las dañinas pero rechaza 30,3 % de las buenas, y la mayoría de 3 de 5 acepta 29,7 % de las dañinas. Ninguna regla es mejor en general: cada una cambia qué error se tolera.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Reglas de decisión cuando solo el 30 % de las personas mantenedoras lee la propuesta",
+        "Barras agrupadas con los porcentajes de propuestas dañinas aceptadas, buenas rechazadas y sin decisión para tres reglas: el consenso perezoso acepta 40,5 por ciento de las dañinas y nunca deja sin decisión; la mayoría de 3 de 5 acepta 1,0 y deja sin decisión 83,5; la unanimidad de quienes votan, 0,5 y 83,5.",
+        ["Consenso perezoso (72 h)", "Mayoría de 3 de 5", "Unanimidad de votantes (mín. 3)"],
+        [("Dañinas aceptadas", [40.5, 1.0, 0.5], "coral"), ("Buenas rechazadas", [12.3, 3.1, 4.1], "gold"), ("Sin decisión", [0, 83.5, 83.5], "grey")],
+        unit="Propuestas (%)", plot_h=260, ticks=[0, 20, 40, 60, 80, 100], value_fmt=lambda v: fmt_exact(v) + " %",
+        note="Con 90 % de disponibilidad el consenso perezoso acepta 2,6 % de las dañinas pero rechaza 30,3 % de las buenas, y la mayoría de 3 de 5 acepta 29,7 % de las dañinas. Ninguna regla es mejor en general: cada una cambia qué error se tolera.",
+        note_kind="gold", foot=SINT)
 
 
 def se200_fork() -> Fig:
@@ -95,20 +86,15 @@ def se200_fork() -> Fig:
 
 # ---------------------------------------------------------------- SE-201
 def se201_expresiones() -> Fig:
-    rows = [
-        ["Disyunción «A OR B»", "39", "39", "0", "0"],
-        ["Conjunción «A AND B»", "50", "28", "0", "0"],
-        ["Con paréntesis", "15", "15", "0", "0"],
-        ["Minúsculas («mit»)", "26", "26", "0", "26"],
-        ["Barra («MIT/Apache-2.0»)", "18", "18", "0", "18"],
-        ["Identificador obsoleto («GPL-3.0»)", "16", "0", "0", "16"],
-        ["Remisión a un archivo", "22", "0", "0", "22"],
-    ]
-    return tab("Política de licencias sobre 300 expresiones: comparación literal frente a analizador",
-               "Tabla de siete tipos de expresión con cuántas decisiones erróneas toma la comparación literal, cuántas toma el analizador sin avisar y cuántas veces el analizador emite un aviso.",
-               ["Tipo de expresión", "Casos", "Literal se equivoca", "Analizador se equivoca sin avisar", "Avisos del analizador"], rows, [310, 90, 170, 220, 190], row_h=40, size=12,
-               note="De 300 expresiones la comparación literal decide mal 146; el analizador, ninguna sin avisar. Lo que no entiende («mit», «MIT/Apache-2.0», identificadores obsoletos) lo marca para revisión humana en lugar de decidir.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Política de licencias sobre 300 expresiones: decisiones erróneas de la comparación literal y avisos del analizador (el analizador no se equivoca sin avisar en ninguna)",
+        "Barras horizontales por tipo de expresión con las decisiones erróneas de la comparación literal y los avisos del analizador: la literal falla en 39 disyunciones, 28 de 50 conjunciones, 15 con paréntesis, 26 en minúsculas y 18 con barra; el analizador no se equivoca sin avisar nunca y avisa en 26 minúsculas, 18 con barra, 16 identificadores obsoletos y 22 remisiones a un archivo.",
+        ["Disyunción «A OR B» (39 casos)", "Conjunción «A AND B» (50)", "Con paréntesis (15)", "Minúsculas «mit» (26)", "Barra «MIT/Apache-2.0» (18)",
+         "Identificador obsoleto «GPL-3.0» (16)", "Remisión a un archivo (22)"],
+        [("La comparación literal se equivoca", [39, 28, 15, 26, 18, 0, 0], "coral"), ("El analizador emite un aviso", [0, 0, 0, 26, 18, 16, 22], "teal")],
+        unit="Casos", horizontal=True, label_w=270,
+        note="De 300 expresiones la comparación literal decide mal 146; el analizador, ninguna sin avisar. Lo que no entiende («mit», «MIT/Apache-2.0», identificadores obsoletos) lo marca para revisión humana en lugar de decidir.",
+        note_kind="teal", foot=SINT)
 
 
 def se201_transitivas() -> Fig:
@@ -125,32 +111,27 @@ def se201_transitivas() -> Fig:
 
 
 def se201_huella() -> Fig:
-    rows = [
-        ["Otro año y otro titular", "Igual", "1,000"],
-        ["Saltos de línea y espacios distintos", "Igual", "1,000"],
-        ["Se elimina la cláusula del aviso", "Distinta", "0,486"],
-        ["«AS IS» sustituido por otro texto", "Distinta", "0,971"],
-        ["Texto de otra licencia", "Distinta", "0,024"],
-    ]
-    return tab("Huella del texto de licencia normalizado frente a una razón de similitud",
-               "Tabla de cinco variantes del texto de la licencia MIT con si la huella del texto normalizado coincide y qué razón de similitud devuelve difflib.",
-               ["Variante", "Huella del texto normalizado", "Razón de difflib"], rows, [450, 280, 220], row_h=44, size=12,
-               note="Una razón de 0,971 puede esconder el cambio que elimina la garantía. La huella exacta detecta cualquier diferencia pero no dice cuál; la similitud dice cuánto, no si importa. En 400 archivos sintéticos, 14 etiquetas SPDX (GPL-3.0-only) contradecían el LICENSE (MIT) y 165 archivos no tenían etiqueta.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Razón de similitud de difflib frente a la huella del texto de licencia normalizado",
+        "Barras horizontales con la razón de similitud de difflib de cinco variantes del texto de la licencia MIT: otro año y otro titular y los saltos de línea distintos dan 1,000 con la misma huella; quitar la cláusula del aviso da 0,486; cambiar «AS IS» por otro texto da 0,971, casi igual aunque la huella difiere; el texto de otra licencia da 0,024.",
+        ["Otro año y otro titular (huella igual)", "Saltos de línea y espacios distintos (huella igual)", "Se elimina la cláusula del aviso (huella distinta)",
+         "«AS IS» sustituido por otro texto (huella distinta)", "Texto de otra licencia (huella distinta)"],
+        [("Razón de difflib", [1.0, 1.0, 0.486, 0.971, 0.024], "gold")],
+        unit="Razón de similitud de difflib", horizontal=True, label_w=330, ticks=[0, 0.25, 0.5, 0.75, 1], value_fmt=lambda v: f"{v:.3f}".replace(".", ","),
+        note="Una razón de 0,971 puede esconder el cambio que elimina la garantía. La huella exacta detecta cualquier diferencia pero no dice cuál; la similitud dice cuánto, no si importa. En 400 archivos sintéticos, 14 etiquetas SPDX (GPL-3.0-only) contradecían el LICENSE (MIT) y 165 archivos no tenían etiqueta.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-202
 def se202_firmas() -> Fig:
-    rows = [
-        ["60 commits firmados con una clave SSH desechable", "60 de 60 verifican", "Cada firma cubre el contenido exacto del commit"],
-        ["Copia del commit con el mensaje cambiado y la misma firma", "Código 1", "La firma ya no corresponde al contenido"],
-        ["Firma válida con otro archivo de firmantes", "Código 1", "El firmante no figura: válida no significa de confianza"],
-    ]
-    return tab("Verificar commits firmados con SSH",
-               "Tabla de tres comprobaciones de firma con el resultado de git verify-commit: 60 firmados que verifican, una copia con mensaje alterado que falla y una firma válida de un firmante no listado que falla.",
-               ["Caso", "Resultado", "Lectura"], rows, [380, 180, 420], row_h=58, size=12,
-               note="La firma vive en una cabecera del propio objeto. Firmar añadió unos 92 ms por commit en Windows y 7 ms en Ubuntu, y verificar costó 15 ms por commit en Ubuntu y 234 ms en Windows (60 repeticiones, medidas de un equipo): no se comparan entre sistemas.",
-               note_kind="teal", foot=GIT)
+    return stacked_bars(
+        "Verificar commits firmados con SSH: resultado de git verify-commit",
+        "Barras apiladas horizontales con el resultado de git verify-commit en tres casos: 60 de 60 commits firmados con una clave SSH desechable verifican; una copia con el mensaje cambiado y la misma firma falla con código 1; una firma válida de un firmante que no figura en el archivo de firmantes falla con código 1.",
+        ["60 commits firmados con una clave SSH desechable", "Copia con el mensaje cambiado y la misma firma", "Firma válida con otro archivo de firmantes"],
+        [("Verifican", [60, 0, 0], "teal"), ("Fallan (código 1)", [0, 1, 1], "coral")],
+        unit="Comprobaciones de git verify-commit", horizontal=True, label_w=300,
+        note="La firma vive en una cabecera del propio objeto y cubre el contenido exacto del commit; válida no significa de confianza. Firmar añadió unos 92 ms por commit en Windows y 7 ms en Ubuntu, y verificar costó 15 ms por commit en Ubuntu y 234 ms en Windows (60 repeticiones, medidas de un equipo): no se comparan entre sistemas.",
+        note_kind="teal", foot=GIT)
 
 
 def se202_cadena() -> Fig:
@@ -196,54 +177,44 @@ def se203_estrategia() -> Fig:
 
 def se203_rescate() -> Fig:
     rows = [
-        ["(a) Sin publicar: reset al primer padre y fusionar de nuevo", "Pruebas verdes", "Se reescribe un commit que nadie tiene"],
-        ["(b) Publicada: nuevo commit que restaura lo perdido", "Pruebas verdes", "El commit malo sigue en la historia"],
-        ["(c) revert -m 1 y volver a fusionar", "Pruebas rojas", "Git responde «Already up to date»: la rama figura integrada"],
+        [("(a) Sin publicar", "plain"), ("Reset al primer padre y fusionar de nuevo: se reescribe un commit que nadie tiene", "plain"), ("Pruebas verdes", "teal")],
+        [("(b) Publicada", "plain"), ("Nuevo commit que restaura lo perdido: el commit malo sigue en la historia", "plain"), ("Pruebas verdes", "teal")],
+        [("(c) Revertir la fusión", "plain"), ("revert -m 1 y volver a fusionar: Git responde «Already up to date», la rama figura integrada", "plain"), ("Pruebas rojas", "coral")],
     ]
-    return tab("Rescatar una fusión que se resolvió con «ours» y perdió el periodo de gracia",
-               "Tabla de tres rescates de una fusión mal resuelta: reiniciar y repetir si no se publicó, un commit de corrección si se publicó, y revertir la fusión, que deja las pruebas en rojo.",
-               ["Camino", "Resultado", "Lectura"], rows, [420, 170, 390], row_h=58, size=12,
-               note="Tras la fusión mala la rama figuraba como ancestro, así que fusionarla otra vez no hace nada. El revert devuelve el árbol al primer padre pero no devuelve la intención perdida.",
-               note_kind="coral", foot=GIT)
+    return chain_rows(
+        "Rescatar una fusión que se resolvió con «ours» y perdió el periodo de gracia",
+        "Diagrama de flujo de tres rescates de una fusión mal resuelta: reiniciar y repetir si no se publicó y dejar las pruebas verdes, un commit de corrección si se publicó con las pruebas verdes, y revertir la fusión y volver a fusionar, que no hace nada y deja las pruebas en rojo.",
+        ["Camino", "Qué se hace y qué ocurre en la historia", "Resultado"], rows, [200, 430, 170],
+        note="Tras la fusión mala la rama figuraba como ancestro, así que fusionarla otra vez no hace nada. El revert devuelve el árbol al primer padre pero no devuelve la intención perdida.",
+        note_kind="coral", foot=GIT)
 
 
 def se203_marcas() -> Fig:
-    rows = [
-        ["merge (predeterminado)", "3", "No", "Dos versiones y nada más"],
-        ["diff3", "4", "Sí", "Añade el original común"],
-        ["zdiff3", "4", "Sí", "Igual que diff3 con menos contexto repetido"],
-        ["merge --abort a mitad de un conflicto", "—", "—", "HEAD, índice y estado limpio vuelven a ser idénticos"],
-    ]
-    return tab("Marcas de conflicto según el estilo y vuelta atrás con --abort",
-               "Tabla de tres estilos de marcas de conflicto con sus líneas de marca y si muestran la base, más el resultado de abortar una fusión a medias.",
-               ["Estilo", "Líneas de marca", "¿Muestra la base?", "Lectura"], rows, [300, 150, 190, 340], row_h=46, size=12,
-               note="Ver el original común permite decidir qué lado cambió qué. Con el estilo por defecto solo se ve el resultado de cada lado y es fácil elegir uno sin entender el otro.",
-               note_kind="teal", foot=GIT)
+    return grouped_bars(
+        "Líneas de marca de conflicto según el estilo (y si muestran la base)",
+        "Barras horizontales con las líneas de marca de conflicto de tres estilos: merge, el predeterminado, usa 3 y no muestra el original común; diff3 y zdiff3 usan 4 y sí lo muestran, zdiff3 con menos contexto repetido; abortar la fusión devuelve HEAD, índice y estado limpio.",
+        ["merge (predeterminado): dos versiones y nada más", "diff3: añade el original común", "zdiff3: igual que diff3 con menos contexto repetido"],
+        [("Líneas de marca", [3, 4, 4], "teal")],
+        unit="Líneas de marca por conflicto", horizontal=True, label_w=330, ticks=[0, 1, 2, 3, 4, 5],
+        note="Ver el original común (la cuarta línea) permite decidir qué lado cambió qué. Con el estilo por defecto solo se ve el resultado de cada lado y es fácil elegir uno sin entender el otro. merge --abort a mitad de un conflicto devuelve HEAD, índice y estado limpio idénticos.",
+        note_kind="teal", foot=GIT)
 
 
 # ---------------------------------------------------------------- SE-204
 def se204_matriz() -> Fig:
-    rows = [
-        ["Contribución correcta", "Ninguna"],
-        ["Mensaje sin tipo", "1 mensaje convencional"],
-        ["Un commit gigante que mezcla", "2 commits atómicos"],
-        ["Commit intermedio roto", "3 cada commit pasa las pruebas"],
-        ["Prueba que falla en la punta", "3 y 4"],
-        ["Archivo nuevo sin cabecera SPDX", "5 cabecera SPDX"],
-        ["Descripción sin issue", "6 issue enlazado"],
-        ["Secreto sintético en el diff", "7 sin secreto"],
-        ["Commits sin firmar", "8 firmados"],
-        ["Sin Signed-off-by", "9 Signed-off-by"],
-        ["PR de más de 400 líneas", "2 y 10"],
-        ["Toca src/auth sin pedir al equipo dueño", "11 revisores del CODEOWNERS"],
-        ["Cambia el tope sin tocar pruebas", "12 si cambia src, cambia una prueba"],
-        ["Prueba que no comprueba nada", "Ninguna"],
-    ]
-    return tab("Qué comprobación detecta cada defecto plantado en una contribución",
-               "Tabla de catorce contribuciones, una correcta y trece con un defecto plantado, con las comprobaciones que fallan en cada una; la prueba que no comprueba nada no dispara ninguna.",
-               ["Contribución", "Comprobaciones que fallan"], rows, [420, 440], row_h=34, size=12,
-               note="12 de 13 defectos tocan alguna comprobación y la contribución correcta no dispara ninguna alarma falsa. El que escapa pasa todas las comprobaciones de forma: cambia una prueba por una afirmación vacía.",
-               note_kind="gold", foot=GIT)
+    defects = ["Contribución correcta", "Mensaje sin tipo", "Un commit gigante que mezcla", "Commit intermedio roto", "Prueba que falla en la punta",
+               "Archivo nuevo sin cabecera SPDX", "Descripción sin issue", "Secreto sintético en el diff", "Commits sin firmar", "Sin Signed-off-by",
+               "PR de más de 400 líneas", "Toca src/auth sin pedir al equipo dueño", "Cambia el tope sin tocar pruebas", "Prueba que no comprueba nada"]
+    hits = [[], [1], [2], [3], [3, 4], [5], [6], [7], [8], [9], [2, 10], [11], [12], []]
+    values = [[1 if c in h else 0 for c in range(1, 13)] for h in hits]
+    return heatmap(
+        "Qué comprobación detecta cada defecto plantado en una contribución",
+        "Mapa de calor de catorce contribuciones, una correcta y trece con un defecto plantado, frente a las doce comprobaciones: cada defecto dispara una o dos casillas, el commit gigante y el PR de más de 400 líneas comparten la comprobación 2, la prueba que falla dispara la 3 y la 4, y la contribución correcta y la prueba que no comprueba nada no disparan ninguna.",
+        defects, [str(n) for n in range(1, 13)], values,
+        unit="1 = la comprobación falla", row_title="Contribución", col_title="Número de la comprobación",
+        scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "●" if v else "", cell_h=30, label_w=290,
+        note="12 de 13 defectos tocan alguna comprobación y la contribución correcta no dispara ninguna alarma falsa. El que escapa pasa todas las comprobaciones de forma: cambia una prueba por una afirmación vacía.",
+        note_kind="gold", foot=GIT)
 
 
 def se204_solapes() -> Fig:
@@ -262,14 +233,15 @@ def se204_solapes() -> Fig:
 
 def se204_equivalentes() -> Fig:
     rows = [
-        ["Cambia el tope de 72 a 48 sin tocar pruebas", "Pasan: ninguna prueba mira el tope", "Sí: la comprobación 12 exige cambiar alguna prueba"],
-        ["Cambia pruebas pero una afirmación pasa a ser vacía", "Pasan: la prueba siempre es verdadera", "No: cumple la regla de «cambiar una prueba»"],
+        [("Cambia el tope de 72 a 48 sin tocar pruebas", "plain"), ("Pasan: ninguna prueba mira el tope", "gold"), ("Sí: la comprobación 12 exige cambiar alguna prueba", "teal")],
+        [("Cambia pruebas pero una afirmación pasa a ser vacía", "plain"), ("Pasan: la prueba siempre es verdadera", "gold"), ("No: cumple la regla de «cambiar una prueba»", "coral")],
     ]
-    return tab("Dos defectos con las pruebas verdes: uno se ve y otro no",
-               "Tabla con dos defectos que dejan las pruebas en verde: el cambio de tope sin tocar pruebas, que la comprobación de pruebas modificadas detecta, y una afirmación vacía, que ninguna comprobación de forma detecta.",
-               ["Defecto", "Qué dicen las pruebas", "¿Lo detecta alguna comprobación?"], rows, [330, 300, 350], row_h=64, size=12,
-               note="Para ver el segundo hace falta una prueba que falle contra una versión errónea de la regla (mutación) o la lectura de una persona. Un paquete aprobado por comprobaciones automáticas no es un paquete correcto.",
-               note_kind="coral", foot=GIT)
+    return chain_rows(
+        "Dos defectos con las pruebas verdes: uno se ve y otro no",
+        "Diagrama de flujo de dos defectos que dejan las pruebas en verde: el cambio de tope sin tocar pruebas, que la comprobación de pruebas modificadas detecta, y una afirmación vacía, que ninguna comprobación de forma detecta.",
+        ["Defecto", "Qué dicen las pruebas", "¿Lo detecta alguna comprobación?"], rows, [300, 250, 270],
+        note="Para ver el segundo hace falta una prueba que falle contra una versión errónea de la regla (mutación) o la lectura de una persona. Un paquete aprobado por comprobaciones automáticas no es un paquete correcto.",
+        note_kind="coral", foot=GIT)
 
 
 FIGURES = {

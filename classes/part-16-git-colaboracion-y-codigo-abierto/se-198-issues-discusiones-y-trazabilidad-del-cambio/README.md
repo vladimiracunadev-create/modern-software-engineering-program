@@ -115,9 +115,9 @@ Se definieron seis defectos de la regla de penalización, cada uno activado por 
 
 Se generaron 60 cambios sobre 25 issues, con tres orígenes: commits directos en `main` (50), ramas que nunca se integran (4) y ramas integradas con squash que descarta el cuerpo (6). Sobre `main` quedaron 56 commits, 18 con referencia a un issue y 13 de los 25 issues con alguna referencia. De los mensajes con `Fixes` o `Closes`, los 12 hechos en commits directos siguen visibles en `main`; el único con squash, **no** (el commit de integración dice solo «Integra rama»); y ninguna de las cuatro ramas sin integrar tenía cierres, pero sus cambios tampoco están en `main`.
 
-![Tabla con los mensajes con Fixes o Closes que sobreviven en main según el origen del cambio.](../../../content/part-16/figures/se-198-trazabilidad-en-main.svg)
+![Barras agrupadas con los mensajes, los que llevan Fixes o Closes y los visibles en main para tres orígenes de cambio: el commit directo en main conserva sus 12 referencias de 50 mensajes; la rama que nunca se integra tiene 4 mensajes y ninguna referencia; la rama integrada con squash sin copiar el cuerpo tiene 1 referencia en 6 mensajes y ninguna visible.](../../../content/part-16/figures/se-198-trazabilidad-en-main.svg)
 
-**Cómo leer la figura.** Cada fila es un origen de cambio; las columnas cuentan mensajes totales, los que cierran un issue y los que siguen visibles en `main` tras la integración. **Dónde deja de valer:** el repositorio es pequeño y la proporción de squash es del autor; el ejemplo muestra el mecanismo (el vínculo depende de la integración), no cuántos vínculos pierde un proyecto, y no cubre los vínculos mantenidos en la descripción del PR, que el alojamiento puede conservar aparte.
+**Cómo leer la figura.** Cada grupo es un origen de cambio y sus tres barras son los mensajes (azul oscuro), los que llevan Fixes o Closes (dorado) y los visibles en main (verde). Mira primero cómo el squash sin copiar el cuerpo pierde la única referencia que tenía. **Dónde deja de valer:** el repositorio es pequeño y la proporción de squash es del autor; el ejemplo muestra el mecanismo (el vínculo depende de la integración), no cuántos vínculos pierde un proyecto, y no cubre los vínculos mantenidos en la descripción del PR, que el alojamiento puede conservar aparte.
 
 ## Definiciones de trabajo
 

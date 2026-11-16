@@ -1,8 +1,10 @@
 """Figures for SE-193 to SE-198 (Git real en repositorios temporales o datos sintéticos con semilla fija; resultados idénticos en Windows y Ubuntu salvo los tiempos)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_flow_rows import chain_rows
+from figure_kit import AXIS, Fig, _kit_finish, _kit_start, grouped_bars, heatmap, stacked_bars
+from figures_part07_a import bars
+
 
 GIT = "Git real en repositorios temporales con identidad y fechas fijas; salidas idénticas con Git 2.55 (Windows) y 2.43 (Ubuntu, WSL2)."
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2). Los parámetros son supuestos del autor."
@@ -11,32 +13,44 @@ SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2). 
 # ---------------------------------------------------------------- SE-193
 def se193_ids() -> Fig:
     rows = [
-        ["Blob de «hola entrega»", "SHA-1 de «blob 13», un byte nulo y el contenido", "Idéntico al de git hash-object", "Coincide"],
-        ["Árbol con un directorio", "Entradas ordenadas tratando el directorio como «src/»", "Idéntico al de git write-tree", "Coincide"],
-        ["El mismo árbol con orden ingenuo", "Entradas ordenadas solo por nombre, sin la barra", "Otro identificador", "No coincide: «src.b» queda antes que «src»"],
-        ["Commit inicial", "Árbol, autoría, fecha y mensaje escritos a mano", "Idéntico al de git commit-tree", "Coincide"],
+        [("Blob de «hola entrega»", "plain"), ("SHA-1 de «blob 13», un byte nulo y el contenido", "plain"), ("Idéntico al de git hash-object: coincide", "teal")],
+        [("Árbol con un directorio", "plain"), ("Entradas ordenadas tratando el directorio como «src/»", "plain"), ("Idéntico al de git write-tree: coincide", "teal")],
+        [("El mismo árbol con orden ingenuo", "plain"), ("Entradas ordenadas solo por nombre, sin la barra", "plain"), ("Otro identificador: «src.b» queda antes que «src»", "coral")],
+        [("Commit inicial", "plain"), ("Árbol, autoría, fecha y mensaje escritos a mano", "plain"), ("Idéntico al de git commit-tree: coincide", "teal")],
     ]
-    return tab("Reconstruir a mano los identificadores de objetos",
-               "Tabla de cuatro objetos de Git reconstruidos con hashlib: el blob, el árbol con el orden correcto y el commit coinciden con Git y el árbol con orden ingenuo no coincide.",
-               ["Objeto", "Cómo se construyó", "Resultado frente a Git", "Lectura"], rows, [250, 330, 270, 250], row_h=58, size=12,
-               note="El identificador es una función del contenido y de su formato, no un número asignado. El detalle del orden de los árboles basta para obtener otro objeto.",
-               note_kind="teal", foot=GIT)
+    return chain_rows(
+        "Reconstruir a mano los identificadores de objetos: de la entrada al identificador",
+        "Diagrama de flujo de cuatro objetos de Git reconstruidos con hashlib: del contenido y el formato al identificador; el blob, el árbol con el orden correcto y el commit coinciden con Git y el árbol con orden ingenuo da otro identificador.",
+        ["Objeto", "Cómo se construyó", "Resultado frente a Git"], rows, [220, 330, 270],
+        note="El identificador es una función del contenido y de su formato, no un número asignado. El detalle del orden de los árboles basta para obtener otro objeto.",
+        note_kind="teal", foot=GIT)
 
 
 def se193_areas() -> Fig:
-    rows = [
-        ["Archivo nuevo sin agregar", "??", "Git no lo rastrea; no aparece en ningún diff"],
-        ["Archivo nuevo, agregado", "A·", "Está en el índice; git diff --cached lo muestra"],
-        ["Agregado y editado después", "AM", "El índice tiene la versión vieja y el árbol de trabajo la nueva"],
-        ["Editado sin agregar", "·M", "Solo cambia el árbol de trabajo"],
-        ["Editado y agregado", "M·", "El índice y el árbol de trabajo coinciden; difiere de HEAD"],
-        ["Quitado solo del índice", "D· y ??", "El archivo sigue en disco pero deja de estar rastreado"],
-    ]
-    return tab("Estados de git status --porcelain en cada paso",
-               "Tabla de seis operaciones con el código de dos letras que muestra git status y qué significa respecto del árbol de trabajo, el índice y HEAD.",
-               ["Situación", "Código", "Qué significa"], rows, [330, 120, 520], row_h=46, size=12,
-               note="En a.py con 3 líneas en HEAD, 1 agregada y 2 más sin agregar: git diff cuenta 2, git diff --cached cuenta 1 y git diff HEAD cuenta 3. Un restore posterior borra las 2 sin agregar y conserva la agregada.",
-               note_kind="gold", foot=GIT)
+    f, y = _kit_start("Las tres áreas de Git y lo que cuenta cada diff (a.py: 3 líneas en HEAD, 1 agregada y 2 más sin agregar)",
+                      "Diagrama de las tres áreas de Git, HEAD, índice y árbol de trabajo, con los comandos que mueven el contenido entre ellas y las líneas que cuenta cada diff: git diff cuenta 2 entre el índice y el árbol de trabajo, git diff --cached cuenta 1 entre HEAD y el índice y git diff HEAD cuenta 3.",
+                      940, None)
+    top = y + 8
+    xs = [(40, "HEAD", "3 líneas", "grey"), (370, "Índice", "+1 línea agregada", "gold"), (700, "Árbol de trabajo", "+2 líneas sin agregar", "teal")]
+    for x, name, body, kind in xs:
+        f.box(x, top, 200, 84, f"{name}\n{body}", kind, 14, bold=True)
+    f.arrow([(700, top + 30), (572, top + 30)], "git add", label_at=(636, top + 20))
+    f.arrow([(370, top + 30), (242, top + 30)], "git commit", label_at=(306, top + 20))
+    f.arrow([(242, top + 62), (370, top + 62)], "restore --staged", dashed=True, label_at=(306, top + 78))
+    f.arrow([(572, top + 62), (700, top + 62)], "restore", dashed=True, label_at=(636, top + 78))
+    brackets = [(470, 800, "git diff: 2 líneas (índice frente a árbol de trabajo)", 0), (140, 470, "git diff --cached: 1 línea (HEAD frente a índice)", 1),
+                (140, 800, "git diff HEAD: 3 líneas (HEAD frente a árbol de trabajo)", 2)]
+    for a, b, label, row in brackets:
+        by = top + 112 + row * 50
+        f.line(a, by, b, by, "#32505f", width=1.6)
+        f.line(a, by - 7, a, by, "#32505f", width=1.6)
+        f.line(b, by - 7, b, by, "#32505f", width=1.6)
+        f.text((a + b) / 2, by + 20, label, 13, "middle", 700, "#142231")
+    yy = top + 112 + 2 * 50 + 44
+    f.text(14, yy, "git status --porcelain: la primera letra compara el índice con HEAD; la segunda, el árbol de trabajo con el índice.", 13, "start", 400, AXIS)
+    return _kit_finish(f, yy + 14,
+                       "Un restore posterior borra las 2 líneas sin agregar y conserva la agregada. Un archivo nuevo sin agregar (??) no está en ninguna de las tres áreas: Git no lo rastrea y no aparece en ningún diff.",
+                       "gold", GIT)
 
 
 def se193_almacen() -> Fig:
@@ -53,59 +67,60 @@ def se193_almacen() -> Fig:
 
 # ---------------------------------------------------------------- SE-194
 def se194_bisect() -> Fig:
-    rows = [
-        ["64 commits atómicos", "6", "Sí", "4 líneas en 2 archivos"],
-        ["16 commits de 4 cambios cada uno", "4", "Sí", "10 líneas en 5 archivos"],
-        ["64 atómicos con 3 intermedios rotos lejos del defecto", "6", "Sí", "4 líneas en 2 archivos"],
-        ["64 atómicos con un intermedio roto junto al defecto", "6", "No: solo quedan commits omitidos", "Hay que leer los candidatos a mano"],
-    ]
-    return tab("git bisect run sobre la misma pérdida de puntos con cuatro historias",
-               "Tabla de cuatro historias con el mismo defecto en el cambio 41: ejecuciones de la prueba, si Git encuentra un culpable único y cuánto hay que leer después.",
-               ["Historia", "Ejecuciones de la prueba", "¿Culpable único?", "Qué hay que leer después"], rows, [340, 150, 230, 260], row_h=58, size=12,
-               note="Agrupar cambios ahorra dos ejecuciones pero multiplica por 2,5 lo que se lee. Un commit intermedio que no compila junto al defecto impide que Git señale un solo commit.",
-               note_kind="coral", foot=GIT)
+    return grouped_bars(
+        "Ejecuciones de la prueba de git bisect run sobre la misma pérdida de puntos con cuatro historias",
+        "Barras horizontales con las ejecuciones de la prueba que necesita git bisect run en cuatro historias con el mismo defecto: 6 con 64 commits atómicos, 4 con 16 commits de cuatro cambios, 6 con tres intermedios rotos lejos del defecto y 6 con un intermedio roto junto al defecto, donde Git ya no encuentra un culpable único.",
+        ["64 commits atómicos: culpable único, 4 líneas en 2 archivos", "16 commits de 4 cambios: culpable único, 10 líneas en 5 archivos",
+         "64 atómicos con 3 intermedios rotos lejos: culpable único, 4 líneas", "64 atómicos con un intermedio roto junto al defecto: sin culpable único"],
+        [("Ejecuciones de la prueba", [6, 4, 6, 6], "teal")],
+        unit="Ejecuciones de la prueba", horizontal=True, label_w=400, ticks=[0, 2, 4, 6, 8],
+        note="Agrupar cambios ahorra dos ejecuciones pero multiplica por 2,5 lo que se lee. Un commit intermedio que no compila junto al defecto impide que Git señale un solo commit: solo quedan commits omitidos y hay que leer los candidatos a mano.",
+        note_kind="coral", foot=GIT)
 
 
 def se194_recuperacion() -> Fig:
-    rows = [
-        ["Commit y luego reset --hard", "Sí", "El objeto sigue y el reflog apunta a él"],
-        ["Agregado al índice y luego reset --hard", "Sí", "Queda un blob suelto; git fsck --lost-found lo encuentra"],
-        ["Editado sin agregar y luego reset --hard", "No", "Nunca entró en la base de objetos"],
-        ["Archivo no rastreado y luego clean -fd", "No", "Nunca entró en la base de objetos"],
-        ["Stash y luego stash drop", "Sí", "El commit del stash queda colgando hasta la poda"],
-        ["Commit, reset, expirar el reflog y gc --prune=now", "No", "El objeto ya no es alcanzable y se poda"],
-    ]
-    return tab("¿Sigue el contenido en la base de objetos después del error?",
-               "Tabla de seis errores con la respuesta de si el contenido sigue en la base de objetos de Git y por qué.",
-               ["Qué ocurrió", "¿Sigue?", "Motivo"], rows, [370, 100, 500], row_h=46, size=12,
-               note="Git solo puede recuperar lo que alguna vez guardó. Un cambio que no se agregó ni se confirmó no tiene copia.",
-               note_kind="teal", foot=GIT)
+    f, y = _kit_start("¿Sigue el contenido en la base de objetos después del error? Depende de hasta dónde llegó",
+                      "Diagrama del recorrido de un cambio en cuatro etapas: nunca guardado, objeto suelto o colgante, alcanzable desde el reflog y podado; un cambio editado sin agregar o un archivo no rastreado no se recupera, un agregado o un stash descartado sí, un commit con reset sí, y un commit con el reflog expirado y gc --prune=now no.",
+                      940, None)
+    cols = [("1 · Nunca guardado", "coral", [("Editado sin agregar y luego reset --hard: no. Nunca entró en la base de objetos", "coral"),
+                                              ("Archivo no rastreado y luego clean -fd: no. Nunca entró en la base de objetos", "coral")]),
+            ("2 · Objeto suelto o colgante", "gold", [("Agregado y luego reset --hard: sí. Un blob suelto; git fsck --lost-found lo encuentra", "teal"),
+                                                     ("Stash y luego stash drop: sí. El commit del stash queda colgando hasta la poda", "teal")]),
+            ("3 · Alcanzable desde el reflog", "teal", [("Commit y luego reset --hard: sí. El objeto sigue y el reflog apunta a él", "teal")]),
+            ("4 · Inalcanzable y podado", "coral", [("Commit, reset, expirar el reflog y gc --prune=now: no. Ya no es alcanzable y se poda", "coral")])]
+    w, gap, top = 205, 30, y + 6
+    for i, (head, kind, boxes) in enumerate(cols):
+        x = 14 + i * (w + gap)
+        f.group(x, top, w, 330, head, kind)
+        for j, (text, k) in enumerate(boxes):
+            f.box(x + 10, top + 38 + j * 140, w - 20, 126, text, k, 13)
+        if i < len(cols) - 1:
+            f.arrow([(x + w + 3, top + 165), (x + w + gap - 3, top + 165)])
+    return _kit_finish(f, top + 340, "Git solo puede recuperar lo que alguna vez guardó. Un cambio que no se agregó ni se confirmó no tiene copia.", "teal", GIT)
 
 
 def se194_reset_revert() -> Fig:
-    rows = [
-        ["reset --hard HEAD~2 y push --force", "3 por delante, 0 por detrás", "6", "Sí: a3 y a4 vuelven al remoto"],
-        ["revert de los dos últimos y push normal", "1 por delante, 2 por detrás", "9", "No: quedan los dos revert"],
-    ]
-    return tab("Deshacer dos commits ya publicados mientras otra clon tiene trabajo local",
-               "Tabla de dos formas de deshacer commits publicados: reescribir con reset y fuerza, o revertir, y qué ocurre cuando otro clon fusiona y publica.",
-               ["Forma de deshacer", "Estado del otro clon tras fetch", "Commits en el remoto al final", "¿Reaparece lo deshecho?"], rows, [310, 260, 190, 230], row_h=58, size=12,
-               note="Quien tiene los dos commits publicados los devuelve al remoto en su siguiente push. Revertir produce una historia más larga pero converge sin coordinación.",
-               note_kind="gold", foot=GIT)
+    return grouped_bars(
+        "Deshacer dos commits ya publicados mientras otro clon tiene trabajo local: commits en el remoto al final",
+        "Barras horizontales con los commits que quedan en el remoto tras deshacer dos commits publicados: con reset --hard y push forzado quedan 6 y lo deshecho reaparece cuando el otro clon publica; con revert y push normal quedan 9, incluidos los dos revert, y no reaparece.",
+        ["reset --hard HEAD~2 y push --force: el otro clon tiene 3 por delante, 0 por detrás y lo deshecho reaparece (a3 y a4)",
+         "revert de los dos últimos y push normal: el otro clon tiene 1 por delante, 2 por detrás y lo deshecho no reaparece"],
+        [("Commits en el remoto", [6, 9], "gold")],
+        unit="Commits en el remoto al final", horizontal=True, label_w=400, ticks=[0, 3, 6, 9, 12],
+        note="Quien tiene los dos commits publicados los devuelve al remoto en su siguiente push. Revertir produce una historia más larga pero converge sin coordinación.",
+        note_kind="gold", foot=GIT)
 
 
 # ---------------------------------------------------------------- SE-195
 def se195_estrategias() -> Fig:
-    rows = [
-        ["Merge sin avance rápido", "10", "1", "4 de 4", "Conserva la forma de la bifurcación"],
-        ["Rebase y avance rápido", "9", "0", "0 de 4", "Reescribe los 4 commits: cambian de identificador"],
-        ["Squash", "6", "0", "0 de 4", "Un commit nuevo; los 4 originales no entran"],
-    ]
-    return tab("Tres formas de integrar una rama de 4 commits cuando main avanzó 3",
-               "Tabla de merge, rebase y squash con el número de commits en main, fusiones y cuántos commits de la rama conservan su identificador.",
-               ["Estrategia", "Commits en main", "Fusiones", "Hashes conservados", "Lectura"], rows, [220, 130, 110, 150, 360], row_h=58, size=12,
-               note="El árbol final fue idéntico en las tres. Cambia la historia, no el contenido; por eso la elección es de trazabilidad y de quién ya tiene esos commits.",
-               note_kind="teal", foot=GIT)
+    return grouped_bars(
+        "Tres formas de integrar una rama de 4 commits cuando main avanzó 3",
+        "Barras agrupadas con los commits en main, las fusiones y los commits de la rama que conservan su identificador al integrar una rama de cuatro commits: merge deja 10 commits, 1 fusión y 4 de 4 hashes; rebase deja 9, ninguna fusión y 0 de 4; squash deja 6, ninguna fusión y 0 de 4.",
+        ["Merge sin avance rápido", "Rebase y avance rápido", "Squash"],
+        [("Commits en main", [10, 9, 6], "navy"), ("Fusiones", [1, 0, 0], "gold"), ("Commits de la rama con su hash conservado (de 4)", [4, 0, 0], "teal")],
+        unit="Commits", plot_h=250,
+        note="El árbol final fue idéntico en las tres. Cambia la historia, no el contenido: merge conserva la forma de la bifurcación, rebase reescribe los 4 commits y squash crea uno nuevo; por eso la elección es de trazabilidad y de quién ya tiene esos commits.",
+        note_kind="teal", foot=GIT)
 
 
 def se195_conflicto() -> Fig:
@@ -125,15 +140,14 @@ def se195_conflicto() -> Fig:
 
 
 def se195_rerere() -> Fig:
-    rows = [
-        ["Inactivo", "1", "1 (hay que resolver otra vez)", "Con marcas"],
-        ["Activo", "1", "0", "tope=60 (la resolución previa se reaplica)"],
-    ]
-    return tab("Repetir la misma fusión con rerere inactivo y activo",
-               "Tabla con las marcas de conflicto en la primera y la segunda fusión de las mismas ramas, con rerere desactivado y activado.",
-               ["rerere", "Marcas en la 1.ª fusión", "Marcas en la 2.ª fusión", "Contenido de la 2.ª"], rows, [140, 220, 290, 320], row_h=58, size=12,
-               note="Con rerere el código de salida de la segunda fusión sigue siendo 1: Git avisa de que había conflicto y aun así deja resuelto el archivo. Hay que revisarlo y agregarlo; la reutilización no valida que la resolución siga siendo correcta.",
-               note_kind="gold", foot=GIT)
+    return grouped_bars(
+        "Repetir la misma fusión con rerere inactivo y activo: marcas de conflicto",
+        "Barras agrupadas con el número de fusiones que dejan marcas de conflicto en la primera y la segunda fusión de las mismas ramas: con rerere inactivo hay marcas en las dos; con rerere activo solo en la primera y la segunda reaplica la resolución previa.",
+        ["1.ª fusión", "2.ª fusión"],
+        [("rerere inactivo", [1, 1], "coral"), ("rerere activo", [1, 0], "teal")],
+        unit="Fusiones con marcas de conflicto", plot_h=220, ticks=[0, 1, 2],
+        note="Con rerere el código de salida de la segunda fusión sigue siendo 1: Git avisa de que había conflicto y aun así deja resuelto el archivo (tope=60, la resolución previa se reaplica). Hay que revisarlo y agregarlo; la reutilización no valida que la resolución siga siendo correcta.",
+        note_kind="gold", foot=GIT)
 
 
 # ---------------------------------------------------------------- SE-196
@@ -164,15 +178,14 @@ def se196_triaje() -> Fig:
 
 
 def se196_apilados() -> Fig:
-    rows = [
-        ["En una zona lejana de los demás PR", "No", "3 de 3"],
-        ["Junto a la línea que edita el PR 2", "Sí", "0 de 3: se detiene en el primero"],
-    ]
-    return tab("Corregir el primer PR de una pila de cuatro y reapilar con rebase --update-refs",
-               "Tabla con dos correcciones del primer pull request de una pila: una lejana que reapila sin conflicto y otra contigua al segundo PR que provoca conflicto.",
-               ["Dónde cae la corrección", "¿Conflicto al reapilar?", "Ramas de la pila actualizadas"], rows, [380, 220, 380], row_h=58, size=12,
-               note="Una pila de PR pequeños reduce lo que se lee, pero cada corrección del primero se paga en reapilados. Cuando hay conflicto Git detiene todo y hay que resolverlo para continuar.",
-               note_kind="gold", foot=GIT)
+    return stacked_bars(
+        "Corregir el primer PR de una pila de cuatro y reapilar con rebase --update-refs",
+        "Barras apiladas horizontales con las tres ramas de la pila que quedan actualizadas tras corregir el primer pull request: con una corrección lejana se actualizan 3 de 3; con una corrección contigua a la línea que edita el segundo PR hay conflicto y 0 de 3, porque Git se detiene en el primero.",
+        ["Corrección en una zona lejana de los demás PR", "Corrección junto a la línea que edita el PR 2"],
+        [("Ramas actualizadas", [3, 0], "teal"), ("Ramas sin actualizar", [0, 3], "coral")],
+        unit="Ramas de la pila que se actualizan (de 3)", horizontal=True, label_w=270,
+        note="Una pila de PR pequeños reduce lo que se lee, pero cada corrección del primero se paga en reapilados. Cuando hay conflicto Git detiene todo y hay que resolverlo para continuar.",
+        note_kind="gold", foot=GIT)
 
 
 # ---------------------------------------------------------------- SE-197
@@ -191,15 +204,16 @@ def se197_vida() -> Fig:
 
 
 def se197_semantico() -> Fig:
-    rows = [
-        ["10 % de los PR toca lo mismo que otro abierto", "0,9", "2,4", "5,1"],
-        ["30 % de los PR toca lo mismo que otro abierto", "3,0", "7,0", "14,8"],
-    ]
-    return tab("Veces que main queda roto por 500 PR si no se prueba la fusión (media de 20 semillas)",
-               "Tabla con la media de veces que main se rompe por 500 pull requests cuando dos PR verdes por separado son incompatibles, según la proporción de solapamientos y la probabilidad de incompatibilidad.",
-               ["Solapamiento", "Rompe 2 %", "Rompe 5 %", "Rompe 10 %"], rows, [430, 160, 160, 160], row_h=58, size=12,
-               note="En Git real, dos ramas fusionaron sin conflicto de texto y el panel imprimió 42 en lugar de 60 porque una cambió el orden de los parámetros y la otra seguía llamando con el orden antiguo. Una cola de fusión prueba el resultado combinado y lleva esta cifra a 0 a costa de espera.",
-               note_kind="coral", foot=SINT)
+    return heatmap(
+        "Veces que main queda roto por 500 PR si no se prueba la fusión (media de 20 semillas)",
+        "Mapa de calor con la media de veces que main se rompe por 500 pull requests verdes por separado pero incompatibles: con el 10 por ciento de solapamientos, 0,9, 2,4 y 5,1 según rompan con probabilidad 2, 5 y 10 por ciento; con el 30 por ciento, 3,0, 7,0 y 14,8.",
+        ["10 % de los PR toca lo mismo que otro abierto", "30 % de los PR toca lo mismo que otro abierto"],
+        ["Incompatibles el 2 %", "Incompatibles el 5 %", "Incompatibles el 10 %"],
+        [[0.9, 2.4, 5.1], [3.0, 7.0, 14.8]],
+        unit="veces que main queda roto", row_title="Solapamiento", col_title="Probabilidad de que dos PR solapados sean incompatibles",
+        scale="coral", decimals=1, cell_h=56, label_w=250,
+        note="En Git real, dos ramas fusionaron sin conflicto de texto y el panel imprimió 42 en lugar de 60 porque una cambió el orden de los parámetros y la otra seguía llamando con el orden antiguo. Una cola de fusión prueba el resultado combinado y lleva esta cifra a 0 a costa de espera.",
+        note_kind="coral", foot=SINT)
 
 
 def se197_backports() -> Fig:
@@ -244,16 +258,14 @@ def se198_reproducir() -> Fig:
 
 
 def se198_trazabilidad() -> Fig:
-    rows = [
-        ["Commit directo en main", "50", "12", "12"],
-        ["Rama que nunca se integra", "4", "0", "0"],
-        ["Rama integrada con squash sin copiar el cuerpo", "6", "1", "0"],
-    ]
-    return tab("Mensajes con Fixes o Closes que sobreviven en main (60 cambios generados)",
-               "Tabla de tres orígenes de cambio con el número de mensajes, cuántos llevan Fixes o Closes y cuántos siguen visibles en el historial de main.",
-               ["Origen del cambio", "Mensajes", "Con Fixes o Closes", "Visibles en main"], rows, [400, 130, 220, 190], row_h=46, size=12,
-               note="En main quedaron 56 commits, 18 con referencia y 13 de 25 issues con alguna. El squash que no copia el cuerpo borra el vínculo: la trazabilidad depende de cómo se integra, no solo de lo que se escribió.",
-               note_kind="gold", foot=GIT)
+    return grouped_bars(
+        "Mensajes con Fixes o Closes que sobreviven en main (60 cambios generados)",
+        "Barras agrupadas con los mensajes, los que llevan Fixes o Closes y los visibles en main para tres orígenes de cambio: el commit directo en main conserva sus 12 referencias de 50 mensajes; la rama que nunca se integra tiene 4 mensajes y ninguna referencia; la rama integrada con squash sin copiar el cuerpo tiene 1 referencia en 6 mensajes y ninguna visible.",
+        ["Commit directo en main", "Rama que nunca se integra", "Rama integrada con squash sin copiar el cuerpo"],
+        [("Mensajes", [50, 4, 6], "navy"), ("Con Fixes o Closes", [12, 0, 1], "gold"), ("Visibles en main", [12, 0, 0], "teal")],
+        unit="Mensajes", plot_h=250,
+        note="En main quedaron 56 commits, 18 con referencia y 13 de 25 issues con alguna. El squash que no copia el cuerpo borra el vínculo: la trazabilidad depende de cómo se integra, no solo de lo que se escribió.",
+        note_kind="gold", foot=GIT)
 
 
 FIGURES = {

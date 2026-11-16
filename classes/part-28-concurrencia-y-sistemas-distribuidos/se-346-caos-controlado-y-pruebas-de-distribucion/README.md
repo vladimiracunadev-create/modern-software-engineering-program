@@ -116,9 +116,9 @@ return r.random() >= self.p and r.random() >= over     # falla por tasa propia o
 
 Con fallos del 20 % o 50 % los reintentos rescatan casi todo con un costo modesto de llamadas. Con 80 % el cliente con reintentos hace más de tres llamadas por solicitud, sobrecarga la dependencia y consigue 54,1 %; el interruptor hace 0,53 llamadas por solicitud y acierta solo el 9,9 %, a cambio de dejar de golpear a la dependencia. Ninguna es la ganadora: cada una elige qué proteger.
 
-![Tabla con el éxito y las llamadas por solicitud de un cliente sin reintentos, con reintentos y con interruptor según el fallo inyectado en la dependencia.](../../../content/part-28/figures/se-346-reintentos-e-interruptor.svg)
+![Líneas con el éxito de las solicitudes según el fallo inyectado para un cliente sin reintentos, con reintentos y con interruptor: con 80 por ciento de fallo los reintentos llegan a 54,1 por ciento con 3,05 llamadas por solicitud y el interruptor baja a 9,9 con 0,53.](../../../content/part-28/figures/se-346-reintentos-e-interruptor.svg)
 
-**Cómo leer la figura.** Cada fila es una tasa de fallo inyectada; cada celda da el éxito y las llamadas por solicitud de una estrategia. **Dónde deja de valer:** la dependencia, su capacidad de 100 y la relación entre exceso y rechazo son un modelo del autor, y el interruptor se simplificó (sin estado semiabierto). Lo transferible es la forma: hay una tasa a partir de la cual los reintentos empeoran la situación, y el experimento de caos existe para encontrarla en el sistema real.
+**Cómo leer la figura.** El eje horizontal es el fallo inyectado en la dependencia y el vertical el porcentaje de solicitudes con éxito; cada línea es una estrategia y las anotaciones dan las llamadas por solicitud. Mira dónde se separan las líneas de reintentos e interruptor, entre 50 % y 80 %: ahí empieza a costar la protección. **Dónde deja de valer:** la dependencia, su capacidad de 100 y la relación entre exceso y rechazo son un modelo del autor, y el interruptor se simplificó (sin estado semiabierto). Lo transferible es la forma: hay una tasa a partir de la cual los reintentos empeoran la situación, y el experimento de caos existe para encontrarla en el sistema real.
 
 ### El mismo defecto, distintos planificadores
 
@@ -138,9 +138,9 @@ if cur not in live or r.random() < q:      # q = probabilidad de cambiar de hilo
 
 El 96 % de las intercalaciones violan la invariante y, aun así, un planificador pegajoso solo la expone en el 4,84 % de las ejecuciones. Una pasada limpia con 10 repeticiones es habitual (más de la mitad de las veces con q = 0,03) y no dice casi nada. La misma semilla produjo la misma traza (huella idéntica), de modo que un fallo encontrado se puede repetir exactamente.
 
-![Tabla con el porcentaje de ejecuciones que exponen un defecto de concurrencia y las ejecuciones hasta el primer fallo según la probabilidad de cambiar de hilo del planificador.](../../../content/part-28/figures/se-346-planificador-y-fallo-raro.svg)
+![Intervalos en escala logarítmica con las ejecuciones hasta el primer fallo (mediana y percentil 95) según la probabilidad de cambiar de hilo: 1 y 2 con cambio constante y 14 y 57 con 0,03.](../../../content/part-28/figures/se-346-planificador-y-fallo-raro.svg)
 
-**Cómo leer la figura.** Cada fila es un planificador; las columnas muestran con qué frecuencia expone el defecto y cuántas ejecuciones hacen falta. **Dónde deja de valer:** el defecto y la probabilidad de cambio son construcciones del autor; un sistema operativo real no cambia con probabilidad fija y las ejecuciones con hilos reales no son reproducibles por semilla. La exploración controlada (semilla o enumeración) solo vale si el programa se ejecuta bajo un planificador que puedes gobernar.
+**Cómo leer la figura.** Cada fila es un planificador (con el porcentaje de ejecuciones que fallan en la etiqueta) y la pista va de la mediana al p95 de las ejecuciones necesarias para ver el defecto, en escala logarítmica. Mira cómo la pista se desplaza y alarga hacia la derecha a medida que el planificador cambia de hilo con menos frecuencia. **Dónde deja de valer:** el defecto y la probabilidad de cambio son construcciones del autor; un sistema operativo real no cambia con probabilidad fija y las ejecuciones con hilos reales no son reproducibles por semilla. La exploración controlada (semilla o enumeración) solo vale si el programa se ejecuta bajo un planificador que puedes gobernar.
 
 ### Un linter de planes de caos
 
@@ -163,9 +163,9 @@ if "<" not in p["hipotesis"] and ">" not in p["hipotesis"]:          return True
 
 El linter detecta 147 de 200 mutaciones y falla exactamente en las dos que convierten un experimento en teatro: un resultado que no se obtuvo en este entorno y una reversión que nunca se probó. Ambas dejan los campos plausibles y no se ven con un verificador de forma.
 
-![Tabla con las mutaciones de un plan de experimento de caos que detecta un linter de forma y las que no detecta, entre ellas el resultado copiado de otro entorno y la reversión nunca ensayada.](../../../content/part-28/figures/se-346-linter-de-planes-de-caos.svg)
+![Barras apiladas con las 200 mutaciones de un plan de experimento de caos por tipo: el linter de forma detecta todas las de cuatro tipos (147) y ninguna de las 53 de resultado copiado de otro entorno ni de reversión nunca ensayada.](../../../content/part-28/figures/se-346-linter-de-planes-de-caos.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación; el número es cuántas de ese tipo detecta el linter. **Dónde deja de valer:** las reglas se escribieron conociendo las mutaciones, así que cada tipo sale al 0 % o al 100 %; la exactitud sobre planes reales de personas es desconocida y probablemente peor. Sirve para mostrar la frontera entre lo que verifica una máquina y lo que exige una revisión.
+**Cómo leer la figura.** Cada barra es un tipo de mutación y se divide entre las detectadas por el linter (verde) y las que pasan (coral). Mira que cada barra es de un solo color: el linter ve la forma, no el contenido. **Dónde deja de valer:** las reglas se escribieron conociendo las mutaciones, así que cada tipo sale al 0 % o al 100 %; la exactitud sobre planes reales de personas es desconocida y probablemente peor. Sirve para mostrar la frontera entre lo que verifica una máquina y lo que exige una revisión.
 
 ## Definiciones de trabajo
 

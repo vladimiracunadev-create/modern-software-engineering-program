@@ -119,9 +119,9 @@ else:                                     ok += 1
 
 En los tres perfiles, la mayoría de los tiempos agotados corresponde a operaciones ejecutadas. Cuanta más lentitud y menos pérdida de peticiones, más cerca de 100 %. Un cliente que reintenta sin clave duplica el efecto en la mayoría de los casos, y un cliente que muestra «no se pudo» engaña a la persona.
 
-![Tabla con los tiempos agotados de 100 000 llamadas en tres perfiles de red y cuántos corresponden a una operación que sí se ejecutó.](../../../content/part-28/figures/se-341-que-significa-un-tiempo-agotado.svg)
+![Barras apiladas al 100 por ciento con los tiempos agotados de 100 000 solicitudes en tres perfiles de red: la operación sí se ejecutó en el 59,1, el 85,1 y el 93,4 por ciento de ellos.](../../../content/part-28/figures/se-341-que-significa-un-tiempo-agotado.svg)
 
-**Cómo leer la figura.** Cada fila es un perfil de pérdida y lentitud; las tres últimas columnas reparten los tiempos agotados. **Dónde deja de valer:** las probabilidades son supuestos del autor, y el modelo trata los tres sucesos como excluyentes e independientes; en una red real la pérdida llega en ráfagas y se correlaciona con la carga. El resultado transferible es cualitativo: sin más información, la mayoría de los silencios son operaciones hechas.
+**Cómo leer la figura.** Cada barra es un perfil de pérdida y lentitud (petición perdida, respuesta perdida, respuesta lenta) y se divide entre los tiempos agotados en que la operación sí se ejecutó (coral) y en los que no (verde); entre paréntesis está el total de tiempos agotados. Mira que el coral domina en los tres perfiles. **Dónde deja de valer:** las probabilidades son supuestos del autor, y el modelo trata los tres sucesos como excluyentes e independientes; en una red real la pérdida llega en ráfagas y se correlaciona con la carga. El resultado transferible es cualitativo: sin más información, la mayoría de los silencios son operaciones hechas.
 
 ### Cuántas veces llega el mismo golpe
 
@@ -167,9 +167,9 @@ if delay > timeout: false_sus += 1
 
 Un límite de 150 ms, cercano a la mediana, convierte casi un tercio de los latidos en sospechas. Con 600 ms quedan en el 2,25 %; con 2 400 ms, casi ninguna, pero el fallo real se nota 3,4 s después del último latido. La cola de la distribución, no la mediana, fija el límite razonable.
 
-![Tabla con el tiempo límite de un detector de fallos, el porcentaje de latidos de un nodo sano que se sospechan y el retraso en detectar un nodo caído.](../../../content/part-28/figures/se-341-detector-de-fallos.svg)
+![Línea con cinco tiempos límite de un detector de fallos que relaciona los latidos sanos sospechados (32,34 por ciento con 150 ms hasta 0,02 por ciento con 2 400 ms, escala logarítmica) con el retraso en detectar un nodo caído (de 1 150 a 3 400 ms).](../../../content/part-28/figures/se-341-detector-de-fallos.svg)
 
-**Cómo leer la figura.** Cada fila es un tiempo límite; las columnas dan el costo de equivocarse en cada dirección. **Dónde deja de valer:** la distribución lognormal es un supuesto del autor y no una red medida; en la práctica el retardo cambia con la carga, de modo que un límite fijo falla cuando la red se degrada. Los detectores adaptativos (como los que estiman la distribución del retardo) existen justamente por eso y esta clase no los mide.
+**Cómo leer la figura.** El eje horizontal es el porcentaje de latidos de un nodo sano que se sospechan, en escala logarítmica, y el vertical el retraso en detectar un nodo caído; cada punto es un tiempo límite. Mira que la curva baja hacia la derecha: cada paso que reduce las falsas sospechas añade retraso en detectar, y no hay un punto en la esquina de abajo a la derecha. **Dónde deja de valer:** la distribución lognormal es un supuesto del autor y no una red medida; en la práctica el retardo cambia con la carga, de modo que un límite fijo falla cuando la red se degrada. Los detectores adaptativos (como los que estiman la distribución del retardo) existen justamente por eso y esta clase no los mide.
 
 ## Definiciones de trabajo
 

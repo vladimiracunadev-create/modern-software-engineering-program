@@ -119,9 +119,9 @@ elif strategy == "cola":    queue.append(t); writes_queued += 1
 
 El fallo duro pierde 3 000 lecturas y 600 escrituras durante la caída. La caché sirve todas las lecturas con datos viejos y no resuelve las escrituras. La cola resuelve ambas, y aquí sube un riesgo nuevo: 600 escrituras confirmadas a personas que aún no están en la base, que se pierden si el proceso cae antes de reenviarlas o si la cola supera su límite (500 en el paquete: 100 se perderían o deberían rechazarse). La escalera cambia el costo de un lugar a otro.
 
-![Tabla con las lecturas y escrituras que se pierden, se sirven obsoletas o se encolan durante una caída de la base de un minuto con fallo duro, caché obsoleta y caché con cola de escrituras.](../../../content/part-28/figures/se-348-escalera-de-degradacion.svg)
+![Barras apiladas con las 3 600 solicitudes de una caída de 60 segundos de la base: con fallo duro fallan 3 000 lecturas y se rechazan 600 escrituras; con caché obsoleta las lecturas se sirven obsoletas; con caché y cola, las escrituras se encolan.](../../../content/part-28/figures/se-348-escalera-de-degradacion.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; las columnas muestran qué ve la persona al leer y al escribir. **Dónde deja de valer:** la caída de 60 s, las tasas de 50 y 10 por segundo y la cola ideal sin límite son supuestos del autor; no se modela la antigüedad máxima de la caché ni que una escritura encolada pueda fallar al reenviarse (por ejemplo, porque el cupo ya se agotó). Esos casos son los que `DEGRADACION.md` debe declarar.
+**Cómo leer la figura.** Cada barra es una estrategia de degradación y se divide por lo que vive cada solicitud afectada: lectura fallada (coral), lectura obsoleta (dorado), escritura rechazada (azul) o escrita en cola (verde). Mira cómo el coral y el azul desaparecen peldaño a peldaño y son reemplazados por estados que hay que declarar. **Dónde deja de valer:** la caída de 60 s, las tasas de 50 y 10 por segundo y la cola ideal sin límite son supuestos del autor; no se modela la antigüedad máxima de la caché ni que una escritura encolada pueda fallar al reenviarse (por ejemplo, porque el cupo ya se agotó). Esos casos son los que `DEGRADACION.md` debe declarar.
 
 ### Sobrecarga del 50 %
 
@@ -142,9 +142,9 @@ if policy == "prioridad" and len(queue) >= 200:
 
 Sin límite, queda una cola de 6 000 solicitudes y todas esperan unos 21 turnos, de modo que el servicio atiende a todos tarde. Con una cola acotada la espera baja a 2 turnos, a costa de descartar 5 900 solicitudes, entre ellas 1 761 entregas. Con prioridad, el descarte se concentra en los listados y ninguna entrega se pierde, y esperan 1 turno. La ley de Little ayuda a leerlo: la cola crece 50 por turno (150 llegan, 100 salen), así que la espera de quien llega crece de forma lineal hasta unos 41 turnos al final (percentil 99 medido: 41) y la media de lo atendido ronda la mitad, 21.
 
-![Tabla con la cola, la espera media de las entregas y de los listados y las solicitudes descartadas ante una sobrecarga del 50 por ciento sin límite, con cola acotada y con cola acotada con prioridad.](../../../content/part-28/figures/se-348-sobrecarga-y-prioridad.svg)
+![Barras apiladas con las 18 000 solicitudes de una sobrecarga de 150 por turno sobre una capacidad de 100: sin límite quedan 6 000 en cola; con cola acotada se descartan 1 761 entregas y 4 139 listados; con prioridad se descartan 0 entregas y 5 900 listados.](../../../content/part-28/figures/se-348-sobrecarga-y-prioridad.svg)
 
-**Cómo leer la figura.** Cada fila es una política; las columnas muestran cuánta cola queda, cuánto esperan los dos tipos de solicitud y qué se descarta. **Dónde deja de valer:** la capacidad constante, las llegadas fijas y la proporción 30/70 son supuestos del autor; con ráfagas, la cola acotada absorbe picos que esta simulación no muestra, y con entregas que se reintentan, descartarlas aumenta el tráfico siguiente. El rechazo debe llevar una señal (código de error y espera sugerida) para que el cliente no reintente de inmediato.
+**Cómo leer la figura.** Cada barra es una política y se divide entre solicitudes atendidas (verde), que esperan en cola (dorado) y descartadas, de entregas (coral) o de listados (azul). Mira que el verde es igual en las tres: la política no cambia la capacidad, solo decide qué espera y qué se descarta. **Dónde deja de valer:** la capacidad constante, las llegadas fijas y la proporción 30/70 son supuestos del autor; con ráfagas, la cola acotada absorbe picos que esta simulación no muestra, y con entregas que se reintentan, descartarlas aumenta el tráfico siguiente. El rechazo debe llevar una señal (código de error y espera sugerida) para que el cliente no reintente de inmediato.
 
 ### Un validador de paquete y lo que no ve
 
@@ -169,9 +169,9 @@ if "hasta que" in p["reintentos"]:          return True
 
 El validador detecta 101 de 200 mutaciones y falla exactamente en las cuatro que importan: las que dejan el texto plausible. Incluso el presupuesto incoherente, que parece aritmética, no se detecta: la regla busca una frase concreta y la mutación fue otra. Esto no es un defecto del validador sino de la idea: un verificador de forma no sustituye a alguien que haga la cuenta, abra la prueba y pregunte «¿quién la ejecutó?».
 
-![Tabla con las mutaciones de un paquete de servicio distribuido que detecta un validador de forma y las que no detecta, entre ellas el presupuesto incoherente, la evidencia copiada, la prueba nunca ejecutada y la garantía imposible.](../../../content/part-28/figures/se-348-validador-del-paquete.svg)
+![Barras apiladas con las 200 mutaciones de un paquete de servicio distribuido por tipo: el verificador de forma detecta todas las de tres tipos (101) y ninguna de las 99 de presupuesto incoherente, evidencia copiada, prueba no ejecutada y garantía imposible.](../../../content/part-28/figures/se-348-validador-del-paquete.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación; el número es cuántas de ese tipo detecta el validador. **Dónde deja de valer:** las reglas se escribieron conociendo las mutaciones y cada tipo sale al 0 % o al 100 %; la exactitud sobre paquetes reales es desconocida y es probablemente peor. Sirve para mostrar la frontera entre lo que verifica una máquina y lo que exige revisión.
+**Cómo leer la figura.** Cada barra es un tipo de mutación y se divide entre las detectadas por el validador (verde) y las que pasan (coral). Mira que cada barra es de un solo color: la forma se valida; el contenido, no. **Dónde deja de valer:** las reglas se escribieron conociendo las mutaciones y cada tipo sale al 0 % o al 100 %; la exactitud sobre paquetes reales es desconocida y es probablemente peor. Sirve para mostrar la frontera entre lo que verifica una máquina y lo que exige revisión.
 
 ## Definiciones de trabajo
 

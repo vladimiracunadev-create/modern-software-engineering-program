@@ -118,9 +118,9 @@ def leaders_quorum(groups, n):  return sum(1 for g in groups if len(g) > n // 2)
 
 La regla ingenua produce dos o tres líderes en toda partición; la de mayoría produce uno, o ninguno cuando ningún grupo tiene mayoría (2 | 2 | 1). El caso sin líder es el precio de la seguridad: el servicio se detiene en lugar de mentir.
 
-![Tabla con el número de líderes que se cree cada regla de elección en distintas particiones de cinco nodos y en las 15 biparticiones posibles.](../../../content/part-28/figures/se-343-lideres-que-se-creen-legitimos.svg)
+![Barras agrupadas horizontales con el número de líderes que se cree cada regla de elección en distintas particiones de cinco nodos: la regla del identificador mayor da dos o tres líderes y la de mayoría nunca más de uno, y ninguno en un reparto 2, 2, 1.](../../../content/part-28/figures/se-343-lideres-que-se-creen-legitimos.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de partir los cinco nodos; las columnas cuentan cuántos grupos se creen con un líder según cada regla. **Dónde deja de valer:** el modelo enumera conjuntos de nodos y no incluye mensajes, retrasos ni nodos que cambian de grupo durante la elección; un protocolo real debe además garantizar que un líder anterior deje de actuar. La tabla muestra por qué la mayoría es necesaria, no que sea suficiente.
+**Cómo leer la figura.** Cada grupo es una forma de partir los cinco nodos y cada color una regla; la longitud es cuántos grupos se creen con un líder. Mira que el coral supera a uno en cuanto hay partición y el verde nunca: la mayoría se paga con un grupo sin líder, no con un líder de más. **Dónde deja de valer:** el modelo enumera conjuntos de nodos y no incluye mensajes, retrasos ni nodos que cambian de grupo durante la elección; un protocolo real debe además garantizar que un líder anterior deje de actuar. La figura muestra por qué la mayoría es necesaria, no que sea suficiente.
 
 ### Un titular caducado que escribe
 
@@ -143,9 +143,9 @@ def write(self, token, who):
 
 En la corrida de media 4 s hay 849 escrituras de un titular caducado (otra semilla da 854 caducados): sin cerco el almacén las acepta todas, con cerco las rechaza todas. Con pausa media de 1 s el problema es raro y por eso pasa las pruebas; con 8 s afecta a casi tres de cada diez tareas. Alargar el arrendamiento reduce la frecuencia sin eliminar el defecto.
 
-![Tabla con la fracción de tareas cuyo arrendamiento caduca antes de escribir según la pausa media del titular, y el efecto de aceptar o rechazar sus escrituras con un testigo de cerco.](../../../content/part-28/figures/se-343-testigo-de-cerco.svg)
+![Barras con las tareas de 10 000 cuyo arrendamiento caduca antes de escribir según la pausa media del titular: 1 con pausas de 1 s, 73 con 2 s, 854 con 4 s y 2 918 con 8 s.](../../../content/part-28/figures/se-343-testigo-de-cerco.svg)
 
-**Cómo leer la figura.** Cada fila es una pausa media; el número es cuántas tareas de 10 000 escriben después de que su arrendamiento caducó. **Dónde deja de valer:** la distribución exponencial de pausas es un supuesto del autor; las pausas reales (recolección de memoria, suspensión) tienen colas largas y correlación. El cerco exige que el *recurso* compare testigos: si el recurso es una API externa que no lo hace, el cerco no protege.
+**Cómo leer la figura.** Cada barra es una pausa media del titular y su altura, cuántas de 10 000 tareas escriben después de que su arrendamiento caducó. Mira cómo el número se multiplica al duplicar la pausa; el efecto del testigo de cerco (aceptar o rechazar esas escrituras) se explica en la nota. **Dónde deja de valer:** la distribución exponencial de pausas es un supuesto del autor; las pausas reales (recolección de memoria, suspensión) tienen colas largas y correlación. El cerco exige que el *recurso* compare testigos: si el recurso es una API externa que no lo hace, el cerco no protege.
 
 ### Plazos de elección y rondas
 
@@ -169,9 +169,9 @@ if len(cands) == 1: break              # un solo candidato dentro de la ventana 
 
 Con la misma dispersión que el retardo de los mensajes (25 ms) la elección no converge: los candidatos siempre se pisan. Al ampliar la dispersión a 100 ms o más, converge en pocas rondas y el tiempo total baja pese a que cada ronda espera más. El ajuste depende de la red, y los valores de Raft (150 a 300 ms) son una guía, no una regla.
 
-![Tabla con las rondas medias, el porcentaje de líderes elegidos en la primera ronda y el tiempo medio hasta tener líder según la anchura del plazo de elección aleatorio.](../../../content/part-28/figures/se-343-plazos-de-eleccion.svg)
+![Línea en escala logarítmica con el tiempo medio hasta tener líder según la dispersión del plazo de elección: de 7 650 ms sin aleatoriedad (sin converger en 50 rondas) a 333 ms con 300 ms de dispersión.](../../../content/part-28/figures/se-343-plazos-de-eleccion.svg)
 
-**Cómo leer la figura.** Cada fila es un intervalo para el plazo de elección; las columnas miden cuánto tarda en haber líder. **Dónde deja de valer:** el modelo supone retardos uniformes de hasta 25 ms y trata cualquier empate como fracaso, sin reparto parcial de votos; un protocolo real tiene mandatos que crecen y votos que se pueden repartir. Es un modelo para entender por qué aleatorizar, no un simulador de Raft.
+**Cómo leer la figura.** El eje horizontal es cuánto se ensancha el plazo de elección sobre 150 ms y el vertical el tiempo medio hasta tener líder, en escala logarítmica; la línea punteada vertical marca el retardo máximo de los mensajes (25 ms). Mira cómo el tiempo se desploma cuando la dispersión supera ese retardo. **Dónde deja de valer:** el modelo supone retardos uniformes de hasta 25 ms y trata cualquier empate como fracaso, sin reparto parcial de votos; un protocolo real tiene mandatos que crecen y votos que se pueden repartir. Es un modelo para entender por qué aleatorizar, no un simulador de Raft.
 
 ## Definiciones de trabajo
 

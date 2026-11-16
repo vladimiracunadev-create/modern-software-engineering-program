@@ -119,9 +119,9 @@ if isolated:                        # AP: acepta localmente
 
 Rechazar costó 97 operaciones visibles y no dejó ningún dato viejo. Aceptar atendió todo, sirvió 89 lecturas obsoletas y obligó a descartar 27 escrituras al reconciliar con «gana la versión mayor». Ninguna política es gratis: cada una elige qué se paga y a quién.
 
-![Tabla con las operaciones rechazadas, atendidas, las lecturas obsoletas y las escrituras divergentes y descartadas cuando una réplica aislada rechaza o acepta durante una partición.](../../../content/part-28/figures/se-342-rechazar-o-aceptar.svg)
+![Barras agrupadas horizontales con lo que cuesta cada política de una réplica aislada: rechazar (CP) rechaza 97 operaciones y no deja nada obsoleto; aceptar (AP) deja 89 lecturas obsoletas y 27 escrituras que se descartan al reparar.](../../../content/part-28/figures/se-342-rechazar-o-aceptar.svg)
 
-**Cómo leer la figura.** Las filas son medidas de la misma simulación; las columnas, la política del lado aislado. **Dónde deja de valer:** la partición es de una réplica y de 300 operaciones, la carga es uniforme y la reconciliación es una regla de versión del autor; en un sistema real la duración de la partición, la carga y la regla cambian las cifras. El resultado transferible es la forma: lo que se rechaza es visible; lo que se acepta cuesta una reparación.
+**Cómo leer la figura.** Cada grupo es un costo y cada color una política (azul, rechazar; coral, aceptar); la longitud es cuántas de las 1 000 operaciones sufren ese costo. Mira que los costos no se solapan: el azul solo aparece en las operaciones rechazadas y el coral solo en lo que se acepta y hay que reparar. **Dónde deja de valer:** la partición es de una réplica y de 300 operaciones, la carga es uniforme y la reconciliación es una regla de versión del autor; en un sistema real la duración de la partición, la carga y la regla cambian las cifras. El resultado transferible es la forma: lo que se rechaza es visible; lo que se acepta cuesta una reparación.
 
 ### Qué garantiza cada cuórum
 
@@ -143,9 +143,9 @@ sees_latest = W + R > N                     # toda lectura se cruza con toda esc
 
 El cuórum 2/2 es el equilibrio: lee lo último y tolera una caída en cada operación, con una disponibilidad de 99,97 %. El 3/1 hace la lectura barata y la escritura frágil: basta que una réplica falle para que no se pueda escribir (97,03 %). Garantizar leer lo último cuesta tolerancia a caídas en una de las dos operaciones.
 
-![Tabla con los cuórums de lectura y escritura sobre tres réplicas, si garantizan leer lo último, cuántas caídas toleran y su disponibilidad con un 1 por ciento de caída por réplica.](../../../content/part-28/figures/se-342-cuorum-de-lectura-y-escritura.svg)
+![Dispersión de cinco cuórums de tres réplicas según las caídas que toleran al escribir y al leer: los tres que garantizan leer lo último (W + R mayor que 3) quedan sobre una diagonal y los dos que no lo garantizan tienen más tolerancia total.](../../../content/part-28/figures/se-342-cuorum-de-lectura-y-escritura.svg)
 
-**Cómo leer la figura.** Cada fila es un par (W, R); la columna central es la condición `W + R > N` y las siguientes, lo que cuesta cumplirla. **Dónde deja de valer:** el modelo es de subconjuntos alcanzables: no hay retrasos, mensajes parciales ni escrituras en vuelo, que en un sistema real pueden hacer que una lectura con `W + R > N` vea un valor intermedio (la linealizabilidad pide más que el cuórum). La tabla muestra la aritmética, no una garantía de un sistema.
+**Cómo leer la figura.** El eje horizontal son las caídas que tolera la escritura (N − W) y el vertical las de la lectura (N − R); el color indica si el cuórum garantiza leer lo último (verde) o no (coral). Mira que los verdes caen sobre una diagonal: lo que se gana en tolerancia en una operación se paga en la otra. **Dónde deja de valer:** el modelo es de subconjuntos alcanzables: no hay retrasos, mensajes parciales ni escrituras en vuelo, que en un sistema real pueden hacer que una lectura con `W + R > N` vea un valor intermedio (la linealizabilidad pide más que el cuórum). La figura muestra la aritmética, no una garantía de un sistema.
 
 ### Qué conserva cada reparación
 
@@ -165,9 +165,9 @@ union = set_a | set_b                               # fusión de conjuntos
 
 Contar con un contador por réplica y unir conjuntos conserva todo; «gana el lado mayor», en el mejor caso, tira casi la mitad. Pero la unión simple trata el borrado como una ausencia, y una entrega borrada en un lado reaparece. La fusión es correcta solo para operaciones que conmutan; para el borrado hace falta información adicional (una marca de borrado), y para un cupo limitado, coordinación.
 
-![Tabla con las entregas que conserva el último escritor frente a un contador por réplica y una unión de conjuntos tras una partición, y el caso de las entregas borradas.](../../../content/part-28/figures/se-342-reparar-lo-divergente.svg)
+![Mancuernas con las entregas conservadas tras una partición: el último escritor gana conserva 1 048 de 2 059 entregas contadas y 500 de 750 distintas; un contador por réplica y una unión de conjuntos conservan todas.](../../../content/part-28/figures/se-342-reparar-lo-divergente.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de dato y las dos columnas, la regla de reparación. **Dónde deja de valer:** las 500 operaciones por lado y su solapamiento de 250 elementos salen de la semilla 3423; la mejora de la fusión depende de que las operaciones sean realmente conmutativas. La latencia de 1 ms frente a 81 ms de una confirmación síncrona entre regiones es un supuesto del autor, no una medición.
+**Cómo leer la figura.** Cada fila es un tipo de dato; el punto hueco es lo que conserva «último escritor gana» y el relleno lo que conserva el tipo que se fusiona, en entregas. El segmento es lo que se pierde por reparar mal; la unión simple, además, resucita 50 entregas borradas, como indica la nota. **Dónde deja de valer:** las 500 operaciones por lado y su solapamiento de 250 elementos salen de la semilla 3423; la mejora de la fusión depende de que las operaciones sean realmente conmutativas. La latencia de 1 ms frente a 81 ms de una confirmación síncrona entre regiones es un supuesto del autor, no una medición.
 
 ## Definiciones de trabajo
 

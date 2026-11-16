@@ -118,9 +118,9 @@ db.execute("commit")                                    # la caída ocurre despu
 
 Los dos primeros órdenes se equivocan en un 5 % en direcciones opuestas: uno cuenta de más, otro de menos. El tercero da exactamente 1 000 porque la caída posterior al commit provoca una reentrega que la clave vista rechaza. La garantía no está en la cola sino en que aplicar y recordar son una sola operación.
 
-![Tabla con el total que cuenta un consumidor de 1 000 mensajes cuando cae el 5 por ciento de las veces según el orden entre aplicar, confirmar y registrar la clave.](../../../content/part-28/figures/se-344-orden-de-aplicar-y-confirmar.svg)
+![Barras apiladas con el total que cuenta un consumidor de 1 000 mensajes cuando cae el 5 por ciento de las veces: aplicar y luego confirmar suma 53 duplicados, confirmar y luego aplicar pierde 50 y aplicar con registro de la clave en una transacción cuenta exactamente 1 000.](../../../content/part-28/figures/se-344-orden-de-aplicar-y-confirmar.svg)
 
-**Cómo leer la figura.** Cada fila es un orden de operaciones del consumidor; la última columna es el error respecto al total correcto. **Dónde deja de valer:** la caída ocurre solo en el peor punto y con probabilidad fija; un consumidor real cae también en medio de la transacción (que la base deshace) y puede tener varios consumidores a la vez, donde la restricción de unicidad de la clave es lo que impide la doble aplicación. La base es SQLite en memoria, sin concurrencia entre procesos.
+**Cómo leer la figura.** Cada barra es un orden de operaciones del consumidor; verde son las entregas contadas una vez, coral los duplicados de más y dorado las entregas que faltan. Mira que solo la barra de la transacción es entera verde: las otras dos fallan en direcciones opuestas. **Dónde deja de valer:** la caída ocurre solo en el peor punto y con probabilidad fija; un consumidor real cae también en medio de la transacción (que la base deshace) y puede tener varios consumidores a la vez, donde la restricción de unicidad de la clave es lo que impide la doble aplicación. La base es SQLite en memoria, sin concurrencia entre procesos.
 
 ### Cuánto tiempo recordar una clave
 
@@ -141,9 +141,9 @@ elif row[0] != h: rechazar()               # misma clave, otro cuerpo
 
 Con una retención de un minuto casi la mitad de los duplicados se ejecuta otra vez; con una hora, el 2,75 %; con un día, 6 de 20 000. Sin la huella del cuerpo, 615 de las 640 reutilizaciones de claves con otro cuerpo habrían devuelto la respuesta de otra petición.
 
-![Tabla con los duplicados que llegan después de que la clave de idempotencia se olvidó y se ejecutan otra vez según la retención de la clave.](../../../content/part-28/figures/se-344-retencion-de-claves.svg)
+![Línea en escala logarítmica con los duplicados que se reejecutan según la retención de la clave: 48,20 por ciento con 1 minuto, 2,75 con 1 hora y 0,03 con 24 horas; con 7 días, ninguno.](../../../content/part-28/figures/se-344-retencion-de-claves.svg)
 
-**Cómo leer la figura.** Cada fila es una retención y el número, los duplicados que escapan de 20 000. **Dónde deja de valer:** la distribución del retraso es lognormal por elección del autor; los retrasos reales dependen de los clientes y de la cola, y la cola larga es justo lo que fija la retención. Hay que medir el retraso máximo de los duplicados en tu sistema, o decidir qué retraso estás dispuesto a no cubrir.
+**Cómo leer la figura.** El eje horizontal es cuánto tiempo se retiene la clave y el vertical el porcentaje de duplicados de 20 000 que se reejecutan, ambos en escala logarítmica. Mira que cada salto de retención baja el porcentaje de forma pronunciada pero no inmediata: la cola larga del retraso obliga a retener mucho más que la mediana. **Dónde deja de valer:** la distribución del retraso es lognormal por elección del autor; los retrasos reales dependen de los clientes y de la cola, y la cola larga es justo lo que fija la retención. Hay que medir el retraso máximo de los duplicados en tu sistema, o decidir qué retraso estás dispuesto a no cubrir.
 
 ### Anexar o escribir por clave
 
@@ -163,9 +163,9 @@ else:                       out_key[t] = val                # un intento sobresc
 
 Anexar deja 9 filas repetidas con una tarea determinista, que al menos son iguales, y 14 con una aleatoria, de las cuales 13 tienen dos valores distintos para la misma tarea: dos verdades en la salida. Escribir por clave deja 200 filas siempre; con una tarea aleatoria conserva el último valor, que es una sola verdad, aunque no la misma que el primer intento.
 
-![Tabla con las filas, las duplicadas y las claves con valores distintos que deja un trabajo de 200 tareas con reintentos cuando anexa al archivo y cuando escribe por clave, con tareas deterministas y con valor aleatorio.](../../../content/part-28/figures/se-344-salida-por-anexo-o-por-clave.svg)
+![Barras agrupadas con las filas duplicadas y las claves con valores distintos que deja un trabajo de 200 tareas con reintentos: anexar deja 9 duplicadas con tareas deterministas y 14 con valor aleatorio, más 13 claves con valores distintos; escribir por clave deja 0.](../../../content/part-28/figures/se-344-salida-por-anexo-o-por-clave.svg)
 
-**Cómo leer la figura.** Cada fila combina una forma de escribir con un tipo de tarea; las columnas muestran qué queda en la salida. **Dónde deja de valer:** las 200 tareas, el 5 % de fallos y la función aleatoria son del autor; en un trabajo real los reintentos pueden ejecutarse a la vez en dos máquinas (especulación), lo que exige además un intercambio atómico del resultado. Que el último valor gane no significa que sea correcto: un resultado aleatorio tampoco es reproducible.
+**Cómo leer la figura.** Cada grupo combina una forma de escribir con un tipo de tarea y cada color es un defecto de la salida. Mira que solo las dos combinaciones de anexar tienen barras: escribir por clave las deja en cero con cualquier tipo de tarea. **Dónde deja de valer:** las 200 tareas, el 5 % de fallos y la función aleatoria son del autor; en un trabajo real los reintentos pueden ejecutarse a la vez en dos máquinas (especulación), lo que exige además un intercambio atómico del resultado. Que el último valor gane no significa que sea correcto: un resultado aleatorio tampoco es reproducible.
 
 ## Definiciones de trabajo
 

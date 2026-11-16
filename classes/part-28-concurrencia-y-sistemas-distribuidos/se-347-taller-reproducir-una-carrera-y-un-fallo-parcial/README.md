@@ -128,9 +128,9 @@ def ddmin(s):
 
 Solo 2 de 20 intercalaciones respetan el cupo: las dos secuenciales. El calendario de 40 pasos se redujo a 6: dos hilos leyendo antes de que cualquiera escriba. El calendario que encontró la reducción fue, con los hilos renombrados, leer A, leer B, comprobar B, escribir B, comprobar A, escribir A: un hilo lee antes de que el otro escriba y ambos aceptan. Es la explicación del defecto en una línea.
 
-![Tabla con las intercalaciones de dos solicitudes sobre un cupo, las que aceptan dos entregas, y la reducción de un calendario fallido de 40 pasos a 6.](../../../content/part-28/figures/se-347-carrera-y-calendario-minimo.svg)
+![Línea de tiempo con los seis pasos del calendario mínimo que reproduce la carrera del cupo entre dos solicitudes: A lee y comprueba, B lee, A escribe, y B, con el valor viejo, comprueba y escribe.](../../../content/part-28/figures/se-347-carrera-y-calendario-minimo.svg)
 
-**Cómo leer la figura.** Cada fila es una medida del mismo experimento: primero la enumeración y después la reducción. **Dónde deja de valer:** el ruido son pasos ajenos al cupo y el calendario sale de la semilla 347; la reducción es una variante simple y puede devolver un calendario mínimo local. Con hilos del sistema operativo no se controla el orden; el modelo explica el mecanismo, y la corrección real se comprueba además con una operación atómica del almacén.
+**Cómo leer la figura.** Cada carril es una solicitud y el eje es el orden de los pasos (no hay escala de tiempo); la línea punteada marca el momento en que A escribe después de que B ya leyó. Mira que B comprueba con un valor viejo: ese cruce es toda la explicación del defecto. **Dónde deja de valer:** el ruido son pasos ajenos al cupo y el calendario sale de la semilla 347; la reducción es una variante simple y puede devolver un calendario mínimo local. Con hilos del sistema operativo no se controla el orden; el modelo explica el mecanismo, y la corrección real se comprueba además con una operación atómica del almacén.
 
 ### Corte frente a respuesta perdida
 
@@ -151,9 +151,9 @@ def apply(s):
 
 El corte deja huérfano el efecto de los pasos hechos en 4 de 5 puntos (por ejemplo, el cupo descontado sin entrega). La respuesta perdida con reintento ingenuo duplica el efecto en los cinco puntos, incluido el último, aunque todo estaba hecho. Con pasos idempotentes la repetición es inofensiva. Y nótese lo que la tabla no dice: los pasos idempotentes no arreglan el corte, que sigue pidiendo atomicidad o compensación.
 
-![Tabla con los puntos de un flujo de cinco pasos que dejan el estado incoherente ante un corte, ante una respuesta perdida con reintento ingenuo y ante una respuesta perdida con pasos idempotentes.](../../../content/part-28/figures/se-347-fallo-parcial-del-flujo.svg)
+![Barras apiladas con los cinco puntos de un flujo con efectos que dejan el estado coherente o incoherente: 4 de 5 con un corte sin reintento, 5 de 5 con respuesta perdida y reintento del flujo y 0 de 5 con pasos idempotentes.](../../../content/part-28/figures/se-347-fallo-parcial-del-flujo.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de fallo y una defensa; el número es cuántos de los 5 puntos dejan el estado incoherente. **Dónde deja de valer:** los efectos son contadores en memoria y el flujo es lineal, sin red ni concurrencia; no se modela un corte que ocurre dentro de un paso. La enumeración es exacta y por eso no tiene semilla: sirve como lista de comprobación para cualquier flujo con efectos.
+**Cómo leer la figura.** Cada barra es un tipo de fallo con su defensa y se divide entre los 5 puntos del flujo que dejan el estado coherente (verde) y los que lo dejan incoherente (coral). Mira que cada defensa mueve el coral de una barra a otra: el corte y la respuesta perdida no se arreglan con lo mismo. **Dónde deja de valer:** los efectos son contadores en memoria y el flujo es lineal, sin red ni concurrencia; no se modela un corte que ocurre dentro de un paso. La enumeración es exacta y por eso no tiene semilla: sirve como lista de comprobación para cualquier flujo con efectos.
 
 ### Cuántas repeticiones hacen falta
 

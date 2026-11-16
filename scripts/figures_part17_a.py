@@ -1,21 +1,25 @@
 """Figures for SE-205 to SE-210 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_cases import case_cards
+from figure_kit import Fig, fmt_es, grouped_bars, heatmap, line_chart, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2)."
 
 
 # ---------------------------------------------------------------- SE-205
 def se205_navegacion() -> Fig:
-    rows = [["100 %", "3,0", "2,41"], ["80 %", "7,88", "2,93"], ["60 %", "12,58", "3,33"], ["40 %", "17,49", "3,84"], ["20 %", "22,05", "4,28"]]
-    return tab("Clics esperados hasta la página correcta: árbol por componente frente a índice de tareas",
-               "Tabla de un modelo con 20 000 lectores simulados: si el lector conoce el nombre del componente en el 100 por ciento de los niveles necesita 3 clics, con 80 por ciento 7,88, con 60 por ciento 12,58, con 40 por ciento 17,49 y con 20 por ciento 22,05; un índice de tareas necesita entre 2,41 y 4,28 clics.",
-               ["Prob. de conocer el componente en cada nivel", "Árbol por componente (125 hojas)", "Índice de tareas (25 títulos)"], rows, [330, 300, 270], row_h=40, size=13,
-               note="El árbol por componente exige saber cómo se llama la pieza antes de saber cómo se arregla; cuando el lector sabe lo que quiere hacer pero no el nombre interno, cada nivel equivocado cuesta entrar y volver. Es un modelo: los 0,9 de reconocimiento de la tarea y los 5 hijos por nivel son supuestos del autor, no una medición de personas.",
-               note_kind="gold", foot=SINT)
-
+    ps = [20, 40, 60, 80, 100]
+    arbol = [22.05, 17.49, 12.58, 7.88, 3.0]
+    indice = [4.28, 3.84, 3.33, 2.93, 2.41]
+    return line_chart("Clics esperados hasta la página correcta: árbol por componente frente a índice de tareas",
+                      "Líneas con los clics esperados de 20 000 lectores simulados según la probabilidad de conocer el nombre del componente en cada nivel: el árbol por componente pasa de 3 clics con 100 por ciento a 7,88, 12,58, 17,49 y 22,05 con 80, 60, 40 y 20 por ciento, mientras el índice de tareas se queda entre 2,41 y 4,28.",
+                      [("Árbol por componente (125 hojas)", [(p, v, fmt_es(v, 2), "t") for p, v in zip(ps, arbol)], "coral"),
+                       ("Índice de tareas (25 títulos)", [(p, v, fmt_es(v, 2), "b") for p, v in zip(ps, indice)], "teal")],
+                      x_label="Probabilidad de conocer el componente en cada nivel (%)", y_label="Clics esperados", x_ticks=[(p, f"{p} %") for p in ps], y_ticks=[0, 5, 10, 15, 20, 25],
+                      note="El árbol por componente exige saber cómo se llama la pieza antes de saber cómo se arregla; cuando el lector sabe lo que quiere hacer pero no el nombre interno, cada nivel equivocado cuesta entrar y volver. Es un modelo: los 0,9 de reconocimiento de la tarea y los 5 hijos por nivel son supuestos del autor, no una medición de personas.",
+                      note_kind="gold", foot=SINT)
 
 def se205_duplicacion() -> Fig:
     items = [
@@ -71,27 +75,25 @@ def se206_palabras() -> Fig:
 
 
 def se206_tutorial() -> Fig:
-    rows = [["Sin cambios", "......", "—", "Los seis pasos pasan"],
-            ["Se renombra crear a crear_tarea", "XXX..X", "AttributeError", "El paso 1 falla; los 2 y 3 fallan por arrastre"],
-            ["El cálculo de días redondea hacia abajo", "...XX.", "AssertionError", "Fallan las dos comprobaciones de nota"],
-            ["entregar exige un cuarto argumento", ".XX..X", "TypeError", "Fallan las dos llamadas y el recuento"]]
-    return tab("Seis pasos de un tutorial ejecutados contra cuatro versiones de la biblioteca",
-               "Tabla de un tutorial de seis pasos ejecutado contra cuatro versiones: sin cambios pasan los seis, renombrar una función hace fallar tres pasos, redondear días hacia abajo hace fallar dos y añadir un argumento obligatorio hace fallar tres.",
-               ["Versión de la biblioteca", "Pasos (X = falla)", "Primer error", "Lectura"], rows, [310, 170, 170, 330], row_h=52, size=12,
-               note="Solo el primer fallo informa; los demás son consecuencia. Un tutorial ejecutable convierte la deriva en un fallo de integración continua, pero solo detecta lo que sus pasos ejercen: un cambio de comportamiento que ningún paso comprueba pasa sin ruido.",
-               note_kind="teal", foot=SINT)
-
+    pasos = [f"Paso {i}" for i in range(1, 7)]
+    patrones = [("Sin cambios", "......"), ("Se renombra crear a crear_tarea · AttributeError", "XXX..X"), ("El cálculo de días redondea hacia abajo · AssertionError", "...XX."),
+                ("entregar exige un cuarto argumento · TypeError", ".XX..X")]
+    return heatmap("Seis pasos de un tutorial ejecutados contra cuatro versiones de la biblioteca",
+                   "Mapa de calor de un tutorial de seis pasos ejecutado contra cuatro versiones: sin cambios pasan los seis, renombrar una función hace fallar los pasos 1, 2, 3 y 6, redondear días hacia abajo los pasos 4 y 5 y añadir un argumento obligatorio los pasos 2, 3 y 6.",
+                   [n for n, _ in patrones], pasos, [[1 if c == "X" else 0 for c in p] for _, p in patrones], unit="falla", scale="coral", vmin=0, vmax=1,
+                   cell_fmt=lambda v: "falla" if v else "pasa", label_w=330,
+                   note="Solo el primer fallo informa; los demás son consecuencia (con el renombrado, el paso 1 falla y los 2 y 3 fallan por arrastre; con el redondeo fallan las dos comprobaciones de nota; con el cuarto argumento, las dos llamadas y el recuento). Un tutorial ejecutable convierte la deriva en un fallo de integración continua, pero solo detecta lo que sus pasos ejercen: un cambio que ningún paso comprueba pasa sin ruido.",
+                   note_kind="teal", foot=SINT)
 
 # ---------------------------------------------------------------- SE-207
 def se207_embudo() -> Fig:
-    rows = [["4 pasos", "3 %", "88,9 %", "88,5 %"], ["6 pasos", "3 %", "82,9 %", "83,3 %"], ["10 pasos", "3 %", "73,6 %", "73,7 %"],
-            ["6 pasos", "6 %", "69,2 %", "69,0 %"], ["10 pasos", "6 %", "53,9 %", "53,9 %"]]
-    return tab("Quién llega al primer éxito según el número de pasos y la probabilidad de fallo por paso",
-               "Tabla de 40 000 recorridos simulados: con 4 pasos y 3 por ciento de fallo por paso llega al éxito el 88,9 por ciento, con 6 pasos 82,9, con 10 pasos 73,6; con 6 por ciento de fallo por paso llegan 69,2 por ciento con 6 pasos y 53,9 con 10.",
-               ["Pasos del README", "Fallo por paso", "Simulado", "Teórico (1 − p)ⁿ"], rows, [210, 230, 230, 230], row_h=40, size=13,
-               note="Quitar pasos pesa tanto como mejorar cada uno: pasar de 10 a 6 pasos con 3 % de fallo recupera 9 puntos. Los porcentajes de fallo son supuestos, no mediciones de lectores; la forma multiplicativa es lo que se puede afirmar.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars("Quién llega al primer éxito según el número de pasos y la probabilidad de fallo por paso",
+                        "Barras agrupadas con el porcentaje de 40 000 recorridos simulados que llegan al primer éxito frente al teórico (1 − p)ⁿ: con 4, 6 y 10 pasos y 3 por ciento de fallo por paso llegan 88,9, 82,9 y 73,6 por ciento; con 6 por ciento, 69,2 con 6 pasos y 53,9 con 10; el simulado y el teórico casi coinciden.",
+                        ["4 pasos · 3 %", "6 pasos · 3 %", "10 pasos · 3 %", "6 pasos · 6 %", "10 pasos · 6 %"],
+                        [("Simulado", [88.9, 82.9, 73.6, 69.2, 53.9], "teal"), ("Teórico (1 − p)ⁿ", [88.5, 83.3, 73.7, 69.0, 53.9], "grey")],
+                        unit="% que llega al primer éxito", decimals=1, ticks=[0, 20, 40, 60, 80, 100],
+                        note="Quitar pasos pesa tanto como mejorar cada uno: pasar de 10 a 6 pasos con 3 % de fallo recupera 9 puntos. Los porcentajes de fallo son supuestos, no mediciones de lectores; la forma multiplicativa es lo que se puede afirmar.",
+                        note_kind="gold", foot=SINT)
 
 def se207_deriva() -> Fig:
     items = [
@@ -106,30 +108,26 @@ def se207_deriva() -> Fig:
 
 
 def se207_omision() -> Fig:
-    rows = [["1. Instalar Python", "Paso 2", "1", "python: orden no encontrada"],
-            ["2. Crear el entorno", "Paso 3", "1", "no existe .venv"],
-            ["3. Activar el entorno", "Paso 5", "2", "entregas: orden no reconocida; el paquete quedó fuera del entorno"],
-            ["4. Instalar el paquete", "Paso 5", "1", "entregas: orden no reconocida"],
-            ["5. Comprobar la versión", "ninguno", "—", "El README «funciona»: no se pierde nada"],
-            ["6. Ejecutar el ejemplo", "ninguno", "—", "El README «funciona»: no se aprende nada"]]
-    return tab("Omitir un paso del README: dónde aparece el primer fallo",
-               "Tabla de un README de seis pasos ejecutado seis veces, omitiendo cada vez uno: omitir los pasos 1 a 4 hace fallar entre 1 y 2 pasos después; omitir los pasos 5 o 6, los de comprobación, no falla en ningún paso.",
-               ["Paso omitido", "Primer fallo", "Distancia", "Mensaje que vería quien lo siga"], rows, [260, 150, 120, 420], row_h=52, size=12,
-               note="Los pasos de comprobación son los únicos que pueden desaparecer sin que nada falle, y son los que dan al lector la evidencia del primer éxito. Omitir la activación es el caso peor: el error aparece dos pasos después y lejos de la causa. Máquina de estados de seis reglas escrita por el autor, no una instalación real.",
-               note_kind="coral", foot=SINT)
-
+    return case_cards("Omitir un paso del README: dónde aparece el primer fallo",
+                      "Seis tarjetas de un README de seis pasos ejecutado omitiendo cada vez uno: omitir los pasos 1 a 4 hace fallar uno o dos pasos después; omitir los pasos 5 o 6, los de comprobación, no falla en ningún paso.",
+                      [("Omitir 1. Instalar Python", "Falla en el paso 2, a 1 paso: «python: orden no encontrada»", "El error aparece junto a la causa.", "gold"),
+                       ("Omitir 2. Crear el entorno", "Falla en el paso 3, a 1 paso: «no existe .venv»", "El error aparece junto a la causa.", "gold"),
+                       ("Omitir 3. Activar el entorno", "Falla en el paso 5, a 2 pasos: «entregas: orden no reconocida»; el paquete quedó fuera del entorno", "El error aparece lejos de la causa.", "coral"),
+                       ("Omitir 4. Instalar el paquete", "Falla en el paso 5, a 1 paso: «entregas: orden no reconocida»", "El error aparece junto a la causa.", "gold"),
+                       ("Omitir 5. Comprobar la versión", "No falla en ningún paso: el README «funciona»", "No se pierde nada, salvo la evidencia del primer éxito.", "coral"),
+                       ("Omitir 6. Ejecutar el ejemplo", "No falla en ningún paso: el README «funciona»", "No se aprende nada.", "coral")],
+                      note="Los pasos de comprobación son los únicos que pueden desaparecer sin que nada falle, y son los que dan al lector la evidencia del primer éxito. Omitir la activación es el caso peor: el error aparece dos pasos después y lejos de la causa. Máquina de estados de seis reglas escrita por el autor, no una instalación real.",
+                      note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-208
 def se208_linter() -> Fig:
-    rows = [["Falta una sección", "54", "54", "Sí"], ["Fecha ilegible («ayer»)", "45", "45", "Sí"],
-            ["Alternativas: «Ninguna.»", "54", "0", "No"], ["Consecuencias: «Ninguna.»", "60", "0", "No"],
-            ["Contexto: «Nada especial.»", "46", "0", "No"], ["ADR correcto", "41", "0", "Sin falsas alarmas"]]
-    return tab("Un linter de ADR sobre 300 registros con defectos conocidos",
-               "Tabla de un linter de ADR aplicado a 300 registros sintéticos: detecta las 54 secciones ausentes y las 45 fechas ilegibles, pero ninguna de las 54 alternativas vacías, 60 consecuencias vacías ni 46 contextos sin razón, y no da falsas alarmas sobre los 41 registros correctos.",
-               ["Defecto introducido", "Registros", "Detectados", "¿Lo ve el linter?"], rows, [380, 130, 150, 250], row_h=42, size=13,
-               note="El linter comprueba forma: presencia, formato, vocabulario. Un ADR con «Alternativas: Ninguna.» tiene todas las secciones y no contiene ninguna decisión defendible. La calidad del razonamiento la revisan personas, con una pregunta concreta: ¿qué se descartó y por qué?",
-               note_kind="coral", foot=SINT)
-
+    return stacked_bars("Un linter de ADR sobre 300 registros con defectos conocidos",
+                        "Barras horizontales apiladas con lo que detecta un linter de ADR en 300 registros sintéticos: ve las 54 secciones ausentes y las 45 fechas ilegibles, pero ninguna de las 54 alternativas vacías, 60 consecuencias vacías ni 46 contextos sin razón, y no marca ninguno de los 41 registros correctos.",
+                        ["Falta una sección", "Fecha ilegible («ayer»)", "Alternativas: «Ninguna.»", "Consecuencias: «Ninguna.»", "Contexto: «Nada especial.»", "ADR correcto"],
+                        [("Detectados", [54, 45, 0, 0, 0, 0], "teal"), ("No detectados", [0, 0, 54, 60, 46, 0], "coral"), ("Correctos sin falsa alarma", [0, 0, 0, 0, 0, 41], "grey")],
+                        unit="registros", horizontal=True, label_w=240,
+                        note="El linter comprueba forma: presencia, formato, vocabulario. Un ADR con «Alternativas: Ninguna.» tiene todas las secciones y no contiene ninguna decisión defendible. La calidad del razonamiento la revisan personas, con una pregunta concreta: ¿qué se descartó y por qué?",
+                        note_kind="coral", foot=SINT)
 
 def se208_grafo() -> Fig:
     items = [
@@ -146,69 +144,60 @@ def se208_grafo() -> Fig:
 
 
 def se208_caducidad() -> Fig:
-    rows = [["2", "9,9 %", "18,4 %", "34,9 %", "24,9 %", "43,9 %", "69,1 %"],
-            ["4", "18,4 %", "34,4 %", "57,4 %", "44,1 %", "68,1 %", "90,2 %"],
-            ["6", "26,9 %", "47,0 %", "71,6 %", "57,8 %", "82,1 %", "96,8 %"]]
-    return tab("Probabilidad de que al menos una suposición de un ADR haya cambiado",
-               "Tabla de 20 000 simulaciones por celda: con 2 suposiciones y un cambio anual del 10 por ciento, la probabilidad de que alguna haya cambiado es 9,9 por ciento a 6 meses, 18,4 a 12 y 34,9 a 24; con 6 suposiciones y 25 por ciento anual sube a 57,8, 82,1 y 96,8.",
-               ["Suposiciones del ADR", "10 %/año · 6 m", "12 m", "24 m", "25 %/año · 6 m", "12 m", "24 m"], rows, [180, 160, 130, 130, 160, 130, 130], row_h=44, size=12,
-               note="Cuantas más suposiciones lleva una decisión, antes pierde vigencia alguna. Por eso un ADR útil enumera sus suposiciones y fija una fecha de revisión. Las tasas de cambio de 10 % y 25 % al año son supuestos del autor, no medidas sobre proyectos reales.",
-               note_kind="gold", foot=SINT)
-
+    return heatmap("Probabilidad de que al menos una suposición de un ADR haya cambiado",
+                   "Mapa de calor con la probabilidad de que cambie al menos una suposición según cuántas lleva el ADR y la tasa anual: con 2 suposiciones y 10 por ciento anual es 9,9 por ciento a 6 meses, 18,4 a 12 y 34,9 a 24; con 6 suposiciones y 25 por ciento anual sube a 57,8, 82,1 y 96,8.",
+                   ["2 suposiciones", "4 suposiciones", "6 suposiciones"], ["10 %/año · 6 m", "10 %/año · 12 m", "10 %/año · 24 m", "25 %/año · 6 m", "25 %/año · 12 m", "25 %/año · 24 m"],
+                   [[9.9, 18.4, 34.9, 24.9, 43.9, 69.1], [18.4, 34.4, 57.4, 44.1, 68.1, 90.2], [26.9, 47.0, 71.6, 57.8, 82.1, 96.8]],
+                   unit="% de ADR con alguna suposición cambiada", scale="gold", vmin=0, vmax=100, suffix=" %", decimals=1, label_w=150,
+                   note="Cuantas más suposiciones lleva una decisión, antes pierde vigencia alguna. Por eso un ADR útil enumera sus suposiciones y fija una fecha de revisión. Las tasas de cambio de 10 % y 25 % al año son supuestos del autor, no medidas sobre proyectos reales (20 000 simulaciones por celda).",
+                   note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-209
 def se209_cruces() -> Fig:
-    rows = [["4 por capa · 24 aristas", "27,1", "11,4", "−58 %"], ["8 por capa · 48 aristas", "149,6", "55,5", "−63 %"], ["16 por capa · 96 aristas", "672,9", "240,3", "−64 %"]]
-    return tab("Cruces de aristas en un diagrama de cuatro capas: orden aleatorio frente a orden por baricentro",
-               "Tabla con la media de 150 grafos por tamaño: con 4 nodos por capa el orden aleatorio produce 27,1 cruces y el orden por baricentro 11,4; con 8 nodos 149,6 y 55,5; con 16 nodos 672,9 y 240,3.",
-               ["Tamaño del grafo", "Cruces con orden aleatorio", "Con baricentro (4 pasadas)", "Reducción"], rows, [290, 250, 250, 120], row_h=44, size=13,
-               note="Cuadruplicar el tamaño multiplica los cruces por 25: un diagrama que cabe en una pantalla con 12 nodos deja de leerse con 48. Ordenar las capas ayuda mucho y no elimina el problema; la solución de fondo es dibujar menos cosas por diagrama.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars("Cruces de aristas en un diagrama de cuatro capas: orden aleatorio frente a orden por baricentro",
+                        "Barras agrupadas con la media de cruces de 150 grafos por tamaño: con 4 nodos por capa el orden aleatorio produce 27,1 cruces y el orden por baricentro 11,4; con 8 nodos 149,6 y 55,5; con 16 nodos 672,9 y 240,3, una reducción de 58 a 64 por ciento.",
+                        ["4 por capa · 24 aristas", "8 por capa · 48 aristas", "16 por capa · 96 aristas"],
+                        [("Orden aleatorio", [27.1, 149.6, 672.9], "coral"), ("Con baricentro (4 pasadas)", [11.4, 55.5, 240.3], "teal")],
+                        unit="cruces de aristas", decimals=1,
+                        note="La reducción es de −58 %, −63 % y −64 %. Cuadruplicar el tamaño multiplica los cruces por 25: un diagrama que cabe en una pantalla con 12 nodos deja de leerse con 48. Ordenar las capas ayuda mucho y no elimina el problema; la solución de fondo es dibujar menos cosas por diagrama.",
+                        note_kind="gold", foot=SINT)
 
 def se209_estable() -> Fig:
-    rows = [["Aristas en el orden de un conjunto", "42", "10"], ["Aristas ordenadas", "0", "8"]]
-    return tab("Diff de un diagrama generado: ruido entre ejecuciones y cambio real",
-               "Tabla de líneas distintas entre salidas Mermaid de un modelo de 12 servicios y 18 dependencias: si el generador recorre un conjunto, dos ejecuciones del mismo modelo difieren en 42 líneas y renombrar un servicio produce 10; si ordena, 0 y 8.",
-               ["Generador", "Líneas de diff entre dos ejecuciones del mismo modelo", "Líneas de diff al renombrar un servicio"], rows, [400, 280, 270], row_h=54, size=13,
-               note="Con orden no determinista, una revisión no distingue el cambio real del ruido: 42 líneas de diff sin que cambie nada. El renombrado real cambia 4 líneas (el nodo y sus 3 dependencias), que el diff cuenta como 4 eliminadas y 4 añadidas: 8.",
-               note_kind="coral", foot="Dos ejecuciones con PYTHONHASHSEED=1 y 2; idéntico en Windows y Ubuntu.")
-
+    return grouped_bars("Diff de un diagrama generado: ruido entre ejecuciones y cambio real",
+                        "Barras agrupadas con las líneas distintas entre salidas Mermaid de un modelo de 12 servicios y 18 dependencias: si el generador recorre un conjunto, dos ejecuciones del mismo modelo difieren en 42 líneas y renombrar un servicio produce 10; si ordena, 0 y 8.",
+                        ["Dos ejecuciones del mismo modelo", "Al renombrar un servicio"],
+                        [("Aristas en el orden de un conjunto", [42, 10], "coral"), ("Aristas ordenadas", [0, 8], "teal")],
+                        unit="líneas de diff",
+                        note="Con orden no determinista, una revisión no distingue el cambio real del ruido: 42 líneas de diff sin que cambie nada. El renombrado real cambia 4 líneas (el nodo y sus 3 dependencias), que el diff cuenta como 4 eliminadas y 4 añadidas: 8.",
+                        note_kind="coral", foot="Dos ejecuciones con PYTHONHASHSEED=1 y 2; idéntico en Windows y Ubuntu.")
 
 def se209_importaciones() -> Fig:
-    rows = [["Aristas reales del código", "16", "12 declaradas + 3 añadidas + 2 dinámicas + 1 diferida − 2 retiradas"],
-            ["Las ve un análisis estático de `import`", "14", "Incluye la importación dentro de una función"],
-            ["Solo las de nivel de módulo", "13", "La importación diferida queda fuera"],
-            ["Invisibles para el análisis", "2", "`importlib.import_module` con nombre en texto"],
-            ["Sobran en el diagrama", "2", "Dependencias retiradas del código"],
-            ["Faltan en el diagrama", "4", "Dependencias añadidas sin actualizar"]]
-    return tab("Diagrama de dependencias frente a lo que importa el código de diez módulos",
-               "Tabla de un paquete sintético de diez módulos: de 16 dependencias reales el análisis estático ve 14 y 13 si solo mira el nivel de módulo; 2 son dinámicas y quedan invisibles; el diagrama declarado tiene 2 aristas de más y le faltan 4.",
-               ["Conteo", "Valor", "Qué incluye"], rows, [370, 90, 480], row_h=48, size=12,
-               note="Comparar el diagrama con el código convierte «creo que está al día» en una lista de diferencias concretas. El análisis tiene un techo: lo que se decide en tiempo de ejecución no deja huella en el árbol sintáctico, y esas aristas hay que declararlas en el diagrama con otra fuente.",
-               note_kind="teal", foot=SINT)
-
+    return grouped_bars("Diagrama de dependencias frente a lo que importa el código de diez módulos",
+                        "Barras horizontales sobre un paquete sintético de diez módulos: de 16 dependencias reales el análisis estático ve 14 y 13 si solo mira el nivel de módulo, 2 quedan invisibles por ser dinámicas, y el diagrama declarado tiene 2 aristas de más y le faltan 4.",
+                        ["Aristas reales del código", "Las ve un análisis estático de import", "Solo las de nivel de módulo", "Invisibles para el análisis", "Sobran en el diagrama", "Faltan en el diagrama"],
+                        [("Dependencias", [16, 14, 13, 2, 2, 4], "teal")],
+                        unit="dependencias", horizontal=True, label_w=300,
+                        note="Las 16 reales son 12 declaradas + 3 añadidas + 2 dinámicas + 1 diferida − 2 retiradas. Las 14 incluyen la importación dentro de una función; la diferida queda fuera de las 13; las 2 invisibles usan importlib.import_module con el nombre en texto; las 2 que sobran son dependencias retiradas del código y las 4 que faltan, añadidas sin actualizar. Comparar el diagrama con el código convierte «creo que está al día» en una lista de diferencias concretas; el análisis tiene un techo: lo que se decide en tiempo de ejecución no deja huella en el árbol sintáctico.",
+                        note_kind="teal", foot=SINT)
 
 # ---------------------------------------------------------------- SE-210
 def se210_ejemplos() -> Fig:
-    rows = [["Sin cambios", "0 de 10", "No"], ["Campo renombrado (horas_retraso)", "4 de 10", "Sí"], ["Estado 201 pasa a 200", "2 de 10", "No"],
-            ["El id pasa a texto", "2 de 10", "No"], ["Ruta /penalizacion movida", "2 de 10", "No"]]
-    return tab("Diez ejemplos ejecutables de una API frente a cinco cambios del proveedor",
-               "Tabla de diez ejemplos de uso ejecutados contra una API en proceso: sin cambios fallan 0, con el campo renombrado fallan 4, con el estado 201 cambiado a 200 fallan 2, con el id pasado a texto fallan 2 y con la ruta movida fallan 2; una comparación de nombres de campos solo detecta el renombrado.",
-               ["Cambio en la API", "Ejemplos que fallan", "¿Lo ve una comparación de nombres de campo?"], rows, [400, 230, 320], row_h=42, size=13,
-               note="Ejecutar los ejemplos de la documentación detecta cambios de estado, de tipo y de ruta que una lista de campos no ve. Cada cambio deja un patrón distinto de ejemplos rotos, lo que ayuda a localizarlo. Un ejemplo que no se ejecuta es una promesa sin comprobar.",
-               note_kind="teal", foot=SINT)
-
+    return grouped_bars("Diez ejemplos ejecutables de una API frente a cinco cambios del proveedor",
+                        "Barras con los ejemplos que fallan de diez ejecutados contra una API tras cada cambio: sin cambios 0, con el campo renombrado 4, con el estado 201 cambiado a 200 fallan 2, con el id pasado a texto 2 y con la ruta movida 2; una comparación de nombres de campos solo detecta el renombrado.",
+                        ["Sin cambios", "Campo renombrado (horas_retraso) · lo ve la comparación de nombres", "Estado 201 pasa a 200", "El id pasa a texto", "Ruta /penalizacion movida"],
+                        [("Ejemplos que fallan (de 10)", [0, 4, 2, 2, 2], "teal")],
+                        unit="ejemplos que fallan de 10", horizontal=True, label_w=330, ticks=[0, 2, 4, 6, 8, 10],
+                        note="Solo el renombrado lo detecta una comparación de nombres de campo; los otros cuatro cambios solo los ve ejecutar los ejemplos. Ejecutar los ejemplos de la documentación detecta cambios de estado, de tipo y de ruta que una lista de campos no ve. Cada cambio deja un patrón distinto de ejemplos rotos, lo que ayuda a localizarlo. Un ejemplo que no se ejecuta es una promesa sin comprobar.",
+                        note_kind="teal", foot=SINT)
 
 def se210_docstrings() -> Fig:
-    rows = [["json", "5", "4", "36", "28"], ["csv", "7", "5", "0", "0"], ["argparse", "12", "12", "0", "0"], ["statistics", "21", "21", "32", "27"],
-            ["shutil", "28", "27", "66", "59"], ["re", "17", "16", "34", "20"], ["Diez módulos", "123", "118", "181", "144"]]
-    return tab("Documentación de la biblioteca estándar de Python 3.12: lo que dice cada función pública",
-               "Tabla de 10 módulos de la biblioteca estándar de Python 3.12: de 123 funciones y clases públicas 118 tienen docstring, y de 181 parámetros de funciones 144 se nombran en la documentación, el 80 por ciento.",
-               ["Módulo", "Públicos", "Con docstring", "Parámetros", "Nombrados en el docstring"], rows, [230, 140, 190, 170, 220], row_h=38, size=13,
-               note="Tener docstring no es documentar los parámetros: en csv y argparse las clases tienen texto pero el recuento de parámetros de funciones es cero porque son clases; en re uno de cada tres parámetros no se nombra. Medimos presencia, no calidad.",
-               note_kind="gold", foot="Medido con inspect en CPython 3.12.9 (Windows) y 3.12.3 (Ubuntu); idéntico.")
-
+    return grouped_bars("Documentación de la biblioteca estándar de Python 3.12: lo que dice cada función pública",
+                        "Barras agrupadas con seis módulos de la biblioteca estándar: de las funciones y clases públicas casi todas tienen docstring (json 4 de 5, csv 5 de 7, argparse 12 de 12, statistics 21 de 21, shutil 27 de 28, re 16 de 17) y de los parámetros de funciones se nombran en la documentación 28 de 36 en json, 27 de 32 en statistics, 59 de 66 en shutil y 20 de 34 en re.",
+                        ["json", "csv", "argparse", "statistics", "shutil", "re"],
+                        [("Públicos", [5, 7, 12, 21, 28, 17], "grey"), ("Con docstring", [4, 5, 12, 21, 27, 16], "teal"), ("Parámetros", [36, 0, 0, 32, 66, 34], "gold"), ("Nombrados en el docstring", [28, 0, 0, 27, 59, 20], "coral")],
+                        unit="funciones, clases o parámetros",
+                        note="En los diez módulos medidos: 123 públicos, 118 con docstring, 181 parámetros y 144 nombrados (80 %). Tener docstring no es documentar los parámetros: en csv y argparse las clases tienen texto pero el recuento de parámetros de funciones es cero porque son clases; en re uno de cada tres parámetros no se nombra. Medimos presencia, no calidad.",
+                        note_kind="gold", foot="Medido con inspect en CPython 3.12.9 (Windows) y 3.12.3 (Ubuntu); idéntico.")
 
 def se210_codigos() -> Fig:
     items = [

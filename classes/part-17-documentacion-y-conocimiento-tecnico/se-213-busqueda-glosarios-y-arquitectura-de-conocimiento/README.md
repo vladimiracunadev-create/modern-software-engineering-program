@@ -125,9 +125,9 @@ def jaccard(a, b):
 
 La similitud media de las paráfrasis es 0,65 y la de los conflictos 0,87: los conflictos se parecen más a la original que las paráfrasis. Con un umbral de 0,5 (se marca si la similitud es menor) no se marca ningún par de ninguna clase; con 0,7 se marcan las 240 paráfrasis y ningún conflicto; con 0,9 se marcan los 240 pares de las dos clases. Ningún umbral separa los conflictos de las paráfrasis. Los resultados fueron idénticos en ambos sistemas.
 
-![Tabla con los pares de definiciones contradictorias y parafraseadas que marca un detector por similitud de palabras según el umbral.](../../../content/part-17/figures/se-213-conflictos-de-glosario.svg)
+![Barras agrupadas con los pares marcados según el umbral de similitud: con 0,5 ninguno, con 0,7 las 240 paráfrasis y ninguna contradicción, con 0,9 las dos clases completas.](../../../content/part-17/figures/se-213-conflictos-de-glosario.svg)
 
-**Cómo leer la figura.** Cada fila es un umbral; las columnas dan cuántos pares contradictorios y cuántas paráfrasis se marcan de 240. **Dónde deja de valer:** el conflicto sorteado es una palabra sustituida por un número, el caso más favorable a la similitud alta; un conflicto que reordena toda la frase tendría una similitud baja. El resultado no dice que la similitud sea inútil, sino que no ordena lo que importa: para detectar conflictos hay que extraer y comparar los valores, o centralizar la definición.
+**Cómo leer la figura.** Cada grupo es un umbral; la barra coral son las contradicciones marcadas y la dorada, las paráfrasis marcadas por error, de 240 pares cada clase. Mira que la barra dorada sube antes que la coral: la similitud ordena al revés de lo deseado y, con 0,7, marca todas las paráfrasis sin ver una sola contradicción. **Dónde deja de valer:** el conflicto sorteado es una palabra sustituida por un número, el caso más favorable a la similitud alta; un conflicto que reordena toda la frase tendría una similitud baja. El resultado no dice que la similitud sea inútil, sino que no ordena lo que importa: para detectar conflictos hay que extraer y comparar los valores, o centralizar la definición.
 
 ### Páginas huérfanas y distancia desde la portada
 
@@ -145,9 +145,9 @@ while cola:
 
 Antes de reparar hay 5 páginas sin ningún enlace entrante, inalcanzables desde la portada (4 % del sitio); ninguna está a más de 3 clics y la profundidad máxima es 3. Tras enlazar esas 5 páginas desde un índice, quedan 0 huérfanas y la profundidad máxima sigue siendo 3. Los resultados fueron idénticos en Windows y Ubuntu.
 
-![Tabla con las páginas huérfanas, inalcanzables y lejanas de un sitio de 120 páginas antes y después de enlazarlas desde un índice.](../../../content/part-17/figures/se-213-paginas-alcanzables.svg)
+![Barras agrupadas de un sitio de 120 páginas antes y después de enlazar las huérfanas: páginas sin enlaces entrantes 5 y 0, inalcanzables 5 y 0, a más de 3 clics 0 y 0, profundidad máxima 3 y 3.](../../../content/part-17/figures/se-213-paginas-alcanzables.svg)
 
-**Cómo leer la figura.** Cada fila es una medida del sitio; las dos columnas son el valor antes y después de enlazar las huérfanas desde un índice. **Dónde deja de valer:** el sitio es un grafo aleatorio con índices cercanos a la portada, por eso la profundidad nunca fue problema; en un portal real hay secciones profundas y enlaces rotos. La medida mide estructura, no si el rastro es claro: un enlace con el texto «aquí» cuenta igual que uno descriptivo.
+**Cómo leer la figura.** Cada grupo es una medida del sitio; la barra coral es el valor antes y la verde azulada, tras enlazar las huérfanas desde un índice. Mira que cambian solo las dos primeras medidas y que la profundidad no se movió: el problema no era la profundidad, era la falta de enlaces. **Dónde deja de valer:** el sitio es un grafo aleatorio con índices cercanos a la portada, por eso la profundidad nunca fue problema; en un portal real hay secciones profundas y enlaces rotos. La medida mide estructura, no si el rastro es claro: un enlace con el texto «aquí» cuenta igual que uno descriptivo.
 
 ## Definiciones de trabajo
 

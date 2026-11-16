@@ -106,9 +106,9 @@ for etiqueta in ("v1", "v2", "v3"):
 
 Resultado, idéntico en Windows (git 2.55, CPython 3.12.9) y Ubuntu (git 2.43, CPython 3.12.3): la versión 1 tiene 10 páginas, 30 enlaces y 0 rotos; la versión 2 tiene 8 páginas, 21 enlaces y 7 rotos; la versión 3 tiene 9 páginas, 23 enlaces y 7 rotos. Tres páginas de la versión 1 (`p03`, `p05` y `p07`) no existen en la última versión.
 
-![Tabla con las páginas, los enlaces internos y los enlaces rotos de tres versiones etiquetadas de un portal.](../../../content/part-17/figures/se-216-versiones-y-enlaces.svg)
+![Barras agrupadas con páginas, enlaces internos y enlaces rotos de tres versiones: v1 10, 30 y 0; v2 8, 21 y 7; v3 9, 23 y 7.](../../../content/part-17/figures/se-216-versiones-y-enlaces.svg)
 
-**Cómo leer la figura.** Cada fila es una versión etiquetada; las columnas dan sus páginas, sus enlaces internos y cuántos apuntan a una página inexistente en esa versión. **Dónde deja de valer:** cada versión se evalúa contra sí misma; los enlaces entre versiones (un enlace de la versión 1 hacia «la última») no se midieron, y son los que más importan a quien llegó desde un enlace antiguo. Los 7 enlaces rotos de la versión 2 se arrastran a la 3 porque nadie los corrigió: una versión nueva no limpia lo que la anterior dejó.
+**Cómo leer la figura.** Cada grupo es una versión etiquetada y las barras son sus páginas (gris), sus enlaces internos (verde azulado) y los que apuntan a una página inexistente (coral). Mira que los 7 rotos aparecen en v2 y siguen en v3: una versión nueva no limpia lo que dejó la anterior. **Dónde deja de valer:** cada versión se evalúa contra sí misma; los enlaces entre versiones (un enlace de la versión 1 hacia «la última») no se midieron, y son los que más importan a quien llegó desde un enlace antiguo. Los 7 enlaces rotos de la versión 2 se arrastran a la 3 porque nadie los corrigió: una versión nueva no limpia lo que la anterior dejó.
 
 ### Un paquete que da la misma huella en dos sistemas
 
@@ -124,9 +124,9 @@ z.writestr(zi, p.read_bytes())
 
 La construcción ingenua produce 3 huellas distintas en 3 construcciones; la determinista, una sola, y es la misma en Windows y Ubuntu. Sin fijar `create_system`, la construcción «determinista» daba huellas distintas en cada sistema: el valor por defecto de ese campo es 0 en Windows y 3 en Linux. Con saltos de línea CRLF en el contenido, la huella cambia respecto de la de LF.
 
-![Tabla con las huellas distintas de un paquete zip construido tres veces de forma ingenua y de forma determinista, y con saltos de línea CRLF.](../../../content/part-17/figures/se-216-paquete-reproducible.svg)
+![Tres tarjetas con construcciones de un zip de 30 páginas: la ingenua da 3 huellas distintas en 3 construcciones, la determinista una sola y con CRLF cambia la huella.](../../../content/part-17/figures/se-216-paquete-reproducible.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de construir el paquete; la segunda columna da cuántas huellas distintas salen en tres construcciones y la tercera su lectura. **Dónde deja de valer:** el árbol tiene solo archivos de texto de contenido fijo; un paquete real incluye imágenes, versiones de herramientas que escriben metadatos y rutas absolutas incrustadas. Fijar orden, fecha, permisos y sistema de origen es necesario y, como muestra el hallazgo, no se sabe si es suficiente hasta compararlo en el otro sistema.
+**Cómo leer la figura.** Cada tarjeta es una forma de construir el paquete a la izquierda y cuántas huellas distintas salen en tres construcciones a la derecha: coral si cambian, verde azulado si se repite y dorado si el contenido distinto cambia la huella. Mira que la receta determinista exige fijar orden, fecha, permisos y sistema de origen. **Dónde deja de valer:** el árbol tiene solo archivos de texto de contenido fijo; un paquete real incluye imágenes, versiones de herramientas que escriben metadatos y rutas absolutas incrustadas. Fijar orden, fecha, permisos y sistema de origen es necesario y, como muestra el hallazgo, no se sabe si es suficiente hasta compararlo en el otro sistema.
 
 ### Una auditoría con límites: qué ve y qué no
 
@@ -142,9 +142,9 @@ if dd["porcentaje"] != 10:                  ejecutado[i].append("afirmacion_fals
 
 Las comprobaciones estáticas detectan 9 de los 12 defectos (los 3 enlaces rotos, los 2 sin responsable, las 2 revisiones vencidas, el título duplicado y la huérfana) y ninguna de las 3 afirmaciones falsas. La comparación con la política detecta las 3. Hubo una falsa alarma: una página sin enlaces entrantes por azar al generar el corpus, que no se sembró, y que era un hallazgo real. Los resultados fueron idénticos en Windows y Ubuntu.
 
-![Tabla con los defectos sembrados en un portal de 40 páginas y los que detectan las comprobaciones estáticas y la ejecución de ejemplos.](../../../content/part-17/figures/se-216-auditoria-del-portal.svg)
+![Barras horizontales apiladas con los 12 defectos sembrados de un portal: la comprobación estática detecta 3 enlaces rotos, 2 sin responsable, 2 revisiones obsoletas, 1 título duplicado y 1 huérfana, y no las 3 afirmaciones falsas, que solo detecta ejecutar los ejemplos.](../../../content/part-17/figures/se-216-auditoria-del-portal.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de defecto; las columnas dan cuántos se sembraron, cuántos detecta la comprobación estática y cuántos detecta la comparación con la política. **Dónde deja de valer:** los defectos se sembraron como exactamente los que los comprobadores buscan, por eso la detección es total; en un portal real aparecerían defectos que ningún comprobador contempla. El 0 de las afirmaciones falsas ante lo estático es el límite verdadero.
+**Cómo leer la figura.** Cada barra es un tipo de defecto sembrado y su longitud, cuántos hay; verde azulado si lo detecta la comprobación estática y coral si solo lo detecta ejecutar los ejemplos documentados. Mira la única barra coral: las afirmaciones falsas son el límite de lo estático. **Dónde deja de valer:** los defectos se sembraron como exactamente los que los comprobadores buscan, por eso la detección es total; en un portal real aparecerían defectos que ningún comprobador contempla. El 0 de las afirmaciones falsas ante lo estático es el límite verdadero.
 
 ## Definiciones de trabajo
 

@@ -108,9 +108,9 @@ def lint_adr(texto):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): detecta las 54 secciones ausentes y las 45 fechas ilegibles; no detecta ninguna de las 54 alternativas vacías, de las 60 consecuencias vacías ni de los 46 contextos sin razón; y no da ninguna falsa alarma sobre los 41 correctos. Los tres defectos que escapan son los que más importan para un lector: un ADR con «Alternativas: Ninguna.» tiene todas las secciones y no contiene una decisión defendible.
 
-![Tabla con los defectos de 300 ADR sintéticos y los que detecta un linter de forma.](../../../content/part-17/figures/se-208-linter-de-adr.svg)
+![Barras horizontales apiladas con lo que detecta un linter de ADR en 300 registros: ve 54 secciones ausentes y 45 fechas ilegibles, y ninguna de 54 alternativas vacías, 60 consecuencias vacías ni 46 contextos sin razón; no marca los 41 correctos.](../../../content/part-17/figures/se-208-linter-de-adr.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de defecto; las columnas dan cuántos registros lo tenían, cuántos detectó el linter y si lo ve. **Dónde deja de valer:** las tres últimas filas se sembraron con textos literales («Ninguna.», «Nada especial.»); un linter con una lista de frases vacías detectaría esos tres, y un redactor evitaría esas frases con otras igual de vacías. Un linter no sustituye la pregunta humana «¿qué se descartó?».
+**Cómo leer la figura.** Cada barra es un tipo de defecto y su longitud, los registros que lo tenían: verde azulado si el linter los detecta, coral si no y gris para los correctos sin falsa alarma. Mira que el linter ve lo formal (secciones y fechas) y deja pasar lo que tiene forma correcta y contenido vacío. **Dónde deja de valer:** las tres últimas filas se sembraron con textos literales («Ninguna.», «Nada especial.»); un linter con una lista de frases vacías detectaría esos tres, y un redactor evitaría esas frases con otras igual de vacías. Un linter no sustituye la pregunta humana «¿qué se descartó?».
 
 ### Integridad del grafo de sustituciones
 
@@ -144,9 +144,9 @@ cambio = any(rng.random() < p for _ in range(k))
 
 Con 2 suposiciones y 10 % anual, la probabilidad de que alguna haya cambiado es 9,9 % a los 6 meses, 18,4 % a los 12 y 34,9 % a los 24. Con 4 suposiciones, 18,4 %, 34,4 % y 57,4 %. Con 6 suposiciones y 25 % anual, sube a 57,8 %, 82,1 % y 96,8 %. A igual tasa, tres veces más suposiciones multiplican casi por tres la probabilidad a corto plazo.
 
-![Tabla con la probabilidad de que al menos una suposición de un ADR haya cambiado según el número de suposiciones, la tasa anual y el tiempo.](../../../content/part-17/figures/se-208-caducidad-de-suposiciones.svg)
+![Mapa de calor con la probabilidad de que cambie al menos una suposición de un ADR: de 9,9 % con 2 suposiciones, 10 % anual y 6 meses a 96,8 % con 6 suposiciones, 25 % anual y 24 meses.](../../../content/part-17/figures/se-208-caducidad-de-suposiciones.svg)
 
-**Cómo leer la figura.** Cada fila es un número de suposiciones; las seis columnas combinan dos tasas anuales (10 % y 25 %) con tres plazos (6, 12 y 24 meses). **Dónde deja de valer:** las tasas son supuestos, las suposiciones se tratan como independientes y un cambio no implica que la decisión sea mala (una suposición cambiada puede ser irrelevante). La tabla justifica fijar una fecha de revisión y enumerar las suposiciones, no una periodicidad concreta.
+**Cómo leer la figura.** Cada fila es un número de suposiciones y cada columna una tasa anual de cambio con un plazo de 6, 12 o 24 meses; cuanto más oscuro, mayor la probabilidad de que alguna haya cambiado. Mira la esquina inferior derecha: con seis suposiciones y tasa alta, a dos años casi seguro que alguna cambió. **Dónde deja de valer:** las tasas son supuestos, las suposiciones se tratan como independientes y un cambio no implica que la decisión sea mala (una suposición cambiada puede ser irrelevante). La tabla justifica fijar una fecha de revisión y enumerar las suposiciones, no una periodicidad concreta.
 
 ## Definiciones de trabajo
 

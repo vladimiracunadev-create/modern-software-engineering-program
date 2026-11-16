@@ -107,9 +107,9 @@ for nivel in range(3):
 
 El resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): si el lector conoce siempre el nombre del componente, el árbol cuesta 3 clics y el índice 2,41. Con `p` = 0,8 el árbol sube a 7,88 clics y el índice a 2,93; con 0,6, a 12,58 frente a 3,33; con 0,2, a 22,05 frente a 4,28. El árbol se degrada rápido porque cada nivel equivocado cuesta en media 9 clics; el índice se degrada despacio porque solo fracasa cuando el lector no reconoce su tarea.
 
-![Tabla con los clics esperados hasta la página correcta en un árbol por componente y en un índice de tareas según la probabilidad de conocer el componente.](../../../content/part-17/figures/se-205-clics-hasta-la-pagina-correcta.svg)
+![Líneas con los clics esperados según la probabilidad de conocer el nombre del componente: el árbol por componente pasa de 3,00 clics con 100 % a 22,05 con 20 %, mientras el índice de tareas se queda entre 2,41 y 4,28.](../../../content/part-17/figures/se-205-clics-hasta-la-pagina-correcta.svg)
 
-**Cómo leer la figura.** Cada fila es una probabilidad de que el lector conozca el nombre interno del componente; las dos columnas son los clics esperados con cada organización. **Dónde deja de valer:** el modelo supone que el lector reconoce su tarea con 0,9 y que equivocarse cuesta dos clics, parámetros del autor; con un sitio de 20 páginas o con un buscador excelente, la diferencia desaparece. Tampoco mide si la página encontrada se entiende: solo la distancia hasta ella.
+**Cómo leer la figura.** El eje horizontal es la probabilidad de que el lector conozca el nombre interno del componente en cada nivel y el vertical, los clics esperados; la línea coral es el árbol por componente y la verde azulada, el índice de tareas. Mira que las dos coinciden cuando el lector sabe todos los nombres y que el árbol se separa con cada nombre que no conoce, mientras el índice casi no se mueve. **Dónde deja de valer:** el modelo supone que el lector reconoce su tarea con 0,9 y que equivocarse cuesta dos clics, parámetros del autor; con un sitio de 20 páginas o con un buscador excelente, la diferencia desaparece. Tampoco mide si la página encontrada se entiende: solo la distancia hasta ella.
 
 ### Cuántas copias de un dato sobreviven al cambio
 

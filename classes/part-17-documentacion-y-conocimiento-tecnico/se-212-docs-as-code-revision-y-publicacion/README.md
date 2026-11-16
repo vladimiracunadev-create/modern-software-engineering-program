@@ -107,9 +107,9 @@ elif ancla_enlace and ancla_enlace not in anclas[destino]:
 
 Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): el corpus original tiene 0 enlaces rotos. Si el comprobador lee también el interior de los bloques de código, marca 60 enlaces como rotos que eran ejemplos. Tras renombrar 5 archivos y cambiar 8 encabezados aparecen 52 enlaces a archivo rotos y 14 anclas rotas: 66 enlaces rotos reales, más de diez por cada archivo renombrado.
 
-![Tabla con los enlaces rotos de un corpus de 60 archivos Markdown antes y después de renombrar archivos y encabezados, y con un comprobador que no respeta los bloques de código.](../../../content/part-17/figures/se-212-comprobador-de-enlaces.svg)
+![Barras agrupadas con los enlaces marcados como rotos en un corpus de 60 archivos: 0 en el original; 60 falsos positivos si lee el interior de los bloques de código; 52 enlaces a archivo y 14 anclas tras renombrar 5 archivos y 8 encabezados.](../../../content/part-17/figures/se-212-comprobador-de-enlaces.svg)
 
-**Cómo leer la figura.** Cada fila es una situación del corpus; las columnas dan los enlaces a archivo rotos, las anclas rotas y la lectura. **Dónde deja de valer:** la regla de ancla es la del autor; si el sitio publicado genera otra, el comprobador dará resultados distintos. El corpus es sintético y uniforme (siete enlaces por archivo); uno real tiene enlaces externos, imágenes y rutas relativas con `..` que añaden casos.
+**Cómo leer la figura.** Cada grupo es una situación del corpus; la barra coral son los enlaces a archivo marcados y la dorada, las anclas rotas. Mira que el comprobador ingenuo del grupo central genera casi tanto ruido como el cambio real del grupo de la derecha, y que el original no marca ningún enlace. **Dónde deja de valer:** la regla de ancla es la del autor; si el sitio publicado genera otra, el comprobador dará resultados distintos. El corpus es sintético y uniforme (siete enlaces por archivo); uno real tiene enlaces externos, imágenes y rutas relativas con `..` que añaden casos.
 
 ### Un linter que respeta los bloques de código
 
@@ -140,9 +140,9 @@ fecha = datetime.now().isoformat() if modo == "set+fecha" else "2026-11-13"
 
 Con las etiquetas en el orden de un conjunto, las ocho ejecuciones producen ocho huellas distintas; añadiendo la fecha de la ejecución, también ocho. Con las etiquetas ordenadas y la fecha fija, las ocho producen una única huella. Con CRLF en lugar de LF, la huella cambia aunque la estructura sea idéntica: un mismo generador en Windows y Ubuntu produce huellas distintas si no fija los saltos de línea. Los resultados fueron idénticos en ambos sistemas.
 
-![Tabla con las huellas distintas al construir la misma página con ocho valores de semilla de hash según la variante del generador.](../../../content/part-17/figures/se-212-construccion-reproducible.svg)
+![Barras horizontales con las huellas distintas al construir una página con 8 semillas de hash: 8 con etiquetas en orden de conjunto, 8 añadiendo la fecha, y 1 con orden explícito y fecha fija o con CRLF.](../../../content/part-17/figures/se-212-construccion-reproducible.svg)
 
-**Cómo leer la figura.** Cada fila es una variante del generador; la segunda columna es el número de huellas distintas en ocho ejecuciones. **Dónde deja de valer:** el experimento aísla tres fuentes de variación; las construcciones reales añaden otras (versiones de dependencias, rutas absolutas, orden del sistema de archivos, límites de zona horaria). Fijar el orden, la fecha y los saltos de línea es necesario y no suficiente.
+**Cómo leer la figura.** Cada barra es una variante del generador y su longitud, cuántas huellas distintas salen en ocho ejecuciones; lo deseable es una. Mira que las dos barras largas son las que no fijan el orden y que la última, con CRLF, es una sola huella pero distinta de la de LF. **Dónde deja de valer:** el experimento aísla tres fuentes de variación; las construcciones reales añaden otras (versiones de dependencias, rutas absolutas, orden del sistema de archivos, límites de zona horaria). Fijar el orden, la fecha y los saltos de línea es necesario y no suficiente.
 
 ## Definiciones de trabajo
 

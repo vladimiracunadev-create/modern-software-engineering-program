@@ -100,9 +100,9 @@ Un taller produce una matriz: operación dominante frente a estructura, con medi
 
 Cada fila tiene un ganador distinto, y el ganador en tiempo suele ser el perdedor en memoria. Por eso la matriz no concluye «la mejor estructura»: concluye «la mejor para esta operación dominante, con este costo de memoria». Documentar el perdedor y por qué se descartó es parte de la entrega.
 
-![Tabla con el mejor candidato, la alternativa y el peor por carga, con medidas.](../../../content/part-07/figures/se-095-matriz-de-compromisos.svg)
+![Barras horizontales en escala logarítmica con el costo de la alternativa frente al mejor candidato en cuatro cargas: ×4,5, ×192, ×648 y ×5,2.](../../../content/part-07/figures/se-095-matriz-de-compromisos.svg)
 
-**Cómo leer la figura.** Lee cada fila de izquierda a derecha como una decisión: carga, ganador, alternativa, descartado. **Dónde deja de valer:** los tiempos son de un equipo, pero las razones se repitieron en Linux. Otros tamaños, tipos de dato o patrones de acceso cambian la matriz; no es un catálogo.
+**Cómo leer la figura.** Cada fila es una carga con sus dos candidatos medidos en la etiqueta; la barra verde azulada es el mejor candidato, tomado como ×1, y la dorada lo que cuesta la alternativa en veces. Mira que cada carga tiene un ganador distinto y que el orden de magnitud de la pérdida varía de ×4,5 a ×648. **Dónde deja de valer:** los tiempos son de un equipo, pero las razones se repitieron en Linux. Otros tamaños, tipos de dato o patrones de acceso cambian la matriz; no es un catálogo.
 
 ### ¿Cuántas consultas justifican construir un índice?
 
@@ -110,9 +110,9 @@ Construir un `set` sobre una lista cuesta tiempo. Con 10 000 elementos y una sol
 
 La frase de la recomendación debe llevar esa condición: «construir un set compensa si la lista se consulta más de dos o tres veces antes de cambiar». Si la lista cambia con cada consulta, la reconstrucción se paga siempre y la conclusión se invierte.
 
-![Tabla con el costo de recorrer una lista y de construir un set según el número de consultas.](../../../content/part-07/figures/se-095-umbral-de-reutilizacion.svg)
+![Líneas en doble escala logarítmica con el tiempo según las consultas sobre 10 000 elementos: la lista pasa de 92,8 a 8 497 µs y construir un set y consultar queda entre 173,9 y 272,8 µs; se cruzan entre 1 y 3 consultas.](../../../content/part-07/figures/se-095-umbral-de-reutilizacion.svg)
 
-**Cómo leer la figura.** La última columna indica quién gana en cada fila; el cambio ocurre entre 1 y 3 consultas. **Dónde deja de valer:** el umbral depende del tipo de clave (enteros) y del tamaño; con claves cuyo hash es caro (cadenas largas) se desplazaría. Y con 1 000 000 de elementos la memoria de un set puede decidir antes que el tiempo.
+**Cómo leer la figura.** El eje horizontal es el número de consultas y el vertical el tiempo, ambos logarítmicos; la línea coral es recorrer la lista cada vez y la verde azulada, construir un set una vez y consultar. Mira el cruce entre 1 y 3 consultas: el set pasa de perder a ganar y, a partir de ahí, su línea queda casi plana. **Dónde deja de valer:** el umbral depende del tipo de clave (enteros) y del tamaño; con claves cuyo hash es caro (cadenas largas) se desplazaría. Y con 1 000 000 de elementos la memoria de un set puede decidir antes que el tiempo.
 
 ## Definiciones de trabajo
 

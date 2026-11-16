@@ -100,9 +100,9 @@ Una lista de Python guarda un arreglo de referencias con más espacio del que us
 
 Esto explica por qué «`O(1)` amortizado» no equivale a «cada llamada cuesta lo mismo»: la llamada que dispara el redimensionado es más cara. También explica la memoria: un millón de enteros ocupó 8,0 MB como lista de referencias, 36,0 MB si se cuentan los objetos `int` a los que apuntan y 8,18 MB como `array('q')`, que guarda los valores en bruto. Un arreglo tipado ahorra memoria y mejora la localidad; a cambio, solo admite un tipo de valor.
 
-![Tabla con las longitudes en que una lista redimensiona su almacenamiento y la capacidad implícita.](../../../content/part-07/figures/se-085-capacidad-y-reserva.svg)
+![Línea con el tamaño en bytes de una lista al crecer de 1 a 109 elementos: sube por escalones de 88 B con 4 ranuras a 1 080 B con 128 ranuras, con capacidad reservada siempre por encima de la longitud.](../../../content/part-07/figures/se-085-capacidad-y-reserva.svg)
 
-**Cómo leer la figura.** Las filas muestran solo algunos de los doce redimensionados; la capacidad crece por escalones, no uno a uno. **Dónde deja de valer:** las cifras corresponden a CPython 3.12 de 64 bits. Otra versión u otro intérprete (PyPy, por ejemplo) usa otra política de crecimiento, y una lista de otro lenguaje puede crecer por factor 2. Se enseña el mecanismo, no las constantes.
+**Cómo leer la figura.** El eje horizontal es la longitud de la lista en escala logarítmica y el vertical, el tamaño en bytes; cada punto es un redimensionado y su rótulo da el tamaño y la capacidad implícita. Mira que la línea sube a saltos y que la capacidad (4, 8, 16, 24, 40, 76, 128 ranuras) crece más despacio que la longitud: la reserva es lo que hace amortizado el `append`. Solo se dibujan algunos de los doce redimensionados. **Dónde deja de valer:** las cifras corresponden a CPython 3.12 de 64 bits. Otra versión u otro intérprete (PyPy, por ejemplo) usa otra política de crecimiento, y una lista de otro lenguaje puede crecer por factor 2. Se enseña el mecanismo, no las constantes.
 
 ### Vistas y copias: el mismo corte, dos semánticas
 
@@ -110,9 +110,9 @@ Esto explica por qué «`O(1)` amortizado» no equivale a «cada llamada cuesta 
 
 Los recorridos completan el cuadro. Sumar un millón de enteros con `sum(lista)` tardó 9,8 ms; recorrer un millón de nodos enlazados con un bucle de Python tardó 91,0 ms (58,1 ms en Linux). La estructura enlazada insertaría en `O(1)` si ya tuviéramos el nodo, pero localizar una posición sigue siendo lineal y cada salto de puntero es un acceso a memoria que la caché no puede anticipar. Otro error común de aliasing: `[[0]] * 3` crea tres referencias a la misma lista interna; al añadir un elemento a la primera, las tres midieron 2.
 
-![Tabla con el costo de copiar, crear una vista y recorrer una lista o una estructura enlazada.](../../../content/part-07/figures/se-085-vistas-copias-y-recorridos.svg)
+![Barras agrupadas en escala logarítmica con el tiempo de cuatro operaciones en Windows y Linux: copiar 50 MB tarda 15,8 y 36,1 ms, la vista de memoria menos de un microsegundo, sumar un millón de enteros 9,8 y 9,5 ms y recorrer un millón de nodos enlazados 91,0 y 58,1 ms.](../../../content/part-07/figures/se-085-vistas-copias-y-recorridos.svg)
 
-**Cómo leer la figura.** Compara las columnas Windows y Linux solo como razón entre filas; los milisegundos absolutos cambian de máquina a máquina. **Dónde deja de valer:** una vista evita la copia pero ata la vida del buffer original; si el contrato exige una instantánea (snapshot) estable, la copia es obligatoria. El recorrido enlazado se midió con nodos de Python con `__slots__`; en C o Rust, con asignación contigua, la diferencia con un arreglo sería otra.
+**Cómo leer la figura.** Cada grupo es una operación y las dos barras, el mismo experimento en Windows (verde azulado) y Linux (coral); el eje vertical es logarítmico porque la vista cuesta seis órdenes de magnitud menos que la copia. Mira la barra de la vista, casi invisible, frente a la copia de la misma memoria, y compara Windows con Linux solo como razón entre grupos: los milisegundos absolutos cambian de máquina a máquina. **Dónde deja de valer:** una vista evita la copia pero ata la vida del buffer original; si el contrato exige una instantánea (snapshot) estable, la copia es obligatoria. El recorrido enlazado se midió con nodos de Python con `__slots__`; en C o Rust, con asignación contigua, la diferencia con un arreglo sería otra.
 
 ## Definiciones de trabajo
 

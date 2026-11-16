@@ -90,9 +90,9 @@ Con una clase que cuenta cada `__lt__` ordenamos 800 elementos de tres maneras. 
 
 Contar comparaciones aísla el algoritmo del equipo: estos números no cambian de máquina a máquina, a diferencia de los milisegundos.
 
-![Tabla con las comparaciones de cuatro algoritmos de ordenamiento sobre tres entradas.](../../../content/part-07/figures/se-090-comparaciones-por-algoritmo.svg)
+![Mapa de calor con las comparaciones de cuatro algoritmos de ordenación con 800 elementos según la entrada: las celdas oscuras son las cuadráticas, entre ellas quicksort con pivote al primer elemento (639 200 con entrada ordenada o invertida) e inserción (157 960 y 319 600).](../../../content/part-07/figures/se-090-comparaciones-por-algoritmo.svg)
 
-**Cómo leer la figura.** Lee cada columna: los números en coral indican entradas que hacen cuadrático a un algoritmo. **Dónde deja de valer:** el quicksort evaluado usa el primer elemento como pivote; con pivote aleatorio o mediana de tres el caso patológico desaparece para esta entrada, aunque no para todas. Las comparaciones no incluyen el costo de mover datos.
+**Cómo leer la figura.** Cada fila es un algoritmo y cada columna un tipo de entrada; la intensidad del coral es el número de comparaciones y el contorno marca los casos cuadráticos. Mira cómo `sorted` y la mezcla quedan pálidos en las tres columnas mientras que quicksort e inserción se oscurecen justo donde su suposición falla. **Dónde deja de valer:** el quicksort evaluado usa el primer elemento como pivote; con pivote aleatorio o mediana de tres el caso patológico desaparece para esta entrada, aunque no para todas. Las comparaciones no incluyen el costo de mover datos.
 
 ### Timsort y selección: aprovechar el orden que ya existe
 
@@ -100,9 +100,9 @@ Medimos `sorted()` con 100 000 y 200 000 flotantes: aleatorios tardó 22,9 y 55,
 
 Para la mediana de 100 000 números comparamos `sorted()[n//2]` (22,3 ms), un quickselect de Python puro con pivote aleatorio (40,8 ms, con 2,33 comparaciones por elemento) y `heapq.nsmallest(1, …)` solo para el mínimo (1,32 ms). El algoritmo de selección es asintóticamente mejor (lineal frente a `n log n`), pero en CPython perdió contra el `sorted` implementado en C. Un resultado así es la razón de medir antes de reemplazar una función de biblioteca por una versión «más eficiente».
 
-![Tabla de tiempos de sorted() con entradas aleatorias, ordenadas e invertidas, con nota sobre selección.](../../../content/part-07/figures/se-090-timsort-y-seleccion.svg)
+![Barras agrupadas con el tiempo de sorted con 100 000 y 200 000 flotantes: aleatorios 22,9 y 55,5 ms, ya ordenados 1,87 y 5,19 ms, invertidos 2,31 y 5,91 ms.](../../../content/part-07/figures/se-090-timsort-y-seleccion.svg)
 
-**Cómo leer la figura.** La razón entre la primera columna y las otras dos es el beneficio de los tramos ya ordenados. **Dónde deja de valer:** los tiempos corresponden a flotantes. Con objetos con comparaciones caras, o con muchos duplicados, los resultados cambian; y un quickselect escrito en C o en NumPy superaría al ordenamiento completo. Linux dio un quickselect de 13,5 ms: la diferencia entre sistemas muestra que esta comparación es frágil.
+**Cómo leer la figura.** Cada grupo es un tamaño de lista y las tres barras, el orden de la entrada: coral aleatoria, verde azulada ya ordenada, dorada invertida. La razón entre la barra coral y las otras dos es el beneficio de los tramos ya ordenados («runs») que Timsort detecta y mezcla. **Dónde deja de valer:** los tiempos corresponden a flotantes. Con objetos con comparaciones caras, o con muchos duplicados, los resultados cambian; y un quickselect escrito en C o en NumPy superaría al ordenamiento completo. Linux dio un quickselect de 13,5 ms: la diferencia entre sistemas muestra que esta comparación es frágil.
 
 ### Trampas del orden: estabilidad, NaN y tipos
 
@@ -110,9 +110,9 @@ Para la mediana de 100 000 números comparamos `sorted()[n//2]` (22,3 ms), un qu
 
 El problema de fondo es el orden total: un comparador debe ser transitivo y consistente. Si no lo es, Timsort no falla con un error; produce un resultado arbitrario. Cuando el criterio viene de datos externos (prioridades, puntuaciones con valores ausentes), se normaliza antes de ordenar.
 
-![Tabla con cuatro comportamientos de sorted() frente a estabilidad, NaN, tipos mezclados y cadenas.](../../../content/part-07/figures/se-090-trampas-del-orden.svg)
+![Cuatro tarjetas con comportamientos de sorted(): es estable, una lista con NaN queda sin ordenar, mezclar enteros y cadenas lanza TypeError y las cadenas se ordenan por punto de código.](../../../content/part-07/figures/se-090-trampas-del-orden.svg)
 
-**Cómo leer la figura.** La columna derecha explica la causa; ninguna de las cuatro filas lanzó una advertencia salvo la del TypeError. **Dónde deja de valer:** las cuatro filas son de CPython 3.12. El orden de cadenas depende de la configuración regional si se usa `locale.strxfrm`; aquí se mostró el orden por defecto. Otros lenguajes tienen otras reglas con NaN.
+**Cómo leer la figura.** Cada tarjeta muestra la expresión, su resultado y la causa; el color dice si el comportamiento es una garantía (verde azulado), una trampa (coral) o depende del contexto (dorado). Ninguna de las cuatro lanzó una advertencia salvo la del `TypeError`. **Dónde deja de valer:** las cuatro filas son de CPython 3.12. El orden de cadenas depende de la configuración regional si se usa `locale.strxfrm`; aquí se mostró el orden por defecto. Otros lenguajes tienen otras reglas con NaN.
 
 ## Definiciones de trabajo
 

@@ -90,9 +90,9 @@ Cargamos 300 000 filas en SQLite (en memoria) con un correo de 9 cifras y una pu
 
 El mismo principio explica un índice invertido: sobre 20 000 documentos de 30 palabras, encontrar los que contienen dos palabras tardó 9,55 ms recorriéndolos y 0,008 ms intersectando dos conjuntos de identificadores (8 coincidencias, 595 725 entradas de índice en total). A cambio se construye y se mantiene el índice.
 
-![Tabla con planes y tiempos de consultas con y sin índice en SQLite y con un índice invertido.](../../../content/part-07/figures/se-093-indices-y-selectividad.svg)
+![Barras agrupadas en escala logarítmica con el tiempo de cuatro consultas con y sin índice: correo exacto 21,6 ms frente a 0,0059, score menor que 5 21,04 frente a 1,02, score menor que 900 207,1 frente a 196,9 y dos palabras 9,55 frente a 0,008.](../../../content/part-07/figures/se-093-indices-y-selectividad.svg)
 
-**Cómo leer la figura.** Cada fila es una consulta distinta; la tercera y la cuarta muestran el mismo índice con selectividad muy diferente. **Dónde deja de valer:** SQLite en memoria no incluye lectura de disco; en un disco el recorrido completo es aún más caro y el índice más valioso. El planificador puede elegir otro plan con otras estadísticas (`ANALYZE`).
+**Cómo leer la figura.** Cada grupo es una consulta con su selectividad; la barra coral es el recorrido completo y la verde azulada, el índice (o el índice invertido). Mira que la brecha se estrecha al pasar de una fila a 1 511 filas y desaparece cuando la consulta selecciona el 90 % de la tabla: el mismo índice, con selectividad muy diferente. **Dónde deja de valer:** SQLite en memoria no incluye lectura de disco; en un disco el recorrido completo es aún más caro y el índice más valioso. El planificador puede elegir otro plan con otras estadísticas (`ANALYZE`).
 
 ### Estructuras probabilísticas: un error que se elige
 
@@ -100,9 +100,9 @@ Un filtro de Bloom responde «posiblemente está» o «seguro que no está». Im
 
 Cada estructura renuncia a algo declarado: Bloom a certificar presencia, Count-Min a la exactitud (siempre por exceso) y HyperLogLog a la identidad de los elementos. Un contrato que no diga cuál es el error y en qué dirección falla es incompleto.
 
-![Tabla con el error medido de Bloom, Count-Min y HyperLogLog frente al valor teórico.](../../../content/part-07/figures/se-093-filtros-y-sketches.svg)
+![Barras agrupadas con el error medido frente al teórico: Bloom con 8 bits por elemento 2,12 % frente a 2,16 %, con 16 bits 0,04 % frente a 0,05 % y HyperLogLog con 1 024 registros 3,02 % frente a 3,25 %.](../../../content/part-07/figures/se-093-filtros-y-sketches.svg)
 
-**Cómo leer la figura.** La columna derecha es la referencia teórica o el contraste contra una estructura exacta. **Dónde deja de valer:** las estructuras se probaron con datos sintéticos y funciones de hash de calidad; un hash débil o datos adversarios cambian el error. Los parámetros se eligieron para el experimento, no como recomendación universal.
+**Cómo leer la figura.** Cada grupo es una estructura con una configuración y las dos barras comparan el error medido (verde azulado) con el teórico (gris). Mira que la medición cae justo debajo de la teoría en los tres y que duplicar los bits del filtro lo reduce de 2,12 % a 0,04 %: el error es un parámetro que se elige. Count-Min está en la nota. **Dónde deja de valer:** las estructuras se probaron con datos sintéticos y funciones de hash de calidad; un hash débil o datos adversarios cambian el error. Los parámetros se eligieron para el experimento, no como recomendación universal.
 
 ### Estructuras persistentes: compartir en vez de copiar
 

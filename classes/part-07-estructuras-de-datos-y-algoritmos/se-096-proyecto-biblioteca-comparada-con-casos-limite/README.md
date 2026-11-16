@@ -91,9 +91,9 @@ El proyecto compara implementaciones con un contrato. Para medir la calidad de l
 
 El sexto, `left_dups`, no se detectó nunca (0 %): para enteros, insertar un duplicado a la izquierda o a la derecha da una lista idéntica. Es un mutante equivalente respecto de este oráculo; solo se distinguiría con registros que tengan identidad y exijan estabilidad. Una suite diferencial no sustituye el diseño de qué observar.
 
-![Tabla con seis mutantes, si pasan los ejemplos y la tasa de detección del oráculo diferencial.](../../../content/part-07/figures/se-096-mutantes-y-oraculo.svg)
+![Barras horizontales con el porcentaje de detección de seis mutantes: los ejemplos solo detectan dos (add_end y closed_hi), el oráculo diferencial detecta cinco entre 97,5 y 100 % y no detecta left_dups.](../../../content/part-07/figures/se-096-mutantes-y-oraculo.svg)
 
-**Cómo leer la figura.** Observa la columna «¿Pasan los ejemplos?»: la columna que debería asustar es «Sí». **Dónde deja de valer:** 200 semillas × 60 pasos no es una cobertura exhaustiva; un defecto raro puede escapar. Los mutantes los diseñé yo: un conjunto realista saldría de un historial de errores del proyecto.
+**Cómo leer la figura.** Cada fila es un defecto inyectado; la barra dorada dice si los ejemplos lo detectan (100 %) o pasan sin verlo (0 %), y la verde azulada es el porcentaje de las 200 semillas del oráculo que lo detectan. Mira que la barra dorada falta en cuatro de seis filas, justo donde el oráculo sigue lleno; la última fila, vacía, es el mutante equivalente. **Dónde deja de valer:** 200 semillas × 60 pasos no es una cobertura exhaustiva; un defecto raro puede escapar. Los mutantes los diseñé yo: un conjunto realista saldría de un historial de errores del proyecto.
 
 ### El oráculo encontró un defecto en la referencia
 
@@ -111,9 +111,9 @@ Sacar de una estructura vacía no es uniforme: `[].pop()`, `heapq.heappop([])` y
 
 Una comparación de implementaciones «los k menores» mostró otro riesgo: la variante `sorted(set(xs))[:k]` coincidió con la de referencia en solo 1 419 de 2 000 casos (descarta duplicados), mientras que `heapq.nsmallest` y la selección repetida coincidieron en 2 000. En rendimiento, con 100 000 elementos y k = 10, `sorted` tardó 22,8 ms y `heapq.nsmallest` 2,35 ms; con k = 30 000, 24,1 ms frente a 74,2 ms. La mejor implementación se invierte con k, de modo que el informe final debe decir para qué rango de k vale cada una.
 
-![Tabla con casos límite de varias estructuras y una comparación de k menores con cruce.](../../../content/part-07/figures/se-096-bordes-y-comparacion.svg)
+![Seis tarjetas con casos límite: IndexError, ValueError y KeyError al vaciar estructuras, bisect sobre una lista desordenada devuelve 2 sin error, una variante coincide en 1 419 de 2 000 casos y nsmallest gana con k pequeño y pierde con k grande.](../../../content/part-07/figures/se-096-bordes-y-comparacion.svg)
 
-**Cómo leer la figura.** Las cuatro primeras filas son comportamientos de vacío o de precondición; las dos últimas son comparaciones con datos. **Dónde deja de valer:** se midió un solo tipo de dato (enteros pequeños con duplicados) y una sola biblioteca estándar. Otro intérprete o una biblioteca de terceros puede tener otro error para el mismo caso.
+**Cómo leer la figura.** Cada tarjeta es un caso con su resultado; el color separa los errores esperables (coral), los que dependen del contrato (dorado) y, en las dos últimas, la comparación con datos. Las cuatro primeras son comportamientos de vacío o de precondición. **Dónde deja de valer:** se midió un solo tipo de dato (enteros pequeños con duplicados) y una sola biblioteca estándar. Otro intérprete o una biblioteca de terceros puede tener otro error para el mismo caso.
 
 ## Definiciones de trabajo
 

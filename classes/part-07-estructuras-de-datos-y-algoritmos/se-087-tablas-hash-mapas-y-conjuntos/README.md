@@ -100,9 +100,9 @@ El peligro práctico no es solo el código propio. Un atacante que controle las 
 
 La consecuencia de diseño: el orden de iteración de un `set` o de un `dict` por hash no debe usarse como dato. Los `dict` conservan el orden de inserción desde Python 3.7 (tras borrar `b` y reinsertarla, el orden fue `acdeb`), pero los `set` no ofrecen esa garantía.
 
-![Tabla con cinco comportamientos medidos de hash e igualdad.](../../../content/part-07/figures/se-087-hash-e-igualdad.svg)
+![Cinco tarjetas con comprobaciones de hash e igualdad y su resultado: el orden de un set de cadenas cambia con la semilla, el de enteros no, hash(-1) y hash(-2) colisionan, 1, 1.0 y True son la misma clave y NaN solo se encuentra con el mismo objeto.](../../../content/part-07/figures/se-087-hash-e-igualdad.svg)
 
-**Cómo leer la figura.** Lee cada fila como una pregunta de entrevista con respuesta comprobada: la columna central es la observación, la derecha su causa. **Dónde deja de valer:** estas observaciones son de CPython 3.12; otros intérpretes pueden aleatorizar o no. La igualdad de `1` y `True` es una decisión del lenguaje que podría sorprender en otros dominios (identificadores, banderas).
+**Cómo leer la figura.** Cada tarjeta es una pregunta de entrevista con respuesta comprobada: a la izquierda, la comprobación; a la derecha, lo que se observó, en coral si sorprende, verde azulado si se sostiene y dorado si depende; debajo, la causa. Lee de arriba abajo cómo la identidad y el hash deciden qué es «la misma clave». **Dónde deja de valer:** estas observaciones son de CPython 3.12; otros intérpretes pueden aleatorizar o no. La igualdad de `1` y `True` es una decisión del lenguaje que podría sorprender en otros dominios (identificadores, banderas).
 
 ### Claves mutables: la entrada que existe y no se encuentra
 

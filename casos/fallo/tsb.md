@@ -1,10 +1,12 @@
-# TSB (2018): una migración de plataforma sin vuelta atrás
+# TSB Bank
+
+[↑ Casos de fallo](README.md) · [← HealthCare.gov](healthcare-gov.md) · [Caída global de Meta →](meta-2021.md)
 
 > **Qué es esta página.** Un caso de estudio de fallo: la realidad frente a la teoría del curso. No es una clase ni un rol. Separa lo que las fuentes **documentan**, lo que este análisis **infiere** y lo que **no se sabe**. Habla de decisiones, procesos y sistemas, no de personas. Fecha de consulta de todas las fuentes: 16 de noviembre de 2026.
 
 **Resumen.** El fin de semana del 20 al 22 de abril de 2018, el banco británico TSB migró a una plataforma informática nueva. Desde el primer día fallaron la banca por internet y móvil, el teléfono y las sucursales; el banco no volvió a la normalidad hasta el 10 de diciembre de 2018. Los reguladores británicos concluyeron en 2022 que, aunque las causas técnicas directas fueron de configuración, capacidad y código, hubo fallos de planificación, pruebas, gestión de riesgos, externalización y preparación para la crisis. Multaron a TSB con 48,65 millones de libras.
 
-## 1. Ficha histórica
+## Ficha histórica
 
 | Dato | Detalle | Fuente |
 | --- | --- | --- |
@@ -20,18 +22,18 @@
 
 Las fuentes consultadas no atribuyen responsabilidades a personas concretas por su nombre en los pasajes que respaldan este caso; este análisis tampoco lo hace. Una nota sobre las fuentes: el informe de Slaughter and May se publicó como un PDF escaneado de unas 260 páginas, de modo que no se pudo extraer su texto para comprobar citas; por eso las afirmaciones técnicas de esta página se apoyan en el Final Notice de la FCA y en el comunicado conjunto, que sí se leyeron íntegros.
 
-## 2. Contexto y objetivo del sistema
+## Contexto y problema
 
 Tras la escisión, TSB siguió recibiendo sus servicios informáticos de la plataforma de Lloyds bajo un contrato de externalización que le permitía usarla hasta julio de 2024, con opción de salir mediante una copia operada por un tercero o una plataforma completamente nueva (FCA, 2.1). Cuando Sabadell compró TSB, parte de la lógica de negocio era migrar los servicios a Proteo, la plataforma bancaria de Sabadell, con la expectativa de rendimientos financieros; el objetivo era migrar a finales de 2017 (FCA, 2.2). El sistema objetivo era una versión nueva, **Proteo4UK**, adaptada al mercado británico, creada en gran parte a partir de la plataforma española ya existente pero «aún no probada» en su versión británica (FCA, 2.3).
 
-## 3. Mercado, usuarios afectados y casos de uso
+## Mercado, usuarios y casos de uso
 
 - **Clientes:** 5,2 millones; todas las sucursales y una parte significativa de los clientes afectados por los problemas iniciales (comunicado FCA/PRA).
 - **Casos de uso afectados:** acceso a la cuenta y uso de la banca por internet y móvil, banca telefónica, tecnología de sucursales, pagos y operaciones con tarjeta de débito, además de «ciertas brechas de datos» (FCA, 2.5).
 - **Clientes vulnerables:** el sistema previo solo registraba algunas categorías de clientes vulnerables, y la falta de preparación aumentó el estrés de algunos (FCA, 2.31).
 - **Mercado:** banca minorista del Reino Unido; la migración servía, según la FCA, a la estrategia de su nuevo propietario (FCA, 2.2). Qué cuota de mercado tenía no consta en las fuentes consultadas.
 
-## 4. Cómo funcionaba el sistema, de principio a fin
+## Funcionalidad de principio a fin
 
 1. Hasta abril de 2018, los clientes de TSB usaban canales (internet, móvil, teléfono, sucursal) respaldados por la plataforma de Lloyds.
 2. Entre 2015 y 2018, TSB diseñó, construyó y probó Proteo4UK con SABIS, que se apoyaba en **85 terceros** (que para TSB eran «cuartas partes») para entregar los sistemas y operar la plataforma, actuando como agregador de servicios (FCA, 2.22).
@@ -42,7 +44,7 @@ Tras la escisión, TSB siguió recibiendo sus servicios informáticos de la plat
 
 **Cómo leer la figura.** A la izquierda el estado anterior y a la derecha el posterior; la flecha es el fin de semana de migración. Mira la caja oscura: la ausencia de retorno cambia el tipo de riesgo del proyecto. **Dónde deja de valer:** es un esquema de responsabilidades, no de componentes internos; el Final Notice no describe la arquitectura técnica de Proteo4UK.
 
-## 5. Negocio y economía: qué estaba en juego
+## Negocio y economía
 
 Estaba en juego la lógica económica de la adquisición: migrar a Proteo era parte del rendimiento financiero esperado de Sabadell (FCA, 2.2). La fecha, además, se había hecho **pública**: la meta de fin de 2017 era conocida, y el banco la mantuvo en el plan maestro de marzo de 2016 pese a llevar meses de retraso (FCA, 2.10). Del lado del costo, el regulador cuantifica la compensación (32,7 millones de libras) y las multas (48,65 millones), y nada más; el costo interno de la remediación y el efecto sobre los clientes no se cuantifican en las fuentes consultadas.
 
@@ -50,7 +52,7 @@ Estaba en juego la lógica económica de la adquisición: migrar a Proteo era pa
 
 **Cómo leer la figura.** Cada barra es una cantidad en millones de libras y la escala parte de cero. Mira que la compensación a clientes y la multa de la FCA son del mismo orden. **Dónde deja de valer:** no es el costo total del incidente; faltan el gasto de remediación, la pérdida de clientes y el efecto sobre la marca, que no están cuantificados en las fuentes consultadas.
 
-## 6. Arquitectura y esquemas
+## Arquitectura y esquemas
 
 Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 
@@ -62,7 +64,16 @@ Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 
 **Cómo leer la figura.** Cada caja es un canal o un efecto y cada flecha una transferencia de carga. Mira que no hay un solo punto de fallo sino un efecto dominó entre canales. **Dónde deja de valer:** la cascada la describe la FCA en términos cualitativos; no hay en las fuentes consultadas una cifra de llamadas abandonadas ni tiempos de espera.
 
-## 7. Línea de tiempo del incidente
+## Casos especiales y cómo fallan
+
+- **Clientes vulnerables.** Los sistemas previos solo capturaban algunas categorías de clientes vulnerables y no se prepararon formas de identificarlos en un incidente largo, lo que añadió estrés a algunos (FCA, 2.31).
+- **Brechas de datos y pagos.** Entre los problemas iniciales la FCA cita ciertas brechas de datos, fallos de banca digital y telefónica, de tecnología de sucursales y problemas consecuentes con pagos y tarjetas de débito (FCA, 2.5).
+- **Funcionalidad aplazada y trabajos manuales.** La fecha de migración se cumplió aplazando funcionalidad bancaria o poniendo soluciones manuales (FCA, 2.12).
+- **Incidentes largos.** Las guías de incidentes solo cubrían las primeras 48 horas y los ensayos del nivel «Gold» suponían resolver en pocos días, mientras que muchos eventos tardaron semanas (FCA, 2.29 y 2.30).
+- **Quejas.** 225 492 quejas entre el 22 de abril de 2018 y el 7 de abril de 2019, casi 12 meses para resolverlas y 32 705 762 libras de compensación (FCA, 2.8, 2.31 y 2.32).
+- **Recuperación y supervisión.** El 24 de abril TSB prometió que nadie quedaría con pérdidas, en mayo creó el programa «Putting Things Right» y el banco no volvió a la normalidad hasta el 10 de diciembre de 2018. Hubo atención mediática, regulatoria y parlamentaria (FCA, 2.7, 2.8 y 2.32).
+
+## Línea de tiempo
 
 | Fecha | Hecho documentado |
 | --- | --- |
@@ -85,9 +96,9 @@ Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 
 **Cómo leer la figura.** El eje son meses desde junio de 2014; las líneas discontinuas son hitos del plan y la barra roja el periodo del incidente. Mira la proporción: casi tres años de preparación frente a ocho meses de crisis. **Dónde deja de valer:** las posiciones son aproximadas al mes y el comienzo de la barra de programa se fija en la adquisición, no en el inicio de ningún trabajo técnico concreto.
 
-## 8. Qué falló en cada instancia
+## Qué falló en cada instancia
 
-**Documentado por el regulador.**
+Instancia por instancia, qué se esperaba y qué ocurrió, según las fuentes.
 
 - **Causas técnicas directas.** «Problemas con la configuración informática, la capacidad y el código» (FCA, 2.9). Un problema de configuración de ciertos componentes de los centros de datos causó la falta de disponibilidad de la banca por internet y móvil durante periodos posteriores a la migración (FCA, 2.14).
 - **Planificación.** Plan maestro «insuficientemente de izquierda a derecha»; plan de reajuste («Defender Plan») también; se cumplió la fecha aplazando funcionalidad o poniendo soluciones manuales (FCA, 2.10 a 2.12).
@@ -96,11 +107,19 @@ Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 - **Riesgos y externalización.** Sin evaluación formal y completa de la capacidad de SABIS al inicio ni después; riesgos de incumplimiento del proveedor no identificados; dependencia de 85 terceros sin visibilidad suficiente; confirmaciones de terceros críticos aceptadas parcialmente (FCA, 2.16 a 2.25).
 - **Continuidad y crisis.** Sin vuelta atrás; planes de incidentes pensados para 48 horas y ejercicios de pocos días; sin estrategia de comunicación a clientes ni de ampliación de recursos para quejas; casi 12 meses para gestionar las quejas (FCA, 2.26 a 2.31).
 
+## Causa raíz y factores
+
+**Detonante (documentado).** Los problemas técnicos directos fueron de configuración, capacidad y código; en concreto, un problema de configuración de ciertos componentes de los centros de datos causó la falta de disponibilidad de la banca por internet y móvil tras la migración (FCA, 2.9 y 2.14).
+
+**Condiciones latentes (documentado).** Un plan maestro «insuficientemente de izquierda a derecha» y un replanteo igual; pruebas comprimidas o en paralelo, terminadas el día antes de decidir; una prueba no funcional reducida en febrero de 2018 fuera del foro de gobierno adecuado; sin evaluación formal de la capacidad del proveedor ni de sus 85 terceros; documentación de diseño sustituida por documentos de configuración; sin vuelta atrás; planes de continuidad pensados para 48 horas (FCA, 2.10 a 2.31).
+
+**Factores de contexto (documentado).** Una migración de escala sin precedente y ambiciosa para una plataforma nueva en el Reino Unido; Sabadell con experiencia limitada en el mercado británico; un proveedor sin experiencia gestionando muchos subcontratistas del Reino Unido; una fecha conocida públicamente (FCA, 2.2, 2.3, 2.10 y 2.16).
+
 **Inferido (análisis propio).** El patrón es de **presión de fecha convertida en recorte de verificación**, el mismo que en [HealthCare.gov](healthcare-gov.md), con un agravante propio: la irreversibilidad. Con migración en un solo evento y sin retorno, el costo de un error de verificación es máximo. La FCA recoge que, en opinión de TSB, el banco no habría decidido proceder si hubiera considerado posible un incidente de esa escala (FCA, 2.26); este análisis añade que el regulador sí encontró que las preparaciones no estaban a la altura de ese escenario.
 
 **No se sabe (por las fuentes consultadas).** Cuántas personas estuvieron exactamente sin acceso y durante cuánto tiempo cada una; el costo interno total para TSB; el reparto de causas dentro del informe de Slaughter and May, cuyo texto no se pudo extraer.
 
-## 9. Las mejoras que debieron hacerse (análisis propio apoyado en la fuente)
+## Mejoras que debieron hacerse
 
 ![Siete tarjetas con decisiones del caso a la izquierda y la mejora propuesta a la derecha, incluida la migración por oleadas con vuelta atrás probada.](../figures/tsb-mejoras.svg)
 
@@ -117,17 +136,17 @@ Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 | Incidentes y clientes | Comunicación proactiva; ampliar capacidad de contacto y gestión de quejas | SE-428, SE-429 |
 | Gobierno | Decisiones reversibles frente a irreversibles; atestación de requisitos con el consejo informado | SE-142, SE-450 |
 
-## 10. Vínculo con el curso
+## Vínculo con el curso
 
-- [SE-437 · Strangler, branch by abstraction y anticorruption](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/), [SE-439 · Migraciones de datos sin interrupción](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/), [SE-440 · Compatibilidad, coexistencia y doble escritura](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/) y [SE-444 · Migración incremental reversible](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/).
-- [SE-318 · Migraciones compatibles y evolución de esquema](../../classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/) y [SE-321 · Backups, restauración y pruebas de recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/).
-- [SE-361 · Calidad por riesgo y propósito de las pruebas](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/) y [SE-375 · Carga, estrés, picos y endurance](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance/).
-- [SE-185 · Estimación por tamaño, rango y evidencia histórica](../../classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/) y [SE-449 · Estimación organizacional y compromisos](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-449-estimacion-organizacional-y-compromisos/).
-- [SE-451 · Compras, proveedores y evaluación técnica](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/).
-- [SE-430 · Continuidad, disaster recovery y ejercicios](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/) y [SE-428 · Gestión de incidentes y comunicación](../../classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion/).
-- [SE-142 · Decisiones reversibles e irreversibles](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/).
+- [SE-437 · Strangler, branch by abstraction y anticorruption](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/README.md), [SE-439 · Migraciones de datos sin interrupción](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/README.md), [SE-440 · Compatibilidad, coexistencia y doble escritura](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/README.md) y [SE-444 · Migración incremental reversible](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/README.md).
+- [SE-318 · Migraciones compatibles y evolución de esquema](../../classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/README.md) y [SE-321 · Backups, restauración y pruebas de recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/README.md).
+- [SE-361 · Calidad por riesgo y propósito de las pruebas](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) y [SE-375 · Carga, estrés, picos y endurance](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance/README.md).
+- [SE-185 · Estimación por tamaño, rango y evidencia histórica](../../classes/part-15-procesos-planificacion-y-estimacion/se-185-estimacion-por-tamano-rango-y-evidencia-historica/README.md) y [SE-449 · Estimación organizacional y compromisos](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-449-estimacion-organizacional-y-compromisos/README.md).
+- [SE-451 · Compras, proveedores y evaluación técnica](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/README.md).
+- [SE-430 · Continuidad, disaster recovery y ejercicios](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/README.md) y [SE-428 · Gestión de incidentes y comunicación](../../classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion/README.md).
+- [SE-142 · Decisiones reversibles e irreversibles](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md).
 
-## 11. Qué aprender y qué no generalizar
+## Qué no generalizar
 
 **Aprender.**
 
@@ -145,11 +164,16 @@ Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
 - La sanción es de 2022 y se refiere a Principios de la FCA y de la PRA aplicables a esa entidad; no es una regla universal.
 - No se atribuyen intenciones ni culpas a personas.
 
-## 12. Fuentes
+## Fuentes públicas verificadas
 
 Todas consultadas el 16 de noviembre de 2026 y comprobadas con descarga directa (HTTP 200).
 
-1. Financial Conduct Authority, *Final Notice* a TSB Bank plc, referencia 191240, 20 de diciembre de 2022. <https://www.fca.org.uk/publication/final-notices/tsb-bank-plc-2022.pdf>. Respalda todos los hechos marcados «FCA, n».
-2. FCA y PRA, comunicado conjunto *TSB fined £48.65m for operational resilience failings*, 20 de diciembre de 2022. <https://www.fca.org.uk/news/press-releases/tsb-fined-ps4865m-operational-resilience-failings>. Respalda: 5,2 millones de clientes, todas las sucursales afectadas, 18,9 millones de la PRA y el total de 48,65.
-3. TSB, *TSB Board publishes independent review of 2018 IT Migration*, 19 de noviembre de 2019. <https://www.tsb.co.uk/news-releases/slaughter-and-may/>. Respalda la publicación del informe de Slaughter and May y el desacuerdo parcial del consejo.
-4. Slaughter and May, informe del *Independent Review* (PDF publicado por TSB). <https://www.tsb.co.uk/content/dam/tsb-public/documents/media-centre/Slaughter-and-May-final-report.pdf>. Descargable (HTTP 200) pero escaneado: no se extrajeron citas de él.
+1. Financial Conduct Authority, *Final Notice* a TSB Bank plc, referencia 191240, 20 de diciembre de 2022. [https://www.fca.org.uk/publication/final-notices/tsb-bank-plc-2022.pdf](https://www.fca.org.uk/publication/final-notices/tsb-bank-plc-2022.pdf). Respalda todos los hechos marcados «FCA, n».
+2. FCA y PRA, comunicado conjunto *TSB fined £48.65m for operational resilience failings*, 20 de diciembre de 2022. [https://www.fca.org.uk/news/press-releases/tsb-fined-ps4865m-operational-resilience-failings](https://www.fca.org.uk/news/press-releases/tsb-fined-ps4865m-operational-resilience-failings). Respalda: 5,2 millones de clientes, todas las sucursales afectadas, 18,9 millones de la PRA y el total de 48,65.
+3. TSB, *TSB Board publishes independent review of 2018 IT Migration*, 19 de noviembre de 2019. [https://www.tsb.co.uk/news-releases/slaughter-and-may/](https://www.tsb.co.uk/news-releases/slaughter-and-may/). Respalda la publicación del informe de Slaughter and May y el desacuerdo parcial del consejo.
+4. Slaughter and May, informe del *Independent Review* (PDF publicado por TSB). [https://www.tsb.co.uk/content/dam/tsb-public/documents/media-centre/Slaughter-and-May-final-report.pdf](https://www.tsb.co.uk/content/dam/tsb-public/documents/media-centre/Slaughter-and-May-final-report.pdf). Descargable (HTTP 200) pero escaneado: no se extrajeron citas de él.
+5. Slaughter and May, página sobre la revisión independiente de la migración de TSB. [https://slaughterandmay.com/news/slaughter-and-may-s-independent-review-of-tsb-s-2018-migration-to-a-new-it-platform](https://slaughterandmay.com/news/slaughter-and-may-s-independent-review-of-tsb-s-2018-migration-to-a-new-it-platform). Respalda: que el informe se publicó el 19 de noviembre de 2019.
+
+---
+
+[↑ Casos de fallo](README.md) · [← HealthCare.gov](healthcare-gov.md) · [Caída global de Meta →](meta-2021.md)

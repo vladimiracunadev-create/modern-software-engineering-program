@@ -120,9 +120,9 @@ names = sorted(files)                                      # orden estable
 
 Normalizar el orden y las fechas no bastó: el campo que registra el sistema de creación seguía distinguiendo los dos entornos. Solo al fijarlo coincidieron. Con compresión deflate también coincidieron con zlib 1.3.1 y 1.3, para este contenido; no se garantiza con otro contenido ni con otra versión de la biblioteca.
 
-![Tabla con los primeros caracteres del SHA-256 del mismo paquete construido en Windows y en Ubuntu con cinco variantes de construcción, de la que solo coinciden las tres que fijan el sistema de creación.](../../../content/part-29/figures/se-360-hashes-entre-sistemas.svg)
+![Diagrama de cinco construcciones del mismo paquete con las sumas en Windows y en Ubuntu: las dos primeras difieren y las tres que fijan el sistema de creación o usan deflate coinciden.](../../../content/part-29/figures/se-360-hashes-entre-sistemas.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de construir el mismo paquete y las dos columnas de sumas, el resultado en cada sistema; la última dice si coinciden. **Dónde deja de valer:** el paquete se generó con una semilla y no con los archivos reales; con archivos de un repositorio entran además los saltos de línea, que dependen de la configuración de Git, y los permisos de archivo, que Windows no representa.
+**Cómo leer la figura.** Se lee de izquierda a derecha y de arriba abajo: cada recuadro añade normalización a la construcción anterior; los recuadros coral son sumas distintas entre sistemas y los verde azulado, sumas iguales, con los primeros 8 caracteres de cada una. Mira en qué recuadro pasa del coral al verde azulado: al fijar el sistema que crea el archivo. **Dónde deja de valer:** el paquete se generó con una semilla y no con los archivos reales; con archivos de un repositorio entran además los saltos de línea, que dependen de la configuración de Git, y los permisos de archivo, que Windows no representa.
 
 ### Lo que un validador de forma ve
 
@@ -152,9 +152,9 @@ def validate(pk):
 
 El validador ve la forma y las coincidencias exactas y es ciego a lo que requiere interpretar, porque un paquete con una prueba de 2019 es tan completo y coherente en forma como uno con una de ayer. Un paquete aprobado por el validador solo está completo; su verdad la responde una persona. Los 16 de 16 describen estas reglas contra estos defectos, que escribí yo; no son una cobertura general.
 
-![Tabla con los defectos sembrados en un paquete, entre ellos ocho que detecta un validador de forma y cinco que exigen interpretar el contenido, y cuántos de 16 mutaciones se detectan en cada familia.](../../../content/part-29/figures/se-360-validador-del-paquete.svg)
+![Barras apiladas horizontales con las mutaciones detectadas y no detectadas por un validador de paquetes: detecta las 128 de ocho familias estructurales y ninguna de las 80 de cinco familias de contenido.](../../../content/part-29/figures/se-360-validador-del-paquete.svg)
 
-**Cómo leer la figura.** Cada fila agrupa familias de defectos y la columna dice cuántas de 16 mutaciones por familia detectó el validador. **Dónde deja de valer:** las mutaciones y las reglas las escribí yo y las reglas se diseñaron conociéndolas; un paquete real tiene defectos que no se me ocurrieron, y por eso la cifra describe el validador, no su cobertura sobre paquetes reales.
+**Cómo leer la figura.** Cada barra es un grupo de familias de defectos y mide sus mutaciones sembradas (16 por familia); el verde azulado es lo detectado y el coral lo que pasó. La separación es total: lo que el validador ve es forma y lo que no, interpretación. La tabla nombra una por una las 13 familias. **Dónde deja de valer:** las mutaciones y las reglas las escribí yo y las reglas se diseñaron conociéndolas; un paquete real tiene defectos que no se me ocurrieron, y por eso la cifra describe el validador, no su cobertura sobre paquetes reales.
 
 ### Entornos olvidados
 
@@ -176,9 +176,9 @@ else:
 
 El gasto mínimo, 110 unidades (22 días hábiles por 5), se alcanza con un barrido diario; sin plazo el mediano triplica ese mínimo y el percentil 90 lo multiplica por cinco. Un barrido que falla uno de cada cinco días apenas se nota, porque el siguiente lo corrige. El plazo convierte un costo abierto en uno acotado: el olvido pasa de costar hasta treinta días a costar uno o dos.
 
-![Tabla con el gasto mediano y del percentil 90 de un mes con entornos de laboratorio olvidados sin plazo, con plazo de 24 horas y con un barrido que falla uno de cada cinco días.](../../../content/part-29/figures/se-360-entornos-olvidados.svg)
+![Barras horizontales agrupadas con el gasto mediano y del percentil 90 de un mes con entornos de laboratorio olvidados, sin plazo, con plazo de 24 horas y con un barrido que falla uno de cada cinco días; de 340 y 570 a 110 y 120.](../../../content/part-29/figures/se-360-entornos-olvidados.svg)
 
-**Cómo leer la figura.** Cada fila es un proceso y las columnas, el gasto mensual mediano y el del percentil 90 en 500 meses simulados. **Dónde deja de valer:** el precio, la tasa de olvido del 15 % y el fallo del barrido son supuestos del autor; un entorno real puede costar mucho más por día, y un recurso con datos o con acceso expuesto es un riesgo que ninguna cifra de gasto mide.
+**Cómo leer la figura.** Cada grupo es un proceso; la barra verde azulada es el gasto mediano del mes y la coral, el del percentil 90, en 500 meses simulados. Mira la diferencia entre sin plazo y con plazo, y que el barrido que falla casi no mueve ninguna barra. **Dónde deja de valer:** el precio, la tasa de olvido del 15 % y el fallo del barrido son supuestos del autor; un entorno real puede costar mucho más por día, y un recurso con datos o con acceso expuesto es un riesgo que ninguna cifra de gasto mide.
 
 ## Definiciones de trabajo
 

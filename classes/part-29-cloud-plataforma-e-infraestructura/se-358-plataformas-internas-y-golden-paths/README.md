@@ -119,9 +119,9 @@ t += errs * r.lognormvariate(math.log(45), 0.6)
 
 La simulación coincide con la fórmula (1 − p)^n. Con el camino el éxito sube del 62,6 % al 90,5 % y la mediana baja de 5,5 horas a 17 minutos. Lo que explica la mejora no es que las personas acierten más sino que hay menos pasos que equivocar: el error por paso es el mismo. Si el camino no baja ese error por paso, por ejemplo con un paso que sigue siendo difícil, la mejora es menor.
 
-![Tabla con el porcentaje de creaciones sin errores y el tiempo mediano y del percentil 90 al crear un servicio con 23 pasos manuales y con un camino dorado de 5 pasos.](../../../content/part-29/figures/se-358-camino-dorado-frente-a-pasos-manuales.svg)
+![Intervalos con la mediana y el percentil 90 de las horas para crear un servicio con 23 pasos manuales y con un camino dorado de 5 pasos, con el porcentaje sin retrabajo en cada fila; de 5,5 y 6,8 horas a 0,28 y 0,50.](../../../content/part-29/figures/se-358-camino-dorado-frente-a-pasos-manuales.svg)
 
-**Cómo leer la figura.** Cada fila es un camino; las columnas son la proporción de creaciones sin ningún error y los tiempos mediano y del percentil 90. **Dónde deja de valer:** los 23 y 5 pasos, el 2 % de error y los tiempos son supuestos del autor, no medidas de personas ni de un equipo; los errores reales no son independientes, y los tiempos de espera por una aprobación o un recurso no están modelados.
+**Cómo leer la figura.** Cada fila es un camino y su pista va de la mediana (círculo) al percentil 90 (rombo) en horas; entre paréntesis, la proporción de creaciones sin ningún error. Mira la distancia entre la fila manual y las dos del camino dorado, y que el intervalo manual es además más ancho. La tabla da los valores exactos de las tres columnas. **Dónde deja de valer:** los 23 y 5 pasos, el 2 % de error y los tiempos son supuestos del autor, no medidas de personas ni de un equipo; los errores reales no son independientes, y los tiempos de espera por una aprobación o un recurso no están modelados.
 
 ### La cola del equipo de plataforma
 
@@ -143,9 +143,9 @@ free[i] = start + rr.expovariate(1 / 0.4)
 
 La espera no baja de forma lineal: de 20 % a 50 % se divide por ocho, y de 50 % a 95 % ya es casi cero porque el equipo sale de la zona de saturación. Es el mismo codo de la cola de `SE-356`: cerca del 83 % de uso un equipo todavía responde, pero a poco más se desborda. Un equipo que responde tarde enseña a los demás a no preguntar, y el camino deja de ser el más fácil.
 
-![Tabla con las solicitudes al mes, el uso del equipo de plataforma y la espera media y del percentil 90 según el porcentaje de servicios que usan el camino dorado.](../../../content/part-29/figures/se-358-cola-del-equipo-de-plataforma.svg)
+![Líneas con la espera media y del percentil 90 por soporte del equipo de plataforma según el porcentaje de servicios que usan el camino dorado; la espera baja de 0,50 días con 20 por ciento a casi cero con 80.](../../../content/part-29/figures/se-358-cola-del-equipo-de-plataforma.svg)
 
-**Cómo leer la figura.** Cada fila es una fracción de servicios en el camino; las columnas dan la carga de soporte, el uso del equipo y la espera. **Dónde deja de valer:** las 0,3 y 2,0 solicitudes por servicio, el 0,4 días por solicitud y la llegada de Poisson son supuestos del autor; las solicitudes reales vienen en oleadas (una versión nueva, un incidente) y los equipos reales hacen además trabajo de desarrollo que compite con el soporte.
+**Cómo leer la figura.** El eje horizontal es el porcentaje de servicios en el camino dorado y el vertical, la espera por soporte en días hábiles; la anotación recuerda la carga con el 20 %. Mira la forma de curva y no de recta: casi toda la mejora ocurre entre 20 y 50 %, cuando el equipo sale de la saturación. La tabla da las solicitudes al mes y el uso del equipo en cada punto. **Dónde deja de valer:** las 0,3 y 2,0 solicitudes por servicio, el 0,4 días por solicitud y la llegada de Poisson son supuestos del autor; las solicitudes reales vienen en oleadas (una versión nueva, un incidente) y los equipos reales hacen además trabajo de desarrollo que compite con el soporte.
 
 ### Lo que un verificador ve y lo que no
 
@@ -167,9 +167,9 @@ def check(d):
 
 El verificador detectó las 25 mutaciones de cada una de las ocho reglas, y por eso resulta útil, y no vio ninguno de los cinco defectos semánticos, porque cada uno cumple la forma de su regla. La plantilla no elimina las violaciones, las reduce al 4 % de ediciones manuales. Las reglas y los defectos los escribí yo: 25 de 25 describe estas reglas contra estas mutaciones, no una cobertura general.
 
-![Tabla con las violaciones que señala un verificador de ocho reglas en servicios creados desde una plantilla y a mano y los cinco defectos semánticos que no detecta.](../../../content/part-29/figures/se-358-lo-que-el-verificador-ve-y-no-ve.svg)
+![Barras apiladas horizontales al 100 por ciento con lo que señala un verificador de ocho reglas en servicios de plantilla, servicios escritos a mano y defectos semánticos: señala 5 por ciento, 98 y 0.](../../../content/part-29/figures/se-358-lo-que-el-verificador-ve-y-no-ve.svg)
 
-**Cómo leer la figura.** Cada fila es un conjunto de descriptores; las columnas cuentan cuántos servicios tienen alguna violación y cuántas violaciones se señalaron. **Dónde deja de valer:** los descriptores y los defectos son sintéticos; en un servicio real hay reglas que dependen del contexto y excepciones legítimas que un verificador no distingue de un descuido.
+**Cómo leer la figura.** Cada barra es un conjunto y suma el 100 %; el tramo verde azulado es lo que el verificador señaló y el gris, lo que dejó pasar. Mira que ve casi todo lo escrito a mano y que, en los defectos semánticos, el tramo señalado no existe: la barra es toda gris. El número de violaciones (5 y 135) está en la tabla. **Dónde deja de valer:** los descriptores y los defectos son sintéticos; en un servicio real hay reglas que dependen del contexto y excepciones legítimas que un verificador no distingue de un descuido.
 
 ## Definiciones de trabajo
 

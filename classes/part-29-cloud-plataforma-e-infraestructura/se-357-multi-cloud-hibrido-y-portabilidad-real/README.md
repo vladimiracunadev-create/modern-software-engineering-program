@@ -121,9 +121,9 @@ ambos = a * a                                    # necesita los dos a la vez
 
 La conmutación perfecta es una cota teórica; con un 90 % de aciertos la caída sube a 26,4 minutos, más de doscientas veces mayor, y con un DNS compartido el segundo proveedor no aporta nada medible. Exigir ambos a la vez duplica la caída. El Montecarlo coincidió con el cálculo: 0,05001 % de indisponibilidad para uno, 0,00001 % para dos con conmutación perfecta y 0,09989 % para ambos a la vez.
 
-![Tabla con la disponibilidad y los minutos de caída al año de un proveedor y de cuatro composiciones de dos proveedores: con conmutación perfecta, con conmutación del 90 por ciento, con DNS compartido y exigiendo ambos.](../../../content/part-29/figures/se-357-disponibilidad-segun-la-composicion.svg)
+![Barras horizontales en escala logarítmica con los minutos de caída al año de un proveedor y de cuatro composiciones de dos proveedores; con conmutación perfecta baja a 0,1 minutos y exigiendo ambos sube a 525,5.](../../../content/part-29/figures/se-357-disponibilidad-segun-la-composicion.svg)
 
-**Cómo leer la figura.** Cada fila es una composición; las columnas son la disponibilidad resultante y los minutos de caída anuales. **Dónde deja de valer:** el modelo supone fallos independientes y proveedores del mismo 99,95 %; en la práctica los fallos se correlacionan (una dependencia común, un error de configuración propio) y el 99,95 % es un supuesto, no la cifra de ningún proveedor.
+**Cómo leer la figura.** Cada barra es una composición y su longitud, los minutos de caída al año, en escala logarítmica: cada marca vale diez veces la anterior. Compara cada barra con la del proveedor único: la conmutación perfecta la reduce a una fracción mínima, pero un DNS compartido la devuelve al nivel de uno solo y exigir ambos la duplica. La disponibilidad porcentual va en la etiqueta. **Dónde deja de valer:** el modelo supone fallos independientes y proveedores del mismo 99,95 %; en la práctica los fallos se correlacionan (una dependencia común, un error de configuración propio) y el 99,95 % es un supuesto, no la cifra de ningún proveedor.
 
 ### Cuánto queda en común
 
@@ -142,9 +142,9 @@ adv   = [all(rr.random() < 0.6 for _ in range(3)) for _ in range(20)]
 
 Cada proveedor ofrece 30 de las 40 funciones, y los tres a la vez, 18,8: más de la mitad de las funciones queda fuera por faltar en alguno. Las avanzadas son las que más se pierden, 4,3 de 20, y son las que suelen diferenciar a un proveedor. Probar las 40 funciones en cada proveedor son 120 casos, frente a 56 si se limita a lo común: portabilidad total sale a costa de no usar lo que justificó elegir el proveedor.
 
-![Tabla con las funciones básicas, las avanzadas y el total que ofrecen a la vez tres proveedores ficticios y el número de casos de prueba con y sin limitarse a lo común.](../../../content/part-29/figures/se-357-interseccion-de-funciones.svg)
+![Mancuernas con las funciones que ofrece cada proveedor frente a las que ofrecen los tres a la vez, en funciones básicas, avanzadas y en total; en las avanzadas cae de 12 a 4,3.](../../../content/part-29/figures/se-357-interseccion-de-funciones.svg)
 
-**Cómo leer la figura.** Las filas son conjuntos de funciones y la columna da cuántas ofrecen los tres proveedores a la vez; la última fila compara los casos de prueba. **Dónde deja de valer:** los proveedores son ficticios y las probabilidades supuestos del autor; funciones con el mismo nombre se comportan de forma distinta en cada proveedor, lo que esta cuenta no refleja y empeora la portabilidad.
+**Cómo leer la figura.** Cada fila es un conjunto de funciones: el punto de la derecha es lo que ofrece cada proveedor por separado y el de la izquierda, lo que ofrecen los tres a la vez; el segmento es lo que se pierde al exigir portabilidad. La caída es mayor en las avanzadas. Los casos de prueba (120 frente a 56) están en la tabla. **Dónde deja de valer:** los proveedores son ficticios y las probabilidades supuestos del autor; funciones con el mismo nombre se comportan de forma distinta en cada proveedor, lo que esta cuenta no refleja y empeora la portabilidad.
 
 ### Cuánto tarda y cuesta mover datos
 
@@ -164,9 +164,9 @@ salida = tb * 1000 * 0.08
 
 Cien terabytes tardan casi dos semanas incluso a un gigabit, y el costo de salida crece en proporción al volumen. Los 40 terabytes del caso de la plataforma son más de cinco días a un gigabit. Además de moverlos hay que mantenerlos sincronizados mientras se mueven, lo que alarga el proceso. Y la distancia impone su mínimo: 50 km exigen al menos 0,5 ms de ida y vuelta, 2 000 km, 20 ms, y 15 000 km, 150 ms.
 
-![Tabla con el tiempo de mover volúmenes de 0,1 a 100 terabytes por enlaces de 100 megabits y 1 gigabit por segundo y el costo de salida correspondiente.](../../../content/part-29/figures/se-357-tiempo-y-coste-de-mover-datos.svg)
+![Líneas en escala logarítmica con las horas de mover de 0,1 a 100 terabytes por enlaces de 100 megabits y de 1 gigabit por segundo; 100 terabytes tardan 3 175 horas a 100 megabits y 317,5 a 1 gigabit.](../../../content/part-29/figures/se-357-tiempo-y-coste-de-mover-datos.svg)
 
-**Cómo leer la figura.** Cada fila es un volumen; las columnas son el tiempo a dos anchos de banda y el costo de salida. **Dónde deja de valer:** el 70 % de eficiencia y la tarifa son supuestos; muchos proveedores reducen o eliminan la salida en una migración, y existen envíos físicos y enlaces dedicados que cambian la cuenta. El mínimo de latencia es físico, pero la latencia real es mayor.
+**Cómo leer la figura.** El eje horizontal es el volumen y el vertical, las horas necesarias, ambos en escala logarítmica; cada línea es un ancho de banda y la línea punteada marca un día. Mira que las dos líneas son paralelas (diez veces el volumen son diez veces el tiempo) y que a 100 TB ni siquiera 1 Gbps baja de los 13 días. El costo de salida está en la tabla. **Dónde deja de valer:** el 70 % de eficiencia y la tarifa son supuestos; muchos proveedores reducen o eliminan la salida en una migración, y existen envíos físicos y enlaces dedicados que cambian la cuenta. El mínimo de latencia es físico, pero la latencia real es mayor.
 
 ## Definiciones de trabajo
 

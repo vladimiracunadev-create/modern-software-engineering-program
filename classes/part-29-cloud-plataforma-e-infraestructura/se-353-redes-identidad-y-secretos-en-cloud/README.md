@@ -119,9 +119,9 @@ def hops(edges, src):
 
 Nueve de cada diez reglas nuevas no acercan nada, pero 15 de 127 acercan la base de datos y una sola, la regla desde internet, la deja directa. La distancia de cuatro saltos no es una garantía: es la consecuencia de que cada servicio solo habla con el siguiente. Además, el grafo muestra que un componente de monitoreo con conexión a la aplicación y a un servidor web añade caminos que la vista «tres capas» no dibuja.
 
-![Tabla con los saltos mínimos desde internet hasta la base de datos y el almacén de secretos y el número de reglas añadidas que los acortan.](../../../content/part-29/figures/se-353-saltos-hasta-la-base-de-datos.svg)
+![Barras apiladas horizontales con las 127 reglas posibles según dejen un destino sensible a uno, dos o tres saltos de internet o no cambien nada: 112 de 127 no cambian nada para la base de datos y 116 para el almacén de secretos.](../../../content/part-29/figures/se-353-saltos-hasta-la-base-de-datos.svg)
 
-**Cómo leer la figura.** Cada fila es un destino sensible; las columnas dicen su distancia inicial, cuántas de las 127 reglas posibles lo dejan a uno, dos o tres saltos y cuántas no cambian nada. **Dónde deja de valer:** un salto es una regla permitida, sin puertos, protocolos ni reglas de salida, y supone que el atacante puede usar cualquier servicio alcanzable; la red real de un proveedor tiene capas adicionales, como las reglas por instancia y por subred.
+**Cómo leer la figura.** Cada barra es un destino y mide las 127 reglas que se podrían añadir; el color dice qué distancia deja la regla desde 4 saltos. Casi todo el ancho es gris (reglas sin efecto) y los tramos de color son las pocas reglas que acercan el dato: 15 en la base de datos y 11 en el almacén de secretos. **Dónde deja de valer:** un salto es una regla permitida, sin puertos, protocolos ni reglas de salida, y supone que el atacante puede usar cualquier servicio alcanzable; la red real de un proveedor tiene capas adicionales, como las reglas por instancia y por subred.
 
 ### Permisos concedidos y usados
 
@@ -143,9 +143,9 @@ else:                                       return len(used)                    
 
 Bajar de administrador a «todo el servicio» elimina el 80 % de lo concedido y deja 19 de los 25 roles sin ruta de escalada. Limitarse a lo usado mantiene dos roles con la ruta porque su uso real incluye la acción de adjuntar políticas: el menor privilegio mide lo concedido contra lo usado, pero no juzga si lo usado es prudente. Hay además una condición: generar la política desde el registro de uso supone que el registro fue completo; una función que se ejecuta una vez al año no aparece en un registro de un mes.
 
-![Tabla con los pares acción-recurso concedidos y usados y los roles con ruta de escalada para cuatro estilos de política.](../../../content/part-29/figures/se-353-permisos-concedidos-y-usados.svg)
+![Barras horizontales agrupadas en escala logarítmica con los pares acción-recurso concedidos y usados por rol en cuatro estilos de política; lo concedido va de 400 a 5,8 mientras lo usado es 5,8 en todos.](../../../content/part-29/figures/se-353-permisos-concedidos-y-usados.svg)
 
-**Cómo leer la figura.** Cada fila es un estilo de política; las columnas son lo concedido, lo usado, su proporción y los roles de los 25 que pueden cambiar sus propios permisos. **Dónde deja de valer:** los roles y su uso los generé yo con una distribución uniforme; en una organización real el uso está agrupado y cambia con el tiempo, y una denegación explícita puede acotar la escalada que esta tabla cuenta.
+**Cómo leer la figura.** Cada grupo es un estilo de política; la barra coral es lo concedido y la verde azulada lo usado, en escala logarítmica. Mira la distancia entre ambas: con el administrador es de casi dos órdenes de magnitud y desaparece solo cuando se concede lo usado. La tabla da la proporción usada y los roles con ruta de escalada. **Dónde deja de valer:** los roles y su uso los generé yo con una distribución uniforme; en una organización real el uso está agrupado y cambia con el tiempo, y una denegación explícita puede acotar la escalada que esta tabla cuenta.
 
 ### Un detector de secretos con límites
 
@@ -169,9 +169,9 @@ def ent(s):
 
 La entropía media de una cadena en base 64 de 32 caracteres es 4,58 bits, la de un hexadecimal de 40, 3,72, igual que un UUID. Por eso ningún umbral separa bien: uno que atrape los hexadecimales atrapa los 120 señuelos hexadecimales, y uno alto deja pasar los secretos hexadecimales y las contraseñas con palabras, que tienen poca entropía. Los 60 resúmenes SHA-256 en base 64 son falsos positivos a cualquier umbral razonable, porque tienen la misma entropía que una clave. El nombre de la variable es mucho más preciso y es ciego a los secretos que no lo llevan: aquí, 28 de 80.
 
-![Tabla con los secretos hallados, los falsos positivos, los omitidos, la precisión y la exhaustividad de cinco reglas de detección.](../../../content/part-29/figures/se-353-detector-de-secretos.svg)
+![Barras horizontales agrupadas con la precisión y la exhaustividad de cinco reglas de detección de secretos; el nombre de la variable llega a 100 por ciento de precisión con 65 de exhaustividad y ninguna regla supera 80 en ambas.](../../../content/part-29/figures/se-353-detector-de-secretos.svg)
 
-**Cómo leer la figura.** Cada fila es una regla; los secretos hallados más los omitidos suman 80 y los falsos positivos cuentan señuelos señalados de 180. **Dónde deja de valer:** los datos son sintéticos y las proporciones de cada familia las elegí yo, de modo que las cifras describen estas reglas sobre estos datos; un escáner real usa además patrones de formatos conocidos y verificación contra el servicio, y se evalúa sobre repositorios reales.
+**Cómo leer la figura.** Cada grupo es una regla; la barra dorada es la precisión (qué parte de lo señalado era secreto) y la verde azulada la exhaustividad (qué parte de los 80 secretos se halló). Mira el compromiso: subir el umbral de entropía baja ambas, y solo el nombre de la variable da precisión total a costa de omitir secretos. La tabla da los hallados, los falsos positivos y los omitidos. **Dónde deja de valer:** los datos son sintéticos y las proporciones de cada familia las elegí yo, de modo que las cifras describen estas reglas sobre estos datos; un escáner real usa además patrones de formatos conocidos y verificación contra el servicio, y se evalúa sobre repositorios reales.
 
 ### Cuánto dura un secreto filtrado
 

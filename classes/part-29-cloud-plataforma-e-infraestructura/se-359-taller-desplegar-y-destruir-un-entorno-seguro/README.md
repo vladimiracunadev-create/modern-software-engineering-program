@@ -119,9 +119,9 @@ for i, (nm, _) in enumerate(RES):
 
 Guardar el estado al final deja, sumando los doce cortes, 66 y 78 recursos sin rastro y el mismo número de conflictos al reintentar: es el caso del recurso siete. Guardarlo tras cada recurso elimina el primero y deja el difícil, un recurso por corte. La intención previa convierte esos doce en sospechosos reconciliables, aunque el reintento sigue chocando con ellos hasta que se reconcilian: los 12 conflictos de la última celda. El resultado fue idéntico en Windows y en Ubuntu.
 
-![Tabla con los recursos sin rastro y los conflictos al reintentar al cortar una creación de doce recursos en cada paso, antes de crear y después de crear y antes de anotar, con tres estrategias de estado.](../../../content/part-29/figures/se-359-cortes-y-huerfanos.svg)
+![Mapa de calor con los restos sin rastro y los conflictos al reintentar al cortar una creación de doce recursos antes de crear y tras crear y antes de anotar, con tres estrategias de estado; llegan a 78 con el estado solo al final.](../../../content/part-29/figures/se-359-cortes-y-huerfanos.svg)
 
-**Cómo leer la figura.** Las filas son estrategias de estado y las columnas, el tipo de corte con sus restos y sus conflictos al reintentar, sumados en los doce pasos. **Dónde deja de valer:** los recursos son carpetas y el corte es una excepción, no un fallo de red, una cuota o la muerte del proceso; un proveedor real añade reintentos automáticos, recursos asíncronos que tardan en existir y errores que no dicen si el recurso se creó.
+**Cómo leer la figura.** Cada fila es una estrategia de estado y cada columna cuenta restos o conflictos según el punto del corte; el tono más oscuro es más daño. Mira cómo el estado tras cada recurso limpia las dos columnas del corte antes de crear y deja 12 en las otras, y cómo la intención previa baja a 0 los restos del corte tras crear (con 12 sospechosos, marcado con un recuadro). **Dónde deja de valer:** los recursos son carpetas y el corte es una excepción, no un fallo de red, una cuota o la muerte del proceso; un proveedor real añade reintentos automáticos, recursos asíncronos que tardan en existir y errores que no dicen si el recurso se creó.
 
 ### Destruir en el orden equivocado
 
@@ -145,9 +145,9 @@ def run(order):
 
 Un orden al azar nunca sale limpio en 5 000 intentos: provoca 13,7 rechazos y casi cuatro pasadas. El bucle de reintentos termina y deja la impresión de que todo fue bien, pero un registro de rechazos revela que el orden era equivocado. Con el orden inverso no hay rechazos y basta una pasada.
 
-![Tabla con los rechazos medios, las pasadas medias y el porcentaje de órdenes sin rechazos al destruir doce recursos con dependencias en un orden al azar y en el inverso del orden de dependencias.](../../../content/part-29/figures/se-359-orden-de-destruccion.svg)
+![Barras agrupadas con los rechazos medios y las pasadas medias al destruir doce recursos con dependencias en orden al azar y en el inverso del orden de dependencias; 13,73 rechazos y 3,88 pasadas frente a 0 y 1.](../../../content/part-29/figures/se-359-orden-de-destruccion.svg)
 
-**Cómo leer la figura.** Cada fila es un orden de destrucción; las columnas dan los rechazos, las pasadas y cuántos órdenes salieron sin ningún rechazo. **Dónde deja de valer:** el grafo de doce recursos lo definí yo y destruir una carpeta es instantáneo; un proveedor real impone retardos y la destrucción de un recurso con datos o protección puede requerir pasos adicionales.
+**Cómo leer la figura.** Cada grupo es una medida (rechazos o pasadas) y cada color, un orden de destrucción. Mira que el inverso del orden de dependencias no tiene barra de rechazos y necesita una sola pasada. El porcentaje de órdenes sin rechazo (0 % y 100 %) está en la tabla. **Dónde deja de valer:** el grafo de doce recursos lo definí yo y destruir una carpeta es instantáneo; un proveedor real impone retardos y la destrucción de un recurso con datos o protección puede requerir pasos adicionales.
 
 ### Barrido por etiqueta
 
@@ -167,9 +167,9 @@ costo_100_entornos = 100 * left_medio * 0.5 * 30
 
 Con un 95 % de cobertura casi la mitad de los entornos deja algo, y con un 80 %, el 93 %. El costo de un resto olvidado es pequeño y el de un resto con datos o con una credencial no se mide en unidades. La conclusión práctica es doble: etiquetar por defecto y comprobar la cobertura, y no confiar el barrido como única red de seguridad.
 
-![Tabla con los restos por entorno, los entornos sin restos y el costo en 30 días de un barrido por etiqueta con coberturas del 100, 95 y 80 por ciento.](../../../content/part-29/figures/se-359-barrido-por-etiquetas.svg)
+![Barras apiladas horizontales al 100 por ciento con los entornos que quedan limpios y los que dejan algún resto según el porcentaje de recursos etiquetados; con 95 por ciento solo 54 de cada 100 quedan limpios.](../../../content/part-29/figures/se-359-barrido-por-etiquetas.svg)
 
-**Cómo leer la figura.** Cada fila es una cobertura de etiquetas; las columnas dicen cuántos recursos quedan por entorno, cuántos entornos quedan limpios y cuánto cuestan los restos. **Dónde deja de valer:** la independencia de la etiqueta entre recursos, los doce recursos, el medio por día y los treinta días son supuestos del autor; en la práctica los recursos que quedan sin etiqueta suelen ser siempre los mismos tipos, los que una plantilla olvidó.
+**Cómo leer la figura.** Cada barra es una cobertura de etiquetas y suma el 100 % de los 2 000 entornos; el tramo verde azulado son los entornos sin restos y el coral, los que dejan algo. Mira cómo una cobertura de 95 % ya deja casi la mitad en coral y 80 % deja casi todos. Los restos por entorno y el costo están en la tabla. **Dónde deja de valer:** la independencia de la etiqueta entre recursos, los doce recursos, el medio por día y los treinta días son supuestos del autor; en la práctica los recursos que quedan sin etiqueta suelen ser siempre los mismos tipos, los que una plantilla olvidó.
 
 ## Definiciones de trabajo
 

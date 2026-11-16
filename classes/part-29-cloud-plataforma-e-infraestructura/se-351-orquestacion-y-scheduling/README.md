@@ -123,9 +123,9 @@ def place(pods, policy, nodes=19, cpu=4000, mem=16384):
 
 Ninguna política gana siempre. Con llegada al azar el empaquetado deja casi todos los pods ubicados y el reparto deja 1,41 en promedio, porque el reparto fragmenta el espacio. Ordenar los pods de mayor a menor por una sola dimensión, la receta clásica del empaquetado, empeora mucho el empaquetado (34 pods sin sitio): los pods grandes en CPU llenan los nodos y dejan memoria que los pequeños en CPU y grandes en memoria no pueden aprovechar. Con el orden por la dimensión dominante el empaquetado coloca los 150, y el reparto en cambio coloca peor.
 
-![Tabla con los pods sin ubicar por tres políticas de ubicación y cuatro órdenes de llegada en 19 nodos casi llenos.](../../../content/part-29/figures/se-351-politicas-de-ubicacion.svg)
+![Mapa de calor con los pods sin ubicar de 150 según tres políticas y cuatro órdenes de llegada en 19 nodos casi llenos; ordenar por CPU o por memoria decreciente deja 34 y 27 sin sitio con primer y mejor ajuste, y 0 con menos asignado.](../../../content/part-29/figures/se-351-politicas-de-ubicacion.svg)
 
-**Cómo leer la figura.** Las filas son políticas y las columnas, órdenes de llegada; cada celda cuenta los pods sin sitio de 150. **Dónde deja de valer:** los pods son sintéticos, hay solo dos dimensiones y no se modelan afinidades, taints ni prioridades. El resultado enseña que el orden y la política interactúan, no cuál usa Kubernetes.
+**Cómo leer la figura.** Cada fila es una política y cada columna un orden de llegada; la celda es el número de pods sin sitio y el tono más oscuro, más pods perdidos. Los recuadros marcan que ordenar de mayor a menor, que ayuda en una dimensión, deja 34 y 27 pods fuera con primer y mejor ajuste, mientras que menos asignado, que parte de 1,41 con llegada al azar, sale con 0 en CPU decreciente. La tabla da el peor caso con llegada al azar. **Dónde deja de valer:** los pods son sintéticos, hay solo dos dimensiones y no se modelan afinidades, taints ni prioridades. El resultado enseña que el orden y la política interactúan, no cuál usa Kubernetes.
 
 ### Cuánto falta una réplica
 
@@ -149,9 +149,9 @@ missing += desired - running
 
 Pasar de revisar cada segundo a hacerlo cada minuto multiplica por 4,6 la capacidad perdida. El intervalo de 1 s no llega a cero porque cada reposición tarda 7 s. Y para un servicio que nunca arranca, la suma de intentos es otra historia: con el retardo documentado, 10 s duplicado hasta 300 s, una réplica que siempre falla se reinicia 15 veces en una hora; con 10 s fijos serían 360.
 
-![Tabla con las réplicas-segundo ausentes según el intervalo de revisión del controlador y los reinicios con retardo fijo y exponencial.](../../../content/part-29/figures/se-351-reconciliacion-y-reinicios.svg)
+![Línea con las réplicas-segundo ausentes en 600 segundos según el intervalo de revisión del controlador, de 102,6 con 1 segundo a 474,4 con 60.](../../../content/part-29/figures/se-351-reconciliacion-y-reinicios.svg)
 
-**Cómo leer la figura.** Cada fila es un intervalo de revisión y su número es la capacidad perdida acumulada en 600 s. **Dónde deja de valer:** los fallos aleatorios, los 7 s de arranque y la pérdida de tres réplicas son supuestos del autor; un orquestador real reacciona a eventos además de revisar periódicamente, y por eso sus tiempos no son estos.
+**Cómo leer la figura.** El eje horizontal es el intervalo con que el controlador revisa y el vertical, la capacidad perdida acumulada en 600 s (réplicas-segundo); cada punto es la media de 300 corridas. Mira que la pérdida crece con el intervalo y que con 1 s ya queda un piso de 102,6 por el arranque de 7 s. Los reinicios con retardo fijo y exponencial están en la tabla. **Dónde deja de valer:** los fallos aleatorios, los 7 s de arranque y la pérdida de tres réplicas son supuestos del autor; un orquestador real reacciona a eventos además de revisar periódicamente, y por eso sus tiempos no son estos.
 
 ### Cuánto se puede sobreasignar
 
@@ -172,9 +172,9 @@ over += use > 4000
 
 El riesgo no crece de forma lineal: de 1,25 a 1,5 pasa de 0,1 % a 4,3 % y de 1,5 a 2 multiplica por dieciséis. Elegir 1,25 compra 14 puntos de uso medio por un riesgo casi nulo; elegir 2,0 compra 32 puntos a cambio de saturar dos de cada tres nodos. El punto razonable depende de qué cuesta una saturación (un pico de latencia o la terminación de procesos) y de qué tan correlacionados están los usos.
 
-![Tabla con la probabilidad de saturar un nodo y el uso medio según el cociente entre lo pedido y la capacidad.](../../../content/part-29/figures/se-351-sobreasignacion-de-recursos.svg)
+![Líneas con la probabilidad de saturar un nodo y el uso medio según cuánto se sobreasigna lo pedido sobre la capacidad: el riesgo pasa de 0,1 por ciento con 1,25 veces a 67,9 con 2 mientras el uso medio sube de 65 a 97.](../../../content/part-29/figures/se-351-sobreasignacion-de-recursos.svg)
 
-**Cómo leer la figura.** Cada fila es un cociente de sobreasignación; las dos columnas son el riesgo y el uso medio resultante. **Dónde deja de valer:** la distribución del uso es un supuesto y supone pods independientes; si varios suben a la vez, por un pico de entregas, el riesgo real es mayor. Tampoco distingue CPU, que se estrangula, de memoria, que mata procesos.
+**Cómo leer la figura.** El eje horizontal es el cociente entre lo pedido y la capacidad; el vertical es un porcentaje, y las dos curvas comparten la escala: el riesgo de saturar (coral) y el uso medio del nodo (verde azulado). Mira cómo el uso medio sube casi en línea recta mientras el riesgo apenas se mueve hasta 1,5 veces y luego se dispara. **Dónde deja de valer:** la distribución del uso es un supuesto y supone pods independientes; si varios suben a la vez, por un pico de entregas, el riesgo real es mayor. Tampoco distingue CPU, que se estrangula, de memoria, que mata procesos.
 
 ## Definiciones de trabajo
 

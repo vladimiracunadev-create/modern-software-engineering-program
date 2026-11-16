@@ -112,9 +112,9 @@ hit = [x for x in res if f(x[0], x[1]) == f(e, s)] if wild else [x for x in res 
 
 Con una sola cuenta, uno de cada dieciocho errores hechos en desarrollo o preproducción alcanza producción; con una cuenta por entorno, ninguno. Separar por servicio no añade protección frente a producción en este modelo y reduce el alcance dentro de cada entorno de 1,39 a 1,06 recursos por error. La frontera no evita el error, acota su alcance: el comodín sigue destruyendo, pero ya no cruza.
 
-![Tabla con el porcentaje de errores de desarrollo que tocan producción y los recursos afectados por error según tres estructuras de cuentas.](../../../content/part-29/figures/se-355-radio-de-un-error-segun-las-cuentas.svg)
+![Dispersión con el porcentaje de errores de desarrollo que tocan producción frente a los recursos afectados por error en tres estructuras de cuentas: una sola cuenta, 5,54 por ciento y 2,28 recursos; con una cuenta por entorno, 0 y 1,39; con una por entorno y servicio, 0 y 1,06.](../../../content/part-29/figures/se-355-radio-de-un-error-segun-las-cuentas.svg)
 
-**Cómo leer la figura.** Cada fila es una estructura de cuentas; las columnas son el porcentaje de errores que llegan a producción y el promedio de recursos afectados. **Dónde deja de valer:** el modelo supone que la credencial solo alcanza su cuenta; una confianza entre cuentas, un rol que se puede asumir desde otra o un recurso compartido reabren el cruce. El 5 % de comodines y la intención uniforme son supuestos del autor.
+**Cómo leer la figura.** Cada punto es una estructura de cuentas: el eje horizontal es el promedio de recursos afectados por error y el vertical, el porcentaje de errores que llegan a producción. Mira que los dos puntos de las cuentas separadas caen en 0 % de cruce y a la izquierda: la frontera acota el daño y también el cruce. **Dónde deja de valer:** el modelo supone que la credencial solo alcanza su cuenta; una confianza entre cuentas, un rol que se puede asumir desde otra o un recurso compartido reabren el cruce. El 5 % de comodines y la intención uniforme son supuestos del autor.
 
 ### Cuánto divergen los entornos
 
@@ -138,9 +138,9 @@ bad = sum(1 for k in range(8, 80) if cfg["stage"][k] != cfg["prod"][k])
 
 Sin promoción, con una edición cada diez semanas, hay divergencia durante 38 de 52 semanas, y las diferencias se acumulan. Con promoción, el final siempre coincide y la divergencia dura mientras llega la siguiente copia. La promoción no impide la edición manual: acorta su vida, y por eso conviene que sea más frecuente que el ciclo de despliegue.
 
-![Tabla con las semanas con divergencia y las claves distintas al final entre preproducción y producción con y sin promoción y tres frecuencias de edición manual.](../../../content/part-29/figures/se-355-divergencia-entre-entornos.svg)
+![Líneas con las semanas con divergencia de 52 según las ediciones manuales por semana, con y sin promoción de la configuración cada cuatro semanas; sin promoción llega a 50,5 semanas y con promoción a 24,1.](../../../content/part-29/figures/se-355-divergencia-entre-entornos.svg)
 
-**Cómo leer la figura.** Cada fila es un proceso y una frecuencia de ediciones manuales; las columnas son las semanas con alguna clave distinta y las claves distintas al final del año. **Dónde deja de valer:** la frecuencia de edición es un supuesto y las ediciones se modelan como cambios de un valor independiente; una edición manual real puede ser un arreglo necesario que conviene incorporar al código, no copiar encima.
+**Cómo leer la figura.** El eje horizontal es la frecuencia de ediciones manuales y el vertical, las semanas del año con alguna clave distinta entre preproducción y producción; la línea punteada marca las 52 semanas. Mira la separación entre las dos líneas: la promoción baja la divergencia en cada frecuencia. Las claves distintas al final del año (3,34 a 17,39 sin promoción, 0 con ella) están en la tabla. **Dónde deja de valer:** la frecuencia de edición es un supuesto y las ediciones se modelan como cambios de un valor independiente; una edición manual real puede ser un arreglo necesario que conviene incorporar al código, no copiar encima.
 
 ### Combinaciones tóxicas
 

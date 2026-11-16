@@ -1,8 +1,8 @@
 """Figures for SE-235 to SE-240 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2), salvo los tiempos indicados."
 MODELO = "Modelo con supuestos del autor, semilla fija; no es una medición de un navegador ni de usuarios reales."
@@ -10,61 +10,49 @@ MODELO = "Modelo con supuestos del autor, semilla fija; no es una medición de u
 
 # ---------------------------------------------------------------- SE-235
 def se235_compresion() -> Fig:
-    rows = [
-        ["CSS, 900 reglas", "74 585", "15 797", "12 462", "11 776", "10 348"],
-        ["HTML, lista de 800", "45 232", "9 311", "7 835", "7 721", "4 532"],
-        ["JS, 450 funciones", "84 488", "7 416", "6 009", "5 594", "4 836"],
-        ["JSON, 800 filas", "73 063", "8 832", "6 737", "6 226", "4 820"],
-        ["PNG, bytes aleatorios", "60 000", "60 038", "60 038", "60 038", "60 060"],
-    ]
-    return tab("Bytes sobre la red de cinco activos sintéticos según el algoritmo y el nivel",
-               "Tabla: el texto sintético se reduce entre 77 y 91 por ciento con gzip nivel 6 y algo más con xz, mientras que un archivo de bytes aleatorios, equivalente a una imagen ya comprimida, crece unos 38 bytes con cualquier algoritmo.",
-               ["Activo", "Bruto", "gzip 1", "gzip 6", "gzip 9", "xz"], rows, [270, 120, 130, 130, 130, 130], row_h=44, size=13,
-               note="Minificar antes de comprimir ahorró 29,5 % en el JS sintético (de 6009 a 4235 bytes con gzip) y solo 3,6 % en el CSS (de 12 462 a 12 013). Brotli no está en la biblioteca estándar de Python y no se midió. El texto sintético es más repetitivo que el real: las razones reales serán menores.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Bytes sobre la red de cinco activos sintéticos según el algoritmo y el nivel",
+        "Barras horizontales en escala logarítmica con los bytes de cinco activos sin comprimir y con gzip 1, 6 y 9 y xz: el texto sintético se reduce entre 77 y 91 por ciento con gzip nivel 6 y algo más con xz, mientras que un archivo de bytes aleatorios, equivalente a una imagen ya comprimida, crece unos 38 bytes con cualquier algoritmo.",
+        ["CSS, 900 reglas", "HTML, lista de 800", "JS, 450 funciones", "JSON, 800 filas", "PNG, bytes aleatorios"],
+        [("Bruto", [74585, 45232, 84488, 73063, 60000], "grey"), ("gzip 1", [15797, 9311, 7416, 8832, 60038], "gold"), ("gzip 6", [12462, 7835, 6009, 6737, 60038], "coral"),
+         ("gzip 9", [11776, 7721, 5594, 6226, 60038], "navy"), ("xz", [10348, 4532, 4836, 4820, 60060], "teal")],
+        unit="Bytes", horizontal=True, log=True, decimals=0, label_w=190,
+        note="Minificar antes de comprimir ahorró 29,5 % en el JS sintético (de 6009 a 4235 bytes con gzip) y solo 3,6 % en el CSS (de 12 462 a 12 013). Brotli no está en la biblioteca estándar de Python y no se midió. El texto sintético es más repetitivo que el real: las razones reales serán menores.",
+        note_kind="gold", foot=SINT)
 
 def se235_cascada() -> Fig:
-    rows = [
-        ["Fibra (RTT 20 ms, 100 Mbit/s)", "195 ms", "123 ms", "199 ms"],
-        ["Móvil 4G (RTT 80 ms, 10 Mbit/s)", "801 ms", "701 ms", "801 ms"],
-        ["Móvil lento (RTT 300 ms, 1,5 Mbit/s)", "3805 ms", "3712 ms", "3805 ms"],
-    ]
-    return tab("Cascada de recursos: qué optimización acorta la ruta crítica de una página sintética",
-               "Tabla: en una página con HTML, hoja de estilos, script, imagen, fuente y datos, anticipar la fuente y los datos con preload baja el tiempo de 195 a 123 milisegundos en fibra, y poner el CSS en línea no lo cambia porque la ruta más larga es script y luego datos.",
-               ["Perfil de red supuesto", "Línea base", "Preload de fuente y datos", "CSS en línea"], rows, [370, 150, 230, 170], row_h=48, size=13,
-               note="La ruta crítica es HTML → script de 150 KB → petición de datos. Optimizar fuera de esa cadena (CSS en línea) no cambia el total. El modelo reparte el ancho de banda en partes iguales, ignora la ranura de conexiones y la priorización del navegador.",
-               note_kind="gold", foot=MODELO)
-
+    return grouped_bars(
+        "Cascada de recursos: qué optimización acorta la ruta crítica de una página sintética",
+        "Barras horizontales con el tiempo de una página con HTML, hoja de estilos, script, imagen, fuente y datos: en fibra la línea base tarda 195 milisegundos, el preload de fuente y datos 123 y el CSS en línea 199; en móvil 4G, 801, 701 y 801; en móvil lento, 3805, 3712 y 3805.",
+        ["Fibra (RTT 20 ms, 100 Mbit/s)", "Móvil 4G (RTT 80 ms, 10 Mbit/s)", "Móvil lento (RTT 300 ms, 1,5 Mbit/s)"],
+        [("Línea base", [195, 801, 3805], "grey"), ("Preload de fuente y datos", [123, 701, 3712], "teal"), ("CSS en línea", [199, 801, 3805], "gold")],
+        unit="Milisegundos", horizontal=True, decimals=0, label_w=250,
+        note="La ruta crítica es HTML → script de 150 KB → petición de datos. Optimizar fuera de esa cadena (CSS en línea) no cambia el total. El modelo reparte el ancho de banda en partes iguales, ignora la ranura de conexiones y la priorización del navegador.",
+        note_kind="gold", foot=MODELO)
 
 def se235_percentiles() -> Fig:
-    rows = [
-        ["30 visitas", "2772 ms", "2139 – 3500 ms", "22,0 %"],
-        ["300 visitas", "2804 ms", "2597 – 3024 ms", "0,1 %"],
-        ["3000 visitas", "2800 ms", "2745 – 2862 ms", "0,0 %"],
-    ]
-    return tab("Estimar el percentil 75 de una métrica con pocas visitas: intervalo y falsa conformidad",
-               "Tabla: con una población sintética de mediana 2000 milisegundos y percentil 75 verdadero de 2802, estimar el percentil 75 con 30 visitas da un intervalo de 95 por ciento de 2139 a 3500 y declara cumplido un presupuesto de 2500 en 22 por ciento de las repeticiones, con 300 visitas en 0,1 por ciento.",
-               ["Tamaño de la muestra", "p75 estimado (media)", "Intervalo central del 95 %", "Dice cumplir 2500 ms (falso)"], rows, [250, 230, 250, 230], row_h=48, size=13,
-               note="Población lognormal con mediana 2000 ms y σ = 0,5: media 2266, p75 2802, p95 4552. Con 30 visitas una de cada cinco veces se concluye, erróneamente, que el presupuesto se cumple. Los valores reales de usuarios no son lognormales ni independientes.",
-               note_kind="gold", foot=MODELO)
-
+    return line_chart(
+        "Estimar el percentil 75 de una métrica con pocas visitas: intervalo y falsa conformidad",
+        "Líneas en escala logarítmica con el percentil 75 estimado y los límites de su intervalo central del 95 por ciento según las visitas: 2139 a 3500 milisegundos con 30 visitas, 2597 a 3024 con 300 y 2745 a 2862 con 3000, frente a un valor verdadero de 2802 y un presupuesto de 2500; con 30 visitas se declara cumplido el presupuesto en 22 por ciento de las repeticiones.",
+        [("Límite inferior (2,5 %)", [(30, 2139, "2 139", "b"), (300, 2597, "2 597", "b"), (3000, 2745, "2 745", "b")], "teal"),
+         ("p75 estimado (media)", [(30, 2772, "2 772", "r"), (300, 2804, "2 804", "r"), (3000, 2800, "2 800", "r")], "gold"),
+         ("Límite superior (97,5 %)", [(30, 3500, "3 500", "t"), (300, 3024, "3 024", "t"), (3000, 2862, "2 862", "t")], "coral")],
+        x_label="Visitas en la muestra", y_label="Milisegundos", log_x=True,
+        x_ticks=[(30, "30"), (300, "300"), (3000, "3000")], y_ticks=[2000, 2500, 3000, 3500], y_zero=False,
+        hlines=[(2500, "presupuesto 2500")], point_labels="none", decimals=0, plot_h=300,
+        note="El eje vertical empieza en 2000 ms. El percentil 75 verdadero es 2802. Falsamente conformes (dicen cumplir 2500 ms): 22,0 % con 30 visitas, 0,1 % con 300 y 0,0 % con 3000. Población lognormal con mediana 2000 ms y σ = 0,5: media 2266, p75 2802, p95 4552. Con 30 visitas una de cada cinco veces se concluye, erróneamente, que el presupuesto se cumple. Los valores reales de usuarios no son lognormales ni independientes.",
+        note_kind="gold", foot=MODELO)
 
 # ---------------------------------------------------------------- SE-236
 def se236_escape() -> Fig:
-    rows = [
-        ["Texto dentro de un elemento", "5", "0", "Escape HTML: 0"],
-        ["Atributo entre comillas dobles", "1", "0", "Escape HTML con comillas: 0"],
-        ["Atributo sin comillas", "3", "4", "Poner comillas y escapar: 0"],
-        ["Valor de href", "3", "2", "Escapar y permitir solo http, https y mailto: 0"],
-        ["Cadena dentro de un script", "6", "0 (cadena deformada)", "JSON con < > & escapados: 0"],
-    ]
-    return tab("De 16 cargas maliciosas o legítimas, cuántas se vuelven código según el contexto de salida",
-               "Tabla: sin codificar, entre 1 y 6 de 16 cargas útiles se ejecutan según el contexto; el escape HTML basta en el texto, no en atributos sin comillas ni en href, y en un script deforma el texto; cada contexto necesita su propia codificación.",
-               ["Dónde se escribe el dato", "Sin codificar", "Escape HTML genérico", "Codificación adecuada"], rows, [290, 130, 200, 330], row_h=50, size=12,
-               note="Escapar dos veces produce texto visible roto: ana &amp; co pasó a ana &amp;amp; co. La detección usa un analizador de HTML y, para el script, una regla de ruptura de cadena: es una comprobación acotada de 16 cargas, no una auditoría de seguridad.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "De 16 cargas maliciosas o legítimas, cuántas se vuelven código según el contexto de salida",
+        "Barras agrupadas con las cargas de 16 que se ejecutan según el contexto: sin codificar 5 en texto, 1 en atributo con comillas, 3 sin comillas, 3 en href y 6 en un script; el escape HTML genérico deja 4 en atributo sin comillas y 2 en href, y en un script deforma el texto; la codificación adecuada deja 0.",
+        ["Texto dentro de un elemento", "Atributo entre comillas dobles", "Atributo sin comillas", "Valor de href", "Cadena dentro de un script"],
+        [("Sin codificar", [5, 1, 3, 3, 6], "coral"), ("Escape HTML genérico", [0, 0, 4, 2, 0], "gold")],
+        unit="Cargas que se ejecutan (de 16)", decimals=0, plot_h=260,
+        note="Con la codificación adecuada para cada contexto se ejecutan 0 en todos. En un script, el escape HTML genérico muestra 0 porque deforma la cadena. Escapar dos veces produce texto visible roto: ana &amp; co pasó a ana &amp;amp; co. La detección usa un analizador de HTML y, para el script, una regla de ruptura de cadena: es una comprobación acotada de 16 cargas, no una auditoría de seguridad.",
+        note_kind="gold", foot=SINT)
 
 def se236_csp() -> Fig:
     items = [
@@ -81,35 +69,26 @@ def se236_csp() -> Fig:
 
 
 def se236_samesite() -> Fig:
-    rows = [
-        ["Navegar con un enlace (GET de nivel superior)", "No", "Sí", "Sí"],
-        ["Enviar un formulario (POST)", "No", "No", "Sí"],
-        ["fetch con POST desde otro sitio", "No", "No", "Sí"],
-        ["Imagen incrustada", "No", "No", "Sí"],
-        ["Página incrustada en un iframe", "No", "No", "Sí"],
-    ]
-    return tab("¿Viaja la cookie en una petición iniciada desde otro sitio? Matriz de SameSite",
-               "Tabla: en una petición desde otro sitio, la cookie con SameSite Strict no viaja nunca, con Lax viaja solo en una navegación GET de nivel superior y con None viaja siempre; de las 14 peticiones CORS del ejemplo, 7 necesitan una comprobación previa.",
-               ["Petición iniciada desde otro sitio", "Strict", "Lax", "None"], rows, [470, 150, 150, 150], row_h=46, size=13,
-               note="Las dos peticiones que cambian estado (formulario y fetch POST) solo llevan la cookie con None: Lax y Strict cortan esa vía de falsificación entre sitios. De 14 peticiones CORS de ejemplo, 7 necesitan una comprobación previa (método distinto de GET, HEAD o POST, cabeceras no seguras o tipo de contenido no simple). Es una tabla de la regla, no una medición de navegadores; la excepción de Lax con POST reciente de algunos navegadores no está modelada.",
-               note_kind="gold", foot=SINT)
-
+    return heatmap(
+        "¿Viaja la cookie en una petición iniciada desde otro sitio? Matriz de SameSite",
+        "Mapa de calor binario de cinco peticiones desde otro sitio y tres valores de SameSite: con Strict la cookie no viaja nunca, con Lax viaja solo en una navegación GET de nivel superior y con None viaja siempre; de 14 peticiones CORS del ejemplo, 7 necesitan una comprobación previa.",
+        ["Navegar con un enlace (GET de nivel superior)", "Enviar un formulario (POST)", "fetch con POST desde otro sitio", "Imagen incrustada", "Página incrustada en un iframe"],
+        ["Strict", "Lax", "None"],
+        [[0, 1, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1]],
+        unit="la cookie viaja", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "viaja" if v else "no viaja", label_w=310,
+        note="Las dos peticiones que cambian estado (formulario y fetch POST) solo llevan la cookie con None: Lax y Strict cortan esa vía de falsificación entre sitios. De 14 peticiones CORS de ejemplo, 7 necesitan una comprobación previa. Es una tabla de la regla, no una medición de navegadores; la excepción de Lax con POST reciente de algunos navegadores no está modelada.",
+        note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-237
 def se237_estrategias() -> Fig:
-    rows = [
-        ["Solo red", "0 %", "19,33 %", "0 %", "120 ms"],
-        ["Caché primero", "98,3 %", "0,69 %", "69,88 %", "6,2 ms"],
-        ["Caché primero con precarga", "100 %", "0 %", "70,83 %", "5,0 ms"],
-        ["Red primero con respaldo en caché", "18,6 %", "0,69 %", "1,47 %", "165 ms"],
-        ["Revalidar en segundo plano", "98,3 %", "0,69 %", "5,2 %", "6,2 ms"],
-    ]
-    return tab("Estrategias de caché en 20 000 peticiones con 19,4 % del tiempo sin conexión",
-               "Tabla: servir solo desde la red falla en 19,33 por ciento de las peticiones; caché primero responde en 6 milisegundos pero sirve contenido obsoleto en 69,88 por ciento; red primero casi no sirve obsoleto pero tarda 165; revalidar en segundo plano reduce lo obsoleto a 5,2 por ciento con la misma latencia que caché primero.",
-               ["Estrategia", "Desde caché", "Fallos", "Contenido obsoleto", "Latencia media"], rows, [320, 150, 130, 190, 150], row_h=46, size=12,
-               note="200 URL con popularidad 1/n, cambios de 0 a 12 por URL en 500 h y ráfagas sin conexión que suman 19,4 % del tiempo. Los 120 ms de red, 5 ms de caché y 360 ms de espera son supuestos; la obsolescencia cuenta versiones, no importancia del cambio.",
-               note_kind="gold", foot=MODELO)
-
+    return grouped_bars(
+        "Estrategias de caché en 20 000 peticiones con 19,4 % del tiempo sin conexión",
+        "Barras horizontales con el porcentaje de peticiones servidas desde caché, con fallo y con contenido obsoleto en cinco estrategias: solo red falla en 19,33 por ciento; caché primero responde en 6 milisegundos pero sirve obsoleto el 69,88; red primero casi no sirve obsoleto pero tarda 165; revalidar en segundo plano lo reduce a 5,2 por ciento.",
+        ["Solo red (120 ms)", "Caché primero (6,2 ms)", "Caché primero con precarga (5,0 ms)", "Red primero con respaldo en caché (165 ms)", "Revalidar en segundo plano (6,2 ms)"],
+        [("Desde caché", [0, 98.3, 100, 18.6, 98.3], "teal"), ("Fallos", [19.33, 0.69, 0, 0.69, 0.69], "coral"), ("Contenido obsoleto", [0, 69.88, 70.83, 1.47, 5.2], "gold")],
+        unit="Peticiones (%)", horizontal=True, decimals=2, label_w=280,
+        note="Entre paréntesis, la latencia media. 200 URL con popularidad 1/n, cambios de 0 a 12 por URL en 500 h y ráfagas sin conexión que suman 19,4 % del tiempo. Los 120 ms de red, 5 ms de caché y 360 ms de espera son supuestos; la obsolescencia cuenta versiones, no importancia del cambio.",
+        note_kind="gold", foot=MODELO)
 
 def se237_versiones() -> Fig:
     items = [
@@ -123,49 +102,35 @@ def se237_versiones() -> Fig:
 
 
 def se237_sync() -> Fig:
-    rows = [
-        ["2000 envíos con 20 % de confirmaciones perdidas, sin clave de idempotencia", "2476 efectos (476 duplicados)", "476 reintentos"],
-        ["Los mismos envíos con clave de idempotencia por operación", "2000 efectos (0 duplicados)", "390 reintentos"],
-        ["300 ediciones concurrentes sin conexión, última escritura gana", "300 ediciones descartadas", "13,3 % gana la más antigua por reloj"],
-        ["Las mismas 300 con comprobación de versión", "0 descartadas en silencio", "exige resolver el conflicto"],
-    ]
-    return tab("Sincronizar tras estar sin conexión: duplicados, reintentos y escrituras perdidas",
-               "Tabla: sin clave de idempotencia, 2000 envíos con 20 por ciento de confirmaciones perdidas producen 476 efectos duplicados; con clave producen 2000; y con la última escritura gana, 300 ediciones concurrentes pierden una, y en 13,3 por ciento gana la más antigua por desajuste de reloj.",
-               ["Situación simulada", "Resultado en el servidor", "Reintentos o riesgo"], rows, [420, 270, 250], row_h=62, size=12,
-               note="Los relojes de los dispositivos se desviaron hasta ±2 min (supuesto). Si la política de nota por entrega tardía usa la hora del cliente, ese desajuste decide una nota: la hora debe ser la del servidor al recibir, o una marca firmada.",
-               note_kind="coral", foot=MODELO)
-
+    return grouped_bars(
+        "Sincronizar tras estar sin conexión: duplicados, reintentos y escrituras perdidas",
+        "Barras agrupadas con el resultado de la sincronización: sin clave de idempotencia, 2000 envíos con 20 por ciento de confirmaciones perdidas producen 2476 efectos y 476 reintentos; con clave, 2000 efectos y 390 reintentos; con la última escritura gana, 300 ediciones se descartan, y con comprobación de versión ninguna en silencio.",
+        ["Efectos en el servidor (2000 envíos)", "Reintentos (2000 envíos)", "Ediciones descartadas en silencio (300 concurrentes)"],
+        [("Sin clave de idempotencia / última escritura gana", [2476, 476, 300], "coral"), ("Con clave por operación / comprobación de versión", [2000, 390, 0], "teal")],
+        unit="Cantidad", decimals=0, plot_h=260,
+        note="Sin clave hay 476 efectos duplicados; con clave, 0. Con la última escritura gana, en 13,3 % gana la más antigua por reloj, y la comprobación de versión exige resolver el conflicto. Los relojes de los dispositivos se desviaron hasta ±2 min (supuesto). Si la política de nota por entrega tardía usa la hora del cliente, ese desajuste decide una nota: la hora debe ser la del servidor al recibir, o una marca firmada.",
+        note_kind="coral", foot=MODELO)
 
 # ---------------------------------------------------------------- SE-238
 def se238_robots() -> Fig:
-    rows = [
-        ["Disallow /admin y luego Allow /admin/ayuda", "2 de 14", "/admin/ayuda y /admin/ayuda/faq"],
-        ["Allow /admin/ayuda y luego Disallow /admin", "0 de 14", "coinciden"],
-        ["Disallow /entregas y Allow /entregas/123", "2 de 14", "/entregas/123 y su subruta"],
-        ["Comodines: /buscar? y /*.pdf$", "3 de 14", "/buscar, /tmp/a.pdf y /a.pdf"],
-        ["Solo Disallow /privado", "0 de 14", "coinciden"],
-        ["Archivo vacío", "0 de 14", "coinciden"],
-    ]
-    return tab("Rutas en las que robotparser de Python y la regla de coincidencia más larga del RFC 9309 discrepan",
-               "Tabla: sobre seis archivos robots.txt y 14 rutas, 7 de 84 decisiones difieren entre el analizador de la biblioteca estándar de Python, que aplica la primera regla coincidente y no admite comodines, y la regla de coincidencia más larga del RFC 9309.",
-               ["Conjunto de reglas", "Rutas que difieren", "Cuáles"], rows, [430, 150, 360], row_h=46, size=12,
-               note="Un mismo archivo puede permitir una ruta para un rastreador y bloquearla para otro si implementan distinto el RFC. Además, Disallow impide al rastreador leer la página, y por tanto ver un noindex que esta contenga.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Rutas en las que robotparser de Python y la regla de coincidencia más larga del RFC 9309 discrepan",
+        "Barras horizontales con las rutas de 14 en que discrepan el analizador de Python y el RFC 9309 sobre seis archivos robots.txt: 2 con Disallow /admin y Allow /admin/ayuda, 2 con /entregas, 3 con comodines y ninguna en los otros tres; 7 de 84 decisiones difieren.",
+        ["Disallow /admin y luego Allow /admin/ayuda", "Allow /admin/ayuda y luego Disallow /admin", "Disallow /entregas y Allow /entregas/123", "Comodines: /buscar? y /*.pdf$", "Solo Disallow /privado", "Archivo vacío"],
+        [("Rutas que difieren (de 14)", [2, 0, 2, 3, 0, 0], "coral")],
+        unit="Rutas con decisión distinta", horizontal=True, decimals=0, label_w=300,
+        note="Difieren, por ejemplo, /admin/ayuda y /admin/ayuda/faq; con comodines, /buscar, /tmp/a.pdf y /a.pdf. Un mismo archivo puede permitir una ruta para un rastreador y bloquearla para otro si implementan distinto el RFC. Además, Disallow impide al rastreador leer la página, y por tanto ver un noindex que esta contenga.",
+        note_kind="gold", foot=SINT)
 
 def se238_facetas() -> Fig:
-    rows = [
-        ["6 facetas con 4, 5, 6, 3, 7 y 4 valores, más «sin filtro»", "33 600 combinaciones"],
-        ["Con 3 órdenes y 20 páginas, parámetros en orden fijo", "2 016 000 URLs"],
-        ["Si los parámetros pueden llegar en cualquier orden", "544 467 960 URLs"],
-        ["Como mucho una faceta indexable (el resto con canónica)", "600 URLs"],
-    ]
-    return tab("URLs que una navegación facetada pone al alcance de un rastreador",
-               "Tabla: seis facetas, tres órdenes y veinte páginas generan 2 016 000 URLs con los parámetros en orden fijo y 544 467 960 si el orden puede variar; permitir indexar como mucho una faceta deja 600.",
-               ["Situación", "URLs posibles"], rows, [640, 300], row_h=50, size=13,
-               note="Cálculo exacto por enumeración de subconjuntos y permutaciones, validado enumerando un caso pequeño (36 combinaciones). Cuántas de esas URLs rastrea realmente un buscador depende de enlaces, presupuesto y señales que no se miden aquí.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "URLs que una navegación facetada pone al alcance de un rastreador",
+        "Barras horizontales en escala logarítmica con las URLs posibles: 33 600 combinaciones con seis facetas, 2 016 000 URLs con tres órdenes y veinte páginas en orden fijo, 544 467 960 si el orden de los parámetros puede variar y 600 si solo una faceta es indexable.",
+        ["6 facetas con 4, 5, 6, 3, 7 y 4 valores, más «sin filtro»", "Con 3 órdenes y 20 páginas, parámetros en orden fijo", "Si los parámetros pueden llegar en cualquier orden", "Como mucho una faceta indexable (el resto con canónica)"],
+        [("URLs posibles", [33600, 2016000, 544467960, 600], "coral")],
+        unit="URLs posibles", horizontal=True, log=True, decimals=0, label_w=330,
+        note="Cálculo exacto por enumeración de subconjuntos y permutaciones, validado enumerando un caso pequeño (36 combinaciones). Cuántas de esas URLs rastrea realmente un buscador depende de enlaces, presupuesto y señales que no se miden aquí.",
+        note_kind="gold", foot=SINT)
 
 def se238_metadatos() -> Fig:
     items = [
@@ -197,70 +162,47 @@ def se239_estados() -> Fig:
 
 
 def se239_tormenta() -> Fig:
-    rows = [
-        ["Reintento fijo cada segundo", "10,5", "950", "19 s"],
-        ["Exponencial sin dispersión", "10,5", "950", "902 s"],
-        ["Exponencial con dispersión completa", "2,0", "484", "23 s"],
-    ]
-    return tab("1000 clientes que fallan a la vez frente a un servidor que atiende 50 peticiones por segundo",
-               "Tabla: el reintento fijo y el exponencial sin dispersión producen 10,5 peticiones por cliente y un pico de 950 por segundo tras el primer segundo, y el segundo tarda 902 segundos en terminar; el exponencial con dispersión completa produce 2 peticiones por cliente, un pico de 484 y termina en 23 segundos.",
-               ["Política de reintento", "Peticiones por cliente", "Pico tras el 1.er segundo", "Hasta el último cliente"], rows, [380, 200, 210, 190], row_h=48, size=13,
-               note="Sin dispersión, los clientes quedan sincronizados en oleadas que se repiten. Con dispersión se reparten y la carga total baja a una quinta parte. Simulación de capacidad fija sin degradación del servidor: un servidor real puede empeorar bajo carga.",
-               note_kind="gold", foot=MODELO)
-
+    return grouped_bars(
+        "1000 clientes que fallan a la vez frente a un servidor que atiende 50 peticiones por segundo",
+        "Barras agrupadas en escala logarítmica de tres políticas de reintento: el reintento fijo y el exponencial sin dispersión producen 10,5 peticiones por cliente y un pico de 950 por segundo, y el segundo tarda 902 segundos en terminar; el exponencial con dispersión completa produce 2,0, un pico de 484 y termina en 23 segundos.",
+        ["Reintento fijo cada segundo", "Exponencial sin dispersión", "Exponencial con dispersión completa"],
+        [("Peticiones por cliente", [10.5, 10.5, 2.0], "grey"), ("Pico por segundo tras el 1.er segundo", [950, 950, 484], "coral"), ("Segundos hasta el último cliente", [19, 902, 23], "navy")],
+        unit="Valor de cada medida", log=True, decimals=1, plot_h=280,
+        note="Sin dispersión, los clientes quedan sincronizados en oleadas que se repiten. Con dispersión se reparten y la carga total baja a una quinta parte. Simulación de capacidad fija sin degradación del servidor: un servidor real puede empeorar bajo carga.",
+        note_kind="gold", foot=MODELO)
 
 def se239_a11y() -> Fig:
-    rows = [
-        ["Contraste insuficiente de un enlace", "Sí", "Se calcula la razón"],
-        ["Indicador de foco eliminado", "Sí", "Regla sobre el CSS"],
-        ["Campo sin etiqueta", "Sí", "Regla estructural"],
-        ["Error sin asociar al campo", "Sí", "aria-describedby ausente"],
-        ["tabindex positivo", "Sí", "Regla estructural"],
-        ["Enlace «clic aquí»", "Sí", "Lista de textos genéricos"],
-        ["Texto alternativo engañoso", "No", "Requiere mirar la imagen"],
-        ["Idioma declarado equivocado", "No", "Requiere identificar el idioma del texto"],
-        ["Etiqueta que dice otra cosa que el campo", "No", "Requiere entender el propósito"],
-    ]
-    return tab("Nueve defectos de accesibilidad inyectados: cuáles detecta un conjunto de reglas automáticas",
-               "Tabla: de nueve defectos de accesibilidad inyectados en una página sintética, seis se detectan con reglas automáticas, entre ellos el contraste, el foco, las etiquetas y los errores sin asociar, y tres no, porque exigen ver la imagen, identificar el idioma o entender el propósito del campo.",
-               ["Defecto inyectado", "¿Lo detecta una regla?", "Por qué"], rows, [400, 190, 350], row_h=40, size=12,
-               note="6 de 9 es el resultado de estas nueve reglas sobre estos nueve defectos, no una cobertura general de WCAG. Una herramienta automática real cubre más reglas y falla en otras: la revisión con teclado y lector de pantalla sigue haciendo falta.",
-               note_kind="gold", foot=SINT)
-
+    return heatmap(
+        "Nueve defectos de accesibilidad inyectados: cuáles detecta un conjunto de reglas automáticas",
+        "Mapa de calor con nueve defectos inyectados y si una regla automática los detecta: seis se detectan, entre ellos el contraste, el foco, las etiquetas y los errores sin asociar, y tres no, porque exigen ver la imagen, identificar el idioma o entender el propósito del campo.",
+        ["Contraste insuficiente de un enlace", "Indicador de foco eliminado", "Campo sin etiqueta", "Error sin asociar al campo", "tabindex positivo", "Enlace «clic aquí»",
+         "Texto alternativo engañoso", "Idioma declarado equivocado", "Etiqueta que dice otra cosa que el campo"],
+        ["¿Lo detecta una regla?"],
+        [[1], [1], [1], [1], [1], [1], [0], [0], [0]],
+        unit="detección", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "detectado" if v else "no detectado", label_w=290, cell_h=34,
+        note="Los tres no detectados exigen mirar la imagen, identificar el idioma del texto o entender el propósito del campo. 6 de 9 es el resultado de estas nueve reglas sobre estos nueve defectos, no una cobertura general de WCAG. Una herramienta automática real cubre más reglas y falla en otras: la revisión con teclado y lector de pantalla sigue haciendo falta.",
+        note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-240
 def se240_manifiesto() -> Fig:
-    rows = [
-        ["Falta name, start_url o icons", "27", "27"],
-        ["short_name largo, display o color inválidos", "23", "23"],
-        ["start_url fuera del scope", "6", "6"],
-        ["Sin icono 512 o sin maskable, sizes roto", "27", "27"],
-        ["src de un icono que no existe", "11", "0"],
-        ["Nombre engañoso o idioma equivocado", "18", "0"],
-        ["Icono declarado 192 que mide otra cosa", "8", "0"],
-    ]
-    return tab("Validador de manifiesto: 120 mutaciones de un manifiesto de aplicación web sintético",
-               "Tabla: un validador de forma del manifiesto detecta 83 de 120 mutaciones, todas las que falta o rompen campos, el alcance o los iconos declarados, y no detecta las que exigen comprobar el sistema de archivos o el significado: iconos inexistentes, nombres engañosos, idioma equivocado o iconos de otro tamaño.",
-               ["Mutación", "Casos", "Detectadas"], rows, [560, 160, 220], row_h=44, size=12,
-               note="Detectadas 83 de 120. Los 37 casos restantes no son defectos del JSON: son discrepancias entre el JSON y el mundo (archivos, significado). Para verlos hay que abrir los archivos referidos y revisar el contenido, no validar el esquema.",
-               note_kind="gold", foot=SINT)
-
+    return stacked_bars(
+        "Validador de manifiesto: 120 mutaciones de un manifiesto de aplicación web sintético",
+        "Barras apiladas horizontales con las mutaciones por tipo que detecta el validador de forma: 83 de 120, todas las que faltan o rompen campos, alcance o iconos declarados, y ninguna de las que exigen comprobar el sistema de archivos o el significado, que son 37.",
+        ["Falta name, start_url o icons", "short_name largo, display o color inválidos", "start_url fuera del scope", "Sin icono 512 o sin maskable, sizes roto", "src de un icono que no existe", "Nombre engañoso o idioma equivocado", "Icono declarado 192 que mide otra cosa"],
+        [("Detectadas", [27, 23, 6, 27, 0, 0, 0], "teal"), ("No detectadas", [0, 0, 0, 0, 11, 18, 8], "coral")],
+        unit="Mutaciones", horizontal=True, decimals=0, label_w=300,
+        note="Detectadas 83 de 120. Los 37 casos restantes no son defectos del JSON: son discrepancias entre el JSON y el mundo (archivos, significado). Para verlos hay que abrir los archivos referidos y revisar el contenido, no validar el esquema.",
+        note_kind="gold", foot=SINT)
 
 def se240_cabeceras() -> Fig:
-    rows = [
-        ["/app/sw.js", "Cache-Control de un año: el navegador no verá una versión nueva"],
-        ["/app/app.css", "no-store en una hoja de estilos sin huella"],
-        ["/app/manifest.webmanifest", "Content-Type application/json en vez de application/manifest+json"],
-        ["/app/datos.json", "Un año de caché en datos mutables; sin nosniff"],
-        ["/app/ayuda/", "HTML sin charset y sin nosniff"],
-        ["/app/, app.3f9a1c.js, icons/192.png", "Sin hallazgos"],
-    ]
-    return tab("Auditoría de cabeceras de un servidor local con ocho rutas y cinco configuraciones erróneas",
-               "Tabla: un comprobador que pide ocho rutas a un servidor local en el bucle de retorno encuentra 7 hallazgos en cinco rutas, entre ellos un service worker con caché de un año, una hoja sin caché, un manifiesto con tipo MIME distinto y datos mutables con caché larga.",
-               ["Ruta", "Hallazgo"], rows, [330, 610], row_h=44, size=12,
-               note="Un servidor Python en 127.0.0.1 con puerto efímero sirvió ocho respuestas de dos bytes; no se tocó ninguna red. Que las cabeceras sean correctas no demuestra que el service worker se actualice: eso solo se ve en un navegador.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Auditoría de cabeceras de un servidor local con ocho rutas y cinco configuraciones erróneas",
+        "Barras horizontales con los hallazgos por ruta de un comprobador que pidió ocho rutas a un servidor local: 7 en cinco rutas, con el service worker, la hoja de estilos y el manifiesto con 1 cada uno, los datos mutables y la página de ayuda con 2, y ninguno en las tres restantes.",
+        ["/app/sw.js", "/app/app.css", "/app/manifest.webmanifest", "/app/datos.json", "/app/ayuda/", "/app/, app.3f9a1c.js, icons/192.png"],
+        [("Hallazgos", [1, 1, 1, 2, 2, 0], "coral")],
+        unit="Hallazgos", horizontal=True, decimals=0, label_w=270,
+        note="Hallazgos: caché de un año en el service worker; no-store en una hoja sin huella; Content-Type application/json en vez de application/manifest+json; un año de caché en datos mutables y sin nosniff; HTML sin charset y sin nosniff. Un servidor Python en 127.0.0.1 con puerto efímero sirvió ocho respuestas de dos bytes; no se tocó ninguna red. Que las cabeceras sean correctas no demuestra que el service worker se actualice: eso solo se ve en un navegador.",
+        note_kind="gold", foot=SINT)
 
 def se240_pares() -> Fig:
     items = [

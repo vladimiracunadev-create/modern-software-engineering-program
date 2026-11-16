@@ -117,9 +117,9 @@ class Lint(HTMLParser):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): el linter detecta **200 de las 220 mutaciones**; las 20 que no detecta son todas del tipo «alt engañoso» (el texto alternativo existe pero describe otra cosa). Un chequeo de etiquetas balanceadas detecta **ninguna**: todas las mutaciones dejan el HTML bien formado.
 
-![Tabla con el resultado del linter semántico y del balance de etiquetas sobre once tipos de mutación.](../../../content/part-19/figures/se-229-linter-semantico-frente-a-sintaxis.svg)
+![Barras apiladas horizontales con las 220 mutaciones de una página semántica en once tipos: un linter de ocho reglas detecta 200 y no detecta las 20 con alt engañoso; comprobar solo el balance de etiquetas no detecta ninguna.](../../../content/part-19/figures/se-229-linter-semantico-frente-a-sintaxis.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación, con el número de casos y cuántos detecta cada comprobación; la columna de balance de etiquetas es cero en todas. **Dónde deja de valer:** las reglas se escribieron sabiendo qué mutaciones se aplicarían, así que la tasa de detección del 91 % está inflada respecto de una página real con defectos que el autor no imaginó. Un alt «Gráfico de ventas» sobre una captura de un formulario pasa cualquier regla: solo una persona que ve la imagen sabe que es falso.
+**Cómo leer la figura.** Cada barra es un tipo de mutación y su longitud cuántas se aplicaron; verde son las que detecta el linter y rojo las que no. Mira primero la única barra roja, la del alt engañoso: el texto está presente y bien formado, pero miente. El balance de etiquetas, que no detecta ninguna, no se dibuja y está en la nota. **Dónde deja de valer:** las reglas se escribieron sabiendo qué mutaciones se aplicarían, así que la tasa de detección del 91 % está inflada respecto de una página real con defectos que el autor no imaginó. Un alt «Gráfico de ventas» sobre una captura de un formulario pasa cualquier regla: solo una persona que ve la imagen sabe que es falso.
 
 ### Contraste: el tono no predice el cumplimiento
 
@@ -133,9 +133,9 @@ La función de contraste implementa la fórmula de WCAG con la luminancia relati
 
 Se implementó una calculadora de especificidad y se verificó con los once ejemplos de la especificación de Selectores (`#s12:not(p)` da (1,0,1), `li.red.level` da (0,2,1), `:where(.a, #b) p` da (0,0,1), `:is(.a, #b) p` da (1,0,1)): acertó los 11. Después se simuló una hoja con 40 elementos en la que cada nueva petición de cambio debe ganar a la regla existente; en la mitad de los casos (supuesto del autor) la regla nueva llega antes y pierde por orden. Si se gana subiendo la especificidad, con 50 peticiones el selector más largo tiene 4 clases, con 200 tiene 7 (y 18 reglas superan 4 clases) y con 800 tiene 18 clases (y 315 superan las 4). Con capas, el selector más largo sigue siendo de una clase en los tres casos.
 
-![Tabla con la especificidad máxima alcanzada al escalar selectores frente a ordenar con capas, con 50, 200 y 800 peticiones de cambio.](../../../content/part-19/figures/se-229-guerra-de-especificidad.svg)
+![Barras agrupadas con el selector más largo al sobrescribir estilos: escalar la especificidad llega a 4, 7 y 18 clases con 50, 200 y 800 peticiones de cambio, mientras que ordenar con capas mantiene una clase.](../../../content/part-19/figures/se-229-guerra-de-especificidad.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de historial; las dos columnas centrales cuentan lo que ocurre si cada cambio sube el selector, y la última lo que ocurre si se ordena con capas. **Dónde deja de valer:** el 50 % de pérdidas por orden y la elección uniforme de elementos son supuestos; una hoja real tiene menos conflictos en unos sitios y más en otros. La simulación no mide mantenimiento real: muestra que la estrategia de subir selectores crece sin cota natural y que las capas la eliminan, pero exigen acordar el orden de las capas desde el principio.
+**Cómo leer la figura.** Cada grupo es un número de peticiones de cambio; la barra roja es el selector más largo al escalar la especificidad y la verde el selector más largo con capas, en clases. Mira primero cómo la roja crece con las peticiones y la verde no se mueve de 1; las reglas que superan cuatro clases están en la nota. **Dónde deja de valer:** el 50 % de pérdidas por orden y la elección uniforme de elementos son supuestos; una hoja real tiene menos conflictos en unos sitios y más en otros. La simulación no mide mantenimiento real: muestra que la estrategia de subir selectores crece sin cota natural y que las capas la eliminan, pero exigen acordar el orden de las capas desde el principio.
 
 ## Definiciones de trabajo
 

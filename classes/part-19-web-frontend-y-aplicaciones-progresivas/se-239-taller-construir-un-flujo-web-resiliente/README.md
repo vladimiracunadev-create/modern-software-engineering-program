@@ -131,9 +131,9 @@ elif politica == "exponencial_jitter_completo": esp = q.uniform(0, min(2 ** n, m
 
 Resultado: con reintento fijo y con exponencial sin dispersión cada cliente hace **10,5 peticiones** de media (10 500 en total) y la carga tras el primer segundo llega a **950 por segundo**; el fijo termina en **19 s** y el exponencial sin dispersión en **902 s**, porque los clientes quedan agrupados en oleadas que se repiten. Con dispersión completa, cada cliente hace **2,0 peticiones** (1969 en total), el pico tras el primer segundo es de **484** y el último cliente termina en **23 s**.
 
-![Tabla con las peticiones por cliente, el pico de carga y el tiempo hasta el último cliente para tres políticas de reintento con 1000 clientes y un servidor de 50 peticiones por segundo.](../../../content/part-19/figures/se-239-tormenta-de-reintentos.svg)
+![Barras agrupadas en escala logarítmica de tres políticas de reintento con mil clientes: el reintento fijo y el exponencial sin dispersión dan 10,5 peticiones por cliente y un pico de 950, y el segundo tarda 902 segundos; con dispersión completa, 2,0, un pico de 484 y 23 segundos.](../../../content/part-19/figures/se-239-tormenta-de-reintentos.svg)
 
-**Cómo leer la figura.** Cada fila es una política; las columnas son las peticiones por cliente, el pico de carga tras el primer segundo y el tiempo hasta el último cliente. **Dónde deja de valer:** el servidor tiene capacidad constante y rechaza el exceso sin costo; uno real puede degradarse bajo carga o encolar. Tampoco hay latencia de red, ni cancelación, ni clientes que abandonan. La conclusión que sí se sostiene es el mecanismo: la dispersión reparte las peticiones y reduce la carga total a la quinta parte; el retroceso sin dispersión mantiene la sincronía.
+**Cómo leer la figura.** Cada grupo es una política; las tres barras son las peticiones por cliente (gris), el pico por segundo tras el primer segundo (roja) y los segundos hasta el último cliente (azul oscura), en escala logarítmica. Mira primero las barras azules: el exponencial sin dispersión tarda 902 segundos frente a 19 y 23 de las otras. **Dónde deja de valer:** el servidor tiene capacidad constante y rechaza el exceso sin costo; uno real puede degradarse bajo carga o encolar. Tampoco hay latencia de red, ni cancelación, ni clientes que abandonan. La conclusión que sí se sostiene es el mecanismo: la dispersión reparte las peticiones y reduce la carga total a la quinta parte; el retroceso sin dispersión mantiene la sincronía.
 
 ### Nueve defectos de accesibilidad, seis reglas
 
@@ -150,9 +150,9 @@ def audit(s):
 
 Resultado, idéntico en ambos sistemas: la página base no produce hallazgos y **6 de los 9 defectos se detectan**; los tres que no se detectan son el texto alternativo engañoso, el idioma equivocado y la etiqueta que dice otra cosa. Los tres exigen ver la imagen, identificar el idioma del texto o entender qué pide el campo.
 
-![Tabla con nueve defectos de accesibilidad inyectados y si un conjunto de reglas automáticas los detecta.](../../../content/part-19/figures/se-239-defectos-de-accesibilidad-detectables.svg)
+![Mapa de calor con nueve defectos de accesibilidad inyectados y si una regla automática los detecta: se detectan seis, entre ellos contraste, foco, etiquetas y errores sin asociar, y no tres que exigen ver la imagen, identificar el idioma o entender el propósito del campo.](../../../content/part-19/figures/se-239-defectos-de-accesibilidad-detectables.svg)
 
-**Cómo leer la figura.** Cada fila es un defecto inyectado; la columna central dice si una regla lo detectó y la última, por qué. **Dónde deja de valer:** el 6 de 9 es el resultado de estas reglas sobre estos defectos, no una cobertura de WCAG; una herramienta real tiene más reglas y también falsos positivos. Se muestra, eso sí, que existe una clase de defectos que ninguna regla de forma ve, y que una evidencia de accesibilidad que solo cita una herramienta está incompleta.
+**Cómo leer la figura.** Cada fila es un defecto y la celda es oscura si una regla lo detecta y clara si no. Mira primero las tres filas claras, al final: son las que exigen interpretar, y ninguna regla las ve. **Dónde deja de valer:** el 6 de 9 es el resultado de estas reglas sobre estos defectos, no una cobertura de WCAG; una herramienta real tiene más reglas y también falsos positivos. Se muestra, eso sí, que existe una clase de defectos que ninguna regla de forma ve, y que una evidencia de accesibilidad que solo cita una herramienta está incompleta.
 
 ## Definiciones de trabajo
 

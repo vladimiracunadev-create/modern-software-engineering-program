@@ -1,8 +1,8 @@
 """Figures for SE-229 to SE-234 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 / Node 24 and Ubuntu CPython 3.12.3 / Node 20 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2), salvo los tiempos indicados."
 MODELO = "Modelo con supuestos del autor, semilla fija; no es una medición de un navegador ni de usuarios reales."
@@ -10,25 +10,15 @@ MODELO = "Modelo con supuestos del autor, semilla fija; no es una medición de u
 
 # ---------------------------------------------------------------- SE-229
 def se229_linter() -> Fig:
-    rows = [
-        ["Quitar el alt de una imagen", "18", "18", "0"],
-        ["Alt que es un nombre de archivo", "25", "25", "0"],
-        ["Alt engañoso (describe otra cosa)", "20", "0", "0"],
-        ["Quitar la etiqueta de un campo", "25", "25", "0"],
-        ["Etiqueta con for apuntando a otro id", "23", "23", "0"],
-        ["div con onclick en lugar de button", "23", "23", "0"],
-        ["Saltar un nivel de encabezado", "20", "20", "0"],
-        ["Quitar el landmark main", "20", "20", "0"],
-        ["Cambiar nav por div", "17", "17", "0"],
-        ["Enlace cuyo único contenido es un icono", "15", "15", "0"],
-        ["Quitar el atributo lang", "14", "14", "0"],
-    ]
-    return tab("Linter semántico frente a validar solo que el HTML esté bien formado",
-               "Tabla de 220 mutaciones de una página semántica en once tipos: un linter con ocho reglas detecta 200 y no detecta las 20 con alt engañoso, mientras que comprobar solo que las etiquetas estén balanceadas no detecta ninguna.",
-               ["Mutación aplicada a la página base", "Casos", "Linter", "Solo balance de etiquetas"], rows, [430, 90, 110, 230], row_h=40, size=12,
-               note="200 de 220 mutaciones detectadas por reglas; 0 por el balance de etiquetas. Las 20 sin detectar son textos alternativos que cambian de significado pero siguen siendo texto: solo una persona que mira la imagen lo nota.",
-               note_kind="gold", foot=SINT)
-
+    return stacked_bars(
+        "Linter semántico frente a validar solo que el HTML esté bien formado",
+        "Barras apiladas horizontales con las 220 mutaciones de una página semántica en once tipos: un linter con ocho reglas detecta 200 y no detecta las 20 con alt engañoso; comprobar solo el balance de etiquetas no detecta ninguna.",
+        ["Quitar el alt de una imagen", "Alt que es un nombre de archivo", "Alt engañoso (describe otra cosa)", "Quitar la etiqueta de un campo", "Etiqueta con for a otro id", "div con onclick en lugar de button",
+         "Saltar un nivel de encabezado", "Quitar el landmark main", "Cambiar nav por div", "Enlace cuyo único contenido es un icono", "Quitar el atributo lang"],
+        [("Detectadas por el linter", [18, 25, 0, 25, 23, 23, 20, 20, 17, 15, 14], "teal"), ("No detectadas", [0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0], "coral")],
+        unit="Mutaciones aplicadas", horizontal=True, decimals=0, label_w=290,
+        note="200 de 220 mutaciones detectadas por reglas; 0 por el balance de etiquetas, que no distingue ninguna de las once. Las 20 sin detectar son textos alternativos que cambian de significado pero siguen siendo texto: solo una persona que mira la imagen lo nota.",
+        note_kind="gold", foot=SINT)
 
 def se229_contraste() -> Fig:
     items = [
@@ -44,17 +34,14 @@ def se229_contraste() -> Fig:
 
 
 def se229_especificidad() -> Fig:
-    rows = [
-        ["50", "4 clases", "0", "1 clase"],
-        ["200", "7 clases", "18", "1 clase"],
-        ["800", "18 clases", "315", "1 clase"],
-    ]
-    return tab("Guerra de especificidad: subir el selector frente a ordenar con capas",
-               "Tabla: con 50, 200 y 800 peticiones de sobrescribir estilos sobre 40 elementos, escalar la especificidad llega a selectores de 4, 7 y 18 clases y a 0, 18 y 315 reglas que superan las cuatro clases, mientras que ordenar con capas mantiene una clase.",
-               ["Peticiones de cambio", "Selector más largo al escalar", "Reglas que superan 4 clases", "Selector más largo con capas"], rows, [200, 280, 280, 260], row_h=48, size=13,
-               note="La calculadora de especificidad usada acertó los 11 ejemplos de la especificación de Selectores (incluidos :where, que suma 0, y :is, que suma su argumento más específico). La simulación supone que la mitad de las nuevas reglas llegan antes que la que deben vencer; el valor exacto depende de ese supuesto.",
-               note_kind="gold", foot=MODELO)
-
+    return grouped_bars(
+        "Guerra de especificidad: subir el selector frente a ordenar con capas",
+        "Barras agrupadas con el selector más largo al sobrescribir estilos: escalar la especificidad llega a 4, 7 y 18 clases con 50, 200 y 800 peticiones de cambio, y a 0, 18 y 315 reglas que superan las cuatro clases, mientras que ordenar con capas mantiene una clase.",
+        ["50 peticiones", "200 peticiones", "800 peticiones"],
+        [("Selector más largo al escalar (clases)", [4, 7, 18], "coral"), ("Selector más largo con capas (clases)", [1, 1, 1], "teal")],
+        unit="Clases en el selector más largo", decimals=0, plot_h=260,
+        note="Reglas que superan 4 clases al escalar: 0, 18 y 315. La calculadora de especificidad usada acertó los 11 ejemplos de la especificación de Selectores (incluidos :where, que suma 0, y :is, que suma su argumento más específico). La simulación supone que la mitad de las nuevas reglas llegan antes que la que deben vencer; el valor exacto depende de ese supuesto.",
+        note_kind="gold", foot=MODELO)
 
 # ---------------------------------------------------------------- SE-230
 def se230_bucle() -> Fig:
@@ -70,20 +57,14 @@ def se230_bucle() -> Fig:
 
 
 def se230_delegacion() -> Fig:
-    rows = [
-        ["Un listener por fila, registrado solo en la primera página", "200", "200 de 1000"],
-        ["Un listener por fila, registrado en cada página", "1000", "1000 de 1000"],
-        ["Delegado con closest, clic en el botón o en su icono", "1", "1000 de 1000"],
-        ["Delegado que compara target directo, clic en el icono", "1", "0 de 1000"],
-        ["Delegado con closest, 5 % de filas que detienen la propagación", "1", "943 de 1000"],
-        ["Un listener por fila, 5 % que detienen la propagación", "1000", "1000 de 1000"],
-    ]
-    return tab("Delegación de eventos frente a un listener por fila en un modelo mínimo de DOM",
-               "Tabla de seis estrategias para atender el clic de borrar en 1000 filas cargadas en cinco páginas: el listener por fila solo en la primera página atiende 200, el delegado con closest atiende las 1000 con un listener, y falla cuando se compara el target o cuando una fila detiene la propagación.",
-               ["Estrategia", "Listeners", "Filas atendidas"], rows, [570, 130, 220], row_h=48, size=12,
-               note="El modelo implementa captura, destino y burbuja con stopPropagation, pero no el comportamiento de un navegador real (listeners de captura en el destino, eventos pasivos, shadow DOM). Muestra el mecanismo, no mide memoria.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Delegación de eventos frente a un listener por fila en un modelo mínimo de DOM",
+        "Barras horizontales agrupadas con las filas atendidas de 1000 y los listeners usados por seis estrategias: el listener por fila solo en la primera página atiende 200 con 200 listeners, el delegado con closest atiende las 1000 con un listener y falla con 0 cuando compara el target o con 943 si una de cada veinte filas detiene la propagación.",
+        ["Un listener por fila, solo en la primera página", "Un listener por fila, en cada página", "Delegado con closest (botón o icono)", "Delegado que compara el target directo (clic en el icono)", "Delegado con closest, 5 % de filas detienen la propagación", "Un listener por fila, 5 % detienen la propagación"],
+        [("Listeners", [200, 1000, 1, 1, 1, 1000], "grey"), ("Filas atendidas de 1000", [200, 1000, 1000, 0, 943, 1000], "teal")],
+        unit="Cantidad", horizontal=True, decimals=0, label_w=330,
+        note="El delegado con closest atiende las 1000 filas con un solo listener; falla si compara el target (0 de 1000) o si una fila detiene la propagación (943 de 1000). El modelo implementa captura, destino y burbuja con stopPropagation, pero no el comportamiento de un navegador real (listeners de captura en el destino, eventos pasivos, shadow DOM). Muestra el mecanismo, no mide memoria.",
+        note_kind="gold", foot=SINT)
 
 def se230_ritmo() -> Fig:
     items = [
@@ -103,17 +84,14 @@ def se230_ritmo() -> Fig:
 
 # ---------------------------------------------------------------- SE-231
 def se231_modelo() -> Fig:
-    rows = [
-        ["Fibra (RTT 20 ms, 50 Mbit/s, CPU ×1)", "91 ms", "26 ms", "11 ms"],
-        ["Móvil 4G (RTT 80 ms, 8 Mbit/s, CPU ×4)", "378 ms", "92 ms", "47 ms"],
-        ["Móvil lento (RTT 300 ms, 1 Mbit/s, CPU ×6)", "1389 ms", "365 ms", "210 ms"],
-    ]
-    return tab("Tiempo hasta el primer contenido útil: cliente, servidor y estático (modelo con bytes reales)",
-               "Tabla: con 500 filas, un render en el cliente con tres peticiones en cadena tarda 91, 378 y 1389 milisegundos en el modelo, el render en servidor 26, 92 y 365 y el HTML estático en caché 11, 47 y 210, en tres perfiles de red y dispositivo.",
-               ["Perfil supuesto", "Render en cliente", "Render en servidor", "HTML estático"], rows, [420, 170, 180, 160], row_h=48, size=13,
-               note="Bytes medidos con gzip nivel 6: HTML renderizado 56 489 (7 486 comprimidos); paquete JS sintético 147 255 (37 559); JSON 35 434 (5 612). Las latencias, el factor de CPU y 5 ms de render en servidor son supuestos del autor: se lee la forma de la diferencia, no las cifras.",
-               note_kind="gold", foot=MODELO)
-
+    return grouped_bars(
+        "Tiempo hasta el primer contenido útil: cliente, servidor y estático (modelo con bytes reales)",
+        "Barras agrupadas en escala logarítmica con el tiempo hasta el primer contenido útil con 500 filas: render en el cliente 91, 378 y 1389 milisegundos, render en servidor 26, 92 y 365 y HTML estático en caché 11, 47 y 210, en fibra, móvil 4G y móvil lento.",
+        ["Fibra (RTT 20 ms, CPU ×1)", "Móvil 4G (RTT 80 ms, CPU ×4)", "Móvil lento (RTT 300 ms, CPU ×6)"],
+        [("Render en cliente", [91, 378, 1389], "coral"), ("Render en servidor", [26, 92, 365], "gold"), ("HTML estático", [11, 47, 210], "teal")],
+        unit="Milisegundos", log=True, decimals=0, plot_h=280,
+        note="Anchos de banda supuestos: 50, 8 y 1 Mbit/s. Bytes medidos con gzip nivel 6: HTML renderizado 56 489 (7 486 comprimidos); paquete JS sintético 147 255 (37 559); JSON 35 434 (5 612). Las latencias, el factor de CPU y 5 ms de render en servidor son supuestos del autor: se lee la forma de la diferencia, no las cifras.",
+        note_kind="gold", foot=MODELO)
 
 def se231_hidratacion() -> Fig:
     items = [
@@ -131,35 +109,25 @@ def se231_hidratacion() -> Fig:
 
 
 def se231_isr() -> Fig:
-    rows = [
-        ["6 minutos", "0,7 %", "0,03 h"],
-        ["1 hora", "8,3 %", "0,34 h"],
-        ["6 horas", "39,2 %", "2,15 h"],
-        ["24 horas", "76,9 %", "9,88 h"],
-    ]
-    return tab("Regeneración por caducidad: cuántas visitas ven una página desactualizada",
-               "Tabla: con una página que cambia 0,2 veces por hora y 30 visitas por hora, una caducidad de 6 minutos deja 0,7 por ciento de las visitas con contenido viejo, 1 hora 8,3, 6 horas 39,2 y 24 horas 76,9, con edades medias de 0,03 a 9,88 horas.",
-               ["Caducidad antes de regenerar", "Visitas con contenido viejo", "Antigüedad media del cambio"], rows, [300, 300, 320], row_h=46, size=13,
-               note="Simulación de 2000 h con cambios de Poisson (0,2 por hora) y visitas de Poisson (30 por hora); regenerar al pedir tras caducar. Regenerar más a menudo cuesta compilaciones: este experimento no mide ese coste, solo la obsolescencia.",
-               note_kind="gold", foot=MODELO)
-
+    return line_chart(
+        "Regeneración por caducidad: cuántas visitas ven una página desactualizada",
+        "Línea con el porcentaje de visitas que ven contenido viejo según la caducidad antes de regenerar, con una página que cambia 0,2 veces por hora y 30 visitas por hora: 0,7 con 6 minutos, 8,3 con 1 hora, 39,2 con 6 horas y 76,9 con 24 horas.",
+        [("Visitas con contenido viejo", [(0.1, 0.7, "0,7 %", "t"), (1, 8.3, "8,3 %", "t"), (6, 39.2, "39,2 %", "t"), (24, 76.9, "76,9 %", "t")], "coral")],
+        x_label="Caducidad antes de regenerar (horas)", y_label="Visitas con contenido viejo (%)", log_x=True,
+        x_ticks=[(0.1, "6 min"), (1, "1 h"), (6, "6 h"), (24, "24 h")], y_ticks=[0, 20, 40, 60, 80, 100], decimals=1, plot_h=280,
+        note="Antigüedad media del cambio que ve la visita: 0,03, 0,34, 2,15 y 9,88 horas. Simulación de 2000 h con cambios de Poisson (0,2 por hora) y visitas de Poisson (30 por hora); regenerar al pedir tras caducar. Regenerar más a menudo cuesta compilaciones: este experimento no mide ese coste, solo la obsolescencia.",
+        note_kind="gold", foot=MODELO)
 
 # ---------------------------------------------------------------- SE-232
 def se232_claves() -> Fig:
-    rows = [
-        ["Insertar al inicio", "1000 actualizar + 1 crear", "1 crear", "1000 / 0"],
-        ["Borrar el primero", "999 actualizar + 1 borrar", "1 borrar", "999 / 0"],
-        ["Añadir al final", "1 crear", "1 crear", "0 / 0"],
-        ["Intercambiar dos", "2 actualizar", "2 mover", "2 / 0"],
-        ["Invertir", "1000 actualizar", "999 mover", "1000 / 0"],
-        ["Barajar", "1000 actualizar", "943 mover", "1000 / 0"],
-    ]
-    return tab("Reconciliar una lista de 1000 elementos: clave por posición frente a clave por identidad",
-               "Tabla de seis cambios en una lista de 1000 elementos: la clave por posición actualiza hasta 1000 nodos y asocia mal el estado local de hasta 1000, mientras que la clave por identidad crea, borra o mueve solo lo necesario y no asocia mal ningún estado.",
-               ["Cambio en la lista", "Clave = posición", "Clave = identidad", "Estado mal asociado (posición / identidad)"], rows, [210, 290, 190, 270], row_h=46, size=12,
-               note="El estado local mal asociado es, por ejemplo, el texto escrito en un campo de la fila 3 que pasa a estar junto a otro elemento. Los movimientos de la clave por identidad usan la subsecuencia creciente más larga; los marcos reales emplean heurísticas parecidas pero no idénticas.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Reconciliar una lista de 1000 elementos: clave por posición frente a clave por identidad",
+        "Barras horizontales con los elementos de estado local mal asociado en seis cambios de una lista de 1000: con clave por posición 1000 al insertar al inicio, 999 al borrar el primero, 0 al añadir al final, 2 al intercambiar, 1000 al invertir y 1000 al barajar; con clave por identidad ninguno.",
+        ["Insertar al inicio", "Borrar el primero", "Añadir al final", "Intercambiar dos", "Invertir", "Barajar"],
+        [("Clave = posición", [1000, 999, 0, 2, 1000, 1000], "coral"), ("Clave = identidad", [0, 0, 0, 0, 0, 0], "teal")],
+        unit="Elementos con estado local mal asociado", horizontal=True, decimals=0, label_w=160,
+        note="Operaciones por cambio: la posición actualiza hasta 1000 nodos (insertar al inicio: 1000 actualizar + 1 crear); la identidad crea, borra o mueve solo lo necesario (1 crear, 1 borrar, 0, 2 mover, 999 mover, 943 mover). El estado local mal asociado es, por ejemplo, el texto escrito en un campo de la fila 3 que pasa a estar junto a otro elemento. Los marcos reales emplean heurísticas parecidas pero no idénticas.",
+        note_kind="gold", foot=SINT)
 
 def se232_derivado() -> Fig:
     items = [
@@ -187,20 +155,14 @@ def se232_carreras() -> Fig:
 
 # ---------------------------------------------------------------- SE-233
 def se233_correo() -> Fig:
-    rows = [
-        ["Solo comprobar que hay una @", "30 de 30", "4 de 4", "1 de 30"],
-        ["Texto antes y después de la @", "30 de 30", "4 de 4", "3 de 30"],
-        ["Expresión simple con punto en el dominio", "30 de 30", "4 de 4", "13 de 30"],
-        ["Expresión ASCII estricta", "16 de 30", "0 de 4", "22 de 30"],
-        ["Expresión de la especificación HTML", "30 de 30", "0 de 4", "24 de 30"],
-        ["Especificación HTML más reglas de puntos y longitudes", "30 de 30", "0 de 4", "30 de 30"],
-    ]
-    return tab("Seis validadores de correo frente a un corpus de 64 direcciones etiquetadas por el autor",
-               "Tabla: ninguno de los seis validadores acierta a la vez las 30 direcciones ordinarias, las 4 internacionalizadas y las 30 inválidas; los laxos aceptan casi todo, el ASCII estricto rechaza 14 válidas y las 4 internacionalizadas y los basados en la especificación HTML rechazan las 4 internacionalizadas.",
-               ["Validador", "Acepta ordinarias", "Acepta internacionalizadas", "Rechaza inválidas"], rows, [430, 150, 190, 170], row_h=46, size=12,
-               note="Ningún validador puede saber si un buzón existe: solo un mensaje enviado y confirmado lo prueba. El corpus y sus etiquetas son del autor; con otro corpus las cifras cambian.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Seis validadores de correo frente a un corpus de 64 direcciones etiquetadas por el autor",
+        "Barras horizontales con las direcciones que acierta cada validador: ordinarias aceptadas de 30, internacionalizadas aceptadas de 4 e inválidas rechazadas de 30; ninguno acierta los tres grupos, los laxos aceptan casi todo y el ASCII estricto rechaza 14 válidas y las 4 internacionalizadas.",
+        ["Solo comprobar que hay una @", "Texto antes y después de la @", "Expresión simple con punto en el dominio", "Expresión ASCII estricta", "Expresión de la especificación HTML", "Especificación HTML más reglas de puntos y longitudes"],
+        [("Acepta ordinarias (de 30)", [30, 30, 30, 16, 30, 30], "teal"), ("Acepta internacionalizadas (de 4)", [4, 4, 4, 0, 0, 0], "navy"), ("Rechaza inválidas (de 30)", [1, 3, 13, 22, 24, 30], "coral")],
+        unit="Direcciones", horizontal=True, decimals=0, label_w=300,
+        note="Ningún validador puede saber si un buzón existe: solo un mensaje enviado y confirmado lo prueba. El corpus y sus etiquetas son del autor; con otro corpus las cifras cambian.",
+        note_kind="gold", foot=SINT)
 
 def se233_unicode() -> Fig:
     items = [
@@ -243,18 +205,14 @@ def se234_urls() -> Fig:
 
 
 def se234_rutas() -> Fig:
-    rows = [
-        ["Búsqueda lineal en 500 rutas (20 000 consultas)", "288,2 comparaciones", "—"],
-        ["Árbol de segmentos (mismas consultas)", "3,61 pasos", "—"],
-        ["4 rutas /u/:id y /u/nuevo en orden arbitrario", "—", "6 de 24 órdenes resuelven bien"],
-        ["Las mismas 4 rutas ordenadas por especificidad", "—", "correcto"],
-    ]
-    return tab("Resolver rutas: coste de buscar y ambigüedad según el orden de declaración",
-               "Tabla: encontrar la ruta de una consulta cuesta en promedio 288,2 comparaciones recorriendo 500 rutas en lista y 3,61 pasos con un árbol de segmentos; con cuatro rutas, solo 6 de las 24 órdenes de declaración resuelven bien tanto nuevo como el parámetro id, y ordenarlas por especificidad lo resuelve.",
-               ["Situación", "Coste medio por consulta", "Orden de declaración"], rows, [470, 230, 240], row_h=50, size=12,
-               note="El árbol y la lista devolvieron la misma ruta en las 2000 consultas comparadas. La ambigüedad no es un fallo de rendimiento sino de diseño: /u/nuevo coincide con /u/:id y gana la primera declarada.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Resolver rutas: coste de buscar y ambigüedad según el orden de declaración",
+        "Barras horizontales con el coste medio de resolver una consulta entre 500 rutas: 288,2 comparaciones con búsqueda lineal y 3,61 pasos con un árbol de segmentos; con cuatro rutas, solo 6 de las 24 órdenes de declaración resuelven bien nuevo y el parámetro id.",
+        ["Búsqueda lineal en 500 rutas (20 000 consultas)", "Árbol de segmentos (mismas consultas)"],
+        [("Coste medio por consulta", [288.2, 3.61], "navy")],
+        unit="Comparaciones o pasos por consulta", horizontal=True, decimals=2, label_w=300,
+        note="Con cuatro rutas /u/:id y /u/nuevo, solo 6 de las 24 órdenes de declaración resuelven bien; ordenadas por especificidad, el resultado es correcto. El árbol y la lista devolvieron la misma ruta en las 2000 consultas comparadas. La ambigüedad no es un fallo de rendimiento sino de diseño: /u/nuevo coincide con /u/:id y gana la primera declarada.",
+        note_kind="gold", foot=SINT)
 
 def se234_estado() -> Fig:
     items = [

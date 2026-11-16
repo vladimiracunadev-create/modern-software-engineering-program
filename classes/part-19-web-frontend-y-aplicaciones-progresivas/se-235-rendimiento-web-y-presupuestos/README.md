@@ -108,9 +108,9 @@ tabla[n] = {"bruto": len(b), "gzip1": len(gzip.compress(b, 1, mtime=0)),
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): el CSS pasa de 74 585 a 12 462 bytes con gzip 6; el HTML, de 45 232 a 7 835; el JavaScript, de 84 488 a 6 009; el JSON, de 73 063 a 6 737. Los 60 000 bytes aleatorios **crecen a 60 038** con gzip y a 60 060 con xz. Subir de gzip 1 a gzip 9 ahorra entre 17 % y 30 % más según el activo, y tarda más (3,9 ms frente a 1,2 ms en el JavaScript en Windows; 2,9 y 0,9 en Ubuntu, medidas de un equipo). Minificar antes de comprimir bajó el JavaScript de 6009 a 4235 bytes (**29,5 %** menos) y el CSS de 12 462 a 12 013 (**3,6 %**).
 
-![Tabla con el tamaño bruto y comprimido de cinco activos sintéticos con gzip en tres niveles y xz.](../../../content/part-19/figures/se-235-bytes-segun-algoritmo-y-activo.svg)
+![Barras horizontales en escala logarítmica con los bytes de cinco activos sin comprimir y con gzip 1, 6 y 9 y xz: el texto sintético baja entre 77 y 91 por ciento con gzip nivel 6 y algo más con xz, y un archivo de bytes aleatorios crece unos 38 bytes con cualquier algoritmo.](../../../content/part-19/figures/se-235-bytes-segun-algoritmo-y-activo.svg)
 
-**Cómo leer la figura.** Cada fila es un activo; las columnas, el tamaño en bytes con cada algoritmo. La última fila es el control: un contenido sin redundancia no se comprime. **Dónde deja de valer:** el texto sintético se genera con plantillas y repite mucho más que el real, de modo que las razones de compresión son optimistas. Brotli no está en la biblioteca estándar de Python y no se midió; sus resultados suelen ser mejores que los de gzip en texto estático. Los tiempos de compresión dependen del equipo y se leen como razones.
+**Cómo leer la figura.** Cada grupo es un activo; las cinco barras son los bytes brutos (gris), con gzip 1, 6 y 9 y con xz, en escala logarítmica. Mira primero que en los cuatro activos de texto las barras bajan al comprimir y que en el de bytes aleatorios las cinco miden lo mismo. **Dónde deja de valer:** el texto sintético se genera con plantillas y repite mucho más que el real, de modo que las razones de compresión son optimistas. Brotli no está en la biblioteca estándar de Python y no se midió; sus resultados suelen ser mejores que los de gzip en texto estático. Los tiempos de compresión dependen del equipo y se leen como razones.
 
 ### Qué optimización acorta la cadena
 
@@ -125,9 +125,9 @@ if variante == "preload":
 
 Resultado: en fibra (RTT 20 ms, 100 Mbit/s) la línea base termina en **195 ms**, con preload en **123** y con el CSS en línea en **199**; en móvil 4G (80 ms, 10 Mbit/s), **801**, **701** y **801**; en móvil lento (300 ms, 1,5 Mbit/s), **3805**, **3712** y **3805**. Poner el CSS en línea no cambia el total porque la ruta más larga es HTML → script → datos, y el preload la acorta al sacar los datos de detrás del script.
 
-![Tabla con el tiempo modelado de carga de una página con seis recursos y tres variantes de optimización en tres perfiles de red.](../../../content/part-19/figures/se-235-ruta-critica-de-recursos.svg)
+![Barras horizontales con el tiempo de una página con HTML, estilos, script, imagen, fuente y datos: en fibra 195 milisegundos de línea base, 123 con preload de fuente y datos y 199 con CSS en línea; en móvil 4G 801, 701 y 801; en móvil lento 3805, 3712 y 3805.](../../../content/part-19/figures/se-235-ruta-critica-de-recursos.svg)
 
-**Cómo leer la figura.** Cada fila es un perfil de red; cada columna, una variante de la misma página. La que baja el total actúa sobre la cadena más larga. **Dónde deja de valer:** el modelo ignora la priorización del navegador, el límite de conexiones, el coste de abrir una conexión nueva y el análisis incremental del HTML; un navegador real puede pedir la imagen antes que el script. Y adelantar los datos supone que el servidor puede responderlos antes de que el script los pida, que no siempre es cierto.
+**Cómo leer la figura.** Cada grupo es un perfil de red; las barras son la línea base (gris), el preload de fuente y datos (verde) y el CSS en línea (dorada), en milisegundos. Mira primero que solo la verde baja: la ruta crítica pasa por el script y los datos, y optimizar fuera de ella no mueve la barra. **Dónde deja de valer:** el modelo ignora la priorización del navegador, el límite de conexiones, el coste de abrir una conexión nueva y el análisis incremental del HTML; un navegador real puede pedir la imagen antes que el script. Y adelantar los datos supone que el servidor puede responderlos antes de que el script los pida, que no siempre es cierto.
 
 ### ¿Cumple? Depende de cuántas visitas
 
@@ -138,9 +138,9 @@ p75s.append(q(0.75, [r2.lognormvariate(mu, sigma) for _ in range(n)]))
 bajo_presupuesto = sum(1 for v in p75s if v <= 2500) / len(p75s)
 ```
 
-![Tabla con el percentil 75 estimado, su intervalo y el porcentaje de falsa conformidad con 30, 300 y 3000 visitas.](../../../content/part-19/figures/se-235-percentil-75-con-pocas-visitas.svg)
+![Líneas en escala logarítmica con el percentil 75 estimado y los límites de su intervalo central del 95 por ciento según las visitas: 2139 a 3500 milisegundos con 30 visitas, 2597 a 3024 con 300 y 2745 a 2862 con 3000, frente a un valor verdadero de 2802 y un presupuesto de 2500; con 30 visitas se declara cumplido el presupuesto en 22 por ciento de las repeticiones.](../../../content/part-19/figures/se-235-percentil-75-con-pocas-visitas.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de muestra; las columnas son el percentil 75 medio estimado, el intervalo central del 95 % y el porcentaje de veces que se concluye que se cumple un presupuesto que no se cumple. **Dónde deja de valer:** los tiempos reales no son lognormales ni independientes (un mismo dispositivo repite visitas, hay horas punta) y el intervalo real es más ancho. Con 30 visitas «se cumple» una de cada cinco veces: diez mediciones en un portátil no sustituyen a los datos de campo.
+**Cómo leer la figura.** El eje horizontal es el número de visitas, en escala logarítmica, y el vertical los milisegundos, con el eje empezando en 2000; la línea dorada es el percentil 75 estimado, la verde y la roja los límites del intervalo y la discontinua el presupuesto de 2500. Mira primero cómo se cierra el abanico al crecer la muestra y que con 30 visitas el límite inferior queda por debajo del presupuesto. **Dónde deja de valer:** los tiempos reales no son lognormales ni independientes (un mismo dispositivo repite visitas, hay horas punta) y el intervalo real es más ancho. Con 30 visitas «se cumple» una de cada cinco veces: diez mediciones en un portátil no sustituyen a los datos de campo.
 
 ## Definiciones de trabajo
 

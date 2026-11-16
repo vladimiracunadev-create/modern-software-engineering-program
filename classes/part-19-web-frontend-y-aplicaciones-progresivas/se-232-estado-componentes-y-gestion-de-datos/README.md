@@ -116,9 +116,9 @@ def ops_clave(old, new):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): al **insertar al inicio**, la clave por posición actualiza 1000 nodos y deja 1000 estados locales mal asociados, mientras la clave por identidad crea 1; al **borrar el primero**, 999 actualizaciones y 999 asociaciones erróneas frente a 1 borrado; al **añadir al final**, ambas crean 1; al **intercambiar dos**, 2 actualizaciones frente a 2 movimientos; al **invertir**, 1000 actualizaciones frente a 999 movimientos; al **barajar**, 1000 frente a 943.
 
-![Tabla con las operaciones de DOM y los estados locales mal asociados en seis cambios de una lista de 1000 elementos con dos claves.](../../../content/part-19/figures/se-232-reconciliar-listas-con-clave.svg)
+![Barras horizontales con los elementos de estado local mal asociado en seis cambios de una lista de 1000: con clave por posición 1000 al insertar al inicio, 999 al borrar el primero, 0 al añadir al final, 2 al intercambiar, 1000 al invertir y 1000 al barajar; con clave por identidad ninguno.](../../../content/part-19/figures/se-232-reconciliar-listas-con-clave.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio de la lista; las columnas muestran qué hace cada clave y, a la derecha, cuántos estados locales quedan asociados a otro elemento. **Dónde deja de valer:** el número de operaciones no es tiempo: actualizar un nodo con el mismo contenido puede costar casi nada y mover uno puede costar el foco; y los marcos reales incluyen optimizaciones que este modelo omite. Lo que la figura sí establece es la asociación errónea: es una propiedad del algoritmo, no de la implementación.
+**Cómo leer la figura.** Cada grupo es un cambio en la lista; la barra roja son los elementos cuyo estado local queda mal asociado con clave por posición y la verde con clave por identidad. Mira primero que las barras rojas son casi de 1000 salvo al añadir al final y que las verdes no existen. **Dónde deja de valer:** el número de operaciones no es tiempo: actualizar un nodo con el mismo contenido puede costar casi nada y mover uno puede costar el foco; y los marcos reales incluyen optimizaciones que este modelo omite. Lo que la figura sí establece es la asociación errónea: es una propiedad del algoritmo, no de la implementación.
 
 ### El total copiado diverge
 

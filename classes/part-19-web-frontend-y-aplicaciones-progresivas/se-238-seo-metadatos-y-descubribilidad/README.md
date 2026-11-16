@@ -115,9 +115,9 @@ def rfc9309(reglas, path):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): de las 84 decisiones (6 conjuntos × 14 rutas) **difieren 7**. Con `Disallow: /admin` antes de `Allow: /admin/ayuda`, el analizador de Python, que aplica la primera regla que coincide, bloquea `/admin/ayuda` y `/admin/ayuda/faq` y la regla del RFC los permite; con `Disallow: /entregas` y `Allow: /entregas/123` difieren `/entregas/123` y su subruta; con los comodines `/buscar?` y `/*.pdf$`, difieren `/buscar`, `/tmp/a.pdf` y `/a.pdf` (el analizador de Python no interpreta comodines y descarta la `?` vacía). Con `Allow` antes de `Disallow`, `Disallow` solo o un archivo vacío no hay diferencias.
 
-![Tabla con los conjuntos de reglas de robots.txt y las rutas en las que el analizador de Python y la regla del RFC 9309 discrepan.](../../../content/part-19/figures/se-238-robots-txt-segun-el-analizador.svg)
+![Barras horizontales con las rutas de 14 en que discrepan el analizador de Python y el RFC 9309 sobre seis archivos robots.txt: 2 con Disallow /admin y Allow /admin/ayuda, 2 con /entregas, 3 con comodines y ninguna en los otros tres.](../../../content/part-19/figures/se-238-robots-txt-segun-el-analizador.svg)
 
-**Cómo leer la figura.** Cada fila es un archivo de reglas; las columnas cuentan en cuántas de 14 rutas difieren los dos algoritmos y cuáles son. **Dónde deja de valer:** son dos implementaciones, no todos los rastreadores; cada buscador tiene la suya y puede documentar variaciones. El archivo es el mismo, el resultado no: por eso se evita el orden ambiguo (poner el `Allow` más específico y comprobar con los rastreadores que importan). El experimento no mide si un rastreador real obedece.
+**Cómo leer la figura.** Cada barra es un conjunto de reglas y su longitud las rutas, de 14, en que los dos analizadores deciden distinto. Mira primero que difieren en los conjuntos con Allow dentro de un Disallow o con comodines, y que coinciden con las reglas simples. **Dónde deja de valer:** son dos implementaciones, no todos los rastreadores; cada buscador tiene la suya y puede documentar variaciones. El archivo es el mismo, el resultado no: por eso se evita el orden ambiguo (poner el `Allow` más específico y comprobar con los rastreadores que importan). El experimento no mide si un rastreador real obedece.
 
 ### Cuántas URLs expone una navegación facetada
 
@@ -136,9 +136,9 @@ def distintas_con_orden(facetas):
     return total
 ```
 
-![Tabla con el número de URLs que genera una navegación facetada de seis filtros con orden fijo, con orden variable y con una sola faceta indexable.](../../../content/part-19/figures/se-238-urls-de-navegacion-facetada.svg)
+![Barras horizontales en escala logarítmica con las URLs posibles: 33600 combinaciones con seis facetas, 2016000 URLs con tres órdenes y veinte páginas en orden fijo, 544467960 si el orden de los parámetros varía y 600 si solo una faceta es indexable.](../../../content/part-19/figures/se-238-urls-de-navegacion-facetada.svg)
 
-**Cómo leer la figura.** Cada fila es una política; la cifra es el número de URLs que quedan al alcance de un rastreador. **Dónde deja de valer:** es combinatoria de lo que se puede formar, no lo que un buscador rastrea: sin enlaces que lleven a las combinaciones raras, no las descubre. Pero la cifra explica por qué una política de URLs (`SE-234`) es una decisión de descubribilidad: ordenar los parámetros multiplica por cientos lo que hay que rastrear.
+**Cómo leer la figura.** Cada barra es una política de navegación y su longitud las URLs que un rastreador podría encontrar, en escala logarítmica. Mira primero la distancia entre la tercera barra y la cuarta: tres órdenes de magnitud de diferencia por decidir qué se indexa y en qué orden. **Dónde deja de valer:** es combinatoria de lo que se puede formar, no lo que un buscador rastrea: sin enlaces que lleven a las combinaciones raras, no las descubre. Pero la cifra explica por qué una política de URLs (`SE-234`) es una decisión de descubribilidad: ordenar los parámetros multiplica por cientos lo que hay que rastrear.
 
 ### Qué detecta un auditor de metadatos
 

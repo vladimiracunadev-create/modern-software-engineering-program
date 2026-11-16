@@ -115,9 +115,9 @@ def valida(m):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): el validador **detecta 83 de las 120 mutaciones**: las 27 que quitan `name`, `start_url` o `icons`, las 23 de nombre corto, `display` o color, las 6 de `start_url` fuera del alcance y las 27 de icono 512, maskable o `sizes` roto. **No detecta las 37 restantes**: 11 con un `src` inexistente, 18 con nombre engañoso o idioma equivocado y 8 con un icono declarado de 192 que mide otra cosa (la mutación no cambia el JSON).
 
-![Tabla con 120 mutaciones de un manifiesto agrupadas por tipo, con los casos y las detectadas por un validador de forma.](../../../content/part-19/figures/se-240-validador-de-manifiesto.svg)
+![Barras apiladas horizontales con las mutaciones por tipo que detecta el validador de forma: 83 de 120, todas las que faltan o rompen campos, alcance o iconos declarados, y ninguna de las 37 que exigen comprobar el sistema de archivos o el significado.](../../../content/part-19/figures/se-240-validador-de-manifiesto.svg)
 
-**Cómo leer la figura.** Cada fila agrupa tipos de mutación; las columnas son el número de casos y cuántos detecta el validador. **Dónde deja de valer:** el validador tiene una docena de comprobaciones que el autor eligió sabiendo qué mutaría y no usa la especificación completa (por ejemplo, no valida `id`, `orientation` ni los `shortcuts`). Los 37 casos no detectados no son «defectos del JSON»: exigen abrir los archivos de iconos, leer el nombre y comprobar el idioma, pasos que el paquete debe incluir como comprobaciones aparte.
+**Cómo leer la figura.** Cada barra es un tipo de mutación y su longitud cuántas se aplicaron; verde son las que detecta el validador y rojo las que no. Mira primero que las tres barras rojas son discrepancias entre el JSON y el mundo: archivos que no existen, significado y tamaños reales. **Dónde deja de valer:** el validador tiene una docena de comprobaciones que el autor eligió sabiendo qué mutaría y no usa la especificación completa (por ejemplo, no valida `id`, `orientation` ni los `shortcuts`). Los 37 casos no detectados no son «defectos del JSON»: exigen abrir los archivos de iconos, leer el nombre y comprobar el idioma, pasos que el paquete debe incluir como comprobaciones aparte.
 
 ### Auditar cabeceras contra un servidor local
 
@@ -131,9 +131,9 @@ if h.get("X-Content-Type-Options") != "nosniff": p.append("sin nosniff")
 
 Resultado, idéntico en ambos sistemas: el comprobador encontró **7 hallazgos en 5 de las 8 rutas**: `/app/sw.js` con un año de caché, `/app/app.css` con `no-store`, `/app/manifest.webmanifest` con `application/json`, `/app/datos.json` con un año de caché y sin `nosniff`, y `/app/ayuda/` sin `charset` y sin `nosniff`. Las tres rutas restantes (`/app/`, `app.3f9a1c.js` y `icons/192.png`) no tuvieron hallazgos.
 
-![Tabla con las rutas de un servidor local de ocho respuestas y los hallazgos de cabeceras de cada una.](../../../content/part-19/figures/se-240-cabeceras-de-un-servidor-local.svg)
+![Barras horizontales con los hallazgos por ruta de un comprobador que pidió ocho rutas a un servidor local: 7 en cinco rutas, con 1 en el service worker, la hoja de estilos y el manifiesto, 2 en los datos mutables y en la página de ayuda y ninguno en las tres restantes.](../../../content/part-19/figures/se-240-cabeceras-de-un-servidor-local.svg)
 
-**Cómo leer la figura.** Cada fila es una ruta con el hallazgo que produjo; la última agrupa las que no tuvieron ninguno. **Dónde deja de valer:** el servidor es un bucle local de dos bytes por respuesta; no hay CDN, compresión ni TLS, y las reglas las escribió el autor. Que las cabeceras sean correctas no demuestra que el service worker se actualice: eso solo se observa en un navegador, y es una de las cosas que el paquete declara sin comprobar.
+**Cómo leer la figura.** Cada barra es una ruta y su longitud los hallazgos que encontró el comprobador; los de cada ruta están en la nota. Mira primero la barra de la última ruta, vacía: las rutas con huella en el nombre y el icono salen limpias. **Dónde deja de valer:** el servidor es un bucle local de dos bytes por respuesta; no hay CDN, compresión ni TLS, y las reglas las escribió el autor. Que las cabeceras sean correctas no demuestra que el service worker se actualice: eso solo se observa en un navegador, y es una de las cosas que el paquete declara sin comprobar.
 
 ### Cuántos defectos escapan a una suite de pares
 

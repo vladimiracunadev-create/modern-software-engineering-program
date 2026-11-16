@@ -329,7 +329,7 @@ def validate_phase2_outputs() -> None:
     part_directories = sorted((ROOT / "classes").glob("part-*"))
     metadata = sorted((ROOT / "classes").glob("part-*/se-*/lesson.json"))
     scaffolds = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
-    pages = sorted((ROOT / "site").rglob("*.html"))
+    pages = sorted(page for page in (ROOT / "site").rglob("*.html") if page.relative_to(ROOT / "site").parts[0] != "casos")
     activities = sorted((ROOT / "classes").glob("part-*/se-*/activity.yaml"))
     rubrics = sorted((ROOT / "classes").glob("part-*/se-*/rubric.json"))
     developed_parts = len(ps.developed_parts())

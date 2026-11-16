@@ -18,7 +18,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Metadatos de clase | 540 archivos generados |
 | Registro bibliográfico | 540 entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | 586 páginas HTML generadas desde el manifiesto |
+| Sitio | 586 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
+| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 540 clases ni en las 45 partes |
 | Portal definitivo | catálogo navegable con las 540 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 

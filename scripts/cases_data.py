@@ -1,0 +1,89 @@
+"""Fixed list of the case studies ("Casos de estudio") and the shared contract of the surface.
+
+The cases are not classes, roles or parts: they never change the 540 / 45 counters. The list below is
+the single source for the index pages, the README section, the portal pages and the validators.
+Each case lives in ``casos/<kind>/<slug>.md`` and may ship ``scripts/figures_case_<slug>.py`` (a
+``FIGURES`` mapping like ``scripts/figures_part*_a.py``) whose SVG files go to ``casos/figures/`` and
+whose file names start with ``<slug>-``.
+"""
+from __future__ import annotations
+
+GITHUB_BLOB = "https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/"
+
+# Marker kept by every skeleton; the session that writes a case removes it by replacing the file.
+SKELETON_MARKER = "<!-- case:status=skeleton -->"
+
+KINDS = {
+    "exito": {
+        "title": "Plataformas exitosas",
+        "label": "éxito",
+        "emoji": "🚀",
+    },
+    "fallo": {
+        "title": "Plataformas y sistemas que fallaron",
+        "label": "fallo",
+        "emoji": "🧯",
+    },
+}
+
+# slug, kind, name, year (founding / launch for success, event for failure), who, place, hook
+CASES: list[dict[str, str]] = [
+    {"slug": "netflix", "kind": "exito", "name": "Netflix", "year": "1997",
+     "who": "Reed Hastings y Marc Randolph", "place": "Los Gatos, California (EE. UU.)",
+     "hook": "Del alquiler de DVD por correo a una plataforma de streaming que diseña su infraestructura para que cualquier pieza pueda fallar sin que el espectador lo note."},
+    {"slug": "whatsapp", "kind": "exito", "name": "WhatsApp", "year": "2009",
+     "who": "Jan Koum y Brian Acton", "place": "Mountain View, California (EE. UU.)",
+     "hook": "Un servicio de mensajería que llegó a cientos de millones de usuarios con un equipo de ingeniería diminuto, apostando por la simplicidad y la concurrencia."},
+    {"slug": "uber", "kind": "exito", "name": "Uber", "year": "2009",
+     "who": "Travis Kalanick y Garrett Camp", "place": "San Francisco, California (EE. UU.)",
+     "hook": "Un mercado de dos lados en tiempo real donde emparejar conductor y pasajero es un problema de ubicación, precio y confianza a la vez."},
+    {"slug": "mercado-libre", "kind": "exito", "name": "Mercado Libre", "year": "1999",
+     "who": "Marcos Galperin", "place": "Buenos Aires (Argentina)",
+     "hook": "Un marketplace construido en América Latina que tuvo que resolver pagos, logística y confianza donde la infraestructura asumida en otros mercados no existía."},
+    {"slug": "amazon", "kind": "exito", "name": "Amazon", "year": "1994",
+     "who": "Jeff Bezos", "place": "Seattle, Washington (EE. UU.)",
+     "hook": "Una librería en línea cuyas capacidades internas, expuestas como servicios con contrato, acabaron convirtiéndose en el negocio de nube más grande del mundo."},
+    {"slug": "spotify", "kind": "exito", "name": "Spotify", "year": "2006",
+     "who": "Daniel Ek y Martin Lorentzon", "place": "Estocolmo (Suecia)",
+     "hook": "Un servicio de música por streaming cuya organización en equipos autónomos es tan conocida como su arquitectura, y no siempre se entiende bien."},
+    {"slug": "airbnb", "kind": "exito", "name": "Airbnb", "year": "2008",
+     "who": "Brian Chesky, Joe Gebbia y Nathan Blecharczyk", "place": "San Francisco, California (EE. UU.)",
+     "hook": "Un mercado de alojamiento entre desconocidos donde la confianza, la búsqueda y la disponibilidad son tan técnicas como comerciales."},
+    {"slug": "stripe", "kind": "exito", "name": "Stripe", "year": "2010",
+     "who": "Patrick y John Collison", "place": "San Francisco, California (EE. UU.)",
+     "hook": "Una empresa de pagos que convirtió una integración dolorosa en una API que se aprende en una tarde, con idempotencia y versionado como producto."},
+    {"slug": "knight-capital", "kind": "fallo", "name": "Knight Capital", "year": "2012",
+     "who": "Knight Capital Group (organización)", "place": "Jersey City, Nueva Jersey (EE. UU.)",
+     "hook": "Un despliegue incompleto reactivó código antiguo en producción y una firma de trading perdió cientos de millones de dólares en menos de una hora."},
+    {"slug": "healthcare-gov", "kind": "fallo", "name": "HealthCare.gov", "year": "2013",
+     "who": "CMS y contratistas federales (organización)", "place": "Estados Unidos",
+     "hook": "Un sitio público de inscripción que se lanzó sin haber sido probado de extremo a extremo con la carga real y dejó a muchos usuarios sin poder inscribirse en las primeras semanas."},
+    {"slug": "tsb", "kind": "fallo", "name": "TSB Bank", "year": "2018",
+     "who": "TSB Bank (organización)", "place": "Reino Unido",
+     "hook": "Una migración de plataforma bancaria hecha de una sola vez dejó a clientes sin acceso y con datos de otras personas durante semanas."},
+    {"slug": "meta-2021", "kind": "fallo", "name": "Caída global de Meta", "year": "2021",
+     "who": "Meta, entonces Facebook, Inc. (organización)", "place": "Menlo Park, California (EE. UU.)",
+     "hook": "Un cambio de configuración de red desconectó los servicios de la empresa de Internet y, además, dejó sin herramientas a quienes debían repararlos."},
+    {"slug": "crowdstrike", "kind": "fallo", "name": "CrowdStrike", "year": "2024",
+     "who": "CrowdStrike (organización)", "place": "Austin, Texas (EE. UU.)",
+     "hook": "Una actualización de contenido de un agente de seguridad dejó inservibles millones de equipos Windows a la vez, en aeropuertos, hospitales y bancos."},
+    {"slug": "therac-25", "kind": "fallo", "name": "Therac-25", "year": "1985",
+     "who": "Atomic Energy of Canada Limited (organización)", "place": "Canadá y Estados Unidos",
+     "hook": "Una máquina de radioterapia cuyo software sustituyó a los enclavamientos de hardware causó sobredosis de radiación mortales entre 1985 y 1987."},
+    {"slug": "gitlab-2017", "kind": "fallo", "name": "Incidente de base de datos de GitLab", "year": "2017",
+     "who": "GitLab Inc. (organización)", "place": "San Francisco, California (EE. UU.)",
+     "hook": "Un comando ejecutado en el servidor equivocado borró datos de producción y los respaldos que debían salvarlos resultaron no servir."},
+    {"slug": "quibi", "kind": "fallo", "name": "Quibi", "year": "2018",
+     "who": "Jeffrey Katzenberg y Meg Whitman", "place": "Los Ángeles, California (EE. UU.)",
+     "hook": "Una plataforma de vídeo corto para móvil que recaudó más de mil millones de dólares y cerró en 2020, meses después de lanzarse, porque resolvía un problema que casi nadie tenía."},
+]
+
+GROUP_FILES = {"exito": "casos/exito/README.md", "fallo": "casos/fallo/README.md"}
+
+
+def cases_of(kind: str) -> list[dict[str, str]]:
+    return [case for case in CASES if case["kind"] == kind]
+
+
+def case_path(case: dict[str, str]) -> str:
+    return f"casos/{case['kind']}/{case['slug']}.md"

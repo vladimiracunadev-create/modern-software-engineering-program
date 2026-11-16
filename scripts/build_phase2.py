@@ -14,6 +14,8 @@ except ModuleNotFoundError:  # importado como scripts.build_phase2
     from scripts import program_state as ps
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import build_cases  # noqa: E402
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 SOURCE_PATH = ROOT / "sources/baseline.json"
 
@@ -195,6 +197,7 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
         f"| portal | {1 + n_parts + n_classes} páginas generadas y desplegadas por CI |",
         "| carrera | 42 guías profesionales enlazadas a partes reales" + (f"; {nav_clause}" if planned else "") + " |",
     ])
+    blocks["cases"] = build_cases.readme_section().rstrip()
     blocks["is-bullet"] = (
         f"una arquitectura curricular **secuencial** de {scope['class_count']} clases en {scope['part_count']} partes"
         + (", todas con contenido publicado;" if not planned else f", con {n_classes} clases y {n_parts} partes publicadas;")
@@ -218,7 +221,7 @@ def build_full_plan_cached() -> list[dict]:
 INLINE_BLOCKS = {"is-bullet"}
 # Las tablas llevan líneas en blanco alrededor de los marcadores: un comentario HTML pegado a una
 # tabla puede cortarla o hacerla parte del bloque HTML en GitHub.
-TABLE_BLOCKS = {"parts-table", "coverage"}
+TABLE_BLOCKS = {"parts-table", "coverage", "cases"}
 README_MARKER = re.compile(r"<!-- state:([a-z-]+) -->\n?(.*?)\n?<!-- /state:\1 -->", re.DOTALL)
 
 
@@ -587,7 +590,8 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto |
+| Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
+| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
@@ -634,7 +638,9 @@ def file_index(program: dict) -> str:
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` | {1 + program['part_count'] + program['class_count']} |
+| Páginas del sitio | `site/**/*.html` (sin `site/casos/`) | {1 + program['part_count'] + program['class_count']} |
+| Casos de estudio | `casos/GUIDE.md`, `casos/{{exito,fallo}}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
+| Páginas de casos | `site/casos/**/*.html` | 18 |
 
 Todos los conteos se validan contra `curriculum.yaml`.
 """
@@ -715,7 +721,8 @@ def site_index(program: dict) -> str:
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 06 · contenido desarrollado</p><h3>Paradigmas de programación</h3><p>Un motor de reglas común permite comparar estado, objetos, funciones, reglas, eventos, flujos y actores bajo el mismo contrato.</p></div><a href="parts/06.html">Estudiar la Parte 06 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 07 · contenido desarrollado</p><h3>Estructuras de datos y algoritmos</h3><p>Una biblioteca de estructuras y algoritmos relaciona operaciones e invariantes con complejidad, casos límite y mediciones reproducibles.</p></div><a href="parts/07.html">Estudiar la Parte 07 →</a></div>
 <div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 08 · contenido desarrollado</p><h3>Entornos, herramientas y depuración</h3><p>Un entorno reproducible de diagnóstico conecta síntomas, hipótesis, primera divergencia, herramientas y recuperación.</p></div><a href="parts/08.html">Estudiar la Parte 08 →</a></div>
-<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · contenido desarrollado</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Estudiar la Parte 09 →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Parte 09 · contenido desarrollado</p><h3>Bibliotecas, paquetes, SDK y automatización</h3><p>Un producto reutilizable con SDK y CLI integra compatibilidad, procedencia, plugins, automatización y experiencia de desarrollo verificable.</p></div><a href="parts/09.html">Estudiar la Parte 09 →</a></div>
+<div class="featured-path" style="margin-top:1rem"><div><p class="eyebrow">Superficie propia · no son clases ni roles</p><h3>Casos de estudio: la realidad frente a la teoría</h3><p>Ocho plataformas exitosas y ocho fallos, cada uno con ficha histórica, arquitectura, línea de tiempo y vínculo con las clases del curso.</p></div><a href="casos/exito/index.html">Casos de éxito →</a><a href="casos/fallo/index.html">Casos de fallo →</a></div><h2>Ocho etapas</h2><p class="section-intro">El currículo conserva una secuencia estable; el contenido se profundiza por partes completas, con evidencia y revisión cualitativa.</p><div class="stage-grid">{''.join(stage_cards)}</div>
 <h2>Explorar las {program['class_count']} clases desarrolladas</h2><div class="toolbar"><label>Buscar por ID o título<input id="search" type="search" placeholder="Ej.: contratos, SRE, agentes"></label><label>Filtrar por etapa<select id="stage"><option value="">Todas</option>{stage_options}</select></label></div>
 <p id="result" aria-live="polite">Cargando catálogo…</p><div class="class-grid" id="class-grid"></div></main>
 <footer>Generado desde curriculum.yaml · Línea base {program['baseline_date']}</footer><script src="assets/app.js"></script></body></html>\n"""
@@ -943,6 +950,8 @@ def build(check: bool) -> tuple[list[str], list[str]]:
                 "url": f"classes/{lesson['id']}.html",
             })
 
+    for case_path, case_content in build_cases.expected_files().items():
+        write_generated(case_path, case_content, check, stale)
     write_generated(ROOT / "site/index.html", site_index(program), check, stale)
     write_generated(ROOT / "site/assets/styles.css", site_css() + site_visual_enhancements(), check, stale)
     write_generated(ROOT / "site/assets/app.js", site_js(), check, stale)

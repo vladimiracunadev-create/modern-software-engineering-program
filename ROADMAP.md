@@ -201,6 +201,14 @@ compliance engineering, rutas Staff/Principal/Manager y retiro seguro. Cada cand
 debe documentar por qué no cabe con profundidad en una clase existente antes de recibir
 un ID posterior a `SE-540`.
 
+## Casos de estudio
+
+Superficie propia, fuera de las 540 clases, las 45 partes y los roles: ocho plataformas exitosas y ocho
+fallos, leídos después de la teoría para contrastarla con la realidad. Se definen en
+[`casos/GUIDE.md`](casos/GUIDE.md) (esquema único, reglas editoriales y contrato de figuras), se indexan en
+[éxito](casos/exito/README.md) y [fallo](casos/fallo/README.md) y se publican también en el portal. No
+cambian los contadores ni requieren un ADR de ampliación de clases.
+
 ## Criterio de término del programa
 
 El programa no está terminado porque existan 540 clases o cualquier otra cifra. Está

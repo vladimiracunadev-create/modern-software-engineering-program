@@ -130,6 +130,15 @@ control de agentes y suite familiar privada. Cada etapa introduce versiones nuev
 fallos y decisiones sobre los mismos dominios para mostrar evolución, no ejercicios
 aislados.
 
+## Superficie de casos de estudio
+
+Además de partes, clases y roles, el programa mantiene una superficie propia de **casos de estudio**
+(`casos/`): dos páginas especiales (plataformas exitosas y plataformas y sistemas que fallaron) y un archivo por
+caso, con esquema único y figuras propias (`scripts/figures_case_<slug>.py`). No son clases ni roles, no
+crean partes y no alteran la escala de 540 clases en 45 partes. Su contrato está en
+[`casos/GUIDE.md`](../casos/GUIDE.md); `scripts/build_cases.py` genera las páginas y `scripts/validate_cases.py`
+las valida en la CI.
+
 ## Criterio de término de la expansión
 
 La expansión no termina al crear carpetas. Requiere 540 clases completas, fuentes

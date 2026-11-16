@@ -27,6 +27,8 @@
 | Índice de laboratorios ejecutables | `labs/README.md` | 1 |
 | Laboratorio validado de la Parte 01 | `labs/part-01-machine-observer/` | código, fixture, 6 pruebas y evidencia |
 | Laboratorio validado de la Parte 02 | `labs/part-02-cross-platform-diagnostic-kit/` | núcleo, 2 adaptadores, 10 pruebas y evidencia |
-| Páginas del sitio | `site/**/*.html` | 586 |
+| Páginas del sitio | `site/**/*.html` (sin `site/casos/`) | 586 |
+| Casos de estudio | `casos/GUIDE.md`, `casos/{exito,fallo}/*.md` | 1 guía, 2 páginas de grupo y 16 casos |
+| Páginas de casos | `site/casos/**/*.html` | 18 |
 
 Todos los conteos se validan contra `curriculum.yaml`.

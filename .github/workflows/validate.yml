@@ -63,6 +63,11 @@ jobs:
       - name: Validate UTF-8 encoding
         run: python scripts/validate_encoding.py
 
+      - name: Verify case studies surface
+        run: |
+          python scripts/build_cases.py --check
+          python scripts/validate_cases.py
+
       - name: Validate generated site and links
         run: python scripts/validate_site.py
 

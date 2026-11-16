@@ -10,6 +10,7 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import program_state as ps  # noqa: E402
+from cases_data import CASES  # noqa: E402
 
 SITE = ROOT / "site"
 PROGRAM_NAME = "Programa de Ingeniería de Software Moderna"
@@ -41,9 +42,14 @@ class LinkParser(HTMLParser):
 def main() -> int:
     failures: list[str] = []
     pages = sorted(SITE.rglob("*.html"))
+    case_pages = [page for page in pages if page.relative_to(SITE).parts[0] == "casos"]
+    pages = [page for page in pages if page not in case_pages]
     expected_pages = 1 + len(ps.developed_parts()) + ps.developed_class_count()
     if len(pages) != expected_pages:
         failures.append(f"expected {expected_pages} HTML pages, found {len(pages)}")
+    if len(case_pages) != 2 + len(CASES):
+        failures.append(f"expected {2 + len(CASES)} case pages under site/casos, found {len(case_pages)}")
+    pages = sorted(pages + case_pages)
     for page in pages:
         page_text = page.read_text(encoding="utf-8")
         parser = LinkParser()
@@ -88,7 +94,7 @@ def main() -> int:
     if failures:
         print("\n".join(failures[:100]), file=sys.stderr)
         return 1
-    print(f"SITE_OK: {len(pages)} pages, {len(catalog['classes'])} classes")
+    print(f"SITE_OK: {len(pages) - len(case_pages)} pages + {len(case_pages)} case pages, {len(catalog['classes'])} classes")
     return 0
 
 

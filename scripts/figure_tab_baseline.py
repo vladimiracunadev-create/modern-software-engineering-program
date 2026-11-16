@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 BASELINE = ROOT / "scripts" / "figure_tab_baseline.json"
 IMAGE = re.compile(r"!\[([^\]]*)\]\(figures/([^)\s]+)\)")
+CASE_IMAGE = re.compile(r"!\[([^\n]*?)\]\(\.\./figures/([^)\s]+)")
 METRICS = ("tables", "table_alts", "embedded_tables")
 
 
@@ -52,6 +53,11 @@ def measure() -> dict:
             if alt.strip().lower().startswith("tabla") and name not in allowed:
                 counts["table_alts"][part] += 1
             alts.append((part, name, alt))
+    for case_file in sorted((ROOT / "casos").glob("*/*.md")):
+        for alt, name in CASE_IMAGE.findall(case_file.read_text(encoding="utf-8")):
+            if alt.strip().lower().startswith("tabla") and name not in allowed:
+                counts["table_alts"]["casos"] += 1
+            alts.append(("casos", name, alt))
     return {"counts": {m: dict(sorted(c.items())) for m, c in counts.items()}, "kinds": kinds, "alts": alts}
 
 

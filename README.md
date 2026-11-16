@@ -268,6 +268,22 @@ el About, los topics, los gates y la URL canónica están documentados en el
 5. Trata el contenido como material de estudio con evidencia reproducible, no como certificación: contrasta las afirmaciones con las fuentes enlazadas y consulta el [roadmap](ROADMAP.md) y [STATUS.md](STATUS.md) para ver el alcance y la revisión pendiente.
 6. Elige una [ruta por rol](roles/README.md) cuando tengas la base para evaluar sus decisiones.
 
+<!-- state:cases -->
+
+## 🏛️ Casos de estudio: la realidad frente a la teoría
+
+Además de las partes y los roles, el programa ofrece una superficie propia: **casos de estudio** de plataformas
+reales. No son clases ni roles, no crean partes y no cambian las 540 clases: se leen **después** de la teoría para
+ver cómo se combinan sus mecanismos con equipos, dinero y plazos. Cada caso sigue un esquema único (ficha
+histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos
+especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la
+[guía de casos](casos/GUIDE.md).
+
+- 🚀 [**Plataformas exitosas**](casos/exito/README.md): 8 casos, de Netflix a Stripe.
+- 🧯 [**Plataformas y sistemas que fallaron**](casos/fallo/README.md): 8 casos, de Knight Capital a Quibi.
+
+<!-- /state:cases -->
+
 ## 🧭 Rutas sugeridas por rol
 
 El programa ofrece **42 guías profesionales de más de 2.200 palabras cada una**.

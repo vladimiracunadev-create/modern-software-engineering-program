@@ -1,4 +1,5 @@
-"""Generate every static SVG figure into content/part-XX/figures/.
+"""Generate every static SVG figure into content/part-XX/figures/ (and, for the
+case studies, ``scripts/figures_case_<slug>.py`` into casos/figures/).
 
 Figure definitions live in ``scripts/figures_partXX_<letter>.py`` modules that
 export a ``FIGURES`` mapping of file name to builder. Run
@@ -27,10 +28,22 @@ def collect() -> dict[Path, object]:
             if target in figures:
                 raise SystemExit(f"duplicate figure {name}")
             figures[target] = builder
+    # Case studies: scripts/figures_case_<slug>.py -> casos/figures/ (names must start with "<slug>-").
+    for module_path in sorted((ROOT / "scripts").glob("figures_case_*.py")):
+        slug = module_path.stem.removeprefix("figures_case_")
+        module = importlib.import_module(module_path.stem)
+        for name, builder in module.FIGURES.items():
+            if not name.startswith(f"{slug}-") or not name.endswith(".svg"):
+                raise SystemExit(f"case figure {name} must start with '{slug}-' and end with .svg")
+            target = ROOT / "casos" / "figures" / name
+            if target in figures:
+                raise SystemExit(f"duplicate figure {name}")
+            figures[target] = builder
     return figures
 
 
-FIGURES = {path.name: builder for path, builder in collect().items()}
+# Lesson figures only; case figures are checked by tests/test_cases.py.
+FIGURES = {path.name: builder for path, builder in collect().items() if path.parent.parent.name != "casos"}
 
 
 def main() -> int:

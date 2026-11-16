@@ -73,11 +73,15 @@ La API de entregas mantiene un contrato, un conjunto de escenarios y un informe 
 
 #### SE-373 — Modelos de calidad y atributos medibles
 
+[Abrir la clase SE-373](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-373-modelos-de-calidad-y-atributos-medibles/)
+
 Una promesa de calidad sin estadístico, ventana y alcance admite conclusiones opuestas con los mismos datos. La clase mide cuánto oculta la media de una cola lenta, aplica seis definiciones del objetivo «p95 ≤ 300 ms» a un mes con un incidente de tres horas y evalúa un verificador de forma de escenarios frente a 180 mutaciones.
 
 El estudiante entrega cuatro escenarios de seis partes con medida y un árbol de utilidad. `SE-374` pregunta cómo se vigila que cada cambio no los empeore.
 
 #### SE-374 — Revisión, análisis estático y quality gates
+
+[Abrir la clase SE-374](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-374-revision-analisis-estatico-y-quality-gates/)
 
 Una compuerta convierte una medida en una decisión y puede dejar pasar lo malo o bloquear lo bueno. La clase mide la precisión y los defectos no vistos de tres reglas con `ast`, compara una compuerta de cobertura total con una del cambio y calcula cuántos cambios bloquea el ruido al encadenar comprobaciones y qué pasa al reintentar.
 
@@ -87,17 +91,23 @@ El estudiante entrega las comprobaciones del cambio con su regla de decisión. `
 
 #### SE-375 — Carga, estrés, picos y endurance
 
+[Abrir la clase SE-375](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance/)
+
 Cada forma de carga responde una pregunta distinta y el generador es parte del experimento. La clase compara carga, estrés, pico y resistencia sobre la misma cola, muestra cómo un generador cerrado reduce un p99 de 9 071 ms a 232 ms ante una pausa y mide cuánto sesga el arranque.
 
 El estudiante entrega un plan de pruebas con pregunta, generador, duración y criterio de parada. `SE-376` explica por qué la latencia crece como crece.
 
 #### SE-376 — Latencia, throughput, saturación y capacidad
 
+[Abrir la clase SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/)
+
 La espera crece como 1/(1 − utilización), se multiplica con la variabilidad del servicio y no se promedia. La clase contrasta una simulación con la fórmula de una cola, cambia solo la variabilidad con el mismo promedio y agrega los percentiles de ocho servidores de cuatro maneras.
 
 El estudiante entrega un modelo de capacidad con su objetivo de cola. `SE-377` pregunta cómo se mide el tiempo sin engañarse.
 
 #### SE-377 — Perfiles, benchmarks y errores de medición
+
+[Abrir la clase SE-377](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-377-perfiles-benchmarks-y-errores-de-medicion/)
 
 Un benchmark devuelve una muestra de una distribución que depende del equipo y de lo que haga el instrumento. La clase mide la variación de una ordenación entre cinco procesos de un equipo real, el efecto de un perfilador y de una caché y cuántas veces dos copias idénticas «difieren» según el estadístico y las repeticiones.
 
@@ -107,17 +117,23 @@ El estudiante entrega un protocolo de benchmark con su prueba A/A. `SE-378` usa 
 
 #### SE-378 — Timeouts, retries, backoff y jitter
 
+[Abrir la clase SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/)
+
 El calendario de los reintentos reparte la carga y no limita su cantidad. La clase simula un brownout y una oleada sincronizada con cinco políticas y diez semillas, calcula los 27 intentos de tres capas sobre una base caída y compara seis timeouts frente a una distribución con cola.
 
 El estudiante entrega una política de timeouts y reintentos con presupuesto y plazo propagado. `SE-379` limita el daño cuando la dependencia no se recupera.
 
 #### SE-379 — Circuit breakers, bulkheads y degradación
 
+[Abrir la clase SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/)
+
 Cada defensa tiene un costo y una señal. La clase mide cuántas llamadas evita un interruptor y cuánto retrasa la recuperación, cuánto arrastra una dependencia lenta a un pool compartido y qué respuestas útiles produce cada política bajo una sobrecarga del doble.
 
 El estudiante entrega un mapa de dependencias con sus defensas. `SE-380` cuantifica qué disponibilidad y durabilidad se logran.
 
 #### SE-380 — Disponibilidad, durabilidad y recuperación
+
+[Abrir la clase SE-380](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/)
 
 La redundancia solo ayuda a la capa donde se aplica y una causa común la anula. La clase simula 400 años de operación con y sin despliegues que tumban ambas réplicas, calcula la pérdida de datos con dos y tres réplicas según el tiempo de reparación y compara seis umbrales de detección de fallos.
 
@@ -127,11 +143,15 @@ El estudiante entrega un presupuesto de fiabilidad con RTO y RPO medibles. `SE-3
 
 #### SE-381 — Compatibilidad, portabilidad e interoperabilidad
 
+[Abrir la clase SE-381](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-381-compatibilidad-portabilidad-e-interoperabilidad/)
+
 El mismo software cambia de comportamiento con el sistema, la versión y el lector, casi siempre sin una excepción. La clase ejecuta doce sondas en Windows y Ubuntu, mide cuántos datos cambian de significado al cruzar una frontera y construye una matriz de compatibilidad de 25 pares con lectores estrictos y tolerantes.
 
 El estudiante entrega un contrato de interoperabilidad con una matriz ejecutable. `SE-382` fija presupuestos de experiencia.
 
 #### SE-382 — Calidad de experiencia y presupuestos
+
+[Abrir la clase SE-382](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-382-calidad-de-experiencia-y-presupuestos/)
 
 Un presupuesto es una restricción con dueño y con medida, y el percentil de la población puede cumplir mientras un segmento no. La clase compara el laboratorio con el campo, tres compuertas ante una deriva de peso del 0,6 % por compilación y el contraste de los colores del repositorio, que encuentra una etiqueta del portal por debajo del 4,5:1.
 
@@ -141,11 +161,15 @@ El estudiante entrega un presupuesto de experiencia con compuerta de tendencia. 
 
 #### SE-383 — Taller: someter un sistema a presión controlada
 
+[Abrir la clase SE-383](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-383-taller-someter-un-sistema-a-presion-controlada/)
+
 Un experimento de presión enseña si la hipótesis, el radio y el aborto se decidieron antes. El taller compara tres umbrales de estado estable, inyecta cuatro fallos sobre una configuración ingenua y una endurecida y calcula cuánto tráfico hay que afectar para detectar un fallo débil.
 
 El estudiante entrega un plan de experimento con sus hallazgos. `SE-384` lo integra en un informe reproducible.
 
 #### SE-384 — Proyecto: informe reproducible de calidad
+
+[Abrir la clase SE-384](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-384-proyecto-informe-reproducible-de-calidad/)
 
 Un paquete completo no es un paquete honesto. El proyecto mide qué detecta un validador sobre 240 mutaciones, qué artefactos de un canal coinciden entre dos ejecuciones y entre Windows y Ubuntu y cuántos informes de dos versiones idénticas declararían una mejora según cómo se elija el resultado.
 

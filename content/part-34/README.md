@@ -57,49 +57,73 @@ Los parámetros (tráfico, tasas de defecto, costos, duraciones, proporciones, m
 
 #### SE-409 — Integración continua y feedback temprano
 
+[Abrir la clase SE-409](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-409-integracion-continua-y-feedback-temprano/)
+
 La integración es una práctica, no un servidor. Mide el choque según la vida de la rama, los lotes con bisección y la troncal rota sin cola de integración. Entrega: política de troncal. Siguiente: `SE-410`.
 
 #### SE-410 — Pipelines, jobs, matrices y cachés
+
+[Abrir la clase SE-410](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-410-pipelines-jobs-matrices-y-caches/)
 
 La duración mínima la fija el camino crítico. Compara ejecutores, cuatro estrategias de matriz y cuatro claves de caché. Entrega: grafo, matriz y clave. Siguiente: `SE-411`.
 
 #### SE-411 — Tests, seguridad y políticas como gates
 
+[Abrir la clase SE-411](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-411-tests-seguridad-y-politicas-como-gates/)
+
 Una compuerta cuesta y deja pasar. Ordena etapas, evalúa reglas sobre workflows y mide qué ocultan los reintentos. Entrega: compuertas con excepciones. Siguiente: `SE-412`.
 
 #### SE-412 — Credenciales efímeras y OIDC
+
+[Abrir la clase SE-412](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-412-credenciales-efimeras-y-oidc/)
 
 La seguridad vive en la regla de confianza. Verifica tokens por niveles, calcula la ventana de exposición y compara detectores de secretos. Entrega: regla exacta con pruebas. Siguiente: `SE-413`.
 
 #### SE-413 — Entrega y despliegue continuos
 
+[Abrir la clase SE-413](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-413-entrega-y-despliegue-continuos/)
+
 Desplegar no es exponer. Compara estrategias, calcula la potencia de un canario y el costo de las banderas. Entrega: criterio de despliegue. Siguiente: `SE-414`.
 
 #### SE-414 — Infraestructura como código en pipeline
+
+[Abrir la clase SE-414](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-414-infraestructura-como-codigo-en-pipeline/)
 
 Tres estados pueden divergir. Modela el orden de un plan, las aplicaciones simultáneas y la frecuencia de detección de deriva. Entrega: flujo plan-revisión-aplicación. Siguiente: `SE-415`.
 
 #### SE-415 — GitOps y reconciliación
 
+[Abrir la clase SE-415](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-415-gitops-y-reconciliacion/)
+
 Dos controladores sobre un campo no convergen. Mide el intervalo, la disputa de réplicas y la poda. Entrega: política de GitOps. Siguiente: `SE-416`.
 
 #### SE-416 — Entornos preview y datos seguros
+
+[Abrir la clase SE-416](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-416-entornos-preview-y-datos-seguros/)
 
 Quitar el nombre no anonimiza. Mide la reidentificación, lo que sobrevive al enmascarado y el costo de la vida de los entornos. Entrega: política de datos y de vida. Siguiente: `SE-417`.
 
 #### SE-417 — Developer portals y capacidades de plataforma
 
+[Abrir la clase SE-417](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-417-developer-portals-y-capacidades-de-plataforma/)
+
 Una plataforma se mide por lo que se adopta. Modela adopción, validez de un catálogo y esperas por ticket. Entrega: catálogo de capacidades. Siguiente: `SE-418`.
 
 #### SE-418 — Métricas DORA y mejora sin gaming
+
+[Abrir la clase SE-418](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-418-metricas-dora-y-mejora-sin-gaming/)
 
 El mismo registro da números distintos. Compara definiciones, un atajo y el ruido mensual. Entrega: panel con intervalos y contrapesos. Siguiente: `SE-419`.
 
 #### SE-419 — Taller: endurecer un pipeline vulnerable
 
+[Abrir la clase SE-419](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-419-taller-endurecer-un-pipeline-vulnerable/)
+
 Un hallazgo, un cambio, una prueba. Corrige ocho defectos, ejecuta una inyección y reduce permisos. Entrega: flujo endurecido. Siguiente: `SE-420`.
 
 #### SE-420 — Proyecto: camino a producción con retroceso
+
+[Abrir la clase SE-420](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-420-proyecto-camino-a-produccion-con-rollback/)
 
 El código vuelve, los datos no. Ensaya migraciones con SQLite, hace la ablación de compuertas y valida 120 paquetes. Entrega: camino con evidencia. La Parte 35 pasa a la observabilidad.
 

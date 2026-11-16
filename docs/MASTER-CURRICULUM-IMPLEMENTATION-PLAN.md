@@ -655,18 +655,18 @@ evita una explicación genérica.
 
 ### Parte 33 — Supply chain y release
 
-- [ ] `SE-397` — producir un build hermético.
-- [ ] `SE-398` — promover artefactos inmutables.
-- [ ] `SE-399` — simular typosquatting y dependency confusion.
-- [ ] `SE-400` — generar SBOM y provenance conforme a SLSA vigente.
-- [ ] `SE-401` — verificar antes de consumir.
-- [ ] `SE-402` — operar release y SemVer.
-- [ ] `SE-403` — retirar feature flags.
-- [ ] `SE-404` — comparar canary y blue/green.
-- [ ] `SE-405` — diseñar actualizaciones seguras.
-- [ ] `SE-406` — responder a un paquete comprometido.
-- [ ] `SE-407` — verificar un release externo.
-- [ ] `SE-408` — entregar release firmado y reconstruible.
+- [x] `SE-397` — producir un build hermético.
+- [x] `SE-398` — promover artefactos inmutables.
+- [x] `SE-399` — simular typosquatting y dependency confusion.
+- [x] `SE-400` — generar SBOM y provenance conforme a SLSA vigente.
+- [x] `SE-401` — verificar antes de consumir.
+- [x] `SE-402` — operar release y SemVer.
+- [x] `SE-403` — retirar feature flags.
+- [x] `SE-404` — comparar canary y blue/green.
+- [x] `SE-405` — diseñar actualizaciones seguras.
+- [x] `SE-406` — responder a un paquete comprometido.
+- [x] `SE-407` — verificar un release externo.
+- [x] `SE-408` — entregar release firmado y reconstruible.
 
 ### Parte 34 — CI/CD y Platform Engineering
 

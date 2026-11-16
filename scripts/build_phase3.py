@@ -30,6 +30,7 @@ PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(325, 337)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(301, 313)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(349, 361)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(373, 385)}
+PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(397, 409)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(433, 445)}
 PUBLISHED_EDITORIAL_IDS |= {f"SE-{number:03d}" for number in range(421, 433)}
 

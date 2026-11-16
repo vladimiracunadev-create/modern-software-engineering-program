@@ -1,8 +1,7 @@
 """Figures for SE-481 to SE-486 (development methodologies: runs of real CPython code over the Avisos core with 20 hand-written mutants; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig, _wrap
-from figures_part07_a import tab
+from figure_kit import Fig, _wrap, grouped_bars, heatmap, line_chart, stacked_bars
 
 EJEC = "Código ejecutado de verdad en Windows 11 y Ubuntu (WSL2); los recuentos son idénticos en ambos y los tiempos varían de equipo en equipo."
 LAB = "Núcleo de Avisos con 20 mutantes escritos a mano (18 no equivalentes y 2 equivalentes); ejecutado en Windows 11 y Ubuntu (WSL2) con los mismos recuentos."
@@ -52,6 +51,37 @@ def flow(title: str, desc: str, rows: list[list[tuple[str, str]]], note: str = "
     return f
 
 
+def mapa(title: str, desc: str, rows: list[tuple[str, str, str, str]], note: str = "", note_kind: str = "gold", foot: str = EJEC,
+         width: int = 960, left_w: float = 300, mid_w: float = 250, row_h: float = 76, gap: float = 36, size: int = 13) -> Fig:
+    """Mapping diagram: one row per case, ``(left text, verdict text, verdict kind, reason text)``, joined by arrows."""
+    right_w = width - 20 - left_w - mid_w - 2 * gap
+    for left, mid, _, right in rows:
+        for text, w in ((left, left_w), (mid, mid_w), (right, right_w)):
+            lines = len(_wrap(text, size, w - 20))
+            assert lines * size * 1.28 <= row_h - 12, f"box overflows in {title!r}: {text!r}"
+    note_lines = len(_wrap(note, 13, width - 40)) if note else 0
+    note_h = max(54, note_lines * 13 * 1.28 + 26) if note else 0
+    last_bottom = 14 + len(rows) * row_h + (len(rows) - 1) * 18
+    height = int(last_bottom + (note_h + 22 if note else 8) + (26 if foot else 6))
+    f = Fig(width, height, title, desc)
+    y = 14.0
+    for left, mid, kind, right in rows:
+        x1, x2, x3 = 10.0, 10.0 + left_w + gap, 10.0 + left_w + gap + mid_w + gap
+        f.box(x1, y, left_w, row_h, left, "plain", size)
+        f.box(x2, y, mid_w, row_h, mid, kind, size, True)
+        f.box(x3, y, right_w, row_h, right, "grey", size)
+        f.arrow([(x1 + left_w, y + row_h / 2), (x2, y + row_h / 2)])
+        f.arrow([(x2 + mid_w, y + row_h / 2), (x3, y + row_h / 2)])
+        y += row_h + 18
+    y = last_bottom
+    if note:
+        f.box(10, y + 14, width - 20, note_h, note, note_kind, 13)
+        y += note_h + 22
+    if foot:
+        f.text(width / 2, y + 16, foot, 12, "middle", 400, "#5c1f14")
+    return f
+
+
 def bars(title: str, desc: str, items: list[tuple[str, float, str, str]], scale: float, note: str = "",
          note_kind: str = "gold", foot: str = EJEC, width: int = 960, label_w: float = 330) -> Fig:
     step = 46
@@ -70,16 +100,13 @@ def bars(title: str, desc: str, items: list[tuple[str, float, str, str]], scale:
 
 # ---------------------------------------------------------------- SE-481
 def se481_oraculos_y_mutantes() -> Fig:
-    rows = [['Caso feliz único', '7 de 18', 'M01, M03, M05 a M12 y M16', '< 0,1'],
-            ['Ocho pruebas de ejemplo (TDD)', '15 de 18', 'M01, M12, M16', '< 0,1'],
-            ['Escenarios de aceptación con reloj', '17 de 18', 'M01', '0,5'],
-            ['Contrato con 400 estados al azar', '13 de 18', 'M02, M04, M08, M14, M18', '4,5'],
-            ['Modelo de referencia ejecutable', '18 de 18', 'ninguno', '4,3']]
-    return tab('Cinco oráculos sobre 18 mutantes no equivalentes del núcleo de Avisos: cuántos mata cada uno y cuáles deja vivos',
-               'Tabla con cinco oráculos aplicados a 18 mutantes no equivalentes del núcleo de Avisos: un caso feliz único mata 7, ocho pruebas de ejemplo matan 15 y dejan vivos los mutantes M01, M12 y M16, los escenarios de aceptación con reloj matan 17 y dejan vivo M01, el contrato con 400 estados al azar mata 13 y deja vivos cinco, y un modelo de referencia ejecutable mata los 18; los tiempos van de menos de una décima de milisegundo a 4,5 milisegundos.',
-               ['Oráculo', 'Mata', 'Mutantes que deja vivos', 'Tiempo (ms)'], rows, [330, 120, 350, 130], row_h=48, size=13,
-               note='Ningún oráculo cubre lo mismo: el contrato deja vivos cinco mutantes que las ocho pruebas matan, y las ocho pruebas dejan vivos tres que el contrato mata. Los dos mutantes equivalentes sobreviven a todos, como debe ser. Las 20 variantes las escribió el autor; no son una muestra de defectos reales.',
-               note_kind='gold', foot=LAB)
+    return grouped_bars(
+        "Cinco oráculos sobre 18 mutantes no equivalentes del núcleo de Avisos: cuántos mata cada uno",
+        "Barras horizontales con los mutantes que mata cada oráculo de 18 no equivalentes: un caso feliz único mata 7, ocho pruebas de ejemplo (TDD) matan 15, los escenarios de aceptación con reloj matan 17, el contrato con 400 estados al azar mata 13 y un modelo de referencia ejecutable mata los 18.",
+        ["Caso feliz único", "Ocho pruebas de ejemplo (TDD)", "Escenarios de aceptación con reloj", "Contrato con 400 estados al azar", "Modelo de referencia ejecutable"],
+        [("Mutantes que mata", [7, 15, 17, 13, 18], "teal")],
+        unit="Mutantes que mata (de 18)", horizontal=True, label_w=290, ref_lines=[(18, "18")],
+        note='Ningún oráculo cubre lo mismo: el contrato deja vivos cinco mutantes que las ocho pruebas matan, y las ocho pruebas dejan vivos tres que el contrato mata. Los dos mutantes equivalentes sobreviven a todos, como debe ser. Las 20 variantes las escribió el autor; no son una muestra de defectos reales.', note_kind='gold', foot=LAB)
 
 
 def se481_preguntas_y_metodologias() -> Fig:
@@ -103,14 +130,13 @@ def se481_union_de_oraculos() -> Fig:
 
 # ---------------------------------------------------------------- SE-482
 def se482_cuaderno_del_ciclo() -> Fig:
-    rows = [['1', 'sin aviso lejos del vencimiento', 'sí', 'sí', '1'], ['2', 'aviso a las 72 horas', 'sí', 'sí', '6'], ['3', 'no repite un aviso enviado', 'sí', 'sí', '8'],
-            ['4', 'quien ya entregó no recibe', 'sí', 'sí', '9'], ['5', 'una entrega vencida no avisa', 'sí', 'sí', '9'], ['6', 'tras una caída solo el más urgente', 'sí', 'sí', '11'],
-            ['7', 'el silencio deja pasar la última hora', 'sí', 'sí', '14'], ['8', 'el silencio es por curso', 'sí', 'sí', '15']]
-    return tab('Ocho pasos rojo-verde sobre el núcleo de Avisos y mutantes muertos tras cada prueba',
-               'Tabla con ocho pasos de un ciclo rojo-verde sobre el núcleo de Avisos: cada prueba nueva falla con la versión anterior y pasa con la nueva sin romper las anteriores, y los mutantes muertos acumulados crecen de 1 tras la primera prueba a 6, 8, 9, 9, 11, 14 y 15 tras la octava de 18 posibles.',
-               ['Paso', 'Prueba nueva', 'Roja antes', 'Verde después', 'Mutantes muertos'], rows, [90, 390, 130, 150, 160], row_h=40, size=13,
-               note='Las ocho pruebas fallaron primero por la razón esperada y pasaron con la versión mínima; la prueba 5 no añadió ninguno porque protege una regla (no avisar tras el vencimiento) que ninguno de los 18 mutantes elimina. La curva depende de qué 18 mutantes escribió el autor.',
-               note_kind='gold', foot=LAB)
+    return line_chart(
+        "Ocho pasos rojo-verde sobre el núcleo de Avisos: mutantes muertos tras cada prueba",
+        "Línea con los mutantes muertos acumulados tras cada una de las ocho pruebas de un ciclo rojo-verde sobre el núcleo de Avisos: 1, 6, 8, 9, 9, 11, 14 y 15 de 18 posibles; cada prueba nueva falló con la versión anterior y pasó con la nueva, y la quinta no añade ninguno.",
+        [("Mutantes muertos (acumulados)", [(1, 1), (2, 6), (3, 8), (4, 9), (5, 9), (6, 11), (7, 14), (8, 15)], "teal")],
+        x_label="Prueba añadida (paso del ciclo)", y_label="Mutantes muertos de 18", x_ticks=[(i, str(i)) for i in range(1, 9)], y_ticks=[0, 5, 10, 15, 18],
+        hlines=[(18, "18 no equivalentes")], decimals=0,
+        note='Las ocho pruebas fallaron primero por la razón esperada y pasaron con la versión mínima; la prueba 5 no añadió ninguno porque protege una regla (no avisar tras el vencimiento) que ninguno de los 18 mutantes elimina. La curva depende de qué 18 mutantes escribió el autor.', note_kind='gold', foot=LAB)
 
 
 def se482_ciclo_rojo_verde() -> Fig:
@@ -123,25 +149,26 @@ def se482_ciclo_rojo_verde() -> Fig:
 
 
 def se482_sobrevivientes() -> Fig:
-    rows = [['M01', 'Avisa en el instante exacto del vencimiento', 'Un caso en el límite: faltan 0 horas'], ['M12', 'Invierte la comparación de avisos ya enviados', 'Un envío anterior del umbral de 24 horas no debe dejar pasar el de 72'],
-            ['M16', 'Avisa una hora antes de lo debido', 'El par 27 y 28 horas: a las 73 horas restantes no hay aviso, a las 72 sí']]
-    return tab('Tres mutantes sobreviven a las ocho pruebas; tres pruebas guiadas por ellos matan los 18',
-               'Tabla con los tres mutantes que sobreviven a ocho pruebas de TDD: M01 avisa en el instante exacto del vencimiento y lo mata una prueba con cero horas restantes, M12 invierte la comparación de los avisos ya enviados y lo mata una prueba con un envío previo del umbral de 24 horas, y M16 avisa una hora antes de lo debido y lo mata el par de 73 y 72 horas restantes; con las tres pruebas añadidas mueren los 18 mutantes.',
-               ['Mutante', 'Qué hace mal', 'Prueba que lo mata'], rows, [110, 380, 480], row_h=60, size=13,
-               note='Los sobrevivientes señalan qué ejemplo falta; no sustituyen el criterio de quien diseña las pruebas. Matar los 18 no demuestra que el código sea correcto: demuestra que estas 18 variantes se distinguen del original con estas pruebas.',
-               note_kind='coral', foot=LAB)
+    return stacked_bars(
+        "Tres mutantes sobreviven a las ocho pruebas; tres pruebas guiadas por ellos matan los 18",
+        "Barras apiladas con los mutantes muertos y vivos de 18: tras las ocho pruebas de TDD mueren 15 y sobreviven M01, M12 y M16; al añadir tres pruebas guiadas por esos sobrevivientes mueren los 18.",
+        ["Ocho pruebas de TDD", "Ocho pruebas más tres guiadas por los sobrevivientes"],
+        [("Muertos", [15, 18], "teal"), ("Vivos", [3, 0], "coral")],
+        unit="Mutantes no equivalentes", horizontal=True, label_w=300,
+        note='Los sobrevivientes señalan qué ejemplo falta; no sustituyen el criterio de quien diseña las pruebas. Matar los 18 no demuestra que el código sea correcto: demuestra que estas 18 variantes se distinguen del original con estas pruebas.', note_kind='coral', foot=LAB)
 
 
 # ---------------------------------------------------------------- SE-483
 def se483_refactores_y_defectos() -> Fig:
-    rows = [['R1 leer el reloj una vez', 'refactor', 'pasa', 'pasa'], ['R2 pedir todas las entregas y filtrar en el servicio', 'refactor', 'pasa', 'FALLA'],
-            ['R3 extraer el cálculo del umbral', 'refactor', 'pasa', 'pasa'], ['R4 leer lo registrado antes del reloj', 'refactor', 'pasa', 'pasa'],
-            ['R5 renombrar el puerto de registro', 'cambio de contrato', 'FALLA', 'FALLA'], ['D1 a D6, seis defectos de comportamiento', 'defectos', 'detecta 6 de 6', 'detecta 6 de 6']]
-    return tab('Dos estilos de prueba ante cuatro refactores, un cambio de contrato y seis defectos del mismo servicio',
-               'Tabla con dos suites de pruebas sobre el mismo servicio de avisos: la clásica, con dobles con estado, pasa los cuatro refactores y falla solo el cambio de contrato del puerto, y la de Londres, con dobles simulados, falla el refactor que pide todas las entregas y filtra en el servicio y también el cambio de contrato; las dos detectan los seis defectos.',
-               ['Cambio', 'Naturaleza', 'Estilo clásico', 'Estilo de Londres'], rows, [430, 190, 180, 180], row_h=48, size=13,
-               note='La diferencia aparece donde el refactor cambia cómo el servicio consulta a un colaborador: la prueba de Londres fijó esa consulta, la clásica solo fijó el resultado. Ambas detectan los mismos seis defectos. Son dos suites escritas por el autor sobre un servicio pequeño.',
-               note_kind='gold', foot=EJEC)
+    return heatmap(
+        "Dos estilos de prueba ante cuatro refactores y un cambio de contrato del mismo servicio",
+        "Mapa de calor con las pruebas que fallan en dos estilos tras cada cambio: el estilo clásico, con dobles con estado, pasa los cuatro refactores y falla solo con el cambio de contrato del puerto; el estilo de Londres, con dobles simulados, falla además el refactor que pide todas las entregas y filtra en el servicio; los dos detectan los seis defectos de comportamiento.",
+        ["R1 leer el reloj una vez (refactor)", "R2 pedir todas las entregas y filtrar en el servicio (refactor)", "R3 extraer el cálculo del umbral (refactor)",
+         "R4 leer lo registrado antes del reloj (refactor)", "R5 renombrar el puerto de registro (cambio de contrato)"],
+        ["Estilo clásico", "Estilo de Londres"],
+        [[0, 0], [0, 1], [0, 0], [0, 0], [1, 1]],
+        unit="Falla", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "FALLA" if v else "pasa", cell_h=44, label_w=430,
+        note='La diferencia aparece donde el refactor cambia cómo el servicio consulta a un colaborador: la prueba de Londres fijó esa consulta, la clásica solo fijó el resultado. Ambas detectan los mismos seis defectos. Son dos suites escritas por el autor sobre un servicio pequeño.', note_kind='gold', foot=EJEC)
 
 
 def se483_dos_estilos() -> Fig:
@@ -157,28 +184,27 @@ def se483_dos_estilos() -> Fig:
 
 
 def se483_cuando_usar_cada_uno() -> Fig:
-    rows = [['El colaborador es lento, externo o no determinista', 'Doble con estado si se puede; si no, simulado', 'El estilo de Londres sirve para fijar el contrato en la frontera'],
-            ['Se quiere refactorizar el interior sin tocar pruebas', 'Clásico', 'Aserciones sobre resultados toleran cambios de colaboración'],
-            ['Se diseña de fuera hacia dentro sin saber aún qué colabora', 'Londres', 'Simular descubre las interfaces que hacen falta'],
-            ['Un colaborador cambia de interfaz', 'Ambos fallan', 'Es un cambio de contrato, no un refactor']]
-    return tab('Qué estilo conviene según la situación del colaborador y del cambio',
-               'Tabla de decisión con cuatro situaciones: un colaborador lento, externo o no determinista pide un doble con estado si es posible y simulados si no; querer refactorizar el interior sin tocar pruebas favorece el estilo clásico; diseñar de fuera hacia dentro favorece el estilo de Londres; y un cambio de interfaz de un colaborador hace fallar a ambos porque es un cambio de contrato.',
-               ['Situación', 'Estilo que conviene', 'Por qué'], rows, [370, 270, 330], row_h=70, size=13,
-               note='La tabla es una guía de criterio, no un resultado medido: lo medido está en la primera figura. Muchos equipos usan los dos estilos según el colaborador.',
-               note_kind='teal', foot='')
+    return mapa(
+        "Qué estilo conviene según la situación del colaborador y del cambio",
+        "Diagrama de decisión con cuatro situaciones y el estilo que conviene en cada una: un colaborador lento, externo o no determinista pide un doble con estado si es posible y simulados si no; querer refactorizar el interior sin tocar pruebas favorece el estilo clásico; diseñar de fuera hacia dentro favorece el estilo de Londres; y un cambio de interfaz de un colaborador hace fallar a ambos porque es un cambio de contrato.",
+        [("El colaborador es lento, externo o no determinista", "Doble con estado si se puede; si no, simulado", "gold", "El estilo de Londres sirve para fijar el contrato en la frontera"),
+         ("Se quiere refactorizar el interior sin tocar pruebas", "Clásico", "teal", "Aserciones sobre resultados toleran cambios de colaboración"),
+         ("Se diseña de fuera hacia dentro sin saber aún qué colabora", "Londres", "gold", "Simular descubre las interfaces que hacen falta"),
+         ("Un colaborador cambia de interfaz", "Ambos fallan", "coral", "Es un cambio de contrato, no un refactor")],
+        note='La tabla es una guía de criterio, no un resultado medido: lo medido está en la primera figura. Muchos equipos usan los dos estilos según el colaborador.', note_kind='teal', foot='')
 
 
 # ---------------------------------------------------------------- SE-484
 def se484_escenarios_y_contribucion() -> Fig:
-    rows = [['avisa a las 72 horas', '5', '0'], ['no repite un aviso enviado', '3', '3'], ['quien ya entregó no recibe avisos', '2', '1'],
-            ['tras una caída solo llega el aviso más urgente', '6', '0'], ['un curso silenciado conserva el aviso de la última hora', '9', '1'],
-            ['un curso silenciado no recibe el de 24 horas', '2', '1'], ['el silencio de un curso no afecta a otro', '8', '1'],
-            ['una entrega vencida no avisa', '1', '0'], ['la interfaz es agradable', '0', '0']]
-    return tab('Nueve escenarios en lenguaje de negocio ejecutados contra 18 mutantes: cuántos mata cada uno y cuántos solo él',
-               'Tabla con nueve escenarios Gherkin ejecutados como pruebas contra 18 mutantes: avisar a las 72 horas mata 5 y ninguno solo él, no repetir un aviso mata 3 y todos solo él, quien ya entregó mata 2 y 1 solo él, la caída mata 6, el silencio con la última hora mata 9 y 1 solo él, el silencio sin el de 24 horas mata 2 y 1 solo él, el silencio por curso mata 8 y 1 solo él, la entrega vencida mata 1 y el escenario de la interfaz agradable no mata ninguno.',
-               ['Escenario', 'Mutantes que mata', 'Solo él'], rows, [640, 190, 140], row_h=44, size=13,
-               note='Los nueve escenarios usan 32 pasos y 10 definiciones de paso (3,2 pasos por definición) y matan 15 de 18; sobreviven M01, M12 y M16. El último escenario pasa siempre: su «Entonces» no afirma nada comprobable. Escenarios y mutantes los escribió el autor.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Nueve escenarios en lenguaje de negocio ejecutados contra 18 mutantes: cuántos mata cada uno y cuántos solo él",
+        "Barras horizontales con los mutantes que mata cada uno de nueve escenarios Gherkin y los que mata solo él: avisar a las 72 horas mata 5 y ninguno solo él, no repetir un aviso mata 3 y los 3 solo él, quien ya entregó mata 2 y 1 solo él, la caída mata 6, el silencio con la última hora mata 9 y 1 solo él, el silencio sin el de 24 horas mata 2 y 1, el silencio por curso mata 8 y 1, la entrega vencida mata 1 y el escenario de la interfaz agradable no mata ninguno.",
+        ["Avisa a las 72 horas", "No repite un aviso enviado", "Quien ya entregó no recibe avisos", "Tras una caída solo llega el aviso más urgente",
+         "Un curso silenciado conserva el aviso de la última hora", "Un curso silenciado no recibe el de 24 horas", "El silencio de un curso no afecta a otro",
+         "Una entrega vencida no avisa", "La interfaz es agradable"],
+        [("Mutantes que mata", [5, 3, 2, 6, 9, 2, 8, 1, 0], "teal"), ("Mutantes que mata solo él", [0, 3, 1, 0, 1, 1, 1, 0, 0], "gold")],
+        unit="Mutantes (de 18)", horizontal=True, label_w=330, plot_h=380,
+        note='Los nueve escenarios usan 32 pasos y 10 definiciones de paso (3,2 pasos por definición) y matan 15 de 18; sobreviven M01, M12 y M16. El último escenario pasa siempre: su «Entonces» no afirma nada comprobable. Escenarios y mutantes los escribió el autor.', note_kind='coral', foot=EJEC)
 
 
 def se484_de_la_conversacion_al_paso() -> Fig:
@@ -191,24 +217,25 @@ def se484_de_la_conversacion_al_paso() -> Fig:
 
 
 def se484_entonces_vaciado() -> Fig:
-    rows = [['avisa a las 72 horas', '15', '0'], ['no repite un aviso enviado', '13', '2'], ['quien ya entregó no recibe avisos', '14', '1'], ['tras una caída solo llega el aviso más urgente', '15', '0'],
-            ['conserva el aviso de la última hora', '14', '1'], ['no recibe el de 24 horas', '14', '1'], ['no afecta a otro curso', '14', '1'], ['una entrega vencida no avisa', '15', '0']]
-    return tab('Reemplazar el «Entonces» de un escenario por un paso que no afirma nada: mutantes que dejan de morir',
-               'Tabla con el efecto de reemplazar el paso Entonces de cada escenario por un paso que no afirma nada: de los 15 mutantes que mueren con los escenarios completos, el escenario de no repetir pierde 2, los de quien ya entregó, última hora, 24 horas y otro curso pierden 1 cada uno, y los de 72 horas, caída y entrega vencida no pierden ninguno.',
-               ['Escenario con el «Entonces» vaciado', 'Mutantes que siguen muriendo', 'Se pierden'], rows, [560, 230, 180], row_h=44, size=13,
-               note='Tres escenarios pueden perder su «Entonces» sin que ninguna comprobación se resienta: quedan cubiertos por otros o no afirman lo que dicen. Es una señal para revisar el texto, no una prueba de que sobren.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Reemplazar el «Entonces» de un escenario por un paso que no afirma nada: mutantes que dejan de morir",
+        "Barras horizontales con los mutantes que dejan de morir de los 15 que matan los escenarios completos al vaciar el paso Entonces de cada escenario: el de no repetir pierde 2, los de quien ya entregó, última hora, 24 horas y otro curso pierden 1 cada uno, y los de 72 horas, caída y entrega vencida no pierden ninguno.",
+        ["Avisa a las 72 horas", "No repite un aviso enviado", "Quien ya entregó no recibe avisos", "Tras una caída solo llega el aviso más urgente",
+         "Conserva el aviso de la última hora", "No recibe el de 24 horas", "No afecta a otro curso", "Una entrega vencida no avisa"],
+        [("Mutantes que dejan de morir", [0, 2, 1, 0, 1, 1, 1, 0], "coral")],
+        unit="Mutantes que dejan de morir (de 15)", horizontal=True, decimals=0, ticks=[0, 1, 2], label_w=330,
+        note='Tres escenarios pueden perder su «Entonces» sin que ninguna comprobación se resienta: quedan cubiertos por otros o no afirman lo que dicen. Es una señal para revisar el texto, no una prueba de que sobren.', note_kind='gold', foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-485
 def se485_conjuntos_de_ejemplos() -> Fig:
-    rows = [['5 ejemplos típicos', '5', '10 de 18', 'M01, M02, M05, M08, M09, M11, M12, M16'], ['12 ejemplos de frontera del tiempo', '12', '11 de 18', 'M03, M05, M06, M07, M08, M11, M12'],
-            ['20 ejemplos al azar', '20', '8 de 18', 'M01, M02, M04, M06, M07, M08, M13, M14, M17, M18'], ['144 ejemplos combinatorios', '144', '17 de 18', 'M08'], ['Frontera y típicos juntos', '17', '14 de 18', 'cuatro (M05, M08, M11 y M12)']]
-    return tab('Cuatro conjuntos de ejemplos de aceptación y los mutantes que dejan vivos',
-               'Tabla con conjuntos de ejemplos de aceptación sobre los 18 mutantes no equivalentes: cinco típicos matan 10, doce de frontera del tiempo matan 11, veinte al azar matan 8, 144 combinatorios matan 17 y dejan vivo solo M08, y frontera con típicos juntos, 17 ejemplos, matan 14.',
-               ['Conjunto', 'Ejemplos', 'Mata', 'Deja vivos'], rows, [300, 110, 120, 440], row_h=58, size=13,
-               note='Más ejemplos no es mejor: 20 al azar matan menos que 12 bien elegidos. El conjunto combinatorio llega a 17 pero no mata M08 porque solo combina un estudiante y un curso; las dimensiones que el conjunto no varía quedan sin comprobar. Los resultados esperados salen de un modelo escrito aparte.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Cuatro conjuntos de ejemplos de aceptación y los mutantes que matan de 18",
+        "Barras horizontales con los mutantes que mata cada conjunto de ejemplos de 18 no equivalentes: cinco típicos matan 10, doce de frontera del tiempo matan 11, veinte al azar matan 8, 144 combinatorios matan 17 y dejan vivo solo M08, y frontera con típicos juntos, 17 ejemplos, matan 14.",
+        ["5 ejemplos típicos", "12 ejemplos de frontera del tiempo", "20 ejemplos al azar", "144 ejemplos combinatorios", "Frontera y típicos juntos (17 ejemplos)"],
+        [("Mutantes que mata", [10, 11, 8, 17, 14], "teal")],
+        unit="Mutantes que mata (de 18)", horizontal=True, label_w=310, ref_lines=[(18, "18")],
+        note='Más ejemplos no es mejor: 20 al azar matan menos que 12 bien elegidos. El conjunto combinatorio llega a 17 pero no mata M08 porque solo combina un estudiante y un curso; las dimensiones que el conjunto no varía quedan sin comprobar. Los resultados esperados salen de un modelo escrito aparte.', note_kind='coral', foot=EJEC)
 
 
 def se485_ciclo_de_aceptacion() -> Fig:
@@ -221,24 +248,25 @@ def se485_ciclo_de_aceptacion() -> Fig:
 
 
 def se485_dimensiones_cubiertas() -> Fig:
-    rows = [['5 típicos', 'tres puntos sueltos', 'sí', 'una vez', 'un solo curso y persona'], ['12 de frontera', 'sí: 12 valores en los límites', 'no', 'no', 'un solo curso y persona'],
-            ['20 al azar', 'valores sueltos', 'a veces', 'a veces', 'un solo curso y persona'], ['144 combinatorios', 'sí', 'sí', 'sí', 'no']]
-    return tab('Qué dimensiones del problema varía cada conjunto de ejemplos',
-               'Tabla con las dimensiones que varía cada conjunto de ejemplos: los cinco típicos eligen tres puntos sueltos del tiempo, incluyen una entrega entregada y un curso silenciado y usan un solo curso y persona; los doce de frontera cubren los límites del tiempo pero no varían entregada ni silenciado; los veinte al azar varían todo a veces; los 144 combinatorios cubren tiempo, entregada y silenciado pero no varían curso ni persona, por lo que dejan vivo M08.',
-               ['Conjunto', 'Límites del tiempo', 'Entregada', 'Silenciado', 'Varios cursos o personas'], rows, [190, 270, 120, 150, 250], row_h=64, size=13,
-               note='La columna de la derecha explica el único mutante que sobrevive al conjunto más grande: ningún ejemplo distingue silenciar a una persona de silenciar un curso. Elegir ejemplos es decidir qué dimensiones se comprueban.',
-               note_kind='gold', foot='')
+    return heatmap(
+        "Qué dimensiones del problema varía cada conjunto de ejemplos",
+        "Mapa de calor con las dimensiones que varía cada conjunto de ejemplos: los cinco típicos eligen tres puntos sueltos del tiempo e incluyen una vez una entrega entregada y un curso silenciado; los doce de frontera cubren los límites del tiempo pero no varían entregada ni silenciado; los veinte al azar varían tiempo, entregada y silenciado a veces; los 144 combinatorios cubren tiempo, entregada y silenciado; ninguno varía el curso ni la persona, por lo que los 144 dejan vivo M08.",
+        ["5 típicos", "12 de frontera", "20 al azar", "144 combinatorios"],
+        ["Límites del tiempo", "Entregada", "Silenciado", "Varios cursos o personas"],
+        [[0.5, 1, 0.5, 0], [1, 0, 0, 0], [0.5, 0.5, 0.5, 0], [1, 1, 1, 0]],
+        unit="Dimensión variada", scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v == 1 else ("no" if v == 0 else "parcial"), cell_h=50, label_w=190,
+        note='La columna de la derecha explica el único mutante que sobrevive al conjunto más grande: ningún ejemplo distingue silenciar a una persona de silenciar un curso. Elegir ejemplos es decidir qué dimensiones se comprueban.', note_kind='gold', foot='')
 
 
 # ---------------------------------------------------------------- SE-486
 def se486_polisemia_de_entrega() -> Fig:
-    rows = [['Trabajo de una persona estudiante: curso, vencimiento, aviso', '487', '29'], ['Liberar o desplegar software: entrega continua, pipeline, release', '89', '16'],
-            ['Hacer llegar un mensaje o resultado: cola, al menos una vez', '122', '19'], ['Frases con más de un sentido a la vez', '15', '—'], ['Frases sin sentido reconocible por las reglas', '3 536', '—']]
-    return tab('Cuatro mil doscientas cuarenta y nueve frases con «entrega» en las Partes 00 a 39 clasificadas por sentido',
-               'Tabla con las 4249 frases que contienen la palabra entrega en las clases de las Partes 00 a 39 clasificadas por reglas léxicas: 487 hablan del trabajo de una persona estudiante en 29 partes, 89 de liberar o desplegar software en 16 partes, 122 de hacer llegar un mensaje o resultado en 19 partes, 15 mezclan más de un sentido y 3536 no tienen un sentido que las reglas reconozcan.',
-               ['Sentido de «entrega»', 'Frases', 'Partes'], rows, [640, 150, 140], row_h=58, size=13,
-               note='La palabra que da nombre al dominio de Avisos tiene al menos tres sentidos en el propio programa. Las reglas léxicas son burdas: las 3 536 frases sin clasificar no significan que carezcan de sentido, sino que las reglas no lo ven.',
-               note_kind='gold', foot='Recuento léxico sobre content/part-00..39 con expresiones regulares; idéntico en Windows 11 y Ubuntu (WSL2).')
+    return grouped_bars(
+        "Cuatro mil doscientas cuarenta y nueve frases con «entrega» en las Partes 00 a 39 clasificadas por sentido",
+        "Barras horizontales en escala logarítmica con las frases que contienen entrega clasificadas por reglas léxicas: 487 hablan del trabajo de una persona estudiante en 29 partes, 89 de liberar o desplegar software en 16 partes, 122 de hacer llegar un mensaje o resultado en 19 partes, 15 mezclan más de un sentido y 3 536 no tienen un sentido que las reglas reconozcan.",
+        ["Trabajo de una persona estudiante (29 partes)", "Liberar o desplegar software (16 partes)", "Hacer llegar un mensaje o resultado (19 partes)", "Frases con más de un sentido a la vez", "Frases sin sentido reconocible por las reglas"],
+        [("Frases", [487, 89, 122, 15, 3536], "gold")],
+        unit="Frases (escala logarítmica)", horizontal=True, log=True, label_w=330,
+        note='La palabra que da nombre al dominio de Avisos tiene al menos tres sentidos en el propio programa. Las reglas léxicas son burdas: las 3 536 frases sin clasificar no significan que carezcan de sentido, sino que las reglas no lo ven.', note_kind='gold', foot='Recuento léxico sobre content/part-00..39 con expresiones regulares; idéntico en Windows 11 y Ubuntu (WSL2).')
 
 
 def se486_contextos_y_traduccion() -> Fig:
@@ -258,12 +286,13 @@ def se486_contextos_y_traduccion() -> Fig:
 
 
 def se486_con_y_sin_traduccion() -> Fig:
-    rows = [['Con la capa de traducción', '8', '2', '6'], ['Sin traducir (el estado pasa como texto)', '8', '8 contadas como entregadas', '0']]
-    return tab('Ocho entregas del contexto académico leídas por el contexto de avisos, con y sin traducción',
-               'Tabla con ocho entregas del contexto académico: con la capa de traducción, 2 quedan como entregadas y se envían 6 avisos; sin traducir, el estado como texto cuenta las 8 como entregadas porque cualquier texto no vacío es verdadero y no se envía ningún aviso.',
-               ['Camino', 'Entregas', 'Contadas como entregadas', 'Avisos enviados'], rows, [360, 130, 280, 200], row_h=60, size=13,
-               note='El fallo no lanza ninguna excepción: el servicio funciona y no avisa a nadie. Un nombre compartido entre contextos sin traducción explícita produce errores silenciosos. Ocho entregas sintéticas; el mecanismo es general, la magnitud no.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Ocho entregas del contexto académico leídas por el contexto de avisos, con y sin traducción",
+        "Barras agrupadas de ocho entregas del contexto académico: con la capa de traducción, 2 quedan como entregadas y se envían 6 avisos; sin traducir, el estado pasa como texto, cuenta las 8 como entregadas porque cualquier texto no vacío es verdadero y no se envía ningún aviso.",
+        ["Con la capa de traducción", "Sin traducir (el estado pasa como texto)"],
+        [("Contadas como entregadas", [2, 8], "gold"), ("Avisos enviados", [6, 0], "teal")],
+        unit="Entregas (de 8)",
+        note='El fallo no lanza ninguna excepción: el servicio funciona y no avisa a nadie. Un nombre compartido entre contextos sin traducción explícita produce errores silenciosos. Ocho entregas sintéticas; el mecanismo es general, la magnitud no.', note_kind='coral', foot=EJEC)
 
 
 FIGURES = {

@@ -108,9 +108,9 @@ def delta_e(a, b):
     return math.dist(lab(a), lab(b))
 ```
 
-![Tabla con cinco pares de colores y su diferencia de color para visión normal y tres simulaciones de daltonismo: el par rojo y verde pasa de 119,8 a 7,3 en deuteranopía; azul y naranja se mantiene por encima de 96.](../../../content/part-14/figures/se-175-pares-bajo-daltonismo.svg)
+![Mapa de calor con la diferencia de color en CIELAB de cinco pares con visión normal y con simulaciones de protanopía, deuteranopía y tritanopía: el par rojo y verde pasa de 119,8 a 7,3 en deuteranopía; azul y naranja se mantiene por encima de 96.](../../../content/part-14/figures/se-175-pares-bajo-daltonismo.svg)
 
-**Cómo leer la figura.** Cada fila es un par de colores; las columnas muestran su distancia con visión normal y con cada simulación; un valor bajo indica confusión. **Dónde deja de valer:** las matrices se aplican en RGB lineal y a severidad completa, una aproximación; muchas personas tienen deficiencias parciales y ninguna simulación sustituye a personas con esa visión. Un ΔE menor que 10 es un umbral práctico, no una medida de percepción individual.
+**Cómo leer la figura.** Cada fila es un par de colores y cada columna una visión; cuanto más oscura la celda, más distinguibles son los dos colores (ΔE), y la celda resaltada es la que baja de 10. Mira primero la fila de rojo y verde, que se aclara en protanopía y deuteranopía, y compárala con la de azul y naranja, que se mantiene oscura. **Dónde deja de valer:** las matrices se aplican en RGB lineal y a severidad completa, una aproximación; muchas personas tienen deficiencias parciales y ninguna simulación sustituye a personas con esa visión. Un ΔE menor que 10 es un umbral práctico, no una medida de percepción individual.
 
 ### Una misma página al ampliar
 
@@ -122,9 +122,9 @@ desborda = ancho_fijo > vw
 caracteres_por_linea = int(vw / (16 * 0.5))      # 0,5 em por carácter, supuesto
 ```
 
-![Tabla de tres maquetaciones a ampliación del 100, 200 y 400 por ciento: el contenedor fluido nunca desborda, el de 600 píxeles desborda al 400 por ciento y la tabla de 700 píxeles desborda desde el 200 por ciento.](../../../content/part-14/figures/se-175-reflujo-con-zoom.svg)
+![Mapa de calor binario con el desborde de tres maquetaciones a ampliación del 100, 200 y 400 por ciento en una ventana de 1280 píxeles: el contenedor fluido nunca desborda, el de 600 píxeles desborda al 400 por ciento y la tabla de 700 píxeles ya desborda al 200.](../../../content/part-14/figures/se-175-reflujo-con-zoom.svg)
 
-**Cómo leer la figura.** Cada fila es una maquetación y cada columna un nivel de ampliación; «Desborda» indica desplazamiento horizontal. **Dónde deja de valer:** el cálculo compara anchos fijos con el ancho disponible y supone 0,5 em por carácter; el desbordamiento real depende de las reglas de maquetación, del contenido y del navegador, y debe comprobarse abriendo la página.
+**Cómo leer la figura.** Cada fila es una maquetación y cada columna una ampliación; una celda oscura desborda y una clara no. Mira primero en qué columna se oscurece cada fila: la tabla a 200 %, el contenedor fijo a 400 % y el fluido nunca. **Dónde deja de valer:** el cálculo compara anchos fijos con el ancho disponible y supone 0,5 em por carácter; el desbordamiento real depende de las reglas de maquetación, del contenido y del navegador, y debe comprobarse abriendo la página.
 
 ### Invertir los colores no conserva el contraste
 

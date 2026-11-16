@@ -1,8 +1,8 @@
 """Figures for SE-169 to SE-174 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2)."
 
@@ -58,20 +58,17 @@ def se169_embudo() -> Fig:
 
 # ---------------------------------------------------------------- SE-170
 def se170_anchura() -> Fig:
-    rows = [
-        ["2", "12", "14,6 s", "0,368", "39,7 s"],
-        ["4", "6", "8,2 s", "0,606", "13,5 s"],
-        ["8", "4", "6,1 s", "0,716", "8,6 s"],
-        ["16", "3", "5,2 s", "0,779", "6,6 s"],
-        ["64", "2", "4,2 s", "0,846", "5,0 s"],
-        ["4 096", "1", "3,3 s", "0,920", "3,6 s"],
-    ]
-    return tab("Menú de 4 096 destinos: anchura frente a profundidad",
-               "Tabla con seis anchuras de menú: con 2 opciones por nivel hay 12 niveles, 14,6 s y 0,368 de éxito; con 8, cuatro niveles, 6,1 s y 0,716; con 64, dos niveles, 4,2 s y 0,846; una sola lista de 4 096 llega a 3,3 s y 0,92 bajo el supuesto de error constante por nivel.",
-               ["Opciones por nivel", "Niveles", "Tiempo", "Éxito", "Tiempo esperado por éxito"], rows, [220, 150, 190, 170, 290], row_h=36, size=13,
-               note="Modelo: cada nivel cuesta un clic más 0,2·log2(opciones+1) s y se acierta con probabilidad 0,92; ambos valores son supuestos. El modelo ignora que 4 096 opciones en una lista no se pueden leer: el error por nivel sube con la anchura, y ese es el dato que habría que medir con árboles reales.",
-               note_kind="gold", foot=SINT)
-
+    xs = [2, 4, 8, 16, 64, 4096]
+    return line_chart(
+        "Menú de 4 096 destinos: anchura frente a profundidad",
+        "Líneas en escala logarítmica con el tiempo y el tiempo esperado por éxito de un menú de 4096 destinos según las opciones por nivel: con 2 opciones y 12 niveles 14,6 y 39,7 segundos; con 8 y cuatro niveles 6,1 y 8,6; con 64 y dos niveles 4,2 y 5,0; una sola lista llega a 3,3 y 3,6 bajo el supuesto de error constante por nivel.",
+        [("Tiempo", [(x, y, f"{y:g}".replace(".", ","), "l" if x == 4096 else "b") for x, y in zip(xs, [14.6, 8.2, 6.1, 5.2, 4.2, 3.3])], "teal"),
+         ("Tiempo esperado por éxito", [(x, y, f"{y:g}".replace(".", ","), "t") for x, y in zip(xs, [39.7, 13.5, 8.6, 6.6, 5.0, 3.6])], "coral")],
+        x_label="Opciones por nivel", y_label="Segundos", log_x=True,
+        x_ticks=[(2, "2"), (4, "4"), (8, "8"), (16, "16"), (64, "64"), (4096, "4 096")], y_ticks=[0, 10, 20, 30, 40],
+        point_labels="none", decimals=1, plot_h=300,
+        note="Niveles según las opciones: 12, 6, 4, 3, 2 y 1. Probabilidad de éxito del modelo: 0,368, 0,606, 0,716, 0,779, 0,846 y 0,920. Modelo: cada nivel cuesta un clic más 0,2·log2(opciones+1) s y se acierta con probabilidad 0,92; ambos valores son supuestos. El modelo ignora que 4 096 opciones en una lista no se pueden leer: el error por nivel sube con la anchura, y ese es el dato que habría que medir con árboles reales.",
+        note_kind="gold", foot=SINT)
 
 def se170_cards() -> Fig:
     items = [
@@ -88,34 +85,29 @@ def se170_cards() -> Fig:
 
 
 def se170_menu() -> Fig:
-    rows = [
-        ["Con menú global en cada página", "Desde la portada: 120 de 120", "4", "17 / 47 / 41 / 14 páginas a 1 / 2 / 3 / 4 clics"],
-        ["Sin menú global (solo enlaces de contenido)", "Desde la portada: 120 de 120", "9", "9 / 23 / 20 / 20 / 16 / 10 / 7 / 9 / 5 páginas a 1 a 9 clics"],
-        ["Desde una página interna, con enlace a la portada", "120 de 120", "5", "4 / 18 / 46 / 38 / 13 páginas a 1 a 5 clics"],
-        ["Desde la misma página, sin enlace a la portada", "16 de 120", "6", "Solo se alcanza el 13 % del sitio"],
-    ]
-    return tab("Grafo sintético de 120 páginas: qué cambia un menú global y un enlace a la portada",
-               "Tabla de un sitio sintético de 120 páginas: con menú global todo se alcanza en 4 clics como máximo; sin él la profundidad llega a 9; desde una página interna con enlace a la portada se alcanza todo, y sin ese enlace solo 16 de 120 páginas.",
-               ["Situación", "Páginas alcanzables", "Clics máximos", "Distribución"], rows, [330, 230, 150, 360], row_h=58, size=12,
-               note="Un recorrido en anchura sobre un grafo de enlaces mide alcance y profundidad, no si la gente entiende las etiquetas. El grafo se generó con una semilla y 30 % de enlaces cruzados: un sitio real tiene otra forma, y la medida útil sigue siendo el éxito de personas buscando cosas.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Grafo sintético de 120 páginas: qué cambia un menú global y un enlace a la portada",
+        "Barras horizontales con los clics máximos para recorrer un sitio sintético de 120 páginas: con menú global 4, sin él 9, desde una página interna con enlace a la portada 5 y sin ese enlace 6, pero solo se alcanzan 16 de 120 páginas.",
+        ["Con menú global, desde la portada (120 de 120)", "Sin menú global, desde la portada (120 de 120)", "Desde una página interna, con enlace a la portada (120 de 120)", "Desde la misma página, sin enlace a la portada (16 de 120)"],
+        [("Clics máximos", [4, 9, 5, 6], "navy")],
+        unit="Clics máximos hasta la página más profunda alcanzable", horizontal=True, decimals=0, label_w=330,
+        note="Con menú global, 17 / 47 / 41 / 14 páginas están a 1 / 2 / 3 / 4 clics; sin él, 9 / 23 / 20 / 20 / 16 / 10 / 7 / 9 / 5 páginas a 1 a 9 clics. Sin enlace a la portada solo se alcanza el 13 % del sitio. Un recorrido en anchura sobre un grafo de enlaces mide alcance y profundidad, no si la gente entiende las etiquetas. El grafo se generó con una semilla y 30 % de enlaces cruzados.",
+        note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-171
 def se171_fitts() -> Fig:
-    rows = [
-        ["16 px", "0,890 s", "18,3 %", "42,5 %", "56,9 %"],
-        ["24 px", "0,805 s", "4,5 %", "23,0 %", "39,3 %"],
-        ["32 px", "0,746 s", "0,9 %", "10,9 %", "25,3 %"],
-        ["44 px", "0,681 s", "0,0 %", "2,8 %", "11,5 %"],
-        ["48 px", "0,663 s", "0,0 %", "1,7 %", "8,7 %"],
-    ]
-    return tab("Tamaño del objetivo: tiempo de apuntar y toques que caen fuera",
-               "Tabla con cinco tamaños de botón: el tiempo de la ley de Fitts baja de 0,89 a 0,66 segundos de 16 a 48 píxeles, y los toques que fallan con dispersión de 6, 10 y 14 píxeles pasan, con 24 píxeles, de 4,5 a 39,3 por ciento.",
-               ["Ancho del objetivo", "Tiempo (D = 600 px)", "Fuera, σ = 6 px", "Fuera, σ = 10 px", "Fuera, σ = 14 px"], rows, [190, 220, 190, 190, 190], row_h=36, size=13,
-               note="Tiempo: 0,1 + 0,15·log2(D/W + 1), con constantes supuestas; fallo: probabilidad de que un toque con dispersión gaussiana caiga a más de W/2 del centro, en una dimensión. La dispersión de una persona con temblor, un dedo grande o un autobús en marcha no se midió: los tres σ son escenarios.",
-               note_kind="gold", foot=SINT)
-
+    xs = [16, 24, 32, 44, 48]
+    return line_chart(
+        "Tamaño del objetivo: tiempo de apuntar y toques que caen fuera",
+        "Líneas con el porcentaje de toques que caen fuera según el ancho del botón y tres dispersiones: con 24 píxeles fallan 4,5, 23,0 y 39,3 por ciento con dispersión de 6, 10 y 14 píxeles; con 44 píxeles 0,0, 2,8 y 11,5; el tiempo de Fitts baja de 0,89 a 0,66 segundos de 16 a 48 píxeles.",
+        [("σ = 6 px", list(zip(xs, [18.3, 4.5, 0.9, 0.0, 0.0])), "teal"),
+         ("σ = 10 px", list(zip(xs, [42.5, 23.0, 10.9, 2.8, 1.7])), "gold"),
+         ("σ = 14 px", list(zip(xs, [56.9, 39.3, 25.3, 11.5, 8.7])), "coral")],
+        x_label="Ancho del objetivo (px)", y_label="Toques que caen fuera (%)",
+        x_ticks=[(16, "16"), (24, "24"), (32, "32"), (44, "44"), (48, "48")], y_ticks=[0, 20, 40, 60],
+        point_labels="none", decimals=1, plot_h=300,
+        note="Tiempo de apuntar con D = 600 px: 0,890, 0,805, 0,746, 0,681 y 0,663 s para 16, 24, 32, 44 y 48 px. Tiempo: 0,1 + 0,15·log2(D/W + 1), con constantes supuestas; fallo: probabilidad de que un toque con dispersión gaussiana caiga a más de W/2 del centro, en una dimensión. La dispersión de una persona con temblor, un dedo grande o un autobús en marcha no se midió: los tres σ son escenarios.",
+        note_kind="gold", foot=SINT)
 
 def se171_doble() -> Fig:
     items = [
@@ -144,31 +136,24 @@ def se171_deshacer() -> Fig:
 
 # ---------------------------------------------------------------- SE-172
 def se172_estados() -> Fig:
-    rows = [
-        ["Tres banderas booleanas", "8", "4", "198 de 200 eventos terminan en una combinación imposible"],
-        ["Un único estado con cuatro valores", "4", "4", "0 de 200: solo las transiciones declaradas"],
-        ["Dos fuentes con cuatro estados cada una", "16", "16", "Cada combinación necesita un diseño"],
-        ["Cuatro fuentes", "256", "256", "Un diseño por combinación ya no es viable"],
-    ]
-    return tab("Banderas independientes frente a un estado explícito",
-               "Tabla: tres banderas dan 8 combinaciones de las que solo 4 tienen sentido, y 198 de 200 eventos aleatorios terminan en una combinación imposible; un estado explícito con transiciones declaradas no llega a ninguna, y cuatro fuentes con cuatro estados crean 256 combinaciones.",
-               ["Modelo del estado de la lista", "Combinaciones posibles", "Con significado", "Resultado en 200 eventos aleatorios"], rows, [330, 190, 170, 400], row_h=48, size=12,
-               note="El manejador con banderas olvida apagar la carga y el error al llegar los datos: cada actualización es correcta por separado y el conjunto no. Los eventos son aleatorios con semilla fija; en una aplicación real los eventos no son equiprobables, pero la combinación imposible sigue siendo alcanzable.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Banderas independientes frente a un estado explícito",
+        "Barras agrupadas en escala logarítmica con las combinaciones posibles y las que tienen significado según el modelo del estado: tres banderas dan 8 de las que solo 4 tienen sentido; un estado con cuatro valores 4 y 4; dos fuentes 16 y 16; cuatro fuentes 256 y 256.",
+        ["Tres banderas booleanas", "Un único estado de cuatro valores", "Dos fuentes de cuatro estados", "Cuatro fuentes"],
+        [("Combinaciones posibles", [8, 4, 16, 256], "grey"), ("Con significado", [4, 4, 16, 256], "teal")],
+        unit="Combinaciones", log=True, decimals=0, plot_h=280,
+        note="Con tres banderas, 198 de 200 eventos aleatorios terminan en una combinación imposible; con un estado explícito, 0 de 200: solo se aceptan las transiciones declaradas. El manejador con banderas olvida apagar la carga y el error al llegar los datos: cada actualización es correcta por separado y el conjunto no. Los eventos son aleatorios con semilla fija; en una aplicación real no son equiprobables, pero la combinación imposible sigue siendo alcanzable.",
+        note_kind="gold", foot=SINT)
 
 def se172_reintentos() -> Fig:
-    rows = [
-        ["Cada segundo, sin espera creciente", "10 000", "1 000", "11 000"],
-        ["Espera exponencial sin aleatoriedad", "3 000", "1 000", "4 000"],
-        ["Espera exponencial con aleatoriedad completa", "3 978", "151", "4 978"],
-    ]
-    return tab("Mil clientes tras una caída de 10 s: carga durante la caída y pico al recuperarse",
-               "Tabla de tres políticas de reintento con mil clientes y una caída de diez segundos: reintentar cada segundo suma 10 000 peticiones durante la caída y un pico de 1 000 al recuperarse; la espera exponencial sin aleatoriedad suma 3 000 pero mantiene el pico de 1 000; con aleatoriedad completa suma 3 978 y el pico baja a 151.",
-               ["Política de reintento", "Peticiones durante la caída", "Pico por segundo al recuperarse", "Total"], rows, [400, 230, 250, 120], row_h=40, size=13,
-               note="Los clientes arrancan casi a la vez (en 0,5 s) y el servicio vuelve a los 10 s. La espera exponencial reduce el tráfico pero deja a los clientes sincronizados; la aleatoriedad rompe esa sincronía. Es una simulación de un recurso sin capacidad finita: no incluye colas ni límites del servidor.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Mil clientes tras una caída de 10 s: carga durante la caída y pico al recuperarse",
+        "Barras agrupadas en escala logarítmica de tres políticas de reintento con mil clientes y una caída de diez segundos: reintentar cada segundo suma 10 000 peticiones durante la caída y un pico de 1 000 al recuperarse; la espera exponencial sin aleatoriedad 3 000 y 1 000; con aleatoriedad completa 3 978 y 151.",
+        ["Cada segundo, sin espera creciente", "Espera exponencial sin aleatoriedad", "Espera exponencial con aleatoriedad completa"],
+        [("Peticiones durante la caída", [10000, 3000, 3978], "grey"), ("Pico por segundo al recuperarse", [1000, 1000, 151], "coral")],
+        unit="Peticiones", log=True, decimals=0, plot_h=280,
+        note="Totales: 11 000, 4 000 y 4 978. Los clientes arrancan casi a la vez (en 0,5 s) y el servicio vuelve a los 10 s. La espera exponencial reduce el tráfico pero deja a los clientes sincronizados; la aleatoriedad rompe esa sincronía. Es una simulación de un recurso sin capacidad finita: no incluye colas ni límites del servidor.",
+        note_kind="gold", foot=SINT)
 
 def se172_latencia() -> Fig:
     items = [
@@ -186,35 +171,25 @@ def se172_latencia() -> Fig:
 
 # ---------------------------------------------------------------- SE-173
 def se173_contraste() -> Fig:
-    rows = [
-        ["#767676 sobre #ffffff", "4,54", "Sí", "Sí"],
-        ["#777777 sobre #ffffff", "4,48", "No", "Sí"],
-        ["#087f8c sobre #ffffff", "4,75", "Sí", "Sí"],
-        ["#c0432f sobre #fbe4de", "4,22", "No", "Sí"],
-        ["#a8761a sobre #f7ebc8", "3,35", "No", "Sí"],
-        ["#ff0000 sobre #ffffff", "4,00", "No", "Sí"],
-    ]
-    return tab("Razón de contraste de pares de colores de las figuras del programa y límites de WCAG",
-               "Tabla de seis pares de colores con su razón de contraste: 4,54, 4,48, 4,75, 4,22, 3,35 y 4,00; solo el gris 767676 y el verde azulado pasan el mínimo de 4,5 para texto normal, y los seis pasan el mínimo de 3 para texto grande y componentes.",
-               ["Par de colores", "Razón", "Pasa 4,5:1 (texto)", "Pasa 3:1 (grande/UI)"], rows, [330, 140, 220, 230], row_h=36, size=13,
-               note="De 20 000 pares de colores sRGB al azar, 12,0 % alcanza 4,5:1 y 26,5 % alcanza 3:1: elegir sin calcular suele fallar. El gris más claro que pasa 4,5:1 sobre blanco es #767676. La razón se calcula con la fórmula de luminancia relativa de WCAG; no sustituye mirar el texto con su tamaño y grosor reales.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Razón de contraste de pares de colores de las figuras del programa y límites de WCAG",
+        "Barras horizontales con la razón de contraste de seis pares de colores y dos líneas en 3 y 4,5: 4,54, 4,48, 4,75, 4,22, 3,35 y 4,00; solo el gris 767676 y el verde azulado superan 4,5 para texto normal, y los seis superan 3 para texto grande y componentes.",
+        ["#767676 sobre #ffffff", "#777777 sobre #ffffff", "#087f8c sobre #ffffff", "#c0432f sobre #fbe4de", "#a8761a sobre #f7ebc8", "#ff0000 sobre #ffffff"],
+        [("Razón de contraste", [4.54, 4.48, 4.75, 4.22, 3.35, 4.00], "navy")],
+        unit="Razón de contraste (n : 1)", decimals=2, ticks=[0, 1, 2, 3, 4, 5], plot_h=280,
+        ref_lines=[(3, "3 : 1 grande y UI"), (4.5, "4,5 : 1 texto")],
+        note="De 20 000 pares de colores sRGB al azar, 12,0 % alcanza 4,5:1 y 26,5 % alcanza 3:1: elegir sin calcular suele fallar. El gris más claro que pasa 4,5:1 sobre blanco es #767676. La razón se calcula con la fórmula de luminancia relativa de WCAG; no sustituye mirar el texto con su tamaño y grosor reales.",
+        note_kind="gold", foot=SINT)
 
 def se173_auditor() -> Fig:
-    rows = [
-        ["Falta lang, título, etiqueta, alt, nombre del botón o id duplicado", "6 de 6", "Regla mecánica sobre atributos"],
-        ["Campo cuya única etiqueta es un placeholder", "1 de 1", "Se detecta como ausencia de etiqueta"],
-        ["Texto alternativo «imagen1.png»", "0 de 1", "Hay alt, pero no describe"],
-        ["Etiqueta que dice «Archivo» sobre el campo del nombre", "0 de 1", "Hay etiqueta, pero es falsa"],
-        ["Título genérico, botón «Clic aquí», lang incorrecto", "0 de 3", "Están presentes y son incorrectos"],
-    ]
-    return tab("Auditor de reglas sobre 12 defectos inyectados en un formulario de entrega",
-               "Tabla: un auditor de reglas sobre atributos detecta 7 de 12 defectos inyectados; detecta toda ausencia de atributo y ningún atributo presente pero incorrecto, como un texto alternativo que no describe, una etiqueta falsa, un título genérico o un idioma equivocado.",
-               ["Defecto inyectado", "Detectados", "Por qué"], rows, [500, 150, 330], row_h=52, size=12,
-               note="Siete de doce: las reglas ven presencia, no verdad. El auditor es un programa de 60 líneas con el analizador de HTML de la biblioteca estándar; una herramienta de producción tiene más reglas, pero la frontera es la misma, que algo presente puede ser incorrecto.",
-               note_kind="coral", foot=SINT)
-
+    return stacked_bars(
+        "Auditor de reglas sobre 12 defectos inyectados en un formulario de entrega",
+        "Barras apiladas horizontales con los defectos inyectados que detecta un auditor de reglas, 7 de 12: detecta toda ausencia de atributo, 6 de 6 y 1 de 1, y ningún atributo presente pero incorrecto, como un texto alternativo que no describe, una etiqueta falsa, un título genérico o un idioma equivocado.",
+        ["Falta lang, título, etiqueta, alt, nombre del botón o id duplicado", "Campo cuya única etiqueta es un placeholder", "Texto alternativo «imagen1.png»", "Etiqueta «Archivo» sobre el campo del nombre", "Título genérico, «Clic aquí», lang incorrecto"],
+        [("Detectados", [6, 1, 0, 0, 0], "teal"), ("No detectados", [0, 0, 1, 1, 3], "coral")],
+        unit="Defectos inyectados", horizontal=True, decimals=0, label_w=330,
+        note="Siete de doce: las reglas ven presencia, no verdad. El auditor es un programa de 60 líneas con el analizador de HTML de la biblioteca estándar; una herramienta de producción tiene más reglas, pero la frontera es la misma, que algo presente puede ser incorrecto.",
+        note_kind="coral", foot=SINT)
 
 def se173_destinos() -> Fig:
     items = [
@@ -243,35 +218,24 @@ def se174_tab() -> Fig:
 
 
 def se174_nombre() -> Fig:
-    rows = [
-        ["<button>Enviar</button>", "Contenido", "Enviar"],
-        ["<button></button>", "Ninguna", "Sin nombre"],
-        ["<button><img src=i.png></button>", "Ninguna", "Sin nombre"],
-        ["<button aria-label=\"Cerrar\"></button>", "aria-label", "Cerrar"],
-        ["<input placeholder=\"Nombre\">", "placeholder", "Nombre (frágil)"],
-        ["<a href=#><span class=icon></span></a>", "Ninguna", "Sin nombre"],
-        ["<label for=m>Nombre</label><input id=n>", "Ninguna", "Sin nombre"],
-        ["<input aria-label=\"\">", "Ninguna", "Sin nombre"],
-    ]
-    return tab("Nombre accesible de ocho controles con un cálculo simplificado de la norma",
-               "Tabla de ocho fragmentos de HTML con el origen y el valor del nombre accesible: tres botones o enlaces sin contenido quedan sin nombre, una etiqueta que apunta a otro id deja un campo sin nombre y un placeholder da un nombre que desaparece al escribir.",
-               ["Fragmento", "Origen del nombre", "Resultado"], rows, [480, 230, 270], row_h=34, size=12,
-               note="En 12 fragmentos de prueba, 5 controles quedaron sin nombre. El cálculo implementa solo un subconjunto de la norma (aria-labelledby, aria-label, label, contenido, title, placeholder); no cubre imágenes dentro de botones con alt, listas, ni la salida real de un lector de pantalla.",
-               note_kind="gold", foot=SINT)
-
+    return stacked_bars(
+        "Nombre accesible de ocho controles con un cálculo simplificado de la norma",
+        "Barra apilada con el nombre accesible de ocho fragmentos de HTML: dos controles tienen un nombre fiable, un campo tiene el del placeholder, que desaparece al escribir, y cinco quedan sin nombre, entre ellos tres botones o enlaces sin contenido y un campo cuya etiqueta apunta a otro id.",
+        ["Ocho fragmentos"],
+        [("Nombre por contenido o aria-label", [2], "teal"), ("Nombre frágil (placeholder)", [1], "gold"), ("Sin nombre", [5], "coral")],
+        unit="Controles", horizontal=True, decimals=0, label_w=140,
+        note="Sin nombre: <button></button>, <button><img></button>, el enlace con un span de icono, el campo con label que apunta a otro id y <input aria-label=\"\">. Con nombre: <button>Enviar</button> y <button aria-label=\"Cerrar\">. En 12 fragmentos de prueba, 5 controles quedaron sin nombre. El cálculo implementa solo un subconjunto de la norma; no cubre imágenes dentro de botones con alt, listas, ni la salida real de un lector de pantalla.",
+        note_kind="gold", foot=SINT)
 
 def se174_estructura() -> Fig:
-    rows = [
-        ["Secciones con h2 reales", "201", "12", "9 saltos hasta la sección 9"],
-        ["Secciones con div de clase «titulo»", "201", "0", "Ninguna: solo lectura lineal"],
-        ["Niveles 1, 2, 2, 3, 3, 2, 4, 2, 3", "—", "9", "Un salto de nivel (del 2 al 4)"],
-    ]
-    return tab("Estructura navegable: encabezados reales frente a texto con aspecto de título",
-               "Tabla: en una página de 12 secciones y 24 párrafos cada una, llegar a la sección 9 exige leer 201 nodos; con encabezados reales se llega con 9 saltos, con div estilizados no hay forma de saltar, y una secuencia de niveles tiene un salto del 2 al 4.",
-               ["Página", "Nodos hasta la sección 9", "Encabezados disponibles", "Resultado"], rows, [330, 200, 190, 260], row_h=44, size=12,
-               note="El analizador cuenta nodos y encabezados de una página generada; no mide cómo navega una persona con un lector de pantalla, que combina atajos, listas de enlaces y regiones. El número de nodos lo fija la página sintética (12 × 24 + 12 + 1).",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Estructura navegable: encabezados reales frente a texto con aspecto de título",
+        "Barras horizontales con los encabezados disponibles para navegar en tres páginas: 12 con h2 reales, que permiten llegar a la sección 9 con 9 saltos en lugar de leer 201 nodos; ninguno con div estilizados; y 9 en una secuencia de niveles con un salto del 2 al 4.",
+        ["Secciones con h2 reales (9 saltos en vez de 201 nodos)", "Secciones con div de clase «titulo» (201 nodos, sin saltos)", "Niveles 1, 2, 2, 3, 3, 2, 4, 2, 3 (un salto del 2 al 4)"],
+        [("Encabezados disponibles", [12, 0, 9], "teal")],
+        unit="Encabezados disponibles para saltar", horizontal=True, decimals=0, label_w=330,
+        note="El analizador cuenta nodos y encabezados de una página generada; no mide cómo navega una persona con un lector de pantalla, que combina atajos, listas de enlaces y regiones. El número de nodos lo fija la página sintética (12 × 24 + 12 + 1).",
+        note_kind="gold", foot=SINT)
 
 FIGURES = {
     "se-169-tiempo-por-diseno.svg": se169_klm,

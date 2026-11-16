@@ -1,39 +1,33 @@
 """Figures for SE-175 to SE-180 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, stacked_bars
+
 from figures_part14_a import SINT, auto_bars
 
 
 # ---------------------------------------------------------------- SE-175
 def se175_daltonismo() -> Fig:
-    rows = [
-        ["Rojo #d62728 / verde #2ca02c", "119,8", "37,6", "7,3", "124,4", "1,48"],
-        ["Rojo claro / verde claro", "106,6", "24,2", "13,9", "119,1", "1,34"],
-        ["Coral / verde azulado de las figuras", "90,8", "42,2", "61,3", "104,2", "1,08"],
-        ["Azul / naranja", "122,0", "101,0", "118,1", "96,9", "1,90"],
-        ["Ámbar / verde azulado", "77,8", "67,2", "71,9", "66,0", "1,19"],
-    ]
-    return tab("Distancia de color entre dos estados con visión normal y tres simulaciones de daltonismo",
-               "Tabla con cinco pares de colores y su diferencia de color en CIELAB para visión normal y simulaciones de protanopía, deuteranopía y tritanopía: el par rojo y verde pasa de 119,8 a 7,3 en deuteranopía; azul y naranja se mantiene por encima de 96.",
-               ["Par de estados", "Normal", "Protan.", "Deutan.", "Tritan.", "Contraste de luminancia"], rows, [330, 100, 100, 100, 100, 220], row_h=36, size=12,
-               note="Distancias ΔE en CIELAB; con menos de 10 el par se confunde. Rojo y verde se vuelven casi iguales para deuteranopía (7,3) y su contraste de luminancia es 1,48:1. Aplicar las matrices de Machado en RGB lineal es una aproximación; ninguna simulación reemplaza a personas con esa visión ni abarca los casos parciales.",
-               note_kind="coral", foot=SINT)
-
+    return heatmap(
+        "Distancia de color entre dos estados con visión normal y tres simulaciones de daltonismo",
+        "Mapa de calor con la diferencia de color en CIELAB de cinco pares de colores con visión normal y con simulaciones de protanopía, deuteranopía y tritanopía: el par rojo y verde pasa de 119,8 a 7,3 en deuteranopía; azul y naranja se mantiene por encima de 96.",
+        ["Rojo #d62728 / verde #2ca02c", "Rojo claro / verde claro", "Coral / verde azulado de las figuras", "Azul / naranja", "Ámbar / verde azulado"],
+        ["Normal", "Protanopía", "Deuteranopía", "Tritanopía"],
+        [[119.8, 37.6, 7.3, 124.4], [106.6, 24.2, 13.9, 119.1], [90.8, 42.2, 61.3, 104.2], [122.0, 101.0, 118.1, 96.9], [77.8, 67.2, 71.9, 66.0]],
+        unit="ΔE en CIELAB", scale="navy", vmin=0, vmax=125, decimals=1, highlight=[(0, 2)], label_w=270,
+        note="Con ΔE menor que 10 el par se confunde (celda resaltada: rojo y verde para deuteranopía, 7,3, con un contraste de luminancia de 1,48:1). Contraste de luminancia de cada par: 1,48, 1,34, 1,08, 1,90 y 1,19. Aplicar las matrices de Machado en RGB lineal es una aproximación; ninguna simulación reemplaza a personas con esa visión ni abarca los casos parciales.",
+        note_kind="coral", foot=SINT)
 
 def se175_reflujo() -> Fig:
-    rows = [
-        ["Contenedor fluido con texto de 16 px", "No desborda", "No desborda", "No desborda (14 líneas, 36 car.)"],
-        ["Contenedor fijo de 600 px", "No desborda", "No desborda", "Desborda: 600 px en 320 px"],
-        ["Tabla de cinco columnas de 140 px", "No desborda", "Desborda (700 px en 640)", "Desborda: 700 px en 320 px"],
-    ]
-    return tab("Reflujo: la misma página ampliada en una ventana de 1 280 px",
-               "Tabla de tres maquetaciones a ampliación del 100, 200 y 400 por ciento en una ventana de 1 280 píxeles: el contenedor fluido nunca desborda, el de 600 píxeles desborda a 400 por ciento y la tabla de 700 píxeles ya desborda a 200 por ciento.",
-               ["Maquetación", "100 % (1 280 px CSS)", "200 % (640 px CSS)", "400 % (320 px CSS)"], rows, [360, 200, 230, 300], row_h=40, size=12,
-               note="Ampliar el texto al 400 % equivale a un ancho de 320 px CSS en una ventana de 1 280 px; el criterio de reflujo pide no exigir desplazamiento en dos dimensiones. El cálculo compara anchos fijos con el ancho disponible y supone 0,5 em por carácter: no sustituye abrir la página y ampliarla.",
-               note_kind="gold", foot=SINT)
-
+    return heatmap(
+        "Reflujo: la misma página ampliada en una ventana de 1 280 px",
+        "Mapa de calor binario con el desborde de tres maquetaciones a ampliación del 100, 200 y 400 por ciento en una ventana de 1 280 píxeles: el contenedor fluido nunca desborda, el de 600 píxeles desborda a 400 por ciento y la tabla de 700 píxeles ya desborda a 200 por ciento.",
+        ["Contenedor fluido con texto de 16 px", "Contenedor fijo de 600 px", "Tabla de cinco columnas de 140 px"],
+        ["100 % (1 280 px CSS)", "200 % (640 px CSS)", "400 % (320 px CSS)"],
+        [[0, 0, 0], [0, 0, 1], [0, 1, 1]],
+        unit="desborde", scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "desborda" if v else "no desborda", label_w=270,
+        note="A 200 % la tabla ocupa 700 px en 640 y a 400 % 700 px en 320; el contenedor de 600 px desborda 600 px en 320 px. Ampliar el texto al 400 % equivale a un ancho de 320 px CSS en una ventana de 1 280 px; el criterio de reflujo pide no exigir desplazamiento en dos dimensiones. El cálculo compara anchos fijos con el ancho disponible y supone 0,5 em por carácter: no sustituye abrir la página y ampliarla.",
+        note_kind="gold", foot=SINT)
 
 def se175_inversion() -> Fig:
     items = [
@@ -74,18 +68,14 @@ def se176_preferencias() -> Fig:
 
 
 def se176_imagenes() -> Fig:
-    rows = [
-        ["Teléfono de 360 px, densidad 3", "810 kB · 4,2 s", "202 kB · 1,2 s", "−75 %"],
-        ["Teléfono de 390 px, densidad 3", "810 kB · 4,2 s", "202 kB · 1,2 s", "−75 %"],
-        ["Tableta de 800 px, densidad 2", "810 kB · 4,2 s", "810 kB · 4,2 s", "0 %"],
-        ["Portátil de 1 280 px, densidad 1", "810 kB · 4,2 s", "810 kB · 4,2 s", "0 %"],
-    ]
-    return tab("Una imagen de 2 400 px frente a cuatro anchos con srcset en una conexión supuesta de 1,6 Mbit/s",
-               "Tabla de cuatro dispositivos: una única imagen de 2 400 píxeles pesa 810 kilobytes y tarda 4,2 segundos a 1,6 megabits por segundo; con cuatro anchos disponibles, los teléfonos descargan 202 kilobytes en 1,2 segundos y los equipos que necesitan el ancho máximo no ganan nada.",
-               ["Dispositivo", "Una imagen", "Con cuatro anchos", "Variación"], rows, [340, 220, 220, 150], row_h=36, size=13,
-               note="Peso estimado como píxeles × 0,5625 × 0,25 bytes por píxel (supuesto del autor) y tiempo como bytes ÷ ancho de banda + 0,15 s de latencia. La compresión real depende del contenido y del formato; el ahorro de un teléfono se debe a que una imagen más pequeña basta y no a una mejor compresión.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Una imagen de 2 400 px frente a cuatro anchos con srcset en una conexión supuesta de 1,6 Mbit/s",
+        "Barras agrupadas con los kilobytes que descarga cada dispositivo: una única imagen de 2400 píxeles pesa 810 en todos y tarda 4,2 segundos; con cuatro anchos, los teléfonos de 360 y 390 píxeles descargan 202 kilobytes en 1,2 segundos y la tableta y el portátil siguen en 810.",
+        ["Teléfono 360 px ×3", "Teléfono 390 px ×3", "Tableta 800 px ×2", "Portátil 1 280 px ×1"],
+        [("Una imagen", [810, 810, 810, 810], "grey"), ("Con cuatro anchos", [202, 202, 810, 810], "teal")],
+        unit="Kilobytes descargados", decimals=0, plot_h=260,
+        note="Tiempos: 4,2 s con la imagen única en los cuatro y 1,2 s con cuatro anchos en los teléfonos (−75 %); la tableta y el portátil no ganan nada. Peso estimado como píxeles × 0,5625 × 0,25 bytes por píxel (supuesto del autor) y tiempo como bytes ÷ ancho de banda + 0,15 s de latencia. La compresión real depende del contenido y del formato; el ahorro de un teléfono se debe a que una imagen más pequeña basta y no a una mejor compresión.",
+        note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-177
 def se177_plurales() -> Fig:
@@ -101,35 +91,24 @@ def se177_plurales() -> Fig:
 
 
 def se177_unicode() -> Fig:
-    rows = [
-        ["José (composición precompuesta)", "4", "5", "4"],
-        ["José con acento combinado", "5", "6", "5"],
-        ["Zoë y Zoë con diéresis combinada", "3 y 4", "4 y 5", "—"],
-        ["Mujer tecnóloga: tres símbolos unidos", "3", "11", "5"],
-        ["straße en mayúsculas", "STRASSE", "—", "—"],
-        ["«İ».lower()", "2 puntos de código", "—", "—"],
-    ]
-    return tab("Una misma «letra» que se cuenta de maneras distintas",
-               "Tabla de cadenas con su longitud en puntos de código, en bytes UTF-8 y en unidades UTF-16: José tiene 4 o 5 puntos según se componga el acento, un emoji de tres símbolos unidos tiene 3 puntos, 11 bytes y 5 unidades, y las mayúsculas de «straße» son «STRASSE».",
-               ["Cadena", "Puntos de código", "Bytes UTF-8", "Unidades UTF-16"], rows, [400, 220, 190, 190], row_h=36, size=12,
-               note="De 7 nombres con variantes de composición, 7 son distintos como bytes y 4 tras normalizar a NFC. Cortar «x👩‍💻» tras 2 puntos deja un emoji partido; ordenar por punto de código coloca «Ángel» y «Ñandú» detrás de «Zoë». Sin biblioteca de CLDR el orden es solo una aproximación.",
-               note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Una misma «letra» que se cuenta de maneras distintas",
+        "Barras agrupadas con la longitud en puntos de código, en bytes UTF-8 y en unidades UTF-16: José tiene 4 puntos con el acento precompuesto y 5 con el acento combinado, y el emoji de mujer tecnóloga, con tres símbolos unidos, tiene 3 puntos, 11 bytes y 5 unidades.",
+        ["José (acento precompuesto)", "José (acento combinado)", "Mujer tecnóloga (tres símbolos unidos)"],
+        [("Puntos de código", [4, 5, 3], "navy"), ("Bytes UTF-8", [5, 6, 11], "coral"), ("Unidades UTF-16", [4, 5, 5], "teal")],
+        unit="Longitud", decimals=0, plot_h=260,
+        note="Otros casos de la tabla: «Zoë» tiene 3 puntos si el acento está precompuesto y 4 si está combinado; «straße» en mayúsculas es «STRASSE»; «İ».lower() produce 2 puntos de código. De 7 nombres con variantes de composición, 7 son distintos como bytes y 4 tras normalizar a NFC. Cortar «x👩‍💻» tras 2 puntos deja un emoji partido; ordenar por punto de código coloca «Ángel» y «Ñandú» detrás de «Zoë».",
+        note_kind="gold", foot=SINT)
 
 def se177_ambiguedad() -> Fig:
-    rows = [
-        ["1.234", "1,234 (inglés de EE. UU.)", "1 234 (español de Chile)", "Mil veces de diferencia"],
-        ["1,234", "1 234", "1,234", "Mil veces de diferencia"],
-        ["0,5", "5 (se ignora la coma)", "0,5", "Diez veces de diferencia"],
-        ["1.5", "1,5", "15", "Diez veces de diferencia"],
-        ["Fechas de 2026 como DD/MM o MM/DD", "132 de 365", "36,2 % ambiguas", "Día ≤ 12 y distinto del mes"],
-    ]
-    return tab("Cadenas numéricas y fechas que dos configuraciones leen de forma distinta",
-               "Tabla: la cadena 1.234 vale 1,234 en inglés de EE. UU. y mil doscientos treinta y cuatro en español de Chile; 0,5 se lee 5 si se ignora la coma; y 132 de las 365 fechas de 2026 son ambiguas entre día y mes primero, el 36,2 por ciento.",
-               ["Texto", "Lectura A", "Lectura B", "Consecuencia"], rows, [270, 270, 250, 230], row_h=42, size=12,
-               note="Las lecturas aplican a mano las convenciones de dos configuraciones (coma o punto decimal); no consultan ninguna biblioteca de localización. El 36,2 % cuenta los días con día entre 1 y 12 y distinto del mes; guardar fechas como ISO 8601 y presentar el mes con su nombre elimina la ambigüedad.",
-               note_kind="coral", foot=SINT)
-
+    return grouped_bars(
+        "Cadenas numéricas y fechas que dos configuraciones leen de forma distinta",
+        "Barras agrupadas en escala logarítmica con el valor que dos configuraciones leen de cuatro cadenas numéricas: 1.234 vale 1,234 o 1234; 1,234 vale 1234 o 1,234; 0,5 se lee 5 si se ignora la coma; 1.5 vale 1,5 o 15; en fechas, 132 de 365 son ambiguas, el 36,2 por ciento.",
+        ["«1.234»", "«1,234»", "«0,5»", "«1.5»"],
+        [("Lectura A", [1.234, 1234, 5, 1.5], "coral"), ("Lectura B", [1234, 1.234, 0.5, 15], "navy")],
+        unit="Valor leído", log=True, plot_h=280,
+        note="Lectura A de «1.234»: 1,234 (inglés de EE. UU.); lectura B: 1 234 (español de Chile). Para «0,5» A ignora la coma y lee 5. Diferencias de mil o de diez veces. En las fechas de 2026 escritas como DD/MM o MM/DD, 132 de 365 son ambiguas (36,2 %): día entre 1 y 12 y distinto del mes. Guardar fechas como ISO 8601 y presentar el mes con su nombre elimina la ambigüedad.",
+        note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-178
 def se178_cinco() -> Fig:
@@ -149,19 +128,17 @@ def se178_cinco() -> Fig:
 
 
 def se178_intervalos() -> Fig:
-    rows = [
-        ["4 de 5", "45 % – 100 %", "38 % – 96 %", "28 % – 99 %"],
-        ["8 de 10", "55 % – 100 %", "49 % – 94 %", "44 % – 97 %"],
-        ["16 de 20", "62 % – 98 %", "58 % – 92 %", "56 % – 94 %"],
-        ["5 de 5", "100 % – 100 %", "57 % – 100 %", "48 % – 100 %"],
-        ["80 de 100", "72 % – 88 %", "71 % – 87 %", "71 % – 87 %"],
-    ]
-    return tab("Éxito de una tarea con pocas personas: tres intervalos del 95 %",
-               "Tabla de cinco resultados con tres intervalos del 95 por ciento: con 4 éxitos de 5, Wald da de 45 a 100, Wilson de 38 a 96 y Clopper-Pearson de 28 a 99; con 5 de 5, Wald da un intervalo de ancho cero y los otros llegan hasta 57 y 48.",
-               ["Resultado", "Wald", "Wilson", "Clopper-Pearson"], rows, [200, 260, 260, 260], row_h=36, size=13,
-               note="Cobertura simulada de un intervalo nominal del 95 % con n = 10 y p = 0,9: Wald 64,4 %, Wilson 93,2 %, Clopper-Pearson 98,9 %. Con 5 de 5, el intervalo de Wald dice que fallar es imposible. Con pocas personas, el intervalo importa más que el porcentaje, y ancho no significa error de cálculo: es la información que hay.",
-               note_kind="gold", foot=SINT)
-
+    rows = [("4 de 5 · Wald", [45, 80, 100]), ("4 de 5 · Wilson", [38, 80, 96]), ("4 de 5 · Clopper-Pearson", [28, 80, 99]),
+            ("8 de 10 · Wald", [55, 80, 100]), ("8 de 10 · Wilson", [49, 80, 94]), ("8 de 10 · Clopper-Pearson", [44, 80, 97]),
+            ("16 de 20 · Wald", [62, 80, 98]), ("16 de 20 · Wilson", [58, 80, 92]), ("16 de 20 · Clopper-Pearson", [56, 80, 94]),
+            ("5 de 5 · Wald", [100, 100, 100]), ("5 de 5 · Wilson", [57, 100, 100]), ("5 de 5 · Clopper-Pearson", [48, 100, 100]),
+            ("80 de 100 · Wald", [72, 80, 88]), ("80 de 100 · Wilson", [71, 80, 87]), ("80 de 100 · Clopper-Pearson", [71, 80, 87])]
+    return percentile_intervals(
+        "Éxito de una tarea con pocas personas: tres intervalos del 95 %",
+        "Intervalos de confianza del 95 por ciento de cinco resultados con tres métodos: con 4 éxitos de 5, Wald da de 45 a 100, Wilson de 38 a 96 y Clopper-Pearson de 28 a 99; con 5 de 5, Wald da un intervalo de ancho cero y los otros llegan hasta 57 y 48.",
+        rows, unit="Éxito de la tarea (%)", marks=("inferior", "observado", "superior"), decimals=0, label_w=250,
+        note="Cobertura simulada de un intervalo nominal del 95 % con n = 10 y p = 0,9: Wald 64,4 %, Wilson 93,2 %, Clopper-Pearson 98,9 %. Con 5 de 5, el intervalo de Wald dice que fallar es imposible. Con pocas personas, el intervalo importa más que el porcentaje, y ancho no significa error de cálculo: es la información que hay.",
+        note_kind="gold", foot=SINT)
 
 def se178_potencia() -> Fig:
     items = [
@@ -180,20 +157,14 @@ def se178_potencia() -> Fig:
 
 # ---------------------------------------------------------------- SE-179
 def se179_antes_despues() -> Fig:
-    rows = [
-        ["Sin idioma, título genérico, sin región principal ni encabezados", "4", "0"],
-        ["Campos sin etiqueta (solo placeholder)", "2", "0"],
-        ["Imagen sin texto alternativo", "1", "0"],
-        ["Control hecho con div y clic (inaccesible con teclado)", "1", "0"],
-        ["Enlace sin texto", "1", "0"],
-        ["Total de hallazgos del auditor", "9", "0"],
-    ]
-    return tab("Auditoría de un formulario de entrega antes y después de reparar",
-               "Tabla: un formulario de entrega con nueve hallazgos del auditor automático (sin idioma, título genérico, sin región principal ni encabezados, dos campos sin etiqueta, una imagen sin alt, un div clicable y un enlace vacío) queda en cero hallazgos tras la reparación.",
-               ["Categoría de hallazgo", "Antes", "Después"], rows, [640, 150, 150], row_h=36, size=13,
-               note="Cero hallazgos significa que las reglas no encuentran nada, no que el flujo sea accesible: tras la reparación, un texto alternativo, una etiqueta o un orden de foco pueden ser incorrectos sin que el auditor lo note, y el flujo completo (error, recuperación, confirmación) no se recorrió.",
-               note_kind="coral", foot=SINT)
-
+    return grouped_bars(
+        "Auditoría de un formulario de entrega antes y después de reparar",
+        "Barras horizontales con los hallazgos del auditor automático antes y después de reparar un formulario de entrega: sin idioma, título genérico, sin región principal ni encabezados 4, campos sin etiqueta 2, imagen sin alt 1, un div clicable 1 y un enlace vacío 1, 9 en total; tras la reparación, ninguno.",
+        ["Sin idioma, título genérico, sin región principal ni encabezados", "Campos sin etiqueta (solo placeholder)", "Imagen sin texto alternativo", "Control hecho con div y clic", "Enlace sin texto"],
+        [("Antes", [4, 2, 1, 1, 1], "coral"), ("Después", [0, 0, 0, 0, 0], "teal")],
+        unit="Hallazgos del auditor", horizontal=True, decimals=0, label_w=330,
+        note="Total de hallazgos: 9 antes y 0 después. Cero hallazgos significa que las reglas no encuentran nada, no que el flujo sea accesible: tras la reparación, un texto alternativo, una etiqueta o un orden de foco pueden ser incorrectos sin que el auditor lo note, y el flujo completo (error, recuperación, confirmación) no se recorrió.",
+        note_kind="coral", foot=SINT)
 
 def se179_orden() -> Fig:
     items = [
@@ -208,19 +179,14 @@ def se179_orden() -> Fig:
 
 
 def se179_regresion() -> Fig:
-    rows = [
-        ["Quitar etiqueta, alt, lang, encabezado o región principal", "5 de 5", "Presencia de un atributo o elemento"],
-        ["Título genérico, enlace vacío, botón convertido en div", "3 de 3", "Regla de contenido o de rol"],
-        ["Etiqueta que dice otra cosa", "0 de 1", "Texto presente pero falso"],
-        ["Botón con texto «Clic»", "0 de 1", "Nombre presente pero poco informativo"],
-        ["Quitar describedby, accept o autocomplete", "0 de 3", "Atributos útiles que ninguna regla exige"],
-    ]
-    return tab("Mutaciones del formulario reparado que el auditor automático detecta",
-               "Tabla: de 13 mutaciones del formulario reparado, el auditor detecta 8, las que quitan un elemento o atributo exigido o dejan un contenido vacío, y no detecta una etiqueta falsa, un texto de botón poco informativo ni la pérdida de tres atributos de apoyo.",
-               ["Mutación", "Detectadas", "Naturaleza"], rows, [480, 150, 350], row_h=40, size=12,
-               note="Una prueba de regresión automática protege lo que sus reglas ven: 8 de 13. Lo demás exige una lista manual con responsable y fecha. La suite de regresión no sustituye la reevaluación con personas cuando el flujo cambia.",
-               note_kind="gold", foot=SINT)
-
+    return stacked_bars(
+        "Mutaciones del formulario reparado que el auditor automático detecta",
+        "Barras apiladas horizontales con las 13 mutaciones del formulario reparado que detecta el auditor, 8 de 13: las que quitan un elemento o atributo exigido o dejan un contenido vacío, y no detecta una etiqueta falsa, un texto de botón poco informativo ni la pérdida de tres atributos de apoyo.",
+        ["Quitar etiqueta, alt, lang, encabezado o región principal", "Título genérico, enlace vacío, botón convertido en div", "Etiqueta que dice otra cosa", "Botón con texto «Clic»", "Quitar describedby, accept o autocomplete"],
+        [("Detectadas", [5, 3, 0, 0, 0], "teal"), ("No detectadas", [0, 0, 1, 1, 3], "coral")],
+        unit="Mutaciones", horizontal=True, decimals=0, label_w=330,
+        note="Una prueba de regresión automática protege lo que sus reglas ven: 8 de 13. Lo demás exige una lista manual con responsable y fecha. La suite de regresión no sustituye la reevaluación con personas cuando el flujo cambia.",
+        note_kind="gold", foot=SINT)
 
 # ---------------------------------------------------------------- SE-180
 def se180_barrera() -> Fig:

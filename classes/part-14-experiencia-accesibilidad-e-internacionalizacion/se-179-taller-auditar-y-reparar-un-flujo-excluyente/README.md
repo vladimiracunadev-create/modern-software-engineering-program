@@ -105,9 +105,9 @@ reparado = audit(FIXED)   # Counter vacío
 assert sum(roto.values()) == 9 and not reparado
 ```
 
-![Tabla de un formulario de entrega con nueve hallazgos del auditor automático antes de reparar y ninguno después: documento, campos sin etiqueta, imagen sin alt, div clicable y enlace vacío.](../../../content/part-14/figures/se-179-antes-y-despues-del-flujo.svg)
+![Barras horizontales con los hallazgos del auditor antes y después de reparar un formulario: 4 de sin idioma, título genérico, sin región principal ni encabezados, 2 campos sin etiqueta, 1 imagen sin alt, 1 div clicable y 1 enlace vacío, 9 en total; después, ninguno.](../../../content/part-14/figures/se-179-antes-y-despues-del-flujo.svg)
 
-**Cómo leer la figura.** Cada fila es una categoría de hallazgo; las columnas comparan el formulario roto con el reparado. **Dónde deja de valer:** el auditor es un programa de ocho reglas y el flujo es un formulario de una página sin estados de error ni éxito; tras la reparación, un texto alternativo, una etiqueta o un orden de foco pueden seguir siendo incorrectos sin que se note.
+**Cómo leer la figura.** Cada grupo es una categoría de hallazgo; la barra roja son los hallazgos antes y la verde después de reparar. Mira primero que todas las barras verdes son cero; lo que ese cero no prueba está en el «Dónde deja de valer». **Dónde deja de valer:** el auditor es un programa de ocho reglas y el flujo es un formulario de una página sin estados de error ni éxito; tras la reparación, un texto alternativo, una etiqueta o un orden de foco pueden seguir siendo incorrectos sin que se note.
 
 ### Tres órdenes de reparación con cuatro horas
 
@@ -134,9 +134,9 @@ for nombre, mutar in MUTACIONES:
 print(sum(d for _, d in resultados), 'de', len(MUTACIONES))   # 8 de 13
 ```
 
-![Tabla de mutaciones del formulario reparado que el auditor detecta: quitar un elemento o atributo exigido y dejar un contenido vacío, y no detecta una etiqueta falsa, un texto de botón poco informativo ni la pérdida de tres atributos de apoyo.](../../../content/part-14/figures/se-179-mutaciones-que-el-auditor-no-ve.svg)
+![Barras apiladas horizontales con las 13 mutaciones del formulario reparado que detecta el auditor, 8 de 13: las que quitan un elemento o atributo exigido o dejan un contenido vacío; no detecta una etiqueta falsa, un texto de botón poco informativo ni la pérdida de tres atributos de apoyo.](../../../content/part-14/figures/se-179-mutaciones-que-el-auditor-no-ve.svg)
 
-**Cómo leer la figura.** Cada fila agrupa mutaciones del mismo tipo; la columna «Detectadas» dice cuántas señaló el auditor. **Dónde deja de valer:** las 13 mutaciones las eligió quien escribió el auditor y reflejan sus puntos ciegos conocidos; un conjunto escrito por otra persona encontraría otros. La cifra es una cota de lo protegido, no una garantía.
+**Cómo leer la figura.** Cada barra es un tipo de mutación y su longitud cuántas se aplicaron; verde son las que detecta el auditor y rojo las que no. Mira primero las barras rojas: son textos presentes pero falsos o atributos útiles que ninguna regla exige. **Dónde deja de valer:** las 13 mutaciones las eligió quien escribió el auditor y reflejan sus puntos ciegos conocidos; un conjunto escrito por otra persona encontraría otros. La cifra es una cota de lo protegido, no una garantía.
 
 ## Definiciones de trabajo
 

@@ -105,9 +105,9 @@ transiciones = {('vacío','empezar'): 'carga', ('carga','ok'): 'datos',
 estado = transiciones.get((estado, evento), estado)
 ```
 
-![Tabla que compara tres banderas booleanas, con 8 combinaciones y 198 de 200 eventos en una combinación imposible, con un estado explícito de cuatro valores, sin ninguna, y con cuatro fuentes de cuatro estados, 256 combinaciones.](../../../content/part-14/figures/se-172-estados-imposibles.svg)
+![Barras agrupadas en escala logarítmica con las combinaciones posibles y con significado según el modelo del estado: tres banderas dan 8 de las que solo 4 tienen sentido; un estado de cuatro valores, 4 y 4; dos fuentes, 16 y 16; cuatro fuentes, 256 y 256.](../../../content/part-14/figures/se-172-estados-imposibles.svg)
 
-**Cómo leer la figura.** Cada fila es un modelo del estado de la lista; la última columna dice qué ocurre con 200 eventos aleatorios. **Dónde deja de valer:** los eventos son equiprobables por construcción; en una aplicación real algunos son raros y las combinaciones imposibles tardan en aparecer, pero siguen siendo alcanzables. La unión evita representarlas, no evita que haya eventos mal manejados.
+**Cómo leer la figura.** Cada grupo es un modelo; la barra gris son las combinaciones posibles y la verde las que tienen significado, en escala logarítmica. Mira primero el grupo de las tres banderas, donde las dos barras difieren, y después cómo, con fuentes independientes, el número de combinaciones se dispara aunque todas tengan sentido. **Dónde deja de valer:** los eventos son equiprobables por construcción; en una aplicación real algunos son raros y las combinaciones imposibles tardan en aparecer, pero siguen siendo alcanzables. La unión evita representarlas, no evita que haya eventos mal manejados.
 
 ### Tres políticas de reintento tras una caída
 
@@ -119,9 +119,9 @@ elif politica == 'exp':    t += min(60, 2 ** intento)
 elif politica == 'jitter': t += r.uniform(0, min(60, 2 ** intento))
 ```
 
-![Tabla de tres políticas de reintento con mil clientes y una caída de diez segundos: cada segundo suma 10 000 peticiones y pico de 1 000; exponencial sin aleatoriedad suma 3 000 y pico de 1 000; con aleatoriedad suma 3 978 y pico de 151.](../../../content/part-14/figures/se-172-politicas-de-reintento.svg)
+![Barras agrupadas en escala logarítmica con las peticiones durante la caída y el pico por segundo al recuperarse con mil clientes: reintentar cada segundo 10000 y 1000, espera exponencial sin aleatoriedad 3000 y 1000 y con aleatoriedad completa 3978 y 151.](../../../content/part-14/figures/se-172-politicas-de-reintento.svg)
 
-**Cómo leer la figura.** Cada fila es una política; compara la carga durante la caída con el pico por segundo al recuperarse. **Dónde deja de valer:** la simulación no modela capacidad del servicio, colas ni clientes que se rinden. Los clientes que arrancan casi a la vez son el peor caso de sincronía; en un sistema real el efecto depende de cuántos clientes y cuán dispersos.
+**Cómo leer la figura.** Cada grupo es una política de reintento; la barra gris son las peticiones durante la caída y la roja el pico por segundo cuando el servicio vuelve, en escala logarítmica. Mira primero la barra roja de la tercera política: solo la aleatoriedad baja el pico, y la espera exponencial sin ella lo deja en 1000. **Dónde deja de valer:** la simulación no modela capacidad del servicio, colas ni clientes que se rinden. Los clientes que arrancan casi a la vez son el peor caso de sincronía; en un sistema real el efecto depende de cuántos clientes y cuán dispersos.
 
 ### ¿Cuándo mostrar un indicador de carga?
 

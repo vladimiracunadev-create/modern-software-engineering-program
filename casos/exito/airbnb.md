@@ -1,8 +1,10 @@
-# Caso de éxito: Airbnb
+# Airbnb
+
+[↑ Casos de éxito](README.md) · [← Spotify](spotify.md) · [Stripe →](stripe.md)
 
 > **Qué es este caso.** Un análisis profesional de una empresa real que el programa usa para contrastar la teoría con la práctica. No es una clase ni un rol: es la realidad frente al curso. Se apoya solo en fuentes públicas citadas al final, consultadas el 16 de noviembre de 2026, y separa lo que está **documentado**, lo que es **inferido** y lo que **no se sabe**.
 
-## Cómo leer este caso
+**Cómo leer este caso.**
 
 - **Documentado**: lo dice una fuente citada, por ejemplo «Documentado (F3)». Si la fuente es secundaria, se declara.
 - **Observable**: se comprueba usando el producto público, sin una cita específica en este caso.
@@ -11,7 +13,7 @@
 
 Las cifras de dinero están en dólares estadounidenses.
 
-## 1. Ficha histórica
+## Ficha histórica
 
 | Dato | Valor | Estado de la evidencia |
 | --- | --- | --- |
@@ -28,13 +30,13 @@ Las cifras de dinero están en dólares estadounidenses.
 | Resultados | cuarto trimestre de 2025: ingresos +12 %, valor bruto de reservas +16 %, noches y plazas reservadas +10 % | Documentado (F2) |
 | Ingresos de 2025 | unos 12.200 millones de dólares; unos 8.200 empleados | Fuente secundaria (F10) |
 
-## 2. Contexto y problema que resolvió
+## Contexto y problema
 
 Según la historia de la empresa (F1), en octubre de 2007 Brian Chesky y Joe Gebbia alojaron a los primeros huéspedes de Airbed & Breakfast. De esa experiencia pequeña surge una pregunta de mercado, que formulamos como hipótesis del autor y no como cita: ¿hay una enorme capacidad ociosa de camas, habitaciones y casas, y viajeros que prefieren un alojamiento distinto al hotel? El obstáculo no era técnico sino de **confianza**: ¿por qué un desconocido dejaría entrar a otro en su casa, o pagaría por adelantado a alguien que no ha visto?
 
 El caso es una lección de que el producto real de un mercado es la reducción de la incertidumbre entre las partes. Por eso aparecen pronto un sistema de pagos propio (agosto de 2008, F1), una garantía económica para anfitriones (2012, F1), reseñas con reglas diseñadas (F4) y, más tarde, una cobertura para huéspedes (AirCover, F6). Documentado (F1): el lanzamiento de 2008 recibió dos reservas y el sistema de pagos propio llegó meses después; la confianza se construyó en capas.
 
-## 3. Mercado, tipos de usuarios y casos de uso
+## Mercado, usuarios y casos de uso
 
 ![Diagrama de contexto de Airbnb: huéspedes y anfitriones conectados por la plataforma, que ofrece búsqueda, pagos, reseñas, soporte y AirCover, con ciudades y reguladores que fijan reglas locales.](../figures/airbnb-contexto-confianza.svg)
 
@@ -55,7 +57,7 @@ El caso es una lección de que el producto real de un mercado es la reducción d
 3. Alojar a desplazados en una crisis: documentado (F1): Airbnb.org, organización sin fines de lucro lanzada en diciembre de 2020, conecta a personas con alojamiento en situaciones de crisis.
 4. Reservar una experiencia local (F1: desde 2016) o un servicio (2025).
 
-## 4. Funcionalidad de principio a fin
+## Funcionalidad de principio a fin
 
 1. **Primer contacto.** Observable: el viajero llega a un resultado de búsqueda por destino, fechas y huéspedes. Documentado (arXiv:1810.09591, F8): la ordenación de resultados es «una de las mayores historias de éxito del aprendizaje automático en Airbnb»; los árboles de decisión con gradiente dieron mejoras iniciales que luego se estancaron y la empresa aplicó redes neuronales.
 2. **Registro.** Observable: se crea una cuenta con datos personales y verificación. No se sabe cómo se calcula internamente el riesgo de cada cuenta.
@@ -71,7 +73,7 @@ El caso es una lección de que el producto real de un mercado es la reducción d
 7. **Cobro del anfitrión.** Documentado (F3): la comisión del anfitrión se descuenta del total para calcular su pago. No se verificó el calendario exacto de la liberación del dinero; consúltese la ayuda vigente.
 8. **Operación diaria.** Documentado (F1): lanzamientos semestrales de producto («Release») con docenas o cientos de mejoras; por ejemplo, el de invierno de 2021 trajo AirCover para anfitriones y un motor de traducción.
 
-## 5. Negocio y economía
+## Negocio y economía
 
 **Modelo.** Documentado (F3): Airbnb cobra una comisión de servicio al confirmarse una reserva. Hay dos estructuras: comisión dividida (la paga en parte el huésped y en parte el anfitrión) y comisión única; Con la comisión única todo el cobro se descuenta al anfitrión (la mayoría paga el 15,5 %, el resto suele pagar entre 14 y 16 %). Airbnb está migrando a todos los anfitriones de casas a la comisión única y no se puede volver atrás.
 
@@ -85,7 +87,7 @@ El caso es una lección de que el producto real de un mercado es la reducción d
 
 **Ventajas.** Inferido: efecto de red (más anuncios atraen más huéspedes y viceversa), reseñas acumuladas y marca. Documentado (F1): más de 5,5 millones de anfitriones y 9 millones de anuncios.
 
-## 6. Arquitectura y esquemas
+## Arquitectura y esquemas
 
 ### Componentes documentados
 
@@ -107,7 +109,7 @@ Documentado (F5): la biblioteca de idempotencia Orpheus recibe una clave por sol
 
 Documentado (F1): 9 millones de anuncios, 5,5 millones de anfitriones y más de 2.500 millones de llegadas acumuladas; pagos en más de 40 monedas (2019). Documentado (F8): la búsqueda aplica aprendizaje profundo a un problema de ordenación. No se sabe el volumen de consultas por segundo, la topología de datos ni el tamaño de las bases.
 
-## 7. Casos especiales y cómo se resuelven
+## Casos especiales y cómo se resuelven
 
 | Situación | Qué se documenta | Qué enseña |
 | --- | --- | --- |
@@ -118,10 +120,10 @@ Documentado (F1): 9 millones de anuncios, 5,5 millones de anfitriones y más de 
 | Una crisis de demanda | En mayo de 2020 Airbnb redujo cerca del 25 % de su plantilla (casi 1.900 de 7.500) porque el regreso de los viajes era incierto y habría cambiado (F11); en 2020 lanzó Experiencias en línea y un protocolo de limpieza (F1). | Una empresa de plataforma puede perder casi toda la demanda de golpe; hace falta decidir bajo incertidumbre. |
 | Discriminación | Project Lighthouse, junio de 2020, con Color of Change (F1). No se sabe cómo se mide ni qué resultados dio en detalle. | Un mercado puede reproducir sesgos y necesita medirlos. |
 | Regulación local | City Portal desde septiembre de 2020 (F1). Las normas concretas de cada ciudad no se revisaron aquí. | El cumplimiento es parte del producto. |
-| Doble reserva del mismo calendario | No se sabe cómo se evita. Inferido: requiere una operación atómica sobre disponibilidad. | Contrastar con [SE-315](../../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/) y [SE-338](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/). |
+| Doble reserva del mismo calendario | No se sabe cómo se evita. Inferido: requiere una operación atómica sobre disponibilidad. | Contrastar con [SE-315](../../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md) y [SE-338](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/README.md). |
 | Fraude y abuso | No se sabe. Airbnb no publicó, en las fuentes consultadas, el diseño de sus controles. | Documentar también la ausencia de datos. |
 
-## 8. Línea de tiempo de la evolución
+## Línea de tiempo
 
 ![Línea de tiempo de 2007 a 2026: primeros huéspedes, lanzamiento en 2008, Garantía para anfitriones en 2012, salida a bolsa en 2020 y los productos de cada era; la empresa pasa de privada a cotizada.](../figures/airbnb-linea-de-tiempo.svg)
 
@@ -139,27 +141,27 @@ Documentado (F1): 9 millones de anuncios, 5,5 millones de anfitriones y más de 
 - **Diciembre de 2020.** Cotización en bolsa (F1).
 - **2021 a 2025.** AirCover, Categorías, Experiencias y Servicios (F1).
 
-## 9. Vínculo con el curso
+## Vínculo con el curso
 
 | Concepto | Clases | Qué parte de la teoría ilustra el caso |
 | --- | --- | --- |
-| Idempotencia y reintentos | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/) | Clave de idempotencia, contrato con caducidad y errores reintentables. |
-| Semánticas de entrega | [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/), [SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/) | Convertir «al menos una vez» en efecto «exactamente una vez». |
-| Réplicas, retraso y consistencia | [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/), [SE-320](../../classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/), [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/) | Leer de la base maestra para evitar el retraso de replicación. |
-| Transacciones e invariantes | [SE-315](../../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/), [SE-316](../../classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/), [SE-282](../../classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias/) | Atomicidad de pagos y datos inmutables para reconciliar. |
-| Del monolito a los servicios | [SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/), [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/), [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/), [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/) | Migración de Rails a servicios con contratos IDL. |
-| Contratos y evolución de interfaces | [SE-163](../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/), [SE-164](../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/), [SE-244](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/) | Interfaces definidas en Thrift. |
-| Migración de datos sin interrupción | [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/) | Migración por fases de la orquestación de pagos (F7). |
-| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/) | Ordenación de búsqueda con redes neuronales (F8). |
-| Experimentos y métricas | [SE-138](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/), [SE-139](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/), [SE-143](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/) | Valor bruto de reservas, noches reservadas, ingresos. |
-| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/) | Comisión dividida frente a comisión única. |
-| Usuarios, actores y propuesta de valor | [SE-121](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/), [SE-122](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/), [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/) | Huésped, anfitrión, regulador. |
-| Ética del producto | [SE-129](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-129-etica-del-descubrimiento-y-proteccion-de-participantes/), [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/), [SE-394](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/) | Discriminación, privacidad y cumplimiento local. |
-| Accesibilidad e internacionalización | [SE-173](../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/), [SE-177](../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/) | Traducción y 40 monedas. |
-| Riesgo y decisiones bajo incertidumbre | [SE-450](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/), [SE-142](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/), [SE-141](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/) | La crisis de 2020 y un negocio «más enfocado». |
-| Requisitos regulatorios | [SE-152](../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/) | City Portal y reglas locales. |
+| Idempotencia y reintentos | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/README.md), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md) | Clave de idempotencia, contrato con caducidad y errores reintentables. |
+| Semánticas de entrega | [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/README.md), [SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/README.md) | Convertir «al menos una vez» en efecto «exactamente una vez». |
+| Réplicas, retraso y consistencia | [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/README.md), [SE-320](../../classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/README.md), [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/README.md) | Leer de la base maestra para evitar el retraso de replicación. |
+| Transacciones e invariantes | [SE-315](../../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md), [SE-316](../../classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/README.md), [SE-282](../../classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias/README.md) | Atomicidad de pagos y datos inmutables para reconciliar. |
+| Del monolito a los servicios | [SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/README.md), [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md), [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/README.md), [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/README.md), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/README.md) | Migración de Rails a servicios con contratos IDL. |
+| Contratos y evolución de interfaces | [SE-163](../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md), [SE-164](../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md), [SE-244](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md) | Interfaces definidas en Thrift. |
+| Migración de datos sin interrupción | [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/README.md) | Migración por fases de la orquestación de pagos (F7). |
+| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/README.md) | Ordenación de búsqueda con redes neuronales (F8). |
+| Experimentos y métricas | [SE-138](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md), [SE-139](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), [SE-143](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-143-taller-disenar-un-arbol-de-metricas/README.md) | Valor bruto de reservas, noches reservadas, ingresos. |
+| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) | Comisión dividida frente a comisión única. |
+| Usuarios, actores y propuesta de valor | [SE-121](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md), [SE-122](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md), [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) | Huésped, anfitrión, regulador. |
+| Ética del producto | [SE-129](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-129-etica-del-descubrimiento-y-proteccion-de-participantes/README.md), [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md), [SE-394](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md) | Discriminación, privacidad y cumplimiento local. |
+| Accesibilidad e internacionalización | [SE-173](../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-173-accesibilidad-perceptible-operable-y-comprensible/README.md), [SE-177](../../classes/part-14-experiencia-accesibilidad-e-internacionalizacion/se-177-internacionalizacion-localizacion-y-formatos-culturales/README.md) | Traducción y 40 monedas. |
+| Riesgo y decisiones bajo incertidumbre | [SE-450](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md), [SE-142](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md), [SE-141](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md) | La crisis de 2020 y un negocio «más enfocado». |
+| Requisitos regulatorios | [SE-152](../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) | City Portal y reglas locales. |
 
-## 10. Qué aprender y qué NO generalizar
+## Qué no generalizar
 
 **Qué aprender.**
 
@@ -178,20 +180,24 @@ Documentado (F1): 9 millones de anuncios, 5,5 millones de anfitriones y más de 
 - **El mercado tiene externalidades.** Las ciudades regulan porque el alquiler de corta duración afecta vivienda y vecindarios; este caso no mide ese impacto y no debe usarse para negarlo ni para afirmarlo.
 - **Sesgo de supervivencia.** Se documentan los casos que salieron bien.
 
-## 11. Fuentes
+## Fuentes públicas verificadas
 
 Todas consultadas el 2026-11-16 con `curl` salvo lo indicado. «Secundaria» significa que no es una fuente primaria de la empresa.
 
-- **F1.** Airbnb Newsroom, «About Us» y «The Airbnb Story» (datos rápidos actualizados en mayo de 2026): <https://news.airbnb.com/about-us/>
-- **F2.** Airbnb, «Airbnb Q4 2025 financial results»: <https://news.airbnb.com/airbnb-q4-2025-financial-results>
-- **F3.** Airbnb, ayuda «Airbnb service fees»: <https://www.airbnb.com/help/article/1857>
-- **F4.** Airbnb, ayuda «Leaving a review for a home or a guest»: <https://www.airbnb.com/help/article/13>
-- **F5.** Jon Chew y Ninad Khisti, «Avoiding double payments in a distributed payments system», Airbnb Tech Blog, 16 de abril de 2019: <https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb>
-- **F6.** Airbnb, ayuda «AirCover for guests»: <https://www.airbnb.com/aircover>
-- **F7.** Bryon Ross y otros, «Rebuilding Payment Orchestration at Airbnb», Airbnb Tech Blog, 24 de febrero de 2022: <https://medium.com/airbnb-engineering/rebuilding-payment-orchestration-at-airbnb-341d194a781b>
-- **F8.** Malay Haldar y otros, «Applying Deep Learning To Airbnb Search», arXiv:1810.09591: <https://arxiv.org/abs/1810.09591>
-- **F9.** Liang Guo, Frank Lin y Junjie Guan, «Building Services at Airbnb, Part 1», Airbnb Tech Blog, 12 de diciembre de 2017: <https://medium.com/airbnb-engineering/building-services-at-airbnb-part-1-c4c1d8fa811b>
-- **F10.** (Secundaria) Wikipedia, «Airbnb», edición consultada el 2026-11-16: <https://en.wikipedia.org/wiki/Airbnb>. Se usa para el año de fundación de la sociedad, los ingresos y los empleados de 2025.
-- **F11.** Brian Chesky, «A Message from Co-Founder and CEO Brian Chesky» (mayo de 2020): <https://news.airbnb.com/a-message-from-co-founder-and-ceo-brian-chesky>
+- **F1.** Airbnb Newsroom, «About Us» y «The Airbnb Story» (datos rápidos actualizados en mayo de 2026): [https://news.airbnb.com/about-us/](https://news.airbnb.com/about-us/)
+- **F2.** Airbnb, «Airbnb Q4 2025 financial results»: [https://news.airbnb.com/airbnb-q4-2025-financial-results](https://news.airbnb.com/airbnb-q4-2025-financial-results)
+- **F3.** Airbnb, ayuda «Airbnb service fees»: [https://www.airbnb.com/help/article/1857](https://www.airbnb.com/help/article/1857)
+- **F4.** Airbnb, ayuda «Leaving a review for a home or a guest»: [https://www.airbnb.com/help/article/13](https://www.airbnb.com/help/article/13)
+- **F5.** Jon Chew y Ninad Khisti, «Avoiding double payments in a distributed payments system», Airbnb Tech Blog, 16 de abril de 2019: [https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb](https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb)
+- **F6.** Airbnb, ayuda «AirCover for guests»: [https://www.airbnb.com/aircover](https://www.airbnb.com/aircover)
+- **F7.** Bryon Ross y otros, «Rebuilding Payment Orchestration at Airbnb», Airbnb Tech Blog, 24 de febrero de 2022: [https://medium.com/airbnb-engineering/rebuilding-payment-orchestration-at-airbnb-341d194a781b](https://medium.com/airbnb-engineering/rebuilding-payment-orchestration-at-airbnb-341d194a781b)
+- **F8.** Malay Haldar y otros, «Applying Deep Learning To Airbnb Search», arXiv:1810.09591: [https://arxiv.org/abs/1810.09591](https://arxiv.org/abs/1810.09591)
+- **F9.** Liang Guo, Frank Lin y Junjie Guan, «Building Services at Airbnb, Part 1», Airbnb Tech Blog, 12 de diciembre de 2017: [https://medium.com/airbnb-engineering/building-services-at-airbnb-part-1-c4c1d8fa811b](https://medium.com/airbnb-engineering/building-services-at-airbnb-part-1-c4c1d8fa811b)
+- **F10.** (Secundaria) Wikipedia, «Airbnb», edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Airbnb](https://en.wikipedia.org/wiki/Airbnb). Se usa para el año de fundación de la sociedad, los ingresos y los empleados de 2025.
+- **F11.** Brian Chesky, «A Message from Co-Founder and CEO Brian Chesky» (mayo de 2020): [https://news.airbnb.com/a-message-from-co-founder-and-ceo-brian-chesky](https://news.airbnb.com/a-message-from-co-founder-and-ceo-brian-chesky)
 
 **Qué no cubren estas fuentes.** No documentan la arquitectura actual completa, el calendario de pagos al anfitrión, los controles de fraude, el efecto del alquiler de corta duración sobre la vivienda ni las normas locales concretas; esos puntos quedan como «no se sabe» o no verificados. La documentación de la salida a bolsa (formulario S-1) no pudo leerse porque el servidor de la SEC bloqueó al cliente automatizado.
+
+---
+
+[↑ Casos de éxito](README.md) · [← Spotify](spotify.md) · [Stripe →](stripe.md)

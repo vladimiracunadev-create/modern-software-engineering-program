@@ -1,8 +1,10 @@
-# Caso de éxito: Spotify
+# Spotify
+
+[↑ Casos de éxito](README.md) · [← Amazon](amazon.md) · [Airbnb →](airbnb.md)
 
 > **Qué es este caso.** Un análisis profesional de una empresa real que el programa usa para contrastar la teoría con la práctica. No es una clase ni un rol: es la realidad frente al curso. Se apoya solo en fuentes públicas citadas al final, consultadas el 16 de noviembre de 2026, y separa lo que está **documentado**, lo que es **inferido** y lo que **no se sabe**.
 
-## Cómo leer este caso
+**Cómo leer este caso.**
 
 - **Documentado**: lo dice una fuente citada, por ejemplo «Documentado (F4)». Si la fuente es secundaria, se declara.
 - **Observable**: se comprueba usando el producto público, sin una cita específica en este caso.
@@ -11,7 +13,7 @@
 
 Las cifras de dinero de Spotify están en euros, que es su moneda de reporte.
 
-## 1. Ficha histórica
+## Ficha histórica
 
 | Dato | Valor | Estado de la evidencia |
 | --- | --- | --- |
@@ -29,13 +31,13 @@ Las cifras de dinero de Spotify están en euros, que es su moneda de reporte.
 
 La cifra de 788 millones de usuarios de la web corporativa (F1) y la de 751 millones del cuarto trimestre (F2) pueden diferir porque cada una se refiere a un momento y a una definición distintos; no hay contradicción comprobable.
 
-## 2. Contexto y problema que resolvió
+## Contexto y problema
 
 Cuando Spotify nació, la industria musical había perdido casi la mitad de su tamaño. Documentado (F3, con la advertencia de que es la interpretación de Spotify de datos de la industria): el mercado mundial de música grabada pasó de un máximo de 24.000 millones de dólares en 1999 a 13.000 millones en 2014, impulsado por la piratería. El problema de Spotify era ofrecer una **alternativa legal tan cómoda como la copia ilegal**: acceso instantáneo, catálogo enorme y sin descargas manuales, y a la vez conseguir que los titulares de derechos aceptaran licenciar su catálogo.
 
 Es un problema de dos caras que mezcla técnica y negocio. Técnicamente, un clic en «reproducir» debe sonar casi de inmediato; esa exigencia empujó a Spotify, en sus primeros años, a una arquitectura que combinaba servidores con una red entre pares (F10: el artículo científico de 2010 de los ingenieros Gunnar Kreitz y Fredrik Niemelä describe el sistema como de «streaming de música bajo demanda a gran escala, baja latencia y P2P»). Fuente secundaria (F11): Spotify terminó la red P2P en 2014. En lo comercial, el servicio tuvo que construir un modelo que pagara a los titulares de derechos lo suficiente para que el catálogo estuviera disponible.
 
-## 3. Mercado, tipos de usuarios y casos de uso
+## Mercado, usuarios y casos de uso
 
 ![Diagrama de contexto de Spotify como mercado de dos lados: los oyentes aportan suscripciones, los anunciantes pagan por la audiencia gratuita, y Spotify reparte regalías a titulares de derechos; los creadores de podcasts aportan contenido.](../figures/spotify-contexto-dos-lados.svg)
 
@@ -63,7 +65,7 @@ Para ver el orden de magnitud de la audiencia, la figura siguiente une cuatro ci
 3. Escuchar sin conexión en un viaje.
 4. Que un artista independiente suba su música a través de un distribuidor y cobre regalías.
 
-## 4. Funcionalidad de principio a fin
+## Funcionalidad de principio a fin
 
 1. **Primer contacto.** Observable: el usuario descarga la app o abre el reproductor web, y puede empezar a escuchar con una cuenta gratuita.
 2. **Registro.** Observable: se crea una cuenta con datos mínimos y se eligen gustos iniciales. No se sabe qué parte del registro es experimento A/B en cada momento.
@@ -72,7 +74,7 @@ Para ver el orden de magnitud de la audiencia, la figura siguiente une cuatro ci
 5. **Soporte.** Observable: ayuda en línea y comunidad. No se sabe su volumen ni su automatización.
 6. **Operación diaria.** Documentado (F5, F6): cada acción del cliente se convierte en eventos que se entregan a un sistema central; los equipos diseñan experimentos y los analizan con datos de esos eventos; los resultados deciden qué se lanza.
 
-## 5. Negocio y economía
+## Negocio y economía
 
 **Modelo.** Documentado (F1, F3): freemium financiado con anuncios, más suscripciones Premium; el reparto a titulares de derechos es la mayor partida. Documentado (F3): los pagos acumulados a titulares de derechos rondan los 70.000 millones de dólares.
 
@@ -86,7 +88,7 @@ Para ver el orden de magnitud de la audiencia, la figura siguiente une cuatro ci
 
 **Ventajas.** Inferido: escala de usuarios y datos de escucha para personalizar y para negociar; coste de cambiar de servicio por listas y recomendaciones acumuladas. No se sabe cuánto pesa cada una.
 
-## 6. Arquitectura y esquemas
+## Arquitectura y esquemas
 
 Lo documentado se limita a la plataforma de datos, las herramientas de ingeniería y la decisión de nube. No hay descripción pública detallada de cómo se sirve el audio hoy.
 
@@ -112,7 +114,7 @@ Documentado (blog de migración de 2021, citado en F5-bis): los eventos de los c
 
 Documentado (F6): Spotify tomaba casi todas las decisiones de producto con alguna prueba A/B; en 2013 creó ABBA, un primer sistema que fue «un cambio de escalón en productividad»; en 2020 lo sustituyó por una plataforma nueva con un catálogo de métricas, configuración remota y un planificador de experimentos, cuya interfaz vive en Backstage. Documentado (F8): Backstage es un marco de código abierto para portales de desarrolladores, con catálogo de software, plantillas y documentación técnica; es un proyecto en incubación de la CNCF.
 
-## 7. Casos especiales y cómo se resuelven
+## Casos especiales y cómo se resuelven
 
 | Situación | Qué se documenta | Qué enseña |
 | --- | --- | --- |
@@ -122,9 +124,9 @@ Documentado (F6): Spotify tomaba casi todas las decisiones de producto con algun
 | Cambio de sistema en marcha | Migración de la entrega de eventos «cambiando las ruedas con el autobús en marcha» (blog de 2021). | Migrar sin parar el servicio. |
 | Piratería y abuso | La piratería motivó el producto (F3). No se sabe cómo se detecta hoy el abuso de reproducciones. | Documentar también lo que falta. |
 | Cumplimiento y regalías | Publica un informe anual de transparencia (F3). No se sabe cómo se calcula internamente cada pago. | La transparencia es parcial. |
-| Offline | Observable: descargas para escucha sin conexión en Premium. No se sabe el diseño. | Contrastar con [SE-260](../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/). |
+| Offline | Observable: descargas para escucha sin conexión en Premium. No se sabe el diseño. | Contrastar con [SE-260](../../classes/part-21-software-movil-escritorio-y-multiplataforma/se-260-offline-first-y-resolucion-de-conflictos/README.md). |
 
-## 8. Línea de tiempo de la evolución
+## Línea de tiempo
 
 ![Línea de tiempo de 2006 a 2026 con dos carriles, producto y plataforma, y marcadores de fundación, lanzamiento y salida a bolsa; la plataforma pasa de centros de datos propios a Google Cloud desde 2016.](../figures/spotify-linea-de-tiempo.svg)
 
@@ -142,28 +144,28 @@ Documentado (F6): Spotify tomaba casi todas las decisiones de producto con algun
 - **2022.** Audiolibros (F1).
 - **2025.** 751 millones de usuarios activos y 290 millones de suscriptores (F2).
 
-## 9. Vínculo con el curso
+## Vínculo con el curso
 
 | Concepto | Clases | Qué parte de la teoría ilustra el caso |
 | --- | --- | --- |
-| Mensajería, topics y logs distribuidos | [SE-327](../../classes/part-27-integracion-eventos-y-mensajeria/se-327-brokers-colas-topics-y-logs-distribuidos/), [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/), [SE-325](../../classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/) | Entrega de eventos con aislamiento por tipo y semánticas de entrega. |
-| Compatibilidad de esquemas | [SE-332](../../classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/) | Más de 500 tipos de evento que deben evolucionar. |
-| Etapas ETL y sincronización | [SE-330](../../classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/), [SE-278](../../classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/) | ETL por horas, particiones cerradas e inmutables. |
-| Telemetría y consentimiento | [SE-137](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/), [SE-421](../../classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/), [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/) | Qué se mide de un usuario y con qué límites. |
-| Experimentos y causalidad | [SE-138](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/), [SE-139](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/), [SE-127](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/) | Pruebas A/B, grupos de control, métricas de guardia. |
-| Métricas de adopción y retención | [SE-136](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/), [SE-135](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/) | Conversión del nivel gratuito a Premium. |
-| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/), [SE-140](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/) | Margen bruto, regalías y costo de infraestructura. |
-| Migración a la nube y coexistencia | [SE-349](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/), [SE-357](../../classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real/), [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/) | Migrar por vías (servicios y datos) sin corte único. |
-| Retiro de sistemas | [SE-441](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/), [SE-442](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar/) | Apagar Kafka tras el nuevo sistema. |
-| Plataformas internas y portales | [SE-358](../../classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/), [SE-417](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-417-developer-portals-y-capacidades-de-plataforma/) | Backstage y la plataforma de experimentación. |
-| Equipos y propiedad | [SE-310](../../classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/), [SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/), [SE-182](../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/), [SE-183](../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/) | Escuadras autónomas; ver advertencias de la sección 10. |
-| P2P y arquitectura de borde | [SE-307](../../classes/part-25-arquitectura-de-software-y-dominio/se-307-arquitecturas-serverless-edge-y-peer-to-peer/), [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/) | Red entre pares en 2010, retirada en 2014. |
-| Streaming de archivos y calidad percibida | [SE-248](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/), [SE-382](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-382-calidad-de-experiencia-y-presupuestos/), [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/) | Latencia de inicio de reproducción como requisito. |
-| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/) | Recomendación personalizada. |
-| Disponibilidad parcial y fallos | [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/), [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/) | Vitalidad sobre tardanza. |
-| Descubrimiento y propuesta de valor | [SE-121](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/), [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/), [SE-126](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/) | Alternativa legal a la piratería. |
+| Mensajería, topics y logs distribuidos | [SE-327](../../classes/part-27-integracion-eventos-y-mensajeria/se-327-brokers-colas-topics-y-logs-distribuidos/README.md), [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/README.md), [SE-325](../../classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/README.md) | Entrega de eventos con aislamiento por tipo y semánticas de entrega. |
+| Compatibilidad de esquemas | [SE-332](../../classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/README.md) | Más de 500 tipos de evento que deben evolucionar. |
+| Etapas ETL y sincronización | [SE-330](../../classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/README.md), [SE-278](../../classes/part-23-software-especializado-y-dominios/se-278-ingenieria-de-datos-y-procesamiento-analitico/README.md) | ETL por horas, particiones cerradas e inmutables. |
+| Telemetría y consentimiento | [SE-137](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-137-telemetria-de-producto-y-consentimiento/README.md), [SE-421](../../classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/README.md), [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md) | Qué se mide de un usuario y con qué límites. |
+| Experimentos y causalidad | [SE-138](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-138-experimentos-sesgos-y-causalidad-basica/README.md), [SE-139](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-139-north-star-guardrails-y-metricas-contrarias/README.md), [SE-127](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-127-prototipos-experimentos-y-reduccion-de-incertidumbre/README.md) | Pruebas A/B, grupos de control, métricas de guardia. |
+| Métricas de adopción y retención | [SE-136](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-136-metricas-de-adopcion-retencion-y-tarea-util/README.md), [SE-135](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-135-resultados-outputs-actividad-y-vanity-metrics/README.md) | Conversión del nivel gratuito a Premium. |
+| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md), [SE-140](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md) | Margen bruto, regalías y costo de infraestructura. |
+| Migración a la nube y coexistencia | [SE-349](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/README.md), [SE-357](../../classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real/README.md), [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/README.md), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/README.md) | Migrar por vías (servicios y datos) sin corte único. |
+| Retiro de sistemas | [SE-441](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/README.md), [SE-442](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar/README.md) | Apagar Kafka tras el nuevo sistema. |
+| Plataformas internas y portales | [SE-358](../../classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/README.md), [SE-417](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-417-developer-portals-y-capacidades-de-plataforma/README.md) | Backstage y la plataforma de experimentación. |
+| Equipos y propiedad | [SE-310](../../classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/README.md), [SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md), [SE-182](../../classes/part-15-procesos-planificacion-y-estimacion/se-182-agile-como-principios-y-no-como-ceremonia/README.md), [SE-183](../../classes/part-15-procesos-planificacion-y-estimacion/se-183-scrum-kanban-xp-y-shape-up/README.md) | Escuadras autónomas; ver advertencias de la sección 10. |
+| P2P y arquitectura de borde | [SE-307](../../classes/part-25-arquitectura-de-software-y-dominio/se-307-arquitecturas-serverless-edge-y-peer-to-peer/README.md), [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/README.md) | Red entre pares en 2010, retirada en 2014. |
+| Streaming de archivos y calidad percibida | [SE-248](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-248-archivos-streaming-y-cargas-extensas/README.md), [SE-382](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-382-calidad-de-experiencia-y-presupuestos/README.md), [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md) | Latencia de inicio de reproducción como requisito. |
+| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/README.md) | Recomendación personalizada. |
+| Disponibilidad parcial y fallos | [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/README.md), [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/README.md) | Vitalidad sobre tardanza. |
+| Descubrimiento y propuesta de valor | [SE-121](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-121-problemas-sintomas-necesidades-y-oportunidades/README.md), [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), [SE-126](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-126-segmentacion-mercado-y-alternativas-existentes/README.md) | Alternativa legal a la piratería. |
 
-## 10. Qué aprender y qué NO generalizar
+## Qué no generalizar
 
 **Qué aprender.**
 
@@ -181,21 +183,25 @@ Documentado (F6): Spotify tomaba casi todas las decisiones de producto con algun
 - **Sesgo de supervivencia.** Los blogs muestran lo que funcionó y su explicación más favorable.
 - **Los números de escala (eventos, usuarios) no son una referencia para tu producto.** Sirven para ver órdenes de magnitud y cómo cambian las decisiones.
 
-## 11. Fuentes
+## Fuentes públicas verificadas
 
 Todas consultadas el 2026-11-16 con `curl`, o verificadas por DOI en Crossref. «Secundaria» significa que no es una fuente primaria de la empresa.
 
-- **F1.** Spotify Newsroom, «About Spotify»: <https://newsroom.spotify.com/company-info/>
-- **F2.** Spotify, «Spotify Reports Fourth Quarter 2025 Earnings» (10 de febrero de 2026): <https://newsroom.spotify.com/2026-02-10/spotify-q4-2025-earnings/>
-- **F3.** Spotify, «Loud & Clear» (preguntas frecuentes y datos de 2025, actualizado el 11 de marzo de 2026): <https://loudandclear.byspotify.com/faq/>
-- **F4.** Guillaume Leygues, «Spotify chooses Google Cloud Platform to power data infrastructure», Google Cloud Blog, 23 de febrero de 2016: <https://cloud.google.com/blog/products/gcp/spotify-chooses-google-cloud-platform-to-power-data-infrastructure>
-- **F5.** Spotify Engineering, «Spotify's Event Delivery – Life in the Cloud», noviembre de 2019: <https://engineering.atspotify.com/2019/11/spotifys-event-delivery-life-in-the-cloud>. **F5-bis:** «Changing the Wheels on a Moving Bus — Spotify's Event Delivery Migration», octubre de 2021: <https://engineering.atspotify.com/2021/10/changing-the-wheels-on-a-moving-bus-spotify-event-delivery-migration>
-- **F6.** Spotify Engineering, «Spotify's New Experimentation Platform (Part 1)», octubre de 2020: <https://engineering.atspotify.com/2020/10/spotifys-new-experimentation-platform-part-1>
-- **F7.** Spotify Engineering, «What made Discover Weekly one of our most successful feature launches to date?», noviembre de 2015: <https://engineering.atspotify.com/2015/11/what-made-discover-weekly-one-of-our-most-successful-feature-launches-to-date>
-- **F8.** Backstage, «What is Backstage?»: <https://backstage.io/docs/overview/what-is-backstage>
-- **F9.** Henrik Kniberg, «Spotify engineering culture (part 1)», Spotify Engineering, 27 de marzo de 2014: <https://engineering.atspotify.com/2014/03/spotify-engineering-culture-part-1>
+- **F1.** Spotify Newsroom, «About Spotify»: [https://newsroom.spotify.com/company-info/](https://newsroom.spotify.com/company-info/)
+- **F2.** Spotify, «Spotify Reports Fourth Quarter 2025 Earnings» (10 de febrero de 2026): [https://newsroom.spotify.com/2026-02-10/spotify-q4-2025-earnings/](https://newsroom.spotify.com/2026-02-10/spotify-q4-2025-earnings/)
+- **F3.** Spotify, «Loud & Clear» (preguntas frecuentes y datos de 2025, actualizado el 11 de marzo de 2026): [https://loudandclear.byspotify.com/faq/](https://loudandclear.byspotify.com/faq/)
+- **F4.** Guillaume Leygues, «Spotify chooses Google Cloud Platform to power data infrastructure», Google Cloud Blog, 23 de febrero de 2016: [https://cloud.google.com/blog/products/gcp/spotify-chooses-google-cloud-platform-to-power-data-infrastructure](https://cloud.google.com/blog/products/gcp/spotify-chooses-google-cloud-platform-to-power-data-infrastructure)
+- **F5.** Spotify Engineering, «Spotify's Event Delivery – Life in the Cloud», noviembre de 2019: [https://engineering.atspotify.com/2019/11/spotifys-event-delivery-life-in-the-cloud](https://engineering.atspotify.com/2019/11/spotifys-event-delivery-life-in-the-cloud). **F5-bis:** «Changing the Wheels on a Moving Bus — Spotify's Event Delivery Migration», octubre de 2021: [https://engineering.atspotify.com/2021/10/changing-the-wheels-on-a-moving-bus-spotify-event-delivery-migration](https://engineering.atspotify.com/2021/10/changing-the-wheels-on-a-moving-bus-spotify-event-delivery-migration)
+- **F6.** Spotify Engineering, «Spotify's New Experimentation Platform (Part 1)», octubre de 2020: [https://engineering.atspotify.com/2020/10/spotifys-new-experimentation-platform-part-1](https://engineering.atspotify.com/2020/10/spotifys-new-experimentation-platform-part-1)
+- **F7.** Spotify Engineering, «What made Discover Weekly one of our most successful feature launches to date?», noviembre de 2015: [https://engineering.atspotify.com/2015/11/what-made-discover-weekly-one-of-our-most-successful-feature-launches-to-date](https://engineering.atspotify.com/2015/11/what-made-discover-weekly-one-of-our-most-successful-feature-launches-to-date)
+- **F8.** Backstage, «What is Backstage?»: [https://backstage.io/docs/overview/what-is-backstage](https://backstage.io/docs/overview/what-is-backstage)
+- **F9.** Henrik Kniberg, «Spotify engineering culture (part 1)», Spotify Engineering, 27 de marzo de 2014: [https://engineering.atspotify.com/2014/03/spotify-engineering-culture-part-1](https://engineering.atspotify.com/2014/03/spotify-engineering-culture-part-1)
 - **F10.** Gunnar Kreitz y Fredrik Niemelä, «Spotify – Large Scale, Low Latency, P2P Music-on-Demand Streaming», IEEE P2P 2010. DOI 10.1109/P2P.2010.5569963 (verificado en Crossref; se cita la existencia y el título, no se leyó el texto completo).
-- **F12.** Spotify, página de contacto con las entidades y la dirección de la sede: <https://www.spotify.com/us/about-us/contact/>
-- **F11.** (Secundaria) Wikipedia, «Spotify», edición consultada el 2026-11-16: <https://en.wikipedia.org/wiki/Spotify>. Se usa solo para fundación, lanzamiento por mercado, fin del P2P en 2014, planes dúo y familiar e ingresos de 2025, declarando cada vez su carácter secundario.
+- **F12.** Spotify, página de contacto con las entidades y la dirección de la sede: [https://www.spotify.com/us/about-us/contact/](https://www.spotify.com/us/about-us/contact/)
+- **F11.** (Secundaria) Wikipedia, «Spotify», edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Spotify](https://en.wikipedia.org/wiki/Spotify). Se usa solo para fundación, lanzamiento por mercado, fin del P2P en 2014, planes dúo y familiar e ingresos de 2025, declarando cada vez su carácter secundario.
 
 **Qué no cubren estas fuentes.** No documentan cómo se sirve el audio hoy, el algoritmo de recomendación, el cálculo interno de regalías ni la composición exacta del costo del ingreso; quedan como «no se sabe».
+
+---
+
+[↑ Casos de éxito](README.md) · [← Amazon](amazon.md) · [Airbnb →](airbnb.md)

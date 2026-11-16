@@ -1,8 +1,10 @@
-# Caso de éxito: Amazon
+# Amazon
+
+[↑ Casos de éxito](README.md) · [← Mercado Libre](mercado-libre.md) · [Spotify →](spotify.md)
 
 > **Qué es este caso.** Un análisis profesional de una empresa real que el programa usa para contrastar la teoría con la práctica. No es una clase ni un rol: es la realidad frente al curso. Se apoya solo en fuentes públicas citadas al final, consultadas el 16 de noviembre de 2026, y separa lo que está **documentado**, lo que es **inferido** y lo que **no se sabe**.
 
-## Cómo leer este caso
+**Cómo leer este caso.**
 
 Cada afirmación lleva una etiqueta implícita en su redacción:
 
@@ -13,7 +15,7 @@ Cada afirmación lleva una etiqueta implícita en su redacción:
 
 Las cifras de dinero están en dólares estadounidenses salvo que se diga otra cosa. Los «mil millones» son 10^9.
 
-## 1. Ficha histórica
+## Ficha histórica
 
 | Dato | Valor | Estado de la evidencia |
 | --- | --- | --- |
@@ -33,7 +35,7 @@ Las cifras de dinero están en dólares estadounidenses salvo que se diga otra c
 
 Dos aclaraciones de método. Primero, la fundación en 1994 y el lanzamiento de 1995 vienen de una fuente secundaria: el cliente automatizado de este trabajo fue bloqueado por el servidor de la SEC y no se pudo leer el informe anual 10-K de la propia empresa, que es la fuente primaria de esas fechas. Segundo, «lanzamiento» significa aquí la apertura de la tienda al público, no la constitución legal de la sociedad.
 
-## 2. Contexto y problema que resolvió
+## Contexto y problema
 
 A mediados de los años noventa el comercio en línea era una promesa sin práctica. Un comprador que quería un libro dependía de una librería física con un inventario limitado a su estantería; Internet permitía, en principio, ofrecer un catálogo mucho mayor. El problema que Amazon atacó fue doble: **hacer posible comprar a distancia con confianza** (pagar con tarjeta a una empresa desconocida, esperar el envío) y **construir la logística** capaz de cumplir la promesa.
 
@@ -41,7 +43,7 @@ La carta a los accionistas de 1997 (F3) deja ver la postura con la que Amazon ab
 
 Este contexto importa para el curso porque muestra que muchas decisiones técnicas de Amazon (servicios pequeños, contratos de latencia, nube) responden a una decisión de negocio previa: sostener un crecimiento rápido sin que el sistema ni la organización se paralicen.
 
-## 3. Mercado, tipos de usuarios y casos de uso
+## Mercado, usuarios y casos de uso
 
 Amazon es una empresa con varios mercados superpuestos. La figura siguiente muestra los actores y qué intercambian.
 
@@ -63,7 +65,7 @@ Amazon es una empresa con varios mercados superpuestos. La figura siguiente mues
 3. Que una empresa alquile servidores durante horas para un proyecto y los devuelva (AWS).
 4. Que un vendedor pequeño llegue a clientes de otros países sin montar su logística.
 
-## 4. Funcionalidad de principio a fin
+## Funcionalidad de principio a fin
 
 Describimos la experiencia de un comprador instancia por instancia. Lo que sigue es **observable** salvo cuando se cita una fuente.
 
@@ -75,7 +77,7 @@ Describimos la experiencia de un comprador instancia por instancia. Lo que sigue
 6. **Soporte y devoluciones.** Observable: el usuario abre una incidencia o una devolución desde su cuenta. No se sabe cuánto es automatizado.
 7. **Operación diaria.** Documentado (F9): los cambios llegan a producción por pipelines automáticos que despliegan varias veces al día sin que nadie observe cada despliegue; la vigilancia la hacen alarmas y reversiones automáticas.
 
-## 5. Negocio y economía
+## Negocio y economía
 
 **Modelo.** Documentado (F4): Amazon reporta tres segmentos: América del Norte, Internacional y AWS. En 2025 las ventas fueron 426,3, 161,9 y 128,7 mil millones respectivamente.
 
@@ -89,7 +91,7 @@ Describimos la experiencia de un comprador instancia por instancia. Lo que sigue
 
 **Ventajas.** Inferido, con apoyo documental: el apalancamiento entre tienda y nube (la misma infraestructura sirve a ambas, F1, F5) y una cultura de decidir a largo plazo (F3). Documentado (F4): en 2025 el resultado operativo creció a 80,0 mil millones y el flujo de caja operativo de los últimos doce meses a 139,5 mil millones.
 
-## 6. Arquitectura y esquemas
+## Arquitectura y esquemas
 
 Todo lo que sigue es lo que Amazon ha publicado; no existe un diagrama interno público completo y no se debe inventar uno.
 
@@ -117,7 +119,7 @@ Documentado (F1): el artículo describe particionado por hash consistente, repli
 
 **Cómo leer la figura.** Las cajas de arriba son etapas del pipeline; la de gamma despliega a la unidad más pequeña (una máquina o contenedor) durante 30 minutos a una hora; luego las olas de producción agrupan regiones en tamaños crecientes y cada una espera (bake time) mientras vigila alarmas. Mira que las esperas son más largas al principio, donde el riesgo es mayor. **Dónde deja de valer.** Documentado (F9) para servicios de AWS con 24 regiones y 76 zonas de disponibilidad en el momento del artículo (2020); los plazos son por defecto y varían por equipo.
 
-## 7. Casos especiales y cómo se resuelven
+## Casos especiales y cómo se resuelven
 
 | Situación | Qué se documenta | Qué enseña |
 | --- | --- | --- |
@@ -129,7 +131,7 @@ Documentado (F1): el artículo describe particionado por hash consistente, repli
 | Cambio defectuoso | Despliegue por olas, tiempo de espera y reversión (F9). | La velocidad de entrega y la seguridad se negocian con diseño del pipeline. |
 | Cumplimiento y offline | No se sabe: Amazon no publica cómo gestiona el cumplimiento normativo de la tienda en cada país ni el comportamiento sin conexión de sus apps. | Aquí la ausencia de datos es parte del caso. |
 
-## 8. Línea de tiempo de la evolución
+## Línea de tiempo
 
 ![Línea de tiempo de 1994 a 2026 con dos carriles: la tienda, desde los libros hasta Prime y la logística, y la plataforma técnica, desde la plataforma de la tienda hasta AWS con S3 y EC2; marcadores en 1995 (lanzamiento) y 2006 (EC2).](../figures/amazon-linea-de-tiempo.svg)
 
@@ -145,27 +147,27 @@ En prosa, con sus fuentes:
 - **2019–2020.** La Biblioteca de Constructores publica prácticas sobre aislamiento de carga, estabilidad estática y despliegues seguros (F7, F8, F9).
 - **2025.** 716,9 mil millones de ingresos y 128,7 de AWS (F4).
 
-## 9. Vínculo con el curso
+## Vínculo con el curso
 
 El caso ilustra las siguientes clases. La columna derecha dice qué parte de la teoría se ve en el caso.
 
 | Concepto | Clases | Qué parte de la teoría ilustra el caso |
 | --- | --- | --- |
-| Consistencia, disponibilidad y particiones | [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/), [SE-340](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-340-tiempo-relojes-y-orden-parcial/), [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/) | El carrito de Dynamo es el ejemplo clásico de elegir disponibilidad y reconciliar después; los relojes vectoriales son orden parcial. |
-| Replicación, particionado y balanceo | [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/), [SE-345](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/) | Hash consistente, N réplicas y quórums sueltos de Dynamo. |
-| Idempotencia y reintentos | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/), [SE-524](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/) | La Biblioteca insiste en que lo que tiene efectos se reintenta solo si es idempotente, con retroceso y jitter. |
-| Fallos parciales, disyuntores y mamparos | [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/), [SE-525](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/), [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/) | Crítica documentada a los interruptores de circuito y alternativa del cubo de fichas. |
-| Radio de impacto y celdas | [SE-536](../../classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/), [SE-534](../../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/) | Shuffle sharding y las zonas de disponibilidad como unidades de aislamiento. |
-| Disponibilidad y recuperación | [SE-380](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/), [SE-430](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/) | Estabilidad estática: seguir con lo que ya se sabe cuando la dependencia cae. |
-| Latencia, colas y capacidad | [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/), [SE-375](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance/), [SE-356](../../classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos/) | Contratos en el percentil 99,9 y picos de Prime Day. |
-| SLI y SLO | [SE-425](../../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/) | Un contrato de latencia en la cola es un SLO. |
-| Despliegue progresivo y reversión | [SE-413](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-413-entrega-y-despliegue-continuos/), [SE-404](../../classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/), [SE-403](../../classes/part-33-build-release-y-cadena-de-suministro/se-403-feature-flags-y-entrega-progresiva/) | Una caja, olas, tiempo de espera y reversión automática. |
-| Arquitectura de servicios y equipos | [SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/), [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/), [SE-310](../../classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/), [SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/) | Servicios con dueños claros (inferido); ver las advertencias de la sección 10. |
-| Nube y servicios gestionados | [SE-349](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/), [SE-352](../../classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada/) | Origen de EC2 como infraestructura convertida en producto. |
-| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/), [SE-140](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/), [SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/) | Tres segmentos con márgenes muy distintos y decisiones a largo plazo. |
-| Propuesta de valor desde el cliente | [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/), [SE-122](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/) | «Working Backwards» parte del cliente (F11). |
+| Consistencia, disponibilidad y particiones | [SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/README.md), [SE-340](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-340-tiempo-relojes-y-orden-parcial/README.md), [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/README.md) | El carrito de Dynamo es el ejemplo clásico de elegir disponibilidad y reconciliar después; los relojes vectoriales son orden parcial. |
+| Replicación, particionado y balanceo | [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/README.md), [SE-345](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/README.md) | Hash consistente, N réplicas y quórums sueltos de Dynamo. |
+| Idempotencia y reintentos | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/README.md), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md), [SE-524](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) | La Biblioteca insiste en que lo que tiene efectos se reintenta solo si es idempotente, con retroceso y jitter. |
+| Fallos parciales, disyuntores y mamparos | [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/README.md), [SE-525](../../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md), [SE-341](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/README.md) | Crítica documentada a los interruptores de circuito y alternativa del cubo de fichas. |
+| Radio de impacto y celdas | [SE-536](../../classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md), [SE-534](../../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) | Shuffle sharding y las zonas de disponibilidad como unidades de aislamiento. |
+| Disponibilidad y recuperación | [SE-380](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/README.md), [SE-430](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/README.md) | Estabilidad estática: seguir con lo que ya se sabe cuando la dependencia cae. |
+| Latencia, colas y capacidad | [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md), [SE-375](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-375-carga-estres-picos-y-endurance/README.md), [SE-356](../../classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos/README.md) | Contratos en el percentil 99,9 y picos de Prime Day. |
+| SLI y SLO | [SE-425](../../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/README.md) | Un contrato de latencia en la cola es un SLO. |
+| Despliegue progresivo y reversión | [SE-413](../../classes/part-34-ci-cd-iac-y-platform-engineering/se-413-entrega-y-despliegue-continuos/README.md), [SE-404](../../classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/README.md), [SE-403](../../classes/part-33-build-release-y-cadena-de-suministro/se-403-feature-flags-y-entrega-progresiva/README.md) | Una caja, olas, tiempo de espera y reversión automática. |
+| Arquitectura de servicios y equipos | [SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/README.md), [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md), [SE-310](../../classes/part-25-arquitectura-de-software-y-dominio/se-310-arquitectura-socio-tecnica-y-limites-de-equipo/README.md), [SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md) | Servicios con dueños claros (inferido); ver las advertencias de la sección 10. |
+| Nube y servicios gestionados | [SE-349](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/README.md), [SE-352](../../classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada/README.md) | Origen de EC2 como infraestructura convertida en producto. |
+| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md), [SE-140](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-140-finops-de-producto-y-costo-por-resultado/README.md), [SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) | Tres segmentos con márgenes muy distintos y decisiones a largo plazo. |
+| Propuesta de valor desde el cliente | [SE-125](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md), [SE-122](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-122-usuarios-actores-trabajos-y-contextos/README.md) | «Working Backwards» parte del cliente (F11). |
 
-## 10. Qué aprender y qué NO generalizar
+## Qué no generalizar
 
 **Qué aprender.**
 
@@ -184,21 +186,25 @@ El caso ilustra las siguientes clases. La columna derecha dice qué parte de la 
 - **Sesgo de supervivencia.** Las prácticas publicadas son las que Amazon decide mostrar; los experimentos fallidos no aparecen.
 - **Los datos más antiguos pueden estar desactualizados.** El artículo de Dynamo es de 2007 y describe un sistema interno anterior; no debe confundirse con el servicio DynamoDB de AWS, que es otro producto.
 
-## 11. Fuentes
+## Fuentes públicas verificadas
 
 Todas consultadas el 2026-11-16 con `curl` o verificadas por DOI en Crossref. «Secundaria» significa que no es una fuente primaria de la empresa.
 
-- **F1.** DeCandia, Hastorun, Jampani, Kakulapati, Lakshman, Pilchin, Sivasubramanian, Vosshall y Vogels, «Dynamo: Amazon's Highly Available Key-value Store», SOSP 2007. DOI 10.1145/1294261.1294281. PDF: <https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf>
-- **F2.** Werner Vogels, «Eventually Consistent», Communications of the ACM, enero de 2009. DOI 10.1145/1435417.1435432. Versión del autor (23 de diciembre de 2008): <https://www.allthingsdistributed.com/2008/12/eventually_consistent.html>
-- **F3.** Jeff Bezos, carta a los accionistas de 1997: <https://s2.q4cdn.com/299287126/files/doc_financials/annual/Shareholderletter97.pdf>
-- **F4.** Amazon, «Amazon.com Announces Fourth Quarter Results» (resultados del cuarto trimestre y del año 2025): <https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/>
-- **F5.** AWS, «Announcing Amazon Elastic Compute Cloud (Amazon EC2) - beta», 24 de agosto de 2006: <https://aws.amazon.com/about-aws/whats-new/2006/08/24/announcing-amazon-elastic-compute-cloud-amazon-ec2---beta/>
-- **F6.** Amazon Builders' Library, «Timeouts, retries, and backoff with jitter»: <https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/>
-- **F7.** Amazon Builders' Library, «Static stability using Availability Zones»: <https://aws.amazon.com/builders-library/static-stability-using-availability-zones/>
-- **F8.** Amazon Builders' Library, «Workload isolation using shuffle-sharding» (5 de diciembre de 2019): <https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/>
-- **F9.** Clare Liguori, «Automating safe, hands-off deployments», Amazon Builders' Library (18 de junio de 2020): <https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/>
-- **F10.** Jeff Barr, «Amazon Prime Day 2022 – AWS for the Win!», AWS News Blog (25 de julio de 2022): <https://aws.amazon.com/blogs/aws/amazon-prime-day-2022-aws-for-the-win/>
-- **F11.** Amazon, «An insider look at Amazon's culture and processes» (extracto de *Working Backwards*, de Colin Bryar y Bill Carr): <https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes>
-- **F12.** (Secundaria) Wikipedia, «Amazon (company)», texto de la edición consultada el 2026-11-16: <https://en.wikipedia.org/wiki/Amazon_(company)>. Se usa solo para fechas de fundación, lanzamiento, salida a bolsa y AWS 2002, y se declara en cada caso.
+- **F1.** DeCandia, Hastorun, Jampani, Kakulapati, Lakshman, Pilchin, Sivasubramanian, Vosshall y Vogels, «Dynamo: Amazon's Highly Available Key-value Store», SOSP 2007. DOI 10.1145/1294261.1294281. PDF: [https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf)
+- **F2.** Werner Vogels, «Eventually Consistent», Communications of the ACM, enero de 2009. DOI 10.1145/1435417.1435432. Versión del autor (23 de diciembre de 2008): [https://www.allthingsdistributed.com/2008/12/eventually_consistent.html](https://www.allthingsdistributed.com/2008/12/eventually_consistent.html)
+- **F3.** Jeff Bezos, carta a los accionistas de 1997: [https://s2.q4cdn.com/299287126/files/doc_financials/annual/Shareholderletter97.pdf](https://s2.q4cdn.com/299287126/files/doc_financials/annual/Shareholderletter97.pdf)
+- **F4.** Amazon, «Amazon.com Announces Fourth Quarter Results» (resultados del cuarto trimestre y del año 2025): [https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/](https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/)
+- **F5.** AWS, «Announcing Amazon Elastic Compute Cloud (Amazon EC2) - beta», 24 de agosto de 2006: [https://aws.amazon.com/about-aws/whats-new/2006/08/24/announcing-amazon-elastic-compute-cloud-amazon-ec2---beta/](https://aws.amazon.com/about-aws/whats-new/2006/08/24/announcing-amazon-elastic-compute-cloud-amazon-ec2---beta/)
+- **F6.** Amazon Builders' Library, «Timeouts, retries, and backoff with jitter»: [https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/)
+- **F7.** Amazon Builders' Library, «Static stability using Availability Zones»: [https://aws.amazon.com/builders-library/static-stability-using-availability-zones/](https://aws.amazon.com/builders-library/static-stability-using-availability-zones/)
+- **F8.** Amazon Builders' Library, «Workload isolation using shuffle-sharding» (5 de diciembre de 2019): [https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/](https://aws.amazon.com/builders-library/workload-isolation-using-shuffle-sharding/)
+- **F9.** Clare Liguori, «Automating safe, hands-off deployments», Amazon Builders' Library (18 de junio de 2020): [https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/](https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/)
+- **F10.** Jeff Barr, «Amazon Prime Day 2022 – AWS for the Win!», AWS News Blog (25 de julio de 2022): [https://aws.amazon.com/blogs/aws/amazon-prime-day-2022-aws-for-the-win/](https://aws.amazon.com/blogs/aws/amazon-prime-day-2022-aws-for-the-win/)
+- **F11.** Amazon, «An insider look at Amazon's culture and processes» (extracto de *Working Backwards*, de Colin Bryar y Bill Carr): [https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes](https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes)
+- **F12.** (Secundaria) Wikipedia, «Amazon (company)», texto de la edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Amazon_(company)](https://en.wikipedia.org/wiki/Amazon_(company)). Se usa solo para fechas de fundación, lanzamiento, salida a bolsa y AWS 2002, y se declara en cada caso.
 
 **Qué no cubren estas fuentes.** No documentan la arquitectura actual de la tienda, el diseño de la logística, el desglose de ingresos de América del Norte ni el costo interno de la nube; esos puntos quedan como «no se sabe».
+
+---
+
+[↑ Casos de éxito](README.md) · [← Mercado Libre](mercado-libre.md) · [Spotify →](spotify.md)

@@ -1,8 +1,10 @@
-# Caso de éxito: Stripe
+# Stripe
+
+[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md)
 
 > **Qué es este caso.** Un análisis profesional de una empresa real que el programa usa para contrastar la teoría con la práctica. No es una clase ni un rol: es la realidad frente al curso. Se apoya solo en fuentes públicas citadas al final, consultadas el 16 de noviembre de 2026, y separa lo que está **documentado**, lo que es **inferido** y lo que **no se sabe**.
 
-## Cómo leer este caso
+**Cómo leer este caso.**
 
 - **Documentado**: lo dice una fuente citada, por ejemplo «Documentado (F2)». Si la fuente es secundaria, se declara.
 - **Observable**: se comprueba usando el producto público o su documentación, sin una cita específica en este caso.
@@ -11,7 +13,7 @@
 
 Las cifras de dinero están en dólares estadounidenses. Un «billón» es 10^12 (en inglés, *trillion*).
 
-## 1. Ficha histórica
+## Ficha histórica
 
 | Dato | Valor | Estado de la evidencia |
 | --- | --- | --- |
@@ -28,13 +30,13 @@ Las cifras de dinero están en dólares estadounidenses. Un «billón» es 10^12
 | Ingresos totales | no se publican; hay estimaciones de prensa no verificadas aquí | No se sabe |
 | Estado actual | empresa privada | Documentado (F2: ofertas de recompra a empleados) |
 
-## 2. Contexto y problema que resolvió
+## Contexto y problema
 
 A comienzos de la década de 2010, aceptar un pago con tarjeta en un sitio web era un trámite largo: una cuenta de comerciante con un banco, una pasarela de pago, certificaciones de seguridad y una integración difícil. El problema que Stripe atacó fue **reducir ese trámite a una API que un desarrollador pudiera integrar en un día**, escondiendo detrás las redes de tarjetas, los bancos, el cumplimiento y el fraude.
 
 El diseño de producto se ve en cómo Stripe describe su propia misión hoy: documentado (F1), «más de 5 millones de negocios» se apoyan en la plataforma, que dice procesar trillones de dólares al año, equivalentes a cerca del 1,8 % del PIB mundial (la cifra de 2025 que da Stripe en su comunicado de febrero de 2026 es 1,6 %; la diferencia procede de fechas y bases distintas y no se ha podido reconciliar). Para este curso, lo interesante es una pregunta técnica: **qué tiene que cumplir una API de dinero para que miles de programadores externos confíen en ella**. La respuesta documentada en los blogs de ingeniería de Stripe (F4 a F8) es: ser predecible ante reintentos, protegerse de sobrecarga, cambiar sin romper integraciones ya existentes y migrar datos sin parar el servicio.
 
-## 3. Mercado, tipos de usuarios y casos de uso
+## Mercado, usuarios y casos de uso
 
 ![Diagrama de contexto de Stripe: el comercio integra la API, el cliente paga con tarjeta o billetera, Stripe dialoga con redes de tarjetas, bancos emisores y adquirentes, y cumple normativa de pagos y de datos de tarjeta.](../figures/stripe-contexto-intermediario.svg)
 
@@ -57,7 +59,7 @@ El diseño de producto se ve en cómo Stripe describe su propia misión hoy: doc
 3. Un marketplace que cobra a compradores y paga a vendedores.
 4. Una empresa que cobra en persona con terminales (Stripe Terminal, F13).
 
-## 4. Funcionalidad de principio a fin
+## Funcionalidad de principio a fin
 
 1. **Primer contacto.** Observable: el desarrollador abre la documentación, crea una cuenta y obtiene claves de prueba. Inferido: el producto se vende primero a quien lo integra.
 2. **Registro y activación.** Observable: para cobrar dinero real hay que completar la verificación del negocio. No se sabe el detalle de la verificación ni sus tiempos.
@@ -71,7 +73,7 @@ El diseño de producto se ve en cómo Stripe describe su propia misión hoy: doc
 5. **Soporte y disputas.** Observable: panel con historial, reembolsos y disputas. No se sabe el volumen ni su automatización.
 6. **Operación diaria del comercio.** Documentado (F11): el comercio recibe eventos por webhook de lo que ocurre (cobro exitoso, fallo, disputa) y debe procesarlos de forma segura.
 
-## 5. Negocio y economía
+## Negocio y economía
 
 **Modelo.** Documentado (F9): comisión por transacción exitosa, sin cuotas de alta ni mensuales en el plan estándar; paquetes personalizados para volúmenes grandes. Documentado (F2): además de pagos, hay productos de ingresos recurrentes (Billing, Invoicing, Tax) que están en camino a 1.000 millones de dólares de ingreso anual recurrente.
 
@@ -83,7 +85,7 @@ El diseño de producto se ve en cómo Stripe describe su propia misión hoy: doc
 
 **Ventajas.** Inferido: efecto de integración (un desarrollador que ya aprendió la API la reutiliza), confianza en la corrección técnica y amplitud de productos. Documentado (F2): Stripe dice alimentar al 90 % de las empresas del índice Dow Jones y al 80 % de las del Nasdaq 100; es una afirmación de la empresa.
 
-## 6. Arquitectura y esquemas
+## Arquitectura y esquemas
 
 ### Componentes documentados
 
@@ -109,7 +111,7 @@ Documentado (F4): una clave de idempotencia es un identificador único que el cl
 
 Documentado (F8): 2023, un billón de dólares de volumen; DocDB con 99,999 % de disponibilidad según el título de su artículo; el objetivo de la fase clave de una migración es que dure menos que una conmutación planificada del primario, normalmente de unos segundos y dentro del presupuesto de reintentos de las aplicaciones. Documentado (F7): el patrón de migración en línea tiene cuatro pasos: escritura doble, cambio de lecturas, cambio de escrituras y eliminación de datos antiguos.
 
-## 7. Casos especiales y cómo se resuelven
+## Casos especiales y cómo se resuelven
 
 | Situación | Qué se documenta | Qué enseña |
 | --- | --- | --- |
@@ -123,7 +125,7 @@ Documentado (F8): 2023, un billón de dólares de volumen; DocDB con 99,999 % de
 | Fraude | Producto de protección con inteligencia artificial (F9). No se sabe cómo se entrena ni cómo se mide su error. | Ausencia de datos como parte del caso. |
 | Cumplimiento regulatorio por país | No se sabe: la documentación consultada no detalla qué licencias tiene en cada jurisdicción. | Un punto que exige fuentes propias. |
 
-## 8. Línea de tiempo de la evolución
+## Línea de tiempo
 
 ![Línea de tiempo de 2010 a 2026: beta privada, lanzamiento público en septiembre de 2011, plataforma amplia desde 2017 y escala creciente con volúmenes de 1,0, 1,4 y 1,9 billones de dólares en 2023, 2024 y 2025.](../figures/stripe-linea-de-tiempo.svg)
 
@@ -136,27 +138,27 @@ Documentado (F8): 2023, un billón de dólares de volumen; DocDB con 99,999 % de
 - **2024.** 1,4 billones, +38 % (F3).
 - **2025.** 1,9 billones, +34 %, y recompra de acciones a empleados con una valoración de 159.000 millones de dólares (F2).
 
-## 9. Vínculo con el curso
+## Vínculo con el curso
 
 | Concepto | Clases | Qué parte de la teoría ilustra el caso |
 | --- | --- | --- |
-| Idempotencia, reintentos y deduplicación | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/) | Cabecera `Idempotency-Key`, resultado guardado y reintento seguro. |
-| Rate limiting y protección | [SE-249](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/), [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/), [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/) | Cubo de fichas, concurrencia y descarte de carga. |
-| Diseño de APIs y contratos | [SE-242](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/), [SE-244](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/), [SE-163](../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/) | API predecible con errores consistentes. |
-| Versionado y compatibilidad | [SE-110](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/), [SE-164](../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/), [SE-402](../../classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/) | Versiones por fecha fijadas por cuenta. |
-| Experiencia del desarrollador | [SE-118](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/), [SE-120](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/) | Documentación, claves de prueba y SDK. |
-| Webhooks y entrega de eventos | [SE-331](../../classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/), [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/), [SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/) | Reintentos, duplicados y orden no garantizado. |
-| Migraciones de datos sin interrupción | [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/), [SE-318](../../classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/), [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/) | Escritura doble en cuatro pasos y retiro de datos antiguos. |
-| Bases de datos, fragmentación y recuperación | [SE-314](../../classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/), [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/), [SE-345](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/), [SE-321](../../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/), [SE-380](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/) | DocDB, fragmentos y 99,999 % de disponibilidad. |
-| Dominio fintech e invariantes | [SE-282](../../classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias/), [SE-316](../../classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/) | Exactitud monetaria y consistencia. |
-| Seguridad y secretos | [SE-389](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves/), [SE-390](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/), [SE-385](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/) | Tokenización y claves de API. |
-| Privacidad y cumplimiento | [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/), [SE-394](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/), [SE-152](../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/) | PCI, autenticación fuerte y límites legales. |
-| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/) | Detección de fraude. |
-| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/), [SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/) | Comisión por transacción, IC+ y volumen. |
-| Multiinquilino y plataformas | [SE-534](../../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/), [SE-358](../../classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/) | Connect y cuentas múltiples. |
-| Observabilidad y SLO | [SE-425](../../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/), [SE-421](../../classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/) | Disponibilidad objetivo en un servicio de pagos. |
+| Idempotencia, reintentos y deduplicación | [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md), [SE-344](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/README.md), [SE-378](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-378-timeouts-retries-backoff-y-jitter/README.md) | Cabecera `Idempotency-Key`, resultado guardado y reintento seguro. |
+| Rate limiting y protección | [SE-249](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-249-caching-rate-limiting-y-proteccion/README.md), [SE-379](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/README.md), [SE-376](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-376-latencia-throughput-saturacion-y-capacidad/README.md) | Cubo de fichas, concurrencia y descarte de carga. |
+| Diseño de APIs y contratos | [SE-242](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-242-rest-y-semantica-de-recursos/README.md), [SE-244](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-244-validacion-errores-y-contratos-consistentes/README.md), [SE-163](../../classes/part-13-especificaciones-contratos-y-modelos/se-163-openapi-asyncapi-graphql-y-contratos-de-eventos/README.md) | API predecible con errores consistentes. |
+| Versionado y compatibilidad | [SE-110](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md), [SE-164](../../classes/part-13-especificaciones-contratos-y-modelos/se-164-compatibilidad-versionado-y-evolucion-de-contratos/README.md), [SE-402](../../classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/README.md) | Versiones por fecha fijadas por cuenta. |
+| Experiencia del desarrollador | [SE-118](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-118-diseno-de-experiencia-para-desarrolladores/README.md), [SE-120](../../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-120-proyecto-sdk-y-cli-con-compatibilidad-verificada/README.md) | Documentación, claves de prueba y SDK. |
+| Webhooks y entrega de eventos | [SE-331](../../classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/README.md), [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/README.md), [SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/README.md) | Reintentos, duplicados y orden no garantizado. |
+| Migraciones de datos sin interrupción | [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/README.md), [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/README.md), [SE-318](../../classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/README.md), [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/README.md) | Escritura doble en cuatro pasos y retiro de datos antiguos. |
+| Bases de datos, fragmentación y recuperación | [SE-314](../../classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/README.md), [SE-319](../../classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/README.md), [SE-345](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/README.md), [SE-321](../../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/README.md), [SE-380](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/README.md) | DocDB, fragmentos y 99,999 % de disponibilidad. |
+| Dominio fintech e invariantes | [SE-282](../../classes/part-23-software-especializado-y-dominios/se-282-fintech-contabilidad-e-invariantes-monetarias/README.md), [SE-316](../../classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/README.md) | Exactitud monetaria y consistencia. |
+| Seguridad y secretos | [SE-389](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves/README.md), [SE-390](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/README.md), [SE-385](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/README.md) | Tokenización y claves de API. |
+| Privacidad y cumplimiento | [SE-391](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/README.md), [SE-394](../../classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/README.md), [SE-152](../../classes/part-12-ingenieria-de-requisitos/se-152-requisitos-regulatorios-de-datos-y-seguridad/README.md) | PCI, autenticación fuerte y límites legales. |
+| Aprendizaje automático como componente | [SE-279](../../classes/part-23-software-especializado-y-dominios/se-279-machine-learning-como-componente-de-producto/README.md) | Detección de fraude. |
+| Modelos de negocio y costos | [SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md), [SE-134](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md), [SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) | Comisión por transacción, IC+ y volumen. |
+| Multiinquilino y plataformas | [SE-534](../../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md), [SE-358](../../classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/README.md) | Connect y cuentas múltiples. |
+| Observabilidad y SLO | [SE-425](../../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/README.md), [SE-421](../../classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/README.md) | Disponibilidad objetivo en un servicio de pagos. |
 
-## 10. Qué aprender y qué NO generalizar
+## Qué no generalizar
 
 **Qué aprender.**
 
@@ -175,25 +177,29 @@ Documentado (F8): 2023, un billón de dólares de volumen; DocDB con 99,999 % de
 - **Las tarifas cambian por país y fecha.** El cálculo del caso solo es válido con la lista de precios consultada (F9).
 - **Sesgo de supervivencia.** Se publican las decisiones que salieron bien; no hay documento sobre incidentes graves en las fuentes consultadas.
 
-## 11. Fuentes
+## Fuentes públicas verificadas
 
 Todas consultadas el 2026-11-16 con `curl` salvo lo indicado. «Secundaria» significa que no es una fuente primaria de la empresa.
 
-- **F1.** Stripe, «About Stripe»: <https://stripe.com/about>
-- **F2.** Stripe Newsroom, «Stripe publishes 2025 annual letter and announces tender offer to provide liquidity to current and former employees» (24 de febrero de 2026): <https://stripe.com/newsroom/news/stripe-2025-update>
-- **F3.** Stripe Newsroom, «Stripe's total payment volume reaches $1.4T, fueled by long-standing investments in AI» (2025): <https://stripe.com/newsroom/news/stripe-2024-update>
-- **F4.** Brandur Leach, «Designing robust and predictable APIs with idempotency», Stripe Blog, 22 de febrero de 2017: <https://stripe.com/blog/idempotency>
-- **F5.** Paul Tarjan, «Scaling your API with rate limiters», Stripe Blog, 30 de marzo de 2017: <https://stripe.com/blog/rate-limiters>
-- **F6.** Brandur Leach, «APIs as infrastructure: future-proofing Stripe with versioning», Stripe Blog, 5 de agosto de 2017: <https://stripe.com/blog/api-versioning>
-- **F7.** Jacqueline Xu, «Online migrations at scale», Stripe Blog, 2 de febrero de 2017: <https://stripe.com/blog/online-migrations>
-- **F8.** Jimmy Morzaria y Suraj Narkhede, «How Stripe's document databases supported 99.999% uptime with zero-downtime data migrations», 6 de junio de 2024: <https://stripe.com/blog/how-stripes-document-databases-supported-99.999-uptime-with-zero-downtime-data-migrations>
-- **F9.** Stripe, página de precios: <https://stripe.com/pricing>
-- **F10.** Stripe Docs, «Idempotent requests»: <https://docs.stripe.com/api/idempotent_requests>
-- **F11.** Stripe Docs, «Webhooks»: <https://docs.stripe.com/webhooks>
-- **F12.** Stripe Docs, «The Payment Intents API»: <https://docs.stripe.com/payments/payment-intents>
-- **F13.** Stripe Docs, «Security at Stripe»: <https://docs.stripe.com/security>
-- **F14.** Stripe Docs, «Elements»: <https://docs.stripe.com/payments/elements>
-- **F15.** Stripe Docs, «Connect»: <https://docs.stripe.com/connect>
-- **F16.** (Secundaria) Wikipedia, «Stripe, Inc.», edición consultada el 2026-11-16: <https://en.wikipedia.org/wiki/Stripe,_Inc.>. Se usa solo para el origen y el lanzamiento público, y se declara que las fuentes discrepan. **F16-docs:** Stripe Docs, «Versioning»: <https://docs.stripe.com/api/versioning>
+- **F1.** Stripe, «About Stripe»: [https://stripe.com/about](https://stripe.com/about)
+- **F2.** Stripe Newsroom, «Stripe publishes 2025 annual letter and announces tender offer to provide liquidity to current and former employees» (24 de febrero de 2026): [https://stripe.com/newsroom/news/stripe-2025-update](https://stripe.com/newsroom/news/stripe-2025-update)
+- **F3.** Stripe Newsroom, «Stripe's total payment volume reaches $1.4T, fueled by long-standing investments in AI» (2025): [https://stripe.com/newsroom/news/stripe-2024-update](https://stripe.com/newsroom/news/stripe-2024-update)
+- **F4.** Brandur Leach, «Designing robust and predictable APIs with idempotency», Stripe Blog, 22 de febrero de 2017: [https://stripe.com/blog/idempotency](https://stripe.com/blog/idempotency)
+- **F5.** Paul Tarjan, «Scaling your API with rate limiters», Stripe Blog, 30 de marzo de 2017: [https://stripe.com/blog/rate-limiters](https://stripe.com/blog/rate-limiters)
+- **F6.** Brandur Leach, «APIs as infrastructure: future-proofing Stripe with versioning», Stripe Blog, 5 de agosto de 2017: [https://stripe.com/blog/api-versioning](https://stripe.com/blog/api-versioning)
+- **F7.** Jacqueline Xu, «Online migrations at scale», Stripe Blog, 2 de febrero de 2017: [https://stripe.com/blog/online-migrations](https://stripe.com/blog/online-migrations)
+- **F8.** Jimmy Morzaria y Suraj Narkhede, «How Stripe's document databases supported 99.999% uptime with zero-downtime data migrations», 6 de junio de 2024: [https://stripe.com/blog/how-stripes-document-databases-supported-99.999-uptime-with-zero-downtime-data-migrations](https://stripe.com/blog/how-stripes-document-databases-supported-99.999-uptime-with-zero-downtime-data-migrations)
+- **F9.** Stripe, página de precios: [https://stripe.com/pricing](https://stripe.com/pricing)
+- **F10.** Stripe Docs, «Idempotent requests»: [https://docs.stripe.com/api/idempotent_requests](https://docs.stripe.com/api/idempotent_requests)
+- **F11.** Stripe Docs, «Webhooks»: [https://docs.stripe.com/webhooks](https://docs.stripe.com/webhooks)
+- **F12.** Stripe Docs, «The Payment Intents API»: [https://docs.stripe.com/payments/payment-intents](https://docs.stripe.com/payments/payment-intents)
+- **F13.** Stripe Docs, «Security at Stripe»: [https://docs.stripe.com/security](https://docs.stripe.com/security)
+- **F14.** Stripe Docs, «Elements»: [https://docs.stripe.com/payments/elements](https://docs.stripe.com/payments/elements)
+- **F15.** Stripe Docs, «Connect»: [https://docs.stripe.com/connect](https://docs.stripe.com/connect)
+- **F16.** (Secundaria) Wikipedia, «Stripe, Inc.», edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Stripe,_Inc.](https://en.wikipedia.org/wiki/Stripe,_Inc.). Se usa solo para el origen y el lanzamiento público, y se declara que las fuentes discrepan. **F16-docs:** Stripe Docs, «Versioning»: [https://docs.stripe.com/api/versioning](https://docs.stripe.com/api/versioning)
 
 **Qué no cubren estas fuentes.** No documentan los ingresos de Stripe, su estructura de costos, las licencias por país, la arquitectura de despliegue, el entrenamiento ni el desempeño del sistema de fraude, ni incidentes de disponibilidad; esos puntos quedan como «no se sabe». Tampoco se pudo leer ningún documento regulatorio de la SEC porque Stripe es privada.
+
+---
+
+[↑ Casos de éxito](README.md) · [← Airbnb](airbnb.md)

@@ -116,10 +116,9 @@ OSI (siete capas) y TCP/IP (cuatro) no son descripciones literales de una implem
 respuesta de ping es evidencia de red; y el MTU de 1500 bytes es del enlace. La columna final recuerda lo que cada observación *no* demuestra: el TTL no da el número de saltos porque se desconoce el valor inicial (los sistemas usan
 típicamente 64, 128 o 255); un puerto abierto no prueba que la aplicación esté sana.
 
-![Figura 2. Tabla que asigna a cada capa de OSI y TCP/IP una evidencia real de una petición a example.com y lo que no demuestra](../../../content/part-03/figures/se-037-modelos-y-evidencia.svg)
+![Cinco capas apiladas de la aplicación al enlace; de cada una salen la evidencia real observada en una petición a example.com (estado HTTP 200, handshake TLS 1.3, conexión TCP, TTL 56 de IP y MTU 1500 del enlace) y lo que esa evidencia no demuestra.](../../../content/part-03/figures/se-037-modelos-y-evidencia.svg)
 
-**Cómo leer la figura.** Cada fila liga una capa con un dato y con su límite. **Dónde deja de valer:** TLS no encaja limpiamente en ninguna capa (OSI lo reparte entre presentación y sesión, y TCP/IP lo deja en
-la aplicación), y protocolos como QUIC combinan transporte, cifrado y flujos. Los modelos se usan para *ordenar preguntas*, no para decidir a qué capa «pertenece» un protocolo.
+**Cómo leer la figura.** La pila va de la capa de aplicación (arriba) al enlace y lo físico (abajo), con la capa equivalente de TCP/IP entre paréntesis. De cada capa sale un dato observado (centro) y, a la derecha, su límite: lo que ese dato no demuestra. **Dónde deja de valer:** TLS no encaja limpiamente en ninguna capa (OSI lo reparte entre presentación y sesión, y TCP/IP lo deja en la aplicación), y protocolos como QUIC combinan transporte, cifrado y flujos. Los modelos se usan para *ordenar preguntas*, no para decidir a qué capa «pertenece» un protocolo.
 
 ### Cuando las capas filtran
 
@@ -127,10 +126,9 @@ La abstracción por capas tiene fugas, y las observaciones reales lo muestran. L
 con 3521 segundos de antigüedad. La cabecera `alt-svc: h3=":443"` ofrece HTTP/3 sobre QUIC (UDP): la siguiente conexión puede ni siquiera usar TCP. Y un `ping` que responde solo demuestra una respuesta ICMP bajo esa ruta y política: no valida DNS,
 puerto, TLS ni HTTP.
 
-![Figura 3. Tres fugas de capa observadas: respuesta de una CDN con Age, oferta de HTTP/3 y ping que responde](../../../content/part-03/figures/se-037-fugas-de-capa.svg)
+![Tres fugas de capa observadas, cada una con la capa que parece responder y lo que ocurre en realidad: el servidor responde como cloudflare con Age 3521 (un intermediario sirve una copia de caché), alt-svc anuncia h3 (otro transporte) y un ping que responde no demuestra que el servicio funcione.](../../../content/part-03/figures/se-037-fugas-de-capa.svg)
 
-**Cómo leer la figura.** La segunda columna es lo que parece responder y la tercera, lo que ocurre. **Dónde deja de valer:** son tres ejemplos de un sitio; otros no usan intermediarios y otros usan varios. El hábito que se conserva es
-preguntar «¿quién respondió realmente?» antes de atribuir un comportamiento a una capa o a un componente.
+**Cómo leer la figura.** Cada fila va de una observación a la capa que parece responder y de ahí a lo que ocurre en realidad. **Dónde deja de valer:** son tres ejemplos de un sitio; otros no usan intermediarios y otros usan varios. El hábito que se conserva es preguntar «¿quién respondió realmente?» antes de atribuir un comportamiento a una capa o a un componente.
 
 ## Definiciones de trabajo
 

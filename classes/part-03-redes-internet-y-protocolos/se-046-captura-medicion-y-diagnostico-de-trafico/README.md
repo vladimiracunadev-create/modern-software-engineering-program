@@ -99,27 +99,27 @@ Un ID de petición une logs de aplicación y proxy; tuplas y tiempos aproximados
 Una sola medición de red es una anécdota. Cinco ejecuciones consecutivas de `curl -w` contra `https://example.com` dieron, por fase y en milisegundos: DNS entre 8 y 10; TCP entre 131 y 159; TLS entre 142 y 149; espera del primer byte entre 137 y 169; y total entre 426 y 480. La fase TCP, por ejemplo, varió 28 ms entre la mejor y la peor ejecución: con una sola medición, una diferencia de 20 ms entre dos configuraciones se habría tomado por una mejora real.
 La práctica correcta es repetir, conservar *todas* las muestras, resumir con la mediana y el rango y declarar el entorno (red, hora, caché de DNS, conexión nueva o reutilizada).
 
-![Figura 1. Tabla con cinco ejecuciones de curl -w contra example.com y el rango por fase: DNS, TCP, TLS, espera y total](../../../content/part-03/figures/se-046-variacion-por-fase.svg)
+![Cinco ejecuciones seguidas de curl -w contra https://example.com, con una línea por fase: el TCP tarda entre 131 y 159 ms, TLS entre 142 y 149 ms, la espera entre 137 y 169 ms y el total entre 426 y 480 ms.](../../../content/part-03/figures/se-046-variacion-por-fase.svg)
 
-**Cómo leer la figura.** Cada fila es una ejecución y la última, el rango por columna. Los valores son intervalos (no acumulados). **Dónde deja de valer:** cinco ejecuciones en pocos segundos no capturan variaciones por hora del día, congestión ni cambios de ruta; para eso se repite en distintos momentos. Y los percentiles altos (p95, p99) necesitan muchas más muestras que cinco.
+**Cómo leer la figura.** Cada línea es una fase de la petición y el eje horizontal, la ejecución: las líneas casi planas muestran poca variación y el total sube en la segunda ejecución. Los valores son intervalos (no acumulados) y los rangos por fase están en la nota. **Dónde deja de valer:** cinco ejecuciones en pocos segundos no capturan variaciones por hora del día, congestión ni cambios de ruta; para eso se repite en distintos momentos. Y los percentiles altos (p95, p99) necesitan muchas más muestras que cinco.
 
 ### Ida y vuelta, pérdida y pruebas dirigidas
 
 `ping` mide el tiempo de ida y vuelta de paquetes ICMP. Diez pings a `example.com` dieron: sin pérdida (0 %), mínimo 129 ms, media 146 ms y máximo 176 ms; con la bandera DF, paquetes de 1372 y 1472 bytes respondieron en 143 y 164 ms. El RTT mínimo es la mejor estimación de la latencia de propagación; la diferencia con el máximo es *jitter* o cola de espera. Pero ICMP puede recibir un trato distinto del tráfico de aplicación (algunos
 sistemas lo priorizan o lo limitan), de modo que el RTT de `ping` orienta y no sustituye la medición con la aplicación. Una ausencia de respuesta no distingue pérdida, filtrado de ICMP o una ruta rota; se complementa con pruebas dirigidas al puerto y protocolo reales.
 
-![Figura 2. Tabla con diez pings reales: sin pérdida, RTT mínimo 129 ms, medio 146 ms y máximo 176 ms; paquetes con DF de 1372 y 1472 bytes](../../../content/part-03/figures/se-046-rtt-y-perdida.svg)
+![Barras horizontales con diez pings reales a example.com, sin pérdida, de RTT mínimo 129 ms, medio 146 ms y máximo 176 ms, y dos pings con la bandera DF cuyos paquetes de 1372 y 1472 bytes pasaron en 143 y 164 ms.](../../../content/part-03/figures/se-046-rtt-y-perdida.svg)
 
-**Cómo leer la figura.** Las filas son una prueba, su resultado y la lectura. **Dónde deja de valer:** diez pings no estiman una pérdida del 0,1 % (haría falta mucho más tráfico); un 0 % en una muestra pequeña es «no observada», no «inexistente». Y el tamaño del paquete influye en la latencia de enlaces lentos, no visible en este rango.
+**Cómo leer la figura.** Cada barra es un tiempo de ida y vuelta en milisegundos: las tres primeras resumen diez pings (mínimo, medio y máximo) y las dos últimas son pings con DF de 1372 y 1472 bytes. **Dónde deja de valer:** diez pings no estiman una pérdida del 0,1 % (haría falta mucho más tráfico); un 0 % en una muestra pequeña es «no observada», no «inexistente». Y el tamaño del paquete influye en la latencia de enlaces lentos, no visible en este rango.
 
 ### Dónde se observa: cada punto de vista ve algo distinto
 
 Medir exige elegir el punto de observación. En el cliente (`curl -w`, temporizadores de la aplicación) se ven las fases pero no lo que pasó en el servidor. En el servidor (registros con un identificador de petición) se ve cuándo llegó y cuánto tardó el procesamiento, pero no lo previo. En el sistema operativo (`ss -tan`) se ven estados y colas de conexión, no el contenido ni los tiempos de red. En la red (captura de paquetes) se ven segmentos, retransmisiones y ventanas, con el costo de exigir permisos y de capturar datos
 sensibles. En este diagnóstico no hizo falta una captura: los tiempos por fase y los estados de socket respondieron la pregunta. Cuando una captura es necesaria, se limita a la interfaz, el destino y el tiempo mínimos, se filtran los campos y se redactan cookies, tokens y direcciones.
 
-![Figura 3. Cuatro puntos de observación con lo que ve cada uno, lo que no ve y su estado en esta clase: cliente, servidor, sistema operativo y red](../../../content/part-03/figures/se-046-puntos-de-observacion.svg)
+![Cuatro puntos de observación, cada uno con lo que ve y lo que no ve: el cliente (curl -w), el servidor (registros), el sistema operativo (ss) y la red (captura de paquetes, no ejecutada aquí); el color del centro indica si se midió, se simuló en el laboratorio o no se ejecutó.](../../../content/part-03/figures/se-046-puntos-de-observacion.svg)
 
-**Cómo leer la figura.** Cada fila es un punto de vista y la última columna indica si se ejecutó. **Dónde deja de valer:** no se ejecutó ninguna captura de paquetes (no estaban disponibles herramientas autorizadas en este equipo), así que las afirmaciones sobre retransmisiones o ventanas son conceptuales, no medidas. Y correlacionar eventos de dos puntos exige un identificador común o relojes sincronizados (SE-033).
+**Cómo leer la figura.** Cada fila va de un punto de vista (con su estado) a lo que ve y a lo que no ve; el color del centro indica si se midió (teal), se simuló en el laboratorio local (dorado) o no se ejecutó (gris). **Dónde deja de valer:** no se ejecutó ninguna captura de paquetes (no estaban disponibles herramientas autorizadas en este equipo), así que las afirmaciones sobre retransmisiones o ventanas son conceptuales, no medidas. Y correlacionar eventos de dos puntos exige un identificador común o relojes sincronizados (SE-033).
 
 ## Definiciones de trabajo
 

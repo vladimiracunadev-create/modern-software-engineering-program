@@ -99,19 +99,18 @@ Una ruta puede transportar paquetes pequeños y fallar con tamaños mayores. IPv
 Las subredes se razonan con el prefijo, y el módulo `ipaddress` de Python permite comprobar cada cálculo. Para `192.0.2.0/24` (rango de documentación) hay 2^(32−24) = 256 direcciones y 254 utilizables para equipos (se excluyen la de red y la de difusión); para `192.0.2.64/26` hay 64 direcciones y 62 utilizables, que van de `.64` a `.127`;
 `192.0.2.70` pertenece a esa /26 y `192.0.2.200` no. En IPv6 un `/64` contiene 2^64 = 18 446 744 073 709 551 616 direcciones y `2001:0db8:0000:0000:0000:0000:0000:0001` se escribe comprimida como `2001:db8::1`. Todos estos valores se verificaron ejecutando el módulo en Windows y en Linux con el mismo resultado.
 
-![Figura 1. Tabla con cálculos reales de subredes IPv4 e IPv6 realizados con el módulo ipaddress](../../../content/part-03/figures/se-039-subredes-calculadas.svg)
+![Barras horizontales en escala logarítmica con el número de direcciones calculado con ipaddress: 254 hosts en 192.0.2.0/24, 62 en 192.0.2.64/26 y 18 446 744 073 709 551 616 direcciones en un /64 de IPv6.](../../../content/part-03/figures/se-039-subredes-calculadas.svg)
 
-**Cómo leer la figura.** La tercera columna es la regla; la segunda, el resultado calculado. Un error de un bit en el prefijo duplica o reduce a la mitad el conjunto «local»: un equipo con máscara `/25` en lugar de `/24` creerá que la mitad de sus vecinos están tras el gateway. **Dónde deja de valer:** en redes /31 y /32 las reglas de dirección de red y difusión cambian
-(RFC 3021), y en IPv6 no existe difusión sino multidifusión. La aritmética se verifica con la herramienta antes de aplicarla a un cambio.
+**Cómo leer la figura.** Cada barra es el número de direcciones que calcula `ipaddress`, en escala logarítmica porque un /64 de IPv6 tiene más de 10^16 veces las direcciones de una /24. Un error de un bit en el prefijo duplica o reduce a la mitad el conjunto «local»: un equipo con máscara `/25` en lugar de `/24` creerá que la mitad de sus vecinos están tras el gateway. **Dónde deja de valer:** en redes /31 y /32 las reglas de dirección de red y difusión cambian (RFC 3021), y en IPv6 no existe difusión sino multidifusión. La aritmética se verifica con la herramienta antes de aplicarla a un cambio.
 
 ### Clasificar direcciones: privadas, compartidas y de documentación
 
 `ipaddress` clasifica las direcciones y el resultado enseña matices. `10.1.2.3`, `172.20.0.1` y `192.168.1.1` son privadas (RFC 1918); `8.8.8.8` es pública. Dos casos sorprenden: `100.64.0.1`, del espacio compartido de CGNAT (`100.64.0.0/10`), se informó como *no privada* aunque tampoco es pública y única; y `192.0.2.5`, del rango de documentación, se informó como *privada*. Una misma dirección privada
 existe en millones de redes, de modo que no identifica un equipo fuera de la suya, y las direcciones de CGNAT implican que el proveedor aplica su propio NAT: abrir puertos hacia ese equipo desde Internet puede ser imposible.
 
-![Figura 2. Tabla de seis direcciones con el resultado de is_private y su significado real, incluidos los casos de CGNAT y documentación](../../../content/part-03/figures/se-039-clasificacion-de-direcciones.svg)
+![Seis direcciones agrupadas en cuatro cajones según lo que son realmente, cada una con el valor que devuelve is_private: 10.1.2.3, 172.20.0.1 y 192.168.1.1 son privadas de la RFC 1918; 192.0.2.5 es de documentación y se informa como privada; 100.64.0.1 es espacio compartido de CGNAT y se informa como no privada, igual que la pública 8.8.8.8.](../../../content/part-03/figures/se-039-clasificacion-de-direcciones.svg)
 
-**Cómo leer la figura.** La columna central es lo que informa el módulo y la última, lo que la dirección es realmente. **Dónde deja de valer:** `is_private` es una definición del módulo de Python (basada en los registros de IANA) y cambia con la versión; otras bibliotecas pueden clasificar distinto. Para decisiones de seguridad (por ejemplo, bloquear destinos internos) se declara la lista de rangos explícita y no una propiedad de una biblioteca.
+**Cómo leer la figura.** Cada cajón es lo que las direcciones son realmente y, dentro, cada dirección con el valor que informa `is_private`. Los colores marcan dónde la propiedad engaña: la dirección de documentación se informa como privada y la de CGNAT, que no es ni privada ni pública, como no privada. **Dónde deja de valer:** `is_private` es una definición del módulo de Python (basada en los registros de IANA) y cambia con la versión; otras bibliotecas pueden clasificar distinto. Para decisiones de seguridad (por ejemplo, bloquear destinos internos) se declara la lista de rangos explícita y no una propiedad de una biblioteca.
 
 ### Decisión de entrega, NAT y retorno
 

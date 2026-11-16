@@ -114,18 +114,18 @@ DNS guarda *registros* de varios tipos. Consultando `example.com` a un resolvedo
 *restante* en la caché del resolvedor, no el configurado en la zona. Los `NS` tienen un TTL de casi un día; los `A` y `AAAA`, mucho menor, porque cambian más. La ausencia también se guarda: al consultar un nombre inexistente de la zona, la respuesta incluyó un registro `SOA` de la zona con TTL 1800 s, que el resolvedor usa para la *caché negativa* (RFC 2308): durante ese tiempo no vuelve a
 preguntar por ese nombre.
 
-![Figura 2. Tabla con registros reales de example.com consultados a 1.1.1.1: A, AAAA, NS, MX y TXT con sus TTL, y la respuesta negativa con un SOA de TTL 1800 s](../../../content/part-03/figures/se-041-registros-y-ttl.svg)
+![Barras horizontales en escala logarítmica con el TTL restante de cada tipo de registro: A (2 respuestas) 179 s, AAAA (2) 46 s, NS (2) 68 664 s, MX (1) 300 s, TXT (2) 300 s, y la respuesta negativa de un nombre inexistente con un SOA de TTL 1800 s.](../../../content/part-03/figures/se-041-registros-y-ttl.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de registro con el número de respuestas y su TTL restante; la última muestra la caché negativa. **Dónde deja de valer:** los valores cambian con cada consulta (el TTL restante decrece) y entre resolvedores. Un TTL largo reduce la carga y aumenta el tiempo que tarda un cambio en propagarse: antes de una migración se baja el TTL con anticipación, y se espera a que la caché antigua expire.
+**Cómo leer la figura.** Cada barra es el TTL restante de un tipo de registro, en escala logarítmica porque va de 46 a 68 664 segundos; entre paréntesis está el número de respuestas, y la última barra es la caché negativa de un nombre inexistente. **Dónde deja de valer:** los valores cambian con cada consulta (el TTL restante decrece) y entre resolvedores. Un TTL largo reduce la carga y aumenta el tiempo que tarda un cambio en propagarse: antes de una migración se baja el TTL con anticipación, y se espera a que la caché antigua expire.
 
 ### El mismo nombre en dos entornos
 
 Dos entornos del mismo equipo dieron respuestas distintas al mismo nombre. `example.com` devolvió *2 direcciones, solo IPv4* en Windows y *4 direcciones, IPv4 e IPv6* en Linux; `localhost` devolvió 2 direcciones (IPv4 e IPv6) en Windows y 1 (IPv4) en Linux; y un nombre inexistente produjo el código `11001` (`getaddrinfo failed`) en Windows y `-2` (`Name or service not known`) en Linux. La resolución es una función del entorno: de qué familias de direcciones se pide, del resolvedor
 configurado, de la caché y del orden de preferencia. Por eso un diagnóstico declara *dónde* se resolvió y con qué herramienta, y comparar resultados de entornos distintos sin esa información conduce a falsas contradicciones.
 
-![Figura 3. Tabla con tres consultas resueltas en Windows y Linux con resultados distintos: familias de direcciones, localhost y código de error](../../../content/part-03/figures/se-041-mismo-nombre-otro-entorno.svg)
+![Tres consultas con el resultado real de getaddrinfo en cada entorno: example.com devolvió 2 direcciones IPv4 en Windows y 4 direcciones (IPv4 e IPv6) en Linux; localhost devolvió 2 direcciones en Windows y 1 en Linux; un nombre inexistente produjo el código 11001 en Windows y -2 en Linux.](../../../content/part-03/figures/se-041-mismo-nombre-otro-entorno.svg)
 
-**Cómo leer la figura.** Cada fila es una consulta idéntica con respuestas distintas. **Dónde deja de valer:** que Windows devolviera solo IPv4 depende de la conectividad IPv6 y de la configuración de ese equipo; con otra red el resultado cambiaría. Y DNSSEC, que firma las respuestas para detectar manipulación, *no* cifra la consulta ni garantiza que el servidor al que se llega sea el correcto: solo autentica el dato DNS.
+**Cómo leer la figura.** Cada fila es una consulta idéntica y de ella salen la respuesta de Windows (dorada) y la de Linux (teal), distintas en las tres. **Dónde deja de valer:** que Windows devolviera solo IPv4 depende de la conectividad IPv6 y de la configuración de ese equipo; con otra red el resultado cambiaría. Y DNSSEC, que firma las respuestas para detectar manipulación, *no* cifra la consulta ni garantiza que el servidor al que se llega sea el correcto: solo autentica el dato DNS.
 
 ## Definiciones de trabajo
 

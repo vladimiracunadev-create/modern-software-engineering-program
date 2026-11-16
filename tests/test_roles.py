@@ -148,10 +148,12 @@ class RoleGuideTests(unittest.TestCase):
         pattern = re.compile(r"Ya desarrolladas de apoyo \(" + re.escape(ps.developed_label()) + r"\):(.+)")
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         matches = pattern.findall(main)
+        developed_ids = {class_id for part in ps.developed_parts() for class_id in ps.class_ids(part)}
         self.assertEqual(len(matches), len(EXPECTED_GUIDES))
         for line in matches:
             for number in re.findall(r"\[SE-(\d{3})\]", line):
-                self.assertLessEqual(int(number), ps.developed_class_count())
+                self.assertIn(f"SE-{number}", developed_ids)
+                self.assertTrue((ROOT / "content" / f"part-{(int(number) - 1) // ps.CLASSES_PER_PART:02d}" / f"SE-{number}.md").is_file())
 
     def test_entry_points_expose_part_class_evidence_map(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")

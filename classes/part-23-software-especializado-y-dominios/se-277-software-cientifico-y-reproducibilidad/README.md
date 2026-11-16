@@ -123,9 +123,9 @@ for i in range(1000):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). El total vale unos 2,0·10⁹; las 205 variantes difieren en la parte decimal.
 
-![Tabla con los resultados distintos y el error absoluto de cuatro estrategias para sumar veinte mil números de magnitudes muy distintas.](../../../content/part-23/figures/se-277-orden-de-la-suma.svg)
+![Barras horizontales con el número de totales distintos al sumar veinte mil números de magnitudes muy distintas en mil órdenes aleatorios: la suma ingenua da 205 resultados distintos; la suma ordenada por magnitud, la suma por pares y math.fsum dan uno solo.](../../../content/part-23/figures/se-277-orden-de-la-suma.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; la segunda columna cuenta cuántos totales distintos produjo en mil órdenes. **Dónde deja de valer:** las magnitudes (de 10⁻⁶ a 10⁸) se eligieron para exagerar el efecto; con datos de magnitud homogénea los totales distintos serán menos. Que la suma ordenada dé error cero es un hecho de esta muestra, no una garantía. La figura no mide ningún código paralelo real: el orden aleatorio imita lo que haría una partición distinta.
+**Cómo leer la figura.** Cada barra es una estrategia de suma y su longitud es cuántos totales distintos produjo en mil órdenes de los mismos datos. Mira primero la barra de la suma ingenua con orden aleatorio (205) frente a las otras tres, que valen 1: ordenar por magnitud, sumar por pares o usar un algoritmo compensado hace el resultado independiente del orden. La tabla conserva el error absoluto de cada estrategia. **Dónde deja de valer:** las magnitudes (de 10⁻⁶ a 10⁸) se eligieron para exagerar el efecto; con datos de magnitud homogénea los totales distintos serán menos. Que la suma ordenada dé error cero es un hecho de esta muestra, no una garantía. La figura no mide ningún código paralelo real: el orden aleatorio imita lo que haría una partición distinta.
 
 ### Una semilla, una muestra: cuánto vale una estimación
 
@@ -153,9 +153,9 @@ La misma semilla repite exactamente. Entre semillas:
 
 La desviación baja como 1/√n: cien veces más puntos, diez veces menos dispersión. Para que el 95 % de las ejecuciones queden dentro de ±0,01 hacen falta unos 100 000 puntos.
 
-![Tabla con la desviación entre doscientas semillas, el porcentaje de estimaciones dentro de más o menos 0,01 de pi y el rango observado para mil, diez mil y cien mil puntos.](../../../content/part-23/figures/se-277-semillas-y-repeticiones.svg)
+![Líneas con el valor mínimo y máximo de la estimación de pi entre doscientas semillas según los puntos por ejecución: con mil puntos el rango va de 2,988 a 3,292, con diez mil de 3,090 a 3,183 y con cien mil de 3,128 a 3,158; el embudo se cierra alrededor de 3,1416.](../../../content/part-23/figures/se-277-semillas-y-repeticiones.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de muestra; las columnas centrales miden cuánto se parecen entre sí las estimaciones de semillas distintas. **Dónde deja de valer:** el cálculo supone puntos independientes con un generador de buena calidad; un generador defectuoso o una semilla compartida entre hilos rompe la independencia. Tampoco aplica a estimadores sesgados: más puntos reducen la dispersión pero no un sesgo del modelo.
+**Cómo leer la figura.** El eje horizontal es el número de puntos por ejecución (escala logarítmica) y el vertical la estimación de π. La línea continua es el máximo y la discontinua el mínimo observados entre doscientas semillas; la línea roja horizontal es π. Lo que se ve es un embudo: con mil puntos una semilla puede dar desde 2,99 hasta 3,29 y con cien mil el rango se estrecha a 3,13 y 3,16. La tabla conserva la desviación y el porcentaje de estimaciones dentro de ±0,01. **Dónde deja de valer:** el cálculo supone puntos independientes con un generador de buena calidad; un generador defectuoso o una semilla compartida entre hilos rompe la independencia. Tampoco aplica a estimadores sesgados: más puntos reducen la dispersión pero no un sesgo del modelo.
 
 ### El horizonte del caos: cuándo dos máquinas «correctas» discrepan
 
@@ -180,9 +180,9 @@ def pasos_hasta_separarse(x0, eps, r=3.9, tol=0.1, tope=500):
 
 Cada tres órdenes de magnitud de precisión compran unos 14 pasos: crecimiento exponencial, con un exponente de Lyapunov cercano a 0,5 por paso en este régimen.
 
-![Tabla con los pasos que tardan en separarse dos trayectorias del mapa logístico caótico según la diferencia inicial y un control en régimen estable.](../../../content/part-23/figures/se-277-horizonte-del-caos.svg)
+![Líneas con los pasos que tardan en separarse dos trayectorias del mapa logístico caótico según la diferencia inicial: la mediana sube de 23 pasos con diez a la menos seis a 65 con diez a la menos quince, unos 14 pasos por cada tres décadas; en el régimen estable no divergen en quinientos pasos.](../../../content/part-23/figures/se-277-horizonte-del-caos.svg)
 
-**Cómo leer la figura.** La primera columna es la diferencia entre las dos condiciones iniciales (del orden de un redondeo); la segunda es cuántas iteraciones tarda la discrepancia en alcanzar 0,1. **Dónde deja de valer:** el mapa logístico es un sistema de una variable; los modelos reales (clima, dinámica molecular) tienen horizontes que dependen de su propia dinámica y de la escala del error, y que hay que medir caso a caso. El percentil 90 con diferencia de 10⁻¹⁵ ya roza el límite de la doble precisión. El control estable muestra que el efecto no es del programa sino del régimen.
+**Cómo leer la figura.** El eje horizontal es la diferencia inicial entre las dos trayectorias, cada vez menor hacia la derecha, y el vertical los pasos que tardan en separarse hasta 0,1; la línea central es la mediana y las otras dos son los percentiles 10 y 90. Mira la pendiente: cada tres órdenes de magnitud menos de diferencia añaden unos 14 pasos, que es lo que significa una divergencia exponencial. El recuadro de la izquierda recuerda el control estable, que no diverge en 500 pasos. **Dónde deja de valer:** el mapa logístico es un sistema de una variable; los modelos reales (clima, dinámica molecular) tienen horizontes que dependen de su propia dinámica y de la escala del error, y que hay que medir caso a caso. El percentil 90 con diferencia de 10⁻¹⁵ ya roza el límite de la doble precisión. El control estable muestra que el efecto no es del programa sino del régimen.
 
 ## Definiciones de trabajo
 

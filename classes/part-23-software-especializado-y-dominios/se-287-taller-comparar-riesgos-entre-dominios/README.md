@@ -136,9 +136,9 @@ orden = sorted(DOMINIOS, key=lambda d: (-sum(w * s for w, s in zip(pesos, S[d]))
 
 Con pesos muy dispares el primer lugar de «salud» se mantiene en 4 244 de 5 000 sorteos; «low-code» lo ocupa 463 veces, «blockchain» 169 y «ML» 124. Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
 
-![Tabla con la fracción de sorteos de pesos en que se mantiene el primer lugar y los dos primeros de un ranking de diez dominios y el coeficiente de Kendall en el percentil 5.](../../../content/part-23/figures/se-287-estabilidad-de-un-ranking.svg)
+![Barras agrupadas con el porcentaje de sorteos en que se mantiene el primer lugar y el par de primeros del ranking según lo dispares que sean los pesos: con pesos casi iguales es 100 y 99,8; con pesos algo distintos 97,6 y 88,4; con pesos muy dispares 84,9 y 71,4.](../../../content/part-23/figures/se-287-estabilidad-de-un-ranking.svg)
 
-**Cómo leer la figura.** Cada fila es una dispersión de los pesos; las columnas miden cuánto del ranking original sobrevive. **Dónde deja de valer:** el primer lugar es estable porque en esta matriz un dominio puntúa alto en casi todo; con otra matriz sería distinto. La distribución de Dirichlet es una forma de definir «pesos razonables» y no la única. Y las puntuaciones son ilustrativas: la estabilidad calculada es la de esta matriz, no la de los dominios reales.
+**Cómo leer la figura.** Cada grupo es un nivel de dispersión de los pesos; la barra turquesa es el porcentaje de sorteos en que el primer lugar sigue igual y la dorada el de sorteos en que los dos primeros siguen siendo los mismos. Mira cómo ambas bajan cuando los pesos son más dispares y cómo la del par de primeros baja más: 71,4 % frente a 84,9 %. La correlación de Kendall está en la tabla. **Dónde deja de valer:** el primer lugar es estable porque en esta matriz un dominio puntúa alto en casi todo; con otra matriz sería distinto. La distribución de Dirichlet es una forma de definir «pesos razonables» y no la única. Y las puntuaciones son ilustrativas: la estabilidad calculada es la de esta matriz, no la de los dominios reales.
 
 ### Dos evaluadores y un podio que cambia
 
@@ -158,9 +158,9 @@ b = [min(5, max(1, round(x + r.gauss(0, sigma)))) for x in verdad]
 
 Con un kappa de 0,84, que muchas guías leerían como acuerdo «casi perfecto», el trío de dominios más riesgosos difiere en uno de cada cuatro pares de evaluadores.
 
-![Tabla con el acuerdo exacto, el kappa ponderado y el porcentaje de pares de evaluadores cuyos tres dominios más riesgosos difieren según el ruido con que puntúa cada evaluador.](../../../content/part-23/figures/se-287-acuerdo-entre-evaluadores.svg)
+![Líneas con el acuerdo exacto y el porcentaje de pares en que los tres primeros son distintos según el ruido de cada evaluador: el acuerdo baja de 100 a 58,0, 36,4 y 30,3 por ciento con 0, 0,5, 1,0 y 1,5 puntos de ruido, y los tres primeros distintos suben de 0 a 24,3, 61,3 y 82,7.](../../../content/part-23/figures/se-287-acuerdo-entre-evaluadores.svg)
 
-**Cómo leer la figura.** Cada fila es un nivel de ruido; la última columna es la fracción de pares de evaluadores que no llegan al mismo podio. **Dónde deja de valer:** el ruido gaussiano independiente es un modelo; las personas reales comparten sesgos (puntúan alto lo que les resulta familiar) y esos sesgos no se promedian. La figura no mide a ninguna persona ni dice cuál es el ruido típico: dice cómo se propaga el que haya.
+**Cómo leer la figura.** El eje horizontal es el ruido de cada evaluador y el vertical un porcentaje de pares de evaluadores. Mira cómo se cruzan las dos líneas: el acuerdo exacto cae de 100 % a 30,3 % mientras los pares con los tres primeros distintos suben de 0 % a 82,7 %; con medio punto de ruido el acuerdo aún es 58 % y el podio ya difiere en uno de cada cuatro pares. El kappa ponderado está en la tabla. **Dónde deja de valer:** el ruido gaussiano independiente es un modelo; las personas reales comparten sesgos (puntúan alto lo que les resulta familiar) y esos sesgos no se promedian. La figura no mide a ninguna persona ni dice cuál es el ruido típico: dice cómo se propaga el que haya.
 
 ### Qué cubre una lista corta de controles
 
@@ -192,9 +192,9 @@ mejor = max(itertools.combinations(CONTROLES, k),
 
 Los riesgos más repetidos son privacidad, duplicados y pérdida de datos, con cuatro dominios cada uno; sesgo por fuga, consenso y automatización huérfana son propios de uno. Resultado, idéntico en ambos sistemas salvo el orden de listado de empates.
 
-![Tabla con los riesgos cubiertos por la mejor lista de uno a seis controles frente a catorce riesgos de diez dominios y el dominio peor cubierto en cada caso.](../../../content/part-23/figures/se-287-controles-frente-a-riesgos.svg)
+![Línea con los riesgos cubiertos, de 14, según los controles elegidos: 1 control cubre 5, 2 cubren 8, 3 cubren 10, 4 cubren 12 y 6 cubren los 14; el dominio peor cubierto pasa de ciencia con 0 por ciento a juegos con 33 y audio y realidad extendida con 50.](../../../content/part-23/figures/se-287-controles-frente-a-riesgos.svg)
 
-**Cómo leer la figura.** Cada fila es el tamaño de la lista de controles; la tercera columna nombra el dominio que menos se beneficia. **Dónde deja de valer:** qué control cubre qué riesgo y qué riesgos tiene cada dominio son juicios del autor; con otra asignación, las cifras cambian. Que un control «cubra» un riesgo no mide cuánto lo reduce, solo que es pertinente. Una cobertura del 100 % es una cobertura de lista, no una garantía.
+**Cómo leer la figura.** El eje horizontal es el número de controles elegidos y el vertical los riesgos cubiertos de 14, que marca la línea roja; cada rótulo añade el dominio peor cubierto. Mira que la curva sigue subiendo pero el peor dominio avanza más despacio: tres controles cubren 10 de 14 riesgos y juegos queda en 33 %; cubrirlos todos exige 6. **Dónde deja de valer:** qué control cubre qué riesgo y qué riesgos tiene cada dominio son juicios del autor; con otra asignación, las cifras cambian. Que un control «cubra» un riesgo no mide cuánto lo reduce, solo que es pertinente. Una cobertura del 100 % es una cobertura de lista, no una garantía.
 
 ## Definiciones de trabajo
 

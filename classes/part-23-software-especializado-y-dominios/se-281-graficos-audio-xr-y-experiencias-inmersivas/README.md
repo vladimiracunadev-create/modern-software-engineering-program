@@ -120,9 +120,9 @@ def subcarga(bloque, sr=48000, por_muestra=0.004, mediana=0.5, sigma=1.0, n=2000
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Cada vez que se duplica el búfer, los fallos bajan entre 3 y 14 veces y la latencia se duplica.
 
-![Tabla con la latencia del búfer y el porcentaje de callbacks de audio que llegan tarde para búferes de 64 a 1024 muestras a 48 kilohercios.](../../../content/part-23/figures/se-281-latencia-y-subcargas-de-audio.svg)
+![Línea en escalas logarítmicas que une latencia y fallos del búfer de audio: con 64 muestras la latencia es 1,3 milisegundos y falla el 22,3 por ciento de las llamadas; con 256 muestras, 5,3 y 1,6 por ciento; con 1024, 21,3 y 0,016 por ciento; la línea desciende, cada mejora de fiabilidad se paga con latencia.](../../../content/part-23/figures/se-281-latencia-y-subcargas-de-audio.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de búfer; la segunda columna es la latencia que ese búfer añade y la tercera la fracción de bloques que no llega a tiempo. **Dónde deja de valer:** el modelo supone un coste fijo con picos lognormales independientes; en un sistema real los picos están correlacionados (un proceso que acapara la unidad de proceso causa ráfagas de fallos) y la mediana depende de la carga. Ninguna cifra describe una tarjeta de sonido, un controlador ni un sistema operativo.
+**Cómo leer la figura.** El eje horizontal es la latencia que añade el búfer y el vertical el porcentaje de callbacks que no llegan a tiempo; los dos ejes son logarítmicos y cada punto es un tamaño de búfer, de 64 a 1 024 muestras. Mira la pendiente descendente: cada duplicación del búfer duplica la latencia y reduce los fallos entre 3 y 14 veces, pero ningún punto gana en las dos direcciones a la vez. **Dónde deja de valer:** el modelo supone un coste fijo con picos lognormales independientes; en un sistema real los picos están correlacionados (un proceso que acapara la unidad de proceso causa ráfagas de fallos) y la mediana depende de la carga. Ninguna cifra describe una tarjeta de sonido, un controlador ni un sistema operativo.
 
 ### Un tono demasiado agudo se disfraza
 
@@ -145,9 +145,9 @@ prevista = abs(f - round(f / sr) * sr)
 
 En los doce casos probados (seis frecuencias con dos tasas de muestreo) la frecuencia medida coincidió con la fórmula en once; en el duodécimo (12 kHz a 8 kHz de tasa, justo en el límite de Nyquist) difirió en 7,8 Hz, una celda de la rejilla. A 8 kHz, un tono de 5 kHz se mide como 3 kHz y uno de 9 kHz como 1 kHz.
 
-![Tabla con la frecuencia real y la frecuencia que mide una transformada al muestrear tonos puros a 16 kilohercios, con el pliegue de los tonos por encima de 8000 hercios.](../../../content/part-23/figures/se-281-aliasing-de-un-tono.svg)
+![Líneas con la frecuencia medida frente a la frecuencia real al muestrear a 16 kilohercios: hasta 8 000 hercios la medida coincide con la real; por encima del límite de 8 000 la medida se pliega hacia abajo: 9 000 se mide como 7 000, 12 000 como 4 000 y 15 000 como 1 000.](../../../content/part-23/figures/se-281-aliasing-de-un-tono.svg)
 
-**Cómo leer la figura.** Cada fila es un tono; si supera la mitad de la tasa de muestreo, la columna central muestra la frecuencia a la que se disfraza. **Dónde deja de valer:** son tonos puros; las señales reales tienen espectros anchos, y el filtro de un dispositivo no es ideal, de modo que el pliegue es parcial y depende de su pendiente. La figura no mide ningún convertidor ni filtro analógico: calcula la identidad matemática y la comprueba sobre muestras sintéticas.
+**Cómo leer la figura.** El eje horizontal es la frecuencia real del tono y el vertical la que mide la transformada; la línea gris es lo que se mediría sin plegado (medida igual a real) y la línea roja vertical marca el límite de 8 000 Hz, la mitad de la frecuencia de muestreo. Mira cómo la medida sigue la diagonal hasta el límite y luego baja: 9 000 se mide como 7 000, 12 000 como 4 000 y 15 000 como 1 000. **Dónde deja de valer:** son tonos puros; las señales reales tienen espectros anchos, y el filtro de un dispositivo no es ideal, de modo que el pliegue es parcial y depende de su pendiente. La figura no mide ningún convertidor ni filtro analógico: calcula la identidad matemática y la comprueba sobre muestras sintéticas.
 
 ### Un coste medio que cabe y fotogramas que no
 
@@ -170,9 +170,9 @@ mostrado = math.ceil(t / periodo) * periodo        # con sincronización vertica
 
 Con un coste medio de 8 ms, ya el 7,4 % de los fotogramas excede el presupuesto, y el percentil 99 del intervalo mostrado es de 22,2 ms.
 
-![Tabla con la fracción de fotogramas que excede el presupuesto de una pantalla de 90 hercios, el intervalo medio mostrado y los fotogramas por segundo equivalentes según el coste medio de dibujo.](../../../content/part-23/figures/se-281-fotogramas-fuera-de-presupuesto.svg)
+![Línea con el porcentaje de fotogramas fuera del presupuesto de 11,1 milisegundos según el coste medio de render: 0,5 por ciento con 6 milisegundos, 7,4 con 8, 16,5 con 9, 29,0 con 10 y 43,3 con 11; ya con un coste medio por debajo del presupuesto se pierde una parte creciente de los fotogramas.](../../../content/part-23/figures/se-281-fotogramas-fuera-de-presupuesto.svg)
 
-**Cómo leer la figura.** Cada fila es un coste medio; la tercera columna es la fracción de fotogramas más lentos que el refresco y la cuarta el intervalo medio que verá la persona con sincronización vertical. **Dónde deja de valer:** la distribución lognormal con σ = 0,25 es un supuesto; los costes reales dependen de la escena y tienen picos mayores. No se midió ningún casco, y la figura no dice a partir de qué fracción de fotogramas perdidos una persona se marea: eso exige personas.
+**Cómo leer la figura.** El eje horizontal es el coste medio de render y el vertical el porcentaje de fotogramas que superan el presupuesto de 11,1 ms, que marca la línea roja vertical. Mira que la curva sube mucho antes de llegar a esa marca: con 8 ms de media, por debajo del presupuesto, ya se pierde el 7,4 %. El intervalo medio mostrado y los fps equivalentes están en la tabla. **Dónde deja de valer:** la distribución lognormal con σ = 0,25 es un supuesto; los costes reales dependen de la escena y tienen picos mayores. No se midió ningún casco, y la figura no dice a partir de qué fracción de fotogramas perdidos una persona se marea: eso exige personas.
 
 ## Definiciones de trabajo
 

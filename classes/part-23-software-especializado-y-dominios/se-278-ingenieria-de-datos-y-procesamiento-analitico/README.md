@@ -120,9 +120,9 @@ for b in range(0, 10000, 100):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Un 5 % de lotes fallidos produce 442 duplicados, un 4,4 % de la tabla.
 
-![Tabla con las filas y las filas duplicadas que deja cargar diez mil filas en lotes de cien con fallos a mitad de lote según se añadan al final o se escriban por clave.](../../../content/part-23/figures/se-278-reintentos-y-duplicados.svg)
+![Barras agrupadas con las filas duplicadas tras cargar 10 000 filas con reintentos: añadir al final deja 0, 442 y 867 duplicadas si fallan el 0, el 5 y el 20 por ciento de los lotes; escribir por clave deja siempre 0 duplicadas.](../../../content/part-23/figures/se-278-reintentos-y-duplicados.svg)
 
-**Cómo leer la figura.** Cada fila es una tasa de lotes fallidos; la segunda columna cuenta las filas que quedan al añadir y cuántas sobran; la tercera, las que quedan al escribir por clave. **Dónde deja de valer:** el modelo supone una clave estable y única por fila; si la clave se genera en la carga (un identificador nuevo en cada intento), la escritura por clave tampoco es idempotente. Y supone que un fallo corta la escritura y no la corrompe. No se probó ninguna base de datos.
+**Cómo leer la figura.** Cada grupo es una tasa de lotes que fallan; la barra coral son las filas duplicadas al añadir al final y la turquesa las que deja la escritura por clave. Mira cómo la barra coral crece con la tasa de fallo (442 y 867 filas) mientras la otra se queda en cero. La tabla conserva el total de filas que deja cada método. **Dónde deja de valer:** el modelo supone una clave estable y única por fila; si la clave se genera en la carga (un identificador nuevo en cada intento), la escritura por clave tampoco es idempotente. Y supone que un fallo corta la escritura y no la corrompe. No se probó ninguna base de datos.
 
 ### Cuánto pierde una ventana según lo que espera
 
@@ -169,9 +169,9 @@ carga[(k * 2654435761 + r.randrange(8) * 40503) % 2**32 % 8] += 1     # con sal
 
 Con `s = 1,5`, la partición más cargada recibe 3,4 veces la media: el trabajo tarda lo que tardaría en una máquina que hiciera el 43 % del total.
 
-![Tabla con la carga de la partición más cargada frente a la media con y sin sal en la clave para cuatro exponentes de una distribución de Zipf.](../../../content/part-23/figures/se-278-asimetria-de-claves.svg)
+![Líneas con la carga de la partición más cargada frente a la media según el exponente de Zipf: sin sal sube de 1,01 con claves uniformes a 1,35 con exponente 0,8, 2,03 con 1,1 y 3,43 con 1,5; con una sal de 8 se queda en 1,01 en todos los casos.](../../../content/part-23/figures/se-278-asimetria-de-claves.svg)
 
-**Cómo leer la figura.** Cada fila es el grado de asimetría de las claves; las dos últimas columnas dan la razón entre la partición más cargada y la media. **Dónde deja de valer:** salar reparte una clave entre varias particiones, pero el resultado por clave queda partido y hay que recombinarlo: una agregación asociativa (sumas, recuentos) lo permite y una que no lo es (una mediana exacta) exige otra estrategia. La figura no mide el coste de esa segunda etapa ni la red.
+**Cómo leer la figura.** El eje horizontal es el exponente de Zipf (0 son claves uniformes) y el vertical cuántas veces la media carga la partición más cargada. Mira cómo la línea sin sal se despega de 1 hasta 3,43 mientras la línea con sal de 8 permanece pegada a 1, que es el reparto perfecto. **Dónde deja de valer:** salar reparte una clave entre varias particiones, pero el resultado por clave queda partido y hay que recombinarlo: una agregación asociativa (sumas, recuentos) lo permite y una que no lo es (una mediana exacta) exige otra estrategia. La figura no mide el coste de esa segunda etapa ni la red.
 
 ## Definiciones de trabajo
 

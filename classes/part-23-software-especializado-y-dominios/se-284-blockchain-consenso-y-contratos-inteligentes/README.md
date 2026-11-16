@@ -124,9 +124,9 @@ def minar(prefijo, bits):
 
 Con 12 bits, el mínimo fue de 26 intentos y el máximo de 15 969. Rehacer 10 bloques encadenados de 12 bits costó unos 48 785 hashes frente a 310 de rehacer uno. Resultado idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
 
-![Tabla con los intentos esperados, la media y la mediana medidos para hallar un hash SHA-256 con de ocho a dieciséis ceros iniciales.](../../../content/part-23/figures/se-284-prueba-de-trabajo.svg)
+![Líneas en escala logarítmica con los intentos para hallar un hash SHA-256 con n ceros iniciales: el valor esperado 2 elevado a n sube de 256 con 8 bits a 65 536 con 16; la media medida (283,5 a 47 442,1) y la mediana medida (174,0 a 27 372,0) crecen en paralelo, con la mediana siempre por debajo de la media.](../../../content/part-23/figures/se-284-prueba-de-trabajo.svg)
 
-**Cómo leer la figura.** Cada fila es una dificultad; la media medida se parece al valor esperado y la mediana queda por debajo. **Dónde deja de valer:** con 40 bloques en la fila de 16 bits la media todavía fluctúa (47 442 frente a 65 536 esperados); sin más muestras no se debe leer como un sesgo. El experimento no mide un minero real ni su consumo: cuenta intentos de SHA-256 en CPython y no dice nada sobre el coste en energía o dinero de una red.
+**Cómo leer la figura.** El eje horizontal son los bits de ceros iniciales exigidos y el vertical los intentos, en escala logarítmica, donde una recta es un crecimiento exponencial. Las tres líneas suben en paralelo: cada bit duplica el valor esperado. Mira que la media medida y sobre todo la mediana quedan por debajo del esperado 2ⁿ: el tiempo de un bloque es muy disperso y media y mediana no coinciden. **Dónde deja de valer:** con 40 bloques en la fila de 16 bits la media todavía fluctúa (47 442 frente a 65 536 esperados); sin más muestras no se debe leer como un sesgo. El experimento no mide un minero real ni su consumo: cuenta intentos de SHA-256 en CPython y no dice nada sobre el coste en energía o dinero de una red.
 
 ### Bifurcaciones y doble gasto
 
@@ -161,9 +161,9 @@ Probabilidad de que el atacante rehaga la cadena, simulada (fórmula):
 
 Simulación (40 000 carreras) y fórmula coinciden en torno a ±0,03. Con 10 % de poder, 6 confirmaciones dejan la probabilidad en torno a una milésima; con 30 %, ni 10 confirmaciones bajan de 0,04.
 
-![Tabla con la probabilidad de que un atacante con el diez, treinta o cuarenta por ciento del poder rehaga la cadena tras de una a diez confirmaciones, simulada y calculada con la fórmula de Nakamoto.](../../../content/part-23/figures/se-284-doble-gasto.svg)
+![Líneas con la probabilidad simulada de que un atacante rehaga la cadena según las confirmaciones: con el 10 por ciento del poder cae a 0,001 con 6 confirmaciones; con el 30 por ciento baja de 0,603 a 0,064 con 10; con el 40 por ciento solo baja de 0,800 a 0,372; la fórmula de Nakamoto da valores equivalentes.](../../../content/part-23/figures/se-284-doble-gasto.svg)
 
-**Cómo leer la figura.** Cada fila es la fracción de poder del atacante y cada columna el número de confirmaciones; en cada celda aparece el valor simulado y, entre paréntesis, la fórmula. **Dónde deja de valer:** el modelo supone un solo atacante, bloques con ritmo constante y propagación instantánea; no incluye estrategias como la minería egoísta ni el alquiler de poder, ni las diferencias entre protocolos. La fórmula de Nakamoto usa una aproximación de Poisson y por eso difiere ligeramente de la simulación.
+**Cómo leer la figura.** El eje horizontal son las confirmaciones esperadas y el vertical la probabilidad simulada de que el atacante rehaga la cadena; cada línea es una fracción de poder de cómputo. Mira la separación entre líneas: con el 10 % bastan pocas confirmaciones, con el 30 % la curva baja despacio y con el 40 % apenas se mueve. Los valores de la fórmula de Nakamoto están en la tabla. **Dónde deja de valer:** el modelo supone un solo atacante, bloques con ritmo constante y propagación instantánea; no incluye estrategias como la minería egoísta ni el alquiler de poder, ni las diferencias entre protocolos. La fórmula de Nakamoto usa una aproximación de Poisson y por eso difiere ligeramente de la simulación.
 
 ### Una reentrada en un contrato de juguete
 
@@ -188,9 +188,9 @@ def retirar(banco, quien, callback):
 
 Con profundidad 11, el atacante, que solo tenía 10 de saldo, vacía el fondo entero (110).
 
-![Tabla con los fondos extraídos y el fondo restante en un contrato de juguete que actualiza el saldo después de enviar el pago y en otro que lo actualiza antes, según la profundidad de la reentrada.](../../../content/part-23/figures/se-284-reentrada-en-un-contrato.svg)
+![Líneas con los fondos extraídos por un atacante con 10 de saldo según la profundidad de reentrada: si el contrato actualiza el saldo después de enviar el pago extrae 10, 30, 50 y 110 con profundidad 1, 3, 5 y 11, hasta vaciar el fondo de 110; si actualiza antes de enviar extrae siempre 10.](../../../content/part-23/figures/se-284-reentrada-en-un-contrato.svg)
 
-**Cómo leer la figura.** Cada fila es cuántas veces vuelve a entrar el atacante; las dos mitades comparan el orden de las operaciones. **Dónde deja de valer:** es un modelo de juguete en Python, no un contrato ni una máquina virtual; las plataformas reales limitan el consumo por llamada, y los ataques reales combinan reentrada con otros defectos. El orden comprobar–actualizar–interactuar elimina esta clase de ataque concreta, no el resto de las vulnerabilidades de un contrato.
+**Cómo leer la figura.** El eje horizontal es la profundidad de reentrada y el vertical los fondos extraídos; la línea roja horizontal es el fondo total de 110. Mira que, con el orden equivocado, la extracción crece con la profundidad hasta vaciar el fondo, mientras que con comprobar, actualizar y luego interactuar se queda plana en 10, el saldo del atacante. **Dónde deja de valer:** es un modelo de juguete en Python, no un contrato ni una máquina virtual; las plataformas reales limitan el consumo por llamada, y los ataques reales combinan reentrada con otros defectos. El orden comprobar–actualizar–interactuar elimina esta clase de ataque concreta, no el resto de las vulnerabilidades de un contrato.
 
 ## Definiciones de trabajo
 

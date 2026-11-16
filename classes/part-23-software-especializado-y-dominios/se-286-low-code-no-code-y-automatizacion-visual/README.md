@@ -119,9 +119,9 @@ detectados = sum(cubre(pruebas, d) for d in defectos) / len(defectos)
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Con 8 pruebas aleatorias, todas las ramas se ven casi siempre (93 %), pero aún se escapa el 10 % de los defectos de interacción.
 
-![Tabla con los defectos de dos bifurcaciones que halla cada conjunto de pruebas aleatorias de 2 a 20 pruebas frente a un conjunto de 9 pruebas diseñado para cubrir todos los pares en un flujo de diez bifurcaciones.](../../../content/part-23/figures/se-286-caminos-frente-a-pares.svg)
+![Líneas con el porcentaje de defectos de dos bifurcaciones hallados y de conjuntos que ven cada rama en ambos valores según el número de pruebas aleatorias: 2 pruebas hallan 43,9 por ciento, 8 el 90,4 y 20 el 99,7; un conjunto de 9 pruebas diseñado por pares halla el 100 por ciento.](../../../content/part-23/figures/se-286-caminos-frente-a-pares.svg)
 
-**Cómo leer la figura.** Cada fila es un conjunto de pruebas; la segunda columna mide cuántos defectos de interacción descubre y la tercera si llegó a ver cada rama en ambos sentidos. **Dónde deja de valer:** los defectos se suponen activados por exactamente dos bifurcaciones y se reparten de forma uniforme; uno que dependa de tres, o de una combinación rara de datos, se escapa a los pares. Que 9 pruebas bastan es un resultado de 10 bifurcaciones binarias; con más valores por factor o con restricciones entre factores, el conjunto cambia.
+**Cómo leer la figura.** El eje horizontal es el número de pruebas aleatorias del conjunto y el vertical un porcentaje. La línea turquesa es el porcentaje de defectos de dos bifurcaciones que halla el conjunto y la dorada el de conjuntos que ven cada rama con ambos valores; el punto aislado es un conjunto de 9 pruebas diseñado por pares. Mira que las pruebas aleatorias necesitan más de 12 para acercarse a lo que logran 9 diseñadas. **Dónde deja de valer:** los defectos se suponen activados por exactamente dos bifurcaciones y se reparten de forma uniforme; uno que dependa de tres, o de una combinación rara de datos, se escapa a los pares. Que 9 pruebas bastan es un resultado de 10 bifurcaciones binarias; con más valores por factor o con restricciones entre factores, el conjunto cambia.
 
 ### Duplicados que pasan una memoria corta
 
@@ -170,9 +170,9 @@ for año in range(1, 6):
 
 Con un solo responsable la revisión no cambia nada: cuando se va, no queda a quién reasignar. Con dos y reposición, la fracción sin dueño a cinco años baja de 30,8 % a 8,6 %.
 
-![Tabla con el porcentaje de automatizaciones sin responsable activo a uno, tres y cinco años según haya uno o dos responsables y exista o no una revisión anual con reposición.](../../../content/part-23/figures/se-286-automatizaciones-huerfanas.svg)
+![Líneas con el porcentaje de automatizaciones sin responsable activo según los años: con un solo responsable, con o sin revisión anual, sube de 15,4 a 37,8 y 52,2 por ciento al año, a los tres y a los cinco; con dos responsables sin revisión llega a 30,8; con dos responsables y revisión anual se queda en 8,6.](../../../content/part-23/figures/se-286-automatizaciones-huerfanas.svg)
 
-**Cómo leer la figura.** Cada fila es una política de propiedad; las columnas muestran la fracción de flujos que ya no tiene ninguna persona responsable. **Dónde deja de valer:** la tasa de salida del 15 % anual es un supuesto del autor, no una medición de ninguna organización, y se supone que cada salida es independiente. El patrón (la revisión solo ayuda si queda a quién reasignar) no depende de esa tasa; las cifras sí.
+**Cómo leer la figura.** El eje horizontal son los años y el vertical el porcentaje de automatizaciones sin responsable activo; cada línea es una política. Mira la separación: con un solo responsable la línea sube a más de la mitad en cinco años, con o sin revisión; con dos responsables y revisión anual con reposición se queda por debajo del 9 %. **Dónde deja de valer:** la tasa de salida del 15 % anual es un supuesto del autor, no una medición de ninguna organización, y se supone que cada salida es independiente. El patrón (la revisión solo ayuda si queda a quién reasignar) no depende de esa tasa; las cifras sí.
 
 ## Definiciones de trabajo
 

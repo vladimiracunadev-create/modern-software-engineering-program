@@ -1,256 +1,226 @@
 """Figures for SE-281 to SE-288 (synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import (Fig, _kit_finish, _kit_start, grouped_bars, heatmap, line_chart,
+                        percentile_intervals, timeline)
+from figures_part07_a import bars
 
 SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
 
 
 # ---------------------------------------------------------------- SE-281
 def se281_buffer() -> Fig:
-    rows = [
-        ["64", "1,3", "22,3 %"],
-        ["128", "2,7", "7,3 %"],
-        ["256", "5,3", "1,6 %"],
-        ["512", "10,7", "0,23 %"],
-        ["1 024", "21,3", "0,016 %"],
-    ]
-    return tab("Búfer de audio a 48 kHz: latencia que se añade y callbacks que no llegan a tiempo",
-               "Tabla: con un búfer de 64 muestras a 48 kilohercios la latencia es 1,3 milisegundos y el 22,3 por ciento de las llamadas no termina a tiempo; con 256 muestras la latencia es 5,3 y fallan el 1,6 por ciento; con 1024 la latencia es 21,3 y falla el 0,016 por ciento.",
-               ["Muestras por búfer", "Latencia del búfer (ms)", "Callbacks tardíos"], rows, [280, 330, 320], row_h=44, size=13,
-               note="Un búfer mayor compra holgura con latencia: de 64 a 512 muestras los fallos bajan de 22 % a 0,23 % y la latencia sube de 1,3 a 10,7 ms. El modelo supone un coste fijo con picos lognormales (mediana 0,5 ms, σ = 1,0) más 4 µs por muestra; son supuestos del autor, no una medición de ninguna tarjeta ni sistema operativo.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Búfer de audio a 48 kHz: latencia que se añade y callbacks que no llegan a tiempo",
+        "Línea en escalas logarítmicas que une latencia y fallos del búfer de audio: con 64 muestras la latencia es 1,3 milisegundos y falla el 22,3 por ciento de las llamadas; con 256 muestras, 5,3 y 1,6 por ciento; con 1024, 21,3 y 0,016 por ciento; la línea desciende, cada mejora de fiabilidad se paga con latencia.",
+        [("Callbacks tardíos", [(1.3, 22.3, "64 muestras · 22,3 %", "t"), (2.7, 7.3, "128 · 7,3 %", "r"), (5.3, 1.6, "256 · 1,6 %", "r"),
+                                (10.7, 0.23, "512 · 0,23 %", "r"), (21.3, 0.016, "1 024 · 0,016 %", "r")], "coral")],
+        x_label="Latencia que añade el búfer (ms)", y_label="Callbacks que no llegan a tiempo (%)", log_x=True, log_y=True,
+        x_ticks=[(1, "1"), (2, "2"), (5, "5"), (10, "10"), (20, "20"), (50, "50")], y_ticks=[0.01, 0.1, 1, 10, 100],
+        point_labels="none",
+        note='Un búfer mayor compra holgura con latencia: de 64 a 512 muestras los fallos bajan de 22 % a 0,23 % y la latencia sube de 1,3 a 10,7 ms. El modelo supone un coste fijo con picos lognormales (mediana 0,5 ms, σ = 1,0) más 4 µs por muestra; son supuestos del autor, no una medición de ninguna tarjeta ni sistema operativo.', note_kind='gold', foot=SINT)
 
 
 def se281_alias() -> Fig:
-    rows = [
-        ["1 000", "1 000", "—"],
-        ["5 000", "5 000", "—"],
-        ["9 000", "7 000", "sí (8 000 es el límite)"],
-        ["12 000", "4 000", "sí"],
-        ["15 000", "1 000", "sí"],
-    ]
-    return tab("Frecuencia que mide una transformada al muestrear tonos puros a 16 kHz",
-               "Tabla: al muestrear a 16 kilohercios un tono de 9000 hercios se mide como 7000, uno de 12000 como 4000 y uno de 15000 como 1000, mientras que los de 1000 y 5000 se miden correctamente; el valor medido coincide con la fórmula del pliegue.",
-               ["Frecuencia real (Hz)", "Frecuencia medida (Hz)", "¿Plegada sobre otra?"], rows, [270, 330, 330], row_h=44, size=13,
-               note="Sobre la mitad de la frecuencia de muestreo (8 kHz aquí) los tonos no desaparecen: se disfrazan de otro más grave, y nada en las muestras permite distinguirlos. Por eso el filtro debe ir antes de muestrear. La transformada se calculó con Goertzel sobre 1 024 muestras; medida y fórmula coincidieron en los seis casos.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Frecuencia que mide una transformada al muestrear tonos puros a 16 kHz",
+        "Líneas con la frecuencia medida frente a la frecuencia real al muestrear a 16 kilohercios: hasta 8 000 hercios la medida coincide con la real; por encima del límite de 8 000 la medida se pliega hacia abajo: 9 000 se mide como 7 000, 12 000 como 4 000 y 15 000 como 1 000.",
+        [("Frecuencia medida", [(1000, 1000, "1 000", "r"), (5000, 5000, "5 000", "b"), (9000, 7000, "9 000 → 7 000", "r"),
+                                (12000, 4000, "12 000 → 4 000", "r"), (15000, 1000, "15 000 → 1 000", "l")], "coral"),
+         ("Sin plegado (medida = real)", [(0, 0, "", "t"), (15000, 15000, "", "t")], "grey")],
+        x_label="Frecuencia real del tono (Hz)", y_label="Frecuencia medida (Hz)", point_labels="none",
+        x_ticks=[(0, "0"), (4000, "4 000"), (8000, "8 000"), (12000, "12 000"), (16000, "16 000")],
+        y_ticks=[0, 4000, 8000, 12000, 16000], vlines=[(8000, "límite: 8 000 Hz")],
+        note='Sobre la mitad de la frecuencia de muestreo (8 kHz aquí) los tonos no desaparecen: se disfrazan de otro más grave, y nada en las muestras permite distinguirlos. Por eso el filtro debe ir antes de muestrear. La transformada se calculó con Goertzel sobre 1 024 muestras; medida y fórmula coincidieron en los seis casos.', note_kind='coral', foot=SINT)
 
 
 def se281_cuadros() -> Fig:
-    rows = [
-        ["6", "0,5 %", "11,2", "90"],
-        ["8", "7,4 %", "11,9", "84"],
-        ["9", "16,5 %", "12,9", "77"],
-        ["10", "29,0 %", "14,3", "70"],
-        ["11", "43,3 %", "15,9", "63"],
-    ]
-    return tab("Pantalla de 90 Hz (presupuesto de 11,1 ms): fotogramas fuera de presupuesto según el coste medio",
-               "Tabla: con un coste medio de render de 6 milisegundos solo el 0,5 por ciento de los fotogramas supera el presupuesto de 11,1; con 8 milisegundos el 7,4; con 10 milisegundos el 29 por ciento; con sincronización vertical el intervalo medio pasa de 11,2 a 15,9 milisegundos.",
-               ["Coste medio (ms)", "Fotogramas fuera de presupuesto", "Intervalo medio mostrado (ms)", "Equivale a (fps)"], rows, [190, 320, 280, 170], row_h=44, size=13,
-               note="El promedio engaña: con un coste medio de 8 ms, por debajo de 11,1, aún el 7 % de los fotogramas se pierde y con sincronización cada uno se muestra el doble de tiempo (22,2 ms en el percentil 99). En realidad virtual esos fotogramas son los que se sienten. Tiempos lognormales con σ = 0,25 supuestos; no se midió ningún casco.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Pantalla de 90 Hz (presupuesto de 11,1 ms): fotogramas fuera de presupuesto según el coste medio",
+        "Línea con el porcentaje de fotogramas fuera del presupuesto de 11,1 milisegundos según el coste medio de render: 0,5 por ciento con 6 milisegundos, 7,4 con 8, 16,5 con 9, 29,0 con 10 y 43,3 con 11; ya con un coste medio por debajo del presupuesto se pierde una parte creciente de los fotogramas.",
+        [("Fotogramas fuera de presupuesto", [(6, 0.5, "0,5 %", "t"), (8, 7.4, "7,4 %", "l"), (9, 16.5, "16,5 %", "l"), (10, 29.0, "29,0 %", "l"), (11, 43.3, "43,3 %", "l")], "coral")],
+        x_label="Coste medio de render (ms)", y_label="Fotogramas fuera de presupuesto (%)", point_labels="none",
+        x_ticks=[(6, "6"), (7, "7"), (8, "8"), (9, "9"), (10, "10"), (11, "11"), (12, "")], y_ticks=[0, 10, 20, 30, 40, 50],
+        vlines=[(11.1, "11,1 ms")],
+        annotations=[(8, 7.4, "Con 8 ms, por debajo del presupuesto de 11,1 ms, ya se pierde el 7,4 %", -40, -200)],
+        note='El promedio engaña: con un coste medio de 8 ms, por debajo de 11,1, aún el 7 % de los fotogramas se pierde y con sincronización cada uno se muestra el doble de tiempo (22,2 ms en el percentil 99). En realidad virtual esos fotogramas son los que se sienten. Tiempos lognormales con σ = 0,25 supuestos; no se midió ningún casco.', note_kind='gold', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-282
 def se282_redondeo() -> Fig:
-    rows = [
-        ["Sumar 0,10 un millón de veces (float)", "100 000,00000133", "error de 1,3·10⁻⁶"],
-        ["0,1 + 0,2 == 0,3 (float)", "Falso", "—"],
-        ["round(2.675, 2) frente a Decimal con HALF_UP", "2,67 y 2,68", "dos reglas, dos totales"],
-        ["Facturas cuya suma de líneas redondeadas ≠ total redondeado", "38,68 % de 100 000", "brecha media de 1 céntimo"],
-        ["Repartir 100,00 en tres con float redondeado", "99,99", "falta 1 céntimo"],
-        ["Repartir 10 000 céntimos en tres, resto al primero", "3334 + 3333 + 3333", "suma exacta"],
-    ]
-    return tab("Dinero con coma flotante, con decimales y con enteros: seis comprobaciones",
-               "Tabla de seis comprobaciones: sumar 0,10 un millón de veces en coma flotante da 100000,00000133; el 38,68 por ciento de 100000 facturas simuladas tiene una suma de líneas redondeadas distinta del total redondeado; repartir 100,00 en tres con coma flotante pierde un céntimo y con enteros de céntimos la suma es exacta.",
-               ["Comprobación", "Resultado", "Lectura"], rows, [470, 250, 230], row_h=52, size=13,
-               note="Que la suma por líneas y la suma del total difieran en un céntimo en casi cuatro facturas de cada diez no es un error de coma flotante: es una decisión de negocio sin tomar (dónde se redondea). Hay que declararla, probarla y aplicarla en un único lugar. Facturas sintéticas con IVA del 19 %.",
-               note_kind="coral", foot=SINT)
+    f, y = _kit_start("Dinero con coma flotante, con decimales y con enteros: seis comprobaciones",
+                      "Diagrama de seis comprobaciones agrupadas en tres bloques: la suma repetida, la igualdad y el redondeo en coma flotante fallan por representación; la suma de líneas redondeadas y el total redondeado difieren en el 38,68 por ciento de 100000 facturas; repartir 100,00 en tres pierde un céntimo con coma flotante y es exacto con enteros de céntimos.",
+                      940, None)
+
+    def row(ry: float, left: str, mid: str, right: str, mid_kind: str = "coral", right_kind: str = "grey") -> None:
+        f.box(24, ry, 360, 46, left, "plain", 13)
+        f.arrow([(384, ry + 23), (424, ry + 23)])
+        f.box(424, ry, 220, 46, mid, mid_kind, 13, bold=True)
+        f.arrow([(644, ry + 23), (684, ry + 23)])
+        f.box(684, ry, 232, 46, right, right_kind, 13)
+
+    f.group(10, y, 920, 206, "Coma flotante: el error está en cómo se guarda 0,1", "grey")
+    row(y + 34, "Sumar 0,10 un millón de veces (float)", "100 000,00000133", "error de 1,3·10⁻⁶")
+    row(y + 90, "0,1 + 0,2 == 0,3 (float)", "Falso", "—")
+    row(y + 146 - 0, "round(2.675, 2) frente a Decimal con HALF_UP", "2,67 y 2,68", "dos reglas, dos totales", "gold")
+    y += 206 + 12
+    f.group(10, y, 920, 150, "Decimales exactos: el desacuerdo es una regla de redondeo sin decidir", "grey")
+    f.box(24, y + 36, 360, 46, "Redondear cada línea y luego sumar", "plain", 13)
+    f.box(24, y + 92, 360, 46, "Sumar las líneas y luego redondear el total", "plain", 13)
+    f.arrow([(384, y + 59), (404, y + 59), (404, y + 87), (424, y + 87)])
+    f.arrow([(384, y + 115), (404, y + 115), (404, y + 87), (424, y + 87)])
+    f.box(424, y + 36, 220, 102, "No coinciden en el 38,68 % de 100 000 facturas", "coral", 13, bold=True)
+    f.arrow([(644, y + 87), (684, y + 87)])
+    f.box(684, y + 64, 232, 46, "brecha media de 1 céntimo", "grey", 13)
+    y += 150 + 12
+    f.group(10, y, 920, 134, "Repartir 100,00 entre tres: coma flotante frente a enteros de céntimos", "grey")
+    row(y + 34, "Repartir 100,00 en tres con float redondeado", "99,99", "falta 1 céntimo")
+    row(y + 86, "Repartir 10 000 céntimos en tres, resto al primero", "3334 + 3333 + 3333", "suma exacta", "teal", "teal")
+    y += 134 + 8
+    out = _kit_finish(f, y, 'Que la suma por líneas y la suma del total difieran en un céntimo en casi cuatro facturas de cada diez no es un error de coma flotante: es una decisión de negocio sin tomar (dónde se redondea). Hay que declararla, probarla y aplicarla en un único lugar. Facturas sintéticas con IVA del 19 %.', 'coral', SINT)
+    out.kind = "diagram"
+    return out
 
 
 def se282_mutantes() -> Fig:
-    rows = [
-        ["Sin fallos (control)", "0 de 100", "0 de 100"],
-        ["Transferir sin comprobar saldo", "100 de 100", "100 de 100"],
-        ["Perder el abono de una transferencia", "100 de 100", "100 de 100"],
-        ["Abonar dos veces", "100 de 100", "100 de 100"],
-        ["Cobrar comisión sin acreditarla", "100 de 100", "100 de 100"],
-        ["Redondear la comisión hacia arriba", "0 de 100", "100 de 100"],
-    ]
-    return tab("Libro mayor con cinco mutantes: corridas de 200 operaciones detectadas por cada tipo de comprobación",
-               "Tabla: de cinco fallos inyectados en un libro mayor, cuatro los detectan las invariantes de conservación del dinero y saldo no negativo en 100 de 100 corridas; redondear la comisión hacia arriba no lo detecta ninguna de las dos invariantes y sí lo detecta la comparación con un modelo de referencia.",
-               ["Fallo inyectado", "Conservación y saldo ≥ 0", "Comparación con modelo de referencia"], rows, [380, 270, 300], row_h=44, size=13,
-               note="La conservación del dinero se cumple aunque el importe sea el equivocado: cobrar 8 en lugar de 7 mueve dinero entre cuentas sin crearlo ni destruirlo. Las invariantes cubren lo que el sistema nunca debe hacer; una regla de negocio exige un oráculo independiente. 100 semillas por mutante.",
-               note_kind="teal", foot=SINT)
+    return heatmap(
+        "Libro mayor con cinco mutantes: corridas de 200 operaciones detectadas por cada tipo de comprobación",
+        "Mapa de calor con las corridas, de 100, en que cada comprobación detecta cada fallo inyectado en un libro mayor: las invariantes de conservación y saldo no negativo detectan 100 de 100 en cuatro fallos y 0 en el redondeo de la comisión; la comparación con un modelo de referencia detecta 100 de 100 en cinco fallos.",
+        ["Sin fallos (control)", "Transferir sin comprobar saldo", "Perder el abono de una transferencia", "Abonar dos veces", "Cobrar comisión sin acreditarla", "Redondear la comisión hacia arriba"],
+        ["Conservación y saldo ≥ 0", "Comparación con modelo de referencia"],
+        [[0, 0], [100, 100], [100, 100], [100, 100], [100, 100], [0, 100]],
+        unit="corridas detectadas", row_title="Fallo inyectado", col_title="Corridas detectadas (de 100)",
+        scale="teal", vmin=0, vmax=100, cell_fmt=lambda v: f"{int(v)} de 100", highlight=[(5, 0), (5, 1)], cell_h=42, label_w=230,
+        note='La conservación del dinero se cumple aunque el importe sea el equivocado: cobrar 8 en lugar de 7 mueve dinero entre cuentas sin crearlo ni destruirlo. Las invariantes cubren lo que el sistema nunca debe hacer; una regla de negocio exige un oráculo independiente. 100 semillas por mutante.', note_kind='teal', foot=SINT)
 
 
 def se282_idempotencia() -> Fig:
-    rows = [
-        ["1 %", "1,0109", "1,08 %", "1,0000", "0 %"],
-        ["5 %", "1,0526", "4,98 %", "1,0000", "0 %"],
-        ["20 %", "1,2482", "19,98 %", "1,0000", "0 %"],
-    ]
-    return tab("Reintentar un cobro con hasta tres reintentos cuando la respuesta se pierde",
-               "Tabla: si el 5 por ciento de las respuestas se pierde y el cliente reintenta hasta tres veces, sin clave de idempotencia se cobra 1,0526 veces por pago y el 4,98 por ciento de los pagos se cobra dos veces o más; con clave de idempotencia se cobra exactamente una vez.",
-               ["Respuestas perdidas", "Cobros por pago sin clave", "Pagos cobrados 2+ veces", "Cobros por pago con clave", "Pagos duplicados con clave"], rows, [170, 210, 200, 200, 170], row_h=64, size=13,
-               note="El reintento es correcto para el cliente y desastroso para el cargo si el servidor no reconoce la repetición. La clave de idempotencia convierte «lo intenté de nuevo» en «es el mismo cobro». Modelo de 100 000 pagos; el procesador siempre recibe la petición y solo se pierde la respuesta.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Reintentar un cobro con hasta tres reintentos cuando la respuesta se pierde",
+        "Barras agrupadas con el porcentaje de pagos cobrados dos veces o más al reintentar hasta tres veces cuando se pierde la respuesta: sin clave de idempotencia es 1,08, 4,98 y 19,98 por ciento si se pierde el 1, el 5 y el 20 por ciento de las respuestas; con clave es 0 en todos los casos.",
+        ["1 % de respuestas perdidas", "5 % de respuestas perdidas", "20 % de respuestas perdidas"],
+        [("Sin clave de idempotencia", [1.08, 4.98, 19.98], "coral"), ("Con clave de idempotencia", [0, 0, 0], "teal")],
+        unit="Pagos cobrados 2 o más veces (%)",
+        note='El reintento es correcto para el cliente y desastroso para el cargo si el servidor no reconoce la repetición. La clave de idempotencia convierte «lo intenté de nuevo» en «es el mismo cobro». Modelo de 100 000 pagos; el procesador siempre recibe la petición y solo se pierde la respuesta.', note_kind='gold', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-283
 def se283_kanon() -> Fig:
-    rows = [
-        ["Edad exacta + 4 dígitos", "4 558 (91,2 %)", "1", "4 774"],
-        ["Edad en 5 años + 4 dígitos", "3 224 (64,5 %)", "1", "4 025"],
-        ["Edad en 10 años + 3 dígitos", "89 (1,8 %)", "1", "736"],
-        ["Edad en 10 años + 2 dígitos", "0", "2", "80"],
-        ["Edad en 20 años + 1 dígito", "0", "92", "10"],
-        ["Sin edad ni zona", "0", "2 479", "2"],
-    ]
-    return tab("Anonimizar 5 000 registros sintéticos por generalización: quién queda único",
-               "Tabla: con edad exacta, sexo y cuatro dígitos de código postal el 91,2 por ciento de 5000 registros es único; con edad en tramos de 10 años y tres dígitos queda el 1,8 por ciento; con dos dígitos ninguno es único y la clase mínima es de 2 personas.",
-               ["Generalización", "Registros únicos", "Clase mínima", "Clases"], rows, [380, 230, 170, 150], row_h=44, size=13,
-               note="Cada nivel de generalización cuesta detalle útil: con tres dígitos todavía hay 89 personas únicas, y otras 211 están en clases de dos o más personas que comparten el mismo diagnóstico, así que pertenecer a la clase ya revela el dato. k ≥ 2 no es privacidad completa. Población y diagnósticos sintéticos.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Anonimizar 5 000 registros sintéticos por generalización: quién queda único",
+        "Línea que une el número de clases con el porcentaje de registros únicos al generalizar 5000 registros: con edad exacta y cuatro dígitos hay 4774 clases y el 91,2 por ciento es único; con edad en tramos de 5 años 4025 clases y 64,5; con tramos de 10 años y tres dígitos 736 clases y 1,8; con dos dígitos o menos ningún registro es único, a costa de 80 clases o menos.",
+        [("Registros únicos", [(2, 0, "Sin edad ni zona", "t"), (10, 0, "Edad 20 años, 1 díg.", "t"), (80, 0, "Edad 10 años, 2 díg.", "t"),
+                              (736, 1.8, "Edad 10 años, 3 díg. · 1,8 %", "t"), (4025, 64.5, "Edad 5 años, 4 díg. · 64,5 %", "l"),
+                              (4774, 91.2, "Edad exacta, 4 díg. · 91,2 %", "l")], "coral")],
+        x_label="Número de clases (más clases = más detalle conservado)", y_label="Registros únicos (%)", log_x=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1 000"), (10000, "10 000")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        note='Cada nivel de generalización cuesta detalle útil: con tres dígitos todavía hay 89 personas únicas, y otras 211 están en clases de dos o más personas que comparten el mismo diagnóstico, así que pertenecer a la clase ya revela el dato. k ≥ 2 no es privacidad completa. Población y diagnósticos sintéticos.', note_kind='coral', foot=SINT)
 
 
 def se283_fusion() -> Fig:
-    rows = [
-        ["1,00", "16", "0", "439"],
-        ["0,95", "237", "0", "218"],
-        ["0,90", "413", "0", "42"],
-        ["0,85", "414", "1", "42"],
-        ["0,80", "416", "3", "42"],
-        ["0,70", "569", "155", "41"],
-    ]
-    return tab("Fusionar fichas de pacientes por similitud de nombre y fecha: 455 duplicados reales en 1 955 fichas",
-               "Tabla: con un umbral de similitud de 0,90 se fusionan 413 pares, todos correctos, y quedan 42 duplicados sin fusionar de 455; con 0,80 se hacen 3 fusiones erróneas y con 0,70 se hacen 155 fusiones de pacientes distintos.",
-               ["Umbral de similitud", "Fusiones", "Fusiones de personas distintas", "Duplicados sin fusionar (de 455)"], rows, [220, 170, 290, 270], row_h=44, size=13,
-               note="Los dos errores no cuestan lo mismo: un duplicado sin fusionar fragmenta una historia clínica; una fusión errónea mezcla la de dos personas, y ese es el error que puede dañar. Por eso la zona intermedia se envía a revisión humana en lugar de decidirse con un umbral único. Nombres y errores de tecleo sintéticos.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Fusionar fichas de pacientes por similitud de nombre y fecha: 455 duplicados reales en 1 955 fichas",
+        "Líneas con los duplicados sin fusionar y las fusiones de personas distintas según el umbral de similitud: al bajar de 1,00 a 0,90 los duplicados sin fusionar caen de 439 a 42 sin ninguna fusión errónea; al bajar a 0,70 las fusiones de personas distintas suben a 155 mientras los duplicados apenas bajan a 41.",
+        [("Duplicados sin fusionar (de 455)", [(0.70, 41, "41", "t"), (0.80, 42, "42", "t"), (0.85, 42, "42", "t"), (0.90, 42, "42", "t"), (0.95, 218, "218", "t"), (1.00, 439, "439", "t")], "gold"),
+         ("Fusiones de personas distintas", [(0.70, 155, "155", "t"), (0.80, 3, "3", "t"), (0.85, 1, "1", "t"), (0.90, 0, "", "t"), (0.95, 0, "", "t"), (1.00, 0, "0", "t")], "coral")],
+        x_label="Umbral de similitud (más alto = más estricto)", y_label="Fichas", point_labels="none",
+        x_ticks=[(0.70, "0,70"), (0.75, ""), (0.80, "0,80"), (0.85, ""), (0.90, "0,90"), (0.95, "0,95"), (1.00, "1,00")], y_ticks=[0, 100, 200, 300, 400, 500],
+        note='Los dos errores no cuestan lo mismo: un duplicado sin fusionar fragmenta una historia clínica; una fusión errónea mezcla la de dos personas, y ese es el error que puede dañar. Por eso la zona intermedia se envía a revisión humana en lugar de decidirse con un umbral único. Nombres y errores de tecleo sintéticos.', note_kind='gold', foot=SINT)
 
 
 def se283_alarmas() -> Fig:
-    rows = [
-        ["90", "462,4", "85 de 89", "272,0"],
-        ["100", "103,0", "74 de 89", "69,6"],
-        ["110", "11,3", "58 de 89", "9,8"],
-        ["120", "1,0", "31 de 89", "1,6"],
-    ]
-    return tab("Alarma por frecuencia cardíaca: avisos por 100 pacientes-día y deterioros detectados según el umbral",
-               "Tabla: con un umbral de 90 latidos por minuto hay 462 avisos por cien pacientes-día y se detectan 85 de 89 deterioros; con 110 hay 11 avisos y se detectan 58; con 120 hay 1 aviso por cien pacientes-día y se detectan 31.",
-               ["Umbral (lat/min)", "Avisos por 100 pacientes-día", "Deterioros detectados", "Avisos por detección"], rows, [210, 290, 220, 210], row_h=44, size=13,
-               note="No hay umbral sin coste: el que detecta casi todo emite 272 avisos por cada deterioro real, que nadie puede atender; el que casi no molesta deja pasar dos de cada tres. Pacientes, señales y deterioros sintéticos; no representan ninguna cohorte ni dispositivo, y la clase no propone umbrales clínicos.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Alarma por frecuencia cardíaca: avisos por 100 pacientes-día y deterioros detectados según el umbral",
+        "Línea con los deterioros detectados, de 89, según los avisos por 100 pacientes-día en escala logarítmica: el umbral de 120 latidos por minuto da 1,0 aviso y detecta 31; el de 110 da 11,3 y detecta 58; el de 100 da 103,0 y detecta 74; el de 90 da 462,4 y detecta 85.",
+        [("Deterioros detectados", [(1.0, 31, "120 lat/min · 31 de 89", "r"), (11.3, 58, "110 · 58 de 89", "r"), (103.0, 74, "100 · 74 de 89", "r"),
+                                    (462.4, 85, "90 · 85 de 89", "l")], "coral")],
+        x_label="Avisos por 100 pacientes-día", y_label="Deterioros detectados (de 89)", log_x=True,
+        x_ticks=[(1, "1"), (10, "10"), (100, "100"), (1000, "1 000")], y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        hlines=[(89, "89 deterioros reales")],
+        note='No hay umbral sin coste: el que detecta casi todo emite 272 avisos por cada deterioro real, que nadie puede atender; el que casi no molesta deja pasar dos de cada tres. Pacientes, señales y deterioros sintéticos; no representan ninguna cohorte ni dispositivo, y la clase no propone umbrales clínicos.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-284
 def se284_pow() -> Fig:
-    rows = [
-        ["8", "256", "283,5", "174,0"],
-        ["10", "1 024", "946,1", "648,5"],
-        ["12", "4 096", "4 027,2", "2 951,5"],
-        ["14", "16 384", "15 231,2", "10 931,5"],
-        ["16", "65 536", "47 442,1", "27 372,0"],
-    ]
-    return tab("Prueba de trabajo con SHA-256: intentos para hallar un hash con n ceros iniciales",
-               "Tabla: encontrar un hash SHA-256 con 12 ceros iniciales cuesta 4027 intentos de media, cerca de los 4096 esperados, pero la mediana es 2951; con 16 ceros la media medida en 40 bloques es 47442 frente a 65536 esperados.",
-               ["Ceros iniciales (bits)", "Intentos esperados 2ⁿ", "Media medida", "Mediana medida"], rows, [250, 260, 220, 200], row_h=44, size=13,
-               note="El coste crece al doble por cada bit, y el tiempo de un bloque es una variable aleatoria con mucha dispersión (mínimo 26, máximo 15 969 con 12 bits). Rehacer 10 bloques encadenados de 12 bits costó unos 48 785 intentos frente a 310 de uno solo. Con 40 bloques, la media de 16 bits aún fluctúa.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Prueba de trabajo con SHA-256: intentos para hallar un hash con n ceros iniciales",
+        "Líneas en escala logarítmica con los intentos para hallar un hash SHA-256 con n ceros iniciales: el valor esperado 2 elevado a n sube de 256 con 8 bits a 65 536 con 16; la media medida (283,5 a 47 442,1) y la mediana medida (174,0 a 27 372,0) crecen en paralelo, con la mediana siempre por debajo de la media.",
+        [("Esperado 2ⁿ", [(8, 256), (10, 1024), (12, 4096), (14, 16384), (16, 65536, "65 536", "t")], "grey"),
+         ("Media medida", [(8, 283.5), (10, 946.1), (12, 4027.2), (14, 15231.2), (16, 47442.1, "47 442", "r")], "gold"),
+         ("Mediana medida", [(8, 174.0), (10, 648.5), (12, 2951.5), (14, 10931.5), (16, 27372.0, "27 372", "r")], "teal")],
+        x_label="Ceros iniciales exigidos (bits)", y_label="Intentos hasta hallar el hash", log_y=True,
+        x_ticks=[(8, "8"), (10, "10"), (12, "12"), (14, "14"), (16, "16"), (18, "")], y_ticks=[100, 1000, 10000, 100000], point_labels="none",
+        note='El coste crece al doble por cada bit, y el tiempo de un bloque es una variable aleatoria con mucha dispersión (mínimo 26, máximo 15 969 con 12 bits). Rehacer 10 bloques encadenados de 12 bits costó unos 48 785 intentos frente a 310 de uno solo. Con 40 bloques, la media de 16 bits aún fluctúa.', note_kind='gold', foot=SINT)
 
 
 def se284_doble_gasto() -> Fig:
-    rows = [
-        ["10 %", "0,200 (0,205)", "0,053 (0,051)", "0,006 (0,004)", "0,001 (0,000)", "0,000 (0,000)"],
-        ["30 %", "0,603 (0,628)", "0,431 (0,446)", "0,249 (0,239)", "0,157 (0,132)", "0,064 (0,042)"],
-        ["40 %", "0,800 (0,829)", "0,706 (0,736)", "0,581 (0,603)", "0,492 (0,504)", "0,372 (0,360)"],
-    ]
-    return tab("Probabilidad de que un atacante rehaga la cadena: simulación (fórmula de Nakamoto)",
-               "Tabla: con el 10 por ciento del poder de cómputo un atacante rehace una transacción con 6 confirmaciones con probabilidad 0,001; con el 30 por ciento la probabilidad es 0,157 simulada y 0,132 por la fórmula; con el 40 por ciento es 0,492 y 0,504.",
-               ["Poder del atacante", "1 confirmación", "2", "4", "6", "10"], rows, [210, 170, 170, 170, 170, 170], row_h=44, size=12,
-               note="La seguridad probabilística depende de dos cosas que el código no controla: la fracción de poder del atacante y el número de confirmaciones que se esperan. Con 30 % ni 10 confirmaciones bajan la probabilidad de 0,04. Simulación (40 000 carreras) y fórmula coinciden en torno a ±0,03; no se probó ninguna red real.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Probabilidad de que un atacante rehaga la cadena: simulación (fórmula de Nakamoto)",
+        "Líneas con la probabilidad simulada de que un atacante rehaga la cadena según las confirmaciones: con el 10 por ciento del poder cae a 0,001 con 6 confirmaciones; con el 30 por ciento baja de 0,603 a 0,064 con 10; con el 40 por ciento solo baja de 0,800 a 0,372; la fórmula de Nakamoto da valores equivalentes.",
+        [("Atacante con el 40 %", [(1, 0.800, "0,800", "t"), (2, 0.706, "0,706", "t"), (4, 0.581, "0,581", "t"), (6, 0.492, "0,492", "t"), (10, 0.372, "0,372", "t")], "coral"),
+         ("Atacante con el 30 %", [(1, 0.603, "0,603", "t"), (2, 0.431, "0,431", "t"), (4, 0.249, "0,249", "t"), (6, 0.157, "0,157", "t"), (10, 0.064, "0,064", "t")], "gold"),
+         ("Atacante con el 10 %", [(1, 0.200, "0,200", "t"), (2, 0.053, "0,053", "t"), (4, 0.006, "0,006", "t"), (6, 0.001, "0,001", "t"), (10, 0.000, "0,000", "r")], "teal")],
+        x_label="Confirmaciones esperadas", y_label="Probabilidad de rehacer la cadena (simulada)",
+        x_ticks=[(1, "1"), (2, "2"), (4, "4"), (6, "6"), (10, "10"), (11, "")], y_ticks=[0, 0.2, 0.4, 0.6, 0.8, 1], point_labels="none",
+        note='La seguridad probabilística depende de dos cosas que el código no controla: la fracción de poder del atacante y el número de confirmaciones que se esperan. Con 30 % ni 10 confirmaciones bajan la probabilidad de 0,04. Simulación (40 000 carreras) y fórmula coinciden en torno a ±0,03; no se probó ninguna red real.', note_kind='coral', foot=SINT)
 
 
 def se284_reentrada() -> Fig:
-    rows = [
-        ["1", "10", "100", "10", "100"],
-        ["3", "30", "80", "10", "100"],
-        ["5", "50", "60", "10", "100"],
-        ["11", "110", "0", "10", "100"],
-    ]
-    return tab("Retirada con reentrada: fondos extraídos por un atacante con 10 de saldo en un fondo de 110",
-               "Tabla: en un contrato que actualiza el saldo después de enviar el pago, un atacante con 10 de saldo extrae 30 con profundidad 3, 50 con profundidad 5 y vacía los 110 con profundidad 11; si actualiza el saldo antes de enviar, extrae solo sus 10.",
-               ["Profundidad de reentrada", "Extraído (actualiza después)", "Fondo restante", "Extraído (actualiza antes)", "Fondo restante"], rows, [190, 240, 180, 240, 180], row_h=64, size=13,
-               note="El defecto no está en la aritmética sino en el orden: llamar a código ajeno antes de actualizar el estado permite que ese código vuelva a entrar con el estado viejo. Comprobar, actualizar y luego interactuar elimina esta clase de ataque; no elimina otras. Modelo de juguete en Python, no un contrato real ni una red.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Retirada con reentrada: fondos extraídos por un atacante con 10 de saldo en un fondo de 110",
+        "Líneas con los fondos extraídos por un atacante con 10 de saldo según la profundidad de reentrada: si el contrato actualiza el saldo después de enviar el pago extrae 10, 30, 50 y 110 con profundidad 1, 3, 5 y 11, hasta vaciar el fondo de 110; si actualiza antes de enviar extrae siempre 10.",
+        [("Actualiza después de enviar", [(1, 10, "10", "t"), (3, 30, "30", "t"), (5, 50, "50", "t"), (11, 110, "110", "b")], "coral"),
+         ("Actualiza antes de enviar", [(1, 10, "", "b"), (3, 10, "10", "t"), (5, 10, "10", "t"), (11, 10, "10", "t")], "teal")],
+        x_label="Profundidad de reentrada", y_label="Fondos extraídos", point_labels="none",
+        x_ticks=[(1, "1"), (3, "3"), (5, "5"), (7, "7"), (9, "9"), (11, "11")], y_ticks=[0, 20, 40, 60, 80, 100, 120], hlines=[(110, "fondo total: 110")],
+        note='El defecto no está en la aritmética sino en el orden: llamar a código ajeno antes de actualizar el estado permite que ese código vuelva a entrar con el estado viejo. Comprobar, actualizar y luego interactuar elimina esta clase de ataque; no elimina otras. Modelo de juguete en Python, no un contrato real ni una red.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-285
 def se285_distancia() -> Fig:
-    rows = [
-        ["0°", "0,0 %", "0,0 %", "0,0 %"],
-        ["30°", "6,8 %", "15,2 %", "16,0 %"],
-        ["60°", "25,5 %", "96,5 %", "103,0 %"],
-        ["80°", "41,4 %", "408,4 %", "505,2 %"],
-    ]
-    return tab("Error al tratar grados de longitud y latitud como un plano (pares a menos de 100 km)",
-               "Tabla: medir distancias como si los grados fueran un plano tiene un error mediano de 0 por ciento en el ecuador, 6,8 a 30 grados de latitud, 25,5 a 60 y 41,4 a 80; el error máximo a 80 grados supera el 500 por ciento.",
-               ["Latitud", "Error mediano", "Percentil 95", "Máximo"], rows, [210, 230, 230, 230], row_h=44, size=13,
-               note="Un grado de longitud mide 111 km en el ecuador y 19 km a 80° de latitud; la fórmula plana no lo sabe. Además, dos puntos a ambos lados de ±180° quedan a 111 km pero la resta ingenua da 39 919 km. Esferas frente a elipsoides y proyecciones no se evaluaron: la haversine usa un radio medio.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Error al tratar grados de longitud y latitud como un plano (pares a menos de 100 km)",
+        "Barras agrupadas con el error al medir distancias como si los grados fueran un plano: la mediana es 0,0 por ciento en el ecuador, 6,8 a 30 grados de latitud, 25,5 a 60 y 41,4 a 80; el percentil 95 llega a 408,4 y el máximo a 505,2 por ciento a 80 grados.",
+        ["0° (ecuador)", "30°", "60°", "80°"],
+        [("Mediana", [0.0, 6.8, 25.5, 41.4], "teal"), ("Percentil 95", [0.0, 15.2, 96.5, 408.4], "gold"), ("Máximo", [0.0, 16.0, 103.0, 505.2], "coral")],
+        unit="Error de la distancia plana (%)", decimals=1,
+        note='Un grado de longitud mide 111 km en el ecuador y 19 km a 80° de latitud; la fórmula plana no lo sabe. Además, dos puntos a ambos lados de ±180° quedan a 111 km pero la resta ingenua da 39 919 km. Esferas frente a elipsoides y proyecciones no se evaluaron: la haversine usa un radio medio.', note_kind='coral', foot=SINT)
 
 
 def se285_reloj() -> Fig:
-    rows = [
-        ["Horas UTC de un año", "8 760"],
-        ["Horas locales distintas que aparecen", "8 759"],
-        ["Hora local que se repite (ambigua)", "1"],
-        ["Hora local que no existe", "1"],
-        ["Días locales de 23 h / 24 h / 25 h", "1 / 362 / 1"],
-        ["Tarea diaria «09:00 local» guardada como 13:00 UTC fijas: días en hora equivocada", "180 de 365"],
-    ]
-    return tab("Una zona con cambio de hora sintético (UTC−4 y UTC−3): lo que hace un año de reloj",
-               "Tabla: en una zona sintética con horario de verano, las 8760 horas de un año producen 8759 horas locales distintas, una repetida y una inexistente; hay un día de 23 horas y uno de 25; una tarea diaria guardada como hora UTC fija cae a la hora local equivocada en 180 de 365 días.",
-               ["Medida", "Valor"], rows, [680, 250], row_h=52, size=13,
-               note="Una hora local sin zona no identifica un instante: la mitad del año una tarea «a las 09:00» guardada como UTC se ejecuta una hora corrida. Guardar el instante en UTC y la regla de zona por separado evita ambos. Las reglas de la zona son sintéticas; no se usó la base de datos de zonas horarias.",
-               note_kind="gold", foot=SINT)
+    return timeline(
+        "Una zona con cambio de hora sintético (UTC−4 y UTC−3): lo que hace un año de reloj",
+        "Línea de tiempo de un año en una zona sintética: UTC−4 hasta el día 120, UTC−3 del día 120 al 300 y UTC−4 desde el 300; en el día 120 falta una hora local (día de 23 horas) y en el 300 una hora se repite (día de 25 horas); una tarea diaria guardada como 13:00 UTC cae a las 10:00 locales los 180 días de verano en vez de a las 09:00.",
+        [("Regla de desfase de la zona", [(0, 120, "UTC−4", "navy"), (120, 300, "UTC−3 (horario de verano)", "gold"), (300, 365, "UTC−4", "navy")]),
+         ("Tarea «09:00 local» guardada como 13:00 UTC", [(0, 120, "09:00 correcta", "teal"), (120, 300, "10:00 equivocada (180 días)", "coral"), (300, 365, "09:00", "teal")])],
+        unit="Día del año (365 días, 8 760 horas UTC)", events=[(120, "día 120: día de 23 h"), (300, "día 300: día de 25 h")],
+        ticks=[0, 60, 120, 180, 240, 300, 365], lane_h=60, label_w=230, t_max=365,
+        note='Una hora local sin zona no identifica un instante: la mitad del año una tarea «a las 09:00» guardada como UTC se ejecuta una hora corrida. Guardar el instante en UTC y la regla de zona por separado evita ambos. Las reglas de la zona son sintéticas; no se usó la base de datos de zonas horarias.', note_kind='gold', foot=SINT)
 
 
 def se285_indice() -> Fig:
-    rows = [
-        ["0,5 km", "12,7", "894,4"],
-        ["1 km", "18,0", "1 260,5"],
-        ["2 km", "31,6", "2 131,0"],
-        ["5 km", "98,6", "5 189,9"],
-        ["20 km", "934,8", "16 106,8"],
-        ["Fuerza bruta", "20 000", "20 000"],
-    ]
-    return tab("Candidatos examinados por una consulta de radio de 1 km según el tamaño de celda de una rejilla",
-               "Tabla: con puntos uniformes una rejilla de 1 kilómetro examina 18 candidatos por consulta para hallar 6,4 resultados; con puntos agrupados en una ciudad examina 1260 para hallar 455; la fuerza bruta examina 20000 en ambos casos.",
-               ["Tamaño de celda", "Candidatos (uniforme; 6,4 resultados)", "Candidatos (agrupado; 455,5 resultados)"], rows, [230, 350, 350], row_h=44, size=13,
-               note="El índice reduce el trabajo de 20 000 a 18 candidatos cuando los datos se reparten por igual, y a 1 260 cuando se agrupan: la distribución de los datos decide cuánto ayuda. Una celda mucho mayor que el radio pierde la ventaja. Se cuentan candidatos, no milisegundos: no se midió ninguna base de datos espacial.",
-               note_kind="teal", foot=SINT)
+    return line_chart(
+        "Candidatos examinados por una consulta de radio de 1 km según el tamaño de celda de una rejilla",
+        "Líneas en escalas logarítmicas con los candidatos examinados por una consulta de radio de 1 kilómetro según el tamaño de celda: con puntos uniformes pasa de 12,7 con celdas de 0,5 km a 934,8 con 20 km; con puntos agrupados de 894,4 a 16 106,8; la fuerza bruta examina 20 000 en ambos casos.",
+        [("Puntos agrupados en una ciudad", [(0.5, 894.4, "894,4", "t"), (1, 1260.5, "1 260,5", "t"), (2, 2131.0, "2 131,0", "t"), (5, 5189.9, "5 189,9", "t"), (20, 16106.8, "16 106,8", "b")], "coral"),
+         ("Puntos uniformes", [(0.5, 12.7, "12,7", "t"), (1, 18.0, "18,0", "t"), (2, 31.6, "31,6", "t"), (5, 98.6, "98,6", "t"), (20, 934.8, "934,8", "t")], "teal")],
+        x_label="Tamaño de celda de la rejilla (km)", y_label="Candidatos examinados por consulta", log_x=True, log_y=True,
+        x_ticks=[(0.5, "0,5"), (1, "1"), (2, "2"), (5, "5"), (20, "20")], y_ticks=[10, 100, 1000, 10000, 100000], point_labels="none",
+        hlines=[(20000, "fuerza bruta: 20 000")],
+        note='El índice reduce el trabajo de 20 000 a 18 candidatos cuando los datos se reparten por igual, y a 1 260 cuando se agrupan: la distribución de los datos decide cuánto ayuda. Una celda mucho mayor que el radio pierde la ventaja. Se cuentan candidatos, no milisegundos: no se midió ninguna base de datos espacial.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-286
 def se286_pares() -> Fig:
-    rows = [
-        ["2 pruebas aleatorias", "43,9 %", "0 %"],
-        ["5 pruebas aleatorias", "76,8 %", "52 %"],
-        ["8 pruebas aleatorias", "90,4 %", "93 %"],
-        ["12 pruebas aleatorias", "96,9 %", "100 %"],
-        ["20 pruebas aleatorias", "99,7 %", "100 %"],
-        ["9 pruebas diseñadas por pares", "100 %", "100 %"],
-    ]
-    return tab("Un flujo con 10 bifurcaciones (1 024 caminos): defectos de dos bifurcaciones que halla cada conjunto de pruebas",
-               "Tabla: en un flujo con diez bifurcaciones y 1024 caminos, 2 pruebas aleatorias hallan en promedio el 43,9 por ciento de los defectos que dependen de dos bifurcaciones, 8 pruebas el 90,4 y 20 el 99,7; un conjunto de 9 pruebas diseñado para cubrir todos los pares los halla todos.",
-               ["Conjunto de pruebas", "Defectos de dos bifurcaciones hallados", "Conjuntos que ven cada rama en ambos valores"], rows, [350, 300, 280], row_h=52, size=13,
-               note="Probar todos los caminos exige 1 024 ejecuciones y duplica con cada bifurcación; cubrir todos los pares exige 9. El cálculo supone que los defectos dependen como máximo de dos decisiones: uno que dependa de tres se escapa de los pares. 180 defectos posibles, 300 conjuntos aleatorios por fila.",
-               note_kind="teal", foot=SINT)
+    return line_chart(
+        "Un flujo con 10 bifurcaciones (1 024 caminos): defectos de dos bifurcaciones que halla cada conjunto de pruebas",
+        "Líneas con el porcentaje de defectos de dos bifurcaciones hallados y de conjuntos que ven cada rama en ambos valores según el número de pruebas aleatorias: 2 pruebas hallan 43,9 por ciento, 8 el 90,4 y 20 el 99,7; un conjunto de 9 pruebas diseñado por pares halla el 100 por ciento.",
+        [("Defectos de dos bifurcaciones hallados", [(2, 43.9, "43,9", "t"), (5, 76.8, "76,8", "b"), (8, 90.4, "90,4", "b"), (12, 96.9, "96,9", "b"), (20, 99.7, "99,7", "b")], "teal"),
+         ("Conjuntos que ven cada rama en ambos valores", [(2, 0, "0", "t"), (5, 52, "52", "t"), (8, 93, "93", "t"), (12, 100, "100", "t"), (20, 100, "100", "t")], "gold"),
+         ("9 pruebas diseñadas por pares", [(9, 100, "100", "t")], "navy")],
+        x_label="Pruebas aleatorias en el conjunto", y_label="Porcentaje (%)", point_labels="none",
+        x_ticks=[(2, "2"), (5, "5"), (8, "8"), (9, "9"), (12, "12"), (20, "20")], y_ticks=[0, 20, 40, 60, 80, 100, 120], plot_h=320,
+        note='Probar todos los caminos exige 1 024 ejecuciones y duplica con cada bifurcación; cubrir todos los pares exige 9. El cálculo supone que los defectos dependen como máximo de dos decisiones: uno que dependa de tres se escapa de los pares. 180 defectos posibles, 300 conjuntos aleatorios por fila.', note_kind='teal', foot=SINT)
 
 
 def se286_duplicados() -> Fig:
@@ -269,110 +239,83 @@ def se286_duplicados() -> Fig:
 
 
 def se286_huerfanas() -> Fig:
-    rows = [
-        ["Un responsable, sin revisión", "15,4 %", "37,8 %", "52,2 %"],
-        ["Dos responsables, sin revisión", "2,0 %", "12,8 %", "30,8 %"],
-        ["Un responsable, revisión anual", "15,4 %", "37,8 %", "52,2 %"],
-        ["Dos responsables, revisión anual", "2,0 %", "5,6 %", "8,6 %"],
-    ]
-    return tab("Automatizaciones sin responsable activo si cada responsable se va con probabilidad del 15 % al año (500 flujos)",
-               "Tabla: con un solo responsable por automatización, el 15,4 por ciento queda sin responsable al año, el 37,8 a los tres y el 52,2 a los cinco, con o sin revisión anual; con dos responsables y revisión anual con reposición queda el 2 por ciento al año, el 5,6 a los tres y el 8,6 a los cinco.",
-               ["Política", "Tras 1 año", "Tras 3 años", "Tras 5 años"], rows, [400, 170, 170, 190], row_h=44, size=13,
-               note="La revisión anual no sirve si no queda nadie a quien reasignar: solo cambia el resultado cuando hay al menos dos responsables y la revisión repone al que se fue. La tasa de salida del 15 % es un supuesto, no una medición de ninguna organización; el patrón (no basta revisar) es el hallazgo.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Automatizaciones sin responsable activo si cada responsable se va con probabilidad del 15 % al año (500 flujos)",
+        "Líneas con el porcentaje de automatizaciones sin responsable activo según los años: con un solo responsable, con o sin revisión anual, sube de 15,4 a 37,8 y 52,2 por ciento al año, a los tres y a los cinco; con dos responsables sin revisión llega a 30,8; con dos responsables y revisión anual se queda en 8,6.",
+        [("Un responsable (con o sin revisión)", [(1, 15.4, "15,4", "t"), (3, 37.8, "37,8", "t"), (5, 52.2, "52,2", "t")], "coral"),
+         ("Dos responsables, sin revisión", [(1, 2.0, "2,0", "t"), (3, 12.8, "12,8", "t"), (5, 30.8, "30,8", "t")], "gold"),
+         ("Dos responsables, revisión anual", [(1, 2.0, "", "t"), (3, 5.6, "5,6", "b"), (5, 8.6, "8,6", "b")], "teal")],
+        x_label="Años transcurridos", y_label="Automatizaciones sin responsable activo (%)", point_labels="none",
+        x_ticks=[(1, "1 año"), (3, "3 años"), (5, "5 años")], y_ticks=[0, 10, 20, 30, 40, 50, 60],
+        note='La revisión anual no sirve si no queda nadie a quien reasignar: solo cambia el resultado cuando hay al menos dos responsables y la revisión repone al que se fue. La tasa de salida del 15 % es un supuesto, no una medición de ninguna organización; el patrón (no basta revisar) es el hallazgo.', note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-287
 def se287_ranking() -> Fig:
-    rows = [
-        ["Pesos casi iguales (concentración 50)", "100 %", "99,8 %", "1,00"],
-        ["Pesos algo distintos (10)", "97,6 %", "88,4 %", "0,87"],
-        ["Pesos muy dispares (3)", "84,9 %", "71,4 %", "0,69"],
-    ]
-    return tab("Diez dominios puntuados en seis criterios: cuánto cambia el ranking al variar los pesos (5 000 sorteos)",
-               "Tabla: al perturbar los pesos de seis criterios sobre diez dominios, el primer lugar se mantiene en el 100 por ciento de los sorteos con pesos casi iguales, en el 97,6 con pesos algo distintos y en el 84,9 con pesos muy dispares; la correlación de Kendall en el percentil 5 baja de 1,00 a 0,69.",
-               ["Dispersión de los pesos", "Primer lugar igual", "Primeros dos (conjunto) iguales", "Kendall (percentil 5)"], rows, [380, 200, 230, 130], row_h=52, size=13,
-               note="El primer puesto es estable porque en este ejemplo un dominio puntúa alto en casi todo; la parte media del ranking no lo es. Los puntajes de 1 a 5 son un juicio ilustrativo del autor, no una medición de los dominios: el ejercicio muestra cómo revisar un ranking, no cuál es el orden verdadero.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Diez dominios puntuados en seis criterios: cuánto cambia el ranking al variar los pesos (5 000 sorteos)",
+        "Barras agrupadas con el porcentaje de sorteos en que se mantiene el primer lugar y el par de primeros del ranking según lo dispares que sean los pesos: con pesos casi iguales es 100 y 99,8; con pesos algo distintos 97,6 y 88,4; con pesos muy dispares 84,9 y 71,4.",
+        ["Pesos casi iguales (50)", "Pesos algo distintos (10)", "Pesos muy dispares (3)"],
+        [("Primer lugar igual", [100, 97.6, 84.9], "teal"), ("Primeros dos (conjunto) iguales", [99.8, 88.4, 71.4], "gold")],
+        unit="Sorteos en que se mantiene (%)",
+        note='El primer puesto es estable porque en este ejemplo un dominio puntúa alto en casi todo; la parte media del ranking no lo es. Los puntajes de 1 a 5 son un juicio ilustrativo del autor, no una medición de los dominios: el ejercicio muestra cómo revisar un ranking, no cuál es el orden verdadero.', note_kind='gold', foot=SINT)
 
 
 def se287_acuerdo() -> Fig:
-    rows = [
-        ["0,0", "100 %", "1,00", "0 %"],
-        ["0,5", "58,0 %", "0,84", "24,3 %"],
-        ["1,0", "36,4 %", "0,59", "61,3 %"],
-        ["1,5", "30,3 %", "0,39", "82,7 %"],
-    ]
-    return tab("Dos evaluadores puntúan los mismos 60 criterios con ruido: acuerdo y cambio en los tres primeros",
-               "Tabla: si dos evaluadores se desvían medio punto al puntuar, coinciden exactamente en el 58 por ciento de los criterios, el kappa ponderado es 0,84 y el trío de dominios más riesgosos difiere en el 24,3 por ciento de los pares; con un punto de ruido coinciden el 36,4 por ciento y el trío difiere en el 61,3.",
-               ["Ruido de cada evaluador (puntos)", "Acuerdo exacto", "Kappa ponderado", "Tres primeros distintos"], rows, [310, 200, 210, 210], row_h=44, size=13,
-               note="Un kappa de 0,84 suena alto y aun así el podio cambia en uno de cada cuatro pares de evaluadores. Antes de comparar dominios hay que calibrar la escala con ejemplos y reportar el acuerdo. 300 pares simulados; el ruido gaussiano es un modelo, no una medición de personas.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Dos evaluadores puntúan los mismos 60 criterios con ruido: acuerdo y cambio en los tres primeros",
+        "Líneas con el acuerdo exacto y el porcentaje de pares en que los tres primeros son distintos según el ruido de cada evaluador: el acuerdo baja de 100 a 58,0, 36,4 y 30,3 por ciento con 0, 0,5, 1,0 y 1,5 puntos de ruido, y los tres primeros distintos suben de 0 a 24,3, 61,3 y 82,7.",
+        [("Acuerdo exacto (%)", [(0, 100, "100,0", "r"), (0.5, 58.0, "58,0", "t"), (1.0, 36.4, "36,4", "t"), (1.5, 30.3, "30,3", "b")], "teal"),
+         ("Tres primeros distintos (%)", [(0, 0, "0,0", "t"), (0.5, 24.3, "24,3", "b"), (1.0, 61.3, "61,3", "t"), (1.5, 82.7, "82,7", "t")], "coral")],
+        x_label="Ruido de cada evaluador (puntos)", y_label="Porcentaje (%)", point_labels="none",
+        x_ticks=[(0, "0"), (0.5, "0,5"), (1.0, "1,0"), (1.5, "1,5")], y_ticks=[0, 20, 40, 60, 80, 100],
+        note='Un kappa de 0,84 suena alto y aun así el podio cambia en uno de cada cuatro pares de evaluadores. Antes de comparar dominios hay que calibrar la escala con ejemplos y reportar el acuerdo. 300 pares simulados; el ruido gaussiano es un modelo, no una medición de personas.', note_kind='coral', foot=SINT)
 
 
 def se287_cobertura() -> Fig:
-    rows = [
-        ["1", "5 de 14", "ciencia (0 %)"],
-        ["2", "8 de 14", "ML (0 %)"],
-        ["3", "10 de 14", "juegos (33 %)"],
-        ["4", "12 de 14", "audio/XR (50 %)"],
-        ["6 (cobertura voraz)", "14 de 14", "todos cubiertos"],
-    ]
-    return tab("Controles frente a 14 riesgos de diez dominios: lo que cubre una lista corta común",
-               "Tabla: los mejores 3 controles de ocho cubren 10 de los 14 riesgos distintos de diez dominios y dejan a juegos con el 33 por ciento de sus riesgos cubiertos; cubrir los 14 riesgos exige 6 controles.",
-               ["Controles elegidos", "Riesgos cubiertos", "Dominio peor cubierto"], rows, [330, 300, 300], row_h=44, size=13,
-               note="Una lista universal corta cubre mucho en promedio y deja a algún dominio casi sin protección. Los riesgos más repetidos (privacidad, duplicados, pérdida de datos) aparecen en cuatro dominios cada uno; los demás son propios de uno. La matriz de controles y riesgos es una construcción del autor.",
-               note_kind="teal", foot=SINT)
+    return line_chart(
+        "Controles frente a 14 riesgos de diez dominios: lo que cubre una lista corta común",
+        "Línea con los riesgos cubiertos, de 14, según los controles elegidos: 1 control cubre 5, 2 cubren 8, 3 cubren 10, 4 cubren 12 y 6 cubren los 14; el dominio peor cubierto pasa de ciencia con 0 por ciento a juegos con 33 y audio y realidad extendida con 50.",
+        [("Riesgos cubiertos", [(1, 5, "5 de 14 · peor: ciencia 0 %", "r"), (2, 8, "8 de 14 · peor: ML 0 %", "r"), (3, 10, "10 de 14 · peor: juegos 33 %", "r"),
+                               (4, 12, "12 de 14 · peor: audio/XR 50 %", "r"), (6, 14, "14 de 14 · todos cubiertos", "r")], "teal")],
+        x_label="Controles elegidos (de 8; el último punto es la cobertura voraz)", y_label="Riesgos cubiertos (de 14)", point_labels="none",
+        x_ticks=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, ""), (6, "6"), (7, ""), (8, "")], y_ticks=[0, 2, 4, 6, 8, 10, 12, 14, 16],
+        hlines=[(14, "14 riesgos distintos")],
+        note='Una lista universal corta cubre mucho en promedio y deja a algún dominio casi sin protección. Los riesgos más repetidos (privacidad, duplicados, pérdida de datos) aparecen en cuatro dominios cada uno; los demás son propios de uno. La matriz de controles y riesgos es una construcción del autor.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-288
 def se288_validador() -> Fig:
-    rows = [
-        ["Borrar una sección", "25 de 25"],
-        ["Vaciar una sección", "25 de 25"],
-        ["Cambiar una cifra en la sección de experimentos", "25 de 25"],
-        ["Quitar el enlace de las fuentes", "25 de 25"],
-        ["Cambiar una cifra en la afirmación", "0 de 25"],
-        ["Invertir la conclusión", "0 de 25"],
-        ["Enlazar una página inexistente", "0 de 25"],
-        ["Sustituir un límite concreto por uno genérico", "0 de 25"],
-    ]
-    return tab("Validador de forma de un dosier: mutaciones detectadas de 25 por tipo",
-               "Tabla: un validador de estructura detecta 25 de 25 mutaciones que borran o vacían una sección, cambian una cifra en la sección de experimentos o quitan el enlace; no detecta ninguna de las que cambian una cifra en la afirmación, invierten la conclusión, enlazan una página inexistente o sustituyen un límite por uno genérico.",
-               ["Mutación del dosier", "Detectada por el validador"], rows, [660, 270], row_h=38, size=13,
-               note="El validador ve la forma y las cifras que alguien le pidió cruzar; no ve el sentido. Las cuatro mutaciones que se le escapan son las que más dañan a un lector. Por eso el dosier necesita una revisión de contenido hecha por una persona, y el validador solo evita lo mecánico.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Validador de forma de un dosier: mutaciones detectadas de 25 por tipo",
+        "Barras horizontales con las mutaciones detectadas, de 25, por un validador de forma: detecta 25 de 25 al borrar o vaciar una sección, cambiar una cifra en la sección de experimentos o quitar el enlace de las fuentes, y 0 de 25 al cambiar una cifra en la afirmación, invertir la conclusión, enlazar una página inexistente o sustituir un límite concreto por uno genérico.",
+        ["Borrar una sección", "Vaciar una sección", "Cambiar una cifra en la sección de experimentos", "Quitar el enlace de las fuentes",
+         "Cambiar una cifra en la afirmación", "Invertir la conclusión", "Enlazar una página inexistente", "Sustituir un límite concreto por uno genérico"],
+        [("Detectada por el validador", [25, 25, 25, 25, 0, 0, 0, 0], "teal")],
+        unit="Mutaciones detectadas (de 25)", horizontal=True, label_w=340, ticks=[0, 5, 10, 15, 20, 25],
+        note='El validador ve la forma y las cifras que alguien le pidió cruzar; no ve el sentido. Las cuatro mutaciones que se le escapan son las que más dañan a un lector. Por eso el dosier necesita una revisión de contenido hecha por una persona, y el validador solo evita lo mecánico.', note_kind='coral', foot=SINT)
 
 
 def se288_sensibilidad() -> Fig:
-    rows = [
-        ["Licencia anual", "−17 400 a 9 600", "−0,49"],
-        ["Tarifa horaria", "−7 000 a 12 000", "+0,39"],
-        ["Horas de construcción", "−5 400 a 12 600", "+0,35"],
-        ["Horas de mantenimiento al año", "−4 800 a 11 400", "+0,31"],
-        ["Probabilidad de incidente propio", "−6 600 a 7 800", "+0,38"],
-        ["Horas de integración", "−5 400 a 3 600", "−0,16"],
-    ]
-    return tab("Construir o comprar: cuánto mueve la diferencia de coste cada supuesto (base: construir cuesta 600 más)",
-               "Tabla: la diferencia de coste entre construir y comprar vale 600 en el caso base; al variar un supuesto a la vez, la licencia anual la mueve entre menos 17400 y 9600 y la tarifa horaria entre menos 7000 y 12000; en los nueve supuestos, el signo cambia dentro de su rango, y en 20000 sorteos construir cuesta menos el 36 por ciento de las veces.",
-               ["Supuesto (uno a la vez)", "Diferencia de coste", "Correlación de Spearman"], rows, [380, 290, 260], row_h=44, size=13,
-               note="Los nueve supuestos cambian el signo de la diferencia dentro de su rango: la decisión no se sostiene en el punto base. En 20 000 sorteos construir sale más barato el 36 % de las veces. El modelo y los rangos son un ejemplo del autor, no cifras de un proveedor ni de un equipo real.",
-               note_kind="gold", foot=SINT)
+    return percentile_intervals(
+        "Construir o comprar: cuánto mueve la diferencia de coste cada supuesto (base: construir cuesta 600 más)",
+        "Intervalos horizontales con la diferencia de coste entre construir y comprar al variar cada supuesto por separado: la licencia anual la mueve de −17 400 a 9 600, la tarifa horaria de −7 000 a 12 000, las horas de construcción de −5 400 a 12 600, el mantenimiento de −4 800 a 11 400, el incidente propio de −6 600 a 7 800 y la integración de −5 400 a 3 600; todos cruzan el cero.",
+        [("Licencia anual", [-17400, 9600]), ("Tarifa horaria", [-7000, 12000]), ("Horas de construcción", [-5400, 12600]),
+         ("Horas de mantenimiento al año", [-4800, 11400]), ("Probabilidad de incidente propio", [-6600, 7800]), ("Horas de integración", [-5400, 3600])],
+        unit="Diferencia de coste construir − comprar (unidades de coste)", marks=("mínimo", "máximo"), ref_lines=[(0, "empate")], label_w=230,
+        note='Los nueve supuestos cambian el signo de la diferencia dentro de su rango: la decisión no se sostiene en el punto base. En 20 000 sorteos construir sale más barato el 36 % de las veces. El modelo y los rangos son un ejemplo del autor, no cifras de un proveedor ni de un equipo real.', note_kind='gold', foot=SINT)
 
 
 def se288_huellas() -> Fig:
-    rows = [
-        ["Cambiar de LF a CRLF", "3 de 3", "0 de 3"],
-        ["Añadir espacios al final de una línea", "3 de 3", "0 de 3"],
-        ["Quitar el salto de línea final", "3 de 3", "0 de 3"],
-        ["Reordenar las claves de un JSON", "1 de 3", "0 de 3"],
-        ["Cambiar una cifra del contenido", "3 de 3", "3 de 3"],
-    ]
-    return tab("Huella SHA-256 del paquete: cambios que la alteran con y sin canonicalizar antes",
-               "Tabla: cambiar los saltos de línea de LF a CRLF altera la huella SHA-256 de 3 de 3 ficheros si se calcula sobre los bytes y de 0 de 3 si antes se normaliza; cambiar una cifra del contenido altera la huella en ambos casos.",
-               ["Cambio sobre tres ficheros", "Huella sobre los bytes", "Huella tras canonicalizar"], rows, [440, 240, 250], row_h=44, size=13,
-               note="Una huella sobre bytes crudos avisa de cambios que no importan (saltos de línea de Windows frente a Linux) y esa alarma constante enseña a ignorarla. Canonicalizar conserva la alarma para el cambio de contenido. Lo que ninguna huella dice es si el contenido es correcto: solo si cambió.",
-               note_kind="teal", foot=SINT)
+    return heatmap(
+        "Huella SHA-256 del paquete: cambios que la alteran con y sin canonicalizar antes",
+        "Mapa de calor con los ficheros, de 3, cuya huella SHA-256 cambia según la alteración y el método: sobre los bytes cambia en 3 de 3 con un cambio de saltos de línea, espacios finales o salto final y en 1 de 3 al reordenar claves de un JSON; tras canonicalizar no cambia en ninguno, y el cambio de una cifra altera la huella en 3 de 3 en ambos métodos.",
+        ["Cambiar de LF a CRLF", "Añadir espacios al final de una línea", "Quitar el salto de línea final", "Reordenar las claves de un JSON", "Cambiar una cifra del contenido"],
+        ["Huella sobre los bytes", "Huella tras canonicalizar"],
+        [[3, 0], [3, 0], [3, 0], [1, 0], [3, 3]],
+        unit="ficheros alterados", row_title="Cambio sobre tres ficheros", col_title="Ficheros con la huella alterada (de 3)",
+        scale="coral", vmin=0, vmax=3, cell_fmt=lambda v: f"{int(v)} de 3", highlight=[(4, 0), (4, 1)], cell_h=42, label_w=250,
+        note='Una huella sobre bytes crudos avisa de cambios que no importan (saltos de línea de Windows frente a Linux) y esa alarma constante enseña a ignorarla. Canonicalizar conserva la alarma para el cambio de contenido. Lo que ninguna huella dice es si el contenido es correcto: solo si cambió.', note_kind='teal', foot=SINT)
 
 
 FIGURES = {

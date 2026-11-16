@@ -128,9 +128,9 @@ def validar(d):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). El validador detecta el 100 % de las cuatro mutaciones de forma y el 0 % de las cuatro de sentido.
 
-![Tabla con las mutaciones de un dosier y cuántas de veinticinco detecta un validador de estructura: detecta las que borran, vacían o rompen un enlace y ninguna de las que cambian el sentido.](../../../content/part-23/figures/se-288-mutaciones-de-un-dosier.svg)
+![Barras horizontales con las mutaciones detectadas, de 25, por un validador de forma: detecta 25 de 25 al borrar o vaciar una sección, cambiar una cifra en la sección de experimentos o quitar el enlace de las fuentes, y 0 de 25 al cambiar una cifra en la afirmación, invertir la conclusión, enlazar una página inexistente o sustituir un límite concreto por uno genérico.](../../../content/part-23/figures/se-288-mutaciones-de-un-dosier.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de alteración del dosier; la columna dice cuántas de 25 la detecta el validador. **Dónde deja de valer:** el validador es el del autor, hecho con las reglas que se le ocurrieron; uno con más reglas (por ejemplo, que la afirmación repita cifras de los experimentos) detectaría la cuarta mutación, pero cada regla nueva cubre un caso y deja otros fuera. La figura no dice que validar sea inútil: dice dónde termina su alcance y empieza la revisión de una persona.
+**Cómo leer la figura.** Cada barra es una mutación aplicada al dosier y su longitud es en cuántas de 25 corridas la detectó el validador. Mira cómo las barras se dividen en dos bloques: las cuatro mutaciones de forma llegan a 25 y las cuatro que alteran el sentido (cifra de la afirmación, conclusión invertida, enlace roto, límite genérico) no se ven: 0 de 25. **Dónde deja de valer:** el validador es el del autor, hecho con las reglas que se le ocurrieron; uno con más reglas (por ejemplo, que la afirmación repita cifras de los experimentos) detectaría la cuarta mutación, pero cada regla nueva cubre un caso y deja otros fuera. La figura no dice que validar sea inútil: dice dónde termina su alcance y empieza la revisión de una persona.
 
 ### Construir o comprar: qué supuestos mueven la decisión
 
@@ -156,9 +156,9 @@ def coste(p):
 
 Los nueve supuestos cambian el signo de la diferencia dentro de su rango. En los 20 000 sorteos, construir sale más barato el 36,0 % de las veces; la diferencia tiene percentil 5 de −13 132, mediana de 3 839 y percentil 95 de 23 644.
 
-![Tabla con cómo varía la diferencia de coste entre construir y comprar al mover cada supuesto en su rango y su correlación de Spearman con el resultado en veinte mil sorteos.](../../../content/part-23/figures/se-288-sensibilidad-de-supuestos.svg)
+![Intervalos horizontales con la diferencia de coste entre construir y comprar al variar cada supuesto por separado: la licencia anual la mueve de −17 400 a 9 600, la tarifa horaria de −7 000 a 12 000, las horas de construcción de −5 400 a 12 600, el mantenimiento de −4 800 a 11 400, el incidente propio de −6 600 a 7 800 y la integración de −5 400 a 3 600; todos cruzan el cero.](../../../content/part-23/figures/se-288-sensibilidad-de-supuestos.svg)
 
-**Cómo leer la figura.** Cada fila es un supuesto; la segunda columna muestra entre qué valores se mueve la diferencia cuando solo cambia ese supuesto, y la tercera su correlación con el resultado cuando todos varían a la vez. **Dónde deja de valer:** el modelo y los rangos son un ejemplo del autor, no cifras de un proveedor ni de un equipo; las distribuciones triangulares son una elección y los supuestos se tomaron independientes. Con todos los signos cambiando, la conclusión honesta es que la decisión no está sostenida por los datos y que la licencia y la tarifa son los supuestos que más valdría medir.
+**Cómo leer la figura.** Cada fila es un supuesto que se varía solo, de su valor mínimo a su valor máximo, y el eje es la diferencia de coste entre construir y comprar; la línea roja marca el empate (cero). Mira cuántos intervalos cruzan el cero: en los seis supuestos del gráfico el signo de la decisión cambia dentro del rango, y la licencia anual es el intervalo más ancho. El caso base (construir cuesta 600 más) y la correlación de Spearman están en la tabla. **Dónde deja de valer:** el modelo y los rangos son un ejemplo del autor, no cifras de un proveedor ni de un equipo; las distribuciones triangulares son una elección y los supuestos se tomaron independientes. Con todos los signos cambiando, la conclusión honesta es que la decisión no está sostenida por los datos y que la licencia y la tarifa son los supuestos que más valdría medir.
 
 ### Una huella que alerta por lo que no importa
 
@@ -182,9 +182,9 @@ huella = lambda s: hashlib.sha256(s.encode()).hexdigest()
 
 Los cuatro primeros cambios no alteran el contenido y sí alteran la huella sobre bytes; solo el último es un cambio real, y lo detectan ambas.
 
-![Tabla con cuántos de tres ficheros cambian de huella SHA-256 ante cinco alteraciones según se calcule sobre los bytes o tras canonicalizar el contenido.](../../../content/part-23/figures/se-288-huella-del-paquete.svg)
+![Mapa de calor con los ficheros, de 3, cuya huella SHA-256 cambia según la alteración y el método: sobre los bytes cambia en 3 de 3 con un cambio de saltos de línea, espacios finales o salto final y en 1 de 3 al reordenar claves de un JSON; tras canonicalizar no cambia en ninguno, y el cambio de una cifra altera la huella en 3 de 3 en ambos métodos.](../../../content/part-23/figures/se-288-huella-del-paquete.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de cambio; las columnas cuentan cuántos de tres ficheros cambian de huella con cada método. **Dónde deja de valer:** la canonicalización elimina diferencias que el autor eligió ignorar (espacios finales, orden de claves); en un lenguaje donde esos espacios importan (un fichero de configuración sensible al sangrado) esa elección sería un error. Y ninguna huella dice si el contenido es correcto: solo si cambió.
+**Cómo leer la figura.** Cada fila es una alteración de tres ficheros y cada columna la forma de calcular la huella; el número es cuántos ficheros cambian de huella y el color más oscuro es más cambios. Mira la columna de la izquierda: sobre los bytes, alteraciones que no cambian el contenido (saltos de línea, espacios) disparan la alarma; tras canonicalizar queda a cero, salvo la última fila, enmarcada, el cambio de una cifra, que alarma en ambos casos. **Dónde deja de valer:** la canonicalización elimina diferencias que el autor eligió ignorar (espacios finales, orden de claves); en un lenguaje donde esos espacios importan (un fichero de configuración sensible al sangrado) esa elección sería un error. Y ninguna huella dice si el contenido es correcto: solo si cambió.
 
 ## Definiciones de trabajo
 

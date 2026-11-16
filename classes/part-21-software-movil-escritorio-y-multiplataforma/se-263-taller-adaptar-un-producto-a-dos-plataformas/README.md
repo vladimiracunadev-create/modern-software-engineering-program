@@ -159,9 +159,9 @@ def contrato(mk):
 
 Resultado: el adaptador correcto devuelve una lista vacía de fallos; el que no sobrescribe falla `sobrescribir`; el que lanza al borrar lo ausente termina con una excepción (`KeyError`); el que lista al revés falla `orden`; y el que devuelve cadena vacía falla `ausente` y `borrar`. Las **cuatro** mutaciones se detectan. Un contrato así, ejecutado también contra el adaptador real de cada plataforma, impide que el doble de pruebas prometa más que ella.
 
-![Tabla con un adaptador de almacenamiento correcto y cuatro mutaciones, las comprobaciones del contrato que fallan y el resultado.](../../../content/part-21/figures/se-263-mutantes-de-un-adaptador.svg)
+![Diagrama de flujo de un adaptador de almacenamiento falso y cuatro mutaciones: el contrato de cinco comprobaciones pasa el adaptador correcto y detecta las cuatro mutaciones, una de ellas con una excepción, otra con dos comprobaciones fallidas.](../../../content/part-21/figures/se-263-mutantes-de-un-adaptador.svg)
 
-**Cómo leer la figura.** Cada fila es un adaptador; la columna central dice qué comprobaciones fallan y la derecha el resultado del contrato, siempre en texto además del color. **Dónde deja de valer:** las cuatro mutaciones las escribió el autor conociendo el contrato; defectos que nadie imaginó no están en la lista. El contrato prueba un puerto sencillo en memoria: contra un disco real, aparecen los errores de la clase anterior (nombres, rutas, bloqueos).
+**Cómo leer la figura.** Cada fila es un adaptador y las flechas llevan a las comprobaciones del contrato que fallan y al resultado, en texto además del color. Mira primero que el adaptador correcto pasa y que las cuatro mutaciones terminan detectadas. **Dónde deja de valer:** las cuatro mutaciones las escribió el autor conociendo el contrato; defectos que nadie imaginó no están en la lista. El contrato prueba un puerto sencillo en memoria: contra un disco real, aparecen los errores de la clase anterior (nombres, rutas, bloqueos).
 
 ## Definiciones de trabajo
 

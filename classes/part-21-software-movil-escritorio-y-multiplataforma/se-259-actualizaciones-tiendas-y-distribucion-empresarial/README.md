@@ -111,9 +111,9 @@ def adopcion(p_dia, dias, n=10000, seed=259):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu (3.12.3): con p = 0,35, **34,6 %** a un día, **95,0 %** a siete y **99,9 %** a catorce; con p = 0,10, **10,2 %**, **52,2 %** y **77,1 %**, y **95,6 %** a treinta; con p = 0,03, **3,1 %**, **18,6 %**, **34,3 %** y **59,2 %** a treinta; con p = 0,01, **1,0 %**, **6,8 %**, **13,5 %** y **26,2 %** a treinta, y **45,9 %** a sesenta. La misma versión tarda una semana o un trimestre según quién decida la fecha.
 
-![Tabla con el porcentaje de la base instalada que tiene la versión nueva a 1, 7, 14 y 30 días para cuatro canales.](../../../content/part-21/figures/se-259-adopcion-segun-el-canal.svg)
+![Líneas con el porcentaje de instalaciones con la versión nueva a 1, 7, 14 y 30 días según el canal: con actualización automática 34,6, 95,0, 99,9 y 100 por ciento; mixta 10,2, 52,2, 77,1 y 95,6; manual 3,1, 18,6, 34,3 y 59,2; empresarial con ventana 1,0, 6,8, 13,5 y 26,2.](../../../content/part-21/figures/se-259-adopcion-segun-el-canal.svg)
 
-**Cómo leer la figura.** Cada fila es un canal y cada columna un plazo en días; las celdas verdes son adopciones cercanas al total y las coral las que dejan a la mayoría en la versión vieja. **Dónde deja de valer:** una probabilidad diaria constante no describe a nadie: las poblaciones reales tienen una cola larga de instalaciones que no se actualizan nunca y picos tras una notificación. Los valores de p son supuestos del autor; se mide con la telemetría propia.
+**Cómo leer la figura.** El eje horizontal son los días desde la publicación y el vertical, el porcentaje de instalaciones con la versión nueva; cada línea es un canal de actualización. Mira primero cómo la línea automática llega casi a 100 % en una semana mientras la empresarial sigue en 26,2 % a los 30 días. **Dónde deja de valer:** una probabilidad diaria constante no describe a nadie: las poblaciones reales tienen una cola larga de instalaciones que no se actualizan nunca y picos tras una notificación. Los valores de p son supuestos del autor; se mide con la telemetría propia.
 
 ### Cuántos clientes rompe retirar un campo
 
@@ -129,9 +129,9 @@ def rotos(p, dias_hasta_retirar, n=10000, seed=2592):
 
 Resultado: con el canal automático se rompen **4,5 %** si se retira a los 7 días y **0 %** a partir de 30; con el mixto, **47,1 %**, **4,1 %** y **0 %**; con el manual, **80,9 %**, **39,8 %**, **6,2 %** y **0,3 %** a 180 días; con el empresarial, **93,2 %**, **73,7 %**, **40,2 %** y **16,7 %** a 180 días. Retirar a los 30 días rompe a casi tres de cada cuatro clientes de un canal empresarial lento.
 
-![Tabla con el porcentaje de clientes en la versión vieja al retirar un campo a los 7, 30, 90 y 180 días en cuatro canales.](../../../content/part-21/figures/se-259-clientes-viejos-al-retirar-un-campo.svg)
+![Líneas con el porcentaje de clientes que aún usa la versión vieja al retirar un campo del servidor a los 7, 30, 90 y 180 días: con canal automático 4,5, 0, 0 y 0 por ciento; mixto 47,1, 4,1, 0 y 0; manual 80,9, 39,8, 6,2 y 0,3; empresarial 93,2, 73,7, 40,2 y 16,7.](../../../content/part-21/figures/se-259-clientes-viejos-al-retirar-un-campo.svg)
 
-**Cómo leer la figura.** Cada celda es el porcentaje de clientes que seguiría necesitando el campo en la fecha de retirada; las verdes son retiradas seguras y las coral rompen a una fracción grande. **Dónde deja de valer:** el modelo supone que todo cliente se actualiza más tarde o más temprano; en la práctica hay instalaciones que no lo hacen, y una cola del 1 % puede ser un departamento entero. La decisión se toma con la distribución de versiones reales del servidor.
+**Cómo leer la figura.** El eje horizontal son los días hasta retirar el campo y el vertical, el porcentaje de clientes que aún usa la versión vieja; cada línea es un canal. Mira primero cómo las líneas bajan con el plazo y cuál se queda arriba: con canal empresarial, a los 180 días queda el 16,7 %. **Dónde deja de valer:** el modelo supone que todo cliente se actualiza más tarde o más temprano; en la práctica hay instalaciones que no lo hacen, y una cola del 1 % puede ser un departamento entero. La decisión se toma con la distribución de versiones reales del servidor.
 
 ### Descargar solo los bloques que cambiaron
 

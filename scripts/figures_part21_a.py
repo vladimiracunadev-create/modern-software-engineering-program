@@ -1,8 +1,10 @@
 """Figures for SE-253 to SE-258 (synthetic models with fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, stacked_bars
+from figures_part07_a import bars
+
 
 SINT = "Modelo sintético con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2), salvo los tiempos indicados."
 TIEMPO = "Tiempos medidos en un equipo (Windows 11, CPython 3.12.9); en Ubuntu (WSL2) la forma se repite con otras cifras."
@@ -10,18 +12,16 @@ TIEMPO = "Tiempos medidos en un equipo (Windows 11, CPython 3.12.9); en Ubuntu (
 
 # ---------------------------------------------------------------- SE-253
 def se253_ancho() -> Fig:
-    rows = [
-        ["320 px", "3 de 12 sin desplazar; el resto exige desplazamiento horizontal", "12 de 12 en 6 filas"],
-        ["390 px", "3 de 12 sin desplazar", "12 de 12 en 4 filas"],
-        ["768 px", "7 de 12 sin desplazar", "12 de 12 en 2 filas"],
-        ["1024 px", "10 de 12 sin desplazar", "12 de 12 en 2 filas"],
-        ["1280 px", "12 de 12 en una fila", "12 de 12 en una fila"],
-    ]
-    return tab("Doce controles según el ancho de ventana: diseño fijo frente a diseño adaptable",
-               "Tabla con cinco anchos de ventana de 320 a 1280 píxeles: un diseño de una sola fila de 1200 píxeles deja visibles 3, 3, 7, 10 y 12 de doce controles, y un diseño que se reparte en filas muestra los doce en 6, 4, 2, 2 y 1 filas.",
-               ["Ancho", "Diseño fijo de una fila (100 px por control)", "Diseño adaptable (104 px por columna)"], rows, [110, 520, 360], row_h=46, size=12,
-               note="El modelo cuenta solo geometría: no mide legibilidad, tamaño táctil ni orden de lectura. Reflujo no significa buen diseño, pero un diseño de escritorio fijo deja inalcanzables nueve de doce controles en una pantalla de 320 px.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Controles que se ven sin desplazar según el ancho de ventana: diseño fijo frente a diseño adaptable",
+        "Líneas con los controles, de doce, que se ven sin desplazar según el ancho de ventana: un diseño fijo de una fila de 1200 píxeles deja visibles 3, 3, 7, 10 y 12 con anchos de 320, 390, 768, 1024 y 1280 píxeles; un diseño adaptable muestra los doce en todos, en 6, 4, 2, 2 y 1 filas.",
+        [("Diseño fijo de una fila (100 px por control)", [(320, 3, "3", "b"), (390, 3, "3", "b"), (768, 7, "7", "b"), (1024, 10, "10", "b"), (1280, 12, "12", "b")], "coral"),
+         ("Diseño adaptable (104 px por columna)", [(320, 12, "12 en 6 filas", "t"), (390, 12, "12 en 4 filas", "t"), (768, 12, "12 en 2 filas", "t"),
+                                                    (1024, 12, "12 en 2 filas", "t"), (1280, 12, "12 en 1 fila", "t")], "teal")],
+        x_label="Ancho de ventana (px)", y_label="Controles visibles sin desplazar (de 12)",
+        x_ticks=[(320, "320"), (390, "390"), (768, "768"), (1024, "1024"), (1280, "1280")], y_ticks=[0, 3, 6, 9, 12, 15], point_labels="none",
+        note="El modelo cuenta solo geometría: no mide legibilidad, tamaño táctil ni orden de lectura. Reflujo no significa buen diseño, pero un diseño de escritorio fijo deja inalcanzables nueve de doce controles en una pantalla de 320 px; con el resto de controles exige desplazamiento horizontal.",
+        note_kind="gold", foot=SINT)
 
 
 def se253_instancias() -> Fig:
@@ -66,17 +66,16 @@ def se254_ganchos() -> Fig:
 
 
 def se254_migraciones() -> Fig:
-    rows = [
-        ["Estricta (rechaza otra versión)", "2000 de 2000", "2000 de 2000", "2000 de 2000"],
-        ["Valores por defecto para campos nuevos", "0", "0", "2000 de 2000"],
-        ["Migraciones paso a paso (v1→v2→v3→v4)", "0", "0", "0"],
-    ]
-    return tab("Restaurar un estado guardado por la versión 1 con la versión 2, 3 o 4",
-               "Tabla de tres políticas de lectura: la estricta falla en las 2000 restauraciones con cada versión, los valores por defecto fallan solo cuando cambia la forma de un campo existente en la versión 4, y las migraciones encadenadas no fallan.",
-               ["Política de lectura", "Versión 2", "Versión 3", "Versión 4 (cambia la forma del cursor)"], rows, [380, 170, 170, 290], row_h=50, size=12,
-               kinds=["plain", "teal", "teal", "gold"],
-               note="Los valores por defecto sirven mientras solo se añaden campos. Cuando un campo cambia de forma (un número pasa a ser un par línea y columna) hace falta una migración explícita y una prueba que restaure un estado guardado por cada versión anterior.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        "Restaurar un estado guardado por la versión 1 con la versión 2, 3 o 4: restauraciones fallidas de 2000",
+        "Mapa de calor con las restauraciones fallidas de 2000 de un estado guardado por la versión 1: la política estricta falla las 2000 con la versión 2, la 3 y la 4; los valores por defecto para campos nuevos no fallan con la 2 ni la 3 y fallan las 2000 con la 4, que cambia la forma del cursor; las migraciones paso a paso no fallan nunca.",
+        ["Estricta (rechaza otra versión)", "Valores por defecto para campos nuevos", "Migraciones paso a paso (v1→v2→v3→v4)"],
+        ["Versión 2", "Versión 3", "Versión 4 (cambia la forma del cursor)"],
+        [[2000, 2000, 2000], [0, 0, 2000], [0, 0, 0]],
+        unit="restauraciones fallidas de 2000", row_title="Política de lectura", col_title="Versión que restaura el estado",
+        scale="coral", vmin=0, vmax=2000, decimals=0, cell_h=56, label_w=250,
+        note="Los valores por defecto sirven mientras solo se añaden campos. Cuando un campo cambia de forma (un número pasa a ser un par línea y columna) hace falta una migración explícita y una prueba que restaure un estado guardado por cada versión anterior.",
+        note_kind="gold", foot=SINT)
 
 
 def se254_coste() -> Fig:
@@ -148,16 +147,16 @@ def se256_transacciones() -> Fig:
 
 def se256_caida() -> Fig:
     rows = [
-        ["Abrir el archivo y escribir encima", "Se corta a la mitad del contenido", "Documento corrupto (no es JSON válido)"],
-        ["Escribir un temporal y reemplazar al final", "Se corta con el temporal a medias", "Documento anterior intacto y válido"],
-        ["SQLite con 1000 inserciones sin confirmar", "El proceso termina dentro de la transacción", "1 fila (la anterior), integridad correcta"],
+        [("Abrir el archivo y escribir encima", "plain"), ("El proceso se corta a la mitad del contenido", "gold"), ("Documento corrupto (no es JSON válido)", "coral")],
+        [("Escribir un temporal y reemplazar al final", "plain"), ("El proceso se corta con el temporal a medias", "gold"), ("Documento anterior intacto y válido", "teal")],
+        [("SQLite con 1000 inserciones sin confirmar", "plain"), ("El proceso termina dentro de la transacción", "gold"), ("1 fila (la anterior), integridad correcta", "teal")],
     ]
-    return tab("Terminar el proceso a mitad de una escritura: tres formas de guardar",
-               "Tabla con tres formas de guardar un documento local y qué queda tras terminar el proceso a mitad de la escritura: el archivo sobrescrito queda corrupto, el temporal con reemplazo conserva el anterior y SQLite conserva la última transacción confirmada.",
-               ["Forma de guardar", "Qué ocurre", "Resultado observado"], rows, [340, 330, 330], row_h=52, size=12,
-               kinds=["plain", "plain", ("coral", "teal", "teal")],
-               note="El experimento termina el proceso, no corta la corriente: no prueba lo que ocurre si el sistema operativo pierde la caché de escritura. Esa garantía depende de la sincronización con el disco y del soporte, algo que aquí no se midió.",
-               note_kind="coral", foot="Procesos hijo terminados con os._exit; mismo resultado en Windows y Ubuntu (WSL2).")
+    return chain_rows(
+        "Terminar el proceso a mitad de una escritura: tres formas de guardar",
+        "Diagrama de flujo de tres formas de guardar un documento local y de lo que queda tras terminar el proceso a mitad de la escritura: el archivo sobrescrito queda corrupto, el temporal con reemplazo conserva el anterior y SQLite conserva la última transacción confirmada.",
+        ["Forma de guardar", "Qué ocurre", "Resultado observado"], rows, [300, 260, 260],
+        note="El experimento termina el proceso, no corta la corriente: no prueba lo que ocurre si el sistema operativo pierde la caché de escritura. Esa garantía depende de la sincronización con el disco y del soporte, algo que aquí no se midió.",
+        note_kind="coral", foot="Procesos hijo terminados con os._exit; mismo resultado en Windows y Ubuntu (WSL2).")
 
 
 def se256_fusion() -> Fig:
@@ -174,18 +173,14 @@ def se256_fusion() -> Fig:
 
 # ---------------------------------------------------------------- SE-257
 def se257_estados() -> Fig:
-    rows = [
-        ["Estados por permiso", "6", "concedido, denegado, denegado sin volver a preguntar, revocado en ajustes, restringido por política, solo aproximado"],
-        ["Combinaciones de 4 permisos", "1296", "6 elevado a 4: probarlas todas a mano no escala"],
-        ["Combinaciones con código que asume «concedido»", "1280 fallan (98,8 %)", "con estados uniformes; los usuarios reales no se reparten así"],
-        ["Combinaciones con «solo aproximado» y sin fallo", "15", "resultado engañoso sin ninguna excepción: la ubicación parece precisa"],
-    ]
-    return tab("Estados de un permiso y combinaciones de cuatro capacidades",
-               "Tabla: seis estados por permiso y cuatro permisos dan 1296 combinaciones; un código que asume que el permiso está concedido falla en 1280, y 15 combinaciones con acceso solo aproximado devuelven un resultado engañoso sin lanzar ninguna excepción.",
-               ["Magnitud", "Valor", "Qué significa"], rows, [310, 190, 510], row_h=60, size=12,
-               kinds=["plain", "gold", "plain"],
-               note="El reparto uniforme de estados es un supuesto del autor, no una medición de personas. La conclusión sólida es de forma: cada capacidad necesita un camino para cada estado, y el estado «aproximado» es el que no falla pero engaña.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Estados de un permiso y combinaciones de cuatro capacidades",
+        "Barras horizontales en escala logarítmica: seis estados por permiso y cuatro permisos dan 1296 combinaciones; un código que asume que el permiso está concedido falla en 1280 y 15 combinaciones con acceso solo aproximado devuelven un resultado engañoso sin lanzar ninguna excepción.",
+        ["Estados por permiso", "Combinaciones de 4 permisos (6 elevado a 4)", "Combinaciones en que falla el código que asume «concedido» (98,8 %)", "Combinaciones con «solo aproximado» y sin fallo: resultado engañoso"],
+        [("Cantidad", [6, 1296, 1280, 15], "gold")],
+        unit="Cantidad", horizontal=True, log=True, label_w=370, ticks=[1, 10, 100, 1000, 10000],
+        note="Los seis estados son concedido, denegado, denegado sin volver a preguntar, revocado en ajustes, restringido por política y solo aproximado. El reparto uniforme de estados es un supuesto del autor, no una medición de personas. La conclusión sólida es de forma: cada capacidad necesita un camino para cada estado, y el estado «aproximado» es el que no falla pero engaña.",
+        note_kind="gold", foot=SINT)
 
 
 def se257_revocacion() -> Fig:
@@ -216,34 +211,26 @@ def se257_ubicacion() -> Fig:
 
 # ---------------------------------------------------------------- SE-258
 def se258_toque() -> Fig:
-    rows = [
-        ["3 mm", "29,5 %", "14,6 %", "8,5 %"],
-        ["5 mm", "61,8 %", "34,8 %", "21,4 %"],
-        ["7 mm", "84,4 %", "56,7 %", "37,7 %"],
-        ["9 mm", "95,0 %", "74,9 %", "54,0 %"],
-        ["12 mm", "99,5 %", "90,9 %", "74,9 %"],
-    ]
-    return tab("Toques simulados que caen dentro de un objetivo cuadrado según su lado y el error del dedo",
-               "Tabla de acierto de 20 000 toques simulados con error gaussiano de 2, 3 y 4 milímetros: un objetivo de 3 mm acierta 29,5, 14,6 y 8,5 por ciento, y uno de 12 mm acierta 99,5, 90,9 y 74,9 por ciento.",
-               ["Lado del objetivo", "Error 2 mm", "Error 3 mm", "Error 4 mm"], rows, [260, 240, 240, 240], row_h=44, size=13,
-               note="El error del dedo es un supuesto del autor, no una medición de personas ni de pantallas: sirve para mostrar la forma de la curva. El acierto crece rápido hasta unos 9 mm y después apenas; la recomendación de cada guía de plataformas debe verificarse con usuarios reales.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        "Toques simulados que caen dentro de un objetivo cuadrado según su lado y el error del dedo",
+        "Mapa de calor con el acierto de 20 000 toques simulados con error gaussiano de 2, 3 y 4 milímetros: un objetivo de 3 mm acierta 29,5, 14,6 y 8,5 por ciento, uno de 9 mm 95,0, 74,9 y 54,0 y uno de 12 mm 99,5, 90,9 y 74,9.",
+        ["3 mm", "5 mm", "7 mm", "9 mm", "12 mm"], ["Error 2 mm", "Error 3 mm", "Error 4 mm"],
+        [[29.5, 14.6, 8.5], [61.8, 34.8, 21.4], [84.4, 56.7, 37.7], [95.0, 74.9, 54.0], [99.5, 90.9, 74.9]],
+        unit="% de toques dentro del objetivo", row_title="Lado del objetivo", col_title="Error del dedo (desviación)",
+        scale="teal", vmin=0, vmax=100, decimals=1, suffix=" %", cell_h=44, label_w=120,
+        note="El error del dedo es un supuesto del autor, no una medición de personas ni de pantallas: sirve para mostrar la forma de la curva. El acierto crece rápido hasta unos 9 mm y después apenas; la recomendación de cada guía de plataformas debe verificarse con usuarios reales.",
+        note_kind="gold", foot=SINT)
 
 
 def se258_foco() -> Fig:
-    rows = [
-        ["Orden de foco correcto (14 controles)", "0 %", "0"],
-        ["Un control que retiene el foco (trampa)", "100 %", "6,49"],
-        ["Un salto que se salta un control", "100 %", "1,00"],
-        ["Un control visible fuera del orden", "100 %", "0,92"],
-        ["Un recorrido que vuelve al inicio antes de tiempo", "100 %", "6,23"],
-    ]
-    return tab("Recorrer con el tabulador un orden de foco con un defecto: lo que detecta un recorrido automático",
-               "Tabla de 1000 interfaces sintéticas de 14 controles por tipo de defecto: un recorrido que sigue el orden de foco detecta el 100 por ciento de las trampas, saltos, controles fuera del orden y ciclos anticipados, y deja 6,49, 1,00, 0,92 y 6,23 controles inalcanzables en media.",
-               ["Defecto del orden de foco", "Detectado por el recorrido", "Controles inalcanzables (media)"], rows, [450, 260, 290], row_h=46, size=13,
-               kinds=["plain", "teal", "gold"],
-               note="El recorrido encuentra defectos de alcance, no de sentido: un orden completo que salta de la derecha a la izquierda sin lógica visual sigue siendo inalcanzable para quien necesita entender dónde está. Ese juicio requiere a una persona que use el teclado o un lector de pantalla.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Controles inalcanzables (media de 1000 interfaces de 14 controles) según el defecto del orden de foco; el recorrido detecta el defecto en el 100 % de los casos con defecto",
+        "Barras horizontales con los controles inalcanzables en media por tipo de defecto del orden de foco: 0 con el orden correcto, 6,49 con una trampa de foco, 1,00 con un salto que se salta un control, 0,92 con un control visible fuera del orden y 6,23 con un recorrido que vuelve al inicio antes de tiempo; un recorrido automático detecta el 100 por ciento de los defectos.",
+        ["Orden de foco correcto", "Un control que retiene el foco (trampa)", "Un salto que se salta un control", "Un control visible fuera del orden", "Un recorrido que vuelve al inicio antes de tiempo"],
+        [("Controles inalcanzables", [0, 6.49, 1.00, 0.92, 6.23], "coral")],
+        unit="Controles inalcanzables (media, de 14)", horizontal=True, label_w=320, ticks=[0, 2, 4, 6, 8], decimals=2,
+        note="El recorrido encuentra defectos de alcance, no de sentido: un orden completo que salta de la derecha a la izquierda sin lógica visual sigue siendo inalcanzable para quien necesita entender dónde está. Ese juicio requiere a una persona que use el teclado o un lector de pantalla.",
+        note_kind="gold", foot=SINT)
 
 
 def se258_contraste() -> Fig:

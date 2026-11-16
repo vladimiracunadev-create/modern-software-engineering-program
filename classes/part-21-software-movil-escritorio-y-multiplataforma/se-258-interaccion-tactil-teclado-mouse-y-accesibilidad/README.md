@@ -114,9 +114,9 @@ def hit(size, sigma, N, seed):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y Ubuntu (3.12.3): con error de 2 mm, un objetivo de 3 mm acierta **29,5 %**, uno de 7 mm **84,4 %** y uno de 12 mm **99,5 %**; con error de 4 mm, los mismos tamaños aciertan **8,5 %**, **37,7 %** y **74,9 %**. La curva sube rápido y se aplana: pasar de 3 a 7 mm triplica el acierto con error de 2 mm, y pasar de 9 a 12 mm lo mejora cuatro puntos.
 
-![Tabla con el acierto de toques simulados en objetivos de 3 a 12 milímetros con errores de 2, 3 y 4 milímetros.](../../../content/part-21/figures/se-258-acierto-segun-el-tamano-del-objetivo.svg)
+![Mapa de calor con el acierto de 20 000 toques simulados con error gaussiano de 2, 3 y 4 milímetros: un objetivo de 3 mm acierta 29,5, 14,6 y 8,5 por ciento, uno de 9 mm 95,0, 74,9 y 54,0 y uno de 12 mm 99,5, 90,9 y 74,9.](../../../content/part-21/figures/se-258-acierto-segun-el-tamano-del-objetivo.svg)
 
-**Cómo leer la figura.** Cada fila es el lado del objetivo y cada columna el error supuesto del dedo; los porcentajes son el acierto de 20 000 toques simulados. **Dónde deja de valer:** el error es gaussiano, sin sesgo ni temblor, y se supuso; las personas reales tienen errores que dependen de la mano, de la postura y de la pantalla. No se midió a nadie: el valor está en ver que el tamaño y la dispersión, juntos, deciden el acierto.
+**Cómo leer la figura.** Es un mapa de calor: cada fila es el lado del objetivo, cada columna el error supuesto del dedo y el color de cada recuadro, el porcentaje de acierto de 20 000 toques simulados. Mira primero cómo el verde se oscurece hacia abajo y a la izquierda, y que desde unos 9 mm la ganancia es pequeña. **Dónde deja de valer:** el error es gaussiano, sin sesgo ni temblor, y se supuso; las personas reales tienen errores que dependen de la mano, de la postura y de la pantalla. No se midió a nadie: el valor está en ver que el tamaño y la dispersión, juntos, deciden el acierto.
 
 ### Recorrer el orden de foco
 
@@ -133,9 +133,9 @@ detectado = (alcanzados < 14) or trampa or not vuelve
 
 Resultado: el recorrido no marca nada en el orden correcto (**0 %** de falsos positivos) y detecta el **100 %** de los cuatro defectos, con **6,49** controles inalcanzables en media para una trampa, **1,00** para un salto, **0,92** para un control fuera del orden y **6,23** para un ciclo anticipado. Las trampas y los ciclos son las más graves porque bloquean casi la mitad de la interfaz.
 
-![Tabla con cuatro defectos del orden de foco, el porcentaje que detecta un recorrido automático y los controles inalcanzables en media.](../../../content/part-21/figures/se-258-orden-de-foco-defectuoso.svg)
+![Barras horizontales con los controles inalcanzables en media por tipo de defecto del orden de foco: 0 con el orden correcto, 6,49 con una trampa de foco, 1,00 con un salto que se salta un control, 0,92 con un control visible fuera del orden y 6,23 con un recorrido que vuelve al inicio antes de tiempo; un recorrido automático detecta el 100 por ciento de los defectos.](../../../content/part-21/figures/se-258-orden-de-foco-defectuoso.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de defecto; la columna central es el porcentaje de 1000 interfaces en que el recorrido lo detecta y la derecha cuántos controles quedan fuera de alcance. **Dónde deja de valer:** el grafo es una cadena circular simplificada; una interfaz real tiene regiones, ventanas modales y orden dependiente del contexto. El recorrido ve alcance, no sentido: un orden completo pero caótico pasa la prueba y es inutilizable.
+**Cómo leer la figura.** Cada barra son los controles de 14 que quedan fuera de alcance en media con un tipo de defecto del orden de foco; el título recuerda que el recorrido detecta el 100 % de los defectos. Mira primero las dos barras largas, la trampa de foco y el recorrido que vuelve al inicio, frente a las que apenas pierden un control. **Dónde deja de valer:** el grafo es una cadena circular simplificada; una interfaz real tiene regiones, ventanas modales y orden dependiente del contexto. El recorrido ve alcance, no sentido: un orden completo pero caótico pasa la prueba y es inutilizable.
 
 ### Calcular el contraste
 

@@ -141,9 +141,9 @@ def leer(blob, ver, politica):
 
 Resultado: la política estricta falla en **2000 de 2000** restauraciones con las versiones 2, 3 y 4; los valores por defecto funcionan con las versiones 2 y 3 (**0 fallos**) pero fallan en **2000 de 2000** con la 4, porque cambia la forma de un campo existente; las migraciones no fallan nunca. Las dos primeras políticas parecen correctas hasta el día en que alguien cambia un campo.
 
-![Tabla con tres políticas de lectura de estado guardado y sus fallos al restaurar con las versiones 2, 3 y 4.](../../../content/part-21/figures/se-254-restaurar-tras-actualizar.svg)
+![Mapa de calor con las restauraciones fallidas de 2000 de un estado guardado por la versión 1: la política estricta falla las 2000 con la versión 2, la 3 y la 4; los valores por defecto para campos nuevos no fallan con la 2 ni la 3 y fallan las 2000 con la 4, que cambia la forma del cursor; las migraciones paso a paso no fallan nunca.](../../../content/part-21/figures/se-254-restaurar-tras-actualizar.svg)
 
-**Cómo leer la figura.** Cada fila es una política y cada columna la versión que restaura el estado de la versión 1; las celdas verdes no fallan y la dorada marca el cambio de forma de un campo existente. **Dónde deja de valer:** las migraciones del experimento son tres funciones puras sobre un diccionario. Un estado real tiene archivos adjuntos, referencias y datos grandes que no se migran con una función; y solo se probó la ruta de la versión 1 a cada versión, no cualquier combinación.
+**Cómo leer la figura.** Es un mapa de calor: cada fila es una política de lectura, cada columna la versión que restaura el estado guardado por la versión 1 y el color de cada recuadro, las restauraciones fallidas de 2000. Mira primero la fila de arriba toda oscura, el recuadro oscuro aislado de los valores por defecto en la versión 4, que cambia la forma de un campo, y la fila de abajo sin fallos. **Dónde deja de valer:** las migraciones del experimento son tres funciones puras sobre un diccionario. Un estado real tiene archivos adjuntos, referencias y datos grandes que no se migran con una función; y solo se probó la ruta de la versión 1 a cada versión, no cualquier combinación.
 
 ### Lo que cuesta guardar
 

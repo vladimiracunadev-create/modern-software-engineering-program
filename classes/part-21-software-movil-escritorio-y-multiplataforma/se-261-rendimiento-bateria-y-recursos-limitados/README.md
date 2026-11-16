@@ -111,9 +111,9 @@ ventana = lambda: ['%s · %d' % (x['t'], x['n']) for x in items[5000 % n:5000 % 
 
 Resultado en Windows: **0,50 ms**, **14,57 ms** y **103,2 ms** para todos los elementos (1000, 10 000 y 100 000), frente a **0,027**, **0,030** y **0,031 ms** para la ventana de 20: razones de 18, 485 y 3370 veces. En Ubuntu bajo WSL2 fueron 0,44, 3,14 y 42,9 ms completos y de 0,006 a 0,012 ms para la ventana. El tiempo de la ventana no depende del tamaño de la lista y el de la lista completa crece casi linealmente.
 
-![Tabla con el tiempo de construir las etiquetas de toda la lista frente a una ventana de 20 elementos para tres tamaños de lista.](../../../content/part-21/figures/se-261-lista-completa-o-ventana.svg)
+![Barras agrupadas en escala logarítmica con el tiempo en Windows de construir las etiquetas de toda la lista, 0,50, 14,57 y 103,2 milisegundos con 1000, 10 000 y 100 000 elementos, o solo una ventana de 20, 0,027, 0,030 y 0,031; la razón sube de 18 a 3370 veces.](../../../content/part-21/figures/se-261-lista-completa-o-ventana.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de lista; la segunda columna es el tiempo de todos los elementos, la tercera el de la ventana y la cuarta la razón entre ambos. **Dónde deja de valer:** es un proxy de concatenación de cadenas en Python: no mide dibujo, diseño ni memoria. Una lista real tiene un coste por elemento visible mucho mayor, así que la ventana cuesta más y la razón es menor; la forma (el coste de la ventana es constante) se mantiene.
+**Cómo leer la figura.** Cada grupo es un tamaño de lista y cada barra el tiempo de construir las etiquetas, en escala logarítmica: cada marca vale diez veces la anterior. Mira primero que la barra de la ventana (verde) mide lo mismo en los tres grupos y la de todos los elementos (coral) crece con la lista. **Dónde deja de valer:** es un proxy de concatenación de cadenas en Python: no mide dibujo, diseño ni memoria. Una lista real tiene un coste por elemento visible mucho mayor, así que la ventana cuesta más y la razón es menor; la forma (el coste de la ventana es constante) se mantiene.
 
 ### Sondeo, lote y empuje
 
@@ -128,9 +128,9 @@ lat = [min((t for t in despertares if t >= x), default=horas*3600) - x for x in 
 
 Resultado: el sondeo cada 30 s cuesta **1 440 000** unidades con **15,3 s** de latencia media y 2880 despertares; cada 5 min, **144 000** con **157,1 s** y 288; cada 15 min, **48 000** con **407,1 s** y 96; el lote por hora, **12 000** con **1794,6 s** y 24; el empuje, **24 000** con **0 s** y 48 despertares. El empuje es el doble de caro que el lote pero entrega al instante; el sondeo frecuente es sesenta veces más caro que el empuje.
 
-![Tabla con la energía, la latencia media y los despertares de sondeo, lote y empuje para 48 eventos en un día.](../../../content/part-21/figures/se-261-sondeo-empuje-y-lotes.svg)
+![Dispersión de la energía, en unidades arbitrarias y escala logarítmica, frente a la latencia media de cinco políticas para 48 eventos en 24 horas: el sondeo cada 30 segundos gasta 1 440 000 con 15,3 s; cada 5 minutos 144 000 con 157,1 s; cada 15 minutos 48 000 con 407,1 s; el lote cada hora 12 000 con 1794,6 s; el empuje 24 000 con latencia 0.](../../../content/part-21/figures/se-261-sondeo-empuje-y-lotes.svg)
 
-**Cómo leer la figura.** Cada fila es una política; las celdas coral son las más caras y las verdes las más baratas o con menos latencia. **Dónde deja de valer:** los costes son supuestos del autor en unidades arbitrarias; no se midió ningún radio, red ni batería. El modelo ignora que un empuje requiere un servicio del fabricante y que las plataformas pueden retrasar el trabajo en segundo plano.
+**Cómo leer la figura.** Cada punto es una política: el eje horizontal es la latencia media, el vertical la energía en escala logarítmica y cada marcador, una política distinta. Mira primero que ningún punto está a la vez abajo y a la izquierda, salvo el empuje: sondear a menudo gasta energía y esperar un lote cuesta retraso. **Dónde deja de valer:** los costes son supuestos del autor en unidades arbitrarias; no se midió ningún radio, red ni batería. El modelo ignora que un empuje requiere un servicio del fabricante y que las plataformas pueden retrasar el trabajo en segundo plano.
 
 ### Cuánta memoria compra una caché
 

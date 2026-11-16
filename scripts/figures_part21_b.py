@@ -1,8 +1,10 @@
 """Figures for SE-259 to SE-264 (synthetic models with fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3 unless a time is shown)."""
 from __future__ import annotations
 
-from figure_kit import Fig
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, grouped_bars, line_chart, scatter, stacked_bars
 from figures_part07_a import bars, tab
+
 
 SINT = "Modelo sintético con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2), salvo los tiempos indicados."
 TIEMPO = "Tiempos medidos en un equipo (Windows 11, CPython 3.12.9); en Ubuntu (WSL2) la forma se repite con otras cifras."
@@ -10,33 +12,33 @@ TIEMPO = "Tiempos medidos en un equipo (Windows 11, CPython 3.12.9); en Ubuntu (
 
 # ---------------------------------------------------------------- SE-259
 def se259_adopcion() -> Fig:
-    rows = [
-        ["Automática (35 % por día)", "34,6 %", "95,0 %", "99,9 %", "100 %"],
-        ["Mixta (10 % por día)", "10,2 %", "52,2 %", "77,1 %", "95,6 %"],
-        ["Manual (3 % por día)", "3,1 %", "18,6 %", "34,3 %", "59,2 %"],
-        ["Empresarial con ventana (1 % por día)", "1,0 %", "6,8 %", "13,5 %", "26,2 %"],
-    ]
-    return tab("Parte de la base instalada que ya tiene la versión nueva según el canal de actualización",
-               "Tabla de adopción de una versión nueva entre 10 000 instalaciones sintéticas: con actualización automática el 34,6 por ciento a un día y el 95 a siete; con ventana empresarial el 1 por ciento a un día, el 13,5 a catorce y el 26,2 a treinta.",
-               ["Canal", "1 día", "7 días", "14 días", "30 días"], rows, [400, 150, 150, 150, 150], row_h=48, size=13,
-               kinds=["plain", ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral")],
-               note="Las probabilidades diarias son supuestos del autor, no medidas de ninguna tienda ni empresa. Lo transferible es la forma: con un canal lento las versiones coexisten durante meses y el servidor debe aceptar a todas.",
-               note_kind="gold", foot=SINT)
+    days = [1, 7, 14, 30]
+    ticks = [(d, str(d)) for d in days]
+    data = [("Automática (35 % por día)", [34.6, 95.0, 99.9, 100], "teal"), ("Mixta (10 % por día)", [10.2, 52.2, 77.1, 95.6], "gold"),
+            ("Manual (3 % por día)", [3.1, 18.6, 34.3, 59.2], "coral"), ("Empresarial con ventana (1 % por día)", [1.0, 6.8, 13.5, 26.2], "navy")]
+    return line_chart(
+        "Parte de la base instalada que ya tiene la versión nueva según el canal de actualización",
+        "Líneas con el porcentaje de instalaciones con la versión nueva a 1, 7, 14 y 30 días según el canal: con actualización automática 34,6, 95,0, 99,9 y 100 por ciento; mixta 10,2, 52,2, 77,1 y 95,6; manual 3,1, 18,6, 34,3 y 59,2; empresarial con ventana 1,0, 6,8, 13,5 y 26,2.",
+        [(name, [(d, v) for d, v in zip(days, vals)], kind) for name, vals, kind in data],
+        x_label="Días desde la publicación", y_label="Instalaciones con la versión nueva (%)", x_ticks=ticks, y_ticks=[0, 25, 50, 75, 100],
+        point_labels="last", decimals=1,
+        note="Las probabilidades diarias son supuestos del autor, no medidas de ninguna tienda ni empresa. Lo transferible es la forma: con un canal lento las versiones coexisten durante meses y el servidor debe aceptar a todas.",
+        note_kind="gold", foot=SINT)
 
 
 def se259_retirar_campo() -> Fig:
-    rows = [
-        ["Automática (35 %)", "4,5 %", "0 %", "0 %", "0 %"],
-        ["Mixta (10 %)", "47,1 %", "4,1 %", "0 %", "0 %"],
-        ["Manual (3 %)", "80,9 %", "39,8 %", "6,2 %", "0,3 %"],
-        ["Empresarial (1 %)", "93,2 %", "73,7 %", "40,2 %", "16,7 %"],
-    ]
-    return tab("Clientes que siguen en la versión vieja cuando el servidor retira un campo",
-               "Tabla con el porcentaje de clientes que aún usa la versión vieja al retirar un campo del servidor a los 7, 30, 90 y 180 días: con canal automático 4,5, 0, 0 y 0 por ciento; con canal empresarial 93,2, 73,7, 40,2 y 16,7 por ciento.",
-               ["Canal", "Retirar a los 7 días", "A los 30 días", "A los 90 días", "A los 180 días"], rows, [250, 190, 190, 190, 190], row_h=48, size=13,
-               kinds=["plain", ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral"), ("teal", "gold", "gold", "coral")],
-               note="La fecha para retirar algo no se decide por el calendario sino por la fracción de clientes que aún lo necesita. Con un canal empresarial lento, a los 180 días queda una de cada seis instalaciones, y retirarlo las rompe.",
-               note_kind="coral", foot=SINT)
+    days = [7, 30, 90, 180]
+    ticks = [(d, str(d)) for d in days]
+    data = [("Automática (35 %)", [4.5, 0, 0, 0], "teal"), ("Mixta (10 %)", [47.1, 4.1, 0, 0], "gold"),
+            ("Manual (3 %)", [80.9, 39.8, 6.2, 0.3], "coral"), ("Empresarial (1 %)", [93.2, 73.7, 40.2, 16.7], "navy")]
+    return line_chart(
+        "Clientes que siguen en la versión vieja cuando el servidor retira un campo",
+        "Líneas con el porcentaje de clientes que aún usa la versión vieja al retirar un campo del servidor a los 7, 30, 90 y 180 días: con canal automático 4,5, 0, 0 y 0 por ciento; mixto 47,1, 4,1, 0 y 0; manual 80,9, 39,8, 6,2 y 0,3; empresarial 93,2, 73,7, 40,2 y 16,7.",
+        [(name, [(d, v) for d, v in zip(days, vals)], kind) for name, vals, kind in data],
+        x_label="Días hasta retirar el campo", y_label="Clientes en la versión vieja (%)", x_ticks=ticks, y_ticks=[0, 25, 50, 75, 100],
+        point_labels="all", decimals=1,
+        note="La fecha para retirar algo no se decide por el calendario sino por la fracción de clientes que aún lo necesita. Con un canal empresarial lento, a los 180 días queda una de cada seis instalaciones, y retirarlo las rompe.",
+        note_kind="coral", foot=SINT)
 
 
 def se259_bloques() -> Fig:
@@ -68,18 +70,16 @@ def se260_conjuntos() -> Fig:
 
 
 def se260_duplicados() -> Fig:
-    rows = [
-        ["0 %", "0 %", "0 %"],
-        ["5 %", "87,1 %", "0 %"],
-        ["15 %", "100 %", "0 %"],
-        ["30 %", "100 %", "0 %"],
-    ]
-    return tab("Estado final errado tras aplicar 40 operaciones con duplicados y desorden",
-               "Tabla de 1000 repeticiones: sin duplicados ambas formas de aplicar dan el estado correcto; con 5 por ciento de reenvíos la aplicación sin identificador falla en el 87,1 por ciento y con 15 y 30 por ciento en el 100; con identificador de operación nunca falla.",
-               ["Probabilidad de duplicar cada envío", "Aplicar sin identificador", "Aplicar con identificador de operación"], rows, [340, 300, 360], row_h=46, size=13,
-               kinds=["plain", ("teal", "coral", "coral", "coral"), "teal"],
-               note="Con un 5 % de duplicación casi toda sesión de 40 operaciones termina mal si la operación «sumar uno» se aplica dos veces. La idempotencia no es un detalle del servidor: es lo que permite reintentar sin miedo.",
-               note_kind="coral", foot=SINT)
+    ps = [0, 5, 15, 30]
+    return line_chart(
+        "Estado final errado tras aplicar 40 operaciones con duplicados y desorden",
+        "Líneas con el porcentaje de 1000 repeticiones que terminan con el estado errado según la probabilidad de duplicar cada envío: sin identificador 0 por ciento sin duplicados, 87,1 con 5 por ciento de reenvíos y 100 con 15 y 30; con identificador de operación, 0 en todos los casos.",
+        [("Aplicar sin identificador", [(p, v) for p, v in zip(ps, [0, 87.1, 100, 100])], "coral"),
+         ("Aplicar con identificador de operación", [(p, 0) for p in ps], "teal")],
+        x_label="Probabilidad de duplicar cada envío (%)", y_label="Estado final errado (%)", x_ticks=[(p, str(p)) for p in ps], y_ticks=[0, 25, 50, 75, 100],
+        point_labels="all", decimals=1,
+        note="Con un 5 % de duplicación casi toda sesión de 40 operaciones termina mal si la operación «sumar uno» se aplica dos veces. La idempotencia no es un detalle del servidor: es lo que permite reintentar sin miedo.",
+        note_kind="coral", foot=SINT)
 
 
 def se260_relojes() -> Fig:
@@ -97,33 +97,28 @@ def se260_relojes() -> Fig:
 
 # ---------------------------------------------------------------- SE-261
 def se261_lista() -> Fig:
-    rows = [
-        ["1000 elementos", "0,50 ms", "0,027 ms", "18 veces"],
-        ["10 000 elementos", "14,57 ms", "0,030 ms", "485 veces"],
-        ["100 000 elementos", "103,2 ms", "0,031 ms", "3370 veces"],
-    ]
-    return tab("Construir las etiquetas de toda la lista o solo las 20 visibles",
-               "Tabla de tiempos en Windows: construir las etiquetas de 1000, 10 000 y 100 000 elementos tarda 0,50, 14,57 y 103,2 milisegundos, mientras construir solo una ventana de 20 tarda 0,027, 0,030 y 0,031; la razón sube de 18 a 3370 veces.",
-               ["Tamaño de la lista", "Todos los elementos", "Ventana de 20", "Razón"], rows, [270, 250, 250, 230], row_h=46, size=13,
-               kinds=["plain", ("gold", "coral", "coral"), "teal", "plain"],
-               note="El tiempo de la ventana no depende del tamaño de la lista, y el tiempo completo crece con él. Es un proxy de cadenas en Python: no mide dibujo en pantalla ni el coste de un marco real; en Ubuntu fueron 0,44, 3,14 y 42,9 ms completos y 0,006 a 0,012 ms para la ventana.",
-               note_kind="gold", foot=TIEMPO)
+    return grouped_bars(
+        "Construir las etiquetas de toda la lista o solo las 20 visibles",
+        "Barras agrupadas en escala logarítmica con el tiempo en Windows de construir las etiquetas de toda la lista, 0,50, 14,57 y 103,2 milisegundos con 1000, 10 000 y 100 000 elementos, o solo una ventana de 20, 0,027, 0,030 y 0,031; la razón sube de 18 a 3370 veces.",
+        ["1000 elementos", "10 000 elementos", "100 000 elementos"],
+        [("Todos los elementos", [0.50, 14.57, 103.2], "coral"), ("Ventana de 20", [0.027, 0.030, 0.031], "teal")],
+        unit="Tiempo (ms)", log=True, ticks=[0.01, 0.1, 1, 10, 100, 1000], plot_h=260,
+        note="El tiempo de la ventana no depende del tamaño de la lista, y el tiempo completo crece con él (la razón es de 18, 485 y 3370 veces). Es un proxy de cadenas en Python: no mide dibujo en pantalla ni el coste de un marco real; en Ubuntu fueron 0,44, 3,14 y 42,9 ms completos y 0,006 a 0,012 ms para la ventana.",
+        note_kind="gold", foot=TIEMPO)
 
 
 def se261_sondeo() -> Fig:
-    rows = [
-        ["Sondeo cada 30 s", "1 440 000", "15,3 s", "2880"],
-        ["Sondeo cada 5 min", "144 000", "157,1 s", "288"],
-        ["Sondeo cada 15 min", "48 000", "407,1 s", "96"],
-        ["Lote cada hora", "12 000", "1794,6 s", "24"],
-        ["Empuje (un despertar por evento)", "24 000", "0 s", "48"],
-    ]
-    return tab("Energía y retraso de enterarse de 48 eventos en un día según cómo despierta la radio",
-               "Tabla de un modelo de energía en unidades arbitrarias para 48 eventos en 24 horas: sondeo cada 30 segundos gasta 1 440 000 con 15,3 s de latencia, sondeo cada 15 minutos 48 000 con 407,1 s, lote cada hora 12 000 con 1794,6 s, y empuje 24 000 sin latencia.",
-               ["Política", "Energía (u. a.)", "Latencia media", "Despertares"], rows, [380, 220, 220, 180], row_h=44, size=13,
-               kinds=["plain", ("coral", "gold", "gold", "teal", "teal"), "plain", "plain"],
-               note="Los costes (100 por despertar y hasta 400 de cola) son supuestos del autor, no mediciones de un radio ni de una batería. La comparación enseña la estructura: la energía depende del número de despertares, y el empuje solo despierta cuando hay algo.",
-               note_kind="gold", foot="Modelo determinista; salidas idénticas en Windows y Ubuntu (WSL2).")
+    pts = [("Sondeo cada 30 s", 15.3, 1440000, "coral"), ("Sondeo cada 5 min", 157.1, 144000, "gold"), ("Sondeo cada 15 min", 407.1, 48000, "navy"),
+           ("Lote cada hora", 1794.6, 12000, "grey"), ("Empuje (un despertar por evento)", 0, 24000, "teal")]
+    return scatter(
+        "Energía y retraso de enterarse de 48 eventos en un día según cómo despierta la radio",
+        "Dispersión de la energía, en unidades arbitrarias y escala logarítmica, frente a la latencia media de cinco políticas para 48 eventos en 24 horas: el sondeo cada 30 segundos gasta 1 440 000 con 15,3 s; cada 5 minutos 144 000 con 157,1 s; cada 15 minutos 48 000 con 407,1 s; el lote cada hora 12 000 con 1794,6 s; el empuje 24 000 con latencia 0.",
+        [(n, [(x, y)], k) for n, x, y, k in pts],
+        x_label="Latencia media (s)", y_label="Energía (u. a.)", log_y=True, y_ticks=[10000, 100000, 1000000, 10000000],
+        x_ticks=[(0, "0"), (500, "500"), (1000, "1000"), (1500, "1500"), (2000, "2000")], point_labels="none", plot_h=300,
+        annotations=[(0, 24000, "Empuje: 24 000 u. a. y 48 despertares, sin retraso", 30, -52), (15.3, 1440000, "Sondeo cada 30 s: 2880 despertares", 40, 6)],
+        note="Los costes (100 por despertar y hasta 400 de cola) son supuestos del autor, no mediciones de un radio ni de una batería. La comparación enseña la estructura: la energía depende del número de despertares (2880, 288, 96, 24 y 48), y el empuje solo despierta cuando hay algo.",
+        note_kind="gold", foot="Modelo determinista; salidas idénticas en Windows y Ubuntu (WSL2).")
 
 
 def se261_cache() -> Fig:
@@ -144,16 +139,16 @@ def se261_cache() -> Fig:
 # ---------------------------------------------------------------- SE-262
 def se262_integridad() -> Fig:
     rows = [
-        ["CRC-32", "32 768 de 32 768", "Sí: lo recalcula cualquiera", "Detecta corrupción, no manipulación"],
-        ["SHA-256 junto al paquete", "32 768 de 32 768", "Sí: se publica junto al archivo", "Solo vale si llega por un canal distinto"],
-        ["HMAC con clave compartida", "32 768 de 32 768", "No, sin la clave", "La clave no puede ir dentro del cliente"],
+        [("CRC-32", "plain"), ("32 768 de 32 768 volteos detectados", "teal"), ("Sí: lo recalcula cualquiera", "coral"), ("Detecta corrupción, no manipulación", "gold")],
+        [("SHA-256 junto al paquete", "plain"), ("32 768 de 32 768 volteos detectados", "teal"), ("Sí: se publica junto al archivo", "coral"), ("Solo vale si llega por un canal distinto", "gold")],
+        [("HMAC con clave compartida", "plain"), ("32 768 de 32 768 volteos detectados", "teal"), ("No, sin la clave", "teal"), ("La clave no puede ir dentro del cliente", "gold")],
     ]
-    return tab("Qué detecta cada comprobación al voltear un bit y qué ocurre cuando alguien manipula el paquete",
-               "Tabla con tres comprobaciones sobre un paquete de 4096 bytes: las tres detectan los 32 768 volteos de un bit; un atacante puede recalcular el CRC y el SHA-256 publicado junto al paquete, pero no el HMAC sin la clave.",
-               ["Comprobación", "Volteos de un bit detectados", "¿Puede recalcularla quien modifica?", "Límite"], rows, [210, 240, 280, 300], row_h=58, size=12,
-               kinds=["plain", "teal", ("coral", "coral", "teal"), "gold"],
-               note="Detectar corrupción accidental y detectar manipulación son problemas distintos. Una firma con clave privada que el cliente no posee añade lo que ni un CRC ni un hash resuelven: la procedencia. Aquí se usó HMAC con una clave de prueba por falta de criptografía asimétrica en la biblioteca estándar.",
-               note_kind="gold", foot="Clave de prueba que no protege nada; salidas idénticas en Windows y Ubuntu (WSL2).")
+    return chain_rows(
+        "Qué detecta cada comprobación al voltear un bit y qué ocurre cuando alguien manipula el paquete",
+        "Diagrama de flujo de tres comprobaciones sobre un paquete de 4096 bytes: las tres detectan los 32 768 volteos de un bit; un atacante puede recalcular el CRC y el SHA-256 publicado junto al paquete, pero no el HMAC sin la clave, que a su vez tiene el límite de que la clave no puede ir en el cliente.",
+        ["Comprobación", "Corrupción accidental", "¿Puede recalcularla quien modifica?", "Límite"], rows, [170, 200, 230, 190], gap=26,
+        note="Detectar corrupción accidental y detectar manipulación son problemas distintos. Una firma con clave privada que el cliente no posee añade lo que ni un CRC ni un hash resuelven: la procedencia. Aquí se usó HMAC con una clave de prueba por falta de criptografía asimétrica en la biblioteca estándar.",
+        note_kind="gold", foot="Clave de prueba que no protege nada; salidas idénticas en Windows y Ubuntu (WSL2).")
 
 
 def se262_rutas() -> Fig:
@@ -170,17 +165,17 @@ def se262_rutas() -> Fig:
 
 def se262_secretos() -> Fig:
     rows = [
-        ["Texto plano", "Sí (búsqueda de «sk_test_»)", "No hace falta nada más"],
-        ["Base64", "Sí (decodificar candidatos)", "Un patrón y una línea de código"],
-        ["XOR con un byte fijo", "Sí (probar los 256 bytes)", "256 intentos por candidato"],
-        ["Partido en tres trozos", "No con una búsqueda ingenua", "Pero el programa lo reconstruye al ejecutarse"],
+        [("Texto plano", "plain"), ("Sí: búsqueda de «sk_test_»", "coral"), ("No hace falta nada más", "plain")],
+        [("Base64", "plain"), ("Sí: decodificar candidatos", "coral"), ("Un patrón y una línea de código", "plain")],
+        [("XOR con un byte fijo", "plain"), ("Sí: probar los 256 bytes", "coral"), ("256 intentos por candidato", "plain")],
+        [("Partido en tres trozos", "plain"), ("No con una búsqueda ingenua", "gold"), ("Pero el programa lo reconstruye al ejecutarse", "plain")],
     ]
-    return tab("Un secreto ficticio dentro del paquete de un cliente: qué lo encuentra",
-               "Tabla de cuatro formas de guardar un secreto ficticio en un paquete de cliente: texto plano, base64 y XOR con un byte se recuperan con una búsqueda simple; partido en tres trozos evita la búsqueda ingenua, pero el programa lo reconstruye al ejecutarse y por tanto también quien lo observe.",
-               ["Cómo se guarda", "¿Lo recupera quien tiene el paquete?", "Esfuerzo"], rows, [260, 380, 360], row_h=50, size=12,
-               kinds=["plain", ("coral", "coral", "coral", "gold"), "plain"],
-               note="Ofuscar sube el esfuerzo de una búsqueda, no impide que quien posee el paquete lo ejecute y observe. Todo secreto que el cliente necesita para funcionar es, en la práctica, público para quien tenga el cliente: la defensa es no ponerlo ahí.",
-               note_kind="coral", foot="Secreto ficticio de ejemplo; sin valor real. Resultados idénticos en Windows y Ubuntu (WSL2).")
+    return chain_rows(
+        "Un secreto ficticio dentro del paquete de un cliente: qué lo encuentra",
+        "Diagrama de flujo de cuatro formas de guardar un secreto ficticio en un paquete de cliente: texto plano, base64 y XOR con un byte se recuperan con una búsqueda simple; partido en tres trozos evita la búsqueda ingenua, pero el programa lo reconstruye al ejecutarse y por tanto también quien lo observe.",
+        ["Cómo se guarda", "¿Lo recupera quien tiene el paquete?", "Esfuerzo"], rows, [240, 290, 290],
+        note="Ofuscar sube el esfuerzo de una búsqueda, no impide que quien posee el paquete lo ejecute y observe. Todo secreto que el cliente necesita para funcionar es, en la práctica, público para quien tenga el cliente: la defensa es no ponerlo ahí.",
+        note_kind="coral", foot="Secreto ficticio de ejemplo; sin valor real. Resultados idénticos en Windows y Ubuntu (WSL2).")
 
 
 # ---------------------------------------------------------------- SE-263
@@ -217,18 +212,18 @@ def se263_esfuerzo() -> Fig:
 
 def se263_adaptador() -> Fig:
     rows = [
-        ["Sin mutación (adaptador falso correcto)", "Ninguno", "Pasa"],
-        ["Guardar no sobrescribe un valor existente", "sobrescribir", "Detectada"],
-        ["Borrar lo ausente lanza una excepción", "excepción KeyError", "Detectada"],
-        ["Listar devuelve el orden inverso", "orden", "Detectada"],
-        ["Leer lo ausente devuelve cadena vacía", "ausente y borrar", "Detectada"],
+        [("Sin mutación (adaptador falso correcto)", "plain"), ("Ninguna comprobación falla", "plain"), ("Pasa", "teal")],
+        [("Guardar no sobrescribe un valor existente", "plain"), ("sobrescribir", "gold"), ("Detectada", "teal")],
+        [("Borrar lo ausente lanza una excepción", "plain"), ("excepción KeyError", "gold"), ("Detectada", "teal")],
+        [("Listar devuelve el orden inverso", "plain"), ("orden", "gold"), ("Detectada", "teal")],
+        [("Leer lo ausente devuelve cadena vacía", "plain"), ("ausente y borrar", "gold"), ("Detectada", "teal")],
     ]
-    return tab("Un contrato de cinco comprobaciones contra cuatro adaptadores de almacenamiento defectuosos",
-               "Tabla de un adaptador de almacenamiento falso y cuatro mutaciones: el contrato de cinco comprobaciones pasa el adaptador correcto y detecta las cuatro mutaciones, una de ellas con una excepción, otra con dos comprobaciones fallidas.",
-               ["Adaptador", "Comprobaciones que fallan", "Resultado del contrato"], rows, [430, 300, 270], row_h=46, size=13,
-               kinds=["plain", "gold", ("teal", "teal", "teal", "teal", "teal")],
-               note="El mismo contrato se ejecuta contra el adaptador falso de las pruebas y contra el adaptador real de cada plataforma: si el falso no cumple el contrato, las pruebas del resto de la aplicación certifican un comportamiento que no existe. Cuatro mutaciones no agotan los defectos posibles.",
-               note_kind="gold", foot="Mutaciones escritas por el autor; resultados idénticos en Windows y Ubuntu (WSL2).")
+    return chain_rows(
+        "Un contrato de cinco comprobaciones contra cuatro adaptadores de almacenamiento defectuosos",
+        "Diagrama de flujo de un adaptador de almacenamiento falso y cuatro mutaciones: el contrato de cinco comprobaciones pasa el adaptador correcto y detecta las cuatro mutaciones, una de ellas con una excepción, otra con dos comprobaciones fallidas.",
+        ["Adaptador", "Comprobaciones que fallan", "Resultado del contrato"], rows, [400, 230, 190],
+        note="El mismo contrato se ejecuta contra el adaptador falso de las pruebas y contra el adaptador real de cada plataforma: si el falso no cumple el contrato, las pruebas del resto de la aplicación certifican un comportamiento que no existe. Cuatro mutaciones no agotan los defectos posibles.",
+        note_kind="gold", foot="Mutaciones escritas por el autor; resultados idénticos en Windows y Ubuntu (WSL2).")
 
 
 # ---------------------------------------------------------------- SE-264
@@ -257,19 +252,14 @@ def se264_servidor() -> Fig:
 
 
 def se264_paquete() -> Fig:
-    rows = [
-        ["Borrar un campo ajeno al validador", "13", "enlaces y huella: el validador no los mira"],
-        ["Vaciar un campo ajeno al validador", "17", "ídem"],
-        ["Cambiar un campo ajeno al validador", "18", "ídem"],
-        ["Cambiar un campo que sí comprueba", "56", "el validador acepta cualquier valor no vacío"],
-        ["Detectadas por el validador", "136", "borrar o vaciar un campo comprobado"],
-    ]
-    return tab("240 mutaciones de un paquete de proyecto: 136 detectadas y 104 que el validador no ve",
-               "Tabla de 240 mutaciones de un paquete con once campos: el validador de presencia detecta 136, y 104 pasan sin ser vistas, 48 por tocar campos que no comprueba y 56 por cambiar el contenido de un campo comprobado a otro valor no vacío.",
-               ["Mutación", "Cantidad", "Por qué pasa o se detecta"], rows, [380, 130, 490], row_h=48, size=13,
-               kinds=["plain", ("coral", "coral", "coral", "gold", "teal"), "plain"],
-               note="Un validador que solo comprueba presencia aprueba un paquete con evidencia absurda. Ese hueco no se cierra con más reglas de forma: la evidencia la revisa una persona que ejecuta lo que el paquete dice.",
-               note_kind="gold", foot="Paquete y mutaciones sintéticos con semilla fija; resultados idénticos en Windows y Ubuntu (WSL2).")
+    return stacked_bars(
+        "240 mutaciones de un paquete de proyecto: 136 detectadas y 104 que el validador no ve",
+        "Barras apiladas horizontales con las 240 mutaciones de un paquete de once campos: el validador de presencia detecta 136, borrar o vaciar un campo comprobado, y no ve 104: 13 por borrar, 17 por vaciar y 18 por cambiar un campo ajeno al validador y 56 por cambiar el contenido de un campo comprobado a otro valor no vacío.",
+        ["Borrar un campo ajeno al validador", "Vaciar un campo ajeno al validador", "Cambiar un campo ajeno al validador", "Cambiar un campo que sí comprueba", "Borrar o vaciar un campo comprobado"],
+        [("No detectadas", [13, 17, 18, 56, 0], "coral"), ("Detectadas", [0, 0, 0, 0, 136], "teal")],
+        unit="Mutaciones", horizontal=True, label_w=300,
+        note="Un validador que solo comprueba presencia aprueba un paquete con evidencia absurda: no mira enlaces ni huella, y acepta cualquier valor no vacío en los campos que sí comprueba. Ese hueco no se cierra con más reglas de forma: la evidencia la revisa una persona que ejecuta lo que el paquete dice.",
+        note_kind="gold", foot="Paquete y mutaciones sintéticos con semilla fija; resultados idénticos en Windows y Ubuntu (WSL2).")
 
 
 FIGURES = {

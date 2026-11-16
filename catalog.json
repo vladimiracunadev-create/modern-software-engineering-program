@@ -2,14 +2,12 @@
   "program": "modern-software-engineering-program",
   "baseline_date": "2026-09-30",
   "stages": 8,
-  "parts": 44,
-  "classes": 528,
-  "estimated_hours": 2376,
+  "parts": 45,
+  "classes": 540,
+  "estimated_hours": 2430,
   "planned_parts": 45,
   "planned_classes": 540,
-  "unpublished_parts": [
-    "41"
-  ],
+  "unpublished_parts": [],
   "phase_3_target": {
     "first_class": "SE-001",
     "last_class": "SE-180",

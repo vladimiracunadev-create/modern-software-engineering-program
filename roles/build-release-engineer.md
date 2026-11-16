@@ -124,7 +124,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`), también tienen contenido desarrollado y
+de las Partes 00–44 (`SE-001`–`SE-540`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -133,6 +133,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-104 · Dev Containers y entornos desechables](../classes/part-08-entornos-herramientas-y-depuracion/se-104-dev-containers-y-entornos-desechables/README.md) | Parte 08 |
 | [SE-114 · Scripting repetible y tareas idempotentes](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-114-scripting-repetible-y-tareas-idempotentes/README.md) | Parte 09 |
 | [SE-225 · Distribución de binarios y actualizaciones](../classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/README.md) | Parte 18 |
+| [SE-493 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | Parte 41 |
+| [SE-498 · Sandboxes, reversibilidad y control de daño](../classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md) | Parte 41 |
+| [SE-504 · Proyecto: harness mínimo gobernado y evaluado](../classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/README.md) | Parte 41 |
 
 **Cómo recorrerla.** Empieza por [SE-110](../classes/part-09-bibliotecas-paquetes-sdk-y-automatizacion/se-110-semver-compatibilidad-y-contratos-publicos/README.md) para fijar el
 primer mecanismo, usa [SE-397](../classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/README.md) para integrar el
@@ -142,27 +145,15 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44 (`SE-001`–`SE-540`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Parte 41 (sin clases publicadas)
+## ✅ Ampliación completada: Partes 40–44
 
 > [!NOTE]
-> La Parte 41 (`SE-493`–`SE-504`) está **planificada** desde el 13 de noviembre
-> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
-> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
+> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
 
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-| **Parte 41 · Harness y agentic engineering** | `SE-493`–`SE-504` | Examina la procedencia y la verificación de cambios producidos por agentes dentro de la cadena de build y release. |
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

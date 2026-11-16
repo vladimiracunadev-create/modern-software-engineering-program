@@ -153,7 +153,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`), también tienen contenido desarrollado y
+de las Partes 00–44 (`SE-001`–`SE-540`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -163,6 +163,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-104 · Dev Containers y entornos desechables](../classes/part-08-entornos-herramientas-y-depuracion/se-104-dev-containers-y-entornos-desechables/README.md) | Parte 08 |
 | [SE-105 · Reproducción de errores y reducción de casos](../classes/part-08-entornos-herramientas-y-depuracion/se-105-reproduccion-de-errores-y-reduccion-de-casos/README.md) | Parte 08 |
 | [SE-214 · Documentación para humanos, máquinas y LLM](../classes/part-17-documentacion-y-conocimiento-tecnico/se-214-documentacion-para-humanos-maquinas-y-llm/README.md) | Parte 17 |
+| [SE-493 · Anatomía de un harness: modelo, contexto, herramientas y bucles](../classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) | Parte 41 |
+| [SE-498 · Sandboxes, reversibilidad y control de daño](../classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md) | Parte 41 |
+| [SE-504 · Proyecto: harness mínimo gobernado y evaluado](../classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/README.md) | Parte 41 |
 | [SE-505 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 42 |
 | [SE-510 · Embeddings, recuperación y agentic RAG](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) | Parte 42 |
 | [SE-516 · Proyecto: sistema con LLM evaluado y operable](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 42 |
@@ -175,27 +178,15 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44 (`SE-001`–`SE-540`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Parte 41 (sin clases publicadas)
+## ✅ Ampliación completada: Partes 40–44
 
 > [!NOTE]
-> La Parte 41 (`SE-493`–`SE-504`) está **planificada** desde el 13 de noviembre
-> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
-> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
+> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
 
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-| **Parte 41 · Harness y agentic engineering** | `SE-493`–`SE-504` | Es la parte central del rol: anatomía del harness, contexto, herramientas, bucles, permisos, evaluación y recuperación. |
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 44,
-  "class_count": 528,
-  "estimated_hours": 2376,
+  "part_count": 45,
+  "class_count": 540,
+  "estimated_hours": 2430,
   "planned_scope": {
     "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
     "part_count": 45,
@@ -23,15 +23,7 @@
     "estimated_hours": 2430,
     "first_class": "SE-001",
     "last_class": "SE-540",
-    "unpublished_parts": [
-      {
-        "id": "41",
-        "title": "Harness y agentic engineering",
-        "first_class": "SE-493",
-        "last_class": "SE-504",
-        "status": "planned"
-      }
-    ]
+    "unpublished_parts": []
   },
   "stages": [
     {
@@ -4411,6 +4403,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia"
+        }
+      ]
+    },
+    {
+      "id": "41",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Harness y agentic engineering",
+      "owner": "suite",
+      "path": "classes/part-41-harness-y-agentic-engineering",
+      "lessons": [
+        {
+          "id": "SE-493",
+          "number": 493,
+          "title": "Anatomía de un harness: modelo, contexto, herramientas y bucles",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles"
+        },
+        {
+          "id": "SE-494",
+          "number": 494,
+          "title": "Instrucciones de repositorio y cumplimiento determinista",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista"
+        },
+        {
+          "id": "SE-495",
+          "number": 495,
+          "title": "Herramientas, permisos y superficies de acción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion"
+        },
+        {
+          "id": "SE-496",
+          "number": 496,
+          "title": "Gestión de contexto, resets y handoffs",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs"
+        },
+        {
+          "id": "SE-497",
+          "number": 497,
+          "title": "Loops de agentes y criterios de parada",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada"
+        },
+        {
+          "id": "SE-498",
+          "number": 498,
+          "title": "Sandboxes, reversibilidad y control de daño",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano"
+        },
+        {
+          "id": "SE-499",
+          "number": 499,
+          "title": "Verificación, gates y menú único de validación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion"
+        },
+        {
+          "id": "SE-500",
+          "number": 500,
+          "title": "Multiagente y coordinación dentro del harness",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness"
+        },
+        {
+          "id": "SE-501",
+          "number": 501,
+          "title": "Observabilidad y evals del propio harness",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness"
+        },
+        {
+          "id": "SE-502",
+          "number": 502,
+          "title": "AI-DLC, gobierno y vibe coding frente a agentic engineering",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering"
+        },
+        {
+          "id": "SE-503",
+          "number": 503,
+          "title": "Taller: diagnosticar el fallo de un harness",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness"
+        },
+        {
+          "id": "SE-504",
+          "number": 504,
+          "title": "Proyecto: harness mínimo gobernado y evaluado",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado"
         }
       ]
     },

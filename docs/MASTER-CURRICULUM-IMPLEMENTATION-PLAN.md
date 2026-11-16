@@ -776,18 +776,18 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 
 ### Parte 41 — Harness y agentic engineering
 
-- [ ] `SE-493` — anatomía de un harness: modelo, contexto, herramientas y bucles.
-- [ ] `SE-494` — instrucciones de repositorio y cumplimiento determinista.
-- [ ] `SE-495` — herramientas, permisos y superficies de acción.
-- [ ] `SE-496` — gestión de contexto, resets y handoffs.
-- [ ] `SE-497` — loops de agentes y criterios de parada.
-- [ ] `SE-498` — sandboxes, reversibilidad y control de daño.
-- [ ] `SE-499` — verificación, gates y menú único de validación.
-- [ ] `SE-500` — multiagente y coordinación dentro del harness.
-- [ ] `SE-501` — observabilidad y evals del propio harness.
-- [ ] `SE-502` — aI-DLC, gobierno y vibe coding frente a agentic engineering.
-- [ ] `SE-503` — taller: diagnosticar el fallo de un harness.
-- [ ] `SE-504` — proyecto: harness mínimo gobernado y evaluado.
+- [x] `SE-493` — anatomía de un harness: modelo, contexto, herramientas y bucles.
+- [x] `SE-494` — instrucciones de repositorio y cumplimiento determinista.
+- [x] `SE-495` — herramientas, permisos y superficies de acción.
+- [x] `SE-496` — gestión de contexto, resets y handoffs.
+- [x] `SE-497` — loops de agentes y criterios de parada.
+- [x] `SE-498` — sandboxes, reversibilidad y control de daño.
+- [x] `SE-499` — verificación, gates y menú único de validación.
+- [x] `SE-500` — multiagente y coordinación dentro del harness.
+- [x] `SE-501` — observabilidad y evals del propio harness.
+- [x] `SE-502` — aI-DLC, gobierno y vibe coding frente a agentic engineering.
+- [x] `SE-503` — taller: diagnosticar el fallo de un harness.
+- [x] `SE-504` — proyecto: harness mínimo gobernado y evaluado.
 
 ### Parte 42 — Patrones agénticos y sistemas con LLM
 

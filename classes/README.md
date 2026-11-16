@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-528 clases desarrolladas · 44 partes desarrolladas (`SE-001`–`SE-492`, `SE-505`–`SE-540`) · 12 clases planificadas sin publicar · alcance total 540 clases en 45 partes (`SE-001`–`SE-540`).
+540 clases desarrolladas · 45 partes desarrolladas (`SE-001`–`SE-540`) · alcance completo: 540 clases en 45 partes.
 
 > [!WARNING]
-> Las Partes 00–40, 42–44 (`SE-001`–`SE-492`, `SE-505`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 41 (`SE-493`–`SE-504`) está **planificada**, sin clases publicadas.
+> Las Partes 00–44 (`SE-001`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. No quedan partes planificadas sin publicar.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 44 partes desarrolladas
+## Las 45 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -53,19 +53,14 @@
 | 38 | [Desarrollo de software asistido por IA](part-38-desarrollo-de-software-asistido-por-ia/README.md) | H | SE-457–SE-468 | `suite` |
 | 39 | [SPEC, agentes y ciclo de vida agentic](part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md) | H | SE-469–SE-480 | `suite` |
 | 40 | [Metodologías de desarrollo: de TDD a ODD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) | H | SE-481–SE-492 | `suite` |
+| 41 | [Harness y agentic engineering](part-41-harness-y-agentic-engineering/README.md) | H | SE-493–SE-504 | `suite` |
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
 
-## Partes planificadas sin publicar
-
-| Parte | Título | Clases | Estado |
-| --- | --- | --- | --- |
-| 41 | Harness y agentic engineering | SE-493–SE-504 | planificada, sin clases publicadas |
-
 ---
 
-## Índice plano de las 528 clases desarrolladas
+## Índice plano de las 540 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -645,6 +640,20 @@ sin recorrer carpetas manualmente.
 - [SE-490 — ODD: desarrollo orgánico y su contraste con SDD](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-490.html)
 - [SE-491 — Taller: un mismo cambio con cinco metodologías](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-491.html)
 - [SE-492 — Proyecto: política metodológica de equipo con evidencia](part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-492.html)
+## [Parte 41 — Harness y agentic engineering](part-41-harness-y-agentic-engineering/README.md)
+
+- [SE-493 — Anatomía de un harness: modelo, contexto, herramientas y bucles](part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-493.html)
+- [SE-494 — Instrucciones de repositorio y cumplimiento determinista](part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-494.html)
+- [SE-495 — Herramientas, permisos y superficies de acción](part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-495.html)
+- [SE-496 — Gestión de contexto, resets y handoffs](part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-496.html)
+- [SE-497 — Loops de agentes y criterios de parada](part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-497.html)
+- [SE-498 — Sandboxes, reversibilidad y control de daño](part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-498.html)
+- [SE-499 — Verificación, gates y menú único de validación](part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-499.html)
+- [SE-500 — Multiagente y coordinación dentro del harness](part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-500.html)
+- [SE-501 — Observabilidad y evals del propio harness](part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-501.html)
+- [SE-502 — AI-DLC, gobierno y vibe coding frente a agentic engineering](part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-502.html)
+- [SE-503 — Taller: diagnosticar el fallo de un harness](part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-503.html)
+- [SE-504 — Proyecto: harness mínimo gobernado y evaluado](part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-504.html)
 ## [Parte 42 — Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md)
 
 - [SE-505 — Workflows frente a agentes: cuándo no usar un agente](part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-505.html)

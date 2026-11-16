@@ -20,6 +20,13 @@
 - `content/part-42/part.json` aporta 23 fuentes nuevas verificadas (Anthropic, MCP, A2A, JSON-RPC, Temporal, IETF, OWASP, OpenTelemetry y artículos de referencia)
 - los contadores pasan de 41 a 42 partes desarrolladas y de 492 a 504 clases; las Partes 41, 43 y 44 siguen planificadas y la revisión editorial humana independiente sigue pendiente
 
+## 2026-11-16 — Parte 41 desarrollada con experimentos reales y simulaciones de harness y agentic engineering (SE-493 a SE-504)
+
+- las clases `SE-493`–`SE-504` pasan de planificadas a clases completas sobre el arnés del equipo de *Avisos*: anatomía de un harness, instrucciones con cumplimiento determinista, herramientas y permisos, contexto y relevo, bucles y reglas de parada, sandboxes y control de daño, verificación y menú único, multiagente, observabilidad y evaluación del harness, gobierno frente a vibe coding, taller de diagnóstico y proyecto de harness gobernado
+- 36 figuras con experimentos ejecutados con la biblioteca estándar y Git en Windows (CPython 3.12.9, Git 2.55): ablación de un harness mínimo sobre seis tareas, un comprobador de seis reglas sobre diecisiete casos, treinta comandos con dos políticas de permisos, un modelo de contexto de 120 turnos, cinco reglas de parada sobre 4 000 tareas simuladas, cinco acciones destructivas con cuatro configuraciones de recuperación, cinco compuertas sobre doce cambios, cuatro fusiones reales de Git, comparaciones con ruido de dos harness, un modelo de gobierno de 20 000 cambios, seis fallos inyectados con dos diagnosticadores y un harness gobernado con seis controles y cuatro escenarios adversos
+- el «modelo» de los laboratorios es una política guionizada: no se invocó ningún modelo de lenguaje ni se ejecutó ningún producto de agentes; las cifras no son tasas reales y el informe de límites está en el README de la parte
+- `content/part-41/part.json` aporta las fuentes de la parte (22 fuentes nuevas verificadas y `NIST-AI-RMF` de la línea base)
+
 ## 2026-11-16 — Parte 40 desarrollada con experimentos reales y simulaciones de metodologías de desarrollo (SE-481 a SE-492)
 
 - las clases `SE-481`–`SE-492` pasan de planificadas a clases completas sobre el núcleo de *Avisos*: mapa de metodologías, TDD (ciclo y escuelas), BDD, ATDD y Specification by Example, DDD, diseño y pruebas de contrato, SDD, EDD, ODD, taller de cinco metodologías y política de equipo

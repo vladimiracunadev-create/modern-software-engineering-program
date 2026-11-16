@@ -5414,6 +5414,138 @@
       "url": "classes/SE-492.html"
     },
     {
+      "id": "SE-493",
+      "title": "Anatomía de un harness: modelo, contexto, herramientas y bucles",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-493.html"
+    },
+    {
+      "id": "SE-494",
+      "title": "Instrucciones de repositorio y cumplimiento determinista",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-494.html"
+    },
+    {
+      "id": "SE-495",
+      "title": "Herramientas, permisos y superficies de acción",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-495.html"
+    },
+    {
+      "id": "SE-496",
+      "title": "Gestión de contexto, resets y handoffs",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-496.html"
+    },
+    {
+      "id": "SE-497",
+      "title": "Loops de agentes y criterios de parada",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-497.html"
+    },
+    {
+      "id": "SE-498",
+      "title": "Sandboxes, reversibilidad y control de daño",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-498.html"
+    },
+    {
+      "id": "SE-499",
+      "title": "Verificación, gates y menú único de validación",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-499.html"
+    },
+    {
+      "id": "SE-500",
+      "title": "Multiagente y coordinación dentro del harness",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-500.html"
+    },
+    {
+      "id": "SE-501",
+      "title": "Observabilidad y evals del propio harness",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-501.html"
+    },
+    {
+      "id": "SE-502",
+      "title": "AI-DLC, gobierno y vibe coding frente a agentic engineering",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-502.html"
+    },
+    {
+      "id": "SE-503",
+      "title": "Taller: diagnosticar el fallo de un harness",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-503.html"
+    },
+    {
+      "id": "SE-504",
+      "title": "Proyecto: harness mínimo gobernado y evaluado",
+      "part": "41",
+      "part_title": "Harness y agentic engineering",
+      "stage": "H",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-504.html"
+    },
+    {
       "id": "SE-505",
       "title": "Workflows frente a agentes: cuándo no usar un agente",
       "part": "42",

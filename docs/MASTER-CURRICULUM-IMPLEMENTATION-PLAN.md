@@ -685,18 +685,18 @@ evita una explicación genérica.
 
 ### Parte 35 — Observabilidad, SRE e incidentes
 
-- [ ] `SE-421` — elegir señales que respondan preguntas operativas.
-- [ ] `SE-422` — producir logs estructurados y seguros.
-- [ ] `SE-423` — controlar cardinalidad de métricas.
-- [ ] `SE-424` — propagar contexto de traza.
-- [ ] `SE-425` — derivar SLI, SLO y error budget.
-- [ ] `SE-426` — diseñar alertas accionables.
-- [ ] `SE-427` — ensayar runbook y on-call.
-- [ ] `SE-428` — practicar incident command.
-- [ ] `SE-429` — escribir postmortem sin culpa.
-- [ ] `SE-430` — probar recuperación ante desastre.
-- [ ] `SE-431` — diagnosticar con telemetría incompleta.
-- [ ] `SE-432` — completar detectar, contener, diagnosticar, recuperar y aprender.
+- [x] `SE-421` — elegir señales que respondan preguntas operativas.
+- [x] `SE-422` — producir logs estructurados y seguros.
+- [x] `SE-423` — controlar cardinalidad de métricas.
+- [x] `SE-424` — propagar contexto de traza.
+- [x] `SE-425` — derivar SLI, SLO y error budget.
+- [x] `SE-426` — diseñar alertas accionables.
+- [x] `SE-427` — ensayar runbook y on-call.
+- [x] `SE-428` — practicar incident command.
+- [x] `SE-429` — escribir postmortem sin culpa.
+- [x] `SE-430` — probar recuperación ante desastre.
+- [x] `SE-431` — diagnosticar con telemetría incompleta.
+- [x] `SE-432` — completar detectar, contener, diagnosticar, recuperar y aprender.
 
 ### Parte 36 — Legacy y retiro
 

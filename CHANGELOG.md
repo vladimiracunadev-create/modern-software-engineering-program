@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-11-16 — Parte 08: figuras como gráficos, no como tablas
+
+- las 28 figuras `tab()` de SE-097 a SE-108 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas, líneas, mapas de calor, líneas de tiempo, diagramas de flujo, de grupos y anidados); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 08 (commit `5ba2c369`, CI verde (Validate, Pages y Security) en `5ba2c369`)
+
+## 2026-11-16 — Parte 13: figuras como gráficos, no como tablas
+
+- las 15 figuras `tab()` de SE-157 a SE-168 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas, líneas, mapas de calor y diagramas de flujo); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 13 (commit `2b1bdfa3`, CI verde (Validate, Pages y Security) en `a87b3e0d`, que contiene el commit)
+
+## 2026-11-16 — Parte 18: figuras como gráficos, no como tablas
+
+- las 22 figuras `tab()` de SE-217 a SE-228 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas y apiladas, líneas, mapas de calor, dumbbell y diagramas de flujo); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 18 (commit `d7b1bf8d`, CI verde (Validate, Pages y Security) en `d7b1bf8d`)
+
+## 2026-11-16 — Parte 33: figuras como gráficos, no como tablas
+
+- las 30 figuras `tab()` de SE-397 a SE-408 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas, líneas, mapas de calor, intervalos de percentiles y diagramas de flujo); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 33 (commit `a87b3e0d`, CI verde (Validate, Pages y Security) en `a87b3e0d`)
+
+## 2026-11-16 — Parte 38: figuras como gráficos, no como tablas
+
+- las 29 figuras `tab()` de SE-457 a SE-468 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas y apiladas, líneas, dispersiones, mapas de calor, intervalos y diagramas de flujo); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 38 (commit `9b1cd867`, CI verde (Validate, Pages y Security) en `9b1cd867`)
+
+## 2026-11-16 — Parte 43: figuras como gráficos, no como tablas
+
+- las 21 figuras `tab()` de SE-517 a SE-528 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas y apiladas, líneas, dispersión, dumbbell y diagramas de flujo); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 43 (commit `8f441a40`, CI verde (Validate, Pages y Security) en `8f441a40`)
+
 ## 2026-11-16 — Parte 44: figuras como gráficos, no como tablas
 
 - las 29 figuras `tab()` de SE-529 a SE-540 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas y apiladas, líneas, mapas de calor); la tabla Markdown se conserva y la figura muestra el patrón

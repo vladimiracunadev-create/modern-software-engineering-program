@@ -131,9 +131,9 @@ Hay 2 000 eventos con 30 defectuosos (1,5 %). Se calcula la probabilidad exacta 
 
 Con 25 elementos al azar, una muestra «sin hallazgos» ocurre en el 68,4 % de los casos aunque haya un 1,5 % de defectos. Con la misma población y los defectos concentrados, 25 elementos al azar siguen encontrando un defecto el 31,6 % de las veces, pero 15 de las cuentas de servicio más 10 del resto lo encuentran el 98,7 %.
 
-![Tabla con la probabilidad de que una muestra contenga un defecto en 2 000 eventos con 30 defectuosos: 14,1 por ciento con 10 elementos, 31,6 con 25, 60,2 con 60, 78,8 con 100 y 95,9 con 200, que la simulación reproduce.](../../../content/part-32/figures/se-394-muestreo-de-auditoria.svg)
+![Barras agrupadas con la probabilidad de que una muestra contenga un defecto: 14,1 % con 10 eventos, 31,6 % con 25, 60,2 % con 60, 78,8 % con 100 y 95,9 % con 200, reproducida por la simulación.](../../../content/part-32/figures/se-394-muestreo-de-auditoria.svg)
 
-**Cómo leer la figura.** La columna exacta y la simulada coinciden dentro del ruido; el tamaño crece rápido para cada punto de confianza adicional. **Dónde deja de valer:** el cálculo supone muestreo sin reposición de una población finita de la que se conoce la tasa; en una auditoría real la tasa es la incógnita y se trabaja con una cota. Los defectos concentrados son del autor; en la práctica se conocen por el análisis de riesgo.
+**Cómo leer la figura.** Cada grupo es un tamaño de muestra; la barra verde azulada es la probabilidad exacta y la gris, la simulada con 20 000 repeticiones. Mira que las dos coinciden y que con 25 eventos la muestra pierde el defecto dos de cada tres veces. **Dónde deja de valer:** el cálculo supone muestreo sin reposición de una población finita de la que se conoce la tasa; en una auditoría real la tasa es la incógnita y se trabaja con una cota. Los defectos concentrados son del autor; en la práctica se conocen por el análisis de riesgo.
 
 ### Un registro de 1 000 eventos y cinco ataques
 
@@ -154,9 +154,9 @@ cadena.append((cuerpo, h)); prev = h
 
 La cadena sola ve todo lo que rompe un eslabón y nada de lo que lo reconstruye o lo corta por el final. La huella publicada fuera cierra esos dos casos.
 
-![Tabla con 100 ataques de cada tipo a un registro de 1 000 eventos con huellas encadenadas: la cadena detecta 100 de 100 modificaciones, borrados y reordenamientos, y 0 de 100 truncamientos y reescrituras; con la huella final publicada fuera del sistema detecta 100 de 100 de todos.](../../../content/part-32/figures/se-394-registro-con-cadena.svg)
+![Barras horizontales con los ataques detectados de 100 por tipo: la cadena sola detecta modificaciones, borrados y reordenamientos (100) y no truncados ni reescrituras (0); con la huella publicada fuera detecta los cinco.](../../../content/part-32/figures/se-394-registro-con-cadena.svg)
 
-**Cómo leer la figura.** Las filas son ataques de menor a mayor capacidad; la tercera columna es lo que se gana al publicar la huella. **Dónde deja de valer:** la huella publicada debe ser anterior al ataque y estar fuera del alcance del atacante; una huella almacenada en el mismo sistema no sirve. No se modeló un atacante que compromete también el canal de publicación ni la pérdida de entradas por fallo del sistema.
+**Cómo leer la figura.** Cada grupo es un tipo de ataque al registro; la barra coral es la detección con solo la cadena y la verde azulada, con la huella final publicada fuera. Mira los dos grupos donde la barra coral falta: son los ataques que reconstruyen bien la cadena. **Dónde deja de valer:** la huella publicada debe ser anterior al ataque y estar fuera del alcance del atacante; una huella almacenada en el mismo sistema no sirve. No se modeló un atacante que compromete también el canal de publicación ni la pérdida de entradas por fallo del sistema.
 
 ## Definiciones de trabajo
 

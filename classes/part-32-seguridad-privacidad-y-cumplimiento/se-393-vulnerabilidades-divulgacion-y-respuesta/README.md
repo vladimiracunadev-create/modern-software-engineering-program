@@ -122,9 +122,9 @@ puntaje = roundup(min(1.08 * (imp + ex), 10)) if cambia else roundup(min(imp + e
 
 El rango llega a 3,8 puntos (la denegación por expresión regular, de baja a alta) y la banda cambia en cuatro de seis hallazgos. Cada diferencia viene de una elección legítima de métrica: red o adyacente, privilegio nulo o bajo, complejidad alta o baja.
 
-![Tabla con los puntajes CVSS 3.1 de seis hallazgos según tres lecturas razonables del vector: la inyección SQL va de 7,1 a 9,8, es decir de alta a crítica; la denegación por expresión regular de 3,7 a 7,5, de baja a alta; la lectura de notas ajenas de 4,3 a 7,5.](../../../content/part-32/figures/se-393-puntajes-cvss.svg)
+![Rangos de tres puntajes CVSS v3.1 por hallazgo, con los umbrales de las bandas media, alta y crítica en el título del eje: la denegación por regex va de 3,7 a 7,5, la inyección SQL de 7,1 a 9,8 y el secreto en un registro de 2,3 a 5,5.](../../../content/part-32/figures/se-393-puntajes-cvss.svg)
 
-**Cómo leer la figura.** Cada fila es un hallazgo; las tres lecturas dan tres puntajes y el rango es la distancia entre la lectura más benigna y la más severa. **Dónde deja de valer:** los vectores de los tres analistas los escribió el autor para ilustrar lecturas posibles; no son de analistas reales. La fórmula sí es la de la especificación; la conclusión (el puntaje depende de la lectura) no depende de los vectores concretos.
+**Cómo leer la figura.** Cada fila es un hallazgo y el segmento va del menor al mayor de los tres puntajes de los analistas; el título del eje dice dónde empiezan las bandas media (4,0), alta (7,0) y crítica (9,0). Mira los segmentos que cruzan uno de esos umbrales: ahí la lectura del vector decide la banda, no el hallazgo. **Dónde deja de valer:** los vectores de los tres analistas los escribió el autor para ilustrar lecturas posibles; no son de analistas reales. La fórmula sí es la de la especificación; la conclusión (el puntaje depende de la lectura) no depende de los vectores concretos.
 
 ### Gravedad contra explotación
 
@@ -139,9 +139,9 @@ Se simulan 3 000 vulnerabilidades con CVSS de campana alrededor de 6,2 (desviaci
 
 Parchear todo lo de CVSS 7 o más exige 1 076 acciones y deja 43 explotadas sin cubrir; la lista de explotación conocida cubre las 83 con 83 acciones, pero solo conoce lo ya explotado.
 
-![Tabla con tres estrategias de parcheo sobre 3 000 vulnerabilidades sintéticas con 83 explotadas: CVSS de 7 o más exige 1 076 parches y cubre 40; CVSS de 9 o más exige 236 y cubre 14; la lista de explotación conocida exige 83 y cubre 83; y la unión con CVSS de 9 o más exige 305 y cubre 83.](../../../content/part-32/figures/se-393-prioridad-por-explotacion.svg)
+![Barras agrupadas en escala logarítmica con los parches aplicados y las explotadas cubiertas de 83: CVSS 7 o más 1 076 y 40; CVSS 9 o más 236 y 14; explotadas conocidas 83 y 83; unión con CVSS 9 o más 305 y 83.](../../../content/part-32/figures/se-393-prioridad-por-explotacion.svg)
 
-**Cómo leer la figura.** La segunda columna es el esfuerzo y la tercera lo que se evita; la lista de explotación conocida gana en esta simulación porque se definió sobre lo que ya ocurrió. **Dónde deja de valer:** la relación débil entre gravedad y explotación es un supuesto del autor; en el mundo real hay que medirla con datos de KEV y EPSS. La lista conocida no ve vulnerabilidades explotables todavía no explotadas ni las propias sin identificador, por eso se combina con un criterio de gravedad.
+**Cómo leer la figura.** Cada grupo es una estrategia; la barra dorada son los parches a aplicar y la verde azulada, las explotadas que cubre, en escala logarítmica. Mira que la lista de explotación cubre las 83 con 83 parches, mientras CVSS de 7 o más necesita 1 076 para cubrir 40. **Dónde deja de valer:** la relación débil entre gravedad y explotación es un supuesto del autor; en el mundo real hay que medirla con datos de KEV y EPSS. La lista conocida no ve vulnerabilidades explotables todavía no explotadas ni las propias sin identificador, por eso se combina con un criterio de gravedad.
 
 ### El primer acuse con una, dos y tres personas
 
@@ -155,9 +155,9 @@ Se simulan 52 semanas con 6 reportes por semana de media (307 en el año), el 40
 
 La segunda persona recorta la mediana de 27,7 a 10,6 horas y el percentil 90 de 94 a 52. La tercera casi no mejora: el límite pasa a ser el horario, de modo que lo que llega el viernes por la tarde espera hasta el lunes.
 
-![Tabla con el primer acuse de 307 informes de vulnerabilidad en un año: con una persona la mediana es 27,7 horas y el percentil 99 es 144,2; con dos, 10,6 y 63,2; con tres, 9,7 y 63,2.](../../../content/part-32/figures/se-393-triaje-de-informes.svg)
+![Líneas con las horas hasta el primer acuse según las personas de triaje: la mediana de 27,7 a 9,7, el percentil 90 de 94,0 a 51,3 y el 99 de 144,2 a 63,2.](../../../content/part-32/figures/se-393-triaje-de-informes.svg)
 
-**Cómo leer la figura.** Cada fila es una dotación y las tres columnas son percentiles del tiempo hasta el primer acuse; la tercera fila casi repite la segunda porque el cuello de botella dejó de ser la capacidad. **Dónde deja de valer:** las llegadas de Poisson, la proporción de inválidos y los tiempos de trabajo son del autor. Un acuse automático inmediato elimina la columna sin añadir personas, y una guardia fuera de horario reduce los percentiles altos.
+**Cómo leer la figura.** El eje horizontal son las personas de triaje y el vertical las horas hasta el primer acuse; cada línea es un percentil. Mira que las tres caen mucho de una a dos personas y casi se aplanan de dos a tres: el límite pasa a ser el horario, no la cola. **Dónde deja de valer:** las llegadas de Poisson, la proporción de inválidos y los tiempos de trabajo son del autor. Un acuse automático inmediato elimina la columna sin añadir personas, y una guardia fuera de horario reduce los percentiles altos.
 
 ## Definiciones de trabajo
 

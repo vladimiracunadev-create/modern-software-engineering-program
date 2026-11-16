@@ -119,9 +119,9 @@ def combinado(linea):
 
 Ninguna estrategia simple encuentra todo, y la combinación llega al 100 % porque se escribió conociendo los formatos plantados: es una frontera, no una promesa. Las 24 falsas alarmas son, entre otras, un token de documentación con forma de clave real.
 
-![Tabla con la detección de 60 secretos plantados: los patrones de proveedor encuentran 40 con 24 falsas alarmas, la palabra clave 38 con 51, la entropía 45 con 21 y la combinación de patrones y palabra clave con entropía encuentra los 60 con 24 falsas alarmas y 71,4 por ciento de precisión.](../../../content/part-32/figures/se-390-escaner-de-secretos.svg)
+![Puntos con los secretos detectados de 60 y las falsas alarmas de cuatro escáneres: patrones 40 y 24, palabra clave 38 y 51, entropía 45 y 21, y la combinación 60 y 24.](../../../content/part-32/figures/se-390-escaner-de-secretos.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; exhaustividad es la fracción de secretos que halla y precisión la fracción de hallazgos que son secretos. **Dónde deja de valer:** el generador, los formatos y los señuelos son del autor; con formatos que la herramienta no conoce (un token propio, una clave corta) la exhaustividad baja sin avisar. Que el último escáner llegue a 100 % es una consecuencia de cómo se escribió el experimento, no un resultado generalizable.
+**Cómo leer la figura.** El eje horizontal son las falsas alarmas y el vertical los secretos detectados; cada punto es un escáner y lo mejor es arriba a la izquierda. Mira que ninguno llega a la esquina y que la combinación sube a 60 sin bajar las falsas alarmas: sube detectados a costa de ruido. **Dónde deja de valer:** el generador, los formatos y los señuelos son del autor; con formatos que la herramienta no conoce (un token propio, una clave corta) la exhaustividad baja sin avisar. Que el último escáner llegue a 100 % es una consecuencia de cómo se escribió el experimento, no un resultado generalizable.
 
 ### Rotar una clave entre veinte instancias
 
@@ -135,9 +135,9 @@ Veinte instancias firman solicitudes con una clave compartida con el verificador
 
 El corte tira más de una cuarta parte de las solicitudes. El cierre fijo evita casi todo, pero rompe a la instancia atascada (956 fallos) sin que nadie lo decida. El cierre condicionado no falla ninguna solicitud y mantiene la clave vieja aceptada hasta que la instancia atascada se corrija: la rotación incompleta es visible.
 
-![Tabla con la rotación de una clave entre veinte instancias: el corte falla el 28,77 por ciento de las solicitudes, la doble validez con cierre fijo a los 360 segundos falla el 1,59 por ciento, y la doble validez con cierre cuando ninguna instancia usa la clave vieja no falla ninguna y mantiene la vieja 538 segundos de media.](../../../content/part-32/figures/se-390-rotacion-sin-caida.svg)
+![Barras horizontales con el porcentaje de solicitudes fallidas según la rotación: 28,77 % con un corte, 1,59 % con doble validez y cierre fijo a los 360 s y 0 % con cierre condicionado.](../../../content/part-32/figures/se-390-rotacion-sin-caida.svg)
 
-**Cómo leer la figura.** La segunda columna es el daño al servicio y la tercera el costo de seguridad de mantener dos claves vivas; ninguna estrategia gana en ambas. **Dónde deja de valer:** los tiempos de recarga (0 a 300 s), el 60 % de semillas con una instancia atascada y la tasa de solicitudes son supuestos del autor; con una filtración activa, mantener 538 s la clave vieja aceptada es un riesgo que exigiría una detección del uso de la clave vieja y un cierre forzado.
+**Cómo leer la figura.** Cada barra es una estrategia de rotación con los segundos que mantiene la clave vieja entre paréntesis, y su longitud, el porcentaje de solicitudes fallidas. Mira que la barra se acorta justo cuando la ventana de doble validez se alarga: sin caída cuesta una ventana en que dos secretos valen. **Dónde deja de valer:** los tiempos de recarga (0 a 300 s), el 60 % de semillas con una instancia atascada y la tasa de solicitudes son supuestos del autor; con una filtración activa, mantener 538 s la clave vieja aceptada es un riesgo que exigiría una detección del uso de la clave vieja y un cierre forzado.
 
 ### El radio de una credencial filtrada
 
@@ -151,9 +151,9 @@ Hay tres ambientes, cinco servicios y seis recursos por servicio (90 recursos, 3
 
 La separación por ambiente reduce el radio a un tercio y la separación por servicio y ambiente a una quinceava parte. Ninguna elimina la fuga: reduce lo que vale.
 
-![Tabla con el radio de una credencial filtrada entre 90 recursos: una credencial para todos los ambientes alcanza 90 y 30 de producción, una por ambiente alcanza 30 y 10 de producción, y una por servicio y ambiente alcanza 6 y 1,9 de producción de media.](../../../content/part-32/figures/se-390-radio-de-una-fuga.svg)
+![Barras agrupadas con los recursos que alcanza una credencial filtrada: válida en todos los ambientes 90 de 90 y 30 de producción; por ambiente 30 y 10; por servicio y ambiente 6 y 1,9.](../../../content/part-32/figures/se-390-radio-de-una-fuga.svg)
 
-**Cómo leer la figura.** Las columnas son el tamaño del daño potencial; la última es lo que importa si la fuga ocurre en un entorno de pruebas. **Dónde deja de valer:** la fuga uniforme entre ambientes es un supuesto del autor (en la práctica se filtra más en desarrollo); la tabla no cubre los datos: una copia de producción en staging expone todos los registros aunque la credencial de staging no abra producción, y de ahí la separación de datos de `SE-391`.
+**Cómo leer la figura.** Cada grupo es un esquema de credenciales; la barra coral son los recursos alcanzados de 90 y la azul, los de producción de 30. Mira cómo ambas se acortan al separar ambientes y servicios: no evita la fuga, reduce lo que vale lo filtrado. **Dónde deja de valer:** la fuga uniforme entre ambientes es un supuesto del autor (en la práctica se filtra más en desarrollo); la tabla no cubre los datos: una copia de producción en staging expone todos los registros aunque la credencial de staging no abra producción, y de ahí la separación de datos de `SE-391`.
 
 ## Definiciones de trabajo
 

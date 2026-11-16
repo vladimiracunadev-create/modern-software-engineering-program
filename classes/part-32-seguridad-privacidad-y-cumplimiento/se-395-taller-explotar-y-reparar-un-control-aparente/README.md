@@ -118,9 +118,9 @@ def sale(modulo, ruta_final, base):
 
 El filtro de una pasada deja salir el 41,4 % de las cargas aleatorias en POSIX; el bucle, el 22,1 %. Con la comprobación del destino ninguna sale: las 903 y 958 cargas que habrían salido se rechazan.
 
-![Tabla con cinco mil cargas aleatorias contra tres controles de rutas: quitar la secuencia punto punto barra una vez deja salir 2 072 de la raíz con rutas POSIX y 2 154 con rutas de Windows; quitarla en bucle deja salir 1 106 y 1 181; decodificar, resolver y comprobar el prefijo deja salir 0.](../../../content/part-32/figures/se-395-filtro-de-rutas.svg)
+![Barras agrupadas con las cargas de 5 000 que salen de la raíz: quitar «../» una vez deja salir 2 072 en POSIX y 2 154 en Windows, en bucle 1 106 y 1 181, y resolver y comprobar el prefijo 0 y 0.](../../../content/part-32/figures/se-395-filtro-de-rutas.svg)
 
-**Cómo leer la figura.** Cada fila es una versión del control; las dos columnas son las reglas de cada sistema, que difieren en el separador. **Dónde deja de valer:** el alfabeto y el número de elementos son del autor, así que las proporciones de escape (41,4 % y 22,1 %) no estiman nada real; cambian con otro alfabeto. Que la tercera fila dé cero es una propiedad de la comprobación del prefijo, no de las cargas. No se modelaron enlaces simbólicos ni carreras entre comprobación y uso.
+**Cómo leer la figura.** Cada grupo es un control; la barra coral son las cargas que salen de la raíz con rutas POSIX y la dorada, con rutas de Windows. Mira que el bucle reduce la altura y no la anula, y que solo la comprobación del prefijo la lleva a cero en ambos sistemas. **Dónde deja de valer:** el alfabeto y el número de elementos son del autor, así que las proporciones de escape (41,4 % y 22,1 %) no estiman nada real; cambian con otro alfabeto. Que la tercera fila dé cero es una propiedad de la comprobación del prefijo, no de las cargas. No se modelaron enlaces simbólicos ni carreras entre comprobación y uso.
 
 ### Un token que solo comprueba presencia
 
@@ -141,9 +141,9 @@ def v_ligado(sesion, tok):
 
 Las pruebas felices (sin token rechaza, token propio acepta) pasan en la primera columna. La segunda parece mejor y falla en la otra dirección: rechaza el token propio, porque el valor global es el de la sesión de otra persona.
 
-![Tabla con cinco peticiones contra tres defensas de solicitudes forzadas: comprobar solo que haya token acepta uno inventado, uno con un espacio y el de otra sesión; compararlo con un valor global acepta el de otra sesión y rechaza el propio; ligarlo a la sesión con un HMAC rechaza lo ajeno y acepta lo propio.](../../../content/part-32/figures/se-395-defensa-csrf.svg)
+![Mapa de calor con si tres implementaciones de CSRF aceptan cinco peticiones: la de solo presencia acepta lo inventado, lo con espacio y lo ajeno; la de valor global acepta lo ajeno y rechaza lo propio; la ligada a la sesión acierta las cinco.](../../../content/part-32/figures/se-395-defensa-csrf.svg)
 
-**Cómo leer la figura.** Las filas son peticiones de menos a más sofisticadas; las mayúsculas marcan donde el control acepta lo que debía rechazar. **Dónde deja de valer:** las tres funciones son de juguete; no incluyen cookies, `SameSite` ni rotación del token, y la comprobación del origen de la petición es una capa adicional. La lección es sobre qué comprueba el servidor, no sobre cómo implementar la defensa completa.
+**Cómo leer la figura.** Cada fila es una petición y cada columna una implementación; el coral intenso es «acepta» y el contorno marca el comportamiento incorrecto: aceptar lo ajeno o rechazar lo propio. Mira que la columna de la derecha no tiene contornos y las otras sí, y que las filas sin token y con token propio pasan en la implementación débil. **Dónde deja de valer:** las tres funciones son de juguete; no incluyen cookies, `SameSite` ni rotación del token, y la comprobación del origen de la petición es una capa adicional. La lección es sobre qué comprueba el servidor, no sobre cómo implementar la defensa completa.
 
 ### Un limitador y un verificador que confían en el cliente
 
@@ -160,9 +160,9 @@ Se evalúan mil intentos de inicio de sesión contra dos limitadores (por cabece
 
 Los dos controles aparentes cumplen contra el caso que se probó (sin cambiar de dirección, firmas ajenas, carga alterada) y fallan frente al dato que decide el atacante.
 
-![Tabla con dos controles aparentes más: un limitador por la cabecera X-Forwarded-For permite 1 000 de 1 000 intentos si la cabecera cambia y 5 si no; contar por la dirección de la conexión permite 5 en ambos casos; un verificador que lee el algoritmo del token acepta un token con algoritmo none y uno que fija HS256 lo rechaza.](../../../content/part-32/figures/se-395-limitador-y-token.svg)
+![Seis tarjetas con el control aparente y el reparado: cambiar la cabecera permite 1 000 intentos frente a 5, un token con alg none y rol docente se acepta frente a rechazarse y los demás casos coinciden.](../../../content/part-32/figures/se-395-limitador-y-token.svg)
 
-**Cómo leer la figura.** Cada fila es un intento; la diferencia entre columnas está en pocas filas, y esas filas son las que ninguna prueba feliz ejecuta. **Dónde deja de valer:** detrás de un proxy la dirección de la conexión es la del proxy: la reparación real exige configurar qué proxies son de confianza y leer el elemento correcto de la cadena. El verificador reparado es de juguete; en producción se usa una biblioteca revisada configurada con una lista cerrada de algoritmos.
+**Cómo leer la figura.** Cada tarjeta es una prueba y a la derecha el resultado con el control aparente y con el reparado: coral si el aparente deja pasar lo que no debe y verde azulado si los dos coinciden. Mira que solo dos de las seis pruebas separan los controles: las que usan un dato que controla el atacante. **Dónde deja de valer:** detrás de un proxy la dirección de la conexión es la del proxy: la reparación real exige configurar qué proxies son de confianza y leer el elemento correcto de la cadena. El verificador reparado es de juguete; en producción se usa una biblioteca revisada configurada con una lista cerrada de algoritmos.
 
 ## Definiciones de trabajo
 

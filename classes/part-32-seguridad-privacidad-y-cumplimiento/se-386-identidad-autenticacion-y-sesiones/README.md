@@ -119,9 +119,9 @@ print((time.perf_counter() - t0) / 5)
 
 Con hashes sin sal, probar cada candidato una vez sirve para toda la tabla (1 000 cálculos cubren 1 000 candidatos para los 10 000 usuarios); con sal por usuario son 10 000 000 cálculos. La función de 600 000 iteraciones cuesta unos 250 000 veces más que la de una vuelta, y esa es la razón por la que la fracción rota baja de 70 a 22,5 %. Los tiempos son lecturas de un equipo: en Ubuntu bajo WSL2 la misma prueba dio 0,0011 ms, 0,65 ms, 522 ms y 60,3 ms.
 
-![Tabla con el tiempo por hash de cuatro funciones y la fracción de 10 000 contraseñas que cae en una hora de un núcleo: 70 por ciento sin sal con SHA-256 y 46,2 con sal por usuario, y 22,5 sin sal con 0,9 con sal para 600 000 iteraciones de PBKDF2.](../../../content/part-32/figures/se-386-costo-de-adivinar.svg)
+![Barras agrupadas con el porcentaje de 10 000 contraseñas rotas en una hora: SHA-256 de una vuelta 70,0 sin sal y 46,2 con sal; PBKDF2 de 1 000 iteraciones 70,0 y 9,0; de 600 000, 22,5 y 0,9; scrypt 36,7 y 2,4.](../../../content/part-32/figures/se-386-costo-de-adivinar.svg)
 
-**Cómo leer la figura.** Cada fila combina el tiempo por hash medido con las dos columnas que lo convierten en un número de candidatos por hora; la última columna siempre es menor porque la sal multiplica el costo por 10 000. **Dónde deja de valer:** un atacante con tarjetas gráficas prueba millones de candidatos por segundo con funciones que no exigen memoria; por eso scrypt y Argon2id piden memoria. El 70 % de contraseñas de diccionario y el exponente 0,8 son supuestos del autor; con contraseñas largas generadas por gestor, la cifra baja a cerca de cero.
+**Cómo leer la figura.** Cada grupo es una función de derivación con su costo por hash entre paréntesis; la barra coral son las cuentas rotas sin sal y la verde azulada, con sal por usuario. Mira cuánto baja cada barra al subir el costo de la función y que la sal acorta la barra verde azulada en todos los grupos. **Dónde deja de valer:** un atacante con tarjetas gráficas prueba millones de candidatos por segundo con funciones que no exigen memoria; por eso scrypt y Argon2id piden memoria. El 70 % de contraseñas de diccionario y el exponente 0,8 son supuestos del autor; con contraseñas largas generadas por gestor, la cifra baja a cerca de cero.
 
 ### El relleno de credenciales
 
@@ -138,9 +138,9 @@ La plataforma tiene 5 000 cuentas; 100 de ellas (2 %) reutilizan una contraseña
 
 Los dos controles más habituales de la puerta de entrada no cambian la cifra. Lo que la reduce es lo que actúa sobre el valor de la credencial robada.
 
-![Tabla con las cuentas comprometidas de las 100 que reutilizan contraseña: 100 sin defensa, con límite por dirección y con bloqueo por cuenta, 73 con segundo factor del 30 por ciento, 33 con rechazo de contraseñas filtradas y 24 con ambos.](../../../content/part-32/figures/se-386-relleno-de-credenciales.svg)
+![Barras horizontales con las cuentas comprometidas de 100 con contraseña reutilizada: 100 sin defensas, con límite por IP o con bloqueo de cuenta; 73 con segundo factor al 30 %; 33 con rechazo de filtradas; 24 con ambos.](../../../content/part-32/figures/se-386-relleno-de-credenciales.svg)
 
-**Cómo leer la figura.** La columna central es el resultado, no el esfuerzo; una defensa que deja en 100 no actuó sobre este ataque aunque actúe sobre otro. **Dónde deja de valer:** la reutilización (2 %), la adopción del segundo factor (30 %) y la cobertura del corpus (60 %) son del autor; una plataforma con más reutilización tiene más cuentas en riesgo, y un atacante que además hace phishing en tiempo real elude el segundo factor basado en códigos.
+**Cómo leer la figura.** Cada barra es una defensa y su longitud, cuántas de las 100 cuentas con contraseña reutilizada se comprometen. Mira que las tres primeras barras son iguales: dos controles muy citados no cambian nada, y solo bajan las defensas que cambian quién puede entrar o con qué contraseña. **Dónde deja de valer:** la reutilización (2 %), la adopción del segundo factor (30 %) y la cobertura del corpus (60 %) son del autor; una plataforma con más reutilización tiene más cuentas en riesgo, y un atacante que además hace phishing en tiempo real elude el segundo factor basado en códigos.
 
 ### Adivinar una sesión
 
@@ -161,9 +161,9 @@ for ts in range(1_700_000_123 - 3600, 1_700_000_123 + 3601):
 
 El token del segundo esquema es de 64 bits y parece largo; su entropía real es la de la hora, unas 13 bits dentro de una ventana de dos horas. La longitud no es la entropía.
 
-![Tabla con los intentos para adivinar un identificador de sesión: 99 con un contador en un espacio de un millón, 3 601 de 7 201 candidatos con la semilla igual al segundo del inicio, y 3,4 por 10 elevado a 34 con 128 bits del generador del sistema.](../../../content/part-32/figures/se-386-adivinar-una-sesion.svg)
+![Tres tarjetas con identificadores de sesión: uno secuencial se adivina en unos 99 intentos, uno sembrado con la hora se recupera probando 3 601 semillas de 7 201 y uno de 128 bits del sistema exige del orden de 3,4 × 10^34 intentos.](../../../content/part-32/figures/se-386-adivinar-una-sesion.svg)
 
-**Cómo leer la figura.** Cada fila es un modo de generar el identificador y la segunda columna cuántas pruebas hacen falta; el problema del segundo esquema es el origen predecible, no el tamaño. **Dónde deja de valer:** la tercera fila supone que el token no se filtra: no cubre robo por scripts, cookies sin `HttpOnly`, registros de acceso con el token ni sesiones que no caducan. Esos riesgos requieren las defensas de ciclo de vida de la sección anterior.
+**Cómo leer la figura.** Cada tarjeta es una forma de generar el identificador y a la derecha, cuántos intentos necesita alguien para quedarse con una sesión: coral si es abordable y verde azulado si adivinar deja de ser el camino. Mira que la segunda parece larga y no lo es: su entropía real es la hora del inicio. **Dónde deja de valer:** la tercera fila supone que el token no se filtra: no cubre robo por scripts, cookies sin `HttpOnly`, registros de acceso con el token ni sesiones que no caducan. Esos riesgos requieren las defensas de ciclo de vida de la sección anterior.
 
 ## Definiciones de trabajo
 

@@ -121,9 +121,9 @@ def lat(a, ruta):
 
 Seis de doce escenarios fallan (E02, E04, E09, E10, E11, E12). Cuatro de ellos tienen la misma raíz: el almacenamiento de archivos (50 peticiones por segundo con dos instancias) y la revisión antivirus (16 por segundo) no cubren el pico de 60 y 20. Los componentes más frecuentes en las rutas que fallan son archivos (4), web, identidad y entregas (3 cada uno). Las cifras son idénticas en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
 
-![Tabla con el resultado de doce escenarios de la arquitectura en servicios: seis fallan, entre ellos el pico de entrega, la disponibilidad de la entrega, el antivirus y los dos escenarios de cambio.](../../../content/part-25/figures/se-311-revision-ejecutable.svg)
+![Barras horizontales apiladas con los escenarios que cumple y los que falla el modelo de la arquitectura en servicios según su categoría: latencia 2 y 1, disponibilidad 1 y 1, aislamiento 3 y 0, capacidad 0 y 2 y cambio 0 y 2; seis de doce fallan.](../../../content/part-25/figures/se-311-revision-ejecutable.svg)
 
-**Cómo leer la figura.** Cada fila es un escenario con su exigencia y el resultado del modelo; las filas que fallan señalan el componente y la decisión a reabrir. **Dónde deja de valer:** las latencias p95 se suman (una cota pesimista), las disponibilidades y capacidades son supuestos y el modelo no representa degradación parcial ni reintentos. Sirve para encontrar dónde mirar, no para predecir el comportamiento de un sistema real.
+**Cómo leer la figura.** Cada barra es una categoría de escenarios y se reparte entre los que cumple (verde) y los que falla (rojo). Las categorías de capacidad y cambio son íntegramente rojas y la de aislamiento íntegramente verde: señalan dónde reabrir la arquitectura. Los escenarios concretos, E02, E04, E09, E10, E11 y E12, y sus valores están en la tabla anterior. **Dónde deja de valer:** las latencias p95 se suman (una cota pesimista), las disponibilidades y capacidades son supuestos y el modelo no representa degradación parcial ni reintentos. Sirve para encontrar dónde mirar, no para predecir el comportamiento de un sistema real.
 
 ### Cuánto cubre una revisión según quién la hace
 
@@ -143,9 +143,9 @@ elegidos = {rng.choices(range(30), weights=w)[0] for _ in range(...)}   # 5 dist
 
 Una persona sesgada hacia la latencia cubre las tres categorías débiles el 2,0 % de las veces; cinco personas con la misma especialidad, el 61,5 %; tres con especialidades distintas, el 65,3 %. Elegir 5 de 30 escenarios al azar, sin sesgo, cubre el 12,2 %.
 
-![Tabla con la probabilidad de que la revisión cubra las tres categorías débiles de la arquitectura según participen una, dos, tres o cinco personas con la misma especialidad o con especialidades distintas.](../../../content/part-25/figures/se-311-cobertura-de-revisores.svg)
+![Líneas con la probabilidad de que la revisión cubra las tres categorías débiles según participen una, dos, tres o cinco personas: de 2,0 a 61,5 por ciento con la misma especialidad y de 9,4 a 89,4 con especialidades distintas.](../../../content/part-25/figures/se-311-cobertura-de-revisores.svg)
 
-**Cómo leer la figura.** Cada fila es el número de personas; las columnas comparan equipos con la misma especialidad y con especialidades distintas. **Dónde deja de valer:** el sesgo ×4, las categorías y las debilidades son supuestos del autor; los revisores reales discuten y se influyen. La figura dice que la diversidad de miradas aporta más que su número, y que conviene decidir de antemano qué perfiles deben estar en la sala.
+**Cómo leer la figura.** El eje horizontal es el número de personas que revisan y el vertical, la probabilidad de cubrir las tres categorías débiles; la línea roja es un equipo con la misma especialidad y la verde, uno con especialidades distintas. La verde va siempre por encima: dos personas con especialidades distintas (40,3) superan a tres con la misma (30,5). **Dónde deja de valer:** el sesgo ×4, las categorías y las debilidades son supuestos del autor; los revisores reales discuten y se influyen. La figura dice que la diversidad de miradas aporta más que su número, y que conviene decidir de antemano qué perfiles deben estar en la sala.
 
 ### Qué parámetros deciden un veredicto
 
@@ -167,9 +167,9 @@ flips = sum(1 for x, y in zip(v0, veredictos(a)) if x != y)
 
 Solo 8 de 144 perturbaciones cambian algún veredicto: ninguna variación de latencia ni de tasa de fallo lo hace. El escenario E04 falla por 0,015 puntos porcentuales de disponibilidad y ninguna mejora individual de un componente lo corrige: su causa es la suma de componentes y la causa común, no un parámetro.
 
-![Tabla con las perturbaciones de un parámetro que invierten algún veredicto de la arquitectura: reducir a la mitad la capacidad de archivos rompe dos escenarios y subir las instancias del antivirus arregla el de su capacidad, mientras que ninguna variación de latencia o de tasa de fallo cambia un veredicto.](../../../content/part-25/figures/se-311-sensibilidad-de-parametros.svg)
+![Barras horizontales apiladas con las perturbaciones de un parámetro que invierten algún veredicto, de 36 por parámetro: seis de capacidad y dos de instancias del antivirus lo hacen; ninguna de latencia ni de tasa de fallo.](../../../content/part-25/figures/se-311-sensibilidad-de-parametros.svg)
 
-**Cómo leer la figura.** Cada fila agrupa perturbaciones de un parámetro; la tercera columna lista los escenarios cuyo veredicto cambia. **Dónde deja de valer:** se varía un parámetro a la vez, sin interacciones, y con rangos del autor; un fallo que combina dos componentes no aparecería. La figura dice que los veredictos son robustos a latencia y fallos y frágiles a capacidad, y que un margen pequeño no siempre se arregla moviendo un parámetro.
+**Cómo leer la figura.** Cada barra es un parámetro que se varía de uno en uno entre 0,5 y 2 veces, y se reparte entre las perturbaciones que invierten algún veredicto (rojo) y las que no cambian ninguno (verde). Casi toda la barra de latencia y de tasa de fallo es verde; solo capacidad e instancias tienen tramo rojo. Los escenarios que cambian figuran en la tabla anterior. **Dónde deja de valer:** se varía un parámetro a la vez, sin interacciones, y con rangos del autor; un fallo que combina dos componentes no aparecería. La figura dice que los veredictos son robustos a latencia y fallos y frágiles a capacidad, y que un margen pequeño no siempre se arregla moviendo un parámetro.
 
 ## Definiciones de trabajo
 

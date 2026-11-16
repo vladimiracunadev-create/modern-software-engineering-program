@@ -120,9 +120,9 @@ sin_uso = declaradas - vistas
 
 Con 100 peticiones solo aparece la dependencia frecuente; la de 0,5 % se ve con 1000 y el atajo de 0,1 % exige unas 5000 trazas para verlo con 99 % de probabilidad (1 − 0,999ⁿ). La arista declarada sin uso aparece desde la primera muestra porque, por construcción, no ocurre nunca.
 
-![Tabla con las dependencias no declaradas y las declaradas sin uso que se observan al analizar cien, mil, cinco mil y cien mil peticiones.](../../../content/part-25/figures/se-302-trazas-y-vista-logica.svg)
+![Línea con el número de dependencias no declaradas en la vista lógica que se descubren al analizar cien, mil, cinco mil y cien mil peticiones, en escala logarítmica de peticiones: una de tres, dos de tres y, desde cinco mil, las tres.](../../../content/part-25/figures/se-302-trazas-y-vista-logica.svg)
 
-**Cómo leer la figura.** Cada fila es una muestra de trazas; las columnas cuentan lo que el análisis ve respecto de la vista declarada. **Dónde deja de valer:** que una traza no muestre una arista no prueba que no exista; solo acota con qué probabilidad la habríamos visto. Las probabilidades son del autor, y un sistema real tiene aristas de recuperación (reintentos, rutas de error) que casi nunca se ejercen y que son justo las que importan cuando algo falla.
+**Cómo leer la figura.** El eje horizontal es el número de peticiones analizadas, en escala logarítmica, y el vertical, cuántas de las tres dependencias reales no declaradas aparecen en las trazas; la línea punteada superior marca que las tres existen. La curva sube a escalones y solo toca el techo con unas 5000 peticiones: cada dependencia rara exige una muestra mayor. La anotación recuerda que la dependencia declarada y nunca usada se ve desde la primera muestra. **Dónde deja de valer:** que una traza no muestre una arista no prueba que no exista; solo acota con qué probabilidad la habríamos visto. Las probabilidades son del autor, y un sistema real tiene aristas de recuperación (reintentos, rutas de error) que casi nunca se ejercen y que son justo las que importan cuando algo falla.
 
 ### Radio de explosión de cada nodo
 
@@ -145,9 +145,9 @@ for nodo in nodos:
 
 La web está en el camino de los cuatro recorridos: mientras viva en un único nodo, la caída de ese nodo lo rompe todo, por mucho que se replique la base de datos. Replicar web e identidad deja el nodo 1 sin efecto y el peor caso en 3 de 4 (el nodo 3 aloja la cola y las notificaciones).
 
-![Tabla con el peor nodo de cuatro topologías de despliegue y los recorridos de usuario que rompe la caída de cada nodo.](../../../content/part-25/figures/se-302-radio-de-explosion.svg)
+![Barras horizontales con los recorridos de usuario, de cuatro, que rompe la caída del peor nodo en cuatro topologías: un solo servidor, aplicación y base separadas y solo la base replicada rompen los cuatro, y replicar también web e identidad lo baja a tres.](../../../content/part-25/figures/se-302-radio-de-explosion.svg)
 
-**Cómo leer la figura.** Cada fila es una topología; la columna central es el máximo de recorridos rotos por la caída de un nodo. **Dónde deja de valer:** el cálculo es binario (el recorrido funciona o no) y no modela degradación parcial, tiempos de recuperación ni fallos correlacionados entre nodos; los recorridos y las ubicaciones son del autor. Lo que enseña es el método: se cruza despliegue con recorridos, no se mira cada componente por separado.
+**Cómo leer la figura.** Cada barra es una topología y su longitud, el número de recorridos de usuario, de 4, que rompe la caída de su peor nodo. Lo primero es que tres de las cuatro barras llegan al final de la escala: separar la aplicación de la base o replicar solo la base no cambia el peor caso. Solo la última topología, que replica también la puerta de entrada y la identidad, lo reduce a 3. La tabla anterior conserva qué pasa con los demás nodos. **Dónde deja de valer:** el cálculo es binario (el recorrido funciona o no) y no modela degradación parcial, tiempos de recuperación ni fallos correlacionados entre nodos; los recorridos y las ubicaciones son del autor. Lo que enseña es el método: se cruza despliegue con recorridos, no se mira cada componente por separado.
 
 ### La cola de una cadena de servicios
 
@@ -167,9 +167,9 @@ par = max(rng.lognormvariate(math.log(20), 0.6) for _ in range(n))
 
 Con ocho servicios en serie la mediana se multiplica por 9 y el percentil 99 por 4; en paralelo, la mediana crece 2,3 veces y el p99 1,5. La última columna, 1 − 0,99ᴺ, dice cuántas peticiones tocan al menos una llamada en su propio percentil 99: con 32 servicios, el 27,5 %.
 
-![Tabla con la mediana y el percentil 99 de la latencia de una petición que atraviesa uno, dos, cuatro y ocho servicios en serie y en paralelo.](../../../content/part-25/figures/se-302-latencia-de-una-cadena.svg)
+![Líneas con la mediana y el percentil 99 de la latencia de una petición que atraviesa uno, dos, cuatro y ocho servicios: en serie suben de 20,0 y 80,6 milisegundos a 186,3 y 321,1; en paralelo solo llegan a 45,8 y 122,2.](../../../content/part-25/figures/se-302-latencia-de-una-cadena.svg)
 
-**Cómo leer la figura.** Las filas son el número de servicios; las columnas comparan sumar o tomar el máximo. **Dónde deja de valer:** las latencias son independientes y lognormales; en un sistema real la contención las correlaciona, y las llamadas en paralelo comparten red y base de datos. La figura no dice «paralelizar siempre»: dice que la vista de ejecución muestra qué se suma y qué se solapa, y que la cola importa más que la mediana.
+**Cómo leer la figura.** El eje horizontal es el número de servicios llamados y el vertical, la latencia en milisegundos. Cada color es una combinación de modo de llamada y estadístico: las líneas de serie, que suman, se abren hacia arriba; las de paralelo, donde manda el más lento, casi se aplanan. Con un solo servicio coinciden, y la separación que crece con N es el efecto de sumar frente a solapar; la separación entre el percentil 99 y la mediana también crece. La tabla anterior conserva la probabilidad de que alguna llamada supere su propio percentil 99. **Dónde deja de valer:** las latencias son independientes y lognormales; en un sistema real la contención las correlaciona, y las llamadas en paralelo comparten red y base de datos. La figura no dice «paralelizar siempre»: dice que la vista de ejecución muestra qué se suma y qué se solapa, y que la cola importa más que la mediana.
 
 ## Definiciones de trabajo
 

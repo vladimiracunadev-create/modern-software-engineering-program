@@ -118,9 +118,9 @@ t_local = (time.perf_counter_ns() - t) / N
 
 Rangos de cinco ejecuciones en Windows (CPython 3.12.9) y cuatro en Ubuntu bajo WSL2 (3.12.3); los valores absolutos cambian con la máquina y con la carga y por eso se dan como rango. Una operación con 20 llamadas internas pasa de unos 7 µs a unos 2,3 ms si cada llamada cruza el bucle local por TCP, sin contar la red real.
 
-![Tabla con el tiempo de una llamada de función, de una serialización JSON y de una ida y vuelta por TCP en bucle local, con su razón sobre la llamada local.](../../../content/part-25/figures/se-303-coste-de-una-llamada.svg)
+![Intervalos en escala logarítmica con el tiempo mínimo y máximo medido entre ejecuciones de una llamada de función, de una serialización JSON y de una ida y vuelta TCP en bucle local: de 0,22 a 0,84 microsegundos, de 10,7 a 36,9, de 117 a 201 en la mediana y de 227 a 686 en el percentil 99.](../../../content/part-25/figures/se-303-coste-de-una-llamada.svg)
 
-**Cómo leer la figura.** Cada fila es un nivel de frontera; las columnas dan el tiempo y cuántas veces supera a la llamada local. **Dónde deja de valer:** el bucle local no tiene enlace físico, balanceador, TLS ni fallos de red, así que subestima el coste real de cruzar una máquina; los valores dependen del procesador y del sistema. Lo que se repite entre máquinas es el orden de magnitud de las razones (dos o tres centenares de veces), no los microsegundos.
+**Cómo leer la figura.** Cada fila es un nivel de frontera; el eje horizontal es el tiempo por operación en microsegundos, en escala logarítmica, y los dos extremos de cada barra son el mínimo y el máximo entre las ejecuciones realizadas. Los rangos de las tres primeras filas no se solapan y quedan separados por media década o más: ese salto es el coste de cruzar una frontera; la cuarta fila, el percentil 99 de TCP, continúa a la derecha de la mediana. Que los rangos no se solapen es lo que sostiene la conclusión, aunque los valores cambien con la máquina. **Dónde deja de valer:** el bucle local no tiene enlace físico, balanceador, TLS ni fallos de red, así que subestima el coste real de cruzar una máquina; los valores dependen del procesador y del sistema. Lo que se repite entre máquinas es el orden de magnitud de las razones (dos o tres centenares de veces), no los microsegundos.
 
 ### Una operación que cruza tres servicios: consistencia con y sin compensación
 
@@ -142,9 +142,9 @@ for k in range(3):
 
 Con 1 % de fallo por llamada, casi 2 de cada 100 operaciones dejan un estado a medias sin compensación y 14 de cada 10 000 con ella. En el monolito, una transacción local que falla deja 0 filas en las dos tablas (se comprobó con `sqlite3`): el estado intermedio no es observable.
 
-![Tabla con el porcentaje de operaciones completas e inconsistentes de una operación que cruza tres servicios con tres tasas de fallo, sin compensación y con compensación.](../../../content/part-25/figures/se-303-consistencia-entre-servicios.svg)
+![Barras agrupadas con el porcentaje de operaciones inconsistentes de una operación que cruza tres servicios, con fallos de 0,1, 1 y 5 por ciento por llamada, sin compensación y con compensación: 0,22, 1,98 y 9,27 frente a 0,02, 0,14 y 0,69.](../../../content/part-25/figures/se-303-consistencia-entre-servicios.svg)
 
-**Cómo leer la figura.** Cada fila es una tasa de fallo por llamada; las dos últimas columnas comparan el estado inconsistente con y sin compensación. **Dónde deja de valer:** los fallos son independientes y la compensación siempre es posible; en la práctica hay pasos que no se pueden deshacer (un correo enviado) y fallos correlacionados. No dice que las sagas sean malas: dice que la consistencia entre servicios se reduce y se vuelve observable, pero no desaparece, y que requiere diseñar y probar las compensaciones.
+**Cómo leer la figura.** Cada grupo es una tasa de fallo por llamada y las dos barras comparan el porcentaje de operaciones que terminan en un estado intermedio sin y con compensación. La barra roja crece casi en proporción a la tasa de fallo; la verde es de once a catorce veces más baja pero no es cero. El gráfico no muestra las operaciones completas, que están en la tabla anterior. **Dónde deja de valer:** los fallos son independientes y la compensación siempre es posible; en la práctica hay pasos que no se pueden deshacer (un correo enviado) y fallos correlacionados. No dice que las sagas sean malas: dice que la consistencia entre servicios se reduce y se vuelve observable, pero no desaparece, y que requiere diseñar y probar las compensaciones.
 
 ### Un comprobador de fronteras con análisis estático
 

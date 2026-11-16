@@ -139,9 +139,9 @@ alarma = p95 > margen * p95_esperado
 
 Con 30 muestras no existe un margen que dé a la vez pocas falsas alarmas y pocas regresiones perdidas: con ×1,10 falla casi una de cada cuatro ejecuciones sin cambio; con ×1,25 se pierde el 61 % de las regresiones. Con 500 muestras y ×1,10 las dos cifras bajan a 0,3 % y 0,5 %.
 
-![Tabla con las falsas alarmas y las regresiones de veinte por ciento no detectadas de una prueba de rendimiento sobre el percentil 95 con treinta, cien y quinientas muestras y distintos márgenes de umbral.](../../../content/part-25/figures/se-308-falsas-alarmas-y-regresiones.svg)
+![Dispersión con las falsas alarmas y las regresiones de veinte por ciento no detectadas de una prueba de rendimiento con umbral sobre el percentil 95, según las muestras y el margen: de 24,7 y 21,6 por ciento con treinta muestras y margen 1,10 a 0,3 y 0,5 con quinientas.](../../../content/part-25/figures/se-308-falsas-alarmas-y-regresiones.svg)
 
-**Cómo leer la figura.** Cada fila combina el número de muestras y el margen; las dos últimas columnas son los dos errores posibles. **Dónde deja de valer:** las latencias son lognormales e independientes entre muestras; las reales se agrupan, tienen colas más pesadas y deriva del entorno de ejecución. La figura dice que el umbral y las muestras son una decisión estadística y que una prueba con falsas alarmas se desactiva: el coste de las muestras suficientes es parte del coste de la función de aptitud.
+**Cómo leer la figura.** El eje horizontal son las falsas alarmas y el vertical las regresiones perdidas, ambos en porcentaje; cada punto es una combinación de muestras (color) y margen del umbral (etiqueta), y el mejor lugar es la esquina inferior izquierda. Los puntos de 30 muestras quedan lejos de ella en una u otra dirección: no hay margen que dé pocos errores de ambos tipos. Solo el de 500 muestras con margen 1,10 llega a la esquina. **Dónde deja de valer:** las latencias son lognormales e independientes entre muestras; las reales se agrupan, tienen colas más pesadas y deriva del entorno de ejecución. La figura dice que el umbral y las muestras son una decisión estadística y que una prueba con falsas alarmas se desactiva: el coste de las muestras suficientes es parte del coste de la función de aptitud.
 
 ### Tres alarmas sobre una deriva de acoplamiento
 
@@ -159,9 +159,9 @@ trinquete = next((w for w in range(1, 80) if xs[w] > min(xs[:w]) + 2), None)
 
 El umbral absoluto avisa 14 semanas después de que empiece el daño y deja sin aviso al 18 % de las series. El trinquete avisa antes en el 99 % de los casos, una mediana de 18 semanas antes, pero se equivoca en el 24,4 % de las series planas; la pendiente avisa aún antes, y da falsa alarma en el 95,4 % de las series sin deriva, porque con ruido de 0,4 una ventana de ocho semanas ve pendientes que no existen.
 
-![Tabla con tres alarmas sobre una deriva de acoplamiento: la proporción de series en que avisan antes del daño, su mediana de adelanto, la proporción en que no avisan nunca y las falsas alarmas en series planas.](../../../content/part-25/figures/se-308-umbral-trinquete-y-tendencia.svg)
+![Barras horizontales agrupadas con el porcentaje de series en que cada alarma avisa antes del daño, no avisa nunca o da falsa alarma en series planas: umbral absoluto 0, 18 y 0; trinquete 99, 0 y 24,4; pendiente 95, 0 y 95,4.](../../../content/part-25/figures/se-308-umbral-trinquete-y-tendencia.svg)
 
-**Cómo leer la figura.** Cada fila es una alarma; las columnas dan cuánto adelanta, cuántas veces falla en avisar y cuántas falsas alarmas da cuando no pasa nada. **Dónde deja de valer:** la deriva, el ruido y los saltos son construcciones del autor, y el daño real en 26 es un umbral arbitrario; en un sistema real la medida tiene estacionalidad (cierres, lanzamientos). La figura dice que una alarma que llega pronto se equivoca más y que elegir es decidir qué error cuesta más.
+**Cómo leer la figura.** Cada grupo de barras es una alarma y cada color, un resultado en porcentaje de series: avisa antes del daño (verde), no avisa nunca (dorado) o da falsa alarma en una serie plana (rojo). El umbral absoluto solo tiene la barra dorada (18 %); el trinquete y la pendiente avisan casi siempre, y la pendiente lo paga con 95,4 % de falsas alarmas: quien avisa pronto, se equivoca más. La mediana de adelanto en semanas está en la tabla anterior. **Dónde deja de valer:** la deriva, el ruido y los saltos son construcciones del autor, y el daño real en 26 es un umbral arbitrario; en un sistema real la medida tiene estacionalidad (cierres, lanzamientos). La figura dice que una alarma que llega pronto se equivoca más y que elegir es decidir qué error cuesta más.
 
 ## Definiciones de trabajo
 

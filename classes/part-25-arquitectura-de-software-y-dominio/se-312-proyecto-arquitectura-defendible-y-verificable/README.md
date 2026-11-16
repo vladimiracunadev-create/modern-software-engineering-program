@@ -124,9 +124,9 @@ def validar(d):
 
 El validador detecta 150 de 200; las 50 que no ve son las de sentido. El dossier base pasa el validador y aun así el modelo ejecutable da cuatro fallas (E04, E08, E10, E12): validar la forma no es evaluar la arquitectura. Un driver nuevo sin escenario sí se detecta («driver sin escenario D5»). Las cifras son idénticas en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
 
-![Tabla con ocho tipos de mutación de un dossier de arquitectura: las seis de estructura se detectan en veinticinco de veinticinco casos y las dos de sentido, un umbral absurdo y una función de aptitud que siempre pasa, en ninguno.](../../../content/part-25/figures/se-312-validador-del-dossier.svg)
+![Barras horizontales apiladas con las mutaciones de un dossier de arquitectura detectadas y no detectadas según su tipo: las seis de estructura, 150 de 150 casos, y las dos de sentido, 0 de 50.](../../../content/part-25/figures/se-312-validador-del-dossier.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de mutación aplicado 25 veces; la segunda columna cuenta cuántas detecta el validador. **Dónde deja de valer:** las mutaciones son del autor y el 150/200 depende de cuántas sean de sentido; el validador se escribió mirando las mismas mutaciones que lo evalúan, así que su resultado en mutaciones nuevas sería peor. La figura dice que la forma se automatiza y el sentido no, y que un dossier aprobado por el validador sigue necesitando una lectura humana.
+**Cómo leer la figura.** Cada barra es un tipo de mutación (seis de estructura y dos de sentido, 25 casos cada una) y se reparte entre las detectadas (verde) y las no detectadas (rojo). La primera barra es toda verde y la segunda, toda roja: el validador ve la forma pero no el sentido. Las ocho mutaciones concretas están en la tabla anterior. **Dónde deja de valer:** las mutaciones son del autor y el 150/200 depende de cuántas sean de sentido; el validador se escribió mirando las mismas mutaciones que lo evalúan, así que su resultado en mutaciones nuevas sería peor. La figura dice que la forma se automatiza y el sentido no, y que un dossier aprobado por el validador sigue necesitando una lectura humana.
 
 ### Mil meses de cuatro arquitecturas
 
@@ -147,9 +147,9 @@ sat += 10 if rng.uniform(60, 90) > capacidad else 0
 
 Las arquitecturas con capacidad de 50 peticiones por segundo pasan 40 minutos al mes saturadas durante los picos; las de 120 y 135, ninguno. Añadir instancias elimina la saturación pero no mejora la disponibilidad: la mediana sigue en 99,951 % y solo el 74 % de los meses llega a 99,9 %. La causa común domina; reducirla exige aislar lo que comparten las unidades.
 
-![Tabla con la capacidad de la ruta de entrega, la disponibilidad mensual en el percentil 5 y la mediana, la proporción de meses con al menos 99,9 por ciento y los minutos saturados de cuatro arquitecturas en mil meses simulados.](../../../content/part-25/figures/se-312-un-mes-de-cuatro-arquitecturas.svg)
+![Dispersión con la capacidad de la ruta de entrega frente al porcentaje de meses con al menos 99,9 por ciento de disponibilidad en cuatro arquitecturas: servicios 60 por ciento y el monolito modular 74 con 50 peticiones por segundo y 40 minutos saturados; con 120 y 135 no hay saturación y el porcentaje sigue en 74.](../../../content/part-25/figures/se-312-un-mes-de-cuatro-arquitecturas.svg)
 
-**Cómo leer la figura.** Cada fila es una arquitectura; las columnas comparan capacidad, disponibilidad y saturación en mil meses. **Dónde deja de valer:** las caídas exponenciales de 20 minutos, el 30 % de causa común y los picos uniformes son supuestos del autor, no datos de un sistema. La figura obliga a una decisión escrita en un ADR: aceptar 99,9 % como objetivo o invertir en aislar la causa común; no sirve para predecir la disponibilidad real.
+**Cómo leer la figura.** El eje horizontal es la capacidad de la ruta de entrega y el vertical, el porcentaje de meses que alcanzan 99,9 % de disponibilidad; el color indica si hay saturación en los picos. Al pasar de 50 a 120 peticiones por segundo desaparece la saturación pero el punto no sube: se mueve en horizontal, no en vertical. La disponibilidad mediana y la del percentil 5 están en la tabla anterior. **Dónde deja de valer:** las caídas exponenciales de 20 minutos, el 30 % de causa común y los picos uniformes son supuestos del autor, no datos de un sistema. La figura obliga a una decisión escrita en un ADR: aceptar 99,9 % como objetivo o invertir en aislar la causa común; no sirve para predecir la disponibilidad real.
 
 ### Qué se toca al revertir una decisión
 
@@ -169,9 +169,9 @@ sin_declarar = set(afectados) - set(adr["escenarios"])
 
 El ADR del monolito modular declara 2 escenarios y toca 10; el de la URL firmada declara 3 y toca 8. En todos los casos los escenarios sin declarar son la mayoría o casi: los ADR escritos a mano declaran menos dependencias que el grafo. La lista de funciones a re-ejecutar sale del mismo cálculo.
 
-![Tabla con, para cuatro decisiones de arquitectura, los escenarios que dependen de sus componentes, los que su registro declara, los no declarados y las funciones de aptitud que hay que volver a ejecutar si se revierte.](../../../content/part-25/figures/se-312-impacto-de-revertir-una-decision.svg)
+![Barras agrupadas con, para cuatro decisiones, los escenarios de doce que dependen de sus componentes, los que su registro declara y los no declarados: el monolito modular afecta a 10 y declara 2, con 9 sin declarar.](../../../content/part-25/figures/se-312-impacto-de-revertir-una-decision.svg)
 
-**Cómo leer la figura.** Cada fila es un ADR; las columnas centrales comparan el impacto calculado con lo que el ADR declara. **Dónde deja de valer:** el grafo une decisiones, componentes y rutas de escenarios con asignaciones del autor; una decisión puede tener efectos que no pasan por un componente (un cambio de equipo, de proceso). La figura dice que la lista de escenarios de un ADR conviene generarla desde el modelo y no escribirla de memoria.
+**Cómo leer la figura.** Cada grupo es una decisión y cada color, un recuento de escenarios de doce: los afectados por su reversión (rojo), los que su ADR declara (verde) y los no declarados (dorado). En todas las decisiones la barra verde es la más baja: los ADR declaran menos dependencias de las reales. Las funciones de aptitud que hay que volver a ejecutar están en la tabla anterior. **Dónde deja de valer:** el grafo une decisiones, componentes y rutas de escenarios con asignaciones del autor; una decisión puede tener efectos que no pasan por un componente (un cambio de equipo, de proceso). La figura dice que la lista de escenarios de un ADR conviene generarla desde el modelo y no escribirla de memoria.
 
 ## Definiciones de trabajo
 

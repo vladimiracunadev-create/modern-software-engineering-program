@@ -100,17 +100,17 @@ El invariante guía la representación y el algoritmo. Si se necesita unicidad d
 
 Una búsqueda binaria correcta mantiene el invariante `0 ≤ lo ≤ hi + 1 ≤ n` y una medida que decrece (`hi − lo`). La versión incorrecta, que escribe `hi = mid` en lugar de `hi = mid − 1`, parece funcionar con arreglos grandes. Se probaron *todos* los arreglos ordenados de longitud hasta 6 con valores de 0 a 4 y valores de búsqueda de −1 a 5: 3234 casos. La versión correcta cometió 0 fallos; la errónea, 1181, incluyendo casos donde no termina (se detectaron con un límite de vueltas). La lección es práctica: un dominio pequeño probado de forma exhaustiva expone errores de borde que las pruebas de ejemplo no ven, y la exhaustividad es posible porque se acotó el dominio.
 
-![Figura 2. Resultados de la comprobación exhaustiva de la búsqueda binaria: 3234 casos, 0 fallos en la versión correcta y 1181 en la errónea](../../../content/part-04/figures/se-052-busqueda-binaria-exhaustiva.svg)
+![Barras apiladas horizontales con los 3 234 casos de arreglos ordenados de longitud hasta 6: la versión con hi = mid − 1 comete 0 fallos y la versión con hi = mid comete 1 181, incluidos casos en que no termina.](../../../content/part-04/figures/se-052-busqueda-binaria-exhaustiva.svg)
 
-**Cómo leer la figura.** Cada fila es una versión del algoritmo con sus fallos; el cuadro inferior enuncia el invariante y la medida. **Dónde deja de valer:** la exhaustividad cubre solo el dominio elegido (valores de 0 a 4, longitud hasta 6). No demuestra el algoritmo para enteros de 64 bits, donde aparece un error clásico de desbordamiento en `(lo + hi) / 2` en lenguajes sin enteros ilimitados.
+**Cómo leer la figura.** Cada barra son los 3 234 casos de una versión, partidos en verde (sin fallo) y coral (con fallo). Mira primero que la versión correcta es toda verde y que la de hi = mid falla en 1 181 casos. **Dónde deja de valer:** la exhaustividad cubre solo el dominio elegido (valores de 0 a 4, longitud hasta 6). No demuestra el algoritmo para enteros de 64 bits, donde aparece un error clásico de desbordamiento en `(lo + hi) / 2` en lenguajes sin enteros ilimitados.
 
 ### Contratos: quién debe qué
 
 Un contrato separa tres obligaciones. La **precondición** es lo que el llamador debe garantizar (el presupuesto cubre la prueba elegida). El **invariante** es lo que debe valer en todo momento (los candidatos restantes son un subconjunto de las hipótesis y no pueden crecer, porque una observación solo descarta). La **poscondición** es lo que la implementación garantiza (las observaciones contradictorias se informan, no se ocultan). La Figura 3 enlaza cada tipo con una regla del laboratorio y con lo que ocurre si se viola. Quién incumplió cada una decide a quién corresponde corregir: una precondición violada es un defecto del llamador; una poscondición violada, de la implementación.
 
-![Figura 3. Tabla de precondición, invariante y poscondición del laboratorio con la consecuencia de violarlos](../../../content/part-04/figures/se-052-contratos-del-laboratorio.svg)
+![Diagrama de tres contratos del laboratorio: la precondición exige que el presupuesto cubra el costo y su violación hace fallar la selección con un error; el invariante exige que los candidatos sean un subconjunto de las hipótesis; la poscondición exige informar las observaciones contradictorias.](../../../content/part-04/figures/se-052-contratos-del-laboratorio.svg)
 
-**Cómo leer la figura.** Cada fila ata un tipo de contrato a una regla verificable. **Dónde deja de valer:** los contratos del laboratorio son comprobaciones en tiempo de ejecución; no sustituyen una demostración, que cubriría todas las entradas, ni cubren propiedades de concurrencia.
+**Cómo leer la figura.** Cada fila es un tipo de contrato, lo que exige y lo que ocurre, por la flecha, si se viola. Mira primero que ninguna violación se oculta: la selección falla con un error explícito o la ejecución falla en voz alta. **Dónde deja de valer:** los contratos del laboratorio son comprobaciones en tiempo de ejecución; no sustituyen una demostración, que cubriría todas las entradas, ni cubren propiedades de concurrencia.
 
 ## Definiciones de trabajo
 

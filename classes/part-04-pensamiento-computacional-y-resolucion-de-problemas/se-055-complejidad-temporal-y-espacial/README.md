@@ -92,25 +92,25 @@ El análisis predice forma de crecimiento independiente del equipo; el benchmark
 
 La notación O(·) describe cómo crece el costo, y la forma más honesta de comprobarla es duplicar el tamaño y dividir los tiempos. Medianas de cinco ejecuciones en CPython 3.12.9: la búsqueda lineal (`x in lista`) pasó de 5,89 ms con n = 4000 a 11,74 ms con 8000 (razón 1,99); la búsqueda por hash (`x in set`) se mantuvo en 0,020 ms (razón 0,99); `sorted` pasó de 0,48 a 1,01 ms (razón 2,10), y un doble bucle sobre n/4 pasó de 39,89 a 171,63 ms (razón 4,30). Una razón cercana a 2 indica crecimiento lineal; cercana a 4, cuadrático; cercana a 1, constante. La Figura 1 reúne los datos.
 
-![Figura 1. Tiempos medidos al duplicar n para búsqueda lineal, búsqueda por hash, ordenación y doble bucle, con la razón entre n=8000 y n=4000](../../../content/part-04/figures/se-055-duplicar-n.svg)
+![Líneas en escala logarítmica con las medianas por operación para n igual a 2000, 4000 y 8000: la búsqueda lineal pasa de 2,96 a 11,74 ms (razón 1,99), la búsqueda por hash se mantiene en 0,020 ms (0,99), la ordenación pasa de 0,22 a 1,01 ms (2,10) y el doble bucle sobre n/4 de 9,64 a 171,63 ms (4,30).](../../../content/part-04/figures/se-055-duplicar-n.svg)
 
-**Cómo leer la figura.** Las columnas son tres tamaños y la penúltima es la razón. **Dónde deja de valer:** son medianas de cinco ejecuciones en un equipo, con los efectos de caché y del intérprete incluidos. Con tamaños pequeños el ruido domina; con muy grandes aparecen cachés y memoria. Se mide un rango amplio, no un par de puntos.
+**Cómo leer la figura.** El eje horizontal es el tamaño n y el vertical, el tiempo mediano, ambos en escala logarítmica; cada línea es una operación y entre paréntesis está su razón al duplicar. Mira primero la pendiente de cada línea: la del hash es plana, la lineal sube a la par de n y la del doble bucle, el doble de rápido. **Dónde deja de valer:** son medianas de cinco ejecuciones en un equipo, con los efectos de caché y del intérprete incluidos. Con tamaños pequeños el ruido domina; con muy grandes aparecen cachés y memoria. Se mide un rango amplio, no un par de puntos.
 
 ### Teoría y medición deben coincidir
 
 La Figura 2 contrasta la razón esperada con la medida. Si una operación «lineal» dobla su tiempo, coinciden; si una «constante» triplica el tiempo, hay un error de análisis o un efecto oculto (por ejemplo, colisiones de hash). La coincidencia aporta confianza; la discrepancia es la pista valiosa. Ninguna fuente sustituye a la otra: el análisis explica *por qué* crece así y la medición confirma que la implementación real lo hace. Tampoco hay que confundir tiempo de reloj con conteo de operaciones: el conteo es reproducible y portable; el reloj depende del equipo.
 
-![Figura 2. Tabla que compara la razón teórica con la razón medida al duplicar n](../../../content/part-04/figures/se-055-teoria-y-medicion.svg)
+![Barras agrupadas con la razón de tiempos al duplicar n: lineal, teórica 2 y medida 1,99; hash, teórica 1 y medida 0,99; n log n, teórica un poco más de 2 (≈2,1) y medida 2,10; cuadrática, teórica 4 y medida 4,30.](../../../content/part-04/figures/se-055-teoria-y-medicion.svg)
 
-**Cómo leer la figura.** Cada fila compara una predicción con un dato. **Dónde deja de valer:** n log n y n comparten una razón cercana a 2 en rangos chicos, así que distinguirlos exige tamaños más grandes o más puntos.
+**Cómo leer la figura.** Cada grupo es una operación y sus dos barras son la razón teórica (azul oscuro) y la medida (verde) al duplicar n. Mira primero que las barras casi coinciden, y que la mayor diferencia, 4,00 frente a 4,30, está en la cuadrática. **Dónde deja de valer:** n log n y n comparten una razón cercana a 2 en rangos chicos, así que distinguirlos exige tamaños más grandes o más puntos.
 
 ### Costo amortizado
 
 Añadir un elemento a una lista de Python es «O(1) amortizado». `sys.getsizeof` muestra por qué: al añadir elementos uno por uno el tamaño de la lista cambia solo en algunos puntos (88 bytes con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25, 376 con 33). La mayoría de las inserciones no reservan memoria; algunas sí, y son más costosas. El promedio por inserción es constante, pero una inserción concreta puede ser lenta. Esto importa en sistemas con requisitos de latencia: el promedio no es el peor caso.
 
-![Figura 3. Tamaños en bytes de una lista al crecer: 88, 120, 184, 248, 312 y 376 bytes en los puntos de reserva](../../../content/part-04/figures/se-055-capacidad-de-lista.svg)
+![Línea con el tamaño en bytes de una lista al añadir elementos uno por uno: 88 con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25 y 376 con 33; el tamaño cambia solo en algunos puntos y la mayoría de las inserciones no reservan memoria.](../../../content/part-04/figures/se-055-capacidad-de-lista.svg)
 
-**Cómo leer la figura.** Cada fila es un punto en que la lista reservó más memoria. **Dónde deja de valer:** las cifras dependen de la versión de CPython y de la arquitectura; el patrón (reservas espaciadas) es lo que se conserva.
+**Cómo leer la figura.** El eje horizontal son los elementos y el vertical, los bytes de la lista, medidos solo en los puntos en que la lista reservó. Mira primero que los saltos van de 88 a 376 bytes en 33 elementos: la mayoría de las inserciones no reservan. **Dónde deja de valer:** las cifras dependen de la versión de CPython y de la arquitectura; el patrón (reservas espaciadas) es lo que se conserva.
 
 ## Definiciones de trabajo
 

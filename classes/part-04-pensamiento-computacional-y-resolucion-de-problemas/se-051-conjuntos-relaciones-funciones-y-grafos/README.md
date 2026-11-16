@@ -107,9 +107,9 @@ Un recorrido de un grafo con ciclo, sin precauciones, no termina. En el grafo A�
 
 La relación «depende directamente de» define otra, «depende directa o indirectamente de», que puede ser mucho mayor. En una cadena de 20 nodos hay 19 dependencias directas y 190 pares alcanzables, el resultado de n(n−1)/2; para 1000 nodos serían 499 500 pares. Responder «¿qué se rompe si cambia este componente?» es consultar el cierre. Calcularlo cada vez es costoso, de modo que se guarda y se invalida cuando el grafo cambia; esa decisión introduce el problema de mantener la coherencia, que reaparece como invalidación de cachés.
 
-![Figura 3. Crecimiento cuadrático de los pares alcanzables de una cadena de nodos, con 190 pares para 20 nodos](../../../content/part-04/figures/se-051-cierre-transitivo.svg)
+![Línea en escala logarítmica con los pares alcanzables n por n menos 1 entre 2: 45 con 10 nodos, 190 con 20, 4 950 con 100 y 499 500 con 1 000; cada vez que n se multiplica por 10 los pares se multiplican por unos 100.](../../../content/part-04/figures/se-051-cierre-transitivo.svg)
 
-**Cómo leer la figura.** La tabla muestra cuántos pares alcanzables genera una cadena de longitud creciente; el valor de 20 nodos se calculó. **Dónde deja de valer:** una cadena es el caso extremo para pares alcanzables; en un grafo real con ramas la cifra varía. El patrón que se conserva es que lo derivable puede ser mucho mayor que lo declarado.
+**Cómo leer la figura.** El eje horizontal son los nodos de la cadena y el vertical, los pares alcanzables, ambos en escala logarítmica. Mira primero que la línea sube con pendiente dos: cada vez que los nodos se multiplican por diez, los pares se multiplican por cien. **Dónde deja de valer:** una cadena es el caso extremo para pares alcanzables; en un grafo real con ramas la cifra varía. El patrón que se conserva es que lo derivable puede ser mucho mayor que lo declarado.
 
 ## Definiciones de trabajo
 

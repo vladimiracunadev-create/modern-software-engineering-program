@@ -1,15 +1,11 @@
 """Figures for SE-049 to SE-060 (values computed or measured with CPython 3.12.9 on Windows 11)."""
 from __future__ import annotations
 
-import math
+from figure_flow_rows import chain_rows, steps_row
+from figure_kit import Fig, grouped_bars, line_chart, stacked_bars
 
-from figure_kit import Fig
 
 CALC = "Resultados calculados con Python 3.12.9; las mediciones de tiempo dependen del equipo."
-
-
-def _note(f: Fig, y: float, text: str = CALC) -> None:
-    f.text(f.width / 2, y, text, 12, "middle", 400, "#5c1f14")
 
 
 # ---------------------------------------------------------------- SE-049
@@ -33,56 +29,68 @@ def se049_arbol() -> Fig:
 
 
 def se049_matriz() -> Fig:
-    f = Fig(940, 430, "Resultados declarados de cada prueba bajo cada hipótesis",
-            "Tabla del modelo: resolve da fail bajo dns y ok bajo tls y http; handshake da blocked bajo dns, fail bajo tls y ok bajo http; request da blocked bajo dns y tls y fail bajo http; "
-            "production-capture da unknown bajo todas y no está autorizada.")
-    heads = ["Prueba (costo)", "Si es dns", "Si es tls", "Si es http", "Autorizada"]
-    rows = [["resolve (1)", "fail", "ok", "ok", "sí"], ["handshake (2)", "blocked", "fail", "ok", "sí"], ["request (3)", "blocked", "blocked", "fail", "sí"], ["production-capture (1)", "unknown", "unknown", "unknown", "no"]]
-    f.table(heads, rows, 10, 12, [250, 170, 170, 170, 160], row_h=58, size=14)
-    f.box(10, 316, 920, 80, "Cada celda es una predicción que puede refutarse. Una prueba que da el mismo resultado bajo todas las hipótesis (como production-capture, «unknown») no discrimina ni está permitida.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Cuánto discrimina cada prueba entre las tres hipótesis y cuánto cuesta",
+        "Barras horizontales con el costo de cada prueba y cuántos resultados distintos produce bajo las hipótesis dns, tls y http: resolve cuesta 1 y da 2 resultados distintos, handshake cuesta 2 y da 3, request cuesta 3 y da 2, production-capture cuesta 1 y da 1 porque devuelve unknown bajo todas y no está autorizada.",
+        ["resolve", "handshake", "request", "production-capture (no autorizada)"],
+        [("Costo de la prueba", [1, 2, 3, 1], "navy"), ("Resultados distintos entre las 3 hipótesis", [2, 3, 2, 1], "teal")],
+        unit="Unidades de costo o resultados distintos", horizontal=True, label_w=240, ticks=[0, 1, 2, 3],
+        note="Cada celda del modelo es una predicción que puede refutarse. Una prueba que da el mismo resultado bajo todas las hipótesis, como production-capture con «unknown», no discrimina ni está permitida.",
+        note_kind="gold", foot=CALC)
 
 
 def se049_abstraccion() -> Fig:
-    f = Fig(940, 430, "Qué conserva y qué descarta el modelo",
-            "Tabla de lo que el modelo conserva (hipótesis, pruebas, costos, autorización, presupuesto) y lo que descarta (distribución de latencias, fallos parciales, causas simultáneas), con los límites declarados por el laboratorio.")
-    heads = ["Conserva", "Descarta", "Límite declarado"]
-    rows = [["Un conjunto cerrado de hipótesis (dns, tls, http)", "Causas simultáneas o que no están en la lista", "El resultado solo es correcto respecto de las hipótesis declaradas"],
-            ["Costos y presupuesto de cada prueba", "Costo variable según el momento o la carga", "La puntuación codiciosa no garantiza una secuencia global óptima"],
-            ["Resultados deterministas por prueba", "Ruido, variación y fallos intermitentes", "Una medición de tiempo no sustituye el análisis de crecimiento"]]
-    f.table(heads, rows, 10, 12, [320, 290, 310], row_h=84, size=12)
-    f.box(10, 330, 920, 70, "Toda abstracción es una decisión de qué ignorar. La pregunta útil es qué descarte puede invalidar la conclusión y cómo se detectaría.", "gold", 13)
-    return f
+    rows = [
+        [("Un conjunto cerrado de hipótesis (dns, tls, http)", "teal"), ("Causas simultáneas o fuera de la lista", "coral"), ("Solo es correcto respecto de las hipótesis declaradas", "gold")],
+        [("Costos y presupuesto de cada prueba", "teal"), ("Costo variable según el momento o la carga", "coral"), ("La puntuación codiciosa no garantiza una secuencia global óptima", "gold")],
+        [("Resultados deterministas por prueba", "teal"), ("Ruido, variación y fallos intermitentes", "coral"), ("Una medición de tiempo no sustituye el análisis de crecimiento", "gold")],
+    ]
+    return chain_rows(
+        "Qué conserva y qué descarta el modelo, y qué límite declara cada descarte",
+        "Diagrama de tres filas del laboratorio: el modelo conserva un conjunto cerrado de hipótesis, los costos y los resultados deterministas; descarta las causas simultáneas, el costo variable y el ruido; y de cada descarte nace un límite declarado, por ejemplo que la selección codiciosa no garantiza una secuencia global óptima.",
+        ["Lo que conserva", "Lo que descarta", "Límite declarado"], rows, [280, 280, 280], gap=26,
+        note="Toda abstracción es una decisión de qué ignorar. La pregunta útil es qué descarte puede invalidar la conclusión y cómo se detectaría.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-050
 def se050_implicacion() -> Fig:
-    f = Fig(940, 430, "Tabla de la implicación y dos razonamientos comparados",
-            "La implicación p entonces q es falsa solo cuando p es verdadera y q falsa; su contrapositiva es equivalente y su recíproca no lo es, comprobado sobre las cuatro filas.")
-    f.table(["p", "q", "p → q"], [["falso", "falso", "verdadero"], ["falso", "verdadero", "verdadero"], ["verdadero", "falso", "FALSO"], ["verdadero", "verdadero", "verdadero"]],
-            10, 12, [160, 160, 200], row_h=46, size=14, kinds=["plain", "plain", ("teal", "teal", "coral", "teal")])
-    f.box(560, 12, 370, 120, "Contrapositiva (¬q → ¬p): equivalente a p → q en las 4 filas (verificado).", "teal", 13)
-    f.box(560, 140, 370, 120, "Recíproca (q → p): NO equivalente: difiere en las filas «falso, verdadero» y «verdadero, falso».", "coral", 13)
-    f.box(10, 300, 920, 90, "Falacia frecuente: «si hay un fallo de DNS, no resuelve» no permite concluir que «si no resuelve, hay un fallo de DNS»: el recíproco necesita otras evidencias.", "gold", 13)
-    return f
+    rows = [
+        [("p falso", "plain"), ("q falso", "plain"), ("p → q verdadero", "teal")],
+        [("p falso", "plain"), ("q verdadero", "plain"), ("p → q verdadero", "teal")],
+        [("p verdadero", "plain"), ("q falso", "plain"), ("p → q FALSO", "coral")],
+        [("p verdadero", "plain"), ("q verdadero", "plain"), ("p → q verdadero", "teal")],
+    ]
+    return chain_rows(
+        "La implicación solo es falsa cuando p es verdadera y q falsa, y su recíproca no es equivalente",
+        "Diagrama de las cuatro combinaciones de p y q que llevan al valor de p implica q: verdadero en tres y falso solo cuando p es verdadera y q falsa; la contrapositiva es equivalente en las cuatro filas y la recíproca difiere en las filas con p y q distintos.",
+        ["Premisa", "Conclusión", "Valor de p → q"], rows, [250, 250, 300], gap=34,
+        note="Contrapositiva (¬q → ¬p): equivalente en las 4 filas, verificado. Recíproca (q → p): no equivalente, difiere en «falso, verdadero» y «verdadero, falso». Por eso «si hay un fallo de DNS, no resuelve» no permite concluir lo contrario.",
+        note_kind="gold", foot=CALC)
 
 
 def se050_filas() -> Fig:
-    f = Fig(940, 430, "Cuántas filas tiene una tabla de verdad y cuántos modelos tiene una fórmula",
-            "Una fórmula con n variables tiene 2 elevado a n filas; enumerar 1 048 576 filas con 20 variables tomó 0,102 segundos en Python. Un ciclo de implicaciones entre n variables tiene solo 2 modelos para n igual a 3, 5 y 10.")
-    f.table(["Variables n", "Filas (2^n)", "Observación"], [["10", "1 024", "Se enumera al instante"], ["20", "1 048 576", "0,102 s enumerando en Python"], ["30", "≈ 1 073 millones", "Inviable por enumeración simple"]], 10, 12, [190, 260, 470], row_h=54, size=13)
-    f.box(10, 250, 920, 76, "(p1 → p2) ∧ (p2 → p3) ∧ … ∧ (pn → p1) tiene exactamente 2 modelos para n = 3, 5 y 10: todas verdaderas o todas falsas. Las variables de un ciclo de implicaciones son equivalentes.", "teal", 13)
-    f.box(10, 338, 920, 60, "La enumeración sirve para comprobar fórmulas pequeñas; para muchas variables se usan solucionadores SAT y razonamiento simbólico.", "grey", 13)
-    return f
+    return line_chart(
+        "Filas de una tabla de verdad según el número de variables",
+        "Línea con las filas de una tabla de verdad, 2 elevado a n, en escala logarítmica: 1 024 con 10 variables, 1 048 576 con 20 y unos 1 073 millones con 30; enumerar las 1 048 576 filas tomó 0,102 segundos en Python.",
+        [("Filas (2^n)", [(10, 1024), (20, 1048576), (30, 1073741824)], "coral")],
+        x_label="Variables n", y_label="Filas de la tabla", log_y=True, x_ticks=[(10, "10"), (20, "20"), (30, "30")], point_labels="all",
+        note="Con 20 variables la enumeración tomó 0,102 s; con 30 sería inviable. Un ciclo de implicaciones entre n variables tiene solo 2 modelos para n = 3, 5 y 10. Para muchas variables se usan solucionadores SAT.",
+        note_kind="gold", foot=CALC)
 
 
 def se050_cuantificadores() -> Fig:
-    f = Fig(940, 400, "Cuantificadores sobre dominios finitos y la verdad vacía",
-            "En un dominio finito, todos se comprueba con all y existe con any: all sobre una lista vacía es verdadero y any sobre una lista vacía es falso; las leyes de De Morgan se verificaron en las cuatro filas.")
-    f.table(["Expresión", "Resultado", "Lectura"], [["all([])", "True", "Verdad vacía: «todo elemento cumple» es verdadero si no hay elementos"], ["any([])", "False", "No existe ningún elemento que cumpla"], ["¬(a ∧ b) ≡ ¬a ∨ ¬b", "True en las 4 filas", "Ley de De Morgan verificada"]],
-            10, 12, [200, 190, 530], row_h=64, size=13)
-    f.box(10, 296, 920, 80, "Una regla «todas las pruebas autorizadas pasan» se cumple si no hay ninguna prueba: la verdad vacía puede ocultar un conjunto vacío. Se comprueba además que el conjunto no sea vacío.", "coral", 13)
-    return f
+    rows = [
+        [("all([])", "plain"), ("True", "gold"), ("Verdad vacía: «todo elemento cumple» es verdadero si no hay elementos", "plain")],
+        [("any([])", "plain"), ("False", "gold"), ("No existe ningún elemento que cumpla", "plain")],
+        [("¬(a ∧ b) ≡ ¬a ∨ ¬b", "plain"), ("True en las 4 filas", "teal"), ("Ley de De Morgan verificada", "plain")],
+    ]
+    return chain_rows(
+        "Cuantificadores sobre dominios finitos y la verdad vacía",
+        "Diagrama de tres expresiones y su resultado: all sobre una lista vacía es True, any sobre una lista vacía es False y las leyes de De Morgan se verificaron en las cuatro filas.",
+        ["Expresión", "Resultado", "Lectura"], rows, [220, 190, 380], gap=34,
+        note="Una regla «todas las pruebas autorizadas pasan» se cumple si no hay ninguna prueba: la verdad vacía puede ocultar un conjunto vacío. Se comprueba además que el conjunto no sea vacío.",
+        note_kind="coral", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-051
@@ -109,11 +117,14 @@ def se051_recorrido() -> Fig:
 
 
 def se051_cierre() -> Fig:
-    f = Fig(940, 400, "Cierre transitivo: una cadena de 20 nodos tiene 190 pares alcanzables",
-            "El cierre transitivo de una cadena de 20 nodos contiene 190 pares, que es 20 por 19 dividido entre 2; crece de forma cuadrática con la longitud de la cadena.")
-    f.table(["Nodos n en cadena", "Pares alcanzables n(n−1)/2"], [["10", "45"], ["20", "190 (calculado)"], ["100", "4 950"], ["1 000", "499 500"]], 10, 12, [300, 380], row_h=52, size=14)
-    f.box(10, 270, 920, 80, "La información derivable (quién depende de quién, directa o indirectamente) puede ser mucho mayor que la declarada: para consultas frecuentes se calcula una vez y se guarda.", "gold", 13)
-    return f
+    pts = [(10, 45), (20, 190), (100, 4950), (1000, 499500)]
+    return line_chart(
+        "Pares alcanzables del cierre transitivo de una cadena de n nodos",
+        "Línea en escala logarítmica con los pares alcanzables n por n menos 1 entre 2: 45 con 10 nodos, 190 con 20, 4 950 con 100 y 499 500 con 1 000; cada vez que n se multiplica por 10 los pares se multiplican por unos 100.",
+        [("n(n−1)/2 pares", pts, "gold")],
+        x_label="Nodos n en cadena", y_label="Pares alcanzables", log_x=True, log_y=True, x_ticks=[(10, "10"), (20, "20"), (100, "100"), (1000, "1 000")], point_labels="all",
+        note="La información derivable (quién depende de quién, directa o indirectamente) puede ser mucho mayor que la declarada: para consultas frecuentes se calcula una vez y se guarda. El crecimiento es cuadrático.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-052
@@ -128,247 +139,326 @@ def se052_assert() -> Fig:
 
 
 def se052_busqueda() -> Fig:
-    f = Fig(940, 430, "Búsqueda binaria: comprobación exhaustiva con y sin error",
-            "Se probaron 3234 casos con todos los arreglos ordenados de longitud hasta 6 con valores de 0 a 4 y valores de búsqueda de -1 a 5: la versión correcta cometió 0 fallos y la versión con hi = mid cometió 1181, incluidos casos donde no termina.")
-    f.table(["Versión", "Casos", "Fallos", "Qué ocurre"], [["hi = mid − 1 (correcta)", "3234", "0", "Termina y devuelve la posición o −1"], ["hi = mid (error)", "3234", "1181", "Puede no terminar: lo detecta un límite de vueltas"]],
-            10, 12, [290, 120, 120, 390], row_h=66, size=13, kinds=["plain", "plain", ("teal", "coral"), "plain"])
-    f.box(10, 250, 920, 76, "En un dominio pequeño se prueba todo: pocos valores bastan para exponer el error de borde. Un invariante (0 ≤ lo ≤ hi + 1 ≤ n) más una medida que decrece (hi − lo) explican por qué la versión correcta termina.", "gold", 13)
-    _note(f, 360)
-    return f
+    return stacked_bars(
+        "Búsqueda binaria sobre 3 234 casos exhaustivos: la versión correcta y la que usa hi = mid",
+        "Barras apiladas horizontales con los 3 234 casos de arreglos ordenados de longitud hasta 6: la versión con hi = mid − 1 comete 0 fallos y la versión con hi = mid comete 1 181, incluidos casos en que no termina.",
+        ["hi = mid − 1 (correcta)", "hi = mid (error)"],
+        [("Sin fallo", [3234, 2053], "teal"), ("Fallos", [0, 1181], "coral")],
+        unit="Casos de 3 234", horizontal=True, label_w=190,
+        note="En un dominio pequeño se prueba todo: pocos valores bastan para exponer el error de borde. Un invariante (0 ≤ lo ≤ hi + 1 ≤ n) más una medida que decrece (hi − lo) explican por qué la versión correcta termina.",
+        note_kind="gold", foot=CALC)
 
 
 def se052_contrato() -> Fig:
-    f = Fig(940, 430, "Contratos del laboratorio: precondición, invariante y poscondición",
-            "Tabla de tres contratos del laboratorio de la Parte 04: el presupuesto es una precondición, las pruebas elegidas son un subconjunto de las autorizadas (invariante) y una observación contradictoria falla de forma visible.")
-    heads = ["Tipo", "Contrato del laboratorio", "Qué pasa si se viola"]
-    rows = [["Precondición", "El presupuesto cubre el costo de la prueba elegida", "La selección falla con un error explícito"],
-            ["Invariante", "Los candidatos restantes son un subconjunto de las hipótesis", "No puede crecer: una observación solo descarta"],
-            ["Poscondición", "Observaciones contradictorias se informan en lugar de ocultarse", "La ejecución falla en voz alta con el conflicto"]]
-    f.table(heads, rows, 10, 12, [190, 410, 320], row_h=84, size=12)
-    f.box(10, 330, 920, 70, "Un contrato convierte «debería funcionar» en una frase comprobable: quién debe qué, antes, durante y después. Violarlo es un defecto del llamador (precondición) o de la implementación (poscondición).", "gold", 13)
-    return f
+    rows = [
+        [("Precondición", "gold"), ("El presupuesto cubre el costo de la prueba elegida", "plain"), ("La selección falla con un error explícito", "coral")],
+        [("Invariante", "gold"), ("Los candidatos restantes son un subconjunto de las hipótesis", "plain"), ("No puede crecer: una observación solo descarta", "coral")],
+        [("Poscondición", "gold"), ("Observaciones contradictorias se informan en lugar de ocultarse", "plain"), ("La ejecución falla en voz alta con el conflicto", "coral")],
+    ]
+    return chain_rows(
+        "Contratos del laboratorio: qué se exige y qué ocurre cuando se viola",
+        "Diagrama de tres contratos del laboratorio: la precondición exige que el presupuesto cubra el costo y su violación hace fallar la selección con un error; el invariante exige que los candidatos sean un subconjunto de las hipótesis; la poscondición exige informar las observaciones contradictorias.",
+        ["Tipo", "Contrato del laboratorio", "Si se viola"], rows, [190, 380, 290], gap=26,
+        note="Un contrato convierte «debería funcionar» en una frase comprobable: quién debe qué, antes, durante y después. Violarlo es un defecto del llamador (precondición) o de la implementación (poscondición).",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-053
 def se053_limite() -> Fig:
-    f = Fig(940, 400, "La recursión tiene profundidad finita",
-            "Con el límite por defecto de 1000, una función recursiva simple alcanzó una profundidad máxima de 999 antes de lanzar RecursionError; json.loads sobre una estructura anidada 100000 veces también lanzó RecursionError.")
-    f.table(["Prueba", "Resultado", "Lectura"], [["sys.getrecursionlimit()", "1000", "Límite por defecto del intérprete"], ["Profundidad alcanzada por una recursión simple", "999", "Quedan marcos para el propio manejo del error"], ["json.loads con 100 000 niveles de anidación", "RecursionError", "Una entrada hostil puede agotar la pila"]], 10, 12, [360, 190, 370], row_h=62, size=13)
-    f.box(10, 290, 920, 80, "Una definición recursiva correcta puede fallar por profundidad. Entradas de tamaño no acotado (JSON, árboles, expresiones) exigen límites de profundidad o una versión iterativa con pila explícita.", "coral", 13)
-    return f
+    return grouped_bars(
+        "La recursión tiene profundidad finita: límite del intérprete y profundidad alcanzada",
+        "Barras horizontales con el límite de recursión por defecto, 1 000, y la profundidad que alcanzó una recursión simple antes de lanzar RecursionError, 999; json.loads sobre una estructura anidada 100 000 veces también lanzó RecursionError.",
+        ["sys.getrecursionlimit()", "Profundidad alcanzada por una recursión simple"],
+        [("Niveles", [1000, 999], "navy")],
+        unit="Niveles de recursión", horizontal=True, label_w=250, ticks=[0, 250, 500, 750, 1000],
+        note="Quedan marcos para el propio manejo del error. Con 100 000 niveles de anidación, json.loads lanzó RecursionError: una entrada hostil puede agotar la pila. Entradas de tamaño no acotado exigen límites de profundidad o una versión iterativa con pila explícita.",
+        note_kind="coral", foot=CALC)
 
 
 def se053_fibonacci() -> Fig:
-    f = Fig(940, 400, "Recursión ingenua frente a memoización: fib(27)",
-            "Calcular fib(27) con la definición recursiva directa hace 635 621 llamadas y tarda 0,097 segundos; con memoización hace 28 cálculos únicos y tarda 21 microsegundos.")
-    f.text(20, 28, "Cálculo de fib(27) = 196 418", 14, "start", 700)
-    f.table(["Versión", "Llamadas / cálculos", "Tiempo"], [["Recursiva directa", "635 621", "0,097 s"], ["Con memoización (lru_cache)", "28 cálculos únicos", "0,000021 s"]], 10, 44, [380, 280, 260], row_h=60, size=14, kinds=["plain", ("coral", "teal"), "plain"])
-    f.box(10, 220, 920, 90, "Las llamadas se solapan: los mismos subproblemas se recalculan exponencialmente. La memoización los resuelve una vez cada uno: la estructura de la recursión es la misma, la complejidad cambia de exponencial a lineal.", "gold", 13)
-    _note(f, 350)
-    return f
+    return grouped_bars(
+        "Recursión ingenua frente a memoización: llamadas o cálculos para fib(27) = 196 418",
+        "Barras en escala logarítmica con las llamadas necesarias para fib(27): 635 621 con la definición recursiva directa, que tarda 0,097 segundos, y 28 cálculos únicos con memoización, que tarda 0,000021 segundos.",
+        ["Recursiva directa (0,097 s)", "Con memoización, lru_cache (0,000021 s)"],
+        [("Llamadas o cálculos", [635621, 28], "coral")],
+        unit="Llamadas o cálculos", horizontal=True, log=True, label_w=270,
+        note="Las llamadas se solapan: los mismos subproblemas se recalculan exponencialmente. La memoización los resuelve una vez cada uno: la estructura de la recursión es la misma, la complejidad cambia de exponencial a lineal.",
+        note_kind="gold", foot=CALC)
 
 
 def se053_induccion() -> Fig:
-    f = Fig(940, 420, "Inducción: caso base, paso y comprobación",
-            "Para demostrar que la suma de 0 a n es n por n más 1 entre 2: caso base n igual a 0, paso inductivo de n a n más 1, y comprobación computacional para n de 0 a 1999 sin excepciones. La comprobación no sustituye la demostración.")
-    f.table(["Paso", "Contenido"], [["Caso base", "n = 0: la suma es 0 y 0·1/2 = 0"], ["Hipótesis inductiva", "Se cumple para n: Σ = n(n+1)/2"], ["Paso", "Σ hasta n+1 = n(n+1)/2 + (n+1) = (n+1)(n+2)/2"], ["Comprobación", "Verificada para n = 0 … 1999: sin contraejemplos"]], 10, 12, [230, 690], row_h=54, size=13)
-    f.box(10, 296, 920, 90, "Probar muchos casos no demuestra la propiedad: solo la inducción cubre todos los n. A la inversa, una demostración puede contener un error: por eso se contrasta con casos.", "gold", 13)
-    return f
+    return steps_row(
+        "Inducción: caso base, hipótesis, paso y comprobación para la suma de 0 a n",
+        "Diagrama de cuatro pasos para demostrar que la suma de 0 a n es n por n más 1 entre 2: el caso base n igual a 0, la hipótesis inductiva para n, el paso de n a n más 1 y la comprobación computacional para n de 0 a 1999 sin contraejemplos.",
+        [("1 · Caso base", "n = 0: la suma es 0 y 0·1/2 = 0", "teal"),
+         ("2 · Hipótesis", "Se cumple para n: Σ = n(n+1)/2", "plain"),
+         ("3 · Paso", "Σ hasta n+1 = n(n+1)/2 + (n+1) = (n+1)(n+2)/2", "plain"),
+         ("4 · Comprobación", "Verificada para n = 0 … 1999: sin contraejemplos", "gold")],
+        note="Probar muchos casos no demuestra la propiedad: solo la inducción cubre todos los n. A la inversa, una demostración puede contener un error: por eso se contrasta con casos.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-054
 def se054_euclides() -> Fig:
-    f = Fig(940, 400, "Algoritmo de Euclides: terminación por una medida que decrece",
-            "El máximo común divisor de 1071 y 462 es 21 y se obtiene en 3 pasos; para dos números de Fibonacci consecutivos, 987 y 610, se obtiene 1 en 14 pasos, el peor caso. La medida b decrece estrictamente en cada paso.")
-    f.table(["Entrada", "Resultado", "Pasos"], [["gcd(1071, 462)", "21", "3"], ["gcd(987, 610): Fibonacci consecutivos", "1", "14 (peor caso)"]], 10, 12, [420, 230, 270], row_h=60, size=14)
-    f.box(10, 220, 920, 90, "Correctitud: gcd(a, b) = gcd(b, a mod b). Terminación: b disminuye en cada paso y no puede bajar de 0. Costo: proporcional al logaritmo de la entrada; el peor caso son números de Fibonacci consecutivos.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Pasos del algoritmo de Euclides en un caso común y en el peor caso",
+        "Barras horizontales con los pasos de dos ejecuciones: gcd de 1071 y 462 da 21 en 3 pasos; gcd de 987 y 610, Fibonacci consecutivos, da 1 en 14 pasos, el peor caso. La medida b decrece estrictamente en cada paso.",
+        ["gcd(1071, 462) = 21", "gcd(987, 610) = 1 (Fibonacci consecutivos)"],
+        [("Pasos", [3, 14], "teal")],
+        unit="Pasos", horizontal=True, label_w=270, ticks=[0, 4, 8, 12, 16],
+        note="Correctitud: gcd(a, b) = gcd(b, a mod b). Terminación: b disminuye en cada paso y no puede bajar de 0. Costo: proporcional al logaritmo de la entrada; el peor caso son números de Fibonacci consecutivos.",
+        note_kind="gold", foot=CALC)
 
 
 def se054_collatz() -> Fig:
-    f = Fig(940, 400, "Cuando la terminación no se sabe demostrar: la conjetura de Collatz",
-            "Para los números hasta 100 000, el que más pasos necesita es 77 031 con 350 pasos hasta llegar a 1. Que todos terminen no está demostrado en general.")
-    f.table(["Rango probado", "Número más largo", "Pasos"], [["1 … 99 999", "77 031", "350"]], 10, 12, [330, 330, 260], row_h=60, size=14)
-    f.box(10, 130, 920, 90, "El procedimiento (si es par, dividir entre 2; si no, multiplicar por 3 y sumar 1) termina para todo n probado, pero no hay demostración general. Sin una medida que decrezca, la terminación es una conjetura.", "coral", 13)
-    f.box(10, 232, 920, 76, "Un programa cuya terminación depende de un problema abierto necesita un límite de pasos o un plazo, como el que protege cualquier ciclo en producción.", "gold", 13)
-    return f
+    return steps_row(
+        "Cuando la terminación no se sabe demostrar: la conjetura de Collatz",
+        "Diagrama de cuatro pasos: en el rango de 1 a 99 999 el número que más pasos necesita es 77 031 con 350 pasos hasta llegar a 1; que todos terminen no está demostrado en general, así que la terminación es una conjetura.",
+        [("Rango probado", "1 … 99 999", "plain"), ("Número más largo", "77 031", "gold"), ("Pasos hasta llegar a 1", "350", "gold"),
+         ("¿Termina siempre?", "Sin demostración general: es una conjetura", "coral")],
+        note="El procedimiento (si es par, dividir entre 2; si no, multiplicar por 3 y sumar 1) termina para todo n probado. Un programa cuya terminación depende de un problema abierto necesita un límite de pasos o un plazo.",
+        note_kind="coral", foot=CALC)
 
 
 def se054_oraculo() -> Fig:
-    f = Fig(940, 400, "Probar contra un oráculo y lo que no demuestra",
-            "Un ordenamiento de burbuja coincidió con sorted en 2000 casos aleatorios de longitud hasta 30; eso aporta evidencia, no una demostración de corrección.")
-    f.table(["Evidencia", "Qué aporta", "Qué no aporta"], [["2000 casos aleatorios: burbuja = sorted", "Confianza en esos casos y en su distribución", "Garantía para todos los arreglos ni para tamaños grandes"], ["Argumento de invariante (cola ordenada)", "Prueba para toda entrada si es correcto", "Que el código implemente el argumento"]], 10, 12, [330, 290, 300], row_h=84, size=12)
-    f.box(10, 270, 920, 90, "Pruebas y demostraciones se complementan: una exhibe fallos concretos y la otra cubre todos los casos. Un contraejemplo invalida el algoritmo; la ausencia de contraejemplos no lo valida.", "gold", 13)
-    return f
+    rows = [
+        [("2000 casos aleatorios: burbuja = sorted", "gold"), ("Confianza en esos casos y en su distribución", "teal"), ("Garantía para todos los arreglos ni para tamaños grandes", "coral")],
+        [("Argumento de invariante (cola ordenada)", "gold"), ("Prueba para toda entrada si es correcto", "teal"), ("Que el código implemente el argumento", "coral")],
+    ]
+    return chain_rows(
+        "Probar contra un oráculo y lo que no demuestra",
+        "Diagrama de dos tipos de evidencia: 2000 casos aleatorios en que la burbuja coincidió con sorted aportan confianza en esos casos pero no garantía para todos los arreglos; un argumento de invariante prueba para toda entrada si es correcto, pero no que el código lo implemente.",
+        ["Evidencia", "Qué aporta", "Qué no aporta"], rows, [290, 280, 290], gap=26,
+        note="Pruebas y demostraciones se complementan: una exhibe fallos concretos y la otra cubre todos los casos. Un contraejemplo invalida el algoritmo; la ausencia de contraejemplos no lo valida.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-055
 def se055_doblar() -> Fig:
-    f = Fig(960, 440, "Duplicar n: la razón de tiempos revela el crecimiento",
-            "Tabla con medianas medidas para n igual a 4000 y 8000: la búsqueda lineal pasa de 5,9 a 11,7 ms (razón 1,99), la búsqueda por hash se mantiene en 0,02 ms (razón 0,99), la ordenación pasa de 0,48 a 1,01 ms (razón 2,10) y el doble bucle de 5,9 a 171,6 ms (razón 4,30 sobre n/4).")
-    heads = ["Operación", "n = 2000", "n = 4000", "n = 8000", "Razón 8000/4000", "Crecimiento"]
-    rows = [["Búsqueda lineal (in en lista)", "2,96 ms", "5,89 ms", "11,74 ms", "1,99", "≈ n"],
-            ["Búsqueda por hash (in en set)", "0,020 ms", "0,020 ms", "0,020 ms", "0,99", "≈ 1"],
-            ["Ordenación (sorted)", "0,22 ms", "0,48 ms", "1,01 ms", "2,10", "≈ n log n"],
-            ["Doble bucle sobre n/4", "9,64 ms", "39,89 ms", "171,63 ms", "4,30", "≈ n²"]]
-    f.table(heads, rows, 10, 12, [300, 120, 120, 130, 140, 130], row_h=62, size=12)
-    f.box(10, 330, 940, 70, "Si duplicar n multiplica el tiempo por ≈2, el crecimiento es lineal; por ≈4, cuadrático; por ≈1, constante. La razón se mide, no se supone.", "gold", 13)
-    _note(f, 424)
-    return f
+    ns = [2000, 4000, 8000]
+    return line_chart(
+        "Tiempo mediano de cuatro operaciones al duplicar n y la razón entre n = 8000 y n = 4000",
+        "Líneas en escala logarítmica con las medianas por operación para n igual a 2000, 4000 y 8000: la búsqueda lineal pasa de 2,96 a 11,74 ms (razón 1,99), la búsqueda por hash se mantiene en 0,020 ms (0,99), la ordenación pasa de 0,22 a 1,01 ms (2,10) y el doble bucle sobre n/4 de 9,64 a 171,63 ms (4,30).",
+        [("Doble bucle sobre n/4 (razón 4,30)", list(zip(ns, [9.64, 39.89, 171.63])), "coral"),
+         ("Búsqueda lineal (1,99)", list(zip(ns, [2.96, 5.89, 11.74])), "gold"),
+         ("Ordenación (2,10)", list(zip(ns, [0.22, 0.48, 1.01])), "navy"),
+         ("Búsqueda por hash (0,99)", list(zip(ns, [0.020, 0.020, 0.020])), "teal")],
+        x_label="n", y_label="Tiempo mediano (ms)", log_x=True, log_y=True, x_ticks=[(2000, "2 000"), (4000, "4 000"), (8000, "8 000")], point_labels="last", decimals=2,
+        note="Si duplicar n multiplica el tiempo por ≈2, el crecimiento es lineal; por ≈4, cuadrático; por ≈1, constante. La razón se mide, no se supone.",
+        note_kind="gold", foot=CALC)
 
 
 def se055_conteo() -> Fig:
-    f = Fig(940, 400, "Teoría y medición: dos fuentes que deben coincidir",
-            "Tabla que contrasta la razón teórica esperada al duplicar n con la razón medida: lineal 2 frente a 1,99, hash 1 frente a 0,99, n log n un poco más de 2 frente a 2,10 y cuadrático 4 frente a 4,30.")
-    f.table(["Operación", "Razón teórica al duplicar n", "Razón medida"], [["Lineal", "2", "1,99"], ["Hash", "1", "0,99"], ["n log n", "2 + pequeño (≈2,1)", "2,10"], ["Cuadrática", "4", "4,30"]], 10, 12, [300, 340, 280], row_h=54, size=14)
-    f.box(10, 290, 920, 76, "Cuando la medición discrepa mucho de la teoría hay un error de análisis, de medición o un efecto de caché o del intérprete; ninguna de las dos fuentes sustituye a la otra.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Razón teórica y razón medida al duplicar n en cuatro operaciones",
+        "Barras agrupadas con la razón de tiempos al duplicar n: lineal, teórica 2 y medida 1,99; hash, teórica 1 y medida 0,99; n log n, teórica un poco más de 2 (≈2,1) y medida 2,10; cuadrática, teórica 4 y medida 4,30.",
+        ["Lineal", "Hash", "n log n", "Cuadrática"],
+        [("Razón teórica", [2, 1, 2.1, 4], "navy"), ("Razón medida", [1.99, 0.99, 2.10, 4.30], "teal")],
+        unit="Razón al duplicar n", decimals=2, ticks=[0, 1, 2, 3, 4, 5], plot_h=250,
+        note="Cuando la medición discrepa mucho de la teoría hay un error de análisis, de medición o un efecto de caché o del intérprete; ninguna de las dos fuentes sustituye a la otra.",
+        note_kind="gold", foot=CALC)
 
 
 def se055_capacidad() -> Fig:
-    f = Fig(940, 400, "Costo amortizado: cómo crece la capacidad de una lista",
-            "Al añadir elementos uno por uno, el tamaño en bytes de una lista de Python cambia solo en algunos puntos: 88 bytes con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25 y 376 con 33; la mayoría de las inserciones no reservan memoria.")
-    f.table(["Elementos al reservar", "Bytes de la lista", "Lectura"], [["1", "88", "Primera reserva"], ["5", "120", "Crece"], ["9", "184", "Crece"], ["17", "248", "Crece"], ["25", "312", "Crece"], ["33", "376", "Crece"]], 10, 12, [260, 240, 420], row_h=40, size=13)
-    f.box(10, 340, 920, 50, "Cada reserva es costosa y rara: el costo promedio por inserción es constante (amortizado), aunque una inserción concreta pueda ser lenta.", "gold", 13)
-    return f
+    pts = [(1, 88), (5, 120), (9, 184), (17, 248), (25, 312), (33, 376)]
+    return line_chart(
+        "Tamaño en bytes de una lista de Python en los puntos en que reserva memoria",
+        "Línea con el tamaño en bytes de una lista al añadir elementos uno por uno: 88 con 1 elemento, 120 con 5, 184 con 9, 248 con 17, 312 con 25 y 376 con 33; el tamaño cambia solo en algunos puntos y la mayoría de las inserciones no reservan memoria.",
+        [("Bytes de la lista en cada reserva", pts, "gold")],
+        x_label="Elementos al reservar", y_label="Bytes de la lista", x_ticks=[(1, "1"), (5, "5"), (9, "9"), (17, "17"), (25, "25"), (33, "33")], y_ticks=[0, 100, 200, 300, 400], point_labels="all",
+        note="Cada reserva es costosa y rara: el costo promedio por inserción es constante (amortizado), aunque una inserción concreta pueda ser lenta. Las cifras dependen de la versión de CPython y de la arquitectura.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-056
 def se056_monedas() -> Fig:
-    f = Fig(940, 400, "El algoritmo codicioso falla con monedas 1, 3 y 4",
-            "Para devolver 6 con monedas de 1, 3 y 4, el algoritmo codicioso usa 4, 1 y 1 (3 monedas) y la solución óptima usa 3 y 3 (2 monedas). En el rango hasta 60, el mayor exceso del codicioso ocurre en el monto 6.")
-    f.table(["Estrategia", "Monedas para 6", "Cantidad"], [["Codiciosa: la mayor posible primero", "4 + 1 + 1", "3"], ["Programación dinámica (óptima)", "3 + 3", "2"]], 10, 12, [420, 260, 240], row_h=60, size=14, kinds=["plain", "plain", ("coral", "teal")])
-    f.box(10, 220, 920, 90, "La heurística es correcta con monedas de un sistema canónico (1, 5, 10, 25) y falla con otros conjuntos: un solo contraejemplo basta para refutar que sea óptima en general.", "gold", 13)
-    f.box(10, 322, 920, 50, "Una heurística se acompaña de su contraejemplo y de la condición en que funciona.", "grey", 13)
-    return f
+    return grouped_bars(
+        "Monedas para devolver 6 con monedas de 1, 3 y 4: algoritmo codicioso y óptimo",
+        "Barras horizontales con las monedas necesarias para devolver 6: el algoritmo codicioso usa 4, 1 y 1, tres monedas; la programación dinámica usa 3 y 3, dos monedas. En el rango hasta 60 el mayor exceso del codicioso ocurre en el monto 6.",
+        ["Codiciosa: la mayor posible primero (4 + 1 + 1)", "Programación dinámica, óptima (3 + 3)"],
+        [("Monedas", [3, 2], "coral")],
+        unit="Monedas para devolver 6", horizontal=True, label_w=300, ticks=[0, 1, 2, 3],
+        note="La heurística es correcta con monedas de un sistema canónico (1, 5, 10, 25) y falla con otros conjuntos: un solo contraejemplo basta para refutar que sea óptima en general. Una heurística se acompaña de su contraejemplo y de la condición en que funciona.",
+        note_kind="gold", foot=CALC)
 
 
 def se056_tsp() -> Fig:
-    f = Fig(940, 400, "Vecino más cercano frente al óptimo: 100 instancias de 8 ciudades",
-            "En 100 instancias aleatorias de 8 ciudades, la heurística del vecino más cercano produjo un recorrido de media 1,086 veces el óptimo, en el peor caso 1,318 veces y en el mejor 1,0.")
-    f.table(["Medida (recorrido heurístico / óptimo)", "Valor"], [["Razón media", "1,086"], ["Peor caso observado", "1,318"], ["Mejor caso", "1,000"]], 10, 12, [560, 300], row_h=58, size=14)
-    f.box(10, 220, 920, 80, "La heurística es rápida y, en promedio, razonable; en el peor caso observado un 32 % peor. No hay garantía general: se conoce la razón en la muestra, no el máximo en todos los casos.", "gold", 13)
-    _note(f, 340, "100 instancias con semilla 5; el óptimo se calculó por fuerza bruta (7! permutaciones por instancia).")
-    return f
+    return grouped_bars(
+        "Vecino más cercano frente al óptimo en 100 instancias de 8 ciudades: razón del recorrido",
+        "Barras horizontales con la razón entre el recorrido de la heurística del vecino más cercano y el óptimo, en 100 instancias aleatorias de 8 ciudades: 1,000 en el mejor caso, 1,086 de media y 1,318 en el peor caso.",
+        ["Mejor caso", "Razón media", "Peor caso observado"],
+        [("Recorrido heurístico / óptimo", [1.0, 1.086, 1.318], "gold")],
+        unit="Razón al óptimo", horizontal=True, decimals=3, label_w=190, ticks=[0, 0.5, 1.0, 1.5], ref_lines=[(1.0, "Óptimo")],
+        note="La heurística es rápida y, en promedio, razonable; en el peor caso observado es un 32 % peor. No hay garantía general: se conoce la razón en la muestra, no el máximo en todos los casos. Semilla 5; el óptimo se calculó por fuerza bruta (7! permutaciones por instancia).",
+        note_kind="gold", foot=CALC)
 
 
 def se056_fuerza() -> Fig:
-    f = Fig(940, 400, "La fuerza bruta crece factorialmente",
-            "El tiempo de resolver el viajante por fuerza bruta pasó de 0,002 s con 7 ciudades a 0,012 s con 8 y 0,110 s con 9: cada ciudad adicional multiplica el tiempo por 6 a 9, coherente con las permutaciones (n−1)!.")
-    f.table(["Ciudades n", "Permutaciones (n−1)!", "Tiempo"], [["7", "720", "0,002 s"], ["8", "5 040", "0,012 s"], ["9", "40 320", "0,110 s"], ["12 (extrapolado)", "39 916 800", "≈ horas con este método"]], 10, 12, [260, 340, 320], row_h=54, size=13)
-    f.box(10, 300, 920, 76, "Un algoritmo exacto de crecimiento factorial se vuelve inviable muy pronto; por eso existen heurísticas y aproximaciones, con sus garantías y límites declarados.", "gold", 13)
-    return f
+    ns = [7, 8, 9]
+    return line_chart(
+        "Fuerza bruta del viajante: permutaciones y tiempo medido, relativos a n = 7",
+        "Líneas en escala logarítmica con el crecimiento respecto de 7 ciudades: las permutaciones (n−1)! pasan de 720 a 5 040 y 40 320, es decir 1, 7 y 56 veces; el tiempo medido pasa de 0,002 s a 0,012 s y 0,110 s, es decir 1, 6 y 55 veces. Con 12 ciudades habría 39 916 800 permutaciones.",
+        [("Permutaciones (n−1)!", list(zip(ns, [1, 7, 56])), "navy"), ("Tiempo medido", list(zip(ns, [1, 6, 55])), "coral")],
+        x_label="Ciudades n", y_label="Veces respecto de n = 7", log_y=True, x_ticks=[(7, "7"), (8, "8"), (9, "9")], point_labels="all",
+        note="Cada ciudad adicional multiplica el tiempo por 6 a 9, coherente con las permutaciones. Un algoritmo exacto de crecimiento factorial se vuelve inviable muy pronto: con 12 ciudades serían horas; por eso existen heurísticas y aproximaciones.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-057
 def se057_pedido() -> Fig:
     f = Fig(960, 430, "Máquina de estados de un pedido",
             "Seis estados (nuevo, pagado, enviado, entregado, cancelado, devuelto) y cinco eventos definen 30 pares estado-evento, de los cuales 6 son transiciones legales y 24 son ilegales y deben rechazarse.")
-    f.table(["Estado", "Evento", "Siguiente estado"], [["nuevo", "pagar", "pagado"], ["nuevo", "cancelar", "cancelado"], ["pagado", "enviar", "enviado"], ["pagado", "cancelar", "cancelado"], ["enviado", "entregar", "entregado"], ["enviado", "devolver", "devuelto"]], 10, 12, [200, 200, 240], row_h=40, size=13)
-    f.box(680, 12, 270, 130, "6 estados × 5 eventos = 30 pares; 6 legales; 24 ilegales.", "gold", 13, bold=True)
-    f.box(680, 150, 270, 160, "Un evento ilegal (por ejemplo, enviar un pedido nuevo) se rechaza de forma explícita: no se ignora ni cambia el estado.", "coral", 13)
-    f.box(10, 340, 940, 56, "El modelo hace visible lo que antes era implícito: qué está permitido en cada estado y qué no.", "grey", 13)
+    f.text(14, 27, "Seis estados y las seis transiciones legales", 15, "start", 700, "#142231")
+    f.box(20, 60, 150, 52, "nuevo", "navy", 14, bold=True)
+    f.box(290, 60, 150, 52, "pagado", "navy", 14, bold=True)
+    f.box(560, 60, 150, 52, "enviado", "navy", 14, bold=True)
+    f.box(800, 60, 150, 52, "entregado", "teal", 14, bold=True)
+    f.box(150, 190, 150, 52, "cancelado", "coral", 14, bold=True)
+    f.box(560, 190, 150, 52, "devuelto", "gold", 14, bold=True)
+    f.arrow([(174, 86), (286, 86)], "pagar")
+    f.arrow([(444, 86), (556, 86)], "enviar")
+    f.arrow([(714, 86), (796, 86)], "entregar")
+    f.arrow([(95, 116), (95, 216), (146, 216)], "cancelar", label_at=(60, 170))
+    f.arrow([(365, 116), (365, 150), (225, 150), (225, 186)], "cancelar", label_at=(300, 144))
+    f.arrow([(635, 116), (635, 186)], "devolver", label_at=(668, 156))
+    f.box(740, 160, 210, 98, "6 estados × 5 eventos = 30 pares: 6 legales y 24 ilegales.", "gold", 13, bold=True)
+    f.box(10, 290, 940, 56, "Un evento ilegal (por ejemplo, enviar un pedido nuevo) se rechaza de forma explícita: no se ignora ni cambia el estado.", "coral", 13)
+    f.box(10, 358, 940, 56, "El modelo hace visible lo que antes era implícito: qué está permitido en cada estado y qué no.", "grey", 13)
+    f.kind = "diagram"
     return f
 
 
 def se057_producto() -> Fig:
-    f = Fig(940, 400, "Explosión de estados al combinar máquinas",
-            "Combinar máquinas independientes multiplica sus estados: 6 por 5 son 30, 6 por 5 por 4 son 120 y 6 por 5 por 4 por 4 por 3 son 1440; un sistema de cinco componentes pequeños ya tiene más de mil estados.")
-    f.table(["Máquinas combinadas", "Estados del producto"], [["6 × 5", "30"], ["6 × 5 × 4", "120"], ["6 × 5 × 4 × 4 × 3", "1 440"]], 10, 12, [460, 400], row_h=58, size=14)
-    f.box(10, 220, 920, 90, "Razonar sobre el producto a mano es inviable: se modelan los componentes por separado, se declaran las interacciones y se explora el espacio de estados con una herramienta (verificación de modelos).", "gold", 13)
-    return f
+    return grouped_bars(
+        "Explosión de estados al combinar máquinas independientes",
+        "Barras horizontales con los estados del producto de máquinas independientes: 6 por 5 son 30, 6 por 5 por 4 son 120 y 6 por 5 por 4 por 4 por 3 son 1 440; un sistema de cinco componentes pequeños ya tiene más de mil estados.",
+        ["6 × 5", "6 × 5 × 4", "6 × 5 × 4 × 4 × 3"],
+        [("Estados del producto", [30, 120, 1440], "coral")],
+        unit="Estados del producto", horizontal=True, label_w=190, ticks=[0, 400, 800, 1200, 1600],
+        note="Razonar sobre el producto a mano es inviable: se modelan los componentes por separado, se declaran las interacciones y se explora el espacio de estados con una herramienta (verificación de modelos).",
+        note_kind="gold", foot=CALC)
 
 
 def se057_alcanzables() -> Fig:
-    f = Fig(940, 400, "Estados alcanzables e invariantes del pedido",
-            "Una exploración desde el estado nuevo alcanza los 6 estados del pedido; los invariantes se comprueban sobre los estados alcanzables, no sobre todas las combinaciones posibles.")
-    f.table(["Pregunta", "Resultado"], [["¿Cuántos estados son alcanzables desde «nuevo»?", "6 de 6"], ["¿Se puede llegar a «entregado» sin pasar por «pagado»?", "No: hay que pasar por pagado y enviado"], ["¿Se puede devolver un pedido cancelado?", "No: no hay transición desde cancelado"]], 10, 12, [560, 340], row_h=62, size=13)
-    f.box(10, 290, 920, 76, "Un invariante como «entregado implica pagado» se verifica recorriendo los estados alcanzables; si algún estado lo viola, el modelo (o la regla) está mal.", "gold", 13)
-    return f
+    rows = [
+        [("¿Cuántos estados son alcanzables desde «nuevo»?", "plain"), ("6 de 6", "teal")],
+        [("¿Se puede llegar a «entregado» sin pasar por «pagado»?", "plain"), ("No: hay que pasar por pagado y enviado", "teal")],
+        [("¿Se puede devolver un pedido cancelado?", "plain"), ("No: no hay transición desde cancelado", "teal")],
+    ]
+    return chain_rows(
+        "Estados alcanzables e invariantes del pedido: preguntas y respuestas de la exploración",
+        "Diagrama de tres preguntas sobre el pedido y su respuesta: desde nuevo se alcanzan los 6 estados, no se llega a entregado sin pasar por pagado y enviado, y no se puede devolver un pedido cancelado porque no hay transición desde cancelado.",
+        ["Pregunta sobre el modelo", "Respuesta de la exploración"], rows, [520, 340], gap=40,
+        note="Un invariante como «entregado implica pagado» se verifica recorriendo los estados alcanzables; si algún estado lo viola, el modelo (o la regla) está mal.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-058
 def se058_biseccion() -> Fig:
-    f = Fig(940, 400, "Búsqueda binaria de una causa: pasos necesarios",
-            "Localizar una modificación defectuosa entre 1024 cambios ordenados requiere 10 pruebas y entre un millón requiere 20; cada prueba descarta la mitad de los candidatos.")
-    f.table(["Cambios candidatos", "Pruebas (≈ log2 n)", "Ejemplo observado"], [["1 024", "10", "defecto en el cambio 700 hallado en 10 pasos"], ["1 000 000", "20", "defecto en el cambio 123 456 hallado en 20 pasos"]], 10, 12, [260, 240, 420], row_h=64, size=13)
-    f.box(10, 220, 920, 90, "La biseccion (git bisect) exige una prueba determinista y la suposición de monotonía: todo cambio anterior al defecto es sano y todo cambio posterior lo contiene. Si la prueba es intermitente, el resultado no es fiable.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Pruebas necesarias para localizar un cambio defectuoso por bisección",
+        "Barras horizontales con las pruebas de la bisección: 10 pruebas entre 1 024 cambios para hallar un defecto en el cambio 700, y 20 pruebas entre un millón para hallar uno en el cambio 123 456; cada prueba descarta la mitad de los candidatos.",
+        ["1 024 cambios (defecto en el 700)", "1 000 000 de cambios (defecto en el 123 456)"],
+        [("Pruebas (≈ log2 n)", [10, 20], "teal")],
+        unit="Pruebas", horizontal=True, label_w=300, ticks=[0, 5, 10, 15, 20],
+        note="La bisección (git bisect) exige una prueba determinista y la suposición de monotonía: todo cambio anterior al defecto es sano y todo cambio posterior lo contiene. Si la prueba es intermitente, el resultado no es fiable.",
+        note_kind="gold", foot=CALC)
 
 
 def se058_intermitentes() -> Fig:
-    f = Fig(940, 410, "Pruebas intermitentes: cuántas repeticiones para reproducir un fallo",
-            "Para reproducir con 95 % de confianza un fallo que ocurre en una fracción p de las ejecuciones se necesitan 5 corridas si p vale 0,5; 29 si vale 0,1 y 299 si vale 0,01; una simulación con p igual a 0,1 y 29 corridas lo observó en 95,2 % de los intentos.")
-    f.table(["Probabilidad de fallo por corrida", "Corridas para verlo con 95 %", "Fórmula"], [["0,5", "5", "⌈ln(0,05) / ln(1 − p)⌉"], ["0,1", "29", "⌈ln(0,05) / ln(1 − p)⌉"], ["0,01", "299", "⌈ln(0,05) / ln(1 − p)⌉"]], 10, 12, [330, 290, 300], row_h=56, size=13)
-    f.box(10, 250, 920, 76, "Simulación (10 000 intentos, p = 0,1, 29 corridas): el fallo apareció en el 95,2 %, coherente con la fórmula.", "teal", 13)
-    f.box(10, 338, 920, 56, "Un fallo raro exige muchas corridas: «no lo reproduje» con pocas corridas no es evidencia de que no exista.", "coral", 13)
-    return f
+    return line_chart(
+        "Corridas necesarias para ver con 95 % de confianza un fallo intermitente",
+        "Línea en escala logarítmica con las corridas necesarias según la probabilidad de fallo por corrida: 5 si vale 0,5; 29 si vale 0,1 y 299 si vale 0,01, con la fórmula techo de ln 0,05 entre ln de 1 menos p; una simulación con p igual a 0,1 y 29 corridas lo observó en 95,2 % de 10 000 intentos.",
+        [("⌈ln(0,05) / ln(1 − p)⌉", [(0.5, 5), (0.1, 29), (0.01, 299)], "coral")],
+        x_label="Probabilidad de fallo por corrida", y_label="Corridas para verlo con 95 %", log_x=True, log_y=True,
+        x_ticks=[(0.01, "0,01"), (0.1, "0,1"), (0.5, "0,5")], point_labels="all",
+        note="Simulación (10 000 intentos, p = 0,1, 29 corridas): el fallo apareció en el 95,2 %, coherente con la fórmula. Un fallo raro exige muchas corridas: «no lo reproduje» con pocas corridas no es evidencia de que no exista.",
+        note_kind="coral", foot=CALC)
 
 
 def se058_confianza() -> Fig:
-    f = Fig(940, 400, "Falsa confianza: pasar cinco veces no descarta un fallo intermitente",
-            "Si un fallo ocurre en el 10 % de las corridas, la probabilidad de que cinco corridas seguidas pasen aunque el defecto exista es 0,9 elevado a 5, es decir 0,59.")
-    f.table(["Situación", "Probabilidad"], [["Defecto presente (p = 0,1) y cinco corridas pasan", "0,9^5 = 0,59"], ["Defecto presente y se observa al menos una falla en cinco corridas", "1 − 0,59 = 0,41"]], 10, 12, [600, 300], row_h=62, size=14)
-    f.box(10, 220, 920, 90, "Con un 59 % de probabilidad, «lo corregí porque ahora pasa cinco veces» es una conclusión que falla más de la mitad de las veces. Se registra la hipótesis, la predicción y el número de corridas planificado antes de concluir.", "coral", 13)
-    return f
+    return stacked_bars(
+        "Con el defecto presente (p = 0,1), qué ocurre en cinco corridas seguidas",
+        "Barra apilada horizontal con la probabilidad de lo que ocurre en cinco corridas si el defecto está presente con p igual a 0,1: pasan las cinco con probabilidad 0,9 elevado a 5, es decir 0,59, y se observa al menos una falla con probabilidad 1 menos 0,59, es decir 0,41.",
+        ["Defecto presente, cinco corridas"],
+        [("Pasan las cinco: 0,9^5 = 0,59", [59], "gold"), ("Al menos una falla: 1 − 0,59 = 0,41", [41], "coral")],
+        unit="Probabilidad (%)", horizontal=True, label_w=190,
+        note="Con un 59 % de probabilidad, «lo corregí porque ahora pasa cinco veces» es una conclusión que falla más de la mitad de las veces. Se registra la hipótesis, la predicción y el número de corridas planificado antes de concluir.",
+        note_kind="coral", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-059
 def se059_contradiccion() -> Fig:
-    f = Fig(960, 430, "Tres requisitos que juntos no tienen solución",
-            "Tabla con tres requisitos: cifrado extremo a extremo, búsqueda en el servidor e «índice en servidor requiere texto en claro». De las 4 configuraciones posibles (cifrado e2e o de transporte, índice en servidor o en cliente), ninguna satisface los tres.")
-    f.table(["Configuración", "Cifrado e2e", "Búsqueda en servidor", "Sin índice en claro en servidor", "¿Cumple los 3?"],
-            [["e2e + índice en servidor", "sí", "sí", "no", "no"], ["e2e + índice en cliente", "sí", "no", "sí", "no"], ["transporte + índice en servidor", "no", "sí", "sí", "no"], ["transporte + índice en cliente", "no", "no", "sí", "no"]],
-            10, 12, [290, 130, 190, 210, 120], row_h=52, size=12)
-    f.box(10, 310, 940, 80, "Ninguna de las 4 configuraciones satisface los tres requisitos: la contradicción es del conjunto, no de la implementación. Se detecta enumerando el espacio pequeño antes de construir nada.", "gold", 13)
-    return f
+    return grouped_bars(
+        "Requisitos que cumple cada configuración: ninguna cumple los tres",
+        "Barras horizontales con cuántos de los tres requisitos (cifrado extremo a extremo, búsqueda en el servidor y sin índice en claro en el servidor) cumple cada una de las cuatro configuraciones: e2e con índice en servidor cumple 2, e2e con índice en cliente cumple 2, transporte con índice en servidor cumple 2 y transporte con índice en cliente cumple 1; ninguna llega a 3.",
+        ["e2e + índice en servidor", "e2e + índice en cliente", "transporte + índice en servidor", "transporte + índice en cliente"],
+        [("Requisitos cumplidos de 3", [2, 2, 2, 1], "navy")],
+        unit="Requisitos cumplidos de 3", horizontal=True, label_w=240, ticks=[0, 1, 2, 3], ref_lines=[(3, "Los tres requisitos")],
+        note="Ninguna de las 4 configuraciones satisface los tres requisitos: la contradicción es del conjunto, no de la implementación. Se detecta enumerando el espacio pequeño antes de construir nada.",
+        note_kind="gold", foot=CALC)
 
 
 def se059_relajar() -> Fig:
-    f = Fig(940, 400, "Relajar un requisito: lo que cambia y lo que cuesta",
-            "Al relajar el requisito de búsqueda en el servidor queda una única configuración válida: cifrado extremo a extremo con el índice en el cliente. La decisión de qué requisito relajar es de negocio, con consecuencias para quienes lo usan.")
-    f.table(["Requisito relajado", "Configuraciones válidas", "Costo para la persona usuaria"], [["Búsqueda en el servidor", "1: e2e + índice en el cliente", "La búsqueda ocurre en el dispositivo: más datos locales, más tiempo"], ["Cifrado extremo a extremo", "Más de una", "El servidor puede leer los datos"]], 10, 12, [260, 300, 360], row_h=84, size=12)
-    f.box(10, 280, 920, 80, "El análisis no decide por la persona: muestra qué se gana y qué se pierde con cada relajación, y deja la decisión a quien tenga autoridad y a quienes resultan afectados.", "gold", 13)
-    return f
+    rows = [
+        [("Búsqueda en el servidor", "gold"), ("1: e2e + índice en el cliente", "teal"), ("La búsqueda ocurre en el dispositivo: más datos locales, más tiempo", "coral")],
+        [("Cifrado extremo a extremo", "gold"), ("Más de una", "teal"), ("El servidor puede leer los datos", "coral")],
+    ]
+    return chain_rows(
+        "Relajar un requisito: qué configuraciones quedan y qué cuesta a la persona usuaria",
+        "Diagrama de dos relajaciones posibles: al relajar la búsqueda en el servidor queda una única configuración válida, cifrado extremo a extremo con el índice en el cliente, a costa de más datos locales y más tiempo; al relajar el cifrado quedan más de una, pero el servidor puede leer los datos.",
+        ["Requisito relajado", "Configuraciones válidas", "Costo para la persona usuaria"], rows, [250, 270, 310], gap=26,
+        note="El análisis no decide por la persona: muestra qué se gana y qué se pierde con cada relajación, y deja la decisión a quien tenga autoridad y a quienes resultan afectados.",
+        note_kind="gold", foot=CALC)
 
 
 def se059_preguntas() -> Fig:
-    f = Fig(940, 400, "Preguntas abiertas y registro de la decisión",
-            "Al encontrar una contradicción se registran preguntas abiertas, las opciones, quién decide y el plazo; no se escoge en silencio.")
-    f.table(["Elemento del registro", "Contenido"], [["Contradicción", "Los tres requisitos no tienen solución conjunta (0 de 4 configuraciones)"], ["Opciones", "Relajar la búsqueda en servidor, relajar e2e o cambiar el alcance"], ["Quién decide", "Propietario del producto con asesoría de seguridad; las personas afectadas se consultan"], ["Preguntas abiertas", "¿Qué dato necesita realmente buscarse? ¿Con qué latencia? ¿Qué riesgo se acepta?"]], 10, 12, [260, 660], row_h=56, size=12)
-    f.box(10, 300, 920, 76, "Una contradicción no resuelta que se oculta reaparece como un defecto en producción; una que se registra es una decisión revisable.", "gold", 13)
-    return f
+    return steps_row(
+        "Preguntas abiertas y registro de la decisión ante una contradicción",
+        "Diagrama de cuatro elementos del registro de una contradicción: la contradicción de los tres requisitos sin solución conjunta, las opciones, quién decide y las preguntas abiertas; no se escoge en silencio.",
+        [("1 · Contradicción", "Los tres requisitos no tienen solución conjunta (0 de 4 configuraciones)", "coral"),
+         ("2 · Opciones", "Relajar la búsqueda en servidor, relajar e2e o cambiar el alcance", "plain"),
+         ("3 · Quién decide", "Propietario del producto con asesoría de seguridad; las personas afectadas se consultan", "gold"),
+         ("4 · Preguntas abiertas", "¿Qué dato necesita realmente buscarse? ¿Con qué latencia? ¿Qué riesgo se acepta?", "plain")],
+        note="Una contradicción no resuelta que se oculta reaparece como un defecto en producción; una que se registra es una decisión revisable.",
+        note_kind="gold", foot=CALC)
 
 
 # ---------------------------------------------------------------- SE-060
 def se060_pruebas() -> Fig:
-    f = Fig(960, 470, "Las trece pruebas del laboratorio y el contrato que cada una protege",
-            "Tabla con las trece pruebas del laboratorio de la Parte 04: especificación completa, resultado ausente rechazado, conflicto visible, implicación con una fila falsa, grafo con ciclo, máquina de estados, selector, invariante de subconjunto, observación contradictoria, presupuesto, caso de referencia, conteos y salida legible. Pasaron en Windows (0,167 s) y en Linux (0,245 s).")
-    heads = ["Grupo", "Pruebas", "Contrato"]
-    rows = [["Especificación", "completa · resultado ausente rechazado · conflicto sin resolver visible", "Datos de entrada válidos y conflictos explícitos"],
-            ["Razonamiento", "implicación con una fila falsa · grafo con ciclo termina · máquina de estados rechaza lo imposible", "Lógica, terminación y estados"],
-            ["Selección y observación", "excluye pruebas no autorizadas · el subconjunto se preserva · observación contradictoria falla · presupuesto como precondición", "Invariantes y precondiciones"],
-            ["Evidencia", "caso de referencia se resuelve con traza · conteos separan teoría de tiempo · salida legible por máquina", "Trazabilidad y límites"]]
-    f.table(heads, rows, 10, 12, [190, 480, 270], row_h=84, size=12)
-    f.box(10, 420, 940, 40, "13 pruebas: Windows 11 (Python 3.12.9) 0,167 s; Linux (WSL2, Python 3.12.3) 0,245 s.", "gold", 12)
-    return f
+    return grouped_bars(
+        "Las trece pruebas del laboratorio repartidas por el contrato que protegen",
+        "Barras horizontales con las pruebas por grupo: especificación 3, razonamiento 3, selección y observación 4 y evidencia 3, en total 13; pasaron en Windows 11 en 0,167 s y en Linux en 0,245 s.",
+        ["Especificación (datos válidos y conflictos explícitos)", "Razonamiento (lógica, terminación y estados)", "Selección y observación (invariantes y precondiciones)", "Evidencia (trazabilidad y límites)"],
+        [("Pruebas", [3, 3, 4, 3], "teal")],
+        unit="Pruebas de 13", horizontal=True, label_w=330, ticks=[0, 1, 2, 3, 4],
+        note="13 pruebas: Windows 11 (Python 3.12.9) 0,167 s; Linux (WSL2, Python 3.12.3) 0,245 s. Cada grupo protege un contrato distinto y la clase lista las trece en su tabla.",
+        note_kind="gold", foot=CALC)
 
 
 def se060_resolucion() -> Fig:
-    f = Fig(940, 430, "Resolución del caso de referencia, paso a paso",
-            "Con la especificación y las observaciones de referencia: resolve da ok y deja tls y http como candidatos con costo 1; handshake da fail y deja solo tls con costo acumulado 3; el estado es resolved, con presupuesto restante 2.")
-    f.table(["Paso", "Prueba", "Resultado", "Candidatos restantes", "Costo acumulado"], [["1", "resolve", "ok", "tls, http", "1"], ["2", "handshake", "fail", "tls", "3"]], 10, 12, [100, 220, 160, 260, 180], row_h=60, size=14)
-    f.box(10, 190, 920, 60, "Estado final: resolved · candidatos: [tls] · gastado 3 de 5 · presupuesto restante 2 · próxima prueba: ninguna.", "teal", 13, bold=True)
-    f.box(10, 262, 920, 90, "«Resuelto» significa que, dentro del modelo, solo queda una hipótesis compatible con las observaciones. No significa que el mundo real esté completo ni que las premisas sean verdaderas.", "gold", 13)
-    return f
+    return steps_row(
+        "Resolución del caso de referencia, paso a paso",
+        "Diagrama de tres pasos del caso de referencia: resolve da ok y deja tls y http como candidatos con costo 1; handshake da fail y deja solo tls con costo acumulado 3; el estado final es resolved, con 3 de 5 unidades gastadas y presupuesto restante 2.",
+        [("Paso 1 · resolve", "Resultado ok. Candidatos: tls, http. Costo acumulado 1", "plain"),
+         ("Paso 2 · handshake", "Resultado fail. Candidatos: tls. Costo acumulado 3", "plain"),
+         ("Estado final", "resolved · candidatos [tls] · gastado 3 de 5 · restante 2 · próxima prueba: ninguna", "teal")],
+        note="«Resuelto» significa que, dentro del modelo, solo queda una hipótesis compatible con las observaciones. No significa que el mundo real esté completo ni que las premisas sean verdaderas.",
+        note_kind="gold", foot=CALC)
 
 
 def se060_limites() -> Fig:
-    f = Fig(940, 430, "Lo que la evidencia sostiene y lo que no",
-            "Tres límites declarados por el laboratorio: el resultado es correcto solo respecto de las hipótesis y resultados declarados, la heurística codiciosa no es óptima global y una medición de tiempo no sustituye el análisis de crecimiento.")
-    f.table(["Afirmación", "Evidencia que la sostiene", "Lo que no demuestra"], [["La selección converge a una hipótesis", "Trece pruebas y el caso de referencia", "Que las hipótesis cubran todas las causas reales"], ["La próxima prueba es una buena elección", "Una puntuación por costo y poder de descarte", "Que la secuencia sea globalmente óptima"], ["El procedimiento es eficiente", "Conteos de operaciones y medición", "Que otro entorno o tamaño mantenga la proporción"]], 10, 12, [290, 320, 310], row_h=84, size=12)
-    f.box(10, 340, 920, 70, "Cambiar un resultado esperado para que una implementación pase invalida la evidencia: un contraejemplo obliga a revisar la regla, el modelo o el alcance.", "coral", 13)
-    return f
+    rows = [
+        [("La selección converge a una hipótesis", "gold"), ("Trece pruebas y el caso de referencia", "teal"), ("Que las hipótesis cubran todas las causas reales", "coral")],
+        [("La próxima prueba es una buena elección", "gold"), ("Una puntuación por costo y poder de descarte", "teal"), ("Que la secuencia sea globalmente óptima", "coral")],
+        [("El procedimiento es eficiente", "gold"), ("Conteos de operaciones y medición", "teal"), ("Que otro entorno o tamaño mantenga la proporción", "coral")],
+    ]
+    return chain_rows(
+        "Lo que la evidencia sostiene y lo que no demuestra",
+        "Diagrama de tres afirmaciones del laboratorio con la evidencia que las sostiene y lo que esa evidencia no demuestra: la convergencia a una hipótesis no prueba que las hipótesis cubran todas las causas, la buena elección de la próxima prueba no prueba una secuencia óptima y la eficiencia medida no prueba que otro entorno mantenga la proporción.",
+        ["Afirmación", "Evidencia que la sostiene", "Lo que no demuestra"], rows, [280, 280, 280], gap=26,
+        note="Cambiar un resultado esperado para que una implementación pase invalida la evidencia: un contraejemplo obliga a revisar la regla, el modelo o el alcance.",
+        note_kind="coral", foot=CALC)
 
 
 FIGURES = {

@@ -34,3 +34,20 @@ def chain_rows(title: str, desc: str, heads: Sequence[str], rows: Sequence[Seque
             x += w + gap
         y += h + 12
     return _kit_finish(f, y, note, note_kind, foot)
+
+
+def steps_row(title: str, desc: str, steps: Sequence[tuple[str, str, str]], *, note: str = "", note_kind: str = "gold",
+              foot: str = "", width: int = 940, gap: float = 34, size: int = 13) -> Fig:
+    """One sequence of boxes joined by arrows: ``steps`` hold ``(head, text, kind)``; the head is written above its box."""
+    f, y = _kit_start(title, desc, width, None)
+    n = len(steps)
+    w = (width - 28 - gap * (n - 1)) / n
+    h = max(max(len(_wrap(t, size, w - 20)) for _, t, _ in steps) * size * 1.28 + 24, 56.0)
+    x = 14.0
+    for i, (head, text, kind) in enumerate(steps):
+        f.text(x + w / 2, y + 12, head, 13, "middle", 700, AXIS)
+        f.box(x, y + 22, w, h, text, kind, size)
+        if i < n - 1:
+            f.arrow([(x + w + 4, y + 22 + h / 2), (x + w + gap - 4, y + 22 + h / 2)])
+        x += w + gap
+    return _kit_finish(f, y + 22 + h + 6, note, note_kind, foot)

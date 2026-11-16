@@ -203,8 +203,8 @@ def se028_arranque() -> Fig:
 # ---------------------------------------------------------------- SE-029
 def se029_expansion() -> Fig:
     cases = [
-        ("prog /tmp/p02*.txt", "Bash", ["/tmp/p02a.txt", "/tmp/p02b.txt"], "gold", "el comodín se expande antes de llegar al programa"),
-        ('prog "/tmp/p02*.txt"', "Bash", ["/tmp/p02*.txt"], "teal", "las comillas impiden la expansión: llega literal"),
+        ("prog /tmp/p02*.txt", "Bash", ["/tmp/p02a.txt", "/tmp/p02b.txt"], "gold", "el comodín se expande antes de llegar al programa"),  # nosec B108
+        ('prog "/tmp/p02*.txt"', "Bash", ["/tmp/p02*.txt"], "teal", "las comillas impiden la expansión: llega literal"),  # nosec B108
         ('x="un archivo.txt"; prog $x', "Bash", ["un", "archivo.txt"], "gold", "la variable sin comillas se divide por los espacios"),
         ('x="un archivo.txt"; prog "$x"', "Bash", ["un archivo.txt"], "teal", "con comillas el valor es un solo argumento"),
         ("prog *.nada", "PowerShell 5.1", ["*.nada"], "teal", "no expande el comodín para programas nativos"),

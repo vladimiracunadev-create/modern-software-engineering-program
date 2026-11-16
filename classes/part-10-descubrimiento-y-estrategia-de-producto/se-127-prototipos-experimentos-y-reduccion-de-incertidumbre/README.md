@@ -103,9 +103,9 @@ def n_por_rama(p1, p2, za=1.959964, zb=0.841621):
 
 Para comprobar que la fórmula describe lo que ocurre, se simularon 4 000 experimentos con tasas reales de 10 % y 12 % y se contó con qué frecuencia la prueba de dos proporciones al 5 % detectaba la diferencia: con n = 3 841 la potencia empírica fue 81,2 % (≈ 80 %), con n = 500, 17,3 % y con n = 200, 9,4 %. El diseño del equipo detectaría el efecto una vez de cada seis. Las salidas fueron idénticas en Windows y Ubuntu.
 
-![Tabla con el tamaño de muestra por rama para cuatro diferencias y la potencia simulada del diseño de 500 y 200 personas.](../../../content/part-10/figures/se-127-personas-por-brazo.svg)
+![Barras horizontales con las personas por brazo para detectar cada diferencia con 80 por ciento de potencia: 3841 para pasar de 10 a 12 por ciento, 686 de 10 a 15, 199 de 10 a 20 y 1534 de 40 a 45.](../../../content/part-10/figures/se-127-personas-por-brazo.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio que se quiere detectar; la columna «n por brazo» es la muestra necesaria y la última da la potencia empírica en tres tamaños para el primer caso. **Dónde deja de valer:** el cálculo supone observaciones independientes, tasas estables y una prueba de dos proporciones; con medidas repetidas por persona, conglomerados o efectos de novedad hay que ajustar el tamaño. Si el tamaño necesario es inalcanzable, la salida no es relajar la exigencia sino cambiar de método.
+**Cómo leer la figura.** Cada barra es un cambio que se quiere detectar y su longitud el número de personas necesarias por brazo. Mira primero que la barra más pequeña del efecto (10 → 12 %) es la más larga y que de 10 a 20 % basta una veinteava parte; la potencia simulada con 500 personas está en la nota. **Dónde deja de valer:** el cálculo supone observaciones independientes, tasas estables y una prueba de dos proporciones; con medidas repetidas por persona, conglomerados o efectos de novedad hay que ajustar el tamaño. Si el tamaño necesario es inalcanzable, la salida no es relajar la exigencia sino cambiar de método.
 
 ### Mirar cada día: falsos positivos en una prueba A/A
 

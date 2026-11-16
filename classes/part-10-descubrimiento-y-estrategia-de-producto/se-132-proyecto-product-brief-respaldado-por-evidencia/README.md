@@ -108,9 +108,9 @@ def validar(b):
 
 Resultado: 10 de 12 mutaciones detectadas: quitar toda la evidencia de una afirmación, citar una evidencia inexistente, respaldar con un solo participante, respaldar solo con lo que dijeron, quitar responsable, quitar fecha, volver vago el criterio de abandono, quitar los límites, incluir un correo en la evidencia y convertir el problema en una solución de dos palabras. No se detectaron: (a) cambiar «42 tickets» por «420 tickets» en la evidencia sin actualizar la afirmación, y (b) cambiar «una vez por semana» por «siempre» en la afirmación. El validador es estructural: no compara cifras con la fuente ni juzga si una afirmación exagera. Idéntico en Windows y Ubuntu.
 
-![Tabla con nueve grupos de mutaciones aplicadas a un brief válido y si el validador las detecta.](../../../content/part-10/figures/se-132-mutaciones-del-brief.svg)
+![Barras apiladas horizontales con las mutaciones por grupo que detecta el validador: evidencia ausente, cita inexistente, un solo participante, decisión sin responsable y dato personal se detectan, diez de doce en total; un número alterado y una afirmación exagerada no.](../../../content/part-10/figures/se-132-mutaciones-del-brief.svg)
 
-**Cómo leer la figura.** Cada fila es una mutación (o un grupo de mutaciones) y la columna derecha dice si el validador las detectó; las dos últimas filas son las que escaparon. **Dónde deja de valer:** doce mutaciones escritas por el autor no cubren los defectos que otro equipo cometería, y un 83 % de detección no es una probabilidad de que un brief real esté bien. Sirve para saber qué cubre la herramienta y qué debe cubrir la revisión humana, no para certificar un brief.
+**Cómo leer la figura.** Cada barra es un tipo de mutación aplicado a un brief válido y su longitud cuántas hay; verde si el validador las detecta y rojo si no. Mira primero las dos barras rojas, al final: son cambios semánticos que el validador no ve. **Dónde deja de valer:** doce mutaciones escritas por el autor no cubren los defectos que otro equipo cometería, y un 83 % de detección no es una probabilidad de que un brief real esté bien. Sirve para saber qué cubre la herramienta y qué debe cubrir la revisión humana, no para certificar un brief.
 
 ### El mismo conjunto de señales, tres órdenes
 
@@ -123,9 +123,9 @@ puntaje = {op: sum(s * w for s, w in zip(senales, pesos[nombre])) for op, senale
 
 Con pesos iguales: aviso de sesión 12, recuperar borradores 10, panel docente 7. Con comportamiento y compromiso ×3: recuperar borradores 22, aviso de sesión 18, panel docente 15. Con compromiso ×5 y comportamiento ×2: panel docente 20, recuperar borradores 19, aviso de sesión 15. Los tres juegos de pesos son razonables y los tres primeros puestos son distintos. El brief no puede esconder el peso: debe declararlo, justificarlo y mostrar que la conclusión resiste (o que no resiste) varios. Cálculo exacto, idéntico en Windows y Ubuntu.
 
-![Tabla con el orden de tres opciones bajo tres ponderaciones de la misma evidencia.](../../../content/part-10/figures/se-132-ponderacion-de-evidencia.svg)
+![Barras agrupadas con la puntuación de tres opciones bajo tres ponderaciones: igual peso da primero aviso de sesión con 12; comportamiento y compromiso por tres, recuperar borradores con 22; compromiso por cinco, panel docente con 20.](../../../content/part-10/figures/se-132-ponderacion-de-evidencia.svg)
 
-**Cómo leer la figura.** Cada fila es una ponderación y las tres columnas son los puestos; compara cómo la misma evidencia produce tres primeros distintos. **Dónde deja de valer:** las señales son conteos sintéticos y los pesos son del autor; en una investigación real las señales no son independientes ni del mismo tamaño y los pesos deberían justificarse con la calidad de cada fuente. La suma ponderada es un resumen, no un modelo.
+**Cómo leer la figura.** Cada grupo es una ponderación de las mismas señales y cada barra una opción, con su puntuación como altura. Mira primero cuál es la barra más alta de cada grupo: cambia de color en cada uno, sin que cambie ningún dato. **Dónde deja de valer:** las señales son conteos sintéticos y los pesos son del autor; en una investigación real las señales no son independientes ni del mismo tamaño y los pesos deberían justificarse con la calidad de cada fuente. La suma ponderada es un resumen, no un modelo.
 
 ### Dos opciones con rangos solapados: ¿decidir o aprender?
 

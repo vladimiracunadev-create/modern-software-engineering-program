@@ -132,9 +132,9 @@ Para revisar enunciados de problema antes de que lleguen a una reunión se escri
 
 La prueba real es un caso que la regla no conocía. «Las vendedoras pierden pedidos cuando el teléfono se queda sin red» es un buen enunciado (actor, consecuencia, observable), pero la lista de actores no incluía «vendedoras» y la regla lo rechazó. El linter aporta una comprobación barata y repetible de defectos comunes —solución embebida, ausencia de actor, ausencia de consecuencia—, y falla cuando el vocabulario cambia.
 
-![Tabla de seis enunciados evaluados por la regla: solución embebida, actor y consecuencia, con un falso negativo.](../../../content/part-10/figures/se-121-linter-de-enunciados.svg)
+![Mapa de calor con seis enunciados y tres detecciones de la regla, solución embebida, actor y consecuencia, más si acepta; acierta los ocho enunciados de ajuste y falla en el caso nuevo de vendedoras que pierden pedidos, que rechaza por error.](../../../content/part-10/figures/se-121-linter-de-enunciados.svg)
 
-**Cómo leer la figura.** Cada fila es un enunciado y las columnas dicen qué defectos encontró la regla; la última fila coral es el falso negativo. **Dónde deja de valer:** una lista de palabras no sustituye la lectura de una segunda persona, y un enunciado que pasa la regla puede seguir siendo falso (el problema puede no existir). Úsala como revisión previa, y registra cada falso negativo para ampliar la regla o para dejar de confiar en ella.
+**Cómo leer la figura.** Cada fila es un enunciado y cada celda oscura un sí; las tres primeras columnas son lo que detecta la regla y la última si el enunciado se acepta. Mira primero la celda resaltada de la última fila: tiene consecuencia pero la regla no la acepta, y es el falso negativo. **Dónde deja de valer:** una lista de palabras no sustituye la lectura de una segunda persona, y un enunciado que pasa la regla puede seguir siendo falso (el problema puede no existir). Úsala como revisión previa, y registra cada falso negativo para ampliar la regla o para dejar de confiar en ella.
 
 ## Definiciones de trabajo
 

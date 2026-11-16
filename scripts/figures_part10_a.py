@@ -1,8 +1,8 @@
 """Figures for SE-121 to SE-126 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig, _wrap
-from figures_part07_a import bars, tab
+from figure_kit import Fig, _wrap, grouped_bars, heatmap, line_chart, percentile_intervals
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos, semilla fija; idénticos en Windows y Ubuntu (WSL2)."
 
@@ -64,17 +64,16 @@ def se121_oportunidad() -> Fig:
 
 
 def se121_linter() -> Fig:
-    rows = [["Necesitamos un dashboard para los docentes.", "sí", "sí", "no", "Rechaza ✔"],
-            ["Los docentes tardan 40 minutos en corregir porque abren cada archivo por separado.", "no", "sí", "sí", "Acepta ✔"],
-            ["Los usuarios están insatisfechos.", "no", "no", "no", "Rechaza ✔"],
-            ["Las familias abandonan el registro en la verificación y no logran compartir fotos.", "no", "sí", "sí", "Acepta ✔"],
-            ["Los estudiantes pierden su avance si la sesión expira, sin poder recuperarlo. (caso nuevo)", "no", "sí", "sí", "Acepta ✔"],
-            ["Las vendedoras pierden pedidos cuando el teléfono se queda sin red. (caso nuevo)", "no", "no", "sí", "Rechaza ✘ (falso negativo)"]]
-    return tab("Linter de enunciados de problema: 8 de 8 en los ejemplos, fallo en el caso nuevo",
-               "Tabla con seis enunciados: la regla detecta solución embebida, actor y consecuencia; acierta los ocho enunciados con los que se escribió y falla con vendedoras pierden pedidos, que no está en su lista de actores.",
-               ["Enunciado", "Solución embebida", "Actor", "Consecuencia", "Resultado"], rows, [440, 120, 80, 110, 190], row_h=62, size=12,
-               note="Las expresiones regulares se escribieron mirando los ocho primeros enunciados, por eso aciertan 8/8. Con un actor que no figuraba en la lista («vendedoras») la regla rechaza un buen enunciado. Un linter detecta síntomas de enunciado vago; no demuestra que el problema sea real.", note_kind="coral", foot=SINT)
-
+    return heatmap(
+        "Linter de enunciados de problema: 8 de 8 en los ejemplos, fallo en el caso nuevo",
+        "Mapa de calor binario de seis enunciados: la regla detecta solución embebida, actor y consecuencia y acepta o rechaza; acierta los ocho enunciados con los que se escribió y falla con vendedoras pierden pedidos, que no está en su lista de actores y rechaza por error.",
+        ["Dashboard para docentes", "40 min por abrir cada archivo", "Usuarios insatisfechos", "Familias abandonan el registro", "Pierden avance al expirar (nuevo)", "Vendedoras pierden pedidos (nuevo)"],
+        ["Solución embebida", "Actor", "Consecuencia", "La regla acepta"],
+        [[1, 1, 0, 0], [0, 1, 1, 1], [0, 0, 0, 0], [0, 1, 1, 1], [0, 1, 1, 1], [0, 0, 1, 0]],
+        unit="Presente = 1, ausente = 0", scale="navy", vmin=0, vmax=1, cell_fmt=lambda v: "sí" if v else "no", highlight=[(5, 3)],
+        label_w=300,
+        note="Las expresiones regulares se escribieron mirando los ocho primeros enunciados, por eso aciertan 8/8. Con un actor que no figuraba en la lista («vendedoras») la regla rechaza un buen enunciado (celda resaltada: debía aceptar). Un linter detecta síntomas de enunciado vago; no demuestra que el problema sea real.",
+        note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-122
 def se122_promedio() -> Fig:
@@ -87,35 +86,39 @@ def se122_promedio() -> Fig:
 
 
 def se122_simpson() -> Fig:
-    rows = [["Oficina", "234 de 270 = 86,7 %", "81 de 87 = 93,1 %", "B gana"],
-            ["Móvil con conexión débil", "55 de 80 = 68,8 %", "192 de 263 = 73,0 %", "B gana"],
-            ["Todos juntos", "289 de 350 = 82,6 %", "273 de 350 = 78,0 %", "A gana"]]
-    return tab("Paradoja de Simpson: la mejor opción cambia al separar por contexto",
-               "Tabla de tasas de tarea completada: en oficina A completa 86,7 por ciento y B 93,1; en móvil con conexión débil A 68,8 y B 73,0; agregando los dos contextos A obtiene 82,6 y B 78,0, y la conclusión se invierte.",
-               ["Contexto", "Plan A", "Plan B", "Mejor"], rows, [250, 260, 260, 130], row_h=54, size=13,
-               note="B es mejor en cada contexto y peor en el total porque cada plan se probó sobre mezclas distintas de contextos (A se usó sobre todo en oficina, B en móvil). Cifras recicladas de un ejemplo clásico de la literatura: es un cálculo, no una medición.", note_kind="gold", foot=SINT)
-
+    return grouped_bars(
+        "Paradoja de Simpson: la mejor opción cambia al separar por contexto",
+        "Barras agrupadas con las tasas de tarea completada: en oficina A completa 86,7 por ciento y B 93,1; en móvil con conexión débil A 68,8 y B 73,0; agregando los dos contextos A obtiene 82,6 y B 78,0, y la conclusión se invierte.",
+        ["Oficina", "Móvil con conexión débil", "Todos juntos"],
+        [("Plan A", [86.7, 68.8, 82.6], "gold"), ("Plan B", [93.1, 73.0, 78.0], "navy")],
+        unit="Tareas completadas (%)", decimals=1, plot_h=260,
+        note="B es mejor en cada contexto y peor en el total porque cada plan se probó sobre mezclas distintas de contextos (A se usó sobre todo en oficina: 234 de 270; B en móvil: 192 de 263). Cifras recicladas de un ejemplo clásico de la literatura: es un cálculo, no una medición.",
+        note_kind="gold", foot=SINT)
 
 def se122_trabajos() -> Fig:
-    rows = [["0,20", "5 grupos", "4 + 2 + 1 + 1 + 1", "Agrupa «enviar/subir/entregar la tarea»; separa «saber si llegó»"],
-            ["0,34", "9 grupos", "9 × 1", "Ningún par supera el umbral: nueve «trabajos»"],
-            ["0,50", "9 grupos", "9 × 1", "Igual: la similitud léxica no ve que «entregar» y «enviar» son lo mismo"]]
-    return tab("Agrupar enunciados de trabajo por similitud léxica: el umbral decide cuántos trabajos hay",
-               "Tabla con nueve enunciados de trabajo agrupados por solapamiento de palabras: con umbral Jaccard 0,20 salen cinco grupos y con 0,34 o 0,50 nueve grupos, de modo que el número de trabajos depende del umbral y no de las personas.",
-               ["Umbral Jaccard", "Resultado", "Tamaños", "Lectura"], rows, [150, 130, 190, 450], row_h=62, size=12,
-               note="Los nueve enunciados describen cuatro trabajos para una persona que los lee. La máquina entrega entre 5 y 9 según un parámetro arbitrario: agrupar trabajos es una decisión de investigación, no un cálculo.", note_kind="coral", foot=SINT)
-
+    return line_chart(
+        "Agrupar enunciados de trabajo por similitud léxica: el umbral decide cuántos trabajos hay",
+        "Línea con el número de grupos en que se reparten nueve enunciados de trabajo según el umbral de similitud Jaccard: cinco grupos con 0,20 y nueve con 0,34 y con 0,50, frente a los cuatro trabajos que lee una persona.",
+        [("Grupos que devuelve la máquina", [(0.20, 5, "5 grupos", "r"), (0.34, 9, "9 grupos", "t"), (0.50, 9, "9 grupos", "t")], "coral")],
+        x_label="Umbral Jaccard", y_label="Grupos de trabajo",
+        x_ticks=[(0.20, "0,20"), (0.34, "0,34"), (0.50, "0,50")], y_ticks=[0, 2, 4, 6, 8, 10],
+        hlines=[(4, "cuatro trabajos según la lectura humana")], decimals=0, plot_h=260,
+        note="Con 0,20 los tamaños son 4 + 2 + 1 + 1 + 1 (agrupa «enviar/subir/entregar la tarea» y separa «saber si llegó»); con 0,34 y 0,50 son nueve grupos de uno: la similitud léxica no ve que «entregar» y «enviar» son lo mismo. Agrupar trabajos es una decisión de investigación, no un cálculo.",
+        note_kind="coral", foot=SINT)
 
 # ---------------------------------------------------------------- SE-123
 def se123_saturacion() -> Fig:
-    rows = [["5 %", "23,0 %", "34,2 %", "64,3 %", "78,9 %", "45"],
-            ["10 %", "41,4 %", "57,2 %", "88,1 %", "96,1 %", "22"],
-            ["30 %", "83,1 %", "94,3 %", "100 %", "100 %", "7"]]
-    return tab("Probabilidad de oír un tema al menos una vez según cuántas entrevistas se hagan",
-               "Tabla con la probabilidad simulada de observar un tema con prevalencia 5, 10 o 30 por ciento en 5, 8, 20 y 30 entrevistas; para un 90 por ciento de seguridad hacen falta 45, 22 y 7 entrevistas.",
-               ["Prevalencia del tema", "5 entrevistas", "8", "20", "30", "n para 90 %"], rows, [190, 150, 130, 130, 130, 160], row_h=48, size=13,
-               note="Cinco entrevistas casi garantizan ver un tema que afecta al 30 % y dejan un 59 % de probabilidad de no ver uno que afecta al 10 %. «No salió en las entrevistas» no es lo mismo que «no existe». Simulación de 20 000 repeticiones; coincide con 1 − (1 − p)ⁿ.", note_kind="gold", foot=SINT)
-
+    return line_chart(
+        "Probabilidad de oír un tema al menos una vez según cuántas entrevistas se hagan",
+        "Líneas con la probabilidad simulada de observar un tema de prevalencia 5, 10 o 30 por ciento en 5, 8, 20 y 30 entrevistas: con 30 entrevistas 78,9, 96,1 y 100 por ciento; para un 90 por ciento de seguridad hacen falta 45, 22 y 7 entrevistas.",
+        [("Tema de 5 %", [(5, 23.0), (8, 34.2), (20, 64.3), (30, 78.9, "78,9", "t")], "coral"),
+         ("Tema de 10 %", [(5, 41.4), (8, 57.2), (20, 88.1), (30, 96.1, "96,1", "b")], "gold"),
+         ("Tema de 30 %", [(5, 83.1), (8, 94.3), (20, 100.0), (30, 100.0, "100", "t")], "teal")],
+        x_label="Entrevistas realizadas", y_label="Probabilidad de oír el tema (%)",
+        x_ticks=[(5, "5"), (8, "8"), (20, "20"), (30, "30")], y_ticks=[0, 20, 40, 60, 80, 100],
+        hlines=[(90, "90 %")], point_labels="none", decimals=1, plot_h=300,
+        note="Cinco entrevistas casi garantizan ver un tema que afecta al 30 % y dejan un 59 % de probabilidad de no ver uno que afecta al 10 %. «No salió en las entrevistas» no es lo mismo que «no existe». Entrevistas necesarias para un 90 %: 45, 22 y 7. Simulación de 20 000 repeticiones; coincide con 1 − (1 − p)ⁿ.",
+        note_kind="gold", foot=SINT)
 
 def se123_kappa() -> Fig:
     items = [("Tema frecuente (50 %)", 93.5, "teal", "acuerdo 93,5 % · κ 0,87"),
@@ -128,15 +131,14 @@ def se123_kappa() -> Fig:
 
 
 def se123_trazabilidad() -> Fig:
-    rows = [["A1 «No confían en el guardado automático»", "2 de 2", "2 (P1, P3)", "Sostenida"],
-            ["A2 «Los plazos se conocen por el correo»", "1 de 1", "1 (P2)", "Débil: un solo participante"],
-            ["A3 «Los plazos llegan por compañeros»", "1 de 2", "1 (P4)", "Débil: la cita de P5 no existe"],
-            ["A4 «Perdieron trabajo»", "1 de 2", "1 (P1)", "Débil: la cita de P3 no coincide"]]
-    return tab("Verificar que cada afirmación del informe tenga citas reales y de personas distintas",
-               "Tabla con cuatro afirmaciones: A1 tiene dos citas verificadas de dos participantes; A2 depende de un participante; A3 cita a un participante que no existe en las transcripciones y A4 una frase que no aparece literalmente.",
-               ["Afirmación", "Citas halladas", "Participantes distintos", "Veredicto"], rows, [340, 130, 190, 270], row_h=54, size=12,
-               note="El script comprueba que cada cita aparezca literalmente en la transcripción y exige dos participantes distintos. No comprueba que la cita signifique lo que la afirmación dice: eso exige leer.", note_kind="teal", foot=SINT)
-
+    return grouped_bars(
+        "Verificar que cada afirmación del informe tenga citas reales y de personas distintas",
+        "Barras agrupadas con cuatro afirmaciones: A1 tiene dos citas declaradas, dos halladas y dos participantes distintos; A2 una, una y uno; A3 y A4 declaran dos citas y solo se hallan una, de un solo participante; se exigen dos participantes distintos.",
+        ["A1 Guardado automático", "A2 Plazos por correo", "A3 Plazos por compañeros", "A4 Perdieron trabajo"],
+        [("Citas declaradas", [2, 1, 2, 2], "grey"), ("Citas halladas en la transcripción", [2, 1, 1, 1], "teal"), ("Participantes distintos", [2, 1, 1, 1], "navy")],
+        unit="Cantidad", decimals=0, ticks=[0, 1, 2], ref_lines=[(2, "mínimo exigido: 2 participantes")], plot_h=260,
+        note="Veredictos: A1 sostenida; A2 débil (un solo participante); A3 débil (la cita de P5 no existe en las transcripciones); A4 débil (la cita de P3 no coincide). El script comprueba que cada cita aparezca literalmente y que haya dos participantes distintos; no comprueba que la cita signifique lo que la afirmación dice: eso exige leer.",
+        note_kind="teal", foot=SINT)
 
 # ---------------------------------------------------------------- SE-124
 def se124_tornado() -> Fig:
@@ -152,12 +154,15 @@ def se124_tornado() -> Fig:
 
 
 def se124_posterior() -> Fig:
-    rows = [["4 de 20", "20 %", "0,80"], ["8 de 40", "20 %", "0,85"], ["20 de 100", "20 %", "0,93"], ["40 de 200", "20 %", "0,98"]]
-    return tab("La misma tasa observada del 20 %: cuánta confianza da de superar el umbral del 15 %",
-               "Tabla con la probabilidad posterior (a priori Beta(1,1)) de que la tasa real supere el 15 por ciento cuando se observa un 20 por ciento: 0,80 con 20 personas, 0,85 con 40, 0,93 con 100 y 0,98 con 200.",
-               ["Observado", "Tasa", "P(tasa real > 15 %)"], rows, [260, 200, 360], row_h=44, size=13,
-               note="Una hipótesis que dice «más del 15 %» no se confirma con 4 de 20, aunque 20 % parezca mayor que 15 %. Fijar antes el umbral y la probabilidad exigida (por ejemplo 0,90) obliga a definir cuántas personas se necesitan.", note_kind="gold", foot=SINT)
-
+    return line_chart(
+        "La misma tasa observada del 20 %: cuánta confianza da de superar el umbral del 15 %",
+        "Línea con la probabilidad posterior (a priori Beta(1,1)) de que la tasa real supere el 15 por ciento cuando se observa un 20 por ciento: 0,80 con 20 personas, 0,85 con 40, 0,93 con 100 y 0,98 con 200; solo desde 100 personas pasa del 0,90 exigido.",
+        [("P(tasa real > 15 %)", [(20, 0.80, "4 de 20", "t"), (40, 0.85, "8 de 40", "t"), (100, 0.93, "20 de 100", "t"), (200, 0.98, "40 de 200", "b")], "teal")],
+        x_label="Personas observadas (misma tasa del 20 %)", y_label="Probabilidad posterior",
+        x_ticks=[(20, "20"), (40, "40"), (100, "100"), (200, "200")], y_ticks=[0.6, 0.7, 0.8, 0.9, 1.0],
+        hlines=[(0.90, "probabilidad exigida 0,90")], log_x=True, y_zero=False, decimals=2, plot_h=280,
+        note="El eje vertical empieza en 0,6 para ver la separación. Una hipótesis que dice «más del 15 %» no se confirma con 4 de 20, aunque 20 % parezca mayor que 15 %. Fijar antes el umbral y la probabilidad exigida (por ejemplo 0,90) obliga a definir cuántas personas se necesitan.",
+        note_kind="gold", foot=SINT)
 
 def se124_multiples() -> Fig:
     items = [("1 hipótesis", 5.0, "teal", "5,0 %"), ("5 hipótesis", 22.6, "gold", "22,6 %"), ("10 hipótesis", 40.1, "gold", "40,1 %"),
@@ -197,31 +202,33 @@ def se125_adopcion() -> Fig:
 
 # ---------------------------------------------------------------- SE-126
 def se126_estabilidad() -> Fig:
-    rows = [["2", "0,706", "0,663", "Parecen igual de estables"], ["3", "0,964", "0,806", "Aquí sí distingue estructura de ruido"],
-            ["4", "0,942", "0,967", "El ruido es MÁS estable"], ["5", "0,897", "0,902", "Sin diferencia"], ["6", "0,889", "0,879", "Sin diferencia"]]
-    return tab("Estabilidad de k-means entre dos semillas: datos con tres grupos reales frente a ruido uniforme",
-               "Tabla del índice de Rand entre dos ejecuciones con semillas distintas: con k igual a 3 los datos estructurados dan 0,964 y el ruido 0,806, pero con k igual a 4, 5 y 6 el ruido es tan estable como los datos con estructura.",
-               ["k (segmentos)", "Datos con 3 grupos reales", "Ruido uniforme", "Lectura"], rows, [150, 230, 190, 340], row_h=44, size=13,
-               note="Que un algoritmo devuelva segmentos estables no prueba que existan segmentos. La estabilidad es necesaria, no suficiente: los segmentos deben además distinguirse por comportamiento o necesidad y poder ser identificados por el equipo.", note_kind="coral", foot=SINT)
-
+    return grouped_bars(
+        "Estabilidad de k-means entre dos semillas: datos con tres grupos reales frente a ruido uniforme",
+        "Barras agrupadas del índice de Rand entre dos ejecuciones con semillas distintas: con k igual a 3 los datos estructurados dan 0,964 y el ruido 0,806, pero con k igual a 4, 5 y 6 el ruido es tan estable como los datos con estructura, e incluso más con k igual a 4.",
+        ["k = 2", "k = 3", "k = 4", "k = 5", "k = 6"],
+        [("Datos con 3 grupos reales", [0.706, 0.964, 0.942, 0.897, 0.889], "teal"), ("Ruido uniforme", [0.663, 0.806, 0.967, 0.902, 0.879], "coral")],
+        unit="Índice de Rand entre semillas", decimals=3, plot_h=280,
+        note="Solo con k = 3 los datos estructurados son claramente más estables que el ruido; con k = 4 el ruido es más estable (0,967 frente a 0,942). Que un algoritmo devuelva segmentos estables no prueba que existan segmentos. La estabilidad es necesaria, no suficiente.",
+        note_kind="coral", foot=SINT)
 
 def se126_mercado() -> Fig:
-    rows = [["Arriba-abajo: mercado × cuota", "6 223 personas", "18 399", "45 102", "7,2"],
-            ["Abajo-arriba: contactables × conversión × precio", "11 354 USD/año", "50 773", "189 593", "16,7"]]
-    return tab("Dos estimaciones del mercado con rangos triangulares y 20 000 sorteos",
-               "Tabla con percentiles 5, 50 y 95 de dos estimaciones: arriba-abajo da entre 6223 y 45102 personas y abajo-arriba entre 11354 y 189593 dólares al año, con razones p95 sobre p5 de 7,2 y 16,7.",
-               ["Método", "p5", "p50", "p95", "p95 / p5"], rows, [360, 160, 120, 120, 120], row_h=64, size=12,
-               note="Las unidades son distintas (personas, dinero) y no deben compararse entre filas. Lo comparable es la anchura: el método abajo-arriba multiplica tres incertidumbres y su rango es más ancho. El «1 % de un mercado grande» oculta justo esa anchura.", note_kind="gold", foot="Rangos asumidos por el autor para ilustrar el método; no provienen de ningún mercado real.")
-
+    return percentile_intervals(
+        "Dos estimaciones del mercado con rangos triangulares y 20 000 sorteos",
+        "Intervalos en escala logarítmica con los percentiles 5, 50 y 95: arriba-abajo da 6223, 18399 y 45102 personas y abajo-arriba 11354, 50773 y 189593 dólares al año, con razones p95 sobre p5 de 7,2 y 16,7.",
+        [("Arriba-abajo (personas)", [6223, 18399, 45102]), ("Abajo-arriba (USD/año)", [11354, 50773, 189593])],
+        unit="Personas o USD por año (según la fila)", marks=("p5", "p50", "p95"), log=True, decimals=0,
+        note="Las unidades de las filas son distintas (personas, dinero) y no deben compararse entre sí. Lo comparable es la anchura: p95/p5 vale 7,2 arriba-abajo y 16,7 abajo-arriba, porque este método multiplica tres incertidumbres. El «1 % de un mercado grande» oculta justo esa anchura.",
+        note_kind="gold", foot="Rangos asumidos por el autor para ilustrar el método; no provienen de ningún mercado real.")
 
 def se126_cobertura() -> Fig:
-    rows = [["Plataforma actual", "J1, J4, J5", "3 de 7"], ["Editor local", "J2, J6, J7", "3 de 7"], ["Correo", "J1, J5", "2 de 7"],
-            ["Hoja de cálculo", "J3, J4", "2 de 7"], ["Mensajería", "J1, J3", "2 de 7"], ["No hacer nada", "—", "0 de 7"]]
-    return tab("Qué trabajos cubre cada alternativa existente (incluida no hacer nada)",
-               "Tabla de cobertura de siete trabajos por seis alternativas: la plataforma actual y el editor local cubren tres cada una, correo, hoja de cálculo y mensajería dos, y no hacer nada ninguno; el mínimo conjunto que cubre todo es correo, hoja de cálculo y editor local.",
-               ["Alternativa", "Trabajos que cubre", "Cobertura"], rows, [300, 280, 200], row_h=40, size=13,
-               note="Ninguna alternativa cubre todo; el mínimo conjunto que lo hace es correo + hoja de cálculo + editor local: la persona usuaria ya cose tres herramientas. Esa costura, y no una lista de funciones, es el espacio donde una propuesta puede competir.", note_kind="teal", foot=SINT)
-
+    return grouped_bars(
+        "Qué trabajos cubre cada alternativa existente (incluida no hacer nada)",
+        "Barras horizontales con los trabajos que cubre cada alternativa de siete: la plataforma actual y el editor local cubren tres cada una, correo, hoja de cálculo y mensajería dos, y no hacer nada ninguno; el mínimo conjunto que cubre todo es correo, hoja de cálculo y editor local.",
+        ["Plataforma actual (J1, J4, J5)", "Editor local (J2, J6, J7)", "Correo (J1, J5)", "Hoja de cálculo (J3, J4)", "Mensajería (J1, J3)", "No hacer nada"],
+        [("Trabajos cubiertos", [3, 3, 2, 2, 2, 0], "teal")],
+        unit="Trabajos cubiertos de 7", horizontal=True, decimals=0, ref_lines=[(7, "7 trabajos")], label_w=250,
+        note="Ninguna alternativa cubre todo; el mínimo conjunto que lo hace es correo + hoja de cálculo + editor local: la persona usuaria ya cose tres herramientas. Esa costura, y no una lista de funciones, es el espacio donde una propuesta puede competir.",
+        note_kind="teal", foot=SINT)
 
 FIGURES = {
     "se-121-frases-frente-a-causas.svg": se121_frases,

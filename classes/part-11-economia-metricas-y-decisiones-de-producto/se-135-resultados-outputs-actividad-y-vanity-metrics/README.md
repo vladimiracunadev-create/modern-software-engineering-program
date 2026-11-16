@@ -105,9 +105,9 @@ def semana(rapido):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): en la semana 4 se cierran 50 y se resuelven 45; en las semanas 5 a 12 con meta de cerrados, el total de 12 semanas es 760 tickets cerrados y 512 resueltos, y el 41,2 % de lo cerrado desde la semana 5 se reabre; con la meta «resueltos sin reabrir», 600 cerrados y 560 resueltos, con 5,7 % de reapertura. La métrica premiada subió 26,7 % y el resultado que importa bajó 8,6 %. Esos números salen de los supuestos (7 cierres, 45 %), que no se midieron: el modelo muestra el mecanismo, no el tamaño.
 
-![Tabla de diez agentes durante doce semanas con tickets cerrados, resueltos y reabiertos bajo dos metas.](../../../content/part-11/figures/se-135-premiar-lo-cerrado.svg)
+![Barras agrupadas con los tickets cerrados y los resueltos sin reabrir según la meta: con la meta de tickets cerrados se cierran 760 y se resuelven 512 y se reabre el 41,2 por ciento; con la meta de resueltos sin reabrir se cierran 600 y se resuelven 560 y se reabre el 5,7 por ciento.](../../../content/part-11/figures/se-135-premiar-lo-cerrado.svg)
 
-**Cómo leer la figura.** La fila coral es la meta sobre la producción: cerrados sube y resueltos baja; la tercera fila es la meta sobre el resultado. **Dónde deja de valer:** los parámetros (siete cierres, 45 % de reaperturas) son supuestos del autor; con otros valores la conclusión puede suavizarse o empeorar. Aquí «resuelto» es no reabierto, y que alguien no reabra no prueba que quedó conforme: podría haberse rendido.
+**Cómo leer la figura.** Cada grupo de barras es una meta dada a los diez agentes durante doce semanas; la barra dorada son los tickets cerrados y la teal los resueltos, es decir, no reabiertos. Con la meta sobre lo cerrado la barra dorada es la más larga de la figura (760) y la teal baja a 512; con la meta sobre el resultado las dos se acercan (600 y 560). El porcentaje de reapertura va en el nombre de cada grupo y la fila de la semana 4, antes de anunciar la meta, queda en la tabla. **Dónde deja de valer:** los parámetros (siete cierres, 45 % de reaperturas) son supuestos del autor; con otros valores la conclusión puede suavizarse o empeorar. Aquí «resuelto» es no reabierto, y que alguien no reabra no prueba que quedó conforme: podría haberse rendido.
 
 ### Registros acumulados frente a usuarios activos
 
@@ -123,9 +123,9 @@ for mes in range(1, 25):
 
 Los activos alcanzan su pico en el mes 10 (1 405) y empiezan a bajar en el mes 11, aunque el acumulado sigue subiendo hasta el mes 15 (3 555). En el mes 24 hay 3 555 registros acumulados y 226 activos. Un panel que solo muestra el acumulado reportó crecimiento durante cinco meses de caída del uso, y nunca mostrará una baja, porque una métrica acumulada es monótona por construcción.
 
-![Tabla de 24 meses con registros acumulados y usuarios activos, y cuándo cada uno deja de crecer.](../../../content/part-11/figures/se-135-acumulado-frente-a-activos.svg)
+![Líneas con los registros acumulados y los usuarios activos: los registros suben hasta 3 555 en el mes 15 y se quedan planos; los activos alcanzan un pico de 1 405 en el mes 10, ya caen en el mes 12 (1 324) y llegan a 226 en el mes 24.](../../../content/part-11/figures/se-135-acumulado-frente-a-activos.svg)
 
-**Cómo leer la figura.** Cada fila es un mes; la tercera fila marca el pico de activos y la cuarta muestra que ya caen mientras el acumulado sigue subiendo. **Dónde deja de valer:** el modelo supone permanencia constante de 85 % y altas con un patrón fijo; en un producto real las dos varían. Un activo que permanece no prueba que obtenga valor: eso se mide con la tarea útil.
+**Cómo leer la figura.** El eje horizontal es el mes y el vertical, las personas; la línea dorada continua son los registros acumulados y la teal discontinua, los usuarios activos. Lo primero que se ve es que los registros no bajan nunca y se quedan planos desde el mes 15, mientras los activos tienen su máximo en el mes 10 y desde entonces caen hasta 226. Entre ambas líneas se abre una brecha que un tablero de acumulados no mostraría. **Dónde deja de valer:** el modelo supone permanencia constante de 85 % y altas con un patrón fijo; en un producto real las dos varían. Un activo que permanece no prueba que obtenga valor: eso se mide con la tarea útil.
 
 ### Producción y resultado en trescientos equipos
 

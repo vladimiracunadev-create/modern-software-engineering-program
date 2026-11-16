@@ -1,39 +1,42 @@
 """Figures for SE-139 to SE-144 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, grouped_bars, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 from figures_part10_a import SINT
 
 
 # ---------------------------------------------------------------- SE-139
 def se139_guardrail() -> Fig:
-    rows = [["0", "61,5 %", "0,9 %", ""], ["2", "70,0 %", "2,4 %", "óptimo con guarda de quejas ≤ 3 %"],
-            ["4", "80,2 %", "7,5 %", ""], ["6", "89,5 %", "15,4 %", ""], ["8", "95,4 %", "26,2 %", "óptimo si solo se mira el norte"],
-            ["10", "95,1 %", "39,8 %", "el norte ya no sube"]]
-    return tab("Optimizar solo la métrica norte frente a optimizarla con guarda",
-               "Tabla de recordatorios por semana: las entregas a tiempo suben de 61,5 a 95,4 por ciento con ocho recordatorios y las quejas de 0,9 a 26,2; con una guarda de quejas de a lo sumo 3 por ciento el mejor punto es de dos recordatorios, con 70,0 por ciento de entregas.",
-               ["Recordatorios por semana", "Entregas a tiempo (métrica norte)", "Quejas (métrica contraria)", "Decisión"], rows, [190, 260, 230, 260], row_h=42, size=13,
-               note="5 000 personas por nivel. Quien optimiza el norte pasa de 2 a 8 recordatorios: gana 25 puntos de entregas y suma 24 puntos de quejas. La relación entre recordatorios, entregas y quejas es una suposición del autor; lo que se mide es que, sin la guarda, el optimizador la cruza.", note_kind="coral", foot=SINT)
+    return line_chart(
+        "Optimizar solo la métrica norte frente a optimizarla con guarda de quejas",
+        "Líneas con las entregas a tiempo y las quejas según los recordatorios por semana: las entregas suben de 61,5 a 95,4 por ciento con ocho recordatorios y las quejas de 0,9 a 26,2; con una guarda de quejas de a lo sumo 3 por ciento el mejor punto es de dos recordatorios, con 70,0 por ciento de entregas.",
+        [("Entregas a tiempo (métrica norte)", [(0, 61.5), (2, 70.0), (4, 80.2), (6, 89.5), (8, 95.4), (10, 95.1, "95,1", "b")], "teal"),
+         ("Quejas (métrica contraria)", [(0, 0.9), (2, 2.4), (4, 7.5), (6, 15.4), (8, 26.2), (10, 39.8)], "coral")],
+        x_label="Recordatorios por semana", y_label="Porcentaje de personas", x_ticks=[(0, "0"), (2, "2"), (4, "4"), (6, "6"), (8, "8"), (10, "10")],
+        decimals=1,
+        annotations=[(2, 70.0, "Óptimo con guarda de quejas ≤ 3 %", 60, 95), (8, 95.4, "Óptimo si solo se mira el norte", -90, 62)],
+        note="5 000 personas por nivel. Quien optimiza el norte pasa de 2 a 8 recordatorios: gana 25 puntos de entregas y suma 24 puntos de quejas. La relación entre recordatorios, entregas y quejas es una suposición del autor; lo que se mide es que, sin la guarda, el optimizador la cruza.", note_kind="coral", foot=SINT)
 
 
 def se139_alarmas() -> Fig:
-    rows = [["1", "4,7 %", "5,0 %", "4,7 %"], ["3", "15,8 %", "14,3 %", "5,1 %"], ["5", "22,1 %", "22,6 %", "5,1 %"],
-            ["10", "41,4 %", "40,1 %", "5,1 %"], ["20", "65,2 %", "64,2 %", "5,3 %"]]
-    return tab("Alarmas falsas al vigilar varias guardas en un experimento sin diferencia",
-               "Tabla de 1000 experimentos sin diferencia real: con una guarda, 4,7 por ciento dan alarma; con diez, 41,4; con veinte, 65,2. Dividir el umbral entre el número de guardas devuelve la tasa a cerca de 5 por ciento.",
-               ["Número de guardas", "Alguna alarma con α = 0,05 cada una", "Teoría 1 − 0,95^K", "Alguna alarma con α = 0,05/K"], rows, [190, 290, 230, 260], row_h=42, size=13,
-               note="La corrección tiene un precio: con 800 personas por brazo y un daño real de 0,15 desviaciones, la potencia baja de 85,4 % (α = 0,05) a 59,0 % (α = 0,005). Vigilar mucho sin corregir produce alarmas inútiles; corregir sin aumentar la muestra deja pasar daños reales.", note_kind="gold", foot=SINT)
+    return line_chart(
+        "Alarmas falsas al vigilar varias guardas en un experimento sin diferencia",
+        "Líneas con el porcentaje de 1000 experimentos sin diferencia real que dan alguna alarma: con un umbral de 0,05 por guarda sube de 4,7 con una guarda a 41,4 con diez y 65,2 con veinte; con el umbral dividido entre el número de guardas se queda cerca de 5 por ciento.",
+        [("Cada guarda con α = 0,05", [(1, 4.7), (3, 15.8), (5, 22.1), (10, 41.4), (20, 65.2)], "coral"),
+         ("Cada guarda con α = 0,05 / K", [(1, 4.7, "4,7", "b"), (3, 5.1, "5,1", "b"), (5, 5.1, "5,1", "b"), (10, 5.1, "5,1", "b"), (20, 5.3, "5,3", "b")], "teal")],
+        x_label="Número de guardas vigiladas (K)", y_label="Experimentos con alguna alarma (%)", x_ticks=[(1, "1"), (3, "3"), (5, "5"), (10, "10"), (20, "20")],
+        decimals=1,
+        note="La corrección tiene un precio: con 800 personas por brazo y un daño real de 0,15 desviaciones, la potencia baja de 85,4 % (α = 0,05) a 59,0 % (α = 0,005). Vigilar mucho sin corregir produce alarmas inútiles; corregir sin aumentar la muestra deja pasar daños reales.", note_kind="gold", foot=SINT)
 
 
 def se139_descomposicion() -> Fig:
-    rows = [["Alcance (centros o estudiantes activos)", "8 000 a 9 200 (+15,0 %)", "93,2 %", "3 276 a 3 534"],
-            ["Frecuencia (entregas por activo)", "3,1 a 3,0 (−3,2 %)", "−21,9 %", "−874 a −728"],
-            ["Éxito (entregas aceptadas)", "0,91 a 0,95 (+4,4 %)", "28,7 %", "960 a 1 141"]]
-    return tab("Métrica norte = alcance × frecuencia × éxito: quién explica el cambio",
-               "Tabla: la métrica norte pasa de 22 568 a 26 220 (+16,2 por ciento); el alcance explica 93,2 por ciento del cambio en escala logarítmica, la frecuencia resta 21,9 y el éxito suma 28,7. Por sustitución secuencial, la contribución de cada factor depende del orden y varía dentro de un rango.",
-               ["Factor", "Cambio", "Parte del cambio (logaritmos)", "Contribución por sustitución (6 órdenes)"], rows, [320, 230, 190, 230], row_h=50, size=13,
-               note="Total: 22 568 a 26 220. La descomposición logarítmica suma 100 % sin depender del orden; la sustitución secuencial da rangos. Con 3 % de error en cada lectura, el factor principal cambia en 8,5 % de los casos: es robusto aquí, pero no en cambios pequeños.", note_kind="gold", foot="Cálculo determinista y simulación de ruido con semilla fija.")
+    return dumbbell(
+        "Métrica norte = alcance × frecuencia × éxito: parte del cambio que explica cada factor",
+        "Barras con la parte del cambio de la métrica norte (de 22 568 a 26 220, más 16,2 por ciento) que explica cada factor en logaritmos: el alcance 93,2 por ciento, la frecuencia menos 21,9 y el éxito 28,7; suman 100.",
+        [("Alcance (+15,0 %)", 0, 93.2), ("Frecuencia (−3,2 %)", 0, -21.9), ("Éxito (+4,4 %)", 0, 28.7)],
+        unit="Parte del cambio (% del cambio total, en logaritmos)", names=("Sin aporte (0)", "Parte que explica"), lower_is_better=False, decimals=1, label_w=190,
+        note="Total: 22 568 a 26 220. La descomposición logarítmica suma 100 % sin depender del orden; la sustitución secuencial da rangos. Con 3 % de error en cada lectura, el factor principal cambia en 8,5 % de los casos: es robusto aquí, pero no en cambios pequeños.", note_kind="gold", foot="Cálculo determinista y simulación de ruido con semilla fija.")
 
 
 # ---------------------------------------------------------------- SE-140
@@ -47,34 +50,36 @@ def se140_volumen() -> Fig:
 
 
 def se140_reparto() -> Fig:
-    rows = [["A (40)", "450", "283", "174", "150"], ["B (35)", "450", "283", "153", "150"], ["C (120)", "850", "283", "523", "550"]]
-    return tab("Tres reglas para repartir un costo compartido de 850",
-               "Tabla: tres centros con cargas de 40, 35 y 120 comparten una capacidad que cuesta 850; el reparto igualitario cobra 283 a cada uno, el proporcional 174, 153 y 523, y el valor de Shapley 150, 150 y 550.",
-               ["Centro (carga)", "Costo si estuviera solo", "Reparto igualitario", "Reparto proporcional", "Valor de Shapley"], rows, [200, 210, 190, 210, 190], row_h=50, size=13,
-               note="El costo es escalonado: 50 de base y 400 por cada tramo de 100 unidades. A y B caben juntos en un tramo; el proporcional cobra 174 y 153 aunque sus cargas no cambian el costo; Shapley cobra lo mismo a ambos. Con tres centros hay 6 órdenes de llegada, con quince hay más de 1,3 billones: el cálculo exacto no escala.", note_kind="gold", foot="Cálculo exacto con tres participantes; cifras ficticias.")
+    return grouped_bars(
+        "Tres reglas para repartir un costo compartido de 850",
+        "Barras agrupadas con lo que paga cada centro (cargas 40, 35 y 120) con tres reglas, junto a su costo si estuviera solo: el reparto igualitario cobra 283 a cada uno, el proporcional 174, 153 y 523, y el valor de Shapley 150, 150 y 550.",
+        ["Centro A (carga 40)", "Centro B (carga 35)", "Centro C (carga 120)"],
+        [("Costo si estuviera solo", [450, 450, 850], "grey"), ("Igualitario", [283, 283, 283], "gold"),
+         ("Proporcional", [174, 153, 523], "coral"), ("Shapley", [150, 150, 550], "teal")],
+        unit="Costo asignado (unidades ficticias)",
+        note="El costo es escalonado: 50 de base y 400 por cada tramo de 100 unidades. A y B caben juntos en un tramo; el proporcional cobra 174 y 153 aunque sus cargas no cambian el costo; Shapley cobra lo mismo a ambos. Con tres centros hay 6 órdenes de llegada, con quince hay más de 1,3 billones: el cálculo exacto no escala.", note_kind="gold", foot="Cálculo exacto con tres participantes; cifras ficticias.")
 
 
 def se140_compromiso() -> Fig:
-    rows = [["0 (todo a demanda)", "1 257", "1 859", "754"], ["60", "1 011", "1 607", "573"],
-            ["90 (mejor en promedio)", "946", "1 481", "—"], ["100", "955", "1 441", "791"], ["140", "1 136", "1 366", "—"]]
-    return tab("Comprometer capacidad: ahorro medio, riesgo y caída de la demanda",
-               "Tabla de doce meses con demanda inicial de 100 unidades y variación mensual de 12 por ciento: sin compromiso el costo medio es 1257 y el percentil 95 es 1859; con compromiso de 90 el costo medio baja a 946; con compromiso de 100 el costo medio es 955 y, si la demanda cae 40 por ciento, el costo es 791, más que sin compromiso (754).",
-               ["Capacidad comprometida", "Costo medio anual", "Percentil 95", "Costo medio si la demanda cae 40 %"], rows, [260, 190, 170, 270], row_h=44, size=13,
-               note="Precio a demanda 1,0 y comprometido 0,65 por unidad pagado siempre (utilización de equilibrio 65 %). Comprometer cerca de la demanda esperada ahorra 25 %; comprometer de más sube el costo medio, y una caída persistente anula el ahorro. Es un modelo con trayectoria aleatoria simple; no representa a ningún proveedor.", note_kind="gold", foot="10 000 trayectorias con semilla fija; precios ficticios.")
+    return line_chart(
+        "Comprometer capacidad: costo medio, riesgo y caída de la demanda",
+        "Líneas con el costo anual según la capacidad comprometida: el costo medio baja de 1 257 sin compromiso a 946 con 90 y sube a 1 136 con 140; el percentil 95 baja de 1 859 a 1 366; si la demanda cae 40 por ciento, con compromiso de 100 el costo es 791, más que sin compromiso (754).",
+        [("Costo medio", [(0, 1257), (60, 1011), (90, 946), (100, 955), (140, 1136)], "teal"),
+         ("Percentil 95", [(0, 1859), (60, 1607), (90, 1481), (100, 1441), (140, 1366)], "gold"),
+         ("Costo medio si la demanda cae 40 %", [(0, 754), (60, 573), (100, 791)], "coral")],
+        x_label="Capacidad comprometida (unidades)", y_label="Costo anual (unidades ficticias)",
+        x_ticks=[(0, "0"), (60, "60"), (90, "90"), (100, "100"), (140, "140")], y_zero=False,
+        note="Precio a demanda 1,0 y comprometido 0,65 por unidad pagado siempre (utilización de equilibrio 65 %). Comprometer cerca de la demanda esperada ahorra 25 %; comprometer de más sube el costo medio, y una caída persistente anula el ahorro. Es un modelo con trayectoria aleatoria simple; no representa a ningún proveedor.", note_kind="gold", foot="10 000 trayectorias con semilla fija; precios ficticios.")
 
 
 # ---------------------------------------------------------------- SE-141
 def se141_cartera() -> Fig:
-    rows = [["Cartera óptima por valor esperado (I04, I05, I06, I10)", "costo 100, retorno esperado 211,5"],
-            ["Cartera voraz por razón retorno/costo", "la misma cartera"],
-            ["Veces que esa cartera es la mejor al sortear retornos (400 sorteos)", "7,5 %"],
-            ["Arrepentimiento medio frente a la mejor cartera de cada sorteo", "36,4 (percentil 95: 84,0)"],
-            ["Retorno neto de la cartera: p5 / mediana / p95", "56,1 / 112,0 / 176,6"],
-            ["Probabilidad de que el retorno neto sea negativo", "0 % (0 de 400 sorteos)"]]
-    return tab("Una cartera óptima en el valor esperado casi nunca es la mejor de un sorteo",
-               "Tabla: de 12 iniciativas con presupuesto 100, la cartera óptima y la voraz coinciden con retorno esperado 211,5; esa cartera es la mejor solo en 7,5 por ciento de 400 sorteos y su arrepentimiento medio es 36,4; el retorno neto va de 56,1 a 176,6 y nunca fue negativo.",
-               ["Medida", "Valor"], rows, [560, 380], row_h=44, size=13,
-               note="Por cuatro iniciativas con retorno alto, la cartera es buena casi siempre, pero no es «la mejor»: había 748 combinaciones factibles dentro del presupuesto. Pedir la cartera óptima y comprobar el arrepentimiento son preguntas distintas; la segunda es la que importa para decidir.", note_kind="gold", foot=SINT)
+    return percentile_intervals(
+        "Retorno neto de la cartera óptima en 400 sorteos de retornos",
+        "Intervalo con el retorno neto de la cartera óptima por valor esperado (I04, I05, I06 e I10; costo 100 y retorno esperado 211,5): el percentil 5 es 56,1, la mediana 112,0 y el percentil 95 176,6, y en ningún sorteo es negativo; sin embargo esa cartera es la mejor solo en 7,5 por ciento de los sorteos y su arrepentimiento medio es 36,4.",
+        [("Cartera óptima (400 sorteos)", [56.1, 112.0, 176.6])],
+        unit="Retorno neto (unidades ficticias)", marks=("p5", "mediana", "p95"), decimals=1, ref_lines=[(0, "retorno neto = 0")], label_w=240,
+        note="Por cuatro iniciativas con retorno alto, la cartera es buena casi siempre, pero no es «la mejor»: había 748 combinaciones factibles dentro del presupuesto. Pedir la cartera óptima y comprobar el arrepentimiento son preguntas distintas; la segunda es la que importa para decidir.", note_kind="gold", foot=SINT)
 
 
 def se141_piloto() -> Fig:
@@ -88,63 +93,67 @@ def se141_piloto() -> Fig:
 
 
 def se141_secuencia() -> Fig:
-    rows = [["A B C D G E F (mejor)", "551,5", "0,0 %"], ["E F A B C D G (voraz por valor/duración)", "539,5", "−2,2 %"],
-            ["C A E F B D G (peor)", "514,3", "−6,7 %"], ["Órdenes válidos / posibles", "63 / 5 040", "—"],
-            ["Órdenes a menos de 5 % del mejor / a menos de 1 %", "73 % / 4,8 %", "—"]]
-    return tab("Secuenciar con dependencias: 63 órdenes válidos de 5 040 posibles",
-               "Tabla de siete iniciativas con dependencias: el mejor orden vale 551,5, el voraz que elige por valor sobre duración vale 539,5 (2,2 por ciento menos) y el peor 514,3 (6,7 por ciento menos); solo 63 de 5040 órdenes respetan las dependencias y 73 por ciento están a menos de 5 por ciento del mejor.",
-               ["Orden o medida", "Valor presente (24 meses)", "Diferencia con el mejor"], rows, [470, 250, 220], row_h=44, size=13,
-               note="El voraz empieza por E y F (valor por mes alto) y retrasa A, B y D, que desbloquean la iniciativa más valiosa. Elegir por valor propio ignora lo que una iniciativa habilita; con pocas dependencias el error es pequeño, y con muchas puede ser mayor. Tasa de descuento 1 % al mes.", note_kind="gold", foot="Enumeración exhaustiva con valores ficticios.")
+    return grouped_bars(
+        "Secuenciar con dependencias: valor presente del mejor, el voraz y el peor orden válido",
+        "Barras horizontales con el valor presente a 24 meses de tres órdenes de siete iniciativas: el mejor vale 551,5; el voraz por valor sobre duración vale 539,5 (2,2 por ciento menos) y el peor 514,3 (6,7 por ciento menos); solo 63 de 5 040 órdenes respetan las dependencias.",
+        ["Mejor: A B C D G E F", "Voraz: E F A B C D G (−2,2 %)", "Peor: C A E F B D G (−6,7 %)"],
+        [("Valor presente a 24 meses", [551.5, 539.5, 514.3], "teal")],
+        unit="Valor presente (unidades ficticias)", horizontal=True, decimals=1, label_w=250,
+        note="El voraz empieza por E y F (valor por mes alto) y retrasa A, B y D, que desbloquean la iniciativa más valiosa. Elegir por valor propio ignora lo que una iniciativa habilita; con pocas dependencias el error es pequeño, y con muchas puede ser mayor. Tasa de descuento 1 % al mes.", note_kind="gold", foot="Enumeración exhaustiva con valores ficticios.")
 
 
 # ---------------------------------------------------------------- SE-142
 def se142_umbral() -> Fig:
-    rows = [["2 %", "2,0", "4,4", "irreversible"], ["5 %", "5,0", "4,9", "cruce (≈ 5,0 %)"], ["10 %", "9,9", "6,0", "reversible"], ["30 %", "30,3", "9,9", "reversible"]]
-    return tab("Cuándo conviene probar con vuelta atrás en lugar de comprometerse",
-               "Tabla: si equivocarse cuesta 100 en una decisión irreversible, 20 al revertirla y probar cuesta 4, la decisión reversible gana cuando la probabilidad de equivocarse supera 5 por ciento: con 2 por ciento conviene comprometerse y con 10 por ciento conviene probar.",
-               ["Probabilidad de equivocarse", "Pérdida esperada si es irreversible", "Pérdida esperada si es reversible (4 + 20·p)", "Conviene"], rows, [210, 240, 280, 210], row_h=50, size=13,
-               note="Umbral p* = costo de probar / (pérdida irreversible − costo de revertir) = 4 / (100 − 20) = 5,0 %. Con costo de revertir 5 es 4,2 % y con 50 es 8,0 %. Los tres números son supuestos; la lección es que la probabilidad de equivocarse decide, y casi nunca se conoce con precisión.", note_kind="gold", foot="Simulación de 40 000 casos por fila, semilla fija.")
+    return line_chart(
+        "Cuándo conviene probar con vuelta atrás en lugar de comprometerse",
+        "Líneas con la pérdida esperada de la decisión irreversible y de la reversible según la probabilidad de equivocarse: con 2 por ciento conviene la irreversible (2,0 frente a 4,4), con 5 por ciento empatan en cerca de 5, y con 10 y 30 por ciento conviene la reversible (6,0 frente a 9,9 y 9,9 frente a 30,3).",
+        [("Irreversible", [(2, 2.0, "", "r"), (5, 5.0, "", "t"), (10, 9.9), (30, 30.3)], "coral"),
+         ("Reversible (4 + 20·p)", [(2, 4.4), (5, 4.9, "", "b"), (10, 6.0, "", "b"), (30, 9.9, "", "b")], "teal")],
+        x_label="Probabilidad de equivocarse (%)", y_label="Pérdida esperada (unidades ficticias)", x_ticks=[(2, "2"), (5, "5"), (10, "10"), (30, "30")], decimals=1,
+        annotations=[(5, 5.0, "Umbral p* = 5,0 %", 60, -60)],
+        note="Umbral p* = costo de probar / (pérdida irreversible − costo de revertir) = 4 / (100 − 20) = 5,0 %. Con costo de revertir 5 es 4,2 % y con 50 es 8,0 %. Los tres números son supuestos; la lección es que la probabilidad de equivocarse decide, y casi nunca se conoce con precisión.", note_kind="gold", foot="Simulación de 40 000 casos por fila, semilla fija.")
 
 
 def se142_migraciones() -> Fig:
-    rows = [["Añadir una columna nula y quitarla", "10 000 de 10 000", "reversible"], ["Renombrar una columna y devolverla", "10 000 de 10 000", "reversible"],
-            ["Partir el nombre en dos y reunirlo", "10 000 de 10 000", "vuelve el texto, pero 28,8 % de los nombres de pila quedó partido mal"],
-            ["Precio decimal a centavos enteros y vuelta", "953 de 10 000 (9,5 %)", "pérdida de precisión"],
-            ["Borrar una columna y recrearla", "0 de 10 000", "datos perdidos"], ["Sustituir el correo por su hash", "0 de 10 000", "no se puede deshacer"]]
-    return tab("Migraciones de base de datos: qué vuelve al deshacerse",
-               "Tabla de seis migraciones sobre 10 000 filas en SQLite: añadir y quitar una columna, renombrar y partir un nombre devuelven todas las filas; pasar el precio a centavos devuelve 9,5 por ciento; borrar una columna y sustituir un correo por su hash no devuelven ninguna.",
-               ["Migración y vuelta", "Filas idénticas tras ida y vuelta", "Lectura"], rows, [380, 220, 340], row_h=54, size=12,
-               note="Que el script «down» exista no hace reversible la migración: la reversibilidad se mide comparando datos antes y después. La partición del nombre recupera el texto pero la información que se creó (nombre y apellido) era errónea en 28,8 % de las filas. SQLite 3.45.3 en Windows y 3.45.1 en Ubuntu; mismos resultados.", note_kind="coral", foot="Datos sintéticos (correos .test); código real con sqlite3 de la biblioteca estándar.")
+    return grouped_bars(
+        "Migraciones de base de datos: filas idénticas tras ida y vuelta (10 000 filas)",
+        "Barras horizontales con el porcentaje de filas idénticas tras aplicar y deshacer seis migraciones: añadir una columna, renombrar y partir el nombre devuelven 100 por ciento; pasar el precio a centavos devuelve 9,5; borrar una columna y sustituir el correo por su hash, 0.",
+        ["Añadir una columna y quitarla", "Renombrar una columna", "Partir el nombre y reunirlo", "Precio decimal a centavos", "Borrar y recrear una columna", "Correo por su hash"],
+        [("Filas idénticas", [100.0, 100.0, 100.0, 9.5, 0.0, 0.0], "teal")],
+        unit="Filas idénticas tras ida y vuelta (%)", horizontal=True, decimals=1, label_w=230,
+        note="Que el script «down» exista no hace reversible la migración: la reversibilidad se mide comparando datos antes y después. La partición del nombre recupera el texto pero la información que se creó (nombre y apellido) era errónea en 28,8 % de las filas. SQLite 3.45.3 en Windows y 3.45.1 en Ubuntu; mismos resultados.", note_kind="coral", foot="Datos sintéticos (correos .test); código real con sqlite3 de la biblioteca estándar.")
 
 
 def se142_progresivo() -> Fig:
-    rows = [["5 %", "9 952", "87", "etapa 1 (1 %)"], ["1 %", "1 995", "102", "etapa 2 (5 %)"], ["0,2 %", "392", "98", "etapa 3 (25 %)"]]
-    return tab("Personas afectadas por un defecto: todo de golpe o por etapas",
-               "Tabla: con 200 000 personas, un defecto que afecta a 5 por ciento daña a 9952 si se despliega de golpe y a 87 si se detecta en la primera etapa de 1 por ciento; un defecto de 0,2 por ciento daña a 392 de golpe y a 98 si se detecta en la etapa de 25 por ciento.",
-               ["Tasa del defecto", "Afectadas, todo de golpe", "Afectadas, por etapas", "Etapa en que se detecta"], rows, [190, 260, 250, 240], row_h=50, size=13,
-               note="Etapas de 1, 5, 25 y 100 %; se detecta al reunir al menos 10 reportes, y 15 % de las personas afectadas reporta. Cuanto más raro es el defecto, más tarde se ve y más importa la última etapa; con 0,05 % se esperan unos 4 reportes en la etapa de 25 % y el umbral de 10 no se alcanza hasta el 100 % (cuenta esperada, no simulada).", note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Personas afectadas por un defecto: todo de golpe o por etapas (200 000 personas)",
+        "Barras en escala logarítmica con las personas afectadas por un defecto: con 5 por ciento de tasa, 9 952 si se despliega de golpe y 87 por etapas; con 1 por ciento, 1 995 y 102; con 0,2 por ciento, 392 y 98.",
+        ["Defecto de 5 % (se detecta en la etapa de 1 %)", "Defecto de 1 % (etapa de 5 %)", "Defecto de 0,2 % (etapa de 25 %)"],
+        [("Todo de golpe", [9952, 1995, 392], "coral"), ("Por etapas", [87, 102, 98], "teal")],
+        unit="Personas afectadas", log=True, horizontal=True, label_w=290,
+        note="Etapas de 1, 5, 25 y 100 %; se detecta al reunir al menos 10 reportes, y 15 % de las personas afectadas reporta. Cuanto más raro es el defecto, más tarde se ve y más importa la última etapa; con 0,05 % se esperan unos 4 reportes en la etapa de 25 % y el umbral de 10 no se alcanza hasta el 100 % (cuenta esperada, no simulada).", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-143
 def se143_validador() -> Fig:
-    rows = [["Estructura: ciclo, huérfano, nombre duplicado, dos raíces", "4 de 4", "detecta"], ["Referencias: fórmula que usa un nodo inexistente", "1 de 1", "detecta"],
-            ["Completitud: sin responsable, sin fuente, sin decisión, sin métrica contraria", "4 de 4", "detecta"], ["Aritmética: operador cambiado, valor de hoja alterado 30 %", "2 de 2", "detecta"],
-            ["Nombre de métrica de vanidad", "1 de 1", "detecta"], ["Unidad cambiada (semanal a mensual)", "0 de 1", "sobrevive"],
-            ["Fuente irrelevante para la métrica", "0 de 1", "sobrevive"], ["Responsable colectivo («el equipo»)", "0 de 1", "sobrevive"],
-            ["Hoja y raíz alteradas de forma coherente", "0 de 1", "sobrevive"]]
-    return tab("Validador del árbol de métricas: 12 de 16 mutaciones",
-               "Tabla de 16 mutaciones de un árbol de cuatro hojas: el validador detecta las 12 de estructura, referencias, completitud, aritmética y nombre de vanidad, y deja pasar las 4 semánticas: unidad cambiada, fuente irrelevante, responsable colectivo y valores alterados de forma coherente.",
-               ["Tipo de defecto", "Detectadas", "Resultado"], rows, [600, 150, 150], row_h=40, size=12,
-               note="Con casos nuevos: un árbol aditivo y uno con cociente pasan; un cociente con divisor cero se rechaza como fórmula inválida; una fórmula con constante que no cuadra se rechaza. El validador comprueba forma y aritmética; no sabe si «entregas por estudiante» está medida con la misma unidad que el padre.", note_kind="coral", foot="Código real ejecutado; idéntico en Windows y Ubuntu (WSL2).")
+    return stacked_bars(
+        "Validador del árbol de métricas: 12 de 16 mutaciones detectadas",
+        "Barras apiladas de las 16 mutaciones por tipo de defecto: el validador detecta 4 de 4 de estructura, 1 de 1 de referencias, 4 de 4 de completitud, 2 de 2 de aritmética y 1 de 1 de nombre de vanidad, y deja pasar las 4 semánticas: unidad cambiada, fuente irrelevante, responsable colectivo y valores coherentes.",
+        ["Estructura (4)", "Referencias (1)", "Completitud (4)", "Aritmética (2)", "Nombre de vanidad (1)", "Unidad cambiada (1)", "Fuente irrelevante (1)", "Responsable colectivo (1)", "Hoja y raíz coherentes (1)"],
+        [("Detectadas", [4, 1, 4, 2, 1, 0, 0, 0, 0], "teal"), ("Sobreviven", [0, 0, 0, 0, 0, 1, 1, 1, 1], "coral")],
+        unit="Mutaciones", horizontal=True, label_w=220, plot_h=300,
+        note="Con casos nuevos: un árbol aditivo y uno con cociente pasan; un cociente con divisor cero se rechaza como fórmula inválida; una fórmula con constante que no cuadra se rechaza. El validador comprueba forma y aritmética; no sabe si «entregas por estudiante» está medida con la misma unidad que el padre.", note_kind="coral", foot="Código real ejecutado; idéntico en Windows y Ubuntu (WSL2).")
 
 
 def se143_aditiva() -> Fig:
-    rows = [["+2 %", "+6,12 %", "+6 %", "98,0 %"], ["+5 %", "+15,76 %", "+15 %", "95,2 %"], ["+10 %", "+33,10 %", "+30 %", "90,6 %"],
-            ["+20 %", "+72,80 %", "+60 %", "82,4 %"], ["+50 %", "+237,50 %", "+150 %", "63,2 %"]]
-    return tab("Tres factores que suben lo mismo: cambio exacto frente a suma de porcentajes",
-               "Tabla: si los tres factores de una métrica multiplicativa suben 2 por ciento el cambio exacto es 6,12 y la suma da 6; si suben 50 por ciento el cambio exacto es 237,5 y la suma da 150, 63 por ciento de lo real.",
-               ["Cada factor sube", "Cambio exacto del padre", "Suma de los porcentajes", "Suma sobre exacto"], rows, [200, 260, 260, 220], row_h=42, size=13,
-               note="Con signos mezclados la suma engaña más: +50 % y −30 % dan +5 % exacto y +20 % por suma. Y cuando el cambio total es casi cero, las participaciones logarítmicas explotan (+831 % y −731 %): no se informan participaciones de un cambio de 5 %. Una atribución sin orden ni aviso de límites se convierte en relato.", note_kind="coral", foot="Cálculo determinista.")
+    return line_chart(
+        "Tres factores que suben lo mismo: cambio exacto frente a suma de porcentajes",
+        "Líneas con el cambio del padre cuando los tres factores de un producto suben el mismo porcentaje: el cambio exacto es 6,12 con 2 por ciento y 237,50 con 50, y la suma de los porcentajes da 6 y 150, es decir 98,0 y 63,2 por ciento del cambio real.",
+        [("Cambio exacto del padre", [(2, 6.12, "", "t"), (5, 15.76), (10, 33.10), (20, 72.80), (50, 237.5)], "teal"),
+         ("Suma de los porcentajes", [(2, 6.0, "", "b"), (5, 15.0), (10, 30.0), (20, 60.0), (50, 150.0)], "coral")],
+        x_label="Subida de cada uno de los tres factores (%)", y_label="Cambio del padre (%)", point_labels="last",
+        x_ticks=[(2, "2"), (5, "5"), (10, "10"), (20, "20"), (50, "50")],
+        note="Con signos mezclados la suma engaña más: +50 % y −30 % dan +5 % exacto y +20 % por suma. Y cuando el cambio total es casi cero, las participaciones logarítmicas explotan (+831 % y −731 %): no se informan participaciones de un cambio de 5 %. Una atribución sin orden ni aviso de límites se convierte en relato.", note_kind="coral", foot="Cálculo determinista.")
 
 
 def se143_hoja() -> Fig:
@@ -168,23 +177,24 @@ def se144_tornado() -> Fig:
 
 
 def se144_compuerta() -> Fig:
-    rows = [["sin compuerta", "0 %", "—", "27,5 %", "746,4"], ["10 centros", "0,1 %", "0,0 %", "27,4 %", "746,1"], ["15 centros", "3,6 %", "1,7 %", "25,6 %", "733,9"],
-            ["20 centros", "14,6 %", "8,0 %", "20,8 %", "678,8"], ["25 centros", "31,1 %", "18,7 %", "15,1 %", "563,1"], ["30 centros", "50,1 %", "32,4 %", "9,7 %", "397,0"]]
-    return tab("Compuerta de abandono al mes 6: riesgo evitado frente a valor esperado perdido",
-               "Tabla de 20 000 sorteos: sin compuerta, 27,5 por ciento de los proyectos tienen valor presente neto negativo y el valor esperado es 746 mil; con umbral de 20 centros activos al mes 6 se detiene el 14,6 por ciento, se detienen por error 8,0 por ciento de proyectos buenos y el valor esperado baja a 679 mil.",
-               ["Umbral de centros activos", "Proyectos detenidos", "Buenos detenidos por error", "Malos que continúan", "Valor esperado (miles)"], rows, [210, 190, 220, 190, 190], row_h=44, size=13,
-               note="En este modelo ninguna compuerta aumentó el valor esperado: lo que compra es reducir los proyectos malos que siguen (27,5 % a 9,7 %) a cambio de detener algunos buenos. Con 30 % de la construcción antes de la compuerta el resultado es parecido. Fijar el umbral exige decidir cuánto riesgo vale esa pérdida esperada.", note_kind="coral", foot=SINT)
+    return line_chart(
+        "Compuerta de abandono al mes 6: proyectos malos que continúan frente a buenos detenidos por error",
+        "Líneas según el umbral de centros activos al mes 6: los proyectos malos que continúan bajan de 27,5 por ciento sin compuerta a 9,7 con 30 centros, mientras los buenos detenidos por error suben de 0,0 con 10 a 32,4; con 20 centros son 20,8 y 8,0. El valor esperado cae de 746,4 a 397,0 miles.",
+        [("Malos que continúan", [(0, 27.5), (10, 27.4), (15, 25.6), (20, 20.8), (25, 15.1), (30, 9.7)], "gold"),
+         ("Buenos detenidos por error", [(10, 0.0), (15, 1.7), (20, 8.0), (25, 18.7), (30, 32.4)], "coral")],
+        x_label="Umbral de centros activos al mes 6 (0 = sin compuerta)", y_label="Proyectos (%)", decimals=1,
+        x_ticks=[(0, "sin"), (10, "10"), (15, "15"), (20, "20"), (25, "25"), (30, "30")],
+        note="En este modelo ninguna compuerta aumentó el valor esperado: lo que compra es reducir los proyectos malos que siguen (27,5 % a 9,7 %) a cambio de detener algunos buenos. Con 30 % de la construcción antes de la compuerta el resultado es parecido. Fijar el umbral exige decidir cuánto riesgo vale esa pérdida esperada.", note_kind="coral", foot=SINT)
 
 
 def se144_validador() -> Fig:
-    rows = [["Estructura y completitud: sin abandono, sin moneda, sin límites, sin ventana del umbral, sin costos de operación", "5 de 5", "detecta"],
-            ["Coherencia: rango invertido, percentiles desordenados, total que no cuadra", "3 de 3", "detecta"], ["Trazabilidad: evidencia inexistente, decisión sin responsable o sin fecha, lenguaje de garantía", "4 de 4", "detecta"],
-            ["Número alterado de forma coherente (construcción ×2)", "0 de 1", "sobrevive"], ["Exageración sin palabras prohibidas", "0 de 1", "sobrevive"],
-            ["Evidencia existente pero irrelevante", "0 de 1", "sobrevive"], ["Probabilidad inflada pero coherente (0,82 a 0,99)", "0 de 1", "sobrevive"]]
-    return tab("Validador del caso de viabilidad: 12 de 16 mutaciones",
-               "Tabla de 16 mutaciones de un caso de viabilidad: el validador detecta las doce que rompen estructura, coherencia o trazabilidad y deja pasar cuatro: un número alterado de forma coherente, una exageración sin palabras prohibidas, una evidencia irrelevante y una probabilidad inflada.",
-               ["Tipo de defecto", "Detectadas", "Resultado"], rows, [650, 130, 130], row_h=56, size=12,
-               note="Es el mismo reparto que el de un brief: la forma se comprueba, la verdad no. Para los cuatro supervivientes hace falta una segunda persona que recalcule el modelo y compare cada afirmación con su evidencia. El validador es una puerta de entrada a esa revisión, no su sustituto.", note_kind="coral", foot="Código real ejecutado; idéntico en Windows y Ubuntu (WSL2).")
+    return stacked_bars(
+        "Validador del caso de viabilidad: 12 de 16 mutaciones detectadas",
+        "Barras apiladas de las 16 mutaciones: el validador detecta 5 de 5 de estructura y completitud, 3 de 3 de coherencia y 4 de 4 de trazabilidad, y deja pasar 4: un número alterado de forma coherente, una exageración sin palabras prohibidas, una evidencia irrelevante y una probabilidad inflada.",
+        ["Estructura y completitud (5)", "Coherencia (3)", "Trazabilidad (4)", "Número alterado coherente (1)", "Exageración sin palabras prohibidas (1)", "Evidencia irrelevante (1)", "Probabilidad inflada (1)"],
+        [("Detectadas", [5, 3, 4, 0, 0, 0, 0], "teal"), ("Sobreviven", [0, 0, 0, 1, 1, 1, 1], "coral")],
+        unit="Mutaciones", horizontal=True, label_w=270, plot_h=280,
+        note="Es el mismo reparto que el de un brief: la forma se comprueba, la verdad no. Para los cuatro supervivientes hace falta una segunda persona que recalcule el modelo y compare cada afirmación con su evidencia. El validador es una puerta de entrada a esa revisión, no su sustituto.", note_kind="coral", foot="Código real ejecutado; idéntico en Windows y Ubuntu (WSL2).")
 
 
 FIGURES = {

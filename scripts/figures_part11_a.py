@@ -1,8 +1,8 @@
 """Figures for SE-133 to SE-138 (synthetic data, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, grouped_bars, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 from figures_part10_a import SINT, intervals
 
 
@@ -18,17 +18,15 @@ def se133_ltv() -> Fig:
 
 
 def se133_precios() -> Fig:
-    rows = [["Por alumno (1,5 por alumno y mes)", "2 %", "4", "−17 516", "+1 287 537"],
-            ["Por alumno (1,5 por alumno y mes)", "5 %", "5", "−21 094", "+755 245"],
-            ["Plano por centro (600 al mes)", "2 %", "15", "−70 760", "+21 759"],
-            ["Plano por centro (600 al mes)", "5 %", "22", "−102 685", "−61 514"],
-            ["Gratuito con 10 % de conversión (900)", "3 %", "nunca", "−657 924", "−657 924"],
-            ["Gratuito con 52 % de conversión (900)", "3 %", "14", "−79 085", "+30 208"]]
-    return tab("Tres modelos de precio sobre los mismos centros: cuándo se equilibra la caja",
-               "Tabla de seis simulaciones de 36 meses con seis centros nuevos por mes: el precio por alumno equilibra la operación en el mes 4 o 5 y acumula más de 750 000 unidades; el precio plano equilibra en el mes 15 o 22 y con abandono de 5 por ciento no recupera la caja en 36 meses; el gratuito con 10 por ciento de conversión nunca la equilibra y con 52 por ciento tarda 14 meses.",
-               ["Modelo de precio", "Abandono mensual", "Mes en que el flujo mensual es positivo", "Caja mínima", "Caja al mes 36"],
-               rows, [300, 110, 170, 130, 150], row_h=48, size=12,
-               note="Mismos centros (150–1 500 alumnos, moda 400), mismos costos (0,6 por alumno, 50 por centro, 12 000 fijos al mes). Cambia solo cómo se cobra: el precio plano deja de cubrir a los centros grandes y el gratuito paga el servicio de todos con la conversión de unos pocos. Unidades monetarias ficticias.", note_kind="gold", foot=SINT)
+    return dumbbell(
+        "Tres modelos de precio sobre los mismos centros: de la caja mínima a la caja al mes 36",
+        "Mancuernas con la caja mínima y la caja al mes 36 de seis simulaciones: el precio por alumno sube de −17 516 a +1 287 537 con abandono de 2 por ciento y de −21 094 a +755 245 con 5; el precio plano termina en +21 759 o en −61 514; el gratuito con 10 por ciento de conversión termina en −657 924 y con 52 por ciento en +30 208.",
+        [("Por alumno, abandono 2 % (equilibrio mes 4)", -17516, 1287537), ("Por alumno, abandono 5 % (mes 5)", -21094, 755245),
+         ("Plano, abandono 2 % (mes 15)", -70760, 21759), ("Plano, abandono 5 % (mes 22)", -102685, -61514),
+         ("Gratuito, 10 % de conversión (nunca)", -657924, -657924), ("Gratuito, 52 % de conversión (mes 14)", -79085, 30208)],
+        unit="Caja acumulada (unidades monetarias ficticias)", names=("Caja mínima", "Caja al mes 36"), lower_is_better=False,
+        label_w=330,
+        note="Mismos centros (150–1 500 alumnos, moda 400), mismos costos (0,6 por alumno, 50 por centro, 12 000 fijos al mes). Cambia solo cómo se cobra: el precio plano deja de cubrir a los centros grandes y el gratuito paga el servicio de todos con la conversión de unos pocos. Unidades monetarias ficticias.", note_kind="gold", foot=SINT)
 
 
 def se133_concentracion() -> Fig:
@@ -46,14 +44,12 @@ def se133_concentracion() -> Fig:
 
 # ---------------------------------------------------------------- SE-134
 def se134_tco() -> Fig:
-    rows = [["Punto (valores centrales)", "655", "30,5 %"],
-            ["Mediana de 20 000 sorteos", "845", "28,0 %"],
-            ["Intervalo p5–p95", "609 a 1 136", "20,7 % a 36,2 %"],
-            ["Sorteos en que construir pesa más de la mitad", "0 de 20 000", "—"]]
-    return tab("Costo a cinco años: construir es la parte menor",
-               "Tabla: con valores centrales el costo de cinco años es 655 mil unidades y construir pesa 30,5 por ciento; en 20 000 sorteos la mediana del total es 845 mil, el intervalo del 5 al 95 por ciento va de 609 a 1136 y construir pesa entre 20,7 y 36,2 por ciento; nunca pesa más de la mitad.",
-               ["Estimación", "Costo total a 5 años (miles)", "Construcción sobre el total"], rows, [420, 230, 230], row_h=50, size=13,
-               note="Construcción 120–400 (moda 200), mantenimiento 10–30 % de la construcción al año, infraestructura 10–60 y soporte 15–90 al año. El punto subestima la mediana en 190 mil porque los rangos de operación son asimétricos hacia arriba: el costo que más se omite en la propuesta es el que más pesa.", note_kind="gold", foot=SINT)
+    return percentile_intervals(
+        "Costo total a cinco años: el valor central frente a 20 000 sorteos (miles)",
+        "Intervalos con el costo total a cinco años: el valor central da 655 mil; en 20 000 sorteos el percentil 5 es 609 mil, la mediana 845 mil y el percentil 95 1 136 mil. Construir pesa 30,5 por ciento en el punto y entre 20,7 y 36,2 en el intervalo, y en ningún sorteo supera la mitad.",
+        [("Valor central (un punto)", [655, 655, 655]), ("20 000 sorteos de los rangos", [609, 845, 1136])],
+        unit="Costo total a cinco años (miles)", marks=("p5", "mediana", "p95"), label_w=250,
+        note="Construcción 120–400 (moda 200), mantenimiento 10–30 % de la construcción al año, infraestructura 10–60 y soporte 15–90 al año. El punto subestima la mediana en 190 mil porque los rangos de operación son asimétricos hacia arriba: el costo que más se omite en la propuesta es el que más pesa.", note_kind="gold", foot=SINT)
 
 
 def se134_suma() -> Fig:
@@ -68,34 +64,37 @@ def se134_suma() -> Fig:
 
 
 def se134_descuento() -> Fig:
-    rows = [["0 %", "84,0", "120,0", "B"], ["5 %", "73,5", "94,1", "B"], ["10 %", "64,0", "71,1", "B"],
-            ["13,0 % (cruce)", "58,8", "58,8", "empate"], ["20 %", "47,6", "32,8", "A"], ["30 %", "34,2", "2,3", "A"], ["40 %", "23,1", "−21,9", "A"]]
-    return tab("Una misma pareja de opciones cambia de ganadora según la tasa de descuento",
-               "Tabla de valor presente neto de dos opciones: A cuesta 60 hoy y rinde 4 al mes durante 36 meses; B cuesta 150 hoy y rinde 7,5 al mes desde el mes 7. B gana con tasas hasta 10 por ciento anual, ambas empatan cerca de 13 por ciento y A gana con tasas mayores.",
-               ["Tasa anual", "VPN de A (barata, ya)", "VPN de B (cara, desde el mes 7)", "Mejor"], rows, [200, 230, 300, 150], row_h=40, size=13,
-               note="El cruce está en 12,97 % anual. Quien descuenta alto (capital escaso, incertidumbre) prefiere lo que rinde antes. La tasa es un juicio sobre el costo de oportunidad, no un dato: se declara y se prueba el cruce.", note_kind="gold", foot="Cálculo determinista; cifras en unidades monetarias ficticias.")
+    return line_chart(
+        "Valor presente de dos opciones según la tasa de descuento anual",
+        "Líneas con el valor presente neto de la opción A (barata y ya) y de la opción B (cara, desde el mes 7) según la tasa anual: B gana con 0, 5 y 10 por ciento (120,0, 94,1 y 71,1 frente a 84,0, 73,5 y 64,0), se cruzan en 13,0 por ciento con 58,8 cada una y A gana con 20, 30 y 40 por ciento.",
+        [("Opción A (60 hoy, 4 al mes)", [(0, 84.0), (5, 73.5), (10, 64.0, "", "b"), (13, 58.8), (20, 47.6, "", "t"), (30, 34.2, "", "t"), (40, 23.1, "", "t")], "teal"),
+         ("Opción B (150 hoy, 7,5 al mes desde el mes 7)", [(0, 120.0), (5, 94.1), (10, 71.1), (13, 58.8), (20, 32.8, "", "b"), (30, 2.3, "", "b"), (40, -21.9, "", "b")], "coral")],
+        x_label="Tasa de descuento anual (%)", y_label="Valor presente neto (unidades ficticias)",
+        x_ticks=[(0, "0"), (5, "5"), (10, "10"), (13, "13"), (20, "20"), (30, "30"), (40, "40")], y_zero=False,
+        annotations=[(13, 58.8, "Cruce en 12,97 %: empatan", 60, -50)],
+        note="El cruce está en 12,97 % anual. Quien descuenta alto (capital escaso, incertidumbre) prefiere lo que rinde antes. La tasa es un juicio sobre el costo de oportunidad, no un dato: se declara y se prueba el cruce.", note_kind="gold", foot="Cálculo determinista; cifras en unidades monetarias ficticias.")
 
 
 # ---------------------------------------------------------------- SE-135
 def se135_goodhart() -> Fig:
-    rows = [["Semana 4, antes de anunciar la meta", "50", "45", "10 %"],
-            ["Semanas 5 a 12, meta «tickets cerrados»", "760 en 12 semanas", "512", "41,2 %"],
-            ["Semanas 5 a 12, meta «resueltos sin reabrir»", "600 en 12 semanas", "560", "5,7 %"]]
-    return tab("Premiar lo cerrado: el número sube y lo resuelto baja",
-               "Tabla de diez agentes durante doce semanas: con la meta de tickets cerrados se cierran 760 tickets y se resuelven 512, y el 41,2 por ciento de lo cerrado se reabre; con la meta de resueltos sin reabrir se cierran 600 y se resuelven 560, con 5,7 por ciento de reapertura.",
-               ["Situación", "Cerrados", "Resueltos (no reabiertos)", "Reabiertos de lo cerrado"], rows, [420, 190, 190, 190], row_h=48, size=13,
-               note="La métrica premiada subió 26,7 % (600 a 760) y el resultado que importa bajó 8,6 % (560 a 512). Es un modelo con supuestos del autor (cerrar rápido eleva de 5 a 7 los cierres por agente y la reapertura de 8 % a 45 %): muestra el mecanismo, no mide a ningún equipo.", note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Premiar lo cerrado: el número sube y lo resuelto baja (diez agentes, doce semanas)",
+        "Barras agrupadas con los tickets cerrados y los resueltos sin reabrir según la meta: con la meta de tickets cerrados se cierran 760 y se resuelven 512 y se reabre el 41,2 por ciento; con la meta de resueltos sin reabrir se cierran 600 y se resuelven 560 y se reabre el 5,7 por ciento.",
+        ["Meta «tickets cerrados» (41,2 % reabiertos)", "Meta «resueltos sin reabrir» (5,7 % reabiertos)"],
+        [("Cerrados", [760, 600], "gold"), ("Resueltos (no reabiertos)", [512, 560], "teal")],
+        unit="Tickets en doce semanas", horizontal=True, label_w=300,
+        note="La métrica premiada subió 26,7 % (600 a 760) y el resultado que importa bajó 8,6 % (560 a 512). Es un modelo con supuestos del autor (cerrar rápido eleva de 5 a 7 los cierres por agente y la reapertura de 8 % a 45 %): muestra el mecanismo, no mide a ningún equipo.", note_kind="coral", foot=SINT)
 
 
 def se135_acumulado() -> Fig:
-    rows = [["6", "1 800", "1 121", "ambos suben"], ["9", "2 700", "1 383", "ambos suben"],
-            ["10", "2 955", "1 405", "pico de activos"], ["12", "3 330", "1 324", "los activos ya caen"],
-            ["15", "3 555", "976", "última alta; el acumulado deja de subir"], ["18", "3 555", "599", "el acumulado se queda plano"],
-            ["24", "3 555", "226", "dos años: 3 555 registros, 226 activos"]]
-    return tab("Registros acumulados frente a usuarios activos",
-               "Tabla de 24 meses: los registros acumulados crecen hasta 3555 y no bajan nunca, mientras los usuarios activos alcanzan un pico de 1405 en el mes 10, caen desde el mes 11 y llegan a 226 en el mes 24.",
-               ["Mes", "Registros acumulados", "Usuarios activos", "Lectura"], rows, [90, 220, 200, 400], row_h=42, size=13,
-               note="Altas de 300 al mes hasta el mes 9 y luego decrecientes; 85 % de los activos permanece cada mes. Una métrica acumulada solo puede subir: no puede avisar de que el producto se vacía.", note_kind="gold", foot=SINT)
+    return line_chart(
+        "Registros acumulados frente a usuarios activos en 24 meses",
+        "Líneas con los registros acumulados y los usuarios activos: los registros suben hasta 3 555 en el mes 15 y se quedan planos; los activos alcanzan un pico de 1 405 en el mes 10, ya caen en el mes 12 (1 324) y llegan a 226 en el mes 24.",
+        [("Registros acumulados", [(6, 1800), (9, 2700), (10, 2955), (12, 3330), (15, 3555), (18, 3555), (24, 3555)], "gold"),
+         ("Usuarios activos", [(6, 1121), (9, 1383), (10, 1405, "", "t"), (12, 1324, "", "t"), (15, 976), (18, 599), (24, 226)], "teal")],
+        x_label="Mes", y_label="Personas", x_ticks=[(6, "6"), (9, "9"), (10, "10"), (12, "12"), (15, "15"), (18, "18"), (24, "24")],
+        annotations=[(10, 1405, "Pico de activos (mes 10)", 80, 80)],
+        note="Altas de 300 al mes hasta el mes 9 y luego decrecientes; 85 % de los activos permanece cada mes. Una métrica acumulada solo puede subir: no puede avisar de que el producto se vacía.", note_kind="gold", foot=SINT)
 
 
 def se135_actividad() -> Fig:
@@ -109,12 +108,14 @@ def se135_actividad() -> Fig:
 
 # ---------------------------------------------------------------- SE-136
 def se136_curva() -> Fig:
-    rows = [["1", "81,6 %", "97,0 %", "75,0 %"], ["4", "48,7 %", "88,5 %", "31,6 %"], ["8", "30,5 %", "78,4 %", "10,0 %"],
-            ["12", "23,0 %", "69,4 %", "3,2 %"], ["26", "13,6 %", "45,3 %", "0,06 %"]]
-    return tab("Una curva de retención agregada aplana mientras cada segmento decae por igual",
-               "Tabla de retención por semana: la curva agregada cae de 81,6 a 13,6 por ciento en 26 semanas; el segmento de hábito baja de 97,0 a 45,3 por ciento y el de visitas ocasionales de 75,0 a casi 0. Una tasa constante ajustada a las primeras cuatro semanas predice 0,9 por ciento en la semana 26 y el valor real es 13,6.",
-               ["Semana", "Agregada (30 % hábito, 70 % ocasional)", "Segmento hábito", "Segmento ocasional"], rows, [110, 340, 200, 220], row_h=40, size=13,
-               note="Cada segmento pierde una fracción constante por semana (3 % y 25 %); la mezcla produce una curva que decae cada vez más despacio. Extrapolar con la tasa de las primeras semanas subestima la retención a 26 semanas por 15 veces. Una simulación de 2 000 personas da 47,3 %, 22,2 % y 13,8 % en las semanas 4, 12 y 26.", note_kind="gold", foot=SINT)
+    return line_chart(
+        "Retención por semana: la curva agregada aplana mientras cada segmento decae por igual",
+        "Líneas con la retención de la curva agregada (30 por ciento hábito y 70 ocasional) y de cada segmento: la agregada cae de 81,6 a 13,6 por ciento en 26 semanas; el segmento de hábito de 97,0 a 45,3; el ocasional de 75,0 a 0,06.",
+        [("Agregada (30 % hábito, 70 % ocasional)", [(1, 81.6), (4, 48.7), (8, 30.5), (12, 23.0), (26, 13.6)], "navy"),
+         ("Segmento hábito", [(1, 97.0), (4, 88.5), (8, 78.4), (12, 69.4), (26, 45.3)], "teal"),
+         ("Segmento ocasional", [(1, 75.0, "", "b"), (4, 31.6), (8, 10.0), (12, 3.2), (26, 0.06, "0,06", "t")], "coral")],
+        x_label="Semana desde el registro", y_label="Retención (%)", decimals=1, x_ticks=[(1, "1"), (4, "4"), (8, "8"), (12, "12"), (26, "26")],
+        note="Cada segmento pierde una fracción constante por semana (3 % y 25 %); la mezcla produce una curva que decae cada vez más despacio. Extrapolar con la tasa de las primeras semanas subestima la retención a 26 semanas por 15 veces. Una simulación de 2 000 personas da 47,3 %, 22,2 % y 13,8 % en las semanas 4, 12 y 26.", note_kind="gold", foot=SINT)
 
 
 def se136_activo() -> Fig:
@@ -128,17 +129,12 @@ def se136_activo() -> Fig:
 
 
 def se136_censura() -> Fig:
-    rows = [["Retención a 30 días real (la conoce el generador)", "34,2 %", "referencia"],
-            ["Ingenua: todos los registrados, aunque tengan menos de 30 días", "27,0 %", "sesgo −7,2 puntos"],
-            ["Solo quienes ya cumplieron 30 días (n = 1 632)", "34,6 %", "sesgo +0,4"],
-            ["Intervalo de Wilson con n = 50", "22,4 % a 47,8 %", "ancho 25,4 puntos"],
-            ["Intervalo de Wilson con n = 200", "27,8 % a 40,8 %", "ancho 13,0"],
-            ["Intervalo de Wilson con n = 1 000", "31,1 % a 37,0 %", "ancho 5,9"],
-            ["Intervalo de Wilson con n = 5 000", "32,7 % a 35,3 %", "ancho 2,6"]]
-    return tab("Retención a 30 días: cohortes incompletas y cohortes pequeñas",
-               "Tabla: con 34,2 por ciento de retención real, contar a las personas con menos de 30 días de observación como no retenidas da 27,0 por ciento; usar solo a quienes completaron los 30 días da 34,6. El intervalo de Wilson mide 25,4 puntos de ancho con 50 personas y 2,6 con 5000.",
-               ["Estimación", "Valor", "Lectura"], rows, [520, 230, 190], row_h=44, size=13,
-               note="Se simularon 3 000 personas registradas a lo largo de 60 días; la devolución a 30 días tiene probabilidad real 0,34. Las cohortes recientes parecen peores solo porque aún no pasó el tiempo. Un intervalo estrecho no corrige un sesgo de medición: solo mide el azar de muestrear.", note_kind="coral", foot=SINT)
+    return percentile_intervals(
+        "Intervalo de Wilson de la retención a 30 días según el tamaño de la cohorte",
+        "Intervalos de Wilson de la retención a 30 días: con 50 personas va de 22,4 a 47,8 por ciento, con 200 de 27,8 a 40,8, con 1 000 de 31,1 a 37,0 y con 5 000 de 32,7 a 35,3; la retención real es 34,2 y la cuenta ingenua que incluye a quienes no cumplieron 30 días da 27,0, fuera de los dos intervalos mayores.",
+        [("n = 50", [22.4, 47.8]), ("n = 200", [27.8, 40.8]), ("n = 1 000", [31.1, 37.0]), ("n = 5 000", [32.7, 35.3])],
+        unit="Retención a 30 días (%)", marks=("inferior", "superior"), decimals=1, ref_lines=[(34.2, "real 34,2 %"), (27.0, "ingenua 27,0 %")], label_w=130,
+        note="Se simularon 3 000 personas registradas a lo largo de 60 días; la devolución a 30 días tiene probabilidad real 0,34. Las cohortes recientes parecen peores solo porque aún no pasó el tiempo. Un intervalo estrecho no corrige un sesgo de medición: solo mide el azar de muestrear.", note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-137
@@ -153,26 +149,24 @@ def se137_consentimiento() -> Fig:
 
 
 def se137_identifica() -> Fig:
-    rows = [["sistema operativo", "6", "0,0 %", "0,0 %"], ["+ versión de la aplicación", "72", "0,0 %", "0,0 %"],
-            ["+ idioma regional", "489", "0,3 %", "3,4 %"], ["+ resolución de pantalla", "2 580", "9,8 %", "42,9 %"],
-            ["+ zona horaria", "5 575", "38,3 %", "71,1 %"], ["+ identificador del centro (300)", "9 969", "99,4 %", "100,0 %"]]
-    return tab("Cada campo de telemetría estrecha el grupo hasta señalar a una persona",
-               "Tabla de 10 000 dispositivos sintéticos: con sistema operativo y versión ninguno es único; con idioma regional 0,3 por ciento; con resolución 9,8; con zona horaria 38,3; y con el identificador del centro 99,4 por ciento son únicos y el 100 por ciento queda en grupos de menos de cinco.",
-               ["Campos acumulados", "Grupos distintos", "Dispositivos únicos", "En grupos con menos de 5"], rows, [330, 170, 190, 220], row_h=44, size=13,
-               note="Ningún campo es un dato personal por sí solo. La combinación sí lo es en la práctica. Quitar el centro y la zona horaria deja sistema operativo + idioma: 42 grupos y 0 % en grupos de menos de 5. El diseño del evento decide qué campos se recogen; el consentimiento no los vuelve inocuos.", note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Cada campo de telemetría estrecha el grupo hasta señalar a una persona (10 000 dispositivos)",
+        "Barras horizontales con el porcentaje de dispositivos únicos y de dispositivos en grupos de menos de cinco al sumar campos: con sistema operativo y versión ninguno es único; con idioma regional 0,3 y 3,4 por ciento; con resolución 9,8 y 42,9; con zona horaria 38,3 y 71,1; y con el identificador del centro 99,4 y 100,0.",
+        ["Sistema operativo (6 grupos)", "+ versión de la aplicación (72)", "+ idioma regional (489)", "+ resolución de pantalla (2 580)",
+         "+ zona horaria (5 575)", "+ identificador del centro (9 969)"],
+        [("Únicos", [0.0, 0.0, 0.3, 9.8, 38.3, 99.4], "coral"), ("En grupos con menos de 5", [0.0, 0.0, 3.4, 42.9, 71.1, 100.0], "gold")],
+        unit="Dispositivos (%)", horizontal=True, label_w=270, decimals=1,
+        note="Ningún campo es un dato personal por sí solo. La combinación sí lo es en la práctica. Quitar el centro y la zona horaria deja sistema operativo + idioma: 42 grupos y 0 % en grupos de menos de 5. El diseño del evento decide qué campos se recogen; el consentimiento no los vuelve inocuos.", note_kind="coral", foot=SINT)
 
 
 def se137_mutantes() -> Fig:
-    rows = [["M1 el estado denegado envía", "mata", "mata"], ["M2 el estado desconocido envía de inmediato", "mata", "mata"],
-            ["M3 negar no vacía el búfer", "sobrevive", "mata"], ["M4 retirar el consentimiento no frena el envío", "sobrevive", "mata"],
-            ["M5 deja pasar el correo", "sobrevive", "mata"], ["M6 acepta eventos no declarados", "sobrevive", "mata"],
-            ["M7 búfer sin tope", "sobrevive", "mata"], ["M8 al conceder no vacía el búfer", "sobrevive", "mata"],
-            ["M9 invierte el orden al vaciar", "sobrevive", "mata"], ["M10 conserva user_id", "sobrevive", "mata"],
-            ["M11 borra una variable sin uso (equivalente)", "sobrevive", "sobrevive"]]
-    return tab("Control de consentimiento: 3 pruebas del camino feliz frente a 9 pruebas dirigidas",
-               "Tabla de once mutantes de un rastreador con consentimiento: las tres primeras pruebas matan 2 y las nueve pruebas completas matan 10; el undécimo es equivalente y ninguna prueba puede distinguirlo.",
-               ["Mutante", "3 pruebas", "9 pruebas"], rows, [540, 150, 150], row_h=34, size=12,
-               note="Puntaje de mutación: 2 de 11 con las pruebas del camino feliz y 10 de 11 con las completas. El mutante equivalente sobrevive con razón: el código resultante se comporta igual. Un 100 % no se espera; hay que revisar cada superviviente y decidir.", note_kind="gold", foot="Código y pruebas reales ejecutados; idénticos en Windows y Ubuntu (WSL2).")
+    return stacked_bars(
+        "Control de consentimiento: mutantes que matan 3 pruebas del camino feliz frente a 9 dirigidas",
+        "Barras apiladas de los once mutantes del rastreador con consentimiento: las tres pruebas del camino feliz matan 2 y dejan 9 vivos; las nueve pruebas completas matan 10 y solo sobrevive el equivalente.",
+        ["3 pruebas del camino feliz", "9 pruebas dirigidas"],
+        [("Muertos", [2, 10], "teal"), ("Sobreviven", [9, 1], "coral")],
+        unit="Mutantes", horizontal=True, label_w=230,
+        note="Puntaje de mutación: 2 de 11 con las pruebas del camino feliz y 10 de 11 con las completas. El mutante equivalente sobrevive con razón: el código resultante se comporta igual. Un 100 % no se espera; hay que revisar cada superviviente y decidir.", note_kind="gold", foot="Código y pruebas reales ejecutados; idénticos en Windows y Ubuntu (WSL2).")
 
 
 # ---------------------------------------------------------------- SE-138

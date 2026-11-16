@@ -118,9 +118,9 @@ menores_a_5 = sum(1 for d in dispositivos if grupos[d[:k]] < 5)
 
 Con sistema operativo y versión, ningún dispositivo es único (72 grupos); con idioma regional, 0,3 % es único (489 grupos); con resolución, 9,8 % (2 580 grupos y 42,9 % en grupos de menos de cinco); con zona horaria, 38,3 % (71,1 % en grupos de menos de cinco); y con el identificador del centro, 99,4 % es único (9 969 grupos). Un conjunto con solo sistema operativo e idioma regional deja 42 grupos y ningún dispositivo en grupos de menos de cinco. Cuánto se necesita depende del riesgo; lo que no depende es que la combinación, y no cada campo, es lo que identifica.
 
-![Tabla de dispositivos únicos y en grupos de menos de cinco al acumular campos de telemetría.](../../../content/part-11/figures/se-137-campos-que-identifican.svg)
+![Barras horizontales con el porcentaje de dispositivos únicos y de dispositivos en grupos de menos de cinco al sumar campos: con sistema operativo y versión ninguno es único; con idioma regional 0,3 y 3,4 por ciento; con resolución 9,8 y 42,9; con zona horaria 38,3 y 71,1; y con el identificador del centro 99,4 y 100,0.](../../../content/part-11/figures/se-137-campos-que-identifican.svg)
 
-**Cómo leer la figura.** Cada fila añade un campo a las anteriores; las columnas dicen cuántos grupos distintos hay, qué porcentaje es único y qué porcentaje está en grupos menores de cinco. **Dónde deja de valer:** los campos se generaron de manera independiente y con distribuciones supuestas; los reales están correlacionados (el idioma regional y la zona horaria van juntos), lo que reduce la unicidad. Aun así, el mecanismo es el de Sweeney: la combinación identifica.
+**Cómo leer la figura.** Cada grupo de barras es un conjunto de campos que se acumula sobre el anterior (el número de grupos distintos va entre paréntesis); la barra coral es el porcentaje de dispositivos únicos y la dorada el de dispositivos en grupos de menos de cinco. Lo primero que se ve es el salto: con idioma regional casi nadie es único, con la resolución casi la mitad ya está en grupos pequeños y con el identificador del centro prácticamente todos son únicos. **Dónde deja de valer:** los campos se generaron de manera independiente y con distribuciones supuestas; los reales están correlacionados (el idioma regional y la zona horaria van juntos), lo que reduce la unicidad. Aun así, el mecanismo es el de Sweeney: la combinación identifica.
 
 ### Una puerta de consentimiento con pruebas del camino feliz y con pruebas dirigidas
 
@@ -135,9 +135,9 @@ MUTANTES = {
 
 Resultado, idéntico en ambos sistemas: las tres pruebas del camino feliz matan 2 de 11 mutantes (los que envían con el estado denegado o desconocido); las nueve pruebas matan 10 de 11. El mutante que sobrevive (M11) borra una variable sin uso y es equivalente: el programa se comporta igual y ninguna prueba puede distinguirlo. Los nueve que las tres primeras pruebas dejaban vivos incluyen enviar el correo, aceptar eventos no declarados y conservar el búfer tras negar, defectos de privacidad reales.
 
-![Tabla de once mutantes del control de consentimiento con el resultado de tres pruebas y de nueve pruebas.](../../../content/part-11/figures/se-137-mutantes-del-control-de-consentimiento.svg)
+![Barras apiladas de los once mutantes del rastreador con consentimiento: las tres pruebas del camino feliz matan 2 y dejan 9 vivos; las nueve pruebas completas matan 10 y solo sobrevive el equivalente.](../../../content/part-11/figures/se-137-mutantes-del-control-de-consentimiento.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio mínimo al código; «mata» significa que alguna prueba falla; «sobrevive», que todas pasan. **Dónde deja de valer:** once mutantes son una muestra pequeña y escrita por quien escribió las pruebas; un 10 de 11 no dice que la puerta sea correcta, solo que esas pruebas detectan esos cambios. No sustituye la revisión de privacidad ni una auditoría del banner y del texto que ve la persona.
+**Cómo leer la figura.** Cada barra son los once mutantes del rastreador con consentimiento: el tramo teal es el de los que alguna prueba mata y el coral, el de los que sobreviven. Con las tres pruebas del camino feliz mueren 2 de 11; con las nueve pruebas dirigidas mueren 10, y el único superviviente es el mutante equivalente. La tabla lista cada mutante y dice cuáles mata cada conjunto. **Dónde deja de valer:** once mutantes son una muestra pequeña y escrita por quien escribió las pruebas; un 10 de 11 no dice que la puerta sea correcta, solo que esas pruebas detectan esos cambios. No sustituye la revisión de privacidad ni una auditoría del banner y del texto que ve la persona.
 
 ## Definiciones de trabajo
 

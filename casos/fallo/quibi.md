@@ -65,7 +65,7 @@ El modelo era mixto: suscripción con dos niveles y publicidad. La economía de 
 - **Ingresos.** Los precios eran de 4,99 y 7,99 dólares al mes. Kantar estimó 1,1 millones de hogares suscriptores en el segundo trimestre de 2020 y 710.000 en el tercero (Variety). Sensor Tower estimó que menos del 10 % de los primeros usuarios se convirtió en suscriptor de pago, cifra que Quibi discutió.
 - **Fin.** En el anuncio del cierre quedaban unos 350 millones de dólares en caja. Whitman explicó la lógica: para llegar a escala habría que levantar mucho más capital a principios de 2021 y los datos no lo respaldarían, de modo que lo responsable era devolver el efectivo a los accionistas en lugar de agotarlo.
 
-![Barras horizontales en millones de dólares: capital recaudado unos 1.750, gasto esperado hacia el tercer trimestre de 2020 unos 1.000, efectivo restante al anunciar el cierre unos 350 y precio máximo de los derechos que compró Roku, menos de 100.](../figures/quibi-dinero.svg "El dinero de Quibi en cuatro cifras publicadas")
+![Barras horizontales en millones de dólares: capital recaudado unos 1.750, gasto esperado hacia el tercer trimestre de 2020 unos 1.000, efectivo restante al anunciar el cierre unos 350 y precio máximo de los derechos que compró Roku, menos de 100.](../figures/quibi-dinero.svg)
 
 **Cómo leer la figura.** Cada barra es una cifra de capital en millones de dólares. Mira primero la primera y la tercera: de 1.750 millones recaudados quedaban unos 350 al anunciar el cierre. La última es un tope: las fuentes solo dicen que Roku pagó menos de 100 millones. **Dónde deja de valer:** el gasto de 1.000 millones es una expectativa de prensa para el tercer trimestre de 2020, no un dato contable; las cuatro barras vienen de fuentes distintas y no cuadran como una cuenta de resultados.
 
@@ -75,13 +75,13 @@ Quibi no publicó detalles de su arquitectura interna, por lo que este apartado 
 
 ### Contexto: la premisa frente al mundo de abril de 2020
 
-![Dos columnas: la premisa de 2018 y 2019 con uso en movimiento, episodios breves, solo teléfono y suscripción; y el mundo de abril de 2020 con confinamiento, televisor, nuevos servicios de streaming y video corto gratuito.](../figures/quibi-premisa-y-realidad.svg "La apuesta de Quibi y el mundo en que llegó")
+![Dos columnas: la premisa de 2018 y 2019 con uso en movimiento, episodios breves, solo teléfono y suscripción; y el mundo de abril de 2020 con confinamiento, televisor, nuevos servicios de streaming y video corto gratuito.](../figures/quibi-premisa-y-realidad.svg)
 
 **Cómo leer la figura.** A la izquierda, lo que el negocio suponía; a la derecha, lo que había en abril de 2020. Cada fila empareja un supuesto con su contraste mediante una flecha punteada. Mira primero la primera fila: el supuesto de uso en movimiento chocó con el confinamiento. **Dónde deja de valer:** el contraste es de contexto, no de causa: ni los responsables ni la prensa pueden separar cuánto del resultado se debió al confinamiento. Katzenberg reconoció que atribuirlo todo a la pandemia no era justo.
 
 ### Componentes: el producto y su distribución
 
-![Diagrama del producto: estudios y creadores alimentan la aplicación móvil, que llega al teléfono del espectador; dentro de la aplicación, Turnstyle, capturas de pantalla propias y dos planes; debajo, la llegada a la pantalla grande en tres etapas.](../figures/quibi-producto-y-distribucion.svg "Qué ofrecía Quibi y por dónde llegaba al espectador")
+![Diagrama del producto: estudios y creadores alimentan la aplicación móvil, que llega al teléfono del espectador; dentro de la aplicación, Turnstyle, capturas de pantalla propias y dos planes; debajo, la llegada a la pantalla grande en tres etapas.](../figures/quibi-producto-y-distribucion.svg)
 
 **Cómo leer la figura.** La fila superior sigue el contenido de los creadores al teléfono. La segunda lista las funciones de la aplicación. El grupo de abajo muestra cómo se fue abriendo el acceso al televisor: coral al inicio, dorado en junio y verde azulado en octubre. **Dónde deja de valer:** es una descripción de producto desde la prensa; no muestra la arquitectura técnica ni cómo se entregaba el vídeo.
 
@@ -89,7 +89,7 @@ Un detalle técnico sí documentado merece atención: Turnstyle, la función que
 
 ### Datos y escala
 
-![Barras horizontales: Disney+ unas 4.000.000 de instalaciones el primer día frente a unas 300.000 de Quibi, y los hogares suscriptores de Quibi según Kantar, 1.100.000 en el segundo trimestre de 2020 y 710.000 en el tercero.](../figures/quibi-audiencia.svg "Audiencia de Quibi: las cifras de terceros y su escala frente a Disney+")
+![Barras horizontales: Disney+ unas 4.000.000 de instalaciones el primer día frente a unas 300.000 de Quibi, y los hogares suscriptores de Quibi según Kantar, 1.100.000 en el segundo trimestre de 2020 y 710.000 en el tercero.](../figures/quibi-audiencia.svg)
 
 **Cómo leer la figura.** Las dos barras superiores comparan instalaciones del primer día; las dos inferiores muestran la evolución de los hogares suscriptores que estimó Kantar. Mira primero la distancia entre las dos primeras: las instalaciones de Quibi fueron el 7,5 % de las de Disney+, según Sensor Tower. **Dónde deja de valer:** las dos primeras son instalaciones y las otras dos hogares suscriptores; son medidas distintas y no se comparan entre sí. Todas son estimaciones de terceros y Quibi discutió la de conversión de Sensor Tower: a julio de 2020 declaró más de 5,6 millones de descargas.
 
@@ -124,7 +124,7 @@ Un detalle técnico sí documentado merece atención: Turnstyle, la función que
 | 1 de diciembre de 2020 | La aplicación deja de funcionar |
 | 8 de enero de 2021 | Roku adquiere los derechos de más de 75 programas |
 
-![Línea de tiempo en meses desde agosto de 2018: 20 meses de preparación hasta el lanzamiento, abril a diciembre de 2020 en operación y la venta de contenido a partir del anuncio del cierre.](../figures/quibi-linea-de-tiempo.svg "Veintinueve meses entre el anuncio y la venta del catálogo")
+![Línea de tiempo en meses desde agosto de 2018: 20 meses de preparación hasta el lanzamiento, abril a diciembre de 2020 en operación y la venta de contenido a partir del anuncio del cierre.](../figures/quibi-linea-de-tiempo.svg)
 
 **Cómo leer la figura.** Cada carril es una fase: preparación, servicio en operación y tras el cierre. Las líneas punteadas marcan el anuncio de 1.000 millones, el lanzamiento y el anuncio del cierre. Mira primero la proporción: la preparación fue más larga que la vida del servicio. **Dónde deja de valer:** los meses son cálculo propio y no dicen nada sobre la intensidad de cada fase; el servicio estuvo abierto unos ocho meses.
 
@@ -163,7 +163,7 @@ Los responsables dieron su propia lectura en la entrevista de cierre: fue «un p
 
 > **Esta sección es análisis propio de este programa**, no una afirmación de Quibi, de sus responsables ni de la prensa. Se apoya en lo documentado y propone controles de descubrimiento y de gobierno que el curso enseña. Es un ejercicio de aprendizaje con información incompleta: no sabemos si habrían funcionado.
 
-![Dos recorridos: el seguido, que financia, produce un catálogo grande, lanza a gran escala y mide después; y uno alternativo con pasos de aprendizaje que declara el supuesto, prueba con una cohorte, mide el uso en televisor y amplía solo si el dato lo respalda.](../figures/quibi-aprender-antes-de-escalar.svg "Una forma de aprender antes de gastar todo, como análisis propio")
+![Dos recorridos: el seguido, que financia, produce un catálogo grande, lanza a gran escala y mide después; y uno alternativo con pasos de aprendizaje que declara el supuesto, prueba con una cohorte, mide el uso en televisor y amplía solo si el dato lo respalda.](../figures/quibi-aprender-antes-de-escalar.svg)
 
 **Cómo leer la figura.** Arriba, el recorrido que describen la prensa y los responsables; abajo, una propuesta de este programa. Las flechas son pasos en orden. Mira primero dónde se mide: en el seguido, después de lanzar; en el alternativo, antes de ampliar. **Dónde deja de valer:** es una propuesta; el lanzamiento de atención máxima tenía una razón declarada, crear una categoría, y puede que un recorrido escalonado no habría atraído a los inversores.
 

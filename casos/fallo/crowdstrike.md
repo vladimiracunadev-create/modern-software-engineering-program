@@ -59,7 +59,7 @@ Esa economía explica la tensión de fondo, sin necesidad de suponer descuido:
 - **Velocidad frente a puertas de control.** Un despliegue por anillos con tiempo de observación retrasa el contenido; el costo es detección más lenta en los equipos del último anillo. La decisión razonable depende del tipo de contenido: una firma de un malware activo justifica más prisa que un criterio nuevo de telemetría. El hecho de que la actualización del 19 de julio fuese, según la empresa, para recopilar telemetría sobre técnicas posibles pero no urgente apunta a que había margen para ir por etapas. Es una lectura propia: la fuente no dice qué urgencia tenía ese contenido.
 - **Quién asume el costo de la falla.** La estimación de Parametrix atribuye 5.400 millones de dólares de pérdida directa a las 500 mayores empresas de EE. UU. y calcula que solo entre 540 millones y 1.080 millones estaban asegurados. El contrato entre CrowdStrike y Delta incluye, según la empresa, una cláusula que limita su responsabilidad; esa disputa se resolverá en los tribunales y este caso no toma partido.
 
-![Dos barras apiladas de 5.400 millones de dólares cada una: en el escenario bajo, 540 millones están asegurados y 4.860 no; en el escenario alto, 1.080 millones asegurados y 4.320 no.](../figures/crowdstrike-quien-asume-la-perdida.svg "Parte asegurada y no asegurada de la pérdida estimada por Parametrix")
+![Dos barras apiladas de 5.400 millones de dólares cada una: en el escenario bajo, 540 millones están asegurados y 4.860 no; en el escenario alto, 1.080 millones asegurados y 4.320 no.](../figures/crowdstrike-quien-asume-la-perdida.svg)
 
 **Cómo leer la figura.** Cada barra horizontal es la misma pérdida total, 5.400 millones de dólares, dividida en una parte asegurada (verde azulado) y otra no asegurada (coral). Las dos barras son los extremos del rango que dio Parametrix. Mira primero la proporción: aun en el caso favorable, más de cuatro quintos de la pérdida no estaban cubiertos. **Dónde deja de valer:** es una estimación de una aseguradora especializada para un conjunto concreto de empresas y solo para pérdida directa; no mide el daño total en el mundo ni la responsabilidad de nadie. La cifra declarada por Delta no se suma.
 
@@ -69,7 +69,7 @@ Esa economía explica la tensión de fondo, sin necesidad de suponer descuido:
 
 El diagrama siguiente muestra los componentes que nombra el análisis de causa raíz y por dónde viajaba cada tipo de contenido.
 
-![Diagrama de dos zonas: en la nube, el sistema de configuración crea instancias, el validador las comprueba y se publica el archivo de canal 291; en el equipo Windows, el controlador csagent.sys en modo kernel contiene el intérprete de contenido, que lee ese archivo cuando Windows notifica una tubería con nombre.](../figures/crowdstrike-camino-del-contenido.svg "Del sistema de configuración de contenido al intérprete dentro del kernel")
+![Diagrama de dos zonas: en la nube, el sistema de configuración crea instancias, el validador las comprueba y se publica el archivo de canal 291; en el equipo Windows, el controlador csagent.sys en modo kernel contiene el intérprete de contenido, que lee ese archivo cuando Windows notifica una tubería con nombre.](../figures/crowdstrike-camino-del-contenido.svg)
 
 **Cómo leer la figura.** Las zonas punteadas separan la nube de CrowdStrike del equipo del cliente. Los recuadros siguen el orden de la creación del contenido (arriba a abajo en la nube) y de su uso (de la notificación de Windows al intérprete). Abajo se contrastan las dos rutas de entrega: el contenido del sensor, que el cliente controla por versión, y el contenido rápido, que llegaba a todos. **Dónde deja de valer:** el diagrama simplifica los nombres internos, como hace el propio informe, y no dibuja otros componentes del sensor ni los canales de otros tipos de plantilla.
 
@@ -77,7 +77,7 @@ El riesgo se concentra en un punto: un archivo de datos, escrito por humanos y v
 
 ### Flujo crítico: el arreglo de entradas
 
-![Fila de 21 casillas: las numeradas de 1 a 20 son entradas válidas que entrega el sensor y la 21 queda fuera del arreglo y no apunta a memoria válida; el intérprete pide la entrada 21, lee una dirección inválida y Windows se detiene.](../figures/crowdstrike-lectura-fuera-de-limites.svg "Veintiuna entradas pedidas, veinte entregadas")
+![Fila de 21 casillas: las numeradas de 1 a 20 son entradas válidas que entrega el sensor y la 21 queda fuera del arreglo y no apunta a memoria válida; el intérprete pide la entrada 21, lee una dirección inválida y Windows se detiene.](../figures/crowdstrike-lectura-fuera-de-limites.svg)
 
 **Cómo leer la figura.** Cada casilla es una entrada que el sensor arma para el intérprete: veinte punteros válidos y una casilla coral, la 21, que no existe. Debajo, los dos cuadros amarillos muestran la discrepancia entre lo que declara la definición del tipo y lo que entrega el código. Mira primero la casilla coral: es la lectura que no se hizo durante cuatro despliegues y sí en el quinto. **Dónde deja de valer:** el esquema describe un fallo concreto de lectura fuera de límites; no representa cómo se organiza la memoria del sensor ni otros fallos posibles, y el informe aclara que no es una escritura arbitraria.
 
@@ -116,11 +116,11 @@ Los hechos de la tabla vienen de la revisión preliminar del incidente y del an�
 | 29 de julio de 2024 | Cerca del 99 % de los sensores Windows están en línea | Análisis de causa raíz |
 | 6 de agosto de 2024 | Se publica el análisis de causa raíz | CrowdStrike |
 
-![Línea de tiempo en días desde el 28 de febrero de 2024: el sensor 7.11 está disponible desde el día cero, la primera instancia IPC se despliega el día 6, tres más entre los días 40 y 56, y el día 142 se despliegan dos instancias con la caída.](../figures/crowdstrike-142-dias-hasta-la-caida.svg "142 días entre la disponibilidad del sensor 7.11 y la caída")
+![Línea de tiempo en días desde el 28 de febrero de 2024: el sensor 7.11 está disponible desde el día cero, la primera instancia IPC se despliega el día 6, tres más entre los días 40 y 56, y el día 142 se despliegan dos instancias con la caída.](../figures/crowdstrike-142-dias-hasta-la-caida.svg)
 
 **Cómo leer la figura.** El eje horizontal cuenta días desde el 28 de febrero de 2024. Cada carril es una cosa distinta: la disponibilidad del sensor, los despliegues de instancias IPC y el resultado. Las líneas punteadas fijan las cinco fechas del informe. Mira primero la distancia entre el último despliegue sin incidentes y el que falló: más de tres meses de normalidad aparente. **Dónde deja de valer:** que cuatro despliegues salieran bien no es una prueba estadística; los anteriores no leían la entrada 21. El informe no dice si hubo otros despliegues entre abril y julio.
 
-![Línea de tiempo en minutos desde las 04:00 UTC del 19 de julio de 2024: el archivo defectuoso estuvo publicado de las 04:09 a las 05:27, 78 minutos, y los equipos conectados después no fueron afectados.](../figures/crowdstrike-ventana-de-78-minutos.svg "La ventana de 78 minutos del 19 de julio de 2024")
+![Línea de tiempo en minutos desde las 04:00 UTC del 19 de julio de 2024: el archivo defectuoso estuvo publicado de las 04:09 a las 05:27, 78 minutos, y los equipos conectados después no fueron afectados.](../figures/crowdstrike-ventana-de-78-minutos.svg)
 
 **Cómo leer la figura.** Esta vez el eje son los minutos del 19 de julio. La barra coral es la ventana en que el archivo estuvo disponible; la barra verde azulada, los equipos que se conectaron después y por tanto recibieron la versión buena. Mira primero lo corto de la ventana frente a lo largo de la recuperación. **Dónde deja de valer:** la figura no dice cuántos equipos recibieron el archivo ni cuándo cayó cada uno; la cifra de 8,5 millones es una estimación de Microsoft sobre equipos afectados y no sobre los que estaban en línea.
 
@@ -154,7 +154,7 @@ El análisis de causa raíz de CrowdStrike resume que el bloqueo fue la **conflu
 
 Cada mejora se liga a la causa que corta y a la clase que la enseña. Las que CrowdStrike dice haber implantado o comprometido están marcadas.
 
-![Dos filas de cajas: el recorrido del 19 de julio, con validador, publicación a todos y caída; y el recorrido prometido, con validador mejorado, pruebas por instancia, canary, anillos y control del cliente, más tres defensas en el propio sensor.](../figures/crowdstrike-antes-y-despues.svg "Del reparto a toda la flota a un despliegue por anillos con control del cliente")
+![Dos filas de cajas: el recorrido del 19 de julio, con validador, publicación a todos y caída; y el recorrido prometido, con validador mejorado, pruebas por instancia, canary, anillos y control del cliente, más tres defensas en el propio sensor.](../figures/crowdstrike-antes-y-despues.svg)
 
 **Cómo leer la figura.** La fila superior es lo que ocurrió; la inferior, lo que el análisis de causa raíz promete. Las cajas siguen el orden del recorrido del contenido. Mira primero el cambio de «publicación a todos» a «canary y anillos»: es el control que limita el tamaño del daño aunque el error persista. **Dónde deja de valer:** las fechas son las que informa CrowdStrike al 6 de agosto de 2024; la figura no puede afirmar que cada compromiso se cumpliera ni que fuera suficiente.
 

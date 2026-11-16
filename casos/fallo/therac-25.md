@@ -67,19 +67,19 @@ El costo posterior sí dejó huellas públicas: el accidente de Marietta derivó
 
 ### Contexto: tres máquinas, un cambio de reparto
 
-![Diagrama de tres columnas: Therac-6 y Therac-20 conservan interlocks y circuitos protectores de hardware y el computador solo añade comodidad; el Therac-25 se diseña desde el inicio para control por computador y deposita en el software más responsabilidad de seguridad.](../figures/therac-25-tres-maquinas.svg "Quién protegía al paciente en cada máquina")
+![Diagrama de tres columnas: Therac-6 y Therac-20 conservan interlocks y circuitos protectores de hardware y el computador solo añade comodidad; el Therac-25 se diseña desde el inicio para control por computador y deposita en el software más responsabilidad de seguridad.](../figures/therac-25-tres-maquinas.svg)
 
 **Cómo leer la figura.** Cada columna es una máquina. Debajo de cada nombre, un cuadro blanco describe la arquitectura y otro, verde azulado o coral, quién protegía al paciente. Mira primero el color: en las dos primeras máquinas la protección quedaba en el hardware; en la tercera, en el software. El cuadro dorado inferior recuerda el análisis de seguridad de 1983. **Dónde deja de valer:** el esquema simplifica; el artículo aclara que parte del software se reutilizó entre las tres máquinas y que no se sabe exactamente cuánto.
 
 ### Componentes: una plataforma giratoria decide qué haz recibe el paciente
 
-![Tres posiciones de la plataforma giratoria: electrones con imanes de barrido, rayos X con blanco y aplanador y corriente cerca de cien veces mayor, y luz de campo con un espejo y sin haz; debajo, dos fallas posibles.](../figures/therac-25-plataforma-giratoria.svg "Las tres posiciones de la plataforma y cómo falla cada una")
+![Tres posiciones de la plataforma giratoria: electrones con imanes de barrido, rayos X con blanco y aplanador y corriente cerca de cien veces mayor, y luz de campo con un espejo y sin haz; debajo, dos fallas posibles.](../figures/therac-25-plataforma-giratoria.svg)
 
 **Cómo leer la figura.** Las tres columnas son las posiciones de la plataforma y lo que lleva cada una. Los dos cuadros coral inferiores son los dos modos de falla que el artículo describe: rayos X sin aplanador, o electrones sin barrido. Mira primero la columna central: la corriente del haz en modo de rayos X es unas cien veces mayor que en electrones, porque el aplanador atenúa mucho. **Dónde deja de valer:** es la geometría de la máquina según el artículo; no es un plano ni una especificación.
 
 ### Flujo crítico: la ventana de ocho segundos
 
-![Línea de tiempo esquemática de 0 a 10 segundos: el ajuste de imanes dura unos 8 segundos, la rutina que comprueba ediciones deja de mirar tras la primera pasada, y un operador que edita el modo dentro de esos 8 segundos deja la máquina con parámetros inconsistentes.](../figures/therac-25-ventana-de-ocho-segundos.svg "La edición rápida dentro de la ventana que el software no vigilaba")
+![Línea de tiempo esquemática de 0 a 10 segundos: el ajuste de imanes dura unos 8 segundos, la rutina que comprueba ediciones deja de mirar tras la primera pasada, y un operador que edita el modo dentro de esos 8 segundos deja la máquina con parámetros inconsistentes.](../figures/therac-25-ventana-de-ocho-segundos.svg)
 
 **Cómo leer la figura.** Cada carril es un actor del sistema; el eje son segundos. La barra dorada es el ajuste de los imanes, de unos 8 segundos. La barra coral del operador es la edición dentro de esa ventana. Mira primero el carril «Ptime»: la comprobación de ediciones solo se hace en la primera pasada. **Dónde deja de valer:** solo el tope de 8 segundos es un dato; el reparto del tiempo del operador es ilustrativo.
 
@@ -121,7 +121,7 @@ La máquina no registraba lo que hacía de un modo útil para investigar: no hab
 | Febrero de 1987 | La FDA pide suspender el uso rutinario hasta contar con un plan aprobado; el uso se restringe hasta agosto |
 | 21 de julio de 1987 | Quinta y última revisión del plan correctivo |
 
-![Línea de tiempo en meses desde enero de 1985 con seis marcas coral, una por accidente, y las barras del plan correctivo de AECL entre junio de 1986 y julio de 1987 y la suspensión del uso rutinario de febrero a agosto de 1987.](../figures/therac-25-cronologia.svg "Seis accidentes y la respuesta, de 1985 a 1987")
+![Línea de tiempo en meses desde enero de 1985 con seis marcas coral, una por accidente, y las barras del plan correctivo de AECL entre junio de 1986 y julio de 1987 y la suspensión del uso rutinario de febrero a agosto de 1987.](../figures/therac-25-cronologia.svg)
 
 **Cómo leer la figura.** Cada carril superior es un accidente; las dos barras inferiores son la respuesta del fabricante y el período de uso restringido. Las líneas punteadas marcan cuándo la FDA declara el defecto y cuándo se aprueba el plan final. Mira primero el vacío entre los accidentes 1 al 3 y la primera línea punteada: pasaron meses antes de la intervención. **Dónde deja de valer:** la marca de Yakima de 1985 es aproximada, porque el artículo solo da el mes; los meses son cálculo propio.
 
@@ -136,7 +136,7 @@ Cada caso es una instancia en un centro. Lo que se esperaba era que la máquina 
 5. **Tyler, 11 de abril de 1986.** Un paciente con un cáncer de piel en la cara. Mismo mensaje. Describió una sensación de «fuego». Murió el 1 de mayo de 1986.
 6. **Yakima, 17 de enero de 1987.** Un paciente con cáncer terminal recibió una dosis que se estimó entre 8.000 y 10.000 rad tras dos intentos, frente a 86 prescritos. Según el artículo murió en abril por complicaciones relacionadas con la sobredosis; ya tenía un cáncer terminal, los sobrevivientes iniciaron demandas y el asunto se resolvió fuera de los tribunales.
 
-![Rangos en escala logarítmica de las dosis estimadas en cinco accidentes, entre 4.000 y 25.000 rad, frente a una sesión típica de unos 200 rad.](../figures/therac-25-dosis-estimadas.svg "Dosis estimadas en cinco accidentes frente a una sesión típica")
+![Rangos en escala logarítmica de las dosis estimadas en cinco accidentes, entre 4.000 y 25.000 rad, frente a una sesión típica de unos 200 rad.](../figures/therac-25-dosis-estimadas.svg)
 
 **Cómo leer la figura.** Cada fila es un accidente. El cuadrado es la estimación mínima y el triángulo, la máxima; el eje es logarítmico, así que cada marca principal multiplica por diez. Las líneas punteadas son 200 y 1.000 rad. Mira primero la distancia entre las estimaciones y la primera línea: más de un orden de magnitud. **Dónde deja de valer:** son estimaciones posteriores, localizadas en una zona pequeña, y varían entre simulaciones; la dosis de 1.000 rad que se cita como potencialmente letal lo es para el cuerpo entero, no para una zona de un centímetro. Mide el orden de magnitud del error, no una dosis exacta.
 
@@ -169,7 +169,7 @@ Leveson y Turner rechazan explícitamente reducir el caso a una causa. Escriben 
 
 > **Esta sección es análisis propio de este programa**, apoyado en el artículo de Leveson y Turner. Son controles y procesos que habrían cortado cada cadena causal; no se sabe si el fabricante los consideró ni por qué los descartó. Algunas de estas medidas son exactamente las del plan correctivo final.
 
-![Dos recorridos entre la orden del operador y el haz: antes, una sola barrera de software; después del plan correctivo de 1987, varias capas, entre ellas un interlock y un potenciómetro de la plataforma y un circuito de hardware que corta tras un pulso alto sin pasar por el software.](../figures/therac-25-capas-de-proteccion.svg "De una barrera de software a capas independientes entre la orden y el haz")
+![Dos recorridos entre la orden del operador y el haz: antes, una sola barrera de software; después del plan correctivo de 1987, varias capas, entre ellas un interlock y un potenciómetro de la plataforma y un circuito de hardware que corta tras un pulso alto sin pasar por el software.](../figures/therac-25-capas-de-proteccion.svg)
 
 **Cómo leer la figura.** Cada fila es un recorrido de la orden al haz. En la de arriba, el software es la única barrera. Abajo, cada caja verde azulada es una capa independiente; las tres cajas blancas son medidas de operación. Mira primero que ninguna de las capas nuevas depende del mismo código. **Dónde deja de valer:** las capas son las del plan final según el artículo; la suficiencia de cada una es una valoración de los autores y de la FDA.
 

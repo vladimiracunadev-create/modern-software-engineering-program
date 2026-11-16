@@ -71,13 +71,13 @@ GitLab vive de suscripciones de las ediciones de pago y de GitLab.com; la confia
 
 ### Contexto y componentes: cuatro caminos de recuperación
 
-![Diagrama con la base primaria db1 y cuatro caminos de recuperación: la réplica db2, que se vació; la copia pg_dump a S3, que falló en silencio; las instantáneas de Azure, no habilitadas para las bases de datos; y la instantánea LVM diaria, que existía para staging y fue la única utilizable.](../figures/gitlab-2017-capas-de-recuperacion.svg "Cuatro caminos de recuperación el 31 de enero de 2017")
+![Diagrama con la base primaria db1 y cuatro caminos de recuperación: la réplica db2, que se vació; la copia pg_dump a S3, que falló en silencio; las instantáneas de Azure, no habilitadas para las bases de datos; y la instantánea LVM diaria, que existía para staging y fue la única utilizable.](../figures/gitlab-2017-capas-de-recuperacion.svg)
 
 **Cómo leer la figura.** La caja oscura de arriba es la base primaria. De ella salen cuatro flechas, una por camino de recuperación; el recuadro de abajo dice qué estado tenía cada uno. Mira primero el color: tres coral y uno dorado. **Dónde deja de valer:** muestra el estado del 31 de enero según el postmortem; no incluye otros servidores de GitLab, y que la instantánea LVM no estuviera pensada para desastres es lo que el texto dice, no una norma general.
 
 ### Flujo crítico: cómo se encadenó el borrado
 
-![Seis pasos encadenados desde una cuenta marcada por abuso y el spam hasta el borrado en la primaria y los respaldos que no existían.](../figures/gitlab-2017-cadena-de-causas.svg "De una cuenta marcada por spam a un borrado en el servidor equivocado")
+![Seis pasos encadenados desde una cuenta marcada por abuso y el spam hasta el borrado en la primaria y los respaldos que no existían.](../figures/gitlab-2017-cadena-de-causas.svg)
 
 **Cómo leer la figura.** Se lee de izquierda a derecha y de arriba abajo. Cada caja es un hecho del postmortem; los colores dorados son las condiciones que subieron la carga, los blancos son decisiones razonables en su contexto y los coral, los dos pasos que convirtieron el incidente en pérdida de datos. **Dónde deja de valer:** el postmortem describe cada paso con la información de ese momento; la figura no reproduce los intentos intermedios ni quién decidió qué.
 
@@ -121,11 +121,11 @@ Todas las horas son UTC y vienen del postmortem de GitLab.
 | 1 de febrero, ≈18:00 | Se terminan los últimos pasos y se confirma la operación |
 | 10 de febrero de 2017 | GitLab publica el postmortem |
 
-![Línea de tiempo en horas desde las 17:00 UTC del 31 de enero de 2017: carga alta de 19:00 a 23:00, resincronización a partir de las 23:00, borrado hacia las 23:30, unas 18 horas sin servicio y restauración a las 17:00 del 1 de febrero.](../figures/gitlab-2017-linea-de-tiempo.svg "Casi 25 horas entre la instantánea manual y el cierre de la restauración")
+![Línea de tiempo en horas desde las 17:00 UTC del 31 de enero de 2017: carga alta de 19:00 a 23:00, resincronización a partir de las 23:00, borrado hacia las 23:30, unas 18 horas sin servicio y restauración a las 17:00 del 1 de febrero.](../figures/gitlab-2017-linea-de-tiempo.svg)
 
 **Cómo leer la figura.** El eje cuenta horas desde las 17:00 UTC del 31 de enero. Los cuatro carriles son la carga, la réplica, la disponibilidad del servicio y los datos que se pierden. Las líneas punteadas fijan la instantánea, el borrado y la restauración. Mira primero la barra coral: es el tiempo sin servicio, el que más pesa para el usuario. **Dónde deja de valer:** la barra de resincronización es aproximada, porque el postmortem no da su inicio exacto, y el cierre de la ventana de datos perdidos aparece como 23:30 y como 00:00 en dos lugares del mismo documento.
 
-![Barras horizontales en horas: casi 24 de datos perdidos con la instantánea diaria, unas 6 con la de las 17:20, unas 18 de copia desde staging y unas 18 de servicio fuera de línea.](../figures/gitlab-2017-horas-en-juego.svg "Datos y tiempo en juego según el respaldo usado")
+![Barras horizontales en horas: casi 24 de datos perdidos con la instantánea diaria, unas 6 con la de las 17:20, unas 18 de copia desde staging y unas 18 de servicio fuera de línea.](../figures/gitlab-2017-horas-en-juego.svg)
 
 **Cómo leer la figura.** Cada barra es un número de horas con un significado distinto: las dos de arriba son datos que se habrían perdido según el punto de restauración; las dos de abajo, tiempo de recuperación. Mira primero la diferencia entre las dos barras de datos: haber tomado la instantánea manual redujo la pérdida de unas 24 horas a unas 6. **Dónde deja de valer:** son órdenes de magnitud con la redacción del postmortem («casi», «unas»), y las barras de datos y de tiempo no se suman.
 
@@ -164,7 +164,7 @@ El postmortem aplica la técnica de los cinco porqués a dos problemas: por qué
 
 > **Esta sección es análisis propio de este programa**, apoyado en la propia lista de mejoras de GitLab y en lo que enseña el curso. GitLab las enumeró como incidencias abiertas; el postmortem no dice si se completaron.
 
-![Cinco pares de cajas: cada debilidad documentada, como avisos perdidos, respaldo no probado o réplica única, unida por una flecha con el compromiso que GitLab publicó, como monitoreo de respaldos, pruebas automáticas de restauración o recuperar réplicas.](../figures/gitlab-2017-antes-y-despues.svg "Cada debilidad del 31 de enero con el compromiso publicado")
+![Cinco pares de cajas: cada debilidad documentada, como avisos perdidos, respaldo no probado o réplica única, unida por una flecha con el compromiso que GitLab publicó, como monitoreo de respaldos, pruebas automáticas de restauración o recuperar réplicas.](../figures/gitlab-2017-antes-y-despues.svg)
 
 **Cómo leer la figura.** A la izquierda, debilidades que documenta el postmortem; a la derecha, el compromiso con el que GitLab respondió. Cada flecha empareja una con otra. Mira primero que los compromisos son sobre recuperación y vigilancia, no sobre prohibir comandos. **Dónde deja de valer:** son compromisos publicados en febrero de 2017; la figura no afirma que se cumplieran.
 

@@ -55,7 +55,7 @@ su commit está en `main` con CI verde.
 | 30 | Desarrollada y profundizada con experimentos sintéticos y modelos de estrategia y técnicas de prueba ejecutados en Windows y Linux, CI verde | `d624d0c8` |
 | 31 | Desarrollada y profundizada con experimentos sintéticos y sondas reales de calidad, rendimiento y resiliencia ejecutados en Windows y Linux, CI verde | `82974c6e` |
 | 36 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de mantenimiento y modernización legacy en Windows y Linux, CI verde | `6212ab15` |
-| 35 | Desarrollada y profundizada con experimentos sintéticos y mediciones de observabilidad, SRE e incidentes ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 35 | Desarrollada y profundizada con experimentos sintéticos y mediciones de observabilidad, SRE e incidentes ejecutados en Windows y Linux , CI verde (Validate y Pages en verde sobre `141d5942`, que incluye el commit; Security verde en `23e1f16e`; el fallo de Security posterior es de la Parte 33) | `f1312f65` |
 | 33 | Desarrollada y profundizada con experimentos sintéticos, firmas reales y escaneo de flujos de CI ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
 | 32 | Desarrollada y profundizada con experimentos sintéticos de seguridad, privacidad y cumplimiento ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
 | 34 | Desarrollada y profundizada con experimentos sintéticos y modelos de CI/CD, infraestructura como código y plataforma ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |

@@ -122,9 +122,9 @@ def prop_repartir(f, sesgo=False):
 
 Cinco ejemplos detectan una de las cuatro versiones defectuosas. Las propiedades detectan las cuatro con 200 casos, y la que depende de `n < k` aparece en solo 87 de 100 semillas porque ese caso es el 1 % de los sorteos uniformes; con el generador sesgado se detecta siempre. La corrección de la versión correcta se mantiene sin falsas alarmas.
 
-![Tabla con cinco versiones de una función de reparto frente a cinco ejemplos y a cuatro propiedades con dos generadores: los ejemplos detectan una versión defectuosa, las propiedades con generador uniforme detectan cuatro y el generador con casos cerca de la frontera detecta las cuatro en las 100 semillas.](../../../content/part-30/figures/se-365-casos-hasta-el-primer-fallo.svg)
+![Barras horizontales con el porcentaje de semillas de 100 que detectan cada una de cuatro versiones defectuosas de una función de reparto: cinco ejemplos detectan una versión, las propiedades con generador uniforme las cuatro (una solo en 87 de 100) y el generador con casos cerca de la frontera las cuatro en las 100.](../../../content/part-30/figures/se-365-casos-hasta-el-primer-fallo.svg)
 
-**Cómo leer la figura.** Cada fila es una versión de la función; las columnas comparan ejemplos y propiedades con dos generadores. **Dónde deja de valer:** los defectos son inyectados y conocidos; un defecto que dependa de un valor puntual (un identificador, una fecha) no se detectaría con ninguno de los dos generadores sin conocerlo. La figura muestra que el generador es parte de la prueba, no que 200 casos basten.
+**Cómo leer la figura.** Cada grupo es una versión defectuosa y cada barra, una forma de probarla; la longitud es el porcentaje de semillas que detectan el defecto, y los ejemplos son deterministas (0 o 100). Mira la tercera versión: es la única donde el generador uniforme no llega a 100. **Dónde deja de valer:** los defectos son inyectados y conocidos; un defecto que dependa de un valor puntual (un identificador, una fecha) no se detectaría con ninguno de los dos generadores sin conocerlo. La figura muestra que el generador es parte de la prueba, no que 200 casos basten.
 
 ### Reducir el contraejemplo
 

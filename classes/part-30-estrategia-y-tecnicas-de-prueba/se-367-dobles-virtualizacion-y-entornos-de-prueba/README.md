@@ -121,9 +121,9 @@ COMPROBACIONES = {
 
 El diccionario ingenuo pasa cuatro y deja pasar datos que la base rechaza; una prueba del servicio con él aceptaría una nota de 9,0. El diccionario con reglas pasa las ocho, pero «pasa las ocho» significa que reproduce esas ocho: no hay comprobación de transacciones, de índices ni de un orden con otra colación. Una de las cuatro que el ingenuo supera (el orden con nulos) la supera por casualidad, porque su ordenamiento trata `None` como 0 y coincide con el de SQLite para ese conjunto.
 
-![Tabla con tres implementaciones de un repositorio frente a ocho comprobaciones de contrato: SQLite real pasa 8, un diccionario ingenuo pasa 4 y un diccionario con las reglas añadidas pasa 8.](../../../content/part-30/figures/se-367-fidelidad-de-los-dobles.svg)
+![Barras apiladas horizontales con las comprobaciones de contrato superadas y no superadas de tres implementaciones de un repositorio: SQLite real pasa 8 de 8, un diccionario ingenuo pasa 4 y un diccionario con las reglas añadidas pasa 8.](../../../content/part-30/figures/se-367-fidelidad-de-los-dobles.svg)
 
-**Cómo leer la figura.** Cada fila es una implementación; la segunda columna cuenta las comprobaciones superadas de ocho. **Dónde deja de valer:** las ocho comprobaciones son las que el autor pensó; un doble puede superarlas y diferir en otras que no se escribieron. La figura no dice que un doble con reglas sea tan bueno como la base: dice que su infidelidad es medible con la batería que se escriba.
+**Cómo leer la figura.** Cada barra mide ocho comprobaciones: el tramo verde son las superadas y el rojo, las que el doble no reproduce. Mira cuánto de la barra del diccionario ingenuo es rojo. **Dónde deja de valer:** las ocho comprobaciones son las que el autor pensó; un doble puede superarlas y diferir en otras que no se escribieron. La figura no dice que un doble con reglas sea tan bueno como la base: dice que su infidelidad es medible con la batería que se escriba.
 
 ### Tres estilos de prueba frente a refactorizaciones neutras
 
@@ -149,9 +149,9 @@ def prueba_estado(S):
 
 Dos de tres refactorizaciones neutras rompen la prueba con asertos de llamadas, y una rompe la que además fija las consultas; la prueba de estado no se rompe con ninguna. Las tres detectan el defecto real. El mock no es peor detectando el defecto: es peor tolerando cambios que no importan, y cada falsa alarma es un costo de mantenimiento y una razón para no refactorizar.
 
-![Tabla con cinco versiones de un servicio frente a tres estilos de prueba: tres refactorizaciones que no cambian el comportamiento rompen la prueba con asertos de llamadas en dos casos y la de consultas exactas en uno, la prueba de estado en ninguno, y las tres detectan el defecto.](../../../content/part-30/figures/se-367-pruebas-acopladas-a-la-interaccion.svg)
+![Barras agrupadas: ante tres refactorizaciones neutras, la prueba con asertos de llamadas da falsa alarma dos veces, la de consultas exactas una y la de estado ninguna; las tres detectan el defecto real.](../../../content/part-30/figures/se-367-pruebas-acopladas-a-la-interaccion.svg)
 
-**Cómo leer la figura.** Cada fila es una versión del servicio; cada columna, un estilo de prueba; «Falla» en una refactorización neutra es una falsa alarma. **Dónde deja de valer:** son tres refactorizaciones elegidas por el autor sobre un servicio de diez líneas; no dicen con qué frecuencia ocurren en un proyecto real. La figura no desaconseja los mocks: muestra el costo de usarlos donde el estado es observable.
+**Cómo leer la figura.** Cada grupo es un estilo de prueba; la barra roja cuenta las falsas alarmas ante refactorizaciones que no cambian el comportamiento (de 3) y la verde, el defecto real detectado. Mira que la barra verde es igual en los tres y la roja no. **Dónde deja de valer:** son tres refactorizaciones elegidas por el autor sobre un servicio de diez líneas; no dicen con qué frecuencia ocurren en un proyecto real. La figura no desaconseja los mocks: muestra el costo de usarlos donde el estado es observable.
 
 ### Qué cambia sin tocar el código
 
@@ -173,9 +173,9 @@ r = subprocess.run([sys.executable, "-c", CODIGO], capture_output=True, text=Tru
 
 El orden de un conjunto cambia en 11 de 12 procesos en ambos sistemas: una prueba que lo compara con una lista fija falla casi siempre en alguno y pasa en otros, sin que haya un defecto. La codificación y el salto de línea cambian entre sistemas: la misma prueba que escribe y lee un archivo da bytes distintos. Forzar el modo UTF-8 arregla la codificación en Windows (195, 169) y no el salto de línea, que sigue siendo 13, 10. Ordenar antes de comparar, declarar la codificación y el salto de línea en cada `open` son correcciones que no dependen del entorno.
 
-![Tabla con el comportamiento de un mismo script en Windows 11 y en Ubuntu bajo WSL2: el orden de un conjunto cambia con la semilla de hash en ambos, y el separador de rutas, la codificación por defecto y los bytes de un archivo de texto difieren.](../../../content/part-30/figures/se-367-diferencias-de-entorno.svg)
+![Tres filas de bytes de la letra «é» seguida de un salto de línea: en Windows por defecto 233, 13, 10; en Windows con PYTHONUTF8=1 195, 169, 13, 10; en Ubuntu 195, 169, 10.](../../../content/part-30/figures/se-367-diferencias-de-entorno.svg)
 
-**Cómo leer la figura.** Cada fila es un comportamiento observable de un mismo script; las dos columnas son sistemas distintos. **Dónde deja de valer:** son dos entornos concretos con una versión de Python cada uno; otro sistema, otra configuración regional o un contenedor darían otros valores. La figura es la única de la parte cuyos valores difieren por sistema, y esa diferencia es la que enseña.
+**Cómo leer la figura.** Cada fila es un entorno y cada casilla, un byte: las verdes son los bytes de la letra y las doradas, los del salto de línea. Mira qué casillas cambian al forzar UTF-8 (las verdes) y cuáles siguen distintas entre sistemas (las doradas). **Dónde deja de valer:** son dos entornos concretos con una versión de Python cada uno; otro sistema, otra configuración regional o un contenedor darían otros valores. La figura es la única de la parte cuyos valores difieren por sistema, y esa diferencia es la que enseña.
 
 ## Definiciones de trabajo
 

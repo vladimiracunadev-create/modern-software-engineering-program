@@ -129,9 +129,9 @@ def verificar_contrato(texto):
 
 El doble fijo no detecta ninguno de los ocho, por construcción: siempre devuelve lo que se escribió. El contrato detecta cinco de los seis cambios que rompen al panel y no ve el orden invertido porque no lo declara. La prueba contra la respuesta real los ve todos porque ejecuta al panel, y no da falsas alarmas. La comparación de esquema completo acierta el renombrado y da una falsa alarma con el campo extra; no detecta cambios de tipo ni de valores.
 
-![Tabla con ocho cambios del proveedor y cuatro pruebas del consumidor: el doble fijo no detecta ninguno, el contrato cinco de seis, la respuesta real los seis y la comparación de esquema completo uno con una falsa alarma.](../../../content/part-30/figures/se-363-cambios-del-proveedor-y-pruebas.svg)
+![Barras agrupadas: de ocho cambios del proveedor, seis rompen al panel; el doble fijo no detecta ninguno, el contrato cinco, la respuesta real los seis y la comparación del esquema completo uno con una falsa alarma.](../../../content/part-30/figures/se-363-cambios-del-proveedor-y-pruebas.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio del proveedor; cada columna, una prueba. «Sí» significa que la prueba falla ante el cambio. **Dónde deja de valer:** la respuesta real detecta todo porque el panel de juguete tiene una sola expectativa exacta; un consumidor con salida menos rígida detectaría menos. La figura muestra qué clase de prueba puede ver qué clase de cambio, no con qué frecuencia ocurre cada uno.
+**Cómo leer la figura.** Cada grupo es una prueba del consumidor; la barra verde cuenta los cambios que rompen al panel y esa prueba detecta (la línea punteada marca los seis que rompen) y la barra roja, las falsas alarmas. Mira la distancia entre cada barra verde y la línea. **Dónde deja de valer:** la respuesta real detecta todo porque el panel de juguete tiene una sola expectativa exacta; un consumidor con salida menos rígida detectaría menos. La figura muestra qué clase de prueba puede ver qué clase de cambio, no con qué frecuencia ocurre cada uno.
 
 ### Todo el esquema o solo lo que cada consumidor usa
 
@@ -152,9 +152,9 @@ Tres consumidores usan campos distintos: el panel (`estudiante`, `nota`, `estado
 
 De las ocho alarmas, seis afectan al menos a un consumidor y dos a ninguno. Lo más valioso del enfoque por consumidor es la columna de la derecha: dice a quién avisar, cosa que la alarma global no sabe. El panel no lee `pagina` ni `total` en este modelo, de modo que su ausencia no le afecta; si algún consumidor empieza a leerlos, su contrato debe cambiar antes.
 
-![Tabla con diez cambios del proveedor: la diferencia de esquema completo da ocho alarmas, seis con consumidores afectados y dos falsas, y los contratos por consumidor indican quién se rompe.](../../../content/part-30/figures/se-363-contratos-por-consumidor.svg)
+![Barras horizontales para diez cambios del proveedor: el diff de esquema completo da alarma en ocho, pero en dos de ellos ningún consumidor se rompe; los que sí rompen afectan a uno, dos o tres consumidores.](../../../content/part-30/figures/se-363-contratos-por-consumidor.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio; las columnas comparan la alarma global con el conjunto de consumidores realmente afectados. **Dónde deja de valer:** los usos por consumidor son una tabla escrita por el autor; en un sistema real el uso se declara, se infiere de las trazas o se descubre en un incidente, y cada vía tiene su propio error. La figura no dice que los contratos por consumidor sean gratuitos: alguien debe mantenerlos.
+**Cómo leer la figura.** Cada fila es un cambio; la barra verde cuenta los consumidores que realmente se rompen y la dorada vale 1 cuando el diff de esquema completo da alarma. Las filas con barra dorada y sin barra verde son falsas alarmas. **Dónde deja de valer:** los usos por consumidor son una tabla escrita por el autor; en un sistema real el uso se declara, se infiere de las trazas o se descubre en un incidente, y cada vía tiene su propio error. La figura no dice que los contratos por consumidor sean gratuitos: alguien debe mantenerlos.
 
 ### Dónde localiza el fallo cada tipo de prueba
 

@@ -123,9 +123,9 @@ for p in orden:
 
 Con una base compartida, 490 de 500 órdenes tienen algún fallo y producen 234 combinaciones de resultados distintas: ninguna prueba individual tiene un defecto, y el resultado cambia con el orden. Tampoco el orden de definición pasa todas las pruebas. Las otras dos estrategias dan siempre el mismo resultado; recrear la base cuesta 72 sentencias por corrida y la transacción 24, un tercio. La transacción aísla lo que ocurre dentro de la base; no aísla un archivo que la prueba escriba ni una variable global.
 
-![Tabla con tres formas de preparar la base para doce pruebas en 500 órdenes aleatorios: con estado compartido fallan 490 órdenes y hay 234 resultados distintos; con una base nueva por prueba o con una transacción con retroceso no falla ningún orden, y preparar cuesta 72 y 24 sentencias.](../../../content/part-30/figures/se-368-fixtures-y-orden-de-ejecucion.svg)
+![Barras horizontales con las órdenes de 500 que tienen algún fallo al ejecutar doce pruebas: con estado compartido fallan 490; con una base nueva por prueba (72 sentencias) o con una transacción con retroceso (24 sentencias) no falla ninguna.](../../../content/part-30/figures/se-368-fixtures-y-orden-de-ejecucion.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; las columnas cuentan órdenes con fallos, resultados distintos y el costo de preparar. **Dónde deja de valer:** cinco de las doce pruebas se escribieron para mutar el estado compartido, de modo que la proporción de fallos de una suite real será menor; el costo se mide en sentencias, no en tiempo. La figura muestra el mecanismo y el precio del aislamiento, no una tasa.
+**Cómo leer la figura.** Cada barra es una forma de preparar la base y su longitud, las órdenes aleatorias con algún fallo; el costo de preparar va en la etiqueta. Mira el contraste entre la barra larga y las dos ausentes, y el precio que lo compra. **Dónde deja de valer:** cinco de las doce pruebas se escribieron para mutar el estado compartido, de modo que la proporción de fallos de una suite real será menor; el costo se mide en sentencias, no en tiempo. La figura muestra el mecanismo y el precio del aislamiento, no una tasa.
 
 ### Una propiedad que falla una de cada diez veces
 
@@ -146,9 +146,9 @@ for e in generar_entregas(rng, 20):
 
 Una probabilidad de 0,48 % por entrega se convierte en 10,9 % por prueba, unas 23 veces mayor. Quien relanza la prueba ve que «a veces falla» y la archiva como intermitente; quien registró la semilla 6 la repite siempre y descubre la causa: una nota bruta de 1,0 con atraso. El defecto no es del generador, es de la propiedad: con nota mínima no puede ser menor. La corrección es enunciarla con `<=` o excluir el mínimo, no «arreglar la aleatoriedad».
 
-![Tabla con una propiedad con datos aleatorios: falla con 0,48 por ciento de las entregas individuales y con 10,9 por ciento de las pruebas de 20 entregas; con la semilla 6 anotada se reproduce 100 de 100 veces y sin semilla fija falla entre 87 y 101 de 1 000 corridas sin poder reproducirse.](../../../content/part-30/figures/se-368-datos-aleatorios-con-semilla.svg)
+![Barras horizontales en escala logarítmica con el porcentaje de ejecuciones que violan una propiedad: 0,48 por ciento por entrega individual, 10,9 por ciento en pruebas de 20 entregas, 100 por ciento con la semilla 6 anotada y entre 8,7 y 10,1 por ciento sin semilla fija.](../../../content/part-30/figures/se-368-datos-aleatorios-con-semilla.svg)
 
-**Cómo leer la figura.** Cada fila es una medida de la misma propiedad; la tercera columna explica qué significa. **Dónde deja de valer:** el 0,48 % depende del redondeo y de las distribuciones elegidas por el autor; el rango de la corrida sin semilla (87 a 101) cambia con cada ejecución y entre sistemas. La figura enseña que registrar la semilla convierte un fallo del tipo «a veces» en uno reproducible, no que 10,9 % sea una tasa general.
+**Cómo leer la figura.** Cada barra es una medida de la misma propiedad y el eje es logarítmico: cada marca vale diez veces la anterior. Mira el salto de 0,48 % a 10,9 % al pasar de una entrega a veinte, y la diferencia entre 100 % con semilla y un valor que cambia sin ella. **Dónde deja de valer:** el 0,48 % depende del redondeo y de las distribuciones elegidas por el autor; el rango de la corrida sin semilla (87 a 101) cambia con cada ejecución y entre sistemas. La figura enseña que registrar la semilla convierte un fallo del tipo «a veces» en uno reproducible, no que 10,9 % sea una tasa general.
 
 ### Ocho fuentes de no determinismo
 

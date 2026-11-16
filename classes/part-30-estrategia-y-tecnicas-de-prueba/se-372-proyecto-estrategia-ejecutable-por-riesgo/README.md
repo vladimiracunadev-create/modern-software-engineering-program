@@ -125,9 +125,9 @@ def trimestre(h, rng, comp=COMP, real=None):
 
 Tener pruebas reduce la pérdida media de 42,41 a 24,09 con el reparto más pobre; elegir el reparto marginal con exposición la baja a 21,37 (11 %) y el percentil 95 de 39,30 a 35,10 (11 %). Los escapes medios casi no cambian entre estrategias (de 7,9 a 8,7) y la pérdida sí: lo que mejora el reparto por riesgo es cuáles se escapan (los de menor impacto) no cuántos. Esto contradice la intuición de que «menos escapes» es el objetivo: el objetivo es menos pérdida.
 
-![Tabla con 2 000 trimestres simulados con 40 horas de pruebas: sin pruebas la pérdida media es 42,41; con reparto uniforme 24,09; con el reparto marginal con exposición 21,37 y percentil 95 de 35,10 frente a 39,30; los escapes medios pasan de 15,69 a entre 7,9 y 8,7.](../../../content/part-30/figures/se-372-un-trimestre-simulado.svg)
+![Barras horizontales con la pérdida media y el percentil 95 de un trimestre simulado para seis estrategias de reparto de 40 horas: sin pruebas 42,41 y 62,00; uniforme 24,09 y 39,30; marginal con exposición 21,37 y 35,10.](../../../content/part-30/figures/se-372-un-trimestre-simulado.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; las columnas son la pérdida media del trimestre, su percentil 95 y los escapes medios, menos es mejor. **Dónde deja de valer:** los cambios por componente, la probabilidad \(p/4\) por cambio y el costo de un escape son supuestos del autor; con otro reparto de cambios o con defectos correlacionados, las diferencias entre estrategias cambian. La figura compara estrategias bajo los mismos supuestos, no predice un trimestre.
+**Cómo leer la figura.** Cada grupo es una estrategia; la barra verde es la pérdida media y la roja, el percentil 95 (el mal trimestre); menos es mejor. Mira el salto grande entre no tener pruebas y tenerlas, y las diferencias pequeñas entre los repartos. **Dónde deja de valer:** los cambios por componente, la probabilidad \(p/4\) por cambio y el costo de un escape son supuestos del autor; con otro reparto de cambios o con defectos correlacionados, las diferencias entre estrategias cambian. La figura compara estrategias bajo los mismos supuestos, no predice un trimestre.
 
 ### Reasignar tras un incidente
 
@@ -143,9 +143,9 @@ Un incidente multiplica por tres la probabilidad de defecto de plazos y zonas ho
 
 Reasignar mueve 2,3 horas fuera de notificaciones y 3,7 horas hacia plazos, y mejora poco (3,8 % en la pérdida media simulada), porque el plan anterior ya era razonable. El valor de reasignar es que la decisión queda justificada por un dato nuevo. Tres componentes quedan por debajo de 2 horas; entre ellos la autenticación, de impacto 10: la estrategia debe decidir si impone un piso (se vuelve a `SE-361`) o si la declara exclusión con razón y caducidad.
 
-![Tabla con la reasignación del presupuesto tras un incidente en plazos y zonas horarias: 2,3 horas salen de notificaciones y 3,7 llegan a plazos; la pérdida esperada pasa de 0,706 a 0,678 y la media simulada de 22,59 a 21,73; tres componentes quedan bajo 2 horas.](../../../content/part-30/figures/se-372-reasignar-tras-un-incidente.svg)
+![Flujo de cuatro pasos tras un incidente en plazos y zonas horarias: cambian las probabilidades, se reasignan las horas, la pérdida esperada baja de 0,706 a 0,678 y la simulada de 22,59 a 21,73, y tres componentes quedan bajo 2 horas.](../../../content/part-30/figures/se-372-reasignar-tras-un-incidente.svg)
 
-**Cómo leer la figura.** Cada fila es lo que cambia entre el plan anterior y el reasignado, con su motivo. **Dónde deja de valer:** el incidente y sus factores (×3 y ×0,5) son una construcción del autor; los componentes bajo 2 horas dependen de que no haya un piso de impacto, y una política con piso cambiaría la lista. La figura no dice que reasignar valga poco: dice que, con un plan razonable, la mejora es pequeña y la justificación es el principal beneficio.
+**Cómo leer la figura.** Cada caja es un paso, de izquierda a derecha, con las cifras de ese paso: del incidente a la reasignación, su efecto en la pérdida y los componentes que quedan con menos de 2 horas. Mira el tamaño del efecto en el tercer paso. **Dónde deja de valer:** el incidente y sus factores (×3 y ×0,5) son una construcción del autor; los componentes bajo 2 horas dependen de que no haya un piso de impacto, y una política con piso cambiaría la lista. La figura no dice que reasignar valga poco: dice que, con un plan razonable, la mejora es pequeña y la justificación es el principal beneficio.
 
 ### El validador y sus 200 mutaciones
 
@@ -169,9 +169,9 @@ if abs(sum(r["horas"] for r in p["riesgos"]) - p["presupuesto_horas"]) > 0.15: e
 
 El acumulado por nivel es 60, 124 y 186 de 200. Quedan 14 sin detectar: 13 cambios de redacción que no deben detectarse y un cambio de nivel que cae en otro nivel igualmente válido para esa clase de fallo, que no cambia nada. Todas las mutaciones que cambian el contenido se detectaron, y la estructura sola solo ve un tercio de ellas: las incoherencias de riesgo (un nivel que no ve la clase, un riesgo alto sin horas) y de presupuesto exigen reglas del dominio.
 
-![Tabla con el validador del paquete de estrategia: 200 mutaciones detectadas según el primer nivel que las atrapa, 60 por estructura, 124 con coherencia de riesgo y 186 con presupuesto y trazabilidad; los 13 cambios de redacción inocuos no se detectan.](../../../content/part-30/figures/se-372-validador-de-la-estrategia.svg)
+![Barra apilada con las 200 mutaciones del paquete de estrategia según el nivel que las detecta: 60 estructura, 64 coherencia, 29 presupuesto y 33 trazabilidad, 186 en total; las 14 restantes son 13 cambios de redacción inocuos y una mutación equivalente.](../../../content/part-30/figures/se-372-validador-de-la-estrategia.svg)
 
-**Cómo leer la figura.** Cada fila agrupa mutaciones del paquete; las columnas dicen cuántas se detectaron y en qué nivel. **Dónde deja de valer:** las reglas se diseñaron con los mismos tipos de mutación que las miden y las cifras de detección son una consecuencia de ese ajuste; un paquete incorrecto de un tipo no contemplado puede pasar los tres niveles. La figura no mide la exactitud real del validador: muestra qué reglas atrapan qué incoherencias.
+**Cómo leer la figura.** La barra mide las 200 mutaciones y cada tramo es el primer nivel que las detecta; el tramo rojo son las que no se detectan. Mira que el tramo rojo corresponde a mutaciones que no deben detectarse. **Dónde deja de valer:** las reglas se diseñaron con los mismos tipos de mutación que las miden y las cifras de detección son una consecuencia de ese ajuste; un paquete incorrecto de un tipo no contemplado puede pasar los tres niveles. La figura no mide la exactitud real del validador: muestra qué reglas atrapan qué incoherencias.
 
 ## Definiciones de trabajo
 

@@ -142,9 +142,9 @@ Un reparto por riesgo es tan bueno como sus estimaciones. Se simulan 5 000 «rea
 
 Con estimaciones equivocadas hasta por un factor 2, el reparto por riesgo pierde en mediana 12,8 % más que el óptimo desconocido y el uniforme 27,1 %. El reparto por riesgo supera al uniforme en 97,2 % de las 5 000 realidades. Lo que no se conserva es el ranking: el trío de componentes más arriesgados de la realidad difiere del trío estimado en 74,2 % de los casos. El plan es robusto en lo que reparte y frágil en lo que nombra: no hay que confiar en que «los tres más riesgosos» sean los que se creyó.
 
-![Tabla con la pérdida real dividida por la pérdida del plan óptimo para cuatro estrategias bajo estimaciones erradas hasta un factor dos: mediana, percentil 90 y máximo.](../../../content/part-30/figures/se-361-sensibilidad-a-las-estimaciones.svg)
+![Intervalos horizontales con la mediana, el percentil 90 y el máximo de la pérdida real dividida por la del plan óptimo para cuatro estrategias bajo estimaciones erradas hasta un factor dos: el reparto por probabilidad por impacto y el marginal quedan entre 1,10 y 1,46 veces el óptimo, el uniforme llega a 1,955 y el proporcional al tamaño a 2,382.](../../../content/part-30/figures/se-361-sensibilidad-a-las-estimaciones.svg)
 
-**Cómo leer la figura.** Una razón de 1,0 sería un plan perfecto; cada celda indica cuántas veces más pierde el plan que el óptimo de la realidad. **Dónde deja de valer:** el factor 2 y su distribución son supuestos; si las estimaciones del equipo tienen sesgos sistemáticos (se subestiman siempre los fallos de integración, por ejemplo), el error no es simétrico y el resultado empeora. La figura tampoco compara contra una persona que reparte «por instinto».
+**Cómo leer la figura.** Cada fila es una estrategia y cada intervalo va de su mejor caso típico (mediana) a su peor caso observado (máximo), con el percentil 90 en medio; la línea punteada en 1,0 sería un plan perfecto, y cuanto más a la derecha, más veces pierde el plan que el óptimo de la realidad. Mira primero cuán lejos de 1,0 queda el extremo de cada intervalo. **Dónde deja de valer:** el factor 2 y su distribución son supuestos; si las estimaciones del equipo tienen sesgos sistemáticos (se subestiman siempre los fallos de integración, por ejemplo), el error no es simétrico y el resultado empeora. La figura tampoco compara contra una persona que reparte «por instinto».
 
 ### Qué nivel de prueba puede ver qué fallo
 
@@ -160,9 +160,9 @@ for r in range(1, len(niveles) + 1):
 
 El resultado es el conjunto unitaria + contrato + extremo a extremo + carga, con 91,1 minutos por ejecución. Las pruebas unitarias solas cubren dos de ocho clases; sumar integración y contrato eleva la cobertura a cuatro. Lo notable es que las cuatro clases restantes (recorrido de usuario, concurrencia, rendimiento y accesibilidad) solo las ven niveles caros, de modo que una estrategia con miles de pruebas unitarias y ninguna de carga no tiene cobertura de rendimiento aunque sus números parezcan altos.
 
-![Tabla con seis niveles de prueba, su costo supuesto en minutos y las clases de fallo que pueden ver; el conjunto mínimo que cubre las ocho clases cuesta 91,1 minutos.](../../../content/part-30/figures/se-361-niveles-de-prueba-y-clases-de-fallo.svg)
+![Mapa de calor de seis niveles de prueba frente a ocho clases de fallo: cada celda marcada es una clase que el nivel puede ver; ningún nivel cubre las ocho y el conjunto más barato que sí las cubre cuesta 91,1 minutos.](../../../content/part-30/figures/se-361-niveles-de-prueba-y-clases-de-fallo.svg)
 
-**Cómo leer la figura.** Cada fila es un nivel; las clases de fallo son lo que ese nivel puede, en principio, ver. **Dónde deja de valer:** la matriz es una decisión del autor y la visibilidad real depende de la prueba concreta: una prueba de extremo a extremo mal escrita no ve el recorrido que dice cubrir. La figura es un punto de partida para discutir qué nivel asignar, no una tabla de verdades.
+**Cómo leer la figura.** Cada fila es un nivel con su costo supuesto por ejecución; cada columna es una clase de fallo, y una celda coloreada significa que ese nivel puede, en principio, verla. Mira primero qué columnas quedan con una sola celda (lógica pura, rendimiento) y qué fila ve más clases por minuto. **Dónde deja de valer:** la matriz es una decisión del autor y la visibilidad real depende de la prueba concreta: una prueba de extremo a extremo mal escrita no ve el recorrido que dice cubrir. La figura es un punto de partida para discutir qué nivel asignar, no un veredicto.
 
 ## Definiciones de trabajo
 

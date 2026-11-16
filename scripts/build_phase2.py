@@ -86,6 +86,46 @@ PART_SOURCE_MAP = {
 }
 
 README_FOCUS = {
+    "00": "disciplina, ética, evidencia y calidad",
+    "01": "máquina, datos, memoria y runtimes",
+    "02": "Windows, Linux, macOS, shells y diagnóstico",
+    "03": "TCP/IP, DNS, HTTP, TLS y observación",
+    "04": "lógica, modelos, complejidad y estrategias",
+    "05": "control, funciones, datos, errores y pruebas",
+    "06": "imperativo, objetos, funcional, lógico y reactivo",
+    "07": "colecciones, grafos, diseño y medición",
+    "08": "IDE, depuración, profiling y reproducibilidad",
+    "09": "dependencias, SemVer, CLI, plugins y DevEx",
+    "10": "problema, usuarios, outcomes y experimentación",
+    "11": "valor, TCO, costes y priorización",
+    "12": "elicitación, calidad, trazabilidad y cambio",
+    "13": "SPEC, invariantes, estados, APIs y aceptación",
+    "14": "UX, inclusión, contenido e i18n",
+    "15": "flujo, incertidumbre y forecasting",
+    "16": "historial, revisión, releases y gobernanza",
+    "17": "docs-as-code, ADR, RFC y runbooks",
+    "18": "interfaces textuales, jobs y procesos",
+    "19": "navegador, UI, estado y PWA",
+    "20": "servicios, contratos, workers y tiempo real",
+    "21": "plataformas, distribución y ciclo de vida",
+    "22": "firmware, hardware, OTA y temporización",
+    "23": "ciencia, industria, regulación y safety",
+    "24": "modularidad, patrones y deuda",
+    "25": "límites, estilos, DDD y evolución",
+    "26": "modelos, transacciones, índices y backup",
+    "27": "colas, streams, sagas y compatibilidad",
+    "28": "coordinación, fallos, consistencia y consenso",
+    "29": "nube, contenedores, IaC y costes",
+    "30": "niveles, propiedades, contratos y E2E",
+    "31": "atributos, carga, degradación y recuperación",
+    "32": "amenazas, controles, privacidad y evidencia",
+    "33": "artefactos, SBOM, firma y procedencia",
+    "34": "pipelines, despliegue y autoservicio",
+    "35": "señales, SLO, guardias y aprendizaje",
+    "36": "arqueología, migración, EOL y retiro",
+    "37": "equipos, comunicación y decisiones",
+    "38": "copilots, contexto, evals y seguridad",
+    "39": "MCP, agentes, delegación y control",
     "40": "TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD",
     "41": "contexto, herramientas, bucles y recuperación",
     "42": "patrones de agentes, evaluación y límites",
@@ -123,19 +163,18 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
         f">{plan_clause} Una\n"
         "> carpeta o página generada no cuenta como aprendizaje terminado."
     )
-    blocks["parts-note"] = "\n".join([
-        f"> {ps.the_parts(developed)} ({dev_ranges}) {'está' if len(developed) == 1 else 'están'} desarrolladas y publicadas en el portal.",
-        "> Las Partes 40–44 (`SE-481`–`SE-540`) se añadieron al",
-        "> alcance el 13 de noviembre de 2026 sin renumerar las anteriores (ver",
-        "> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) y la",
-        "> [auditoría de brechas](docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Una parte nueva solo cuenta",
-        "> como desarrollada cuando existe su contenido completo; `curriculum.yaml`, el catálogo y el portal",
-        f"> cuentan hoy {n_classes} clases y {n_parts} partes desarrolladas.{plan_clause}",
-        f"> «{scope['part_count']} partes» expresa la cantidad planificada; la Parte 00 es la primera unidad.",
-    ])
+    blocks["parts-note"] = (
+        "> Una parte cuenta como desarrollada solo cuando existe su contenido completo; el estado de revisión"
+        "\n> se declara una vez, en el encabezado. El alcance de 540 clases se decidió en"
+        "\n> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md)."
+        + (f"\n>{plan_clause}" if planned else "")
+    )
     plan_by_id = {part["id"]: part for part in build_full_plan_cached()}
-    rows = []
-    for number in range(40, scope["part_count"]):
+    rows = [
+        "| # | Parte | Clases | Foco | README |",
+        "| ---: | --- | --- | --- | --- |",
+    ]
+    for number in range(scope["part_count"]):
         part = plan_by_id[f"{number:02d}"]
         first, last = part["lessons"][0]["id"], part["lessons"][-1]["id"]
         if number in developed:
@@ -143,22 +182,22 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
         else:
             link = "planificada"
         rows.append(f"| {part['id']} | {part['title']} | {first}–{last} | {README_FOCUS[part['id']]} | {link} |")
-    blocks["part-rows"] = "\n".join(rows)
+    blocks["parts-table"] = "\n".join(rows)
     blocks["flat-index"] = f"➡️ [Abrir el índice plano con enlaces directos a las {n_classes} clases publicadas](classes/README.md)."
     blocks["coverage"] = "\n".join([
         "| Superficie | Evidencia verificable |",
         "| --- | --- |",
         f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004) |",
-        f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges}), pendientes de revisión editorial humana independiente; {plan_clause_short} |",
+        f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges})" + (f"; {plan_clause_short}" if planned else "") + " |",
         f"| contratos | {n_classes} metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |",
         "| fuentes | línea base y registros por clase y por parte |",
         f"| navegación | índice global, {n_parts} índices de parte y enlaces anterior/siguiente |",
         f"| portal | {1 + n_parts + n_classes} páginas generadas y desplegadas por CI |",
-        f"| carrera | 42 guías profesionales enlazadas a partes reales; {nav_clause} |",
+        "| carrera | 42 guías profesionales enlazadas a partes reales" + (f"; {nav_clause}" if planned else "") + " |",
     ])
     blocks["is-bullet"] = (
-        f"una arquitectura curricular **secuencial** de {scope['class_count']} clases planificadas en {scope['part_count']} partes, "
-        f"con {n_classes} clases y {n_parts} partes publicadas;"
+        f"una arquitectura curricular **secuencial** de {scope['class_count']} clases en {scope['part_count']} partes"
+        + (", todas con contenido publicado;" if not planned else f", con {n_classes} clases y {n_parts} partes publicadas;")
     )
     return blocks
 
@@ -177,6 +216,9 @@ def build_full_plan_cached() -> list[dict]:
 
 
 INLINE_BLOCKS = {"is-bullet"}
+# Las tablas llevan líneas en blanco alrededor de los marcadores: un comentario HTML pegado a una
+# tabla puede cortarla o hacerla parte del bloque HTML en GitHub.
+TABLE_BLOCKS = {"parts-table", "coverage"}
 README_MARKER = re.compile(r"<!-- state:([a-z-]+) -->\n?(.*?)\n?<!-- /state:\1 -->", re.DOTALL)
 
 
@@ -188,7 +230,7 @@ def render_readme(original: str, blocks: dict[str, str]) -> str:
         if name not in blocks:
             raise ValueError(f"Unknown README state block: {name}")
         seen.add(name)
-        sep = "" if name in INLINE_BLOCKS else "\n"
+        sep = "" if name in INLINE_BLOCKS else "\n\n" if name in TABLE_BLOCKS else "\n"
         return f"<!-- state:{name} -->{sep}{blocks[name]}{sep}<!-- /state:{name} -->"
 
     rendered = README_MARKER.sub(replace, original)

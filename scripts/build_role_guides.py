@@ -34,6 +34,88 @@ INDEX_START = "<!-- role-index-depth:start -->"
 INDEX_END = "<!-- role-index-depth:end -->"
 
 
+# Agrupación gruesa de las guías para el README raíz: (familia, [(archivo, foco en una línea)]).
+ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
+    (
+        '💻 Construcción de productos y sistemas',
+        [
+            ('software-engineer.md', 'ciclo de vida de extremo a extremo'),
+            ('systems-programmer.md', 'memoria, procesos, concurrencia y recursos'),
+            ('backend-engineer.md', 'servicios, dominio, datos y operación'),
+            ('frontend-engineer.md', 'interfaces accesibles, rápidas y mantenibles'),
+            ('full-stack-engineer.md', 'fragmentos verticales con contratos y despliegue'),
+            ('mobile-engineer.md', 'ciclo de vida, offline, sincronización y distribución'),
+            ('desktop-engineer.md', 'integración nativa, instalación y actualización'),
+            ('embedded-iot-engineer.md', 'firmware, RTOS, energía, telemetría y OTA'),
+            ('safety-critical-software-engineer.md', 'hazards, controles y assurance'),
+        ],
+    ),
+    (
+        '🔗 APIs, datos y sistemas distribuidos',
+        [
+            ('api-engineer.md', 'contratos, compatibilidad, experiencia y gobernanza'),
+            ('data-engineer.md', 'pipelines, contratos, calidad y lineage'),
+            ('database-reliability-engineer.md', 'capacidad, migraciones y recuperación'),
+            ('distributed-systems-engineer.md', 'consistencia, coordinación y fallos parciales'),
+        ],
+    ),
+    (
+        '🧪 Calidad, inclusión y análisis',
+        [
+            ('qa-test-engineer.md', 'riesgo, exploración y automatización'),
+            ('performance-engineer.md', 'profiling, carga, percentiles y capacidad'),
+            ('accessibility-engineer.md', 'WCAG, tecnología asistiva y prevención de barreras'),
+            ('internationalization-engineer.md', 'Unicode, locales, tiempo, RTL y localización'),
+            ('requirements-engineer.md', 'elicitación, reglas y trazabilidad'),
+        ],
+    ),
+    (
+        '🚀 Cloud, entrega, confiabilidad y plataforma',
+        [
+            ('devops-engineer.md', 'entrega repetible, supply chain y rollback'),
+            ('build-release-engineer.md', 'artefactos, procedencia, firma y promoción'),
+            ('cloud-engineer.md', 'IAM, infraestructura, automatización y recuperación'),
+            ('site-reliability-engineer.md', 'SLO, capacidad, incidentes y aprendizaje'),
+            ('observability-engineer.md', 'logs, métricas, trazas y diagnóstico'),
+            ('platform-engineer.md', 'IDP, golden paths y autoservicio'),
+            ('developer-experience-engineer.md', 'tooling, onboarding y feedback loops'),
+        ],
+    ),
+    (
+        '🔐 Gobierno, economía y sostenibilidad',
+        [
+            ('security-engineer.md', 'secure design, AppSec y respuesta'),
+            ('compliance-engineer.md', 'obligación, control, prueba y evidencia'),
+            ('finops-engineer.md', 'costes unitarios, forecast y decisiones de valor'),
+            ('green-software-engineer.md', 'eficiencia, carbono y GreenOps medidos'),
+            ('technical-writer.md', 'información técnica usable y mantenible'),
+            ('open-source-innersource-engineer.md', 'contribución, governance y ownership'),
+        ],
+    ),
+    (
+        '🏛️ Arquitectura, evolución y liderazgo',
+        [
+            ('legacy-modernization-engineer.md', 'arqueología, compatibilidad y retiro'),
+            ('software-architect.md', 'atributos, límites, trade-offs y evolución'),
+            ('solutions-architect.md', 'contexto, integración, adopción y transición'),
+            ('technical-product-engineer.md', 'discovery, economía y factibilidad'),
+            ('technical-leadership.md', 'influencia, RFC, arquitectura y mentoring'),
+            ('engineering-manager.md', 'personas, flujo, riesgo y sostenibilidad'),
+            ('cto.md', 'estrategia, organización, portafolio y riesgo'),
+        ],
+    ),
+    (
+        '🤖 Ingeniería con inteligencia artificial',
+        [
+            ('ai-augmented-software-engineer.md', 'desarrollo con agentes, evals y guardrails'),
+            ('ai-systems-engineer.md', 'productos con modelos, datasets, fallback y operación'),
+            ('agentic-harness-engineer.md', 'harness, contexto, herramientas, bucles, evaluación y recuperación de agentes'),
+            ('domain-methodology-engineer.md', 'TDD, BDD, ATDD, DDD, contratos y SDD como práctica de equipo'),
+        ],
+    ),
+]
+
+
 def replace_or_insert(
     text: str,
     start: str,
@@ -461,66 +543,108 @@ certificación ni sustituyen la documentación específica del sistema, la juris
 o la tecnología utilizada.'''
 
 
+def render_role_detail(
+    filename: str,
+    classes: dict[str, dict[str, str]],
+    parts: dict[str, dict[str, object]],
+    *,
+    from_roles: bool,
+) -> list[str]:
+    """Bloque de detalle de un rol: partes núcleo, clases asociadas, apoyo y proyecto."""
+    prefix = "../" if from_roles else ""
+    profile_data = PROFILES[filename]
+    title, mission = parse_identity((ROLE_ROOT / filename).read_text(encoding="utf-8"))
+    role_href = filename if from_roles else f"roles/{filename}"
+    core = dict(profile_data["core"])
+    part_links = " · ".join(part_link(part_id, parts, prefix) for part_id in core)
+    project = tuple(profile_data["project"])
+    lines = [
+        f"#### [{title}]({role_href})",
+        "",
+        f"> {mission}",
+        "",
+        f"- **🧱 Partes núcleo:** {part_links}.",
+        "- **🔗 Clases asociadas:**",
+    ]
+    for part_id, class_ids in core.items():
+        class_links = " · ".join(class_link(class_id, classes, prefix) for class_id in class_ids)
+        # Solo se anota el estado cuando la parte no está desarrollada.
+        marker = "" if PART_STATUS[part_id] == "desarrollada" else f" ({PART_STATUS[part_id]})"
+        lines.append(f"  - **Parte {part_id}{marker}:** {class_links}.")
+    support = developed_support(filename, core, classes)
+    support_links = " · ".join(class_link(class_id, classes, prefix) for class_id in support)
+    lines.append(f"- **✅ Ya desarrolladas de apoyo ({ps.developed_label()}):** {support_links}.")
+    pending = pending_for_role(filename)
+    if pending:
+        planned_text = " · ".join(
+            f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
+            for part_id in sorted(pending)
+        )
+        lines.append(f"- **🔭 Planificada, sin clases publicadas:** {planned_text}.")
+    lines.extend(
+        (
+            f"- **🧪 Proyecto profesional:** **{project[0]}** — {project[1]}.",
+            f"- **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →]({role_href})",
+            "",
+        )
+    )
+    return lines
+
+
 def render_compact_map(
     classes: dict[str, dict[str, str]],
     parts: dict[str, dict[str, object]],
     *,
     from_roles: bool,
 ) -> str:
-    prefix = "../" if from_roles else ""
-    families: dict[str, list[tuple[str, dict[str, object], str]]] = {}
+    """Detalle completo por rol, agrupado por familia fina (índice de roles)."""
+    families: dict[str, list[str]] = {}
     for filename, profile_data in PROFILES.items():
-        text = (ROLE_ROOT / filename).read_text(encoding="utf-8")
-        title, _ = parse_identity(text)
-        family = str(profile_data["family"])
-        families.setdefault(family, []).append((filename, profile_data, title))
-
+        families.setdefault(str(profile_data["family"]), []).append(filename)
     blocks: list[str] = []
-    for family, entries in families.items():
+    for family, filenames in families.items():
         blocks.extend((f"### {family}", ""))
-        for filename, profile_data, title in entries:
-            role_href = filename if from_roles else f"roles/{filename}"
-            core = dict(profile_data["core"])
-            _, mission = parse_identity((ROLE_ROOT / filename).read_text(encoding="utf-8"))
-            part_links = " · ".join(part_link(part_id, parts, prefix) for part_id in core)
-            project = tuple(profile_data["project"])
-            blocks.extend(
-                (
-                    f"#### [{title}]({role_href})",
-                    "",
-                    f"> {mission}",
-                    "",
-                    f"- **🧱 Partes núcleo:** {part_links}.",
-                    "- **🔗 Clases asociadas:**",
-                )
-            )
-            for part_id, class_ids in core.items():
-                class_links = " · ".join(
-                    class_link(class_id, classes, prefix) for class_id in class_ids
-                )
-                blocks.append(f"  - **Parte {part_id} ({PART_STATUS[part_id]}):** {class_links}.")
-            support = developed_support(filename, core, classes)
-            support_links = " · ".join(class_link(class_id, classes, prefix) for class_id in support)
-            blocks.append(
-                f"- **✅ Ya desarrolladas de apoyo ({ps.developed_label()}):** {support_links}."
-            )
-            pending = pending_for_role(filename)
-            if pending:
-                planned_text = " · ".join(
-                    f"Parte {part_id} (`{PLANNED_PARTS[part_id][1]}`–`{PLANNED_PARTS[part_id][2]}`)"
-                    for part_id in sorted(pending)
-                )
-                blocks.append(
-                    f"- **🔭 Planificada, sin clases publicadas:** {planned_text}."
-                )
-            blocks.extend(
-                (
-                    f"- **🧪 Proyecto profesional:** **{project[0]}** — {project[1]}.",
-                    f"- **📖 Guía completa:** [decisiones, escenario, métricas y evidencia →]({role_href})",
-                    "",
-                )
-            )
+        for filename in filenames:
+            blocks.extend(render_role_detail(filename, classes, parts, from_roles=from_roles))
         blocks.append("")
+    return "\n".join(blocks).rstrip()
+
+
+def render_grouped_map(
+    classes: dict[str, dict[str, str]],
+    parts: dict[str, dict[str, object]],
+) -> str:
+    """README raíz: una tabla por familia gruesa y el detalle colapsado debajo."""
+    listed = [filename for _, roles in ROLE_GROUPS for filename, _ in roles]
+    if sorted(listed) != sorted(PROFILES):
+        raise AssertionError("ROLE_GROUPS no coincide con los perfiles de rol")
+    blocks: list[str] = []
+    for group, roles in ROLE_GROUPS:
+        blocks.extend(
+            (f"### {group}", "", "| Rol | Partes núcleo | Proyecto profesional |", "| --- | --- | --- |")
+        )
+        for filename, focus in roles:
+            title, _ = parse_identity((ROLE_ROOT / filename).read_text(encoding="utf-8"))
+            profile_data = PROFILES[filename]
+            core = dict(profile_data["core"])
+            part_cells = " · ".join(
+                f"[{part_id}]({parts[part_id]['path']}/README.md)" for part_id in core
+            )
+            project = tuple(profile_data["project"])
+            blocks.append(
+                f"| [{title}](roles/{filename}) — {focus} | {part_cells} | {project[0]} |"
+            )
+        blocks.extend(
+            (
+                "",
+                "<details>",
+                f"<summary>Detalle por rol: clases asociadas y proyecto — {group}</summary>",
+                "",
+            )
+        )
+        for filename, _ in roles:
+            blocks.extend(render_role_detail(filename, classes, parts, from_roles=False))
+        blocks.extend(("</details>", ""))
     return "\n".join(blocks).rstrip()
 
 
@@ -575,22 +699,16 @@ def planned_notes() -> tuple[str, str]:
 
 
 def render_main_map(classes: dict[str, dict[str, str]], parts: dict[str, dict[str, object]]) -> str:
-    planned_note, planned_note_index = planned_notes()
     return f'''### 🧱 Partes núcleo y clases asociadas por rol
 
-Este mapa separa la **parte** que desarrolla una capacidad, las **clases concretas**
-que activan decisiones del rol y el **proyecto profesional** que permite integrarlas.
-No es una lista de materias optativas: cada guía explica prerrequisitos, límites,
-trade-offs y evidencia esperada.
+Cada fila enlaza la guía del rol y sus partes núcleo (por número de parte). El detalle
+de cada familia —clases asociadas, clases de apoyo y proyecto profesional— se despliega
+debajo de su tabla. Las partes núcleo son la base de la capacidad; las clases asociadas
+activan decisiones concretas del rol; el proyecto permite integrarlas. No es una lista
+de materias optativas: cada guía explica prerrequisitos, límites, trade-offs y evidencia.
+El estado de revisión del contenido se declara una sola vez, en el encabezado.
 
-> [!NOTE]
-> Estado real de las partes que aparecen en los mapas: {ps.the_parts(ps.developed_parts()).lower().replace("las partes", "las Partes").replace("la parte", "la Parte")}
-> ({ps.class_ranges(ps.developed_parts())}) {"está" if len(ps.developed_parts()) == 1 else "están"} **desarrolladas**, a falta de revisión editorial humana
-> independiente. {planned_note}
-> Cada rol añade «Ya desarrolladas de apoyo» para
-> practicar hoy con contenido existente.
-
-{render_compact_map(classes, parts, from_roles=False)}
+{render_grouped_map(classes, parts)}
 
 ➡️ Cada nombre abre una guía extensa con gráficos, escenario de fallo, decisiones,
 métricas, proyecto, progresión y fuentes. El [índice profesional](roles/README.md)
@@ -674,7 +792,7 @@ def build(check: bool) -> None:
         MAIN_START,
         MAIN_END,
         render_main_map(classes, parts),
-        "### 💻 Construcción de productos y sistemas",
+        "### 🪜 El ecosistema de carrera técnica",
     )
     if main_rendered != main_original:
         changed.append(main_path)

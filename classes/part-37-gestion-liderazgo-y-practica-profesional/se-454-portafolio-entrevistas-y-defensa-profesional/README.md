@@ -114,9 +114,9 @@ Se simulan 8 000 procesos de selección con 10 candidaturas. La habilidad es nor
 | Tres entrevistas estructuradas | 1,41 | 91,1 % |
 | Al azar | 0,00 | 0 % |
 
-![Tabla con 8 000 procesos de selección sintéticos de 10 candidaturas: una conversación libre elige una persona con habilidad media de 0,95, el 61,6 por ciento de lo alcanzable, tres conversaciones libres 1,10 y 71,2, una entrevista estructurada 1,25 y 80,9, tres entrevistas estructuradas 1,41 y 91,1, y elegir al azar 0 por ciento.](../../../content/part-37/figures/se-454-entrevistas-y-eleccion.svg)
+![Barras horizontales con la fracción de lo alcanzable al elegir entre 10 candidaturas: 61,6 % con una conversación libre, 71,2 % con tres, 80,9 % con una entrevista estructurada, 91,1 % con tres estructuradas y 0 % al azar.](../../../content/part-37/figures/se-454-entrevistas-y-eleccion.svg)
 
-**Cómo leer la figura.** Añadir entrevistadoras ayuda, pero menos que estructurar: una estructurada (80,9 %) supera a tres libres (71,2 %), porque el halo compartido no se promedia. **Dónde deja de valer:** el peso del halo (0,8 y 0,2), el ruido, la normalidad de la habilidad y la independencia entre entrevistadoras son supuestos del autor; los metaanálisis reportan validez, no estos porcentajes. La simulación enseña un mecanismo y no autoriza a decir cuánto mejora una entrevista real.
+**Cómo leer la figura.** Cada barra es un procedimiento de selección con la habilidad media de la persona elegida entre paréntesis, y su longitud es la fracción de lo que alcanzaría la mejor candidatura. Mira que una entrevista estructurada supera a tres libres: estructurar ayuda más que añadir entrevistadoras. **Dónde deja de valer:** el peso del halo (0,8 y 0,2), el ruido, la normalidad de la habilidad y la independencia entre entrevistadoras son supuestos del autor; los metaanálisis reportan validez, no estos porcentajes. La simulación enseña un mecanismo y no autoriza a decir cuánto mejora una entrevista real.
 
 ### Qué comprueba un verificador de portafolio
 
@@ -129,9 +129,9 @@ Cuatro entradas sintéticas pasan por seis reglas implementadas con expresiones 
 | De adjetivos | 0 | todo |
 | Con relleno | 6 | nada, pero sin sustancia |
 
-![Tabla con cuatro entradas sintéticas de portafolio revisadas por un verificador de seis reglas: la entrada con evidencia cumple 6, la entrada a medias 2 y le faltan comando, límite, decisión con alternativa y versión, la entrada de adjetivos 0 y le falta todo, y la entrada con relleno cumple 6 sin tener sustancia.](../../../content/part-37/figures/se-454-verificador-de-portafolio.svg)
+![Barras horizontales apiladas con las reglas cumplidas de seis por entrada: con evidencia 6, a medias 2, de adjetivos 0 y con relleno 6.](../../../content/part-37/figures/se-454-verificador-de-portafolio.svg)
 
-**Cómo leer la figura.** El verificador separa con claridad las dos entradas extremas, y distingue la que tiene la estructura incompleta. La última fila es el límite: una entrada con cifras, un comando y un enlace inventados cumple las seis reglas. **Dónde deja de valer:** las reglas son construcciones del autor, sensibles al idioma y al formato, y las entradas son ejemplos escritos a propósito; que una entrada pase no dice que sea verdadera. Su función es filtrar lo evidentemente incompleto antes de que una persona revise lo comprobable.
+**Cómo leer la figura.** Cada barra es una entrada de portafolio y se reparte en reglas cumplidas (verde azulado) y que faltan (coral). Mira que la entrada con relleno se ve igual que la que tiene evidencia: el verificador comprueba forma, no sustancia. **Dónde deja de valer:** las reglas son construcciones del autor, sensibles al idioma y al formato, y las entradas son ejemplos escritos a propósito; que una entrada pase no dice que sea verdadera. Su función es filtrar lo evidentemente incompleto antes de que una persona revise lo comprobable.
 
 ### Qué impresión deja cada estrategia de defensa
 
@@ -144,9 +144,9 @@ Una persona responde seis preguntas de profundidad creciente. Si su conocimiento
 | Nivel 4 | Defiende todo con seguridad | 0,56 | 87,1 % |
 | Nivel 4 | Declara su límite y propone cómo comprobar | 4,3 | 0 % |
 
-![Tabla con una persona que responde seis preguntas de profundidad creciente: con conocimiento de nivel 2 defender todo con seguridad deja una impresión de menos 4,8 y se descubre un error seguro en el 98,4 por ciento de los casos, mientras que declarar el límite deja 2,3 y 0 por ciento; con conocimiento de nivel 4 defender todo deja 0,56 y 87,1 por ciento y declarar el límite 4,3 y 0 por ciento.](../../../content/part-37/figures/se-454-defensa-por-profundidad.svg)
+![Barras horizontales con el porcentaje de casos en que se detecta un error seguro: con nivel 2 defendiendo todo 98,4 % y declarando el límite 0 %; con nivel 4, 87,1 % y 0 %.](../../../content/part-37/figures/se-454-defensa-por-profundidad.svg)
 
-**Cómo leer la figura.** Con conocimiento de nivel 4, defender todo deja una impresión cercana a cero; declarar el límite, de 4,3. Con nivel 2 la diferencia es mayor, porque hay más preguntas en que inventar. **Dónde deja de valer:** las probabilidades (20 % de acierto por azar, 80 % de detección) y la puntuación (−3, +0,3) son supuestos del autor; un comité real pondera de otra forma y algunas personas declaran límites para evadir preguntas. Declarar un límite sin proponer cómo comprobarlo es una evasiva, no una defensa. La figura muestra que el costo de inventar crece con la profundidad de las preguntas.
+**Cómo leer la figura.** Cada barra es una combinación de conocimiento y estrategia, con la impresión media entre paréntesis, y su longitud es el porcentaje de casos en que se descubre un error dicho con seguridad. Mira que las dos barras de declarar el límite son nulas y que las impresiones entre paréntesis son las más altas. **Dónde deja de valer:** las probabilidades (20 % de acierto por azar, 80 % de detección) y la puntuación (−3, +0,3) son supuestos del autor; un comité real pondera de otra forma y algunas personas declaran límites para evadir preguntas. Declarar un límite sin proponer cómo comprobarlo es una evasiva, no una defensa. La figura muestra que el costo de inventar crece con la profundidad de las preguntas.
 
 ## Definiciones de trabajo
 

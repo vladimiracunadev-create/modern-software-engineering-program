@@ -122,9 +122,9 @@ Se generan 60 dependencias sintéticas con expresiones de licencia (permisivas, 
 | Bloqueadas que la ingenua no ve | 0 |
 | Desconocidas que la ingenua da por buenas | 3 |
 
-![Tabla con 60 dependencias sintéticas clasificadas por un analizador de expresiones de licencia: 42 permitidas, 11 por revisar, 4 bloqueadas y 3 desconocidas, frente a una búsqueda ingenua de la cadena GPL que marca 15, de las cuales 11 no están bloqueadas, no deja de ver ninguna bloqueada y da por buenas 3 desconocidas.](../../../content/part-37/figures/se-452-licencias-y-politica.svg)
+![Barras horizontales apiladas con 60 dependencias: el analizador clasifica 42 permitidas, 11 por revisar, 4 bloqueadas y 3 desconocidas; la búsqueda ingenua de GPL marca 15, de ellas 4 bloqueadas y 11 sin estarlo.](../../../content/part-37/figures/se-452-licencias-y-politica.svg)
 
-**Cómo leer la figura.** La búsqueda ingenua marca casi cuatro veces más dependencias que las bloqueadas (porque encuentra `LGPL`, `MIT OR GPL-2.0-only` y excepciones) y, a la vez, no ve las tres desconocidas. Los dos errores son distintos: uno frena trabajo innecesariamente y el otro deja pasar lo que no se sabe. **Dónde deja de valer:** las expresiones y sus frecuencias son una construcción del autor; el analizador solo cubre los identificadores de la tabla, trata cualquier otro como desconocido y no interpreta versiones («o posterior»), y la política es un ejemplo, no una recomendación jurídica.
+**Cómo leer la figura.** La primera barra reparte las 60 dependencias según el analizador de licencias; la segunda muestra solo las 15 que marca la búsqueda ingenua: las 4 bloqueadas (coral) y las 11 falsas alarmas (gris). Mira la segunda: marca casi cuatro veces más de lo que debe y deja sin ver las tres desconocidas. **Dónde deja de valer:** las expresiones y sus frecuencias son una construcción del autor; el analizador solo cubre los identificadores de la tabla, trata cualquier otro como desconocido y no interpreta versiones («o posterior»), y la política es un ejemplo, no una recomendación jurídica.
 
 ### Qué detecta una verificación de firma
 
@@ -140,9 +140,9 @@ Se generan 2 000 mensajes de commit de cuatro autores: el 86 % con pie correcto,
 | Correo roto | 61 | 0 |
 | **Total aceptado** | 2 000 | ingenua: 1 873; estricta: 1 709 |
 
-![Tabla con 2 000 mensajes de commit sintéticos: 1 709 con pie de firma correcto aceptados por la verificación estricta, y 83 sin firma, 54 con firma de otra persona, 44 con el pie mal escrito, 49 con el pie en medio del texto y 61 con correo roto, todos rechazados; la verificación ingenua acepta 1 873 y la estricta 1 709.](../../../content/part-37/figures/se-452-firma-de-origen.svg)
+![Barras horizontales con 2 000 commits por tipo: la verificación ingenua acepta los 1 709 correctos y, además, 54 con firma de otra persona, 49 con el pie en medio y 61 con correo roto; la estricta solo los 1 709 correctos.](../../../content/part-37/figures/se-452-firma-de-origen.svg)
 
-**Cómo leer la figura.** La búsqueda ingenua da por firmados 164 commits que la estricta rechaza: la firma de otra persona, el pie en medio y el correo roto. Cada uno es un tipo de defecto distinto, con causa y corrección distintas. **Dónde deja de valer:** los porcentajes son del autor; la verificación solo comprueba el formato y la coincidencia del correo, no que la persona haya leído el texto del certificado ni que el contenido no copie código ajeno, y no detecta código generado sin declarar. Un pie correcto es una condición necesaria, no una prueba de procedencia.
+**Cómo leer la figura.** Cada grupo es un tipo de commit; la barra gris es la cantidad, la coral lo que acepta la verificación ingenua y la verde azulada, lo que acepta la estricta. Mira los tres tipos en que la coral aparece y la verde azulada no: son los 164 commits que la ingenua da por firmados. **Dónde deja de valer:** los porcentajes son del autor; la verificación solo comprueba el formato y la coincidencia del correo, no que la persona haya leído el texto del certificado ni que el contenido no copie código ajeno, y no detecta código generado sin declarar. Un pie correcto es una condición necesaria, no una prueba de procedencia.
 
 ### Qué cuesta un flujo de cancelación escondido
 
@@ -153,9 +153,9 @@ Se simulan 12 meses con 10 000 visitas mensuales y una suscripción de 10 por me
 | Honesto | 22 965 · 76 403 · 256 658 | 104 | 3 620 |
 | Cancelación escondida | 26 972 · 89 830 · 294 799 | 956 | 4 279 |
 
-![Tabla con 12 meses simulados de dos flujos de suscripción: el honesto acumula un ingreso neto de 22 965 al mes 3, 76 403 al mes 6 y 256 658 al mes 12 con 104 reclamos y 3 620 personas suscritas, y el de cancelación escondida acumula 26 972, 89 830 y 294 799 con 956 reclamos y 4 279 suscritas.](../../../content/part-37/figures/se-452-costo-del-patron-oscuro.svg)
+![Líneas con el ingreso neto acumulado de dos flujos de suscripción: el honesto 22 965, 76 403 y 256 658 en los meses 3, 6 y 12 y el de cancelación escondida 26 972, 89 830 y 294 799.](../../../content/part-37/figures/se-452-costo-del-patron-oscuro.svg)
 
-**Cómo leer la figura.** En esta simulación el flujo escondido gana en ingresos todo el año: 38 141 más a los doce meses. La contrapartida es nueve veces más reclamos. Si cada reclamo tuviera solo un 0,22 % de probabilidad de acabar en una sanción de 20 000, la ventaja desaparecería. **Dónde deja de valer:** todos los parámetros (conversión, abandono, reclamos, costo de 25, efecto reputacional, sanción) son supuestos del autor; la simulación muestra que la métrica de ingresos no basta para detectar el daño, no que los patrones oscuros «no convengan». La decisión ética no depende de que el resultado económico sea desfavorable: dañar a las personas usuarias es una razón suficiente para no hacerlo.
+**Cómo leer la figura.** El eje horizontal es el mes y el vertical el ingreso neto acumulado; la línea verde azulada es el flujo honesto y la coral, el de cancelación escondida. Mira que la coral va por encima todo el año, con 38 141 más a los doce meses, y recuerda lo que la gráfica no muestra: nueve veces más reclamos. **Dónde deja de valer:** todos los parámetros (conversión, abandono, reclamos, costo de 25, efecto reputacional, sanción) son supuestos del autor; la simulación muestra que la métrica de ingresos no basta para detectar el daño, no que los patrones oscuros «no convengan». La decisión ética no depende de que el resultado económico sea desfavorable: dañar a las personas usuarias es una razón suficiente para no hacerlo.
 
 ## Definiciones de trabajo
 

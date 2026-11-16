@@ -114,9 +114,9 @@ Se simulan 200 repositorios de 300 archivos con 8 personas y cuatro formas de re
 | Dos conocedores por archivo | 5,5 | 0,0 % |
 | Dos conocedores y rotación | 6 | 0,0 % |
 
-![Tabla con 200 repositorios sintéticos de 300 archivos y 8 personas: con un autor por archivo y reparto concentrado el factor de camión mediano es 2 y la salida de la persona más cargada deja sin conocedor al 37 por ciento de los archivos, con reparto uniforme 4 y 15,4 por ciento, con dos conocedores por archivo 5,5 y 0 por ciento y con dos conocedores y rotación 6 y 0 por ciento.](../../../content/part-37/figures/se-446-factor-de-camion.svg)
+![Barras horizontales con los archivos sin conocedor al irse la persona más cargada: 37,0 % con un autor por archivo concentrado, 15,4 % con reparto uniforme, 0 % con dos conocedores y 0 % con dos conocedores y rotación.](../../../content/part-37/figures/se-446-factor-de-camion.svg)
 
-**Cómo leer la figura.** Cada fila es una política de reparto; el factor dice cuántas personas habría que perder para dejar sin conocedor a la mitad del código, y la última columna cuánto se pierde si se va solo la persona que más sabe. La diferencia entre un autor concentrado y dos conocedores por archivo es lo que compra la revisión por un segundo conocedor. **Dónde deja de valer:** la distribución concentrada (pesos 1/k), el hecho de que haya exactamente uno o dos conocedores y la independencia entre archivos son supuestos del autor; en un repositorio real el conocimiento se agrupa por módulos y la autoría del historial no mide quién entiende el código.
+**Cómo leer la figura.** Cada barra es una política de reparto del conocimiento con su factor de camión entre paréntesis y su longitud es el porcentaje de archivos que se quedan sin conocedor si se va la persona que más sabe. Mira cómo la barra desaparece al tener dos conocedores por archivo: eso compra la revisión por un segundo conocedor. **Dónde deja de valer:** la distribución concentrada (pesos 1/k), el hecho de que haya exactamente uno o dos conocedores y la independencia entre archivos son supuestos del autor; en un repositorio real el conocimiento se agrupa por módulos y la autoría del historial no mide quién entiende el código.
 
 ### Cuántos equipos cruza un cambio
 
@@ -127,9 +127,9 @@ Se simulan 5 000 cambios sobre cuatro dominios y tres capas. Un cambio toca de u
 | Equipos por capa | 2,31 | 81,0 % | 5,9 días |
 | Equipos por dominio | 1,21 | 21,1 % | 2,6 días |
 
-![Tabla con 5 000 cambios sintéticos sobre cuatro dominios y tres capas: con equipos por capa un cambio cruza 2,31 equipos de media, el 81 por ciento requiere relevo y el plazo es de 5,9 días, y con equipos por dominio cruza 1,21, el 21,1 por ciento requiere relevo y el plazo es de 2,6 días.](../../../content/part-37/figures/se-446-fronteras-y-relevos.svg)
+![Barras horizontales con el plazo estimado de un cambio: 5,9 días con equipos por capa (2,31 equipos, 81 % con relevo) y 2,6 días con equipos por dominio (1,21 equipos, 21,1 % con relevo).](../../../content/part-37/figures/se-446-fronteras-y-relevos.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de cortar el mismo trabajo; el plazo baja a menos de la mitad porque los relevos desaparecen, no porque se trabaje más rápido. **Dónde deja de valer:** los porcentajes de capas tocadas, el 20 % de cambios entre dominios y el costo de 3 días por relevo son supuestos del autor; no se modela el costo de que cada equipo por dominio necesite conocimiento de todas las capas, ni los cambios que atraviesan muchos dominios, que son la razón por la que algunas organizaciones mantienen equipos de plataforma.
+**Cómo leer la figura.** Cada barra es una forma de cortar el mismo trabajo, con los equipos por cambio y los relevos en la etiqueta, y su longitud el plazo estimado. Mira que el plazo baja a menos de la mitad cuando desaparecen los relevos, no porque se trabaje más rápido. **Dónde deja de valer:** los porcentajes de capas tocadas, el 20 % de cambios entre dominios y el costo de 3 días por relevo son supuestos del autor; no se modela el costo de que cada equipo por dominio necesite conocimiento de todas las capas, ni los cambios que atraviesan muchos dominios, que son la razón por la que algunas organizaciones mantienen equipos de plataforma.
 
 ### Cuánta guardia recibe cada persona
 
@@ -142,9 +142,9 @@ Se simulan 3 000 años con una guardia semanal de una persona por vez, con una m
 | 6 personas | 9 | 13,5 | 1,73 |
 | 8 personas | 7 | 10,5 | 1,33 |
 
-![Tabla con 3 000 años simulados de una guardia semanal con 1,5 avisos por semana fuera de horario: con 3 personas cada una está 18 semanas al año de guardia y recibe 27 avisos con 3,45 semanas de tres o más, con 4 personas 13 semanas, 19,5 avisos y 2,48 semanas, con 6 personas 9, 13,5 y 1,73, y con 8 personas 7, 10,5 y 1,33.](../../../content/part-37/figures/se-446-carga-de-guardia.svg)
+![Líneas con las semanas por persona y año de una guardia semanal según el tamaño de la rotación: las semanas de guardia bajan de 18 con 3 personas a 7 con 8, y las semanas con tres o más avisos de 3,45 a 1,33.](../../../content/part-37/figures/se-446-carga-de-guardia.svg)
 
-**Cómo leer la figura.** El número de avisos por persona baja en proporción al tamaño de la rotación, pero las semanas malas (tres o más avisos) bajan más despacio: aunque la media baje, siempre habrá semanas duras. **Dónde deja de valer:** los avisos siguen una distribución de Poisson independiente, supuesto que falla cuando los incidentes se agrupan (una falla grande genera decenas de avisos); se cuenta una persona de guardia por semana, no la pareja principal y secundaria del libro de SRE; no se mide el sueño ni el cansancio.
+**Cómo leer la figura.** El eje horizontal es el tamaño de la rotación, con los avisos fuera de horario por persona y año entre paréntesis, y el vertical las semanas por persona y año; la línea verde azulada son las semanas de guardia y la coral, las semanas con tres o más avisos. Mira que la segunda baja más despacio: aunque la media baje, siempre habrá semanas duras. **Dónde deja de valer:** los avisos siguen una distribución de Poisson independiente, supuesto que falla cuando los incidentes se agrupan (una falla grande genera decenas de avisos); se cuenta una persona de guardia por semana, no la pareja principal y secundaria del libro de SRE; no se mide el sueño ni el cansancio.
 
 ## Definiciones de trabajo
 

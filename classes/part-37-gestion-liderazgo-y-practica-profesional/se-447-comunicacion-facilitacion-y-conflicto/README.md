@@ -115,9 +115,9 @@ Siete personas estiman una cantidad real de 100 días; cada una acierta con un e
 | Se habla en orden, sin sesgo del primero | 9,8 % | 30,7 % |
 | Se habla en orden y la persona sénior (+30 %) abre | 16,0 % | 52,8 % |
 
-![Tabla con 5 000 ensayos sintéticos de una estimación de grupo de siete personas sobre una cantidad real de 100 días: si escriben solas y luego se muestran el error mediano es 8,4 por ciento y el 22,9 por ciento supera el 15, si hablan en orden sin sesgo 9,8 y 30,7, y si abre una persona sénior con un valor 30 por ciento mayor 16 y 52,8.](../../../content/part-37/figures/se-447-estimar-en-grupo.svg)
+![Barras agrupadas con la distorsión al hablar en orden: error mediano de 8,4 % si escriben solas, 9,8 % si hablan en orden sin sesgo y 16,0 % si abre una persona sénior; los ensayos con error mayor al 15 % son 22,9 %, 30,7 % y 52,8 %.](../../../content/part-37/figures/se-447-estimar-en-grupo.svg)
 
-**Cómo leer la figura.** La primera fila es la referencia: el promedio de estimaciones independientes. Hablar en orden ya la empeora, y un sesgo del primero la duplica; más de la mitad de las sesiones de la última fila yerra por más del 15 %. **Dónde deja de valer:** el peso del 50 % hacia la media previa, el sesgo del 30 % y el error individual de 0,3 son supuestos del autor; en una reunión real hay personas que no se dejan influir, otras que lo hacen más, y discuten razones y no solo números. El modelo no incluye el beneficio de la discusión (que a veces corrige errores que las estimaciones independientes no ven).
+**Cómo leer la figura.** Cada grupo es una forma de recoger las estimaciones; la barra dorada es el error mediano del promedio y la coral, el porcentaje de ensayos con error mayor al 15 %. Mira que la primera categoría es la referencia y que ambas barras crecen cuando se habla en orden y, más aún, cuando abre quien tiene más autoridad. **Dónde deja de valer:** el peso del 50 % hacia la media previa, el sesgo del 30 % y el error individual de 0,3 son supuestos del autor; en una reunión real hay personas que no se dejan influir, otras que lo hacen más, y discuten razones y no solo números. El modelo no incluye el beneficio de la discusión (que a veces corrige errores que las estimaciones independientes no ven).
 
 ### Cuántos campos sobreviven a los relevos
 
@@ -129,9 +129,9 @@ Un mensaje de decisión tiene cinco campos (decisión, motivo, dueño, fecha, al
 | Correo libre | 49,6 % | 24,7 % | 5,5 % | 40,8 % |
 | Plantilla con acuse | 88,0 % | 76,7 % | 58,3 % | 84,6 % |
 
-![Tabla con 6 000 mensajes sintéticos de decisión de cinco campos tras varios relevos: oral llega completo en 26,2 por ciento tras un relevo, 6,7 tras dos y 0,5 tras cuatro y conserva el motivo en 17,6, el correo libre 49,6, 24,7 y 5,5 con motivo en 40,8, y la plantilla con acuse 88, 76,7 y 58,3 con motivo en 84,6.](../../../content/part-37/figures/se-447-campos-que-se-pierden.svg)
+![Líneas con los mensajes de decisión completos tras 1, 2 y 4 relevos: el oral 26,2, 6,7 y 0,5 %, el correo libre 49,6, 24,7 y 5,5 % y la plantilla con acuse 88,0, 76,7 y 58,3 %.](../../../content/part-37/figures/se-447-campos-que-se-pierden.svg)
 
-**Cómo leer la figura.** Incluso con la plantilla, tras cuatro relevos solo el 58,3 % del mensaje llega completo; el oral prácticamente no sobrevive. El motivo, que explica cómo adaptar la decisión, cae más rápido que el resto en los formatos libres. **Dónde deja de valer:** las probabilidades de pérdida son supuestos del autor y se aplican de forma independiente por campo y por relevo; una persona que entiende el contexto reconstruye un campo perdido (cosa que el modelo no permite). La lección es la estructura de la pérdida, no los porcentajes.
+**Cómo leer la figura.** El eje horizontal son los relevos que atraviesa el mensaje y el vertical el porcentaje que llega completo; cada línea es un formato. Mira que las tres bajan, que el oral casi no sobrevive y que incluso la plantilla pierde más de cuatro de cada diez mensajes tras cuatro relevos. **Dónde deja de valer:** las probabilidades de pérdida son supuestos del autor y se aplican de forma independiente por campo y por relevo; una persona que entiende el contexto reconstruye un campo perdido (cosa que el modelo no permite). La lección es la estructura de la pérdida, no los porcentajes.
 
 ### Qué estrategia aguanta un malentendido
 
@@ -144,9 +144,9 @@ Dos personas interactúan 200 rondas; en cada una pueden cooperar o atacar, y co
 | Siempre coopera | 2,95 | 2,21 |
 | Siempre ataca | 1,15 | 2,39 |
 
-![Tabla con partidas sintéticas de 200 rondas con 5 por ciento de malentendidos: contra sí misma el ojo por ojo obtiene 2,29 puntos por ronda, el generoso 2,85, el que siempre coopera 2,95 y el que siempre ataca 1,15, y en promedio contra las cuatro estrategias obtienen 2,31, 2,34, 2,21 y 2,39.](../../../content/part-37/figures/se-447-conflicto-con-ruido.svg)
+![Barras agrupadas con los puntos por ronda de cuatro estrategias con 5 % de malentendidos: contra sí misma 2,29 el ojo por ojo, 2,85 el generoso, 2,95 el que siempre coopera y 1,15 el que siempre ataca; en promedio 2,31, 2,34, 2,21 y 2,39.](../../../content/part-37/figures/se-447-conflicto-con-ruido.svg)
 
-**Cómo leer la figura.** Contra una igual, un malentendido hace caer el ojo por ojo estricto de 3 a 2,29 porque las represalias se alternan; la versión generosa lo recupera hasta 2,85. La segunda columna muestra el límite: contra una mezcla que incluye a quien siempre ataca, esa estrategia obtiene el promedio más alto y quien siempre coopera, el más bajo. **Dónde deja de valer:** los pagos, el 5 % de ruido, el 30 % de perdón y la mezcla de estrategias son supuestos del autor; las personas no puntúan sus interacciones ni eligen una estrategia fija. La figura muestra por qué conviene dar margen a un malentendido y por qué ese margen no equivale a ceder siempre.
+**Cómo leer la figura.** Cada grupo es una estrategia; la barra verde azulada es su pago por ronda contra sí misma y la dorada, el pago promedio contra las cuatro. Mira que el orden se invierte entre las dos barras: quien siempre coopera es el mejor contra sí mismo y el peor en la mezcla, y quien siempre ataca, al revés. **Dónde deja de valer:** los pagos, el 5 % de ruido, el 30 % de perdón y la mezcla de estrategias son supuestos del autor; las personas no puntúan sus interacciones ni eligen una estrategia fija. La figura muestra por qué conviene dar margen a un malentendido y por qué ese margen no equivale a ceder siempre.
 
 ## Definiciones de trabajo
 

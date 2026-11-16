@@ -115,9 +115,9 @@ Se generan 3 000 carteras de 12 iniciativas, cada una con un costo de demora sem
 | Mayor costo de demora primero | 1,13 | 1,26 |
 | Costo de demora entre duración | 1,00 | 1,00 |
 
-![Tabla con 3 000 carteras sintéticas de 12 iniciativas: el orden de llegada cuesta de media 1,8 veces el óptimo y 2,61 veces en el percentil 95, lo más corto primero 1,3 y 1,66, el mayor costo de demora primero 1,13 y 1,26, y el costo de demora dividido por la duración 1 y 1 por ser el óptimo.](../../../content/part-37/figures/se-453-orden-y-costo-de-demora.svg)
+![Barras agrupadas con el costo frente al óptimo según el orden de ejecución: llegada 1,80 de media y 2,61 en el percentil 95; lo más corto primero 1,30 y 1,66; mayor costo de demora primero 1,13 y 1,26; costo de demora entre duración 1,00 y 1,00.](../../../content/part-37/figures/se-453-orden-y-costo-de-demora.svg)
 
-**Cómo leer la figura.** Esperar sin criterio cuesta un 80 % más que el óptimo de media y más del doble en una de cada veinte carteras; ordenar solo por valor o solo por duración recupera buena parte, pero no todo. La última fila es 1,00 por construcción: es el orden que minimiza el costo. **Dónde deja de valer:** el resultado de Smith exige iniciativas independientes, interrumpibles solo al terminar y con costo de demora constante; en la práctica hay dependencias, el costo de demora cambia con el tiempo (un plazo legal lo dispara) y las estimaciones de duración son inciertas. Las distribuciones son supuestos del autor.
+**Cómo leer la figura.** Cada grupo es un orden de ejecución; la barra verde azulada es el costo medio frente al óptimo y la coral, el peor caso (percentil 95). Mira cómo las dos barras bajan hacia 1,00 al pasar a órdenes que usan costo y duración juntos. **Dónde deja de valer:** el resultado de Smith exige iniciativas independientes, interrumpibles solo al terminar y con costo de demora constante; en la práctica hay dependencias, el costo de demora cambia con el tiempo (un plazo legal lo dispara) y las estimaciones de duración son inciertas. Las distribuciones son supuestos del autor.
 
 ### Cuándo un proyecto deja de ser el mejor
 
@@ -129,9 +129,9 @@ Tres proyectos con inversión de 100 en el año 0 y flujos anuales hasta el año
 | Rediseñar el módulo | 110 | 74,3 | 46,3 | 6,5 | −19,7 | 22,1 % | año 4 |
 | Plataforma interna | 140 | 88,0 | 49,0 | −3,5 | −35,4 | 19,1 % | año 5 |
 
-![Tabla con tres proyectos sintéticos con inversión de 100: Automatizar el cierre suma 60, tiene valor presente de 43,2 a 5 por ciento, 29,2 a 10, 7,4 a 20 y menos 8,6 a 30, retorno de 24,3 por ciento y recuperación en el año 2; Rediseñar el módulo suma 110 con 74,3, 46,3, 6,5 y menos 19,7, retorno de 22,1 y recuperación en el año 4; Plataforma interna suma 140 con 88, 49, menos 3,5 y menos 35,4, retorno de 19,1 y recuperación en el año 5.](../../../content/part-37/figures/se-453-valor-presente-y-orden.svg)
+![Líneas con el valor actual neto de tres proyectos según la tasa de descuento: la plataforma interna pasa de 88,0 con 5 % a −35,4 con 30 %, rediseñar el módulo de 74,3 a −19,7 y automatizar el cierre de 43,2 a −8,6; el orden se invierte.](../../../content/part-37/figures/se-453-valor-presente-y-orden.svg)
 
-**Cómo leer la figura.** A tasas del 5 % y del 10 %, la plataforma interna es la mejor por VAN; a partir del 20 % pasa a ser la peor y el primero es «Automatizar el cierre». La suma sin descontar y el VAN a tasa baja favorecen lo tardío; la TIR y la recuperación favorecen lo temprano. **Dónde deja de valer:** los flujos son inventados y se conocen con certeza, cosa que nunca ocurre; los beneficios tardíos son más inciertos, lo que a menudo justifica una tasa mayor, y los proyectos se tratan como independientes aunque a veces uno habilita a otro. La figura muestra que la elección depende de la tasa, no cuál es la tasa correcta.
+**Cómo leer la figura.** El eje horizontal es la tasa de descuento y el vertical el valor actual neto; cada línea es un proyecto. Mira que las líneas se cruzan entre 10 y 20 %: la plataforma interna, la mejor con tasa baja, pasa a ser la peor con tasa alta, y el proyecto que parecía el menor queda primero. **Dónde deja de valer:** los flujos son inventados y se conocen con certeza, cosa que nunca ocurre; los beneficios tardíos son más inciertos, lo que a menudo justifica una tasa mayor, y los proyectos se tratan como independientes aunque a veces uno habilita a otro. La figura muestra que la elección depende de la tasa, no cuál es la tasa correcta.
 
 ### Propio o nube, y cuántas personas hacen falta
 
@@ -145,9 +145,9 @@ Servidores propios: inversión de 36 000 y 1 200 mensuales; nube: 2 300 mensuale
 | Margen con 3 000 · 6 250 · 10 000 · 30 000 personas | −86,7 % · 0 % · 30,0 % · 63,3 % |
 | Probabilidad de alcanzar el equilibrio en 12 meses desde 2 000 · 4 000 · 6 000 | 0,0 % · 52,5 % · 99,3 % |
 
-![Tabla con el cruce entre servidores propios y nube en el mes 33 sin descuento y el mes 39 con una tasa mensual de 0,8 por ciento, un equilibrio de 6 250 personas usuarias con márgenes de menos 86,7, 0, 30 y 63,3 por ciento para 3 000, 6 250, 10 000 y 30 000, y una probabilidad de alcanzar el equilibrio en 12 meses de 0, 52,5 y 99,3 por ciento desde 2 000, 4 000 y 6 000 personas.](../../../content/part-37/figures/se-453-propio-nube-y-equilibrio.svg)
+![Cinco tarjetas sobre servidores propios o nube: el cruce llega en el mes 33 sin descuento y en el 39 con tasa de 0,8 % mensual, el equilibrio es de 6 250 personas y alcanzarlo en 12 meses tiene probabilidad 0, 52,5 y 99,3 % desde 2 000, 4 000 y 6 000.](../../../content/part-37/figures/se-453-propio-nube-y-equilibrio.svg)
 
-**Cómo leer la figura.** Descontar retrasa seis meses el cruce, porque la inversión inicial pesa más que las cuotas futuras. El equilibrio de 6 250 personas separa a un servicio que pierde de uno que gana, pero alcanzarlo en un año es casi imposible desde 2 000 personas y casi seguro desde 6 000. **Dónde deja de valer:** los costos son supuestos del autor y constantes; el modelo no incluye costos de operación de lo propio (personas, energía, fallos), el crecimiento es independiente entre meses y el precio no cambia. Un servicio sin ingreso por persona usuaria se analiza como costo por persona atendida.
+**Cómo leer la figura.** Cada tarjeta es una pregunta con su resultado: dorado para los datos de referencia, coral para lo que cambia con el descuento o con el punto de partida y verde azulado para el equilibrio. Mira cómo descontar retrasa seis meses el cruce y cómo el punto de partida decide si el equilibrio se alcanza. **Dónde deja de valer:** los costos son supuestos del autor y constantes; el modelo no incluye costos de operación de lo propio (personas, energía, fallos), el crecimiento es independiente entre meses y el precio no cambia. Un servicio sin ingreso por persona usuaria se analiza como costo por persona atendida.
 
 ## Definiciones de trabajo
 

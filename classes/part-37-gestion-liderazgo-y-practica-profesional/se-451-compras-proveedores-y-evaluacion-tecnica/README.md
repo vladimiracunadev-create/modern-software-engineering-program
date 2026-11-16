@@ -112,9 +112,9 @@ Cinco proveedores (A–E) con puntajes de 1 a 10 en seis criterios (funcionalida
 | D | 6,70 | 21,1 % | no pasa la puerta |
 | E | 6,45 | 20,9 % | 20,9 % |
 
-![Tabla con cinco proveedores sintéticos evaluados en seis criterios: con los pesos base el puntaje es 6,60 para A, 6,95 para B, 6,55 para C, 6,70 para D y 6,45 para E; con 20 000 combinaciones de pesos sorteadas gana A el 7,6 por ciento, B el 19,4, C el 30,9, D el 21,1 y E el 20,9, y al exigir seguridad de 6 o más D queda fuera y ganan A 18,9, B 24,2, C 36 y E 20,9.](../../../content/part-37/figures/se-451-pesos-y-ganador.svg)
+![Barras agrupadas con el porcentaje de combinaciones de pesos en que gana cada proveedor: A 7,6 %, B 19,4 %, C 30,9 %, D 21,1 % y E 20,9 % con pesos sorteados; con la puerta de seguridad D queda fuera y ganan A 18,9 %, B 24,2 %, C 36,0 % y E 20,9 %.](../../../content/part-37/figures/se-451-pesos-y-ganador.svg)
 
-**Cómo leer la figura.** El proveedor B gana con los pesos del equipo por 0,25 puntos, pero con pesos al azar gana solo una de cada cinco veces; C, que queda tercero con los pesos base, gana casi una de cada tres. La puerta de seguridad cambia el reparto, no el hecho de que ninguno domina. **Dónde deja de valer:** los puntajes son inventados y los pesos se sortean de manera uniforme sobre todas las combinaciones, que incluye pesos que nadie propondría (por ejemplo, el 90 % en un solo criterio); una distribución más cercana a los pesos del equipo daría un reparto menos disperso. La figura no dice que no se pueda elegir, dice que la elección debe declarar su robustez.
+**Cómo leer la figura.** Cada grupo es un proveedor con su puntaje con los pesos base entre paréntesis; la barra verde azulada es cuántas veces gana con 20 000 pesos sorteados y la dorada, con la puerta de seguridad. Mira que B, el ganador con los pesos base, gana una de cada cinco veces y C, tercero, gana casi una de cada tres. **Dónde deja de valer:** los puntajes son inventados y los pesos se sortean de manera uniforme sobre todas las combinaciones, que incluye pesos que nadie propondría (por ejemplo, el 90 % en un solo criterio); una distribución más cercana a los pesos del equipo daría un reparto menos disperso. La figura no dice que no se pueda elegir, dice que la elección debe declarar su robustez.
 
 ### Cuánto cuesta comprar o construir en cinco años
 
@@ -125,9 +125,9 @@ Comprar: integración de 80, cuota inicial de 100 por año con un 30 % de probab
 | Comprar | 870 | 796 | 1 235 |
 | Construir | 867 | 842 | 1 085 |
 
-![Tabla con 10 000 casos sintéticos de costo a cinco años: comprar cuesta de media 870, mediana 796 y percentil 90 de 1 235, construir de media 867, mediana 842 y percentil 90 de 1 085, y comprar cuesta más que construir en el 45,8 por ciento de los casos.](../../../content/part-37/figures/se-451-comprar-o-construir.svg)
+![Barras agrupadas con el costo a cinco años: comprar 870 de media, 796 de mediana y 1 235 en el percentil 90; construir 867, 842 y 1 085.](../../../content/part-37/figures/se-451-comprar-o-construir.svg)
 
-**Cómo leer la figura.** Las medias son casi iguales y las medianas favorecen comprar, pero el percentil 90 de comprar es 150 unidades mayor: la cola de alzas y de migración forzada. La decisión depende de cuánta cola puede asumir el equipo. **Dónde deja de valer:** todas las probabilidades, las alzas, el sobrecosto y los costos son supuestos del autor; no se modelan descuentos por volumen, costos de integración que crecen ni la posibilidad de que el servicio mejore. La figura muestra la forma del riesgo asimétrico, no cuál conviene.
+**Cómo leer la figura.** Cada grupo es una opción; las barras son el costo medio (verde azulado), la mediana (dorada) y el percentil 90 (coral). Mira que las medias casi coinciden, que la mediana favorece comprar y que el percentil 90 favorece construir: la diferencia está en la cola. **Dónde deja de valer:** todas las probabilidades, las alzas, el sobrecosto y los costos son supuestos del autor; no se modelan descuentos por volumen, costos de integración que crecen ni la posibilidad de que el servicio mejore. La figura muestra la forma del riesgo asimétrico, no cuál conviene.
 
 ### Cuánto cae una cadena de proveedores
 
@@ -140,9 +140,9 @@ Cada proveedor con disponibilidad del 99,9 % tiene caídas aleatorias de 45 minu
 | 5 proveedores | 99,501 % | 2 623 | 2 615 |
 | 5, con el más débil duplicado | 99,600 % | 2 100 | 2 083 |
 
-![Tabla con la disponibilidad de una cadena de proveedores cada uno al 99,9 por ciento: uno da 99,9 por ciento y 526 minutos de caída al año, tres dan 99,7 y 1 575, cinco dan 99,501 y 2 623, y cinco con el más débil duplicado 99,6 y 2 100, con simulaciones de 536, 1 572, 2 615 y 2 083 minutos.](../../../content/part-37/figures/se-451-cadena-de-disponibilidad.svg)
+![Barras agrupadas con los minutos de caída al año de una cadena de proveedores al 99,9 %: 526 (cálculo) y 536 (simulado) con uno, 1 575 y 1 572 con tres, 2 623 y 2 615 con cinco, y 2 100 y 2 083 con cinco y el más débil duplicado.](../../../content/part-37/figures/se-451-cadena-de-disponibilidad.svg)
 
-**Cómo leer la figura.** Cada proveedor adicional agrega unos 525 minutos de caída esperada, y la cadena de cinco pasa de 8,8 a 43,7 horas al año. Duplicar solo el eslabón más débil recupera la quinta parte del daño. **Dónde deja de valer:** las caídas son independientes y de 45 minutos de media; en la práctica los proveedores comparten infraestructura (un mismo servicio de nube) y fallan juntos, lo que hace la cadena mejor o peor que el producto según el caso. El valor de 5 000 por hora y el crédito de 200 son supuestos del autor.
+**Cómo leer la figura.** Cada grupo es una cadena con su disponibilidad entre paréntesis; la barra verde azulada es el cálculo y la gris, la simulación. Mira que ambas coinciden y que cada proveedor añadido suma unos 525 minutos, mientras duplicar solo el más débil recupera apenas una quinta parte. **Dónde deja de valer:** las caídas son independientes y de 45 minutos de media; en la práctica los proveedores comparten infraestructura (un mismo servicio de nube) y fallan juntos, lo que hace la cadena mejor o peor que el producto según el caso. El valor de 5 000 por hora y el crédito de 200 son supuestos del autor.
 
 ## Definiciones de trabajo
 

@@ -115,9 +115,9 @@ assert sign(per_device(42), msg) != sign(per_device(43), msg)
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Con una clave de flota, extraer una sola permite suplantar a todos. Con claves por dispositivo, el alcance es lineal (k dispositivos). Con claves derivadas el alcance es igual, siempre que la clave maestra no esté en ningún dispositivo.
 
-![Tabla con los dispositivos suplantables al extraer una, diez o cien claves con una clave de flota, claves por dispositivo y claves derivadas con el secreto maestro extraído.](../../../content/part-22/figures/se-272-claves-extraidas-de-una-flota.svg)
+![Barras agrupadas en escala logarítmica con los dispositivos suplantables al extraer 1, 10 o 100 claves: con una clave de flota o con derivadas y maestra extraída son 10 000; con claves por dispositivo son 1, 10 y 100.](../../../content/part-22/figures/se-272-claves-extraidas-de-una-flota.svg)
 
-**Cómo leer la figura.** Cada fila es el número de claves extraídas; las columnas son los dispositivos suplantables en cada esquema. **Dónde deja de valer:** el modelo supone que la extracción de una clave no revela otras y que el servidor identifica al dispositivo por su identificador; un ataque sobre el servidor o sobre la fábrica tiene otro alcance. Las firmas son HMAC reales, pero la flota y la extracción son sintéticas: no se atacó ningún chip.
+**Cómo leer la figura.** Cada grupo es el número de claves extraídas y cada barra un esquema de claves; la escala es logarítmica, de modo que cada marca vale diez veces la anterior. Mira que las barras de la clave de flota y de las derivadas con la maestra extraída llegan siempre al tope de 10 000, mientras la de claves por dispositivo crece de una en una. **Dónde deja de valer:** el modelo supone que la extracción de una clave no revela otras y que el servidor identifica al dispositivo por su identificador; un ataque sobre el servidor o sobre la fábrica tiene otro alcance. Las firmas son HMAC reales, pero la flota y la extracción son sintéticas: no se atacó ningún chip.
 
 ### Cuántos mensajes buenos rechaza una ventana de tiempo
 
@@ -135,9 +135,9 @@ fr = sum(abs(rng.gauss(0, sd)) > W for _ in range(100000)) / 100000
 
 Con un desfase típico de 5 s, una ventana de ±5 s rechaza el 31,56 % de los mensajes legítimos. Ensancharla evita los rechazos y deja más tiempo para reproducir un mensaje capturado. Un contador monótono que se reinicia sin memoria persistente acepta una reproducción en el **50,8 %** de los casos del modelo.
 
-![Tabla con el porcentaje de mensajes legítimos rechazados por una ventana de cinco, treinta y ciento veinte segundos según el desfase del reloj.](../../../content/part-22/figures/se-272-ventana-de-tiempo-y-desfase.svg)
+![Mapa de calor con el porcentaje de mensajes legítimos rechazados según el desfase del reloj y el ancho de la ventana: 31,56 % con desfase de 5 s y ventana de ±5 s, y 86,71 % con desfase de 30 s y la misma ventana.](../../../content/part-22/figures/se-272-ventana-de-tiempo-y-desfase.svg)
 
-**Cómo leer la figura.** Cada fila es un desfase típico del reloj; las columnas son el ancho de la ventana; el valor es el porcentaje de rechazos de mensajes legítimos. **Dónde deja de valer:** el desfase gaussiano es un supuesto; relojes reales derivan de forma sistemática y saltan al sincronizarse. La cifra del 50,8 % depende del modelo de contadores aleatorios y solo ilustra que sin persistencia el contador no protege. Un diseño real combina contador persistente y una comprobación de reloj.
+**Cómo leer la figura.** Cada fila es un desfase típico del reloj y cada columna el ancho de la ventana; el color más oscuro es un porcentaje mayor de mensajes legítimos rechazados, y el borde marca las dos celdas en que el ancho de la ventana es igual al desfase. Mira cómo la zona oscura se desplaza hacia las ventanas más estrechas cuanto mayor es el desfase. **Dónde deja de valer:** el desfase gaussiano es un supuesto; relojes reales derivan de forma sistemática y saltan al sincronizarse. La cifra del 50,8 % depende del modelo de contadores aleatorios y solo ilustra que sin persistencia el contador no protege. Un diseño real combina contador persistente y una comprobación de reloj.
 
 ### Una semilla débil convierte 64 bits en 12
 
@@ -156,9 +156,9 @@ cand = {random.Random(s).getrandbits(64) for s in range(3600)}
 
 Con 3600 semillas posibles, 2279 de 5000 claves se repiten (la paradoja del cumpleaños) y quien enumera la primera hora recupera las 5000. Una clave de 64 bits con una semilla de 3600 posibilidades tiene la seguridad de unos 12 bits.
 
-![Tabla con las claves repetidas y las recuperadas por enumeración de semillas cuando 5000 dispositivos generan una clave de 64 bits con un segundo de arranque, un día o 32 bits como semilla.](../../../content/part-22/figures/se-272-semillas-debiles.svg)
+![Barras agrupadas con las claves repetidas y las recuperadas por enumeración de 3 600 semillas, de 5000 dispositivos: con una hora de semillas 2279 y 5000, con un día 149 y 197, con 32 bits 0 y 0.](../../../content/part-22/figures/se-272-semillas-debiles.svg)
 
-**Cómo leer la figura.** Cada fila es el espacio de semillas; las columnas son las claves repetidas entre 5000 y las recuperadas por enumeración de las 3600 semillas de la primera hora. **Dónde deja de valer:** el generador de Python es un Mersenne Twister y su salida es predecible a partir de su estado: se usó solo para mostrar el mecanismo. Un dispositivo real usaría un generador criptográfico y una fuente de entropía de hardware; la semilla de 32 bits tampoco es suficiente para una clave de larga vida.
+**Cómo leer la figura.** Cada grupo es el espacio de semillas y las dos barras, entre los 5000 dispositivos, las claves repetidas (dorado) y las recuperadas enumerando las 3600 semillas de la primera hora (coral). Mira cómo ambas barras se desploman al pasar de una hora a un día y desaparecen con 32 bits. **Dónde deja de valer:** el generador de Python es un Mersenne Twister y su salida es predecible a partir de su estado: se usó solo para mostrar el mecanismo. Un dispositivo real usaría un generador criptográfico y una fuente de entropía de hardware; la semilla de 32 bits tampoco es suficiente para una clave de larga vida.
 
 ## Definiciones de trabajo
 

@@ -118,9 +118,9 @@ if "vecino" in which and abs(v - truth(i)) > 1.5: return i
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Una comprobación de rango no detecta ninguno de los 600; con todas las comprobaciones locales se detectan 500 y la deriva sigue sin verse; solo la referencia independiente la detecta.
 
-![Tabla con los fallos detectados de cien inyectados por tipo para cinco conjuntos acumulativos de comprobaciones de un sensor.](../../../content/part-22/figures/se-275-inyeccion-de-fallos.svg)
+![Mapa de calor con los fallos detectados de 100 inyectados por tipo y conjunto acumulativo de comprobaciones: la deriva solo se detecta al añadir una referencia independiente, que completa los 600 de 600.](../../../content/part-22/figures/se-275-inyeccion-de-fallos.svg)
 
-**Cómo leer la figura.** Cada fila es un conjunto de comprobaciones; cada columna, un tipo de fallo; el valor es cuántos de 100 se detectaron. **Dónde deja de valer:** los fallos y las comprobaciones son modelos del autor; un sensor real tiene fallos con otra forma (una deriva dependiente de la temperatura, un ruido intermitente). La referencia es un modelo del entorno perfecto aquí; en un sistema real también tiene error y sus propios fallos.
+**Cómo leer la figura.** Cada fila es un conjunto de comprobaciones que suma las anteriores y cada columna un tipo de fallo; el color más oscuro son más fallos detectados de 100, y el número de cada fila es el total de 600. Mira la columna de la deriva: es la única que sigue clara hasta la última fila, marcada con un borde. **Dónde deja de valer:** los fallos y las comprobaciones son modelos del autor; un sensor real tiene fallos con otra forma (una deriva dependiente de la temperatura, un ruido intermitente). La referencia es un modelo del entorno perfecto aquí; en un sistema real también tiene error y sus propios fallos.
 
 ### Cortar la energía en cada punto de una escritura
 
@@ -141,9 +141,9 @@ return "invalida"
 
 Sobrescribir deja una configuración inválida en 8 de 10 puntos; una copia con suma, en 10 de 12 (la suma detecta el problema pero no lo repara); dos copias alternadas, en ninguno.
 
-![Tabla con los puntos de corte de la escritura de una configuración y el estado en que queda con sobrescritura, una copia con suma y dos copias alternadas.](../../../content/part-22/figures/se-275-corte-durante-la-escritura.svg)
+![Barras horizontales apiladas con el estado en que queda la configuración en cada punto de corte: sobrescribir deja 8 de 10 inválidos, una copia con CRC 10 de 12 y dos copias alternadas ninguno de 12.](../../../content/part-22/figures/se-275-corte-durante-la-escritura.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; las columnas suman los puntos de corte y clasifican el resultado. **Dónde deja de valer:** el modelo escribe byte a byte; una flash real programa páginas y un corte puede dejar bits a medias dentro de un byte (valores intermedios). La enumeración de pasos no cubre ese nivel. Tampoco cubre un fallo de la memoria misma.
+**Cómo leer la figura.** Cada barra es una estrategia de escritura partida en los puntos de corte posibles: verde azulado deja la configuración antigua, azul oscuro la nueva y coral una inválida. Mira que el tramo coral ocupa casi toda la barra al sobrescribir y con una sola copia, y desaparece con dos copias alternadas. **Dónde deja de valer:** el modelo escribe byte a byte; una flash real programa páginas y un corte puede dejar bits a medias dentro de un byte (valores intermedios). La enumeración de pasos no cubre ese nivel. Tampoco cubre un fallo de la memoria misma.
 
 ### Cuán estable es una tabla de riesgos
 

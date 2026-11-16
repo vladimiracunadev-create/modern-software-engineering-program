@@ -117,9 +117,9 @@ horas = capacidad / (avg_ma + capacidad * 0.01 / 8760)
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). A 10 s la vida es de unos 200 días casi sin importar el reposo; a 600 s pasar de 2 a 100 µA la divide por 8,5. «Tres años» (1095 días) exige, con estos supuestos, despertar cada minuto como mucho y un reposo de unos 5 µA.
 
-![Tabla con los días de vida de una pila de 2400 mAh según el periodo de despertar y la corriente de reposo.](../../../content/part-22/figures/se-267-vida-de-una-pila.svg)
+![Líneas en doble escala logarítmica con los días de vida de una pila de 2400 mAh según la corriente de reposo: despertando cada 10 s la línea es casi plana (198 a 166 días) y cada 600 s cae de 7650 a 901 días.](../../../content/part-22/figures/se-267-vida-de-una-pila.svg)
 
-**Cómo leer la figura.** Cada fila es un periodo; cada columna, una corriente de reposo; el valor es la vida en días. **Dónde deja de valer:** las corrientes y los tiempos de actividad son supuestos; una pila real pierde capacidad con el frío, con corrientes de pico altas y con el tiempo. A 600 s, 7650 días (21 años) supera la vida útil de cualquier pila: la cifra es un techo aritmético, no una promesa.
+**Cómo leer la figura.** El eje horizontal es la corriente de reposo en microamperios y el vertical la vida en días, ambos en escala logarítmica; cada línea es un periodo de despertar. Mira cuánto cae cada línea hacia la derecha: la de 10 s casi no se mueve y la de 600 s pierde la mayor parte de su vida. **Dónde deja de valer:** las corrientes y los tiempos de actividad son supuestos; una pila real pierde capacidad con el frío, con corrientes de pico altas y con el tiempo. A 600 s, 7650 días (21 años) supera la vida útil de cualquier pila: la cifra es un techo aritmético, no una promesa.
 
 ### Dónde se escribe decide cuánto dura la flash
 
@@ -139,9 +139,9 @@ else:                      erases[i % sectors] += 1      # estatico
 
 Con 64 sectores de 4 KiB, registros de 16 B y 10 000 borrados por sector, un registro por minuto da 10 000 / (525 600 registros por año) = **6,9 días** si cada registro borra un sector y unos **312 años** con un registro circular que borra un sector cada 256 registros.
 
-![Tabla con los borrados del sector más usado y la vida relativa de una flash tras 200 000 escrituras con tres políticas de reparto.](../../../content/part-22/figures/se-267-desgaste-de-la-flash.svg)
+![Barras horizontales con los borrados del sector más usado tras 200 000 escrituras: sobrescribir el mismo sector llega a 200 000, rotar entre los libres a 25 000 y rotar entre todos a 12 500.](../../../content/part-22/figures/se-267-desgaste-de-la-flash.svg)
 
-**Cómo leer la figura.** Cada fila es una política; la vida relativa compara con el reparto ideal entre todos los sectores. **Dónde deja de valer:** el modelo cuenta borrados y nada más. Los 312 años ignoran la retención de datos, la tensión y la temperatura, que acotan la vida mucho antes; y una flash real puede degradar sectores de forma desigual. Lo que enseña es la proporción entre políticas, no una vida.
+**Cómo leer la figura.** Cada barra es una política de reparto y su longitud son los borrados que sufre el sector más usado tras 200 000 escrituras; entre paréntesis, la vida relativa al reparto ideal. Mira cómo la barra de sobrescribir siempre el mismo sector es dieciséis veces la de rotar entre todos. **Dónde deja de valer:** el modelo cuenta borrados y nada más. Los 312 años ignoran la retención de datos, la tensión y la temperatura, que acotan la vida mucho antes; y una flash real puede degradar sectores de forma desigual. Lo que enseña es la proporción entre políticas, no una vida.
 
 ### El filtro de enteros se detiene antes de la entrada
 
@@ -159,9 +159,9 @@ y += (d + (1 << (k - 1))) >> k if rounding else d >> k
 
 Los valores son el error final en cuentas de un convertidor de 10 bits. Subiendo, el truncado se queda a 2^k − 1 cuentas de la entrada (3, 15, 63); redondear lo deja en la mitad (1, 7, 31). Bajando, el truncado converge exactamente y el redondeado se queda a entre 2 y 32 cuentas. Con coma flotante el error es cero.
 
-![Tabla con el error final de un filtro de enteros con truncado y con redondeo al subir y al bajar para tres valores de k.](../../../content/part-22/figures/se-267-filtro-con-enteros.svg)
+![Barras agrupadas con el error final de un filtro de enteros cuando la entrada sube: truncar deja 3, 15 y 63 cuentas con k igual a 2, 4 y 6, y redondear deja 1, 7 y 31.](../../../content/part-22/figures/se-267-filtro-con-enteros.svg)
 
-**Cómo leer la figura.** Cada fila es un valor de k; las columnas son el error final en cuentas según la dirección y el método. **Dónde deja de valer:** el error es de un filtro con ganancia 2^−k y entrada constante; con una señal que cambia, la zona muerta se mezcla con la dinámica. Y 63 cuentas son el 6 % del rango de 10 bits: importa o no según la precisión que el producto necesite.
+**Cómo leer la figura.** Cada grupo es un valor de k y cada barra el error final en cuentas de 10 bits al subir la entrada, truncando (coral) o redondeando (verde azulado). Mira que el error crece con k y que la barra redondeada es siempre la mitad de la truncada; el caso de bajar está en el texto de la figura. **Dónde deja de valer:** el error es de un filtro con ganancia 2^−k y entrada constante; con una señal que cambia, la zona muerta se mezcla con la dinámica. Y 63 cuentas son el 6 % del rango de 10 bits: importa o no según la precisión que el producto necesite.
 
 ## Definiciones de trabajo
 

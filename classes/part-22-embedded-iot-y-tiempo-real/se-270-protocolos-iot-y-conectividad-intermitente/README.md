@@ -122,9 +122,9 @@ for _ in range(max_tries):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Con 30 % de pérdida, el nivel 1 duplica el 29,58 % de los mensajes y el nivel 2 no duplica ninguno pero usa 6,59 paquetes. Además, con 30 % de pérdida el 3,1 % de los mensajes del nivel 1 y el 6,67 % del nivel 2 llegan sin que el emisor lo sepa (agotó los reintentos antes de ver la confirmación).
 
-![Tabla con los mensajes perdidos, los duplicados y los paquetes por mensaje de tres niveles de garantía con pérdida del diez y del treinta por ciento.](../../../content/part-22/figures/se-270-garantias-de-entrega.svg)
+![Barras agrupadas con el porcentaje de mensajes que no llegan y de duplicados según el nivel de garantía y la pérdida: el nivel 0 pierde 9,96 % y 29,27 %, el nivel 1 duplica 10,01 % y 29,58 %, y el nivel 2 ni pierde ni duplica casi nada.](../../../content/part-22/figures/se-270-garantias-de-entrega.svg)
 
-**Cómo leer la figura.** Cada fila es una combinación de pérdida y nivel; las columnas muestran lo que se pierde, lo que se duplica y lo que cuesta. **Dónde deja de valer:** la pérdida independiente por paquete no describe una red real, donde las pérdidas vienen en ráfagas; y el modelo de reintentos es el de un protocolo simple, no el de un agente MQTT concreto, con sus temporizadores y su estado de sesión. La figura muestra las proporciones, no los valores.
+**Cómo leer la figura.** Cada grupo es una combinación de pérdida del enlace y nivel de garantía; la barra coral es el porcentaje de mensajes que no llegaron y la dorada el de duplicados, y bajo cada grupo está el costo en paquetes por mensaje. Mira cómo cada nivel mueve el problema de una barra a la otra y sube el costo. **Dónde deja de valer:** la pérdida independiente por paquete no describe una red real, donde las pérdidas vienen en ráfagas; y el modelo de reintentos es el de un protocolo simple, no el de un agente MQTT concreto, con sus temporizadores y su estado de sesión. La figura muestra las proporciones, no los valores.
 
 ### Qué capacidad de cola hace falta
 
@@ -167,9 +167,9 @@ next_try[i] = t + rng.uniform(0, delay[i])      # jitter completo
 
 Con espera exponencial sin jitter, los dispositivos que fallan en el mismo instante vuelven a intentar juntos en cada ola; el servidor, saturado, apenas conecta a unos pocos: a los 900 segundos solo 691 de 5000 están conectados. Con jitter se conectan todos en 169 segundos, antes que con el reintento fijo.
 
-![Tabla con el pico de intentos, el tiempo para conectar a todos y los dispositivos conectados a los 900 segundos con tres políticas de reintento.](../../../content/part-22/figures/se-270-tormenta-de-reconexion.svg)
+![Barras horizontales con los dispositivos conectados a los 900 segundos tras una caída de 5000: con reintento fijo y con jitter completo están los 5000; con espera exponencial sin jitter solo 691.](../../../content/part-22/figures/se-270-tormenta-de-reconexion.svg)
 
-**Cómo leer la figura.** Cada fila es una política; el pico en el primer segundo es igual en las tres porque todas empiezan a la vez. **Dónde deja de valer:** el colapso de rendimiento por encima de 1,5 veces la capacidad y la reconexión simultánea son supuestos; un servidor real con límites de tasa o colas absorbe de otra forma, y una flota real no se desconecta toda a la vez. Lo que enseña es que sin jitter la espera exponencial puede ser peor que el reintento fijo.
+**Cómo leer la figura.** Cada barra es una política de reintento y su longitud son los dispositivos, de 5000, conectados a los 900 segundos; entre paréntesis, cuándo quedan todos conectados. Mira la barra corta de la espera exponencial sin jitter frente a las otras dos, que llegan al final del eje. **Dónde deja de valer:** el colapso de rendimiento por encima de 1,5 veces la capacidad y la reconexión simultánea son supuestos; un servidor real con límites de tasa o colas absorbe de otra forma, y una flota real no se desconecta toda a la vez. Lo que enseña es que sin jitter la espera exponencial puede ser peor que el reintento fijo.
 
 ## Definiciones de trabajo
 

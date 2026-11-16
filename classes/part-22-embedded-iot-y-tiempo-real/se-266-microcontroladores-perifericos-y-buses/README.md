@@ -144,9 +144,9 @@ def crc8(data, poly=0x07):
 
 La paridad no detecta ningún error de dos bits y deja pasar la mitad de las ráfagas (los errores de bits pares). La suma de 8 bits deja pasar el 6,2 % de los errores de dos bits y el 1,1 % de los de tres. El CRC-8 no deja pasar ninguno de estos casos.
 
-![Tabla con las tramas con error que aceptan la paridad, la suma de 8 bits y el CRC-8 ante errores de uno a tres bits y ráfagas.](../../../content/part-22/figures/se-266-errores-no-detectados.svg)
+![Barras horizontales con las tramas con error que no detecta cada código, de 200 000 por tipo de error: la paridad deja pasar todas las de dos bits (200 000) y 99 238 ráfagas, la suma de 8 bits deja pasar 12 445 y 2 143, y el CRC-8 ninguna.](../../../content/part-22/figures/se-266-errores-no-detectados.svg)
 
-**Cómo leer la figura.** Cada fila es un tipo de error inyectado sobre 200 000 tramas; las cifras son las que cada código no detectó. **Dónde deja de valer:** el CRC-8 detecta con certeza los errores de longitud acotada de este modelo, pero un error cualquiera más largo pasa con probabilidad de 1 entre 256. Y un canal real no inyecta bits al azar: tiene ráfagas largas y fallos de contacto. Se usó el orden de bits con el más significativo primero.
+**Cómo leer la figura.** Cada grupo de tres barras es un tipo de error inyectado sobre 200 000 tramas y la longitud de cada barra son las tramas que ese código no detectó: coral la paridad, dorado la suma de 8 bits, verde azulado el CRC-8. Mira primero la fila de dos bits, donde la barra de la paridad llena todo el eje, y después que la barra del CRC-8 no existe en ninguna. **Dónde deja de valer:** el CRC-8 detecta con certeza los errores de longitud acotada de este modelo, pero un error cualquiera más largo pasa con probabilidad de 1 entre 256. Y un canal real no inyecta bits al azar: tiene ráfagas largas y fallos de contacto. Se usó el orden de bits con el más significativo primero.
 
 ### Cuánto mejora el sobremuestreo y cuándo no
 
@@ -165,9 +165,9 @@ tot += min(1023, max(0, math.floor(v)))
 
 Con ruido, el error baja a la mitad por cada factor cuatro de lecturas (0,583 → 0,289 → 0,145 → 0,071 → 0,036). Sin ruido se queda en 0,431 con cualquier número de lecturas.
 
-![Tabla con el error eficaz de un convertidor de diez bits al promediar de 1 a 256 lecturas con ruido de cero, medio y un LSB.](../../../content/part-22/figures/se-266-sobremuestreo-de-un-adc.svg)
+![Líneas en doble escala logarítmica con el error eficaz de un convertidor de diez bits al promediar de 1 a 256 lecturas: con ruido de 0,5 y de 1,0 LSB baja a la mitad por cada factor cuatro, y sin ruido queda plano en 0,431.](../../../content/part-22/figures/se-266-sobremuestreo-de-un-adc.svg)
 
-**Cómo leer la figura.** Cada fila es un nivel de ruido; cada columna, un factor de sobremuestreo; el valor es el error eficaz en LSB. **Dónde deja de valer:** el ruido gaussiano blanco es un modelo; un ruido real con deriva o con interferencia periódica no se promedia así. Cada factor cuatro cuesta cuatro veces más tiempo y energía, y la señal debe ser estable durante todo el promedio.
+**Cómo leer la figura.** El eje horizontal es el número de lecturas promediadas y el vertical el error eficaz en LSB, ambos en escala logarítmica; cada línea es un nivel de ruido. Mira la pendiente: con ruido, cada factor cuatro de lecturas baja el error a la mitad, y la línea sin ruido no baja nunca. **Dónde deja de valer:** el ruido gaussiano blanco es un modelo; un ruido real con deriva o con interferencia periódica no se promedia así. Cada factor cuatro cuesta cuatro veces más tiempo y energía, y la señal debe ser estable durante todo el promedio.
 
 ## Definiciones de trabajo
 

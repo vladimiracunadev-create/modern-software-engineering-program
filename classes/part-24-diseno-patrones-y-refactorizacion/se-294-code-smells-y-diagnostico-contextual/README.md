@@ -124,9 +124,9 @@ def datos(fn, lineas):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). La función de mayor complejidad (39 ramas, 107 líneas) tiene solo un 11 % de datos: es lógica. La de 217 líneas es una plantilla.
 
-![Tabla con las funciones que señalan cuatro reglas de olores sobre sesenta y cinco funciones de un repositorio, con una plantilla de 217 líneas que es una falsa alarma por largo.](../../../content/part-24/figures/se-294-umbrales-sobre-codigo-real.svg)
+![Barras horizontales con las funciones señaladas por cada regla entre 65: largo, 5; parámetros, 7; anidamiento, 1; complejidad ciclomática, 3; por alguna regla, 12; y 11 si el largo de datos no cuenta.](../../../content/part-24/figures/se-294-umbrales-sobre-codigo-real.svg)
 
-**Cómo leer la figura.** Cada fila es una regla y cuántas funciones señala; la columna final dice qué hay detrás. **Dónde deja de valer:** la lectura de «qué hay detrás» la hizo el autor mirando las funciones, y son cuatro archivos de scripts de documentación, no código de producción de `tarifas`. Los umbrales son convenciones: con 40 líneas, la lista cambia. Y excluir los datos del largo corrige una falsa alarma; no dice nada de si la plantilla debería partirse por otra razón.
+**Cómo leer la figura.** Cada barra es una regla de olores y su longitud el número de funciones señaladas de las 65 analizadas; las dos últimas son la unión de las reglas con y sin contar el largo de datos. Mira primero cuánto pesa cada regla en el total y la diferencia entre las dos últimas barras (una función menos). **Dónde deja de valer:** la lectura de «qué hay detrás» la hizo el autor mirando las funciones, y son cuatro archivos de scripts de documentación, no código de producción de `tarifas`. Los umbrales son convenciones: con 40 líneas, la lista cambia. Y excluir los datos del largo corrige una falsa alarma; no dice nada de si la plantilla debería partirse por otra razón.
 
 ### Dos copias o una función con parámetros
 
@@ -145,9 +145,9 @@ else:
 | 0,5 | 18,0 | 60,1 |
 | 0,1 | 3,6 | 108,0 |
 
-![Tabla con las divergencias por olvido de dos copias y las ramas añadidas a una función compartida en ciento veinte cambios, según la fracción de cambios que afecta a ambos usos.](../../../content/part-24/figures/se-294-duplicacion-frente-a-parametros.svg)
+![Líneas según la fracción de cambios que afecta a ambos usos: las divergencias por olvido de dos copias suben de 3,6 con 0,1 a 32,3 con 0,9, mientras que las ramas que añade una función compartida bajan de 108,0 a 12,0; las curvas se cruzan entre 0,5 y 0,9.](../../../content/part-24/figures/se-294-duplicacion-frente-a-parametros.svg)
 
-**Cómo leer la figura.** Cada fila fija cuánto de la historia de cambios es común a los dos usos; las columnas muestran el costo de cada diseño. **Dónde deja de valer:** el 30 % de olvido y el coste de «una rama por cambio» son supuestos; una función compartida bien diseñada puede absorber diferencias sin ramas (con una estrategia, por ejemplo), y dos copias con una prueba común olvidan menos. El modelo no ofrece un umbral: enseña que la decisión depende de un dato que se obtiene de la historia del repositorio, la fracción *q*.
+**Cómo leer la figura.** El eje horizontal es la fracción de cambios común a los dos usos y el vertical el costo en 120 cambios: la línea roja cuenta las divergencias por olvido de las dos copias y la verde las ramas que añade la función compartida. Mira primero dónde se cruzan: a la izquierda conviene copiar, a la derecha compartir. **Dónde deja de valer:** el 30 % de olvido y el coste de «una rama por cambio» son supuestos; una función compartida bien diseñada puede absorber diferencias sin ramas (con una estrategia, por ejemplo), y dos copias con una prueba común olvidan menos. El modelo no ofrece un umbral: enseña que la decisión depende de un dato que se obtiene de la historia del repositorio, la fracción *q*.
 
 ### Envidia de características: detector frente a criterio
 
@@ -171,9 +171,9 @@ return ajenas >= 3 and ajenas > propias, propias, ajenas
 
 Tres verdaderos positivos, una falsa alarma (el serializador), ningún falso negativo y cuatro verdaderos negativos.
 
-![Tabla con ocho métodos, sus accesos propios y ajenos, si un detector de envidia de características los señala y el criterio del autor sobre si son un problema.](../../../content/part-24/figures/se-294-envidia-de-caracteristicas.svg)
+![Dispersión de ocho métodos según sus accesos propios y ajenos: los tres que el autor considera un problema tienen cero accesos propios y tres o más ajenos y el detector los señala; el serializador, también señalado, es una falsa alarma; los otros cuatro no se señalan.](../../../content/part-24/figures/se-294-envidia-de-caracteristicas.svg)
 
-**Cómo leer la figura.** Cada fila es un método; las dos últimas columnas comparan la máquina con la persona. **Dónde deja de valer:** son ocho métodos escritos por el autor y las etiquetas son su criterio; con ocho casos, un solo fallo cambia la exactitud en 12 puntos. El detector solo cuenta accesos: no ve si el método es un serializador por oficio. La figura enseña la forma del error (una falsa alarma sistemática en una familia de métodos), no la exactitud de ningún detector.
+**Cómo leer la figura.** Cada punto es un método: el eje horizontal son sus accesos propios, el vertical sus accesos a otro objeto, y la línea discontinua es el umbral de tres del detector. El círculo rojo es un problema según el autor, el cuadrado dorado una falsa alarma y el triángulo verde un método legítimo no señalado. Mira primero los puntos por encima de la línea y a la izquierda. **Dónde deja de valer:** son ocho métodos escritos por el autor y las etiquetas son su criterio; con ocho casos, un solo fallo cambia la exactitud en 12 puntos. El detector solo cuenta accesos: no ve si el método es un serializador por oficio. La figura enseña la forma del error (una falsa alarma sistemática en una familia de métodos), no la exactitud de ningún detector.
 
 ## Definiciones de trabajo
 

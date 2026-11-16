@@ -145,9 +145,9 @@ for o in obs:
 
 El primer observador casi nunca pierde nada y el último pierde más: el orden de suscripción se convierte en una prioridad que nadie decidió.
 
-![Tabla con las notificaciones entregadas por un bucle simple y por un bucle con observadores aislados, y con las bajas durante el reparto con y sin copia de la lista.](../../../content/part-24/figures/se-292-aislamiento-de-observadores.svg)
+![Intervalos con las notificaciones perdidas por observador de mil eventos: con un bucle simple el mejor observador pierde 20, la media es 59,2 y el peor pierde 101; con cada observador aislado pierden 15, 21,2 y 32.](../../../content/part-24/figures/se-292-aislamiento-de-observadores.svg)
 
-**Cómo leer la figura.** Las dos primeras filas comparan la entrega; las dos últimas, el efecto de modificar la lista mientras se recorre. **Dónde deja de valer:** aislar a los observadores sube la entrega, pero esconde los fallos si nadie cuenta las excepciones; y la probabilidad de fallo es un supuesto. El experimento no incluye observadores lentos ni que publiquen nuevos eventos al ser avisados (reentrada), que son otras causas de errores en este patrón.
+**Cómo leer la figura.** Cada fila es una variante; el cuadrado es el mejor observador, el triángulo la media y el rombo el peor, y la barra que los une es la dispersión entre observadores, en notificaciones perdidas de mil (1000 menos las entregadas). Mira primero cuánto se alarga el intervalo del bucle simple frente al aislado. **Dónde deja de valer:** aislar a los observadores sube la entrega, pero esconde los fallos si nadie cuenta las excepciones; y la probabilidad de fallo es un supuesto. El experimento no incluye observadores lentos ni que publiquen nuevos eventos al ser avisados (reentrada), que son otras causas de errores en este patrón.
 
 ### Cinco patrones, casi el mismo código
 
@@ -166,9 +166,9 @@ def huella(src):
 | Estrategia | 0,985 | 0,937 | 0,988 | 1,000 | 0,992 |
 | Estado | 0,988 | 0,945 | 0,980 | 0,992 | 1,000 |
 
-![Tabla con la similitud coseno entre los tipos de nodo del árbol sintáctico de implementaciones de adaptador, proxy, decorador, estrategia y estado, entre 0,926 y 0,992.](../../../content/part-24/figures/se-292-patrones-con-la-misma-estructura.svg)
+![Mapa de calor con la similitud coseno entre los tipos de nodo del árbol sintáctico de cinco patrones: todos los pares están entre 0,926 y 0,992; proxy con decorador es el par más distinto y estrategia con estado el más parecido.](../../../content/part-24/figures/se-292-patrones-con-la-misma-estructura.svg)
 
-**Cómo leer la figura.** Cada celda es la similitud de las huellas de dos patrones; 1,000 es idéntica. **Dónde deja de valer:** son cinco clases mínimas del autor y la medida es tosca (cuenta tipos de nodo, no el flujo de llamadas); implementaciones reales con caché, hilos o configuración se distinguirían más. Aun así, el resultado muestra la tesis: la forma casi no separa los patrones; los separa la razón por la que se escribieron.
+**Cómo leer la figura.** Cada celda es la similitud de las huellas sintácticas de dos patrones; cuanto más oscura, más parecidas (la escala empieza en 0,90, no en 0) y la diagonal es 1,000. Mira primero que casi todo el mapa es oscuro: la forma apenas separa los patrones, y solo el proxy destaca con celdas más claras. **Dónde deja de valer:** son cinco clases mínimas del autor y la medida es tosca (cuenta tipos de nodo, no el flujo de llamadas); implementaciones reales con caché, hilos o configuración se distinguirían más. Aun así, el resultado muestra la tesis: la forma casi no separa los patrones; los separa la razón por la que se escribieron.
 
 ## Definiciones de trabajo
 

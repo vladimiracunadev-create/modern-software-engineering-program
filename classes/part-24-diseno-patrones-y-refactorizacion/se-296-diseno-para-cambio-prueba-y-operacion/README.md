@@ -120,9 +120,9 @@ tocados = sum(1 for m, ds in mapa.items() if d in ds)
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Como sensibilidad, con cinco módulos que conocen cada decisión con probabilidad *p* al azar, la media de módulos tocados por decisión es 0,50 con *p* = 0,1; 1,00 con 0,2; 1,48 con 0,3; 2,50 con 0,5 y 3,49 con 0,7.
 
-![Tabla con los módulos que hay que editar al cambiar cada una de seis decisiones de diseño, con una descomposición por pasos del flujo y con otra que oculta cada decisión en un módulo.](../../../content/part-24/figures/se-296-modulos-tocados-por-cambio.svg)
+![Barras horizontales con los módulos que se editan al cambiar una de seis decisiones: la descomposición por pasos del flujo exige editar 2, o 4 en moneda y redondeo, y 2,19 de media; la descomposición por decisión oculta exige editar uno en todos los casos.](../../../content/part-24/figures/se-296-modulos-tocados-por-cambio.svg)
 
-**Cómo leer la figura.** Cada fila es una decisión; las columnas dan los módulos que la conocen en cada descomposición. **Dónde deja de valer:** las matrices de conocimiento y los pesos de los cambios son supuestos del autor; con otro reparto de las decisiones el flujo podría salir mejor. El modelo asume además que cada decisión cabe en un módulo, y hay decisiones transversales (la seguridad, la trazabilidad) que no se pueden esconder en un solo sitio. Una decisión que ningún módulo conoce (*p* bajo) no es ocultación, es ausencia.
+**Cómo leer la figura.** Cada grupo es una decisión que cambia; la barra roja son los módulos que hay que editar con la descomposición por pasos del flujo y la verde con la descomposición por decisión oculta, y el último grupo es la media sobre mil cambios. Mira primero la barra roja de moneda y redondeo, de cuatro módulos, y que las verdes miden siempre uno. **Dónde deja de valer:** las matrices de conocimiento y los pesos de los cambios son supuestos del autor; con otro reparto de las decisiones el flujo podría salir mejor. El modelo asume además que cada decisión cabe en un módulo, y hay decisiones transversales (la seguridad, la trazabilidad) que no se pueden esconder en un solo sitio. Una decisión que ningún módulo conoce (*p* bajo) no es ocultación, es ausencia.
 
 ### El reloj real frente al reloj inyectado
 
@@ -143,9 +143,9 @@ def regla_dia(ahora, zona_horaria_horas):
 | Dos lecturas, 20 ms de separación, junto a cada medianoche | 2 de 7 medianoches con resultado distinto |
 | Reloj inyectado con un miércoles fijo | 0 de 10 080 |
 
-![Tabla con los minutos de una semana en que falla una prueba que espera ausencia de recargo, con el reloj real en tres husos horarios, y con un reloj inyectado fijo en un miércoles.](../../../content/part-24/figures/se-296-reloj-real-e-inyectado.svg)
+![Barras horizontales con el porcentaje de los 10 080 minutos de una semana en que falla la prueba: con el reloj real el 28,6 por ciento en tres husos horarios, 3,6 de discrepancia entre UTC y UTC menos 3 sobre el fin de semana, y 0 con un reloj inyectado.](../../../content/part-24/figures/se-296-reloj-real-e-inyectado.svg)
 
-**Cómo leer la figura.** Las tres primeras filas son la misma prueba con el reloj real en tres husos; las dos siguientes, dos formas de inestabilidad; la última, la prueba con el reloj inyectado. **Dónde deja de valer:** el cálculo recorre minutos de una semana, no ejecuta el reloj del sistema, y las medianoches son las del cálculo. El 28,6 % es 2/7: el huso solo cambia qué minutos fallan. Inyectar el reloj no elimina otras fuentes de no determinismo (aleatoriedad, orden de hilos, red), solo esta; y su costo es pasar el instante por las capas o definir un puerto.
+**Cómo leer la figura.** Cada barra es una situación y su longitud el porcentaje de minutos de la semana con fallo (o con discrepancia en la cuarta). Mira primero que las tres barras del reloj real miden lo mismo sea cual sea el huso y que la del reloj inyectado no existe. **Dónde deja de valer:** el cálculo recorre minutos de una semana, no ejecuta el reloj del sistema, y las medianoches son las del cálculo. El 28,6 % es 2/7: el huso solo cambia qué minutos fallan. Inyectar el reloj no elimina otras fuentes de no determinismo (aleatoriedad, orden de hilos, red), solo esta; y su costo es pasar el instante por las capas o definir un puerto.
 
 ### Reconstruir una solicitud sin identificador
 

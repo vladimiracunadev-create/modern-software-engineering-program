@@ -118,9 +118,9 @@ dif = [(x, g, f(*x)) for x, g in zip(MAESTRO, GOLD) if f(*x) != g]
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). De las 3000 entradas, 315 tienen un `urgente` no booleano; el paso 3 cambia el resultado de las 142 con `2` o `"si"`. Con `1` y `0` el resultado no cambia.
 
-![Tabla con las entradas del maestro dorado cuyo resultado cambia en cada uno de los cuatro pasos de un refactor: ninguna en los dos primeros, 142 al simplificar una comparación y 257 al cambiar el redondeo.](../../../content/part-24/figures/se-299-maestro-dorado-por-pasos.svg)
+![Barras horizontales con las entradas del maestro dorado, de 3000, cuyo resultado cambia en cada paso del refactor: 0 al extraer zona y peso, 0 al extraer opciones, cupón y redondeo, 142 al simplificar la comparación con True y 257 al cambiar el redondeo.](../../../content/part-24/figures/se-299-maestro-dorado-por-pasos.svg)
 
-**Cómo leer la figura.** Cada fila es un paso; el número es cuántas de las 3000 entradas registradas dan un resultado distinto. **Dónde deja de valer:** el 10 % de valores no booleanos es un supuesto del autor sobre lo que envían los clientes antiguos; si ninguno los enviara, el paso 3 sería inocuo. El maestro detecta la diferencia, pero no decide si es un defecto o un acuerdo: eso es una decisión. Y el paso 4 cambia el comportamiento en entradas con redondeo de mitades, donde el valor difiere por un centavo.
+**Cómo leer la figura.** Cada barra es un paso del refactor y su longitud el número de entradas registradas, de 3000, cuyo resultado cambia. Mira primero que los dos pasos de extracción no tienen barra y que las dos simplificaciones sí. **Dónde deja de valer:** el 10 % de valores no booleanos es un supuesto del autor sobre lo que envían los clientes antiguos; si ninguno los enviara, el paso 3 sería inocuo. El maestro detecta la diferencia, pero no decide si es un defecto o un acuerdo: eso es una decisión. Y el paso 4 cambia el comportamiento en entradas con redondeo de mitades, donde el valor difiere por un centavo.
 
 ### Cuántos mutantes mata el maestro según su tamaño
 
@@ -161,9 +161,9 @@ def tr(fr, ev, arg):
 | 300 | 96,7 % | 95,2 % |
 | 3000 | 100 % | 100 % |
 
-![Tabla con la fracción de arcos de la función heredada que alcanzan tres, diez, treinta, cien, trescientas y tres mil entradas registradas, con su valor medio y mínimo.](../../../content/part-24/figures/se-299-cobertura-segun-entradas.svg)
+![Líneas en escala logarítmica con los arcos alcanzados según las entradas registradas: la media sube de 67,4 por ciento con 3 entradas a 94,9 con 30 y 96,7 con 300, el mínimo de 30 muestras de 52,4 a 95,2, y solo las 3000 entradas alcanzan el 100 por ciento.](../../../content/part-24/figures/se-299-cobertura-segun-entradas.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de maestro; las columnas dan la fracción media y la mínima de arcos alcanzados. **Dónde deja de valer:** los arcos son pares de líneas, una medida de caminos más fina que las líneas pero no tan fina como las condiciones; alcanzar un arco no comprueba su resultado. Los primeros diez casos rinden mucho y los últimos arcos cuestan miles: los caminos raros (cupón de envío gratis fuera de zona, piso en cero) casi no salen al azar y hay que ir a buscarlos. Tras el paso 2 la función de complejidad 15 queda en seis funciones, la mayor con 4.
+**Cómo leer la figura.** El eje horizontal es el número de entradas registradas, en escala logarítmica, y el vertical el porcentaje de arcos alcanzados, con el eje empezando en 50 %; la línea verde es la media de 30 muestras y la roja el peor caso. Mira primero cuánto sube la curva hasta 30 entradas y lo poco que sube después, hasta el último salto a 3000. **Dónde deja de valer:** los arcos son pares de líneas, una medida de caminos más fina que las líneas pero no tan fina como las condiciones; alcanzar un arco no comprueba su resultado. Los primeros diez casos rinden mucho y los últimos arcos cuestan miles: los caminos raros (cupón de envío gratis fuera de zona, piso en cero) casi no salen al azar y hay que ir a buscarlos. Tras el paso 2 la función de complejidad 15 queda en seis funciones, la mayor con 4.
 
 ## Definiciones de trabajo
 

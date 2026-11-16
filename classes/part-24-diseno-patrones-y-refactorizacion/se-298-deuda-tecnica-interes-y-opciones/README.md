@@ -118,9 +118,9 @@ deuda = deuda - pago + nueva * velocidad * rng.uniform(0.7, 1.3)
 
 Cada celda es puntos entregados / deuda final. Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3).
 
-![Tabla con los puntos entregados en veinticuatro sprints y la deuda final con cuatro políticas de pago y cuatro intereses por unidad de deuda.](../../../content/part-24/figures/se-298-politicas-de-pago-e-interes.svg)
+![Líneas con los puntos entregados en 24 sprints según el interés: no pagar nunca baja de 703 con interés 0,002 a 173 con 0,020, y pagar todo hasta bajar de 10 unidades solo de 716 a 609; con interés bajo todas las políticas entregan casi lo mismo.](../../../content/part-24/figures/se-298-politicas-de-pago-e-interes.svg)
 
-**Cómo leer la figura.** Cada fila es una política; cada columna, un interés. **Dónde deja de valer:** todos los parámetros (la capacidad, la generación de deuda, el interés lineal) son supuestos del autor; el efecto real del interés no es lineal ni se conoce, y no se midió ningún equipo. Con interés bajo, pagar apenas mejora lo entregado (703 frente a 717 puntos): la deuda barata se puede dejar. Con interés alto, no pagar entrega menos de un tercio de lo que entrega pagar todo. La figura no dice cuál es el interés de ningún equipo: dice que la política correcta depende de él.
+**Cómo leer la figura.** El eje horizontal es el interés por unidad de deuda y el vertical los puntos entregados; cada línea es una política de pago. Mira primero cómo las cuatro parten juntas a la izquierda y se abren hacia la derecha, con «nunca pagar» cayendo más rápido. **Dónde deja de valer:** todos los parámetros (la capacidad, la generación de deuda, el interés lineal) son supuestos del autor; el efecto real del interés no es lineal ni se conoce, y no se midió ningún equipo. Con interés bajo, pagar apenas mejora lo entregado (703 frente a 717 puntos): la deuda barata se puede dejar. Con interés alto, no pagar entrega menos de un tercio de lo que entrega pagar todo. La figura no dice cuál es el interés de ningún equipo: dice que la política correcta depende de él.
 
 ### Refactorizar ahora, al primer cambio o nunca
 
@@ -142,9 +142,9 @@ jit2 += (costo_refactor * 2.0 if k else 0.0)      # aplazar encarece el refactor
 | 1,00 | 36,04 | 8,00 | 8,00 | ahora | ahora |
 | 2,00 | 72,22 | 8,00 | 8,00 | ahora | ahora |
 
-![Tabla con el costo esperado en doce meses de no refactorizar, refactorizar ahora y refactorizar al primer cambio según la frecuencia de cambio, y qué decisión gana si aplazar duplica el costo.](../../../content/part-24/figures/se-298-refactorizar-ahora-o-despues.svg)
+![Líneas en escala logarítmica con el costo esperado según los cambios por mes: no refactorizar sube de 1,83 a 72,22, refactorizar ahora cuesta 8 siempre y esperar al primer cambio queda entre 3,68 y 8; no refactorizar gana hasta 0,15 cambios por mes, esperar con 0,30 y refactorizar ahora desde 1.](../../../content/part-24/figures/se-298-refactorizar-ahora-o-despues.svg)
 
-**Cómo leer la figura.** Cada fila es una frecuencia de cambio; las columnas son el costo esperado de cada decisión. **Dónde deja de valer:** el costo del refactor (8), la fricción (3) y la duplicación al aplazar son supuestos; la tasa de cambios del futuro se desconoce y una aproximación de Poisson ignora las rachas. La figura muestra la estructura: esperar es una opción que vale cuando el área rara vez cambia y aplazar no encarece el trabajo. Un área que nunca cambia no merece un refactor, aunque se vea fea.
+**Cómo leer la figura.** Los dos ejes son logarítmicos: el horizontal son los cambios por mes del área y el vertical el costo esperado en 12 meses; la línea roja es no refactorizar, la azul oscura refactorizar ahora y la verde esperar al primer cambio. Mira primero en qué tramo cada línea es la más baja, que es la decisión que gana en ese tramo; la columna «Gana si aplazar duplica el costo» no se dibuja y está en el texto. **Dónde deja de valer:** el costo del refactor (8), la fricción (3) y la duplicación al aplazar son supuestos; la tasa de cambios del futuro se desconoce y una aproximación de Poisson ignora las rachas. La figura muestra la estructura: esperar es una opción que vale cuando el área rara vez cambia y aplazar no encarece el trabajo. Un área que nunca cambia no merece un refactor, aunque se vea fea.
 
 ### Elegir los archivos que se refactorizan
 
@@ -163,9 +163,9 @@ elegidos = sorted(range(n_arch), key=lambda a: -sc[a])[:k]
 
 Cada celda es el porcentaje del interés total que se evita.
 
-![Tabla con la reducción del interés pagado al refactorizar cinco de cuarenta archivos elegidos por complejidad, por cambios, por su producto o al azar, según la relación entre complejidad y cambios.](../../../content/part-24/figures/se-298-puntos-calientes.svg)
+![Barras agrupadas con la reducción del interés pagado al refactorizar cinco de cuarenta archivos según el criterio de elección y la relación entre complejidad y cambios: sin relación, por complejidad se reduce el 17,8 por ciento, por cambios el 33,9, por ambos el 36,6 y al azar el 7,4.](../../../content/part-24/figures/se-298-puntos-calientes.svg)
 
-**Cómo leer la figura.** Cada fila fija cuánto se parecen los archivos más complejos a los más cambiados; cada columna es un criterio de elección. **Dónde deja de valer:** el modelo fija como supuesto que el interés es complejidad por cambios, que es lo que se está probando; con otro supuesto, el orden de los criterios podría cambiar. La relación entre complejidad y cambios se impuso, no se midió en ningún repositorio. La figura enseña la estructura: elegir solo por complejidad rinde la mitad si la complejidad no guarda relación con los cambios.
+**Cómo leer la figura.** Cada grupo es un grado de relación entre complejidad y cambios; las cuatro barras son los criterios de elección y su altura la reducción del interés pagado. Mira primero el grupo de la izquierda, donde la barra roja (por complejidad) queda muy por debajo, y cómo las cuatro se igualan con relación total. **Dónde deja de valer:** el modelo fija como supuesto que el interés es complejidad por cambios, que es lo que se está probando; con otro supuesto, el orden de los criterios podría cambiar. La relación entre complejidad y cambios se impuso, no se midió en ningún repositorio. La figura enseña la estructura: elegir solo por complejidad rinde la mitad si la complejidad no guarda relación con los cambios.
 
 ## Definiciones de trabajo
 

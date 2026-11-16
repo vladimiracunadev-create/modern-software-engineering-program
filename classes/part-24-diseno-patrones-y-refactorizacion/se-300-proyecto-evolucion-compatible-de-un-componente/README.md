@@ -126,9 +126,9 @@ for n in nb:
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). El verificador acierta 7 de los 12 y no ve 5 cambios que rompen a entre 1 y 5 consumidores; no hubo falsas alarmas.
 
-![Tabla con doce cambios de una función pública, lo que dice un verificador que compara firmas y cuántos de ocho consumidores rompe cada uno realmente.](../../../content/part-24/figures/se-300-firma-frente-a-comportamiento.svg)
+![Barras horizontales con los consumidores rotos, de 8, por cada uno de doce cambios: la firma detecta cinco cambios que rompen y no ve otros cinco que rompen a entre uno y cinco consumidores; dos cambios sin efecto no rompen a nadie.](../../../content/part-24/figures/se-300-firma-frente-a-comportamiento.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio; la segunda columna es el veredicto del verificador y la tercera, cuántos consumidores se rompen de verdad. **Dónde deja de valer:** los ocho consumidores son del autor y están escritos para ejercer estos cambios; un consumidor real ejercería otros o no ejercería ninguno. Que el verificador no tenga falsas alarmas no lo hace suficiente: de diez cambios con efecto real, deja pasar cinco. El «0 de 8» del cambio sin efecto observable es un resultado esperado, no una garantía.
+**Cómo leer la figura.** Cada barra es un cambio de la función pública y su longitud los consumidores rotos de 8; el color dice si el verificador por firma lo detecta (verde) o no lo ve (rojo). Mira primero las barras rojas: cambian el comportamiento sin cambiar la firma. **Dónde deja de valer:** los ocho consumidores son del autor y están escritos para ejercer estos cambios; un consumidor real ejercería otros o no ejercería ninguno. Que el verificador no tenga falsas alarmas no lo hace suficiente: de diez cambios con efecto real, deja pasar cinco. El «0 de 8» del cambio sin efecto observable es un resultado esperado, no una garantía.
 
 ### La ventana de deprecación
 
@@ -150,9 +150,9 @@ else: cl.append(("diligente", rng.lognormvariate(math.log(mediana), sigma)))
 
 Entre los diligentes, el 75 % migra en 11,3 semanas, el 95 % en 36,3 y el 99 % en 72,4. Aun esperando indefinidamente, el 25,6 % de los clientes (abandonados y reactivos) no migra solo.
 
-![Tabla con los clientes que ya migraron y los que se rompen según la semana en que se retira la versión antigua, de la semana ocho a la ciento cuatro.](../../../content/part-24/figures/se-300-ventana-de-deprecacion.svg)
+![Línea con el porcentaje de clientes que se rompen al retirar la versión antigua según la semana de retirada: baja de 53,8 por ciento en la semana 8 a 25,8 en la 104 y se acerca, sin llegar, al 25,6 que nunca migra solo.](../../../content/part-24/figures/se-300-ventana-de-deprecacion.svg)
 
-**Cómo leer la figura.** Cada fila es una semana de retirada; las columnas muestran cuántos habían migrado y cuántos se rompen al retirar. **Dónde deja de valer:** las proporciones de diligentes, reactivos y abandonados, la mediana y la sigma son supuestos del autor, sin ningún dato de clientes reales. El modelo no incluye recordatorios, soporte activo ni migraciones asistidas, que mueven a los reactivos antes. Esperar no lleva a cero: la decisión final es de producto, con aviso y con una lista de quién queda.
+**Cómo leer la figura.** El eje horizontal es la semana de retirada, en escala logarítmica, y el vertical el porcentaje de los 500 clientes que se rompen; la línea discontinua es el 25,6 % que nunca migrará solo. Mira primero cómo la curva se aplana contra esa línea y no llega a cero. **Dónde deja de valer:** las proporciones de diligentes, reactivos y abandonados, la mediana y la sigma son supuestos del autor, sin ningún dato de clientes reales. El modelo no incluye recordatorios, soporte activo ni migraciones asistidas, que mueven a los reactivos antes. Esperar no lleva a cero: la decisión final es de producto, con aviso y con una lista de quién queda.
 
 ### Contratos de consumidor frente a la suite del proveedor
 
@@ -175,9 +175,9 @@ for c in usos:
 
 Diez de los doce campos los lee algún consumidor.
 
-![Tabla con los cambios de una respuesta de doce campos que rompen a algún consumidor, los que detecta la suite del proveedor, los que detectan los contratos y las alarmas de un esquema exacto, la mitad de ellas sin consumidor afectado.](../../../content/part-24/figures/se-300-contratos-de-consumidor.svg)
+![Barras horizontales con los cambios que rompen a algún consumidor, de 54 probados: 23 rompen a alguien; la suite del proveedor, que comprueba cuatro campos de doce, detecta 9; las pruebas de contrato de los ocho consumidores detectan los 23.](../../../content/part-24/figures/se-300-contratos-de-consumidor.svg)
 
-**Cómo leer la figura.** Cada fila es una medida sobre los 54 cambios; la clave es la comparación entre quien comprueba todo el esquema, quien comprueba cuatro campos y quien comprueba lo que cada consumidor declara. **Dónde deja de valer:** el 100 % de los contratos es una propiedad del modelo, que da a cada consumidor un lector que declara exactamente lo que usa; en la práctica un consumidor lee más de lo que declaró. Dos campos que nadie lee (de doce) dejan cambios sin consumidor afectado. La figura muestra por qué un contrato evita las alarmas inútiles, no que tenga cobertura total.
+**Cómo leer la figura.** Cada barra es un conjunto de cambios sobre los 54 probados: los que rompen a algún consumidor, los que detecta la suite del proveedor y los que detectan los contratos de los consumidores. Mira primero la diferencia entre la segunda y la tercera barra; las alarmas del esquema exacto, que no se dibujan, están en la nota. **Dónde deja de valer:** el 100 % de los contratos es una propiedad del modelo, que da a cada consumidor un lector que declara exactamente lo que usa; en la práctica un consumidor lee más de lo que declaró. Dos campos que nadie lee (de doce) dejan cambios sin consumidor afectado. La figura muestra por qué un contrato evita las alarmas inútiles, no que tenga cobertura total.
 
 ## Definiciones de trabajo
 

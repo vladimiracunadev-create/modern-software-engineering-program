@@ -1,8 +1,9 @@
 """Figures for SE-517 to SE-522 (design and enterprise patterns: runs of real CPython code with ast analysis, a seeded simulation and an in-memory sqlite3 database; Windows CPython 3.12; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_kit import Fig, dumbbell, grouped_bars, line_chart, scatter, stacked_bars
+from figure_diagrams import chain, fan
+
 from figures_part40_a import bars, flow
 
 EJEC = "Código ejecutado de verdad (CPython 3.12, Windows 11); los recuentos son deterministas y los tiempos varían de equipo en equipo."
@@ -11,12 +12,15 @@ SIM = "Simulación con semilla fija sobre código ejecutado de verdad (CPython 3
 
 # ---------------------------------------------------------------- SE-517
 def se517_costo_del_patron() -> Fig:
-    rows = [['2', '41', '85', '3', '2'], ['4', '71', '125', '5', '2'], ['8', '131', '205', '9', '2'], ['12', '191', '285', '13', '2']]
-    return tab('Strategy frente a if/elif: tamaño y complejidad crecen distinto con el número de variantes',
-               'Tabla con el tamaño en nodos de sintaxis y la complejidad ciclomática máxima de una función de tarifas escrita como cadena if y elif y como Strategy con registro: con 2 variantes son 41 y 85 nodos, con 4 son 71 y 125, con 8 son 131 y 205 y con 12 son 191 y 285; la complejidad máxima por función crece de 3 a 13 con if y elif y se mantiene en 2 con Strategy.',
-               ['Variantes', 'Nodos if/elif', 'Nodos Strategy', 'CC máx. if/elif', 'CC máx. Strategy'], rows, [150, 190, 210, 200, 210], row_h=44, size=13,
-               note='El patrón cuesta más código en todos los tamaños probados (de 1,6 a 2,1 veces los nodos) y mantiene plana la complejidad de cada función. Añadir la quinta variante cambia una función existente con if/elif y ninguna con Strategy.',
-               note_kind='gold', foot=EJEC)
+    v = [2, 4, 8, 12]
+    return line_chart(
+        'Strategy frente a if/elif: tamaño y complejidad crecen distinto con el número de variantes',
+        "Líneas en escala logarítmica con el tamaño en nodos de sintaxis y la complejidad ciclomática máxima de una función de tarifas según el número de variantes: if y elif pasa de 41 a 191 nodos y de complejidad 3 a 13; Strategy con registro pasa de 85 a 285 nodos y mantiene la complejidad en 2; el patrón cuesta más código y mantiene plana la complejidad.",
+        [("Nodos Strategy", list(zip(v, [85, 125, 205, 285])), "coral"), ("Nodos if/elif", list(zip(v, [41, 71, 131, 191])), "gold"),
+         ("Complejidad máx. if/elif", list(zip(v, [3, 5, 9, 13])), "teal"), ("Complejidad máx. Strategy", list(zip(v, [2, 2, 2, 2])), "navy")],
+        x_label="Variantes de tarifa", y_label="Nodos o complejidad ciclomática", log_y=True,
+        x_ticks=[(2, "2"), (4, "4"), (8, "8"), (12, "12")], y_ticks=[1, 10, 100, 1000], point_labels="none",
+        note='El patrón cuesta más código en todos los tamaños probados (de 1,6 a 2,1 veces los nodos) y mantiene plana la complejidad de cada función. Añadir la quinta variante cambia una función existente con if/elif y ninguna con Strategy.', note_kind='gold', foot=EJEC)
 
 
 def se517_cuando_usar() -> Fig:
@@ -29,15 +33,15 @@ def se517_cuando_usar() -> Fig:
 
 
 def se517_vocabulario_y_riesgo() -> Fig:
-    rows = [['Vocabulario común', 'Decir «es un Decorator» condensa una estructura conocida', 'Se usa el nombre sin que la estructura exista'],
-            ['Solución probada', 'Resuelve un problema recurrente en un contexto', 'El contexto cambió y la solución se copió igual'],
-            ['Evaluación del diseño', 'Da criterios para discutir alternativas', 'Se convierte en lista de verificación sin fuerza'],
-            ['Enseñanza', 'Permite entrar a un código ajeno más rápido', 'Se ve patrón donde hay un nombre de clase']]
-    return tab('Qué aporta un catálogo de patrones y cómo se estropea',
-               'Tabla con cuatro aportes de un catálogo de patrones, vocabulario común, solución probada, evaluación del diseño y enseñanza, y para cada uno el modo en que se estropea cuando se usa sin la fuerza que lo justifica.',
-               ['Aporte', 'Cuando funciona', 'Cómo se estropea'], rows, [210, 380, 370], row_h=60, size=13,
-               note='La tabla resume el argumento de la clase; la evidencia medida está en la figura anterior y en las siguientes clases de la parte.',
-               note_kind='gold', foot=EJEC)
+    return fan(
+        'Qué aporta un catálogo de patrones y cómo se estropea',
+        "Diagrama de cuatro aportes de un catálogo de patrones, vocabulario común, solución probada, evaluación del diseño y enseñanza, y para cada uno el modo en que se estropea: se usa el nombre sin la estructura, el contexto cambió y la solución se copió igual, se convierte en lista de verificación sin fuerza o se ve patrón donde hay un nombre de clase.",
+        ("Un catálogo de patrones", "qué aporta y cómo se estropea", "navy"),
+        [("Vocabulario común", "funciona: decir «es un Decorator» condensa una estructura conocida · se estropea: se usa el nombre sin que la estructura exista", "gold"),
+         ("Solución probada", "funciona: resuelve un problema recurrente en un contexto · se estropea: el contexto cambió y la solución se copió igual", "gold"),
+         ("Evaluación del diseño", "funciona: da criterios para discutir alternativas · se estropea: se convierte en lista de verificación sin fuerza", "gold"),
+         ("Enseñanza", "funciona: permite entrar a un código ajeno más rápido · se estropea: se ve patrón donde hay un nombre de clase", "gold")],
+        note='La tabla resume el argumento de la clase; la evidencia medida está en la figura anterior y en las siguientes clases de la parte.', note_kind='gold', foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-518
@@ -50,50 +54,48 @@ def se518_singleton_y_orden() -> Fig:
 
 
 def se518_prototype_copia() -> Fig:
-    rows = [['Copia superficial (copy.copy)', '1000 de 1000', '≈1 µs', 'Cada clon comparte la lista de destinatarios con la plantilla'],
-            ['Copia profunda (copy.deepcopy)', '1 de 1000', '≈11 µs', 'Cada clon tiene su propia lista; cuesta unas 17 veces más que construir'],
-            ['Construir desde cero', '0 de 1000', '≈0,6 µs', 'No hay plantilla compartida; hay que repetir los valores por defecto']]
-    return tab('Prototype: añadir un destinatario a un clon contamina a los demás si la copia es superficial',
-               'Tabla con tres formas de obtener 1000 avisos desde una plantilla: la copia superficial deja 1000 de 1000 clones afectados al añadir un destinatario a uno, la copia profunda deja 1 de 1000 con un coste de unos 11 microsegundos por copia, y construir desde cero deja 0 con unos 0,6 microsegundos.',
-               ['Forma', 'Clones afectados', 'Coste por copia', 'Qué ocurre'], rows, [260, 170, 150, 380], row_h=72, size=13,
-               note='La copia profunda corrige el defecto compartido y cuesta del orden de diez a veinte veces más que construir. Los tiempos son de un equipo y se dan como orden de magnitud.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        'Prototype: añadir un destinatario a un clon contamina a los demás si la copia es superficial',
+        "Barras horizontales con los clones afectados, de 1 000, al añadir un destinatario a uno de ellos: con copia superficial son 1 000 de 1 000 porque comparten la lista con la plantilla, con copia profunda 1 y construyendo desde cero 0; la copia profunda cuesta unos 11 microsegundos frente a 1 de la superficial y 0,6 de construir.",
+        ["Copia superficial (copy.copy), ≈1 µs", "Copia profunda (copy.deepcopy), ≈11 µs", "Construir desde cero, ≈0,6 µs"],
+        [("Clones afectados", [1000, 1, 0], "coral")],
+        unit="Clones afectados, de 1 000", horizontal=True, label_w=280, ticks=[0, 250, 500, 750, 1000],
+        note='La copia profunda corrige el defecto compartido y cuesta del orden de diez a veinte veces más que construir. Los tiempos son de un equipo y se dan como orden de magnitud.', note_kind='gold', foot=EJEC)
 
 
 def se518_cuatro_creacionales() -> Fig:
-    rows = [['Factory con registro', 'Canal desconocido', 'Rechaza al crear: 2 de 5 pedidos erróneos se detectan antes de enviar'],
-            ['Builder / argumentos con nombre', 'Argumentos del mismo tipo intercambiados', '500 de 500 llamadas posicionales aceptadas; con kw_only se rechazan las 500'],
-            ['Singleton', 'Un único punto de acceso', '18 de 24 ordenaciones de pruebas fallan con estado mutable'],
-            ['Prototype', 'Copiar un objeto configurado', 'Superficial: 1000 contaminados; profunda: 1']]
-    return tab('Cuatro patrones creacionales: la fuerza que atacan y lo que se midió',
-               'Tabla con cuatro patrones creacionales, Factory con registro, Builder o argumentos con nombre, Singleton y Prototype, la fuerza que atacan y el resultado medido en el experimento: dos de cinco canales erróneos rechazados al crear, 500 de 500 llamadas posicionales aceptadas frente a 500 rechazadas con argumentos solo con nombre, 18 de 24 ordenaciones de pruebas fallidas con estado mutable y 1000 contaminados con copia superficial frente a 1 con copia profunda.',
-               ['Patrón', 'Fuerza', 'Resultado medido'], rows, [250, 280, 430], row_h=64, size=13,
-               note='En Python, argumentos con nombre y dataclasses sustituyen buena parte del Builder; el mecanismo del patrón sigue siendo útil en lenguajes sin ellos.',
-               note_kind='teal', foot=EJEC)
+    return fan(
+        'Cuatro patrones creacionales: la fuerza que atacan y lo que se midió',
+        "Diagrama de cuatro patrones creacionales con la fuerza que atacan y lo medido: Factory con registro rechaza al crear 2 de 5 pedidos erróneos; Builder con argumentos con nombre rechaza las 500 llamadas con tipos intercambiados que la forma posicional aceptaba; Singleton hace fallar 18 de 24 ordenaciones de pruebas con estado mutable; Prototype contamina 1 000 clones con copia superficial y 1 con profunda.",
+        ("Cuatro patrones creacionales", "la fuerza que atacan y lo que se midió", "navy"),
+        [("Factory con registro", "ataca el canal desconocido · rechaza al crear: 2 de 5 pedidos erróneos se detectan antes de enviar", "teal"),
+         ("Builder / argumentos con nombre", "ataca argumentos del mismo tipo intercambiados · 500 de 500 llamadas posicionales aceptadas; con kw_only se rechazan las 500", "teal"),
+         ("Singleton", "ofrece un único punto de acceso · 18 de 24 ordenaciones de pruebas fallan con estado mutable", "coral"),
+         ("Prototype", "copiar un objeto configurado · superficial: 1 000 contaminados; profunda: 1", "gold")],
+        note='En Python, argumentos con nombre y dataclasses sustituyen buena parte del Builder; el mecanismo del patrón sigue siendo útil en lenguajes sin ellos.', note_kind='teal', foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-519
 def se519_orden_de_decoradores() -> Fig:
-    rows = [['Reintento por fuera, plazo de 80 ms por intento', '97,5 %', '240 ms', '1,37'],
-            ['Plazo total de 80 ms por fuera de los reintentos', '71,2 %', '80 ms', '1,00']]
-    return tab('Dos órdenes de los mismos decoradores, 3000 peticiones con latencias lognormales',
-               'Tabla con dos órdenes de los mismos decoradores de plazo y reintento sobre 3000 peticiones con latencias lognormales de semilla fija: con el reintento por fuera y un plazo de 80 milisegundos por intento el éxito es 97,5 por ciento, el percentil 99 de latencia es 240 milisegundos y hay 1,37 llamadas al backend por petición; con un plazo total de 80 milisegundos por fuera de los reintentos el éxito es 71,2 por ciento, el percentil 99 es 80 milisegundos y hay 1,00 llamadas.',
-               ['Orden de los decoradores', 'Éxito', 'Latencia p99', 'Llamadas por petición'], rows, [440, 140, 170, 210], row_h=70, size=13,
-               note='Los mismos dos decoradores, apilados en otro orden, producen sistemas con políticas distintas: uno compra éxito con latencia y carga; el otro acota la latencia y pierde peticiones. El orden es una decisión de diseño, no un detalle.',
-               note_kind='coral', foot=SIM)
+    return scatter(
+        'Dos órdenes de los mismos decoradores, 3000 peticiones con latencias lognormales',
+        "Dispersión de la latencia p99 y el éxito de dos órdenes de los mismos decoradores sobre 3 000 peticiones: con el reintento por fuera y un plazo de 80 ms por intento el éxito es 97,5 por ciento, la latencia p99 240 ms y 1,37 llamadas por petición; con el plazo total de 80 ms por fuera de los reintentos el éxito es 71,2 por ciento, la latencia 80 ms y 1,00 llamadas.",
+        [("Reintento por fuera, plazo por intento", [(240, 97.5, "97,5 % · 240 ms · 1,37 llamadas", "l")], "teal"), ("Plazo total por fuera de los reintentos", [(80, 71.2, "71,2 % · 80 ms · 1,00 llamadas", "r")], "coral")],
+        x_label="Latencia p99 (ms)", y_label="Éxito (%)", x_ticks=[(0, "0"), (50, "50"), (100, "100"), (150, "150"), (200, "200"), (250, "250"), (300, "")], y_ticks=[60, 70, 80, 90, 100], y_zero=False,
+        note='Los mismos dos decoradores, apilados en otro orden, producen sistemas con políticas distintas: uno compra éxito con latencia y carga; el otro acota la latencia y pierde peticiones. El orden es una decisión de diseño, no un detalle.', note_kind='coral', foot=SIM)
 
 
 def se519_cinco_estructurales() -> Fig:
-    rows = [['Adapter', 'Dos proveedores con formas distintas', 'Ambos devuelven (id, aceptado) tras la adaptación'],
-            ['Facade', 'Cliente que coordina subsistemas', '7 llamadas del cliente pasan a 1'],
-            ['Proxy', 'Objeto costoso que no siempre se usa', '1000 proxies, 37 usos, 37 objetos construidos'],
-            ['Composite', 'Grupos que contienen grupos', 'Con ciclo: lista correcta con guarda; RecursionError sin ella'],
-            ['Decorator', 'Añadir comportamiento sin tocar el objeto', 'El orden de apilado cambia la política']]
-    return tab('Cinco patrones estructurales y el hecho medido de cada uno',
-               'Tabla con cinco patrones estructurales y un hecho medido de cada uno: el Adapter unifica dos proveedores en la misma forma, la Facade reduce siete llamadas del cliente a una, el Proxy perezoso construye 37 objetos para 1000 proxies cuando solo se usan 37, el Composite con un ciclo produce la lista correcta con una guarda de visitados y un error de recursión sin ella, y el orden de apilado de los Decorator cambia la política.',
-               ['Patrón', 'Fuerza', 'Hecho medido'], rows, [170, 340, 450], row_h=56, size=13,
-               note='Los cinco comparten una forma (un objeto que envuelve o contiene a otro con la misma interfaz) y se distinguen por la intención: adaptar, simplificar, controlar el acceso, componer o añadir.',
-               note_kind='teal', foot=EJEC)
+    return fan(
+        'Cinco patrones estructurales y el hecho medido de cada uno',
+        "Diagrama de cinco patrones estructurales con un hecho medido de cada uno: el Adapter unifica dos proveedores en la misma forma, la Facade reduce siete llamadas del cliente a una, el Proxy construye 37 objetos para 1 000 proxies con 37 usos, el Composite necesita una guarda ante un ciclo y el orden de apilado del Decorator cambia la política.",
+        ("Cinco patrones estructurales", "la fuerza y el hecho medido", "navy"),
+        [("Adapter", "dos proveedores con formas distintas · ambos devuelven (id, aceptado) tras la adaptación", "teal"),
+         ("Facade", "cliente que coordina subsistemas · 7 llamadas del cliente pasan a 1", "teal"),
+         ("Proxy", "objeto costoso que no siempre se usa · 1 000 proxies, 37 usos, 37 objetos construidos", "teal"),
+         ("Composite", "grupos que contienen grupos · con ciclo: lista correcta con guarda; RecursionError sin ella", "gold"),
+         ("Decorator", "añadir comportamiento sin tocar el objeto · el orden de apilado cambia la política", "gold")],
+        note='Los cinco comparten una forma (un objeto que envuelve o contiene a otro con la misma interfaz) y se distinguen por la intención: adaptar, simplificar, controlar el acceso, componer o añadir.', note_kind='teal', foot=EJEC)
 
 
 def se519_envoltura() -> Fig:
@@ -109,22 +111,22 @@ def se519_envoltura() -> Fig:
 def se520_banderas_y_estados() -> Fig:
     return bars('Diez mil secuencias de seis eventos: estados imposibles con banderas y con máquina de estados',
                 'Gráfico de barras con el porcentaje de secuencias de seis eventos aleatorios que terminan en una combinación imposible de banderas, 69,7 por ciento con cuatro banderas booleanas y 0 por ciento con una máquina de estados que rechaza las transiciones ilegales.',
-                [('Cuatro banderas booleanas', 69.7, 'coral', '69,7 %'), ('Tabla de transiciones', 0, 'teal', '0 %')], 9,
+                [('Cuatro banderas booleanas', 69.7, 'coral', '69,7 %'), ('Tabla de transiciones', 0, 'teal', '0 %')], 6,
                 note='Cuatro banderas representan 16 combinaciones y 9 violan las reglas; la máquina tiene 5 estados y 6 transiciones legales de 25 pares posibles, y rechaza el resto por nombre. El porcentaje depende de la definición de «imposible» del autor.',
                 note_kind='coral', foot=SIM)
 
 
 def se520_observer_y_comando() -> Fig:
-    rows = [['Observer con referencias fuertes', '1000 oyentes descartados sin darse de baja', '1000 siguen vivos'],
-            ['Observer con referencias débiles', 'Los mismos 1000 oyentes', '0 siguen vivos'],
-            ['Notificación sin aislamiento', '4 oyentes, el segundo falla', 'Entrega a 1 oyente'],
-            ['Notificación con aislamiento', '4 oyentes, el segundo falla', 'Entrega a 3 y registra 1 error'],
-            ['Command con deshacer', '200 secuencias aleatorias', 'Estado inicial recuperado en 200 de 200']]
-    return tab('Observer y Command: fugas, aislamiento de fallos y deshacer, medidos',
-               'Tabla con cinco medidas de Observer y Command: con referencias fuertes quedan vivos 1000 de 1000 oyentes descartados y con referencias débiles 0; sin aislamiento un oyente que falla impide la entrega a los otros y se entrega a 1 de 4, con aislamiento se entrega a 3 y se registra 1 error; y un Command con deshacer recupera el estado inicial en 200 de 200 secuencias aleatorias.',
-               ['Variante', 'Situación', 'Resultado'], rows, [330, 330, 300], row_h=52, size=13,
-               note='El Observer desacopla al emisor de los receptores, pero deja a su cargo el ciclo de vida de los oyentes y el aislamiento de sus fallos: sin ellos, el desacoplamiento es una trampa.',
-               note_kind='gold', foot=EJEC)
+    return fan(
+        'Observer y Command: fugas, aislamiento de fallos y deshacer, medidos',
+        "Diagrama de cinco medidas de Observer y Command: con referencias fuertes quedan vivos 1 000 de 1 000 oyentes descartados y con referencias débiles 0; sin aislamiento un oyente que falla impide la entrega a los demás y con aislamiento se entrega a 3 y se registra 1 error; el deshacer recupera el estado inicial en 200 de 200 secuencias.",
+        ("Observer y Command", "fugas, aislamiento de fallos y deshacer", "navy"),
+        [("Observer con referencias fuertes", "1 000 oyentes descartados sin darse de baja: 1 000 siguen vivos", "coral"),
+         ("Observer con referencias débiles", "los mismos 1 000 oyentes: 0 siguen vivos", "teal"),
+         ("Notificación sin aislamiento", "4 oyentes, el segundo falla: entrega a 1 oyente", "coral"),
+         ("Notificación con aislamiento", "4 oyentes, el segundo falla: entrega a 3 y registra 1 error", "teal"),
+         ("Command con deshacer", "200 secuencias aleatorias: estado inicial recuperado en 200 de 200", "teal")],
+        note='El Observer desacopla al emisor de los receptores, pero deja a su cargo el ciclo de vida de los oyentes y el aislamiento de sus fallos: sin ellos, el desacoplamiento es una trampa.', note_kind='gold', foot=EJEC)
 
 
 def se520_cinco_conductuales() -> Fig:
@@ -138,13 +140,13 @@ def se520_cinco_conductuales() -> Fig:
 
 # ---------------------------------------------------------------- SE-521
 def se521_un_cambio_dos_disenos() -> Fig:
-    rows = [['A: la lógica vive en quien la usa', '3', '3', '(33,5 ; 35)', 'Inconsistente'],
-            ['B: Experto en información (Linea.subtotal)', '0', '2', '(33,5 ; 33,5)', 'Consistente']]
-    return tab('El mismo cambio de regla, un descuento del 10 % hecho en un solo lugar, en dos diseños',
-               'Tabla con dos diseños del cálculo de totales de un pedido y el efecto de aplicar un descuento del 10 por ciento a partir de tres unidades en un solo lugar: en el diseño A, donde tres clases leen el precio del producto de cada línea, el total de Checkout da 33,5 y el de Factura 35 y son inconsistentes; en el diseño B, donde la línea calcula su subtotal, ambos dan 33,5 y son consistentes.',
-               ['Diseño', 'Clases que leen el precio ajeno', 'Copias de la fórmula', 'Totales', 'Resultado'], rows, [250, 230, 140, 180, 160], row_h=72, size=13,
-               note='Asignar el cálculo a quien tiene los datos (Experto en información) hace que un cambio de regla se haga en un lugar. No es un teorema: es una consecuencia verificable de dónde viven los datos.',
-               note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        'El mismo cambio de regla, un descuento del 10 % hecho en un solo lugar, en dos diseños',
+        "Barras agrupadas con dos diseños del cálculo de totales ante un descuento del 10 por ciento aplicado en un solo lugar: en el diseño A, 3 clases leen el precio ajeno y la fórmula está copiada 3 veces, y los totales quedan inconsistentes (33,5 y 35); en el diseño B, con el Experto en información, 0 clases leen el precio ajeno, hay 2 copias y los totales coinciden (33,5 y 33,5).",
+        ["A: la lógica vive en quien la usa", "B: Experto en información (Linea.subtotal)"],
+        [("Clases que leen el precio ajeno", [3, 0], "coral"), ("Copias de la fórmula", [3, 2], "gold")],
+        unit="Clases o copias", ticks=[0, 1, 2, 3, 4],
+        note='Asignar el cálculo a quien tiene los datos (Experto en información) hace que un cambio de regla se haga en un lugar. No es un teorema: es una consecuencia verificable de dónde viven los datos.', note_kind='teal', foot=EJEC)
 
 
 def se521_nueve_grasp() -> Fig:
@@ -157,47 +159,45 @@ def se521_nueve_grasp() -> Fig:
 
 
 def se521_cohesion_y_acoplamiento() -> Fig:
-    rows = [['Servicio con 10 métodos y 8 dependencias', '10', '8', '37 de 45'],
-            ['Registro (después de separar)', '2', '1', '0 de 1'],
-            ['Notificador (después de separar)', '2', '3', '0 de 1'],
-            ['Migración (después de separar)', '3', '1', '0 de 3']]
-    return tab('Cohesión medida con ast: pares de métodos que no comparten ningún atributo',
-               'Tabla con la cohesión medida con análisis de sintaxis: una clase de servicio con diez métodos y ocho dependencias en el constructor tiene 37 de 45 pares de métodos que no comparten ningún atributo, y al separarla en tres clases, Registro, Notificador y Migración, ningún par queda sin compartir estado.',
-               ['Clase', 'Métodos', 'Dependencias', 'Pares sin estado compartido'], rows, [380, 150, 180, 250], row_h=48, size=13,
-               note='Pares de métodos que no comparten atributos es una aproximación a la falta de cohesión (LCOM). Es una señal, no una sentencia: dos métodos pueden estar cohesionados por el dominio sin tocar el mismo atributo.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        'Cohesión medida con ast: pares de métodos que no comparten ningún atributo',
+        "Barras agrupadas con la cohesión medida con análisis de sintaxis: una clase de servicio con 10 métodos y 8 dependencias tiene 37 de 45 pares de métodos sin estado compartido; después de separarla, Registro (2 métodos, 1 dependencia), Notificador (2 y 3) y Migración (3 y 1) tienen 0 de 1, 0 de 1 y 0 de 3 pares sin estado compartido.",
+        ["Servicio con 10 métodos y 8 dependencias", "Registro (después de separar)", "Notificador (después de separar)", "Migración (después de separar)"],
+        [("Métodos", [10, 2, 2, 3], "grey"), ("Dependencias", [8, 1, 3, 1], "gold"), ("Pares sin estado compartido", [37, 0, 0, 0], "coral")],
+        unit="Métodos, dependencias o pares", ticks=[0, 10, 20, 30, 40],
+        note='Pares de métodos que no comparten atributos es una aproximación a la falta de cohesión (LCOM). Es una señal, no una sentencia: dos métodos pueden estar cohesionados por el dominio sin tocar el mismo atributo.', note_kind='gold', foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-522
 def se522_consultas() -> Fig:
     return bars('Listar 200 entregas con el nombre de su curso: consultas ejecutadas',
                 'Gráfico de barras con el número de consultas a la base de datos al listar 200 entregas con el nombre de su curso: 201 con una consulta por entrega, el problema de las N más una consultas, y 1 con una sola consulta de lectura que une las dos tablas.',
-                [('Un repositorio que carga cada curso por separado', 201, 'coral', '201 consultas'), ('Una consulta de lectura con unión', 1, 'teal', '1 consulta')], 2.2,
+                [('Un repositorio que carga cada curso por separado', 201, 'coral', '201 consultas'), ('Una consulta de lectura con unión', 1, 'teal', '1 consulta')], 1.0,
                 note='Un Repository que oculta la base oculta también el número de consultas. La medición sale de contar las sentencias con un gancho de sqlite3, no de suponerlas.',
                 note_kind='coral', foot=EJEC, label_w=420)
 
 
 def se522_unidad_de_trabajo() -> Fig:
-    rows = [['Guardar todo lo cargado', '100', 'Escribe 97 filas que no cambiaron'],
-            ['Seguir los cambios (Unit of Work)', '3', 'Solo escribe las filas modificadas'],
-            ['Dos pasos sin transacción, falla a mitad', '1 persistido', 'Queda a medias: estado «entregada» sin el segundo paso'],
-            ['Dos pasos en una transacción, falla a mitad', '0 persistidos', 'Vuelve atrás: estado «pendiente»']]
-    return tab('Unit of Work: sentencias UPDATE y atomicidad, medidas con sqlite3 en memoria',
-               'Tabla con cuatro medidas sobre una base sqlite3 en memoria: guardar todo lo cargado ejecuta 100 UPDATE aunque solo 3 de 100 entregas cambiaron, seguir los cambios ejecuta 3, una operación de dos pasos sin transacción que falla a mitad deja el primer paso persistido y la misma operación dentro de una transacción vuelve atrás y deja el estado pendiente.',
-               ['Variante', 'UPDATE o pasos persistidos', 'Qué ocurre'], rows, [380, 220, 360], row_h=60, size=13,
-               note='La unidad de trabajo agrupa lo que debe cambiar junto y lo que debe volver atrás junto. En SQL, la transacción es el mecanismo; el patrón es la disciplina de abrirla en un único lugar.',
-               note_kind='teal', foot=EJEC)
+    return fan(
+        'Unit of Work: sentencias UPDATE y atomicidad, medidas con sqlite3 en memoria',
+        "Diagrama de cuatro medidas sobre una base sqlite3 en memoria: guardar todo lo cargado ejecuta 100 UPDATE aunque solo cambiaron 3 de 100 entregas y seguir los cambios ejecuta 3; con dos pasos sin transacción un fallo a mitad deja 1 persistido y el estado entregada sin el segundo paso; con una transacción deja 0 y vuelve a pendiente.",
+        ("Unit of Work", "sentencias UPDATE y atomicidad, con sqlite3 en memoria", "navy"),
+        [("Guardar todo lo cargado: 100 UPDATE", "escribe 97 filas que no cambiaron", "coral"),
+         ("Seguir los cambios (Unit of Work): 3 UPDATE", "solo escribe las filas modificadas", "teal"),
+         ("Dos pasos sin transacción, falla a mitad: 1 persistido", "queda a medias: estado «entregada» sin el segundo paso", "coral"),
+         ("Dos pasos en una transacción, falla a mitad: 0 persistidos", "vuelve atrás: estado «pendiente»", "teal")],
+        note='La unidad de trabajo agrupa lo que debe cambiar junto y lo que debe volver atrás junto. En SQL, la transacción es el mecanismo; el patrón es la disciplina de abrirla en un único lugar.', note_kind='teal', foot=EJEC)
 
 
 def se522_tres_formas() -> Fig:
-    rows = [['Repository', 'Colección en memoria de agregados', 'Doble de prueba ≈11 µs frente a sqlite ≈600 µs por caso (≈50×)'],
-            ['Unit of Work', 'Una transacción por caso de uso', 'Fallo a mitad: 0 filas persistidas en lugar de 1'],
-            ['Active Record', 'La entidad sabe guardarse', 'La regla pura corre sin base; la que llama a save falla sin conexión']]
-    return tab('Tres formas de poner el acceso a datos en el modelo y lo que se midió de cada una',
-               'Tabla con tres formas de acceso a datos, Repository, Unit of Work y Active Record, y lo medido: un doble en memoria de un repositorio ejecuta un caso en unos 11 microsegundos frente a unos 600 de sqlite en memoria, una unidad de trabajo deja 0 filas persistidas tras un fallo a mitad frente a 1 sin ella, y en Active Record la regla pura corre sin base pero la que llama a guardar falla sin conexión.',
-               ['Patrón', 'Qué modela', 'Qué se midió'], rows, [200, 310, 450], row_h=64, size=13,
-               note='Ambas formas de prueba son rápidas: la diferencia de 50 veces importa con miles de pruebas, no con decenas. Active Record es una opción razonable cuando el modelo es casi las tablas; deja de serlo cuando la regla de negocio crece.',
-               note_kind='gold', foot=EJEC)
+    return fan(
+        'Tres formas de poner el acceso a datos en el modelo y lo que se midió de cada una',
+        "Diagrama de tres formas de poner el acceso a datos en el modelo y lo medido: un doble en memoria de un repositorio ejecuta un caso en unos 11 microsegundos frente a unos 600 con sqlite, cerca de 50 veces; una Unit of Work deja 0 filas persistidas en lugar de 1 si el fallo ocurre a mitad; con Active Record la regla pura corre sin base y la que llama a save falla sin conexión.",
+        ("Tres formas de acceso a datos", "qué modelan y qué se midió", "navy"),
+        [("Repository", "colección en memoria de agregados · doble de prueba ≈11 µs frente a sqlite ≈600 µs por caso (≈50×)", "teal"),
+         ("Unit of Work", "una transacción por caso de uso · fallo a mitad: 0 filas persistidas en lugar de 1", "teal"),
+         ("Active Record", "la entidad sabe guardarse · la regla pura corre sin base; la que llama a save falla sin conexión", "gold")],
+        note='Ambas formas de prueba son rápidas: la diferencia de 50 veces importa con miles de pruebas, no con decenas. Active Record es una opción razonable cuando el modelo es casi las tablas; deja de serlo cuando la regla de negocio crece.', note_kind='gold', foot=EJEC)
 
 
 FIGURES = {

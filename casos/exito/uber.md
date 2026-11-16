@@ -204,15 +204,15 @@ Los autores esperaban que el negocio fuera «de baja tecnología, sobre todo ope
 
 Fecha de consulta de todas: 16 de noviembre de 2026. Verificadas con `curl` (algunas exigen cabeceras de navegador estándar).
 
-- **[U1]** Travis Kalanick, «Uber's Founding», 22 de diciembre de 2010: <https://www.uber.com/us/en/newsroom/ubers-founding>. Respalda la idea de 2008, el prototipo de 2009, Ryan Graves, la prueba de enero de 2010 y el lanzamiento del 31 de mayo de 2010.
-- **[U2]** Uber, «Uber Announces Results for Fourth Quarter and Full Year 2024», 5 de febrero de 2025: <https://investor.uber.com/news-events/news/press-release-details/2025/Uber-Announces-Results-for-Fourth-Quarter-and-Full-Year-2024/default.aspx>. Respalda las cifras de 2023-2024 y del cuarto trimestre.
-- **[U3]** Uber, «Uber announces pricing of initial public offering», 9 de mayo de 2019: <https://investor.uber.com/news-events/news/press-release-details/2019/Uber-Announces-Pricing-of-Initial-Public-Offering/default.aspx>.
-- **[U4]** Uber Engineering, «Why Uber Engineering Switched from Postgres to MySQL»: <https://www.uber.com/blog/postgres-to-mysql-migration/>. La fecha de publicación no se verificó.
-- **[U5]** Uber Engineering, «H3: Uber's Hexagonal Hierarchical Spatial Index»: <https://www.uber.com/blog/h3/>. Fecha no verificada.
-- **[U6]** Adam Gluck, «Introducing Domain-Oriented Microservice Architecture», 23 de julio de 2020: <https://www.uber.com/blog/microservice-architecture/>.
-- **[U7]** Uber Engineering, «Fulfillment Platform Rearchitecture»: <https://www.uber.com/blog/fulfillment-platform-rearchitecture/>. Fecha no verificada; el texto dice que el trabajo de reescritura lleva dos años.
-- **[U8]** Uber Engineering, «Ringpop»: <https://www.uber.com/blog/ringpop-open-source-nodejs-library/>. Fecha no verificada.
-- **[U9]** Uber Engineering, «Cadence overview»: <https://www.uber.com/blog/open-source-orchestration-tool-cadence-overview/>. Fecha no verificada.
+- **[U1]** Travis Kalanick, «Uber's Founding», 22 de diciembre de 2010: [https://www.uber.com/us/en/newsroom/ubers-founding](https://www.uber.com/us/en/newsroom/ubers-founding). Respalda la idea de 2008, el prototipo de 2009, Ryan Graves, la prueba de enero de 2010 y el lanzamiento del 31 de mayo de 2010.
+- **[U2]** Uber, «Uber Announces Results for Fourth Quarter and Full Year 2024», 5 de febrero de 2025: [https://investor.uber.com/news-events/news/press-release-details/2025/Uber-Announces-Results-for-Fourth-Quarter-and-Full-Year-2024/default.aspx](https://investor.uber.com/news-events/news/press-release-details/2025/Uber-Announces-Results-for-Fourth-Quarter-and-Full-Year-2024/default.aspx). Respalda las cifras de 2023-2024 y del cuarto trimestre.
+- **[U3]** Uber, «Uber announces pricing of initial public offering», 9 de mayo de 2019: [https://investor.uber.com/news-events/news/press-release-details/2019/Uber-Announces-Pricing-of-Initial-Public-Offering/default.aspx](https://investor.uber.com/news-events/news/press-release-details/2019/Uber-Announces-Pricing-of-Initial-Public-Offering/default.aspx).
+- **[U4]** Uber Engineering, «Why Uber Engineering Switched from Postgres to MySQL»: [https://www.uber.com/blog/postgres-to-mysql-migration/](https://www.uber.com/blog/postgres-to-mysql-migration/). La fecha de publicación no se verificó.
+- **[U5]** Uber Engineering, «H3: Uber's Hexagonal Hierarchical Spatial Index»: [https://www.uber.com/blog/h3/](https://www.uber.com/blog/h3/). Fecha no verificada.
+- **[U6]** Adam Gluck, «Introducing Domain-Oriented Microservice Architecture», 23 de julio de 2020: [https://www.uber.com/blog/microservice-architecture/](https://www.uber.com/blog/microservice-architecture/).
+- **[U7]** Uber Engineering, «Fulfillment Platform Rearchitecture»: [https://www.uber.com/blog/fulfillment-platform-rearchitecture/](https://www.uber.com/blog/fulfillment-platform-rearchitecture/). Fecha no verificada; el texto dice que el trabajo de reescritura lleva dos años.
+- **[U8]** Uber Engineering, «Ringpop»: [https://www.uber.com/blog/ringpop-open-source-nodejs-library/](https://www.uber.com/blog/ringpop-open-source-nodejs-library/). Fecha no verificada.
+- **[U9]** Uber Engineering, «Cadence overview»: [https://www.uber.com/blog/open-source-orchestration-tool-cadence-overview/](https://www.uber.com/blog/open-source-orchestration-tool-cadence-overview/). Fecha no verificada.
 
 **Límites.** No se ejecutó ni midió ningún sistema de Uber; todo es lectura de fuentes públicas. El documento S-1 de la SEC no pudo leerse con `curl` (403) y no se usa.
 

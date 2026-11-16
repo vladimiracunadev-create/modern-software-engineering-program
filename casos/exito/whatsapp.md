@@ -184,16 +184,16 @@
 
 Fecha de consulta de todas: 16 de noviembre de 2026. Verificadas con `curl` salvo indicación.
 
-- **[W1]** WhatsApp, «About WhatsApp»: <https://www.whatsapp.com/about>. Respalda fundadores, Yahoo, ingreso a Facebook en 2014, más de 3 000 millones en más de 180 países, gratuidad.
-- **[W2]** Facebook, «Facebook to Acquire WhatsApp», 19 de febrero de 2014: <https://about.fb.com/news/2014/02/facebook-to-acquire-whatsapp/>. Respalda el precio, las cifras de usuarios y la independencia de la marca.
-- **[W3]** WhatsApp, «Two Billion Users — Connecting the World Privately», 12 de febrero de 2020: <https://blog.whatsapp.com/two-billion-users-connecting-the-world-privately>.
-- **[W4]** WhatsApp, «end-to-end encryption», 5 de abril de 2016: <https://blog.whatsapp.com/end-to-end-encryption>.
-- **[W5]** WhatsApp, «WhatsApp Encryption Overview» (libro blanco técnico, versión fechada el 30 de octubre de 2026): <https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf>. Respalda protocolo Signal, claves, adjuntos, grupos, dispositivos vinculados y Cloud API.
-- **[W6]** WhatsApp, «1 million is so 2011», enero de 2012: <https://blog.whatsapp.com/1-million-is-so-2011>.
-- **[W7]** Rick Reed, «Scaling to Millions of Simultaneous Connections», Erlang Factory SF, 30 de marzo de 2012: <https://www.erlang-factory.com/upload/presentations/558/efsf2012-whatsapp-scaling.pdf>.
-- **[W8]** Meta Engineering, «How WhatsApp enables multi-device capability», julio de 2021: <https://engineering.fb.com/2021/07/14/security/whatsapp-multi-device/>.
-- **[W9]** Meta Engineering, «How WhatsApp is enabling end-to-end encrypted backups», septiembre de 2021: <https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/>.
-- **[W10]** Meta, «Meta Reports First Quarter 2025 Results»: <https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-First-Quarter-2025-Results/default.aspx>. Respalda que WhatsApp se reporta dentro del segmento Family of Apps.
+- **[W1]** WhatsApp, «About WhatsApp»: [https://www.whatsapp.com/about](https://www.whatsapp.com/about). Respalda fundadores, Yahoo, ingreso a Facebook en 2014, más de 3 000 millones en más de 180 países, gratuidad.
+- **[W2]** Facebook, «Facebook to Acquire WhatsApp», 19 de febrero de 2014: [https://about.fb.com/news/2014/02/facebook-to-acquire-whatsapp/](https://about.fb.com/news/2014/02/facebook-to-acquire-whatsapp/). Respalda el precio, las cifras de usuarios y la independencia de la marca.
+- **[W3]** WhatsApp, «Two Billion Users — Connecting the World Privately», 12 de febrero de 2020: [https://blog.whatsapp.com/two-billion-users-connecting-the-world-privately](https://blog.whatsapp.com/two-billion-users-connecting-the-world-privately).
+- **[W4]** WhatsApp, «end-to-end encryption», 5 de abril de 2016: [https://blog.whatsapp.com/end-to-end-encryption](https://blog.whatsapp.com/end-to-end-encryption).
+- **[W5]** WhatsApp, «WhatsApp Encryption Overview» (libro blanco técnico, versión fechada el 30 de octubre de 2026): [https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf](https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf). Respalda protocolo Signal, claves, adjuntos, grupos, dispositivos vinculados y Cloud API.
+- **[W6]** WhatsApp, «1 million is so 2011», enero de 2012: [https://blog.whatsapp.com/1-million-is-so-2011](https://blog.whatsapp.com/1-million-is-so-2011).
+- **[W7]** Rick Reed, «Scaling to Millions of Simultaneous Connections», Erlang Factory SF, 30 de marzo de 2012: [https://www.erlang-factory.com/upload/presentations/558/efsf2012-whatsapp-scaling.pdf](https://www.erlang-factory.com/upload/presentations/558/efsf2012-whatsapp-scaling.pdf).
+- **[W8]** Meta Engineering, «How WhatsApp enables multi-device capability», julio de 2021: [https://engineering.fb.com/2021/07/14/security/whatsapp-multi-device/](https://engineering.fb.com/2021/07/14/security/whatsapp-multi-device/).
+- **[W9]** Meta Engineering, «How WhatsApp is enabling end-to-end encrypted backups», septiembre de 2021: [https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/](https://engineering.fb.com/2021/09/10/security/whatsapp-e2ee-backups/).
+- **[W10]** Meta, «Meta Reports First Quarter 2025 Results»: [https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-First-Quarter-2025-Results/default.aspx](https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-First-Quarter-2025-Results/default.aspx). Respalda que WhatsApp se reporta dentro del segmento Family of Apps.
 
 **Límites.** No se ejecutó ni se midió WhatsApp. El año de fundación y el lanzamiento no se pudieron verificar en fuentes primarias. Las fechas de [W8] y [W9] se tomaron de la URL de cada artículo.
 

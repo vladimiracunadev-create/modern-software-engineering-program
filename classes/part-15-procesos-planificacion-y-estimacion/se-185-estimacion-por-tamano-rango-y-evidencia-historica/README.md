@@ -156,9 +156,9 @@ P = sum(x > y for x, y in zip(D[3], D[5])) / 20000
 
 Una tarea de talla 3 tarda más que una de talla 5 en el 27,1 % de los pares; en diez contra diez, solo en el 4,2 %. Las incertidumbres individuales se compensan en el agregado: las tallas sirven para estimar un conjunto con la historia, no un elemento.
 
-![Tabla con la probabilidad de que un elemento de talla menor tarde más que uno de talla mayor, para pares contiguos, lejanos y agregados.](../../../content/part-15/figures/se-185-solape-entre-tallas.svg)
+![Barras horizontales con la probabilidad de que el elemento menor tarde más: 0,7 por ciento con 1 contra 8, 12,4 con 3 contra 8, 27,8 con 2 contra 3, 27,1 con 3 contra 5, 29,1 con 5 contra 8 y 4,2 con diez de talla 3 contra diez de talla 5; la línea de 50 por ciento sería la indistinción total.](../../../content/part-15/figures/se-185-solape-entre-tallas.svg)
 
-**Cómo leer la figura.** Cada fila compara dos tallas; la columna central es la probabilidad de que el orden de las tallas se invierta. **Dónde deja de valer:** las medianas y la dispersión de cada talla son supuestos; un equipo con tareas homogéneas tendría dispersión menor y menos solape, y uno con tareas muy variadas, más. La tabla no desautoriza la estimación relativa: delimita lo que una talla puede afirmar.
+**Cómo leer la figura.** Cada barra compara dos tallas: su largo es el porcentaje de pares en que el elemento de talla menor tarda más que el de talla mayor, y la línea discontinua de 50 por ciento sería la indistinción total. Las tallas muy distantes casi nunca se invierten (0,7 por ciento de 1 contra 8), pero las contiguas se invierten en más de una cuarta parte de los pares. Diez elementos de talla 3 contra diez de talla 5 se invierten solo en 4,2 por ciento: sumar reduce el solapamiento, no lo elimina. **Dónde deja de valer:** las medianas y la dispersión de cada talla son supuestos; un equipo con tareas homogéneas tendría dispersión menor y menos solape, y uno con tareas muy variadas, más. La tabla no desautoriza la estimación relativa: delimita lo que una talla puede afirmar.
 
 ## Definiciones de trabajo
 

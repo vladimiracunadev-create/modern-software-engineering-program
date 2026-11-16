@@ -1,8 +1,8 @@
 """Figures for SE-181 to SE-186 (synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, grouped_bars, heatmap, line_chart
+from figures_part07_a import bars
 
 SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
 
@@ -36,19 +36,15 @@ def se181_corte() -> Fig:
 
 
 def se181_volatilidad() -> Fig:
-    rows = [
-        ["0 %", "40,0", "43,0", "52,0", "Predictivo"],
-        ["5 %", "47,8", "45,5", "54,0", "Ciclos de 4"],
-        ["10 %", "55,8", "47,9", "56,0", "Ciclos de 4"],
-        ["20 %", "71,2", "52,7", "60,0", "Ciclos de 4"],
-        ["30 %", "87,1", "57,7", "64,0", "Ciclos de 4"],
-        ["60 %", "134,1", "72,4", "76,0", "Ciclos de 4"],
-    ]
-    return tab("Esfuerzo total de 40 piezas según la volatilidad de los requisitos y el ciclo",
-               "Tabla de esfuerzo medio: sin cambios el plan predictivo cuesta 40 y gana; con 5 por ciento de piezas malentendidas los ciclos de cuatro piezas ya ganan, y con 60 por ciento el predictivo cuesta 134,1 frente a 72,4.",
-               ["Piezas malentendidas", "Predictivo (un ciclo)", "Ciclos de 4 piezas", "Ciclos de 1 pieza", "Menor esfuerzo"], rows, [190, 200, 190, 190, 170], row_h=40, size=13,
-               note="El cruce está entre 0 % y 5 % de malentendidos con estos supuestos. Con requisitos estables y cambios baratos, planificar de una vez cuesta menos; la clase no defiende un modelo, sino la relación entre volatilidad y sobrecoste del ciclo.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Esfuerzo total de 40 piezas según la volatilidad de los requisitos y el ciclo",
+        "Líneas con el esfuerzo medio de 40 piezas según el porcentaje de piezas malentendidas: el plan predictivo cuesta 40 sin cambios y 134,1 con 60 por ciento, los ciclos de cuatro piezas van de 43,0 a 72,4 y los ciclos de una pieza de 52,0 a 76,0; con 5 por ciento de piezas malentendidas los ciclos de cuatro ya ganan.",
+        [("Predictivo (un ciclo)", [(0, 40.0, "", "b"), (5, 47.8), (10, 55.8), (20, 71.2), (30, 87.1), (60, 134.1)], "coral"),
+         ("Ciclos de 4 piezas", [(0, 43.0, "", "t"), (5, 45.5, "", "b"), (10, 47.9, "", "b"), (20, 52.7, "", "b"), (30, 57.7, "", "b"), (60, 72.4, "", "b")], "teal"),
+         ("Ciclos de 1 pieza", [(0, 52.0), (5, 54.0), (10, 56.0), (20, 60.0), (30, 64.0), (60, 76.0)], "gold")],
+        x_label="Piezas malentendidas (%)", y_label="Esfuerzo medio (unidades de esfuerzo)",
+        x_ticks=[(0, "0"), (5, "5"), (10, "10"), (20, "20"), (30, "30"), (60, "60")], decimals=1, y_zero=False, point_labels="last",
+        note="El cruce está entre 0 % y 5 % de malentendidos con estos supuestos. Con requisitos estables y cambios baratos, planificar de una vez cuesta menos; la clase no defiende un modelo, sino la relación entre volatilidad y sobrecoste del ciclo.", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-182
@@ -66,18 +62,14 @@ def se182_feedback() -> Fig:
 
 
 def se182_ceremonia() -> Fig:
-    rows = [
-        ["1 semana", "5,25 %", "12", "91,1 %"],
-        ["2 semanas", "2,62 %", "6", "91,6 %"],
-        ["3 semanas", "1,75 %", "4", "90,8 %"],
-        ["4 semanas", "1,31 %", "3", "90,6 %"],
-        ["6 semanas", "0,88 %", "2", "90,0 %"],
-    ]
-    return tab("Longitud del ciclo: sobrecoste de las ceremonias frente a oportunidades de aprender",
-               "Tabla de un trimestre de 12 semanas con 10,5 horas de ceremonias por ciclo: el sobrecoste va de 5,25 por ciento con ciclos de una semana a 0,88 con ciclos de seis; el valor entregado respecto del mejor conjunto es máximo, 91,6 por ciento, con ciclos de dos semanas.",
-               ["Ciclo", "Capacidad en ceremonias", "Ciclos por trimestre", "Valor / mejor conjunto"], rows, [190, 260, 220, 250], row_h=40, size=13,
-               note="El óptimo aparece en el ciclo de 2 semanas con una diferencia de 1,6 puntos entre el mejor y el peor: es una curva plana. Las 10,5 horas de ceremonias y el equipo de cinco personas son supuestos; con otros valores el óptimo se mueve.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Longitud del ciclo: el valor entregado respecto del mejor conjunto en un trimestre de 12 semanas",
+        "Línea con el valor entregado respecto del mejor conjunto según la longitud del ciclo, con 10,5 horas de ceremonias por ciclo: 91,1 por ciento con una semana (sobrecoste de 5,25), el máximo de 91,6 con dos semanas (2,62), 90,8 con tres, 90,6 con cuatro y 90,0 con seis (0,88).",
+        [("Valor / mejor conjunto", [(1, 91.1, "", "b"), (2, 91.6), (3, 90.8, "", "b"), (4, 90.6, "", "b"), (6, 90.0, "", "t")], "teal")],
+        x_label="Longitud del ciclo (semanas); entre paréntesis, sobrecoste de las ceremonias", y_label="Valor entregado respecto del mejor conjunto (%)",
+        x_ticks=[(1, "1 (5,25 %)"), (2, "2 (2,62 %)"), (3, "3 (1,75 %)"), (4, "4 (1,31 %)"), (6, "6 (0,88 %)")], decimals=1, y_zero=False,
+        annotations=[(2, 91.6, "Máximo con ciclos de 2 semanas", 90, 40)],
+        note="El óptimo aparece en el ciclo de 2 semanas con una diferencia de 1,6 puntos entre el mejor y el peor: es una curva plana. Las 10,5 horas de ceremonias y el equipo de cinco personas son supuestos; con otros valores el óptimo se mueve.", note_kind="gold", foot=SINT)
 
 
 def se182_ramas() -> Fig:
@@ -107,18 +99,14 @@ def se183_urgente() -> Fig:
 
 
 def se183_compromiso() -> Fig:
-    rows = [
-        ["Rendimiento del último sprint", "44,7 %", "9,99", "1,67"],
-        ["Media de los 3 últimos", "44,0 %", "9,99", "1,37"],
-        ["Media de los 6 últimos", "44,0 %", "9,99", "1,29"],
-        ["Mínimo de los 6 últimos", "11,2 %", "6,21", "4,03"],
-        ["Segundo menor de los 12 últimos", "12,1 %", "6,63", "3,62"],
-    ]
-    return tab("Reglas para comprometer elementos en un sprint (rendimiento medio de 10)",
-               "Tabla de 20000 sprints sintéticos con rendimiento normal de media 10 y desviación 3: comprometer la media falla en 44 por ciento de los sprints; comprometer el mínimo de los 6 últimos falla en 11,2 por ciento pero compromete 6,21 elementos y deja 4,03 sin usar.",
-               ["Regla de compromiso", "Sprints que fallan", "Comprometido", "Capacidad sobrante"], rows, [380, 190, 190, 190], row_h=40, size=13,
-               note="Comprometer la media garantiza fallar casi la mitad de las veces. Ninguna regla es correcta en sí: cada una cambia fiabilidad por capacidad sin usar, y el equipo decide qué cuesta más.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Sprints que fallan según la regla para comprometer elementos (rendimiento medio de 10)",
+        "Barras horizontales con el porcentaje de 20 000 sprints sintéticos que no cumplen lo comprometido: 44,7 con el rendimiento del último sprint, 44,0 con la media de los 3 o de los 6 últimos, 11,2 con el mínimo de los 6 últimos y 12,1 con el segundo menor de los 12 últimos.",
+        ["Rendimiento del último sprint (compromete 9,99)", "Media de los 3 últimos (9,99)", "Media de los 6 últimos (9,99)",
+         "Mínimo de los 6 últimos (6,21)", "Segundo menor de los 12 últimos (6,63)"],
+        [("Sprints que fallan", [44.7, 44.0, 44.0, 11.2, 12.1], "coral")],
+        unit="Sprints que no cumplen lo comprometido (%)", horizontal=True, decimals=1, label_w=300,
+        note="Comprometer la media garantiza fallar casi la mitad de las veces. Ninguna regla es correcta en sí: cada una cambia fiabilidad por capacidad sin usar, y el equipo decide qué cuesta más.", note_kind="gold", foot=SINT)
 
 
 def se183_tiempo_fijo() -> Fig:
@@ -135,18 +123,13 @@ def se183_tiempo_fijo() -> Fig:
 
 # ---------------------------------------------------------------- SE-184
 def se184_espera() -> Fig:
-    rows = [
-        ["50 %", "1,00", "1,00"],
-        ["70 %", "2,33", "2,33"],
-        ["80 %", "3,95", "4,00"],
-        ["90 %", "8,80", "9,00"],
-        ["95 %", "17,90", "19,00"],
-    ]
-    return tab("Espera en cola según la utilización de una persona (en servicios medios)",
-               "Tabla: simulación de una cola de un servidor con llegadas y servicios aleatorios frente a la fórmula utilización sobre uno menos utilización; la espera pasa de 1 servicio medio al 50 por ciento a 9 al 90 y a unos 19 al 95.",
-               ["Utilización", "Simulada", "Fórmula ρ/(1−ρ)"], rows, [260, 260, 300], row_h=40, size=13,
-               note="La espera no crece linealmente: de 80 % a 95 % de utilización se multiplica por cinco. Con 95 % la simulación de 280 000 clientes aún no ha convergido a la fórmula (17,9 frente a 19,0).",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Espera en cola según la utilización de una persona (en servicios medios)",
+        "Líneas con la espera en cola de un servidor en servicios medios según la utilización: la simulación y la fórmula utilización sobre uno menos utilización coinciden y pasan de 1 al 50 por ciento a 2,33 al 70, 4 al 80, 9 al 90 y unos 19 al 95.",
+        [("Simulada", [(50, 1.00, "", "b"), (70, 2.33, "", "b"), (80, 3.95, "", "b"), (90, 8.80, "", "b"), (95, 17.90, "", "b")], "teal"),
+         ("Fórmula ρ/(1−ρ)", [(50, 1.00, "", "t"), (70, 2.33, "", "t"), (80, 4.00, "", "t"), (90, 9.00, "", "t"), (95, 19.00, "", "l")], "coral")],
+        x_label="Utilización (%)", y_label="Espera en cola (servicios medios)", x_ticks=[(50, "50"), (70, "70"), (80, "80"), (90, "90"), (95, "95")], decimals=2,
+        note="La espera no crece linealmente: de 80 % a 95 % de utilización se multiplica por cinco. Con 95 % la simulación de 280 000 clientes aún no ha convergido a la fórmula (17,9 frente a 19,0).", note_kind="coral", foot=SINT)
 
 
 def se184_little() -> Fig:
@@ -209,62 +192,47 @@ def se185_cobertura() -> Fig:
 
 
 def se185_tallas() -> Fig:
-    rows = [
-        ["1 contra 8", "0,7 %", "Se distinguen"],
-        ["3 contra 8", "12,4 %", "Casi siempre se distinguen"],
-        ["2 contra 3", "27,8 %", "Se solapan mucho"],
-        ["3 contra 5", "27,1 %", "Se solapan mucho"],
-        ["5 contra 8", "29,1 %", "Se solapan mucho"],
-        ["10 de talla 3 contra 10 de talla 5", "4,2 %", "Agregados se distinguen"],
-    ]
-    return tab("Probabilidad de que un elemento de talla menor tarde más que uno de talla mayor",
-               "Tabla: con tallas 1, 2, 3, 5 y 8 con medianas de 1 a 8 días y dispersión 0,6, un elemento de talla 3 tarda más que uno de talla 5 en 27,1 por ciento de los pares y uno de talla 2 más que uno de talla 3 en 27,8; diez elementos de talla 3 tardan más que diez de talla 5 solo en 4,2 por ciento.",
-               ["Comparación", "La menor tarda más", "Lectura"], rows, [380, 220, 330], row_h=40, size=13,
-               note="Las tallas contiguas se solapan: la talla ordena en media pero no predice cada elemento. Sumadas, las incertidumbres individuales se compensan y las tallas sirven para planificar un conjunto, no para prometer un elemento.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Probabilidad de que un elemento de talla menor tarde más que uno de talla mayor",
+        "Barras horizontales con la probabilidad de que el elemento menor tarde más: 0,7 por ciento con 1 contra 8, 12,4 con 3 contra 8, 27,8 con 2 contra 3, 27,1 con 3 contra 5, 29,1 con 5 contra 8 y 4,2 con diez de talla 3 contra diez de talla 5; la línea de 50 por ciento sería la indistinción total.",
+        ["1 contra 8", "3 contra 8", "2 contra 3", "3 contra 5", "5 contra 8", "10 de talla 3 contra 10 de talla 5"],
+        [("La menor tarda más", [0.7, 12.4, 27.8, 27.1, 29.1, 4.2], "gold")],
+        unit="Probabilidad de que la talla menor tarde más (%)", horizontal=True, decimals=1, label_w=270, ref_lines=[(50, "50 %")],
+        note="Las tallas contiguas se solapan: la talla ordena en media pero no predice cada elemento. Sumadas, las incertidumbres individuales se compensan y las tallas sirven para planificar un conjunto, no para prometer un elemento.", note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-186
 def se186_convergencia() -> Fig:
-    rows = [
-        ["1 (cadena)", "5", "37,5 %", "10,78", "12,80"],
-        ["3", "15", "0,7 %", "13,98", "15,99"],
-        ["6", "30", "0,0 %", "15,10", "16,94"],
-        ["10", "50", "0,0 %", "15,87", "17,67"],
-    ]
-    return tab("Cinco capas de tareas con camino crítico de 10 días calculado con medianas",
-               "Tabla: en una red de cinco capas con tareas de mediana 2 días, el camino crítico con medianas es 10 días; terminar en 10 días ocurre en 37,5 por ciento si es una cadena, 0,7 con tres tareas por capa y 0 con seis o diez, y la media sube de 10,78 a 15,87 días.",
-               ["Tareas por capa", "Tareas", "P(terminar ≤ 10 d)", "Media (días)", "P85 (días)"], rows, [190, 140, 230, 170, 170], row_h=40, size=13,
-               note="Cuando varios caminos convergen, el máximo de duraciones aleatorias es mayor que cada una: el plan que usa solo medianas es optimista en proporción a la anchura de la red. Las duraciones lognormales de σ = 0,4 son un supuesto.",
-               note_kind="coral", foot=SINT)
+    return line_chart(
+        "Cinco capas de tareas: el plazo se aleja del camino crítico de 10 días calculado con medianas",
+        "Líneas con la media y el percentil 85 del plazo de una red de cinco capas con tareas de mediana 2 días según las tareas por capa: la media sube de 10,78 días con una cadena a 15,87 con diez por capa y el percentil 85 de 12,80 a 17,67, siempre por encima de los 10 días del camino crítico con medianas.",
+        [("Media", [(1, 10.78), (3, 13.98), (6, 15.10), (10, 15.87)], "teal"),
+         ("Percentil 85", [(1, 12.80), (3, 15.99), (6, 16.94), (10, 17.67)], "coral")],
+        x_label="Tareas por capa (cinco capas)", y_label="Plazo (días)", x_ticks=[(1, "1 (cadena)"), (3, "3"), (6, "6"), (10, "10")], decimals=1,
+        hlines=[(10, "camino crítico con medianas: 10 días")], y_zero=False,
+        note="Cuando varios caminos convergen, el máximo de duraciones aleatorias es mayor que cada una: el plan que usa solo medianas es optimista en proporción a la anchura de la red. Las duraciones lognormales de σ = 0,4 son un supuesto.", note_kind="coral", foot=SINT)
 
 
 def se186_dependencias() -> Fig:
-    rows = [
-        ["1", "90,4 %", "80,6 %", "70,4 %"],
-        ["3", "72,9 %", "51,8 %", "34,7 %"],
-        ["5", "59,2 %", "33,8 %", "17,4 %"],
-        ["10", "34,7 %", "10,8 %", "2,8 %"],
-    ]
-    return tab("Probabilidad de que ninguna dependencia externa llegue tarde",
-               "Tabla: con 10 dependencias externas, la probabilidad de que ninguna se retrase es 34,7 por ciento si cada una llega tarde con probabilidad 0,1; 10,8 con 0,2 y 2,8 con 0,3; con una sola dependencia es 90,4, 80,6 y 70,4.",
-               ["Dependencias", "Cada una tarde 10 %", "Cada una tarde 20 %", "Cada una tarde 30 %"], rows, [210, 240, 240, 240], row_h=40, size=13,
-               note="La probabilidad es (1 − p) elevado al número de dependencias: veinte por ciento de riesgo individual con diez dependencias deja 10,8 % de plazos sin sorpresa. Se supone independencia; dependencias del mismo proveedor se retrasan juntas.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Probabilidad de que ninguna dependencia externa llegue tarde",
+        "Líneas con la probabilidad de que ninguna dependencia externa se retrase según el número de dependencias y la probabilidad de retraso de cada una: con 10 dependencias es 34,7 por ciento si cada una llega tarde con 10, 10,8 con 20 y 2,8 con 30; con una sola es 90,4, 80,6 y 70,4.",
+        [("Cada una tarde 10 %", [(1, 90.4), (3, 72.9), (5, 59.2), (10, 34.7)], "teal"),
+         ("Cada una tarde 20 %", [(1, 80.6), (3, 51.8), (5, 33.8), (10, 10.8)], "gold"),
+         ("Cada una tarde 30 %", [(1, 70.4, "", "b"), (3, 34.7, "", "b"), (5, 17.4, "", "b"), (10, 2.8, "", "b")], "coral")],
+        x_label="Dependencias externas", y_label="Probabilidad de que ninguna llegue tarde (%)", x_ticks=[(1, "1"), (3, "3"), (5, "5"), (10, "10")], decimals=1,
+        note="La probabilidad es (1 − p) elevado al número de dependencias: veinte por ciento de riesgo individual con diez dependencias deja 10,8 % de plazos sin sorpresa. Se supone independencia; dependencias del mismo proveedor se retrasan juntas.", note_kind="gold", foot=SINT)
 
 
 def se186_orden() -> Fig:
-    rows = [
-        ["Orden aleatorio válido", "21,7 %", "46,5 %", "70,1 %"],
-        ["Mayor valor disponible", "40,2 %", "63,1 %", "82,6 %"],
-        ["Valor sobre coste", "43,4 %", "66,4 %", "84,2 %"],
-        ["Valor incluido lo que habilita, sobre coste", "42,3 %", "72,3 %", "90,3 %"],
-    ]
-    return tab("Valor entregado si se agota el 25, el 50 o el 75 % del coste, según el orden",
-               "Tabla: con 15 elementos con dependencias, un orden aleatorio válido entrega 21,7 por ciento del valor al agotar un cuarto del coste, 46,5 a la mitad y 70,1 a tres cuartos; priorizar por valor sobre coste entrega 43,4, 66,4 y 84,2, y sumar el valor que un elemento habilita llega a 90,3 a tres cuartos.",
-               ["Política de orden", "25 % del coste", "50 %", "75 %"], rows, [430, 190, 190, 190], row_h=48, size=13,
-               note="Respetar las dependencias y ordenar por valor sobre coste duplica el valor del primer cuarto; contar lo que habilita ayuda más cuando el plan avanza. Las 300 redes de 15 elementos son sintéticas y sus valores lognormales son supuestos.",
-               note_kind="teal", foot=SINT)
+    return heatmap(
+        "Valor entregado si se agota el 25, el 50 o el 75 % del coste, según el orden",
+        "Mapa de calor con el porcentaje del valor entregado de 15 elementos con dependencias: un orden aleatorio válido entrega 21,7, 46,5 y 70,1 por ciento al agotar un cuarto, la mitad y tres cuartos del coste; priorizar por valor sobre coste entrega 43,4, 66,4 y 84,2, y sumar lo que un elemento habilita llega a 90,3 a tres cuartos.",
+        ["Orden aleatorio válido", "Mayor valor disponible", "Valor sobre coste", "Valor con lo que habilita, sobre coste"],
+        ["25 % del coste", "50 %", "75 %"],
+        [[21.7, 46.5, 70.1], [40.2, 63.1, 82.6], [43.4, 66.4, 84.2], [42.3, 72.3, 90.3]],
+        unit="Valor entregado (%)", scale="teal", decimals=1, suffix=" %", highlight=[(3, 2)], label_w=300,
+        note="Respetar las dependencias y ordenar por valor sobre coste duplica el valor del primer cuarto; contar lo que habilita ayuda más cuando el plan avanza. Las 300 redes de 15 elementos son sintéticas y sus valores lognormales son supuestos.", note_kind="teal", foot=SINT)
 
 
 FIGURES = {

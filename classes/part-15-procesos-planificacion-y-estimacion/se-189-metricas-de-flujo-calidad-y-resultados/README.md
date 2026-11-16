@@ -157,9 +157,9 @@ for p in (50, 85, 95):
 
 Con 10 elementos, el percentil 85 estimado puede quedar entre la mitad y casi el doble del verdadero. Con 100 elementos se acota a una banda de −17 % a +25 %. El percentil 95 es el más sensible: con 20 elementos puede estar a 2,6 veces el real.
 
-![Tabla con el intervalo de la razón entre el percentil estimado y el verdadero según el número de elementos, para los percentiles 50, 85 y 95.](../../../content/part-15/figures/se-189-tamano-de-muestra.svg)
+![Intervalos del percentil 85 y del percentil 95 estimados divididos por el verdadero según el tamaño de la muestra: con 10 elementos el 85 va de 0,54 a 1,81 y el 95 de 0,46 a 2,09; con 20, de 0,69 a 1,74 y de 0,64 a 2,62; con 100, de 0,83 a 1,25 y de 0,79 a 1,40; con 400, de 0,91 a 1,11 y de 0,89 a 1,18.](../../../content/part-15/figures/se-189-tamano-de-muestra.svg)
 
-**Cómo leer la figura.** Cada celda es el rango que cubre el 90 % de las estimaciones; 1,00 sería exacto. **Dónde deja de valer:** el proceso es estacionario y los elementos independientes; los equipos reales cambian con el tiempo, y datos antiguos pueden dejar de ser representativos. La tabla fija una regla práctica: un percentil alto con menos de unos cincuenta elementos se presenta como indicio, con el tamaño de la muestra al lado.
+**Cómo leer la figura.** Cada fila es un percentil (P85 o P95) estimado con una muestra de cierto tamaño; la barra va del percentil 5 al 95 de la razón entre el valor estimado y el verdadero en 1 000 muestras, y la línea discontinua es el valor verdadero (1). El intervalo se estrecha despacio con el tamaño: con 10 elementos el P85 puede ser desde casi la mitad hasta 1,8 veces el verdadero, y con 400 queda entre 0,91 y 1,11. El P95 es siempre más ancho que el P85, y con 20 elementos llega a 2,62 veces. El percentil 50 queda en la tabla. **Dónde deja de valer:** el proceso es estacionario y los elementos independientes; los equipos reales cambian con el tiempo, y datos antiguos pueden dejar de ser representativos. La tabla fija una regla práctica: un percentil alto con menos de unos cincuenta elementos se presenta como indicio, con el tamaño de la muestra al lado.
 
 ## Definiciones de trabajo
 

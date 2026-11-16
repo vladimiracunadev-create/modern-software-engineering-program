@@ -117,9 +117,9 @@ def finish(deps, dur):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3): en una cadena de cinco tareas, cumplir el camino crítico ocurre el 37,5 % de las veces; con tres tareas por capa, el 0,7 %; con seis o diez, nunca en 5000 ejecuciones. La media sube de 10,78 a 15,87 días.
 
-![Tabla con la probabilidad de terminar dentro del camino crítico de diez días y la media del plazo según el ancho de una red de cinco capas.](../../../content/part-15/figures/se-186-convergencia-de-caminos.svg)
+![Líneas con la media y el percentil 85 del plazo de una red de cinco capas con tareas de mediana 2 días según las tareas por capa: la media sube de 10,78 días con una cadena a 15,87 con diez por capa y el percentil 85 de 12,80 a 17,67, siempre por encima de los 10 días del camino crítico con medianas.](../../../content/part-15/figures/se-186-convergencia-de-caminos.svg)
 
-**Cómo leer la figura.** Cada fila es una red de ancho distinto con el mismo camino crítico determinista; las columnas siguientes muestran lo que ocurre de verdad. **Dónde deja de valer:** las redes son aleatorias y las duraciones independientes; en un proyecto real, las tareas de una capa comparten personas, entorno y retrasos de causa común. La figura tampoco dice que paralelizar sea malo: dice que el plazo comprometido con el camino crítico determinista es falso para redes anchas.
+**Cómo leer la figura.** El eje horizontal es el número de tareas por capa de una red de cinco capas y el vertical el plazo en días; la línea teal es la media y la coral discontinua el percentil 85, y la línea horizontal marca los 10 días del camino crítico con medianas. Las dos líneas quedan siempre por encima de esa referencia: con una cadena la media ya es 10,78 y con diez tareas por capa llega a 15,87. La probabilidad de terminar en 10 días, que cae de 37,5 por ciento con una cadena a 0,7 con tres por capa y a 0 con seis o diez, queda en la tabla. **Dónde deja de valer:** las redes son aleatorias y las duraciones independientes; en un proyecto real, las tareas de una capa comparten personas, entorno y retrasos de causa común. La figura tampoco dice que paralelizar sea malo: dice que el plazo comprometido con el camino crítico determinista es falso para redes anchas.
 
 ### Cuántas dependencias externas llegan a tiempo
 
@@ -139,9 +139,9 @@ retraso = max(ds)
 
 La tabla muestra el porcentaje de entregas sin retraso. Con diez dependencias del 20 % de riesgo, solo una de cada nueve entregas no se retrasa. Con tres dependencias del 30 %, solo una de cada tres. El retraso medio con diez dependencias del 20 % es de 3,87 días, y el percentil 85 es 6,02.
 
-![Tabla con la probabilidad de que ninguna dependencia externa llegue tarde según el número de dependencias y el riesgo de cada una.](../../../content/part-15/figures/se-186-dependencias-externas.svg)
+![Líneas con la probabilidad de que ninguna dependencia externa se retrase según el número de dependencias y la probabilidad de retraso de cada una: con 10 dependencias es 34,7 por ciento si cada una llega tarde con 10, 10,8 con 20 y 2,8 con 30; con una sola es 90,4, 80,6 y 70,4.](../../../content/part-15/figures/se-186-dependencias-externas.svg)
 
-**Cómo leer la figura.** Cada celda es el porcentaje de 8000 entregas en que ninguna dependencia se retrasó. **Dónde deja de valer:** el modelo supone independencia entre dependencias. Las que dependen de un mismo equipo se retrasan juntas, lo que aumenta la probabilidad de que todas lleguen a tiempo y también la de que todas fallen, con colas más pesadas. Y las probabilidades de 10 %, 20 % y 30 % son supuestos; la clase `SE-187` trata cómo estimarlas con historia.
+**Cómo leer la figura.** El eje horizontal es el número de dependencias externas y el vertical la probabilidad de que ninguna llegue tarde; cada línea es una probabilidad de retraso por dependencia (10, 20 y 30 por ciento). Todas caen al sumar dependencias, y caen más rápido cuanto mayor es la probabilidad individual: con 10 dependencias, el plan sin sorpresas ocurre en 34,7 por ciento de los casos si cada una falla 10 por ciento, y casi nunca (2,8) si falla 30. **Dónde deja de valer:** el modelo supone independencia entre dependencias. Las que dependen de un mismo equipo se retrasan juntas, lo que aumenta la probabilidad de que todas lleguen a tiempo y también la de que todas fallen, con colas más pesadas. Y las probabilidades de 10 %, 20 % y 30 % son supuestos; la clase `SE-187` trata cómo estimarlas con historia.
 
 ### El orden decide cuánto valor existe si se corta el tiempo
 
@@ -160,9 +160,9 @@ k = max(ready, key=lambda i: ((v[i] + sum(v[j] for j in trans(i))) / c[i], -i))
 
 Ordenar por valor sobre coste duplica el valor del primer cuarto (21,7 % → 43,4 %). Contar lo que cada elemento habilita rinde menos al principio (42,3 % frente a 43,4 %) y más a medio plazo (72,3 % frente a 66,4 % a mitad del coste y 90,3 % frente a 84,2 % a tres cuartos).
 
-![Tabla con el valor entregado al agotar el 25, el 50 y el 75 por ciento del coste según la política de orden.](../../../content/part-15/figures/se-186-orden-de-entrega.svg)
+![Mapa de calor con el porcentaje del valor entregado de 15 elementos con dependencias: un orden aleatorio válido entrega 21,7, 46,5 y 70,1 por ciento al agotar un cuarto, la mitad y tres cuartos del coste; priorizar por valor sobre coste entrega 43,4, 66,4 y 84,2, y sumar lo que un elemento habilita llega a 90,3 a tres cuartos.](../../../content/part-15/figures/se-186-orden-de-entrega.svg)
 
-**Cómo leer la figura.** Cada fila es un orden; cada columna, el momento en que se agota el tiempo expresado como fracción del coste total. **Dónde deja de valer:** los valores son conocidos y fijos; en realidad se conocen con error y se aprenden al entregar (`SE-182`). Las redes de 15 elementos con 12 % de probabilidad de dependencia son sintéticas, y con redes densas el orden por valor casi no puede elegir. La tabla compara políticas bajo un mismo modelo, no predice cuánto valor tendrá la plataforma.
+**Cómo leer la figura.** Cada fila es una política de orden y cada columna una fracción del coste agotada (25, 50 y 75 por ciento); el color y el número de cada celda son el porcentaje del valor entregado hasta ese momento, y el contorno marca la mejor celda con tres cuartos del coste. Lo primero que se ve es que las filas de abajo son más oscuras: priorizar por valor sobre coste entrega el doble que el orden aleatorio con un cuarto del coste (43,4 frente a 21,7), y sumar el valor que un elemento habilita gana unos 6 puntos más con tres cuartos (90,3 frente a 84,2). **Dónde deja de valer:** los valores son conocidos y fijos; en realidad se conocen con error y se aprenden al entregar (`SE-182`). Las redes de 15 elementos con 12 % de probabilidad de dependencia son sintéticas, y con redes densas el orden por valor casi no puede elegir. La tabla compara políticas bajo un mismo modelo, no predice cuánto valor tendrá la plataforma.
 
 ## Definiciones de trabajo
 

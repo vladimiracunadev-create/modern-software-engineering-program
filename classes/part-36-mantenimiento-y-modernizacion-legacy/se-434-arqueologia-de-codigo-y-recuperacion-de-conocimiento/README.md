@@ -116,9 +116,9 @@ Se genera un historial sintético de 4 000 commits sobre 300 archivos. La probab
 
 El 10 % de los archivos concentra más de la mitad de los commits y de las correcciones. Ordenar por tamaño apenas mejora el azar: acierta 11 de 30 y captura el 23,5 % de las correcciones. La frecuencia sola acierta 19 y el producto 22, y captura el 55,6 % de las correcciones con la misma inversión. El producto no es el mejor por magia sino porque la simulación hace que las correcciones dependan de ambos factores.
 
-![Tabla con tres criterios para elegir los 30 archivos de 300 en un historial sintético de 4 000 commits: el tamaño captura 23,5 por ciento de las correcciones y coincide con 11 de los 30 más corregidos, la frecuencia de cambio 51,7 por ciento y 19, y el producto de ambas 55,6 por ciento y 22.](../../../content/part-36/figures/se-434-puntos-calientes.svg)
+![Barras agrupadas con la parte de commits y de correcciones que caen en los 30 archivos elegidos: solo por tamaño, 10,3 y 23,5 por ciento; por frecuencia de cambio, 55,9 y 51,7; por frecuencia por tamaño, 53,3 y 55,6; los criterios coinciden con 11, 19 y 22 de los 30 archivos más corregidos.](../../../content/part-36/figures/se-434-puntos-calientes.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de elegir los 30 archivos a mirar; las dos últimas columnas miden cuánto del problema real queda dentro. **Dónde deja de valer:** la relación entre tamaño y correcciones (0,04 más 0,00035 por línea) y la cola de la frecuencia son supuestos del autor; si en tu sistema los defectos dependieran de otra cosa, el ranking por producto podría ser peor que la frecuencia sola. Además un commit de formato masivo distorsiona la frecuencia, y el historial solo ve lo que alguien guardó.
+**Cómo leer la figura.** Cada grupo es un criterio de ranking y sus dos barras son la parte de los commits (dorado) y de las correcciones (verde) que caen en los 30 archivos elegidos. Mira primero que el tamaño solo apenas supera al azar y que el producto de frecuencia por tamaño es el que más correcciones captura. **Dónde deja de valer:** la relación entre tamaño y correcciones (0,04 más 0,00035 por línea) y la cola de la frecuencia son supuestos del autor; si en tu sistema los defectos dependieran de otra cosa, el ranking por producto podría ser peor que la frecuencia sola. Además un commit de formato masivo distorsiona la frecuencia, y el historial solo ve lo que alguien guardó.
 
 ### Cuánto conocimiento se va con las personas
 
@@ -132,9 +132,9 @@ Se simulan 12 personas que mantienen 300 archivos durante 60 meses. Cada archivo
 
 En 60 meses se van 9 de las 12 personas (mediana) y quedan huérfanos 194 de 300 archivos (65 %); en el percentil 90, 249 (83 %). Con una rotación del 2 % mensual, que equivale a perder en torno a una de cada cinco personas al año, el conocimiento se erosiona más rápido de lo que se suele pensar, porque cada salida deja huérfanos a todos los archivos cuyo único responsable era esa persona.
 
-![Tabla con la mediana y el percentil 90 de archivos huérfanos de 300 tras 12, 36 y 60 meses con una rotación del 2 por ciento mensual entre 12 personas: 40 y 90, 132 y 187, y 194 y 249.](../../../content/part-36/figures/se-434-conocimiento-que-se-va.svg)
+![Líneas con los archivos huérfanos, de 300, tras 12, 36 y 60 meses con una rotación del 2 por ciento mensual entre 12 personas: la mediana sube de 40 a 132 y 194 y el percentil 90 de 90 a 187 y 249.](../../../content/part-36/figures/se-434-conocimiento-que-se-va.svg)
 
-**Cómo leer la figura.** Cada fila es un horizonte; la mediana y el percentil 90 muestran el caso típico y el desfavorable. **Dónde deja de valer:** la rotación, el 35 % de archivos compartidos y la asignación al azar de archivos a personas son supuestos del autor; en equipos reales los archivos se agrupan por área y la rotación depende del contexto. La simulación no distingue entre conocimiento activo y archivos sin importancia.
+**Cómo leer la figura.** El eje horizontal son los meses y el vertical, los archivos huérfanos de 300; la línea verde es la mediana de 200 simulaciones y la coral, el percentil 90. Mira primero cómo ambas suben sin frenarse y que a los 60 meses la mediana ya es de dos tercios de los archivos. **Dónde deja de valer:** la rotación, el 35 % de archivos compartidos y la asignación al azar de archivos a personas son supuestos del autor; en equipos reales los archivos se agrupan por área y la rotación depende del contexto. La simulación no distingue entre conocimiento activo y archivos sin importancia.
 
 ### Código muerto: análisis por nombre frente a traza
 
@@ -154,9 +154,9 @@ sospechosas = definidas - usadas
 
 Las dos técnicas encuentran las 20 funciones muertas, pero el análisis por nombre arrastra 25 falsas alarmas y la traza 5, y cada una por una razón distinta. La coincidencia de ambas deja 20 candidatos sin falsas alarmas en este módulo, y esto no es una garantía: se debe a que en el módulo construido ningún uso dinámico estaba en una rama poco frecuente. Una llamada por cadena dentro de la rama de fin de año habría escapado a las dos.
 
-![Tabla con dos técnicas de detección de código muerto sobre 60 funciones con 20 muertas: el análisis por nombre propone 45 candidatos con 25 falsas alarmas, la traza de una ejecución propone 25 con 5 falsas alarmas y la coincidencia de ambas propone exactamente las 20 muertas.](../../../content/part-36/figures/se-434-codigo-muerto.svg)
+![Barras apiladas horizontales con los candidatos de cada técnica: el análisis por nombre propone 45, 20 muertas y 25 falsas alarmas; la traza de una ejecución propone 25, 20 muertas y 5 falsas alarmas; la coincidencia de ambas propone exactamente las 20 muertas.](../../../content/part-36/figures/se-434-codigo-muerto.svg)
 
-**Cómo leer la figura.** Cada fila es una técnica; las falsas alarmas son funciones vivas marcadas como muertas, que son las que romperían producción al retirarse. **Dónde deja de valer:** los cuatro tipos de función y sus proporciones son una construcción del autor y se escribieron sabiendo qué ve cada técnica; un módulo real tiene usos que ninguna técnica enumera (configuración externa, otros repositorios, scripts de operación). La coincidencia de dos técnicas reduce el riesgo, no lo elimina.
+**Cómo leer la figura.** Cada barra son los candidatos que propone una técnica, partidos en verde (muertas halladas) y coral (falsas alarmas). Mira primero que todas hallan las 20 muertas y que solo cambia la parte coral: 25, 5 y 0. **Dónde deja de valer:** los cuatro tipos de función y sus proporciones son una construcción del autor y se escribieron sabiendo qué ve cada técnica; un módulo real tiene usos que ninguna técnica enumera (configuración externa, otros repositorios, scripts de operación). La coincidencia de dos técnicas reduce el riesgo, no lo elimina.
 
 ## Definiciones de trabajo
 

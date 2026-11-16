@@ -139,9 +139,9 @@ c.backup(dst)                                   # copia en línea que respeta la
 
 La copia ingenua dio «ok» en la comprobación de integridad y una suma 197 unidades menor: contiene páginas escritas por la transacción a medias y no el diario que las desharía. Es estructuralmente sana y lógicamente falsa. La API toma el estado confirmado y su suma es exacta.
 
-![Tabla con la suma de cupos y el resultado de integrity_check de la base original, de una copia del archivo hecha con una transacción sin confirmar y de una copia con la API de copia en línea.](../../../content/part-26/figures/se-321-copia-en-caliente.svg)
+![Barras horizontales con los cupos que faltan frente a la suma original de 2 000 000 mientras otra transacción mueve 20 000 cupos: la base original no pierde ninguno, la copia del archivo con una transacción sin confirmar pierde 197 aunque integrity_check dice ok, y la API de copia en línea no pierde ninguno.](../../../content/part-26/figures/se-321-copia-en-caliente.svg)
 
-**Cómo leer la figura.** Cada fila es un método de copia; la segunda columna es una invariante de negocio y la tercera, la comprobación estructural. **Dónde deja de valer:** el valor 1 999 803 depende del tamaño de la caché, de la transacción y del momento exacto de la copia; con otros parámetros sería otro y podría ser igual al original. Lo que no cambia es que puede haber alguna diferencia y que `integrity_check` no la ve. Otros motores usan mecanismos distintos y tienen otros modos de fallo.
+**Cómo leer la figura.** Cada barra son los cupos que faltan en la copia frente a la suma original de 2 000 000; el título recuerda que la comprobación de integridad dio ok en los tres casos. Mira primero que solo la copia del archivo con una transacción a medias pierde 197 cupos y que la comprobación estructural no lo avisa. **Dónde deja de valer:** el valor 1 999 803 depende del tamaño de la caché, de la transacción y del momento exacto de la copia; con otros parámetros sería otro y podría ser igual al original. Lo que no cambia es que puede haber alguna diferencia y que `integrity_check` no la ve. Otros motores usan mecanismos distintos y tienen otros modos de fallo.
 
 ### Qué ve cada nivel de verificación
 
@@ -165,9 +165,9 @@ det["L5 conteos + suma + claves foráneas"] = (e, t) != (500, 5000) or s != mani
 
 Cada nivel ve una familia y es ciego a otras: las comprobaciones de estructura ven la corrupción física y ninguna de las 90 alteraciones lógicas; los conteos ven filas borradas y esquema distinto pero no notas cambiadas, que solo ve la suma. Combinando los niveles estructurales se detectan 88 de 200; con todos, 180. Veinte inversiones de un bit no se detectan en ninguno: cayeron en texto sin invariante o en espacio libre.
 
-![Tabla con las mutaciones de una copia que detecta cada nivel de verificación: existencia, apertura, quick check, integrity check, conteos y conteos con suma y claves foráneas.](../../../content/part-26/figures/se-321-niveles-de-verificacion.svg)
+![Barras con las mutaciones detectadas de 200 por cada nivel de verificación: comprobar que el archivo existe detecta 10; abrir la base, 25; quick_check, 50; integrity_check, 53; los conteos del manifiesto, 100; los conteos con suma y claves foráneas, 140. Todos los niveles juntos ven 180 y los estructurales solos 88.](../../../content/part-26/figures/se-321-niveles-de-verificacion.svg)
 
-**Cómo leer la figura.** Cada fila es una familia de alteración; cada columna, un nivel de verificación, y las celdas cuentan cuántas copias detecta. **Dónde deja de valer:** las 200 mutaciones las generó el autor y reflejan las familias que imaginó; una corrupción real tiene formas que no están. El 0 de una celda no significa que el nivel sea inútil, sino que la familia no es de su competencia. Y el último nivel depende de un manifiesto de negocio que alguien tiene que mantener.
+**Cómo leer la figura.** Cada barra es un nivel de verificación aplicado solo y su altura, las mutaciones de 200 que detecta; las rayas rojas marcan lo que detectan todos juntos (180) y el total. Mira primero cómo la altura sube de comprobar que el archivo existe a comprobar conteos, suma y claves foráneas, y que ni siquiera el último nivel llega a 200. **Dónde deja de valer:** las 200 mutaciones las generó el autor y reflejan las familias que imaginó; una corrupción real tiene formas que no están. Una barra baja no significa que el nivel sea inútil, sino que las familias de alteración que ve son pocas; el desglose por familia está en la tabla. Y el último nivel depende de un manifiesto de negocio que alguien tiene que mantener.
 
 ## Definiciones de trabajo
 

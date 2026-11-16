@@ -119,9 +119,9 @@ if cur.rowcount == 0:
 
 Solo 6 de 90 intercalaciones (las que ejecutan los tres clientes en serie) dan 3 con leer-sumar-escribir. Con la comprobación de versión, el valor final siempre coincide con las escrituras aceptadas: ninguna se pierde en silencio, pero algunas se rechazan y hay que reintentarlas. La actualización atómica termina siempre en 3.
 
-![Tabla con las intercalaciones de tres clientes que suben un contador y el valor final con lectura-suma-escritura, con comprobación de versión y con una actualización atómica.](../../../content/part-26/figures/se-315-actualizacion-perdida.svg)
+![Barras apiladas horizontales con la proporción de intercalaciones según el valor final: con leer-sumar-escribir 7 por ciento termina en 3, 53 por ciento en 1 y 40 por ciento en 2, sin aviso; con comprobación de versión 7 por ciento acepta tres escrituras y el resto pierde dos o una; con un UPDATE atómico el 100 por ciento termina en 3.](../../../content/part-26/figures/se-315-actualizacion-perdida.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de subir el contador; las columnas cuentan intercalaciones por valor final. **Dónde deja de valer:** el orden se fuerza en un solo hilo con tres conexiones, lo que enumera todos los órdenes posibles pero no la temporización de un servidor real; y un cliente que reintenta tras el rechazo cambia el recuento. La figura no dice que el 6 de 90 sea la probabilidad en producción, sino que la corrección depende del orden y que solo un mecanismo explícito la asegura.
+**Cómo leer la figura.** Cada barra es una forma de subir el contador y se reparte, en porcentaje de las intercalaciones, según el valor final: verde 3 (correcto), dorado 2 y rojo 1. Mira primero cuánto verde hay: muy poco en las dos primeras barras y todo en la del UPDATE atómico. **Dónde deja de valer:** el orden se fuerza en un solo hilo con tres conexiones, lo que enumera todos los órdenes posibles pero no la temporización de un servidor real; y un cliente que reintenta tras el rechazo cambia el recuento. La figura no dice que el 6 de 90 sea la probabilidad en producción, sino que la corrección depende del orden y que solo un mecanismo explícito la asegura.
 
 ### Una transferencia cortada en cada paso
 
@@ -144,9 +144,9 @@ for k, sql in enumerate(steps):
 
 Tres de los cuatro cortes dejan la base inconsistente sin transacción, y ninguno con ella. El segundo caso es el más dañino: la suma baja de 60 a 55 y no hay un solo error en ningún registro.
 
-![Tabla con el estado de una transferencia de cupos cortada antes de cada uno de sus cuatro pasos, con cada sentencia confirmada sola y con una transacción.](../../../content/part-26/figures/se-315-corte-en-cada-paso.svg)
+![Diagrama de secuencia de los cuatro pasos de una transferencia de cupos y del estado que deja un corte antes de cada uno: sin transacción, cortar antes del paso 2, 3 o 4 deja un registro huérfano, una suma de cupos de 55 en vez de 60 o un registro que nunca se cierra; con una transacción, todos los cortes dejan el estado anterior intacto.](../../../content/part-26/figures/se-315-corte-en-cada-paso.svg)
 
-**Cómo leer la figura.** Cada fila es un punto de corte; las dos columnas comparan qué queda. **Dónde deja de valer:** el corte es una excepción lanzada en el cliente y no un apagón del servidor; la durabilidad de lo confirmado ante un corte de energía depende del motor y del disco y no se probó. Una transacción también puede fallar al confirmar, y el cliente debe tratar ese caso.
+**Cómo leer la figura.** El eje horizontal son los puntos de corte, antes de cada paso; la primera fila muestra los pasos y las otras dos, el estado en que queda el sistema si el corte llega justo antes de ese paso, sin transacción y con ella. Mira primero que sin transacción solo el primer corte y el final dejan un estado consistente, y que con ella todos los cortes dejan el estado anterior. **Dónde deja de valer:** el corte es una excepción lanzada en el cliente y no un apagón del servidor; la durabilidad de lo confirmado ante un corte de energía depende del motor y del disco y no se probó. Una transacción también puede fallar al confirmar, y el cliente debe tratar ese caso.
 
 ### Dos docentes se retiran a la vez
 
@@ -166,9 +166,9 @@ t["write"] = own[i] if t["read"] >= 2 else None
 
 Bajo lectura de lo confirmado y bajo instantánea la plataforma se queda sin docentes en casi todos los órdenes. Con detección de conflictos de lectura, ninguno, a costa de abortar una transacción en 68 de 70. SQLite evita la anomalía bloqueando: con las dos conexiones leyendo, la segunda no puede escribir y la primera no puede confirmar hasta que la otra termine.
 
-![Tabla con las intercalaciones que dejan a la plataforma sin docentes de guardia según el nivel de aislamiento y el comportamiento real de SQLite con dos conexiones.](../../../content/part-26/figures/se-315-sesgo-de-escritura.svg)
+![Barras apiladas horizontales con el destino de las 70 intercalaciones de dos transacciones que comprueban que quedan dos docentes y se retiran: bajo lectura confirmada 60 dejan cero docentes de guardia, bajo instantánea 68; con detección de conflictos de lectura-escritura ninguna, a costa de abortar una transacción en 68.](../../../content/part-26/figures/se-315-sesgo-de-escritura.svg)
 
-**Cómo leer la figura.** Cada fila es un nivel o motor; las columnas dan cuántos de los 70 órdenes rompen la invariante y qué costo tiene evitarlo. **Dónde deja de valer:** el modelo de niveles es una simplificación del autor y no reproduce un motor concreto; las cifras 60, 68 y 0 describen la enumeración, no la frecuencia en producción. El caso de SQLite sí es real, pero muestra el comportamiento de un motor de un solo escritor: otros motores con instantáneas lo permitirían.
+**Cómo leer la figura.** Cada barra reparte las 70 intercalaciones de un nivel: en rojo las que dejan a la plataforma sin docentes de guardia, en dorado las que terminan con una transacción abortada y en verde las que terminan bien. Mira primero el rojo: 60 y 68 intercalaciones en los dos primeros niveles y ninguna en el tercero, que lo paga con 68 abortos. **Dónde deja de valer:** el modelo de niveles es una simplificación del autor y no reproduce un motor concreto; las cifras 60, 68 y 0 describen la enumeración, no la frecuencia en producción. El caso de SQLite sí es real, pero muestra el comportamiento de un motor de un solo escritor: otros motores con instantáneas lo permitirían.
 
 ## Definiciones de trabajo
 

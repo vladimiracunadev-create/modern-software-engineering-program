@@ -115,9 +115,9 @@ dist = c.execute("select count(distinct curso_nombre) from e where curso_id=7").
 
 Resultado, idéntico en Windows (CPython 3.12.9, SQLite 3.45.3) y en Ubuntu bajo WSL2 (3.12.3, SQLite 3.45.1). La tabla plana ocupa 3,3 veces más y, sobre todo, admite una escritura parcial que deja dos verdades.
 
-![Tabla con las filas que cambian, los nombres distintos, los cursos visibles y el tamaño de un archivo con una tabla plana y con un modelo normalizado.](../../../content/part-26/figures/se-313-anomalias-de-una-tabla-plana.svg)
+![Barras apiladas horizontales con las filas que guardan el nombre del curso 7 después de un renombrado cortado tras 100 filas: la tabla plana tiene 112 filas, 100 con el nombre nuevo y 12 con el viejo, es decir dos versiones de la verdad; el modelo normalizado tiene una sola fila con el nombre nuevo.](../../../content/part-26/figures/se-313-anomalias-de-una-tabla-plana.svg)
 
-**Cómo leer la figura.** Cada fila es una medida; las dos columnas comparan el mismo contenido en dos modelos. **Dónde deja de valer:** el corte tras 100 filas es una construcción del autor y una transacción lo evitaría (`SE-315`); lo que no evita ninguna transacción es que el curso desaparezca al borrar su última entrega en la tabla plana, ni que el hecho viva en 112 lugares. Con diez cursos y cien filas las anomalías existirían igual, pero costarían menos de ver.
+**Cómo leer la figura.** Cada barra es un modelo de datos y su longitud, las filas que guardan el nombre del curso 7 después del renombrado cortado: en verde las que tienen el nombre nuevo y en rojo las que conservan el viejo. Mira primero que la tabla plana toca 112 filas y deja 12 con otro nombre, mientras que el modelo normalizado cambia una sola. **Dónde deja de valer:** el corte tras 100 filas es una construcción del autor y una transacción lo evitaría (`SE-315`); lo que no evita ninguna transacción es que el curso desaparezca al borrar su última entrega en la tabla plana, ni que el hecho viva en 112 lugares. Con diez cursos y cien filas las anomalías existirían igual, pero costarían menos de ver.
 
 ### Una clave que triplica el archivo
 
@@ -157,9 +157,9 @@ fix = c.execute("select count(*) from g where ',' || miembros || ',' like ?", (f
 
 El patrón ingenuo devuelve 4,5 veces los resultados correctos y falla para los 99 estudiantes con identificador de uno o dos dígitos (buscar el 12 encuentra también el 112 y el 120). Corregir la consulta con delimitadores arregla el síntoma y deja intacto el defecto de modelo: nada impide guardar «999», un estudiante que no existe.
 
-![Tabla con los resultados, los falsos positivos y la posibilidad de clave foránea al buscar estudiantes en una lista separada por comas, con delimitadores y con una tabla intermedia.](../../../content/part-26/figures/se-313-lista-separada-por-comas.svg)
+![Barras apiladas horizontales con los grupos devueltos por las 800 búsquedas: la lista con LIKE devuelve 33 099 resultados de los que 7 408 son correctos y 25 691 son falsos positivos; con comas alrededor del patrón o con una tabla intermedia se devuelven solo los 7 408 correctos.](../../../content/part-26/figures/se-313-lista-separada-por-comas.svg)
 
-**Cómo leer la figura.** Las filas son tres modelos para la misma relación; las columnas dan el resultado de las 800 búsquedas. **Dónde deja de valer:** los grupos son sintéticos y de tamaño uno a cuatro; con listas más largas el error crece. Y una tabla intermedia tiene un costo propio (una unión más) que la medida no incluye y que `SE-317` mide.
+**Cómo leer la figura.** Cada barra son los grupos devueltos por las 800 búsquedas con un modelo: en verde los resultados correctos y en rojo los falsos positivos. Mira primero que la búsqueda ingenua devuelve 33 099 resultados cuando 7 408 son correctos y que los otros dos modelos no tienen parte roja. **Dónde deja de valer:** los grupos son sintéticos y de tamaño uno a cuatro; con listas más largas el error crece. Y una tabla intermedia tiene un costo propio (una unión más) que la medida no incluye y que `SE-317` mide.
 
 ## Definiciones de trabajo
 

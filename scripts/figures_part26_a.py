@@ -1,25 +1,27 @@
-"""Figures for SE-313 to SE-318 (synthetic data, fixed seeds, SQLite 3.45; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-313 to SE-318 (synthetic data, fixed seeds, SQLite 3.45; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
+
+Every figure is a chart or a diagram of the mechanism; the Markdown tables of the classes keep the exact values.
+"""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+import math
+
+from figure_kit import Fig, dumbbell, fmt_es, grouped_bars, heatmap, line_chart, stacked_bars, timeline
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos con semilla fija; SQLite 3.45 en Windows y Ubuntu (WSL2); cifras idénticas salvo donde se indica."
 
 
 # ---------------------------------------------------------------- SE-313
 def se313_anomalias() -> Fig:
-    rows = [
-        ["Filas que se actualizan al renombrar un curso", "112", "1"],
-        ["Nombres distintos del curso si el lote se corta tras 100 filas", "2", "1"],
-        ["Cursos visibles tras borrar las entregas del curso 40", "39", "40"],
-        ["Tamaño del archivo con 5 000 entregas, tras VACUUM (bytes)", "483 328", "147 456"],
-    ]
-    return tab("Una tabla plana frente a un modelo normalizado (5 000 entregas, 800 estudiantes, 40 cursos)",
-               "Tabla: al renombrar un curso, la tabla plana actualiza 112 filas y, si el lote se corta tras 100, deja dos nombres distintos; el modelo normalizado cambia una fila. Al borrar las entregas de un curso, la tabla plana lo pierde. La plana ocupa 483 328 bytes y la normalizada 147 456.",
-               ["Medida", "Tabla plana", "Normalizado"], rows, [520, 170, 170], row_h=48, size=13,
-               note="La redundancia no es un problema de espacio sino de verdad: el mismo hecho vive en 112 lugares y cada escritura parcial deja dos versiones. Un curso que solo existe como columna de las entregas desaparece con la última entrega. Los nombres, las cifras y la interrupción tras 100 filas son construcciones del autor.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Renombrar el curso 7 con un lote que se corta tras 100 filas: cuántas filas guardan cada nombre",
+        "Barras apiladas horizontales con las filas que guardan el nombre del curso 7 después de un renombrado cortado tras 100 filas: la tabla plana tiene 112 filas, 100 con el nombre nuevo y 12 con el viejo, es decir dos versiones de la verdad; el modelo normalizado tiene una sola fila con el nombre nuevo.",
+        ["Tabla plana (el nombre se repite en cada entrega)", "Modelo normalizado (el nombre vive en el curso)"],
+        [("Con el nombre nuevo", [100, 1], "teal"), ("Con el nombre viejo", [12, 0], "coral")],
+        unit="Filas que guardan el nombre del curso 7", horizontal=True, label_w=250,
+        note="La redundancia no es un problema de espacio sino de verdad: el mismo hecho vive en 112 lugares y cada escritura parcial deja dos versiones. Un curso que solo existe como columna de las entregas desaparece con la última entrega (39 cursos visibles en vez de 40). Los nombres, las cifras y la interrupción tras 100 filas son construcciones del autor; la tabla de la clase da también el tamaño del archivo (483 328 frente a 147 456 bytes).",
+        note_kind="coral", foot=SINT)
 
 
 def se313_clave() -> Fig:
@@ -35,207 +37,183 @@ def se313_clave() -> Fig:
 
 
 def se313_comas() -> Fig:
-    rows = [
-        ["Lista en una columna, LIKE '%12%'", "33 099", "25 691", "No"],
-        ["Lista en una columna, con comas alrededor", "7 408", "0", "No"],
-        ["Tabla intermedia estudiante-grupo", "7 408", "0", "Sí"],
-    ]
-    return tab("Estudiantes de un grupo guardados como lista de identificadores (3 000 grupos, 800 estudiantes)",
-               "Tabla: buscar los grupos de cada estudiante con LIKE sobre una lista separada por comas devuelve 33 099 resultados cuando los correctos son 7 408, con 25 691 falsos positivos y 99 estudiantes con resultado erróneo; con delimitadores o con una tabla intermedia el resultado es exacto, y solo la tabla intermedia permite una clave foránea.",
-               ["Modelo", "Resultados", "Falsos positivos", "Permite clave foránea"], rows, [430, 150, 170, 170], row_h=48, size=13,
-               note="El estudiante 12 aparece al buscar 1, 2, 12, 112 o 120: 99 de los 800 identificadores (los de uno y dos dígitos) dan un resultado equivocado. Arreglar la búsqueda con delimitadores corrige la consulta pero no impide guardar un identificador inexistente ni permite un índice.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Grupos devueltos al buscar los grupos de cada estudiante (800 búsquedas, 3 000 grupos)",
+        "Barras apiladas horizontales con los grupos devueltos por las 800 búsquedas: la lista con LIKE devuelve 33 099 resultados de los que 7 408 son correctos y 25 691 son falsos positivos; con comas alrededor del patrón o con una tabla intermedia se devuelven solo los 7 408 correctos.",
+        ["Lista separada por comas con LIKE", "Lista con comas alrededor del patrón", "Tabla intermedia estudiante-grupo"],
+        [("Resultados correctos", [7408, 7408, 7408], "teal"), ("Falsos positivos", [25691, 0, 0], "coral")],
+        unit="Grupos devueltos por las 800 búsquedas", horizontal=True, label_w=250,
+        note="El estudiante 12 aparece al buscar 1, 2, 12, 112 o 120: 99 de los 800 identificadores (los de uno y dos dígitos) dan un resultado equivocado. Arreglar la búsqueda con delimitadores corrige la consulta pero no impide guardar un identificador inexistente ni permite un índice: solo la tabla intermedia admite una clave foránea.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-314
 def se314_lecturas() -> Fig:
-    rows = [
-        ["Leer una entrega con estudiante y curso", "3 filas, 291 B", "1 documento, 305 B"],
-        ["Promedio de notas por curso (4 000 entregas)", "4 000 filas, ≈104 KB", "4 000 documentos, 1 229 KB"],
-        ["Renombrar a un estudiante con 16 entregas", "1 fila", "16 documentos"],
-        ["Mismo cambio, cortado a mitad", "Nada o todo", "8 de 16 con el nombre viejo"],
-        ["Tamaño total de los datos", "257 103 B", "1 229 093 B (4,78 ×)"],
-    ]
-    return tab("Mismos datos en filas relacionadas y en documentos con el estudiante y el curso embebidos",
-               "Tabla: leer una entrega cuesta tres filas o un documento de tamaño parecido; el promedio por curso lee unos 104 kilobytes en el modelo relacional y 1 229 kilobytes en el documental; renombrar a un estudiante cambia una fila o dieciséis documentos y, si se corta a mitad, deja ocho con el nombre viejo; el documental ocupa 4,78 veces más.",
-               ["Operación", "Filas relacionadas", "Documentos embebidos"], rows, [430, 220, 270], row_h=48, size=13,
-               note="El documento gana cuando la lectura es siempre la misma entidad completa; pierde cuando el mismo dato se repite y cambia. Los bytes son del JSON de los objetos, no de un motor documental real, y la lectura relacional se midió solo como las dos columnas necesarias.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Registros que toca cada operación con filas relacionadas y con documentos embebidos",
+        "Barras agrupadas con los registros tocados por tres operaciones: leer una entrega toca 3 filas relacionadas o 1 documento; renombrar a un estudiante con 16 entregas toca 1 fila o 16 documentos; si el renombrado se corta a mitad, ninguna fila queda con el nombre viejo y 8 de los 16 documentos sí.",
+        ["Leer una entrega con su estudiante y su curso", "Renombrar a un estudiante con 16 entregas", "Mismo renombrado cortado a mitad: registros con el nombre viejo"],
+        [("Filas relacionadas", [3, 1, 0], "teal"), ("Documentos embebidos", [1, 16, 8], "gold")],
+        unit="Registros tocados o desactualizados", plot_h=250,
+        note="El documento gana cuando la lectura es siempre la misma entidad completa (1 documento frente a 3 filas); pierde cuando el mismo dato se repite y cambia (16 documentos frente a 1 fila). Los bytes del JSON del documento ocupan 4,78 veces más (1 229 093 frente a 257 103); no son de un motor documental real y la lectura relacional se midió solo como las dos columnas necesarias.",
+        note_kind="gold", foot=SINT)
 
 
 def se314_busqueda() -> Fig:
-    rows = [
-        ["Por clave directa (mapa de claves)", "1", "Sin riesgo: es la clave"],
-        ["Por posición en una lista de claves", "23 881", "Sin riesgo"],
-        ["Por atributo (estudiante), sin índice", "50 000", "Sin riesgo"],
-        ["Por atributo, con índice secundario mantenido a mano", "1", "206 de 20 000 escrituras sin entrada (1,03 %)"],
-    ]
-    return tab("Buscar entre 50 000 valores guardados por clave: comparaciones por consulta",
-               "Tabla: buscar por la clave cuesta un sondeo; recorrer por posición cuesta unos 23 881 comparaciones y por un atributo sin índice cuesta 50 000; un índice secundario mantenido a mano vuelve a un sondeo pero, con un fallo del 1 por ciento entre las dos escrituras, deja 206 de 20 000 entradas sin registrar.",
-               ["Búsqueda", "Comparaciones", "Consistencia del índice"], rows, [430, 150, 340], row_h=48, size=13,
-               note="El almacén de clave-valor es la estructura más barata para una sola pregunta y la más cara para cualquier otra. El índice secundario devuelve el costo a uno, pero ahora son dos escrituras sin transacción entre ellas: la probabilidad de 1 % de cortarse en medio es un supuesto del autor.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Buscar entre 50 000 valores guardados por clave: comparaciones por consulta",
+        "Barras horizontales en escala logarítmica con las comparaciones por consulta: buscar por la clave o con un índice secundario cuesta 1; recorrer por posición cuesta 23 881 y buscar por un atributo sin índice cuesta 50 000; el índice mantenido a mano deja 206 de 20 000 escrituras sin entrada.",
+        ["Por clave directa (mapa de claves)", "Por posición en una lista de claves", "Por atributo (estudiante), sin índice", "Por atributo, con índice a mano (206 de 20 000 escrituras sin entrada)"],
+        [("Comparaciones", [1, 23881, 50000, 1], "coral")],
+        unit="Comparaciones por consulta", horizontal=True, log=True, label_w=330, ticks=[1, 10, 100, 1000, 10000, 100000],
+        note="El almacén de clave-valor es la estructura más barata para una sola pregunta y la más cara para cualquier otra. El índice secundario devuelve el costo a uno, pero ahora son dos escrituras sin transacción entre ellas: la probabilidad de 1 % de cortarse en medio es un supuesto del autor.",
+        note_kind="teal", foot=SINT)
 
 
 def se314_grafo() -> Fig:
-    rows = [
-        ["UNION ALL, grafo sin ciclos, profundidad máxima 12", "478", "88 cursos distintos"],
-        ["UNION, grafo sin ciclos", "88", "Termina sin límite"],
-        ["UNION ALL con un ciclo, límite 6 / 8 / 10", "62 / 159 / 386", "Crece con el límite (sin ciclo: 40 / 96 / 226)"],
-        ["UNION con el mismo ciclo", "89", "Termina sin límite"],
-    ]
-    return tab("Prerrequisitos de un curso con una consulta recursiva (grafo de 200 cursos y 291 aristas)",
-               "Tabla: con UNION ALL la consulta recursiva devuelve rutas y no cursos: 478 filas para 88 cursos distintos; con UNION devuelve los 88 y termina. Con un ciclo, UNION ALL solo se detiene por el límite de profundidad y crece de 62 a 159 y 386 filas, mientras que UNION termina con 89.",
-               ["Consulta", "Filas", "Observación"], rows, [440, 190, 290], row_h=48, size=13,
-               note="El grafo se recorre con una recursión de la base de datos, no con un modelo especial. UNION ALL cuenta caminos y UNION cuenta alcanzables; en un grafo con ciclos la primera necesita un tope y la segunda se detiene sola. El grafo es sintético y las cifras dependen de la semilla.",
-               note_kind="teal", foot=SINT)
+    return line_chart(
+        "Filas de la recursión de prerrequisitos según el límite de profundidad (200 cursos, 291 aristas)",
+        "Líneas con las filas devueltas por una consulta recursiva según el límite de profundidad 6, 8 y 10: con UNION ALL y un ciclo crece de 62 a 159 y 386 filas, y sin ciclo de 40 a 96 y 226; con UNION y el mismo ciclo devuelve 89 filas y termina sin necesitar límite.",
+        [("UNION ALL con un ciclo", [(6, 62, "62", "r"), (8, 159, "159", "t"), (10, 386, "386", "t")], "coral"),
+         ("UNION ALL sin ciclo", [(6, 40, "40", "b"), (8, 96, "96", "b"), (10, 226, "226", "b")], "gold")],
+        x_label="Límite de profundidad de la recursión", y_label="Filas devueltas",
+        x_ticks=[(6, "6"), (8, "8"), (10, "10")], y_ticks=[0, 100, 200, 300, 400],
+        hlines=[(89, "UNION con el ciclo: 89 filas, termina sin límite")], point_labels="none", plot_h=280,
+        note="El grafo se recorre con una recursión de la base de datos, no con un modelo especial. UNION ALL cuenta caminos y UNION cuenta alcanzables (sin ciclos, 478 filas frente a 88 cursos distintos); en un grafo con ciclos la primera necesita un tope y la segunda se detiene sola. El grafo es sintético y las cifras dependen de la semilla.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-315
 def se315_perdida() -> Fig:
-    rows = [
-        ["Leer, sumar uno y escribir", "90", "6", "48", "36"],
-        ["Escribir solo si la versión no cambió", "90", "6 (3 aceptadas)", "36 (1 aceptada)", "48 (2 aceptadas)"],
-        ["UPDATE n = n + 1 atómico", "6", "6", "0", "0"],
-    ]
-    return tab("Tres clientes suben un contador en todas las intercalaciones posibles (valor correcto: 3)",
-               "Tabla: con leer-sumar-escribir, de 90 intercalaciones solo 6 terminan en 3; 48 terminan en 1 y 36 en 2 sin ningún aviso. Escribir solo si la versión no cambió acepta exactamente tantas escrituras como el valor final. Un UPDATE atómico termina siempre en 3.",
-               ["Variante", "Intercalaciones", "Final = 3", "Final = 1", "Final = 2"], rows, [350, 150, 160, 160, 160], row_h=48, size=13,
-               note="La actualización perdida no falla: devuelve éxito a los tres clientes y deja un valor equivocado. La comprobación de versión no evita el conflicto, lo vuelve visible para que el cliente reintente. Se ejecutó sobre SQLite con tres conexiones en un hilo y orden forzado.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Valor final de un contador que suben tres clientes (valor correcto: 3)",
+        "Barras apiladas horizontales con la proporción de intercalaciones según el valor final: con leer-sumar-escribir 7 por ciento termina en 3, 53 por ciento en 1 y 40 por ciento en 2, sin aviso; con comprobación de versión 7 por ciento acepta tres escrituras y el resto pierde dos o una; con un UPDATE atómico el 100 por ciento termina en 3.",
+        ["Leer, sumar uno y escribir (90 intercalaciones)", "Escribir solo si la versión no cambió (90 intercalaciones)", "UPDATE n = n + 1 atómico (6 intercalaciones)"],
+        [("Final = 3 (correcto)", [6, 6, 6], "teal"), ("Final = 2", [36, 48, 0], "gold"), ("Final = 1", [48, 36, 0], "coral")],
+        unit="Intercalaciones", horizontal=True, percent=True, label_w=270,
+        note="La actualización perdida no falla: devuelve éxito a los tres clientes y deja un valor equivocado. La comprobación de versión no evita el conflicto, lo vuelve visible para que el cliente reintente (acepta tantas escrituras como el valor final). Se ejecutó sobre SQLite con tres conexiones en un hilo y orden forzado.",
+        note_kind="coral", foot=SINT)
 
 
 def se315_cortes() -> Fig:
-    rows = [
-        ["Antes del paso 1 (registro del movimiento)", "Consistente", "Consistente"],
-        ["Antes del paso 2 (descontar 5 cupos)", "Registro «iniciado» sin movimiento", "Consistente"],
-        ["Antes del paso 3 (sumar 5 cupos)", "Suma de cupos 55: se pierden 5", "Consistente"],
-        ["Antes del paso 4 (cerrar el registro)", "Cupos bien; registro «iniciado» para siempre", "Consistente"],
-        ["Sin corte", "Completado", "Completado"],
-    ]
-    return tab("Una transferencia de cupos en cuatro pasos, cortada antes de cada paso",
-               "Tabla: sin transacción, un corte antes de los pasos 2, 3 o 4 deja un registro huérfano, una suma de cupos de 55 en vez de 60 o un registro que nunca se cierra; con una transacción, todos los cortes dejan el estado anterior intacto.",
-               ["Momento del corte", "Cada paso confirmado solo", "Una transacción"], rows, [420, 330, 170], row_h=48, size=13,
-               note="Tres de cuatro cortes dejan el sistema inconsistente sin transacción y ninguno con ella. La atomicidad es la propiedad de que el corte no es observable, no de que los pasos sean rápidos. El corte es una excepción lanzada en el cliente, no un apagón del servidor.",
-               note_kind="teal", foot=SINT)
+    return timeline(
+        "Una transferencia de cupos en cuatro pasos, cortada antes de cada paso",
+        "Diagrama de secuencia de los cuatro pasos de una transferencia de cupos y del estado que deja un corte antes de cada uno: sin transacción, cortar antes del paso 2, 3 o 4 deja un registro huérfano, una suma de cupos de 55 en vez de 60 o un registro que nunca se cierra; con una transacción, todos los cortes dejan el estado anterior intacto.",
+        [("Pasos de la transferencia", [(0, 1, "1 registrar", "navy"), (1, 2, "2 descontar 5", "navy"), (2, 3, "3 sumar 5", "navy"),
+                                        (3, 4, "4 cerrar", "navy"), (4, 5, "fin", "grey")]),
+         ("Sin transacción: estado si se corta antes del paso", [(0, 1, "consistente", "teal"), (1, 2, "huérfano", "coral"), (2, 3, "suma de 55", "coral"),
+                                                                   (3, 4, "abierto", "gold"), (4, 5, "completado", "teal")]),
+         ("Con una transacción: estado si se corta", [(0, 4, "el estado anterior queda intacto", "teal"), (4, 5, "completado", "teal")])],
+        unit="Punto de corte: antes del paso indicado (el último no corta)", ticks=[0, 1, 2, 3, 4, 5], t_max=5, lane_h=54,
+        note="Tres de cuatro cortes dejan el sistema inconsistente sin transacción y ninguno con ella: «huérfano» es un registro «iniciado» sin movimiento, «suma de 55» pierde 5 cupos y «abierto» deja el registro «iniciado» para siempre. La atomicidad es la propiedad de que el corte no es observable, no de que los pasos sean rápidos. El corte es una excepción lanzada en el cliente, no un apagón del servidor.",
+        note_kind="teal", foot=SINT)
 
 
 def se315_sesgo() -> Fig:
-    rows = [
-        ["Lee lo confirmado (READ COMMITTED)", "60", "0"],
-        ["Lee una instantánea (SNAPSHOT)", "68", "0"],
-        ["Instantánea + detección de lecturas obsoletas", "0", "68"],
-        ["SQLite con dos conexiones DEFERRED", "0", "La segunda escritura y el commit del primero fallan con «database is locked»"],
-    ]
-    return tab("Dos docentes de guardia se retiran a la vez: intercalaciones que dejan cero (70 posibles)",
-               "Tabla: en 70 intercalaciones de dos transacciones que comprueban que quedan dos docentes y se retiran, 60 terminan sin nadie de guardia bajo lectura confirmada y 68 bajo instantánea; con detección de conflictos de lectura-escritura ninguna, a costa de abortar una transacción en 68. SQLite lo evita bloqueando.",
-               ["Nivel o motor", "Quedan 0 de guardia", "Abortos o comportamiento"], rows, [400, 190, 360], row_h=56, size=13,
-               note="Las dos transacciones escriben filas distintas, así que ningún conflicto de escritura las detiene: el invariante «al menos uno» solo se protege si la lectura también cuenta. El modelo de niveles es una simplificación del autor; SQLite se ejecutó de verdad.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Dos docentes de guardia se retiran a la vez: destino de las 70 intercalaciones posibles",
+        "Barras apiladas horizontales con el destino de las 70 intercalaciones de dos transacciones que comprueban que quedan dos docentes y se retiran: bajo lectura confirmada 60 dejan cero docentes de guardia, bajo instantánea 68; con detección de conflictos de lectura-escritura ninguna, a costa de abortar una transacción en 68.",
+        ["Lee lo confirmado (READ COMMITTED)", "Lee una instantánea (SNAPSHOT)", "Instantánea con detección de lecturas obsoletas"],
+        [("Quedan 0 de guardia", [60, 68, 0], "coral"), ("Una transacción aborta", [0, 0, 68], "gold"), ("Termina bien sin abortar", [10, 2, 2], "teal")],
+        unit="Intercalaciones de 70", horizontal=True, label_w=250,
+        note="Las dos transacciones escriben filas distintas, así que ningún conflicto de escritura las detiene: el invariante «al menos uno» solo se protege si la lectura también cuenta. Los tramos «sin abortar» son lo que resta de 70. SQLite, con dos conexiones DEFERRED, lo evita bloqueando: la segunda escritura y el commit del primero fallan con «database is locked». El modelo de niveles es una simplificación del autor; SQLite se ejecutó de verdad.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-316
 def se316_capas() -> Fig:
-    rows = [
-        ["Nota fuera de rango", "200", "0", "0", "0"],
-        ["Estudiante inexistente", "200", "200", "0", "0"],
-        ["Correo duplicado", "200", "0", "0", "0"],
-        ["Estado desconocido", "200", "0", "0", "0"],
-        ["Calificada sin nota", "200", "200", "200", "0"],
-        ["Entrega anterior a la publicación", "200", "200", "200", "0"],
-        ["Curso inexistente", "200", "200", "0", "0"],
-        ["Calificada sin docente", "200", "200", "200", "0"],
-        ["Total persistido de 1 600 intentos", "1 600", "1 000", "600", "0"],
-    ]
-    return tab("Filas inválidas que llegan a la base según la capa que las rechaza (200 intentos por defecto)",
-               "Tabla: de 1 600 filas inválidas, 1 600 se guardan sin restricciones, 1 000 con NOT NULL, CHECK y UNIQUE, 600 al añadir claves foráneas y ninguna al añadir disparadores para las reglas entre filas.",
-               ["Defecto del cliente", "Sin restricciones", "NOT NULL, CHECK, UNIQUE", "+ claves foráneas", "+ disparadores"], rows, [330, 140, 190, 150, 130], row_h=34, size=12,
-               note="Cada capa elimina una familia de defectos y deja pasar la siguiente: las reglas que cruzan columnas o tablas piden claves foráneas o disparadores. Los defectos se generaron para cada capa conociendo sus límites, de modo que 0 en la última columna no mide cobertura real.",
-               note_kind="gold", foot=SINT)
+    return heatmap(
+        "Filas inválidas que llegan a la base según la capa que las rechaza (200 intentos por defecto)",
+        "Mapa de calor con las filas inválidas que se guardan, de 200 intentos por defecto del cliente, en cuatro capas acumulativas: sin restricciones se guardan las 1 600; con NOT NULL, CHECK y UNIQUE persisten 1 000, solo los defectos entre filas o tablas; con claves foráneas, 600; con disparadores, ninguna.",
+        ["Nota fuera de rango", "Estudiante inexistente", "Correo duplicado", "Estado desconocido", "Calificada sin nota",
+         "Entrega anterior a la publicación", "Curso inexistente", "Calificada sin docente"],
+        ["Sin restricciones (1 600)", "NOT NULL, CHECK, UNIQUE (1 000)", "+ claves foráneas (600)", "+ disparadores (0)"],
+        [[200, 0, 0, 0], [200, 200, 0, 0], [200, 0, 0, 0], [200, 0, 0, 0], [200, 200, 200, 0],
+         [200, 200, 200, 0], [200, 200, 0, 0], [200, 200, 200, 0]],
+        unit="filas inválidas guardadas de 200", row_title="Defecto del cliente", col_title="Capas acumulativas de restricciones",
+        scale="coral", vmin=0, vmax=200, decimals=0, cell_h=36, label_w=250,
+        note="Cada capa elimina una familia de defectos y deja pasar la siguiente: las reglas que cruzan columnas o tablas piden claves foráneas o disparadores. Los defectos se generaron para cada capa conociendo sus límites, de modo que 0 en la última columna no mide cobertura real.",
+        note_kind="gold", foot=SINT)
 
 
 def se316_carrera() -> Fig:
-    rows = [
-        ["Comprobar y luego insertar, sin UNIQUE", "90", "18", "36", "36", "0"],
-        ["Comprobar y luego insertar, con UNIQUE", "90", "90", "0", "0", "108"],
-    ]
-    return tab("Tres clientes registran la misma entrega (estudiante, tarea) en las 90 intercalaciones posibles",
-               "Tabla: sin restricción de unicidad, solo 18 de 90 intercalaciones dejan una fila; 36 dejan dos y 36 dejan tres. Con UNIQUE todas dejan una y el motor rechaza 108 inserciones duplicadas.",
-               ["Variante", "Intercalaciones", "1 fila", "2 filas", "3 filas", "Rechazos del motor"], rows, [380, 150, 90, 90, 90, 130], row_h=48, size=13,
-               note="La comprobación en la aplicación es correcta en un solo hilo y falla bajo concurrencia; la restricción convierte el defecto en un error que el cliente puede manejar. Los 108 rechazos son trabajo útil, no un problema del motor.",
-               note_kind="teal", foot=SINT)
+    return stacked_bars(
+        "Tres clientes registran la misma entrega (estudiante, tarea) en las 90 intercalaciones posibles",
+        "Barras apiladas horizontales con las filas que quedan tras 90 intercalaciones de comprobar y luego insertar: sin restricción de unicidad solo 18 dejan una fila, 36 dejan dos y 36 dejan tres; con UNIQUE todas dejan una y el motor rechaza 108 inserciones duplicadas.",
+        ["Comprobar y luego insertar, sin UNIQUE", "Comprobar y luego insertar, con UNIQUE (el motor rechaza 108 inserciones)"],
+        [("1 fila (correcto)", [18, 90], "teal"), ("2 filas", [36, 0], "gold"), ("3 filas", [36, 0], "coral")],
+        unit="Intercalaciones de 90 según las filas finales", horizontal=True, label_w=250,
+        note="La comprobación en la aplicación es correcta en un solo hilo y falla bajo concurrencia; la restricción convierte el defecto en un error que el cliente puede manejar. Los 108 rechazos son trabajo útil, no un problema del motor.",
+        note_kind="teal", foot=SINT)
 
 
 def se316_borrado() -> Fig:
-    rows = [
-        ["Cualquier acción, foreign_keys = OFF (valor por defecto de SQLite)", "Borra sin error", "100", "50"],
-        ["NO ACTION o RESTRICT, foreign_keys = ON", "Rechaza el borrado", "100", "0"],
-        ["ON DELETE CASCADE, foreign_keys = ON", "Borra el curso y 50 entregas", "50", "0"],
-        ["ON DELETE SET NULL, foreign_keys = ON", "Borra el curso; 50 entregas con curso nulo", "100", "0"],
-    ]
-    return tab("Borrar un curso con 50 de las 100 entregas de una tabla: efecto según la clave foránea",
-               "Tabla: con las claves foráneas desactivadas, que es el valor por defecto de SQLite, borrar el curso no da error y deja 50 entregas huérfanas; con ellas activadas, NO ACTION y RESTRICT rechazan, CASCADE borra las 50 entregas y SET NULL las deja con curso nulo.",
-               ["Configuración", "Resultado", "Entregas que quedan", "Huérfanas"], rows, [380, 300, 110, 100], row_h=56, size=12,
-               note="La clave foránea declarada no protege nada si el motor no la aplica. CASCADE, RESTRICT y SET NULL son tres decisiones de negocio distintas sobre qué pasa con las 50 entregas, no tres sintaxis de lo mismo. Comportamiento de SQLite; otros motores aplican las claves por defecto.",
-               note_kind="coral", foot=SINT)
+    return stacked_bars(
+        "Entregas que quedan tras borrar un curso que tenía 50 de las 100 entregas, según la clave foránea",
+        "Barras apiladas horizontales con las entregas que quedan de 100 tras borrar un curso con 50 de ellas: con las claves foráneas desactivadas, valor por defecto de SQLite, quedan las 100 y 50 son huérfanas sin que haya error; con NO ACTION o RESTRICT el borrado se rechaza y quedan 100 intactas; con CASCADE quedan 50 porque las otras 50 se borran con el curso; con SET NULL quedan 100, 50 con curso nulo.",
+        ["Cualquier acción, foreign_keys = OFF (valor por defecto de SQLite)", "NO ACTION o RESTRICT, foreign_keys = ON", "ON DELETE CASCADE, foreign_keys = ON", "ON DELETE SET NULL, foreign_keys = ON"],
+        [("Con un curso válido", [50, 100, 50, 50], "teal"), ("Huérfanas (curso inexistente)", [50, 0, 0, 0], "coral"), ("Con curso nulo", [0, 0, 0, 50], "gold")],
+        unit="Entregas que quedan en la tabla (de 100)", horizontal=True, label_w=300,
+        note="La clave foránea declarada no protege nada si el motor no la aplica. CASCADE, RESTRICT y SET NULL son tres decisiones de negocio distintas sobre qué pasa con las 50 entregas del curso (se borran, se rechaza el borrado, quedan sin curso), no tres sintaxis de lo mismo. Comportamiento de SQLite; otros motores aplican las claves por defecto.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-317
 def se317_pasos() -> Fig:
-    rows = [
-        ["Estudiante = 17 (36 filas, 0,07 %)", "150 296", "407", "SEARCH con índice"],
-        ["Estado = «anulada» (1 258 filas, 2,5 %)", "160 072", "13 847", "SEARCH con índice"],
-        ["Estado = «enviada» (45 030 filas, 90 %)", "510 248", "495 339", "SEARCH, 3 % menos pasos"],
-    ]
-    return tab("Pasos de la máquina virtual de SQLite para leer filas con y sin índice (50 000 entregas)",
-               "Tabla: buscar al estudiante 17 baja de 150 296 a 407 pasos con un índice; buscar el estado anulada, con el 2,5 por ciento de las filas, baja de 160 072 a 13 847; buscar el estado enviada, con el 90 por ciento, apenas baja de 510 248 a 495 339.",
-               ["Consulta", "Sin índice", "Con índice", "Plan"], rows, [400, 150, 150, 220], row_h=48, size=13,
-               note="El índice sirve cuanto menos selectiva es la fila buscada, no cuanto más grande es la tabla. Para el 90 % de las filas, recorrer el índice cuesta casi lo mismo que recorrer la tabla. Los pasos son una métrica determinista de trabajo, no tiempo.",
-               note_kind="gold", foot=SINT)
+    def factor(a: float, b: float) -> str:
+        q = a / b
+        return "÷" + fmt_es(q, 0 if q >= 100 else 1 if q >= 10 else 2)
+    return dumbbell(
+        "Pasos de la máquina virtual de SQLite para leer filas con y sin índice (50 000 entregas)",
+        "Gráfico de puntos unidos en escala logarítmica con los pasos sin índice y con índice: buscar al estudiante 17, el 0,07 por ciento de las filas, baja de 150 296 a 407 pasos; el estado anulada, el 2,5 por ciento, de 160 072 a 13 847; el estado enviada, el 90 por ciento, apenas baja de 510 248 a 495 339.",
+        [("Estudiante = 17 (36 filas, 0,07 %)", 150296, 407), ("Estado = «anulada» (1 258 filas, 2,5 %)", 160072, 13847),
+         ("Estado = «enviada» (45 030 filas, 90 %)", 510248, 495339)],
+        unit="Pasos de la máquina virtual", names=("Sin índice", "Con índice"), log=True, delta=factor, label_w=250,
+        note="El índice sirve cuanto más selectiva es la fila buscada, no cuanto más grande es la tabla. Para el 90 % de las filas, recorrer el índice cuesta casi lo mismo que recorrer la tabla (el plan es SEARCH, solo un 3 % menos de pasos). Los pasos son una métrica determinista de trabajo, no tiempo.",
+        note_kind="gold", foot=SINT)
 
 
 def se317_orden() -> Fig:
-    rows = [
-        ["curso y estudiante", "91 266", "27", "26", "3 142"],
-        ["solo estudiante", "90 192", "663", "264", "90 192"],
-        ["solo curso", "94 904", "6 743", "94 904", "6 743"],
-        ["curso y rango de fechas", "91 948", "3 788", "91 948", "404"],
-        ["solo rango de fechas", "124 772", "124 772", "124 772", "18 142"],
-    ]
-    return tab("Pasos por consulta según el índice compuesto (30 000 entregas)",
-               "Tabla: un índice sobre curso y estudiante resuelve curso y estudiante en 27 pasos y solo curso en 6 743, pero no una consulta solo por fechas; el índice en el orden inverso resuelve estudiante en 264 pasos y deja solo curso en 94 904; un índice sobre curso y fecha resuelve el rango de un curso en 404 pasos y el rango solo en 18 142 mediante un recorrido por saltos.",
-               ["Consulta", "Sin índice", "(curso, estudiante)", "(estudiante, curso)", "(curso, fecha)"], rows, [250, 130, 190, 190, 160], row_h=44, size=13,
-               note="El orden de las columnas decide qué consultas ayuda. SQLite, tras ANALYZE, usó un recorrido por saltos (ANY(curso)) para algunas consultas sin el primer prefijo, algo que otros motores no hacen. Pasos medidos, no tiempo.",
-               note_kind="teal", foot=SINT)
+    data = [[91266, 27, 26, 3142], [90192, 663, 264, 90192], [94904, 6743, 94904, 6743], [91948, 3788, 91948, 404],
+            [124772, 124772, 124772, 18142]]
+    best = [(i, j) for i, row in enumerate(data) for j, v in enumerate(row) if v == min(row)]
+    return heatmap(
+        "Pasos por consulta según el índice compuesto (30 000 entregas)",
+        "Mapa de calor con los pasos de cinco consultas con cuatro conjuntos de índices, con el color en escala logarítmica: el índice sobre curso y estudiante resuelve curso y estudiante en 27 pasos y solo curso en 6 743; el orden inverso resuelve estudiante en 264 y deja solo curso en 94 904; curso y fecha resuelve el rango de un curso en 404 pasos; el rango solo cuesta 124 772 sin índice y 18 142 con el último.",
+        ["Curso y estudiante", "Solo estudiante", "Solo curso", "Curso y rango de fechas", "Solo rango de fechas"],
+        ["Sin índice", "(curso, estudiante)", "(estudiante, curso)", "(curso, fecha)"],
+        [[math.log10(v) for v in row] for row in data],
+        unit="pasos, color en escala logarítmica", row_title="Consulta", col_title="Índice disponible",
+        scale="coral", cell_fmt=lambda x: fmt_es(round(10 ** x), 0), highlight=best, cell_h=44, label_w=230,
+        note="El orden de las columnas decide qué consultas ayuda; el contorno marca el mejor índice de cada consulta (o los empatados). SQLite, tras ANALYZE, usó un recorrido por saltos (ANY(curso)) para algunas consultas sin el primer prefijo, algo que otros motores no hacen. Pasos medidos, no tiempo.",
+        note_kind="teal", foot=SINT)
 
 
 def se317_escritura() -> Fig:
-    rows = [
-        ["0 índices", "340 006", "507 904", "—"],
-        ["1 índice", "460 006", "729 088", "+35 % pasos, +44 % espacio"],
-        ["2 índices", "580 006", "987 136", "+71 % pasos, +94 % espacio"],
-        ["4 índices", "780 006", "1 544 192", "+129 % pasos, +204 % espacio"],
-    ]
-    return tab("Insertar 20 000 filas según el número de índices; y una consulta por curso lanzada 200 veces",
-               "Tabla: insertar 20 000 filas cuesta 340 006 pasos y 507 904 bytes sin índices, 460 006 pasos y 729 088 bytes con uno, 580 006 y 987 136 con dos y 780 006 y 1 544 192 con cuatro. Lanzar una consulta por curso 200 veces cuesta 12 062 807 pasos, una sola agregada 322 819 y con índice 123 406.",
-               ["Índices", "Pasos", "Bytes", "Frente a sin índices"], rows, [150, 170, 170, 400], row_h=44, size=13,
-               note="Cada índice es una promesa de lectura pagada en cada escritura. En el mismo experimento, 201 sentencias para promediar 200 cursos cuestan 12 062 807 pasos, una agregación 322 819 y las 200 con índice 123 406: el índice rescata al bucle en pasos, pero no mide el viaje de cada sentencia.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Coste de insertar 20 000 filas según el número de índices (sin índices = 100)",
+        "Líneas del coste relativo de insertar 20 000 filas con 0, 1, 2 y 4 índices: los pasos suben a 135, 171 y 229 por ciento (340 006 a 780 006 pasos) y el espacio a 144, 194 y 304 por ciento (507 904 a 1 544 192 bytes); cada índice se paga en cada escritura.",
+        [("Pasos", [(0, 100, "", "t"), (1, 135, "+35 %", "b"), (2, 171, "+71 %", "b"), (4, 229, "+129 %", "b")], "coral"),
+         ("Bytes del archivo", [(0, 100, "", "t"), (1, 144, "+44 %", "t"), (2, 194, "+94 %", "t"), (4, 304, "+204 %", "t")], "teal")],
+        x_label="Índices sobre la tabla", y_label="Coste relativo (0 índices = 100)",
+        x_ticks=[(0, "0"), (1, "1"), (2, "2"), (4, "4")], y_ticks=[0, 100, 200, 300, 400], point_labels="none",
+        note="Cada índice es una promesa de lectura pagada en cada escritura. En el mismo experimento, 201 sentencias para promediar 200 cursos cuestan 12 062 807 pasos, una agregación 322 819 y las 200 con índice 123 406: el índice rescata al bucle en pasos, pero no mide el viaje de cada sentencia.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-318
 def se318_compat() -> Fig:
-    rows = [
-        ["Original: columna nombre", "Sí", "Sí", "No", "No"],
-        ["Renombrar a nombre_completo en un solo paso", "No", "No", "Sí", "Sí"],
-        ["Expandir: añadir la columna, rellenar y copiar con disparadores", "Sí", "Sí", "Sí", "Sí"],
-        ["Contraer: quitar nombre y los disparadores", "No", "No", "Sí", "Sí"],
-    ]
-    return tab("Qué versión de la aplicación funciona con cada estado del esquema",
-               "Tabla: el renombrado de una columna en un solo paso rompe las dos operaciones de la versión antigua; el estado intermedio con la columna nueva, el relleno y los disparadores de copia permite las cuatro operaciones de ambas versiones; contraer rompe otra vez a la versión antigua, pero ya no debe quedar ninguna.",
-               ["Estado del esquema", "v1 lee", "v1 escribe", "v2 lee", "v2 escribe"], rows, [450, 110, 130, 110, 120], row_h=56, size=13,
-               note="El estado intermedio es el único compatible con las dos versiones y con una vuelta atrás; solo se contrae cuando ya ninguna instancia de v1 corre. En el experimento, 0 filas quedaron con nombres distintos o vacíos tras escrituras de ambas versiones.",
-               note_kind="teal", foot=SINT)
+    return timeline(
+        "Qué versión de la aplicación funciona con cada estado del esquema",
+        "Diagrama de fases con el estado de cada versión de la aplicación al renombrar una columna: renombrar en un solo paso rompe la versión 1 desde el cambio y deja la versión 2 sin funcionar antes de él; expandir, rellenar y copiar con disparadores permite que las dos versiones lean y escriban a la vez, y solo al contraer la versión 1 deja de funcionar, cuando ya no debe quedar ninguna.",
+        [("Un solo paso: v1", [(0, 1, "lee y escribe", "teal"), (1, 3, "no lee ni escribe", "coral")]),
+         ("Un solo paso: v2", [(0, 1, "no funciona", "coral"), (1, 3, "lee y escribe", "teal")]),
+         ("Expandir y contraer: v1", [(0, 2, "lee y escribe", "teal"), (2, 3, "se rompe", "coral")]),
+         ("Expandir y contraer: v2", [(0, 1, "no funciona", "coral"), (1, 3, "lee y escribe", "teal")])],
+        unit="Fases del despliegue (no es una escala de tiempo)", ticks=[0, 1, 2, 3], t_max=3,
+        events=[(1, "1: esquema nuevo"), (2, "2: se quita la columna vieja")], lane_h=54,
+        note="El estado intermedio es el único compatible con las dos versiones y con una vuelta atrás; solo se contrae cuando ya ninguna instancia de v1 corre. En el experimento, 0 filas quedaron con nombres distintos o vacíos tras escrituras de ambas versiones.",
+        note_kind="teal", foot=SINT)
 
 
 def se318_lotes() -> Fig:
@@ -253,19 +231,15 @@ def se318_lotes() -> Fig:
 
 
 def se318_reversion() -> Fig:
-    rows = [
-        ["Renombrar una columna y volver", "0", "Sin pérdida"],
-        ["Añadir una columna, escribir en ella y quitarla", "1 000", "Se pierden los datos nuevos"],
-        ["Quitar la columna comentario y volver a añadirla", "666", "Se pierden los valores"],
-        ["Nota de decimal a entero y volver", "937", "Se pierden los decimales"],
-        ["Dividir el nombre en dos columnas y recomponer", "66", "Los nombres sin coma cambian"],
-        ["Pasar el nombre a mayúsculas y volver", "1 000", "Se pierde la capitalización"],
-    ]
-    return tab("Valores alterados o perdidos tras aplicar una migración y su inversa (1 000 filas)",
-               "Tabla: renombrar una columna y volver no pierde nada; añadir una columna, escribir en ella y quitarla pierde las 1 000 escrituras; quitar y volver a añadir una columna pierde 666 valores; pasar una nota a entero y volver altera 937 filas; dividir y recomponer el nombre altera 66; pasar a mayúsculas y volver altera 1 000.",
-               ["Operación y su inversa", "Filas alteradas", "Qué se pierde"], rows, [450, 130, 330], row_h=44, size=13,
-               note="«Tiene un down» no significa «es reversible»: solo el renombrado devuelve los mismos datos. Las demás restauran la estructura y pierden información; para volver de verdad hace falta una copia anterior al paso. Datos sintéticos con 5 % de nombres sin coma.",
-               note_kind="coral", foot=SINT)
+    return grouped_bars(
+        "Filas alteradas tras aplicar una migración y su inversa (1 000 filas)",
+        "Barras horizontales con las filas alteradas de 1 000 tras aplicar una migración y su inversa: renombrar una columna y volver no altera ninguna; dividir y recomponer el nombre altera 66; quitar y volver a añadir una columna, 666; pasar la nota a entero y volver, 937; añadir una columna, escribir en ella y quitarla, y pasar a mayúsculas y volver, las 1 000.",
+        ["Renombrar una columna y volver", "Dividir el nombre en dos columnas y recomponer", "Quitar la columna comentario y volver a añadirla",
+         "Nota de decimal a entero y volver", "Añadir una columna, escribir en ella y quitarla", "Pasar el nombre a mayúsculas y volver"],
+        [("Filas alteradas", [0, 66, 666, 937, 1000, 1000], "coral")],
+        unit="Filas alteradas de 1 000", horizontal=True, label_w=300, ticks=[0, 250, 500, 750, 1000],
+        note="«Tiene un down» no significa «es reversible»: solo el renombrado devuelve los mismos datos. Las demás restauran la estructura y pierden información (los valores, los decimales, la capitalización o las escrituras nuevas); para volver de verdad hace falta una copia anterior al paso. Datos sintéticos con 5 % de nombres sin coma.",
+        note_kind="coral", foot=SINT)
 
 
 FIGURES = {

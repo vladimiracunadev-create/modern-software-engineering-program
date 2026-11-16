@@ -275,3 +275,7 @@ La simulación modela casos como lanzamientos independientes con probabilidades 
 | Falso rechazo | Se retiene una versión sana |
 | pass@k | Probabilidad de al menos un acierto en k intentos |
 | Conjunto curado | Casos elegidos por dificultad o importancia |
+
+---
+
+[← SE-488 — SDD: spec-first, spec-anchored y spec-as-source](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-489.html) · [SE-490 — ODD: desarrollo orgánico y su contraste con SDD →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md)

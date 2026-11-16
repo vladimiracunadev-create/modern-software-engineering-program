@@ -261,3 +261,7 @@ El éxito por paso, la detección de la puerta, el acierto por muestra y la corr
 | Cobertura | Fracción de solicitudes que el enrutador acepta |
 | Seccionamiento | Paralelización por partes distintas del trabajo |
 | Votación | Mayoría sobre ejecuciones repetidas de una tarea |
+
+---
+
+[← SE-505 — Workflows frente a agentes: cuándo no usar un agente](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-506.html) · [SE-507 — Orquestador-trabajadores y evaluador-optimizador →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador/README.md)

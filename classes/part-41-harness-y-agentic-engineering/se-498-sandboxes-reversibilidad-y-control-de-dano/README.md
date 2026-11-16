@@ -254,3 +254,7 @@ Se ejecutaron cuatro configuraciones sobre quince archivos de texto con acciones
 | Instantánea | Copia o commit para restaurar un estado |
 | Sandbox | Entorno que restringe lo que un proceso puede hacer |
 | Efecto externo | Efecto fuera de la máquina o del proyecto |
+
+---
+
+[← SE-497 — Loops de agentes y criterios de parada](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-498.html) · [SE-499 — Verificación, gates y menú único de validación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/README.md)

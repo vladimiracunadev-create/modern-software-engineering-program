@@ -285,3 +285,7 @@ La cola, la penalización de contexto, las derivas y los umbrales son construcci
 | Utilización | Fracción de capacidad ocupada por la demanda |
 | Gobernanza computacional | Reglas globales aplicadas como código |
 | Deriva semántica | Cambio de significado que conserva el esquema |
+
+---
+
+[← SE-534 — Multi-tenancy y aislamiento](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-535.html) · [SE-536 — Arquitectura celular y radio de impacto →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md)

@@ -78,15 +78,11 @@ La API de entregas mantiene un contrato, un conjunto de señales y un paquete op
 
 #### SE-421 — Señales, eventos y observabilidad útil
 
-[Abrir la clase SE-421](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/)
-
 Una señal sirve si responde una pregunta que se hará durante el incidente. La clase compara cuatro conjuntos de señales para localizar al servicio lento de una cadena, mide cuánto del tráfico global ve una falla total de un cliente pequeño y cuenta cuántas de 60 preguntas posteriores responden las métricas y los eventos anchos.
 
 El estudiante entrega una tabla pregunta → señal → señal que falta. `SE-422` pregunta cómo escribir el evento que responde esas preguntas.
 
 #### SE-422 — Logs estructurados y correlación
-
-[Abrir la clase SE-422](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-422-logs-estructurados-y-correlacion/)
 
 Un registro es una interfaz con quien investiga. La clase mide qué sobrevive de una extracción por regex y por campos a cuatro versiones de una línea, calcula la fracción de peticiones completas según la propagación del identificador y compara políticas de muestreo y de redacción.
 
@@ -94,15 +90,11 @@ El estudiante entrega un esquema de registros con su política de muestreo y de 
 
 #### SE-423 — Métricas, dimensiones y cardinalidad
 
-[Abrir la clase SE-423](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/)
-
 Cada combinación de etiquetas es una serie. La clase calcula el crecimiento del número de series y su memoria, reconstruye un contador con reinicios y estima qué picos ve cada intervalo de lectura, y compara tres diseños de cubetas de histograma por su error de percentil.
 
 El estudiante entrega un catálogo de métricas con presupuesto de series. `SE-424` sigue una petición entre servicios.
 
 #### SE-424 — Trazas distribuidas y contexto
-
-[Abrir la clase SE-424](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-424-trazas-distribuidas-y-contexto/)
 
 El contexto se pierde donde cambia el medio o la unidad de ejecución. La clase calcula la fragmentación de las trazas, mide cuánto ahorra optimizar según la ruta crítica y compara el muestreo de cabeza con el de cola y su enrutado.
 
@@ -112,15 +104,11 @@ El estudiante entrega un inventario de fronteras con una prueba por frontera as�
 
 #### SE-425 — SLI, SLO, SLA y presupuestos de error
 
-[Abrir la clase SE-425](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/)
-
 Un objetivo sin ventana ni punto de medición admite lecturas opuestas. La clase mide el mismo presupuesto por peticiones y por minutos, compara el servidor con el cliente y los reintentos y calcula la composición de dependencias y los meses que incumplen.
 
 El estudiante entrega un SLI, un SLO, un SLA y una política de presupuesto. `SE-426` los convierte en alertas.
 
 #### SE-426 — Alertas accionables y fatiga
-
-[Abrir la clase SE-426](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-426-alertas-accionables-y-fatiga/)
 
 Una página que no pide acción cuesta credibilidad. La clase compara seis reglas de alerta por páginas, detecciones y falsos positivos, mide el efecto de la duración mínima y la agrupación y elige una ventana por el equilibrio entre ruido y retraso.
 
@@ -130,23 +118,17 @@ El estudiante entrega un conjunto de alertas clasificadas en página, ticket y r
 
 #### SE-427 — Runbooks, on-call y escalamiento
 
-[Abrir la clase SE-427](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-427-runbooks-on-call-y-escalamiento/)
-
 Una persona cansada necesita pasos, no explicaciones. La clase calcula la carga de una guardia según el tamaño del equipo, la cobertura de un escalamiento con causa común y lo que un verificador de forma ve y no ve en un runbook.
 
 El estudiante entrega un runbook ejecutado por otra persona y una rotación dimensionada. `SE-428` coordina varias personas.
 
 #### SE-428 — Gestión de incidentes y comunicación
 
-[Abrir la clase SE-428](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion/)
-
 Mitigar viene antes que entender y comunicar es parte de resolver. La clase mide el acuerdo sobre la severidad con kappa, descompone el tiempo en tramos, muestra cuánto varía la media por azar y busca la cadencia de actualizaciones que minimiza las interrupciones.
 
 El estudiante entrega un protocolo con roles, severidades medibles y cadencia. `SE-429` convierte el incidente en aprendizaje.
 
 #### SE-429 — Postmortems sin culpa y aprendizaje
-
-[Abrir la clase SE-429](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje/)
 
 Un postmortem se mide por los cambios que produce. La clase calcula el efecto del cumplimiento de las acciones sobre la recurrencia, muestra que 400 analistas declaran seis causas raíz sobre el mismo grafo y mide qué detecta un verificador de forma.
 
@@ -156,8 +138,6 @@ El estudiante entrega un postmortem con factores y acciones verificables. `SE-43
 
 #### SE-430 — Continuidad, disaster recovery y ejercicios
 
-[Abrir la clase SE-430](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/)
-
 Un plan de recuperación que no se ha ejecutado es una hipótesis. La clase calcula los datos perdidos por cada estrategia, compara seis comprobaciones sobre 40 copias dañadas de una base real y calcula la ruta crítica y el ciclo de una restauración de 12 componentes.
 
 El estudiante entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios. `SE-431` diagnostica cuando la telemetría falta.
@@ -166,19 +146,32 @@ El estudiante entrega un plan con RPO, RTO, restauración verificada y calendari
 
 #### SE-431 — Taller: diagnosticar con telemetría incompleta
 
-[Abrir la clase SE-431](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta/)
-
 Una señal sin datos no es una señal normal. El taller cuenta las fallas indistinguibles al faltar señales, compara tres estrategias de observación y mide cuánto se subestima la tasa de error cuando el agente pierde más líneas de error.
 
 El estudiante entrega una bitácora de diagnóstico y la lista de telemetría a vigilar. `SE-432` lo integra en un paquete.
 
 #### SE-432 — Proyecto: operación observable y recuperable
 
-[Abrir la clase SE-432](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-432-proyecto-operacion-observable-y-recuperable/)
-
 Un paquete coherente no es un servicio operable. El proyecto mide qué detecta un validador sobre 360 mutaciones, calcula la recuperación completa como producto de cinco etapas y compara la huella de los resultados en dos sistemas.
 
 El estudiante entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites. La Parte 36 lleva la mirada al mantenimiento y la modernización de sistemas existentes.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-421](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-421-senales-eventos-y-observabilidad-util/) | Señales, eventos y observabilidad útil | Entrega una tabla pregunta → señal → señal que falta |
+| [SE-422](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-422-logs-estructurados-y-correlacion/) | Logs estructurados y correlación | Entrega un esquema de registros con su política de muestreo y de redacción |
+| [SE-423](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/) | Métricas, dimensiones y cardinalidad | Entrega un catálogo de métricas con presupuesto de series |
+| [SE-424](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-424-trazas-distribuidas-y-contexto/) | Trazas distribuidas y contexto | Entrega un inventario de fronteras con una prueba por frontera asíncrona |
+| [SE-425](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/) | SLI, SLO, SLA y presupuestos de error | Entrega un SLI, un SLO, un SLA y una política de presupuesto |
+| [SE-426](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-426-alertas-accionables-y-fatiga/) | Alertas accionables y fatiga | Entrega un conjunto de alertas clasificadas en página, ticket y registro |
+| [SE-427](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-427-runbooks-on-call-y-escalamiento/) | Runbooks, on-call y escalamiento | Entrega un runbook ejecutado por otra persona y una rotación dimensionada |
+| [SE-428](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-428-gestion-de-incidentes-y-comunicacion/) | Gestión de incidentes y comunicación | Entrega un protocolo con roles, severidades medibles y cadencia |
+| [SE-429](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-429-postmortems-sin-culpa-y-aprendizaje/) | Postmortems sin culpa y aprendizaje | Entrega un postmortem con factores y acciones verificables |
+| [SE-430](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/) | Continuidad, disaster recovery y ejercicios | Entrega un plan con RPO, RTO, restauración verificada y calendario de ejercicios |
+| [SE-431](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-431-taller-diagnosticar-con-telemetria-incompleta/) | Taller: diagnosticar con telemetría incompleta | Entrega una bitácora de diagnóstico y la lista de telemetría a vigilar |
+| [SE-432](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-35-observabilidad-sre-e-incidentes/se-432-proyecto-operacion-observable-y-recuperable/) | Proyecto: operación observable y recuperable | Entrega un paquete operativo con validador, huella, ejercicio registrado e informe de límites |
 
 ## Fuentes
 

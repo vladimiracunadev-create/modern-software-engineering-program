@@ -280,3 +280,7 @@ No se ejecutó Gentle AI ni se midió el efecto de ODD en equipos; los historial
 | Rojo y verde | Estado de las pruebas antes y después de implementar |
 | Decisión de entrega | Push, PR o merge, aparte de implementar |
 | Siguiente paso | Línea que permite retomar sin la sesión anterior |
+
+---
+
+[← SE-489 — EDD: evaluaciones como especificación y puerta de release](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-490.html) · [SE-491 — Taller: un mismo cambio con cinco metodologías →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/README.md)

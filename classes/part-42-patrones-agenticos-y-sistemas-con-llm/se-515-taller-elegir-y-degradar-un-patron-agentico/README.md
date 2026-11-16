@@ -266,3 +266,7 @@ El selector se probó con ocho tareas escritas por el autor, y la simulación us
 | Interruptor de circuito | Deja de llamar a un servicio que falla y prueba su recuperación |
 | Sonda | Llamada ocasional para saber si el servicio se recuperó |
 | Cobertura de un nivel | Fracción de solicitudes que puede atender |
+
+---
+
+[← SE-514 — Costo, latencia y seguridad en sistemas con LLM](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-515.html) · [SE-516 — Proyecto: sistema con LLM evaluado y operable →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md)

@@ -79,19 +79,19 @@ Lo que **no se hizo**: no se midió ningún equipo, productividad, esfuerzo huma
 
 Una metodología es un oráculo con un costo y un punto ciego. La clase ejecuta cinco oráculos sobre 18 defectos sembrados, mira qué deja vivo cada uno y muestra que las parejas de naturaleza distinta cubren lo que uno solo no ve.
 
-El estudiante entrega el mapa de las ocho metodologías con pregunta, oráculo y punto ciego. `SE-482` reconstruye el ciclo de TDD. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md).
+El estudiante entrega el mapa de las ocho metodologías con pregunta, oráculo y punto ciego. `SE-482` reconstruye el ciclo de TDD.
 
 #### SE-482 — TDD: ciclo rojo-verde-refactor y diseño emergente
 
 Una prueba que nunca falló no tiene información. La clase reconstruye ocho pasos, comprueba el rojo y el verde de cada uno, mide la curva de mutantes muertos y usa los tres sobrevivientes para escribir las pruebas que faltan.
 
-El estudiante entrega el registro del ciclo con la evidencia de cada rojo. `SE-483` compara los dos estilos de prueba. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md).
+El estudiante entrega el registro del ciclo con la evidencia de cada rojo. `SE-483` compara los dos estilos de prueba.
 
 #### SE-483 — TDD en la práctica: escuelas de Londres y clásica, y sus límites
 
 La diferencia entre estilos aparece cuando el interior cambia sin cambiar el resultado. La clase aplica cuatro refactores, un cambio de contrato y seis defectos a dos suites del mismo servicio.
 
-El estudiante entrega las dos suites y una regla de doble por colaborador. `SE-484` pasa de las pruebas a la conversación. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md).
+El estudiante entrega las dos suites y una regla de doble por colaborador. `SE-484` pasa de las pruebas a la conversación.
 
 ### Bloque 2 — Acordar el qué y con qué palabras
 
@@ -99,19 +99,19 @@ El estudiante entrega las dos suites y una regla de doble por colaborador. `SE-4
 
 BDD es descubrimiento, formulación y automatización; la herramienta es solo la tercera. La clase ejecuta nueve escenarios, mide la contribución de cada uno y encuentra los que no afirman nada.
 
-El estudiante entrega una sesión de descubrimiento y sus escenarios medidos. `SE-485` trata qué ejemplos elegir. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md).
+El estudiante entrega una sesión de descubrimiento y sus escenarios medidos. `SE-485` trata qué ejemplos elegir.
 
 #### SE-485 — ATDD y Specification by Example: aceptación ejecutable
 
 Más ejemplos no es mejor si no varían las dimensiones del problema. La clase compara cuatro conjuntos de ejemplos y explica por qué uno de 144 deja vivo un mutante que un ejemplo bien elegido mataría.
 
-El estudiante entrega la tabla de dimensiones de una regla suya y un conjunto de ejemplos medido. `SE-486` trata las palabras de esos ejemplos. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md).
+El estudiante entrega la tabla de dimensiones de una regla suya y un conjunto de ejemplos medido. `SE-486` trata las palabras de esos ejemplos.
 
 #### SE-486 — DDD como lenguaje ubicuo y contexto para agentes
 
 Una palabra con varios sentidos sin frontera produce errores silenciosos. La clase cuenta los sentidos de «entrega» en el corpus del programa y prueba que sin traducción entre contextos el servicio no envía ningún aviso.
 
-El estudiante entrega un glosario, un mapa de contextos y la prueba de la frontera. `SE-487` trata lo que se promete en cada frontera. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md).
+El estudiante entrega un glosario, un mapa de contextos y la prueba de la frontera. `SE-487` trata lo que se promete en cada frontera.
 
 ### Bloque 3 — Prometer, mantener y medir
 
@@ -119,25 +119,25 @@ El estudiante entrega un glosario, un mapa de contextos y la prueba de la fronte
 
 Una aserción puede desaparecer en producción y una alerta falsa enseña a ignorar. La clase ejecuta una precondición con y sin `-O` y compara tres detectores de cambios de un proveedor sobre doce cambios.
 
-El estudiante entrega el contrato mínimo de un consumidor suyo. `SE-488` lleva la idea de contrato a la especificación. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md).
+El estudiante entrega el contrato mínimo de un consumidor suyo. `SE-488` lleva la idea de contrato a la especificación.
 
 #### SE-488 — SDD: spec-first, spec-anchored y spec-as-source
 
 La deriva se desplaza hacia lo que la máquina no sabe comprobar. La clase genera código desde una especificación y mide qué derivas ve un comprobador mecánico y cuál no.
 
-El estudiante entrega una especificación legible por máquina con su comprobador. `SE-489` pasa a los componentes probabilísticos. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md).
+El estudiante entrega una especificación legible por máquina con su comprobador. `SE-489` pasa a los componentes probabilísticos.
 
 #### SE-489 — EDD: evaluaciones como especificación y puerta de release
 
 Una evaluación es un instrumento con ruido. La clase simula una puerta con 20 a 1 600 casos y 1 o 3 repeticiones y muestra que con 100 casos y una corrida más de una de cada cuatro regresiones de 5 puntos pasa.
 
-El estudiante entrega una puerta con umbral, margen y zona de duda. `SE-490` trata un flujo de trabajo para agentes. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md).
+El estudiante entrega una puerta con umbral, margen y zona de duda. `SE-490` trata un flujo de trabajo para agentes.
 
 #### SE-490 — ODD: desarrollo orgánico y su contraste con SDD
 
 Un flujo documentado no es evidencia de efectividad; su forma sí se puede comprobar. La clase evalúa dos historiales de Git reales contra tres reglas y contrasta ODD con SDD con sus evidencias declaradas.
 
-El estudiante entrega un documento de tarea y un comprobador de dos reglas. `SE-491` compara las metodologías sobre un cambio. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md).
+El estudiante entrega un documento de tarea y un comprobador de dos reglas. `SE-491` compara las metodologías sobre un cambio.
 
 ### Bloque 4 — Aplicar e integrar
 
@@ -145,13 +145,30 @@ El estudiante entrega un documento de tarea y un comprobador de dos reglas. `SE-
 
 El mismo cambio con cinco artefactos y la misma medida. El modelo ejecutable mata los siete silencios mal hechos y el contrato tres; lo que importa es qué deja vivo cada uno y por qué.
 
-El estudiante entrega la comparación de sus cinco artefactos y una combinación justificada. `SE-492` la convierte en política. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/README.md).
+El estudiante entrega la comparación de sus cinco artefactos y una combinación justificada. `SE-492` la convierte en política.
 
 #### SE-492 — Proyecto: política metodológica de equipo con evidencia
 
 Una política asigna menos evidencia a lo de bajo riesgo y más a lo de alto, y reconoce los cambios sin reglas deterministas. La clase simula cinco políticas sobre 300 cambios y escribe la del equipo con excepciones y revisión.
 
-El estudiante entrega la política con su clasificación, su tabla de evidencia y su métrica de revisión. La Parte 41 la usa como entrada para estudiar el harness de un agente. [Abrir la clase](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md).
+El estudiante entrega la política con su clasificación, su tabla de evidencia y su métrica de revisión. La Parte 41 la usa como entrada para estudiar el harness de un agente.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-481](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/) | Mapa de metodologías: qué decide cada una y cómo elegir | Entrega el mapa de las ocho metodologías con pregunta, oráculo y punto ciego |
+| [SE-482](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/) | TDD: ciclo rojo-verde-refactor y diseño emergente | Entrega el registro del ciclo con la evidencia de cada rojo |
+| [SE-483](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/) | TDD en la práctica: escuelas de Londres y clásica, y sus límites | Entrega las dos suites y una regla de doble por colaborador |
+| [SE-484](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/) | BDD: ejemplos, conversación y lenguaje compartido | Entrega una sesión de descubrimiento y sus escenarios medidos |
+| [SE-485](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/) | ATDD y Specification by Example: aceptación ejecutable | Entrega la tabla de dimensiones de una regla suya y un conjunto de ejemplos medido |
+| [SE-486](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/) | DDD como lenguaje ubicuo y contexto para agentes | Entrega un glosario, un mapa de contextos y la prueba de la frontera |
+| [SE-487](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/) | Diseño por contrato y pruebas de contrato como oráculo | Entrega el contrato mínimo de un consumidor suyo |
+| [SE-488](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/) | SDD: spec-first, spec-anchored y spec-as-source | Entrega una especificación legible por máquina con su comprobador |
+| [SE-489](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release/) | EDD: evaluaciones como especificación y puerta de release | Entrega una puerta con umbral, margen y zona de duda |
+| [SE-490](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/) | ODD: desarrollo orgánico y su contraste con SDD | Entrega un documento de tarea y un comprobador de dos reglas |
+| [SE-491](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-491-taller-un-mismo-cambio-con-cinco-metodologias/) | Taller: un mismo cambio con cinco metodologías | Entrega la comparación de sus cinco artefactos y una combinación justificada |
+| [SE-492](../../classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/) | Proyecto: política metodológica de equipo con evidencia | Entrega la política con su clasificación, su tabla de evidencia y su métrica de revisión |
 
 ## Fuentes
 

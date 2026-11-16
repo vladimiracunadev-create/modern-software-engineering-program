@@ -255,3 +255,7 @@ Se simularon cinco reglas sobre 4 000 tareas sintéticas con parámetros del aut
 | Cambio de plan | Alterar el enfoque tras un atasco |
 | Escalada | Entregar la tarea a una persona con evidencia |
 | Criterio de parada | Condición que termina el bucle |
+
+---
+
+[← SE-496 — Gestión de contexto, resets y handoffs](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-497.html) · [SE-498 — Sandboxes, reversibilidad y control de daño →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md)

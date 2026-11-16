@@ -263,3 +263,7 @@ El entorno de contactos que faltan, las decisiones equivocadas, las probabilidad
 | Replanificación | Nuevo plan tras una sorpresa |
 | Reflexión | Lección escrita de un intento fallido |
 | Señal de fallo | Evidencia externa de que algo falló |
+
+---
+
+[← SE-507 — Orquestador-trabajadores y evaluador-optimizador](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-508.html) · [SE-509 — Memoria y gestión de estado de agentes →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes/README.md)

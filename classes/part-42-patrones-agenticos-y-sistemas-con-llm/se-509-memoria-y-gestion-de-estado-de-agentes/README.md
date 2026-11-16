@@ -271,3 +271,7 @@ Las conversaciones, la fracción de turnos con hechos, el acierto del extractor 
 | Extractor | Componente que convierte la conversación en registros |
 | Versión | Marca que indica el valor vigente de una clave |
 | Caducidad | Momento en que un registro deja de valer |
+
+---
+
+[← SE-508 — ReAct, plan-and-execute y reflexión](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-509.html) · [SE-510 — Embeddings, recuperación y agentic RAG →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md)

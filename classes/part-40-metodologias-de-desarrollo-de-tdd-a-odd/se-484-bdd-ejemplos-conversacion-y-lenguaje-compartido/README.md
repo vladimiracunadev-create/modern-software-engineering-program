@@ -283,3 +283,7 @@ El ejecutor es un intérprete mínimo y los escenarios y mutantes son del autor;
 | Documentación viva | Escenarios ejecutables que fallan si el sistema deja de cumplirlos |
 | Escenario decorativo | Escenario sin resultado observable |
 | Contribución única | Mutantes que solo mata un escenario |
+
+---
+
+[← SE-483 — TDD en la práctica: escuelas de Londres y clásica, y sus límites](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-484.html) · [SE-485 — ATDD y Specification by Example: aceptación ejecutable →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md)

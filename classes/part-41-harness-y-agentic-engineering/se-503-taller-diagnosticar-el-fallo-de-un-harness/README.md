@@ -261,3 +261,7 @@ Se inyectaron seis fallos del autor en un harness mínimo con política guioniza
 | Matriz de confusión | Diagnóstico real frente a propuesto |
 | Traza enriquecida | Traza con herramientas ofrecidas, contexto y observación |
 | Tarea de regresión | Tarea que protege contra la reaparición de un fallo |
+
+---
+
+[← SE-502 — AI-DLC, gobierno y vibe coding frente a agentic engineering](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-503.html) · [SE-504 — Proyecto: harness mínimo gobernado y evaluado →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/README.md)

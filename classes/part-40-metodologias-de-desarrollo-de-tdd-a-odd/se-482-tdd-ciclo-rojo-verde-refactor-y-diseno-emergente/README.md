@@ -279,3 +279,7 @@ El ciclo se reconstruyó sobre una función de veinte líneas con 18 mutantes de
 | Lista de escenarios | Inventario vivo de comportamientos por comprobar |
 | Triangulación | Generalizar solo cuando otra prueba lo exige |
 | Sobreviviente | Mutante que ninguna prueba mata |
+
+---
+
+[← SE-481 — Mapa de metodologías: qué decide cada una y cómo elegir](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-481-mapa-de-metodologias-que-decide-cada-una-y-como-elegir/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-482.html) · [SE-483 — TDD en la práctica: escuelas de Londres y clásica, y sus límites →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-483-tdd-en-la-practica-escuelas-de-londres-y-clasica-y-sus-limites/README.md)

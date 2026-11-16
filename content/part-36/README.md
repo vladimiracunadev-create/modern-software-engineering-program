@@ -76,23 +76,17 @@ El módulo de calificaciones mantiene un contrato, una cartera y un paquete esta
 
 #### SE-433 — Mantenimiento correctivo, adaptativo y perfectivo
 
-[Abrir la clase SE-433](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-433-mantenimiento-correctivo-adaptativo-y-perfectivo/)
-
 Si solo se corrige lo urgente, lo urgente crece. La clase reparte 24 meses de capacidad con y sin una reserva del 20 % para trabajo preventivo, clasifica 600 solicitudes y mide el acuerdo entre dos revisoras, y calcula la probabilidad de llegar a una fecha impuesta según el margen.
 
 El estudiante entrega la cartera clasificada con una política de reserva. `SE-434` pregunta dónde está el riesgo y qué conocimiento se perdió.
 
 #### SE-434 — Arqueología de código y recuperación de conocimiento
 
-[Abrir la clase SE-434](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento/)
-
 El historial responde lo que el código no responde, y cada técnica de detección se equivoca por una razón distinta. La clase compara tres criterios para elegir puntos calientes, estima los archivos huérfanos con la salida de autores y mide el análisis por nombre y la traza de ejecución para encontrar código muerto.
 
 El estudiante entrega un mapa de riesgo con entrevistas por hacer. `SE-435` fija el comportamiento de esos puntos calientes.
 
 #### SE-435 — Pruebas de caracterización y seams
-
-[Abrir la clase SE-435](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams/)
 
 Una prueba de caracterización fija lo que el sistema hace, no lo que debería hacer, y la cobertura no mide cuánto detecta. La clase mide líneas cubiertas frente a mutantes detectados para seis conjuntos de entradas, muestra ocho salidas distintas del mismo programa por el orden de un conjunto y mide el costo de ejecutar sin una costura.
 
@@ -102,15 +96,11 @@ El estudiante entrega la prueba de caracterización de una función con su costu
 
 #### SE-436 — Dependencias obsoletas y riesgo acumulado
 
-[Abrir la clase SE-436](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado/)
-
 Esperar para actualizar no es neutro: el salto cuesta más que la suma de los pasos. La clase simula cuatro cadencias de actualización, calcula la exposición a 31 avisos según la política y mide el radio de impacto de actualizar un paquete en 200 grafos.
 
 El estudiante entrega el inventario y la política de actualización. `SE-437` reemplaza el módulo por partes.
 
 #### SE-437 — Strangler, branch by abstraction y anticorruption
-
-[Abrir la clase SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/)
 
 Un reemplazo incremental compra daño por paso menor con tiempo. La clase compara un corte único, uno escalonado y uno con sombra previa, calcula cuántas peticiones comparar y cuándo aparece el tráfico raro, y evalúa una capa anticorrupción sobre 5 000 registros.
 
@@ -120,23 +110,17 @@ El estudiante entrega el plan de rebanadas con su sombra y su capa. `SE-438` mue
 
 #### SE-438 — Migraciones de runtime, lenguaje y framework
 
-[Abrir la clase SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/)
-
 Lo más peligroso de una migración no hace ruido. La clase mide cuatro comportamientos que cambian sin excepción, compara tres formas de reescribir una llamada obsoleta y tres políticas de seguimiento de versiones frente a un calendario de soporte.
 
 El estudiante entrega el catálogo de diferencias con sus sondas. `SE-439` migra los datos.
 
 #### SE-439 — Migraciones de datos sin interrupción
 
-[Abrir la clase SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/)
-
 Un relleno que lee y luego escribe puede pisar una escritura concurrente con recuentos iguales. La clase simula cinco tamaños de lote, ejecuta cuatro estrategias de relleno sobre SQLite y mide lo instantáneo y lo que reconstruye.
 
 El estudiante entrega el plan de fases con un relleno condicional verificado. `SE-440` examina la coexistencia.
 
 #### SE-440 — Compatibilidad, coexistencia y doble escritura
-
-[Abrir la clase SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/)
 
 Escribir en dos sitios no es atómico y tolerar un formato no es conservar el dato. La clase compara tres formas de escribir dos veces, el costo de detectar la divergencia y una matriz de compatibilidad entre lectores estrictos y tolerantes.
 
@@ -146,15 +130,11 @@ El estudiante entrega el diseño de coexistencia con su reconciliación y su con
 
 #### SE-441 — Retiro, archivado y disposición de sistemas
 
-[Abrir la clase SE-441](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/)
-
 «Nadie lo usa» depende de la ventana con que se mire. La clase mide qué consumidores rompe cada ventana, compara un corte único de retención con reglas por tipo y archiva 100 000 filas en tres formatos con una suma de verificación.
 
 El estudiante entrega la secuencia de retiro con su archivo verificado. `SE-442` pregunta si todo esto vale la pena frente a reescribir.
 
 #### SE-442 — Economía de reescribir frente a evolucionar
-
-[Abrir la clase SE-442](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar/)
 
 La decisión se toma con parámetros inciertos y se revisa cuando se miden. La clase simula tres opciones en 20 000 escenarios, mueve siete parámetros para ver cuál domina y busca el horizonte de equilibrio.
 
@@ -164,19 +144,32 @@ El estudiante entrega el modelo con su sensibilidad y una decisión reversible. 
 
 #### SE-443 — Taller: estabilizar antes de modernizar
 
-[Abrir la clase SE-443](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar/)
-
 Sin una base estable, un rojo no significa nada. El taller mide el ruido de las pruebas inestables y lo que esconden los reintentos, compara dos construcciones del mismo código y calcula cuántos cambios hacen creíble una línea base.
 
 El estudiante entrega la puerta de entrada con su evidencia. `SE-444` la cruza.
 
 #### SE-444 — Proyecto: migración incremental reversible
 
-[Abrir la clase SE-444](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/)
-
 La reversibilidad es una propiedad de cada fase, no del conjunto. El proyecto ejecuta una migración de seis fases sobre 5 000 filas, mide las filas que difieren en cada fase, cuánto cuesta volver atrás según los días y qué reposo hace falta antes de contraer.
 
 El estudiante entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md`. La Parte 37 lleva la mirada a la gestión, el liderazgo y la práctica profesional.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-433](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-433-mantenimiento-correctivo-adaptativo-y-perfectivo/) | Mantenimiento correctivo, adaptativo y perfectivo | Entrega la cartera clasificada con una política de reserva |
+| [SE-434](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-434-arqueologia-de-codigo-y-recuperacion-de-conocimiento/) | Arqueología de código y recuperación de conocimiento | Entrega un mapa de riesgo con entrevistas por hacer |
+| [SE-435](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-435-pruebas-de-caracterizacion-y-seams/) | Pruebas de caracterización y seams | Entrega la prueba de caracterización de una función con su costura |
+| [SE-436](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-436-dependencias-obsoletas-y-riesgo-acumulado/) | Dependencias obsoletas y riesgo acumulado | Entrega el inventario y la política de actualización |
+| [SE-437](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-437-strangler-branch-by-abstraction-y-anticorruption/) | Strangler, branch by abstraction y anticorruption | Entrega el plan de rebanadas con su sombra y su capa |
+| [SE-438](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-438-migraciones-de-runtime-lenguaje-y-framework/) | Migraciones de runtime, lenguaje y framework | Entrega el catálogo de diferencias con sus sondas |
+| [SE-439](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-439-migraciones-de-datos-sin-interrupcion/) | Migraciones de datos sin interrupción | Entrega el plan de fases con un relleno condicional verificado |
+| [SE-440](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-440-compatibilidad-coexistencia-y-doble-escritura/) | Compatibilidad, coexistencia y doble escritura | Entrega el diseño de coexistencia con su reconciliación y su contrato |
+| [SE-441](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-441-retiro-archivado-y-disposicion-de-sistemas/) | Retiro, archivado y disposición de sistemas | Entrega la secuencia de retiro con su archivo verificado |
+| [SE-442](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-442-economia-de-reescribir-frente-a-evolucionar/) | Economía de reescribir frente a evolucionar | Entrega el modelo con su sensibilidad y una decisión reversible |
+| [SE-443](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-443-taller-estabilizar-antes-de-modernizar/) | Taller: estabilizar antes de modernizar | Entrega la puerta de entrada con su evidencia |
+| [SE-444](../../classes/part-36-mantenimiento-y-modernizacion-legacy/se-444-proyecto-migracion-incremental-reversible/) | Proyecto: migración incremental reversible | Entrega un paquete con plan, ejecutor, verificación, ensayo de vuelta y `LIMITES.md` |
 
 ## Fuentes
 

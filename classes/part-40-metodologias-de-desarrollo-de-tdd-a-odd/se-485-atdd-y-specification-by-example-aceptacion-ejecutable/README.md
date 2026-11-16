@@ -276,3 +276,7 @@ Los conjuntos y los mutantes son del autor y los resultados esperados vienen de 
 | Valor de frontera | Valor en el límite de una regla |
 | Conjunto combinatorio | Ejemplos con todas las combinaciones de valores |
 | Resultado esperado | Salida que alguien acordó como correcta |
+
+---
+
+[← SE-484 — BDD: ejemplos, conversación y lenguaje compartido](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-485.html) · [SE-486 — DDD como lenguaje ubicuo y contexto para agentes →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md)

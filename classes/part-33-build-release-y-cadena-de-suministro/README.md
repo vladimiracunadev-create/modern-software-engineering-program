@@ -67,13 +67,9 @@ El caso conductor es el canal de release de la API de entregas. Cada clase expli
 
 #### SE-397 — Build reproducible y hermético
 
-[Abrir la clase SE-397](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/)
-
 Dos builds del mismo commit con hashes distintos no permiten distinguir manipulación de ruido. La clase aísla ocho fuentes de variación en veinte entornos, descubre que el mismo árbol normalizado da hashes distintos en Windows y Ubuntu por un campo del formato y localiza la entrada que difiere. El estudiante entrega un script normalizado y una lista de entradas. `SE-398` decide dónde vive ese artefacto.
 
 #### SE-398 — Artefactos, repositorios y promoción
-
-[Abrir la clase SE-398](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-398-artefactos-repositorios-y-promocion/)
 
 Lo probado y lo desplegado deben ser lo mismo. Se compara reconstruir con promover por huella, el efecto de etiquetas que se vuelven a publicar y la retención necesaria para retroceder. Se entrega una política de promoción y de retención. `SE-399` abre el contenido del artefacto.
 
@@ -81,13 +77,9 @@ Lo probado y lo desplegado deben ser lo mismo. Se compara reconstruir con promov
 
 #### SE-399 — Dependencias directas, transitivas y vendorización
 
-[Abrir la clase SE-399](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion/)
-
 El manifiesto no es el inventario. Se mide la clausura de lo instalado en dos equipos, la deriva de resolver sin bloqueo durante 60 días y el tiempo de parche de una copia vendorizada. Se entrega un inventario fijado con dueños. `SE-400` lo documenta.
 
 #### SE-400 — SBOM, procedencia y atestaciones
-
-[Abrir la clase SE-400](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/)
 
 Un documento bien formado puede ser falso. Un validador ve 120 de 240 mutaciones, cuatro métodos de inventario ven de 63 a 98 % de los componentes y una verificación de campos deja pasar tres de ocho ataques. Se entrega un SBOM y una procedencia ligados por huella. `SE-401` los protege.
 
@@ -95,13 +87,9 @@ Un documento bien formado puede ser falso. Un validador ve 120 de 240 mutaciones
 
 #### SE-401 — Firmas, checksums y verificación
 
-[Abrir la clase SE-401](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-401-firmas-checksums-y-verificacion/)
-
 Seis estrategias frente a nueve ataques con firmas Ed25519 reales: ninguna cubre un CI comprometido que firma con la clave real. Se entrega una política de verificación con raíz fijada, secuencia y rotación. `SE-402` define qué firma el número de versión.
 
 #### SE-402 — Versionado, compatibilidad y changelog
-
-[Abrir la clase SE-402](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/)
 
 Un comparador de firmas acierta 10 de 14 cambios y no ve tres que rompen sin tocar la firma; combinado con revisión baja los cambios subestimados del 22,1 al 0,8 % en el modelo. Se entrega una política de versionado y un registro de cambios.
 
@@ -109,19 +97,13 @@ Un comparador de firmas acierta 10 de 14 cambios y no ve tres que rompen sin toc
 
 #### SE-403 — Feature flags y entrega progresiva
 
-[Abrir la clase SE-403](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-403-feature-flags-y-entrega-progresiva/)
-
 Segmentación por huella con sal, consistencia al ampliar, cubrimiento de pares y deuda de banderas. Se entrega una política de banderas con dueño y caducidad.
 
 #### SE-404 — Canary, blue-green y rollback
 
-[Abrir la clase SE-404](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/)
-
 Tiempo de detección según el tamaño del canario, falsas alarmas por umbral, defecto mínimo detectable y reversibilidad de los datos. Se entrega una política de despliegue progresivo y migraciones expandir-contraer.
 
 #### SE-405 — Instaladores, paquetes y actualizaciones
-
-[Abrir la clase SE-405](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-405-instaladores-paquetes-y-actualizaciones/)
 
 Inyección de fallos en cada paso de cuatro estrategias de actualización con archivos reales y sesgo de versiones de 20 000 clientes. Se entrega un procedimiento atómico y una tabla de rutas.
 
@@ -129,21 +111,32 @@ Inyección de fallos en cada paso de cuatro estrategias de actualización con ar
 
 #### SE-406 — Riesgos de CI y dependencias comprometidas
 
-[Abrir la clase SE-406](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/)
-
 Escaneo real de los tres flujos del repositorio, un escáner que ve 110 de 155 mutaciones y el alcance de un paso comprometido. Se entrega un modelo de amenazas del CI.
 
 #### SE-407 — Taller: verificar la procedencia de un release
-
-[Abrir la clase SE-407](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-407-taller-verificar-la-procedencia-de-un-release/)
 
 Un verificador de doce comprobaciones rechaza 12 de 12 manipulaciones y 0 de 6 casos coherentes; la reconstrucción independiente convierte el primero en una discrepancia. Se entrega un informe con tres estados.
 
 #### SE-408 — Proyecto: release firmado y recuperable
 
-[Abrir la clase SE-408](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable/)
-
 Verificación cruzada entre Windows y Ubuntu con la misma huella 802052279bf24eb8 y cuatro simulacros de recuperación. Se entrega un expediente con `LIMITES.md`. La Parte 34 lleva la cadena a CI/CD, infraestructura como código y plataforma.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-397](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-397-build-reproducible-y-hermetico/) | Build reproducible y hermético | Entrega un script normalizado y una lista de entradas |
+| [SE-398](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-398-artefactos-repositorios-y-promocion/) | Artefactos, repositorios y promoción | Entrega una política de promoción y de retención |
+| [SE-399](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion/) | Dependencias directas, transitivas y vendorización | Entrega un inventario fijado con dueños |
+| [SE-400](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-400-sbom-procedencia-y-atestaciones/) | SBOM, procedencia y atestaciones | Entrega un SBOM y una procedencia ligados por huella |
+| [SE-401](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-401-firmas-checksums-y-verificacion/) | Firmas, checksums y verificación | Entrega una política de verificación con raíz fijada, secuencia y rotación |
+| [SE-402](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-402-versionado-compatibilidad-y-changelog/) | Versionado, compatibilidad y changelog | Entrega una política de versionado y un registro de cambios |
+| [SE-403](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-403-feature-flags-y-entrega-progresiva/) | Feature flags y entrega progresiva | Entrega una política de banderas con dueño y caducidad |
+| [SE-404](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-404-canary-blue-green-y-rollback/) | Canary, blue-green y rollback | Entrega una política de despliegue progresivo y migraciones expandir-contraer |
+| [SE-405](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-405-instaladores-paquetes-y-actualizaciones/) | Instaladores, paquetes y actualizaciones | Entrega un procedimiento atómico y una tabla de rutas |
+| [SE-406](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-406-riesgos-de-ci-y-dependencias-comprometidas/) | Riesgos de CI y dependencias comprometidas | Entrega un modelo de amenazas del CI |
+| [SE-407](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-407-taller-verificar-la-procedencia-de-un-release/) | Taller: verificar la procedencia de un release | Entrega un informe con tres estados |
+| [SE-408](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-33-build-release-y-cadena-de-suministro/se-408-proyecto-release-firmado-y-recuperable/) | Proyecto: release firmado y recuperable | Entrega un expediente con `LIMITES.md` |
 
 ## Fuentes
 

@@ -279,3 +279,7 @@ El linter y las simulaciones son de juguete; no se auditó una aplicación real 
 | Desechabilidad | Arranque rápido y parada limpia |
 | Drenaje | Terminar lo en curso y devolver lo pendiente |
 | Artefacto inmutable | Construcción que se promueve sin cambios |
+
+---
+
+[← SE-536 — Arquitectura celular y radio de impacto](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-537.html) · [SE-538 — Evolución y migración entre estilos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md)

@@ -72,15 +72,11 @@ El equipo de plataforma educativa mantiene un caso, un conjunto de decisiones y 
 
 #### SE-445 — Liderazgo técnico sin autoridad formal
 
-[Abrir la clase SE-445](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-445-liderazgo-tecnico-sin-autoridad-formal/)
-
 Sin poder ordenar, solo quedan el contexto, las decisiones por escrito y las coaliciones. La clase siembra una práctica en 2 000 redes de treinta personas y compara cuatro formas de empezar, mide la espera de una decisión cuando una persona aprueba todo y cuántas decisiones se revierten según cuántas personas las leyeron.
 
 El estudiante entrega una propuesta con ruta de adopción y reglas de delegación. `SE-446` pregunta cómo se organiza el equipo para que esa autoridad no dependa de una persona.
 
 #### SE-446 — Diseño de equipos y ownership
-
-[Abrir la clase SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/)
 
 La estructura decide qué cambios son baratos y qué conocimiento es frágil. La clase calcula el factor de camión de cuatro formas de repartir el conocimiento, cuenta los equipos que cruza un cambio con equipos por capa y por dominio, y mide la carga de una guardia según el tamaño de la rotación.
 
@@ -90,15 +86,11 @@ El estudiante entrega un mapa de propiedad con segundo conocedor, un contrato de
 
 #### SE-447 — Comunicación, facilitación y conflicto
 
-[Abrir la clase SE-447](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-447-comunicacion-facilitacion-y-conflicto/)
-
 Una decisión comunicada pierde campos y una reunión ancla al grupo. La clase mide el error de una estimación según el orden en que se habla, los campos de una decisión que sobreviven a los relevos en tres formatos y el pago de la reciprocidad cuando hay malentendidos.
 
 El estudiante entrega una agenda con método de decisión y un mensaje de decisión con acuse. `SE-448` aplica esa comunicación a la conversación entre quien sabe más y quien sabe menos.
 
 #### SE-448 — Mentoría, feedback y crecimiento
-
-[Abrir la clase SE-448](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-448-mentoria-feedback-y-crecimiento/)
 
 El crecimiento depende de la brecha de la tarea, del momento de la retroalimentación y del criterio de evaluación. La clase compara el nivel final según la dificultad asignada, los errores repetidos según cuándo llega el aviso y el acuerdo de evaluadoras con y sin rúbrica.
 
@@ -108,15 +100,11 @@ El estudiante entrega un acuerdo de mentoría, tres retroalimentaciones fechadas
 
 #### SE-449 — Estimación organizacional y compromisos
 
-[Abrir la clase SE-449](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-449-estimacion-organizacional-y-compromisos/)
-
 Una fecha es una afirmación con una probabilidad escondida. La clase muestra por qué la suma de medianas se cumple una vez de cada cinco, pronostica sesenta elementos con el historial de entrega y mide cómo crece el ciclo con la carga.
 
 El estudiante entrega un compromiso con probabilidad y una regla de carga. `SE-450` pregunta qué riesgos asume ese compromiso y quién los acepta.
 
 #### SE-450 — Gestión de riesgos y decisiones ejecutivas
-
-[Abrir la clase SE-450](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/)
 
 Una matriz agrupa lo que debería distinguirse, y escalar todo cuesta tanto como no escalar nada. La clase compara una matriz con el valor esperado, calcula el valor de la información y el costo de tres políticas de escalamiento.
 
@@ -126,23 +114,17 @@ El estudiante entrega un registro de riesgos con valor esperado y una petición 
 
 #### SE-451 — Compras, proveedores y evaluación técnica
 
-[Abrir la clase SE-451](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/)
-
 Con pesos que son opiniones, un ganador por un cuarto de punto no es una conclusión. La clase sortea 20 000 combinaciones de pesos, calcula el costo a cinco años de comprar o construir y la disponibilidad de una cadena de proveedores.
 
 El estudiante entrega una matriz en dos capas con prueba de sensibilidad y un plan de salida. `SE-452` pregunta qué obligaciones acompañan a esa compra y al software que se produce.
 
 #### SE-452 — Propiedad intelectual, contratos y ética
 
-[Abrir la clase SE-452](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/)
-
 Una búsqueda de «GPL» frena lo inofensivo y deja pasar lo desconocido. La clase clasifica sesenta licencias con un analizador de expresiones, verifica 2 000 pies de firma y simula doce meses de un flujo de cancelación escondido.
 
 El estudiante entrega un inventario de licencias con política, una política de contribuciones verificable y el análisis ético de una solicitud, con la advertencia de que no es asesoría legal. `SE-453` pregunta cuánto cuesta todo esto en el ciclo de vida.
 
 #### SE-453 — Economía del software y costo total
-
-[Abrir la clase SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/)
 
 El orden de ejecución, la tasa de descuento y el horizonte cambian la conclusión. La clase ordena doce iniciativas por costo de demora, compara tres proyectos a cuatro tasas y calcula el cruce entre servidores propios y nube y el equilibrio por usuario.
 
@@ -152,15 +134,11 @@ El estudiante entrega un orden de ejecución, una comparación de proyectos por 
 
 #### SE-454 — Portafolio, entrevistas y defensa profesional
 
-[Abrir la clase SE-454](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-454-portafolio-entrevistas-y-defensa-profesional/)
-
 Un portafolio se comprueba y una defensa se descubre por profundidad. La clase compara cuatro procedimientos de entrevista, verifica cuatro entradas de portafolio con seis reglas y mide la impresión de defender todo frente a declarar el límite.
 
 El estudiante entrega entradas comprobables, una autoevaluación por niveles y una defensa ensayada. `SE-455` convierte esa defensa en un ejercicio colectivo.
 
 #### SE-455 — Taller: conducir una revisión de decisión difícil
-
-[Abrir la clase SE-455](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil/)
 
 Juzgar por el resultado castiga buenas decisiones y premia la suerte. El taller compara el juicio por resultado y por proceso, la cobertura de paneles según su composición y la calibración de las probabilidades declaradas.
 
@@ -168,11 +146,26 @@ El estudiante entrega un expediente fechado, un panel con su razón, una lista d
 
 #### SE-456 — Proyecto: dossier profesional defendible
 
-[Abrir la clase SE-456](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible/)
-
 Un dossier completo no es un dossier comprobable. El proyecto verifica seis variantes de dossier con un script, calcula la probabilidad de que una revisora encuentre una afirmación sin respaldo y mide cuántas afirmaciones se comprueban en una hora con y sin trazabilidad.
 
 El estudiante entrega un dossier con siete archivos requeridos, evidencia con huellas, cifras etiquetadas, `LIMITES.md` y una defensa ensayada. La Parte 38 lleva la mirada al desarrollo de software asistido por IA.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-445](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-445-liderazgo-tecnico-sin-autoridad-formal/) | Liderazgo técnico sin autoridad formal | Entrega una propuesta con ruta de adopción y reglas de delegación |
+| [SE-446](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/) | Diseño de equipos y ownership | Entrega un mapa de propiedad con segundo conocedor, un contrato de interfaz y una regla de guardia |
+| [SE-447](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-447-comunicacion-facilitacion-y-conflicto/) | Comunicación, facilitación y conflicto | Entrega una agenda con método de decisión y un mensaje de decisión con acuse |
+| [SE-448](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-448-mentoria-feedback-y-crecimiento/) | Mentoría, feedback y crecimiento | Entrega un acuerdo de mentoría, tres retroalimentaciones fechadas y una rúbrica |
+| [SE-449](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-449-estimacion-organizacional-y-compromisos/) | Estimación organizacional y compromisos | Entrega un compromiso con probabilidad y una regla de carga |
+| [SE-450](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/) | Gestión de riesgos y decisiones ejecutivas | Entrega un registro de riesgos con valor esperado y una petición de decisión de una página |
+| [SE-451](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-451-compras-proveedores-y-evaluacion-tecnica/) | Compras, proveedores y evaluación técnica | Entrega una matriz en dos capas con prueba de sensibilidad y un plan de salida |
+| [SE-452](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-452-propiedad-intelectual-contratos-y-etica/) | Propiedad intelectual, contratos y ética | Entrega un inventario de licencias con política, una política de contribuciones verificable y el análisis ético de una solicitud |
+| [SE-453](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/) | Economía del software y costo total | Entrega un orden de ejecución, una comparación de proyectos por valor presente y un punto de cruce |
+| [SE-454](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-454-portafolio-entrevistas-y-defensa-profesional/) | Portafolio, entrevistas y defensa profesional | Entrega entradas comprobables, una autoevaluación por niveles y una defensa ensayada |
+| [SE-455](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-455-taller-conducir-una-revision-de-decision-dificil/) | Taller: conducir una revisión de decisión difícil | Entrega un expediente fechado, un panel con su razón, una lista de modos de fallo, probabilidades escritas y acciones con fecha |
+| [SE-456](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-456-proyecto-dossier-profesional-defendible/) | Proyecto: dossier profesional defendible | Entrega un dossier con siete archivos requeridos, evidencia con huellas, cifras etiquetadas, `LIMITES.md` y una defensa ensayada |
 
 ## Fuentes
 

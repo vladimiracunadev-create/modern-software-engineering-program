@@ -248,3 +248,7 @@ Se ejecutaron cuatro fusiones con ramas reales de Git y una simulación de solap
 | Conflicto semántico | Compatible para la fusión, incompatible para el programa |
 | Integrador | Quien fusiona y verifica |
 | Canal de coordinación | Vía de comunicación entre dos agentes |
+
+---
+
+[← SE-499 — Verificación, gates y menú único de validación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-500.html) · [SE-501 — Observabilidad y evals del propio harness →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/README.md)

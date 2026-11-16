@@ -1017,9 +1017,54 @@ def site_page(
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{html.escape(description)}"><title>{lesson['id']} · {html.escape(lesson['title'])}</title><link rel="stylesheet" href="../assets/styles.css"></head><body><a class="skip" href="#content">Saltar al contenido</a><main class="lesson" id="content">{navigation}<header class="lesson-hero" data-number="{lesson_index + 1:02}"><p class="eyebrow">Fase {phase} · {lesson['id']} · {html.escape(kind_label)}</p><h1>{html.escape(lesson['title'])}</h1><p>Una clase de la Parte {part['id']} — {html.escape(part['title'])}. Comprende el mecanismo, úsalo para decidir y conserva evidencia revisable.</p></header>{progress}<div class="notice">{notice}</div>{context}<div class="lesson-shell"><nav class="lesson-toc" aria-label="Contenido de la clase"><strong>En esta clase</strong><ol>{toc}</ol></nav><article class="lesson-content">{content}</article></div><p class="source-link"><a href="{repository_url}">Ver archivos fuente, actividad y rúbrica en GitHub</a></p>{navigation}</main><footer>Programa de Ingeniería de Software Moderna · Fase {phase} en reconstrucción</footer></body></html>\n"""
 
 
-def published_markdown(part: dict, lesson: dict) -> str:
+def with_class_navigation(
+    markdown: str,
+    navigation: str,
+    previous: dict | None,
+    following: dict | None,
+) -> str:
+    """Garantiza el enlace anterior/siguiente correcto arriba (tras el título) y abajo.
+
+    Las fuentes editoriales de content/ pueden traerlo escrito a mano. Si falta
+    (Partes 40-44) o quedó desactualizado (la última clase de una parte escrita
+    antes de que existiera la siguiente), se compone aquí, para que las 540 clases
+    lleven la misma navegación sin editar cada fuente.
+    """
+    marker = "[↑ Parte"
+    wanted = (
+        f"[← {previous['id']}" if previous else "← Inicio del programa",
+        f"[{following['id']}" if following else "Fin del programa →",
+    )
+    lines = markdown.rstrip("\n").split("\n")
+    changed = False
+    top = [i for i in range(min(8, len(lines))) if marker in lines[i]]
+    if not top:
+        lines[1:1] = ["", navigation]
+        changed = True
+    bottom = [i for i in range(max(0, len(lines) - 8), len(lines)) if marker in lines[i]]
+    if not bottom:
+        lines += ["", "---", "", navigation]
+        changed = True
+    for i in top + bottom:
+        if not all(token in lines[i] for token in wanted):
+            lines[i] = navigation
+            changed = True
+    return "\n".join(lines) + "\n" if changed else markdown
+
+
+def published_markdown(
+    part: dict,
+    lesson: dict,
+    previous: dict | None = None,
+    following: dict | None = None,
+) -> str:
     source = ROOT / "content" / f"part-{part['id']}" / f"{lesson['id']}.md"
-    raw_markdown = source.read_text(encoding="utf-8")
+    raw_markdown = with_class_navigation(
+        source.read_text(encoding="utf-8"),
+        lesson_navigation(part, lesson, previous, following),
+        previous,
+        following,
+    )
     return raw_markdown.replace(
         "](figures/", f"](../../../content/part-{part['id']}/figures/"
     ).replace(
@@ -1046,7 +1091,7 @@ def expected_files(program: dict) -> dict[Path, str]:
             if lesson["id"] in PUBLISHED_EDITORIAL_IDS:
                 # Estas clases tienen fuentes editoriales explícitas. Publicarlas
                 # no sustituye la revisión de la parte como recorrido completo.
-                markdown = published_markdown(part, lesson)
+                markdown = published_markdown(part, lesson, previous, following)
                 result[directory / "README.md"] = markdown
             else:
                 markdown = lesson_readme(part, lesson, previous, following)

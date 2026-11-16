@@ -68,15 +68,11 @@ La estrategia de pruebas de la plataforma mantiene diez componentes, un presupue
 
 #### SE-361 — Calidad por riesgo y propósito de las pruebas
 
-[Abrir la clase SE-361](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/)
-
 Repartir el esfuerzo por igual o por el tamaño del código es una decisión, y rara vez la mejor. La clase mide la pérdida residual de cinco repartos de 40 horas, cuánto empeoran cuando las estimaciones se equivocan por un factor 2 y qué clases de fallo no ve ningún nivel barato.
 
 El estudiante entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad. `SE-362` baja al nivel más barato, la prueba unitaria.
 
 #### SE-362 — Pruebas unitarias y diseño testable
-
-[Abrir la clase SE-362](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-362-pruebas-unitarias-y-diseno-testable/)
 
 La cobertura de líneas no distingue una batería que detecta de una que solo ejecuta. La clase genera 16 mutantes con `ast`, mide dos baterías con el mismo 100 % de líneas, analiza las dependencias ocultas de una función y compara una prueba de plazos con el reloj real y con la hora inyectada.
 
@@ -86,15 +82,11 @@ El estudiante entrega una función con su tabla de fronteras y el cierre separad
 
 #### SE-363 — Integración, componentes y contratos
 
-[Abrir la clase SE-363](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos/)
-
 Un doble copia lo que el consumidor cree, no lo que el proveedor hace. La clase aplica ocho cambios a un proveedor y mide qué detecta un doble, un contrato, la respuesta real y la comparación de esquema completo, compara contratos por consumidor con alarmas globales y mide cuántas interfaces quedan sospechosas con recorridos y con pruebas por interfaz.
 
 El estudiante entrega contratos por consumidor y pruebas por interfaz. `SE-364` elige los recorridos completos que merece la pena pagar caros.
 
 #### SE-364 — End-to-end, aceptación y recorridos críticos
-
-[Abrir la clase SE-364](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos/)
 
 Cada paso de un recorrido multiplica la probabilidad de un fallo espurio. La clase calcula la tasa de ejecuciones limpias según los pasos, elige cinco recorridos que cubren el 87 % del tráfico y compara una instantánea con aserciones semánticas sobre siete cambios benignos y nueve defectos.
 
@@ -104,15 +96,11 @@ El estudiante entrega cinco recorridos con criterio de aceptación y presupuesto
 
 #### SE-365 — Pruebas basadas en propiedades y modelos
 
-[Abrir la clase SE-365](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos/)
-
 Un generador mal diseñado nunca llega a las fronteras. La clase compara cinco ejemplos con cuatro propiedades sobre cinco versiones de una función, reduce contraejemplos de 155 a 21 caracteres y mide qué fracción de secuencias aleatorias descubre el defecto de una cola contra un modelo.
 
 El estudiante entrega propiedades con un generador sesgado y un modelo de la cola. `SE-366` mide la calidad de las propias pruebas.
 
 #### SE-366 — Mutación, fuzzing y generación de casos
-
-[Abrir la clase SE-366](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos/)
 
 La cobertura y la mutación pueden divergir: pasar del 72 % al 94 % de líneas no mató un solo mutante más. La clase mide cuatro baterías, clasifica los supervivientes y compara bytes aleatorios, un generador estructurado y uno guiado por cobertura sobre cuatro defectos escondidos.
 
@@ -122,15 +110,11 @@ El estudiante entrega la lista de supervivientes clasificada y un fuzzer con cor
 
 #### SE-367 — Dobles, virtualización y entornos de prueba
 
-[Abrir la clase SE-367](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-367-dobles-virtualizacion-y-entornos-de-prueba/)
-
 Un doble es tan fiel como la batería que lo ancla. La clase mide qué comprobaciones supera un diccionario ingenuo frente a una base real, cuántas refactorizaciones neutras rompen cada estilo de prueba y qué cambia entre procesos y entre Windows y Ubuntu sin tocar el código.
 
 El estudiante entrega una batería de contrato ejecutada contra el doble y la dependencia real. `SE-368` trata los datos y el estado de cada prueba.
 
 #### SE-368 — Datos deterministas y gestión de fixtures
-
-[Abrir la clase SE-368](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-368-datos-deterministas-y-gestion-de-fixtures/)
 
 Un estado compartido hace que el resultado dependa del orden. La clase ejecuta doce pruebas en 500 órdenes con tres estrategias de fixture, mide una propiedad con datos aleatorios con y sin semilla y cuenta las salidas distintas de ocho fuentes de no determinismo.
 
@@ -140,15 +124,11 @@ El estudiante entrega reglas de datos de prueba y un inventario de fuentes con s
 
 #### SE-369 — Pruebas exploratorias y sesiones
 
-[Abrir la clase SE-369](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-369-pruebas-exploratorias-y-sesiones/)
-
 Un guion de regresión no explora. La clase compara tres agentes simulados contra 12 defectos plantados, calcula el contraste de WCAG y clasifica 374 defectos de accesibilidad según los decida una regla o una persona, y prueba una lista de sondas contra seis validadores.
 
 El estudiante entrega misiones, una lista de sondas y la partición regla/persona. `SE-370` aborda lo que más erosiona la confianza: las pruebas que fallan a veces.
 
 #### SE-370 — Flakiness, diagnóstico y mantenimiento
-
-[Abrir la clase SE-370](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento/)
 
 Con 0,1 % de fallo espurio por prueba, una suite de 1 000 pasa limpia el 36,8 % de las veces. La clase mide el efecto de los reintentos sobre el ruido y sobre un defecto real, compara la enumeración de una carrera con hilos reales y clasifica la causa de 440 pruebas con un historial.
 
@@ -158,19 +138,32 @@ El estudiante entrega una política de cuarentena y un procedimiento de diagnós
 
 #### SE-371 — Taller: demostrar que una prueba detecta defectos
 
-[Abrir la clase SE-371](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos/)
-
 Tres pruebas matan 6 mutantes cada una sin afirmar ningún valor y una pasa por la razón equivocada. El taller construye la matriz de catorce pruebas contra mutantes y refactorizaciones neutras, calcula el conjunto mínimo y valida un paquete de evidencia con 200 mutaciones.
 
 El estudiante entrega la matriz de detección y un paquete re-ejecutable. `SE-372` lo integra en una estrategia.
 
 #### SE-372 — Proyecto: estrategia ejecutable por riesgo
 
-[Abrir la clase SE-372](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/)
-
 Una estrategia que nadie valida es un documento. El proyecto simula 2 000 trimestres con seis estrategias, reasigna el presupuesto tras un incidente y mide qué detecta un validador de tres niveles sobre 200 mutaciones del paquete.
 
 El estudiante entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md`. La Parte 31 lleva esos riesgos a atributos de calidad medibles, carga y resiliencia.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-361](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/) | Calidad por riesgo y propósito de las pruebas | Entrega una tabla de riesgos con supuestos, un reparto y una lista de exclusiones con caducidad |
+| [SE-362](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-362-pruebas-unitarias-y-diseno-testable/) | Pruebas unitarias y diseño testable | Entrega una función con su tabla de fronteras y el cierre separado de sus efectos |
+| [SE-363](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-363-integracion-componentes-y-contratos/) | Integración, componentes y contratos | Entrega contratos por consumidor y pruebas por interfaz |
+| [SE-364](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-364-end-to-end-aceptacion-y-recorridos-criticos/) | End-to-end, aceptación y recorridos críticos | Entrega cinco recorridos con criterio de aceptación y presupuesto de inestabilidad |
+| [SE-365](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-365-pruebas-basadas-en-propiedades-y-modelos/) | Pruebas basadas en propiedades y modelos | Entrega propiedades con un generador sesgado y un modelo de la cola |
+| [SE-366](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-366-mutacion-fuzzing-y-generacion-de-casos/) | Mutación, fuzzing y generación de casos | Entrega la lista de supervivientes clasificada y un fuzzer con corpus |
+| [SE-367](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-367-dobles-virtualizacion-y-entornos-de-prueba/) | Dobles, virtualización y entornos de prueba | Entrega una batería de contrato ejecutada contra el doble y la dependencia real |
+| [SE-368](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-368-datos-deterministas-y-gestion-de-fixtures/) | Datos deterministas y gestión de fixtures | Entrega reglas de datos de prueba y un inventario de fuentes con su remedio |
+| [SE-369](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-369-pruebas-exploratorias-y-sesiones/) | Pruebas exploratorias y sesiones | Entrega misiones, una lista de sondas y la partición regla/persona |
+| [SE-370](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-370-flakiness-diagnostico-y-mantenimiento/) | Flakiness, diagnóstico y mantenimiento | Entrega una política de cuarentena y un procedimiento de diagnóstico |
+| [SE-371](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-371-taller-demostrar-que-una-prueba-detecta-defectos/) | Taller: demostrar que una prueba detecta defectos | Entrega la matriz de detección y un paquete re-ejecutable |
+| [SE-372](../../classes/part-30-estrategia-y-tecnicas-de-prueba/se-372-proyecto-estrategia-ejecutable-por-riesgo/) | Proyecto: estrategia ejecutable por riesgo | Entrega un paquete de estrategia con su validador, su simulación y `LIMITES.md` |
 
 ## Fuentes
 

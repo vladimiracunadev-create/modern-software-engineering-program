@@ -1,6 +1,6 @@
 # SE-540 — Proyecto: decisión arquitectónica defendida con ADR
 
-[← SE-539 — Taller: seleccionar un estilo con escenarios de calidad](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html)
+[← SE-539 — Taller: seleccionar un estilo con escenarios de calidad](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html) · Fin del programa →
 
 ## Punto profesional y fundamento pedagógico
 
@@ -303,3 +303,7 @@ El analizador, la función de aptitud y la serie son herramientas del autor sobr
 | Disparador de revisión | Métrica, umbral y duración que reabren la decisión |
 | Función de aptitud | Comprobación automática de una propiedad arquitectónica |
 | Deriva arquitectónica | Pérdida gradual de una restricción por cambios no decididos |
+
+---
+
+[← SE-539 — Taller: seleccionar un estilo con escenarios de calidad](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html) · Fin del programa →

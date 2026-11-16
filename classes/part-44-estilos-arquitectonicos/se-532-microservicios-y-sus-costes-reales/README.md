@@ -279,3 +279,7 @@ El costo de HTTP es el de un servidor de la biblioteca estándar en la misma má
 | Contrato compatible | Cambio que no obliga a modificar a los consumidores |
 | Camino crítico | Llamadas de las que depende la respuesta |
 | Saga | Transacciones locales con compensaciones |
+
+---
+
+[← SE-531 — Pipes and filters y arquitecturas de flujo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-532.html) · [SE-533 — BFF, API gateway y service mesh →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/README.md)

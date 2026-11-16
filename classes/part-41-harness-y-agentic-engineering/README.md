@@ -77,19 +77,19 @@ Lo que **no se hizo**: no se midió ningún modelo de lenguaje, ningún producto
 
 Un agente es un modelo más todo lo que lo rodea. La clase quita una pieza por vez a un harness mínimo (contexto, escritura, bucle, parada, verificación, instrucciones) y mide cómo falla cada configuración: resolver con 12 pasos en vez de 5 y terminar en falso son fallos distintos.
 
-El estudiante entrega la anatomía de un harness real y su tabla de ablación con la predicción previa. `SE-494` trata la pieza más frágil, las instrucciones. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md).
+El estudiante entrega la anatomía de un harness real y su tabla de ablación con la predicción previa. `SE-494` trata la pieza más frágil, las instrucciones.
 
 #### SE-494 — Instrucciones de repositorio y cumplimiento determinista
 
 Una regla en prosa es una petición; una regla mecanizada es una garantía. La clase escribe un comprobador de seis reglas, lo mide sobre diecisiete casos (9 aciertos, 1 falsa alarma, 4 omisiones) y reparte cada regla entre prosa, hook y compuerta.
 
-El estudiante entrega la clasificación de las reglas de su repositorio con sus casos. `SE-495` acota lo que el agente puede hacer. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md).
+El estudiante entrega la clasificación de las reglas de su repositorio con sus casos. `SE-495` acota lo que el agente puede hacer.
 
 #### SE-495 — Herramientas, permisos y superficies de acción
 
 Un permiso por prefijo describe cómo empieza un comando, no qué hace. La clase compara una lista de prefijos con un análisis del comando sobre treinta casos: los prefijos dejan pasar 13 de 18 comandos inseguros y el análisis, ninguno, a costa de denegar uno seguro.
 
-El estudiante entrega su política de permisos con treinta comandos de prueba. `SE-496` trata lo que el agente recuerda mientras trabaja bajo esos permisos. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/README.md).
+El estudiante entrega su política de permisos con treinta comandos de prueba. `SE-496` trata lo que el agente recuerda mientras trabaja bajo esos permisos.
 
 ### Bloque 2 — Contexto, bucles y control de daño
 
@@ -97,19 +97,19 @@ El estudiante entrega su política de permisos con treinta comandos de prueba. `
 
 El contexto es un recurso escaso, no una memoria. La clase modela 120 turnos con diez hechos y compara truncar, resumir y escribir notas; el relevo en disco conserva 8 de 10 con una ventana de 12 000 fichas frente a 1 de truncar.
 
-El estudiante entrega un archivo de relevo verificable por otra persona. `SE-497` trata el bucle que llena el contexto. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/README.md).
+El estudiante entrega un archivo de relevo verificable por otra persona. `SE-497` trata el bucle que llena el contexto.
 
 #### SE-497 — Loops de agentes y criterios de parada
 
 Un tope de pasos limita el daño y no distingue casi resuelto de inviable. La clase simula cinco reglas de parada sobre 4 000 tareas: la regla de falta de progreso con cambio de plan resuelve 77,0 % con 3,5 iteraciones medias y escala con evidencia.
 
-El estudiante entrega las reglas de parada de su harness con sus tres salidas. `SE-498` trata qué pasa cuando, pese a todo, el agente daña. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/README.md).
+El estudiante entrega las reglas de parada de su harness con sus tres salidas. `SE-498` trata qué pasa cuando, pese a todo, el agente daña.
 
 #### SE-498 — Sandboxes, reversibilidad y control de daño
 
 Impedir y deshacer son controles distintos. La clase ejecuta cinco acciones destructivas contra quince archivos con cuatro configuraciones: el confinamiento deja 2 intactos, Git recupera 10 y confinamiento más copia previa recupera los 15.
 
-El estudiante entrega el inventario de efectos de su agente con el control de cada uno. `SE-499` decide qué cambios se aceptan. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md).
+El estudiante entrega el inventario de efectos de su agente con el control de cada uno. `SE-499` decide qué cambios se aceptan.
 
 ### Bloque 3 — Verificar, coordinar y medir
 
@@ -117,19 +117,19 @@ El estudiante entrega el inventario de efectos de su agente con el control de ca
 
 «Las pruebas pasan» es una compuerta, no la compuerta. La clase ejecuta cinco compuertas sobre doce cambios: las pruebas solas atrapan 2 de 11 defectos y el menú único 9; los dos restantes marcan el límite.
 
-El estudiante entrega el comando único de validación con sus compuertas ordenadas por costo. `SE-500` trata más de un agente. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/README.md).
+El estudiante entrega el comando único de validación con sus compuertas ordenadas por costo. `SE-500` trata más de un agente.
 
 #### SE-500 — Multiagente y coordinación dentro del harness
 
 Una fusión limpia no es una integración correcta. La clase fusiona ramas reales de Git en cuatro escenarios, muestra un conflicto semántico que Git no ve y simula cuántas veces coinciden de dos a ocho agentes en algún archivo.
 
-El estudiante entrega la decisión de coordinación con propiedad de archivos e integrador. `SE-501` trata cómo saber qué hace el harness. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/README.md).
+El estudiante entrega la decisión de coordinación con propiedad de archivos e integrador. `SE-501` trata cómo saber qué hace el harness.
 
 #### SE-501 — Observabilidad y evals del propio harness
 
 Sin traza no hay diagnóstico y sin comparación honesta no hay mejora. La clase calcula métricas de trazas reales y simula la comparación de dos harness: la regla «tiene más aciertos» declara mejor a uno idéntico entre 45 % y 49 % de las veces.
 
-El estudiante entrega el esquema de traza y un protocolo de evaluación con su potencia. `SE-502` sube un nivel: el gobierno. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/README.md).
+El estudiante entrega el esquema de traza y un protocolo de evaluación con su potencia. `SE-502` sube un nivel: el gobierno.
 
 ### Bloque 4 — Gobernar, diagnosticar e integrar
 
@@ -137,19 +137,36 @@ El estudiante entrega el esquema de traza y un protocolo de evaluación con su p
 
 Gobernar es proporcionalidad: más control donde el daño potencial es mayor. La clase clasifica doce cambios con reglas, modela tres modos de trabajo y distingue *vibe coding* de ingeniería agéntica con AI-DLC y NIST como ejemplos descritos, no como resultados medidos.
 
-El estudiante entrega la política de gobierno de una página con su registro y su métrica. `SE-503` pone el harness a prueba. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md).
+El estudiante entrega la política de gobierno de una página con su registro y su métrica. `SE-503` pone el harness a prueba.
 
 #### SE-503 — Taller: diagnosticar el fallo de un harness
 
 El diagnóstico se entrena desde la traza. La clase inyecta seis fallos y compara un diagnosticador con traza mínima (24 de 30) y enriquecida (30 de 30): el campo que faltaba decidía entre dos fallos con síntomas idénticos.
 
-El estudiante entrega el diagnóstico de los seis fallos con una tarea de regresión por cada uno. `SE-504` integra todo. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness/README.md).
+El estudiante entrega el diagnóstico de los seis fallos con una tarea de regresión por cada uno. `SE-504` integra todo.
 
 #### SE-504 — Proyecto: harness mínimo gobernado y evaluado
 
 Un control sin escenario que lo ejerza es una creencia. El proyecto ensambla un harness mínimo con seis controles y lo evalúa con seis tareas normales y cuatro escenarios adversos: sin controles se contiene 1 de 4 comportamientos descuidados y con ellos 4 de 4, sin costo en las tareas normales.
 
-El estudiante entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites. La Parte 42 usa un harness como este para estudiar patrones agénticos. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/README.md).
+El estudiante entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites. La Parte 42 usa un harness como este para estudiar patrones agénticos.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-493](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/) | Anatomía de un harness: modelo, contexto, herramientas y bucles | Entrega la anatomía de un harness real y su tabla de ablación con la predicción previa |
+| [SE-494](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/) | Instrucciones de repositorio y cumplimiento determinista | Entrega la clasificación de las reglas de su repositorio con sus casos |
+| [SE-495](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/) | Herramientas, permisos y superficies de acción | Entrega su política de permisos con treinta comandos de prueba |
+| [SE-496](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/) | Gestión de contexto, resets y handoffs | Entrega un archivo de relevo verificable por otra persona |
+| [SE-497](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/) | Loops de agentes y criterios de parada | Entrega las reglas de parada de su harness con sus tres salidas |
+| [SE-498](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/) | Sandboxes, reversibilidad y control de daño | Entrega el inventario de efectos de su agente con el control de cada uno |
+| [SE-499](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-499-verificacion-gates-y-menu-unico-de-validacion/) | Verificación, gates y menú único de validación | Entrega el comando único de validación con sus compuertas ordenadas por costo |
+| [SE-500](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/) | Multiagente y coordinación dentro del harness | Entrega la decisión de coordinación con propiedad de archivos e integrador |
+| [SE-501](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/) | Observabilidad y evals del propio harness | Entrega el esquema de traza y un protocolo de evaluación con su potencia |
+| [SE-502](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/) | AI-DLC, gobierno y vibe coding frente a agentic engineering | Entrega la política de gobierno de una página con su registro y su métrica |
+| [SE-503](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness/) | Taller: diagnosticar el fallo de un harness | Entrega el diagnóstico de los seis fallos con una tarea de regresión por cada uno |
+| [SE-504](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-504-proyecto-harness-minimo-gobernado-y-evaluado/) | Proyecto: harness mínimo gobernado y evaluado | Entrega el harness, su menú, las trazas, la tabla de escenarios y un informe con tres respuestas y cuatro límites |
 
 ## Fuentes
 

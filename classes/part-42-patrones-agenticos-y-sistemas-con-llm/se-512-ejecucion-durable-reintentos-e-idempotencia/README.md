@@ -268,3 +268,7 @@ El diario es una base SQLite en memoria con un solo paso con efecto; el servicio
 | Retroceso exponencial | Espera que crece entre reintentos |
 | Jitter | Aleatoriedad en la espera para desincronizar |
 | Reconciliación | Comparación de dos registros del mismo hecho |
+
+---
+
+[← SE-511 — Interoperabilidad entre agentes: MCP y A2A](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-512.html) · [SE-513 — Evals y LLMOps de sistemas con LLM →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm/README.md)

@@ -253,3 +253,7 @@ Los diseños y las métricas son del autor, la cohesión se aproxima con atribut
 | Acoplamiento | Dependencia entre clases |
 | Fabricación pura | Pieza artificial que baja el acoplamiento |
 | Move Function | Refactor que mueve una función a su clase natural |
+
+---
+
+[← SE-520 — GoF conductuales: Strategy, Observer, Command, State y Template Method](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-521.html) · [SE-522 — Repository, Unit of Work y Active Record →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md)

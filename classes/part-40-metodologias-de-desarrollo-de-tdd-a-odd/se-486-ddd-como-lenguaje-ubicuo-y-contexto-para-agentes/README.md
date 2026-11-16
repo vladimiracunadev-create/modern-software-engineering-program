@@ -267,3 +267,7 @@ El recuento usa reglas burdas sobre un corpus de este programa y la traducción 
 | Capa anticorrupción | Traducción que protege el modelo propio |
 | Glosario | Términos del dominio con su sentido por contexto |
 | Mapa de contextos | Diagrama de contextos y sus relaciones |
+
+---
+
+[← SE-485 — ATDD y Specification by Example: aceptación ejecutable](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-485-atdd-y-specification-by-example-aceptacion-ejecutable/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-486.html) · [SE-487 — Diseño por contrato y pruebas de contrato como oráculo →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md)

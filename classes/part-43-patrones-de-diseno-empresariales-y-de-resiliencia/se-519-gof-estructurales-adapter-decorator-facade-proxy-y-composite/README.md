@@ -255,3 +255,7 @@ La simulación usa una distribución elegida por el autor y no incluye fallos co
 | Composite | Grupo tratado como un elemento |
 | Decorator | Envoltura que añade comportamiento |
 | Política de pila | Promesa que resulta del orden de las envolturas |
+
+---
+
+[← SE-518 — GoF creacionales: Factory, Builder, Singleton y Prototype](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-519.html) · [SE-520 — GoF conductuales: Strategy, Observer, Command, State y Template Method →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/README.md)

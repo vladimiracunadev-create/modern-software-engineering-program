@@ -279,3 +279,7 @@ Los inquilinos, la carga y el comportamiento del venenoso son construcciones del
 | Hash por encuentro | Asignación por puntaje máximo entre clave y celda |
 | Fragmentación aleatoria | Subconjunto aleatorio de recursos por cliente |
 | Inquilino venenoso | Inquilino cuya petición provoca un fallo repetible |
+
+---
+
+[← SE-535 — Data mesh y propiedad de los datos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-536.html) · [SE-537 — 12-factor y aplicaciones nativas de la nube →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/README.md)

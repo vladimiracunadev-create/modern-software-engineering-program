@@ -259,3 +259,7 @@ El servidor es una demostración con nombres de métodos de MCP y no una impleme
 | Error de herramienta | Resultado que indica que la herramienta no pudo cumplir |
 | A2A | Protocolo de colaboración entre agentes mediante tareas |
 | Tarjeta de agente | Descripción de capacidades y acceso de un agente |
+
+---
+
+[← SE-510 — Embeddings, recuperación y agentic RAG](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-511.html) · [SE-512 — Ejecución durable, reintentos e idempotencia →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia/README.md)

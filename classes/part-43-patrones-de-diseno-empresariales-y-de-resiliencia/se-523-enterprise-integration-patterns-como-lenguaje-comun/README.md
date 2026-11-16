@@ -253,3 +253,7 @@ El canal es un modelo con semilla fija, con tasas elegidas por el autor; no se m
 | Cartas muertas | Destino de los mensajes no procesables |
 | Reordenador | Restaura el orden con un buffer |
 | Correlación | Enlace entre solicitud y respuesta |
+
+---
+
+[← SE-522 — Repository, Unit of Work y Active Record](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-523.html) · [SE-524 — Resiliencia: timeout, retry con jitter y circuit breaker →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md)

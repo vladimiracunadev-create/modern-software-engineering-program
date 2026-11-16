@@ -262,3 +262,7 @@ Los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintétic
 | Potencia | Probabilidad de detectar una mejora real |
 | Sesgo de posición | Preferencia de un juez por el orden de aparición |
 | Traza | Registro estructurado de tramos de una solicitud |
+
+---
+
+[← SE-512 — Ejecución durable, reintentos e idempotencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-513.html) · [SE-514 — Costo, latencia y seguridad en sistemas con LLM →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md)

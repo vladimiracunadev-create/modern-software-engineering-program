@@ -260,3 +260,7 @@ Se analizaron treinta comandos del autor con dos políticas de texto, en Windows
 | Confinamiento de rutas | Comprobar que una ruta resuelta queda dentro de la raíz |
 | Aprobación humana | Confirmación explícita antes de una acción |
 | Falsa denegación | Bloqueo de una acción segura |
+
+---
+
+[← SE-494 — Instrucciones de repositorio y cumplimiento determinista](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-495.html) · [SE-496 — Gestión de contexto, resets y handoffs →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-496-gestion-de-contexto-resets-y-handoffs/README.md)

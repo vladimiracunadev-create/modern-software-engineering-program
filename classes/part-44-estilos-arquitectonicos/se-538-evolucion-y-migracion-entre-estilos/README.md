@@ -280,3 +280,7 @@ Los dos módulos, las tres diferencias, las tasas y las peticiones son construcc
 | Modo sombra | Ejecutar lo nuevo con tráfico real sin devolver su respuesta |
 | Escalón de tráfico | Fracción creciente del tráfico dirigida a lo nuevo |
 | Expandir, migrar y contraer | Cambio de interfaz o de dato en tres fases |
+
+---
+
+[← SE-537 — 12-factor y aplicaciones nativas de la nube](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-538.html) · [SE-539 — Taller: seleccionar un estilo con escenarios de calidad →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md)

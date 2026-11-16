@@ -82,25 +82,25 @@ Lo que **no se hizo**: no se midió ningún modelo de lenguaje, proveedor, equip
 
 La autonomía se paga en llamadas, tokens y cola de latencia. La clase compara, sobre 2 000 solicitudes sintéticas, un workflow fijo, un agente y un híbrido, y muestra que el agente cuesta más cuanto más fijo era el camino y que el workflow no resuelve lo que no se puede escribir de antemano.
 
-El estudiante entrega la clasificación de seis solicitudes de su sistema con una condición de revisión por decisión. `SE-506` construye los workflows. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md).
+El estudiante entrega la clasificación de seis solicitudes de su sistema con una condición de revisión por decisión. `SE-506` construye los workflows.
 
 #### SE-506 — Encadenado, enrutamiento y paralelización
 
 Dividir en pasos multiplica los errores; la puerta los corta. La clase mide una cadena con y sin puerta, un enrutador por reglas frente a uno estadístico con umbral, el beneficio de los hilos reales y por qué una votación con errores correlacionados compra menos de lo que parece.
 
-El estudiante entrega una puerta programática con sus pruebas y la regla de enrutamiento con su vía de escape. `SE-507` trata el trabajo que no se puede fijar. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion/README.md).
+El estudiante entrega una puerta programática con sus pruebas y la regla de enrutamiento con su vía de escape. `SE-507` trata el trabajo que no se puede fijar.
 
 #### SE-507 — Orquestador-trabajadores y evaluador-optimizador
 
 Dividir según la entrada y revisar contra un criterio son dos formas de autonomía acotada. La clase mide cuánto gana un orquestador con carga desigual y por qué un verificador exacto converge en tres vueltas mientras un juez ruidoso se estanca.
 
-El estudiante entrega un verificador con fallas concretas y un tope de vueltas con su acción al agotarlo. `SE-508` abre el bucle del agente. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador/README.md).
+El estudiante entrega un verificador con fallas concretas y un tope de vueltas con su acción al agotarlo. `SE-508` abre el bucle del agente.
 
 #### SE-508 — ReAct, plan-and-execute y reflexión
 
 La estabilidad del entorno decide el bucle. La clase compara cuatro estrategias en un entorno con contactos que faltan y muestra que el plan único cae del 100 % al 21 % cuando el 35 % de las observaciones sorprende, mientras la replanificación mantiene el 88 %.
 
-El estudiante entrega la estrategia elegida para tres tareas con su tasa de sorpresas y el validador del plan. `SE-509` trata la memoria del bucle. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion/README.md).
+El estudiante entrega la estrategia elegida para tres tareas con su tasa de sorpresas y el validador del plan. `SE-509` trata la memoria del bucle.
 
 ### Bloque 2 — Dar estado y conocimiento al sistema
 
@@ -108,13 +108,13 @@ El estudiante entrega la estrategia elegida para tres tareas con su tasa de sorp
 
 La memoria de un agente es estado con costo y vigencia. La clase compara cinco estrategias y muestra que un almacén externo versionado recupera el 95 % de los hechos vigentes con 80 tokens y que uno sin versión devuelve el valor viejo.
 
-El estudiante entrega el esquema de memoria de su agente con versión, origen y caducidad. `SE-510` trata cómo se lee cuando no se conoce la clave. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes/README.md).
+El estudiante entrega el esquema de memoria de su agente con versión, origen y caducidad. `SE-510` trata cómo se lee cuando no se conoce la clave.
 
 #### SE-510 — Embeddings, recuperación y agentic RAG
 
 Buscar es un problema medible. La clase compara BM25, un vector de trigramas y su fusión sobre 835 fragmentos reales, mide la abstención por umbral y muestra que una reformulación automática no mejoró el acierto.
 
-El estudiante entrega 20 consultas etiquetadas de su corpus con el acierto de dos recuperadores y su política de citas. `SE-511` sale del proceso. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md).
+El estudiante entrega 20 consultas etiquetadas de su corpus con el acierto de dos recuperadores y su política de citas. `SE-511` sale del proceso.
 
 ### Bloque 3 — Conectarlo y hacerlo durable
 
@@ -122,13 +122,13 @@ El estudiante entrega 20 consultas etiquetadas de su corpus con el acierto de do
 
 Un protocolo común reduce integraciones y no resuelve la confianza. La clase ejecuta un servidor JSON-RPC real, distingue errores de protocolo y de herramienta, cuenta conectores con y sin protocolo y mide qué detecta un filtro de descripciones hostiles.
 
-El estudiante entrega la traza de una sesión, la regla de su cliente y la tabla de permisos mínimos. `SE-512` trata qué ocurre cuando una llamada se interrumpe. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a/README.md).
+El estudiante entrega la traza de una sesión, la regla de su cliente y la tabla de permisos mínimos. `SE-512` trata qué ocurre cuando una llamada se interrumpe.
 
 #### SE-512 — Ejecución durable, reintentos e idempotencia
 
 El fallo que importa ocurre entre el efecto y su anotación. La clase prueba un diario SQLite con caídas inyectadas, muestra que solo la clave de idempotencia cierra esa ventana y compara tres políticas de reintento por el pico tras la recuperación.
 
-El estudiante entrega la lista de pasos con efecto de su sistema con su clave y una prueba de caída. `SE-513` trata cómo se mide. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia/README.md).
+El estudiante entrega la lista de pasos con efecto de su sistema con su clave y una prueba de caída. `SE-513` trata cómo se mide.
 
 ### Bloque 4 — Medirlo y operarlo
 
@@ -136,13 +136,13 @@ El estudiante entrega la lista de pasos con efecto de su sistema con su clave y 
 
 Una evaluación es un instrumento con ruido. La clase mide falsos positivos y potencia de una puerta con cuatro tamaños de conjunto, el sesgo de un juez y la variación de un mismo sistema, y define una traza estructurada.
 
-El estudiante entrega 30 casos con su señal de calificación y una puerta fijada antes de medir. `SE-514` trata costo, latencia y seguridad. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm/README.md).
+El estudiante entrega 30 casos con su señal de calificación y una puerta fijada antes de medir. `SE-514` trata costo, latencia y seguridad.
 
 #### SE-514 — Costo, latencia y seguridad en sistemas con LLM
 
 El costo lo dicta el bucle, la latencia la cola y la seguridad la combinación de capacidades. La clase calcula el punto de equilibrio de una caché de prefijo, el p95 de cadenas y paralelos y compara cuatro defensas contra la inyección por lo que evitan y por lo que cuestan.
 
-El estudiante entrega el presupuesto de su sistema y la evaluación de capacidades de su agente. `SE-515` los usa para elegir y degradar. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/README.md).
+El estudiante entrega el presupuesto de su sistema y la evaluación de capacidades de su agente. `SE-515` los usa para elegir y degradar.
 
 ### Bloque 5 — Aplicar e integrar
 
@@ -150,13 +150,30 @@ El estudiante entrega el presupuesto de su sistema y la evaluación de capacidad
 
 Un selector hace repetible la elección y una escalera hace ordenada la caída. La clase prueba un selector sobre ocho tareas y simula un incidente de 1 000 solicitudes en el que degradar sube el éxito del 60,4 % al 70,7 % y baja el p95 de 24,9 a 13,7 segundos.
 
-El estudiante entrega su selector con tres tareas propias y su escalera de degradación. `SE-516` la somete a una puerta de entrada. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico/README.md).
+El estudiante entrega su selector con tres tareas propias y su escalera de degradación. `SE-516` la somete a una puerta de entrada.
 
 #### SE-516 — Proyecto: sistema con LLM evaluado y operable
 
 La calidad es una columna de cinco. La clase aplica una puerta de entrada a cuatro candidatos y muestra que solo el híbrido gobernado la supera; el estudiante repite el ejercicio con su propio sistema y documenta lo que no midió.
 
-El estudiante entrega el dossier con la puerta, los resultados, las capacidades, la degradación, los límites y una condición de revisión. La Parte 43 usa el vocabulario de patrones de diseño para revisar estos y otros sistemas. [Abrir la clase](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md).
+El estudiante entrega el dossier con la puerta, los resultados, las capacidades, la degradación, los límites y una condición de revisión. La Parte 43 usa el vocabulario de patrones de diseño para revisar estos y otros sistemas.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-505](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/) | Workflows frente a agentes: cuándo no usar un agente | Entrega la clasificación de seis solicitudes de su sistema con una condición de revisión por decisión |
+| [SE-506](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion/) | Encadenado, enrutamiento y paralelización | Entrega una puerta programática con sus pruebas y la regla de enrutamiento con su vía de escape |
+| [SE-507](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-507-orquestador-trabajadores-y-evaluador-optimizador/) | Orquestador-trabajadores y evaluador-optimizador | Entrega un verificador con fallas concretas y un tope de vueltas con su acción al agotarlo |
+| [SE-508](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion/) | ReAct, plan-and-execute y reflexión | Entrega la estrategia elegida para tres tareas con su tasa de sorpresas y el validador del plan |
+| [SE-509](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes/) | Memoria y gestión de estado de agentes | Entrega el esquema de memoria de su agente con versión, origen y caducidad |
+| [SE-510](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/) | Embeddings, recuperación y agentic RAG | Entrega 20 consultas etiquetadas de su corpus con el acierto de dos recuperadores y su política de citas |
+| [SE-511](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a/) | Interoperabilidad entre agentes: MCP y A2A | Entrega la traza de una sesión, la regla de su cliente y la tabla de permisos mínimos |
+| [SE-512](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-512-ejecucion-durable-reintentos-e-idempotencia/) | Ejecución durable, reintentos e idempotencia | Entrega la lista de pasos con efecto de su sistema con su clave y una prueba de caída |
+| [SE-513](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm/) | Evals y LLMOps de sistemas con LLM | Entrega 30 casos con su señal de calificación y una puerta fijada antes de medir |
+| [SE-514](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-514-costo-latencia-y-seguridad-en-sistemas-con-llm/) | Costo, latencia y seguridad en sistemas con LLM | Entrega el presupuesto de su sistema y la evaluación de capacidades de su agente |
+| [SE-515](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico/) | Taller: elegir y degradar un patrón agéntico | Entrega su selector con tres tareas propias y su escalera de degradación |
+| [SE-516](../../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/) | Proyecto: sistema con LLM evaluado y operable | Entrega el dossier con la puerta, los resultados, las capacidades, la degradación, los límites y una condición de revisión |
 
 ## Fuentes
 

@@ -68,21 +68,15 @@ Lo que **no se hizo**: no se atacó ningún sistema, cuenta, servicio ni persona
 
 #### SE-385 — Principios de seguridad y modelos de amenaza
 
-[Abrir la clase SE-385](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/)
-
 El camino más barato decide el riesgo, no el defecto más grave. La clase construye un grafo de ataque, compara dos revisores y simula la deriva del modelo. El estudiante entrega un modelo con fronteras, grafo y política de revisión. `SE-386` pregunta cómo se prueba quién llama.
 
 ### Bloque 2 — Identidad y acceso
 
 #### SE-386 — Identidad, autenticación y sesiones
 
-[Abrir la clase SE-386](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-386-identidad-autenticacion-y-sesiones/)
-
 El costo por candidato y el origen del identificador deciden. Mide funciones de derivación, cinco defensas contra el relleno y una sesión predecible. Entrega una política de autenticación y sesión. `SE-387` pregunta qué puede hacer quien ya está autenticado.
 
 #### SE-387 — Autorización, recursos y mínimo privilegio
-
-[Abrir la clase SE-387](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio/)
 
 La política es una función de rol, relación y estado. Mide trece mutantes con cuatro matrices, identificadores adivinables y la acumulación de permisos. Entrega la política y su matriz. `SE-388` pregunta qué ocurre si la entrada se interpreta como código.
 
@@ -90,19 +84,13 @@ La política es una función de rol, relación y estado. Mide trece mutantes con
 
 #### SE-388 — Validación, codificación y clases de inyección
 
-[Abrir la clase SE-388](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-388-validacion-codificacion-y-clases-de-inyeccion/)
-
 Cada defensa es de un contexto. Mide SQL real por contexto, ocho cargas en cinco contextos de salida y tres órdenes de validación. Entrega el inventario de intérpretes. `SE-389` pasa a la criptografía.
 
 #### SE-389 — Criptografía aplicada y gestión de claves
 
-[Abrir la clase SE-389](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves/)
-
 La seguridad es la del uso. Muestra un nonce repetido, una comparación que filtra y la colisión de nonces. Entrega el contrato de uso y la política de claves. `SE-390` pregunta dónde viven los secretos.
 
 #### SE-390 — Secretos, configuración y separación de ambientes
-
-[Abrir la clase SE-390](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/)
 
 Un secreto tiene ciclo de vida y radio. Evalúa escáneres, rotaciones con doble validez y esquemas de credenciales. Entrega el inventario y el protocolo de rotación. `SE-391` pasa a los datos de personas.
 
@@ -110,25 +98,17 @@ Un secreto tiene ciclo de vida y radio. Evalúa escáneres, rotaciones con doble
 
 #### SE-391 — Privacidad por diseño y minimización
 
-[Abrir la clase SE-391](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/)
-
 El nombre no es el identificador, la combinación lo es. Mide unicidad, promedio de consultas con ruido y reidentificación de seudónimos. Entrega el inventario con finalidad y plazo. `SE-392` pasa al proceso.
 
 #### SE-392 — Secure SDLC, abuso y pruebas negativas
-
-[Abrir la clase SE-392](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-392-secure-sdlc-abuso-y-pruebas-negativas/)
 
 Una suite se mide por los defectos que mata. Mide mutantes de un validador, reglas de `ast` y una expresión regular catastrófica. Entrega el catálogo de abusos. `SE-393` pregunta qué hacer ante un hallazgo externo.
 
 #### SE-393 — Vulnerabilidades, divulgación y respuesta
 
-[Abrir la clase SE-393](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-393-vulnerabilidades-divulgacion-y-respuesta/)
-
 El puntaje describe, no decide. Mide CVSS con tres lecturas, estrategias de priorización y un triaje con horario. Entrega la política de recepción y respuesta. `SE-394` pregunta cómo demostrarlo.
 
 #### SE-394 — Cumplimiento, evidencia y límites legales
-
-[Abrir la clase SE-394](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/)
 
 «Cubierto» depende de lo que se exija. Mide un embudo de cobertura, tamaños de muestra y un registro encadenado con ancla. Entrega la matriz de trazabilidad. `SE-395` pone a prueba controles que parecen funcionar.
 
@@ -136,15 +116,28 @@ El puntaje describe, no decide. Mide CVSS con tres lecturas, estrategias de prio
 
 #### SE-395 — Taller: explotar y reparar un control aparente
 
-[Abrir la clase SE-395](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente/)
-
 Un control que confía en un dato del atacante no controla. Rompe y repara cuatro controles con regresión. `SE-396` los integra.
 
 #### SE-396 — Proyecto: producto con seguridad verificable
 
-[Abrir la clase SE-396](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable/)
-
 Un paquete completo no es un paquete verdadero. Mide tres validadores frente a 210 mutaciones y la huella entre dos sistemas. Entrega el paquete con `LIMITES.md`. La Parte 33 pasa a build, release y cadena de suministro.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-385](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-385-principios-de-seguridad-y-modelos-de-amenaza/) | Principios de seguridad y modelos de amenaza | Entrega un modelo con fronteras, grafo y política de revisión |
+| [SE-386](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-386-identidad-autenticacion-y-sesiones/) | Identidad, autenticación y sesiones | Entrega una política de autenticación y sesión |
+| [SE-387](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-387-autorizacion-recursos-y-minimo-privilegio/) | Autorización, recursos y mínimo privilegio | Entrega la política y su matriz |
+| [SE-388](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-388-validacion-codificacion-y-clases-de-inyeccion/) | Validación, codificación y clases de inyección | Entrega el inventario de intérpretes |
+| [SE-389](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-389-criptografia-aplicada-y-gestion-de-claves/) | Criptografía aplicada y gestión de claves | Entrega el contrato de uso y la política de claves |
+| [SE-390](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-390-secretos-configuracion-y-separacion-de-ambientes/) | Secretos, configuración y separación de ambientes | Entrega el inventario y el protocolo de rotación |
+| [SE-391](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-391-privacidad-por-diseno-y-minimizacion/) | Privacidad por diseño y minimización | Entrega el inventario con finalidad y plazo |
+| [SE-392](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-392-secure-sdlc-abuso-y-pruebas-negativas/) | Secure SDLC, abuso y pruebas negativas | Entrega el catálogo de abusos |
+| [SE-393](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-393-vulnerabilidades-divulgacion-y-respuesta/) | Vulnerabilidades, divulgación y respuesta | Entrega la política de recepción y respuesta |
+| [SE-394](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-394-cumplimiento-evidencia-y-limites-legales/) | Cumplimiento, evidencia y límites legales | Entrega la matriz de trazabilidad |
+| [SE-395](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-395-taller-explotar-y-reparar-un-control-aparente/) | Taller: explotar y reparar un control aparente | Rompe y repara cuatro controles con regresión |
+| [SE-396](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-32-seguridad-privacidad-y-cumplimiento/se-396-proyecto-producto-con-seguridad-verificable/) | Proyecto: producto con seguridad verificable | Entrega el paquete con `LIMITES.md` |
 
 ## Fuentes
 

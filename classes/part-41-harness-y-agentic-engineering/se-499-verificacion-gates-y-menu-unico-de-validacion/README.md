@@ -270,3 +270,7 @@ Se ejecutaron cinco compuertas sobre doce cambios del autor en un módulo de sie
 | Meta-verificación | Comprobar que una verificación no se debilitó |
 | Código de salida | Valor con que un proceso informa éxito o fallo |
 | Retroalimentación | Información que el agente recibe tras una acción |
+
+---
+
+[← SE-498 — Sandboxes, reversibilidad y control de daño](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-498-sandboxes-reversibilidad-y-control-de-dano/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-499.html) · [SE-500 — Multiagente y coordinación dentro del harness →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/README.md)

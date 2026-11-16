@@ -257,3 +257,7 @@ Se calcularon métricas de trazas reales de un harness mínimo con política gui
 | Graduador | Regla o programa que decide si una tarea se resolvió |
 | Potencia | Probabilidad de detectar un efecto real |
 | Tarea de regresión | Tarea derivada de un fallo ya diagnosticado |
+
+---
+
+[← SE-500 — Multiagente y coordinación dentro del harness](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-500-multiagente-y-coordinacion-dentro-del-harness/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-501.html) · [SE-502 — AI-DLC, gobierno y vibe coding frente a agentic engineering →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-502-ai-dlc-gobierno-y-vibe-coding-frente-a-agentic-engineering/README.md)

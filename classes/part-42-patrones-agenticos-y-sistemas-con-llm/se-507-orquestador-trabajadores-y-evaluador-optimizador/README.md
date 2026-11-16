@@ -269,3 +269,7 @@ Los tamaños de los cursos son sintéticos y el orquestador conoce los tamaños 
 | Evaluador | Componente que juzga y devuelve fallas concretas |
 | Tope de vueltas | Máximo de iteraciones del bucle de revisión |
 | LPT | Regla voraz que reparte primero lo más grande |
+
+---
+
+[← SE-506 — Encadenado, enrutamiento y paralelización](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-506-encadenado-enrutamiento-y-paralelizacion/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-507.html) · [SE-508 — ReAct, plan-and-execute y reflexión →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-508-react-plan-and-execute-y-reflexion/README.md)

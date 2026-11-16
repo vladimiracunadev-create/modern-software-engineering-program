@@ -255,3 +255,7 @@ Se midieron siete configuraciones sobre seis tareas con una política guionizada
 | Terminación en falso | Declarar terminada una tarea que no pasa su verificación |
 | Ablación | Quitar una pieza para medir su efecto |
 | Traza | Registro ordenado de cada paso del agente |
+
+---
+
+[← SE-492 — Proyecto: política metodológica de equipo con evidencia](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-493.html) · [SE-494 — Instrucciones de repositorio y cumplimiento determinista →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-494-instrucciones-de-repositorio-y-cumplimiento-determinista/README.md)

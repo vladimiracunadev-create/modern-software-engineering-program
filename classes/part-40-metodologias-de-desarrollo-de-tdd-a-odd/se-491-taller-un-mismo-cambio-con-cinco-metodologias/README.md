@@ -273,3 +273,7 @@ Los siete mutantes y los cinco artefactos son del autor; no se midió esfuerzo h
 | Dimensión no variada | Valor del problema que ningún ejemplo toma |
 | Combinación | Artefactos de naturaleza distinta sobre el mismo cambio |
 | Modelo ejecutable | Segunda escritura de la regla usada como oráculo |
+
+---
+
+[← SE-490 — ODD: desarrollo orgánico y su contraste con SDD](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-490-odd-desarrollo-organico-y-su-contraste-con-sdd/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-491.html) · [SE-492 — Proyecto: política metodológica de equipo con evidencia →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-492-proyecto-politica-metodologica-de-equipo-con-evidencia/README.md)

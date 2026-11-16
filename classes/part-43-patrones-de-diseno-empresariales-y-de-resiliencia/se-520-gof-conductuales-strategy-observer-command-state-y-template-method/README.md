@@ -256,3 +256,7 @@ La definición de «imposible», las secuencias y los oyentes son del autor; no 
 | Referencia débil | Referencia que no retiene al objeto |
 | Command | Acción como objeto que se puede encolar y deshacer |
 | Propiedad | Afirmación sobre toda una clase de entradas |
+
+---
+
+[← SE-519 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-520.html) · [SE-521 — GRASP y asignación de responsabilidades →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades/README.md)

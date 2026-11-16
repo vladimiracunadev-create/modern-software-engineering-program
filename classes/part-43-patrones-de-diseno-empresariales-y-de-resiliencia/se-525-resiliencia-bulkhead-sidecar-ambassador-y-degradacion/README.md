@@ -252,3 +252,7 @@ La simulación usa tasas y latencias elegidas por el autor y un grupo fijo; la d
 | Sidecar | Proceso auxiliar junto a la aplicación |
 | Ambassador | Proxy fuera de proceso para las conexiones salientes |
 | Salto | Componente intermedio adicional en una llamada |
+
+---
+
+[← SE-524 — Resiliencia: timeout, retry con jitter y circuit breaker](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-525.html) · [SE-526 — Antipatrones y deuda de diseño →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md)

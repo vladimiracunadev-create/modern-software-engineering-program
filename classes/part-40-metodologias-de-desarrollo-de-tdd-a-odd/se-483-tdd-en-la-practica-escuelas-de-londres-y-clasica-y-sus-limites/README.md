@@ -290,3 +290,7 @@ Las dos suites son del autor sobre un servicio pequeño; no se midió ningún eq
 | Verificación de estado | Aserción sobre el resultado que queda |
 | Verificación de comportamiento | Aserción sobre las llamadas hechas |
 | Cambio de contrato | Alteración de la interfaz de un colaborador |
+
+---
+
+[← SE-482 — TDD: ciclo rojo-verde-refactor y diseño emergente](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-483.html) · [SE-484 — BDD: ejemplos, conversación y lenguaje compartido →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-484-bdd-ejemplos-conversacion-y-lenguaje-compartido/README.md)

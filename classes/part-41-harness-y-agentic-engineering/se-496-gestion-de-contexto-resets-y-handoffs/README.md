@@ -264,3 +264,7 @@ El modelo simula 120 turnos con diez hechos en posiciones fijas y reglas de cons
 | Context rot | Pérdida de precisión al crecer el contexto |
 | Decisión declarada | Decisión dicha de forma explícita |
 | Estado limpio | Estado integrable sin sorpresas |
+
+---
+
+[← SE-495 — Herramientas, permisos y superficies de acción](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-496.html) · [SE-497 — Loops de agentes y criterios de parada →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-497-loops-de-agentes-y-criterios-de-parada/README.md)

@@ -274,3 +274,7 @@ El cliente de cuatro campos y los doce cambios son del autor y no se ejecutó ni
 | Contrato del consumidor | Declaración de lo que un cliente lee de un proveedor |
 | Instantánea | Copia guardada de una respuesta |
 | Falsa alarma | Alerta ante un cambio que no rompe |
+
+---
+
+[← SE-486 — DDD como lenguaje ubicuo y contexto para agentes](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-486-ddd-como-lenguaje-ubicuo-y-contexto-para-agentes/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-487.html) · [SE-488 — SDD: spec-first, spec-anchored y spec-as-source →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-488-sdd-spec-first-spec-anchored-y-spec-as-source/README.md)

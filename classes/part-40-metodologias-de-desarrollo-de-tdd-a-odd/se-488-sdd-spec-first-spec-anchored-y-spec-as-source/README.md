@@ -279,3 +279,7 @@ El generador es una plantilla y el comprobador y las diez derivas son del autor;
 | Spec-as-source | El código se genera de la especificación |
 | Deriva | Separación entre la especificación y el sistema |
 | Huella | Resumen que detecta que lo generado quedó viejo |
+
+---
+
+[← SE-487 — Diseño por contrato y pruebas de contrato como oráculo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-487-diseno-por-contrato-y-pruebas-de-contrato-como-oraculo/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-488.html) · [SE-489 — EDD: evaluaciones como especificación y puerta de release →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-489-edd-evaluaciones-como-especificacion-y-puerta-de-release/README.md)

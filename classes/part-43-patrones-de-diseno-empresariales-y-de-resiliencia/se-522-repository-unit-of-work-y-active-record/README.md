@@ -252,3 +252,7 @@ La base es `sqlite3` en memoria, sin red ni concurrencia, y no se midió ningún
 | N+1 | Una consulta inicial más una por fila |
 | Atomicidad | Todo o nada |
 | Gancho de seguimiento | Función que recibe cada sentencia ejecutada |
+
+---
+
+[← SE-521 — GRASP y asignación de responsabilidades](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-522.html) · [SE-523 — Enterprise Integration Patterns como lenguaje común →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun/README.md)

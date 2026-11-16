@@ -276,3 +276,7 @@ El modelo, las importancias, la función de utilidad y los dos contextos son con
 | Punto de compromiso | Mejora un atributo empeorando otro |
 | Barrido | Evaluación para un rango de valores de un parámetro |
 | Supuesto de vigilancia | Supuesto cuya medición reabre la decisión |
+
+---
+
+[← SE-538 — Evolución y migración entre estilos](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-539.html) · [SE-540 — Proyecto: decisión arquitectónica defendida con ADR →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md)

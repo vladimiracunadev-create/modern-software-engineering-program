@@ -289,3 +289,7 @@ Los tamaños son de datos sintéticos, los tiempos de ronda son un modelo con su
 | Sidecar | Proceso auxiliar junto a un servicio |
 | Defensa en profundidad | Validar en cada capa |
 | Tráfico norte-sur | El que entra al sistema desde fuera |
+
+---
+
+[← SE-532 — Microservicios y sus costes reales](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-533.html) · [SE-534 — Multi-tenancy y aislamiento →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md)

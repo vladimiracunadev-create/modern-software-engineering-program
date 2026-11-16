@@ -252,3 +252,7 @@ Se midió un comprobador de seis reglas sobre diecisiete casos del autor, en Win
 | Compuerta | Comprobación obligatoria antes de integrar |
 | Falsa alarma | Bloqueo de un cambio que no infringe |
 | Omisión | Infracción real que la regla no ve |
+
+---
+
+[← SE-493 — Anatomía de un harness: modelo, contexto, herramientas y bucles](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-493-anatomia-de-un-harness-modelo-contexto-herramientas-y-bucles/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-494.html) · [SE-495 — Herramientas, permisos y superficies de acción →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-495-herramientas-permisos-y-superficies-de-accion/README.md)

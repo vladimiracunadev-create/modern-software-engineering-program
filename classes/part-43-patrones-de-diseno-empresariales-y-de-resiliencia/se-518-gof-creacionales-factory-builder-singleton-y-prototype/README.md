@@ -253,3 +253,7 @@ Las pruebas, la configuración y las copias son del autor y los tiempos son de u
 | Singleton | Una instancia con acceso global |
 | Copia superficial | Copia que comparte los componentes mutables |
 | Inyección de dependencias | Entregar un colaborador desde fuera en lugar de buscarlo |
+
+---
+
+[← SE-517 — Criterios para usar un catálogo de patrones](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-518.html) · [SE-519 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/README.md)

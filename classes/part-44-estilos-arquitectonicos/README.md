@@ -77,19 +77,19 @@ Lo que **no se hizo**: no se midió ningún equipo, esfuerzo humano, costo econ�
 
 Una arquitectura es una respuesta a fuerzas de calidad, y cada fuerza necesita una medida. La clase evalúa seis estilos contra siete atributos en cuatro contextos, mide el margen del ganador y prueba cuánto aguanta el resultado si cambian los pesos o las valoraciones.
 
-El estudiante entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión. `SE-530` estudia el primer estilo concreto. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md).
+El estudiante entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión. `SE-530` estudia el primer estilo concreto.
 
 #### SE-530 — Microkernel y arquitecturas de plugins
 
 Extender sin tocar el núcleo es una propiedad que se mide. La clase construye un núcleo que descubre complementos, añade tres canales sin cambiar una línea del núcleo y mide qué cuesta aislar a un complemento que falla o se bloquea y qué ocurre cuando el contrato sube de versión.
 
-El estudiante entrega el contrato de un complemento con su política de versión y su nivel de aislamiento. `SE-531` cambia la pregunta: cómo fluyen los datos. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/README.md).
+El estudiante entrega el contrato de un complemento con su política de versión y su nivel de aislamiento. `SE-531` cambia la pregunta: cómo fluyen los datos.
 
 #### SE-531 — Pipes and filters y arquitecturas de flujo
 
 Un flujo de filtros solo escala si cada paso procesa un elemento a la vez. La clase compara por lotes y en flujo sobre 100 000 registros, mide el efecto de un filtro que necesita todo, el orden de los filtros y la contrapresión de una cola acotada.
 
-El estudiante entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos. `SE-532` pasa a separar procesos. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/README.md).
+El estudiante entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos. `SE-532` pasa a separar procesos.
 
 ### Bloque 2 — Separar y proteger
 
@@ -97,19 +97,19 @@ El estudiante entrega la cadena de filtros de un proceso suyo con la memoria med
 
 Separar en servicios compra autonomía y se paga con latencia, disponibilidad y acoplamiento de contratos. La clase mide una llamada en proceso, serializada y por HTTP local, simula cadenas de uno a ocho servicios y cuenta cuántos se coordinan ante un cambio incompatible.
 
-El estudiante entrega el costo de separar un módulo suyo con su camino crítico y su criterio. `SE-533` trata lo que se interpone entre clientes y servicios. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md).
+El estudiante entrega el costo de separar un módulo suyo con su camino crítico y su criterio. `SE-533` trata lo que se interpone entre clientes y servicios.
 
 #### SE-533 — BFF, API gateway y service mesh
 
 Gateway, BFF y malla responden preguntas distintas y confundirlos es caro. La clase mide bytes y rondas de una pantalla con cuatro servicios, demuestra que confiar solo en el borde acepta una petición falsificada y mide lo que añade cada salto de proxy.
 
-El estudiante entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde. `SE-534` trata la identidad del inquilino. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/README.md).
+El estudiante entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde. `SE-534` trata la identidad del inquilino.
 
 #### SE-534 — Multi-tenancy y aislamiento
 
 El aislamiento entre clientes se prueba y no se supone. La clase ejecuta doce consultas sobre una tabla compartida, prueba una barrera que no depende de cada consulta, mide el costo de una base por inquilino y simula un vecino ruidoso con y sin tope.
 
-El estudiante entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas. `SE-535` trata la propiedad de los datos. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md).
+El estudiante entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas. `SE-535` trata la propiedad de los datos.
 
 ### Bloque 3 — Propiedad, fallo y viaje
 
@@ -117,25 +117,25 @@ El estudiante entrega el modelo de aislamiento con su prueba de dos inquilinos s
 
 El data mesh es una decisión sobre quién responde por los datos, no una herramienta. La clase simula la cola del equipo central, calcula las personas que necesita cada modelo y pasa ocho derivas y un cambio legítimo por cinco comprobaciones de un contrato de datos.
 
-El estudiante entrega el contrato de un producto de datos con la matriz de derivas detectadas. `SE-536` convierte la propiedad en frontera de fallo. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/README.md).
+El estudiante entrega el contrato de un producto de datos con la matriz de derivas detectadas. `SE-536` convierte la propiedad en frontera de fallo.
 
 #### SE-536 — Arquitectura celular y radio de impacto
 
 El radio de impacto es una propiedad que se diseña. La clase mide cuántos inquilinos se mueven al añadir una celda con dos funciones de asignación, compara flota compartida, celdas y fragmentación aleatoria ante un inquilino venenoso y calcula el costo de capacidad.
 
-El estudiante entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos. `SE-537` baja a la aplicación. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md).
+El estudiante entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos. `SE-537` baja a la aplicación.
 
 #### SE-537 — 12-factor y aplicaciones nativas de la nube
 
 Una aplicación se puede copiar y reemplazar si cumple ciertas propiedades verificables. La clase audita con un linter, simula sesiones en tres instancias, mide el arranque de procesos reales, compara parada ordenada y corte, y ejecuta un mismo artefacto con tres configuraciones.
 
-El estudiante entrega una auditoría de los doce factores con evidencia por fila. `SE-538` trata el cambio de un estilo a otro. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/README.md).
+El estudiante entrega una auditoría de los doce factores con evidencia por fila. `SE-538` trata el cambio de un estilo a otro.
 
 #### SE-538 — Evolución y migración entre estilos
 
 Una migración incremental sustituye la apuesta única por pasos reversibles y medidos. La clase compara un módulo heredado con su reemplazo sobre 20 000 peticiones, calcula con qué fracción del tráfico se ve cada divergencia y cuántos usuarios afecta un defecto según el escalón.
 
-El estudiante entrega un plan de migración con comparador, escalones y criterio de retiro. `SE-539` aplica todo el método a un caso. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md).
+El estudiante entrega un plan de migración con comparador, escalones y criterio de retiro. `SE-539` aplica todo el método a un caso.
 
 ### Bloque 4 — Decidir y defender
 
@@ -143,13 +143,30 @@ El estudiante entrega un plan de migración con comparador, escalones y criterio
 
 El resultado del taller no es el ganador sino el mapa de qué lo cambia. La clase modela tres candidatos contra seis escenarios, pondera en dos contextos, barre el número de equipos y encuentra que un solo supuesto de disponibilidad invierte la decisión.
 
-El estudiante entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia. `SE-540` la convierte en un registro defendido. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md).
+El estudiante entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia. `SE-540` la convierte en un registro defendido.
 
 #### SE-540 — Proyecto: decisión arquitectónica defendida con ADR
 
 Un ADR bueno es una hipótesis con fecha de revisión. La clase analiza tres registros con once criterios, protege una restricción con una prueba de arquitectura que detecta una violación y un ciclo y no ve una importación dinámica, y evalúa un disparador sobre una serie de 30 días.
 
-El estudiante entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador. Con esta clase se cierra la parte. [Abrir la clase](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md).
+El estudiante entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador. Con esta clase se cierra la parte.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-529](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/) | Estilos como respuestas a fuerzas de calidad | Entrega una matriz de fuerzas con escenarios medibles, el ganador, el margen y el supuesto que invierte la decisión |
+| [SE-530](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/) | Microkernel y arquitecturas de plugins | Entrega el contrato de un complemento con su política de versión y su nivel de aislamiento |
+| [SE-531](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/) | Pipes and filters y arquitecturas de flujo | Entrega la cadena de filtros de un proceso suyo con la memoria medida y la política de rechazos |
+| [SE-532](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/) | Microservicios y sus costes reales | Entrega el costo de separar un módulo suyo con su camino crítico y su criterio |
+| [SE-533](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/) | BFF, API gateway y service mesh | Entrega la tabla de responsabilidades por capa y por dueño, con la prueba de la petición que salta el borde |
+| [SE-534](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/) | Multi-tenancy y aislamiento | Entrega el modelo de aislamiento con su prueba de dos inquilinos sobre todas las rutas |
+| [SE-535](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/) | Data mesh y propiedad de los datos | Entrega el contrato de un producto de datos con la matriz de derivas detectadas |
+| [SE-536](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/) | Arquitectura celular y radio de impacto | Entrega el radio de impacto de su diseño con el costo y la lista de componentes compartidos |
+| [SE-537](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-537-12-factor-y-aplicaciones-nativas-de-la-nube/) | 12-factor y aplicaciones nativas de la nube | Entrega una auditoría de los doce factores con evidencia por fila |
+| [SE-538](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/) | Evolución y migración entre estilos | Entrega un plan de migración con comparador, escalones y criterio de retiro |
+| [SE-539](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/) | Taller: seleccionar un estilo con escenarios de calidad | Entrega la decisión con escenarios, modelo, sensibilidad y supuesto de vigilancia |
+| [SE-540](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/) | Proyecto: decisión arquitectónica defendida con ADR | Entrega su ADR con la prueba que lo protege, sus supuestos de vigilancia y su disparador |
 
 ## Fuentes
 

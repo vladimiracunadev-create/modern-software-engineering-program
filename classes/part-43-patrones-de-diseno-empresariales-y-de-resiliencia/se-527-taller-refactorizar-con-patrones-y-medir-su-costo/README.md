@@ -255,3 +255,7 @@ La función, los mutantes y las entradas son del autor, los tiempos varían entr
 | Strategy con registro | Una clase por variante y un diccionario de nombres |
 | Refactor | Cambio de estructura sin cambio de comportamiento |
 | Condición de salida | Señal medible para retirar el patrón |
+
+---
+
+[← SE-526 — Antipatrones y deuda de diseño](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-527.html) · [SE-528 — Proyecto: catálogo de patrones de un sistema real →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md)

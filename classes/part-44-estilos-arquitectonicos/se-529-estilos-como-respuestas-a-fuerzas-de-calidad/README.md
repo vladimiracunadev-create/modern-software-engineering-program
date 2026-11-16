@@ -289,3 +289,7 @@ La matriz, los pesos y los cuatro contextos son construcciones del autor; los re
 | Margen | Diferencia de puntaje entre el primero y el segundo |
 | Punto de sensibilidad | Parámetro cuyo cambio pequeño invierte la decisión |
 | Punto de compromiso | Decisión que mejora un atributo y empeora otro |
+
+---
+
+[← SE-528 — Proyecto: catálogo de patrones de un sistema real](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-529.html) · [SE-530 — Microkernel y arquitecturas de plugins →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/README.md)

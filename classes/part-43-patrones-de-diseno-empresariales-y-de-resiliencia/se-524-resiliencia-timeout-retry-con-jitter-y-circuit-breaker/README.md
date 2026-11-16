@@ -257,3 +257,7 @@ La simulación usa un servicio con capacidad fija y una caída total, latencias 
 | Amplificación | Intentos al servicio por petición del usuario |
 | Circuit breaker | Interruptor que corta llamadas a una dependencia con fallos |
 | Semiabierto | Estado de sondeo del interruptor |
+
+---
+
+[← SE-523 — Enterprise Integration Patterns como lenguaje común](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-524.html) · [SE-525 — Resiliencia: bulkhead, sidecar, ambassador y degradación →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md)

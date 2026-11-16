@@ -287,3 +287,7 @@ Esta clase mide cinco oráculos sobre una función y 18 mutantes escritos por el
 | Punto ciego | Clase de defecto que un oráculo no ve |
 | Pareja de oráculos | Dos oráculos de naturaleza distinta usados juntos |
 | Política metodológica | Tabla que asigna prácticas a clases de cambio |
+
+---
+
+[← SE-480 — Proyecto final: producto operable construido desde SPEC](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-480-proyecto-final-producto-operable-construido-desde-spec/README.md) · [↑ Parte 40](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-481.html) · [SE-482 — TDD: ciclo rojo-verde-refactor y diseño emergente →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-40-metodologias-de-desarrollo-de-tdd-a-odd/se-482-tdd-ciclo-rojo-verde-refactor-y-diseno-emergente/README.md)

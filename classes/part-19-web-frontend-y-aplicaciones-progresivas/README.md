@@ -66,15 +66,11 @@ La aplicación de entregas mantiene un formulario, una cola de envíos y un paqu
 
 #### SE-229 — Plataforma web, HTML semántico y CSS
 
-[Abrir la clase SE-229](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/)
-
 Un documento que se ve bien puede ser inoperable: el navegador construye un árbol de accesibilidad a partir de la semántica, no del aspecto. La clase mide qué detecta un linter de ocho reglas sobre 220 mutaciones y qué no (un texto alternativo engañoso), calcula razones de contraste para mostrar que el tono no predice el cumplimiento y simula la carrera de especificidad frente a las capas.
 
 El estudiante entrega la página base, el linter y una paleta con contraste anotado. `SE-230` pregunta qué ocurre cuando el documento se vuelve dinámico.
 
 #### SE-230 — JavaScript, DOM y eventos del navegador
-
-[Abrir la clase SE-230](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/)
 
 Un solo hilo con dos colas explica por qué una cadena de microtareas deja sin turno a un temporizador y por qué un clic en un icono no llega a un delegado que compara el destino. La clase predice el orden de 300 programas, simula una delegación en un modelo de DOM y cuenta las llamadas que deja pasar cada técnica de ritmo.
 
@@ -84,23 +80,17 @@ El estudiante entrega el modelo de colas, la delegación con `closest` y una pol
 
 #### SE-231 — Renderizado cliente, servidor, estático e híbrido
 
-[Abrir la clase SE-231](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/)
-
 Cada estrategia mueve costo entre la red, el servidor y el dispositivo, y una diferencia de zona horaria basta para que servidor y cliente no coincidan. La clase mide los bytes de una página de 500 filas, alimenta un modelo de tiempo con supuestos explícitos, reproduce un desajuste de hidratación y calcula cuántas visitas ven una página regenerada ya desactualizada.
 
 El estudiante entrega la tabla de estrategias por página con su caducidad. `SE-232` pasa a qué datos necesita una interfaz viva.
 
 #### SE-232 — Estado, componentes y gestión de datos
 
-[Abrir la clase SE-232](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-232-estado-componentes-y-gestion-de-datos/)
-
 La identidad de un elemento no es su posición, una copia es una promesa que alguna rama olvidará y la última respuesta que llega no es la última consulta. La clase mide seis cambios de una lista con dos claves, simula cuándo un total copiado diverge y cuenta cuántas búsquedas terminan mostrando una consulta vieja.
 
 El estudiante entrega el reconciliador, la clasificación del estado y una política de respuestas. `SE-233` aplica esas reglas al dato que escribe una persona.
 
 #### SE-233 — Formularios, validación y experiencia de error
-
-[Abrir la clase SE-233](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/)
 
 Una expresión regular no define qué es un correo válido, y un error en cada pulsación avisa de que la entrada no ha terminado. La clase compara seis validadores sobre un corpus etiquetado, cuenta cuántas personas ve un sistema según normalice Unicode y mide en qué fracción de pulsaciones muestra un error una validación inmediata.
 
@@ -110,23 +100,17 @@ El estudiante entrega el corpus, la política de validación y el envío idempot
 
 #### SE-234 — Navegación, routing y URLs durables
 
-[Abrir la clase SE-234](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/)
-
 Muchas URLs nombran un recurso, el orden de declaración decide una ruta ambigua y lo que va en la URL se comparte. La clase normaliza 2400 variantes de 200 recursos en cuatro niveles, compara una búsqueda lineal con un árbol de segmentos y recupera 2000 estados de filtro con cuatro codificaciones.
 
 El estudiante entrega la tabla de URLs, la política de normalización y la de redirecciones. `SE-235` pregunta cuánto cuesta servir esas páginas.
 
 #### SE-235 — Rendimiento web y presupuestos
 
-[Abrir la clase SE-235](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/)
-
 Optimizar es cortar la cadena que decide, y declarar que se cumple con pocas visitas es una apuesta. La clase mide la compresión de cinco activos, modela una cascada de seis recursos para mostrar qué optimización acorta la ruta crítica y estima un percentil 75 con 30, 300 y 3000 visitas.
 
 El estudiante entrega el presupuesto con su comprobador y la justificación de cada optimización. `SE-236` pregunta qué puede hacer la página con lo que recibe.
 
 #### SE-236 — Seguridad del navegador y políticas de contenido
-
-[Abrir la clase SE-236](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/)
 
 El mismo dato es inofensivo o ejecutable según el contexto, una política laxa casi no restringe y CORS no protege al servidor. La clase ejecuta 16 cargas en cinco contextos con cuatro codificaciones, evalúa un linter de políticas de contenido y construye las tablas de cuándo viaja una cookie y qué petición requiere una comprobación previa.
 
@@ -136,15 +120,11 @@ El estudiante entrega una función de salida por contexto, una política probada
 
 #### SE-237 — PWA, caché, offline y sincronización
 
-[Abrir la clase SE-237](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/)
-
 Cada estrategia de caché cambia obsolescencia por velocidad, el nombre de la caché decide cuánto se vuelve a descargar y reintentar sin identificar la operación la duplica. La clase simula cinco estrategias sobre 20 000 peticiones, compara descargas por versión y mide los duplicados y las ediciones perdidas al sincronizar.
 
 El estudiante entrega la estrategia por recurso, el versionado por huella y la cola con claves de idempotencia. `SE-238` pregunta cómo se descubre la aplicación.
 
 #### SE-238 — SEO, metadatos y descubribilidad
-
-[Abrir la clase SE-238](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/)
 
 Rastrear no es indexar, y la forma de una etiqueta no es su verdad. La clase compara dos analizadores de `robots.txt`, calcula cuántas URLs expone una navegación facetada y audita metadatos de 120 páginas con mutaciones, declarando que no detecta un título que no corresponde a la página.
 
@@ -154,19 +134,32 @@ El estudiante entrega la política de rastreo, las canónicas y el auditor. `SE-
 
 #### SE-239 — Taller: construir un flujo web resiliente
 
-[Abrir la clase SE-239](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/)
-
 La forma de una máquina de estados no protege contra las transiciones que faltan, y reintentar de forma sincronizada convierte un fallo en una avalancha. El taller modela el flujo de entrega con ocho estados, muta cada una de sus 18 transiciones, simula 1000 clientes con tres políticas de reintento y reparte nueve defectos de accesibilidad entre reglas y revisión humana.
 
 El estudiante deja la tabla de estados, la política de reintentos y el plan de escenarios. `SE-240` los verifica de punta a punta.
 
 #### SE-240 — Proyecto: aplicación web accesible y offline
 
-[Abrir la clase SE-240](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/)
-
 Un manifiesto válido no es una aplicación instalable, unas cabeceras correctas no garantizan que una versión nueva llegue y una suite de pares no cubre las interacciones de tres factores. El proyecto valida un manifiesto con 120 mutaciones, audita las cabeceras de un servidor local y reduce una matriz de 108 casos a 12 midiendo los defectos que escapan, y entrega todo con una declaración de límites.
 
 El estudiante entrega el paquete con `verify.py` y `LIMITES.md`. Con él cierra la Parte 19.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-229](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-229-plataforma-web-html-semantico-y-css/) | Plataforma web, HTML semántico y CSS | Entrega la página base, el linter y una paleta con contraste anotado |
+| [SE-230](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-230-javascript-dom-y-eventos-del-navegador/) | JavaScript, DOM y eventos del navegador | Entrega el modelo de colas, la delegación con `closest` y una política de ritmo |
+| [SE-231](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-231-renderizado-cliente-servidor-estatico-e-hibrido/) | Renderizado cliente, servidor, estático e híbrido | Entrega la tabla de estrategias por página con su caducidad |
+| [SE-232](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-232-estado-componentes-y-gestion-de-datos/) | Estado, componentes y gestión de datos | Entrega el reconciliador, la clasificación del estado y una política de respuestas |
+| [SE-233](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-233-formularios-validacion-y-experiencia-de-error/) | Formularios, validación y experiencia de error | Entrega el corpus, la política de validación y el envío idempotente |
+| [SE-234](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-234-navegacion-routing-y-urls-durables/) | Navegación, routing y URLs durables | Entrega la tabla de URLs, la política de normalización y la de redirecciones |
+| [SE-235](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-235-rendimiento-web-y-presupuestos/) | Rendimiento web y presupuestos | Entrega el presupuesto con su comprobador y la justificación de cada optimización |
+| [SE-236](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-236-seguridad-del-navegador-y-politicas-de-contenido/) | Seguridad del navegador y políticas de contenido | Entrega una función de salida por contexto, una política probada en solo informe y la configuración de cookie y de CORS |
+| [SE-237](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-237-pwa-cache-offline-y-sincronizacion/) | PWA, caché, offline y sincronización | Entrega la estrategia por recurso, el versionado por huella y la cola con claves de idempotencia |
+| [SE-238](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-238-seo-metadatos-y-descubribilidad/) | SEO, metadatos y descubribilidad | Entrega la política de rastreo, las canónicas y el auditor |
+| [SE-239](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-239-taller-construir-un-flujo-web-resiliente/) | Taller: construir un flujo web resiliente | Deja la tabla de estados, la política de reintentos y el plan de escenarios |
+| [SE-240](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-19-web-frontend-y-aplicaciones-progresivas/se-240-proyecto-aplicacion-web-accesible-y-offline/) | Proyecto: aplicación web accesible y offline | Entrega el paquete con `verify.py` y `LIMITES.md` |
 
 ## Criterios de salida
 

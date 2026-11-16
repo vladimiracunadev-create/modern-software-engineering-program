@@ -280,3 +280,7 @@ Las consultas, los datos y la simulación son construcciones del autor; SQLite n
 | Silo y pool | Recursos dedicados o compartidos |
 | Barrera independiente de la consulta | Aislamiento aplicado fuera de cada consulta |
 | Tope de concurrencia | Límite de trabajo simultáneo por inquilino |
+
+---
+
+[← SE-533 — BFF, API gateway y service mesh](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-533-bff-api-gateway-y-service-mesh/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-534.html) · [SE-535 — Data mesh y propiedad de los datos →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-535-data-mesh-y-propiedad-de-los-datos/README.md)

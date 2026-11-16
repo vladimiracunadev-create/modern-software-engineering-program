@@ -265,3 +265,7 @@ El vector del experimento no es un modelo de embeddings semántico; las consulta
 | MRR | Media del inverso de la posición correcta |
 | RRF | Fusión de listas por rango recíproco |
 | Abstención | No responder por falta de evidencia suficiente |
+
+---
+
+[← SE-509 — Memoria y gestión de estado de agentes](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-509-memoria-y-gestion-de-estado-de-agentes/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-510.html) · [SE-511 — Interoperabilidad entre agentes: MCP y A2A →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-511-interoperabilidad-entre-agentes-mcp-y-a2a/README.md)

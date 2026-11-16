@@ -257,3 +257,7 @@ Las clases, los grafos y el modelo de deuda son del autor; las métricas son apr
 | Cohesión | Propósito común de los métodos de una clase |
 | Ciclo de dependencias | Módulos que se alcanzan entre sí |
 | Deuda de diseño | Distancia entre el diseño actual y el que abarataría el cambio |
+
+---
+
+[← SE-525 — Resiliencia: bulkhead, sidecar, ambassador y degradación](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/README.md) · [↑ Parte 43](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-526.html) · [SE-527 — Taller: refactorizar con patrones y medir su costo →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo/README.md)

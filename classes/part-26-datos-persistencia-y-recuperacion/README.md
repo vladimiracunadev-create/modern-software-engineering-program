@@ -68,15 +68,11 @@ La capa de datos de la plataforma mantiene un modelo, un esquema y un paquete es
 
 #### SE-313 — Modelado conceptual, lógico y físico
 
-[Abrir la clase SE-313](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico/)
-
 Mezclar los tres niveles hace que un detalle del motor se convierta en una propiedad del negocio que nadie decidió. La clase mide las tres anomalías de una tabla plana, cuánto cuesta una clave de texto frente a una entera y cuántos resultados falsos devuelve buscar identificadores en una lista dentro de una columna.
 
 El estudiante entrega un modelo conceptual y un `schema.sql` con cada decisión clasificada. `SE-314` compara qué cambia cuando los datos se guardan de otras formas.
 
 #### SE-314 — Relacional, documental, clave-valor, grafos y series
-
-[Abrir la clase SE-314](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/)
 
 Cada modelo abarata una pregunta y encarece un cambio. La clase cuenta lo que toca cada operación con filas y con documentos embebidos, mide la búsqueda por clave y por atributo con un índice manual desincronizable y recorre un grafo de prerrequisitos con una consulta recursiva, con y sin ciclo.
 
@@ -86,15 +82,11 @@ El estudiante entrega una matriz de preguntas frecuentes contra modelos con lo m
 
 #### SE-315 — Transacciones, aislamiento y concurrencia
 
-[Abrir la clase SE-315](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/)
-
 La atomicidad evita el corte a mitad y no que otra operación lea un valor viejo. La clase enumera 90 intercalaciones de tres clientes que suben un contador, corta una transferencia antes de cada paso y enumera las 70 intercalaciones que dejan sin docentes de guardia a la plataforma según el nivel de aislamiento.
 
 El estudiante entrega las operaciones concurrentes con su invariante, su mecanismo y su prueba de intercalaciones. `SE-316` pregunta qué invariantes puede imponer el propio motor.
 
 #### SE-316 — Restricciones, invariantes y consistencia
-
-[Abrir la clase SE-316](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/)
 
 La última defensa contra un dato inválido es la que no depende de cada cliente. La clase mide cuántas de 1 600 filas inválidas deja pasar cada capa de restricciones, enumera los órdenes de tres clientes que comprueban y luego insertan y muestra qué hace borrar un curso con la clave foránea apagada.
 
@@ -104,15 +96,11 @@ El estudiante entrega un catálogo de invariantes con mecanismo y prueba de humo
 
 #### SE-317 — Consultas, índices y patrones de acceso
 
-[Abrir la clase SE-317](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-317-consultas-indices-y-patrones-de-acceso/)
-
 Un índice ayuda a las consultas que coinciden con su forma y cobra en cada escritura. La clase mide el trabajo de ejecución con y sin índice según la selectividad, el efecto del orden de las columnas de un índice compuesto frente a cinco consultas y el costo de insertar con cero a cuatro índices.
 
 El estudiante entrega un catálogo de patrones de acceso con índices justificados. `SE-318` cambia el esquema sin detener a nadie.
 
 #### SE-318 — Migraciones compatibles y evolución de esquema
-
-[Abrir la clase SE-318](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/)
 
 Durante un despliegue conviven dos versiones del código con el mismo esquema. La clase construye la matriz de compatibilidad de un renombrado directo y de una migración en fases, mide el tamaño de la transacción más larga con cinco tamaños de lote y cuenta qué datos pierde aplicar y revertir seis migraciones.
 
@@ -122,15 +110,11 @@ El estudiante entrega un plan expandir-migrar-contraer con su punto de no retorn
 
 #### SE-319 — Replicación, partición y distribución
 
-[Abrir la clase SE-319](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/)
-
 Replicar copia el mismo dato y particionar reparte datos distintos, y cada uno introduce su propio riesgo. La clase simula lecturas obsoletas de réplicas y de un cuórum, mide las claves que se mueven con un módulo y con un anillo de hash y calcula el desequilibrio por una clave caliente.
 
 El estudiante entrega la decisión de replicar o particionar con su garantía de lectura propia. `SE-320` mira las copias que se guardan entre capas.
 
 #### SE-320 — Cachés y consistencia entre capas
-
-[Abrir la clase SE-320](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/)
 
 Una caché es una segunda fuente de verdad con garantías más débiles que una réplica. La clase compara seis políticas por aciertos y lecturas obsoletas, calcula el pico de una estampida con y sin variación del TTL y enumera el orden de un lector y un escritor que deja la caché vieja.
 
@@ -140,15 +124,11 @@ El estudiante entrega la política de caché por dato con su frescura máxima. `
 
 #### SE-321 — Backups, restauración y pruebas de recuperación
 
-[Abrir la clase SE-321](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/)
-
 Una copia que no se ha restaurado es una hipótesis. La clase calcula la pérdida según el intervalo, compara copiar el archivo de una base en uso con la copia en línea y mide qué detecta cada uno de seis niveles de verificación sobre 200 copias alteradas.
 
 El estudiante entrega los objetivos de recuperación, el procedimiento y la verificación con su manifiesto de negocio. `SE-322` pregunta qué datos no deberían conservarse.
 
 #### SE-322 — Privacidad, retención y ciclo de vida del dato
-
-[Abrir la clase SE-322](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato/)
 
 Borrar una fila no borra el dato. La clase cuenta lo que queda de un valor tras `DELETE`, `secure_delete` y `VACUUM`, calcula las filas vencidas con cuatro políticas de retención y mide cuántas personas son únicas según los atributos combinados y cuántos correos recupera un diccionario de un hash sin clave.
 
@@ -158,19 +138,32 @@ El estudiante entrega un inventario de datos personales con retención, borrado 
 
 #### SE-323 — Taller: corregir una migración peligrosa
 
-[Abrir la clase SE-323](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-323-taller-corregir-una-migracion-peligrosa/)
-
 Los defectos más caros de una migración tienen la forma correcta y el contenido equivocado. El taller mide qué detecta un analizador de texto sobre 200 mutaciones, qué ve cada uno de tres entornos de ensayo y cuántos cortes de una migración de cinco pasos dejan un estado intermedio.
 
 El estudiante entrega una migración corregida en fases con invariantes y punto de no retorno. `SE-324` la integra en un paquete.
 
 #### SE-324 — Proyecto: capa de datos recuperable
 
-[Abrir la clase SE-324](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/)
-
 Un paquete completo no es un paquete correcto. El proyecto mide qué detecta un validador sobre 200 mutaciones de un paquete, simula un mes con un borrado y una corrupción silenciosa bajo tres estrategias de respaldo y calcula el costo comprimido de retener copias.
 
 El estudiante entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md`. La Parte 27 lleva esos datos a la integración entre servicios por mensajes y eventos.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-313](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-313-modelado-conceptual-logico-y-fisico/) | Modelado conceptual, lógico y físico | Entrega un modelo conceptual y un `schema.sql` con cada decisión clasificada |
+| [SE-314](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-314-relacional-documental-clave-valor-grafos-y-series/) | Relacional, documental, clave-valor, grafos y series | Entrega una matriz de preguntas frecuentes contra modelos con lo medido |
+| [SE-315](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/) | Transacciones, aislamiento y concurrencia | Entrega las operaciones concurrentes con su invariante, su mecanismo y su prueba de intercalaciones |
+| [SE-316](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-316-restricciones-invariantes-y-consistencia/) | Restricciones, invariantes y consistencia | Entrega un catálogo de invariantes con mecanismo y prueba de humo |
+| [SE-317](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-317-consultas-indices-y-patrones-de-acceso/) | Consultas, índices y patrones de acceso | Entrega un catálogo de patrones de acceso con índices justificados |
+| [SE-318](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-318-migraciones-compatibles-y-evolucion-de-esquema/) | Migraciones compatibles y evolución de esquema | Entrega un plan expandir-migrar-contraer con su punto de no retorno |
+| [SE-319](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-319-replicacion-particion-y-distribucion/) | Replicación, partición y distribución | Entrega la decisión de replicar o particionar con su garantía de lectura propia |
+| [SE-320](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-320-caches-y-consistencia-entre-capas/) | Cachés y consistencia entre capas | Entrega la política de caché por dato con su frescura máxima |
+| [SE-321](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/) | Backups, restauración y pruebas de recuperación | Entrega los objetivos de recuperación, el procedimiento y la verificación con su manifiesto de negocio |
+| [SE-322](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-322-privacidad-retencion-y-ciclo-de-vida-del-dato/) | Privacidad, retención y ciclo de vida del dato | Entrega un inventario de datos personales con retención, borrado y política de anonimización |
+| [SE-323](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-323-taller-corregir-una-migracion-peligrosa/) | Taller: corregir una migración peligrosa | Entrega una migración corregida en fases con invariantes y punto de no retorno |
+| [SE-324](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-26-datos-persistencia-y-recuperacion/se-324-proyecto-capa-de-datos-recuperable/) | Proyecto: capa de datos recuperable | Entrega un paquete de capa de datos con su restauración ensayada y `LIMITES.md` |
 
 ## Fuentes
 

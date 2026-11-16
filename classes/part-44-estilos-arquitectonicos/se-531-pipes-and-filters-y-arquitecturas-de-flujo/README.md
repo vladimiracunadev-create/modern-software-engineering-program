@@ -281,3 +281,7 @@ Los datos son sintéticos, la memoria es la de Python y los tiempos de hilo depe
 | Filtro con estado | Filtro que retiene elementos antes de emitir |
 | Contrapresión | Señal que frena al productor |
 | Cola de rechazos | Destino de lo que no se pudo procesar |
+
+---
+
+[← SE-530 — Microkernel y arquitecturas de plugins](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-530-microkernel-y-arquitecturas-de-plugins/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-531.html) · [SE-532 — Microservicios y sus costes reales →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md)

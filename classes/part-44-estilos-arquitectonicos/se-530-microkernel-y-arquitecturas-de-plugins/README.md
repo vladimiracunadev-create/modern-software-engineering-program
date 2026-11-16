@@ -296,3 +296,7 @@ El núcleo, los complementos y los defectos son construcciones del autor y miden
 | Punto de extensión | Lugar declarado donde un complemento se engancha |
 | Aislamiento | Técnica que impide que un fallo cruce a otros componentes |
 | Adaptador de compatibilidad | Capa que traduce un contrato antiguo al nuevo |
+
+---
+
+[← SE-529 — Estilos como respuestas a fuerzas de calidad](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) · [↑ Parte 44](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-530.html) · [SE-531 — Pipes and filters y arquitecturas de flujo →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-44-estilos-arquitectonicos/se-531-pipes-and-filters-y-arquitecturas-de-flujo/README.md)

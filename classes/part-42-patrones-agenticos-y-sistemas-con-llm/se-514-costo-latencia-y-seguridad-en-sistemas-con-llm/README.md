@@ -261,3 +261,7 @@ Las unidades de costo son supuestos y no precios; la latencia es una distribuci�
 | Inyección de prompt | Texto que intenta dirigir al modelo desde su contenido |
 | Regla de las tres condiciones | Datos privados, contenido no confiable y canal de salida |
 | Presupuesto | Topes de costo, tiempo y capacidades con acción al excederlos |
+
+---
+
+[← SE-513 — Evals y LLMOps de sistemas con LLM](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-513-evals-y-llmops-de-sistemas-con-llm/README.md) · [↑ Parte 42](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-514.html) · [SE-515 — Taller: elegir y degradar un patrón agéntico →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-515-taller-elegir-y-degradar-un-patron-agentico/README.md)

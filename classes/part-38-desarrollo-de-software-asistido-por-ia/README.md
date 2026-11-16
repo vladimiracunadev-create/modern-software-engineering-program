@@ -75,23 +75,17 @@ El módulo de calificaciones mantiene un contrato, un conjunto de tareas y un pa
 
 #### SE-457 — Capacidades y límites de los modelos generativos
 
-[Abrir la clase SE-457](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-457-capacidades-y-limites-de-los-modelos-generativos/)
-
 La seguridad de una respuesta no informa de su verdad, y lo delegable es lo comprobable. La clase muestrea cinco respuestas candidatas a cuatro temperaturas, mide la brecha entre confianza y acierto en 1 000 preguntas y calcula qué conjuntos de trabajo caben en cuatro ventanas.
 
 El estudiante entrega la política de «cuándo confío y cuándo compruebo». `SE-458` pregunta cómo se escribe el encargo para que la salida pueda comprobarse.
 
 #### SE-458 — Prompting, instrucciones y criterios de salida
 
-[Abrir la clase SE-458](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-458-prompting-instrucciones-y-criterios-de-salida/)
-
 Un prompt es una especificación, y los requisitos no escritos se componen. La clase calcula la probabilidad de cumplir seis requisitos según cuántos se escriben, valida por capas 200 salidas defectuosas y calcula cuántas instrucciones aguanta un encargo sin contradecirse.
 
 El estudiante entrega el encargo de una tarea con su validador. `SE-459` pregunta de dónde sale la información que el encargo no puede contener.
 
 #### SE-459 — Contexto, archivos, memoria y recuperación
-
-[Abrir la clase SE-459](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-459-contexto-archivos-memoria-y-recuperacion/)
 
 Solo existe para el modelo lo que está en su ventana. La clase ejecuta una recuperación BM25 sobre 240 documentos con cuatro tamaños de fragmento, simula una memoria con cuatro caducidades y empaqueta fragmentos en un presupuesto por dos criterios.
 
@@ -101,23 +95,17 @@ El estudiante entrega la política de contexto con su medición. `SE-460` pregun
 
 #### SE-460 — Autocompletado, chat, edición y generación
 
-[Abrir la clase SE-460](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-460-autocompletado-chat-edicion-y-generacion/)
-
 Cada modo pide una política de aceptación distinta. La clase compara tres políticas con 1 000 sugerencias, mide con `difflib` una edición dirigida frente a un archivo regenerado y cuenta las peticiones de una traza de 467 pulsaciones según el retardo.
 
 El estudiante entrega la política de modos y aceptación. `SE-461` pregunta qué hacer con la abundancia de alternativas.
 
 #### SE-461 — Prototipado, scaffolding y exploración de alternativas
 
-[Abrir la clase SE-461](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-461-prototipado-scaffolding-y-exploracion-de-alternativas/)
-
 Explorar es barato y la ganadora decepciona. La clase mide la brecha entre la calidad medida y la real de la mejor de N alternativas, cuenta con `ast` las funciones de un andamiaje que se usan y estima el trabajo que separa un prototipo de producción.
 
 El estudiante entrega una exploración con criterios previos y registro de decisión. `SE-462` pregunta qué ocurre con lo que controla al código.
 
 #### SE-462 — Generación de pruebas, documentación y migraciones
-
-[Abrir la clase SE-462](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-462-generacion-de-pruebas-documentacion-y-migraciones/)
 
 Un control derivado de lo que controla hereda su error. La clase ejecuta ocho mutantes contra una suite copiada y otra derivada de la especificación, mide qué detecta `doctest` y migra 2 000 notas en SQLite con y sin validación.
 
@@ -127,15 +115,11 @@ El estudiante entrega los controles de función, documentación y datos con su m
 
 #### SE-463 — Revisión, refactorización y explicación asistidas
 
-[Abrir la clase SE-463](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-463-revision-refactorizacion-y-explicacion-asistidas/)
-
 La ausencia de hallazgos mide la cobertura del revisor, no la corrección. La clase barre el umbral de un revisor sobre 400 cambios, calcula cuántas entradas distinguen cuatro versiones refactorizadas y contrasta treinta explicaciones con el código.
 
 El estudiante entrega el procedimiento de revisión con umbrales y generador de comparación. `SE-464` pregunta cómo se reduce la ambigüedad que hace falible la revisión.
 
 #### SE-464 — Context engineering y reducción de ambigüedad
-
-[Abrir la clase SE-464](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-464-context-engineering-y-reduccion-de-ambiguedad/)
 
 La ambigüedad se cuenta y se reduce. La clase enumera las 729 interpretaciones de una petición, mide el efecto de filtrar por versión y detecta contradicciones en archivos de instrucciones de distinto tamaño.
 
@@ -145,15 +129,11 @@ El estudiante entrega el contexto diseñado con su archivo de instrucciones. `SE
 
 #### SE-465 — Evals de exactitud, utilidad, costo y latencia
 
-[Abrir la clase SE-465](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/)
-
 Una diferencia pequeña en un conjunto pequeño es ruido. La clase calcula intervalos de Wilson para cinco tamaños, compara seis configuraciones por costo por solución aceptada y mide los sesgos de un juez automático.
 
 El estudiante entrega una eval con conjunto reservado, tamaño calculado y juez calibrado. `SE-466` pregunta qué se arriesga aunque la eval sea buena.
 
 #### SE-466 — Privacidad, propiedad intelectual y código inseguro
-
-[Abrir la clase SE-466](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-466-privacidad-propiedad-intelectual-y-codigo-inseguro/)
 
 Un riesgo no se gestiona con una instrucción sino con un control. La clase ejecuta un escáner de tres reglas sobre 240 mensajes, compara texto y árbol sobre 17 fragmentos y mide el parecido literal y normalizado con un corpus.
 
@@ -163,19 +143,32 @@ El estudiante entrega la clasificación de datos con sus controles. `SE-467` com
 
 #### SE-467 — Taller: comparar flujos manual, asistido y automatizado
 
-[Abrir la clase SE-467](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/)
-
 Cada flujo ahorra tiempo y deja pasar más defectos. El taller simula 200 tareas con un intervalo bootstrap, halla el punto de equilibrio del flujo asistido y calcula cuántas tareas necesita un diseño pareado frente a uno con tareas distintas.
 
 El estudiante entrega el protocolo y el análisis comparativo. `SE-468` aplica el flujo elegido a un cambio real.
 
 #### SE-468 — Proyecto: cambio real con trazabilidad y revisión humana
 
-[Abrir la clase SE-468](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana/)
-
 La trazabilidad es un rastro verificable, no una conversación guardada. El proyecto encadena por hash una bitácora de seis pasos y la ataca de cinco maneras, combina cuatro compuertas y mide cuánto dura la ventana de reversión limpia.
 
 El estudiante entrega un paquete con plan, bitácora anclada, diff mínimo, compuertas, revisión con nombre, ensayo de reversión y `LIMITES.md`. La Parte 39 pasa de ayudar a una persona a gobernar agentes con especificaciones durables.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-457](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-457-capacidades-y-limites-de-los-modelos-generativos/) | Capacidades y límites de los modelos generativos | Entrega la política de «cuándo confío y cuándo compruebo» |
+| [SE-458](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-458-prompting-instrucciones-y-criterios-de-salida/) | Prompting, instrucciones y criterios de salida | Entrega el encargo de una tarea con su validador |
+| [SE-459](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-459-contexto-archivos-memoria-y-recuperacion/) | Contexto, archivos, memoria y recuperación | Entrega la política de contexto con su medición |
+| [SE-460](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-460-autocompletado-chat-edicion-y-generacion/) | Autocompletado, chat, edición y generación | Entrega la política de modos y aceptación |
+| [SE-461](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-461-prototipado-scaffolding-y-exploracion-de-alternativas/) | Prototipado, scaffolding y exploración de alternativas | Entrega una exploración con criterios previos y registro de decisión |
+| [SE-462](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-462-generacion-de-pruebas-documentacion-y-migraciones/) | Generación de pruebas, documentación y migraciones | Entrega los controles de función, documentación y datos con su medición |
+| [SE-463](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-463-revision-refactorizacion-y-explicacion-asistidas/) | Revisión, refactorización y explicación asistidas | Entrega el procedimiento de revisión con umbrales y generador de comparación |
+| [SE-464](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-464-context-engineering-y-reduccion-de-ambiguedad/) | Context engineering y reducción de ambigüedad | Entrega el contexto diseñado con su archivo de instrucciones |
+| [SE-465](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-465-evals-de-exactitud-utilidad-costo-y-latencia/) | Evals de exactitud, utilidad, costo y latencia | Entrega una eval con conjunto reservado, tamaño calculado y juez calibrado |
+| [SE-466](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-466-privacidad-propiedad-intelectual-y-codigo-inseguro/) | Privacidad, propiedad intelectual y código inseguro | Entrega la clasificación de datos con sus controles |
+| [SE-467](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-467-taller-comparar-flujos-manual-asistido-y-automatizado/) | Taller: comparar flujos manual, asistido y automatizado | Entrega el protocolo y el análisis comparativo |
+| [SE-468](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-38-desarrollo-de-software-asistido-por-ia/se-468-proyecto-cambio-real-con-trazabilidad-y-revision-humana/) | Proyecto: cambio real con trazabilidad y revisión humana | Entrega un paquete con plan, bitácora anclada, diff mínimo, compuertas, revisión con nombre, ensayo de reversión y `LIMITES.md` |
 
 ## Fuentes
 

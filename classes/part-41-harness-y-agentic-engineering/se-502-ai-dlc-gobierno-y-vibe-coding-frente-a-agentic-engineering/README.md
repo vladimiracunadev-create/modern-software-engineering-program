@@ -266,3 +266,7 @@ Se clasificaron doce cambios con reglas del autor y se simularon 20 000 con par�
 | Vibe coding | Generar código con un modelo sin revisarlo ni entenderlo |
 | Agentic engineering | Desarrollo con agentes bajo compuertas, revisión y registro |
 | Registro de decisiones | Historial de quién aprobó qué con qué evidencia |
+
+---
+
+[← SE-501 — Observabilidad y evals del propio harness](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-501-observabilidad-y-evals-del-propio-harness/README.md) · [↑ Parte 41](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/README.md) · [📚 Índice completo](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/README.md) · [🌐 Portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-502.html) · [SE-503 — Taller: diagnosticar el fallo de un harness →](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-41-harness-y-agentic-engineering/se-503-taller-diagnosticar-el-fallo-de-un-harness/README.md)

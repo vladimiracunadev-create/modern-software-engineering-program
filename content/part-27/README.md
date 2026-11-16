@@ -68,15 +68,11 @@ El flujo de la plataforma mantiene un contrato, un paquete y una simulación est
 
 #### SE-325 — Integración síncrona y asíncrona
 
-[Abrir la clase SE-325](../../classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/)
-
 Una cola no elimina el fallo: lo traslada y cambia errores inmediatos por retraso. La clase calcula cómo cae la disponibilidad de una petición con cada dependencia, mide cuántas llamadas recibe un servicio caído cuando varias capas reintentan y obtiene el tiempo que tarda una cola en vaciarse según el margen de capacidad.
 
 El estudiante entrega la clasificación de las interacciones de la plataforma con su contrato de respuesta y la política de una llamada síncrona. `SE-326` pregunta qué viaja en el mensaje.
 
 #### SE-326 — Mensajes, eventos, comandos y documentos
-
-[Abrir la clase SE-326](../../classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos/)
 
 El tipo y el contenido de un mensaje son un contrato que otros ya usan. La clase mide qué lecturas equivocadas produce una notificación mínima y un evento con el estado completo, qué hace un bus con un comando y con un evento cuando no hay manejadores o hay varios y qué pierde un consumidor cuando el sobre no lleva identificador, secuencia o correlación.
 
@@ -86,15 +82,11 @@ El estudiante entrega el catálogo de mensajes con tipo, sobre y contenido justi
 
 #### SE-327 — Brokers, colas, topics y logs distribuidos
 
-[Abrir la clase SE-327](../../classes/part-27-integracion-eventos-y-mensajeria/se-327-brokers-colas-topics-y-logs-distribuidos/)
-
 La estructura decide qué ocurre con un mensaje después de leerlo. La clase compara cola, tópico y log ante un suscriptor tardío y un reproceso, mide la carga por consumidor con una clave popular y qué estado se reconstruye desde un log con retención o con compactación.
 
 El estudiante entrega la asignación de cada flujo a una estructura con su clave y su retención. `SE-328` pregunta qué garantías ofrecen.
 
 #### SE-328 — Entrega, orden, duplicación y semánticas
-
-[Abrir la clase SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/)
 
 Entre procesos que fallan solo se elige entre perder y duplicar. La clase mide los mensajes perdidos y los efectos duplicados de tres semánticas, los estados equivocados que deja el desorden con y sin guarda de versión y los duplicados que deja pasar una ventana de deduplicación según el tiempo que tarda en volver una reentrega.
 
@@ -104,15 +96,11 @@ El estudiante entrega la tabla de garantías de cada consumidor. `SE-329` pregun
 
 #### SE-329 — Outbox, inbox, sagas y compensación
 
-[Abrir la clase SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/)
-
 No existe un orden seguro de dos escrituras en sistemas distintos. La clase compara escribir y publicar en tres estrategias con caídas intermedias, mide por qué el relevo del outbox debe preferir duplicar a perder y cuenta cuántas sagas dejan un residuo irreversible según el orden de los pasos.
 
 El estudiante entrega el esquema de outbox e inbox y la saga con su pivote. `SE-330` pregunta cómo llevar el estado de una base a otra.
 
 #### SE-330 — CDC, ETL, ELT y sincronización
-
-[Abrir la clase SE-330](../../classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/)
 
 Sincronizar es elegir qué cambios se ven y cómo se aplican. La clase mide qué filas faltan, sobran o están viejas según el método de detección, compara el ahorro de lectura de la copia incremental con el costo de escritura de registrar cambios y aplica eventos repetidos y desordenados con y sin versión.
 
@@ -122,23 +110,17 @@ El estudiante entrega el mecanismo de sincronización de cada destino con su arr
 
 #### SE-331 — Webhooks, polling y suscripciones
 
-[Abrir la clase SE-331](../../classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/)
-
 Empujar o tirar reparte la disponibilidad entre emisor y receptor. La clase mide el costo y el retraso de sondear a seis intervalos, qué ataque cierra cada capa de verificación de un webhook (firma, marca de tiempo, identificador visto) y cuántos eventos se pierden o se repiten según el calendario de reintentos del emisor.
 
 El estudiante entrega el contrato de recepción y la decisión de webhook, sondeo o ambos. `SE-332` pregunta qué pasa cuando cambia la forma de los mensajes.
 
 #### SE-332 — Compatibilidad de esquemas y registros
 
-[Abrir la clase SE-332](../../classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/)
-
 La compatibilidad depende de quién lee y de cómo. La clase clasifica siete cambios de esquema para un lector tolerante y uno estricto, mide los fallos de un despliegue gradual según qué lado se actualiza primero y compara cuatro políticas del consumidor ante un valor nuevo de una enumeración.
 
 El estudiante entrega las reglas de evolución, las fases de un cambio incompatible y la política ante lo desconocido. `SE-333` pregunta cómo protegerse de un modelo ajeno.
 
 #### SE-333 — Anti-corruption layers y traducción de modelos
-
-[Abrir la clase SE-333](../../classes/part-27-integracion-eventos-y-mensajeria/se-333-anti-corruption-layers-y-traduccion-de-modelos/)
 
 Traducir también es resumir. La clase mide cuántos registros rompe y cuántos deja entrar con otro significado una conversión directa de un sistema externo, cuántas funciones fallan cuando el proveedor renombra un campo con y sin capa y qué fracción de los registros no se recupera tras traducir nueve estados a cuatro.
 
@@ -148,8 +130,6 @@ El estudiante entrega el mapa de traducción y la política de cuarentena. `SE-3
 
 #### SE-334 — Observabilidad y seguridad de integraciones
 
-[Abrir la clase SE-334](../../classes/part-27-integracion-eventos-y-mensajeria/se-334-observabilidad-y-seguridad-de-integraciones/)
-
 Lo que no se puede seguir no se puede arreglar, y lo que se registra se copia. La clase mide qué fracción de las trazas sobrevive a la pérdida de correlación, qué señal detecta cada falla de un consumidor y cuál da una falsa alarma, y cuántos datos sensibles filtra cada política de registro.
 
 El estudiante entrega las alarmas con su acción, la política de registro y la tabla de amenazas. `SE-335` pone todo a prueba con duplicados provocados.
@@ -158,19 +138,32 @@ El estudiante entrega las alarmas con su acción, la política de registro y la 
 
 #### SE-335 — Taller: provocar y contener mensajes duplicados
 
-[Abrir la clase SE-335](../../classes/part-27-integracion-eventos-y-mensajeria/se-335-taller-provocar-y-contener-mensajes-duplicados/)
-
 Un duplicado tiene al menos cinco causas y cada una se contiene en un lugar distinto. El taller las provoca, mide qué defensa contiene cuál y muestra que guardar la clave y el efecto por separado pierde o duplica y que una clave demasiado gruesa descarta operaciones legítimas.
 
 El estudiante entrega la matriz de defensas por causas y un procedimiento de diagnóstico de seis pasos. `SE-336` los integra en un flujo.
 
 #### SE-336 — Proyecto: flujo integrado tolerante a reintentos
 
-[Abrir la clase SE-336](../../classes/part-27-integracion-eventos-y-mensajeria/se-336-proyecto-flujo-integrado-tolerante-a-reintentos/)
-
 Un paquete completo no es un paquete correcto. El proyecto mide qué detecta un validador sobre 200 mutaciones, compara un flujo ingenuo con uno tolerante bajo fallas combinadas y calcula el pico de carga de 600 reintentos simultáneos con y sin aleatoriedad.
 
 El estudiante entrega el paquete de integración, el validador, la simulación y `LIMITES.md`. La Parte 28 lleva estas ideas a la concurrencia y a los sistemas distribuidos.
+
+## Resumen operativo del recorrido
+
+| Clase | Núcleo profesional | Aporte acumulativo |
+|---|---|---|
+| [SE-325](../../classes/part-27-integracion-eventos-y-mensajeria/se-325-integracion-sincrona-y-asincrona/) | Integración síncrona y asíncrona | Entrega la clasificación de las interacciones de la plataforma con su contrato de respuesta y la política de una llamada síncrona |
+| [SE-326](../../classes/part-27-integracion-eventos-y-mensajeria/se-326-mensajes-eventos-comandos-y-documentos/) | Mensajes, eventos, comandos y documentos | Entrega el catálogo de mensajes con tipo, sobre y contenido justificado |
+| [SE-327](../../classes/part-27-integracion-eventos-y-mensajeria/se-327-brokers-colas-topics-y-logs-distribuidos/) | Brokers, colas, topics y logs distribuidos | Entrega la asignación de cada flujo a una estructura con su clave y su retención |
+| [SE-328](../../classes/part-27-integracion-eventos-y-mensajeria/se-328-entrega-orden-duplicacion-y-semanticas/) | Entrega, orden, duplicación y semánticas | Entrega la tabla de garantías de cada consumidor |
+| [SE-329](../../classes/part-27-integracion-eventos-y-mensajeria/se-329-outbox-inbox-sagas-y-compensacion/) | Outbox, inbox, sagas y compensación | Entrega el esquema de outbox e inbox y la saga con su pivote |
+| [SE-330](../../classes/part-27-integracion-eventos-y-mensajeria/se-330-cdc-etl-elt-y-sincronizacion/) | CDC, ETL, ELT y sincronización | Entrega el mecanismo de sincronización de cada destino con su arranque y su reconciliación |
+| [SE-331](../../classes/part-27-integracion-eventos-y-mensajeria/se-331-webhooks-polling-y-suscripciones/) | Webhooks, polling y suscripciones | Entrega el contrato de recepción y la decisión de webhook, sondeo o ambos |
+| [SE-332](../../classes/part-27-integracion-eventos-y-mensajeria/se-332-compatibilidad-de-esquemas-y-registros/) | Compatibilidad de esquemas y registros | Entrega las reglas de evolución, las fases de un cambio incompatible y la política ante lo desconocido |
+| [SE-333](../../classes/part-27-integracion-eventos-y-mensajeria/se-333-anti-corruption-layers-y-traduccion-de-modelos/) | Anti-corruption layers y traducción de modelos | Entrega el mapa de traducción y la política de cuarentena |
+| [SE-334](../../classes/part-27-integracion-eventos-y-mensajeria/se-334-observabilidad-y-seguridad-de-integraciones/) | Observabilidad y seguridad de integraciones | Entrega las alarmas con su acción, la política de registro y la tabla de amenazas |
+| [SE-335](../../classes/part-27-integracion-eventos-y-mensajeria/se-335-taller-provocar-y-contener-mensajes-duplicados/) | Taller: provocar y contener mensajes duplicados | Entrega la matriz de defensas por causas y un procedimiento de diagnóstico de seis pasos |
+| [SE-336](../../classes/part-27-integracion-eventos-y-mensajeria/se-336-proyecto-flujo-integrado-tolerante-a-reintentos/) | Proyecto: flujo integrado tolerante a reintentos | Entrega el paquete de integración, el validador, la simulación y `LIMITES.md` |
 
 ## Fuentes
 

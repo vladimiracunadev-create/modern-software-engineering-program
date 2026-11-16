@@ -1,8 +1,11 @@
-"""Figures for SE-373 to SE-377 (synthetic data, fixed seeds, virtual time; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3)."""
+"""Figures for SE-373 to SE-377 (synthetic data, fixed seeds, virtual time; Windows CPython 3.12.9 and Ubuntu/WSL2 CPython 3.12.3).
+
+Every figure but the first is a chart of the same measured numbers; the Markdown tables of the classes keep the exact values.
+"""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, fmt_es, grouped_bars, line_chart, percentile_intervals, stacked_bars
+from figures_part07_a import bars
 
 SINT = "Datos sintéticos con semilla fija y tiempo virtual; Windows y Ubuntu (WSL2) dan cifras idénticas."
 REAL = "Medido en Windows 11 (CPython 3.12.9) y Ubuntu bajo WSL2 (3.12.3); los tiempos de reloj cambian de equipo en equipo."
@@ -25,223 +28,195 @@ def se373_cola() -> Fig:
 
 
 def se373_mes() -> Fig:
-    rows = [
-        ["Media de las medias diarias", "161 ms", "Cumple"],
-        ["p95 de todas las peticiones del mes", "227 ms", "Cumple"],
-        ["p95 de cada día (se exige en los 30)", "29 de 30 días", "No cumple: falla el día 17"],
-        ["p95 del día 17 (tres horas con 60 % de peticiones lentas)", "2 294 ms", "No cumple"],
-        ["Fracción del mes por encima de 300 ms", "2,00 %", "Cumple si el margen es 5 %"],
-        ["p99 del mes", "2 057 ms", "Sin objetivo: la cola existe y nadie la pide"],
-    ]
-    return tab("Un mismo mes de 60 000 peticiones medido con seis definiciones del objetivo «p95 ≤ 300 ms»",
-               "Tabla: con la misma ventana de 30 días, la media de las medias diarias cumple con 161 milisegundos, el percentil 95 del mes cumple con 227, pero exigir el percentil 95 en cada día falla el día 17 con 2 294 milisegundos, y el percentil 99 del mes es de 2 057 milisegundos.",
-               ["Definición de «cumple»", "Valor", "Veredicto"], rows, [430, 160, 330], row_h=52, size=13,
-               note="El objetivo es el mismo número y las definiciones llegan a conclusiones opuestas. Agregar el mes entero diluye un incidente de tres horas porque 59 de cada 60 peticiones fueron normales. La definición forma parte del requisito: ventana, estadístico y alcance.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Un mismo mes de 60 000 peticiones medido con cuatro definiciones frente al objetivo de 300 ms",
+        "Barras horizontales con el valor que cada definición compara con el objetivo de 300 milisegundos: la media de las medias diarias da 161, el percentil 95 del mes 227, el percentil 99 del mes 2 057 y el percentil 95 del día 17 con tres horas lentas 2 294; solo las dos primeras quedan bajo la línea del objetivo.",
+        ["Media de las medias diarias", "p95 de todas las peticiones del mes", "p99 del mes", "p95 del día 17 (tres horas con 60 % de peticiones lentas)"],
+        [("Valor medido", [161, 227, 2057, 2294], "navy")],
+        unit="Milisegundos (ms)", horizontal=True, label_w=300, ref_lines=[(300, "Objetivo: 300 ms")], ticks=[0, 500, 1000, 1500, 2000, 2500],
+        note="El objetivo es el mismo número y las definiciones llegan a conclusiones opuestas. Agregar el mes entero diluye un incidente de tres horas porque 59 de cada 60 peticiones fueron normales; exigir el p95 en cada día falla el día 17 (29 de 30 días cumplen). La definición forma parte del requisito: ventana, estadístico y alcance.",
+        note_kind="gold", foot=SINT)
 
 
 def se373_linter() -> Fig:
-    rows = [
-        ["Quitar el número de la medida", "20 de 20", "La forma lo delata"],
-        ["Sustituirlo por «rápido» o «razonable»", "20 de 20", "La forma lo delata"],
-        ["Quitar el estadístico (p95, máximo…)", "20 de 20", "La forma lo delata"],
-        ["Dejar el entorno vacío", "20 de 20", "La forma lo delata"],
-        ["Entorno vago («carga normal»)", "20 de 20", "Sin cifra no pasa"],
-        ["Cambiar la unidad (ms por s, s por min)", "6 de 20", "Solo si deja la medida mal formada"],
-        ["Umbral igual a 0", "0 de 20", "Forma correcta, valor absurdo"],
-        ["Rebajar el percentil a p50", "0 de 20", "Forma correcta, exigencia menor"],
-        ["Estímulo copiado de otro escenario", "0 de 20", "Forma correcta, contenido ajeno"],
-    ]
-    return tab("Un verificador de forma de escenarios de calidad frente a 180 mutaciones (nueve operadores)",
-               "Tabla: un verificador que exige un estadístico, un número con unidad y un entorno con cifras detecta las cuatro mutaciones que quitan o vacían un campo y el entorno vago, 20 de 20 cada una; detecta 6 de 20 cambios de unidad y ninguna de las mutaciones que mantienen la forma, como umbral cero, percentil más débil o estímulo ajeno.",
-               ["Mutación del escenario", "Detectadas", "Por qué"], rows, [400, 130, 390], row_h=40, size=13,
-               note="Detecta 106 de 180 mutaciones (59 %). Todo lo que ve es forma; ninguna de las 74 que se escapan viola el formato. Un escenario bien formado y falso es peor que uno ausente porque parece medido. Las diez bases y los operadores son construcciones del autor.",
-               note_kind="coral", foot=SINT)
+    names = ["Quitar el número de la medida", "Sustituirlo por «rápido» o «razonable»", "Quitar el estadístico (p95, máximo…)",
+             "Dejar el entorno vacío", "Entorno vago («carga normal»)", "Cambiar la unidad (ms por s, s por min)",
+             "Umbral igual a 0", "Rebajar el percentil a p50", "Estímulo copiado de otro escenario"]
+    hit = [20, 20, 20, 20, 20, 6, 0, 0, 0]
+    return stacked_bars(
+        "Un verificador de forma de escenarios de calidad frente a 180 mutaciones (nueve operadores de 20)",
+        "Barras apiladas horizontales con las mutaciones detectadas de 20 por cada operador: las cinco que quitan, vacían o vuelven vago un campo se detectan 20 de 20, el cambio de unidad 6 de 20 y las tres que conservan la forma, umbral cero, percentil más débil y estímulo ajeno, 0 de 20; el verificador solo ve la forma.",
+        names, [("Detectadas", hit, "teal"), ("No detectadas", [20 - h for h in hit], "coral")],
+        unit="Mutaciones de 20 por operador", horizontal=True, label_w=300,
+        note="Detecta 106 de 180 mutaciones (59 %). Todo lo que ve es forma; ninguna de las 74 que se escapan viola el formato. Un escenario bien formado y falso es peor que uno ausente porque parece medido. Las diez bases y los operadores son construcciones del autor.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-374
 def se374_reglas() -> Fig:
-    rows = [
-        ["Argumento por defecto mutable", "44", "44", "18 (caché intencional)", "0"],
-        ["Excepción sin tipo (bare except)", "60", "60", "40 → 0 con la excepción de «relanzar»", "0"],
-        ["Variable local sin uso", "37", "37", "53 → 26 al ignorar el prefijo «_»", "0"],
-        ["Recorrido que omite el primer elemento", "70", "0", "0", "70"],
-    ]
-    return tab("Tres reglas de análisis estático con ast sobre 300 funciones generadas con defectos conocidos",
-               "Tabla: sobre 300 funciones con 161 con algún defecto, las tres reglas encuentran todos los defectos de su clase, pero producen 18 falsas alarmas de argumentos mutables, 40 de excepciones sin tipo que se reducen a cero con una excepción y 53 de variables sin uso que bajan a 26; ninguna regla ve los 70 recorridos que omiten el primer elemento.",
-               ["Regla", "Defectos reales", "Hallados", "Falsas alarmas", "No vistos"], rows, [310, 130, 110, 270, 110], row_h=52, size=12,
-               note="Encontrar el 100 % de lo que busca no es calidad: la regla afinada deja 18 + 26 falsas alarmas y su precisión es del 71 % para argumentos mutables y del 59 % para variables sin uso. Afinar la excepción con los mismos casos que evalúan la regla es un sesgo declarado. El defecto lógico (70) queda fuera de cualquier regla sintáctica.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Tres reglas de análisis estático con ast sobre 300 funciones generadas con defectos conocidos",
+        "Barras agrupadas con los defectos reales, los hallados y las falsas alarmas antes y después de afinar para cuatro clases de defecto: las tres reglas halladoras encuentran todos los suyos (44, 60 y 37), dejan 18, 40 y 53 falsas alarmas que la afinación baja a 18, 0 y 26, y el recorrido que omite el primer elemento tiene 70 defectos y ninguno hallado.",
+        ["Argumento por defecto mutable", "Excepción sin tipo (bare except)", "Variable local sin uso", "Recorrido que omite el primer elemento"],
+        [("Defectos reales", [44, 60, 37, 70], "navy"), ("Hallados", [44, 60, 37, 0], "teal"),
+         ("Falsas alarmas sin afinar", [18, 40, 53, 0], "coral"), ("Falsas alarmas afinadas", [18, 0, 26, 0], "gold")],
+        unit="Defectos o alertas", plot_h=260,
+        note="Encontrar el 100 % de lo que busca no es calidad: la regla afinada deja 18 + 26 falsas alarmas y su precisión es del 71 % para argumentos mutables y del 59 % para variables sin uso. Afinar la excepción con los mismos casos que evalúan la regla es un sesgo declarado. El defecto lógico (70) queda fuera de cualquier regla sintáctica.",
+        note_kind="gold", foot=SINT)
 
 
 def se374_compuerta() -> Fig:
-    rows = [
-        ["Cobertura total ≥ 70 %", "117 de 117", "0 de 193"],
-        ["La cobertura total no baja", "0 de 117", "0 de 193"],
-        ["Cobertura de las líneas del cambio ≥ 80 %", "0 de 117", "1 de 193"],
-    ]
-    return tab("Tres compuertas de cobertura sobre 500 cambios que se fusionan en un repositorio de 20 000 líneas al 72 %",
-               "Tabla: la compuerta de cobertura total mínima del 70 por ciento deja pasar los 117 cambios con pruebas pobres; las compuertas de que la cobertura total no baje y de cobertura del cambio al 80 por ciento no dejan pasar ninguno; la del cambio bloquea a 1 de 193 cambios bien probados.",
-               ["Compuerta", "Cambios con pruebas pobres que pasan", "Cambios bien probados que se bloquean"], rows, [390, 280, 270], row_h=52, size=13,
-               note="El repositorio crece de 20 000 a 118 813 líneas y la cobertura total termina en 73,1 %: cada cambio mueve el total menos de 0,1 punto, así que un umbral absoluto no ve a ninguno. «Pobre» significa que la calidad real de las pruebas es menor del 60 %; la cobertura mide líneas ejecutadas, no aserciones.",
-               note_kind="teal", foot=SINT)
+    return grouped_bars(
+        "Tres compuertas de cobertura sobre 500 cambios que se fusionan en un repositorio de 20 000 líneas al 72 %",
+        "Barras agrupadas con los dos errores de cada compuerta: la cobertura total mínima del 70 por ciento deja pasar los 117 cambios con pruebas pobres y no bloquea ninguno bueno; la cobertura total que no baje y la cobertura del cambio al 80 por ciento no dejan pasar ninguno pobre, y la segunda bloquea 1 de 193 cambios bien probados.",
+        ["Cobertura total ≥ 70 %", "La cobertura total no baja", "Cobertura de las líneas del cambio ≥ 80 %"],
+        [("Cambios pobres que pasan (de 117)", [117, 0, 0], "coral"), ("Cambios bien probados que se bloquean (de 193)", [0, 0, 1], "gold")],
+        unit="Cambios", plot_h=240,
+        note="El repositorio crece de 20 000 a 118 813 líneas y la cobertura total termina en 73,1 %: cada cambio mueve el total menos de 0,1 punto, así que un umbral absoluto no ve a ninguno. «Pobre» significa que la calidad real de las pruebas es menor del 60 %; la cobertura mide líneas ejecutadas, no aserciones.",
+        note_kind="teal", foot=SINT)
 
 
 def se374_espurios() -> Fig:
-    rows = [
-        ["1", "2,1 %", "0,01 %"],
-        ["5", "9,4 %", "0,11 %"],
-        ["10", "18,4 %", "0,61 %"],
-        ["20", "33,5 %", "3,52 %"],
-        ["40", "55,9 %", "17,14 %"],
-        ["Defecto detectado el 90 % de las veces", "Se cuela el 10,0 %", "Se cuela el 27,3 %"],
-    ]
-    return tab("Bloqueos espurios al encadenar comprobaciones que fallan solas el 2 % de las veces",
-               "Tabla: con comprobaciones que fallan solas el 2 por ciento de las veces, encadenar 10 bloquea el 18,4 por ciento de los cambios al primer intento y 40 el 55,9; permitir hasta tres intentos baja el bloqueo pero deja que un defecto detectado el 90 por ciento de las veces se cuele en el 27,3 por ciento de los casos en lugar del 10.",
-               ["Comprobaciones encadenadas", "Bloqueo al primer intento", "Bloqueo tras hasta 3 intentos"], rows, [400, 270, 270], row_h=46, size=13,
-               note="Reintentar hasta ponerse en verde elimina el ruido y también la señal: si la detección es intermitente, el defecto pasa en cuanto una ejecución sale verde. La corrección es hacer determinista la comprobación o separar «inestable» de «falla», no ampliar los intentos.",
-               note_kind="coral", foot=SINT)
+    xs = [1, 5, 10, 20, 40]
+    first = [2.1, 9.4, 18.4, 33.5, 55.9]
+    third = [0.01, 0.11, 0.61, 3.52, 17.14]
+    return line_chart(
+        "Bloqueos espurios al encadenar comprobaciones que fallan solas el 2 % de las veces",
+        "Líneas con la fracción de cambios bloqueados por ruido según el número de comprobaciones encadenadas: al primer intento sube de 2,1 por ciento con una a 55,9 con cuarenta; con hasta tres intentos baja a 0,01, 0,11, 0,61, 3,52 y 17,14, pero un defecto detectado el 90 por ciento de las veces se cuela en el 27,3 por ciento de los casos en lugar del 10.",
+        [("Bloqueo al primer intento", [(x, v) for x, v in zip(xs, first)], "coral"),
+         ("Bloqueo tras hasta 3 intentos", [(x, v) for x, v in zip(xs, third)], "teal")],
+        x_label="Comprobaciones encadenadas", y_label="Cambios bloqueados por ruido (%)", log_y=True,
+        x_ticks=[(1, "1"), (5, "5"), (10, "10"), (20, "20"), (40, "40")], y_ticks=[0.01, 0.1, 1, 10, 100],
+        point_labels="all", plot_h=290,
+        note="Reintentar hasta ponerse en verde elimina el ruido y también la señal: un defecto que la comprobación detecta el 90 % de las veces pasa en el 27,3 % de los casos tras tres intentos, frente al 10,0 % con un intento. La corrección es hacer determinista la comprobación o separar «inestable» de «falla», no ampliar los intentos.",
+        note_kind="coral", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-375
 def se375_pruebas() -> Fig:
-    rows = [
-        ["Carga: 60 req/s durante 5 min (75 % de utilización)", "n = 17 829; p50 57, p95 202, p99 285 ms; sin fallos", "No dice dónde está el límite"],
-        ["Estrés: rampa de 20 a 160 req/s en 8 min", "p95 288 ms a 68/s; 357 ms a 77/s; 1 718 ms y 32,7 % de fallos a 86/s; después, 100 %", "Sin descartar trabajo vencido, 0 respuestas útiles por segundo (con descarte, 80,8)"],
-        ["Pico: 240 req/s durante 20 s sobre 60 base", "Latencia máxima 41,4 s; 165 s para volver a p95 < 200 ms", "Un pico de 20 s deja 165 s de daño"],
-        ["Resistencia: 60 req/s, fuga de 1 conexión cada 5 000", "En 5 min se pierden 3 de 50 conexiones; el pool se agota a los 67 min", "La prueba de 5 min no lo ve"],
-    ]
-    return tab("Cuatro pruebas sobre el mismo sistema sintético (4 servidores, 50 ms de servicio medio, capacidad nominal de 80 req/s)",
-               "Tabla: la prueba de carga a 60 solicitudes por segundo no muestra límite; la rampa de estrés encuentra el codo entre 68 y 86 solicitudes por segundo y un colapso completo si el servidor sigue trabajando para clientes que ya se fueron; un pico de 20 segundos deja 165 segundos de recuperación; y una fuga de una conexión cada 5 000 solicitudes solo aparece a los 67 minutos.",
-               ["Prueba", "Qué se observa", "Qué enseña o qué no ve"], rows, [300, 360, 280], row_h=84, size=12,
-               note="Cada forma de carga responde a una pregunta distinta y ninguna sustituye a otra. El colapso de la rampa no es un defecto del algoritmo de cola: el servidor sigue atendiendo solicitudes cuyo cliente ya se rindió a los 2 s, así que cada respuesta llega tarde.",
-               note_kind="gold", foot=SINT)
+    return line_chart(
+        "Rampa de estrés sobre el sistema sintético: percentil 95 según la carga (4 servidores, capacidad nominal de 80 req/s)",
+        "Líneas con el percentil 95 según la carga ofrecida: la prueba de carga estable a 60 solicitudes por segundo da 202 milisegundos, y la rampa de estrés da 288 a 68, 357 a 77 y 1 718 a 86 solicitudes por segundo con 32,7 por ciento de fallos, por encima de la capacidad nominal de 80; el codo está entre 68 y 86 y la carga estable no lo muestra.",
+        [("Rampa de estrés", [(68, 288, "288 ms", "t"), (77, 357, "357 ms", "t"), (86, 1718, "1 718 ms · 32,7 % fallos", "l")], "coral"),
+         ("Carga estable a 60 req/s", [(60, 202, "202 ms", "b")], "teal")],
+        x_label="Solicitudes por segundo ofrecidas", y_label="p95 (ms)", log_y=True,
+        x_ticks=[(60, "60"), (68, "68"), (77, "77"), (86, "86")], y_ticks=[100, 1000, 10000],
+        vlines=[(80, "Capacidad nominal 80 req/s")], point_labels="none", plot_h=280,
+        note="Cada forma de carga responde a una pregunta distinta y ninguna sustituye a otra: la carga estable no dice dónde está el límite; el pico de 20 s a 240 req/s deja 165 s de recuperación y la fuga de una conexión cada 5 000 solicitudes solo agota el pool a los 67 min. El colapso de la rampa (100 % de fallos después) no es un defecto del algoritmo de cola: el servidor sigue atendiendo solicitudes cuyo cliente ya se rindió a los 2 s.",
+        note_kind="gold", foot=SINT)
 
 
 def se375_omision() -> Fig:
-    rows = [
-        ["Abierto: llegadas programadas, latencia desde la hora prevista", "7 117", "45 ms", "9 071 ms", "9 848 ms", "10,51 %"],
-        ["Cerrado: 8 usuarios virtuales que esperan la respuesta", "5 438", "35 ms", "232 ms", "9 916 ms", "0,15 %"],
-        ["Cerrado con corrección de la omisión", "5 827", "38 ms", "8 600 ms", "9 916 ms", "6,23 %"],
-    ]
-    return tab("Una pausa de 10 s del servidor a 40 req/s medida con tres generadores de carga",
-               "Tabla: con una pausa de 10 segundos, el generador de lazo abierto registra 7 117 muestras y un percentil 99 de 9 071 milisegundos; el de lazo cerrado con 8 usuarios registra 5 438 muestras y un percentil 99 de solo 232 milisegundos; la corrección de omisión coordinada lo acerca a 8 600.",
-               ["Generador", "Muestras", "p50", "p99", "p99,9", "> 1 s"], rows, [340, 100, 90, 120, 120, 100], row_h=64, size=12,
-               note="El generador cerrado dejó de enviar mientras el servidor estaba parado, de modo que casi nadie llegó a esperar: el p99 pasa de 9 071 a 232 ms sin que el sistema haya cambiado. Solo 8 muestras de 5 438 cayeron en la pausa. La corrección recupera una parte porque asume un intervalo esperado.",
-               note_kind="coral", foot=SINT)
+    return percentile_intervals(
+        "Una pausa de 10 s del servidor a 40 req/s medida con tres generadores de carga",
+        "Intervalos en escala logarítmica con la mediana, el percentil 99 y el percentil 99,9 de cada generador: el abierto tiene mediana de 45 milisegundos y percentil 99 de 9 071; el cerrado de 8 usuarios, 35 y solo 232; el cerrado con corrección de omisión coordinada, 38 y 8 600; el percentil 99,9 queda cerca de 10 000 en los tres.",
+        [("Abierto: llegadas programadas, latencia desde la hora prevista", [45, 9071, 9848]),
+         ("Cerrado: 8 usuarios virtuales que esperan la respuesta", [35, 232, 9916]),
+         ("Cerrado con corrección de la omisión", [38, 8600, 9916])],
+        unit="Milisegundos (ms)", marks=("p50", "p99", "p99,9"), log=True, label_w=250,
+        note="El generador cerrado dejó de enviar mientras el servidor estaba parado, de modo que casi nadie llegó a esperar: el p99 pasa de 9 071 a 232 ms sin que el sistema haya cambiado. Solo 8 muestras de 5 438 cayeron en la pausa (7 117 muestras en el abierto; 10,51 % por encima de 1 s frente a 0,15 %). La corrección recupera una parte porque asume un intervalo esperado.",
+        note_kind="coral", foot=SINT)
 
 
 def se375_duracion() -> Fig:
-    rows = [
-        ["30 s, sin calentamiento", "290 ms", "244 – 378 ms"],
-        ["120 s, sin calentamiento", "301 ms", "268 – 359 ms"],
-        ["600 s, sin calentamiento", "301 ms", "279 – 343 ms"],
-        ["300 s, caché fría los primeros 60 s (todo)", "1 045 ms", "609 – 2 724 ms"],
-        ["300 s, descartando los primeros 120 s", "300 ms", "266 – 340 ms"],
-        ["900 s, caché fría (todo)", "904 ms", "376 – 1 671 ms"],
-        ["900 s, descartando los primeros 120 s", "298 ms", "279 – 321 ms"],
-    ]
-    return tab("p99 estimado en 30 repeticiones según la duración de la prueba y el calentamiento (60 req/s, 4 servidores)",
-               "Tabla: sin calentamiento, el percentil 99 estimado oscila entre 244 y 378 milisegundos con 30 segundos de prueba y entre 279 y 343 con 600; con 60 segundos de caché fría que enlentece un 30 por ciento, incluir el arranque lleva el percentil 99 medio a 1 045 milisegundos y descartar los 120 primeros segundos lo devuelve a 300.",
-               ["Prueba", "p99 medio", "Mínimo – máximo en 30 repeticiones"], rows, [440, 170, 310], row_h=44, size=13,
-               note="Una prueba más larga estrecha el intervalo (de 134 a 64 ms de rango), pero el sesgo mayor viene de mezclar el arranque con el régimen estable: 1 045 frente a 300 ms. Descartar un tramo exige decidirlo antes de ver el resultado y publicar cuánto se descartó.",
-               note_kind="teal", foot=SINT)
+    means = {(244, 378): "media 290", (268, 359): "media 301", (279, 343): "media 301", (609, 2724): "media 1 045",
+             (266, 340): "media 300", (376, 1671): "media 904", (279, 321): "media 298"}
+    return dumbbell(
+        "p99 estimado en 30 repeticiones según la duración de la prueba y el calentamiento (60 req/s, 4 servidores)",
+        "Intervalos en escala logarítmica con el mínimo y el máximo del percentil 99 en 30 repeticiones y su media al final de cada fila: sin calentamiento el rango se estrecha de 244 a 378 milisegundos con 30 segundos a 279 a 343 con 600; con caché fría los primeros 60 segundos, incluir el arranque da una media de 1 045 y un máximo de 2 724, y descartar los 120 primeros segundos lo devuelve a 300.",
+        [("30 s, sin calentamiento", 244, 378), ("120 s, sin calentamiento", 268, 359), ("600 s, sin calentamiento", 279, 343),
+         ("300 s, caché fría (todo)", 609, 2724), ("300 s, descartando los primeros 120 s", 266, 340),
+         ("900 s, caché fría (todo)", 376, 1671), ("900 s, descartando los primeros 120 s", 279, 321)],
+        unit="p99 en milisegundos (ms)", names=("Mínimo de 30 repeticiones", "Máximo de 30 repeticiones"), log=True, label_w=280,
+        delta=lambda lo, hi: means[(lo, hi)],
+        note="Una prueba más larga estrecha el intervalo (de 134 a 64 ms de rango), pero el sesgo mayor viene de mezclar el arranque con el régimen estable: 1 045 frente a 300 ms de media. Descartar un tramo exige decidirlo antes de ver el resultado y publicar cuánto se descartó.",
+        note_kind="teal", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-376
 def se376_utilizacion() -> Fig:
-    rows = [
-        ["50 %", "99 / 100 ms", "297 ms", "454 / 461 ms"],
-        ["70 %", "165 / 167 ms", "496 ms", "754 / 768 ms"],
-        ["80 %", "246 / 250 ms", "733 ms", "1 132 / 1 151 ms"],
-        ["90 %", "481 / 500 ms", "1 436 ms", "2 098 / 2 303 ms"],
-        ["95 %", "973 / 1 000 ms", "2 901 ms", "4 165 / 4 605 ms"],
-        ["99 %", "6 115 / 5 000 ms", "17 175 ms", "24 286 / 23 026 ms"],
-    ]
-    return tab("Una cola M/M/1 de 50 ms de servicio medio: latencia simulada frente a teoría según la utilización",
-               "Tabla: con un servicio medio de 50 milisegundos, la latencia media pasa de 99 milisegundos al 50 por ciento de utilización a 481 al 90 y a más de 6 000 al 99; el percentil 99 simulado coincide con la fórmula entre el 50 y el 80 por ciento y se separa por debajo de la teoría al 90 y 95 por ciento y por encima al 99.",
-               ["Utilización", "Media simulada / teoría", "p95 simulado", "p99 simulado / teoría"], rows, [180, 280, 200, 280], row_h=44, size=13,
-               note="El crecimiento no es lineal: del 90 al 99 % la media se multiplica por 12. La simulación de 400 000 llegadas se aparta de la teoría cerca del 100 % porque el régimen estable tarda mucho en alcanzarse; 400 000 llegadas no bastan al 99 %. Con llegadas de Poisson y servicio exponencial; un sistema real no cumple ninguna de las dos.",
-               note_kind="gold", foot=SINT)
+    xs = [50, 70, 80, 90, 95, 99]
+    mean_sim = [99, 165, 246, 481, 973, 6115]
+    mean_th = [100, 167, 250, 500, 1000, 5000]
+    p99_sim = [454, 754, 1132, 2098, 4165, 24286]
+    p99_th = [461, 768, 1151, 2303, 4605, 23026]
+    return line_chart(
+        "Una cola M/M/1 de 50 ms de servicio medio: latencia simulada frente a teoría según la utilización",
+        "Líneas en escala logarítmica con la latencia media y el percentil 99 simulados y teóricos según la utilización: la media simulada pasa de 99 milisegundos al 50 por ciento a 481 al 90 y 6 115 al 99, y el percentil 99 de 454 a 2 098 y 24 286; simulación y teoría coinciden entre el 50 y el 80 por ciento y se separan al 90, 95 y 99.",
+        [("Media simulada", list(zip(xs, mean_sim)), "teal"), ("Media teórica", list(zip(xs, mean_th)), "grey"),
+         ("p99 simulado", list(zip(xs, p99_sim)), "coral"), ("p99 teórico", list(zip(xs, p99_th)), "gold")],
+        x_label="Utilización del servidor (%)", y_label="Latencia (ms)", log_y=True,
+        x_ticks=[(50, "50"), (70, "70"), (80, "80"), (90, "90"), (95, "95"), (99, "99")], y_ticks=[100, 1000, 10000, 100000],
+        point_labels="none", plot_h=300,
+        note="El crecimiento no es lineal: del 90 al 99 % la media se multiplica por 12. La simulación de 400 000 llegadas se aparta de la teoría cerca del 100 % porque el régimen estable tarda mucho en alcanzarse; 400 000 llegadas no bastan al 99 %. Con llegadas de Poisson y servicio exponencial; un sistema real no cumple ninguna de las dos.",
+        note_kind="gold", foot=SINT)
 
 
 def se376_variabilidad() -> Fig:
-    rows = [
-        ["Determinista (cv² = 0)", "0,00", "101 / 100 ms", "573 ms", "2,42 / 2,42"],
-        ["Exponencial (cv² = 1)", "1,00", "203 / 200 ms", "1 160 ms", "4,06 / 4,06"],
-        ["Lognormal (cv² = 4)", "3,94", "502 / 495 ms", "3 617 ms", "8,85 / 8,85"],
-        ["Bimodal: 95 % 10 ms y 5 % 810 ms", "12,13", "1 364 / 1 317 ms", "7 053 ms", "22,67 / 22,67"],
-    ]
-    return tab("Mismo promedio de servicio (50 ms) y misma utilización (80 %) con cuatro formas de variabilidad",
-               "Tabla: con la misma utilización del 80 por ciento y el mismo servicio medio, la espera media pasa de 101 milisegundos con servicio constante a 203 con exponencial, 502 con lognormal y 1 364 con una mezcla de 95 por ciento rápida y 5 por ciento lenta; la ley de Little se cumple en los cuatro casos.",
-               ["Distribución del servicio", "cv² observado", "Espera media simulada / teoría", "p99 de la latencia", "L / λ·W"], rows, [300, 120, 230, 130, 140], row_h=52, size=12,
-               note="La fórmula de Pollaczek–Khinchine acierta y dice lo importante: la espera crece con (1 + cv²). Con un 5 % de solicitudes lentas el sistema espera 13 veces más que con servicio constante, aunque el promedio no cambie. La ley de Little es una identidad: sirve para detectar una instrumentación inconsistente, no para predecir.",
-               note_kind="teal", foot=SINT)
+    cv = [0.0, 1.0, 3.94, 12.13]
+    return line_chart(
+        "Mismo promedio de servicio (50 ms) y misma utilización (80 %) con cuatro formas de variabilidad",
+        "Líneas con la espera media y el percentil 99 según el cuadrado del coeficiente de variación del servicio: la espera simulada sube de 101 milisegundos con servicio constante a 203 con exponencial, 502 con lognormal y 1 364 con una mezcla de 95 por ciento rápida y 5 por ciento lenta, casi sobre la fórmula teórica, y el percentil 99 de 573 a 7 053.",
+        [("Espera media simulada", [(x, y, f"{y:,}".replace(",", " "), "b") for x, y in zip(cv, [101, 203, 502, 1364])], "teal"),
+         ("Espera media teórica", list(zip(cv, [100, 200, 495, 1317])), "grey"),
+         ("p99 de la latencia", [(x, y, f"{y:,}".replace(",", " "), "t") for x, y in zip(cv, [573, 1160, 3617, 7053])], "coral")],
+        x_label="cv² observado: 0 constante · 1 exponencial · 3,94 lognormal · 12,13 mezcla 95 % rápida y 5 % lenta", y_label="Milisegundos (ms)",
+        x_ticks=[(0, "0"), (1, "1"), (3.94, "3,94"), (12.13, "12,13")],
+        y_ticks=[0, 2000, 4000, 6000, 8000], point_labels="none", plot_h=300,
+        note="La fórmula de Pollaczek–Khinchine acierta y dice lo importante: la espera crece con (1 + cv²). Con un 5 % de solicitudes lentas el sistema espera 13 veces más que con servicio constante, aunque el promedio no cambie. La ley de Little se cumple en los cuatro casos: es una identidad que detecta una instrumentación inconsistente, no una predicción.",
+        note_kind="teal", foot=SINT)
 
 
 def se376_agregar() -> Fig:
-    rows = [
-        ["Promedio simple de los 8 p99", "345 ms", "Mezcla servidores con 12 000 y con 1 000 peticiones"],
-        ["Promedio ponderado por peticiones", "262 ms", "Mejor, pero no es un percentil"],
-        ["Máximo de los 8 p99", "983 ms", "Cota, no valor"],
-        ["p99 de las muestras unidas", "323 ms", "El único resultado correcto"],
-        ["Objetivo p99 ≤ 300 ms, cola M/M/1", "23 % de utilización; 216 servidores para 1 000 req/s", "Planificar con la media (80 %) da 63 servidores"],
-        ["Objetivo p99 ≤ 500 ms", "54 %; 93 servidores", ""],
-        ["Objetivo p99 ≤ 1 s", "77 %; 65 servidores", ""],
-        ["Objetivo p99 ≤ 2 s", "88 %; 57 servidores", ""],
-    ]
-    return tab("Agregar percentiles de 8 servidores y planificar la capacidad con un objetivo de cola",
-               "Tabla: promediar los percentiles 99 de ocho servidores da 345 milisegundos, el promedio ponderado 262, el máximo 983 y el percentil 99 de las muestras unidas 323; planificar 1 000 solicitudes por segundo con un objetivo de percentil 99 de 300 milisegundos exige 216 servidores al 23 por ciento de utilización, frente a 63 al planificar con la media al 80 por ciento.",
-               ["Cálculo", "Resultado", "Lectura"], rows, [340, 330, 270], row_h=48, size=12,
-               note="Un servidor lento con poco tráfico (983 ms con 1 000 peticiones) mueve el promedio simple 22 ms por encima del p99 real. Y exigir un percentil, no una media, multiplica por 3,4 la flota: la elección del estadístico es una decisión de costo.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Servidores necesarios para 1 000 req/s según el objetivo de cola (M/M/1, 50 ms de servicio)",
+        "Barras horizontales con los servidores que exige cada objetivo de percentil 99: 216 con 300 milisegundos (utilización del 23 por ciento), 93 con 500, 65 con 1 segundo y 57 con 2 segundos, frente a 63 al planificar con la media al 80 por ciento; exigir un percentil en lugar de la media multiplica la flota por 3,4.",
+        ["p99 ≤ 300 ms (utilización 23 %)", "p99 ≤ 500 ms (54 %)", "p99 ≤ 1 s (77 %)", "p99 ≤ 2 s (88 %)", "Planificar con la media (80 %)"],
+        [("Servidores", [216, 93, 65, 57, 63], "navy")],
+        unit="Servidores para 1 000 solicitudes por segundo", horizontal=True, label_w=250, ticks=[0, 50, 100, 150, 200, 250],
+        note="Exigir un percentil, no una media, multiplica por 3,4 la flota: la elección del estadístico es una decisión de costo. Aparte, agregar percentiles es un error: el promedio simple de los p99 de 8 servidores da 345 ms, el ponderado 262, el máximo 983 y solo el p99 de las muestras unidas (323 ms) es correcto; un servidor lento con poco tráfico mueve el promedio simple 22 ms por encima.",
+        note_kind="gold", foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-377
 def se377_variacion() -> Fig:
-    rows = [
-        ["Proceso 1", "7,24 ms", "5,97 ms", "7,10 ms", "18,06 ms", "3,03"],
-        ["Proceso 2", "7,12 ms", "6,00 ms", "7,11 ms", "11,48 ms", "1,91"],
-        ["Proceso 3", "6,27 ms", "5,75 ms", "11,04 ms", "15,37 ms", "2,67"],
-        ["Proceso 4", "5,57 ms", "4,06 ms", "5,73 ms", "7,52 ms", "1,85"],
-        ["Proceso 5", "5,77 ms", "3,85 ms", "5,49 ms", "6,42 ms", "1,66"],
-        ["Ubuntu (WSL2), 5 procesos", "—", "3,67 – 3,83", "3,97 – 5,18", "5,16 – 7,01", "1,35 – 1,85"],
-    ]
-    return tab("La misma función (ordenar 20 000 enteros) medida 30 veces en cinco procesos nuevos de Windows 11",
-               "Tabla: cinco procesos de Python que miden 30 veces la misma ordenación de 20 000 enteros obtienen medianas entre 5,49 y 11,04 milisegundos en Windows, una razón de 2,01, y razones entre el máximo y el mínimo de 1,66 a 3,03 dentro de un mismo proceso; en Ubuntu las medianas van de 3,97 a 5,18.",
-               ["Medición", "Primera", "Mínimo", "Mediana", "Máximo", "Máx / mín"], rows, [290, 120, 130, 130, 130, 120], row_h=46, size=12,
-               note="La variación entre procesos (medianas con razón 2,01) supera a la variación que una mejora típica querría detectar. Ninguna de estas cifras es reproducible al milisegundo; sí lo es la conclusión de que una sola medición no basta. Equipo, versión y carga de fondo del sistema no se controlaron.",
-               note_kind="coral", foot=REAL)
+    return percentile_intervals(
+        "La misma función (ordenar 20 000 enteros) medida 30 veces en cinco procesos nuevos de Windows 11",
+        "Intervalos con el mínimo, la mediana y el máximo de 30 mediciones por proceso: las medianas van de 5,49 a 11,04 milisegundos, una razón de 2,01 entre procesos, y el máximo supera de 1,66 a 3,03 veces el mínimo dentro de cada uno; el proceso 3 tiene la mediana más alta y el 1 el máximo de 18,06.",
+        [("Proceso 1", [5.97, 7.10, 18.06]), ("Proceso 2", [6.00, 7.11, 11.48]), ("Proceso 3", [5.75, 11.04, 15.37]),
+         ("Proceso 4", [4.06, 5.73, 7.52]), ("Proceso 5", [3.85, 5.49, 6.42])],
+        unit="Milisegundos (ms)", marks=("mínimo", "mediana", "máximo"), decimals=2, label_w=120,
+        note="La variación entre procesos (medianas con razón 2,01) supera a la variación que una mejora típica querría detectar. En Ubuntu las medianas de cinco procesos van de 3,97 a 5,18 ms. Ninguna de estas cifras es reproducible al milisegundo; sí lo es la conclusión de que una sola medición no basta. Equipo, versión y carga de fondo del sistema no se controlaron.",
+        note_kind="coral", foot=REAL)
 
 
 def se377_perfilador() -> Fig:
-    rows = [
-        ["300 000 llamadas a una función mínima, sin perfilador", "43,7 ms", "26,9 ms"],
-        ["Las mismas con cProfile", "199,9 ms (× 4,6)", "98,7 ms (× 3,7)"],
-        ["Parte del tiempo atribuida a la función mínima", "34 % (cProfile) frente a 46 % (con y sin la llamada)", "31 % frente a 39 %"],
-        ["300 llamadas a una función cara, sin caché", "69,49 ms", "68,64 ms"],
-        ["Con caché y la misma clave", "0,050 ms (1 395 × menos)", "0,026 ms (2 599 × menos)"],
-        ["Con caché y claves distintas", "68,80 ms", "50,93 ms"],
-    ]
-    return tab("El perfilador cambia lo que mide y una caché puede estar midiéndose a sí misma",
-               "Tabla: perfilar con cProfile multiplica por 4,6 el tiempo de 300 000 llamadas mínimas en Windows y por 3,7 en Ubuntu, y atribuye a la función mínima el 34 por ciento del tiempo cuando midiendo con y sin la llamada es el 46; repetir la misma clave con caché reduce el tiempo de 69 milisegundos a 0,05, mil trescientas noventa y cinco veces menos.",
-               ["Medida", "Windows 11", "Ubuntu (WSL2)"], rows, [430, 270, 220], row_h=56, size=12,
-               note="Un perfil determinista cuenta llamadas con precisión y altera el reparto del tiempo; sirve para ver qué se llama, no para decir cuánto cuesta. El benchmark con caché de una sola clave mide una búsqueda en diccionario, no el trabajo: 1 395 veces menos con la misma clave y casi igual con claves distintas.",
-               note_kind="gold", foot=REAL)
+    ratios = {(43.7, 199.9): "× 4,6", (26.9, 98.7): "× 3,7", (69.49, 0.050): "1 395 × menos", (68.64, 0.026): "2 599 × menos",
+              (69.49, 68.80): "casi igual", (68.64, 50.93): "−26 %"}
+    return dumbbell(
+        "El perfilador cambia lo que mide y una caché puede estar midiéndose a sí misma",
+        "Puntos unidos en escala logarítmica con el tiempo sin y con cambio: cProfile multiplica por 4,6 el tiempo de 300 000 llamadas mínimas en Windows y por 3,7 en Ubuntu; repetir la misma clave con caché baja 300 llamadas caras de 69 a 0,05 milisegundos, 1 395 veces menos, mientras que con claves distintas apenas cambian.",
+        [("300 000 llamadas mínimas · cProfile, Windows", 43.7, 199.9), ("300 000 llamadas mínimas · cProfile, Ubuntu", 26.9, 98.7),
+         ("300 llamadas caras · caché, misma clave, Windows", 69.49, 0.050), ("300 llamadas caras · caché, misma clave, Ubuntu", 68.64, 0.026),
+         ("300 llamadas caras · caché, claves distintas, Windows", 69.49, 68.80), ("300 llamadas caras · caché, claves distintas, Ubuntu", 68.64, 50.93)],
+        unit="Milisegundos (ms)", names=("Sin perfilador / sin caché", "Con cProfile / con caché"), log=True, label_w=330,
+        delta=lambda a, b: ratios[(a, b)],
+        note="Un perfil determinista cuenta llamadas con precisión y altera el reparto del tiempo (atribuye el 34 % a la función mínima cuando midiendo con y sin la llamada es el 46 %). El benchmark con caché de una sola clave mide una búsqueda en diccionario, no el trabajo: 1 395 veces menos con la misma clave y casi igual con claves distintas en Windows.",
+        note_kind="gold", foot=REAL)
 
 
 def se377_aa() -> Fig:
-    rows = [
-        ["3", "58,8 % / 64 %", "48,6 % / 67 %", "48,9 % / 66 %"],
-        ["5", "60,4 % / 64 %", "37,7 % / 72 %", "43,7 % / 69 %"],
-        ["10", "58,0 % / 64 %", "18,6 % / 79 %", "36,0 % / 71 %"],
-        ["30", "39,5 % / 72 %", "2,8 % / 92 %", "27,5 % / 77 %"],
-    ]
-    return tab("Comparar dos copias idénticas: falsas diferencias de más del 3 % / detección de una regresión real del 5 %",
-               "Tabla: al comparar dos copias idénticas con ruido y un 8 por ciento de interferencias, la media declara una diferencia de más del 3 por ciento en el 58 al 60 por ciento de los casos con 3 a 10 repeticiones; la mediana baja del 48,6 al 2,8 por ciento al pasar de 3 a 30 repeticiones y detecta el 92 por ciento de una regresión real del 5 por ciento.",
-               ["Repeticiones por versión", "Media", "Mediana", "Mínimo"], rows, [260, 220, 220, 220], row_h=48, size=13,
-               note="Con 5 repeticiones y la media, dos programas idénticos «difieren» el 60 % de las veces. La mediana es robusta a las interferencias, el mínimo reduce el ruido pero también la señal. El ruido (lognormal de 4 %, 8 % de interferencias de +15 a +80 %) es un supuesto del autor.",
-               note_kind="coral", foot=SINT)
+    media = [(58.8, 64, "3", "t"), (60.4, 64, "5", "b"), (58.0, 64, "10", "b"), (39.5, 72, "30", "t")]
+    mediana = [(48.6, 67, "3", "t"), (37.7, 72, "5", "t"), (18.6, 79, "10", "t"), (2.8, 92, "30", "r")]
+    minimo = [(48.9, 66, "3", "r"), (43.7, 69, "5", "r"), (36.0, 71, "10", "b"), (27.5, 77, "30", "t")]
+    return line_chart(
+        "Comparar dos copias idénticas: falsas diferencias frente a detección de una regresión real del 5 %",
+        "Líneas con una serie por estadístico con 3, 5, 10 y 30 repeticiones por versión: la media se queda en 58 a 60 por ciento de falsas diferencias entre copias idénticas con 3 a 10 repeticiones y detecta 64 por ciento; la mediana baja de 48,6 a 2,8 por ciento de falsas diferencias y sube de 67 a 92 por ciento de detección; el mínimo queda en medio.",
+        [("Media", media, "coral"), ("Mediana", mediana, "teal"), ("Mínimo", minimo, "gold")],
+        x_label="Falsas diferencias de más del 3 % entre copias idénticas (%)", y_label="Detección de una regresión real del 5 % (%)",
+        point_labels="all", plot_h=300, y_zero=False,
+        note="Cada punto está rotulado con las repeticiones por versión (3, 5, 10 o 30); lo mejor es arriba a la izquierda, con pocas falsas diferencias y mucha detección. Con 5 repeticiones y la media, dos programas idénticos «difieren» el 60 % de las veces. La mediana es robusta a las interferencias y mejora con las repeticiones; el mínimo reduce el ruido pero también la señal. El ruido (lognormal de 4 %, 8 % de interferencias de +15 a +80 %) es un supuesto del autor.",
+        note_kind="coral", foot=SINT)
 
 
 FIGURES = {

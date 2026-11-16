@@ -118,9 +118,9 @@ teo_mean = 1 / (MU - lam); teo_p99 = math.log(100) / (MU - lam)
 
 Entre el 50 y el 80 % la simulación coincide con la fórmula. Del 90 al 99 % de utilización la media pasa de 481 ms a 6 115 ms, una multiplicación por 12,7. Cerca del 100 %, la simulación se separa porque 400 000 llegadas no bastan para alcanzar el régimen estable: el sistema tarda en olvidar su estado inicial, y esa lentitud es una propiedad del sistema, no un defecto de la herramienta.
 
-![Tabla con la latencia media, el percentil 95 y el percentil 99 de una cola M/M/1 de 50 milisegundos de servicio, simulados y según la fórmula, para utilizaciones de 50 a 99 por ciento.](../../../content/part-31/figures/se-376-latencia-segun-la-utilizacion.svg)
+![Líneas en escala logarítmica con la latencia media y el percentil 99 simulados y teóricos según la utilización: la media simulada pasa de 99 milisegundos al 50 por ciento a 481 al 90 y 6 115 al 99, y el percentil 99 de 454 a 2 098 y 24 286; simulación y teoría coinciden entre el 50 y el 80 por ciento y se separan al 90, 95 y 99.](../../../content/part-31/figures/se-376-latencia-segun-la-utilizacion.svg)
 
-**Cómo leer la figura.** Cada fila es una utilización; las columnas comparan la simulación con la teoría. **Dónde deja de valer:** las llegadas de Poisson y el servicio exponencial son supuestos de modelo; un tráfico en ráfagas (como el del cierre de plazo) tiene colas más largas con la misma utilización media. Una cola de 4 servidores (M/M/4) se comporta mejor que cuatro de un servidor al mismo nivel de utilización, de modo que la cifra de un servidor es pesimista para un grupo.
+**Cómo leer la figura.** El eje horizontal es la utilización del servidor y el vertical, en escala logarítmica, la latencia; las dos líneas inferiores son la media y las dos superiores el percentil 99, cada par con la simulación y la teoría. Mira primero que las líneas casi se superponen hasta el 80 % y que todas se disparan al acercarse al 100 %. **Dónde deja de valer:** las llegadas de Poisson y el servicio exponencial son supuestos de modelo; un tráfico en ráfagas (como el del cierre de plazo) tiene colas más largas con la misma utilización media. Una cola de 4 servidores (M/M/4) se comporta mejor que cuatro de un servidor al mismo nivel de utilización, de modo que la cifra de un servidor es pesimista para un grupo.
 
 ### Misma media, otra variabilidad
 
@@ -140,9 +140,9 @@ L_medio = area_bajo_N_de_t / T;   lam_W = lam_observada * W
 
 El promedio de servicio es el mismo en las cuatro filas y la espera pasa de 101 ms a 1 364 ms. La fórmula acierta en todas, y el p99 se multiplica por 12 entre la primera y la última. Con un 5 % de peticiones largas (810 ms), 22,7 solicitudes están de media en el sistema frente a 2,4 con servicio constante. La ley de Little se cumple en las cuatro, como una identidad: sirve para validar mediciones, no para explicar la diferencia.
 
-![Tabla con la espera media simulada y teórica, el percentil 99 y la comprobación de la ley de Little para cuatro formas de variabilidad del servicio con el mismo promedio de 50 milisegundos y utilización del 80 por ciento.](../../../content/part-31/figures/se-376-variabilidad-del-servicio.svg)
+![Líneas con la espera media y el percentil 99 según el cuadrado del coeficiente de variación del servicio: la espera simulada sube de 101 milisegundos con servicio constante a 203 con exponencial, 502 con lognormal y 1 364 con una mezcla de 95 por ciento rápida y 5 por ciento lenta, casi sobre la fórmula teórica, y el percentil 99 de 573 a 7 053.](../../../content/part-31/figures/se-376-variabilidad-del-servicio.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de servicio con el mismo promedio y la misma utilización; la columna de espera muestra cuánto cambia solo por la variabilidad. **Dónde deja de valer:** la fórmula de Pollaczek–Khinchine requiere un servidor y llegadas de Poisson; con varios servidores el efecto de una petición larga se atenúa porque las demás pueden pasar por otro. La mezcla del 5 % lento es un ejemplo del autor, no una medida de ninguna consulta.
+**Cómo leer la figura.** El eje horizontal es el cuadrado del coeficiente de variación del servicio (0 constante, 1 exponencial, 3,94 lognormal, 12,13 la mezcla) y el vertical, la latencia en milisegundos; las dos líneas inferiores son la espera media simulada y teórica y la superior, el percentil 99. Mira primero que la espera crece casi en línea recta con el cv² aunque el promedio de servicio no cambie. **Dónde deja de valer:** la fórmula de Pollaczek–Khinchine requiere un servidor y llegadas de Poisson; con varios servidores el efecto de una petición larga se atenúa porque las demás pueden pasar por otro. La mezcla del 5 % lento es un ejemplo del autor, no una medida de ninguna consulta.
 
 ### Agregar percentiles y planificar la capacidad
 
@@ -167,9 +167,9 @@ unidas = [v for x in servers for v in x]            # el correcto: percentil de 
 
 El promedio simple (345 ms) sobreestima el valor real (323 ms) porque da el mismo peso al servidor lento con mil peticiones, y el ponderado (262 ms) lo subestima: ninguno de los dos es un percentil. Pasar de un objetivo de media (63 servidores) a uno de p99 de 300 ms multiplica la flota por 3,4.
 
-![Tabla con el promedio simple, el ponderado, el máximo y el percentil 99 de las muestras unidas de ocho servidores, y la utilización y los servidores necesarios para 1 000 solicitudes por segundo con objetivos de percentil 99 de 300 milisegundos a 2 segundos.](../../../content/part-31/figures/se-376-agregar-percentiles-y-capacidad.svg)
+![Barras horizontales con los servidores que exige cada objetivo de percentil 99: 216 con 300 milisegundos (utilización del 23 por ciento), 93 con 500, 65 con 1 segundo y 57 con 2 segundos, frente a 63 al planificar con la media al 80 por ciento; exigir un percentil en lugar de la media multiplica la flota por 3,4.](../../../content/part-31/figures/se-376-agregar-percentiles-y-capacidad.svg)
 
-**Cómo leer la figura.** Las cuatro primeras filas son cuatro maneras de resumir los mismos datos; las cinco últimas son la capacidad que resulta de cada objetivo. **Dónde deja de valer:** el cálculo de servidores usa la fórmula de una cola por servidor, sin dependencias, sin ráfagas y sin servicio variable; un diseño real añade margen para fallos y despliegues. Los ocho servidores son sintéticos y la diferencia entre 345 y 323 depende de cuánto pesa el lento.
+**Cómo leer la figura.** Cada barra es un objetivo de cola y su longitud, los servidores que exige para 1 000 solicitudes por segundo; entre paréntesis va la utilización que permite. Mira primero la barra de p99 ≤ 300 ms (216) frente a la de planificar con la media (63): el estadístico elegido decide el costo. **Dónde deja de valer:** el cálculo de servidores usa la fórmula de una cola por servidor, sin dependencias, sin ráfagas y sin servicio variable; un diseño real añade margen para fallos y despliegues. Los ocho servidores son sintéticos y la diferencia entre 345 y 323 depende de cuánto pesa el lento.
 
 ## Definiciones de trabajo
 

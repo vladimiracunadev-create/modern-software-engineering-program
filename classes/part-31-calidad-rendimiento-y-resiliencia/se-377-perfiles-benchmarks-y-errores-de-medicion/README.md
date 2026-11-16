@@ -118,9 +118,9 @@ for _ in range(30):
 
 Las medianas de Windows van de 5,49 a 11,04 ms, una razón de 2,01 entre procesos; dentro de un proceso, el máximo supera hasta tres veces al mínimo. En Ubuntu las medianas van de 3,97 a 5,18 ms. Una mejora del 22 % cabe entera dentro de la variación entre procesos. La primera ejecución no fue sistemáticamente peor (la razón con la mediana va de 0,57 a 1,05), de modo que en este programa el calentamiento pesa menos que la interferencia.
 
-![Tabla con la primera ejecución, el mínimo, la mediana, el máximo y la razón máximo sobre mínimo de la misma ordenación medida 30 veces en cinco procesos de Windows, y los rangos en Ubuntu.](../../../content/part-31/figures/se-377-variacion-entre-procesos.svg)
+![Intervalos con el mínimo, la mediana y el máximo de 30 mediciones por proceso: las medianas van de 5,49 a 11,04 milisegundos, una razón de 2,01 entre procesos, y el máximo supera de 1,66 a 3,03 veces el mínimo dentro de cada uno; el proceso 3 tiene la mediana más alta y el 1 el máximo de 18,06.](../../../content/part-31/figures/se-377-variacion-entre-procesos.svg)
 
-**Cómo leer la figura.** Cada fila es un proceso nuevo que ejecuta el mismo programa con los mismos datos; las diferencias entre filas son pura variación del entorno. **Dónde deja de valer:** son lecturas de un equipo, un día y una carga de fondo concretos y no se reproducirán al milisegundo; lo reproducible es que una sola ejecución puede errar en un factor dos. En un servidor dedicado y sin otros procesos la variación sería menor.
+**Cómo leer la figura.** Cada fila es un proceso nuevo que ejecuta el mismo programa con los mismos datos; el cuadrado es el mínimo, el triángulo la mediana y el rombo el máximo de 30 mediciones. Mira primero que las medianas no están alineadas entre filas: las diferencias entre filas son pura variación del entorno. **Dónde deja de valer:** son lecturas de un equipo, un día y una carga de fondo concretos y no se reproducirán al milisegundo; lo reproducible es que una sola ejecución puede errar en un factor dos. En un servidor dedicado y sin otros procesos la variación sería menor.
 
 ### El perfilador y la caché
 
@@ -143,9 +143,9 @@ frac_real = (t_call - t_inl) / t_call                                   # lo que
 
 El perfilador multiplica el tiempo por cuatro y atribuye a la función mínima un 34 % del tiempo cuando la llamada cuesta un 46 %: sirve para ver qué se llama, no para cuantificar. El benchmark con caché y una sola clave tarda 1 395 veces menos porque mide un acceso a un diccionario; con claves distintas la caché no ayuda y el tiempo vuelve al de la función sin caché. El segundo caso es un error de diseño del benchmark, no una optimización.
 
-![Tabla con el tiempo de 300 000 llamadas con y sin cProfile en Windows y Ubuntu, la parte del tiempo atribuida a la función mínima, y el tiempo de 300 llamadas con y sin caché con la misma clave y con claves distintas.](../../../content/part-31/figures/se-377-perfilador-y-cache.svg)
+![Puntos unidos en escala logarítmica con el tiempo sin y con cambio: cProfile multiplica por 4,6 el tiempo de 300 000 llamadas mínimas en Windows y por 3,7 en Ubuntu; repetir la misma clave con caché baja 300 llamadas caras de 69 a 0,05 milisegundos, 1 395 veces menos, mientras que con claves distintas apenas cambian.](../../../content/part-31/figures/se-377-perfilador-y-cache.svg)
 
-**Cómo leer la figura.** Las tres primeras filas muestran el efecto del instrumento; las tres últimas, el efecto de una caché mal usada. **Dónde deja de valer:** los factores 4,6 y 3,7 son de este programa y de CPython 3.12 en este equipo; una función más larga pagaría menos sobrecarga proporcional. La caché con claves distintas en Ubuntu (50,93 ms) baja más que en Windows sin que el código cambie: otro ejemplo de que un tiempo no se transfiere entre equipos.
+**Cómo leer la figura.** Cada fila compara una medida sin y con el cambio, en escala logarítmica: el círculo hueco es el tiempo sin perfilador o sin caché y el relleno, con él; a la derecha va el factor. Mira primero que cProfile alarga el tiempo (segmento rojo) y que la caché con la misma clave lo reduce casi a nada, mientras que con claves distintas apenas se mueve. **Dónde deja de valer:** los factores 4,6 y 3,7 son de este programa y de CPython 3.12 en este equipo; una función más larga pagaría menos sobrecarga proporcional. La caché con claves distintas en Ubuntu (50,93 ms) baja más que en Windows sin que el código cambie: otro ejemplo de que un tiempo no se transfiere entre equipos.
 
 ### Dos copias idénticas que «difieren»
 
@@ -166,9 +166,9 @@ falso = abs(b - a) / a > 0.03                               # a y b son copias i
 
 La primera cifra de cada celda es el porcentaje de comparaciones entre copias idénticas que declaran una diferencia (falsos positivos) y la segunda, el porcentaje de detecciones de una regresión real del 5 %. Con cinco repeticiones y la media, dos programas idénticos «difieren» el 60 % de las veces. La mediana mejora de forma notable con el número de repeticiones y llega al 2,8 % de falsos positivos y al 92 % de detección con 30; la media apenas mejora porque las interferencias siguen arrastrándola.
 
-![Tabla con el porcentaje de falsas diferencias entre dos copias idénticas y de detecciones de una regresión real del cinco por ciento con media, mediana y mínimo para 3, 5, 10 y 30 repeticiones.](../../../content/part-31/figures/se-377-copias-identicas-que-difieren.svg)
+![Líneas con una serie por estadístico con 3, 5, 10 y 30 repeticiones por versión: la media se queda en 58 a 60 por ciento de falsas diferencias entre copias idénticas con 3 a 10 repeticiones y detecta 64 por ciento; la mediana baja de 48,6 a 2,8 por ciento de falsas diferencias y sube de 67 a 92 por ciento de detección; el mínimo queda en medio.](../../../content/part-31/figures/se-377-copias-identicas-que-difieren.svg)
 
-**Cómo leer la figura.** Cada celda tiene dos números: falsas diferencias entre copias iguales y detección de una regresión real. Una configuración buena tiene el primero bajo y el segundo alto. **Dónde deja de valer:** el ruido de 4 % y las interferencias del 8 % son supuestos del autor; con otro nivel de ruido las cifras cambian, y no se evaluaron pruebas estadísticas formales (como una de rangos) que controlarían el falso positivo de manera directa.
+**Cómo leer la figura.** Cada punto es un estadístico con un número de repeticiones por versión (rotulado en el punto): el eje horizontal son las falsas diferencias entre copias idénticas y el vertical, la detección de una regresión real. Lo bueno es arriba a la izquierda; mira primero cómo la mediana con 30 repeticiones llega allí y cómo la media se queda abajo a la derecha. **Dónde deja de valer:** el ruido de 4 % y las interferencias del 8 % son supuestos del autor; con otro nivel de ruido las cifras cambian, y no se evaluaron pruebas estadísticas formales (como una de rangos) que controlarían el falso positivo de manera directa.
 
 ## Definiciones de trabajo
 

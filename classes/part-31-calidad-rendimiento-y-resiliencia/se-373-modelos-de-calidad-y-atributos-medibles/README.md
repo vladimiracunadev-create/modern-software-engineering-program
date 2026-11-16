@@ -136,9 +136,9 @@ Se simulan 30 días de 2 000 peticiones diarias; el día 17 un incidente de tres
 
 Los datos son idénticos y las conclusiones se oponen. La ventana mensual deja pasar un día entero de mal servicio porque la fracción de peticiones afectadas es pequeña. Una definición que exige el objetivo «en cada día laboral» o «en cada ventana de una hora» pone el incidente a la vista y es la que la coordinadora de la plataforma tenía en mente sin escribirla.
 
-![Tabla con la media de las medias diarias, el percentil 95 del mes, los días que cumplen, el percentil 95 del día del incidente, la fracción sobre 300 milisegundos y el percentil 99 del mes, con su veredicto.](../../../content/part-31/figures/se-373-un-mes-seis-definiciones.svg)
+![Barras horizontales con el valor que cada definición compara con el objetivo de 300 milisegundos: la media de las medias diarias da 161, el percentil 95 del mes 227, el percentil 99 del mes 2 057 y el percentil 95 del día 17 con tres horas lentas 2 294; solo las dos primeras quedan bajo la línea del objetivo.](../../../content/part-31/figures/se-373-un-mes-seis-definiciones.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de leer «p95 ≤ 300 ms»; la última columna es el veredicto que esa lectura produce. **Dónde deja de valer:** un objetivo diario exige cientos de peticiones por día para estimar un p95 estable; con 20 peticiones diarias el percentil es ruido. Además, un presupuesto de error mensual (el 5 % de peticiones lentas permitido) puede ser la formulación correcta cuando lo que se protege es el conjunto del mes.
+**Cómo leer la figura.** Cada barra es una definición de «p95 ≤ 300 ms» aplicada al mismo mes y su longitud, el valor que esa definición compara con el objetivo, marcado con la línea discontinua de 300 ms. Mira primero que la media de las medias diarias y el p95 del mes quedan bajo la línea y que el p99 del mes y el p95 del día 17 la superan por mucho. **Dónde deja de valer:** un objetivo diario exige cientos de peticiones por día para estimar un p95 estable; con 20 peticiones diarias el percentil es ruido. Además, un presupuesto de error mensual (el 5 % de peticiones lentas permitido) puede ser la formulación correcta cuando lo que se protege es el conjunto del mes.
 
 ### Un verificador de escenarios frente a mutaciones
 
@@ -161,9 +161,9 @@ def lint(s):
 
 Detecta 106 de 180 (59 %), y todo lo que detecta es forma. Las 74 que se escapan tienen la forma correcta y el contenido equivocado: un umbral mil veces más laxo, un percentil que no protege la cola, un estímulo ajeno. Cambiar milisegundos por segundos es el caso más peligroso porque el escenario sigue pareciendo medido. Un buen verificador evita el error de omisión; el error de juicio solo lo ve quien conoce el sistema.
 
-![Tabla con nueve mutaciones de escenarios de calidad y cuántas de 20 detecta un verificador de forma: cuatro y el entorno vago 20 de 20, el cambio de unidad 6, y 0 para umbral cero, percentil más débil y estímulo ajeno.](../../../content/part-31/figures/se-373-verificador-de-escenarios.svg)
+![Barras apiladas horizontales con las mutaciones detectadas de 20 por cada operador: las cinco que quitan, vacían o vuelven vago un campo se detectan 20 de 20, el cambio de unidad 6 de 20 y las tres que conservan la forma, umbral cero, percentil más débil y estímulo ajeno, 0 de 20; el verificador solo ve la forma.](../../../content/part-31/figures/se-373-verificador-de-escenarios.svg)
 
-**Cómo leer la figura.** Las filas con 20 de 20 son errores de forma; las filas con 0 son errores de contenido. **Dónde deja de valer:** los diez escenarios base y los operadores son del autor y se escribieron sabiendo qué buscaba el verificador, de modo que el 59 % no es una tasa de detección estimable; muestra la frontera entre forma y juicio, no una cifra para citar.
+**Cómo leer la figura.** Cada barra es un operador de mutación y sus 20 casos: en verde los que el verificador detecta y en rojo los que deja pasar. Mira primero que las barras son enteras de un color salvo el cambio de unidad: los errores de forma se detectan siempre y los de contenido nunca. **Dónde deja de valer:** los diez escenarios base y los operadores son del autor y se escribieron sabiendo qué buscaba el verificador, de modo que el 59 % no es una tasa de detección estimable; muestra la frontera entre forma y juicio, no una cifra para citar.
 
 ## Definiciones de trabajo
 

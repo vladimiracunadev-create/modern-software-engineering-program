@@ -115,9 +115,9 @@ res2 = run(arr2, lambda i, t: r.expovariate(1 / 0.050), 4, patience=2.0, shed_ex
 
 La misma cola da cuatro respuestas porque cada prueba hace una pregunta. La más importante para el diseño es la tercera fila: el servidor que descarta trabajo vencido atiende 80,8 respuestas útiles por segundo con 142 llegadas por segundo, y el que no lo hace atiende cero.
 
-![Tabla con cuatro pruebas sobre el mismo sistema sintético: la carga estable no muestra límite, la rampa de estrés encuentra el codo entre 68 y 86 solicitudes por segundo y un colapso completo, el pico de 20 segundos deja 165 segundos de recuperación y la fuga agota el pool a los 67 minutos.](../../../content/part-31/figures/se-375-cuatro-pruebas-un-sistema.svg)
+![Líneas con el percentil 95 según la carga ofrecida: la prueba de carga estable a 60 solicitudes por segundo da 202 milisegundos, y la rampa de estrés da 288 a 68, 357 a 77 y 1 718 a 86 solicitudes por segundo con 32,7 por ciento de fallos, por encima de la capacidad nominal de 80; el codo está entre 68 y 86 y la carga estable no lo muestra.](../../../content/part-31/figures/se-375-cuatro-pruebas-un-sistema.svg)
 
-**Cómo leer la figura.** Cada fila es una prueba con la pregunta que responde; la tercera columna dice qué enseña o qué no ve. **Dónde deja de valer:** el tiempo virtual no tiene ruido de reloj, de red ni de recolección de memoria, el servicio exponencial es un supuesto y la paciencia de 2 s del cliente decide qué cuenta como fallo; el colapso observado depende de que el servidor no descarte lo vencido y de que los clientes no reintenten. Con reintentos (`SE-378`) el comportamiento sería peor.
+**Cómo leer la figura.** El eje horizontal es la carga ofrecida en solicitudes por segundo y el vertical, en escala logarítmica, el percentil 95; la línea roja es la rampa de estrés, el cuadrado verde la prueba de carga estable y la línea discontinua vertical la capacidad nominal. Mira primero el salto entre 77 y 86 solicitudes por segundo, y que la carga estable a 60 queda lejos del codo. **Dónde deja de valer:** el tiempo virtual no tiene ruido de reloj, de red ni de recolección de memoria, el servicio exponencial es un supuesto y la paciencia de 2 s del cliente decide qué cuenta como fallo; el colapso observado depende de que el servidor no descarte lo vencido y de que los clientes no reintenten. Con reintentos (`SE-378`) el comportamiento sería peor.
 
 ### Omisión coordinada
 
@@ -131,9 +131,9 @@ El mismo sistema, con 40 solicitudes por segundo (utilización del 50 %), se det
 
 El sistema es el mismo y el p99 pasa de 9 071 ms a 232 ms: el generador cerrado dejó de enviar durante la pausa y el 99,85 % de sus muestras son de antes o de después. El p99,9 sí ve la pausa (9 916 ms) porque las 8 peticiones atrapadas son lo bastante lentas; el p99 no. La corrección recupera una parte porque asume un intervalo esperado entre envíos. Un informe que diga «p99 de 232 ms» con el generador cerrado afirma algo que ninguna persona real vivió.
 
-![Tabla con una pausa de 10 segundos medida con un generador abierto, uno cerrado de ocho usuarios y uno cerrado con corrección: el percentil 99 pasa de 9 071 a 232 milisegundos según el generador.](../../../content/part-31/figures/se-375-omision-coordinada.svg)
+![Intervalos en escala logarítmica con la mediana, el percentil 99 y el percentil 99,9 de cada generador: el abierto tiene mediana de 45 milisegundos y percentil 99 de 9 071; el cerrado de 8 usuarios, 35 y solo 232; el cerrado con corrección de omisión coordinada, 38 y 8 600; el percentil 99,9 queda cerca de 10 000 en los tres.](../../../content/part-31/figures/se-375-omision-coordinada.svg)
 
-**Cómo leer la figura.** Cada fila es un generador observando el mismo servidor con la misma pausa; el salto está en el p99. **Dónde deja de valer:** un generador cerrado es el modelo correcto cuando la población es de verdad un número fijo de personas que esperan (una sala de examen con 30 estudiantes); en ese caso no hay omisión porque no hay más llegadas. La corrección de omisión supone un intervalo esperado y no se aplica sin conocerlo.
+**Cómo leer la figura.** Cada fila es un generador de carga observando el mismo servidor con la misma pausa; el cuadrado es la mediana, el triángulo el percentil 99 y el rombo el percentil 99,9, en escala logarítmica. Mira primero dónde cae el triángulo: en el generador cerrado se queda en 232 ms, lejos de los 9 071 del abierto. **Dónde deja de valer:** un generador cerrado es el modelo correcto cuando la población es de verdad un número fijo de personas que esperan (una sala de examen con 30 estudiantes); en ese caso no hay omisión porque no hay más llegadas. La corrección de omisión supone un intervalo esperado y no se aplica sin conocerlo.
 
 ### Duración y calentamiento
 
@@ -157,9 +157,9 @@ def serv(i, t):
 
 Una prueba más larga estrecha el intervalo (de 134 ms de rango a 64) y aun así el sesgo mayor viene del arranque: incluirlo lleva el p99 de 300 a 1 045 ms. Descartar el tramo inicial recupera el valor del régimen estable, con la condición de decidirlo antes, escribir cuánto se descartó y comprobar que el arranque realmente es transitorio.
 
-![Tabla con el percentil 99 medio y su rango en 30 repeticiones según la duración de la prueba y un calentamiento de 60 segundos con caché fría: incluir el arranque lleva el valor de 300 a 1 045 milisegundos.](../../../content/part-31/figures/se-375-duracion-y-calentamiento.svg)
+![Intervalos en escala logarítmica con el mínimo y el máximo del percentil 99 en 30 repeticiones y su media al final de cada fila: sin calentamiento el rango se estrecha de 244 a 378 milisegundos con 30 segundos a 279 a 343 con 600; con caché fría los primeros 60 segundos, incluir el arranque da una media de 1 045 y un máximo de 2 724, y descartar los 120 primeros segundos lo devuelve a 300.](../../../content/part-31/figures/se-375-duracion-y-calentamiento.svg)
 
-**Cómo leer la figura.** Las tres primeras filas muestran el efecto de la duración sin arranque; las cuatro siguientes, el efecto del arranque y del descarte. **Dónde deja de valer:** el calentamiento del 30 % durante 60 s es un supuesto; descartar un tramo por conveniencia es un sesgo: si el «arranque» es en realidad un defecto que reaparece (cada vez que el proceso se reinicia), descartarlo oculta el problema.
+**Cómo leer la figura.** Cada fila es una configuración de prueba; el círculo hueco es el mínimo y el relleno el máximo del p99 en 30 repeticiones, en escala logarítmica, y a la derecha va la media. Mira primero la longitud del segmento: es el rango de las repeticiones, que se estrecha con la duración y se dispara cuando se incluye el arranque con caché fría. **Dónde deja de valer:** el calentamiento del 30 % durante 60 s es un supuesto; descartar un tramo por conveniencia es un sesgo: si el «arranque» es en realidad un defecto que reaparece (cada vez que el proceso se reinicia), descartarlo oculta el problema.
 
 ## Definiciones de trabajo
 

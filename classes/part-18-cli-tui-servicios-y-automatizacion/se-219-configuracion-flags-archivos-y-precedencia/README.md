@@ -109,25 +109,25 @@ def resolver(flag, entorno, archivo, defecto):
     return defecto
 ```
 
-![Tabla con seis resolvedores defectuosos, las combinaciones en que difieren del correcto y si los detectan cuatro ejemplos de una capa o siete ejemplos.](../../../content/part-18/figures/se-219-precedencia-y-combinaciones.svg)
+![Mapa de calor con qué suite detecta cada uno de seis resolvedores defectuosos de precedencia: cuatro ejemplos de una sola capa solo detectan el que ignora el entorno; tres ejemplos que combinan capas detectan además el que hace ganar al entorno sobre el flag y el que hace ganar al archivo sobre el entorno; tres defectos sobreviven.](../../../content/part-18/figures/se-219-precedencia-y-combinaciones.svg)
 
-**Cómo leer la figura.** Cada fila es un defecto; la segunda columna cuenta combinaciones de 64 donde su resultado difiere del correcto; las dos últimas dicen si una suite lo detecta. **Dónde deja de valer:** la enumeración es posible porque hay tres capas y cuatro valores; con diez capas habría un millón de combinaciones, y habría que muestrear o razonar por partes. Los seis defectos son una selección del autor, no un catálogo.
+**Cómo leer la figura.** Cada fila es un resolvedor defectuoso, con en cuántas de 64 combinaciones difiere del correcto, y cada columna una suite; una celda oscura es que la suite lo detecta. Mira que la primera columna, de ejemplos de una sola capa, solo detecta el resolvedor que ignora el entorno, y que tres filas siguen claras incluso con la segunda suite. **Dónde deja de valer:** la enumeración es posible porque hay tres capas y cuatro valores; con diez capas habría un millón de combinaciones, y habría que muestrear o razonar por partes. Los seis defectos son una selección del autor, no un catálogo.
 
 ### «false» es verdadero
 
 Se evaluaron catorce cadenas posibles de una variable booleana. De las doce que tienen un significado claro (`1`, `0`, `true`, `false`, `True`, `FALSE`, `yes`, `no`, `on`, `off`, `" true "` y `"TRUE\n"`), **`bool(cadena)` interpretó mal cinco**: `0`, `false`, `FALSE`, `no` y `off` dieron `True`. Un analizador estricto aceptó las ocho formas canónicas (sin importar mayúsculas ni espacios) y **rechazó dos**: la cadena vacía (tratada como no definida) y `"2"`. Además, `int("٣")` devolvió 3 y `int("１２")` devolvió 12: `str.isdigit()` también acepta ese dígito, mientras que `isascii()` lo rechaza.
 
-![Tabla con valores de entorno como 0, false, no, off, vacío, 2 y un dígito arábigo, el resultado de bool aplicado a la cadena y el de un analizador estricto.](../../../content/part-18/figures/se-219-booleanos-del-entorno.svg)
+![Diagrama de cómo se interpretan las cadenas del entorno: bool aplicado a una cadena devuelve True para 0, false, FALSE, no y off, que significan falso; devuelve False para la cadena vacía, que un analizador estricto trata como no definida; devuelve True para 2 y lee un dígito arábigo como 3, que el analizador rechaza con un error de uso.](../../../content/part-18/figures/se-219-booleanos-del-entorno.svg)
 
-**Cómo leer la figura.** Cada fila es una cadena; la columna de `bool()` muestra el error silencioso y la última, la decisión del analizador estricto. **Dónde deja de valer:** el conjunto aceptado (`yes`/`on`…) es una decisión del diseño, no un estándar; otra herramienta puede aceptar menos o distinguir mayúsculas. Lo que no cambia es que «no reconocido» debe ser un error de uso y no un valor por defecto.
+**Cómo leer la figura.** A la izquierda están los valores del entorno y a la derecha cómo los interpretan `bool(cadena)` y el analizador estricto. Las cajas coral son las que `bool` interpreta al revés o de más, la turquesa la que coincide y la dorada la cadena vacía, que el analizador trata como no definida. **Dónde deja de valer:** el conjunto aceptado (`yes`/`on`…) es una decisión del diseño, no un estándar; otra herramienta puede aceptar menos o distinguir mayúsculas. Lo que no cambia es que «no reconocido» debe ser un error de uso y no un valor por defecto.
 
 ### Dónde se ve un secreto
 
 Se lanzó un proceso hijo con el argumento `--token=FAKE-TOKEN-0001` y la variable `SECRETO_SINTETICO=FAKE-ENV-0002`, y otro proceso del mismo usuario intentó leerlos. En **Windows**, `Get-CimInstance Win32_Process` mostró la línea de comandos completa, con el valor falso; la variable de entorno no se comprobó por esa vía (WMI no la lista). En **Ubuntu (WSL2)**, `/proc/pid/cmdline` mostró el argumento y `/proc/pid/environ` mostró la variable. Un secreto leído de un archivo o de la entrada estándar no aparece en ninguno de los dos.
 
-![Tabla con tres formas de entregar un secreto sintético, argumento, variable de entorno y archivo o entrada estándar, y dónde fue visible en Windows y en Ubuntu.](../../../content/part-18/figures/se-219-donde-se-ve-un-secreto.svg)
+![Mapa de calor con dónde puede verse un secreto sintético según cómo se entrega: pasado como argumento es visible para otro proceso del mismo usuario en Windows y en Ubuntu; por variable de entorno es visible en Ubuntu y no se comprobó en Windows; leído de un archivo o de stdin no aparece en ninguno.](../../../content/part-18/figures/se-219-donde-se-ve-un-secreto.svg)
 
-**Cómo leer la figura.** Cada fila es un canal; las columnas son lo que se observó en cada sistema desde un segundo proceso del mismo usuario. **Dónde deja de valer:** solo se probó el mismo usuario; hay sistemas que restringen `/proc` (`hidepid`) o que aíslan procesos, y otros usuarios o administradores pueden ver más. La medición demuestra la exposición posible, no la que existe en tu entorno.
+**Cómo leer la figura.** Cada fila es una forma de entregar el secreto y cada columna un sistema; el color más oscuro es que otro proceso del mismo usuario lo ve. Mira la fila de arriba, oscura en los dos sistemas, y la de abajo, clara en ambos; la celda de en medio de Windows es la que no se comprobó. **Dónde deja de valer:** solo se probó el mismo usuario; hay sistemas que restringen `/proc` (`hidepid`) o que aíslan procesos, y otros usuarios o administradores pueden ver más. La medición demuestra la exposición posible, no la que existe en tu entorno.
 
 ## Definiciones de trabajo
 

@@ -109,17 +109,17 @@ def enviar_aviso_con_clave(estado, clave):
         estado["avisos_ok"] = estado.get("avisos_ok", 0) + 1
 ```
 
-![Tabla con siete operaciones ejecutadas una y tres veces, el estado resultante y si cada una es idempotente.](../../../content/part-18/figures/se-224-operaciones-repetibles.svg)
+![Puntos unidos por una línea con el efecto observable tras una y tras tres ejecuciones de siete operaciones: anexar una línea, incrementar un contador y enviar un aviso pasan de 1 a 3; fijar un valor, el upsert por clave, crear si falta y enviar un aviso con clave de idempotencia se quedan en 1.](../../../content/part-18/figures/se-224-operaciones-repetibles.svg)
 
-**Cómo leer la figura.** Cada fila compara el estado tras una y tres ejecuciones; la última columna dice si coinciden. **Dónde deja de valer:** el estado es un diccionario en memoria y el «aviso» un contador; un servicio real puede aceptar la clave y fallar al guardarla, o expirar las claves, y esos casos no se modelaron. La tabla clasifica la intención de la operación, no su implementación.
+**Cómo leer la figura.** Cada fila es una operación; el círculo hueco es lo que se observa tras una ejecución y el relleno tras tres. Mira las filas con segmento coral: allí repetir multiplica el efecto y la operación no es idempotente; en las demás los dos puntos coinciden. **Dónde deja de valer:** el estado es un diccionario en memoria y el «aviso» un contador; un servicio real puede aceptar la clave y fallar al guardarla, o expirar las claves, y esos casos no se modelaron. La tabla clasifica la intención de la operación, no su implementación.
 
 ### Seis estrategias, cuarenta caídas
 
 Un lote escribe 20 filas. Para cada estrategia se provocó una caída en cada uno de los 20 pasos, con y sin una escritura parcial o una caída entre escribir y marcar (**40 escenarios**), se reanudó sin fallo y se comparó el resultado con las 20 filas esperadas. **A. Reescribir en el sitio**: 0 resultados incorrectos, pero tras la caída un lector vio un archivo **vacío o incompleto en los 40**. **B. Anexar sin punto de control**: **38** resultados incorrectos, todos con duplicados. **C. Anexar y marcar después**: **19** incorrectos (duplicados). **D. Marcar antes de anexar**: **40** incorrectos, todos con pérdidas. **E. Anexar con clave de fila**: **0** incorrectos. **F. Temporal y `os.replace`**: **0** incorrectos y **0** veces que un lector vio un archivo incompleto.
 
-![Tabla con seis estrategias de escritura frente a cuarenta escenarios de caída: resultados incorrectos, veces que un lector vio un archivo incompleto y qué ocurrió.](../../../content/part-18/figures/se-224-caidas-en-cada-paso.svg)
+![Barras horizontales con las caídas de 40 escenarios por estrategia de escritura: anexar sin punto de control deja 38 resultados incorrectos, marcar después 19 y marcar antes 40; reescribir en el sitio, anexar con clave y marcar antes deja 40 escenarios con un lector que vio un archivo incompleto; solo el temporal con os.replace no lo muestra nunca.](../../../content/part-18/figures/se-224-caidas-en-cada-paso.svg)
 
-**Cómo leer la figura.** Cada fila es una estrategia; las columnas centrales cuentan escenarios con resultado final incorrecto y con un archivo parcial visible; la última explica el mecanismo. **Dónde deja de valer:** las caídas son excepciones simuladas en puntos discretos; no incluyen un reordenamiento del disco ni la pérdida de datos no vaciados. E y F resuelven problemas distintos (repetición y visibilidad) y la solución completa los combina.
+**Cómo leer la figura.** Cada grupo es una estrategia de escritura con dos barras: los resultados finales incorrectos (coral) y las veces que un lector vio un archivo incompleto (dorado), sobre 40 escenarios de caída. Mira el último grupo, con las dos barras en cero: el temporal con `os.replace` es el único correcto y nunca visible a medias. **Dónde deja de valer:** las caídas son excepciones simuladas en puntos discretos; no incluyen un reordenamiento del disco ni la pérdida de datos no vaciados. E y F resuelven problemas distintos (repetición y visibilidad) y la solución completa los combina.
 
 ### Reemplazar un archivo que alguien lee
 
@@ -135,9 +135,9 @@ else:
     sys.exit(75)                      # fallo temporal acordado en SE-220
 ```
 
-![Tabla con el resultado de reemplazar y de borrar un archivo abierto por un lector en Windows y en Ubuntu.](../../../content/part-18/figures/se-224-reemplazo-con-destino-abierto.svg)
+![Diagrama de reemplazar o borrar un archivo que otro proceso mantiene abierto: en Windows os.replace y os.remove fallan con PermissionError; en Ubuntu ambos se permiten y el lector conserva el contenido anterior; tras cerrar el lector el reemplazo funciona.](../../../content/part-18/figures/se-224-reemplazo-con-destino-abierto.svg)
 
-**Cómo leer la figura.** Cada fila es una operación sobre un archivo abierto; las columnas son los dos sistemas. **Dónde deja de valer:** un solo lector abierto con el modo por defecto de Python; antivirus, indexadores y archivos abiertos con permiso de compartir cambian el resultado en Windows, y los sistemas de archivos de red tienen sus propias reglas.
+**Cómo leer la figura.** A la izquierda está un lector que mantiene el archivo abierto y a la derecha lo que ocurre al reemplazarlo o borrarlo. Las dos cajas coral comparan Windows, donde falla con PermissionError, con Ubuntu, donde se permite; la turquesa es el caso que funciona en los dos. **Dónde deja de valer:** un solo lector abierto con el modo por defecto de Python; antivirus, indexadores y archivos abiertos con permiso de compartir cambian el resultado en Windows, y los sistemas de archivos de red tienen sus propias reglas.
 
 ## Definiciones de trabajo
 

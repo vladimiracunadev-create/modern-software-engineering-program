@@ -111,9 +111,9 @@ finally:
     os.close(fd); os.remove(lock)
 ```
 
-![Tabla con diez fallos inyectados en una copia de seguridad y el resultado de la versión frágil y de la endurecida.](../../../content/part-18/figures/se-227-diez-fallos-inyectados.svg)
+![Barras apiladas con el resultado de diez fallos inyectados en una copia de seguridad: la versión frágil acierta en 2, se cuelga en 1 y daña en silencio en 7; la versión endurecida acierta en los 10 rechazando o fallando con códigos 2, 1, 65 o 75.](../../../content/part-18/figures/se-227-diez-fallos-inyectados.svg)
 
-**Cómo leer la figura.** Cada fila es un fallo; las columnas comparan el resultado de las dos versiones. **Dónde deja de valer:** los diez fallos los eligió el autor; un caso no inyectado (permisos, disco lleno real, un antivirus que bloquea) puede romper la versión endurecida. Los resultados fueron idénticos en Windows y en Ubuntu, pero el escenario del nombre con tilde depende de la codificación de la consola.
+**Cómo leer la figura.** Cada barra son los diez fallos inyectados en una versión de la copia de seguridad, divididos en correctos (turquesa), colgados (dorado) y daño silencioso (coral). Compara las dos barras: la frágil acierta en 2 y daña en silencio en 7; la endurecida acierta en los 10. El detalle por escenario está en la tabla. **Dónde deja de valer:** los diez fallos los eligió el autor; un caso no inyectado (permisos, disco lleno real, un antivirus que bloquea) puede romper la versión endurecida. Los resultados fueron idénticos en Windows y en Ubuntu, pero el escenario del nombre con tilde depende de la codificación de la consola.
 
 ### Actualizaciones perdidas entre procesos
 
@@ -127,9 +127,9 @@ Tres procesos incrementan 150 veces cada uno un contador guardado en un archivo 
 
 Se pasaron doce nombres de archivo a un proceso hijo que imprime sus argumentos, una vez como cadena con `shell=True` y otra como lista. Con `shell=True`, **seis nombres se interpretaron mal en Windows y ocho en Ubuntu**, con **una inyección de comando en Windows** (`x&echo INYECTADO`) y **dos en Ubuntu** (con `;` y con `&`). Entre los casos: `a b.txt` se partió en dos argumentos en ambos; `$HOME.txt` se expandió en Ubuntu y no en Windows; `'q'.txt` y `(x).txt` fallaron en Ubuntu y no en Windows. Con la lista de argumentos, los doce fueron correctos en Ubuntu y once en Windows: el fallo restante, `ñandú.txt`, fue de codificación de la salida del hijo (la consola usa la codificación local y el padre la leyó como UTF-8), no del citado.
 
-![Tabla con ocho nombres de archivo pasados como cadena con shell en Windows y en Ubuntu y como lista de argumentos.](../../../content/part-18/figures/se-227-citado-de-argumentos.svg)
+![Mapa de calor con el resultado de pasar ocho nombres de archivo como cadena con shell=True en Windows y en Ubuntu, o como lista de argumentos: la lista acierta en todos; la cadena falla o permite una inyección de comando en la mayoría, con una inyección en Windows y dos en Ubuntu.](../../../content/part-18/figures/se-227-citado-de-argumentos.svg)
 
-**Cómo leer la figura.** Cada fila es un nombre; las tres columnas son el resultado con la cadena en Windows, con la cadena en Ubuntu y con la lista. **Dónde deja de valer:** son doce nombres elegidos por el autor y dos shells; PowerShell, bash en Windows u otros tienen reglas propias. La última fila es un recordatorio de que el citado no es el único problema de los nombres no ASCII.
+**Cómo leer la figura.** Cada fila es un nombre de archivo y cada columna una forma de pasarlo; el color más oscuro es peor: bien, mal o inyección. Mira la columna de la derecha, casi toda clara: pasar los argumentos como lista no reinterpreta nada; las dos columnas de cadena fallan en la mayoría, con inyecciones. **Dónde deja de valer:** son doce nombres elegidos por el autor y dos shells; PowerShell, bash en Windows u otros tienen reglas propias. La última fila es un recordatorio de que el citado no es el único problema de los nombres no ASCII.
 
 ## Definiciones de trabajo
 

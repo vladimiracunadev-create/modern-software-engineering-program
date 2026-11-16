@@ -109,9 +109,9 @@ else:
     p.terminate()                            # SIGTERM; luego, tras un plazo, p.kill()
 ```
 
-![Tabla con el código y la marca de limpieza al terminar un hijo con terminate y con CTRL_BREAK_EVENT en Windows y en Ubuntu.](../../../content/part-18/figures/se-222-senales-por-sistema.svg)
+![Diagrama de lo que ocurre al pedir a un servicio que termine: con un manejador que limpia en 0,2 segundos Windows termina con código 1 sin limpieza y Ubuntu con código 0 y marca de limpieza; con un manejador que ignora la señal Windows lo termina y Ubuntu necesita forzar con código menos 9 tras 1,5 segundos; solo CTRL_BREAK_EVENT limpia en Windows.](../../../content/part-18/figures/se-222-senales-por-sistema.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de pedir la terminación; las columnas dicen qué observó el padre en cada sistema. **Dónde deja de valer:** se midió un hijo de consola con un manejador simple; un servicio de Windows registrado en el gestor recibe órdenes de control propias, y una unidad de systemd añade `ExecStop=` y sus propios plazos. El resultado enseña que la misma llamada no equivale entre sistemas.
+**Cómo leer la figura.** A la izquierda está la petición de terminar y a la derecha tres casos, cada uno con lo que ocurre en Windows y en Ubuntu. La caja coral es el caso en que hubo que forzar, la dorada la limpieza que solo ocurre en Ubuntu y la turquesa la única vía de limpieza ordenada en Windows. **Dónde deja de valer:** se midió un hijo de consola con un manejador simple; un servicio de Windows registrado en el gestor recibe órdenes de control propias, y una unidad de systemd añade `ExecStop=` y sus propios plazos. El resultado enseña que la misma llamada no equivale entre sistemas.
 
 ### Declararse preparado demasiado pronto
 

@@ -115,9 +115,9 @@ k = min(c.values())                                   # tamaño del menor grupo
 
 Una compuerta de consentimiento (código correcto y seis defectos) se ejecutó contra cinco escenarios, con un servidor HTTP local que cuenta las peticiones y busca rutas en la carga. **El código correcto**: 0 de 5 escenarios fallan. **M1 (activada por defecto)**: lo detecta solo la primera ejecución sin configuración. **M2 (ignora `DO_NOT_TRACK`)**: solo el escenario con `DO_NOT_TRACK=1`. **M3 (ignora el entorno de CI)**: solo el de CI. **M4 (envía antes de decidir)**: **los cinco**. **M6 (incluye una ruta local)**: solo el opt-in explícito, que inspecciona la carga. **M7 (ignora el opt-out explícito)**: solo el opt-out. Una suite con solo «opt-in» y «opt-out» deja pasar tres de los seis defectos (M1, M2 y M3).
 
-![Tabla con seis defectos de una compuerta de consentimiento, cuántos de cinco escenarios los detectan y cuál.](../../../content/part-18/figures/se-226-compuerta-de-consentimiento.svg)
+![Barras horizontales con cuántos de cinco escenarios detectan cada defecto de una compuerta de consentimiento: el código correcto no dispara ninguno, cuatro defectos y el opt-out explícito los detecta un único escenario cada uno y el que envía antes de decidir lo detectan los cinco.](../../../content/part-18/figures/se-226-compuerta-de-consentimiento.svg)
 
-**Cómo leer la figura.** Cada fila es un defecto inyectado; la tercera columna dice qué escenario lo revela. **Dónde deja de valer:** seis defectos escritos por el autor sobre una compuerta de juguete; una compuerta real tiene más ramas (revocación, expiración, errores de red). El hallazgo es de método: cada defecto tiene su escenario, y los más peligrosos son los que envían de más sin fallar.
+**Cómo leer la figura.** Cada barra es un defecto de la compuerta y su longitud cuántos de los cinco escenarios lo detectan. Mira que casi todas valen 1: cada defecto exige su escenario, y solo el que envía antes de decidir lo detectan los cinco. El código correcto no dispara ninguno. **Dónde deja de valer:** seis defectos escritos por el autor sobre una compuerta de juguete; una compuerta real tiene más ramas (revocación, expiración, errores de red). El hallazgo es de método: cada defecto tiene su escenario, y los más peligrosos son los que envían de más sin fallar.
 
 ### Quién acepta no representa a quien usa
 

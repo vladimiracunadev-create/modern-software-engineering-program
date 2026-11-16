@@ -113,25 +113,25 @@ def planificar(duraciones, politica, periodo=60.0):
         fin = inicio + d
 ```
 
-![Tabla con tres políticas de solape, sin bloqueo, omitir y encolar, y sus consecuencias con una mediana de 40 y de 55 segundos.](../../../content/part-18/figures/se-223-politicas-ante-solapes.svg)
+![Barras agrupadas con el efecto de tres políticas en un trabajo cada 60 segundos durante 1 440 ejecuciones: sin bloqueo hay 271 arranques solapados con duración mediana de 40 s y 1 353 con 55 s; omitir deja 174 y 439 ejecuciones sin hacer; encolar retrasa el inicio hasta 79 y 576 segundos.](../../../content/part-18/figures/se-223-politicas-ante-solapes.svg)
 
-**Cómo leer la figura.** Cada fila es una política y cada columna una duración mediana; los números cuentan solapes, ejecuciones omitidas o el mayor retraso. **Dónde deja de valer:** la distribución lognormal y sus parámetros son supuestos; una duración real puede tener colas más pesadas. El resultado no dice qué política elegir, dice qué pierde cada una y que ninguna sustituye a hacer más corto el trabajo.
+**Cómo leer la figura.** Cada grupo es una política y mide una cosa distinta, indicada en su etiqueta: arranques solapados, ejecuciones omitidas o segundos de retraso. La barra turquesa es el trabajo de mediana 40 s y la coral el de 55 s. Mira que el coste crece mucho más cuando más ejecuciones superan el periodo. **Dónde deja de valer:** la distribución lognormal y sus parámetros son supuestos; una duración real puede tener colas más pesadas. El resultado no dice qué política elegir, dice qué pierde cada una y que ninguna sustituye a hacer más corto el trabajo.
 
 ### Hilos y procesos: esperar o calcular
 
 Se midieron tres estrategias con la mediana de tres ejecuciones. **40 esperas de 0,05 s**: secuencial **2,01 s**; ocho hilos **0,25 s**; cuatro procesos **1,14 s** en Windows (0,52 s en Ubuntu). **8 cálculos de CPU** (1,5 millones de iteraciones cada uno): secuencial **2,27 s** en Windows (1,16 s en Ubuntu); ocho hilos **4,95 s** (1,34 s), es decir, **más lentos que en secuencia**; cuatro procesos **1,31 s** (0,54 s). Arrancar un pool de dos procesos con dos tareas triviales costó **0,41 s en Windows y 0,06 s en Ubuntu**. Entre ejecuciones, las cifras de procesos y de cálculo variaron hasta el doble en el equipo de pruebas.
 
-![Tabla con el tiempo de 40 esperas y de 8 cálculos con ejecución secuencial, ocho hilos y cuatro procesos en Windows y en Ubuntu, y el coste de arrancar un pool.](../../../content/part-18/figures/se-223-hilos-y-procesos.svg)
+![Barras horizontales en escala logarítmica con el tiempo de cada estrategia en Windows y en Ubuntu: 40 esperas de 0,05 s tardan 2,01 s en secuencial y 0,25 s con ocho hilos; ocho cálculos de CPU no se aceleran con hilos (4,95 s frente a 2,27 s en Windows) y sí con cuatro procesos (1,31 s); arrancar procesos cuesta 0,41 s en Windows.](../../../content/part-18/figures/se-223-hilos-y-procesos.svg)
 
-**Cómo leer la figura.** Cada fila es una carga y una estrategia; las dos columnas son sistemas. **Dónde deja de valer:** son medianas de tres ejecuciones en un equipo con carga variable; los tiempos absolutos no se trasladan, pero el patrón sí: los hilos ayudan a esperar y perjudican a calcular, y los procesos ayudan a calcular a cambio de un arranque que en Windows cuesta mucho más que en Linux.
+**Cómo leer la figura.** Cada grupo es una carga y estrategia, con una barra coral para Windows y una turquesa para Ubuntu; la escala es logarítmica, así que cada marca vale diez veces la anterior. Mira que con esperas los hilos bajan el tiempo en un orden de magnitud y con cálculo no, y que arrancar procesos cuesta mucho más en Windows. **Dónde deja de valer:** son medianas de tres ejecuciones en un equipo con carga variable; los tiempos absolutos no se trasladan, pero el patrón sí: los hilos ayudan a esperar y perjudican a calcular, y los procesos ayudan a calcular a cambio de un arranque que en Windows cuesta mucho más que en Linux.
 
 ### Un trabajo imposible al frente de la cola
 
 Mil trabajos, **35 venenosos** (que siempre fallan) y **110 con un fallo transitorio** (fallan solo la primera vez), con un presupuesto de 3 000 intentos. **Reintentar sin límite, volviendo al frente de la cola**: completó **6** trabajos y dejó **994** sin procesar. **Reintentar sin límite, volviendo al final**: completó **965** y dejó **35** venenosos circulando sin parar. **Máximo de 3 intentos y cola de muertos**: completó **965**, apartó **35** y usó **1 214** intentos.
 
-![Tabla con tres políticas de reintento sobre mil trabajos, con los completados, los apartados, los intentos y los trabajos sin procesar.](../../../content/part-18/figures/se-223-trabajo-venenoso.svg)
+![Barras apiladas con el destino de 1 000 trabajos según la política de reintento: reintentar sin límite al frente de la cola completa 6 y deja 994 sin procesar; al final de la cola completa 965 y deja 35 sin procesar; limitar a tres intentos con cola de muertos completa 965 y aparta los 35 venenosos.](../../../content/part-18/figures/se-223-trabajo-venenoso.svg)
 
-**Cómo leer la figura.** Cada fila es una política; las columnas finales muestran el efecto: cuántos terminaron, cuántos se apartaron y cuántos quedaron sin tocar. **Dónde deja de valer:** los porcentajes (3 % y 10 %) son supuestos y el presupuesto de intentos es artificial; en una cola real el efecto depende del tamaño de la cola y de la concurrencia. Lo que generaliza es el orden: sin límite de intentos y sin un lugar donde apartar, un solo trabajo puede monopolizar el sistema.
+**Cómo leer la figura.** Cada barra son los 1 000 trabajos de una política, divididos en completados (turquesa), en cola de muertos (dorado) y sin procesar (coral). Mira la barra de arriba, casi toda coral: un trabajo venenoso al frente de la cola bloquea al resto; la de abajo es la única sin trabajos sin procesar. **Dónde deja de valer:** los porcentajes (3 % y 10 %) son supuestos y el presupuesto de intentos es artificial; en una cola real el efecto depende del tamaño de la cola y de la concurrencia. Lo que generaliza es el orden: sin límite de intentos y sin un lugar donde apartar, un solo trabajo puede monopolizar el sistema.
 
 ## Definiciones de trabajo
 

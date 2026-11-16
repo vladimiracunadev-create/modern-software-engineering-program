@@ -1,8 +1,10 @@
 """Figures for SE-217 to SE-222 (synthetic data, fixed seeds; CPython 3.12.9 on Windows 11 and 3.12.3 on Ubuntu 24.04 under WSL2; times are one machine's)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import bars, tab
+from figure_kit import Fig, dumbbell, grouped_bars, heatmap, stacked_bars
+from figure_diagrams import fan
+from figures_part07_a import bars
+
 
 SINT = "Datos sintéticos y procesos locales; Windows (CPython 3.12.9) y Ubuntu/WSL2 (3.12.3); los tiempos son de un equipo."
 
@@ -23,15 +25,13 @@ def se217_abreviaturas() -> Fig:
 
 
 def se217_contrato() -> Fig:
-    rows = [["-h", "0", "125 B", "0 B", "Ayuda: va a stdout"],
-            ["Sin subcomando", "2", "0 B", "89 B", "Uso incorrecto: stderr"],
-            ["Flag desconocido", "2", "0 B", "77 B", "Uso incorrecto: stderr"],
-            ["Valor fuera de las opciones", "2", "0 B", "139 B (Ubuntu: 143 B)", "El texto del mensaje cambia entre versiones"],
-            ["Invocación válida", "0", "12 B", "0 B", "Resultado: stdout; nada en stderr"]]
-    return tab("Lo que observa quien invoca una CLI de argparse",
-               "Tabla con cinco invocaciones de una herramienta de ejemplo: la ayuda sale con código 0 por la salida estándar; los cuatro tipos de uso incorrecto salen con código 2 y escriben solo en el error estándar; una invocación válida escribe 12 bytes y sale con 0.",
-               ["Invocación", "Código", "stdout", "stderr", "Lectura"], rows, [250, 90, 110, 250, 330], row_h=52,
-               note="El código 2 y la separación de flujos salen gratis de argparse, pero el texto exacto del mensaje no es contrato: entre Python 3.12.9 y 3.12.3 el mismo error midió 139 y 143 bytes. Quien automatice debe leer el código, no analizar el mensaje.", note_kind="gold", foot=SINT)
+    return grouped_bars(
+        'Lo que observa quien invoca una CLI de argparse',
+        "Barras horizontales con los bytes que cada invocación de una herramienta de ejemplo escribe en la salida estándar y en el error estándar: la ayuda escribe 125 bytes en stdout, los cuatro usos incorrectos escriben solo en stderr (89, 77 y 139 bytes, 143 en Ubuntu) y una invocación válida escribe 12 bytes en stdout.",
+        ["-h (código 0)", "Sin subcomando (código 2)", "Flag desconocido (código 2)", "Valor fuera de las opciones (código 2)", "Invocación válida (código 0)"],
+        [("stdout", [125, 0, 0, 0, 12], "teal"), ("stderr", [0, 89, 77, 139, 0], "coral")],
+        unit="Bytes escritos", horizontal=True, label_w=270,
+        note='El código 2 y la separación de flujos salen gratis de argparse, pero el texto exacto del mensaje no es contrato: entre Python 3.12.9 y 3.12.3 el mismo error midió 139 y 143 bytes. Quien automatice debe leer el código, no analizar el mensaje.', note_kind='gold', foot=SINT)
 
 
 def se217_sugerencias() -> Fig:
@@ -65,13 +65,14 @@ def se218_buffer() -> Fig:
 
 
 def se218_tuberia_rota() -> Fig:
-    rows = [["Productor que captura la excepción", "Código 7 · OSError, errno 22", "Código 7 · BrokenPipeError, errno 32"],
-            ["Productor sin manejo", "Código 1 · OSError: [Errno 22] Invalid argument", "Código 1 · BrokenPipeError: [Errno 32] Broken pipe"],
-            ["Qué debe hacer una herramienta", "Tratar errno 22 y 32 como «el consumidor ya no quiere más»", "Salir en silencio con el código acordado, sin traza"]]
-    return tab("Qué ocurre cuando el consumidor cierra la tubería tras una línea",
-               "Tabla: ante el cierre anticipado de la tubería, un productor Python en Windows recibe OSError con errno 22 y uno en Ubuntu recibe BrokenPipeError con errno 32; sin manejo ambos terminan con código 1 y una traza.",
-               ["Situación", "Windows", "Ubuntu (WSL2)"], rows, [250, 380, 400], row_h=66,
-               note="El mismo hecho —leer una línea y cerrar— produce excepciones distintas. Una herramienta portable debe tratar ambas como una terminación normal del consumidor; imprimir una traza por haber usado «| head» es un defecto de la herramienta.", note_kind="gold", foot=SINT)
+    return fan(
+        'Qué ocurre cuando el consumidor cierra la tubería tras una línea',
+        "Diagrama de lo que ocurre cuando el consumidor cierra la tubería tras una línea: en Windows el productor recibe OSError con errno 22 y en Ubuntu BrokenPipeError con errno 32; sin manejo ambos terminan con código 1 y una traza; una herramienta portable trata los dos como una terminación normal y sale en silencio.",
+        ("El consumidor cierra la tubería tras una línea", "el productor sigue escribiendo", "navy"),
+        [("Windows: OSError, errno 22", "si el productor captura la excepción sale con código 7; sin manejo, código 1 y una traza", "coral"),
+         ("Ubuntu (WSL2): BrokenPipeError, errno 32", "si el productor captura la excepción sale con código 7; sin manejo, código 1 y una traza", "coral"),
+         ("Qué debe hacer una herramienta portable", "tratar errno 22 y 32 como «el consumidor ya no quiere más» y salir en silencio con el código acordado, sin traza", "teal")],
+        note='El mismo hecho —leer una línea y cerrar— produce excepciones distintas. Una herramienta portable debe tratar ambas como una terminación normal del consumidor; imprimir una traza por haber usado «| head» es un defecto de la herramienta.', note_kind='gold', foot=SINT)
 
 
 def se218_memoria() -> Fig:
@@ -88,64 +89,63 @@ def se218_memoria() -> Fig:
 
 # ---------------------------------------------------------------- SE-219
 def se219_precedencia() -> Fig:
-    rows = [["El entorno gana al flag", "16", "No", "Sí"],
-            ["El archivo gana al entorno", "4", "No", "Sí"],
-            ["Un entorno vacío cuenta como definido", "3", "No", "No"],
-            ["if flag: descarta el flag vacío", "14", "No", "No"],
-            ["if archivo: descarta el valor vacío", "2", "No", "No"],
-            ["Ignora el entorno", "6", "Sí", "Sí"]]
-    return tab("Seis resolvedores defectuosos de precedencia frente a 64 combinaciones",
-               "Tabla: de 64 combinaciones de cuatro valores por capa, seis resolvedores defectuosos difieren del correcto en 16, 4, 3, 14, 2 y 6 combinaciones; cuatro ejemplos de una sola capa solo detectan uno; tres ejemplos que combinan capas detectan dos más.",
-               ["Defecto del resolvedor", "Combinaciones que difieren (de 64)", "Lo detectan 4 ejemplos de una capa", "Lo detectan + 3 ejemplos de varias capas"], rows, [330, 200, 230, 240], row_h=52,
-               note="Los ejemplos de una sola capa no pueden distinguir el orden de dos capas. Tres de los seis defectos sobreviven incluso a siete ejemplos razonables: los que dependen del valor vacío exigen escribir ese caso a propósito.", note_kind="coral", foot="Enumeración exhaustiva de 4 × 4 × 4 combinaciones; sin aleatoriedad; idéntica en ambos sistemas.")
+    return heatmap(
+        'Seis resolvedores defectuosos de precedencia frente a 64 combinaciones',
+        "Mapa de calor con qué suite detecta cada uno de seis resolvedores defectuosos de precedencia: cuatro ejemplos de una sola capa solo detectan el que ignora el entorno; tres ejemplos que combinan capas detectan además el que hace ganar al entorno sobre el flag y el que hace ganar al archivo sobre el entorno; tres defectos sobreviven.",
+        ["El entorno gana al flag (difiere en 16 de 64)", "El archivo gana al entorno (4 de 64)", "Un entorno vacío cuenta como definido (3 de 64)", "if flag: descarta el flag vacío (14 de 64)", "if archivo: descarta el valor vacío (2 de 64)", "Ignora el entorno (6 de 64)"],
+        ["4 ejemplos de una capa", "+ 3 ejemplos de varias capas"],
+        [[0, 1], [0, 1], [0, 0], [0, 0], [0, 0], [1, 1]],
+        unit="detección", row_title="Resolvedor defectuoso", col_title="¿La suite lo detecta?",
+        scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "lo detecta" if v else "sobrevive", cell_h=44, label_w=330,
+        note='Los ejemplos de una sola capa no pueden distinguir el orden de dos capas. Tres de los seis defectos sobreviven incluso a siete ejemplos razonables: los que dependen del valor vacío exigen escribir ese caso a propósito.', note_kind='coral', foot="Enumeración exhaustiva de 4 × 4 × 4 combinaciones; sin aleatoriedad; idéntica en ambos sistemas.")
 
 
 def se219_booleanos() -> Fig:
-    rows = [["«0»", "True", "falso", "False"],
-            ["«false» y «FALSE»", "True", "falso", "False"],
-            ["«no» y «off»", "True", "falso", "False"],
-            ["«1» y «true»", "True", "verdadero", "True"],
-            ["«» (vacío)", "False", "sin definir", "Se trata como no definido"],
-            ["«2»", "True", "desconocido", "Rechaza con un error de uso"],
-            ["«٣» (dígito arábigo)", "int() lo lee como 3", "no es ASCII", "Rechaza: solo dígitos ASCII"]]
-    return tab("Interpretar booleanos del entorno: bool(cadena) frente a un analizador estricto",
-               "Tabla: bool aplicado a una cadena del entorno devuelve True para 0, false, FALSE, no y off, es decir, interpreta mal cinco de las doce cadenas reconocidas; un analizador estricto acepta ocho formas, trata el vacío como no definido y rechaza 2 y los dígitos no ASCII.",
-               ["Valor del entorno", "bool(cadena)", "Significado", "Analizador estricto"], rows, [260, 220, 200, 340], row_h=52,
-               note="bool(«false») es True porque la cadena no está vacía: cinco de las doce cadenas reconocidas se interpretan al revés. int() acepta dígitos de otros alfabetos (int(«٣») = 3), así que «isdigit» tampoco basta para validar un número.", note_kind="gold", foot="Doce cadenas reconocidas y dos no reconocidas; idéntico en ambos sistemas (CPython 3.12.9 y 3.12.3).")
+    return fan(
+        'Interpretar booleanos del entorno: bool(cadena) frente a un analizador estricto',
+        "Diagrama de cómo se interpretan las cadenas del entorno: bool aplicado a una cadena devuelve True para 0, false, FALSE, no y off, que significan falso; devuelve False para la cadena vacía, que un analizador estricto trata como no definida; devuelve True para 2 y lee un dígito arábigo como 3, que el analizador rechaza con un error de uso.",
+        ("Valor del entorno", "bool(cadena) frente a un analizador estricto", "navy"),
+        [("«0», «false», «FALSE», «no», «off»", "bool(cadena) devuelve True; el analizador estricto devuelve False", "coral"),
+         ("«1» y «true»", "ambos devuelven True", "teal"),
+         ("«» (vacío)", "bool devuelve False; el analizador lo trata como no definido", "gold"),
+         ("«2» y «٣» (dígito arábigo)", "bool devuelve True e int() lee el dígito como 3; el analizador rechaza con un error de uso (solo dígitos ASCII)", "coral")],
+        note='bool(«false») es True porque la cadena no está vacía: cinco de las doce cadenas reconocidas se interpretan al revés. int() acepta dígitos de otros alfabetos (int(«٣») = 3), así que «isdigit» tampoco basta para validar un número.', note_kind='gold', foot="Doce cadenas reconocidas y dos no reconocidas; idéntico en ambos sistemas (CPython 3.12.9 y 3.12.3).")
 
 
 def se219_secreto() -> Fig:
-    rows = [["Secreto pasado como --token=VALOR", "Visible para otro proceso del mismo usuario (Get-CimInstance)", "Visible en /proc/pid/cmdline"],
-            ["Secreto pasado por variable de entorno", "No comprobado por esa vía (WMI no lista el entorno)", "Visible en /proc/pid/environ"],
-            ["Secreto leído de un archivo o de stdin", "No aparece en la línea de comandos", "No aparece en cmdline ni en el historial del shell"]]
-    return tab("Dónde puede verse un secreto sintético según cómo se entrega a la herramienta",
-               "Tabla: un valor falso pasado como argumento de línea de comandos fue visible para otro proceso del mismo usuario tanto en Windows como en Ubuntu; la variable de entorno fue visible en Ubuntu mediante /proc y no se comprobó en Windows; leerlo de un archivo o de la entrada estándar no lo expone en la línea de comandos.",
-               ["Cómo se entrega el secreto", "Windows", "Ubuntu (WSL2)"], rows, [300, 380, 350], row_h=66,
-               note="El valor usado fue FAKE-TOKEN-0001, sintético. Cualquier proceso del mismo usuario lo leyó mientras la herramienta corría; el historial del shell y los registros de procesos lo conservan además. Pasar secretos por flag es una decisión de diseño, no un detalle de comodidad.", note_kind="coral", foot="Medición en un equipo, mismo usuario; no incluye usuarios distintos, contenedores ni auditoría del sistema.")
+    return heatmap(
+        'Dónde puede verse un secreto sintético según cómo se entrega a la herramienta',
+        "Mapa de calor con dónde puede verse un secreto sintético según cómo se entrega: pasado como argumento es visible para otro proceso del mismo usuario en Windows y en Ubuntu; por variable de entorno es visible en Ubuntu y no se comprobó en Windows; leído de un archivo o de stdin no aparece en ninguno.",
+        ["Secreto pasado como --token=VALOR", "Secreto pasado por variable de entorno", "Secreto leído de un archivo o de stdin"],
+        ["Windows", "Ubuntu (WSL2)"],
+        [[1, 1], [0.5, 1], [0, 0]],
+        unit="visibilidad", row_title="Cómo se entrega", col_title="¿Otro proceso del mismo usuario lo ve?",
+        scale="coral", vmin=0, vmax=1, cell_fmt=lambda v: "visible" if v == 1 else ("no comprobado" if v == 0.5 else "no aparece"), cell_h=48, label_w=280,
+        note='El valor usado fue FAKE-TOKEN-0001, sintético. Cualquier proceso del mismo usuario lo leyó mientras la herramienta corría; el historial del shell y los registros de procesos lo conservan además. Pasar secretos por flag es una decisión de diseño, no un detalle de comodidad.', note_kind='coral', foot="Medición en un equipo, mismo usuario; no incluye usuarios distintos, contenedores ni auditoría del sistema.")
 
 
 # ---------------------------------------------------------------- SE-220
 def se220_codigos() -> Fig:
-    rows = [["sys.exit(256)", "256", "0"], ["sys.exit(257)", "257", "1"], ["sys.exit(1000)", "1000", "232"], ["sys.exit(-1)", "4294967295", "255"],
-            ["os.abort()", "3221226505", "-6 (señal SIGABRT)"], ["kill() desde el padre", "1", "-9 (señal SIGKILL)"],
-            ["Excepción sin capturar", "1", "1"], ["sys.exit(«mensaje»)", "1", "1"]]
-    return tab("El mismo código de salida observado desde el padre en Windows y en Ubuntu",
-               "Tabla: sys.exit(256) devuelve 256 en Windows y 0 en Ubuntu; sys.exit(1000) devuelve 1000 y 232; sys.exit(-1) devuelve 4294967295 y 255; un proceso abortado devuelve 3221226505 en Windows y menos 6 en Ubuntu; una excepción sin capturar devuelve 1 en ambos.",
-               ["Cómo termina el hijo", "Windows (CPython 3.12.9)", "Ubuntu (3.12.3)"], rows, [320, 330, 340], row_h=44,
-               note="Linux conserva solo ocho bits del código: 256 se lee como 0, es decir, éxito. Windows conserva treinta y dos. Un código fuera de 0–255 no es portable; en POSIX una señal se informa como un número negativo y en Windows como un código de excepción.", note_kind="coral", foot=SINT)
+    return fan(
+        'El mismo código de salida observado desde el padre en Windows y en Ubuntu',
+        "Diagrama de lo que observa el padre al terminar un hijo en Windows y en Ubuntu: Windows devuelve el valor completo de sys.exit (256, 257, 1000 y 4294967295 para menos uno) mientras Ubuntu conserva solo el byte bajo (0, 1, 232 y 255); un aborto da 3221226505 frente a menos 6; una excepción sin capturar da 1 en los dos.",
+        ("Un hijo termina; el padre lee el código", "Windows (CPython 3.12.9) y Ubuntu (3.12.3)", "navy"),
+        [("sys.exit(256), (257), (1000), (-1)", "Windows: 256, 257, 1000, 4294967295 · Ubuntu: 0, 1, 232, 255 (solo el byte bajo)", "coral"),
+         ("Terminación por señal", "os.abort(): 3221226505 en Windows, −6 (SIGABRT) en Ubuntu · kill() desde el padre: 1 y −9 (SIGKILL)", "coral"),
+         ("Excepción sin capturar · sys.exit(«mensaje»)", "1 en Windows y 1 en Ubuntu: coinciden", "teal")],
+        note='Linux conserva solo ocho bits del código: 256 se lee como 0, es decir, éxito. Windows conserva treinta y dos. Un código fuera de 0–255 no es portable; en POSIX una señal se informa como un número negativo y en Windows como un código de excepción.', note_kind='coral', foot=SINT)
 
 
 def se220_tuberias() -> Fig:
-    rows = [["false | cat; echo $?", "0", "El estado de la tubería es el del último comando; el fallo se pierde"],
-            ["set -o pipefail; false | cat; echo $?", "1", "pipefail propaga el primer fallo"],
-            ["false | true | cat; echo ${PIPESTATUS[@]}", "1 0 0", "PIPESTATUS conserva el estado de cada etapa"],
-            ["false && echo ok; echo $?", "1", "El && no ejecuta la segunda orden; $? queda en 1"],
-            ["false; echo continua; true; echo $?", "continua · 0", "Sin set -e el script sigue y el último estado oculta el fallo"],
-            ["set -e; false; echo continua", "(nada) · 1", "Con set -e el script se detiene en el primer fallo"]]
-    return tab("Estado de salida de tuberías y guiones de shell (bash, mismos resultados en Windows y Ubuntu)",
-               "Tabla de seis guiones de bash: false seguido de cat devuelve 0 aunque la primera etapa falló; con pipefail devuelve 1; PIPESTATUS muestra 1 0 0; sin set -e el guion continúa y termina con 0; con set -e se detiene con 1.",
-               ["Guion", "Resultado", "Lectura"], rows, [400, 130, 500], row_h=52,
-               note="Una tubería sin pipefail devuelve éxito aunque falle la primera etapa. Un trabajo programado que termina con 0 después de un fallo intermedio es la forma más común de fallo silencioso en la automatización.", note_kind="gold", foot="Git Bash en Windows y bash 5.2.21 en Ubuntu/WSL2; los resultados fueron iguales.")
+    return fan(
+        'Estado de salida de tuberías y guiones de shell (bash, mismos resultados en Windows y Ubuntu)',
+        "Diagrama del estado de salida de seis guiones de bash agrupados en cuatro mecanismos: false seguido de cat devuelve 0 y el fallo se pierde, con pipefail devuelve 1 y PIPESTATUS conserva 1 0 0; false con && deja 1; sin set -e el guion continúa y termina con 0; con set -e se detiene en el primer fallo.",
+        ("Estado de salida en bash", "mismos resultados en Windows y Ubuntu", "navy"),
+        [("Tubería: false | cat", "devuelve 0, el fallo se pierde · con set -o pipefail devuelve 1 · PIPESTATUS conserva 1 0 0", "coral"),
+         ("false && echo ok", "el && no ejecuta la segunda orden y $? queda en 1", "gold"),
+         ("Sin set -e: false; echo continua; true", "continua · 0: el script sigue y el último estado oculta el fallo", "coral"),
+         ("Con set -e: false; echo continua", "(nada) · 1: el script se detiene en el primer fallo", "teal")],
+        note='Una tubería sin pipefail devuelve éxito aunque falle la primera etapa. Un trabajo programado que termina con 0 después de un fallo intermedio es la forma más común de fallo silencioso en la automatización.', note_kind='gold', foot="Git Bash en Windows y bash 5.2.21 en Ubuntu/WSL2; los resultados fueron iguales.")
 
 
 def se220_reintentos() -> Fig:
@@ -163,13 +163,13 @@ def se220_reintentos() -> Fig:
 
 # ---------------------------------------------------------------- SE-221
 def se221_color() -> Fig:
-    rows = [["Color solo en terminal (salida a tubería)", "8 000 / 7 800", "0", "200"],
-            ["Color siempre (ingenuo)", "9 800 / 9 600", "200", "0 (200 tras quitar los escapes)"],
-            ["Sobrecoste del color", "+22,5 % / +23,1 %", "—", "—"]]
-    return tab("Un informe de 200 líneas con una palabra en rojo, escrito a una tubería",
-               "Tabla: con detección de terminal el informe ocupa 8 000 bytes en Windows y 7 800 en Ubuntu y no tiene escapes; con color siempre ocupa 9 800 y 9 600, tiene 200 líneas con escapes y la búsqueda de la frase ERROR nota encuentra 0 coincidencias, que pasan a 200 al quitar los escapes.",
-               ["Política", "Bytes (Windows / Ubuntu)", "Líneas con escapes", "Coincidencias de «ERROR nota»"], rows, [370, 230, 190, 240], row_h=52,
-               note="El color añadió una quinta parte de bytes y, sobre todo, partió la frase buscada con secuencias invisibles: la búsqueda del equipo dejó de funcionar. La diferencia de 200 bytes entre sistemas son los 200 saltos de línea CRLF de Windows.", note_kind="coral", foot="La salida se capturó con una tubería, de modo que isatty() fue falso; no se probó un terminal interactivo.")
+    return grouped_bars(
+        'Un informe de 200 líneas con una palabra en rojo, escrito a una tubería',
+        "Barras agrupadas con los bytes de un informe de 200 líneas escrito a una tubería: con detección de terminal ocupa 8 000 bytes en Windows y 7 800 en Ubuntu y no tiene escapes; con color siempre ocupa 9 800 y 9 600, con 200 líneas con escapes en las que la búsqueda de la frase ERROR nota no encuentra ninguna coincidencia.",
+        ["Windows", "Ubuntu (WSL2)"],
+        [("Color solo en terminal", [8000, 7800], "teal"), ("Color siempre (ingenuo)", [9800, 9600], "coral")],
+        unit="Bytes del informe", ticks=[0, 2000, 4000, 6000, 8000, 10000, 12000],
+        note='El color añadió una quinta parte de bytes y, sobre todo, partió la frase buscada con secuencias invisibles: la búsqueda del equipo dejó de funcionar. La diferencia de 200 bytes entre sistemas son los 200 saltos de línea CRLF de Windows.', note_kind='coral', foot="La salida se capturó con una tubería, de modo que isatty() fue falso; no se probó un terminal interactivo.")
 
 
 def se221_truncado() -> Fig:
@@ -188,23 +188,25 @@ def se221_truncado() -> Fig:
 
 
 def se221_ancho() -> Fig:
-    rows = [["Ana", "3", "3", "3"], ["José", "4", "5", "4"], ["Björn", "5", "6", "5"], ["李雨", "2", "2", "4"], ["田中太郎", "4", "4", "8"],
-            ["👩‍💻 Eva", "7", "7", "8 (estimado)"]]
-    return tab("Longitud y ancho en pantalla de seis nombres",
-               "Tabla: José mide 4 caracteres en NFC y 5 en NFD pero ocupa 4 celdas; 李雨 mide 2 caracteres y ocupa 4 celdas; 田中太郎 mide 4 y ocupa 8; en 1 000 filas con diez nombres, rellenar con len desalineó 607 y rellenar por ancho estimado desalineó 0.",
-               ["Nombre", "len en NFC", "len en NFD", "Ancho en celdas"], rows, [300, 220, 220, 300], row_h=44,
-               note="En 607 de 1 000 filas len() no es el ancho en pantalla; rellenar con ljust desalineó esas 607 filas y rellenar por ancho estimado ninguna. Seis de los diez nombres tienen una forma NFD distinta de la NFC: se ven igual y son cadenas distintas hasta que se normalizan.", note_kind="gold", foot="Semilla 1; el ancho se estimó con East Asian Width y es una aproximación: el emoji compuesto se dibuja distinto según el terminal.")
+    return grouped_bars(
+        'Longitud y ancho en pantalla de seis nombres',
+        "Barras agrupadas con la longitud y el ancho en pantalla de seis nombres: José mide 4 caracteres en NFC y 5 en NFD pero ocupa 4 celdas; 李雨 mide 2 y ocupa 4; 田中太郎 mide 4 y ocupa 8; la longitud y el ancho en pantalla solo coinciden en los nombres ASCII.",
+        ["Ana", "José", "Björn", "李雨", "田中太郎", "👩‍💻 Eva"],
+        [("len en NFC", [3, 4, 5, 2, 4, 7], "teal"), ("len en NFD", [3, 5, 6, 2, 4, 7], "gold"), ("Ancho en celdas", [3, 4, 5, 4, 8, 8], "coral")],
+        unit="Caracteres o celdas", ticks=[0, 2, 4, 6, 8, 10],
+        note='En 607 de 1 000 filas len() no es el ancho en pantalla; rellenar con ljust desalineó esas 607 filas y rellenar por ancho estimado ninguna. Seis de los diez nombres tienen una forma NFD distinta de la NFC: se ven igual y son cadenas distintas hasta que se normalizan.', note_kind='gold', foot="Semilla 1; el ancho se estimó con East Asian Width y es una aproximación: el emoji compuesto se dibuja distinto según el terminal.")
 
 
 # ---------------------------------------------------------------- SE-222
 def se222_senales() -> Fig:
-    rows = [["terminate() con un manejador que limpia en 0,2 s", "Código 1 · sin limpieza (terminación inmediata)", "Código 0 · marca de limpieza escrita"],
-            ["terminate() con un manejador que ignora la señal", "Código 1 · el proceso desaparece", "Código −9 tras 1,5 s: hubo que forzar"],
-            ["CTRL_BREAK_EVENT (grupo de procesos nuevo)", "Código 0 · marca de limpieza escrita", "No existe"]]
-    return tab("Pedir a un servicio que termine: lo que ocurre en Windows y en Ubuntu",
-               "Tabla: en Windows, terminate equivale a una terminación forzada que no ejecuta el manejador y devuelve código 1, y solo CTRL_BREAK_EVENT dispara una limpieza ordenada; en Ubuntu terminate envía SIGTERM, que ejecuta el manejador y deja la marca de limpieza, y un manejador que ignora la señal obliga a forzar con SIGKILL.",
-               ["Qué se hace", "Windows", "Ubuntu (WSL2)"], rows, [350, 340, 340], row_h=66,
-               note="El mismo método de Python significa dos cosas: pedir y obligar. Un servicio que debe cerrar conexiones y vaciar datos necesita, en Windows, un canal de aviso distinto (CTRL_BREAK, una orden de control o una petición por un canal propio), y en cualquier sistema un plazo tras el cual se fuerza.", note_kind="coral", foot="Un hijo de Python con un manejador de señales; no se probó un servicio de Windows real ni systemd.")
+    return fan(
+        'Pedir a un servicio que termine: lo que ocurre en Windows y en Ubuntu',
+        "Diagrama de lo que ocurre al pedir a un servicio que termine: con un manejador que limpia en 0,2 segundos Windows termina con código 1 sin limpieza y Ubuntu con código 0 y marca de limpieza; con un manejador que ignora la señal Windows lo termina y Ubuntu necesita forzar con código menos 9 tras 1,5 segundos; solo CTRL_BREAK_EVENT limpia en Windows.",
+        ("Pedir a un servicio que termine", "Windows frente a Ubuntu (WSL2)", "navy"),
+        [("terminate() con un manejador que limpia en 0,2 s", "Windows: código 1, sin limpieza (terminación inmediata) · Ubuntu: código 0, marca de limpieza escrita", "gold"),
+         ("terminate() con un manejador que ignora la señal", "Windows: código 1, el proceso desaparece · Ubuntu: código −9 tras 1,5 s, hubo que forzar", "coral"),
+         ("CTRL_BREAK_EVENT (grupo de procesos nuevo)", "Windows: código 0, marca de limpieza escrita · Ubuntu: no existe", "teal")],
+        note='El mismo método de Python significa dos cosas: pedir y obligar. Un servicio que debe cerrar conexiones y vaciar datos necesita, en Windows, un canal de aviso distinto (CTRL_BREAK, una orden de control o una petición por un canal propio), y en cualquier sistema un plazo tras el cual se fuerza.', note_kind='coral', foot="Un hijo de Python con un manejador de señales; no se probó un servicio de Windows real ni systemd.")
 
 
 def se222_preparado() -> Fig:

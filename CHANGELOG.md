@@ -5,6 +5,12 @@
 - las 31 figuras `tab()` de SE-289 a SE-300 se rediseñan con las primitivas del kit y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón
 - `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 24 (commit `49d7686d`)
 
+## 2026-11-16 — Parte 22: figuras rediseñadas como gráficos
+
+- las 27 figuras de `SE-266` a `SE-276` que redibujaban la tabla Markdown pasan a gráficos con los mismos números medidos: líneas en escala logarítmica, barras agrupadas y apiladas, mapas de calor, dispersión, dumbbell, una línea de tiempo (lectura partida de 16 bits) y un diagrama de posiciones de la interrupción
+- cada clase reescribe el texto alternativo y el bloque «Cómo leer la figura. Dónde deja de valer» para describir el gráfico; las figuras `tab()` y los `alt` que empiezan por «Tabla» de la Parte 22 bajan de 27 a 0 en `scripts/figure_tab_baseline.json`
+- commit `d4d080e5`, CI verde (Validate, Pages y Security)
+
 ## 2026-11-16 — Kit de gráficos y trinquete contra figuras que repiten una tabla
 
 - `scripts/figure_kit.py` incorpora primitivas de gráfico deterministas y sin dependencias: `grouped_bars` (vertical u horizontal, escala logarítmica), `stacked_bars`, `line_chart`, `scatter`, `heatmap`, `dumbbell`, `percentile_intervals` y `timeline`, con ejes, unidades, leyenda y rótulos de valor; fallan con `ValueError` si una etiqueta no cabe; el catálogo con datos ilustrativos está en `scripts/figure_kit_gallery.py`

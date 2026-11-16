@@ -122,9 +122,9 @@ ic95 = (boots[25], boots[975])
 
 La mediana baja de 2,35 a 1,71 y a 1,33 horas, con intervalos que no se solapan entre manual y automatizado, y que casi se tocan entre manual y asistido (2,21 frente a 1,95). Las horas totales bajan de 540,7 a 428,6 (−21 %) y a 390,9 (−28 %). A cambio, los defectos que escapan suben de 10 a 18 y a 20, el doble. Cada paso hacia la automatización ahorra tiempo y deja pasar más defectos; no hay un flujo «mejor» sin decidir cuánto vale evitar un defecto, y esa decisión depende de la gravedad: el asistido ahorra 112 horas y deja escapar 8 defectos más, de modo que si cada defecto cuesta más de unas 14 horas de arreglo y daño el manual sale ganando (unas 15 horas frente al automatizado, que ahorra 150 y deja escapar 10 más).
 
-![Tabla con la mediana de horas por tarea, su intervalo bootstrap al 95 por ciento, las horas totales y los defectos que escapan en tres flujos: manual 2,35 horas y 10 defectos, asistido 1,71 y 18, automatizado 1,33 y 20.](../../../content/part-38/figures/se-467-tres-flujos.svg)
+![Intervalos horizontales con la mediana de horas por tarea y su intervalo bootstrap al 95 por ciento en tres flujos: manual 2,35 horas, asistido 1,71 y automatizado 1,33; los defectos que escapan a la revisión suben de 10 a 18 y 20.](../../../content/part-38/figures/se-467-tres-flujos.svg)
 
-**Cómo leer la figura.** Cada fila es un flujo; las dos columnas centrales dicen cuánto se tarda y con qué incertidumbre, y la última el precio en defectos. **Dónde deja de valer:** todos los parámetros son supuestos del autor; el número de defectos es un conteo con mucha variabilidad (10 y 20 de 200 son diferencias que un segundo experimento podría invertir) y no se calculó su intervalo; los tres flujos no dependen de personas concretas.
+**Cómo leer la figura.** Cada fila es un flujo; el marcador dorado es la mediana de horas por tarea y los turquesa y coral los extremos del intervalo bootstrap al 95 %. Mira que los intervalos no se solapan y bajan de manual a automatizado; los defectos que escapan a la revisión suben en ese mismo orden, y están en la tabla. **Dónde deja de valer:** todos los parámetros son supuestos del autor; el número de defectos es un conteo con mucha variabilidad (10 y 20 de 200 son diferencias que un segundo experimento podría invertir) y no se calculó su intervalo; los tres flujos no dependen de personas concretas.
 
 ### Cuándo el flujo asistido deja de ahorrar
 
@@ -140,9 +140,9 @@ Con generar al 35 %, revisar al 25 % y rehacer al 80 % del tiempo manual, el tie
 
 Con un 90 % de aciertos el flujo asistido ahorra el 32 % del tiempo; con el 70 %, el 16 %; con el 50 % no ahorra nada, y por debajo cuesta más que hacerlo a mano: con un 20 % de aciertos, el 24 % más. El punto de equilibrio, 50 %, no es una propiedad de los asistentes sino de estos tres porcentajes: si revisar cuesta el 40 % en lugar del 25 %, el equilibrio sube al 69 %. Lo transferible es la fórmula y la pregunta que genera: ¿cuál es la tasa de aciertos en tus tareas, por tipo, y cuánto cuesta realmente revisar y rehacer?
 
-![Tabla con la tasa de aciertos del asistente, las horas relativas al flujo manual y el ahorro: con 90 por ciento ahorra 32 %, con 50 por ciento no ahorra nada y con 20 por ciento cuesta 24 % más.](../../../content/part-38/figures/se-467-punto-de-equilibrio.svg)
+![Línea con el ahorro de tiempo del flujo asistido frente al manual según la tasa de aciertos del asistente: con 90 % ahorra 32 %, con 50 por ciento no ahorra nada y con 20 % cuesta 24 % más; la línea roja marca el punto de equilibrio.](../../../content/part-38/figures/se-467-punto-de-equilibrio.svg)
 
-**Cómo leer la figura.** Cada fila es una tasa de aciertos; el ahorro cruza cero en el 50 %. **Dónde deja de valer:** los tres porcentajes son del autor, el modelo supone que el costo de rehacer es el mismo en todas las tareas y que revisar cuesta lo mismo se acierte o no, cuando una solución mala suele detectarse antes. Es un cálculo exacto de una fórmula, sin simulación.
+**Cómo leer la figura.** El eje horizontal es la tasa de aciertos del asistente y el vertical el ahorro frente al flujo manual; la línea roja marca el equilibrio. Mira dónde cruza la línea turquesa: con 50 % de aciertos no se ahorra nada y por debajo el flujo asistido cuesta más. **Dónde deja de valer:** los tres porcentajes son del autor, el modelo supone que el costo de rehacer es el mismo en todas las tareas y que revisar cuesta lo mismo se acierte o no, cuando una solución mala suele detectarse antes. Es un cálculo exacto de una fórmula, sin simulación.
 
 ### Pareado frente a independiente: cuántas tareas hacen falta
 
@@ -157,9 +157,9 @@ Se simulan tareas con dificultad lognormal (parámetros 1,0 y 0,8). El flujo asi
 
 Con 20 tareas el diseño pareado detecta la diferencia real del 15 % en el 83 % de los experimentos, y el de tareas distintas en el 12 %. Con 80 tareas el pareado llega al 100 % y el independiente solo al 32 %: haría falta un múltiplo de ese tamaño. La diferencia es enorme porque la dificultad varía mucho más (desviación 0,8) que el efecto (15 %), y el pareado la cancela. Es la razón de que se mida con las mismas tareas en los dos flujos y con orden alternado.
 
-![Tabla con la probabilidad de detectar una diferencia real del 15 por ciento según el número de tareas: con 20 tareas el diseño pareado la detecta 83 % y el de grupos distintos 12 %; con 80 tareas 100 % y 32 %.](../../../content/part-38/figures/se-467-diseno-pareado.svg)
+![Líneas con la probabilidad de detectar una diferencia real del 15 por ciento según el número de tareas: con 20 tareas el diseño pareado la detecta 83 % y el de grupos distintos 12 %; con 80 tareas 100 % y 32 %.](../../../content/part-38/figures/se-467-diseno-pareado.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de estudio; la columna central es el diseño recomendado y la última, el que mezcla tareas. **Dónde deja de valer:** la variabilidad entre tareas, el tamaño del efecto y el ruido de medición son supuestos del autor; el efecto de aprendizaje (resolver la misma tarea dos veces) no está modelado y en la práctica reduce la ventaja del pareado, que se compensa alternando el orden. El umbral t > 1,7 es una aproximación.
+**Cómo leer la figura.** El eje horizontal es el número de tareas por flujo y el vertical la probabilidad de detectar la diferencia real. La línea turquesa es el diseño pareado y la coral discontinua el de grupos distintos. Mira la distancia entre las dos: con 20 tareas el pareado detecta el 83 % y el otro el 12 %. **Dónde deja de valer:** la variabilidad entre tareas, el tamaño del efecto y el ruido de medición son supuestos del autor; el efecto de aprendizaje (resolver la misma tarea dos veces) no está modelado y en la práctica reduce la ventaja del pareado, que se compensa alternando el orden. El umbral t > 1,7 es una aproximación.
 
 ## Definiciones de trabajo
 

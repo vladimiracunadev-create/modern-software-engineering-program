@@ -127,9 +127,9 @@ else:
 
 Aceptar sin leer deja entrar 229 defectos, casi uno de cada cuatro sugerencias aceptadas. Leer solo las largas ahorra poco (181), porque la mayoría de los defectos está en las cortas, que son la mayoría de las sugerencias. Leer y ejecutar reduce los defectos a 44 (5,5 por cada 100 aceptadas), a cambio de aceptar 195 sugerencias menos que la primera política, entre ellas las que se rechazaron sin necesidad. El resultado no dice que haya que leer siempre; dice cuánto compra cada política y cuánto cuesta, para decidirlo según el riesgo.
 
-![Tabla con tres políticas de aceptación de 1.000 sugerencias: aceptar sin leer deja entrar 229 defectos, leer solo las largas 181 y leer siempre y ejecutar 44 a cambio de aceptar menos sugerencias.](../../../content/part-38/figures/se-460-politica-de-aceptacion.svg)
+![Barras agrupadas con las sugerencias aceptadas y los defectos que entran según la política: aceptar sin leer acepta 1000 y deja entrar 229 defectos, leer solo las largas acepta 950 y deja entrar 181, y leer siempre y ejecutar acepta 805 y deja entrar 44.](../../../content/part-38/figures/se-460-politica-de-aceptacion.svg)
 
-**Cómo leer la figura.** Cada fila es una política; la tercera columna es el número de defectos que entran y la cuarta lo normaliza por sugerencias aceptadas. **Dónde deja de valer:** el 78 % de acierto, el 30 % de largas y las tasas de detección son supuestos del autor, y suponen que el defecto es detectable por lectura o ejecución, que no siempre lo es. Los números no describen ninguna herramienta ni persona: muestran cómo se combinan la tasa de error y la vigilancia.
+**Cómo leer la figura.** Cada grupo es una política de aceptación y tiene dos barras: las sugerencias aceptadas (gris) y los defectos que entran (coral). Mira cómo la barra coral baja más que la gris: leer y ejecutar acepta menos sugerencias pero deja entrar muchos menos defectos. **Dónde deja de valer:** el 78 % de acierto, el 30 % de largas y las tasas de detección son supuestos del autor, y suponen que el defecto es detectable por lectura o ejecución, que no siempre lo es. Los números no describen ninguna herramienta ni persona: muestran cómo se combinan la tasa de error y la vigilancia.
 
 ### Una condición en un archivo de 182 líneas: edición dirigida o regeneración
 
@@ -148,9 +148,9 @@ p_detectar = 0.95 / (1 + lineas / 20)     # supuesto del autor
 
 La edición dirigida cambia 2 líneas (la que se quita y la que se añade) y la regenerada 124, aunque el comportamiento cambiado es el mismo. El número de líneas es una medición real sobre el archivo; la probabilidad de detección es un modelo del autor, y es lo que convierte esa diferencia en riesgo: un cambio escondido entre 124 líneas casi no se encuentra. La práctica que se deduce es pedir parches mínimos, separar los cambios cosméticos y rechazar una edición cuyo diff no corresponde a la petición.
 
-![Tabla con dos formas de aplicar el mismo arreglo en un archivo de 182 líneas: la edición dirigida cambia 2 líneas y se detecta con probabilidad 86,4 %; regenerar el archivo cambia 124 por deriva cosmética y la probabilidad cae a 13,2 %.](../../../content/part-38/figures/se-460-alcance-de-la-edicion.svg)
+![Barras horizontales con la probabilidad de encontrar el cambio real al revisar dos formas de aplicar el mismo arreglo en un archivo de 182 líneas: la edición dirigida cambia 2 líneas y se detecta con probabilidad 86,4 %; el archivo regenerado con deriva cosmética cambia 124 y se detecta con 13,2 %.](../../../content/part-38/figures/se-460-alcance-de-la-edicion.svg)
 
-**Cómo leer la figura.** Cada fila es una forma de aplicar el cambio; la segunda columna es una medición con `difflib` y la tercera un modelo. **Dónde deja de valer:** la curva de detección es del autor y no sale de ninguna medición de personas; el archivo es sintético y la deriva cosmética es de cuatro tipos que se eligieron para el ejemplo. Un asistente real puede tocar más o menos líneas, y una herramienta de formateo automático haría ese ruido desaparecer.
+**Cómo leer la figura.** Cada barra es una forma de aplicar el mismo arreglo y su longitud la probabilidad de que la persona encuentre el cambio real al revisar; el número de líneas de diferencia está en la etiqueta. Mira que la edición dirigida, de 2 líneas, se revisa bien y el archivo regenerado, de 124, esconde el cambio. **Dónde deja de valer:** la curva de detección es del autor y no sale de ninguna medición de personas; el archivo es sintético y la deriva cosmética es de cuatro tipos que se eligieron para el ejemplo. Un asistente real puede tocar más o menos líneas, y una herramienta de formateo automático haría ese ruido desaparecer.
 
 ### Una traza de 467 pulsaciones: el retardo antes de pedir
 
@@ -165,9 +165,9 @@ Se genera una traza determinista de 467 pulsaciones en 60 «palabras», con paus
 
 Sin retardo, el 87 % de las peticiones se desperdicia (467 enviadas para 60 útiles). Con 300 ms bajan a 133 sin perder ninguna útil, y con 600 ms coinciden con las útiles. La conclusión depende de una regla («útil si hay pausa de 0,5 s») que el autor fijó. Si la persona escribe más lento, o el servicio es más rápido, el punto cambia; lo que permanece es que enviar a cada pulsación es un gasto sin beneficio.
 
-![Tabla con el retardo en milisegundos, las peticiones, las útiles y la fracción útil: sin retardo 467 peticiones para 60 útiles, y con 600 milisegundos 60 peticiones para las mismas 60.](../../../content/part-38/figures/se-460-retardo-de-sugerencias.svg)
+![Barras agrupadas con las peticiones al modelo y las útiles según el retardo antes de pedir: sin retardo hay 467 peticiones para 60 útiles y con 600 milisegundos hay 60 peticiones para 60 útiles, a costa de esperar antes de ver la sugerencia.](../../../content/part-38/figures/se-460-retardo-de-sugerencias.svg)
 
-**Cómo leer la figura.** Cada fila es un retardo; las peticiones útiles son constantes porque dependen de las pausas, no del retardo, y lo que cae es el desperdicio. **Dónde deja de valer:** el ritmo de escritura y las pausas son del autor, la regla de utilidad es una simplificación, y no se modeló que un retardo largo retrasa las sugerencias que sí eran útiles.
+**Cómo leer la figura.** Cada grupo es un retardo antes de pedir sugerencias y tiene dos barras: las peticiones al modelo (coral) y las útiles (turquesa). Mira cómo la barra coral baja hasta igualar a la turquesa con 600 ms: el retardo elimina casi todo el gasto sin perder las pausas útiles. **Dónde deja de valer:** el ritmo de escritura y las pausas son del autor, la regla de utilidad es una simplificación, y no se modeló que un retardo largo retrasa las sugerencias que sí eran útiles.
 
 ## Definiciones de trabajo
 

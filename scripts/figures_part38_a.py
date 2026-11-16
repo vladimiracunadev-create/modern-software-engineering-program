@@ -4,11 +4,13 @@ Los números se calculan con scripts/experiments_part38_a.py para que figuras y 
 """
 from __future__ import annotations
 
+from figure_kit import Fig, grouped_bars, heatmap, line_chart, percentile_intervals, scatter, stacked_bars
+from figure_diagrams import fan
+from figures_part07_a import bars
+
 from functools import lru_cache
 
 import experiments_part38_a as ex
-from figure_kit import Fig
-from figures_part07_a import bars, tab
 
 SINT = "Proceso sintético con semilla fija; no se llamó a ningún modelo real. Windows y Ubuntu (WSL2) dan cifras idénticas."
 EJEC = "Código estándar ejecutado de verdad en Windows 11 y Ubuntu (WSL2) con datos sintéticos; los recuentos son idénticos."
@@ -31,34 +33,40 @@ def R(name: str):
 # ---------------------------------------------------------------- SE-457
 def se457_muestreo_y_mayoria() -> Fig:
     f = R("e457_temperatura")["filas"]
-    rows = [[n(r["T"]), p(r["p_correcta"] * 100), p(r["una_muestra"]), p(r["mayoria_de_5"]), p(r["alguna_de_5"])] for r in f]
-    return tab('Cinco respuestas candidatas: la correcta es la segunda más probable (20 000 muestras por temperatura)',
-              f'Tabla con la probabilidad de la respuesta correcta, el acierto con una muestra, con el voto de mayoría de cinco y con al menos una de cinco según la temperatura: a temperatura {n(f[0]["T"])} una muestra acierta {p(f[0]["una_muestra"])} y la mayoría {p(f[0]["mayoria_de_5"])}; a {n(f[2]["T"])} acierta {p(f[2]["una_muestra"])} y la mayoría {p(f[2]["mayoria_de_5"])}, y alguna de cinco incluye la correcta en {p(f[2]["alguna_de_5"])}.',
-              ['Temperatura', 'Prob. de la correcta', 'Una muestra', 'Mayoría de 5', 'Alguna de 5 correcta'], rows, [150, 220, 170, 170, 200], row_h=48, size=13,
-              note='Con temperatura baja el modelo repite con firmeza la respuesta más probable, que aquí es la incorrecta, y el voto de mayoría la confirma. Generar varias muestras ayuda a encontrar una correcta solo si algo externo (una prueba) puede reconocerla. Los logits son un supuesto del autor, no un modelo real.',
-              note_kind='coral', foot=SINT)
+    ts = [(r["T"], n(r["T"])) for r in f]
+    return line_chart(
+        'Cinco respuestas candidatas: la correcta es la segunda más probable (20 000 muestras por temperatura)',
+        f'Líneas con el acierto según la temperatura: con una muestra pasa de {p(f[0]["una_muestra"])} a temperatura {n(f[0]["T"])} a {p(f[1]["una_muestra"])} con {n(f[1]["T"])}; el voto de mayoría de cinco pasa de {p(f[0]["mayoria_de_5"])} a {p(f[1]["mayoria_de_5"])}; que alguna de cinco sea correcta pasa de {p(f[0]["alguna_de_5"])} a {p(f[1]["alguna_de_5"])}; con temperatura baja la mayoría confirma la respuesta equivocada.',
+        [("Alguna de 5 correcta", [(r["T"], r["alguna_de_5"], n(r["alguna_de_5"]), "t") for r in f], "teal"),
+         ("Una muestra", [(r["T"], r["una_muestra"], n(r["una_muestra"]), "t") for r in f], "gold"),
+         ("Mayoría de 5", [(r["T"], r["mayoria_de_5"], n(r["mayoria_de_5"]), "r" if i == 0 else "b") for i, r in enumerate(f)], "coral")],
+        x_label="Temperatura de muestreo", y_label="Acierto (%)", x_ticks=ts, y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        note='Con temperatura baja el modelo repite con firmeza la respuesta más probable, que aquí es la incorrecta, y el voto de mayoría la confirma. Generar varias muestras ayuda a encontrar una correcta solo si algo externo (una prueba) puede reconocerla. Los logits son un supuesto del autor, no un modelo real.', note_kind='coral', foot=SINT)
 
 
 def se457_confianza_no_es_exactitud() -> Fig:
     d = R("e457_calibracion")
-    rows = [[t["tramo"], str(t["n"]), p(t["confianza"]), p(t["exactitud"])] for t in d["tramos"]]
-    rows += [['Fáciles', str(d["faciles"]["n"]), p(d["faciles"]["confianza"]), p(d["faciles"]["exactitud"])],
-             ['Difíciles', str(d["dificiles"]["n"]), p(d["dificiles"]["confianza"]), p(d["dificiles"]["exactitud"])]]
-    return tab('1 000 preguntas sintéticas: la confianza declarada frente al acierto observado',
-              f'Tabla con la confianza media declarada y la exactitud observada por tramo de confianza y por dificultad: globalmente {p(d["global"]["confianza"])} de confianza frente a {p(d["global"]["exactitud"])} de acierto, y en las preguntas difíciles {p(d["dificiles"]["confianza"])} de confianza frente a {p(d["dificiles"]["exactitud"])} de acierto.',
-              ['Grupo', 'Preguntas', 'Confianza media', 'Exactitud observada'], rows, [260, 190, 230, 250], row_h=44, size=13,
-              note=f'El error de calibración esperado es {n(d["ece"])} puntos y la confianza casi no distingue las preguntas fáciles de las difíciles: el tono seguro no informa de la dificultad. Que exista este patrón en un modelo real es una pregunta empírica; aquí es un supuesto del autor.',
-              note_kind='gold', foot=SINT)
+    grupos = [(t["tramo"], t["confianza"], t["exactitud"]) for t in d["tramos"]] + [("Fáciles", d["faciles"]["confianza"], d["faciles"]["exactitud"]), ("Difíciles", d["dificiles"]["confianza"], d["dificiles"]["exactitud"])]
+    return grouped_bars(
+        '1 000 preguntas sintéticas: la confianza declarada frente al acierto observado',
+        f'Barras agrupadas con la confianza media declarada y la exactitud observada por tramo de confianza y por dificultad: globalmente {p(d["global"]["confianza"])} de confianza frente a {p(d["global"]["exactitud"])} de exactitud; en las preguntas difíciles la confianza es {p(d["dificiles"]["confianza"])} y el acierto {p(d["dificiles"]["exactitud"])}.',
+        [g[0] for g in grupos],
+        [("Confianza media declarada", [g[1] for g in grupos], "gold"), ("Exactitud observada", [g[2] for g in grupos], "teal")],
+        unit="Porcentaje (%)", decimals=1, ticks=[0, 20, 40, 60, 80, 100],
+        note=f'El error de calibración esperado es {n(d["ece"])} puntos y la confianza casi no distingue las preguntas fáciles de las difíciles: el tono seguro no informa de la dificultad. Que exista este patrón en un modelo real es una pregunta empírica; aquí es un supuesto del autor.', note_kind='gold', foot=SINT)
 
 
 def se457_ventana_y_conjuntos() -> Fig:
     d = R("e457_ventana")
-    rows = [[f'{r["ventana"]:,}'.replace(",", "."), p(r["fraccion_del_repositorio"]), p(r["conjuntos_que_caben"])] for r in d["filas"]]
-    return tab('Un repositorio sintético de 120 archivos: qué cabe en la ventana de contexto',
-              f'Tabla con el tamaño de la ventana en tokens, la fracción del repositorio que cabe y el porcentaje de conjuntos de trabajo de 8 archivos que caben: con 8.000 tokens caben {p(d["filas"][0]["conjuntos_que_caben"])} de los conjuntos, con 128.000 caben {p(d["filas"][2]["conjuntos_que_caben"])} y con 200.000 caben {p(d["filas"][3]["conjuntos_que_caben"])}, aunque el repositorio completo no cabe en ninguna.',
-              ['Ventana (tokens)', 'Fracción del repositorio que cabe', 'Conjuntos de 8 archivos que caben'], rows, [250, 350, 330], row_h=44, size=13,
-              note=f'El repositorio suma {n(d["tokens_totales"]/1e6, 2)} millones de tokens (tamaños lognormales con mediana {d["mediana"]}): ninguna ventana lo contiene, así que alguien decide qué entra. La distribución de tamaños y el recuento de 1 token ≈ 4 caracteres son supuestos del autor.',
-              note_kind='teal', foot=SINT)
+    f = d["filas"]
+    ts = [(r["ventana"], f'{r["ventana"] // 1000}k') for r in f]
+    return line_chart(
+        'Un repositorio sintético de 120 archivos: qué cabe en la ventana de contexto',
+        f'Líneas con lo que cabe en la ventana de contexto de un repositorio de {d["archivos"]} archivos: con 8 000 tokens cabe el {p(f[0]["fraccion_del_repositorio"])} del repositorio y el {p(f[0]["conjuntos_que_caben"])} de los conjuntos de 8 archivos; con 128 000 cabe el {p(f[2]["fraccion_del_repositorio"])} del repositorio pero caben el {p(f[2]["conjuntos_que_caben"])} de los conjuntos.',
+        [("Conjuntos de 8 archivos que caben", [(r["ventana"], r["conjuntos_que_caben"], n(r["conjuntos_que_caben"]), "t") for r in f], "teal"),
+         ("Fracción del repositorio que cabe", [(r["ventana"], r["fraccion_del_repositorio"], n(r["fraccion_del_repositorio"]) if i > 1 else "", "b") for i, r in enumerate(f)], "coral")],
+        x_label="Ventana de contexto (tokens)", y_label="Cabe en la ventana (%)", log_x=True, x_ticks=ts, y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        note=f'El repositorio suma {n(d["tokens_totales"]/1e6, 2)} millones de tokens (tamaños lognormales con mediana {d["mediana"]}): ninguna ventana lo contiene, así que alguien decide qué entra. La distribución de tamaños y el recuento de 1 token ≈ 4 caracteres son supuestos del autor.', note_kind='teal', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-458
@@ -75,47 +83,49 @@ def se458_capas_de_validacion() -> Fig:
     d = R("e458_validadores")
     nombres = {"texto_extra": "Texto antes del JSON", "falta_clave": "Falta una clave", "fuera_de_rango": "Nota fuera de 1–7",
                "estado_invalido": "Estado no permitido", "incoherente": "Estado contradice la nota", "redondeo": "Dos decimales indebidos"}
-    rows = []
-    for k, v in d["por_defecto"].items():
-        rows.append([nombres[k], str(v["n"]), f'{v["formato"]}', f'{v["formato_rango"]}', f'{v["formato_rango_coherencia"]}'])
     t = d["total"]
-    rows.append(['Total', str(d["n"]), f'{t["formato"]}', f'{t["formato_rango"]}', f'{t["formato_rango_coherencia"]}'])
-    return tab('200 salidas sintéticas con un defecto cada una: cuántas atrapa cada capa de validación',
-              f'Tabla con seis tipos de defecto en 200 salidas y cuántas detecta cada capa acumulada: el formato detecta {t["formato"]}, formato y rango {t["formato_rango"]} y formato, rango y coherencia {t["formato_rango_coherencia"]}; ninguna capa detecta los dos decimales indebidos.',
-              ['Defecto', 'Casos', 'Solo formato', '+ rango', '+ coherencia'], rows, [330, 100, 170, 140, 190], row_h=40, size=13,
-              note=f'Tres capas baratas detectan {t["formato_rango_coherencia"]} de {d["n"]}; los {d["n"] - t["formato_rango_coherencia"]} restantes cumplen todas las reglas escritas y siguen mal. Lo que ninguna regla enuncia no se comprueba. Los seis defectos y su reparto son del autor.',
-              note_kind='coral', foot=EJEC)
+    claves = list(d["por_defecto"])
+    return heatmap(
+        '200 salidas sintéticas con un defecto cada una: cuántas atrapa cada capa de validación',
+        f'Mapa de calor con cuántas de las 200 salidas defectuosas detecta cada capa acumulada de validación: solo el formato detecta {t["formato"]}, con el rango {t["formato_rango"]} y con la coherencia {t["formato_rango_coherencia"]}; los dos decimales indebidos no los detecta ninguna capa.',
+        [f'{nombres[k]} ({d["por_defecto"][k]["n"]})' for k in claves], ["Solo formato", "+ rango", "+ coherencia"],
+        [[d["por_defecto"][k]["formato"], d["por_defecto"][k]["formato_rango"], d["por_defecto"][k]["formato_rango_coherencia"]] for k in claves],
+        unit="detectadas", row_title="Defecto (casos)", col_title="Casos detectados por cada capa acumulada",
+        scale="teal", vmin=0, vmax=34, decimals=0, cell_h=42, label_w=290,
+        note=f'Tres capas baratas detectan {t["formato_rango_coherencia"]} de {d["n"]}; los {d["n"] - t["formato_rango_coherencia"]} restantes cumplen todas las reglas escritas y siguen mal. Lo que ninguna regla enuncia no se comprueba. Los seis defectos y su reparto son del autor.', note_kind='coral', foot=EJEC)
 
 
 def se458_instrucciones_que_chocan() -> Fig:
     f = R("e458_conflicto")["filas"]
-    rows = [[str(r["n"]), str(r["pares"]), p(r["q0.005"]), p(r["q0.02"])] for r in f]
-    return tab('Probabilidad de que un conjunto de instrucciones no tenga ningún par en conflicto',
-              f'Tabla con el número de instrucciones, el de pares y la probabilidad de que ninguno choque si cada par choca con probabilidad 0,5 por ciento o 2 por ciento: con 12 instrucciones {p(f[3]["q0.005"])} y {p(f[3]["q0.02"])}, y con 20 instrucciones {p(f[4]["q0.005"])} y {p(f[4]["q0.02"])}.',
-              ['Instrucciones', 'Pares posibles', 'Sin conflicto (0,5 % por par)', 'Sin conflicto (2 % por par)'], rows, [190, 200, 280, 260], row_h=44, size=13,
-              note='Los pares crecen con el cuadrado de las instrucciones, así que añadir reglas «por si acaso» vuelve casi seguro algún choque. La probabilidad por par es un supuesto del autor y supone pares independientes.',
-              note_kind='gold', foot='Cálculo exacto (1 − q)^pares; no hay simulación ni modelo real.')
+    ts = [(r["n"], str(r["n"])) for r in f]
+    return line_chart(
+        'Probabilidad de que un conjunto de instrucciones no tenga ningún par en conflicto',
+        f'Líneas con la probabilidad de que un conjunto de instrucciones no tenga ningún par en conflicto según su tamaño: con 12 instrucciones es {p(f[3]["q0.005"])} si cada par choca con probabilidad 0,5 por ciento y {p(f[3]["q0.02"])} si choca con 2 por ciento; con 20 instrucciones baja a {p(f[4]["q0.005"])} y {p(f[4]["q0.02"])}.',
+        [("0,5 % por par", [(r["n"], r["q0.005"], n(r["q0.005"]), "t") for r in f], "teal"), ("2 % por par", [(r["n"], r["q0.02"], n(r["q0.02"]), "l" if i == 4 else "b") for i, r in enumerate(f)], "coral")],
+        x_label="Instrucciones en el conjunto", y_label="Sin ningún par en conflicto (%)", x_ticks=ts, y_ticks=[0, 20, 40, 60, 80, 100], point_labels="none",
+        note='Los pares crecen con el cuadrado de las instrucciones, así que añadir reglas «por si acaso» vuelve casi seguro algún choque. La probabilidad por par es un supuesto del autor y supone pares independientes.', note_kind='gold', foot='Cálculo exacto (1 − q)^pares; no hay simulación ni modelo real.')
 
 
 # ---------------------------------------------------------------- SE-459
 def se459_tamano_de_fragmento() -> Fig:
     f = R("e459_fragmentos")["filas"]
-    rows = [[str(r["tam"]), str(r["fragmentos"]), p(r["exacto_top1"]), p(r["doc_en_top3"]), str(r["tokens_por_consulta"])] for r in f]
-    return tab('240 documentos de 900 palabras y un hecho escondido en cada uno: tamaño del fragmento (BM25 real)',
-              f'Tabla con cinco medidas por tamaño de fragmento en palabras: con fragmentos de {f[0]["tam"]} palabras el fragmento correcto es el primero en {p(f[0]["exacto_top1"])} de las consultas y se envían {f[0]["tokens_por_consulta"]} palabras; con {f[3]["tam"]} es el primero en {p(f[3]["exacto_top1"])} y se envían {f[3]["tokens_por_consulta"]}.',
-              ['Palabras por fragmento', 'Fragmentos', 'Hecho completo en el 1.º', 'Documento correcto en los 3 primeros', 'Palabras enviadas (3 fragmentos)'], rows, [160, 150, 220, 230, 190], row_h=64, size=13,
-              note='Con una clave única la recuperación léxica acierta casi siempre en cualquier tamaño; los fragmentos pequeños parten algunos hechos por la frontera y los grandes cuestan 18 veces más contexto. La consulta con clave única es el caso más fácil: con paráfrasis o sin clave el resultado sería peor.',
-              note_kind='teal', foot=EJEC)
+    return line_chart(
+        '240 documentos de 900 palabras y un hecho escondido en cada uno: tamaño del fragmento (BM25 real)',
+        f'Línea con la precisión frente al costo según el tamaño del fragmento: con fragmentos de {f[0]["tam"]} palabras el fragmento correcto es el primero en {p(f[0]["exacto_top1"])} de las consultas y se envían {f[0]["tokens_por_consulta"]} palabras; con {f[2]["tam"]} es el primero en {p(f[2]["exacto_top1"])} y se envían {f[2]["tokens_por_consulta"]}; con {f[3]["tam"]} se envían {f[3]["tokens_por_consulta"]} palabras sin ganar precisión.',
+        [("Hecho completo en el primer fragmento", [(r["tokens_por_consulta"], r["exacto_top1"], f'{r["tam"]} pal. · {n(r["exacto_top1"])} %', "b" if i % 2 else "t") for i, r in enumerate(f)], "teal")],
+        x_label="Palabras enviadas por consulta (3 fragmentos)", y_label="Hecho completo en el 1.º (%)", log_x=True, y_zero=False,
+        x_ticks=[(100, "100"), (300, "300"), (1000, "1 000"), (3000, "3 000")], y_ticks=[95, 96, 97, 98, 99, 100], point_labels="none",
+        note='Con una clave única la recuperación léxica acierta casi siempre en cualquier tamaño; los fragmentos pequeños parten algunos hechos por la frontera y los grandes cuestan 18 veces más contexto. La consulta con clave única es el caso más fácil: con paráfrasis o sin clave el resultado sería peor.', note_kind='teal', foot=EJEC)
 
 
 def se459_memoria_que_caduca() -> Fig:
     f = R("e459_memoria")["filas"]
-    rows = [[r["ttl"], p(r["erroneas"]), n(r["refrescos_por_hecho"])] for r in f]
-    return tab('Hechos que cambian el 1 % de los días: respuestas obsoletas según la caducidad de la memoria (180 días)',
-              f'Tabla con la caducidad de la memoria, el porcentaje de respuestas obsoletas y los refrescos por hecho: sin caducidad {p(f[0]["erroneas"])} de respuestas obsoletas, con 30 días {p(f[2]["erroneas"])} y con 7 días {p(f[3]["erroneas"])} a cambio de {n(f[3]["refrescos_por_hecho"])} refrescos por hecho.',
-              ['Caducidad', 'Respuestas obsoletas', 'Refrescos por hecho'], rows, [330, 300, 290], row_h=44, size=13,
-              note='Una memoria sin caducidad envejece hasta responder mal más de la mitad de las veces; acortar la caducidad compra frescura con cargas de lectura. La tasa de cambio del 1 % diario es un supuesto del autor y cada hecho cambia por separado.',
-              note_kind='gold', foot=SINT)
+    return line_chart(
+        'Hechos que cambian el 1 % de los días: respuestas obsoletas según la caducidad de la memoria (180 días)',
+        f'Línea con el costo y el riesgo de la caducidad de la memoria: sin caducidad el {p(f[0]["erroneas"])} de las respuestas está obsoleto con 0 refrescos por hecho; con 30 días baja a {p(f[2]["erroneas"])} con {n(f[2]["refrescos_por_hecho"], 0)} refrescos y con 7 días a {p(f[3]["erroneas"])} con {n(f[3]["refrescos_por_hecho"], 0)}.',
+        [("Respuestas obsoletas", [(r["refrescos_por_hecho"], r["erroneas"], f'{r["ttl"]} · {n(r["erroneas"])} %', "r") for r in f], "coral")],
+        x_label="Refrescos por hecho en 180 días", y_label="Respuestas obsoletas (%)", x_ticks=[(0, "0"), (5, "5"), (10, "10"), (15, "15"), (20, "20"), (25, "25"), (40, "")], y_ticks=[0, 20, 40, 60], point_labels="none",
+        note='Una memoria sin caducidad envejece hasta responder mal más de la mitad de las veces; acortar la caducidad compra frescura con cargas de lectura. La tasa de cambio del 1 % diario es un supuesto del autor y cada hecho cambia por separado.', note_kind='gold', foot=SINT)
 
 
 def se459_presupuesto_de_contexto() -> Fig:
@@ -131,44 +141,48 @@ def se459_presupuesto_de_contexto() -> Fig:
 # ---------------------------------------------------------------- SE-460
 def se460_politica_de_aceptacion() -> Fig:
     f = R("e460_aceptacion")["filas"]
-    rows = [[r["politica"], str(r["aceptadas"]), str(r["defectos_aceptados"]), p(100 * r["defectos_aceptados"] / r["aceptadas"])] for r in f]
-    return tab('1 000 sugerencias sintéticas (78 % correctas): defectos que entran según cómo se acepta',
-              f'Tabla con tres políticas de aceptación de 1.000 sugerencias: aceptar sin leer deja entrar {f[0]["defectos_aceptados"]} defectos, leer solo las largas {f[1]["defectos_aceptados"]} y leer siempre y ejecutar {f[2]["defectos_aceptados"]} a cambio de aceptar menos sugerencias.',
-              ['Política', 'Sugerencias aceptadas', 'Defectos aceptados', 'Defectos por cada 100 aceptadas'], rows, [330, 200, 200, 190], row_h=48, size=13,
-              note='Leer y ejecutar cuesta tiempo y reduce lo aceptado, pero deja entrar una quinta parte de los defectos. La tasa de acierto del 78 % y las tasas de detección del revisor son supuestos del autor; no miden ninguna herramienta ni persona.',
-              note_kind='coral', foot=SINT)
+    return grouped_bars(
+        '1 000 sugerencias sintéticas (78 % correctas): defectos que entran según cómo se acepta',
+        f'Barras agrupadas con las sugerencias aceptadas y los defectos que entran según la política: aceptar sin leer acepta {f[0]["aceptadas"]} y deja entrar {f[0]["defectos_aceptados"]} defectos, leer solo las largas acepta {f[1]["aceptadas"]} y deja entrar {f[1]["defectos_aceptados"]}, y leer siempre y ejecutar acepta {f[2]["aceptadas"]} y deja entrar {f[2]["defectos_aceptados"]}.',
+        [r["politica"] for r in f],
+        [("Sugerencias aceptadas", [r["aceptadas"] for r in f], "grey"), ("Defectos aceptados", [r["defectos_aceptados"] for r in f], "coral")],
+        unit="Sugerencias, de 1 000", ticks=[0, 250, 500, 750, 1000],
+        note='Leer y ejecutar cuesta tiempo y reduce lo aceptado, pero deja entrar una quinta parte de los defectos. La tasa de acierto del 78 % y las tasas de detección del revisor son supuestos del autor; no miden ninguna herramienta ni persona.', note_kind='coral', foot=SINT)
 
 
 def se460_alcance_de_la_edicion() -> Fig:
     d = R("e460_alcance")
-    rows = [['Edición dirigida (una condición)', str(d["diff_dirigido"]), p(d["p_detectar_dirigido"])],
-            ['Archivo regenerado con deriva cosmética', str(d["diff_regenerado"]), p(d["p_detectar_regenerado"])]]
-    return tab(f'Corregir una condición en un archivo de {d["lineas_archivo"]} líneas: líneas de diferencia que debe revisar la persona',
-              f'Tabla con dos formas de aplicar el mismo arreglo en un archivo de {d["lineas_archivo"]} líneas: la edición dirigida cambia {d["diff_dirigido"]} líneas y se detecta con probabilidad {p(d["p_detectar_dirigido"])}; regenerar el archivo cambia {d["diff_regenerado"]} por deriva cosmética y la probabilidad cae a {p(d["p_detectar_regenerado"])}.',
-              ['Forma de aplicar el cambio', 'Líneas distintas (difflib)', 'Prob. de encontrar el cambio real'], rows, [380, 270, 280], row_h=48, size=13,
-              note='Las líneas se miden con difflib sobre un archivo real generado; la probabilidad de detección usa una curva del autor que decae con el tamaño del diff, así que esa columna es un modelo y no una medición de personas.',
-              note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        f'Corregir una condición en un archivo de {d["lineas_archivo"]} líneas: líneas de diferencia que debe revisar la persona',
+        f'Barras horizontales con la probabilidad de encontrar el cambio real al revisar dos formas de aplicar el mismo arreglo en un archivo de {d["lineas_archivo"]} líneas: la edición dirigida cambia {d["diff_dirigido"]} líneas y se detecta con probabilidad {p(d["p_detectar_dirigido"])}; el archivo regenerado con deriva cosmética cambia {d["diff_regenerado"]} y se detecta con {p(d["p_detectar_regenerado"])}.',
+        [f'Edición dirigida: {d["diff_dirigido"]} líneas distintas', f'Archivo regenerado con deriva: {d["diff_regenerado"]} líneas distintas'],
+        [("Prob. de encontrar el cambio real", [d["p_detectar_dirigido"], d["p_detectar_regenerado"]], "teal")],
+        unit="Probabilidad de encontrar el cambio real (%)", horizontal=True, label_w=270, decimals=1, ticks=[0, 20, 40, 60, 80, 100],
+        note='Las líneas se miden con difflib sobre un archivo real generado; la probabilidad de detección usa una curva del autor que decae con el tamaño del diff, así que esa probabilidad es un modelo y no una medición de personas.', note_kind='gold', foot=EJEC)
 
 
 def se460_retardo_de_sugerencias() -> Fig:
     f = R("e460_debounce")["filas"]
-    rows = [[str(r["retardo_ms"]), str(r["peticiones"]), str(r["utiles"]), p(100 * r["utiles"] / r["peticiones"])] for r in f]
-    return tab('467 pulsaciones sintéticas: peticiones de sugerencia según el retardo antes de pedir',
-              f'Tabla con el retardo en milisegundos, las peticiones, las útiles y la fracción útil: sin retardo {f[0]["peticiones"]} peticiones para {f[0]["utiles"]} útiles, y con 600 milisegundos {f[3]["peticiones"]} peticiones para las mismas {f[3]["utiles"]}.',
-              ['Retardo (ms)', 'Peticiones al modelo', 'Peticiones útiles', 'Fracción útil'], rows, [210, 260, 240, 220], row_h=44, size=13,
-              note='Esperar a que la escritura se detenga elimina casi todo el gasto sin perder las pausas donde la sugerencia se habría mostrado. El ritmo de escritura y la regla «útil si hay una pausa de 0,5 s» son supuestos del autor; con otra persona cambiarían.',
-              note_kind='teal', foot=EJEC)
+    return grouped_bars(
+        '467 pulsaciones sintéticas: peticiones de sugerencia según el retardo antes de pedir',
+        f'Barras agrupadas con las peticiones al modelo y las útiles según el retardo antes de pedir: sin retardo hay {f[0]["peticiones"]} peticiones para {f[0]["utiles"]} útiles y con 600 milisegundos hay {f[3]["peticiones"]} peticiones para {f[3]["utiles"]} útiles, a costa de esperar antes de ver la sugerencia.',
+        [f'{r["retardo_ms"]} ms' for r in f],
+        [("Peticiones al modelo", [r["peticiones"] for r in f], "coral"), ("Peticiones útiles", [r["utiles"] for r in f], "teal")],
+        unit="Peticiones (467 pulsaciones)", ticks=[0, 100, 200, 300, 400, 500],
+        note='Esperar a que la escritura se detenga elimina casi todo el gasto sin perder las pausas donde la sugerencia se habría mostrado. El ritmo de escritura y la regla «útil si hay una pausa de 0,5 s» son supuestos del autor; con otra persona cambiarían.', note_kind='teal', foot=EJEC)
 
 
 # ---------------------------------------------------------------- SE-461
 def se461_mejor_de_n() -> Fig:
     f = R("e461_mejor_de_n")["filas"]
-    rows = [[str(r["n"]), n(r["real_s0.0"], 2), f'{n(r["medida_s1.0"], 2)} → {n(r["real_s1.0"], 2)}', f'{n(r["medida_s2.0"], 2)} → {n(r["real_s2.0"], 2)}'] for r in f]
-    return tab('Elegir la mejor de N alternativas: calidad medida de la ganadora → calidad real (en desviaciones)',
-              f'Tabla con la calidad de la mejor de N alternativas: con un evaluador perfecto crece de {n(f[0]["real_s0.0"], 2)} a {n(f[4]["real_s0.0"], 2)}; con ruido 1 la ganadora de 20 se mide en {n(f[4]["medida_s1.0"], 2)} pero vale {n(f[4]["real_s1.0"], 2)}, y con ruido 2 se mide en {n(f[4]["medida_s2.0"], 2)} pero vale {n(f[4]["real_s2.0"], 2)}.',
-              ['Alternativas (N)', 'Evaluador exacto', 'Ruido 1: medida → real', 'Ruido 2: medida → real'], rows, [200, 220, 260, 250], row_h=44, size=13,
-              note='Cuantas más alternativas y más ruido, mayor es la distancia entre lo que parece ganar y lo que vale: la ganadora suele ser la que el ruido favoreció. Calidad normal estándar y ruido gaussiano son supuestos del autor.',
-              note_kind='coral', foot=SINT)
+    ts = [(r["n"], str(r["n"])) for r in f]
+    return line_chart(
+        'Elegir la mejor de N alternativas: calidad medida de la ganadora → calidad real (en desviaciones)',
+        f'Líneas con la calidad de la mejor de N alternativas: con un evaluador exacto la calidad real crece de {n(f[0]["real_s0.0"], 2)} a {n(f[4]["real_s0.0"], 2)}; con ruido 1 la ganadora de 20 se mide en {n(f[4]["medida_s1.0"], 2)} y vale {n(f[4]["real_s1.0"], 2)}; con ruido 2 se mide en {n(f[4]["medida_s2.0"], 2)} y vale {n(f[4]["real_s2.0"], 2)}: elegir entre más alternativas sobrestima la calidad.',
+        [("Ruido 2: medida", [(r["n"], r["medida_s2.0"]) for r in f], "coral"), ("Ruido 1: medida", [(r["n"], r["medida_s1.0"]) for r in f], "gold"),
+         ("Evaluador exacto", [(r["n"], r["real_s0.0"]) for r in f], "navy"), ("Ruido 1: real", [(r["n"], r["real_s1.0"]) for r in f], "teal"), ("Ruido 2: real", [(r["n"], r["real_s2.0"]) for r in f], "grey")],
+        x_label="Alternativas entre las que se elige (N)", y_label="Calidad de la ganadora (desviaciones)", x_ticks=ts, y_ticks=[0, 1, 2, 3, 4, 5], decimals=2, point_labels="last",
+        note='Cuantas más alternativas y más ruido, mayor es la distancia entre lo que parece ganar y lo que vale: la ganadora suele ser la que el ruido favoreció. Calidad normal estándar y ruido gaussiano son supuestos del autor.', note_kind='coral', foot=SINT)
 
 
 def se461_andamiaje_sin_uso() -> Fig:
@@ -187,41 +201,46 @@ def se461_brecha_a_produccion() -> Fig:
              ('Pendiente en el percentil 90', d["p90_restante"], 'coral', f'{d["p90_restante"]} puntos')]
     return bars(f'Un prototipo sintético frente a {d["atributos"]} atributos que producción exige (5 000 prototipos)',
                f'Barras con el trabajo necesario para llevar un prototipo a producción: {d["trabajo_total"]} puntos en total, {int(d["mediana_restante"])} pendientes en la mediana ({p(d["fraccion_pendiente_mediana"])}) y {d["p90_restante"]} en el percentil 90.',
-               items, 11.0, f'En la mediana queda pendiente el {p(d["fraccion_pendiente_mediana"])} del trabajo: el prototipo demostró la idea, no la ingeniería. Las probabilidades de que cada atributo ya exista y los puntos de esfuerzo son supuestos del autor.',
+               items, 440 / d["trabajo_total"], f'En la mediana queda pendiente el {p(d["fraccion_pendiente_mediana"])} del trabajo: el prototipo demostró la idea, no la ingeniería. Las probabilidades de que cada atributo ya exista y los puntos de esfuerzo son supuestos del autor.',
                label_w=270, width=940, note_kind='coral', foot=SINT)
 
 
 # ---------------------------------------------------------------- SE-462
 def se462_pruebas_copiadas() -> Fig:
     d = R("e462_pruebas")
-    rows = [['Copiar la salida actual en entradas típicas', f'{d["detectados_snapshot"]} de {d["mutantes"]}'], ['Derivar casos de la especificación (fronteras)', f'{d["detectados_espec"]} de {d["mutantes"]}']]
-    return tab('Ocho mutantes de la función de nota final: lo que detecta cada estilo de prueba',
-              f'Tabla con dos estilos de prueba frente a ocho mutantes de la nota final: copiar la salida actual en entradas típicas detecta {d["detectados_snapshot"]} y derivar casos de la especificación con fronteras detecta {d["detectados_espec"]}.',
-              ['Estilo de prueba', 'Mutantes detectados'], rows, [600, 330], row_h=48, size=13,
-              note='Una prueba que copia la salida acepta por construcción el comportamiento actual, defectuoso o no; los casos que apuntan a fronteras y a diferencias entre operaciones sí lo cuestionan. Los mutantes y los casos están escritos sabiendo qué se busca, así que 8 de 8 es una cota optimista.',
-              note_kind='gold', foot=EJEC)
+    nom = {"peso_40_cambiado": "Peso del 40 % cambiado", "umbral_mayor": "Umbral mayor", "sin_redondeo": "Sin redondeo", "redondeo_cero": "Redondeo a cero",
+           "examen_ignorado": "Examen ignorado", "promedio_max": "Promedio con el máximo", "estado_invertido": "Estado invertido", "peso_60_cambiado": "Peso del 60 % cambiado"}
+    ks = list(d["detalle"])
+    return heatmap(
+        'Ocho mutantes de la función de nota final: lo que detecta cada estilo de prueba',
+        f'Mapa de calor con qué estilo de prueba detecta cada uno de ocho mutantes de la nota final: copiar la salida actual en entradas típicas detecta {d["detectados_snapshot"]} de {d["mutantes"]} y derivar casos de la especificación con fronteras detecta {d["detectados_espec"]} de {d["mutantes"]}.',
+        [nom[k] for k in ks], ["Copiar la salida actual", "Derivar de la especificación"],
+        [[1 if d["detalle"][k]["snapshot"] else 0, 1 if d["detalle"][k]["espec"] else 0] for k in ks],
+        unit="detección", row_title="Mutante", col_title="¿Lo detecta el estilo de prueba?",
+        scale="teal", vmin=0, vmax=1, cell_fmt=lambda v: "lo detecta" if v else "no lo ve", cell_h=36, label_w=240,
+        note='Una prueba que copia la salida acepta por construcción el comportamiento actual, defectuoso o no; los casos que apuntan a fronteras y a diferencias entre operaciones sí lo cuestionan. Los mutantes y los casos están escritos sabiendo qué se busca, así que 8 de 8 es una cota optimista.', note_kind='gold', foot=EJEC)
 
 
 def se462_documentacion_que_deriva() -> Fig:
     d = R("e462_documentacion")
-    rows = [['Funciones con ejemplo ejecutable', str(d["funciones"]), str(d["con_deriva"]), str(d["detectadas_doctest"])],
-            ['Funciones con descripción en prosa', str(d["prosa_funciones"]), str(d["prosa_con_deriva"]), str(d["prosa_detectadas_doctest"])]]
-    return tab('Documentación que dejó de ser cierta: lo que detecta doctest',
-              f'Tabla con dos grupos de funciones: de {d["funciones"]} con ejemplo ejecutable {d["con_deriva"]} derivaron y doctest detecta {d["detectadas_doctest"]}; de {d["prosa_funciones"]} con descripción en prosa {d["prosa_con_deriva"]} derivaron y doctest detecta {d["prosa_detectadas_doctest"]}.',
-              ['Tipo de documentación', 'Funciones', 'Con deriva', 'Detectadas por doctest'], rows, [380, 150, 170, 230], row_h=48, size=13,
-              note='La documentación que se ejecuta se vigila sola; la prosa envejece sin que nada falle. Pedir a un modelo que genere docstrings produce sobre todo prosa. Los grupos y las derivas son sintéticos y escritos por el autor.',
-              note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        'Documentación que dejó de ser cierta: lo que detecta doctest',
+        f'Barras agrupadas con las funciones cuya documentación dejó de ser cierta: de {d["funciones"]} con ejemplo ejecutable {d["con_deriva"]} derivaron y doctest detecta {d["detectadas_doctest"]}; de {d["prosa_funciones"]} con descripción en prosa {d["prosa_con_deriva"]} derivaron y doctest detecta {d["prosa_detectadas_doctest"]}.',
+        ["Con ejemplo ejecutable", "Con descripción en prosa"],
+        [("Funciones", [d["funciones"], d["prosa_funciones"]], "grey"), ("Con deriva", [d["con_deriva"], d["prosa_con_deriva"]], "coral"), ("Detectadas por doctest", [d["detectadas_doctest"], d["prosa_detectadas_doctest"]], "teal")],
+        unit="Funciones", ticks=[0, 5, 10, 15, 20, 25],
+        note='La documentación que se ejecuta se vigila sola; la prosa envejece sin que nada falle. Pedir a un modelo que genere docstrings produce sobre todo prosa. Los grupos y las derivas son sintéticos y escritos por el autor.', note_kind='coral', foot=EJEC)
 
 
 def se462_migracion_silenciosa() -> Fig:
     d = R("e462_migracion")
-    rows = [['Conversión directa con CAST', str(d["filas"]), f'{d["ceros_silenciosos_ingenua"]} a 0,0 y {d["parciales_silenciosos_ingenua"]} parciales', '0'],
-            ['Validación y cuarentena', str(d["filas"]), f'{d["migradas_validada"]} migradas', str(d["cuarentena"])]]
-    return tab('2 000 notas guardadas como texto en SQLite: migración ingenua frente a migración con validación',
-              f'Tabla con dos migraciones de 2.000 notas de texto a número: la conversión directa convierte sin error {d["invalidas"]} valores inválidos ({d["ceros_silenciosos_ingenua"]} a cero y {d["parciales_silenciosos_ingenua"]} a un número parcial) y la validación migra {d["migradas_validada"]} y aparta {d["cuarentena"]} en cuarentena.',
-              ['Estrategia', 'Filas', 'Resultado', 'En cuarentena'], rows, [330, 120, 340, 140], row_h=64, size=13,
-              note='La conversión directa no falla: transforma «NP», vacíos y «5,5,0» en ceros o números parciales y deja el recuento intacto. Una migración generada sin esta verificación pasa cualquier revisión que cuente filas. La mezcla de valores es sintética.',
-              note_kind='coral', foot=EJEC)
+    return stacked_bars(
+        '2 000 notas guardadas como texto en SQLite: migración ingenua frente a migración con validación',
+        f'Barras apiladas con el destino de los {d["invalidas"]} valores inválidos de {d["filas"]} notas guardadas como texto: la conversión directa convierte sin error {d["ceros_silenciosos_ingenua"]} a 0,0 y {d["parciales_silenciosos_ingenua"]} parcialmente, sin cuarentena; la validación pone los {d["cuarentena"]} en cuarentena y migra {d["migradas_validada"]} notas válidas.',
+        ["Conversión directa con CAST", "Validación y cuarentena"],
+        [("Convertidos en silencio a 0,0", [d["ceros_silenciosos_ingenua"], 0], "coral"), ("Convertidos parcialmente en silencio", [d["parciales_silenciosos_ingenua"], 0], "gold"), ("En cuarentena", [0, d["cuarentena"]], "teal")],
+        unit="Valores inválidos", horizontal=True, label_w=220,
+        note='La conversión directa no falla: transforma «NP», vacíos y «5,5,0» en ceros o números parciales y deja el recuento intacto. Una migración generada sin esta verificación pasa cualquier revisión que cuente filas. La mezcla de valores es sintética.', note_kind='coral', foot=EJEC)
 
 
 FIGURES = {

@@ -61,5 +61,5 @@ su commit está en `main` con CI verde.
 | 34 | Desarrollada y profundizada con experimentos sintéticos y modelos de CI/CD, infraestructura como código y plataforma ejecutados en Windows y Linux, CI verde (la corrección de Gitleaks y el CI verde corresponden al commit `af1c70ac`) | `808ef333` |
 | 37 | Desarrollada y profundizada con experimentos sintéticos y verificadores propios de liderazgo, equipos, riesgo, economía y práctica profesional ejecutados en Windows y Linux, CI verde (Validate, Pages y Security en verde sobre `41a1d015`) | `41a1d015` |
 | 38 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de desarrollo de software asistido por IA en Windows y Linux, CI verde (Validate, Pages y Security) | `302a4011` |
-| 39 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de especificación, agentes y ciclo de vida agentic en Windows y Linux (pendiente de CI verde) | pendiente |
+| 39 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de especificación, agentes y ciclo de vida agentic en Windows y Linux , CI verde (Validate, Pages y Security) | `5fe0dc2e` |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

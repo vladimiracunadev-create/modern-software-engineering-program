@@ -56,7 +56,7 @@ su commit está en `main` con CI verde.
 | 31 | Desarrollada y profundizada con experimentos sintéticos y sondas reales de calidad, rendimiento y resiliencia ejecutados en Windows y Linux, CI verde | `82974c6e` |
 | 36 | Desarrollada y profundizada con experimentos sintéticos y ejecuciones reales de mantenimiento y modernización legacy en Windows y Linux, CI verde | `6212ab15` |
 | 35 | Desarrollada y profundizada con experimentos sintéticos y mediciones de observabilidad, SRE e incidentes ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
-| 32 | Estructura; requiere desarrollo completo | — |
 | 33 | Desarrollada y profundizada con experimentos sintéticos, firmas reales y escaneo de flujos de CI ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
+| 32 | Desarrollada y profundizada con experimentos sintéticos de seguridad, privacidad y cumplimiento ejecutados en Windows y Linux (pendiente de CI verde) | pendiente |
 | 34, 37–39 | Estructura; requieren desarrollo completo | — |
 | 40–44 | Propuestas en la auditoría; aún sin publicar | — |

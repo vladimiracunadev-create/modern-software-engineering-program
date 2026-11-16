@@ -640,18 +640,18 @@ evita una explicación genérica.
 
 ### Parte 32 — Seguridad, privacidad y compliance
 
-- [ ] `SE-385` — crear un threat model mantenible.
-- [ ] `SE-386` — endurecer autenticación y sesiones.
-- [ ] `SE-387` — ejecutar pruebas negativas de autorización.
-- [ ] `SE-388` — prevenir y probar inyección.
-- [ ] `SE-389` — gestionar claves y criptografía por contrato.
-- [ ] `SE-390` — rotar secretos sin caída.
-- [ ] `SE-391` — aplicar minimización y privacidad.
-- [ ] `SE-392` — usar SSDF y abuse cases.
-- [ ] `SE-393` — operar divulgación de vulnerabilidades.
-- [ ] `SE-394` — trazar regulación, control, prueba y evidencia.
-- [ ] `SE-395` — explotar un control ficticio y repararlo.
-- [ ] `SE-396` — entregar un producto evaluado con ASVS.
+- [x] `SE-385` — crear un threat model mantenible.
+- [x] `SE-386` — endurecer autenticación y sesiones.
+- [x] `SE-387` — ejecutar pruebas negativas de autorización.
+- [x] `SE-388` — prevenir y probar inyección.
+- [x] `SE-389` — gestionar claves y criptografía por contrato.
+- [x] `SE-390` — rotar secretos sin caída.
+- [x] `SE-391` — aplicar minimización y privacidad.
+- [x] `SE-392` — usar SSDF y abuse cases.
+- [x] `SE-393` — operar divulgación de vulnerabilidades.
+- [x] `SE-394` — trazar regulación, control, prueba y evidencia.
+- [x] `SE-395` — explotar un control ficticio y repararlo.
+- [x] `SE-396` — entregar un producto evaluado con ASVS.
 
 ### Parte 33 — Supply chain y release
 

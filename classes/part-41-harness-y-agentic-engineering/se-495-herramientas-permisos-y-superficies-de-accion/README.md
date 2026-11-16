@@ -111,9 +111,9 @@ Preguntar a una persona antes de cada acción es el control más fuerte contra l
 
 Cada comando se analizó sin ejecutarlo. El veredicto esperado (seguro o inseguro) lo fijó el autor.
 
-![Tabla con siete de treinta comandos: la lista de prefijos permite un encadenado con borrado, la lectura de un archivo de secretos, una ruta fuera de la raíz, una sustitución de comandos y un encadenado con borrado tras las pruebas, y el análisis los deniega; el análisis también deniega un comando benigno con una tubería, que es su costo; ambos deniegan el empuje forzado.](../../../content/part-41/figures/se-495-comandos-y-politicas.svg)
+![Barras agrupadas con los errores de dos políticas sobre treinta comandos: de 18 comandos inseguros, la lista de prefijos permite 13 y el análisis del comando 0; de 12 comandos seguros, los prefijos deniegan 0 y el análisis 1, un comando benigno con una tubería; ambos deniegan el empuje forzado.](../../../content/part-41/figures/se-495-comandos-y-politicas.svg)
 
-**Cómo leer la figura.** Cada fila es un comando; las dos últimas columnas dicen qué decide cada política. La fila del comando benigno con tubería muestra el costo de la política estricta; la última, que ambas coinciden cuando el programa o el subcomando no figuran en la lista. **Dónde deja de valer:** los comandos son una muestra del autor y no incluyen técnicas que dependen del intérprete concreto (por ejemplo, formas de comillas o variables propias de cada plataforma); la política no se probó contra un adversario.
+**Cómo leer la figura.** Cada grupo es un tipo de error y sus dos barras son la lista de prefijos (coral) y el análisis del comando (verde). Mira primero que la lista deja pasar 13 de 18 comandos inseguros, que el análisis no deja pasar ninguno y que su costo es una denegación de un comando benigno. **Dónde deja de valer:** los comandos son una muestra del autor y no incluyen técnicas que dependen del intérprete concreto (por ejemplo, formas de comillas o variables propias de cada plataforma); la política no se probó contra un adversario.
 
 ![Gráfico de barras: la lista de prefijos permite 13 de 18 comandos inseguros y el análisis del comando permite 0; entre los 12 comandos seguros, los prefijos deniegan 0 y el análisis deniega 1.](../../../content/part-41/figures/se-495-inseguros-permitidos.svg)
 

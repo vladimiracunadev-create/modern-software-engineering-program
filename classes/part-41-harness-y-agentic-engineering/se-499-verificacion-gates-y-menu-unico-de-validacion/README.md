@@ -112,9 +112,9 @@ Dos defectos escapan: un error de lógica en una rama que ninguna prueba ejerce 
 
 El módulo tiene dos funciones (`fee` y `total`) y su archivo de pruebas tiene dos casos con tres aserciones. Cada cambio modifica el código, las pruebas o ambos. Las compuertas se ejecutan en el orden de la figura del menú.
 
-![Tabla con ocho de once cambios defectuosos: el error de sintaxis lo atrapan tres compuertas incluidas las pruebas; la importación sin usar, el secreto literal, la prueba debilitada y la prueba omitida solo las compuertas especializadas; el error de lógica que una prueba ve lo atrapan las pruebas; el error que ninguna prueba ve y la prueba que replica el error no los atrapa ninguna compuerta.](../../../content/part-41/figures/se-499-defectos-y-compuertas.svg)
+![Barras apiladas horizontales con los 11 cambios defectuosos: el menú completo de compuertas atrapa 9 y deja pasar 2, un error que ninguna prueba ejerce y una prueba que replica el error; las pruebas solas atrapan 2, el error de sintaxis y el error de lógica que una prueba ve, y dejan pasar 9.](../../../content/part-41/figures/se-499-defectos-y-compuertas.svg)
 
-**Cómo leer la figura.** Cada fila es un cambio defectuoso; la segunda columna dice qué compuerta lo atrapa y la tercera si bastaban las pruebas. Las cuatro filas con «no» muestran defectos que pasan una verificación hecha solo con pruebas. **Dónde deja de valer:** son once defectos del autor sobre siete líneas de código; la proporción de defectos reales que atrapa cada compuerta en un proyecto distinto es otra.
+**Cómo leer la figura.** Cada barra son los 11 cambios defectuosos partidos en atrapados (verde) y que se escapan (coral). Mira primero cómo las pruebas solas dejan escapar nueve de once y cómo incluso el menú completo deja pasar dos. **Dónde deja de valer:** son once defectos del autor sobre siete líneas de código; la proporción de defectos reales que atrapa cada compuerta en un proyecto distinto es otra.
 
 ![Gráfico de barras con los defectos atrapados de once por compuerta: sintaxis 1, estilo 5, secretos 1, pruebas 2, no debilitar pruebas 2; el menú completo atrapa 9.](../../../content/part-41/figures/se-499-atrapados-por-compuerta.svg)
 

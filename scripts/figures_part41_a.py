@@ -1,8 +1,9 @@
 """Figures for SE-493 to SE-498 (harness and agentic engineering: a stdlib mini-harness with a scripted policy, real files and Git repositories in temporary directories; Windows 11, CPython 3.12.9; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_flow_rows import chain_rows
+from figure_kit import Fig, grouped_bars, line_chart, scatter, stacked_bars
+
 from figures_part40_a import bars, flow
 
 EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; ninguna cifra viene de un modelo de lenguaje."
@@ -11,15 +12,15 @@ SIM = "Simulación con semilla fija (parámetros del autor) ejecutada en Windows
 
 # ---------------------------------------------------------------- SE-493
 def se493_ablacion() -> Fig:
-    rows = [['Harness completo', '6 de 6', '5,0', '0 de 6'], ['Sin contexto entre pasos', '0 de 6', '12,0', '0 de 6'],
-            ['Sin herramienta de escritura', '0 de 6', '12,0', '0 de 6'], ['Sin bucle (un solo paso)', '0 de 6', '1,0', '0 de 6'],
-            ['Sin criterio de parada', '6 de 6', '12,0', '0 de 6'], ['Sin comprobación de pruebas', '3 de 6', '3,0', '3 de 6'],
-            ['Sin instrucciones', '3 de 6', '3,0', '3 de 6']]
-    return tab('Quitar un componente del harness cambia el fallo: siete configuraciones sobre seis tareas',
-               'Tabla con siete configuraciones de un harness mínimo sobre seis tareas de corrección de errores: el harness completo resuelve 6 de 6 con 5 pasos de media; sin contexto, sin herramienta de escritura o con un solo paso resuelve 0 de 6; sin criterio de parada resuelve las seis pero consume 12 pasos; sin comprobación de pruebas o sin instrucciones resuelve 3 de 6 y declara terminadas en falso otras 3.',
-               ['Configuración', 'Resueltas', 'Pasos medios', 'Terminadas en falso'], rows, [380, 170, 180, 220], row_h=44, size=13,
-               note='Cada componente falla de una manera distinta: unos impiden resolver, uno solo desperdicia pasos y dos producen el peor fallo, declarar terminada una tarea que no pasa. La política es un guion, así que la tabla mide el harness, no a un modelo.',
-               note_kind='gold', foot=EJEC)
+    return stacked_bars(
+        "Quitar un componente del harness cambia el fallo: siete configuraciones sobre seis tareas",
+        "Barras apiladas horizontales con el destino de seis tareas de corrección de errores en siete configuraciones del harness: el completo resuelve 6 de 6 con 5 pasos de media; sin contexto, sin herramienta de escritura o con un solo paso resuelve 0 de 6; sin criterio de parada resuelve las seis pero consume 12 pasos; sin comprobación de pruebas o sin instrucciones resuelve 3 de 6 y declara terminadas en falso otras 3.",
+        ["Harness completo (5,0 pasos)", "Sin contexto entre pasos (12,0)", "Sin herramienta de escritura (12,0)", "Sin bucle, un solo paso (1,0)", "Sin criterio de parada (12,0)",
+         "Sin comprobación de pruebas (3,0)", "Sin instrucciones (3,0)"],
+        [("Resueltas", [6, 0, 0, 0, 6, 3, 3], "teal"), ("Terminadas en falso", [0, 0, 0, 0, 0, 3, 3], "coral"), ("Sin resolver", [0, 6, 6, 6, 0, 0, 0], "grey")],
+        unit="Tareas de 6 (entre paréntesis, pasos medios)", horizontal=True, label_w=270,
+        note="Cada componente falla de una manera distinta: unos impiden resolver, uno solo desperdicia pasos y dos producen el peor fallo, declarar terminada una tarea que no pasa. La política es un guion, así que el gráfico mide el harness, no a un modelo.",
+        note_kind="gold", foot=EJEC)
 
 
 def se493_anatomia() -> Fig:
@@ -42,14 +43,15 @@ def se493_resueltas() -> Fig:
 
 # ---------------------------------------------------------------- SE-494
 def se494_casos() -> Fig:
-    rows = [['Ruta temporal fija en un literal', 'sí', 'detectado'], ['Ruta temporal fija armada por concatenación', 'sí', 'se escapa'], ['Ruta temporal fija citada en un comentario', 'no', 'falsa alarma'],
-            ['Token partido en dos cadenas', 'sí', 'se escapa'], ['eval llamado por un nombre armado', 'sí', 'se escapa'],
-            ['Prueba vacía junto al cambio', 'sí', 'se escapa'], ['except sin tipo', 'sí', 'detectado']]
-    return tab('Un comprobador de reglas del repositorio: dónde acierta y dónde se equivoca',
-               'Tabla con siete de diecisiete casos de un comprobador determinista: detecta un literal con la ruta temporal y un except sin tipo; se le escapan la ruta armada por concatenación, el token partido en dos cadenas, la llamada a eval por un nombre armado y la prueba vacía; y da una falsa alarma ante un comentario que menciona la ruta.',
-               ['Caso', '¿Infringe la regla?', 'Resultado'], rows, [470, 230, 240], row_h=44, size=13,
-               note='Con 17 casos: 9 aciertos, 1 falsa alarma y 4 omisiones (precisión 90 %, cobertura 69 %). Una regla mecánica es barata y exacta en lo que escribe, y ciega a lo que se escribe de otra forma.',
-               note_kind='coral', foot=EJEC)
+    from figure_kit import grouped_bars as gb
+    return gb(
+        "Un comprobador de reglas del repositorio: dónde acierta y dónde se equivoca (17 casos)",
+        "Barras horizontales con los 17 casos de un comprobador determinista de reglas: 9 aciertos al detectar una infracción, 4 omisiones, como la ruta temporal armada por concatenación, el token partido en dos cadenas, la llamada a eval por un nombre armado y la prueba vacía, 1 falsa alarma ante un comentario que menciona la ruta y 3 casos sin infracción que no se marcan.",
+        ["Infracciones detectadas (aciertos)", "Infracciones que se escapan (omisiones)", "Falsas alarmas", "Casos sin infracción que no se marcan"],
+        [("Casos", [9, 4, 1, 3], "gold")],
+        unit="Casos de 17", horizontal=True, label_w=290, ticks=[0, 3, 6, 9, 12],
+        note="Con 17 casos: 9 aciertos, 1 falsa alarma y 4 omisiones (precisión 90 %, cobertura 69 %). Una regla mecánica es barata y exacta en lo que escribe, y ciega a lo que se escribe de otra forma.",
+        note_kind="coral", foot=EJEC)
 
 
 def se494_donde_aplicar() -> Fig:
@@ -70,14 +72,14 @@ def se494_resultados() -> Fig:
 
 # ---------------------------------------------------------------- SE-495
 def se495_comandos() -> Fig:
-    rows = [['git status; rm -rf src', 'permite', 'deniega'], ['cat .env', 'permite', 'deniega'], ['cat ../../etc/passwd', 'permite', 'deniega'],
-            ['ls $(whoami)', 'permite', 'deniega'], ['python -m unittest && rm -rf .', 'permite', 'deniega'],
-            ['git log --oneline | head -5 (benigno)', 'permite', 'deniega'], ['git push --force', 'deniega', 'deniega']]
-    return tab('Treinta comandos frente a dos políticas: prefijos permitidos y análisis del comando',
-               'Tabla con siete de treinta comandos: la lista de prefijos permite un encadenado con borrado, la lectura de un archivo de secretos, una ruta fuera de la raíz, una sustitución de comandos y un encadenado con borrado tras las pruebas, y el análisis los deniega; el análisis también deniega un comando benigno con una tubería, que es su costo; ambos deniegan el empuje forzado.',
-               ['Comando', 'Lista de prefijos', 'Análisis del comando'], rows, [490, 210, 240], row_h=44, size=13,
-               note='De 18 comandos inseguros, los prefijos dejan pasar 13 y el análisis, 0. De 12 seguros, los prefijos deniegan 0 y el análisis, 1. El análisis compra seguridad con una falsa denegación.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Treinta comandos frente a dos políticas: prefijos permitidos y análisis del comando",
+        "Barras agrupadas con los errores de dos políticas sobre treinta comandos: de 18 comandos inseguros, la lista de prefijos permite 13 y el análisis del comando 0; de 12 comandos seguros, los prefijos deniegan 0 y el análisis 1, un comando benigno con una tubería; ambos deniegan el empuje forzado.",
+        ["Inseguros permitidos (de 18)", "Seguros denegados (de 12)"],
+        [("Lista de prefijos", [13, 0], "coral"), ("Análisis del comando", [0, 1], "teal")],
+        unit="Comandos", plot_h=230, ticks=[0, 4, 8, 12, 16],
+        note="De 18 comandos inseguros, los prefijos dejan pasar 13 y el análisis, 0. De 12 seguros, los prefijos deniegan 0 y el análisis, 1. El análisis compra seguridad con una falsa denegación.",
+        note_kind="gold", foot=EJEC)
 
 
 def se495_inseguros() -> Fig:
@@ -99,13 +101,15 @@ def se495_capas() -> Fig:
 
 # ---------------------------------------------------------------- SE-496
 def se496_estrategias() -> Fig:
-    rows = [['6 000', '0 de 10', '6 de 10', '8 de 10'], ['12 000', '1 de 10', '6 de 10', '8 de 10'],
-            ['24 000', '4 de 10', '8 de 10', '9 de 10'], ['48 000', '10 de 10', '10 de 10', '10 de 10']]
-    return tab('Hechos recordables tras 120 turnos según la estrategia de contexto y el tamaño de la ventana',
-               'Tabla con cuatro tamaños de ventana de contexto: con 6 000 fichas truncar conserva 0 de 10 hechos, resumir lo declarado 6 y un archivo de notas del harness 8; con 12 000, 1, 6 y 8; con 24 000, 4, 8 y 9; con 48 000, que cabe toda la sesión, las tres estrategias conservan los 10.',
-               ['Ventana (fichas)', 'Truncar lo antiguo', 'Resumir lo declarado', 'Archivo de notas del harness'], rows, [210, 230, 250, 250], row_h=52, size=13,
-               note='Modelo determinista de 120 turnos de 400 fichas con 10 hechos en puntos fijos. Describe el mecanismo de pérdida de cada estrategia con supuestos explícitos; no mide la compactación de ningún producto.',
-               note_kind='gold', foot=EJEC)
+    sizes = [6000, 12000, 24000, 48000]
+    return line_chart(
+        "Hechos recordables tras 120 turnos según la estrategia de contexto y el tamaño de la ventana",
+        "Líneas con los hechos recordables, de 10, tras 120 turnos según el tamaño de la ventana: truncar conserva 0, 1, 4 y 10 con 6 000, 12 000, 24 000 y 48 000 fichas; resumir lo declarado 6, 6, 8 y 10; un archivo de notas del harness 8, 8, 9 y 10; con 48 000 fichas cabe toda la sesión.",
+        [("Truncar lo antiguo", list(zip(sizes, [0, 1, 4, 10])), "coral"), ("Resumir lo declarado", list(zip(sizes, [6, 6, 8, 10])), "gold"),
+         ("Archivo de notas del harness", list(zip(sizes, [8, 8, 9, 10])), "teal")],
+        x_label="Ventana de contexto (fichas)", y_label="Hechos recordables (de 10)", x_ticks=[(s, f"{s // 1000} 000") for s in sizes], y_ticks=[0, 2, 4, 6, 8, 10], point_labels="none",
+        note="Modelo determinista de 120 turnos de 400 fichas con 10 hechos en puntos fijos. Describe el mecanismo de pérdida de cada estrategia con supuestos explícitos; no mide la compactación de ningún producto.",
+        note_kind="gold", foot=EJEC)
 
 
 def se496_ciclo() -> Fig:
@@ -127,13 +131,15 @@ def se496_doce_mil() -> Fig:
 
 # ---------------------------------------------------------------- SE-497
 def se497_reglas() -> Fig:
-    rows = [['Sin tope (límite técnico de 60)', '69,9 %', '20,1', '60,0'], ['Tope de 10 iteraciones', '68,8 %', '5,0', '10,0'], ['Tope de 30 iteraciones', '69,2 %', '11,2', '30,0'],
-            ['Detector de falta de progreso', '77,0 %', '3,5', '6,0'], ['Tope de 10 + falta de progreso', '77,0 %', '3,5', '6,0']]
-    return tab('Cinco reglas de parada sobre 4 000 tareas sintéticas: resueltas y costo',
-               'Tabla con cinco reglas de parada: sin tope resuelve 69,9 por ciento con 20,1 iteraciones de media y 60 en las inviables; el tope de 10 resuelve 68,8 con 5,0 y 10; el tope de 30 resuelve 69,2 con 11,2 y 30; el detector de falta de progreso con un cambio de plan resuelve 77,0 con 3,5 y 6, igual que combinado con el tope de 10.',
-               ['Regla', 'Resueltas', 'Iteraciones medias', 'En las inviables'], rows, [380, 170, 200, 190], row_h=48, size=13,
-               note='Mezcla del autor: 70 % de tareas reintentables, 15 % que exigen cambiar de plan y 15 % inviables. Un tope solo limita el daño; cambiar de plan al detectar que no hay progreso añade 7 puntos.',
-               note_kind='gold', foot=SIM)
+    return scatter(
+        "Cinco reglas de parada sobre 4 000 tareas sintéticas: resueltas frente a costo",
+        "Dispersión de las tareas resueltas frente a las iteraciones medias de cinco reglas de parada: sin tope resuelve 69,9 por ciento con 20,1 iteraciones de media; el tope de 10 resuelve 68,8 con 5,0; el tope de 30 resuelve 69,2 con 11,2; el detector de falta de progreso resuelve 77,0 con 3,5, igual que combinado con el tope de 10.",
+        [("Reglas de parada", [(20.1, 69.9, "Sin tope (60 en las inviables)", "l"), (5.0, 68.8, "Tope de 10", "b"), (11.2, 69.2, "Tope de 30", "r"),
+                              (3.5, 77.0, "Detector de falta de progreso, solo o con tope de 10 (6 en las inviables)", "r")], "coral")],
+        x_label="Iteraciones medias por tarea", y_label="Tareas resueltas (%)", y_zero=False, x_ticks=[(0, "0"), (5, "5"), (10, "10"), (15, "15"), (20, "20"), (25, "25")],
+        y_ticks=[60, 65, 70, 75, 80], point_labels="none",
+        note="Mezcla del autor: 70 % de tareas reintentables, 15 % que exigen cambiar de plan y 15 % inviables. Un tope solo limita el daño; cambiar de plan al detectar que no hay progreso añade 7 puntos.",
+        note_kind="gold", foot=SIM)
 
 
 def se497_inviables() -> Fig:
@@ -155,13 +161,14 @@ def se497_bucle() -> Fig:
 
 # ---------------------------------------------------------------- SE-498
 def se498_proteccion() -> Fig:
-    rows = [['Sin protección', '0 de 15', '0 de 15', '0'], ['Solo confinamiento', '2 de 15', '2 de 15', '2'],
-            ['Confinamiento + copia previa', '2 de 15', '15 de 15', '2'], ['Sin confinar + Git', '0 de 15', '10 de 15', '0']]
-    return tab('Cinco acciones destructivas contra 15 archivos: qué sobrevive y qué se recupera',
-               'Tabla con cuatro configuraciones tras cinco acciones destructivas sobre 15 archivos, 13 en el proyecto y 2 fuera: sin protección sobreviven 0 y se recuperan 0; con solo confinamiento sobreviven 2 y se recuperan 2; con confinamiento y copia previa sobreviven 2 y se recuperan los 15; sin confinar y con Git sobreviven 0 y se recuperan 10.',
-               ['Configuración', 'Intactos tras el agente', 'Intactos tras recuperar', 'Acciones bloqueadas'], rows, [330, 220, 220, 170], row_h=50, size=13,
-               note='El confinamiento impide el daño fuera de la raíz y no deshace el de dentro; la copia deshace lo de dentro y no impide nada. Git recupera 10 de 15: los archivos no versionados y los de fuera no vuelven.',
-               note_kind='coral', foot=EJEC)
+    return grouped_bars(
+        "Cinco acciones destructivas contra 15 archivos: qué sobrevive y qué se recupera",
+        "Barras horizontales con los archivos intactos, de 15, tras cinco acciones destructivas, 13 en el proyecto y 2 fuera: sin protección sobreviven 0 y se recuperan 0; con solo confinamiento sobreviven 2 y se recuperan 2; con confinamiento y copia previa sobreviven 2 y se recuperan los 15; sin confinar y con Git sobreviven 0 y se recuperan 10.",
+        ["Sin protección (0 acciones bloqueadas)", "Solo confinamiento (2 acciones bloqueadas)", "Confinamiento + copia previa (2)", "Sin confinar + Git (0)"],
+        [("Intactos tras el agente", [0, 2, 2, 0], "coral"), ("Intactos tras recuperar", [0, 2, 15, 10], "teal")],
+        unit="Archivos intactos (de 15)", horizontal=True, label_w=290, ticks=[0, 5, 10, 15],
+        note="El confinamiento impide el daño fuera de la raíz y no deshace el de dentro; la copia deshace lo de dentro y no impide nada. Git recupera 10 de 15: los archivos no versionados y los de fuera no vuelven.",
+        note_kind="coral", foot=EJEC)
 
 
 def se498_capas() -> Fig:

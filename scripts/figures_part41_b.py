@@ -1,8 +1,9 @@
 """Figures for SE-499 to SE-504 (harness and agentic engineering: gates, real Git merges, seeded simulations, injected faults and a governed mini-harness; Windows 11, CPython 3.12.9, Git 2.55; no language model was invoked)."""
 from __future__ import annotations
 
-from figure_kit import Fig
-from figures_part07_a import tab
+from figure_flow_rows import chain_rows
+from figure_kit import AXIS, Fig, _kit_finish, _kit_start, grouped_bars, line_chart, stacked_bars
+
 from figures_part40_a import bars, flow
 
 EJEC = "Código ejecutado de verdad en Windows 11 con CPython 3.12.9; ninguna cifra viene de un modelo de lenguaje."
@@ -11,15 +12,14 @@ SIM = "Simulación con semilla fija (parámetros del autor) ejecutada en Windows
 
 # ---------------------------------------------------------------- SE-499
 def se499_cambios() -> Fig:
-    rows = [['Error de sintaxis', 'sintaxis, estilo y pruebas', 'sí'], ['Importación sin usar', 'estilo', 'no'], ['Secreto literal', 'secretos', 'no'],
-            ['Error de lógica que una prueba ve', 'pruebas', 'sí'], ['Prueba debilitada para ocultar el error', 'no debilitar pruebas', 'no'],
-            ['Prueba omitida con un decorador', 'no debilitar pruebas', 'no'], ['Error que ninguna prueba ve', 'ninguna', 'no'],
-            ['Prueba que replica el error', 'ninguna', 'no']]
-    return tab('Qué compuerta atrapa cada defecto de 11 y qué atrapan las pruebas por sí solas',
-               'Tabla con ocho de once cambios defectuosos: el error de sintaxis lo atrapan tres compuertas incluidas las pruebas; la importación sin usar, el secreto literal, la prueba debilitada y la prueba omitida solo las compuertas especializadas; el error de lógica que una prueba ve lo atrapan las pruebas; el error que ninguna prueba ve y la prueba que replica el error no los atrapa ninguna compuerta.',
-               ['Cambio defectuoso', 'Compuerta que lo atrapa', '¿Lo atrapan solo las pruebas?'], rows, [380, 330, 230], row_h=44, size=13,
-               note='El menú completo atrapa 9 de 11 defectos; las pruebas solas, 2. Los 2 restantes (un error que ninguna prueba ejerce y una prueba que replica el error) no los atrapa ninguna compuerta: son el límite del gate.',
-               note_kind='coral', foot=EJEC)
+    return stacked_bars(
+        "Qué atrapan las compuertas de un menú completo frente a las pruebas solas sobre 11 cambios defectuosos",
+        "Barras apiladas horizontales con los 11 cambios defectuosos: el menú completo de compuertas atrapa 9 y deja pasar 2, un error que ninguna prueba ejerce y una prueba que replica el error; las pruebas solas atrapan 2, el error de sintaxis y el error de lógica que una prueba ve, y dejan pasar 9.",
+        ["Menú completo de compuertas", "Solo las pruebas"],
+        [("Atrapados", [9, 2], "teal"), ("Se escapan", [2, 9], "coral")],
+        unit="Cambios defectuosos de 11", horizontal=True, label_w=200,
+        note="Las compuertas especializadas atrapan la importación sin usar, el secreto literal, la prueba debilitada y la prueba omitida; el error de sintaxis lo atrapan tres compuertas. Los 2 restantes (un error que ninguna prueba ejerce y una prueba que replica el error) no los atrapa ninguna compuerta: son el límite del gate.",
+        note_kind="coral", foot=EJEC)
 
 
 def se499_por_compuerta() -> Fig:
@@ -41,13 +41,18 @@ def se499_menu() -> Fig:
 
 # ---------------------------------------------------------------- SE-500
 def se500_fusiones() -> Fig:
-    rows = [['Archivos distintos', 'limpia', 'pasan'], ['Mismo archivo, zonas lejanas', 'limpia', 'pasan'], ['Mismas líneas', 'conflicto', 'no aplica'],
-            ['Renombrar una función y usarla por otro lado', 'limpia', 'FALLAN']]
-    return tab('Dos agentes en ramas de Git reales: lo que dice la fusión y lo que dicen las pruebas',
-               'Tabla con cuatro escenarios de dos ramas de Git creadas en directorios temporales: archivos distintos y zonas lejanas del mismo archivo se fusionan limpios y las pruebas pasan; editar las mismas líneas produce un conflicto; renombrar una función en una rama y usarla desde otra se fusiona limpio y las pruebas fallan.',
-               ['Escenario', 'Fusión de Git', 'Pruebas tras fusionar'], rows, [460, 220, 260], row_h=52, size=13,
-               note='Que Git fusione sin conflicto no significa que el resultado funcione. El conflicto semántico solo lo ve una verificación posterior a la fusión, y el conflicto textual es el caso fácil.',
-               note_kind='coral', foot=EJEC)
+    rows = [
+        [("Archivos distintos", "plain"), ("Fusión limpia", "teal"), ("Las pruebas pasan", "teal")],
+        [("Mismo archivo, zonas lejanas", "plain"), ("Fusión limpia", "teal"), ("Las pruebas pasan", "teal")],
+        [("Mismas líneas", "plain"), ("Conflicto de texto", "gold"), ("No aplica", "grey")],
+        [("Renombrar una función en una rama y usarla desde otra", "plain"), ("Fusión limpia", "teal"), ("Las pruebas FALLAN", "coral")],
+    ]
+    return chain_rows(
+        "Dos agentes en ramas de Git reales: lo que dice la fusión y lo que dicen las pruebas",
+        "Diagrama de flujo de cuatro escenarios de dos ramas de Git creadas en directorios temporales: archivos distintos y zonas lejanas del mismo archivo se fusionan limpios y las pruebas pasan; editar las mismas líneas produce un conflicto; renombrar una función en una rama y usarla desde otra se fusiona limpio y las pruebas fallan.",
+        ["Escenario", "Fusión de Git", "Pruebas tras fusionar"], rows, [340, 220, 250],
+        note="Que Git fusione sin conflicto no significa que el resultado funcione. El conflicto semántico solo lo ve una verificación posterior a la fusión, y el conflicto textual es el caso fácil.",
+        note_kind="coral", foot=EJEC)
 
 
 def se500_solapamiento() -> Fig:
@@ -69,12 +74,14 @@ def se500_roles() -> Fig:
 
 # ---------------------------------------------------------------- SE-501
 def se501_trazas() -> Fig:
-    rows = [['Completo', '30', '0', '6 de 6', '5,0'], ['Sin contexto', '72', '0', '0 de 6', '—'], ['Escritura denegada', '36', '12', '0 de 6', '—'], ['Sin criterio de parada', '72', '0', '6 de 6', '12,0']]
-    return tab('Métricas calculadas desde las trazas de cuatro configuraciones del harness mínimo',
-               'Tabla con las métricas de las trazas de cuatro configuraciones sobre seis tareas: el harness completo usa 30 pasos, ninguna denegación, resuelve 6 de 6 con 5,0 pasos por tarea resuelta; sin contexto usa 72 pasos y resuelve 0; con la escritura denegada usa 36 pasos con 12 denegaciones y resuelve 0; sin criterio de parada usa 72 pasos y resuelve 6 de 6 con 12,0 pasos por tarea.',
-               ['Configuración', 'Pasos totales', 'Denegaciones', 'Resueltas', 'Pasos por tarea resuelta'], rows, [300, 160, 170, 150, 160], row_h=48, size=13,
-               note='Las dos configuraciones que gastan 72 pasos fallan por razones opuestas: una no resuelve nada y la otra lo resuelve todo sin parar. Solo la combinación de pasos, denegaciones y resultado las distingue.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Métricas calculadas desde las trazas de cuatro configuraciones del harness mínimo",
+        "Barras agrupadas con los pasos totales y las denegaciones de las trazas de cuatro configuraciones sobre seis tareas: el harness completo usa 30 pasos y ninguna denegación y resuelve 6 de 6; sin contexto usa 72 pasos y resuelve 0; con la escritura denegada usa 36 pasos con 12 denegaciones y resuelve 0; sin criterio de parada usa 72 pasos y resuelve 6 de 6 con 12,0 pasos por tarea.",
+        ["Completo (6 de 6 resueltas, 5,0 pasos por tarea)", "Sin contexto (0 de 6)", "Escritura denegada (0 de 6)", "Sin criterio de parada (6 de 6, 12,0 pasos por tarea)"],
+        [("Pasos totales", [30, 72, 36, 72], "navy"), ("Denegaciones", [0, 0, 12, 0], "coral")],
+        unit="Pasos o denegaciones", horizontal=True, label_w=290, ticks=[0, 20, 40, 60, 80],
+        note="Las dos configuraciones que gastan 72 pasos fallan por razones opuestas: una no resuelve nada y la otra lo resuelve todo sin parar. Solo la combinación de pasos, denegaciones y resultado las distingue.",
+        note_kind="gold", foot=EJEC)
 
 
 def se501_potencia() -> Fig:
@@ -86,23 +93,35 @@ def se501_potencia() -> Fig:
 
 
 def se501_falsos_positivos() -> Fig:
-    rows = [['50', '45,7 %', '2,1 %'], ['200', '48,7 %', '3,0 %'], ['800', '47,1 %', '3,0 %']]
-    return tab('Declarar mejor a un harness idéntico: la regla «tiene más aciertos» frente a una prueba pareada',
-               'Tabla con la proporción de veces que se declara mejor a un harness idéntico a la línea base: con 50 tareas la regla de más aciertos lo declara mejor el 45,7 por ciento y la prueba pareada el 2,1; con 200 tareas 48,7 y 3,0; con 800 tareas 47,1 y 3,0.',
-               ['Tareas', 'Regla «tiene más aciertos»', 'Prueba pareada'], rows, [200, 380, 360], row_h=52, size=13,
-               note='Comparar contra un harness idéntico muestra el ruido: la regla ingenua da por mejor la mitad de las veces algo que no cambió. La prueba pareada mantiene el error cerca del 3 %, a costa de la potencia.',
-               note_kind='coral', foot=SIM)
+    tasks = [50, 200, 800]
+    return line_chart(
+        "Declarar mejor a un harness idéntico: la regla «tiene más aciertos» frente a una prueba pareada",
+        "Líneas con la proporción de veces que se declara mejor a un harness idéntico a la línea base: con 50 tareas la regla de más aciertos lo declara mejor el 45,7 por ciento y la prueba pareada el 2,1; con 200 tareas 48,7 y 3,0; con 800 tareas 47,1 y 3,0.",
+        [("Regla «tiene más aciertos»", list(zip(tasks, [45.7, 48.7, 47.1])), "coral"), ("Prueba pareada", list(zip(tasks, [2.1, 3.0, 3.0])), "teal")],
+        x_label="Tareas de la comparación", y_label="Se declara mejor (%)", log_x=True, x_ticks=[(50, "50"), (200, "200"), (800, "800")], y_ticks=[0, 10, 20, 30, 40, 50, 60],
+        point_labels="all", decimals=1,
+        note="Comparar contra un harness idéntico muestra el ruido: la regla ingenua da por mejor la mitad de las veces algo que no cambió. La prueba pareada mantiene el error cerca del 3 %, a costa de la potencia.",
+        note_kind="coral", foot=SIM)
 
 
 # ---------------------------------------------------------------- SE-502
 def se502_clasificacion() -> Fig:
-    rows = [['docs/guia.md', 'bajo'], ['src/a.py con su prueba (40 líneas)', 'bajo'], ['src/a.py sin prueba', 'medio'], ['src/a.py con prueba, 400 líneas', 'medio'],
-            ['requirements.txt (dependencias)', 'medio'], ['.github/workflows/ci.yml', 'alto'], ['auth/login.py con su prueba', 'alto'], ['migrations/0004.sql', 'alto']]
-    return tab('Clasificación de riesgo por reglas sobre rutas, tamaño y dependencias: ocho de doce cambios',
-               'Tabla con ocho de doce cambios clasificados por reglas deterministas: la documentación y un cambio de código con su prueba y 40 líneas son de riesgo bajo; el código sin prueba, el cambio de 400 líneas y el archivo de dependencias son de riesgo medio; el workflow de integración continua, la autenticación y la migración son de riesgo alto.',
-               ['Cambio', 'Nivel de riesgo'], rows, [650, 290], row_h=44, size=13,
-               note='Una regla de rutas es barata, auditable y fácil de eludir: un cambio peligroso en una carpeta que no aparece en la lista es de riesgo bajo. Se complementa con revisión humana de las reglas.',
-               note_kind='gold', foot=EJEC)
+    f, y = _kit_start("Clasificación de riesgo por reglas sobre rutas, tamaño y dependencias: ocho de doce cambios",
+                      "Diagrama con ocho de doce cambios agrupados por el nivel de riesgo que les asignan reglas deterministas: en el riesgo bajo la documentación y un cambio de código con su prueba y 40 líneas; en el medio el código sin prueba, el cambio de 400 líneas y el archivo de dependencias; en el alto el workflow de integración continua, la autenticación y la migración.",
+                      940, None)
+    cols = [("Riesgo bajo", "teal", ["docs/guia.md", "src/a.py con su prueba (40 líneas)"]),
+            ("Riesgo medio", "gold", ["src/a.py sin prueba", "src/a.py con prueba, 400 líneas", "requirements.txt (dependencias)"]),
+            ("Riesgo alto", "coral", [".github/workflows/ci.yml", "auth/login.py con su prueba", "migrations/0004.sql"])]
+    w, gap, top = 290, 20, y + 4
+    for i, (head, kind, items) in enumerate(cols):
+        x = 14 + i * (w + gap)
+        f.group(x, top, w, 220, head, kind)
+        for j, text in enumerate(items):
+            f.box(x + 12, top + 38 + j * 58, w - 24, 48, text, kind, 13)
+    f.text(14, top + 246, "Las reglas se leen de arriba abajo por ruta, tamaño y dependencias; el primer nivel que coincide fija el riesgo.", 13, "start", 400, AXIS)
+    return _kit_finish(f, top + 258,
+                       "Una regla de rutas es barata, auditable y fácil de eludir: un cambio peligroso en una carpeta que no aparece en la lista es de riesgo bajo. Se complementa con revisión humana de las reglas.",
+                       "gold", EJEC)
 
 
 def se502_escapes() -> Fig:
@@ -124,14 +143,14 @@ def se502_ciclo() -> Fig:
 
 # ---------------------------------------------------------------- SE-503
 def se503_fallos() -> Fig:
-    rows = [['F1 sin contexto entre pasos', '6 de 6', '6 de 6'], ['F2 herramienta de escritura ausente', '0 de 6 (lo confunde con F1)', '6 de 6'],
-            ['F3 la parada no se respeta', '6 de 6', '6 de 6'], ['F4 sin instrucción de verificar', '3 de 3', '3 de 3'],
-            ['F5 escritura denegada por permiso', '6 de 6', '6 de 6'], ['F6 tope de pasos demasiado bajo', '3 de 3', '3 de 3']]
-    return tab('Seis fallos inyectados en el harness y cuántas veces los acierta el diagnóstico desde la traza',
-               'Tabla con seis fallos inyectados: con la traza mínima el diagnóstico acierta los fallos de contexto, parada, verificación, permiso y tope, y confunde siempre la herramienta ausente con la falta de contexto; con la traza enriquecida, que incluye las herramientas ofrecidas, el contexto visible y la observación, acierta los 30 casos.',
-               ['Fallo inyectado', 'Traza mínima', 'Traza enriquecida'], rows, [400, 330, 210], row_h=48, size=13,
-               note='Con la traza mínima el diagnóstico acierta 24 de 30; con la enriquecida, 30 de 30. La diferencia es un campo, las herramientas ofrecidas, que decide entre dos fallos con síntomas idénticos.',
-               note_kind='gold', foot=EJEC)
+    return grouped_bars(
+        "Seis fallos inyectados en el harness y cuántas veces los acierta el diagnóstico desde la traza",
+        "Barras horizontales con los casos que el diagnóstico acierta, de 30, por fallo inyectado: con la traza mínima acierta los fallos de contexto, parada, verificación, permiso y tope y confunde siempre la herramienta ausente con la falta de contexto, 24 de 30; con la traza enriquecida, que incluye las herramientas ofrecidas, el contexto visible y la observación, acierta los 30.",
+        ["F1 sin contexto entre pasos (6 casos)", "F2 herramienta de escritura ausente (6)", "F3 la parada no se respeta (6)", "F4 sin instrucción de verificar (3)", "F5 escritura denegada por permiso (6)", "F6 tope de pasos demasiado bajo (3)"],
+        [("Traza mínima", [6, 0, 6, 3, 6, 3], "coral"), ("Traza enriquecida", [6, 6, 6, 3, 6, 3], "teal")],
+        unit="Casos acertados", horizontal=True, label_w=290, ticks=[0, 2, 4, 6],
+        note="Con la traza mínima el diagnóstico acierta 24 de 30; con la enriquecida, 30 de 30. La diferencia es un campo, las herramientas ofrecidas, que decide entre dos fallos con síntomas idénticos.",
+        note_kind="gold", foot=EJEC)
 
 
 def se503_aciertos() -> Fig:
@@ -153,14 +172,19 @@ def se503_procedimiento() -> Fig:
 
 # ---------------------------------------------------------------- SE-504
 def se504_escenarios() -> Fig:
-    rows = [['Seis tareas normales', '6 de 6; 5,0 pasos', '6 de 6; 5,0 pasos'], ['A1 debilitar la prueba', 'prueba alterada; terminada en falso', 'bloqueado; para por falta de progreso'],
-            ['A2 leer fuera de la raíz', 'lectura fuera de la raíz', 'bloqueado; para por falta de progreso'], ['A3 repetir el mismo intento', '12 pasos hasta el tope', 'para en 3 pasos'],
-            ['A4 terminar sin verificar', 'terminada en falso', 'rechazada; para por falta de progreso']]
-    return tab('Harness sin controles frente a harness gobernado: tareas normales y cuatro escenarios adversos',
-               'Tabla con cinco escenarios: en las seis tareas normales ambos harness resuelven 6 de 6 con 5,0 pasos; sin controles, debilitar la prueba la altera y deja la tarea terminada en falso, leer fuera de la raíz tiene éxito, repetir el mismo intento gasta 12 pasos y terminar sin verificar queda terminada en falso; gobernado bloquea la prueba alterada y la lectura, para a los 3 pasos el intento repetido y rechaza la terminación sin verificar.',
-               ['Escenario', 'Sin controles', 'Gobernado'], rows, [330, 310, 300], row_h=52, size=13,
-               note='Los controles no cuestan nada en las tareas normales y cambian el resultado en las adversas. Los cuatro escenarios son del autor: demuestran que cada control hace su trabajo, no que cubran todos los casos.',
-               note_kind='gold', foot=EJEC)
+    rows = [
+        [("Seis tareas normales", "plain"), ("6 de 6; 5,0 pasos", "teal"), ("6 de 6; 5,0 pasos", "teal")],
+        [("A1 debilitar la prueba", "plain"), ("Prueba alterada; terminada en falso", "coral"), ("Bloqueado; para por falta de progreso", "teal")],
+        [("A2 leer fuera de la raíz", "plain"), ("Lectura fuera de la raíz", "coral"), ("Bloqueado; para por falta de progreso", "teal")],
+        [("A3 repetir el mismo intento", "plain"), ("12 pasos hasta el tope", "coral"), ("Para en 3 pasos", "teal")],
+        [("A4 terminar sin verificar", "plain"), ("Terminada en falso", "coral"), ("Rechazada; para por falta de progreso", "teal")],
+    ]
+    return chain_rows(
+        "Harness sin controles frente a harness gobernado: tareas normales y cuatro escenarios adversos",
+        "Diagrama de flujo de cinco escenarios: en las seis tareas normales ambos harness resuelven 6 de 6 con 5,0 pasos; sin controles, debilitar la prueba la altera y deja la tarea terminada en falso, leer fuera de la raíz tiene éxito, repetir el mismo intento gasta 12 pasos y terminar sin verificar queda terminada en falso; gobernado bloquea la prueba alterada y la lectura, para a los 3 pasos el intento repetido y rechaza la terminación sin verificar.",
+        ["Escenario", "Sin controles", "Gobernado"], rows, [270, 290, 290], gap=26,
+        note="Los controles no cuestan nada en las tareas normales y cambian el resultado en las adversas. Los cuatro escenarios son del autor: demuestran que cada control hace su trabajo, no que cubran todos los casos.",
+        note_kind="gold", foot=EJEC)
 
 
 def se504_arquitectura() -> Fig:

@@ -85,20 +85,20 @@ contrasta con fuentes que representan distintas dimensiones de la disciplina:
 | supply chain | [SLSA](https://slsa.dev/) y [OpenSSF](https://openssf.org/) | procedencia, artefactos y consumo seguro |
 | IA responsable | [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) | riesgo, evaluación y supervisión humana |
 | agentes | [Model Context Protocol](https://modelcontextprotocol.io/) | herramientas, contexto, autorización y límites |
-| desarrollo guiado por pruebas | [Test-Driven Development — Martin Fowler](https://martinfowler.com/bliki/TestDrivenDevelopment.html) | ciclo rojo-verde-refactor y sus límites (Partes 05, 30; Parte 40 planificada) |
-| BDD y ATDD | [Introducing BDD — Dan North](https://dannorth.net/introducing-bdd/) y [Gherkin reference — Cucumber](https://cucumber.io/docs/gherkin/reference/) | comportamiento descrito con ejemplos compartidos (Parte 13; Parte 40 planificada) |
+| desarrollo guiado por pruebas | [Test-Driven Development — Martin Fowler](https://martinfowler.com/bliki/TestDrivenDevelopment.html) | ciclo rojo-verde-refactor y sus límites (Partes 05, 30 y 40) |
+| BDD y ATDD | [Introducing BDD — Dan North](https://dannorth.net/introducing-bdd/) y [Gherkin reference — Cucumber](https://cucumber.io/docs/gherkin/reference/) | comportamiento descrito con ejemplos compartidos (Partes 13 y 40) |
 | especificación por ejemplos | [Specification by Example — Gojko Adzic](https://gojko.net/books/specification-by-example/) | ejemplos como requisitos ejecutables |
-| dominio | [Domain-Driven Design Reference — Eric Evans](https://www.domainlanguage.com/ddd/reference/) e [Implementing Domain-Driven Design — Vaughn Vernon](https://www.informit.com/store/implementing-domain-driven-design-9780321834577) | lenguaje ubicuo, contextos delimitados y modelo táctico (Parte 25; Parte 40 planificada) |
+| dominio | [Domain-Driven Design Reference — Eric Evans](https://www.domainlanguage.com/ddd/reference/) e [Implementing Domain-Driven Design — Vaughn Vernon](https://www.informit.com/store/implementing-domain-driven-design-9780321834577) | lenguaje ubicuo, contextos delimitados y modelo táctico (Partes 25 y 40) |
 | contratos | [Pact](https://docs.pact.io/) | pruebas de contrato dirigidas por el consumidor |
 | patrones de diseño | [Design Patterns — Gamma, Helm, Johnson y Vlissides](https://www.pearson.com/en-us/subject-catalog/p/design-patterns-elements-of-reusable-object-oriented-software/P200000009480/9780137903610) y [Pattern-Oriented Software Architecture](https://www.wiley.com/en-us/Pattern-Oriented+Software+Architecture+Volume+1%3A+A+System+of+Patterns-p-9780471958697) | catálogo, fuerzas y consecuencias (Parte 24; Parte 43 planificada) |
 | patrones empresariales | [Patterns of Enterprise Application Architecture — Martin Fowler](https://martinfowler.com/eaaCatalog/) y [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | persistencia, integración y mensajería (Partes 26–27; Parte 43 planificada) |
-| patrones cloud y resiliencia | [Cloud design patterns — Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/patterns/) | retry, circuit breaker, bulkhead, sidecar y ambassador (Parte 43 planificada) |
+| patrones cloud y resiliencia | [Cloud design patterns — Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/patterns/) | retry, circuit breaker, bulkhead, sidecar y ambassador (Parte 43) |
 | descripción de arquitectura | [ISO/IEC/IEEE 42010:2022](https://www.iso.org/standard/74393.html) | vistas, perspectivas y preocupaciones de las partes interesadas |
 | estilos arquitectónicos | [Fielding — REST](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm), [Hexagonal architecture — Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture/), [Microservices — Lewis y Fowler](https://martinfowler.com/articles/microservices.html) y [The Twelve-Factor App](https://12factor.net/) | estilos, restricciones y costes (Parte 25; Parte 44 planificada) |
 | patrones agénticos | [Building effective agents — Anthropic](https://www.anthropic.com/research/building-effective-agents), [Effective context engineering — Anthropic](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) y [ReAct](https://arxiv.org/abs/2210.03629) | flujos frente a agentes, contexto y bucles (Partes 39, 41, 42) |
-| sistemas con LLM | [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401), [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) y [OpenTelemetry GenAI](https://opentelemetry.io/docs/specs/semconv/gen-ai/) | recuperación, seguridad y observabilidad (Parte 42 planificada) |
+| sistemas con LLM | [Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401), [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) y [OpenTelemetry GenAI](https://opentelemetry.io/docs/specs/semconv/gen-ai/) | recuperación, seguridad y observabilidad (Parte 42) |
 | evaluación de agentes | [SWE-bench](https://www.swebench.com/), [tau-bench](https://arxiv.org/abs/2406.12045) y [Your AI Product Needs Evals — Hamel Husain](https://hamel.dev/blog/posts/evals/) | tareas reales, consistencia entre intentos y evaluaciones de producto |
-| interoperabilidad de agentes | [Agent2Agent (A2A) Protocol](https://a2a-protocol.org/latest/) | comunicación entre agentes (Parte 42 planificada) |
+| interoperabilidad de agentes | [Agent2Agent (A2A) Protocol](https://a2a-protocol.org/latest/) | comunicación entre agentes (Parte 42) |
 | gestión de IA | [ISO/IEC 42001:2023](https://www.iso.org/standard/81230.html) | sistema de gestión de IA, junto con NIST AI RMF |
 | especificación guiada por spec | [GitHub Spec Kit](https://github.com/github/spec-kit) y [AGENTS.md](https://agents.md/) | spec-first y SDD; instrucciones de repositorio para agentes (Partes 39, 40, 41) |
 
@@ -106,8 +106,8 @@ contrasta con fuentes que representan distintas dimensiones de la disciplina:
 > estándares. El material del programa tiene redacción propia.
 >
 > Las referencias de patrones, metodologías, agentes y sistemas con LLM respaldan
-> tanto las partes desarrolladas como las **planificadas** (40–44); que figuren aquí
-> no indica que esas clases existan. Los enlaces se comprobaron el 13 de noviembre
+> las Partes 40–44, ya desarrolladas; que una referencia figure aquí no certifica
+> que la clase correspondiente haya sido revisada por una persona. Los enlaces se comprobaron el 13 de noviembre
 > de 2026; las páginas de ISO responden 403 a clientes automatizados, pero son las
 > páginas oficiales del estándar.
 
@@ -116,7 +116,7 @@ contrasta con fuentes que representan distintas dimensiones de la disciplina:
 Las fuentes se conservan como datos auditables, no como bibliografía decorativa:
 
 - [línea base de fuentes](sources/baseline.json): estándares, especificaciones y documentación oficial;
-- [registro por clase](sources/class-sources.json): fuentes asignadas a `SE-001`–`SE-480`;
+- [registro por clase](sources/class-sources.json): fuentes asignadas a `SE-001`–`SE-540`;
 - [fuentes de fase 3](sources/phase3.json) y [fase 4](sources/phase4.json): cobertura por parte;
 - [trazabilidad pedagógica](sources/pedagogical/): afirmación, evidencia, error conceptual y límite;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia y tratamiento de material obsoleto.
@@ -278,9 +278,8 @@ Cada guía incluye identidad visual, dos gráficos interpretables, misión, jorn
 responsabilidades y límites, recorrido **parte → clases asociadas → evidencia**,
 trade-offs, escenario de fallo, métricas con sus trampas, proyecto integrador,
 progresión por alcance, plan 30/60/90, preguntas profesionales y fuentes. Las guías
-marcan el estado real de cada parte (00–39 desarrolladas), listan clases de apoyo
-además del núcleo y describen, sin
-enlaces, qué aportarán las Partes 40–44, que están **planificadas**. No son
+marcan el estado real de cada parte (00–44 desarrolladas), listan clases de apoyo
+además del núcleo y enlazan las Partes 40–44 que cada rol incorpora. No son
 42 cursos separados: reutilizan la base común y cambian el foco de decisión.
 
 <!-- role-map:start -->

@@ -390,7 +390,7 @@ def validate_program_roadmap() -> None:
         "## Proyectos integradores",
         "## Fases de implementación",
         "## Criterio de término del programa",
-        "aproximadamente 500 clases",
+        "540 clases (ADR-004)",
         "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN",
         "calidad > profundidad > coherencia > cantidad",
     )

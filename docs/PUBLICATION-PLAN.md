@@ -9,9 +9,9 @@
 
 ## About publicado
 
-> 🧭 Programa de Ingeniería de Software Moderna · 480 clases, 40 partes y 8 etapas · aprendizaje conectado, práctica, evidencia y fuentes · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
+> 🧭 Programa de Ingeniería de Software Moderna · 540 clases en 45 partes (540 desarrolladas, SE-001–SE-540) · aprendizaje conectado, práctica, evidencia y fuentes · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
 
-La descripción no repite el nombre que GitHub ya muestra. Las 480 clases siguen el
+La descripción no repite el nombre que GitHub ya muestra. Las 540 clases siguen el
 mismo estándar pedagógico; el contenido realmente disponible se explica por separado
 en `STATUS.md` sin asignar etiquetas a cada clase.
 
@@ -39,4 +39,4 @@ en `STATUS.md` sin asignar etiquetas a cada clase.
 - Portal: <https://vladimiracunadev-create.github.io/modern-software-engineering-program/>
 - Validación multiplataforma: verde en Python 3.11–3.14, Windows y macOS.
 - Pages: artefacto y despliegue en verde.
-- Respuesta del portal: HTTP 200 y catálogo de 480 clases comprobados el 3 de octubre de 2026.
+- Respuesta del portal: HTTP 200 y catálogo de 540 clases en 45 partes comprobados el 2026-11-16 (la comprobación de 480 clases del 3 de octubre de 2026 queda como antecedente).

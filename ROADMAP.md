@@ -5,12 +5,12 @@ incorporarse. No es un prompt ni un conjunto de instrucciones para agentes. Las 
 de contribución viven en `AGENTS.md`, `CONTRIBUTING.md` y
 `docs/PEDAGOGICAL-STANDARD.md`; aquí se describe el producto educativo.
 
-La meta es un programa profesional integral de aproximadamente 500 clases. El número
+El programa vigente tiene 540 clases (ADR-004). El número
 no es una cuota: cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
 El mandato completo, las brechas transversales y la acción específica pendiente para
-cada uno de los 480 IDs se conservan en el
+cada uno de los 540 IDs se conservan en el
 [`plan maestro de auditoría y mejora curricular`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md).
 Ese plan es el backlog operativo recuperable; este roadmap continúa siendo la fuente
 de verdad sobre el producto educativo y su secuencia.
@@ -22,16 +22,16 @@ de verdad sobre el producto educativo y su secuencia.
   desarrolladas lo decide el contenido real (`content/part-NN/`), no este documento: el
   estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
   (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)).
-- Al 2026-11-16 las Partes 00–39 contienen 480 clases desarrolladas y profundizadas con
+- Al 2026-11-16 las Partes 00–44 contienen 540 clases desarrolladas y profundizadas con
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
-  navegación (`SE-001`–`SE-480`), con laboratorios ejecutables en las Partes 01–05; falta
-  una revisión editorial humana independiente. No quedan borradores ni estructuras sin
-  desarrollar entre esas 480 posiciones.
-- El alcance planificado es de 540 clases: las Partes 40–44 (`SE-481`–`SE-540`:
-  metodologías de TDD a ODD, harness y agentic engineering, patrones agénticos, patrones
-  de diseño y estilos arquitectónicos) están decididas y figuran como planificadas hasta
-  que cada una tenga su contenido completo. Ver
-  [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md).
+  navegación (`SE-001`–`SE-540`), con laboratorios ejecutables en las Partes 01–05 y
+  experimentos reproducibles en las Partes 32–44; falta una revisión editorial humana
+  independiente. No quedan borradores ni estructuras sin desarrollar entre esas 540 posiciones.
+- El alcance de 540 clases se decidió en
+  [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md):
+  las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic
+  engineering, patrones agénticos, patrones de diseño y estilos arquitectónicos) ya tienen
+  su contenido completo. Cualquier ampliación posterior exige un ADR nuevo.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
 - Los conteos describen archivos y alcance; la calidad se demuestra revisando contenido,
@@ -160,7 +160,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 
 ## Fases de implementación
 
-1. **Consolidar la base:** preservar `SE-001`–`SE-480`, eliminar metadatos editoriales
+1. **Consolidar la base:** preservar `SE-001`–`SE-540`, eliminar metadatos editoriales
    que no enseñan, sincronizar índices y mantener validadores estructurales.
 2. **Profundizar por partes:** trabajar una parte completa, revisar cada tema anunciado,
    ejecutar sus prácticas y publicar contenido íntegro; un commit por parte.
@@ -170,7 +170,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 4. **Cerrar brechas verificadas:** contrastar con SWEBOK, ISO/IEC/IEEE 12207, 15288,
    29148, ISO/IEC 25010/SQuaRE, ACM/IEEE CS2023, OWASP, NIST, CNCF, OpenSSF, SLSA,
    DORA, Google SRE, WCAG/W3C y documentación oficial vigente.
-5. **Expandir solo con justificación:** añadir clases después de `SE-480` únicamente si
+5. **Expandir solo con justificación:** añadir clases después de `SE-540` únicamente si
    una auditoría demuestra que una competencia no cabe con profundidad y sin duplicar
    repositorios especializados. Toda adición actualiza navegación, rutas, evaluación,
    bibliografía y métricas en el mismo cambio.
@@ -193,17 +193,17 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | 8 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | Partes 30–37 desarrolladas (`SE-361`–`SE-456`), a falta de revisión editorial humana independiente |
 | 9 | Partes 38–39 | IA asistida, SPEC y agentes controlados | Partes 38–39 desarrolladas (`SE-457`–`SE-480`), a falta de revisión editorial humana independiente |
 | 10 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
-| 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-480` |
+| 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-540` |
 
 Las brechas candidatas siguen siendo métodos formales aplicados, GreenOps medible,
 InnerSource/OSPO, DevEx/SPACE, API en tiempo real, estimación probabilística,
 compliance engineering, rutas Staff/Principal/Manager y retiro seguro. Cada candidata
 debe documentar por qué no cabe con profundidad en una clase existente antes de recibir
-un ID posterior a `SE-480`.
+un ID posterior a `SE-540`.
 
 ## Criterio de término del programa
 
-El programa no está terminado porque existan 480 o aproximadamente 500 clases. Está
+El programa no está terminado porque existan 540 clases o cualquier otra cifra. Está
 terminado cuando cada tema prometido se desarrolla, cada práctica relevante se puede
 reproducir, las fuentes respaldan afirmaciones, los proyectos integran el ciclo de vida,
 las rutas son transitables, el portal publica el contenido completo y las validaciones

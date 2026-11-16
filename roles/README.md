@@ -1,7 +1,6 @@
 # 🧭 Rutas profesionales de Ingeniería de Software
 
-Las rutas convierten las partes del programa (40 publicadas hoy; otras cinco, 40–44,
-planificadas) en recorridos orientados a trabajo real. No reemplazan la secuencia fundamental: indican qué profundizar, qué decisiones
+Las rutas convierten las partes del programa (45 publicadas hoy, 00–44) en recorridos orientados a trabajo real. No reemplazan la secuencia fundamental: indican qué profundizar, qué decisiones
 debe dominar cada perfil y qué evidencia conviene construir.
 
 > Los nombres cambian entre empresas. Una oferta puede llamar *Software Engineer* a
@@ -28,15 +27,15 @@ calidad. La profundidad se demuestra en mecanismos, decisiones, fallos, evidenci
 límites específicos; el validador sólo impide que una regresión vuelva a convertirlas
 en fichas breves.
 
-Las Partes 00–39 (`SE-001`–`SE-480`) tienen contenido desarrollado, a falta de revisión
-editorial humana independiente; las Partes 40–44 están planificadas y no tienen clases.
+Las Partes 00–44 (`SE-001`–`SE-540`) tienen contenido desarrollado, a falta de revisión
+editorial humana independiente.
 Una ruta describe el recorrido previsto y no certifica que el material haya sido aprobado
 por una revisión humana independiente.
 
 ## Mapa de 42 roles
 
 El mapa se deriva de las capacidades de las partes publicadas y de las cinco partes
-planificadas (40–44): no son 42 cursos ni una promesa de empleo, sino 42 lentes
+de ampliación (40–44): no son 42 cursos ni una promesa de empleo, sino 42 lentes
 profesionales reutilizando el mismo programa. Las dos últimas guías, Agentic Harness
 Engineer y Domain & Methodology Engineer, nacen de la brecha documentada en la
 [auditoría de metodologías](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md) y se apoyan
@@ -86,8 +85,8 @@ evidencia y decisiones de salida.
 | Dirección | [CTO / Dirección de Tecnología](cto.md) | responder por estrategia, organización y riesgo | 00, 10–17, 23–39 |
 | Ingeniería con IA | [AI-Augmented Software Engineer](ai-augmented-software-engineer.md) | desarrollar con agentes bajo verificación humana | 00, 05, 08–17, 24, 30–39 |
 | Sistemas con IA | [AI Systems Engineer](ai-systems-engineer.md) | integrar modelos con evals, guardrails y fallback | 00–13, 20, 24–39 |
-| Ingeniería agentic | [Agentic Harness Engineer](agentic-harness-engineer.md) | gobernar contexto, herramientas, bucles, evaluación y recuperación de agentes | 05, 18, 20, 35, 38–39 (+41–42 planificadas) |
-| Metodología y dominio | [Domain & Methodology Engineer](domain-methodology-engineer.md) | convertir TDD, BDD, ATDD, DDD, contratos y SDD en práctica verificable | 05, 12–13, 24–25, 30 (+40, 43 planificadas) |
+| Ingeniería agentic | [Agentic Harness Engineer](agentic-harness-engineer.md) | gobernar contexto, herramientas, bucles, evaluación y recuperación de agentes | 05, 18, 20, 35, 38–39 (+41–42) |
+| Metodología y dominio | [Domain & Methodology Engineer](domain-methodology-engineer.md) | convertir TDD, BDD, ATDD, DDD, contratos y SDD en práctica verificable | 05, 12–13, 24–25, 30 (+40, 43) |
 
 <!-- role-index-depth:start -->
 <div align="center">
@@ -894,4 +893,4 @@ La [rúbrica transversal](../assessments/rubric.md) y el
 
 ---
 
-[⬅️ Volver al programa](../README.md) · [📚 Abrir las 480 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)
+[⬅️ Volver al programa](../README.md) · [📚 Abrir las 540 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)

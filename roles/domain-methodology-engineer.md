@@ -74,10 +74,9 @@ de regla sin gamificar la métrica.
 2. [Parte 12 — Ingeniería de requisitos](../classes/part-12-ingenieria-de-requisitos/README.md)
    y [Parte 13 — Especificaciones, contratos y modelos](../classes/part-13-especificaciones-contratos-y-modelos/README.md)
    para criterios de aceptación, BDD, contratos y spec-first.
-3. Partes 24, 25 y 30 para refactorización, dominio y pruebas: son borradores o
-   estructura, por lo que el mapa distingue su estado.
-4. La Parte 40 (metodologías de TDD a ODD) y la 43 (patrones) están **planificadas**;
-   la sección «Ampliación planificada» indica el alcance previsto.
+3. Partes 24, 25 y 30 para refactorización, dominio y pruebas.
+4. La Parte 40 (metodologías de TDD a ODD) y la 43 (patrones) ya están desarrolladas, a
+   falta de revisión editorial humana independiente.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol

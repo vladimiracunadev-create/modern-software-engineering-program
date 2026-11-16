@@ -112,7 +112,7 @@ se actualizan en cada incremento; no se dejan archivos huérfanos.
 
 ## Reglas de expansión y control de cambios
 
-La línea base actual es 480 clases. No se crea un ID nuevo hasta demostrar que una
+La línea base original fue de 480 clases; el alcance vigente es de 540 (ADR-004). No se crea un ID nuevo hasta demostrar que una
 brecha posee competencia, artefacto, prerrequisitos y secuencia propios y que integrarla
 en una clase existente degradaría su profundidad. Se puede superar ligeramente 500 si
 la cobertura lo exige o permanecer por debajo mientras añadir contenido sería relleno.
@@ -132,10 +132,9 @@ Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 pági
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
-Estado actual (2026-11-16): las Partes 00–39 (`SE-001`–`SE-480`) están desarrolladas y
-publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. Las
-Partes 40–44 (`SE-481`–`SE-540`) están planificadas (ADR-004) sin clases publicadas.
-Falta la revisión editorial humana independiente.
+Estado actual (2026-11-16): las Partes 00–44 (`SE-001`–`SE-540`) están desarrolladas y
+publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. No quedan
+partes planificadas sin publicar. Falta la revisión editorial humana independiente.
 
 Brechas detectadas que se atienden parte a parte:
 

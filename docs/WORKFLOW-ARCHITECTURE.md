@@ -27,9 +27,9 @@ flowchart LR
 
 | Workflow | Disparadores | Evidencia producida | No afirma |
 | --- | --- | --- | --- |
-| [`validate.yml`](../.github/workflows/validate.yml) | push a `main`, pull request y ejecución manual | salidas generadas al día, contratos de 480 clases, pruebas, Markdown estructural, enlaces, UTF-8, portabilidad y políticas | que el contenido sea pedagógicamente profundo sólo porque compila |
+| [`validate.yml`](../.github/workflows/validate.yml) | push a `main`, pull request y ejecución manual | salidas generadas al día, contratos de las clases desarrolladas, pruebas, Markdown estructural, enlaces, UTF-8, portabilidad y políticas | que el contenido sea pedagógicamente profundo sólo porque compila |
 | [`security.yml`](../.github/workflows/security.yml) | push a `main`, pull request, lunes semanal y ejecución manual | árbol sin secretos detectados, scripts sin hallazgos Bandit medios/altos y sistema de licencias coherente | pentest, ausencia total de vulnerabilidades ni revisión jurídica |
-| [`pages.yml`](../.github/workflows/pages.yml) | cambios en fuentes publicables de `main` y ejecución manual | sitio regenerable, 521 HTML, enlaces válidos, artefacto y despliegue | disponibilidad permanente de GitHub Pages ni certificación del contenido |
+| [`pages.yml`](../.github/workflows/pages.yml) | cambios en fuentes publicables de `main` y ejecución manual | sitio regenerable, una página HTML por portada, parte y clase (586), enlaces válidos, artefacto y despliegue | disponibilidad permanente de GitHub Pages ni certificación del contenido |
 
 ## Profundidad de `Validate`
 

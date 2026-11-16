@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-16 — Documentación alineada con las 540 clases desarrolladas (Partes 00–44)
+
+- README, ROADMAP, plan maestro, arquitectura, plan de publicación, matriz de cobertura, mapa de competencias, guías de roles, licencias y workflows dejan de afirmar «480 desarrolladas», «Partes 00–39» o «Partes 40–44 planificadas»; las cifras se verificaron contra `curriculum.yaml`, `catalog.json` y los archivos de `content/`
+- `schemas/curriculum.schema.json` acepta de 1 a 45 partes y hasta 540 clases en lugar de exigir exactamente 40 y 480; el contrato del roadmap exige «540 clases (ADR-004)»
+- el About de GitHub y `.github/repository-metadata.json` dicen «540 clases en 45 partes (540 desarrolladas, SE-001–SE-540)»; los documentos históricos (ADR-002/003, auditorías, antecedentes de 480 clases) se conservan como registro de lo que fue cierto entonces
+- las Partes 40–44 cumplen `tests/test_part_readmes.py`: cada README enlaza sus 12 clases
+- la revisión editorial humana independiente sigue pendiente
+
 ## 2026-11-16 — Parte 43 desarrollada con experimentos reales y simulaciones de patrones de diseño, empresariales y de resiliencia (SE-517 a SE-528)
 
 - las clases `SE-517`–`SE-528` pasan de planificadas a clases completas sobre el servicio *Avisos*: criterios para usar un catálogo, patrones GoF creacionales, estructurales y conductuales, GRASP, Repository, Unit of Work y Active Record, patrones de integración, timeout, reintentos con jitter y circuit breaker, bulkhead, sidecar, ambassador y degradación, antipatrones y deuda de diseño, un taller de refactor y un catálogo de patrones

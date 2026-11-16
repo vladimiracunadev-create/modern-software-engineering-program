@@ -78,8 +78,8 @@ procesos de larga duración: idempotencia, reanudación y apagado ordenado.
    para contexto, *context engineering* y evaluaciones.
 3. [Parte 39 — SPEC y agentes](../classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/README.md)
    para herramientas, aprobación humana, seguridad agentic y recuperación.
-4. Las Partes 41 y 42 (harness y agentic engineering, patrones agénticos) están
-   **planificadas**; la sección «Ampliación planificada» indica su alcance previsto.
+4. Las Partes 41 y 42 (harness y agentic engineering, patrones agénticos) ya están
+   desarrolladas: son la ruta específica de este rol, a falta de revisión editorial humana independiente.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol

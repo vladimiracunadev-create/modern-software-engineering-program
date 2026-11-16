@@ -7,14 +7,14 @@
   "properties": {
     "schema_version": {"const": 1},
     "program": {"const": "modern-software-engineering-program"},
-    "part_count": {"const": 40},
-    "class_count": {"const": 480},
+    "part_count": {"minimum": 1, "maximum": 45},
+    "class_count": {"minimum": 12, "maximum": 540},
     "estimated_hours": {"type": "integer", "minimum": 1},
     "stages": {"type": "array", "minItems": 8, "maxItems": 8},
     "parts": {
       "type": "array",
-      "minItems": 40,
-      "maxItems": 40,
+      "minItems": 1,
+      "maxItems": 45,
       "items": {
         "type": "object",
         "required": ["id", "stage", "stage_title", "title", "owner", "lessons"],

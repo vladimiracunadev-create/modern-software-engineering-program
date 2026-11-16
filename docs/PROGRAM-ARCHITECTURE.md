@@ -18,7 +18,7 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
 | Partes | 45 planificadas | las desarrolladas se calculan desde `content/part-NN/` (ver `STATUS.md`) |
-| Clases | 540 planificadas | al 2026-11-16, 480 desarrolladas (`SE-001`–`SE-480`), a falta de revisión editorial humana independiente; el resto, planificadas |
+| Clases | 540 planificadas | al 2026-11-16, 540 desarrolladas (`SE-001`–`SE-540`), a falta de revisión editorial humana independiente; 0 planificadas sin publicar |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
 | Horas estimadas | 2.430 planificadas | 54 por parte; sujetas a validación al construir contenido |
 
@@ -26,11 +26,10 @@ Las cifras no significan que las clases estén escritas. Las afirmaciones sobre 
 clase —contenido desarrollado, práctica ejecutada, pruebas realizadas, integración u
 operación— solo se publican cuando existe la evidencia correspondiente.
 
-La dirección de crecimiento es aproximadamente 500 clases, pero 480 continúa siendo
-la línea base canónica. No se agregan clases para cumplir una cuota: la expansión solo
-procede cuando una brecha demuestra una competencia, evidencia y secuencia propias.
-La decisión y sus gates están en
-[`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md).
+El alcance vigente es de 540 clases ([`ADR-004`](adr/ADR-004-expand-to-540-class-scope.md)); 480
+fue la línea base original ([`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)).
+No se agregan clases para cumplir una cuota: la expansión solo procede cuando una brecha
+demuestra una competencia, evidencia y secuencia propias.
 
 ## Ocho etapas
 
@@ -133,10 +132,10 @@ aislados.
 
 ## Criterio de término de la expansión
 
-La expansión no termina al crear carpetas. Requiere 480 clases completas, fuentes
+La expansión no termina al crear carpetas. Requiere 540 clases completas, fuentes
 resueltas, ejercicios, entornos documentados, proyectos integrados, portal navegable,
 validación automática, accesibilidad y una declaración verificable de lo ejecutado.
 
 Al completar esa base —o cuando construirla revele una brecha indivisible— se repite
 la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-06.md). Solo entonces se
-decide si el siguiente incremento necesita IDs posteriores a `SE-480`.
+decide si el siguiente incremento necesita IDs posteriores a `SE-540`.

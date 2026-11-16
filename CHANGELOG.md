@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-11-16 — Parte 16: figuras como gráficos, no como tablas
+
+- 21 figuras (SE-193 a SE-204) que repetían la tabla Markdown se rediseñan con las primitivas del kit (gráficos de barras, líneas, mapa de calor, diagramas de áreas de Git y de recuperación y diagramas de flujo) y los mismos números medidos; la tabla se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 16 (commit `0367eb80`)
+
+## 2026-11-16 — Parte 21: figuras como gráficos, no como tablas
+
+- 15 de las 16 figuras (SE-253 a SE-264) que repetían la tabla Markdown se rediseñan con las primitivas del kit (gráficos de líneas, mapas de calor, dispersión, barras apiladas y diagramas de flujo; la comparación de siete comportamientos de texto entre Windows y Ubuntu queda como excepción justificada en `allowed_tables`) y los mismos números medidos; la tabla se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 21 (commit `a3c43790`)
+
+## 2026-11-16 — Parte 36: figuras como gráficos, no como tablas
+
+- 34 figuras (SE-433 a SE-444) que repetían la tabla Markdown se rediseñan con las primitivas del kit (intervalos de percentiles, líneas, dispersiones, barras, mapas de calor, un dumbbell y diagramas de flujo) y los mismos números medidos; la tabla se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 36 (commit `eb8bea96`)
+
+## 2026-11-16 — Parte 41: figuras como gráficos, no como tablas
+
+- 13 figuras (SE-493 a SE-504) que repetían la tabla Markdown se rediseñan con las primitivas del kit (barras apiladas y agrupadas, líneas, dispersión y diagramas de flujo y de grupos) y los mismos números medidos; la tabla se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 41 (commit `826cca8a`)
+
 ## 2026-11-16 — Parte 42: figuras como gráficos, no como tablas
 
 - las 23 figuras `tab()` de SE-505 a SE-516 se rediseñan con las primitivas del kit y los mismos números medidos (líneas, barras agrupadas, mapas de calor, dispersión, intervalos de percentiles y tarjetas de casos); la tabla Markdown se conserva y la figura muestra el patrón

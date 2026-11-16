@@ -69,11 +69,15 @@ La plataforma de entregas mantiene un caso, una pregunta y un paquete estables m
 
 #### SE-349 — IaaS, PaaS, SaaS y responsabilidad compartida
 
+[Abrir la clase SE-349](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/)
+
 Delegar la operación no es delegar la responsabilidad por los datos, la identidad ni la configuración. La clase construye una matriz de 12 capas por modelo, simula cuánto cambia la exposición a vulnerabilidades según quién parchea cada capa y calcula la probabilidad de dejar al menos un ajuste mal configurado según cuántos se poseen.
 
 El estudiante entrega la matriz de responsabilidades de las piezas de la plataforma con fuente y dueño por celda. `SE-350` pregunta qué hay bajo cada servicio: cómo se aíslan una máquina virtual, un contenedor y un proceso.
 
 #### SE-350 — Máquinas virtuales, contenedores y aislamiento
+
+[Abrir la clase SE-350](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-350-maquinas-virtuales-contenedores-y-aislamiento/)
 
 Cada frontera comparte algo distinto con su vecino. La clase mide el arranque real de un hilo y de procesos con y sin dependencias, calcula cuántas instancias caben según el sobrecoste de cada unidad y observa cómo procesos que consumen CPU se quitan trabajo entre sí.
 
@@ -83,11 +87,15 @@ El estudiante entrega un cuadro de fronteras por pieza con su modelo de amenaza.
 
 #### SE-351 — Orquestación y scheduling
 
+[Abrir la clase SE-351](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-351-orquestacion-y-scheduling/)
+
 Un orquestador empaqueta lo que se le pide y repara con retardo. La clase cuenta los pods que no caben con tres políticas y cuatro órdenes en un clúster casi lleno, calcula las réplicas ausentes según cada cuánto revisa el controlador y mide el riesgo de saturación según cuánto se sobreasigna.
 
 El estudiante entrega peticiones, límites y política de ubicación justificados. `SE-352` pregunta qué ocurre cuando ni siquiera se elige el nodo.
 
 #### SE-352 — Serverless y ejecución gestionada
+
+[Abrir la clase SE-352](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-352-serverless-y-ejecucion-gestionada/)
 
 Sin servidores no es sin operación: aparecen los arranques en frío y las entregas repetidas. La clase simula siete días de llegadas con cinco tasas y cuatro plazos, mide cómo crece el arranque de un intérprete con sus dependencias y cuenta los efectos repetidos que deja pasar cada ventana de deduplicación.
 
@@ -97,11 +105,15 @@ El estudiante entrega la clasificación de piezas para ejecución gestionada y e
 
 #### SE-353 — Redes, identidad y secretos en cloud
 
+[Abrir la clase SE-353](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-353-redes-identidad-y-secretos-en-cloud/)
+
 La seguridad de una red se mide en saltos, y la identidad la salta con una credencial. La clase calcula la distancia de internet a la base de datos tras cada regla posible, compara cuatro estilos de política por lo concedido y lo usado y evalúa cinco reglas de un detector de secretos con sus límites.
 
 El estudiante entrega el grafo de flujos, una política mínima por servicio y un inventario de secretos con rotación. `SE-354` pregunta cómo se declara todo esto de forma repetible.
 
 #### SE-354 — Infraestructura como código y estado
+
+[Abrir la clase SE-354](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-354-infraestructura-como-codigo-y-estado/)
 
 El código dice qué se desea y el estado, qué cree la herramienta que existe; la realidad es una tercera cosa. La clase mide la deriva que ve un plan con y sin refresco, enumera las escrituras simultáneas de un estado y calcula el camino crítico de un grafo de dependencias.
 
@@ -111,11 +123,15 @@ El estudiante entrega la descripción declarativa con su política de estado y s
 
 #### SE-355 — Entornos, cuentas y separación de responsabilidades
 
+[Abrir la clase SE-355](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-355-entornos-cuentas-y-separacion-de-responsabilidades/)
+
 Lo que acota un error es una frontera de credenciales, no un prefijo. La clase compara el alcance de un error con tres estructuras de cuentas, mide la divergencia entre entornos con y sin promoción y cuenta cuántas personas acumulan una combinación tóxica de permisos al sumar roles.
 
 El estudiante entrega el mapa de cuentas, los pares incompatibles con su prueba y el procedimiento de emergencia. `SE-356` pregunta cuánta capacidad necesita cada entorno y cuánto cuesta.
 
 #### SE-356 — Escalado, capacidad y costos
+
+[Abrir la clase SE-356](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-356-escalado-capacidad-y-costos/)
 
 El escalado reactivo llega tarde y la espera se dispara antes de saturar. La clase compara seis políticas sobre siete días de tráfico con picos, relaciona la utilización con el tiempo en el sistema y busca el nivel de compromiso de capacidad de menor costo.
 
@@ -125,11 +141,15 @@ El estudiante entrega la política de escalado y el nivel de compromiso con su s
 
 #### SE-357 — Multi-cloud, híbrido y portabilidad real
 
+[Abrir la clase SE-357](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-357-multi-cloud-hibrido-y-portabilidad-real/)
+
 Dos proveedores no son siempre más disponibles que uno. La clase compone la disponibilidad con conmutación perfecta, imperfecta, con un DNS compartido y exigiendo ambos, cuenta las funciones que ofrecen a la vez tres proveedores ficticios y calcula el tiempo y el costo de mover datos.
 
 El estudiante entrega la clasificación de piezas por portabilidad con el motivo de la estrategia y su costo. `SE-358` pregunta cómo se ofrece todo esto a los equipos.
 
 #### SE-358 — Plataformas internas y golden paths
+
+[Abrir la clase SE-358](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-358-plataformas-internas-y-golden-paths/)
 
 Un camino dorado quita pasos y no libertad. La clase calcula la probabilidad de crear un servicio sin errores con 23 y con 5 pasos, simula la cola de soporte del equipo de plataforma según la adopción y mide lo que un verificador de políticas ve y lo que no.
 
@@ -139,11 +159,15 @@ El estudiante entrega el camino de cinco pasos, el verificador con sus pruebas y
 
 #### SE-359 — Taller: desplegar y destruir un entorno seguro
 
+[Abrir la clase SE-359](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-359-taller-desplegar-y-destruir-un-entorno-seguro/)
+
 Crear no es atómico y destruir no es el inverso exacto. El taller corta la creación de doce recursos en cada paso con tres estrategias de estado, destruye en 5 000 órdenes al azar y en el correcto y barre por etiqueta con tres coberturas.
 
 El estudiante entrega el ciclo de vida de un entorno de laboratorio con su prueba de destrucción. `SE-360` lo integra en un paquete.
 
 #### SE-360 — Proyecto: plataforma mínima reproducible
+
+[Abrir la clase SE-360](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-29-cloud-plataforma-e-infraestructura/se-360-proyecto-plataforma-minima-reproducible/)
 
 Un paquete completo no es un paquete correcto. El proyecto construye el mismo paquete en dos sistemas hasta que sus sumas coinciden, mide qué detecta un validador sobre 208 mutaciones y simula el gasto de entornos olvidados con y sin plazo.
 

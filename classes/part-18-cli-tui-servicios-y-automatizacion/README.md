@@ -65,11 +65,15 @@ La herramienta `notas` mantiene una gramática, una tabla de códigos y un paque
 
 #### SE-217 — Diseño de interfaces de línea de comandos
 
+[Abrir la clase SE-217](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-217-diseno-de-interfaces-de-linea-de-comandos/)
+
 Una CLI es una API con dos lectores y cada flag aceptado es una promesa. La clase mide cuántas abreviaturas de flags dejan de valer al pasar de cinco a ocho opciones, verifica el código, el flujo y el tamaño de cada tipo de invocación y compara tres umbrales de sugerencia ante errores de tecleo, declarando que una sugerencia no debe ejecutarse sola.
 
 El estudiante escribe el contrato de la herramienta y su política de compatibilidad. `SE-218` pregunta cómo fluye la información por esa superficie.
 
 #### SE-218 — Entrada estándar, salida y composición por pipes
+
+[Abrir la clase SE-218](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-218-entrada-estandar-salida-y-composicion-por-pipes/)
 
 Una herramienta bien compuesta lee de un flujo, separa datos y diagnóstico, entrega a tiempo y calla cuando el consumidor se va. La clase mide cuándo llega la primera línea por una tubería con cuatro formas de vaciar el búfer, qué excepción recibe el productor en cada sistema cuando el consumidor cierra y cuánta memoria cuesta cargar un archivo frente a iterarlo.
 
@@ -79,17 +83,23 @@ El estudiante entrega la tabla de flujos de `notas` y el manejo de la tubería r
 
 #### SE-219 — Configuración, flags, archivos y precedencia
 
+[Abrir la clase SE-219](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-219-configuracion-flags-archivos-y-precedencia/)
+
 La precedencia se rompe en los bordes: vacío, cero, «false». La clase enumera 64 combinaciones para seis resolvedores defectuosos, interpreta catorce cadenas booleanas con `bool()` y con un analizador estricto y comprueba dónde es visible un secreto sintético según se pase por flag, entorno o archivo.
 
 El estudiante entrega la tabla de precedencia con sus casos de borde y la regla del secreto. `SE-220` pregunta qué dice la herramienta al terminar.
 
 #### SE-220 — Códigos de salida, errores y diagnóstico
 
+[Abrir la clase SE-220](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-220-codigos-de-salida-errores-y-diagnostico/)
+
 Un código habilita una decisión solo si es portable y distingue lo temporal de lo permanente. La clase mide trece formas de terminar un proceso en Windows y en Ubuntu, seis guiones de bash que pierden o propagan fallos en una tubería y el coste de tres políticas de reintento sobre 10 000 trabajos.
 
 El estudiante entrega la tabla de códigos con la decisión de cada uno. `SE-221` pasa a la presentación para una persona.
 
 #### SE-221 — TUI, terminales y accesibilidad
+
+[Abrir la clase SE-221](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-221-tui-terminales-y-accesibilidad/)
 
 La presentación no debe romper la salida que otro programa lee ni depender del color. La clase mide el coste de bytes y de búsqueda de un informe con color en una tubería, cuántos de 500 identificadores siguen siendo distintos al truncarlos y cuántas de 1 000 filas con nombres Unicode se desalinean si se rellena con `len()`.
 
@@ -99,17 +109,23 @@ El estudiante entrega la política de presentación de `notas` con modo plano. `
 
 #### SE-222 — Daemons, servicios y ciclo de vida
 
+[Abrir la clase SE-222](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-222-daemons-servicios-y-ciclo-de-vida/)
+
 Vivo no es preparado, y pedir terminar no es obligar. La clase compara `terminate()` con `CTRL_BREAK_EVENT` en Windows y con `SIGTERM` en Ubuntu, mide la ventana de peticiones que fallan según cuándo se declara preparado un servicio y cuenta los arranques de un servicio que siempre falla con cuatro políticas de reinicio.
 
 El estudiante entrega el ciclo de vida de `notas servir` con sondas, plazo de drenado y reinicio con espera. `SE-223` pregunta qué hace el servicio por dentro.
 
 #### SE-223 — Schedulers, workers y trabajos por lotes
 
+[Abrir la clase SE-223](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-223-schedulers-workers-y-trabajos-por-lotes/)
+
 Un planificador promete arrancar, no terminar. La clase simula 1 440 ejecuciones con tres políticas de solape, mide cuándo ayudan los hilos y cuándo los procesos y sigue 1 000 trabajos con 35 venenosos bajo tres políticas de reintento, mostrando cómo un solo trabajo imposible puede dejar a 994 sin procesar.
 
 El estudiante entrega la política de solape, de concurrencia y de fallos de `notas`. `SE-224` hace cada operación repetible.
 
 #### SE-224 — Automatización idempotente y reanudable
+
+[Abrir la clase SE-224](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-224-automatizacion-idempotente-y-reanudable/)
 
 Reanudar sin una clave duplica o pierde, según el orden de escribir y marcar. La clase clasifica siete operaciones repetidas, evalúa seis estrategias de escritura frente a 40 escenarios de caída y compara el reemplazo de un archivo abierto en Windows y en Ubuntu.
 
@@ -119,11 +135,15 @@ El estudiante entrega la clasificación de las operaciones y la publicación con
 
 #### SE-225 — Distribución de binarios y actualizaciones
 
+[Abrir la clase SE-225](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-225-distribucion-de-binarios-y-actualizaciones/)
+
 Integridad no es origen, y un lanzamiento a todos a la vez convierte un defecto en una incidencia total. La clase mide qué alteraciones de un archivo de 20 MB detectan la longitud, un CRC32 y SHA-256, simula lanzamientos defectuosos con y sin escalones sobre 10 000 clientes y compara el orden de diez versiones como texto y como tuplas.
 
 El estudiante entrega el contrato de entrega con verificación, escalones y reversión. `SE-226` pregunta cómo obtener la señal de salud sin vigilar.
 
 #### SE-226 — Telemetría opt-in y privacidad en herramientas
+
+[Abrir la clase SE-226](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-226-telemetria-opt-in-y-privacidad-en-herramientas/)
 
 Atributos inocuos identifican en conjunto, y quien acepta no representa a quien usa. La clase mide cuántas de 5 000 instalaciones quedan únicas al combinar uno a seis atributos, prueba una compuerta de consentimiento con seis defectos y cuantifica el sesgo de estimar solo con quienes aceptan.
 
@@ -133,11 +153,15 @@ El estudiante entrega el inventario de eventos y la política de consentimiento.
 
 #### SE-227 — Taller: endurecer una automatización frágil
 
+[Abrir la clase SE-227](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-227-taller-endurecer-una-automatizacion-fragil/)
+
 Los fallos de una automatización son un conjunto finito y se inyectan. El taller clasifica diez escenarios de una copia de seguridad en dos versiones, mide la actualización perdida de un contador compartido con y sin bloqueo y compara el citado de doce nombres de archivo con `shell=True` y con una lista de argumentos.
 
 El estudiante deja la matriz antes y después y una lista de fallos que el taller no cubrió. `SE-228` los empaqueta.
 
 #### SE-228 — Proyecto: herramienta operable multiplataforma
+
+[Abrir la clase SE-228](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-18-cli-tui-servicios-y-automatizacion/se-228-proyecto-herramienta-operable-multiplataforma/)
 
 Un manifiesto declara; las pruebas de contrato comprueban; y lo que ninguno ve exige a una persona. El proyecto ejecuta trece pruebas de contrato en dos sistemas, las prueba con seis defectos inyectados, valida un manifiesto con 102 mutantes y compara esperas fijas con esperas por evento.
 

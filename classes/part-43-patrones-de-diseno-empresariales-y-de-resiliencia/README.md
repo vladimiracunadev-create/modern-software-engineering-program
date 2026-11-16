@@ -76,17 +76,25 @@ Los parámetros (los fragmentos de código, las 24 ordenaciones, los 10.000 reco
 
 #### SE-517 — Criterios para usar un catálogo de patrones
 
+[Abrir la clase SE-517](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/)
+
 Enseña a tratar un patrón como una decisión con costo y no como una virtud: nombrar la fuerza, comprobar que la variación existe hoy, medir el costo en nodos e indirección y escribir la condición de salida. Aparece primero porque las demás clases aplican el mismo criterio. Produce un `criterio-de-patron.md` con una comparación medida de una función antes y después de un patrón.
 
 #### SE-518 — GoF creacionales: Factory, Builder, Singleton y Prototype
+
+[Abrir la clase SE-518](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-518-gof-creacionales-factory-builder-singleton-y-prototype/)
 
 Enseña cómo se crean los objetos y cuándo cada patrón creacional añade o quita problemas: un Singleton con estado, un Builder que en Python compite con los argumentos con nombre, una fábrica con registro y un Prototype con la trampa de la copia superficial. Aparece después de los criterios porque cada patrón se somete a ellos. Produce un cuaderno con las medidas de orden de pruebas y de contaminación de clones.
 
 #### SE-519 — GoF estructurales: Adapter, Decorator, Facade, Proxy y Composite
 
+[Abrir la clase SE-519](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-519-gof-estructurales-adapter-decorator-facade-proxy-y-composite/)
+
 Enseña a envolver y componer objetos sin romper su interfaz, y a ver que el orden de los decoradores es una decisión de política. Aparece tras los creacionales porque trabaja con objetos ya creados. Produce un cuaderno con la comparación de dos órdenes de la misma pila y una prueba de contrato común a dos adaptadores.
 
 #### SE-520 — GoF conductuales: Strategy, Observer, Command, State y Template Method
+
+[Abrir la clase SE-520](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-520-gof-conductuales-strategy-observer-command-state-y-template-method/)
 
 Enseña a mover decisiones de condicionales a objetos y a controlar los modos de fallo propios de cada uno: oyentes que no se dan de baja, un fallo que impide el resto de las notificaciones, estados representados con banderas. Aparece después de los estructurales porque combina objetos ya envueltos con reglas de comportamiento. Produce una tabla de transiciones con un fuzzing de secuencias.
 
@@ -94,9 +102,13 @@ Enseña a mover decisiones de condicionales a objetos y a controlar los modos de
 
 #### SE-521 — GRASP y asignación de responsabilidades
 
+[Abrir la clase SE-521](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-521-grasp-y-asignacion-de-responsabilidades/)
+
 Enseña los nueve criterios de GRASP como respuestas a la pregunta «¿a quién le toca esto?» y los verifica con un cambio de regla en dos diseños. Aparece aquí porque los patrones anteriores son consecuencias de asignar bien responsabilidades. Produce una tabla de responsabilidades con un cambio de regla comprobado.
 
 #### SE-522 — Repository, Unit of Work y Active Record
+
+[Abrir la clase SE-522](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/)
 
 Enseña a separar el modelo de la persistencia sin esconder consultas ni transacciones: contar las consultas con un gancho, agrupar cambios en una unidad de trabajo y reconocer cuándo un Active Record basta. Aparece después de GRASP porque es una decisión de dónde vive la responsabilidad de guardar. Produce un cuaderno con consultas contadas y atomicidad comprobada.
 
@@ -104,13 +116,19 @@ Enseña a separar el modelo de la persistencia sin esconder consultas ni transac
 
 #### SE-523 — Enterprise Integration Patterns como lenguaje común
 
+[Abrir la clase SE-523](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-523-enterprise-integration-patterns-como-lenguaje-comun/)
+
 Enseña los patrones de mensajería como respuestas a las garantías débiles de un canal: receptor idempotente, enrutador por contenido, cartas muertas, reordenador e identificador de correlación. Aparece después del acceso a datos porque los mensajes son otro modo de cambiar estado. Produce una simulación con suma de control.
 
 #### SE-524 — Resiliencia: timeout, retry con jitter y circuit breaker
 
+[Abrir la clase SE-524](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-524-resiliencia-timeout-retry-con-jitter-y-circuit-breaker/)
+
 Enseña los tres patrones que acotan el tiempo y el esfuerzo de una llamada a una dependencia, y a ver la amplificación multiplicativa de los reintentos entre capas. Aparece aquí porque reutiliza decoradores (`SE-519`) y la medida de latencia de las clases previas. Produce una simulación con cuatro políticas de espera y un circuit breaker.
 
 #### SE-525 — Resiliencia: bulkhead, sidecar, ambassador y degradación
+
+[Abrir la clase SE-525](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-525-resiliencia-bulkhead-sidecar-ambassador-y-degradacion/)
 
 Enseña a limitar el radio del daño con compartimentos, a sacar políticas de red de la aplicación con un intermediario y a degradar con honestidad. Aparece después de la clase anterior porque se pregunta qué pasa cuando los límites de tiempo no bastan. Produce una simulación de compartimentos y una medida real del costo de un salto.
 
@@ -118,13 +136,19 @@ Enseña a limitar el radio del daño con compartimentos, a sacar políticas de r
 
 #### SE-526 — Antipatrones y deuda de diseño
 
+[Abrir la clase SE-526](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-526-antipatrones-y-deuda-de-diseno/)
+
 Enseña a reconocer antipatrones por sus síntomas medibles (cohesión, acoplamiento, ciclos) y a distinguirlos de una incomodidad, y a hablar de deuda con un modelo explícito de interés. Aparece aquí porque se necesitan los patrones antes para saber qué se desvía de ellos. Produce un informe de métricas.
 
 #### SE-527 — Taller: refactorizar con patrones y medir su costo
 
+[Abrir la clase SE-527](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-527-taller-refactorizar-con-patrones-y-medir-su-costo/)
+
 Enseña a refactorizar una función con una cadena de condiciones a Strategy con un maestro dorado, a descubrir qué mutantes escapan y a decidir con medidas si el patrón se queda. Produce un registro del taller con la decisión y la condición de salida.
 
 #### SE-528 — Proyecto: catálogo de patrones de un sistema real
+
+[Abrir la clase SE-528](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/)
 
 Integra la parte: se hace el inventario de patrones de un sistema, se verifica cada candidato y se escribe un catálogo con fuerza, evidencia, costo y condición de salida. Produce el catálogo y la revisión de por qué se descartó cada patrón rechazado.
 

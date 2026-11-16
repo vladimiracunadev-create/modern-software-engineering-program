@@ -67,17 +67,23 @@ El servicio de entregas mantiene un contador, un cupo, una réplica y una depend
 
 #### SE-337 — Concurrencia, paralelismo y asincronía
 
+[Abrir la clase SE-337](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-337-concurrencia-paralelismo-y-asincronia/)
+
 Elegir mal entre solapar esperas y repartir cálculo significa pagar complejidad sin ganar tiempo. La clase compara cuatro modelos de ejecución de un mismo lote con tres proporciones de espera y cálculo, cuenta cuántos latidos alcanza a emitir un servicio mientras otra tarea calcula sin ceder y calcula cuántos trabajadores justifica una parte secuencial.
 
 El estudiante entrega una clasificación de tareas en espera y cálculo con una regla de decisión. `SE-338` pregunta qué ocurre cuando dos de esas tareas tocan el mismo dato.
 
 #### SE-338 — Memoria compartida, locks y condiciones de carrera
 
+[Abrir la clase SE-338](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-338-memoria-compartida-locks-y-condiciones-de-carrera/)
+
 Un cerrojo resuelve la carrera a cambio de dos problemas nuevos. La clase enumera las 70 intercalaciones de un contador, explora el interbloqueo de dos hilos con orden opuesto y mide cuánto trabajo avanza con un cerrojo global, por fragmentos y por curso con claves uniformes y con popularidad concentrada.
 
 El estudiante entrega un orden global de adquisición y la clasificación de cada dato compartido. `SE-339` propone evitar el problema pasando mensajes.
 
 #### SE-339 — Actores, canales y structured concurrency
+
+[Abrir la clase SE-339](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-339-actores-canales-y-structured-concurrency/)
 
 Un dueño único y un buzón sustituyen al estado compartido, pero el orden global no existe y una cola sin límite solo traslada el problema a la memoria. La clase cuenta los órdenes de tres emisores, compara colas sin límite y acotadas ante un productor más rápido y observa qué dejan un grupo de tareas y tareas sueltas ante un error y una cancelación.
 
@@ -87,17 +93,23 @@ El estudiante entrega el diseño de un actor con buzón acotado y operaciones ca
 
 #### SE-340 — Tiempo, relojes y orden parcial
 
+[Abrir la clase SE-340](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-340-tiempo-relojes-y-orden-parcial/)
+
 La hora no es un orden. La clase mide cuántos pares de sucesos son concurrentes y cuántos de ellos ordena un reloj de Lamport de forma aparente, calcula desde qué desfase una regla de último escritor pierde escrituras posteriores y compara la resolución y los retrocesos de los relojes de dos sistemas operativos.
 
 El estudiante entrega la decisión de reloj por uso y la política ante vectores incomparables. `SE-341` pregunta qué se sabe cuando una respuesta no llega.
 
 #### SE-341 — Fallos parciales y modelos de red
 
+[Abrir la clase SE-341](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/)
+
 Un tiempo agotado es un resultado desconocido. La clase reparte los silencios entre petición perdida, respuesta perdida y respuesta tardía, calcula cuántos intentos recibe el servicio final cuando varias capas reintentan y mide las falsas sospechas y el retraso de un detector con cinco tiempos límite.
 
 El estudiante entrega un modelo de fallos, una política de reintentos y el límite de un detector justificado. `SE-342` pregunta qué se mantiene cuando la red se parte.
 
 #### SE-342 — Consistencia, disponibilidad y particiones
+
+[Abrir la clase SE-342](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/)
 
 La elección entre consistencia y disponibilidad se hace por operación y mientras dura la partición. La clase compara rechazar y aceptar con una réplica aislada, enumera los cuórums de tres réplicas con su disponibilidad y compara una reparación por último escritor con tipos que se fusionan.
 
@@ -107,11 +119,15 @@ El estudiante entrega la decisión por operación y el cuórum por dato. `SE-343
 
 #### SE-343 — Consenso, elección y coordinación
 
+[Abrir la clase SE-343](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-343-consenso-eleccion-y-coordinacion/)
+
 La mayoría impide dos líderes y el testigo de cerco impide que un titular caducado escriba. La clase enumera las biparticiones de cinco nodos con dos reglas, mide cuántas escrituras de un titular pausado acepta un almacén con y sin cerco y ajusta los plazos de una elección aleatoria.
 
 El estudiante entrega la clasificación de funciones con titular único y el cerco por recurso. `SE-344` hace repetible lo que aun así se ejecuta dos veces.
 
 #### SE-344 — Idempotencia y procesamiento distribuido
+
+[Abrir la clase SE-344](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-344-idempotencia-y-procesamiento-distribuido/)
 
 No hay exactamente una vez entre sistemas; hay efecto único. La clase compara tres órdenes de aplicar y confirmar sobre SQLite, mide cuántos duplicados escapan a una clave según su retención y compara anexar con escribir por clave en un trabajo con reintentos.
 
@@ -121,11 +137,15 @@ El estudiante entrega la clasificación de operaciones y la retención de claves
 
 #### SE-345 — Replicación, sharding y balanceo
 
+[Abrir la clase SE-345](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-345-replicacion-sharding-y-balanceo/)
+
 Igualar solicitudes no iguala trabajo y confirmar antes de replicar cuesta escrituras. La clase compara cuatro políticas de balanceo con cola pesada, mide la pérdida al conmutar con tres modos de replicación y cuenta dónde caen las escrituras y cuántos fragmentos toca una consulta con hash y con rango.
 
 El estudiante entrega la política de balanceo, el RPO por dato y la clave de reparto con su consulta cara. `SE-346` comprueba que todo esto resiste fallos.
 
 #### SE-346 — Caos controlado y pruebas de distribución
+
+[Abrir la clase SE-346](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-346-caos-controlado-y-pruebas-de-distribucion/)
 
 Una suite verde no demuestra resistencia a fallos. La clase mide el éxito y las llamadas de tres estrategias de cliente ante un fallo creciente, cuenta cuántas ejecuciones expone un defecto según el planificador y evalúa un linter de planes de caos sobre 200 mutaciones.
 
@@ -135,11 +155,15 @@ El estudiante entrega un plan de experimento completo y una estrategia de explor
 
 #### SE-347 — Taller: reproducir una carrera y un fallo parcial
 
+[Abrir la clase SE-347](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-347-taller-reproducir-una-carrera-y-un-fallo-parcial/)
+
 Un fallo que no se reproduce no se corrige. El taller enumera las intercalaciones de un cupo, reduce un calendario de 40 pasos a 6, separa corte y respuesta perdida en un flujo de cinco pasos y calcula cuántas repeticiones hacen falta para ver un fallo raro.
 
 El estudiante entrega un reproductor mínimo con una regresión que falla antes y pasa después. `SE-348` lo integra en un servicio.
 
 #### SE-348 — Proyecto: servicio distribuido con degradación
+
+[Abrir la clase SE-348](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-28-concurrencia-y-sistemas-distribuidos/se-348-proyecto-servicio-distribuido-con-degradacion/)
 
 Un paquete completo no es un paquete correcto. El proyecto compara tres estrategias ante una caída de la base, tres políticas ante una sobrecarga del 50 % y mide qué detecta un validador de forma sobre 200 mutaciones de un paquete.
 

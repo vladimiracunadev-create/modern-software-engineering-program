@@ -76,11 +76,15 @@ El servicio *Avisos* mantiene un contrato y un paquete estables mientras cambian
 
 #### SE-469 — De la intención a la especificación durable
 
+[Abrir la clase SE-469](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-469-de-la-intencion-a-la-especificacion-durable/)
+
 Una ambigüedad es una decisión delegada. La clase compara cuatro detectores de vaguedad sobre 125 frases, cuenta los 864 comportamientos que admite una especificación con ocho decisiones abiertas y comprueba con código la trazabilidad entre 24 requisitos y 24 pruebas con doce defectos inyectados.
 
 El estudiante entrega la especificación mínima de *Avisos* con identificadores, criterios, no-objetivos y registro de decisiones. `SE-470` la encadena con constitución, plan y tareas.
 
 #### SE-470 — Constitución, specify, clarify, plan y tasks
+
+[Abrir la clase SE-470](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-470-constitucion-specify-clarify-plan-y-tasks/)
 
 Los artefactos se contradicen entre sí más a menudo de lo que cada uno se contradice a sí mismo. La clase ejecuta un analizador sobre tres artefactos, reparte cinco preguntas de clarificación entre catorce ambigüedades con cuatro estrategias y planifica cuarenta tareas con dependencias.
 
@@ -88,11 +92,15 @@ El estudiante entrega la cadena de artefactos con su análisis. `SE-471` mide cu
 
 #### SE-471 — Implementación, análisis y convergencia contra SPEC
 
+[Abrir la clase SE-471](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-471-implementacion-analisis-y-convergencia-contra-spec/)
+
 «Terminé» no es una medida. La clase simula el bucle implementar-converger con cuatro tasas de regresión, mide cuántas declaraciones de éxito esconden criterios abiertos según la cobertura del verificador y ejecuta la especificación como pruebas contra diez variantes defectuosas.
 
 El estudiante entrega los criterios ejecutables, las condiciones de parada y la medida de su capacidad de detección. `SE-472` aplica el recorrido a cuatro situaciones.
 
 #### SE-472 — Greenfield, brownfield, bug fixing e idea assessment
+
+[Abrir la clase SE-472](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-472-greenfield-brownfield-bug-fixing-e-idea-assessment/)
 
 El proceso se elige por la situación. La clase mide cinco estrategias de lectura de un repositorio ajeno, comprueba qué políticas de verificación aceptan un arreglo del síntoma y calcula cuándo compensa evaluar una idea antes de construirla.
 
@@ -102,17 +110,23 @@ El estudiante entrega la clasificación de sus peticiones, un diagnóstico con c
 
 #### SE-473 — Agentes, herramientas, permisos y límites de autoridad
 
+[Abrir la clase SE-473](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-473-agentes-herramientas-permisos-y-limites-de-autoridad/)
+
 Una regla de permisos es un programa pequeño con fallos propios. La clase prueba cuatro políticas sobre treinta órdenes, calcula el radio de daño en 5 000 sesiones y simula la acumulación de reglas «permitir siempre».
 
 El estudiante entrega el inventario de autoridad, una política con batería de órdenes y un calendario de revisión. `SE-474` añade controles y entornos aislados.
 
 #### SE-474 — Skills, plugins, hooks y entornos aislados
 
+[Abrir la clase SE-474](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-474-skills-plugins-hooks-y-entornos-aislados/)
+
 Un control cuyo modo de fallo nadie decidió tiene el que le toca. La clase ejecuta un gancho como proceso real sobre 58 eventos, mide el costo de contexto de 40 habilidades y prueba cuatro comprobaciones de confinamiento de rutas.
 
 El estudiante entrega ganchos con modo de fallo probado, habilidades con descripciones probadas y un confinamiento con batería. `SE-475` examina las herramientas de terceros.
 
 #### SE-475 — MCP, recursos, prompts, tools y confianza
+
+[Abrir la clase SE-475](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-475-mcp-recursos-prompts-tools-y-confianza/)
 
 El protocolo da forma a la conversación; no da confianza a quien conversa. La clase valida 100 mensajes con tres niveles, analiza un catálogo de 20 herramientas con instrucciones escondidas y fija huellas, y mide el efecto del tiempo de vida de una caché.
 
@@ -122,17 +136,23 @@ El estudiante entrega la política de confianza por servidor, las huellas y la c
 
 #### SE-476 — Delegación, subagentes y sistemas multiagente
 
+[Abrir la clase SE-476](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-476-delegacion-subagentes-y-sistemas-multiagente/)
+
 Delegar compra contexto limpio y paga con lectura repetida, información perdida y conflictos. La clase calcula el contexto con subagentes y la retención de hechos, mide colisiones de edición y compara tres protocolos de escritura sobre SQLite.
 
 El estudiante entrega la descomposición con contratos, zonas y protocolo de escritura. `SE-477` diseña la intervención humana.
 
 #### SE-477 — Human-in-the-loop, aprobación y acciones reversibles
 
+[Abrir la clase SE-477](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-477-human-in-the-loop-aprobacion-y-acciones-reversibles/)
+
 Cada pregunta innecesaria resta atención a la necesaria. La clase compara cuatro políticas de aprobación, deshace sesenta acciones sobre archivos con un diario y simula las compensaciones de un flujo de cinco pasos.
 
 El estudiante entrega la clasificación por reversibilidad, la política de aprobación y un diario probado. `SE-478` supone que alguien intentará engañar al agente.
 
 #### SE-478 — Seguridad agentic, prompt injection y auditoría
+
+[Abrir la clase SE-478](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-478-seguridad-agentic-prompt-injection-y-auditoria/)
 
 Un filtro de frases no es una defensa; la arquitectura sí. La clase mide cuatro filtros sobre 200 documentos, cuenta las tareas que reúnen las tres capacidades y comprueba qué manipulaciones de un registro detectan tres esquemas.
 
@@ -142,11 +162,15 @@ El estudiante entrega el modelo de amenazas, la política que rompe una capacida
 
 #### SE-479 — Taller: detener, recuperar y evaluar un agente
 
+[Abrir la clase SE-479](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-479-taller-detener-recuperar-y-evaluar-un-agente/)
+
 Un agente que no se puede parar, reanudar ni evaluar solo tiene la palabra de quien lo construyó. El taller compara cuatro reglas de parada sobre cinco comportamientos, reanuda sin duplicar tras 500 caídas y calcula cuántas tareas hacen falta para distinguir dos agentes.
 
 El estudiante entrega las reglas de parada, el plan de recuperación y el protocolo de evaluación. `SE-480` los integra.
 
 #### SE-480 — Proyecto final: producto operable construido desde SPEC
+
+[Abrir la clase SE-480](https://github.com/vladimiracunadev-create/modern-software-engineering-program/blob/main/classes/part-39-spec-agentes-y-ciclo-de-vida-agentic/se-480-proyecto-final-producto-operable-construido-desde-spec/)
 
 La evidencia de que un producto cumple no la produce quien lo construyó. El proyecto ejecuta un servicio de diez requisitos con seis defectos inyectados frente a tres vías de verificación, mide el costo de restaurar copias y arma la matriz de evidencia.
 

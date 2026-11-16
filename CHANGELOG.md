@@ -6,6 +6,16 @@
 - las 60 clases de las Partes 40-44 no tenían el pie de navegación y SE-480 no enlazaba la siguiente: `published_markdown` en `build_phase3.py` compone ahora el enlace anterior/siguiente arriba y abajo cuando falta o está desactualizado, y las 540 clases y páginas del portal lo llevan arriba y abajo (SE-001 sin anterior, SE-540 sin siguiente)
 - `tests/test_part_readmes.py` exige el esquema en las 45 partes y la navegación doble en las 540 clases y 540 páginas (commit `cc77b3d2`, CI verde (Validate, Pages y Security) en `cc77b3d2`)
 
+## 2026-11-16 — Parte 04: figuras como gráficos, no como tablas
+
+- 32 figuras (SE-049 a SE-060) que dibujaban una tabla con `Fig.table()` se rediseñan con las primitivas del kit y diagramas (barras agrupadas y apiladas, líneas, un diagrama de estados del pedido y diagramas de flujo) y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada figura; `figure_tab_baseline.json` ya no tiene entrada de `embedded_tables` para la Parte 04 (commit `2e720e0f`, CI verde (Validate, Pages y Security))
+
+## 2026-11-16 — Parte 06: figuras como gráficos, no como tablas
+
+- 18 figuras (SE-073 a SE-084) que dibujaban una tabla con `Fig.table()` se rediseñan con barras agrupadas, diagramas de flujo y de mecanismo y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada figura; `figure_tab_baseline.json` ya no tiene entrada de `embedded_tables` para la Parte 06 (commit `6c8dd4c8`)
+
 ## 2026-11-16 — Parte 08: figuras como gráficos, no como tablas
 
 - las 28 figuras `tab()` de SE-097 a SE-108 se rediseñan con las primitivas del kit y los mismos números medidos (barras agrupadas, líneas, mapas de calor, líneas de tiempo, diagramas de flujo, de grupos y anidados); la tabla Markdown se conserva y la figura muestra el patrón o el mecanismo

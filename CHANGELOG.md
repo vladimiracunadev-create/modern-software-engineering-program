@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-16 — Parte 30: figuras como gráficos, no como tablas
+
+- las 31 figuras `tab()` de SE-361 a SE-372 se rediseñan con las primitivas del kit y los mismos números medidos: intervalos de mediana, percentil 90 y máximo, un mapa de calor, barras agrupadas y apiladas, líneas (con eje logarítmico donde el rango lo exige) y diagramas de mecanismo (dependencias de una función, bytes de «é» por sistema, casos de frontera de la nota, reasignación tras un incidente); la tabla Markdown se conserva
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 30 (commit `bb629460`, CI verde). En SE-368 la figura decía «73 a 101 de 1 000» y ahora coincide con la tabla de la clase (87 a 101)
+
 ## 2026-11-16 — Parte 28: figuras como gráficos, no como tablas
 
 - las 32 figuras `tab()` de SE-337 a SE-348 se rediseñan con las primitivas del kit y los mismos números medidos: barras agrupadas y apiladas, líneas (algunas en escala logarítmica), mancuernas, intervalos de percentiles, una dispersión, una línea de tiempo y un diagrama de órdenes; la tabla Markdown se conserva y la figura muestra el patrón

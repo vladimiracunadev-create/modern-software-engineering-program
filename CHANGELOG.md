@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-16 — Parte 25: figuras como gráficos, no como tablas
+
+- las 31 figuras `tab()` de SE-301 a SE-312 se rediseñan con las primitivas del kit y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón
+- `alt` y «Cómo leer la figura» describen cada gráfico; `figure_tab_baseline.json` ya no tiene entrada para la Parte 25 (commit `ef4c950c`)
+
 ## 2026-11-16 — Parte 24: figuras como gráficos, no como tablas
 
 - las 31 figuras `tab()` de SE-289 a SE-300 se rediseñan con las primitivas del kit y los mismos números medidos; la tabla Markdown se conserva y la figura muestra el patrón

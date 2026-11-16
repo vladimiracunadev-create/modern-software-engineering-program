@@ -745,18 +745,18 @@ evita una explicación genérica.
 
 ### Parte 39 — SPEC y agentes
 
-- [ ] `SE-469` — escribir una SPEC durable.
-- [ ] `SE-470` — convertir ambigüedad en plan y tareas verificables.
-- [ ] `SE-471` — definir convergencia y stop conditions.
-- [ ] `SE-472` — comparar agentes en greenfield, brownfield y bugs.
-- [ ] `SE-473` — operar con mínima autoridad.
-- [ ] `SE-474` — aislar skills, hooks y herramientas.
-- [ ] `SE-475` — aplicar el modelo de confianza de MCP vigente.
-- [ ] `SE-476` — resolver conflictos multiagente.
-- [ ] `SE-477` — diseñar aprobaciones y reversibilidad.
-- [ ] `SE-478` — resistir prompt injection y conservar auditoría.
-- [ ] `SE-479` — detener, recuperar y evaluar loops.
-- [ ] `SE-480` — entregar un producto validado por el sistema, no por autodeclaración.
+- [x] `SE-469` — escribir una SPEC durable.
+- [x] `SE-470` — convertir ambigüedad en plan y tareas verificables.
+- [x] `SE-471` — definir convergencia y stop conditions.
+- [x] `SE-472` — comparar agentes en greenfield, brownfield y bugs.
+- [x] `SE-473` — operar con mínima autoridad.
+- [x] `SE-474` — aislar skills, hooks y herramientas.
+- [x] `SE-475` — aplicar el modelo de confianza de MCP vigente.
+- [x] `SE-476` — resolver conflictos multiagente.
+- [x] `SE-477` — diseñar aprobaciones y reversibilidad.
+- [x] `SE-478` — resistir prompt injection y conservar auditoría.
+- [x] `SE-479` — detener, recuperar y evaluar loops.
+- [x] `SE-480` — entregar un producto validado por el sistema, no por autodeclaración.
 
 ## Orden de ejecución y registro
 

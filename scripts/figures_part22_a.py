@@ -1,7 +1,7 @@
 """Figures for SE-265 to SE-270 (synthetic simulations, fixed seeds; identical on Windows CPython 3.12.9 and Ubuntu CPython 3.12.3)."""
 from __future__ import annotations
 
-from figure_kit import Fig
+from figure_kit import Fig, grouped_bars, heatmap, line_chart
 from figures_part07_a import bars, tab
 
 SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y Ubuntu (WSL2)."
@@ -9,28 +9,27 @@ SINT = "Simulación sintética con semilla fija; salidas idénticas en Windows y
 
 # ---------------------------------------------------------------- SE-265
 def se265_latencia() -> Fig:
-    rows = [
-        ["Sondeo del botón en el bucle principal", "14,19", "78,2", "166,0"],
-        ["Interrupción con manejo inmediato", "0,025", "0,03", "0,03"],
-    ]
-    return tab("Latencia de un botón según la arquitectura del firmware (milisegundos)",
-               "Tabla: en un bucle principal con sensor, pantalla y un envío de radio cada diez vueltas, un botón consultado por sondeo tarda 14,19 milisegundos de media, 78,2 en el percentil 99 y 166,0 en el peor caso; con una interrupción de manejo inmediato tarda unos 0,03.",
-               ["Arquitectura", "Media", "Percentil 99", "Máximo"], rows, [430, 150, 170, 150], row_h=44, size=13,
-               note="La latencia del sondeo no depende del botón sino de lo más lento que haga el bucle: una vuelta con radio dura unos 50 ms. La interrupción cambia el problema de sitio: ahora hay que acotar lo que hace dentro de la rutina. Las duraciones del bucle son supuestos del autor.",
-               note_kind="gold", foot=SINT)
+    return grouped_bars(
+        "Latencia de un botón según la arquitectura del firmware (escala logarítmica)",
+        "Barras horizontales en escala logarítmica con la latencia de un botón: el sondeo en el bucle principal tarda 14,19 milisegundos de media, 78,2 en el percentil 99 y 166,0 como máximo; la interrupción con manejo inmediato tarda unos 0,03 en los tres casos, cerca de cinco mil veces menos en el peor caso.",
+        ["Sondeo del botón en el bucle principal", "Interrupción con manejo inmediato"],
+        [("Media", [14.19, 0.025], "teal"), ("Percentil 99", [78.2, 0.03], "gold"), ("Máximo", [166.0, 0.03], "coral")],
+        unit="Latencia (ms)", horizontal=True, log=True, label_w=250, ticks=[0.01, 0.1, 1, 10, 100, 1000],
+        note="La cola larga manda: el máximo del sondeo es 12 veces su media, porque lo fija la vuelta más lenta del bucle (una con radio dura unos 50 ms), no el botón. La interrupción cambia el problema de sitio: ahora hay que acotar lo que hace dentro de la rutina. Las duraciones del bucle son supuestos del autor.",
+        note_kind="gold", foot=SINT)
 
 
 def se265_acumulador() -> Fig:
-    rows = [
-        ["4, 8, 16 o 17 lecturas", "0 %", "0 %", "—"],
-        ["32 lecturas", "0 %", "100 %", "2 048"],
-        ["64 lecturas", "10,0 %", "100 %", "1 024 y 2 048"],
-    ]
-    return tab("Promedio de lecturas de 12 bits con un acumulador de 16 bits",
-               "Tabla: al promediar lecturas de 12 bits con un acumulador de 16 bits, con una señal media de 1000 no falla nada hasta 32 lecturas y con 64 falla el 10 por ciento; con una señal media de 3000 falla el 100 por ciento desde 32 lecturas, con un error de 2048 cuentas.",
-               ["Número de lecturas", "Señal media 1000", "Señal media 3000", "Error medio (cuentas)"], rows, [300, 200, 200, 240], row_h=44, size=13,
-               note="El desbordamiento no avisa: el promedio sale plausible y erróneo en 2048 cuentas, la mitad del rango del convertidor. Depende del producto del número de lecturas por el máximo posible, no de la señal típica. Sobre 20 000 ventanas por celda, señal con ruido gaussiano de 150 cuentas.",
-               note_kind="coral", foot=SINT)
+    return heatmap(
+        "Promedios erróneos al acumular lecturas de 12 bits en 16 bits (% de ventanas)",
+        "Mapa de calor con el porcentaje de promedios erróneos según el número de lecturas y la señal media: con señal media de 1000 no falla ninguno hasta 32 lecturas y con 64 falla el 10 por ciento; con señal media de 3000 falla el 100 por ciento desde 32 lecturas, con un error de 2048 cuentas.",
+        ["4 lecturas", "8 lecturas", "16 lecturas", "17 lecturas", "32 lecturas", "64 lecturas"],
+        ["Señal media 1000", "Señal media 3000"],
+        [[0, 0], [0, 0], [0, 0], [0, 0], [0, 100], [10, 100]],
+        unit="% de ventanas erróneas", row_title="Lecturas promediadas", col_title="Ventanas con el promedio erróneo (%)",
+        scale="coral", vmin=0, vmax=100, decimals=0, suffix=" %", highlight=[(4, 1), (5, 1), (5, 0)], cell_h=40,
+        note="El frente de fallo avanza con el producto número de lecturas × valor máximo: 32 × 3000 supera 65 535 y desborda siempre. Cuando falla, el error es de 2048 cuentas (65 536 / 32) y el promedio sigue pareciendo plausible. Sobre 20 000 ventanas por celda, señal con ruido gaussiano de 150 cuentas.",
+        note_kind="coral", foot=SINT)
 
 
 def se265_antirrebote() -> Fig:
@@ -46,18 +45,17 @@ def se265_antirrebote() -> Fig:
 
 # ---------------------------------------------------------------- SE-266
 def se266_bus() -> Fig:
-    rows = [
-        ["1", "39", "20,5 %", "97,5", "50,0 %"],
-        ["2", "48", "33,3 %", "120,0", "66,7 %"],
-        ["6", "84", "57,1 %", "210,0", "85,7 %"],
-        ["16", "174", "73,6 %", "435,0", "94,1 %"],
-        ["64", "606", "84,5 %", "1 515,0", "98,5 %"],
-    ]
-    return tab("Leer N bytes de un registro: ciclos de reloj, eficiencia y tiempo en I²C",
-               "Tabla: leer un byte de un registro por I2C cuesta 39 ciclos de reloj y la eficiencia de datos es de 20,5 por ciento; con 64 bytes sube a 84,5 por ciento; a 400 kilohercios el primer caso tarda 97,5 microsegundos; por SPI las eficiencias son 50 y 98,5 por ciento.",
-               ["Bytes", "Ciclos I²C", "Eficiencia I²C", "Tiempo a 400 kHz (µs)", "Eficiencia SPI"], rows, [110, 170, 200, 270, 190], row_h=40, size=13,
-               note="La eficiencia mide bits útiles sobre ciclos de reloj, no la velocidad del bus: con direcciones, confirmaciones y reinicio, leer un solo byte desperdicia cuatro de cada cinco ciclos. El cálculo es aritmético, sin dispositivo real ni capacitancia de la línea.",
-               note_kind="gold", foot=SINT)
+    ticks = [(1, "1"), (2, "2"), (6, "6"), (16, "16"), (64, "64")]
+    return line_chart(
+        "Eficiencia de datos al leer N bytes de un registro: I²C frente a SPI",
+        "Líneas de eficiencia de datos según los bytes leídos, en escala logarítmica: por I2C sube de 20,5 por ciento con 1 byte a 84,5 con 64 bytes; por SPI sube de 50 a 98,5 por ciento; leer un byte por I2C cuesta 39 ciclos de reloj, 97,5 microsegundos a 400 kilohercios.",
+        [("I²C", [(1, 20.5), (2, 33.3), (6, 57.1), (16, 73.6), (64, 84.5)], "coral"),
+         ("SPI", [(1, 50.0), (2, 66.7), (6, 85.7), (16, 94.1), (64, 98.5)], "teal")],
+        x_label="Bytes leídos por transacción", y_label="Eficiencia (bits útiles / ciclos de reloj, %)", log_x=True,
+        x_ticks=ticks, y_ticks=[0, 20, 40, 60, 80, 100], decimals=1,
+        annotations=[(1, 20.5, "1 byte por I²C: 39 ciclos, 97,5 µs a 400 kHz", 95, 18)],
+        note="La eficiencia mide bits útiles sobre ciclos de reloj, no la velocidad del bus: con direcciones, confirmaciones y reinicio, leer un solo byte por I²C desperdicia cuatro de cada cinco ciclos, y la brecha con SPI se cierra al agrupar lecturas. El cálculo es aritmético, sin dispositivo real ni capacitancia de la línea.",
+        note_kind="gold", foot=SINT)
 
 
 def se266_codigos() -> Fig:

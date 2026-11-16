@@ -23,6 +23,7 @@ def tab(title: str, desc: str, heads: list[str], rows: list[list[str]], widths: 
     note_h = max(54, note_lines * 13 * 1.28 + 26) if note else 0
     height = int(y_end + (note_h + 12 if note else 0) + (28 if foot else 8))
     f = Fig(width_total, height, title, desc)
+    f.kind = "table"  # counted by tests/test_figure_redesign.py (ratchet towards zero)
     f.table(heads, rows, 10, 12, widths, row_h=row_h, size=size, kinds=kinds)
     y = y_end
     if note:

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-16 — Kit de gráficos y trinquete contra figuras que repiten una tabla
+
+- `scripts/figure_kit.py` incorpora primitivas de gráfico deterministas y sin dependencias: `grouped_bars` (vertical u horizontal, escala logarítmica), `stacked_bars`, `line_chart`, `scatter`, `heatmap`, `dumbbell`, `percentile_intervals` y `timeline`, con ejes, unidades, leyenda y rótulos de valor; fallan con `ValueError` si una etiqueta no cabe; el catálogo con datos ilustrativos está en `scripts/figure_kit_gallery.py`
+- `docs/PEDAGOGICAL-STANDARD.md` fija la regla anti-duplicado y la primitiva recomendada por tipo de dato; `docs/FIGURE-REDESIGN-GUIDE.md` da el procedimiento para que cada parte sustituya sus figuras `tab()`
+- tres figuras de la Parte 22 sirven de modelo con los mismos números medidos: latencia de un botón (`SE-265`, barras en escala logarítmica), acumulador de 16 bits (`SE-265`, mapa de calor) y eficiencia de un bus (`SE-266`, líneas); sus textos alternativos y su «Cómo leer la figura» hablan del gráfico
+- `tests/test_figure_redesign.py` y `scripts/figure_tab_baseline.json` impiden que suba el número de figuras `tab()`, de imágenes con `alt` que empieza por «Tabla» o de diagramas hechos con `Fig.table()`, y exigen bajar el tope al reducirlo; meta: 0 salvo excepciones justificadas en `allowed_tables`
+- el resto de las partes no se toca: 988 figuras `tab()` siguen pendientes de rediseño (una sesión por parte)
+
 ## 2026-11-16 — Documentación alineada con las 540 clases desarrolladas (Partes 00–44)
 
 - README, ROADMAP, plan maestro, arquitectura, plan de publicación, matriz de cobertura, mapa de competencias, guías de roles, licencias y workflows dejan de afirmar «480 desarrolladas», «Partes 00–39» o «Partes 40–44 planificadas»; las cifras se verificaron contra `curriculum.yaml`, `catalog.json` y los archivos de `content/`

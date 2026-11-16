@@ -117,9 +117,9 @@ def spi_bits(n):
 
 Resultado, idéntico en Windows (CPython 3.12.9) y en Ubuntu bajo WSL2 (3.12.3). Leer un byte por I²C desperdicia cuatro de cada cinco ciclos; a 100 kHz esa lectura tarda 390 µs.
 
-![Tabla con los ciclos de reloj, la eficiencia por I²C, el tiempo a 400 kilohercios y la eficiencia por SPI al leer de 1 a 64 bytes.](../../../content/part-22/figures/se-266-eficiencia-de-un-bus.svg)
+![Líneas con la eficiencia de datos al leer de 1 a 64 bytes, en escala logarítmica: I²C sube de 20,5 % a 84,5 % y SPI de 50 % a 98,5 %, de modo que la brecha se cierra al agrupar lecturas.](../../../content/part-22/figures/se-266-eficiencia-de-un-bus.svg)
 
-**Cómo leer la figura.** Cada fila es un tamaño de lectura; la eficiencia es bits de datos sobre ciclos de reloj. **Dónde deja de valer:** es una cuenta de ciclos de la trama; no incluye el estiramiento de reloj, el tiempo de conversión del sensor ni la subida de la señal por la capacitancia, que en una línea larga limitan la velocidad. La figura sirve para ver el efecto del tamaño, no para predecir una lectura real.
+**Cómo leer la figura.** El eje horizontal es el número de bytes leídos en una sola transacción (escala logarítmica) y el vertical la eficiencia, bits de datos sobre ciclos de reloj. Cada línea es un bus; lo que se ve es la pendiente: leer más bytes por transacción amortiza la dirección y las confirmaciones, y por eso I²C sube más que SPI. **Dónde deja de valer:** es una cuenta de ciclos de la trama; no incluye el estiramiento de reloj, el tiempo de conversión del sensor ni la subida de la señal por la capacitancia, que en una línea larga limitan la velocidad. La figura sirve para ver el efecto del tamaño, no para predecir una lectura real.
 
 ### Qué errores deja pasar cada código
 

@@ -165,6 +165,14 @@ Las fuentes de este caso no incluyen cifras de competidores. Documentado (F2): l
 
 Documentado (F11): en mayo de 2020 la dirección anunció la reducción de la plantilla: de 7.500 empleados, casi 1.900 (alrededor del 25 %) tuvieron que irse; la empresa preveía ingresos del año por debajo de la mitad de los de 2019, había levantado 2.000 millones de dólares y recortado costos «en casi todas las esquinas»; decidió, además, reducir inversión en actividades que no apoyaban directamente a la comunidad de anfitriones (pausó Transporte y Airbnb Studios y redujo Hoteles y Lux). Documentado (F11): la carta dice que no se sabe cuándo volverá el viaje ni cómo será. Análisis propio: una plataforma de dos caras puede perder casi toda la demanda de golpe y la respuesta fue enfocar el negocio; es una decisión de portafolio bajo incertidumbre ([SE-141](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-141-portafolio-opciones-y-secuenciacion-de-inversion/README.md), [SE-142](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md)). El foco de 2020 no fue permanente: en el cuarto trimestre de 2025 la empresa pilota asociaciones con hoteles boutique (F2).
 
+### Visión y misión
+
+Documentado (F11): en su mensaje de mayo de 2020, Brian Chesky describe la misión de la empresa como centrada en la pertenencia («belonging») y en volver a lo esencial: personas corrientes que alojan en sus casas y ofrecen experiencias. Documentado (F1): la historia de la empresa pasa de colchones inflables para un evento (2008) a casas, experiencias y servicios (2025). Análisis propio: la pertenencia se usa como criterio para recortar y enfocar el negocio en 2020, no solo como lema; no se publica una declaración de misión y visión fechadas en las fuentes consultadas, por lo que no se reconstruye su evolución.
+
+### Estructura, plantilla y presencia mundial
+
+Documentado (F1): sede en San Francisco (888 Brannan Street desde junio de 2013); primera oficina internacional, en Alemania, en junio de 2011; operación en más de 220 países y regiones. Documentado (F11): 7.500 empleados en mayo de 2020, de los que casi 1.900 salen. Documentado (F10, secundaria): unos 8.200 empleados en 2025. Documentado (F7): ofertas de empleo de la época del blog sitúan la ingeniería de pagos en San Francisco y Seattle y el cumplimiento de pagos en Bangalore; es un indicio, no un organigrama. Documentado (F7): la organización de pagos, Alojamiento, Experiencia del huésped, Control de calidad y Finanzas trabajó junta en la migración de pagos. No se sabe: el organigrama de alto nivel, la plantilla por área y los años de apertura de oficinas.
+
 ## Arquitectura y esquemas
 
 No hay un diagrama interno completo y público de Airbnb. Lo documentado se limita a: el paso de un monolito Rails a servicios con contratos IDL (2017), la biblioteca de idempotencia Orpheus (2019), la reconstrucción de la orquestación de pagos (2022) y la búsqueda con redes neuronales (2018 y 2020).
@@ -288,6 +296,38 @@ Documentado (F12): una torre recibe la consulta y las características del usuar
 **Cómo leer la figura.** Tres carriles: lo que da confianza y mueve el dinero, el producto y el estado de la empresa; las líneas verticales son hitos con fecha documentada (F1, F11). **Dónde deja de valer.** Las eras son síntesis del autor: varios productos conviven y el corte entre ellos es aproximado.
 
 Antes y después, con lo documentado: antes de 2017, monolito Rails y servicios JSON sobre HTTP sin contrato fuertemente tipado (F9); después, IDL de Thrift con clientes y servidores generados. Antes de 2019, cada servicio de pagos resolvía la consistencia a su manera; después, Orpheus (F5). Antes de 2022, pagos acoplados a la reserva de una estancia; después, orquestación agnóstica al producto, con datos inmutables (F7). Antes, ordenación por puntaje manual; después, árboles y luego redes (F8, F12). No se sabe el estado actual de la arquitectura completa.
+
+### Hardware utilizado
+
+![Diagrama del hardware de Airbnb según sus fuentes: no se publica el tipo de servidores ni el proveedor de nube; se mencionan bases MySQL con maestro fragmentado y entrenamiento con miles de millones de pares.](../figures/airbnb-hardware-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro recuadros; la mayoría declara que no hay dato público. **Dónde deja de valer.** La ausencia es de las fuentes consultadas, no necesariamente de la realidad.
+
+Documentado (F5): las bases son MySQL, con un maestro fragmentado y réplicas con retraso de replicación. Documentado (F8): el modelo de búsqueda se entrenó con 1.700 millones de pares. Documentado (F1): la app móvil existe desde 2010. No se sabe: proveedor de nube, tipo de servidor, aceleradores, regiones y dispositivos de usuario soportados; las fuentes consultadas no lo detallan y este caso no lo supone.
+
+### Software utilizado
+
+![Diagrama del software documentado de Airbnb: Rails, Java con Dropwizard, Thrift, MySQL, Kafka, Java con lambdas y StatefulJ, y TensorFlow con árboles de decisión y máquinas de factorización.](../figures/airbnb-software-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro grupos tecnológicos con su fuente. **Dónde deja de valer.** Blogs de 2017 a 2022.
+
+Documentado (F9): servicios en Java con Dropwizard, Jersey y Jackson (JSON sobre HTTP) y filtros propios; interfaces en Thrift con clientes generados en Java y Ruby; transporte Thrift sobre HTTP. Documentado (F7): monolito Ruby on Rails en migración a servicios; bus de mensajes con Kafka. Documentado (F5): biblioteca Orpheus en Java con lambdas, MySQL y una máquina de estados con StatefulJ en un servicio. Documentado (F8, F12): TensorFlow, árboles de decisión con gradiente y máquinas de factorización en la historia del modelo de ordenación. No se sabe: sistema de búsqueda e indexación, almacén analítico, frontend y móvil.
+
+### Características de la infraestructura
+
+![Diagrama de la infraestructura de Airbnb: transición a servicios, bases fragmentadas, migración de pagos con dos sistemas y escala de anuncios y pagos; sin datos de nube, regiones ni costos.](../figures/airbnb-caracteristicas-de-la-infraestructura.svg)
+
+**Cómo leer la figura.** Modelo, escala, costos, redes; casi todo marcado como no publicado. **Dónde deja de valer.** La escala es de anuncios y pagos, no de peticiones.
+
+Documentado (F9, F7): transición de un monolito Rails a servicios con contrato Thrift (2017) y orquestación de pagos rediseñada (2022), con dos sistemas en paralelo casi todo el proceso. Documentado (F1): más de 9 millones de anuncios activos, más de 2.500 millones de llegadas acumuladas y unos 70 mil millones de dólares procesados en 2019 en más de 40 monedas. Documentado (F9): TLS mutuo y monitoreo estándar entre servicios. No se sabe: nube, regiones, zonas, red de distribución de contenido y costo de infraestructura.
+
+### Tolerancia a fallos: qué pasa si cae cada componente
+
+![Diagrama de la tolerancia a fallos documentada de Airbnb en pagos: respuesta perdida, servicio externo caído, réplica con retraso, paso fallido, migración desviada y lo que no se documenta.](../figures/airbnb-tolerancia-a-fallos.svg)
+
+**Cómo leer la figura.** Cada recuadro es un fallo y su defensa; el último lista lo que falta. **Dónde deja de valer.** Solo cubre pagos.
+
+Documentado (F5): tres técnicas de consistencia eventual (reparación en lectura, en escritura y asíncrona) con tareas de segunda línea de defensa (escaneos, lambdas, cron) y notificaciones; claves, contratos con caducidad, errores reintentables y no reintentables, y lectura solo de la base maestra. Documentado (F7): pasos idempotentes, eventos con idempotencia sobre Kafka, análisis de integridad transaccional, trabajos de comparación entre modelos y una capa de traducción durante la migración. Documentado (F2): el asistente de IA de soporte resuelve cerca de un tercio de las incidencias. No se sabe: pruebas de caos, recuperación ante desastres, copias de seguridad, degradación de la búsqueda y de los mensajes, y el comportamiento si cae el asistente.
 
 ### Alternativas descartadas y trade-offs (análisis propio)
 

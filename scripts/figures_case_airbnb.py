@@ -481,6 +481,54 @@ def linea_tiempo2() -> Fig:
         note_kind="gold", foot="Fuentes: F1, F11; síntesis propia de las eras.")
 
 
+
+# ====================== segunda ampliación: hardware, software, infraestructura, fallos ======================
+from figure_kit import _wrap as _w2  # noqa: E402
+
+
+def _cards(title, desc, groups, note, foot, ncols=2):
+    f = Fig(940, 0, title, desc)
+    f.text(14, 27, title, 15, "start", 700, "#142231")
+    colw = (940 - 20 - (ncols - 1) * 20) / ncols
+    ys = [50.0] * ncols
+    for i, (head, kind, items) in enumerate(groups):
+        c = i % ncols
+        x = 10 + c * (colw + 20)
+        y = ys[c]
+        f.box(x, y, colw, 34, head, kind, 14, bold=True)
+        y += 42
+        for t in items:
+            h = 18 + len(_w2(t, 13, colw - 20)) * 16.6
+            f.box(x, y, colw, h, t, "plain", 13)
+            y += h + 8
+        ys[c] = y + 8
+    y = max(ys)
+    n = len(_w2(note, 13, 900))
+    nh = 22 + n * 16.6
+    f.box(10, y, 920, nh, note, "gold", 13)
+    y += nh + 6
+    lines = _w2(foot, 12, 900)
+    for i, line in enumerate(lines):
+        f.text(470, y + 22 + i * 15, line, 12, "middle", 400, "#5c1f14")
+    f.height = int(y + 30 + 15 * len(lines))
+    return f
+
+
+def _x_hardware() -> Fig:
+    return _cards('Hardware de Airbnb: casi nada se publica', 'Diagrama del hardware de Airbnb según sus fuentes: no se publica el tipo de servidores ni el proveedor de nube; las fuentes mencionan bases de datos MySQL con un nodo maestro fragmentado y réplicas, y entrenamiento de redes neuronales con miles de millones de pares; los dispositivos de usuario son la aplicación móvil y la web.', [('Servidores y nube', 'teal', ['No se sabe: proveedor de nube, tipo de servidor, regiones y si la infraestructura es propia, alquilada o híbrida: ninguna de las fuentes consultadas lo dice.']), ('Bases de datos', 'gold', ['Documentado: bases MySQL con un maestro fragmentado por clave de idempotencia y réplicas con retraso de replicación (F5).', 'No se sabe: cantidad de fragmentos, tamaño de datos y hardware de almacenamiento.']), ('Aprendizaje automático', 'navy', ['Documentado: entrenamiento con 1.700 millones de pares en 2018 (F8).', 'No se sabe: aceleradores, GPU u otro hardware de entrenamiento y de servido.']), ('Dispositivos de usuario', 'grey', ['Documentado: aplicación móvil e Instant Book desde noviembre de 2010 (F1), y web.', 'No se sabe: plataformas y versiones soportadas.'])], 'Lectura: el caso casi no tiene datos de hardware público y lo declara. Dónde deja de valer: este vacío no implica que no exista; solo que las fuentes consultadas no lo detallan.', 'Fuentes: F1, F5, F8.')
+
+
+def _x_software() -> Fig:
+    return _cards('Software de Airbnb que sus propias fuentes documentan', 'Diagrama del software documentado de Airbnb: un monolito en Ruby on Rails y servicios en Java con Dropwizard, Jersey y Jackson; interfaces en Thrift; MySQL; Kafka; Java con lambdas y StatefulJ para máquinas de estados; TensorFlow, árboles de decisión con gradiente y máquinas de factorización para la búsqueda.', [('Lenguajes y marcos', 'teal', ['Documentado: monolito en Ruby on Rails y servicios sobre todo en Java con el marco Dropwizard, con filtros y módulos propios (F7, F9).', 'Documentado: Jersey y Jackson para JSON sobre HTTP, que pasó a Thrift sobre HTTP (F9).']), ('Datos y mensajería', 'gold', ['Documentado: MySQL como base y Kafka como bus de mensajes de pagos (F5, F7).', 'No se sabe: almacén analítico, sistema de búsqueda y motor de indexación.']), ('Contratos y pagos', 'navy', ['Documentado: definición de interfaces con Thrift y generación de clientes en Java y Ruby (F9).', 'Documentado: biblioteca de idempotencia Orpheus en Java, con lambdas y una máquina de estados con StatefulJ (F5).']), ('Aprendizaje automático', 'grey', ['Documentado: TensorFlow para las redes de ordenación, árboles de decisión con gradiente y máquinas de factorización en la historia del modelo (F8, F12).', 'No se sabe: marco de servido y plataforma de experimentos.'])], 'Lectura: cuatro grupos tecnológicos con su fuente. Dónde deja de valer: son blogs de 2017 a 2022; no cubren frontend, móvil ni infraestructura.', 'Fuentes: F5, F7, F8, F9, F12.')
+
+
+def _x_infra() -> Fig:
+    return _cards('Características de la infraestructura de Airbnb: lo que se sabe y lo que no', 'Diagrama de la infraestructura de Airbnb: arquitectura orientada a servicios en transición desde un monolito, bases fragmentadas y migración de pagos con dos sistemas en paralelo; escala de 9 millones de anuncios, 70 mil millones de dólares procesados en 2019 y más de 40 monedas; sin datos públicos de nube, regiones ni costos.', [('Modelo y estructura', 'teal', ['Documentado: transición de un monolito Ruby a servicios con contrato en Thrift desde 2017 (F9); pagos rediseñados en 2022 (F7).', 'No se sabe: nube, regiones, zonas y topología.']), ('Escala', 'gold', ['Documentado: más de 9 millones de anuncios activos y más de 2.500 millones de llegadas acumuladas (F1); alrededor de 70 mil millones de dólares procesados en 2019 en más de 40 monedas (F1).', 'No se sabe: peticiones por segundo y tamaño de las bases.']), ('Costos', 'navy', ['No se sabe: costo de infraestructura: no se publica; solo hay ingresos y crecimiento (F2, F10).']), ('Redes y entrega', 'grey', ['Documentado: comunicación entre servicios con TLS mutuo y monitoreo estándar (F9).', 'No se sabe: red de distribución de contenido y de imágenes.'])], 'Lectura: casi todos los recuadros declaran falta de dato. Dónde deja de valer: la ausencia es de las fuentes consultadas.', 'Fuentes: F1, F2, F7, F9, F10.')
+
+
+def _x_fallos() -> Fig:
+    return _cards('Qué pasa cuando cae cada componente en lo que Airbnb documenta', 'Diagrama de la tolerancia a fallos documentada de Airbnb en pagos: una respuesta perdida se cubre con la clave de idempotencia; un procesador caído se reintenta si el error es reintentable; una réplica con retraso se evita leyendo de la maestra; dos sistemas de pagos conviven durante la migración con trabajos de comparación; un paso falla y la orquestación lo repite; no se documentan pruebas de caos ni recuperación ante desastres.', [('Se pierde una respuesta', 'teal', ['Documentado: idempotencia con clave, contrato con caducidad y respuesta guardada (F5).']), ('Cae un servicio externo', 'gold', ['Documentado: los errores de infraestructura se tratan como reintentables y los de validación no; el cliente reintenta con retroceso y variación (F5).']), ('Una réplica se atrasa', 'coral', ['Documentado: las tablas de idempotencia se leen y escriben solo en la base maestra fragmentada (F5).']), ('Falla un paso de un flujo', 'navy', ['Documentado: grafo de pasos idempotentes y reintentables; eventos con idempotencia sobre Kafka; análisis de integridad transaccional (F7).']), ('Una migración se desvía', 'plain', ['Documentado: trabajos asíncronos que comparan el modelo nuevo y el antiguo, y una capa de traducción (F7).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos, recuperación ante desastres, copias de seguridad, degradación de la búsqueda y de los mensajes.'])], 'Lectura: cada recuadro es un fallo y su defensa; el último lista lo que falta. Dónde deja de valer: solo cubre pagos; la tolerancia a fallos de la búsqueda no está descrita.', 'Fuentes: F5, F7.')
+
 FIGURES = {
     "airbnb-contexto-confianza.svg": contexto,
     "airbnb-confianza-en-capas.svg": confianza,
@@ -503,6 +551,10 @@ FIGURES = {
     "airbnb-busqueda-dos-torres.svg": dos_torres,
     "airbnb-crisis-de-2020.svg": crisis,
     "airbnb-linea-de-tiempo.svg": linea_tiempo2,
+    "airbnb-hardware-utilizado.svg": _x_hardware,
+    "airbnb-software-utilizado.svg": _x_software,
+    "airbnb-caracteristicas-de-la-infraestructura.svg": _x_infra,
+    "airbnb-tolerancia-a-fallos.svg": _x_fallos,
 }
 
 

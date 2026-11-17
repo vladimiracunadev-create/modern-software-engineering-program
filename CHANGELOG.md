@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito ×3: Amazon, Spotify, Airbnb y Stripe
+
+- los cuatro casos ampliados al triple (de unas 3 600 a 4 000 palabras a entre 10 400 y 12 900, y de 4 a 6 figuras a entre 18 y 22), con arquitectura en varios niveles de zoom, viajes completos por tipo de usuario, economía con cifras citadas, alternativas y trade-offs rotulados como análisis propio, vínculos concepto → clase, preguntas de discusión y mini-ejercicios;
+- hechos nuevos verificados contra Dynamo, la Biblioteca de Constructores de Amazon y el comunicado del cuarto trimestre de 2025; los blogs de ingeniería, Loud & Clear y el comunicado del cuarto trimestre de Spotify; los blogs de ingeniería, los artículos de búsqueda y las páginas de ayuda de Airbnb; y los blogs, la documentación y las cartas anuales de Stripe;
+- commits `11ff8fd0`, `1bb41e42`, `24dc8955` y `df5afc9f`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de fallo ×3: CrowdStrike, Therac-25, GitLab 2017 y Quibi
 
 - los cuatro casos ampliados al triple (de unas 4 000 a 4 900 palabras a entre 12 500 y 16 300, y de 5 o 6 figuras a entre 17 y 19), con arquitectura en varios niveles de zoom, árbol de fallas, análisis causal, mejoras por factor, comparables, preguntas de discusión y mini-ejercicios;

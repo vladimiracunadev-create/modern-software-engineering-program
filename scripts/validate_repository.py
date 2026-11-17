@@ -131,10 +131,10 @@ def validate_program_blueprint() -> None:
     expected_ids = [class_id for number in developed for class_id in ps.class_ids(number)]
     ids = [lesson["id"] for lesson in lessons]
     if ids != expected_ids or len(ids) != len(set(ids)):
-        raise AssertionError("Class IDs must be unique and follow the fixed numbering of the 540-class plan")
+        raise AssertionError("Class IDs must be unique and follow the fixed numbering of the planned classes")
     scope = payload["planned_scope"]
-    if (scope["part_count"], scope["class_count"], scope["estimated_hours"]) != (45, 540, ps.planned_hours()):
-        raise AssertionError("planned_scope must declare 45 parts, 540 classes and the planned hours")
+    if (scope["part_count"], scope["class_count"], scope["estimated_hours"]) != (ps.PLANNED_PART_COUNT, ps.PLANNED_CLASS_COUNT, ps.planned_hours()):
+        raise AssertionError("planned_scope must declare the planned parts, classes and hours of program_state")
     if [item["id"] for item in scope["unpublished_parts"]] != [f"{n:02d}" for n in ps.planned_parts()]:
         raise AssertionError("planned_scope.unpublished_parts must list exactly the parts without content")
     titles = [lesson["title"].strip().casefold() for lesson in lessons]
@@ -157,8 +157,8 @@ def validate_program_blueprint() -> None:
         "stages": 8,
         "parts": len(developed),
         "classes": ps.developed_class_count(),
-        "planned_parts": 45,
-        "planned_classes": 540,
+        "planned_parts": ps.PLANNED_PART_COUNT,
+        "planned_classes": ps.PLANNED_CLASS_COUNT,
         "unpublished_parts": [f"{n:02d}" for n in ps.planned_parts()],
         "estimated_hours": hours,
         "phase_3_target": {
@@ -202,8 +202,10 @@ def validate_relative_links() -> None:
 def validate_role_guides() -> None:
     role_root = ROOT / "roles"
     guides = sorted(path for path in role_root.glob("*.md") if path.name != "README.md")
-    if len(guides) != 42:
-        raise AssertionError(f"Expected 42 professional role guides, found {len(guides)}")
+    from role_profiles import PROFILES
+
+    if len(guides) != len(PROFILES):
+        raise AssertionError(f"Expected {len(PROFILES)} professional role guides, found {len(guides)}")
 
     required_sections = (
         "## 🧭 Qué es y por qué importa",
@@ -244,7 +246,7 @@ def validate_role_guides() -> None:
         if "style=for-the-badge" not in text:
             raise AssertionError(f"Role guide has no visual identity badges: {guide.name}")
         if ps.roles_extension_heading() not in text:
-            raise AssertionError(f"Role guide lacks the Parts 40-44 extension section: {guide.name}")
+            raise AssertionError(f"Role guide lacks the extension section for the planned parts: {guide.name}")
         for planned_number in ps.planned_parts():
             if re.search(rf"classes/part-{planned_number:02d}-", text):
                 raise AssertionError(f"Role guide links an unpublished planned part: {guide.name}")
@@ -258,7 +260,7 @@ def validate_role_guides() -> None:
         "## 🎯 Qué es esto",
         "## 📚 Pauta profesional y cuerpos de conocimiento",
         "## 🔗 Ecosistema y fronteras entre programas",
-        "## 🗂️ Las 45 partes, numeradas de 00 a 44",
+        f"## 🗂️ Las {ps.PLANNED_PART_COUNT} partes, numeradas de 00 a {ps.LAST_PART_NUMBER:02d}",
         "## 🧭 Rutas sugeridas por rol",
         "## ✅ Calidad y CI",
         "## 🧱 Estructura del repositorio",
@@ -271,7 +273,7 @@ def validate_role_guides() -> None:
         "github/forks/vladimiracunadev-create/modern-software-engineering-program",
         "github/followers/vladimiracunadev-create",
         '<td valign="top" width="50%">',
-        "42 guías profesionales",
+        f"{len(guides)} guías profesionales",
         "Partes núcleo y clases asociadas por rol",
         "<!-- role-map:start -->",
     )
@@ -390,7 +392,7 @@ def validate_program_roadmap() -> None:
         "## Proyectos integradores",
         "## Fases de implementación",
         "## Criterio de término del programa",
-        "540 clases (ADR-004)",
+        f"{ps.PLANNED_CLASS_COUNT} clases (ADR-004 y ADR-006)",
         "HUMANO ESPECIFICA → IA PROPONE → HERRAMIENTAS VERIFICAN",
         "calidad > profundidad > coherencia > cantidad",
     )
@@ -399,8 +401,8 @@ def validate_program_roadmap() -> None:
             raise AssertionError(f"Program roadmap contract missing: {token}")
 
     part_rows = re.findall(r"^\| \d{2} · .+\(`SE-\d{3}`–`SE-\d{3}`\)", roadmap, re.MULTILINE)
-    if len(part_rows) != 45:
-        raise AssertionError(f"Program roadmap must define all 45 parts, found {len(part_rows)}")
+    if len(part_rows) != ps.PLANNED_PART_COUNT:
+        raise AssertionError(f"Program roadmap must define all {ps.PLANNED_PART_COUNT} parts, found {len(part_rows)}")
 
     audit = (ROOT / "docs" / "PROGRAM-COVERAGE-AUDIT-2026-10-06.md").read_text(encoding="utf-8")
     if "| Área | Estado | Archivos existentes | Profundidad | Brechas | Acción |" not in audit:
@@ -444,7 +446,7 @@ def validate_master_curriculum_plan() -> None:
     found_ids = [class_id for _, class_id in rows]
     if found_ids != expected_ids:
         raise AssertionError(
-            "Master curriculum plan must cover SE-001 through SE-540 exactly once and in order"
+            f"Master curriculum plan must cover SE-001 through SE-{ps.PLANNED_CLASS_COUNT:03d} exactly once and in order"
         )
     if any(marker != "x" for marker, _ in rows[:72]):
         raise AssertionError("The first 72 developed classes must stay recorded as reviewed")

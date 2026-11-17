@@ -39,19 +39,20 @@ class ProgramBlueprintTests(unittest.TestCase):
 
     def test_planned_scope_is_declared_and_honest(self) -> None:
         scope = self.payload["planned_scope"]
-        self.assertEqual((45, 540, ps.planned_hours()), (scope["part_count"], scope["class_count"], scope["estimated_hours"]))
-        self.assertEqual("SE-540", scope["last_class"])
+        self.assertEqual((49, 588, ps.planned_hours()), (scope["part_count"], scope["class_count"], scope["estimated_hours"]))
+        self.assertEqual((49, 588), (ps.PLANNED_PART_COUNT, ps.PLANNED_CLASS_COUNT))
+        self.assertEqual("SE-588", scope["last_class"])
         pending = [item["id"] for item in scope["unpublished_parts"]]
         self.assertEqual([f"{n:02d}" for n in ps.planned_parts()], pending)
         published = {part["id"] for part in self.payload["parts"]}
         self.assertFalse(published & set(pending))
         self.assertTrue(all(item["status"] == "planned" for item in scope["unpublished_parts"]))
 
-    def test_full_plan_defines_540_classes_in_45_parts(self) -> None:
+    def test_full_plan_defines_588_classes_in_49_parts(self) -> None:
         plan = self.builder.build_full_plan()
-        self.assertEqual(45, len(plan))
+        self.assertEqual(49, len(plan))
         numbers = [lesson["number"] for part in plan for lesson in part["lessons"]]
-        self.assertEqual(list(range(1, 541)), numbers)
+        self.assertEqual(list(range(1, 589)), numbers)
         titles = [lesson["title"].casefold() for part in plan for lesson in part["lessons"]]
         self.assertEqual(len(titles), len(set(titles)))
 

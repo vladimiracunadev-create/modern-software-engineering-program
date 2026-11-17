@@ -4,7 +4,7 @@ Estado: **fuente canónica operativa**
 
 Creado: 2026-10-06
 
-Alcance base: `SE-001`–`SE-480`; ampliado a `SE-001`–`SE-540` por ADR-004
+Alcance base: `SE-001`–`SE-480`; ampliado a `SE-001`–`SE-540` por ADR-004 y a `SE-001`–`SE-588` por ADR-006
 
 ## Cómo recuperar el contexto
 
@@ -133,8 +133,9 @@ ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de est
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
 Estado actual (2026-11-16): las Partes 00–44 (`SE-001`–`SE-540`) están desarrolladas y
-publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. No quedan
-partes planificadas sin publicar. Falta la revisión editorial humana independiente.
+publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. Las
+Partes 45–48 (`SE-541`–`SE-588`, ADR-006) están planificadas, sin clases publicadas. Falta la
+revisión editorial humana independiente.
 
 Brechas detectadas que se atienden parte a parte:
 
@@ -832,6 +833,69 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 - [x] `SE-538` — evolución y migración entre estilos.
 - [x] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
 - [x] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
+
+Las Partes 45–48 (`SE-541`–`SE-588`) se añadieron por ADR-006 y nacen planificadas: cada casilla
+se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
+
+### Parte 45 — Ingeniería de datos y plataformas de datos
+
+- [ ] `SE-541` — Del dato operacional al analítico.
+- [ ] `SE-542` — Ingesta batch y streaming.
+- [ ] `SE-543` — Modelado analítico: hechos, dimensiones y granularidad.
+- [ ] `SE-544` — Transformación y orquestación idempotente con backfills.
+- [ ] `SE-545` — Calidad y observabilidad de datos.
+- [ ] `SE-546` — Contratos de datos y evolución de esquemas.
+- [ ] `SE-547` — Linaje, catálogo y metadatos.
+- [ ] `SE-548` — Warehouse, lake, lakehouse y formatos columnares.
+- [ ] `SE-549` — Gobierno, privacidad y retención de datos.
+- [ ] `SE-550` — Costos y operación de plataformas de datos.
+- [ ] `SE-551` — Taller: reparar un pipeline defectuoso.
+- [ ] `SE-552` — Proyecto: plataforma de datos mínima gobernada.
+
+### Parte 46 — Machine learning en producción y MLOps
+
+- [ ] `SE-553` — Ciclo de vida de ML y por qué falla en producción.
+- [ ] `SE-554` — Datos de entrenamiento, etiquetas y feature stores.
+- [ ] `SE-555` — Experimentos y entrenamiento reproducible.
+- [ ] `SE-556` — Evaluación, sesgos y validación de modelos.
+- [ ] `SE-557` — Ajuste fino, adaptación y costo.
+- [ ] `SE-558` — Servir modelos: latencia, lotes y GPU.
+- [ ] `SE-559` — Despliegue seguro de modelos: shadow, canary y rollback.
+- [ ] `SE-560` — Monitoreo, deriva y reentrenamiento.
+- [ ] `SE-561` — Seguridad y robustez de sistemas de ML.
+- [ ] `SE-562` — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF.
+- [ ] `SE-563` — Taller: degradar y recuperar un modelo.
+- [ ] `SE-564` — Proyecto: sistema de ML operable con evidencia.
+
+### Parte 47 — Sistemas críticos, tiempo real y normas de seguridad
+
+- [ ] `SE-565` — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA.
+- [ ] `SE-566` — IEC 61508 y niveles de integridad de seguridad.
+- [ ] `SE-567` — Automoción: ISO 26262 y niveles ASIL.
+- [ ] `SE-568` — Aviación: DO-178C, DO-254 y ARP4754.
+- [ ] `SE-569` — Dispositivos médicos: IEC 62304.
+- [ ] `SE-570` — Casos de seguridad y trazabilidad.
+- [ ] `SE-571` — RTOS y planificación de tiempo real.
+- [ ] `SE-572` — Codificación segura: MISRA y CERT.
+- [ ] `SE-573` — Verificación formal y model checking: TLA+, SPARK y Alloy.
+- [ ] `SE-574` — Verificación y cobertura: MC/DC, HIL y SIL.
+- [ ] `SE-575` — Taller: analizar un fallo real frente a las normas.
+- [ ] `SE-576` — Proyecto: paquete de aseguramiento de un controlador.
+
+### Parte 48 — Runtimes y plataformas modernas
+
+- [ ] `SE-577` — WebAssembly y WASI.
+- [ ] `SE-578` — WebAssembly en servidor y borde: component model.
+- [ ] `SE-579` — eBPF: observabilidad, red y seguridad en el kernel.
+- [ ] `SE-580` — GPU y aceleradores: modelo de ejecución.
+- [ ] `SE-581` — Rendimiento y costo en aceleradores.
+- [ ] `SE-582` — Contenedores, microVM y sandboxes.
+- [ ] `SE-583` — Hardware seguro: TEE y atestación.
+- [ ] `SE-584` — Computación cuántica para ingenieros de software.
+- [ ] `SE-585` — Criptografía poscuántica y migración.
+- [ ] `SE-586` — Confianza cero en la práctica.
+- [ ] `SE-587` — Taller: elegir y aislar un runtime para una carga no confiable.
+- [ ] `SE-588` — Proyecto: plataforma de ejecución aislada con evidencia.
 
 ## Orden de ejecución y registro
 

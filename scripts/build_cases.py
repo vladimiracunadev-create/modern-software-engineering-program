@@ -116,7 +116,7 @@ def group_markdown(kind: str) -> str:
 
 [↑ Programa](../../README.md) · [Guía de casos](../GUIDE.md) · [{group_title(other)} →](../{other}/README.md)
 
-> Esta superficie no son clases ni roles: no cuenta en las 540 clases ni en las 45 partes. Es la realidad
+> Esta superficie no son clases ni roles: no cuenta en las clases ni en las partes del programa. Es la realidad
 > frente a la teoría del curso.
 
 ## Qué es
@@ -184,7 +184,7 @@ def readme_section() -> str:
     return f"""## 🏛️ Casos de estudio: la realidad frente a la teoría
 
 Además de las partes y los roles, el programa ofrece una superficie propia: **casos de estudio** de plataformas
-reales. No son clases ni roles, no crean partes y no cambian las 540 clases: se leen **después** de la teoría para
+reales. No son clases ni roles, no crean partes y no cambian el número de clases: se leen **después** de la teoría para
 ver cómo se combinan sus mecanismos con equipos, dinero y plazos. Cada caso sigue un esquema único (ficha
 histórica, problema, usuarios, funcionalidad de principio a fin, economía, arquitectura con esquemas, casos
 especiales, línea de tiempo, vínculo con las clases, qué no generalizar y fuentes públicas) descrito en la

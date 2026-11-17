@@ -663,6 +663,62 @@ PARTS = [
         "Taller: seleccionar un estilo con escenarios de calidad",
         "Proyecto: decisión arquitectónica defendida con ADR",
     ]),
+    ("45", "E", "Ingeniería de datos y plataformas de datos", "suite", [
+        "Del dato operacional al analítico",
+        "Ingesta batch y streaming",
+        "Modelado analítico: hechos, dimensiones y granularidad",
+        "Transformación y orquestación idempotente con backfills",
+        "Calidad y observabilidad de datos",
+        "Contratos de datos y evolución de esquemas",
+        "Linaje, catálogo y metadatos",
+        "Warehouse, lake, lakehouse y formatos columnares",
+        "Gobierno, privacidad y retención de datos",
+        "Costos y operación de plataformas de datos",
+        "Taller: reparar un pipeline defectuoso",
+        "Proyecto: plataforma de datos mínima gobernada",
+    ]),
+    ("46", "H", "Machine learning en producción y MLOps", "suite", [
+        "Ciclo de vida de ML y por qué falla en producción",
+        "Datos de entrenamiento, etiquetas y feature stores",
+        "Experimentos y entrenamiento reproducible",
+        "Evaluación, sesgos y validación de modelos",
+        "Ajuste fino, adaptación y costo",
+        "Servir modelos: latencia, lotes y GPU",
+        "Despliegue seguro de modelos: shadow, canary y rollback",
+        "Monitoreo, deriva y reentrenamiento",
+        "Seguridad y robustez de sistemas de ML",
+        "Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF",
+        "Taller: degradar y recuperar un modelo",
+        "Proyecto: sistema de ML operable con evidencia",
+    ]),
+    ("47", "F", "Sistemas críticos, tiempo real y normas de seguridad", "suite", [
+        "Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA",
+        "IEC 61508 y niveles de integridad de seguridad",
+        "Automoción: ISO 26262 y niveles ASIL",
+        "Aviación: DO-178C, DO-254 y ARP4754",
+        "Dispositivos médicos: IEC 62304",
+        "Casos de seguridad y trazabilidad",
+        "RTOS y planificación de tiempo real",
+        "Codificación segura: MISRA y CERT",
+        "Verificación formal y model checking: TLA+, SPARK y Alloy",
+        "Verificación y cobertura: MC/DC, HIL y SIL",
+        "Taller: analizar un fallo real frente a las normas",
+        "Proyecto: paquete de aseguramiento de un controlador",
+    ]),
+    ("48", "D", "Runtimes y plataformas modernas", "suite", [
+        "WebAssembly y WASI",
+        "WebAssembly en servidor y borde: component model",
+        "eBPF: observabilidad, red y seguridad en el kernel",
+        "GPU y aceleradores: modelo de ejecución",
+        "Rendimiento y costo en aceleradores",
+        "Contenedores, microVM y sandboxes",
+        "Hardware seguro: TEE y atestación",
+        "Computación cuántica para ingenieros de software",
+        "Criptografía poscuántica y migración",
+        "Confianza cero en la práctica",
+        "Taller: elegir y aislar un runtime para una carga no confiable",
+        "Proyecto: plataforma de ejecución aislada con evidencia",
+    ]),
 ]
 
 
@@ -673,7 +729,7 @@ def slugify(value: str) -> str:
 
 
 def build_full_plan() -> list[dict]:
-    """Las 45 partes del alcance planificado (ADR-004), con numeración secuencial fija."""
+    """Las 49 partes del alcance planificado (ADR-004 y ADR-006), con numeración secuencial fija."""
     stage_names = dict(STAGES)
     lesson_number = 1
     parts = []
@@ -707,9 +763,9 @@ def build_full_plan() -> list[dict]:
             "lessons": lessons,
         })
     if [part["id"] for part in parts] != [f"{n:02d}" for n in range(state.PLANNED_PART_COUNT)]:
-        raise ValueError("The blueprint must define parts 00 through 44 in order")
+        raise ValueError("The blueprint must define parts 00 through 48 in order")
     if lesson_number - 1 != state.PLANNED_CLASS_COUNT:
-        raise ValueError("The blueprint must define exactly 540 classes")
+        raise ValueError("The blueprint must define exactly 588 classes")
     return parts
 
 
@@ -740,7 +796,11 @@ def build_payload() -> dict:
             lesson["estimated_hours"] for part in parts for lesson in part["lessons"]
         ),
         "planned_scope": {
-            "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
+            "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
+            "decisions": [
+                "docs/adr/ADR-004-expand-to-540-class-scope.md",
+                "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
+            ],
             "part_count": len(full_plan),
             "class_count": sum(len(part["lessons"]) for part in full_plan),
             "estimated_hours": sum(

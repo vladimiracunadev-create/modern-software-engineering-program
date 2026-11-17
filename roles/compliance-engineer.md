@@ -92,7 +92,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [🔐 Security Engineer](security-engineer.md); [🧾 Requirements Engineer / Business Systems Analyst](requirements-engineer.md); [🧭 CTO / Dirección de Tecnología](cto.md);
+- [🔐 Security Engineer](security-engineer.md); [🧾 Requirements Engineer / Business Systems Analyst](requirements-engineer.md); [🧭 CTO / Dirección de Tecnología](cto.md); [🛂 AI Governance & Responsible AI Engineer](ai-governance-responsible-ai-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.
@@ -152,11 +152,24 @@ no constituye competencia.
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–44
+## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| **Parte 45 · Ingeniería de datos y plataformas de datos** | `SE-541`–`SE-552` | Convierte gobierno, privacidad y retención de datos en controles con evidencia verificable. |
+| **Parte 46 · Machine learning en producción y MLOps** | `SE-553`–`SE-564` | Conecta la regulación de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF) con los controles y la evidencia de un sistema de ML. |
+| **Parte 47 · Sistemas críticos, tiempo real y normas de seguridad** | `SE-565`–`SE-576` | Relaciona las normas de seguridad funcional con casos de seguridad y trazabilidad de evidencia. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

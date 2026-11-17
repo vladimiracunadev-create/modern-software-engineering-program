@@ -9,9 +9,9 @@
 
 ## About publicado
 
-> 🧭 Programa de Ingeniería de Software Moderna · 540 clases en 45 partes (540 desarrolladas, SE-001–SE-540) · aprendizaje conectado, práctica, evidencia y fuentes · fundamentos → producto → arquitectura → DevOps → IA · Python + Pages · 🐧🍎🪟
+> 🧭 Programa de Ingeniería de Software Moderna · 588 clases en 49 partes (540 desarrolladas, SE-001–SE-540; 48 planificadas) · práctica, evidencia, figuras y fuentes · fundamentos → producto → arquitectura → DevOps → IA y agentes · Python + Pages · 🐧🍎🪟
 
-La descripción no repite el nombre que GitHub ya muestra. Las 540 clases siguen el
+La descripción no repite el nombre que GitHub ya muestra. Las 588 clases planificadas siguen el
 mismo estándar pedagógico; el contenido realmente disponible se explica por separado
 en `STATUS.md` sin asignar etiquetas a cada clase.
 

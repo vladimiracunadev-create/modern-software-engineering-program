@@ -168,11 +168,23 @@ no constituye competencia.
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–44
+## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| **Parte 45 · Ingeniería de datos y plataformas de datos** | `SE-541`–`SE-552` | Ubica la plataforma de datos dentro de la arquitectura y sus contratos de propiedad. |
+| **Parte 48 · Runtimes y plataformas modernas** | `SE-577`–`SE-588` | Sitúa runtimes aislados y confianza cero como decisiones de arquitectura con su costo. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

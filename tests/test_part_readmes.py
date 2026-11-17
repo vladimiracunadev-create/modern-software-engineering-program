@@ -1,4 +1,4 @@
-"""Esquema único del README de parte y navegación de clase en las 540 clases.
+"""Esquema único del README de parte y navegación de clase en las clases desarrolladas.
 
 Cada parte desarrollada explica sus 12 clases en «Guía razonada clase por clase»
 (sin enlaces sueltos) y, después, reúne todos los enlaces en la tabla de
@@ -7,10 +7,16 @@ Cada parte desarrollada explica sus 12 clases en «Guía razonada clase por clas
 from __future__ import annotations
 
 import re
+import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import program_state as ps  # noqa: E402
+
+DEVELOPED_CLASSES = ps.developed_class_count()
 GUIDE = "## Guía razonada clase por clase"
 SUMMARY = "## Resumen operativo del recorrido"
 CLASS_LINK = re.compile(r"\]\((\.\./\.\./classes/part-\d{2}-[^/)]+/se-(\d{3})-[^/)]+/(?:README\.md)?)\)")
@@ -22,9 +28,9 @@ def part_readmes() -> list[Path]:
 
 
 class PartReadmeScheme(unittest.TestCase):
-    def test_there_are_45_parts_with_12_classes(self) -> None:
+    def test_there_is_a_readme_per_developed_part_with_12_classes(self) -> None:
         readmes = part_readmes()
-        self.assertEqual(len(readmes), 45)
+        self.assertEqual(len(readmes), len(ps.developed_parts()))
         for readme in readmes:
             self.assertEqual(len(list(readme.parent.glob("SE-*.md"))), 12, readme)
 
@@ -63,9 +69,9 @@ class PartReadmeScheme(unittest.TestCase):
 
 
 class ClassNavigation(unittest.TestCase):
-    def test_all_540_classes_have_navigation_above_and_below(self) -> None:
+    def test_all_developed_classes_have_navigation_above_and_below(self) -> None:
         pages = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
-        self.assertEqual(len(pages), 540)
+        self.assertEqual(len(pages), DEVELOPED_CLASSES)
         for index, page in enumerate(pages):
             number = index + 1
             lines = page.read_text(encoding="utf-8").rstrip("\n").split("\n")
@@ -78,14 +84,14 @@ class ClassNavigation(unittest.TestCase):
                     self.assertTrue(nav.startswith("← Inicio del programa"), f"{page}: SE-001 no tiene anterior")
                 else:
                     self.assertTrue(re.match(rf"\[← SE-{number - 1:03d}[ \]]", nav), f"{page}: anterior incorrecto")
-                if number == 540:
-                    self.assertTrue(nav.endswith("Fin del programa →"), f"{page}: SE-540 no tiene siguiente")
+                if number == DEVELOPED_CLASSES:
+                    self.assertTrue(nav.endswith("Fin del programa →"), f"{page}: la última clase desarrollada no tiene siguiente")
                 else:
                     self.assertRegex(nav, rf"\[SE-{number + 1:03d}[ \]]", f"{page}: siguiente incorrecto")
 
     def test_portal_pages_have_navigation_above_and_below(self) -> None:
         pages = sorted((ROOT / "site" / "classes").glob("SE-*.html"))
-        self.assertEqual(len(pages), 540)
+        self.assertEqual(len(pages), DEVELOPED_CLASSES)
         for index, page in enumerate(pages):
             number = index + 1
             html = page.read_text(encoding="utf-8")
@@ -97,7 +103,7 @@ class ClassNavigation(unittest.TestCase):
                     self.assertIn("<span>Inicio</span>", nav)
                 else:
                     self.assertIn(f'href="SE-{number - 1:03d}.html"', nav)
-                if number == 540:
+                if number == DEVELOPED_CLASSES:
                     self.assertIn("<span>Fin</span>", nav)
                 else:
                     self.assertIn(f'href="SE-{number + 1:03d}.html"', nav)

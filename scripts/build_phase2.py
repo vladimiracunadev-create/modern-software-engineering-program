@@ -16,6 +16,9 @@ except ModuleNotFoundError:  # importado como scripts.build_phase2
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 import build_cases  # noqa: E402
+from role_profiles import PROFILES as ROLE_PROFILES  # noqa: E402
+
+ROLE_COUNT = len(ROLE_PROFILES)
 PROGRAM_PATH = ROOT / "curriculum.yaml"
 SOURCE_PATH = ROOT / "sources/baseline.json"
 
@@ -133,6 +136,10 @@ README_FOCUS = {
     "42": "patrones de agentes, evaluación y límites",
     "43": "GoF, GRASP, repositorio, mensajería y resiliencia",
     "44": "microkernel, microservicios, celular, data mesh y 12-factor",
+    "45": "ingesta, modelado, calidad, contratos, linaje y gobierno de datos",
+    "46": "MLOps, ajuste fino, servicio, deriva y regulación de IA",
+    "47": "HARA, IEC 61508, ISO 26262, DO-178C, RTOS y verificación",
+    "48": "WebAssembly, eBPF, GPU, sandboxes, TEE, cuántica y confianza cero",
 }
 
 
@@ -189,13 +196,13 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
     blocks["coverage"] = "\n".join([
         "| Superficie | Evidencia verificable |",
         "| --- | --- |",
-        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004) |",
+        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004 y ADR-006) |",
         f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges})" + (f"; {plan_clause_short}" if planned else "") + " |",
         f"| contratos | {n_classes} metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |",
         "| fuentes | línea base y registros por clase y por parte |",
         f"| navegación | índice global, {n_parts} índices de parte y enlaces anterior/siguiente |",
         f"| portal | {1 + n_parts + n_classes} páginas generadas y desplegadas por CI |",
-        "| carrera | 42 guías profesionales enlazadas a partes reales" + (f"; {nav_clause}" if planned else "") + " |",
+        f"| carrera | {ROLE_COUNT} guías profesionales enlazadas a partes reales" + (f"; {nav_clause}" if planned else "") + " |",
     ])
     blocks["cases"] = build_cases.readme_section().rstrip()
     blocks["is-bullet"] = (
@@ -589,7 +596,7 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | Horas | {ps.format_thousands(program['estimated_hours'])} estimadas en las partes desarrolladas ({ps.format_thousands(scope['estimated_hours'])} en el alcance planificado); pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
-| Rutas profesionales | 42 guías con responsabilidades, límites, recorrido y evidencia |
+| Rutas profesionales | {ROLE_COUNT} guías con responsabilidades, límites, recorrido y evidencia |
 | Sitio | {1 + program['part_count'] + program['class_count']} páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
 | Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las {program['class_count']} clases ni en las {program['part_count']} partes |
 | Portal definitivo | catálogo navegable con las {program['class_count']} clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
@@ -617,8 +624,8 @@ def file_index(program: dict) -> str:
 | Catálogo resumido | `catalog.json` | 1 |
 | Índice general | `classes/README.md` | 1 |
 | Índice de rutas profesionales | `roles/README.md` | 1 |
-| Guías profesionales | `roles/*.md` (sin `README.md`) | 42 |
-| Perfiles fuente de las rutas | `scripts/role_profiles.py` | 42 perfiles |
+| Guías profesionales | `roles/*.md` (sin `README.md`) | {ROLE_COUNT} |
+| Perfiles fuente de las rutas | `scripts/role_profiles.py` | {ROLE_COUNT} perfiles |
 | Generador verificable de rutas | `scripts/build_role_guides.py` | 1 |
 | Licencia de software | `LICENSE` | Apache-2.0 |
 | Licencia de contenido | `LICENSE-CONTENT.md` | CC BY-NC-SA 4.0 |

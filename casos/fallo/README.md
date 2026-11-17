@@ -2,7 +2,7 @@
 
 [↑ Programa](../../README.md) · [Guía de casos](../GUIDE.md) · [Casos de éxito →](../exito/README.md)
 
-> Esta superficie no son clases ni roles: no cuenta en las 540 clases ni en las 45 partes. Es la realidad
+> Esta superficie no son clases ni roles: no cuenta en las clases ni en las partes del programa. Es la realidad
 > frente a la teoría del curso.
 
 ## Qué es

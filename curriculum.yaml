@@ -17,13 +17,46 @@
   "class_count": 540,
   "estimated_hours": 2430,
   "planned_scope": {
-    "decision": "docs/adr/ADR-004-expand-to-540-class-scope.md",
-    "part_count": 45,
-    "class_count": 540,
-    "estimated_hours": 2430,
+    "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
+    "decisions": [
+      "docs/adr/ADR-004-expand-to-540-class-scope.md",
+      "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md"
+    ],
+    "part_count": 49,
+    "class_count": 588,
+    "estimated_hours": 2646,
     "first_class": "SE-001",
-    "last_class": "SE-540",
-    "unpublished_parts": []
+    "last_class": "SE-588",
+    "unpublished_parts": [
+      {
+        "id": "45",
+        "title": "Ingeniería de datos y plataformas de datos",
+        "first_class": "SE-541",
+        "last_class": "SE-552",
+        "status": "planned"
+      },
+      {
+        "id": "46",
+        "title": "Machine learning en producción y MLOps",
+        "first_class": "SE-553",
+        "last_class": "SE-564",
+        "status": "planned"
+      },
+      {
+        "id": "47",
+        "title": "Sistemas críticos, tiempo real y normas de seguridad",
+        "first_class": "SE-565",
+        "last_class": "SE-576",
+        "status": "planned"
+      },
+      {
+        "id": "48",
+        "title": "Runtimes y plataformas modernas",
+        "first_class": "SE-577",
+        "last_class": "SE-588",
+        "status": "planned"
+      }
+    ]
   },
   "stages": [
     {

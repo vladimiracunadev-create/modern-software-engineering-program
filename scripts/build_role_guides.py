@@ -111,6 +111,14 @@ ROLE_GROUPS: list[tuple[str, list[tuple[str, str]]]] = [
             ('ai-systems-engineer.md', 'productos con modelos, datasets, fallback y operación'),
             ('agentic-harness-engineer.md', 'harness, contexto, herramientas, bucles, evaluación y recuperación de agentes'),
             ('domain-methodology-engineer.md', 'TDD, BDD, ATDD, DDD, contratos y SDD como práctica de equipo'),
+            ('mlops-ml-platform-engineer.md', 'datos, entrenamiento reproducible, servicio, deriva y reversión de modelos'),
+            ('ai-governance-responsible-ai-engineer.md', 'riesgo, equidad, supervisión humana, regulación y evidencia de IA'),
+        ],
+    ),
+    (
+        '⚙️ Runtimes y plataformas modernas',
+        [
+            ('runtime-systems-engineer.md', 'WebAssembly, eBPF, aceleradores, sandboxes y hardware seguro'),
         ],
     ),
 ]
@@ -186,7 +194,7 @@ def planned_range(part_id: str) -> str:
 
 
 def pending_for_role(filename: str) -> dict[str, str]:
-    """Partes 40-44 que este rol espera y que siguen sin contenido."""
+    """Partes planificadas que este rol espera y que siguen sin contenido."""
 
     return {
         part_id: text
@@ -649,14 +657,15 @@ def render_grouped_map(
 
 
 def render_extension_block() -> str:
-    """Sección de ampliación 40-44; deja `{planned_rows}` para rellenarlo por rol."""
+    """Sección de ampliación de las partes 40-48; deja `{planned_rows}` para rellenarlo por rol."""
 
     planned = ps.planned_parts()
     if not planned:
         return (
             ps.roles_extension_heading()
-            + "\n\n> [!NOTE]\n> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas "
-            "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las "
+            + "\n\n> [!NOTE]\n> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas "
+            "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y "
+            "[ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las "
             "clases de apoyo de esta guía.\n"
         )
     return (
@@ -664,9 +673,8 @@ def render_extension_block() -> str:
         + f"""
 
 > [!NOTE]
-> {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} desde el 13 de noviembre
-> de 2026 ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y
-> [auditoría de brechas](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md)). Todavía no
+> {ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} desde el 17 de noviembre
+> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
 
@@ -692,7 +700,7 @@ def planned_notes() -> tuple[str, str]:
     )
     short = (
         f"{ps.the_parts(planned)} ({ps.class_ranges(planned)}) {ps.verb_planned(planned)} "
-        "([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)), sin clases publicadas: "
+        "([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)), sin clases publicadas: "
         "aparecen como «Planificada» y sin enlaces."
     )
     return detail, short

@@ -92,7 +92,7 @@ debe conservar supuestos, responsables y una forma de volver atrás.
 
 ### 🤝 Coordina con
 
-- [⏱️ Performance Engineer](performance-engineer.md); [🔌 Embedded & IoT Engineer](embedded-iot-engineer.md); [🌐 Distributed Systems Engineer](distributed-systems-engineer.md);
+- [⏱️ Performance Engineer](performance-engineer.md); [🔌 Embedded & IoT Engineer](embedded-iot-engineer.md); [🌐 Distributed Systems Engineer](distributed-systems-engineer.md); [🧮 Runtime & Systems Engineer](runtime-systems-engineer.md);
 - producto y personas usuarias cuando cambia una tarea o outcome;
 - seguridad, privacidad, accesibilidad y operación según el riesgo;
 - quienes mantendrán el sistema después de la entrega.
@@ -151,11 +151,23 @@ no constituye competencia.
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## ✅ Ampliación completada: Partes 40–44
+## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 40–44 (`SE-481`–`SE-540`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
+> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
+> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
+> considerarse disponible.
 
+| Parte planificada | Rango previsto | Qué cambiará para este rol |
+| --- | --- | --- |
+| **Parte 47 · Sistemas críticos, tiempo real y normas de seguridad** | `SE-565`–`SE-576` | Aporta RTOS, planificación de tiempo real y codificación segura con evidencia verificable. |
+| **Parte 48 · Runtimes y plataformas modernas** | `SE-577`–`SE-588` | Es parte central de su frontera con el kernel: WebAssembly, eBPF, aceleradores, microVM y sandboxes. |
+
+Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
+desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
+evidencia de que el contenido exista ni de que su alcance final coincida con esta
+descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

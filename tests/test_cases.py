@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import build_cases  # noqa: E402
+import program_state as ps  # noqa: E402
 import figure_tab_baseline as fb  # noqa: E402
 import validate_cases  # noqa: E402
 from build_figures import collect  # noqa: E402
@@ -60,8 +61,8 @@ class CasesSurfaceTests(unittest.TestCase):
 
     def test_surface_does_not_change_the_counters(self) -> None:
         program = json.loads((ROOT / "curriculum.yaml").read_text(encoding="utf-8"))
-        self.assertEqual(540, program["class_count"])
-        self.assertEqual(45, program["part_count"])
+        self.assertEqual(ps.developed_class_count(), program["class_count"])
+        self.assertEqual(len(ps.developed_parts()), program["part_count"])
         self.assertFalse(list((ROOT / "classes").glob("*caso*")))
 
     def test_readme_section_sits_between_parts_and_roles(self) -> None:

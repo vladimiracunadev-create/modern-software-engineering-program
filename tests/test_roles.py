@@ -15,6 +15,7 @@ EXPECTED_GUIDES = {
     "agentic-harness-engineer.md",
     "ai-augmented-software-engineer.md",
     "ai-systems-engineer.md",
+    "ai-governance-responsible-ai-engineer.md",
     "api-engineer.md",
     "backend-engineer.md",
     "build-release-engineer.md",
@@ -36,6 +37,7 @@ EXPECTED_GUIDES = {
     "green-software-engineer.md",
     "internationalization-engineer.md",
     "legacy-modernization-engineer.md",
+    "mlops-ml-platform-engineer.md",
     "mobile-engineer.md",
     "observability-engineer.md",
     "open-source-innersource-engineer.md",
@@ -43,6 +45,7 @@ EXPECTED_GUIDES = {
     "platform-engineer.md",
     "qa-test-engineer.md",
     "requirements-engineer.md",
+    "runtime-systems-engineer.md",
     "safety-critical-software-engineer.md",
     "security-engineer.md",
     "site-reliability-engineer.md",
@@ -130,7 +133,7 @@ class RoleGuideTests(unittest.TestCase):
     def test_planned_parts_are_marked_and_never_linked(self) -> None:
         main = (ROOT / "README.md").read_text(encoding="utf-8")
         index = (ROOT / "roles" / "README.md").read_text(encoding="utf-8")
-        self.assertEqual(len(EXPECTED_GUIDES), 42)
+        self.assertEqual(len(EXPECTED_GUIDES), 45)
         for name in EXPECTED_GUIDES:
             text = (ROOT / "roles" / name).read_text(encoding="utf-8")
             with self.subTest(role=name):

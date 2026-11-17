@@ -1,4 +1,4 @@
-"""Datos editoriales curados para las rutas profesionales (hoy 42).
+"""Datos editoriales curados para las rutas profesionales (hoy 45).
 
 No representan ofertas universales ni estados de madurez de las clases. Su función es
 relacionar responsabilidades profesionales con partes, clases y evidencias reales del
@@ -73,6 +73,14 @@ SOURCES = {
     "RAG": ("Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "Lewis et al. / arXiv", "https://arxiv.org/abs/2005.11401"),
     "OTELGENAI": ("Semantic conventions for generative AI", "CNCF / OpenTelemetry", "https://opentelemetry.io/docs/specs/semconv/gen-ai/"),
     "EVALS": ("Your AI Product Needs Evals", "Hamel Husain", "https://hamel.dev/blog/posts/evals/"),
+    "SCULLEY": ("Hidden Technical Debt in Machine Learning Systems", "Sculley et al. / NeurIPS 2015", "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html"),
+    "MLFLOW": ("MLflow Documentation", "MLflow project", "https://mlflow.org/docs/latest/"),
+    "MODELCARDS": ("Model Cards for Model Reporting", "Mitchell et al. / arXiv", "https://arxiv.org/abs/1810.03993"),
+    "EUAIACT": ("Regulation (EU) 2024/1689 (Artificial Intelligence Act)", "Unión Europea / EUR-Lex", "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"),
+    "WASM": ("WebAssembly Core Specification", "W3C WebAssembly Working Group", "https://webassembly.github.io/spec/core/"),
+    "EBPF": ("What is eBPF?", "eBPF Foundation", "https://ebpf.io/what-is-ebpf/"),
+    "FIRECRACKER": ("Firecracker microVM", "Firecracker project", "https://firecracker-microvm.github.io/"),
+    "CONFCOMP": ("Confidential Computing Consortium", "Linux Foundation", "https://confidentialcomputing.io/"),
 }
 
 PART_CONTEXT = {
@@ -116,6 +124,15 @@ PART_CONTEXT = {
     "37": ("liderazgo, organización y decisiones", "propuesta defendida ante conflicto"),
     "38": ("ingeniería asistida por IA y evaluaciones", "cambio asistido con trazabilidad"),
     "39": ("SPEC, agentes, herramientas y guardrails", "flujo agentic controlado"),
+    "40": ("metodologías de desarrollo con evidencia de equipo", "política metodológica con evidencia"),
+    "41": ("harness, contexto, herramientas y bucles de agentes", "harness mínimo gobernado y evaluado"),
+    "42": ("patrones agénticos, evaluación y operación de sistemas con LLM", "sistema con LLM evaluado y operable"),
+    "43": ("patrones de diseño, empresariales y de resiliencia", "catálogo de patrones con su costo"),
+    "44": ("estilos arquitectónicos y sus fuerzas de calidad", "decisión arquitectónica defendida con ADR"),
+    "45": ("plataformas de datos, calidad, contratos y gobierno", "plataforma de datos mínima gobernada"),
+    "46": ("machine learning en producción, MLOps y gobierno de IA", "sistema de ML operable con evidencia"),
+    "47": ("sistemas críticos, tiempo real y normas de seguridad", "paquete de aseguramiento de un controlador"),
+    "48": ("runtimes, aislamiento, aceleradores y confianza", "plataforma de ejecución aislada con evidencia"),
 }
 
 
@@ -530,7 +547,47 @@ PROFILES = {
         "Práctica de equipo verificable|introducir una práctica que conecte ejemplos de negocio pruebas contratos y modelo de dominio en un flujo real de entrega|acuerdo de equipo mapa de contextos ejemplos ejecutables pruebas de contrato SPEC trazable y métricas de feedback",
         "SWEBOK|TDDFOWLER|BDDNORTH|GHERKIN|SPECEX|DDDREF|PACT", "qa-test-engineer.md|software-architect.md|requirements-engineer.md",
     ),
+    "mlops-ml-platform-engineer.md": profile(
+        "MLOps y plataforma de ML", "semi-senior → principal", "23:278,279;27:330,332;34:410,413,415;35:421,424,425;42:510,513,514",
+        "Datos|Entrenamiento|Evaluación|Despliegue|Monitoreo",
+        "Reentrenar o recalibrar|reentrenar sólo cuando la deriva medida degrada una métrica de negocio y el costo está justificado|comparación del modelo vigente y el candidato sobre datos recientes con intervalo de confianza;Servir en línea o por lotes|decidir según la latencia exigida la frescura de las características y el costo de capacidad|prueba de carga con tráfico real o reproducido y costo por mil predicciones;Plataforma propia o gestionada|evaluar portabilidad costo de operación y dependencia del registro y del servicio|ADR con escenario de salida y costo comparado",
+        "Deriva de datos y de predicción|distancia entre la distribución de entrenamiento y la de producción por característica|alertar por cualquier cambio estadístico sin vincularlo a una métrica de negocio;Latencia de predicción p95|cola de la inferencia por modelo y tamaño de lote|reportar la media o medir sólo el modelo sin el preprocesamiento;Tiempo de recuperación de un modelo|minutos desde la detección hasta volver a un modelo previo conocido|medir el reentrenamiento y olvidar el rollback",
+        "Modelo que se degrada en silencio|las decisiones apoyadas en un modelo empeoran durante semanas sin una sola alerta técnica|comparar las distribuciones de características de entrenamiento y producción revisar cambios de esquema aguas arriba y reproducir la predicción con el mismo dato y la misma versión|volver al modelo anterior con el registro de versiones corregir el contrato de la característica y añadir un monitor de deriva con umbral acordado",
+        "Sistema de ML operable|entregar un modelo con datos versionados entrenamiento reproducible evaluación servicio despliegue gradual y monitoreo|registro de experimentos tarjeta de modelo evaluación por segmentos pipeline de entrenamiento servicio con canary monitor de deriva y runbook de rollback",
+        "SCULLEY|MLFLOW|NISTAI|ISO42001|OTEL|SRE", "ai-systems-engineer.md|data-engineer.md|platform-engineer.md",
+    ),
+    "ai-governance-responsible-ai-engineer.md": profile(
+        "Gobierno de IA", "semi-senior → principal", "00:4,6;32:391,394;38:465,466;39:477,478;42:513,514",
+        "Contexto|Riesgo|Control|Evidencia|Auditoría",
+        "Cuánta supervisión humana|graduar la intervención humana según el daño posible y la reversibilidad de la decisión|registro de decisiones revisadas con tasa de anulación y tiempo de revisión;Qué definición de equidad medir|elegir y justificar la métrica según el daño y declarar las que se descartan|evaluación por segmentos con intervalos y decisión documentada;Documentar o restringir un uso|decidir qué uso queda fuera del alcance y declararlo en la ficha del sistema|tarjeta de modelo y registro de usos excluidos con responsable",
+        "Cobertura del inventario de IA|proporción de sistemas con propietario clasificación de riesgo y evidencia vigente|declarar completo un inventario hecho una sola vez;Brecha de equidad por segmento|diferencia de tasas de error entre grupos con su incertidumbre|promediar el error y ocultar el segmento peor tratado;Tiempo de respuesta a un incidente de IA|desde la detección hasta la contención y la notificación debida|cerrar el ticket sin corregir el control que falló",
+        "Sistema de IA usado fuera de su propósito|un modelo de priorización se reutiliza para decidir sobre personas sin una nueva evaluación de riesgo|reconstruir inventario clasificación de riesgo ficha del modelo y registros de decisión humana para ese uso|suspender el uso no evaluado reclasificar el riesgo reevaluar con datos del nuevo contexto y registrar el cambio de propósito",
+        "Dossier de gobierno de un sistema de IA|clasificar un sistema por riesgo y reunir la evidencia que el marco aplicable exige|inventario clasificación de riesgo tarjeta de modelo evaluación de sesgos plan de supervisión humana registro de incidentes y mapa de controles a ISO 42001 y NIST AI RMF",
+        "NISTAI|ISO42001|EUAIACT|OWASPLLM|MODELCARDS|ACMETHICS", "compliance-engineer.md|ai-systems-engineer.md|security-engineer.md",
+    ),
+    "runtime-systems-engineer.md": profile(
+        "Runtimes y plataformas", "semi-senior → principal", "01:19,20,21,22;29:350,351,352;31:376,377,380;32:389,390",
+        "Modelo de ejecución|Aislamiento|Rendimiento|Observación|Recuperación",
+        "Contenedor o microVM|elegir el límite de aislamiento según el modelo de amenaza de la carga y el costo de arranque|prueba de escape controlado y medición de arranque en frío y densidad;Código nativo o módulo aislado|usar un módulo WebAssembly cuando la carga no es confiable y el costo de la frontera es aceptable|benchmark del cruce de frontera y política de capacidades concedidas;CPU o acelerador|trasladar a GPU sólo cuando el trabajo es paralelo y el movimiento de datos no domina|perfil de utilización y costo por unidad de trabajo",
+        "Tiempo de arranque en frío|latencia desde la petición hasta la primera instrucción útil del runtime|medir sólo con la caché caliente;Densidad por host|cargas aisladas por unidad de memoria con el aislamiento exigido|ganar densidad relajando el aislamiento sin declararlo;Utilización del acelerador|fracción del tiempo con trabajo útil frente a esperas de datos|celebrar alta utilización con trabajo redundante",
+        "Complemento no confiable que degrada el host|una extensión de terceros agota memoria y descriptores y afecta a otros inquilinos|reproducir con límites de recursos perfilar llamadas al sistema y revisar qué capacidades tenía la extensión|aislar la extensión en un sandbox con cuotas y capacidades mínimas y añadir una prueba de agotamiento",
+        "Plataforma de ejecución aislada|ejecutar una carga no confiable con aislamiento cuotas y observabilidad medidas|comparación de tres runtimes con modelo de amenaza benchmark de arranque y densidad política de capacidades y runbook de contención",
+        "POSIX|WASM|EBPF|FIRECRACKER|CONFCOMP|SRE", "systems-programmer.md|security-engineer.md|performance-engineer.md",
+    ),
 }
+
+# Vecinos añadidos por ADR-006: las rutas existentes enlazan a los tres roles nuevos donde hay
+# responsabilidades compartidas.
+EXTRA_ADJACENT = {
+    "data-engineer.md": ["mlops-ml-platform-engineer.md"],
+    "ai-systems-engineer.md": ["mlops-ml-platform-engineer.md", "ai-governance-responsible-ai-engineer.md"],
+    "compliance-engineer.md": ["ai-governance-responsible-ai-engineer.md"],
+    "systems-programmer.md": ["runtime-systems-engineer.md"],
+    "security-engineer.md": ["runtime-systems-engineer.md"],
+    "platform-engineer.md": ["mlops-ml-platform-engineer.md"],
+}
+for _name, _extra in EXTRA_ADJACENT.items():
+    PROFILES[_name]["adjacent"] = [*PROFILES[_name]["adjacent"], *_extra]
 
 
 # Estado editorial de cada parte. Debe coincidir con STATUS.md (generado por build_phase2.py).
@@ -546,7 +603,7 @@ def _part_status() -> dict[str, str]:
 
 PART_STATUS = _part_status()
 
-# Clases desarrolladas de apoyo (Partes 00-44, SE-001..SE-540) que sostienen cada ruta además de su núcleo.
+# Clases desarrolladas de apoyo (partes desarrolladas, hoy SE-001..SE-540) que sostienen cada ruta además de su núcleo.
 # Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
 DEVELOPED = {
     "software-engineer.md": [65, 100, 105, 196, 208, 295],
@@ -591,9 +648,12 @@ DEVELOPED = {
     "ai-systems-engineer.md": [6, 214, 245, 246, 249, 279],
     "agentic-harness-engineer.md": [27, 31, 104, 105, 214],
     "domain-methodology-engineer.md": [52, 57, 60, 146, 153, 208, 305],
+    "mlops-ml-platform-engineer.md": [313, 318, 321, 351, 356, 400, 404, 457, 465, 466],
+    "ai-governance-responsible-ai-engineer.md": [8, 117, 129, 153, 226, 279, 283, 322, 392, 393, 400],
+    "runtime-systems-engineer.md": [13, 17, 18, 99, 338, 339, 353, 354, 397, 398],
 }
 
-# Partes 40-44 (ADR-004): título y rango fijos. Una parte deja de estar planificada cuando existe su
+# Partes 40-48 (ADR-004 y ADR-006): título y rango fijos. Una parte deja de estar planificada cuando existe su
 # contenido en content/part-NN/; el estado real lo decide scripts/program_state.py, no este diccionario.
 PLANNED_PARTS = {
     "40": ("Metodologías de desarrollo: de TDD a ODD", "SE-481", "SE-492"),
@@ -601,6 +661,10 @@ PLANNED_PARTS = {
     "42": ("Patrones agénticos y sistemas con LLM", "SE-505", "SE-516"),
     "43": ("Patrones de diseño, empresariales y de resiliencia", "SE-517", "SE-528"),
     "44": ("Estilos arquitectónicos", "SE-529", "SE-540"),
+    "45": ("Ingeniería de datos y plataformas de datos", "SE-541", "SE-552"),
+    "46": ("Machine learning en producción y MLOps", "SE-553", "SE-564"),
+    "47": ("Sistemas críticos, tiempo real y normas de seguridad", "SE-565", "SE-576"),
+    "48": ("Runtimes y plataformas modernas", "SE-577", "SE-588"),
 }
 
 # Qué cambia para cada rol cuando existan las partes planificadas.
@@ -770,3 +834,110 @@ PLANNED_BY_ROLE = {
         "43": "Conecta el modelo de dominio con patrones de persistencia (Repository, Unit of Work, Active Record) y sus antipatrones.",
     },
 }
+
+
+# Qué cambia para cada rol con las Partes 45-48 (ADR-006). Se fusiona con PLANNED_BY_ROLE; una fila
+# deja de mostrarse como pendiente cuando la parte correspondiente tiene contenido.
+_ROWS_45_48 = {
+    "data-engineer.md": {
+        "45": "Es la parte central del rol: ingesta batch y streaming, modelado analítico, transformación idempotente con backfills, calidad, contratos, linaje y gobierno de plataformas de datos.",
+        "46": "Trata los datos de entrenamiento, las etiquetas y los feature stores como productos de datos con contrato, linaje y reproducibilidad.",
+    },
+    "safety-critical-software-engineer.md": {
+        "47": "Es la parte central del rol: HARA, FMEA, FTA y STPA, IEC 61508, ISO 26262, DO-178C, IEC 62304, casos de seguridad, MC/DC y verificación formal.",
+        "48": "Examina aislamiento, hardware seguro y runtimes aislados como medios para sostener independencia entre funciones de distinto nivel de integridad.",
+    },
+    "embedded-iot-engineer.md": {
+        "47": "Cubre RTOS, planificación de tiempo real, codificación segura (MISRA, CERT) y las normas que gobiernan el firmware crítico.",
+        "48": "Trata WebAssembly en el borde, aceleradores y hardware seguro (TEE y atestación) como opciones de cómputo y de confianza en dispositivos.",
+    },
+    "green-software-engineer.md": {
+        "45": "Incorpora el costo energético y de almacenamiento de las plataformas de datos y la retención como decisión de carbono con unidad funcional comparable.",
+        "46": "Mide la energía de entrenamiento, ajuste fino e inferencia en aceleradores con la unidad funcional adecuada.",
+        "48": "Relaciona la eficiencia de aceleradores, WebAssembly y sandboxes con el costo energético por unidad de trabajo.",
+    },
+    "open-source-innersource-engineer.md": {
+        "45": "Aplica contratos de datos y catálogos como mecanismo de InnerSource entre equipos productores y consumidores de datos.",
+        "48": "Trata la ejecución aislada de complementos y contribuciones de terceros como condición para aceptar riesgo acotado.",
+    },
+    "security-engineer.md": {
+        "46": "Cubre la seguridad y la robustez de sistemas de ML: envenenamiento de datos, extracción de modelos, ejemplos adversarios y cadena de suministro de modelos.",
+        "47": "Aporta la codificación segura (MISRA, CERT) y la relación entre seguridad informática y seguridad funcional.",
+        "48": "Es parte central para la superficie moderna: sandboxes y microVM, WebAssembly, eBPF, hardware seguro con atestación, criptografía poscuántica y confianza cero.",
+    },
+    "ai-systems-engineer.md": {
+        "45": "Aporta los datos de recuperación y la calidad de datos de los que dependen RAG y la evaluación.",
+        "46": "Es la parte central del paso a producción: datos de entrenamiento, evaluación, servicio, despliegue seguro, deriva y gobierno de IA.",
+        "48": "Aporta el servicio en GPU y aceleradores y su costo, base de la inferencia que opera este rol.",
+    },
+    "distributed-systems-engineer.md": {
+        "45": "Trata la ingesta streaming, el orden, el tiempo de evento y los reprocesos como sistemas distribuidos con garantías declaradas.",
+        "47": "Compara los modelos de tiempo real y la verificación formal (TLA+, model checking) con el razonamiento sobre protocolos distribuidos.",
+        "48": "Añade eBPF, microVM y confianza cero como mecanismos de observación, aislamiento y control entre nodos.",
+    },
+    "compliance-engineer.md": {
+        "45": "Convierte gobierno, privacidad y retención de datos en controles con evidencia verificable.",
+        "46": "Conecta la regulación de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF) con los controles y la evidencia de un sistema de ML.",
+        "47": "Relaciona las normas de seguridad funcional con casos de seguridad y trazabilidad de evidencia.",
+    },
+    "finops-engineer.md": {
+        "45": "Incorpora el costo de almacenamiento, cómputo y consulta de las plataformas de datos como unidad económica.",
+        "46": "Trata el costo de entrenamiento, ajuste fino e inferencia en aceleradores como decisión de capacidad.",
+        "48": "Compara costo y rendimiento en GPU y aceleradores con la unidad de trabajo útil.",
+    },
+    "platform-engineer.md": {
+        "45": "Ofrece la plataforma de datos como capacidad de autoservicio con contrato y gobierno.",
+        "46": "Ofrece la plataforma de ML como capacidad común: registro, entrenamiento reproducible, servicio y monitoreo.",
+        "48": "Sitúa sandboxes, microVM y runtimes aislados dentro del contrato de la plataforma.",
+    },
+    "site-reliability-engineer.md": {
+        "46": "Añade el monitoreo de deriva y el reentrenamiento como parte de la operación de un servicio con modelos.",
+        "48": "Incorpora eBPF como instrumento de observación del kernel y los límites de aislamiento como parte de la confiabilidad.",
+    },
+    "observability-engineer.md": {
+        "45": "Extiende la observabilidad a la calidad, la frescura y el linaje de los datos.",
+        "48": "Describe eBPF como fuente de telemetría sin modificar la aplicación y sus costos de operación.",
+    },
+    "qa-test-engineer.md": {
+        "45": "Define pruebas de calidad de datos y de pipelines idempotentes con oráculos explícitos.",
+        "46": "Trata la evaluación de modelos, sus sesgos y la validación antes del despliegue como disciplina de prueba.",
+        "47": "Cubre verificación y cobertura exigidas por las normas (MC/DC, HIL, SIL) y su relación con las pruebas habituales.",
+    },
+    "performance-engineer.md": {
+        "46": "Mide latencia, lotes y GPU en el servicio de modelos con percentiles y capacidad.",
+        "48": "Trata el rendimiento y el costo en aceleradores con un modelo de ejecución explícito.",
+    },
+    "database-reliability-engineer.md": {
+        "45": "Relaciona warehouse, lake y lakehouse con la durabilidad, la recuperación y el costo de las cargas analíticas.",
+    },
+    "systems-programmer.md": {
+        "47": "Aporta RTOS, planificación de tiempo real y codificación segura con evidencia verificable.",
+        "48": "Es parte central de su frontera con el kernel: WebAssembly, eBPF, aceleradores, microVM y sandboxes.",
+    },
+    "software-architect.md": {
+        "45": "Ubica la plataforma de datos dentro de la arquitectura y sus contratos de propiedad.",
+        "48": "Sitúa runtimes aislados y confianza cero como decisiones de arquitectura con su costo.",
+    },
+    "cto.md": {
+        "46": "Aporta criterio de portafolio y de gobierno para decidir qué capacidades de ML construir, comprar o evitar.",
+        "48": "Sitúa criptografía poscuántica, confianza cero y runtimes aislados en la estrategia de riesgo tecnológico.",
+    },
+    "mlops-ml-platform-engineer.md": {
+        "45": "Aporta la plataforma de datos de la que dependen las características y las etiquetas, con contratos y linaje.",
+        "46": "Es la parte central del rol: ciclo de vida de ML, entrenamiento reproducible, evaluación, servicio, despliegue seguro, deriva y gobierno.",
+        "48": "Aporta el modelo de ejecución en GPU y aceleradores y el costo de servir modelos.",
+    },
+    "ai-governance-responsible-ai-engineer.md": {
+        "45": "Aporta gobierno, privacidad, retención y linaje de datos como base de cualquier control sobre un sistema de IA.",
+        "46": "Es la parte central del rol: evaluación, sesgos, seguridad y robustez, gobierno de IA y regulación (EU AI Act, ISO/IEC 42001, NIST AI RMF).",
+        "47": "Aporta el razonamiento de riesgo, los casos de seguridad y la trazabilidad como modelo para evidencia de sistemas de IA de alto impacto.",
+    },
+    "runtime-systems-engineer.md": {
+        "47": "Aporta RTOS, planificación de tiempo real y verificación como marco para runtimes con garantías temporales.",
+        "48": "Es la parte central del rol: WebAssembly y WASI, eBPF, aceleradores, microVM, sandboxes, hardware seguro, criptografía poscuántica y confianza cero.",
+    },
+}
+for _role, _rows in _ROWS_45_48.items():
+    PLANNED_BY_ROLE.setdefault(_role, {}).update(_rows)
+for _role in PROFILES:
+    PLANNED_BY_ROLE.setdefault(_role, {})

@@ -17,16 +17,17 @@ conteos actuales. La fuente editable está en `scripts/build_program_blueprint.p
 | Elemento | Cantidad | Evidencia disponible |
 | --- | ---: | --- |
 | Etapas | 8 | especificadas |
-| Partes | 45 planificadas | las desarrolladas se calculan desde `content/part-NN/` (ver `STATUS.md`) |
-| Clases | 540 planificadas | al 2026-11-16, 540 desarrolladas (`SE-001`–`SE-540`), a falta de revisión editorial humana independiente; 0 planificadas sin publicar |
+| Partes | 49 planificadas | las desarrolladas se calculan desde `content/part-NN/` (ver `STATUS.md`) |
+| Clases | 588 planificadas | al 2026-11-17, 540 desarrolladas (`SE-001`–`SE-540`), a falta de revisión editorial humana independiente; 48 planificadas sin publicar (Partes 45–48, `SE-541`–`SE-588`) |
 | Clases por parte | 12 | 10 núcleo + taller + proyecto |
-| Horas estimadas | 2.430 planificadas | 54 por parte; sujetas a validación al construir contenido |
+| Horas estimadas | 2.646 planificadas | 54 por parte; sujetas a validación al construir contenido |
 
 Las cifras no significan que las clases estén escritas. Las afirmaciones sobre una
 clase —contenido desarrollado, práctica ejecutada, pruebas realizadas, integración u
 operación— solo se publican cuando existe la evidencia correspondiente.
 
-El alcance vigente es de 540 clases ([`ADR-004`](adr/ADR-004-expand-to-540-class-scope.md)); 480
+El alcance vigente es de 588 clases en 49 partes ([`ADR-004`](adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance a 540 y
+[`ADR-006`](adr/ADR-006-extend-program-parts-45-48-and-roles.md) añadió las Partes 45–48); 480
 fue la línea base original ([`ADR-003`](adr/ADR-003-reconcile-480-baseline-with-progressive-expansion.md)).
 No se agregan clases para cumplir una cuota: la expansión solo procede cuando una brecha
 demuestra una competencia, evidencia y secuencia propias.
@@ -135,16 +136,16 @@ aislados.
 Además de partes, clases y roles, el programa mantiene una superficie propia de **casos de estudio**
 (`casos/`): dos páginas especiales (plataformas exitosas y plataformas y sistemas que fallaron) y un archivo por
 caso, con esquema único y figuras propias (`scripts/figures_case_<slug>.py`). No son clases ni roles, no
-crean partes y no alteran la escala de 540 clases en 45 partes. Su contrato está en
+crean partes y no alteran la escala de clases y partes. Su contrato está en
 [`casos/GUIDE.md`](../casos/GUIDE.md); `scripts/build_cases.py` genera las páginas y `scripts/validate_cases.py`
 las valida en la CI.
 
 ## Criterio de término de la expansión
 
-La expansión no termina al crear carpetas. Requiere 540 clases completas, fuentes
+La expansión no termina al crear carpetas. Requiere las 588 clases completas, fuentes
 resueltas, ejercicios, entornos documentados, proyectos integrados, portal navegable,
 validación automática, accesibilidad y una declaración verificable de lo ejecutado.
 
 Al completar esa base —o cuando construirla revele una brecha indivisible— se repite
 la [auditoría de cobertura](PROGRAM-COVERAGE-AUDIT-2026-10-06.md). Solo entonces se
-decide si el siguiente incremento necesita IDs posteriores a `SE-540`.
+decide si el siguiente incremento necesita IDs posteriores a `SE-588`.

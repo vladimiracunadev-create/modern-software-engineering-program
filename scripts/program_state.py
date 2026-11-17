@@ -2,13 +2,14 @@
 
 Una parte está **desarrollada** si y solo si existen `content/part-NN/README.md` y los
 doce archivos `content/part-NN/SE-NNN.md` de su rango. Nada más decide el estado: ni una
-constante editada a mano ni un contador. Por eso añadir una parte nueva (40–44) solo
+constante editada a mano ni un contador. Por eso añadir una parte nueva (40–48) solo
 exige añadir sus archivos de contenido; los contadores, los índices, el portal y los
 validadores se recalculan a partir de este módulo.
 
-El alcance planificado (45 partes, 540 clases) es fijo y está decidido en ADR-004. Los
-títulos de las 60 posiciones nuevas viven en `build_program_blueprint.py` para que cada
-parte nueva solo aporte contenido, no infraestructura.
+El alcance planificado (49 partes, 588 clases) está decidido en ADR-004 (Partes 00–44,
+`SE-001`–`SE-540`) y ADR-006 (Partes 45–48, `SE-541`–`SE-588`). Los títulos de las
+posiciones nuevas viven en `build_program_blueprint.py` para que cada parte nueva solo
+aporte contenido, no infraestructura.
 """
 
 from __future__ import annotations
@@ -18,10 +19,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content"
 
-PLANNED_PART_COUNT = 45
+PLANNED_PART_COUNT = 49
 CLASSES_PER_PART = 12
-PLANNED_CLASS_COUNT = PLANNED_PART_COUNT * CLASSES_PER_PART  # 540
-LAST_PART_NUMBER = PLANNED_PART_COUNT - 1  # 44
+PLANNED_CLASS_COUNT = PLANNED_PART_COUNT * CLASSES_PER_PART  # 588
+LAST_PART_NUMBER = PLANNED_PART_COUNT - 1  # 48
 HOURS_PER_PART = 10 * 4 + 6 + 8  # diez clases, un taller y un proyecto
 
 
@@ -157,4 +158,4 @@ def roles_extension_heading() -> str:
     planned = planned_parts()
     if planned:
         return f"## 🔭 Ampliación planificada: {parts_label(planned)} (sin clases publicadas)"
-    return "## ✅ Ampliación completada: Partes 40–44"
+    return "## ✅ Ampliación completada: Partes 40–48"

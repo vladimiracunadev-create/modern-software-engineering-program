@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-17 — Infraestructura para las Partes 45–48 y tres roles nuevos (ADR-006)
+
+- el alcance planificado pasa de 540 clases en 45 partes a 588 clases en 49 partes sin renumerar nada: Parte 45 Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`), 46 Machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) y 48 Runtimes y plataformas modernas (`SE-577`–`SE-588`); nacen planificadas, sin clases publicadas, y las 540 clases desarrolladas no cambian;
+- el blueprint fija los 48 títulos exactos; `program_state.py`, los generadores, los validadores y las pruebas leen el estado real (540 desarrolladas, 48 planificadas) y dejan de asumir 45 partes y 540 clases, de modo que «Fin del programa» pasa a ser la última clase desarrollada;
+- tres guías de rol nuevas con el mismo esquema, longitud, identidad visual y dos gráficos que las demás (MLOps / ML Platform Engineer, AI Governance & Responsible AI Engineer, Runtime & Systems Engineer) y filas de ampliación en 19 guías existentes (entre ellas Data Engineer, Safety-Critical, Embedded & IoT, Green Software, InnerSource, Security, AI Systems y Distributed Systems);
+- ADR-006, plan maestro con las casillas `SE-541`–`SE-588`, ROADMAP, README, STATUS, portal, catálogo, About y `docs/ADDING-A-PART.md` con los rangos y títulos finales;
+- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-17 — Casos de éxito: esquema del negocio y costos operativos (Amazon, Spotify, Airbnb y Stripe)
 
 - esquema del negocio con figura en los cuatro casos; costos operativos con cifras del 10-K de Amazon y de Airbnb y del formulario 6-K de Spotify, con márgenes por segmento; Stripe, empresa privada, declara que costos y competidores no son públicos;

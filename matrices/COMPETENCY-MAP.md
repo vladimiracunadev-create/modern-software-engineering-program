@@ -1,6 +1,6 @@
 # Mapa de competencias
 
-La referencia canónica usa partes `P00`–`P44` y clases `SE-001`–`SE-540`.
+La referencia canónica usa partes `P00`–`P48` y clases `SE-001`–`SE-588` (las Partes 45–48 están planificadas).
 
 | Competencia | Aplica | Diagnostica | Diseña | Opera/Lidera | Propietario profundo |
 | --- | --- | --- | --- | --- | --- |

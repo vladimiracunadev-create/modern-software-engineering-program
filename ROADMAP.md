@@ -5,23 +5,24 @@ incorporarse. No es un prompt ni un conjunto de instrucciones para agentes. Las 
 de contribución viven en `AGENTS.md`, `CONTRIBUTING.md` y
 `docs/PEDAGOGICAL-STANDARD.md`; aquí se describe el producto educativo.
 
-El programa vigente tiene 540 clases (ADR-004). El número
+El programa vigente planifica 588 clases (ADR-004 y ADR-006) en 49 partes; 540 están desarrolladas. El número
 no es una cuota: cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
 El mandato completo, las brechas transversales y la acción específica pendiente para
-cada uno de los 540 IDs se conservan en el
+cada uno de los IDs `SE-001`–`SE-540` se conservan en el
 [`plan maestro de auditoría y mejora curricular`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md).
 Ese plan es el backlog operativo recuperable; este roadmap continúa siendo la fuente
 de verdad sobre el producto educativo y su secuencia.
 
 ## Estado verificable de partida
 
-- La arquitectura curricular planifica 8 etapas, 45 partes y 540 posiciones de clase,
-  de `SE-001` a `SE-540`, sin renumerar el material existente. Qué partes están
+- La arquitectura curricular planifica 8 etapas, 49 partes y 588 posiciones de clase,
+  de `SE-001` a `SE-588`, sin renumerar el material existente. Qué partes están
   desarrolladas lo decide el contenido real (`content/part-NN/`), no este documento: el
   estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
-  (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)).
+  (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)
+  y [`docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)).
 - Al 2026-11-16 las Partes 00–44 contienen 540 clases desarrolladas y profundizadas con
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
   navegación (`SE-001`–`SE-540`), con laboratorios ejecutables en las Partes 01–05 y
@@ -31,7 +32,13 @@ de verdad sobre el producto educativo y su secuencia.
   [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md):
   las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic
   engineering, patrones agénticos, patrones de diseño y estilos arquitectónicos) ya tienen
-  su contenido completo. Cualquier ampliación posterior exige un ADR nuevo.
+  su contenido completo.
+- [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) amplió el alcance a 588 clases con
+  cuatro partes nuevas al final, sin renumerar nada: 45 ingeniería de datos y plataformas de datos
+  (`SE-541`–`SE-552`), 46 machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 sistemas
+  críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) y 48 runtimes y plataformas modernas
+  (`SE-577`–`SE-588`). Están **planificadas**: no tienen clases publicadas hasta que exista su contenido
+  completo. Cualquier ampliación posterior exige un ADR nuevo.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
 - Los conteos describen archivos y alcance; la calidad se demuestra revisando contenido,
@@ -106,6 +113,10 @@ se demuestra aprendizaje.
 | 42 · Patrones agénticos y sistemas con LLM (`SE-505`–`SE-516`) | Workflows frente a agentes, encadenado, enrutamiento, paralelización, orquestador-trabajadores, evaluador-optimizador, ReAct, memoria, RAG, MCP y A2A, ejecución durable, evals, coste y seguridad. | Sistema con LLM evaluado y operable, con el patrón elegido justificado frente a un flujo fijo y una degradación probada. |
 | 43 · Patrones de diseño, empresariales y de resiliencia (`SE-517`–`SE-528`) | Criterios de catálogo, GoF en tres clases, GRASP, Repository, Unit of Work y Active Record, Enterprise Integration Patterns, patrones de resiliencia y antipatrones. | Refactorización con patrones medida en coste y catálogo de patrones de un sistema real con sus antipatrones. |
 | 44 · Estilos arquitectónicos (`SE-529`–`SE-540`) | Estilos como respuestas a fuerzas, microkernel, pipes and filters, microservicios y sus costes, BFF, gateway y mesh, multi-tenancy, data mesh, arquitectura celular, 12-factor y migración entre estilos. | Decisión arquitectónica defendida con escenarios de calidad y ADR, con el estilo descartado y su coste explícito. |
+| 45 · Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`) | Del dato operacional al analítico, ingesta batch y streaming, modelado analítico, transformación y orquestación idempotente con backfills, calidad y observabilidad de datos, contratos y evolución de esquemas, linaje, catálogo y metadatos, warehouse, lake y lakehouse con formatos columnares, gobierno, privacidad y retención, y costo y operación de plataformas de datos. | Plataforma de datos mínima gobernada con contratos, linaje y un backfill reconciliado; un pipeline defectuoso se repara con evidencia. |
+| 46 · Machine learning en producción y MLOps (`SE-553`–`SE-564`) | Ciclo de vida de ML y por qué falla en producción, datos de entrenamiento, etiquetas y feature stores, experimentos y entrenamiento reproducible, evaluación, sesgos y validación, ajuste fino y su costo, servir modelos con latencia, lotes y GPU, despliegue seguro (shadow, canary, rollback), deriva y reentrenamiento, seguridad y robustez de ML, y gobierno de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF). | Sistema de ML operable con evidencia: entrenamiento reproducible, evaluación por segmentos, despliegue gradual, monitor de deriva y reversión ejercitada. |
+| 47 · Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) | Riesgo y seguridad funcional (HARA, FMEA, FTA, STPA), IEC 61508, ISO 26262, DO-178C, DO-254 y ARP4754, IEC 62304, casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA, CERT), verificación formal y model checking (TLA+, SPARK, Alloy), y verificación con MC/DC, HIL y SIL. | Paquete de aseguramiento de un controlador con análisis de peligros, trazabilidad, verificación y caso de seguridad; análisis de un fallo real frente a las normas. |
+| 48 · Runtimes y plataformas modernas (`SE-577`–`SE-588`) | WebAssembly y WASI, WebAssembly en servidor y borde con el component model, eBPF, modelo de ejecución en GPU y aceleradores, rendimiento y costo en aceleradores, contenedores, microVM y sandboxes, hardware seguro (TEE y atestación), computación cuántica para ingenieros de software, criptografía poscuántica y migración, y confianza cero en la práctica. | Plataforma de ejecución aislada para una carga no confiable, con modelo de amenaza, capacidades mínimas, medición de arranque y densidad, y runbook de contención. |
 
 ## Ejes transversales obligatorios
 
@@ -160,7 +171,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 
 ## Fases de implementación
 
-1. **Consolidar la base:** preservar `SE-001`–`SE-540`, eliminar metadatos editoriales
+1. **Consolidar la base:** preservar `SE-001`–`SE-588`, eliminar metadatos editoriales
    que no enseñan, sincronizar índices y mantener validadores estructurales.
 2. **Profundizar por partes:** trabajar una parte completa, revisar cada tema anunciado,
    ejecutar sus prácticas y publicar contenido íntegro; un commit por parte.
@@ -170,7 +181,7 @@ fuentes primarias; no se completan vacíos con detalles inventados.
 4. **Cerrar brechas verificadas:** contrastar con SWEBOK, ISO/IEC/IEEE 12207, 15288,
    29148, ISO/IEC 25010/SQuaRE, ACM/IEEE CS2023, OWASP, NIST, CNCF, OpenSSF, SLSA,
    DORA, Google SRE, WCAG/W3C y documentación oficial vigente.
-5. **Expandir solo con justificación:** añadir clases después de `SE-540` únicamente si
+5. **Expandir solo con justificación:** añadir clases después de `SE-588` únicamente si
    una auditoría demuestra que una competencia no cabe con profundidad y sin duplicar
    repositorios especializados. Toda adición actualiza navegación, rutas, evaluación,
    bibliografía y métricas en el mismo cambio.
@@ -193,17 +204,17 @@ actividad reproducible, fuentes próximas, portal regenerado y gates verdes.
 | 8 | Partes 30–37 | testing, calidad, seguridad, supply chain, plataforma, SRE, legacy y liderazgo | Partes 30–37 desarrolladas (`SE-361`–`SE-456`), a falta de revisión editorial humana independiente |
 | 9 | Partes 38–39 | IA asistida, SPEC y agentes controlados | Partes 38–39 desarrolladas (`SE-457`–`SE-480`), a falta de revisión editorial humana independiente |
 | 10 | Integración transversal | glosario relacional, bibliografía temática, rutas, cuatro proyectos integradores y casos HECHOS/INTERPRETACIÓN/LECCIONES | actualizar junto con cada parte; no dejar una reconciliación final masiva |
-| 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-540` |
+| 11 | Auditoría de expansión | brechas residuales con competencia, artefacto y secuencia propias | no habilitada todavía: primero intentar integración en `SE-001`–`SE-588` |
 
 Las brechas candidatas siguen siendo métodos formales aplicados, GreenOps medible,
 InnerSource/OSPO, DevEx/SPACE, API en tiempo real, estimación probabilística,
 compliance engineering, rutas Staff/Principal/Manager y retiro seguro. Cada candidata
 debe documentar por qué no cabe con profundidad en una clase existente antes de recibir
-un ID posterior a `SE-540`.
+un ID posterior a `SE-588`.
 
 ## Casos de estudio
 
-Superficie propia, fuera de las 540 clases, las 45 partes y los roles: ocho plataformas exitosas y ocho
+Superficie propia, fuera de las clases, las partes y los roles: ocho plataformas exitosas y ocho
 fallos, leídos después de la teoría para contrastarla con la realidad. Se definen en
 [`casos/GUIDE.md`](casos/GUIDE.md) (esquema único, reglas editoriales y contrato de figuras), se indexan en
 [éxito](casos/exito/README.md) y [fallo](casos/fallo/README.md) y se publican también en el portal. No
@@ -211,7 +222,7 @@ cambian los contadores ni requieren un ADR de ampliación de clases.
 
 ## Criterio de término del programa
 
-El programa no está terminado porque existan 540 clases o cualquier otra cifra. Está
+El programa no está terminado porque existan 588 clases o cualquier otra cifra. Está
 terminado cuando cada tema prometido se desarrolla, cada práctica relevante se puede
 reproducir, las fuentes respaldan afirmaciones, los proyectos integran el ciclo de vida,
 las rutas son transitables, el portal publica el contenido completo y las validaciones

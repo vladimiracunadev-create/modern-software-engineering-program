@@ -1,9 +1,9 @@
 # Índice completo del currículo
 
-540 clases desarrolladas · 45 partes desarrolladas (`SE-001`–`SE-540`) · alcance completo: 540 clases en 45 partes.
+540 clases desarrolladas · 45 partes desarrolladas (`SE-001`–`SE-540`) · 48 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
 
 > [!WARNING]
-> Las Partes 00–44 (`SE-001`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. No quedan partes planificadas sin publicar.
+> Las Partes 00–44 (`SE-001`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
@@ -57,6 +57,15 @@
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
+
+## Partes planificadas sin publicar
+
+| Parte | Título | Clases | Estado |
+| --- | --- | --- | --- |
+| 45 | Ingeniería de datos y plataformas de datos | SE-541–SE-552 | planificada, sin clases publicadas |
+| 46 | Machine learning en producción y MLOps | SE-553–SE-564 | planificada, sin clases publicadas |
+| 47 | Sistemas críticos, tiempo real y normas de seguridad | SE-565–SE-576 | planificada, sin clases publicadas |
+| 48 | Runtimes y plataformas modernas | SE-577–SE-588 | planificada, sin clases publicadas |
 
 ---
 

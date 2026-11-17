@@ -556,6 +556,18 @@ def _x_infra() -> Fig:
 def _x_fallos() -> Fig:
     return _cards('Qué pasa cuando cae cada componente en lo que Stripe documenta', 'Diagrama de la tolerancia a fallos documentada de Stripe: una respuesta perdida se cubre con claves de idempotencia; un cliente que se excede se frena con limitadores; una sobrecarga se maneja con descarte de carga; un receptor de webhooks caído recibe reintentos durante tres días; un fragmento se mueve con compuerta por versión y réplica bidireccional; el limitador que falla lo hace abierto; no se documentan pruebas de caos ni recuperación ante desastres.', [('Se pierde una respuesta', 'teal', ['Documentado: clave de idempotencia y resultado guardado (F4, F10).']), ('Un cliente se excede o hay sobrecarga', 'gold', ['Documentado: cuatro limitadores, con descarte de carga que protege lo crítico y que falla abierto si cae Redis; interruptores para apagarlos y lanzamiento en modo oscuro (F5).']), ('Cae el receptor de eventos', 'coral', ['Documentado: reintentos hasta tres días con espera exponencial en modo real (F11).']), ('Un fragmento debe moverse o falla', 'navy', ['Documentado: replicación bidireccional para volver atrás, compuerta por versión y traspaso en menos de dos segundos con reintentos (F8).']), ('Una migración de datos se desvía', 'plain', ['Documentado: escritura doble, experimentos de comparación en producción y cambios de pocos cientos de líneas (F7).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos, recuperación ante desastres y copias de seguridad más allá del archivo de cambios, y SLO internos.'])], 'Lectura: cada recuadro es un fallo y su defensa. Dónde deja de valer: la disponibilidad de 99,999 % se afirma en el título de un artículo y no se define.', 'Fuentes: F4, F5, F7, F8, F10, F11.')
 
+
+def _x_negocio() -> Fig:
+    return _cards("Esquema del negocio de Stripe: valor, ingreso, actores y flujos",
+        "Diagrama del negocio de Stripe con cinco grupos: la propuesta de valor (cobrar con una API), el ingreso por comisión sobre el volumen de pagos y por productos de suscripción, los actores, los flujos de dinero entre cliente final, comercio, Stripe, redes y emisores, y los flujos de valor.",
+        [("Propuesta de valor", "teal", ["Documentado: infraestructura financiera programable que hace más fácil y barato empezar y escalar un negocio; integración por API (F1)."]),
+         ("Ingreso", "gold", ["Documentado: comisión por transacción exitosa (2,9 % + 30 centavos con tarjeta nacional), más productos de pago por uso como Billing y Tax; la suite de ingresos recurrentes va camino de 1.000 millones de dólares anuales (F9, F2).", "No se sabe: ingresos totales."]),
+         ("Actores", "navy", ["Cliente final, comercio, plataformas y sus vendedores, redes de tarjetas, bancos emisores y adquirentes, reguladores y Stripe (F1, F15)."]),
+         ("Flujos de dinero", "coral", ["Cliente final → comercio por medio de Stripe; Stripe → redes y emisores (comisión de intercambio, que el modelo «IC+» separa); Stripe → comercio (neto de comisión); plataforma → cuentas conectadas (F9, F15).", "No se sabe: cuánto retiene Stripe tras los costos de intercambio ni su margen."]),
+         ("Flujos de valor", "grey", ["Cumplimiento (PCI, autenticación fuerte), tokenización y protección contra fraude hacia el comercio; datos de pago y conversión hacia Stripe (F13, F3)."])],
+        "Lectura: cinco grupos desde lo que se ofrece hasta cómo circulan dinero y valor. Dónde deja de valer: Stripe es privada y no publica estados financieros; los flujos son los que la documentación describe.",
+        "Fuentes: F1, F2, F3, F9, F13, F15.")
+
 FIGURES = {
     "stripe-contexto-intermediario.svg": contexto,
     "stripe-volumen-de-pagos.svg": volumen,
@@ -583,6 +595,7 @@ FIGURES = {
     "stripe-software-utilizado.svg": _x_software,
     "stripe-caracteristicas-de-la-infraestructura.svg": _x_infra,
     "stripe-tolerancia-a-fallos.svg": _x_fallos,
+    "stripe-esquema-del-negocio.svg": _x_negocio,
 }
 
 

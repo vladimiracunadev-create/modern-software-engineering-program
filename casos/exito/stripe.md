@@ -171,6 +171,27 @@ Documentado (F1): la página «About» de Stripe (consulta del 16 de noviembre d
 
 Documentado (F2): comunicados fechados en San Francisco y Dublín; la carta de 2025 menciona más de 350 actualizaciones de producto, adquisiciones y una oferta de recompra a empleados actuales y antiguos. Documentado (F13): una parte de la seguridad (la bóveda de tarjetas) la gestiona un equipo dedicado en un entorno aislado. No se sabe: la plantilla total y por área, el organigrama de alto nivel, las oficinas de ingeniería por país con su año de apertura y cómo se organizan los equipos de ingeniería.
 
+### Esquema del negocio
+
+![Diagrama del negocio de Stripe con propuesta de valor, ingreso, actores, flujos de dinero y flujos de valor.](../figures/stripe-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** Cinco grupos de arriba abajo: qué se ofrece, cómo cobra, quién participa y cómo circulan dinero y valor. **Dónde deja de valer.** Stripe no publica estados financieros; el esquema usa lo que dicen la lista de precios, las cartas anuales y la documentación.
+
+Documentado (F9, F15): el dinero fluye del cliente final al comercio con Stripe en medio, que paga a las redes de tarjetas y a los bancos emisores (el precio «IC+» separa esos costos) y se queda con una comisión; en Connect, la plataforma cobra y Stripe reparte a las cuentas conectadas. Documentado (F2): el volumen de pagos fue de 1,9 billones de dólares en 2025 y la empresa se declara robustamente rentable.
+
+### Costos operativos y márgenes
+
+No se sabe. Stripe es una empresa privada: no presenta formularios 10-K, S-1 ni 20-F ante la SEC en lo consultado, y sus cartas anuales y comunicados (F2, F3) no publican ingresos, costos ni márgenes. Lo único cuantificado sobre costos es el ahorro de 2023 por agrupar bases de datos (menos fragmentos en cerca de tres cuartas partes) (F8). Documentado (F3): la empresa dice reinvertir en I+D una proporción mayor de sus ganancias que cualquier empresa comparable. Cualquier cifra de ingresos de prensa no está verificada y no se usa. Este vacío es parte del caso: una empresa privada puede publicar muchísima ingeniería y casi nada de economía.
+
+### Competidores nombrados en documentos oficiales
+
+No se sabe. Las fuentes oficiales consultadas (F1, F2, F3) no nombran competidores ni dan cuota de mercado; la propia empresa se compara con «cualquier empresa comparable» sin nombres. Este caso no incluye una lista de rivales ni cuotas porque no las puede sustentar con fuente.
+
+### Plantilla, oficinas y estructura
+
+Documentado (F2): comunicados fechados en San Francisco y Dublín. No se sabe: plantilla total y por área, organigrama, oficinas de ingeniería por país con su año de apertura y cómo se organiza la ingeniería.
+
+
 ## Arquitectura y esquemas
 
 ### Nivel 1: contexto

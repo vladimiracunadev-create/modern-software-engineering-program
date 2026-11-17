@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito ampliados: Netflix, WhatsApp, Uber y Mercado Libre
+
+- los cuatro casos pasan de unas 2 900 a 4 200 palabras a entre 11 000 y 16 200 (Netflix 16 200, WhatsApp 13 100, Uber 12 400, Mercado Libre 11 200) y de 4 a 6 figuras a entre 22 y 25, con arquitectura en niveles de zoom (contexto, contenedores, componentes, secuencias, datos, despliegue), esquema del negocio, costos operativos por rubro, plantilla, hardware, software, infraestructura, tolerancia a fallos, alternativas descartadas rotuladas como análisis propio, vínculos concepto → clase, preguntas y mini-ejercicios;
+- hechos nuevos verificados contra los 10-K de Netflix (2007, 2016, 2025), Uber (2020, 2023, 2025), Meta (2025), Facebook (2014) y MercadoLibre (2019, 2021, 2024, 2025), la ficha de Open Connect, los repositorios de Netflix, el libro blanco y los blogs de WhatsApp, la nota de la Comisión Europea de 2017, los artículos de ingeniería de Uber y el caso de Go; donde no hay fuente pública (cuota de mercado, plantilla por área, hardware de servidores de WhatsApp, Uber y Mercado Libre) queda como «no se sabe» y los casos no alcanzan el 5x pedido;
+- commits `58e46c7f`, `0c16a46e`, `3a04b135`, `88443568`, `13d44d05`, `c64aeb9c`, `1ddbcdfa`, `e05fbc04` y `683392d1`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de fallo, segunda ampliación: CrowdStrike, Therac-25, GitLab 2017 y Quibi
 
 - sedes y equipo, organización, visión y misión, esquema del negocio, costos, competidores, hardware, software, infraestructura y mecanismos a prueba de fallos, con 5 a 7 figuras nuevas por caso y rótulo documentado, inferido o no se sabe;

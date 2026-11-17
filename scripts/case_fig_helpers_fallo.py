@@ -126,3 +126,24 @@ def slices(f: Fig, y0: float, items: list[tuple[str, str, float]], x0: float = 3
         f.parts.append(f'<rect x="{x + 12:g}" y="{hy:g}" width="{w - 24:g}" height="44" rx="10" fill="#ffffff" stroke="#8a9aa3" stroke-width="1" stroke-dasharray="4 3"/>')
         bx(f, x - (lw - w) / 2, y0 + h + 10, lw, label_h, label, kind, 13)
     return y0 + h + label_h + 22
+
+
+def equi_axis(f: Fig, y: float, events: list[tuple], box_w: float = 170, box_h: float = 96, x0: float = 80,
+              x1: float = 860) -> float:
+    """Uniformly spaced events alternating above and below a line. ``events`` = (text, kind). Not to scale.
+
+    Returns the y below the diagram. Boxes on the same side are 2 steps apart, so ``box_w`` must stay under that.
+    """
+    n = len(events)
+    step = (x1 - x0) / (n - 1)
+    assert 2 * step >= box_w + 6, f"equi_axis boxes overlap: step {step:.0f} box {box_w}"
+    axis_y = y + box_h + 44
+    f.line(30, axis_y, f.width - 30, axis_y, "#32505f", width=2)
+    for i, (text, kind) in enumerate(events):
+        px = x0 + i * step
+        up = i % 2 == 0
+        by = axis_y - 40 - box_h if up else axis_y + 40
+        f.line(px, axis_y, px, by + box_h if up else by, "#8a9aa3", dashed=True)
+        f.dot(px, axis_y, "", kind if kind in ("teal", "coral", "gold", "navy") else "navy")
+        bx(f, min(max(px - box_w / 2, 6), f.width - 6 - box_w), by, box_w, box_h, text, kind, 13)
+    return axis_y + 40 + box_h + 24

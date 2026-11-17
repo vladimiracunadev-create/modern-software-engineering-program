@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Ampliación de clases existentes con temas ausentes (InnerSource, software verde, confianza cero, CRDT y Raft, RTOS, calidad de datos, regulación de IA y ajuste fino)
+
+- diez clases ampliadas sin renumerar ni cambiar la estructura de las partes, cada una con una sección «Ampliación», un experimento reproducible (`scripts/experiments_partNN_ext.py`, semilla fija o medición real), una figura nueva sin repetir tablas y fuentes verificadas con curl: `SE-200` InnerSource (cola de revisión), `SE-268` RTOS y EDF frente a prioridades fijas, `SE-330` controles de calidad y linaje de datos, `SE-342` conjuntos CRDT, `SE-343` Raft y Paxos con un modelo reducido, `SE-353` confianza cero y movimiento lateral, `SE-356` software verde y SCI, `SE-386` confianza cero y credenciales robadas, `SE-466` Reglamento de IA e ISO/IEC 42001, `SE-513` ajuste fino y contaminación de la evaluación;
+- las ampliaciones sobre datos y sobre IA apuntan a las Partes 45 y 46, todavía no publicadas; los experimentos son modelos sintéticos o mediciones de un solo equipo y cada clase lo declara en «Límites»; la norma ISO/IEC 42001 y las páginas de ISO no se pudieron verificar con curl (error 403) y se declara;
+- sin cambio de contadores; commits `cc00faeb`, `68a33a7f`, `4b799dc3`, `bd960d70`, `37dcb4a8`, `f47c49b3`, `a790d695`, `3cb80365` y `05b87612`, con Validate, Pages y Security en verde sobre `05b87612`.
+
 ## 2026-11-17 — Infraestructura para las Partes 45–48 y tres roles nuevos (ADR-006)
 
 - el alcance planificado pasa de 540 clases en 45 partes a 588 clases en 49 partes sin renumerar nada: Parte 45 Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`), 46 Machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) y 48 Runtimes y plataformas modernas (`SE-577`–`SE-588`); nacen planificadas, sin clases publicadas, y las 540 clases desarrolladas no cambian;

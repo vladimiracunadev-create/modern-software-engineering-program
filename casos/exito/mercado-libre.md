@@ -28,6 +28,18 @@
 
 **Qué mide cada cifra.** «Compradores únicos activos» y «usuarios mensuales de fintech» son indicadores propios desde 2024: reemplazaron a «usuarios únicos activos» como indicadores de las líneas de comercio y de fintech, y el volumen de pagos (TPV) incluye cobros fuera del marketplace ([M6]). No son comparables con métricas de otras empresas sin revisar su definición.
 
+### Oficinas, plantilla y estructura
+
+**Oficinas (documentado).** La dirección de las oficinas ejecutivas del 10-K de 2025 es la Zona Franca WTC, Torre II, en Montevideo, Uruguay ([M6]). El mismo documento dice que arrienda instalaciones en distintos países de Latinoamérica para fines administrativos, de marketing, desarrollo de producto y envíos, y que todas las oficinas son arrendadas salvo una oficina argentina y las de Venezuela, que son propias ([M6]). **[No se sabe]** la lista de oficinas por ciudad, los centros de ingeniería con su año de apertura y la superficie total.
+
+**Plantilla (documentado).** El 10-K de 2025 informa 20 347 empleados de tecnología y desarrollo de producto al 31 de diciembre de 2025, 11 % más que los 18 282 de 2024 ([M6]); el de 2022, 13 856 frente a 9 471 en 2021 ([M2]). **[No se sabe]** la plantilla total, por país y por función en las fuentes consultadas.
+
+![Barras de empleados de tecnología y producto: 9 471 en 2021, 13 856 en 2022, 18 282 en 2024 y 20 347 en 2025.](../figures/mercado-libre-plantilla-de-tecnologia.svg)
+
+**Cómo leer la figura.** Cada barra es un cierre de año; la altura es el número de personas de tecnología y producto. Mire el ritmo: en 2021-2022 sumó unas 4 400 personas y en 2024-2025 unas 2 100. **Dónde deja de valer.** Falta 2023 y no incluye al resto de la plantilla; no es un organigrama.
+
+**Estructura (documentado).** Seis servicios integrados (marketplace, pagos, envíos, publicidad, crédito y la plataforma) y un equipo dividido en «celdas» autónomas con su hardware, datos y código ([M2], [M6]). El 10-K lo describe como una sola sociedad con segmentos geográficos de informe (Brasil, México, Argentina y otros países) ([M6]). **[No se sabe]** el organigrama de alto nivel y cuántas celdas hay.
+
 ## Contexto y problema
 
 **Documentado.** El informe anual de 2022 describe una región con más de 650 millones de personas y uno de los crecimientos de internet y comercio electrónico más rápidos, con «desafíos culturales y geográficos» propios para operar una plataforma de comercio ([M2]). El de 2007 resume lo que se hizo al principio: una misma plataforma tecnológica en todos los países y un marketplace separado por país, sin interacción entre ellos ([M1]).
@@ -155,6 +167,34 @@ En 2025 el comercio aportó 16 294 millones (12 750 en servicios y 3 544 en vent
 **Cómo leer la figura.** Cada grupo es un país; la barra azul es la parte de los ingresos denominada en su moneda y la coral la inflación del año. Mire a Argentina: casi tanta inflación como ingresos locales. **Dónde deja de valer.** Dos magnitudes distintas en la misma escala porcentual; no dicen nada del efecto en los resultados, que el 10-K cuantifica aparte con sensibilidades de cambio.
 
 **Ventajas (documentado por la empresa).** Un ecosistema donde cada componente refuerza a los demás ([M4]) y una logística propia que controla la experiencia. **[Inferido]** que la combinación de comercio, pago y envío dificulta que un competidor replique solo una pieza.
+
+### Esquema del negocio: flujos de dinero y de valor
+
+![Diagrama de flujos: compradores, anunciantes, usuarios fintech y quienes toman crédito aportan ingresos a Mercado Libre, que paga el costo de ingresos, las pérdidas de crédito, el marketing, la tecnología y la administración y retiene el resultado operativo.](../figures/mercado-libre-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** A la izquierda, las cuatro corrientes que aportan ingresos; en el centro, la empresa; a la derecha, cómo se reparten los 28 893 millones de 2025. Mire la caja coral: una de cada diez unidades de ingreso se reserva contra pérdidas de crédito. **Dónde deja de valer.** Las corrientes no están cuantificadas por separado en esta figura (ver la de ingresos por línea) y el costo de ingresos mezcla logística, bienes vendidos y fondeo.
+
+**Flujo de valor.** El comprador obtiene confianza y entrega; el vendedor, alcance, cobro y envío; el usuario financiero, una cuenta y crédito; la empresa, comisiones, intereses y publicidad ([M2], [M6]). El valor viaja entre servicios: el pago reduce la fricción del marketplace y alimenta el crédito. **[No se sabe]** las comisiones por categoría y país.
+
+### Visión, misión y estrategia
+
+**Documentado.** El 10-K de 2025 se presenta como el ecosistema líder de comercio en línea y fintech de Latinoamérica: la plataforma de comercio es líder de la región por valor vendido y la fintech, líder en usuarios mensuales entre las empresas fintech de Argentina, Chile y México y segunda en Brasil ([M6]). Las estrategias que enumera incluyen aumentar la monetización de las transacciones de la plataforma (estructura de comisiones, publicidad, servicios adicionales y venta cruzada de servicios financieros) y aprovechar las sinergias naturales entre servicios para crear un ecosistema integrado ([M6]); el informe de 2022 había descrito el uso de pagos para llevar confianza a la relación entre comerciante y consumidor ([M2]). **[No se sabe]** un texto de misión formal con fecha de adopción en las fuentes consultadas; por eso se cita la estrategia declarada.
+
+**Evolución.** De un marketplace por país con plataforma común (2007) ([M1]) a un ecosistema con pagos, envíos, publicidad y crédito (2022) ([M2]) y a un ecosistema que solicita una licencia bancaria en Argentina (2025) ([M6]).
+
+### Costos operativos
+
+![Barras apiladas al cien por ciento de los costos de Mercado Libre en 2023, 2024 y 2025: costo de ingresos de 49,8 a 55,5 por ciento, provisión por incobrables de 7,0 a 10,7, marketing alrededor de 11, y resultado operativo de 14,6 a 11,1.](../figures/mercado-libre-costos-operativos.svg)
+
+**Cómo leer la figura.** Cada barra es un año de ingresos reducido a 100 %. Mire los dos segmentos que suben (costo de ingresos, azul, y provisión, coral) y el dorado que baja (resultado). **Dónde deja de valer.** Son rubros contables: el costo de 2023 está calculado por diferencia, y los ingresos de 2023 son los recompuestos por un cambio de presentación.
+
+**Cifras de 2025 ([M6]).** Costo de ingresos y gastos financieros de 16 035 millones (55,5 %); provisión para cuentas dudosas de 3 091 (10,7 %); marketing de 3 219; desarrollo de producto y tecnología de 2 269; administración de 1 078; resultado operativo de 3 201 (11,1 %), con un efecto de cambio de moneda de menos 337 millones en otros resultados. **Margen bruto:** 44,5 % en 2025 y 46,1 % en 2024 ([M6]). **Por qué baja el margen (documentado):** la reducción del umbral de envío gratis en Brasil, el aumento de la provisión por la expansión de las tarjetas de crédito y el crecimiento de la venta de bienes, de menor margen ([M6]). **[No se sabe]** el costo de infraestructura por separado, el de soporte y el de pagos.
+
+### Competidores
+
+**Documentado.** El 10-K de 2025 dice que Mercado Libre es hoy líder en varios de los mercados donde opera y que compite actual o potencialmente con operadores de marketplace, empresas que venden directo al consumidor, enfocadas en categorías verticales y comercios físicos con oferta en línea; que la competencia se ha intensificado con el crecimiento de actores locales y la expansión de internacionales, sobre todo en Brasil y México; y que en fintech crecen varias empresas establecidas en Latinoamérica ([M6]). En México, una autoridad analizó posibles preocupaciones sobre los algoritmos de la caja de compra y la integración logística de Amazon México y Mercado Libre, sin imponer medidas ([M6]).
+
+**[No se sabe]** con fuente primaria la cuota de mercado por competidor y país en estos documentos. **Análisis propio** de por qué el mercado favoreció a Mercado Libre: llegada temprana, integración de pagos y logística, y marketplace por país con plataforma común (ver «Competencia»); es hipótesis.
 
 ## Arquitectura y esquemas
 
@@ -285,6 +325,32 @@ Mercado Pago, mercado y envíos comparten plataforma tecnológica pero cada paí
 **Cómo leer la figura.** Cada fila es una bifurcación: lo elegido, la alternativa y el coste probable de ésta. Los trazos punteados son hipótesis. **Dónde deja de valer.** Son hipótesis del curso: la empresa no publica las alternativas que evaluó, aunque sí motiva Go (límites de Groovy y Grails) y las celdas (el desacople).
 
 **Logística propia frente a terceros.** La red propia da control de la experiencia, pero exige capital: el 10-K muestra la tensión cuando una decisión de producto (el umbral de envío gratis) mueve el margen de la empresa ([M6]). Un modelo solo de transportistas externos habría reducido el capital y el control. **Crédito propio frente a derivado.** El crédito propio aporta ingresos (5 858 millones en 2025), pero también provisiones (3 091) y la necesidad de fondeo ([M6]); derivarlo habría trasladado el riesgo y el ingreso a un tercero.
+
+### 6.13 Hardware utilizado
+
+**Documentado.** Las fuentes consultadas no describen los servidores ni la red de Mercado Libre. Lo que sí consta es hardware del negocio: una red de transporte con aviones dedicados (Meli Air desde 2020), camiones y miles de furgonetas de última milla, la mayoría de terceros ([M2], [M6]); centros de cumplimiento y miles de tiendas aliadas ([M6]); y terminales de cobro que Mercado Pago vende, dentro de los ingresos fintech ([M2]). **[No se sabe]** el tipo de servidores, aceleradores o redes propias y el número de centros de datos propios; el informe de 2022 menciona sedes de datos en Virginia (EE. UU.) ([M2]). No se rellena la laguna con datos no verificados.
+
+### 6.14 Software utilizado
+
+![Cinco capas documentadas de Mercado Libre: lenguajes y servicios con Go, plataforma Fury, nube con AWS y Google Cloud, hardware del negocio y servidores no publicados.](../figures/mercado-libre-hardware-y-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa; la última, gris punteada, es lo que no se sabe. Mire cómo la capa de plataforma (Fury) separa los servicios de la nube. **Dónde deja de valer.** Es una síntesis de 2019 a 2025 con pocas fuentes: no es un inventario y no dice qué lenguajes dominan hoy.
+
+**Documentado.** Go en servicios de alto tráfico desde 2015, tras alcanzar Groovy y Grails su límite; aproximadamente la mitad del tráfico se atiende hoy con aplicaciones en Go; plantillas de servicios en Go, repositorios iniciales en GitHub, imágenes de Docker y canalizaciones de despliegue en Fury ([M3]); API pública con OAuth, notificaciones por webhook e IPN y cuentas de prueba ([M5]); 3DS 2.0 y alineación con OWASP y PCI DSS en pagos ([M5]); participación en Pix y en Open Finance en Brasil ([M6]). **[No se sabe]** las bases de datos, colas, orquestadores y herramientas internas de código abierto.
+
+### 6.15 Características de la infraestructura
+
+**Modelo.** Una plataforma independiente de la nube ([M3]) que depende de proveedores de nube, los mayores AWS y Google Cloud ([M6]). **[No se sabe]** qué parte corre en centros de datos propios. **Regiones.** Marketplace en 18 países y Mercado Pago en 8 ([M6]); la plataforma técnica es común y cada país opera su marketplace ([M1]). **Capacidad y escala.** Una API de usuarios con 8 a 10 millones de peticiones por minuto y más de 20 millones en las mayores ([M3]); 15 470 millones de transacciones de pago y 2 429 millones de artículos vendidos en 2025 ([M6]). **Costos.** No se separan; el costo de ingresos total fue de 16 035 millones en 2025 e incluye alojamiento y operación del sitio ([M6]).
+
+### 6.16 Temas a prueba de fallos
+
+![Seis filas de falla creciente en Mercado Libre: una API lenta, un servicio de una celda, un pico estacional, una moneda que se deprecia, la nube de un proveedor y un competidor o regulador.](../figures/mercado-libre-que-pasa-si-cae.svg)
+
+**Cómo leer la figura.** Cada fila es una perturbación mayor que la anterior; a la derecha, el efecto y la respuesta. Mire que las últimas filas son de negocio y no técnicas: monedas y regulación son parte de la resiliencia. **Dónde deja de valer.** Combina arquitectura y riesgo de negocio; no es un plan de continuidad.
+
+**Documentado.** El diseño en celdas contiene fallos y cambios en el equipo propietario ([M2]); las campañas y «dobles fechas» suavizan la estacionalidad ([M6]); la plataforma es independiente de la nube ([M3]); hay un programa de protección al comprador ante vendedores que incumplen ([M6]); ingresos en varias monedas y Argentina reportada en dólares ([M6]). **Inferido:** reintentos con idempotencia y tiempos límite en APIs y pagos. **[No se sabe]** las pruebas de caos, la recuperación ante desastres, los límites de velocidad por cliente y la degradación elegante.
+
+**Qué pasa cuando cae cada componente.** (1) Una API: **[Inferido]** tiempos límite y reintentos. (2) Una celda: se contiene en esa celda ([M2]). (3) Un pico: demanda suavizada con campañas ([M6]). (4) Una nube: dependencia declarada ([M6]). (5) Un pago duplicado o tardío: el comercio debe consultar el estado y procesar una sola vez (**[Inferido]**, [SE-246](../../classes/part-20-backend-apis-y-procesamiento-asincrono/se-246-idempotencia-reintentos-y-deduplicacion/README.md)). (6) Una autoridad: revisión o licencia, con riesgo regulatorio declarado ([M6]).
 
 ## Casos especiales y cómo se resuelven
 

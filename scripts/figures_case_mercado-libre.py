@@ -370,6 +370,92 @@ def moneda() -> Fig:
         note_kind="gold", foot=SEC)
 
 
+def negocio() -> Fig:
+    f = _canvas("Esquema del negocio: cuatro corrientes de ingreso y de qué viven",
+                "Diagrama de flujos: compradores y vendedores generan comisiones y envíos; los anunciantes pagan por visibilidad; los usuarios financieros generan comisiones por pagos, intereses de crédito y venta de terminales; Mercado Libre paga logística, fondeo, pérdidas de crédito, marketing y tecnología y retiene el resultado operativo, de 3 201 millones en 2025.",
+                940, 0)
+    B(f, 10, 56, 220, 64, "Compradores y vendedores: comisiones y envíos", "teal")
+    B(f, 10, 130, 220, 64, "Anunciantes: publicidad en el marketplace", "gold")
+    B(f, 10, 204, 220, 64, "Usuarios fintech: pagos, tarjetas y cuotas", "teal")
+    B(f, 10, 278, 220, 64, "Quien toma crédito: intereses", "gold")
+    B(f, 330, 120, 270, 110, "Mercado Libre: 28 893 millones de ingresos netos y financieros en 2025", "navy", 13, bold=True)
+    B(f, 700, 56, 230, 56, "Costo de ingresos: 55,5 % (envíos, fondeo, bienes)", "plain")
+    B(f, 700, 122, 230, 56, "Provisión por incobrables: 10,7 %", "coral")
+    B(f, 700, 188, 230, 56, "Marketing, tecnología y administración: 22,7 %", "plain")
+    B(f, 700, 254, 230, 56, "Resultado operativo: 11,1 %", "gold")
+    for y in (88, 162, 236, 310):
+        f.arrow([(230, y), (330, 175)])
+    for y in (84, 150, 216, 282):
+        f.arrow([(600, 175), (700, y)])
+    return finish(f, 364, "Porcentajes de 2025 calculados con el 10-K: costo de ingresos y gastos financieros 16 035 millones (55,5 %), provisión para cuentas dudosas 3 091 (10,7 %), marketing 3 219, desarrollo 2 269 y administración 1 078 (22,7 % en conjunto) y resultado operativo 3 201 (11,1 %). Las dos cajas de ingresos de abajo son la línea fintech; el 10-K no asigna costes por corriente.", SEC)
+
+
+def costos() -> Fig:
+    names = ["2023", "2024", "2025"]
+    rev = [15107, 20777, 28893]
+    cost = [15107 - 5383 - 2207, 11200, 16035]
+    parts = [("Costo de ingresos y gastos financieros", cost, "navy"), ("Provisión para cuentas dudosas", [1050, 1858, 3091], "coral"),
+             ("Marketing", [1736, 2191, 3219], "grey"), ("Desarrollo, tecnología y administración", [1831 + 766, 1934 + 963, 2269 + 1078], "teal"), ("Resultado operativo", [2207, 2631, 3201], "gold")]
+    series = [(n, [round(100 * v / r, 1) for v, r in zip(vals, rev)], k) for n, vals, k in parts]
+    return stacked_bars(
+        "Costos operativos de Mercado Libre por rubro, 2023-2025 (porcentaje de los ingresos)",
+        "Barras apiladas al cien por ciento: el costo de ingresos sube de 49,8 a 53,9 y a 55,5 por ciento de los ingresos; la provisión por incobrables de 7,0 a 8,9 y a 10,7; el marketing de 11,5 a 10,5 y a 11,1; y el resultado operativo baja de 14,6 a 12,7 y a 11,1 por ciento.",
+        names, series, unit="% de los ingresos", percent=True, horizontal=True, decimals=1, label_w=70,
+        note="El costo de 2023 se obtiene por diferencia (ingresos menos gastos operativos menos resultado operativo, cálculo propio); los de 2024 y 2025 son del 10-K. El costo de ingresos incluye envíos y bodegas, transportistas, costo de bienes vendidos, comisiones de cobro, impuestos, fondeo del negocio fintech, prevención de fraude y alojamiento. La provisión crece más rápido que los ingresos por el peso del crédito.",
+        note_kind="gold", foot=SEC)
+
+
+def plantilla() -> Fig:
+    return grouped_bars(
+        "Plantilla de tecnología y producto de Mercado Libre al cierre de cada año (personas)",
+        "Barras de empleados de tecnología y desarrollo de producto: 9 471 al cierre de 2021, 13 856 al de 2022, 18 282 al de 2024 y 20 347 al de 2025.",
+        ["2021", "2022", "2024", "2025"],
+        [("Empleados de tecnología y producto", [9471, 13856, 18282, 20347], "navy")],
+        unit="personas", decimals=0, plot_h=240,
+        note="Crece 2,1 veces entre 2021 y 2025 (cálculo propio) mientras los ingresos crecen 4,1 veces (7 069 a 28 893 millones). El 10-K de 2025 no publica la plantilla total ni por país; solo la de tecnología y producto. No se grafica 2023 porque el cierre de ese año no está en los documentos usados.",
+        note_kind="gold", foot=SEC)
+
+
+def pila() -> Fig:
+    f = _canvas("Hardware y software documentados de Mercado Libre, por capa",
+                "Diagrama de capas: la aplicación con servicios en Go y la pila anterior de Groovy y Grails; la plataforma interna Fury con plantillas, imágenes de contenedor y canalizaciones; la nube con AWS y Google Cloud; el hardware de logística y de cobro, con aviones, camiones, furgonetas y terminales de pago; y los servidores, no publicados.",
+                940, 0)
+    rows = [
+        ("Lenguajes y servicios", "Go en servicios con mucho tráfico desde 2015; Groovy y Grails antes; Go atiende aproximadamente la mitad del tráfico", "plain"),
+        ("Plataforma interna", "Fury: plantillas de servicios en Go, repositorios iniciales de GitHub, imágenes de Docker y canalizaciones de despliegue", "gold"),
+        ("Nube", "AWS y Google Cloud, los proveedores mayores; plataforma independiente de la nube", "plain"),
+        ("Hardware de negocio", "Aviones dedicados, camiones y furgonetas (mayoría de terceros); terminales de cobro que se venden", "plain"),
+        ("Servidores y red", "No se sabe: tipo de servidores, regiones, redes y bases de datos no se publican", "grey!"),
+    ]
+    y = 56.0
+    for name, text, k in rows:
+        B(f, 10, y, 190, 62, name, "navy", 13, bold=True)
+        B(f, 212, y, 718, 62, text, k.rstrip("!"), 13, dashed=k.endswith("!"))
+        y += 74
+    return finish(f, y, "Documentado en el caso de Go (2019), el informe de 2022 y el 10-K de 2025. Los lenguajes son los de los servicios citados, no un inventario completo. No se sabe qué bases de datos, colas ni orquestadores usan los servicios; Docker y GitHub se citan por las plantillas de Fury.", DOC)
+
+
+def fallos() -> Fig:
+    f = _canvas("Qué pasa cuando cae cada componente de Mercado Libre: de lo pequeño a lo grande",
+                "Seis filas de falla creciente: una API lenta, un servicio de una celda, un pico estacional, una moneda que se deprecia, la nube de un proveedor y un competidor o regulador; efecto y mecanismo con rótulo de documentado, inferido o no se sabe.",
+                940, 0)
+    rows = [
+        ("Una API lenta", "Tiempos límite y reintentos con idempotencia (inferido); el 10-K no detalla", "plain!"),
+        ("Un servicio de una celda", "La celda tiene su equipo, datos y código; el fallo se contiene en ella (documentado)", "teal"),
+        ("Un pico estacional", "Campañas y «dobles fechas» suavizan la demanda; la capacidad se dimensiona: no se sabe", "gold"),
+        ("Una moneda que se deprecia", "Ingresos en varias monedas; Argentina reporta en dólares (documentado)", "gold"),
+        ("Un proveedor de nube", "Plataforma independiente de la nube; el 10-K declara dependencia de AWS y Google Cloud", "gold"),
+        ("Un competidor o un regulador", "Revisión de competencia en México cerrada sin medidas; licencia bancaria en revisión", "coral"),
+    ]
+    y = 56.0
+    for a, b, k in rows:
+        B(f, 10, y, 280, 52, a, "navy", 13, bold=True)
+        B(f, 330, y, 600, 52, b, k.rstrip("!"), 13, dashed=k.endswith("!"))
+        f.arrow([(290, y + 26), (330, y + 26)])
+        y += 62
+    return finish(f, y + 4, "Documentado en el informe de 2022 (celdas), el caso de Go (Fury) y el 10-K de 2025 (temporadas, monedas, nube, competencia y licencia). Inferido: reintentos e idempotencia. No se publica un plan de continuidad ni objetivos de disponibilidad.", DOC)
+
+
 FIGURES = {
     "mercado-libre-contexto.svg": contexto,
     "mercado-libre-celdas-y-plataforma.svg": componentes,
@@ -391,6 +477,11 @@ FIGURES = {
     "mercado-libre-pagos-frente-a-ventas.svg": pagos_vs_ventas,
     "mercado-libre-credito-y-provisiones.svg": credito,
     "mercado-libre-moneda-e-inflacion.svg": moneda,
+    "mercado-libre-esquema-del-negocio.svg": negocio,
+    "mercado-libre-costos-operativos.svg": costos,
+    "mercado-libre-plantilla-de-tecnologia.svg": plantilla,
+    "mercado-libre-hardware-y-software.svg": pila,
+    "mercado-libre-que-pasa-si-cae.svg": fallos,
 }
 
 

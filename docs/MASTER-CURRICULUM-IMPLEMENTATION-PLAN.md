@@ -884,18 +884,18 @@ se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte complet
 
 ### Parte 48 — Runtimes y plataformas modernas
 
-- [ ] `SE-577` — WebAssembly y WASI.
-- [ ] `SE-578` — WebAssembly en servidor y borde: component model.
-- [ ] `SE-579` — eBPF: observabilidad, red y seguridad en el kernel.
-- [ ] `SE-580` — GPU y aceleradores: modelo de ejecución.
-- [ ] `SE-581` — Rendimiento y costo en aceleradores.
-- [ ] `SE-582` — Contenedores, microVM y sandboxes.
-- [ ] `SE-583` — Hardware seguro: TEE y atestación.
-- [ ] `SE-584` — Computación cuántica para ingenieros de software.
-- [ ] `SE-585` — Criptografía poscuántica y migración.
-- [ ] `SE-586` — Confianza cero en la práctica.
-- [ ] `SE-587` — Taller: elegir y aislar un runtime para una carga no confiable.
-- [ ] `SE-588` — Proyecto: plataforma de ejecución aislada con evidencia.
+- [x] `SE-577` — WebAssembly y WASI.
+- [x] `SE-578` — WebAssembly en servidor y borde: component model.
+- [x] `SE-579` — eBPF: observabilidad, red y seguridad en el kernel.
+- [x] `SE-580` — GPU y aceleradores: modelo de ejecución.
+- [x] `SE-581` — Rendimiento y costo en aceleradores.
+- [x] `SE-582` — Contenedores, microVM y sandboxes.
+- [x] `SE-583` — Hardware seguro: TEE y atestación.
+- [x] `SE-584` — Computación cuántica para ingenieros de software.
+- [x] `SE-585` — Criptografía poscuántica y migración.
+- [x] `SE-586` — Confianza cero en la práctica.
+- [x] `SE-587` — Taller: elegir y aislar un runtime para una carga no confiable.
+- [x] `SE-588` — Proyecto: plataforma de ejecución aislada con evidencia.
 
 ## Orden de ejecución y registro
 

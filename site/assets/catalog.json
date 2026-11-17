@@ -5940,6 +5940,138 @@
       "hours": 8,
       "phase": "futura",
       "url": "classes/SE-540.html"
+    },
+    {
+      "id": "SE-577",
+      "title": "WebAssembly y WASI",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-577.html"
+    },
+    {
+      "id": "SE-578",
+      "title": "WebAssembly en servidor y borde: component model",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-578.html"
+    },
+    {
+      "id": "SE-579",
+      "title": "eBPF: observabilidad, red y seguridad en el kernel",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-579.html"
+    },
+    {
+      "id": "SE-580",
+      "title": "GPU y aceleradores: modelo de ejecución",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-580.html"
+    },
+    {
+      "id": "SE-581",
+      "title": "Rendimiento y costo en aceleradores",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-581.html"
+    },
+    {
+      "id": "SE-582",
+      "title": "Contenedores, microVM y sandboxes",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-582.html"
+    },
+    {
+      "id": "SE-583",
+      "title": "Hardware seguro: TEE y atestación",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-583.html"
+    },
+    {
+      "id": "SE-584",
+      "title": "Computación cuántica para ingenieros de software",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-584.html"
+    },
+    {
+      "id": "SE-585",
+      "title": "Criptografía poscuántica y migración",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-585.html"
+    },
+    {
+      "id": "SE-586",
+      "title": "Confianza cero en la práctica",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-586.html"
+    },
+    {
+      "id": "SE-587",
+      "title": "Taller: elegir y aislar un runtime para una carga no confiable",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-587.html"
+    },
+    {
+      "id": "SE-588",
+      "title": "Proyecto: plataforma de ejecución aislada con evidencia",
+      "part": "48",
+      "part_title": "Runtimes y plataformas modernas",
+      "stage": "D",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-588.html"
     }
   ]
 }

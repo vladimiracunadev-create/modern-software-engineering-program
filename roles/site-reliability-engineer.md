@@ -131,7 +131,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44 (`SE-001`–`SE-540`), también tienen contenido desarrollado y
+de las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -149,6 +149,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-517 · Criterios para usar un catálogo de patrones](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-517-criterios-para-usar-un-catalogo-de-patrones/README.md) | Parte 43 |
 | [SE-522 · Repository, Unit of Work y Active Record](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-522-repository-unit-of-work-y-active-record/README.md) | Parte 43 |
 | [SE-528 · Proyecto: catálogo de patrones de un sistema real](../classes/part-43-patrones-de-diseno-empresariales-y-de-resiliencia/se-528-proyecto-catalogo-de-patrones-de-un-sistema-real/README.md) | Parte 43 |
+| [SE-577 · WebAssembly y WASI](../classes/part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) | Parte 48 |
+| [SE-582 · Contenedores, microVM y sandboxes](../classes/part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes/README.md) | Parte 48 |
+| [SE-588 · Proyecto: plataforma de ejecución aislada con evidencia](../classes/part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) | Parte 48 |
 
 **Cómo recorrerla.** Empieza por [SE-341](../classes/part-28-concurrencia-y-sistemas-distribuidos/se-341-fallos-parciales-y-modelos-de-red/README.md) para fijar el
 primer mecanismo, usa [SE-425](../classes/part-35-observabilidad-sre-e-incidentes/se-425-sli-slo-sla-y-presupuestos-de-error/README.md) para integrar el
@@ -158,14 +161,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44 (`SE-001`–`SE-540`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 45–47 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas** desde el 17 de noviembre
 > de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
@@ -173,7 +176,6 @@ no constituye competencia.
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
 | **Parte 46 · Machine learning en producción y MLOps** | `SE-553`–`SE-564` | Añade el monitoreo de deriva y el reentrenamiento como parte de la operación de un servicio con modelos. |
-| **Parte 48 · Runtimes y plataformas modernas** | `SE-577`–`SE-588` | Incorpora eBPF como instrumento de observación del kernel y los límites de aislamiento como parte de la confiabilidad. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
 desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es

@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-540 clases desarrolladas · 45 partes desarrolladas (`SE-001`–`SE-540`) · 48 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
+552 clases desarrolladas · 46 partes desarrolladas (`SE-001`–`SE-540`, `SE-577`–`SE-588`) · 36 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
 
 > [!WARNING]
-> Las Partes 00–44 (`SE-001`–`SE-540`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 45 partes desarrolladas
+## Las 46 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -57,6 +57,7 @@
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
+| 48 | [Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md) | D | SE-577–SE-588 | `suite` |
 
 ## Partes planificadas sin publicar
 
@@ -65,11 +66,10 @@
 | 45 | Ingeniería de datos y plataformas de datos | SE-541–SE-552 | planificada, sin clases publicadas |
 | 46 | Machine learning en producción y MLOps | SE-553–SE-564 | planificada, sin clases publicadas |
 | 47 | Sistemas críticos, tiempo real y normas de seguridad | SE-565–SE-576 | planificada, sin clases publicadas |
-| 48 | Runtimes y plataformas modernas | SE-577–SE-588 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 540 clases desarrolladas
+## Índice plano de las 552 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -705,5 +705,19 @@ sin recorrer carpetas manualmente.
 - [SE-538 — Evolución y migración entre estilos](part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-538.html)
 - [SE-539 — Taller: seleccionar un estilo con escenarios de calidad](part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-539.html)
 - [SE-540 — Proyecto: decisión arquitectónica defendida con ADR](part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html)
+## [Parte 48 — Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md)
+
+- [SE-577 — WebAssembly y WASI](part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-577.html)
+- [SE-578 — WebAssembly en servidor y borde: component model](part-48-runtimes-y-plataformas-modernas/se-578-webassembly-en-servidor-y-borde-component-model/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-578.html)
+- [SE-579 — eBPF: observabilidad, red y seguridad en el kernel](part-48-runtimes-y-plataformas-modernas/se-579-ebpf-observabilidad-red-y-seguridad-en-el-kernel/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-579.html)
+- [SE-580 — GPU y aceleradores: modelo de ejecución](part-48-runtimes-y-plataformas-modernas/se-580-gpu-y-aceleradores-modelo-de-ejecucion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-580.html)
+- [SE-581 — Rendimiento y costo en aceleradores](part-48-runtimes-y-plataformas-modernas/se-581-rendimiento-y-costo-en-aceleradores/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-581.html)
+- [SE-582 — Contenedores, microVM y sandboxes](part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-582.html)
+- [SE-583 — Hardware seguro: TEE y atestación](part-48-runtimes-y-plataformas-modernas/se-583-hardware-seguro-tee-y-atestacion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-583.html)
+- [SE-584 — Computación cuántica para ingenieros de software](part-48-runtimes-y-plataformas-modernas/se-584-computacion-cuantica-para-ingenieros-de-software/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-584.html)
+- [SE-585 — Criptografía poscuántica y migración](part-48-runtimes-y-plataformas-modernas/se-585-criptografia-poscuantica-y-migracion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-585.html)
+- [SE-586 — Confianza cero en la práctica](part-48-runtimes-y-plataformas-modernas/se-586-confianza-cero-en-la-practica/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-586.html)
+- [SE-587 — Taller: elegir y aislar un runtime para una carga no confiable](part-48-runtimes-y-plataformas-modernas/se-587-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-587.html)
+- [SE-588 — Proyecto: plataforma de ejecución aislada con evidencia](part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-588.html)
 
 Generado desde [`../curriculum.yaml`](../curriculum.yaml); no editar a mano.

@@ -6,6 +6,13 @@
 - las ampliaciones sobre datos y sobre IA apuntan a las Partes 45 y 46, todavía no publicadas; los experimentos son modelos sintéticos o mediciones de un solo equipo y cada clase lo declara en «Límites»; la norma ISO/IEC 42001 y las páginas de ISO no se pudieron verificar con curl (error 403) y se declara;
 - sin cambio de contadores; commits `cc00faeb`, `68a33a7f`, `4b799dc3`, `bd960d70`, `37dcb4a8`, `f47c49b3`, `a790d695`, `3cb80365` y `05b87612`, con Validate, Pages y Security en verde sobre `05b87612`.
 
+## 2026-11-17 — Parte 48: Runtimes y plataformas modernas (SE-577 a SE-588)
+
+- doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre WebAssembly y WASI, WebAssembly en servidor y borde, eBPF, modelo de ejecución y costo de aceleradores, contenedores, microVM y sandboxes, hardware seguro y atestación, computación cuántica, criptografía poscuántica, confianza cero, un taller con batería hostil y un proyecto de plataforma de ejecución aislada con evidencia;
+- experimentos reproducibles en `scripts/experiments_part48_*.py`: módulos de WebAssembly ejecutados con `wasmtime` 50.0.1, nueve programas eBPF cargados en el núcleo de Linux de WSL2, proxies de CPU con NumPy, ML-KEM-768 y ML-DSA-65 reales (bibliotecas de estudio), simulación cuántica con vectores de estado y una plataforma mínima con registro encadenado e informe firmado; 36 figuras sin tablas repetidas;
+- lo que no se ejecutó se declara en cada clase: ninguna GPU (el controlador informó «GPU is lost»), ningún TEE ni TPM, ningún ordenador cuántico ni SDK, el modelo de componentes de WebAssembly, ningún contenedor ni microVM;
+- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-17 — Infraestructura para las Partes 45–48 y tres roles nuevos (ADR-006)
 
 - el alcance planificado pasa de 540 clases en 45 partes a 588 clases en 49 partes sin renumerar nada: Parte 45 Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`), 46 Machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 Sistemas críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) y 48 Runtimes y plataformas modernas (`SE-577`–`SE-588`); nacen planificadas, sin clases publicadas, y las 540 clases desarrolladas no cambian;

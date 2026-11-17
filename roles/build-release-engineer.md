@@ -124,7 +124,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44 (`SE-001`–`SE-540`), también tienen contenido desarrollado y
+de las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -145,14 +145,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44 (`SE-001`–`SE-540`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 45–47 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas** desde el 17 de noviembre
 > de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.

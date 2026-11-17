@@ -131,7 +131,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44 (`SE-001`–`SE-540`), también tienen contenido desarrollado y
+de las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -149,6 +149,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-505 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 42 |
 | [SE-510 · Embeddings, recuperación y agentic RAG](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) | Parte 42 |
 | [SE-516 · Proyecto: sistema con LLM evaluado y operable](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 42 |
+| [SE-577 · WebAssembly y WASI](../classes/part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) | Parte 48 |
+| [SE-582 · Contenedores, microVM y sandboxes](../classes/part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes/README.md) | Parte 48 |
+| [SE-588 · Proyecto: plataforma de ejecución aislada con evidencia](../classes/part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) | Parte 48 |
 
 **Cómo recorrerla.** Empieza por [SE-245](../classes/part-20-backend-apis-y-procesamiento-asincrono/se-245-autenticacion-autorizacion-y-contexto/README.md) para fijar el
 primer mecanismo, usa [SE-399](../classes/part-33-build-release-y-cadena-de-suministro/se-399-dependencias-directas-transitivas-y-vendorizacion/README.md) para integrar el
@@ -158,14 +161,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44 (`SE-001`–`SE-540`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 45–48 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 45–47 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 45–48 (`SE-541`–`SE-588`) están **planificadas** desde el 17 de noviembre
+> Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas** desde el 17 de noviembre
 > de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
@@ -174,7 +177,6 @@ no constituye competencia.
 | --- | --- | --- |
 | **Parte 46 · Machine learning en producción y MLOps** | `SE-553`–`SE-564` | Cubre la seguridad y la robustez de sistemas de ML: envenenamiento de datos, extracción de modelos, ejemplos adversarios y cadena de suministro de modelos. |
 | **Parte 47 · Sistemas críticos, tiempo real y normas de seguridad** | `SE-565`–`SE-576` | Aporta la codificación segura (MISRA, CERT) y la relación entre seguridad informática y seguridad funcional. |
-| **Parte 48 · Runtimes y plataformas modernas** | `SE-577`–`SE-588` | Es parte central para la superficie moderna: sandboxes y microVM, WebAssembly, eBPF, hardware seguro con atestación, criptografía poscuántica y confianza cero. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
 desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es

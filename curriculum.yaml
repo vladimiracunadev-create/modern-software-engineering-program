@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 45,
-  "class_count": 540,
-  "estimated_hours": 2430,
+  "part_count": 46,
+  "class_count": 552,
+  "estimated_hours": 2484,
   "planned_scope": {
     "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
     "decisions": [
@@ -47,13 +47,6 @@
         "title": "Sistemas críticos, tiempo real y normas de seguridad",
         "first_class": "SE-565",
         "last_class": "SE-576",
-        "status": "planned"
-      },
-      {
-        "id": "48",
-        "title": "Runtimes y plataformas modernas",
-        "first_class": "SE-577",
-        "last_class": "SE-588",
         "status": "planned"
       }
     ]
@@ -4860,6 +4853,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr"
+        }
+      ]
+    },
+    {
+      "id": "48",
+      "stage": "D",
+      "stage_title": "Superficies y formas de software",
+      "title": "Runtimes y plataformas modernas",
+      "owner": "suite",
+      "path": "classes/part-48-runtimes-y-plataformas-modernas",
+      "lessons": [
+        {
+          "id": "SE-577",
+          "number": 577,
+          "title": "WebAssembly y WASI",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi"
+        },
+        {
+          "id": "SE-578",
+          "number": 578,
+          "title": "WebAssembly en servidor y borde: component model",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-578-webassembly-en-servidor-y-borde-component-model"
+        },
+        {
+          "id": "SE-579",
+          "number": 579,
+          "title": "eBPF: observabilidad, red y seguridad en el kernel",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-579-ebpf-observabilidad-red-y-seguridad-en-el-kernel"
+        },
+        {
+          "id": "SE-580",
+          "number": 580,
+          "title": "GPU y aceleradores: modelo de ejecución",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-580-gpu-y-aceleradores-modelo-de-ejecucion"
+        },
+        {
+          "id": "SE-581",
+          "number": 581,
+          "title": "Rendimiento y costo en aceleradores",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-581-rendimiento-y-costo-en-aceleradores"
+        },
+        {
+          "id": "SE-582",
+          "number": 582,
+          "title": "Contenedores, microVM y sandboxes",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes"
+        },
+        {
+          "id": "SE-583",
+          "number": 583,
+          "title": "Hardware seguro: TEE y atestación",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-583-hardware-seguro-tee-y-atestacion"
+        },
+        {
+          "id": "SE-584",
+          "number": 584,
+          "title": "Computación cuántica para ingenieros de software",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-584-computacion-cuantica-para-ingenieros-de-software"
+        },
+        {
+          "id": "SE-585",
+          "number": 585,
+          "title": "Criptografía poscuántica y migración",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-585-criptografia-poscuantica-y-migracion"
+        },
+        {
+          "id": "SE-586",
+          "number": 586,
+          "title": "Confianza cero en la práctica",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-586-confianza-cero-en-la-practica"
+        },
+        {
+          "id": "SE-587",
+          "number": 587,
+          "title": "Taller: elegir y aislar un runtime para una carga no confiable",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-587-taller-elegir-y-aislar-un-runtime-para-una-carga-no-confiable"
+        },
+        {
+          "id": "SE-588",
+          "number": 588,
+          "title": "Proyecto: plataforma de ejecución aislada con evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia"
         }
       ]
     }

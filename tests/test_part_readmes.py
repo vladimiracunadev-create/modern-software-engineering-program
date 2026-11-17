@@ -72,41 +72,43 @@ class ClassNavigation(unittest.TestCase):
     def test_all_developed_classes_have_navigation_above_and_below(self) -> None:
         pages = sorted((ROOT / "classes").glob("part-*/se-*/README.md"))
         self.assertEqual(len(pages), DEVELOPED_CLASSES)
+        numbers = [int(re.search(r"se-(\d{3})", page.parent.name).group(1)) for page in pages]
         for index, page in enumerate(pages):
-            number = index + 1
+            # anterior y siguiente son los de las clases desarrolladas, que no son contiguas cuando
+            # una parte se publica antes que las anteriores (por ejemplo, la 48 antes que la 45 a la 47)
             lines = page.read_text(encoding="utf-8").rstrip("\n").split("\n")
             nav_top = [line for line in lines[:8] if NAV_MARKER in line]
             nav_bottom = [line for line in lines[-8:] if NAV_MARKER in line]
             self.assertEqual(len(nav_top), 1, f"{page}: falta la navegación superior")
             self.assertEqual(len(nav_bottom), 1, f"{page}: falta la navegación inferior")
             for nav in (nav_top[0], nav_bottom[0]):
-                if number == 1:
+                if index == 0:
                     self.assertTrue(nav.startswith("← Inicio del programa"), f"{page}: SE-001 no tiene anterior")
                 else:
-                    self.assertTrue(re.match(rf"\[← SE-{number - 1:03d}[ \]]", nav), f"{page}: anterior incorrecto")
-                if number == DEVELOPED_CLASSES:
+                    self.assertTrue(re.match(rf"\[← SE-{numbers[index - 1]:03d}[ \]]", nav), f"{page}: anterior incorrecto")
+                if index == DEVELOPED_CLASSES - 1:
                     self.assertTrue(nav.endswith("Fin del programa →"), f"{page}: la última clase desarrollada no tiene siguiente")
                 else:
-                    self.assertRegex(nav, rf"\[SE-{number + 1:03d}[ \]]", f"{page}: siguiente incorrecto")
+                    self.assertRegex(nav, rf"\[SE-{numbers[index + 1]:03d}[ \]]", f"{page}: siguiente incorrecto")
 
     def test_portal_pages_have_navigation_above_and_below(self) -> None:
         pages = sorted((ROOT / "site" / "classes").glob("SE-*.html"))
         self.assertEqual(len(pages), DEVELOPED_CLASSES)
+        numbers = [int(re.search(r"SE-(\d{3})", page.name).group(1)) for page in pages]
         for index, page in enumerate(pages):
-            number = index + 1
             html = page.read_text(encoding="utf-8")
             navs = re.findall(r'<nav class="class-nav".*?</nav>', html, re.S)
             self.assertEqual(len(navs), 2, f"{page}: debe tener navegación arriba y abajo")
             self.assertTrue(html.index(navs[0]) < html.index("lesson-shell") < html.rindex(navs[1]), page)
             for nav in navs:
-                if number == 1:
+                if index == 0:
                     self.assertIn("<span>Inicio</span>", nav)
                 else:
-                    self.assertIn(f'href="SE-{number - 1:03d}.html"', nav)
-                if number == DEVELOPED_CLASSES:
+                    self.assertIn(f'href="SE-{numbers[index - 1]:03d}.html"', nav)
+                if index == DEVELOPED_CLASSES - 1:
                     self.assertIn("<span>Fin</span>", nav)
                 else:
-                    self.assertIn(f'href="SE-{number + 1:03d}.html"', nav)
+                    self.assertIn(f'href="SE-{numbers[index + 1]:03d}.html"', nav)
 
 
 if __name__ == "__main__":

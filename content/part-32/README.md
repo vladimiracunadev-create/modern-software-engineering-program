@@ -60,7 +60,7 @@ Los experimentos son: grafo de ataque, coincidencia de revisores y deriva del mo
 
 Los parámetros (costos de aristas, ruido de revisores, distribución de contraseñas, reutilización del 2 %, adopción del 30 %, 13 defectos de autorización, 36 cargas SQL, 60 secretos plantados, 20 instancias, 5 000 estudiantes, 3 000 vulnerabilidades, 6 reportes por semana, 40 requisitos, 5 000 cargas de rutas y 14 mutaciones del paquete) son **supuestos del autor**, no mediciones. Cada clase los lista.
 
-Lo que **no se hizo**: no se atacó ningún sistema, cuenta, servicio ni persona reales ni se usó dato personal real; no se usó ninguna herramienta de pruebas de intrusión, de análisis comercial, gestor de secretos ni servicio de claves; el cifrado de `SE-389` es una construcción didáctica que no debe usarse en producción; no se interpretó ninguna ley (la clase **no** da asesoría legal) ni se evaluó conformidad con ninguna norma; los escáneres, reglas, validadores y mutantes se escribieron conociendo los casos que los evalúan, de modo que sus porcentajes marcan una frontera y no una tasa; no se probó macOS. La parte no tiene laboratorio en `labs/` y su contenido sigue pendiente de revisión humana independiente.
+Lo que **no se hizo**: no se atacó ningún sistema, cuenta, servicio ni persona reales ni se usó dato personal real; no se usó ninguna herramienta de pruebas de intrusión, de análisis comercial, gestor de secretos ni servicio de claves; el cifrado de `SE-389` es una construcción didáctica que no debe usarse en producción; no se interpretó ninguna ley (la clase **no** da asesoría legal) ni se evaluó conformidad con ninguna norma; los escáneres, reglas, validadores y mutantes se escribieron conociendo los casos que los evalúan, de modo que sus porcentajes marcan una frontera y no una tasa; no se probó macOS. La parte no tiene laboratorio en `labs/` y su contenido sigue pendiente de revisión humana independiente. La ampliación de `SE-386` simula 20 000 robos de credencial por diseño y tipo de robo.
 
 ## Guía razonada clase por clase
 
@@ -74,7 +74,7 @@ El camino más barato decide el riesgo, no el defecto más grave. La clase const
 
 #### SE-386 — Identidad, autenticación y sesiones
 
-El costo por candidato y el origen del identificador deciden. Mide funciones de derivación, cinco defensas contra el relleno y una sesión predecible. Entrega una política de autenticación y sesión. `SE-387` pregunta qué puede hacer quien ya está autenticado.
+El costo por candidato y el origen del identificador deciden. Mide funciones de derivación, cinco defensas contra el relleno y una sesión predecible. Entrega una política de autenticación y sesión. `SE-387` pregunta qué puede hacer quien ya está autenticado. La ampliación aplica la confianza cero a la identidad: compara cuatro diseños de credencial y muestra que la vida corta y el atado a la clave frenan la copia filtrada pero no el equipo comprometido.
 
 #### SE-387 — Autorización, recursos y mínimo privilegio
 
@@ -153,6 +153,7 @@ Un paquete completo no es un paquete verdadero. Mide tres validadores frente a 2
 - [NIST SP 800-53](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) y [Schneier y Kelsey](https://doi.org/10.1145/317087.317089) — controles y registros.
 - [RFC 8725](https://www.rfc-editor.org/rfc/rfc8725) y [CWE-22](https://cwe.mitre.org/data/definitions/22.html) — controles aparentes.
 - [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/) y [Reproducible Builds](https://reproducible-builds.org/) — verificación.
+- [RFC 8705](https://datatracker.ietf.org/doc/html/rfc8705) y [RFC 9449](https://www.rfc-editor.org/rfc/rfc9449) — tokens atados a la clave del cliente (mTLS y DPoP); autoridad: IETF.
 
 Las fuentes se vinculan también dentro de cada clase. Definen vocabulario y mecanismos; la adecuación de las decisiones de seguridad se demuestra con el caso, la evidencia trazable y la revisión de otra persona.
 

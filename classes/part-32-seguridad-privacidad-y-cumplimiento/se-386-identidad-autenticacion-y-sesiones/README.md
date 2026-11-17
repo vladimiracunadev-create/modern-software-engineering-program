@@ -165,6 +165,34 @@ El token del segundo esquema es de 64 bits y parece largo; su entropía real es 
 
 **Cómo leer la figura.** Cada tarjeta es una forma de generar el identificador y a la derecha, cuántos intentos necesita alguien para quedarse con una sesión: coral si es abordable y verde azulado si adivinar deja de ser el camino. Mira que la segunda parece larga y no lo es: su entropía real es la hora del inicio. **Dónde deja de valer:** la tercera fila supone que el token no se filtra: no cubre robo por scripts, cookies sin `HttpOnly`, registros de acceso con el token ni sesiones que no caducan. Esos riesgos requieren las defensas de ciclo de vida de la sección anterior.
 
+### Ampliación: confianza cero y la vida de una credencial robada
+
+Esta clase trata cómo se identifica a una persona y cómo se mantiene su sesión. La **confianza cero** (*zero trust*, definida en [NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final)) extiende la pregunta a toda llamada, de persona o de máquina: ¿qué identidad verificada hace esta solicitud y qué le permite la política ahora mismo? La clase de nube (SE-353) muestra cómo limita el alcance del atacante en una red de servicios. Esta ampliación mira la otra cara: qué pasa con la identidad misma cuando se roba, y qué diseños de credencial acortan la ventana en que el robo sirve.
+
+**Dos robos que se parecen y no lo son.** Una **copia filtrada** es la credencial como dato: aparece en un registro, un repositorio, una copia de seguridad o un historial de comandos; el atacante tiene el valor, pero no el equipo del dueño. Un **equipo comprometido** es el robo del que la usa: el atacante ejecuta código en el servicio o el equipo legítimo y puede pedir credenciales nuevas mientras la identidad siga válida. Los controles que reducen uno apenas tocan el otro.
+
+**Mecanismos de acortar la ventana.**
+
+- **Vida corta.** Un token de 15 minutos o de una hora caduca solo; una llave estática dura hasta que alguien la rota. Con vida corta, una copia filtrada deja de servir en minutos.
+- **Revocación en la renovación.** Si renovar exige que el emisor consulte el estado de la identidad, deshabilitarla impide emitir credenciales nuevas; las ya emitidas caducan al terminar su vida.
+- **Credencial atada a la clave del cliente** (*sender-constrained*). El token se emite para una clave que solo posee el cliente legítimo: con TLS mutuo ([RFC 8705](https://datatracker.ietf.org/doc/html/rfc8705)) o con una prueba de posesión por solicitud ([RFC 9449, DPoP](https://www.rfc-editor.org/rfc/rfc9449)). Quien copia el token sin la clave privada no puede usarlo.
+- **Evaluación continua.** La política se consulta en cada solicitud, no solo al iniciar sesión; deshabilitar una identidad surte efecto en el tiempo que tarde en propagarse esa decisión.
+
+**Experimento reproducible.** `scripts/experiments_part32_ext.py` simula 20 000 robos por celda (semilla 386) de cada uno de cuatro diseños: A, llave estática que rota cada 90 días y se revoca a mano 4 horas después de detectar el robo; B, token portador de 1 hora sin revocación; C, token portador de 15 minutos que se revoca al renovar; D, token de 1 hora atado a la clave del cliente, con política evaluada en cada solicitud y 1 minuto de propagación. La detección tarda un tiempo lognormal de mediana 6 horas y el 25 % de los robos no se detecta en la ventana de observación de 720 horas. Se mide cuánto tiempo conserva acceso el atacante.
+
+| Diseño | Copia filtrada: media (h) | Copia: más de 1 h | Equipo comprometido: media (h) | Equipo: mediana (h) | Equipo: más de 1 h |
+|---|---:|---:|---:|---:|---:|
+| A. Llave estática | 159,94 | 100 % | 159,94 | 13,81 | 100 % |
+| B. Token portador de 1 h | 0,50 | 0 % | 188,36 | 10,43 | 98,1 % |
+| C. Token portador de 15 min revocable | 0,12 | 0 % | 188,08 | 10,04 | 95,8 % |
+| D. Token atado a la clave | 0,00 | 0 % | 187,80 | 9,98 | 95,0 % |
+
+![Barras agrupadas con el porcentaje de 20 000 robos simulados en que el atacante conserva acceso más de una hora, por diseño de credencial: con una copia filtrada 100 % con llave estática y 0 % con las tres alternativas; con el equipo comprometido 100 %, 98,1 %, 95,8 % y 95,0 %.](../../../content/part-32/figures/se-386-exposicion-de-una-credencial-robada.svg)
+
+**Cómo leer la figura.** Cada diseño tiene dos barras: la dorada es el robo de una copia y la coral, el del equipo comprometido; la longitud es el porcentaje de robos en que el atacante conserva acceso más de una hora. Mira el contraste: las tres alternativas a la llave estática llevan la dorada a cero y la coral casi no se mueve. **Dónde deja de valer:** la detección (mediana de 6 horas, 25 % sin detectar en 30 días) es un supuesto que domina el resultado del equipo comprometido; el modelo no incluye vulnerar al emisor de credenciales, robar la clave privada del cliente ni que el atacante use la identidad robada de forma que parezca normal; y las medias del equipo comprometido (cerca de 188 h) las determina el 25 % sin detectar, por eso la tabla añade la mediana.
+
+**Límite y decisión.** La enseñanza no es que las credenciales de vida corta sean inútiles, sino que resuelven el problema de la copia y no el del equipo comprometido; este se acota con detección rápida (clases de observabilidad y respuesta a incidentes) y con lo que la identidad robada puede alcanzar (microsegmentación y mínimo privilegio, SE-353 y SE-387). La decisión práctica: sustituir llaves estáticas por credenciales de vida corta y atadas a la clave siempre que el cliente pueda guardar una clave; evaluar la política en cada llamada y no solo al iniciar sesión; medir cuánto tarda de verdad una revocación en surtir efecto; y no presentar a la vida corta como protección frente al equipo comprometido.
+
 ## Definiciones de trabajo
 
 - **autenticación:** prueba de que quien llama controla la identidad que afirma, mediante algo que sabe, tiene o es.
@@ -303,9 +331,12 @@ Traslada el análisis a otro dominio (por ejemplo, una aplicación de reservas d
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 22,5 %, las 100 cuentas o los 3 601 candidatos se observen en un sistema real. Esa afirmación depende del hardware del atacante, de las contraseñas reales y del tráfico.
 
+- [NIST SP 800-207, Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/800/207/final) — principios de confianza cero: decisión de acceso por solicitud con identidad y contexto; autoridad: NIST.
+- [RFC 8705: OAuth 2.0 con TLS mutuo](https://datatracker.ietf.org/doc/html/rfc8705) y [RFC 9449: DPoP](https://www.rfc-editor.org/rfc/rfc9449) — tokens atados a la clave del cliente para que una copia no sirva sin la clave privada; autoridad: IETF.
+
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): relleno y sesión con cifras idénticas; los tiempos de las funciones de derivación son lecturas de reloj de cada equipo y difieren. No se atacó ninguna cuenta ni servicio reales ni se usó ninguna lista de contraseñas filtradas; la distribución de contraseñas, el núcleo único del atacante, la reutilización, la adopción del segundo factor y el corpus de filtraciones son construcciones del autor. La siguiente clase pregunta qué puede hacer una persona ya autenticada.
+Se ejecutaron tres experimentos en Windows y Ubuntu (WSL2): relleno y sesión con cifras idénticas; los tiempos de las funciones de derivación son lecturas de reloj de cada equipo y difieren. No se atacó ninguna cuenta ni servicio reales ni se usó ninguna lista de contraseñas filtradas; la distribución de contraseñas, el núcleo único del atacante, la reutilización, la adopción del segundo factor y el corpus de filtraciones son construcciones del autor. La siguiente clase pregunta qué puede hacer una persona ya autenticada. La ampliación sobre confianza cero y credenciales robadas usa un modelo sintético con 20 000 robos por celda y semilla 386, ejecutado con CPython 3.12.9 en Windows; no se ejecutó mTLS, DPoP ni un emisor de credenciales, y los tiempos de detección son supuestos del autor.
 
 ## Glosario
 

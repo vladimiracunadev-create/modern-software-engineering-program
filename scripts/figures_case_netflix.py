@@ -407,17 +407,14 @@ def plantilla() -> Fig:
 
 def costos() -> Fig:
     names = ["2023", "2024", "2025"]
-    rev = [33723.297, 39000.966, 45183.036]
-    cost = [19715.368, 21038.464, 23275.329]
-    sm = [2657.883, 2917.554, 3301.306]
-    td = [2675.758, 2925.295, 3391.390]
-    ga = [1720.285, 1702.039, 1888.408]
-    op = [6954.003, 10417.614, 13326.603]
-    pct = lambda a: [round(100 * x / r, 1) for x, r in zip(a, rev)]
+    # Integer millions: the kit sums values, and float sums differ between Python 3.11 and 3.12.
+    series = [("Coste de ingresos", [19715, 21038, 23275], "navy"), ("Marketing", [2658, 2918, 3301], "teal"),
+              ("Tecnología y desarrollo", [2676, 2925, 3391], "grey"), ("Administración", [1720, 1702, 1888], "coral"),
+              ("Resultado operativo", [6954, 10418, 13327], "gold")]
     return stacked_bars(
         "Costos operativos de Netflix por rubro, 2023-2025 (porcentaje de los ingresos)",
         "Barras apiladas al cien por ciento: el coste de ingresos baja de 58,5 a 51,5 por ciento de los ingresos entre 2023 y 2025; marketing, tecnología y administración se mantienen entre 4 y 8 por ciento cada uno; el resultado operativo sube de 20,6 a 29,5 por ciento.",
-        names, [("Coste de ingresos", pct(cost), "navy"), ("Marketing", pct(sm), "teal"), ("Tecnología y desarrollo", pct(td), "grey"), ("Administración", pct(ga), "coral"), ("Resultado operativo", pct(op), "gold")],
+        names, series,
         unit="% de los ingresos", percent=True, horizontal=True, decimals=1, label_w=70,
         note="En dólares, en 2025: coste de ingresos 23 275 millones, marketing 3 301, tecnología y desarrollo 3 391, administración 1 888 y resultado operativo 13 327. El coste de ingresos incluye amortización de contenido (16 422 millones en 2025), entrega, soporte y comisiones de pago; el 10-K no separa lo que corresponde a infraestructura. Tecnología y desarrollo es solo 7,5 por ciento de los ingresos.",
         note_kind="gold", foot=SEC)

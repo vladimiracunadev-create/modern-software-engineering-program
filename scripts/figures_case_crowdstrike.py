@@ -5,7 +5,8 @@ Every number comes from a cited public source: the CrowdStrike Root Cause Analys
 """
 from __future__ import annotations
 
-from figure_kit import Fig, _kit_finish, _kit_start, _wrap, stacked_bars, timeline
+from case_fig_helpers import hub, kanban, layer_stack
+from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, stacked_bars, timeline
 
 FUENTE = "Fuente: análisis de causa raíz de CrowdStrike (6 ago 2024) y revisión preliminar del incidente; lectura propia."
 
@@ -444,6 +445,102 @@ def respuesta_en_semanas() -> Fig:
 
 # ==== EXPANDED FIGURES (end) ====
 
+# ==== EXPANDED FIGURES2 (begin) ====
+
+SRC10K = "Fuente: informe anual 10-K de CrowdStrike (ejercicio fiscal 2025); esquema propio."
+
+
+def sedes_y_centros() -> Fig:
+    return hub(
+        "Sedes y centros: la sede en Austin, la I+D repartida y la plataforma en AWS y colocación",
+        "Esquema de relaciones con la sede ejecutiva de Austin en el centro. Arriba, los centros de I+D: liderazgo en Seattle y Sunnyvale, Irvine y Minneapolis, y Bucarest, Israel e India. Abajo, dónde corre la plataforma: centros de datos de colocación en EE. UU. y Europa, alojamiento principalmente en AWS y clientes de todo el mundo.",
+        ("Sede ejecutiva: Austin, Texas", "navy"),
+        [("I+D: liderazgo en Seattle y Sunnyvale", "plain", ""), ("I+D: Irvine y Minneapolis", "plain", ""), ("I+D: Bucarest, Israel e India", "plain", ""),
+         ("Colocación propia en EE. UU. y Europa", "gold", ""), ("Alojamiento principal en AWS", "gold", ""), ("Clientes: el 32 % de los ingresos es internacional", "teal", "")],
+        "No es un mapa a escala. El informe no lista oficinas comerciales ni la ubicación del equipo que publicó el contenido del 19 de julio: no se sabe.",
+        SRC10K)
+
+
+def plantilla() -> Fig:
+    return grouped_bars(
+        "Plantilla a tiempo completo: de 7.273 a 10.118 empleados en dos años",
+        "Dos barras: 7.273 empleados a tiempo completo al 31 de enero de 2023 y 10.118 al 31 de enero de 2025.",
+        ["31 de enero de 2023", "31 de enero de 2025"], [("Empleados", [7273, 10118], "navy")],
+        unit="empleados a tiempo completo", horizontal=True, label_w=190,
+        note="Cuenta empleados a tiempo completo; no incluye contratistas ni dice cuántos trabajan en el sensor o en el contenido. No hay organigrama público del área.",
+        foot=SRC10K)
+
+
+def esquema_del_negocio() -> Fig:
+    return hub(
+        "Esquema del negocio: quién paga, quién habilita, quién aloja y quién absorbe el daño",
+        "Esquema con la plataforma Falcon en el centro. Arriba: clientes que pagan suscripciones por equipo, Microsoft que habilita el controlador y lo certifica, AWS y centros propios que alojan la plataforma, e ingenieros de detección y servicios gestionados que producen contenido. Abajo: aseguradoras de las pérdidas de los clientes, tribunales y reguladores, y acreedores e inversores.",
+        ("Plataforma Falcon por suscripción", "teal"),
+        [("Clientes: suscripción por equipo; ingresos recurrentes de 4.200 millones", "plain", "pagan"), ("Microsoft: núcleo, certificación y programa de socios", "plain", "habilita"),
+         ("AWS y centros propios: alojan la plataforma", "plain", "alojan"), ("Ingenieros de detección y servicios gestionados", "plain", "producen"),
+         ("Aseguradoras: cobertura parcial de las pérdidas de clientes", "gold", ""), ("Tribunales y reguladores: litigios tras el incidente", "coral", ""), ("Inversores y deuda: 750 millones al cierre", "plain", "")],
+        "Cifras del ejercicio fiscal 2025: ingresos de 3.953,6 millones (+29 %), 95 % por suscripciones. Los flujos son una lectura de las secciones de negocio y del RCA; no hay contratos públicos salvo la cláusula que cita la prensa.",
+        SRC10K)
+
+
+def costo_del_incidente() -> Fig:
+    return stacked_bars(
+        "Gastos atribuidos al incidente del 19 de julio en el ejercicio fiscal 2025: unos 60 millones",
+        "Una barra apilada en millones de dólares: 21,4 de ventas y marketing, 6,8 de investigación y desarrollo y 31,9 de gastos generales y de administración, unos 60,1 en total.",
+        ["Gastos por función"],
+        [("Ventas y marketing", [21.4], "teal"), ("Investigación y desarrollo", [6.8], "gold"), ("Generales y de administración", [31.9], "coral")],
+        unit="millones de dólares", horizontal=True, label_w=170, decimals=1,
+        note="Es el costo reconocido por la empresa en ese ejercicio, no el costo total. El importe de los paquetes de compromiso con clientes no es público; las pérdidas de los clientes (estimación de Parametrix: 5.400 millones para las 500 mayores empresas de EE. UU.) son de otro orden.",
+        foot=SRC10K)
+
+
+def pila_hardware_software() -> Fig:
+    return layer_stack(
+        "Pila de un equipo afectado: del hardware x64 al intérprete que leyó mal",
+        "Cinco capas de arriba abajo: archivos de canal binarios, intérprete de contenido en C++, controlador csagent.sys y de arranque temprano, núcleo de Windows y hardware x64. A la derecha, quién gobierna cada tramo: CrowdStrike el contenido rápido, el cliente la versión del sensor y Microsoft el núcleo y la certificación.",
+        [("Archivos de canal", "Binarios propietarios en disco; instancias con expresiones regulares", "gold"),
+         ("Intérprete de contenido", "Código C++ del sensor; lee por índice el arreglo de entradas", "coral"),
+         ("Controladores del sensor", "csagent.sys (filtro) y controlador de arranque firmado como ELAM", "teal"),
+         ("Núcleo de Windows", "Modo kernel: un acceso inválido detiene el sistema", "plain"),
+         ("Hardware x64", "Equipos de escritorio, portátiles, cajeros y estaciones clínicas", "plain")],
+        [("Gobierna CrowdStrike: contenido rápido, sin elección del cliente", "gold"), ("Gobierna el cliente: versión del sensor N, N-1 o N-2", "teal"), ("Gobierna Microsoft: núcleo, ELAM y certificación WHQL", "plain")],
+        "Los nombres son los del RCA. Modelos de equipo, memoria y procesadores: no se sabe. Los servidores de CrowdStrike (AWS y colocación) tampoco tienen especificaciones públicas.",
+        "Fuente: RCA de CrowdStrike (6 ago 2024) y blog de seguridad de Microsoft (27 jul 2024); esquema propio.")
+
+
+def infraestructura_de_entrega() -> Fig:
+    f, y = sketch("Infraestructura de entrega: de la nube de CrowdStrike a la flota, sin etapas intermedias",
+                  "Diagrama de izquierda a derecha. En AWS y centros de colocación: sistema de configuración, validador y distribución de archivos de canal; aparte, un entorno de pruebas con varios sistemas operativos. En el centro, la distribución a sensores en línea. A la derecha, la flota de clientes. Una flecha punteada marca la ausencia de etapas intermedias en julio de 2024.")
+    f.group(10, y, 300, 270, "AWS y centros de colocación", "grey")
+    bx(f, 26, y + 40, 268, 56, "Sistema de configuración y validador", "plain")
+    bx(f, 26, y + 110, 268, 56, "Distribución de archivos de canal", "plain")
+    bx(f, 26, y + 190, 268, 60, "Entorno de pruebas: varios sistemas y cargas", "gold")
+    f.arrow([(160, y + 96), (160, y + 110)])
+    f.group(340, y, 250, 270, "Entrega", "grey")
+    bx(f, 356, y + 40, 218, 80, "Sensores en línea reciben el archivo al conectarse", "coral")
+    bx(f, 356, y + 150, 218, 80, "Sin canary, anillos ni elección del cliente", "coral", dashed=True)
+    f.group(620, y, 310, 270, "Flota de clientes", "grey")
+    bx(f, 636, y + 40, 278, 56, "Equipos Windows con sensor 7.11 o superior", "plain")
+    bx(f, 636, y + 110, 278, 56, "Equipos Mac y Linux: sin afectación", "teal")
+    bx(f, 636, y + 190, 278, 60, "Política de versión del cliente: solo sensor", "gold")
+    f.arrow([(294, y + 138), (340, y + 80)])
+    f.arrow([(590, y + 80), (636, y + 68)], dashed=True)
+    return done(f, y + 290, "Capacidad, regiones y topología de red no son públicas. Lo documentado es que el archivo llegó a todos los sensores en línea durante 78 minutos y que el control del cliente sobre el contenido rápido se añadió después.", foot="Fuente: RCA de CrowdStrike, revisión preliminar y 10-K del ejercicio fiscal 2025; esquema propio.")
+
+
+def a_prueba_de_fallos() -> Fig:
+    return kanban(
+        "A prueba de fallos: qué existía, qué falló, qué no existía y qué debió existir",
+        "Cuatro columnas de mecanismos de tolerancia a fallos. Existían y funcionaron: reversión en la nube, apagado seguro de Windows, Mac y Linux sin afectación. Existían y fallaron: validador, pruebas con comodín, excepciones del intérprete, certificación. No existían: canary y anillos, control del cliente, comprobación de límites, recuperación remota. Debieron existir: señales de salud con retroceso, kernel mínimo, versión buena de respaldo, ensayo de recuperación.",
+        [("Existían y funcionaron", "teal", ["Reversión del archivo a las 05:27 UTC", "Windows detiene el equipo: protege la integridad", "Equipos Mac y Linux fuera del alcance"]),
+         ("Existían y fallaron", "coral", ["Content Validator con la hipótesis de 21 entradas", "Pruebas de 12 casos con comodín", "Excepciones del intérprete: no cubrían el kernel", "Certificación WHQL: no cubre cada contenido"]),
+         ("No existían (documentado)", "gold", ["Canary y anillos para el contenido rápido", "Elección del cliente sobre el contenido", "Comprobación de límites en el intérprete", "Recuperación remota a escala"]),
+         ("Debieron existir (análisis propio)", "plain", ["Señales de salud con retroceso automático", "Kernel mínimo y análisis en modo usuario", "Versión buena de respaldo (propuesta)", "Ensayo de recuperación con claves accesibles"])],
+        "Las tres primeras columnas son del RCA, de la revisión preliminar y de la guía de remediación; la cuarta es opinión de este programa y no afirma que bastara ni que su costo fuera bajo.",
+        "Fuente: RCA y revisión preliminar de CrowdStrike (2024); análisis propio.")
+
+# ==== EXPANDED FIGURES2 (end) ====
+
 FIGURES = {
     "crowdstrike-camino-del-contenido.svg": camino_del_contenido,
     "crowdstrike-lectura-fuera-de-limites.svg": lectura_fuera_de_limites,
@@ -464,4 +561,12 @@ FIGURES = {
     "crowdstrike-arquitectura-despues.svg": arquitectura_despues,
     "crowdstrike-recuperacion-por-equipo.svg": recuperacion_por_equipo,
     "crowdstrike-respuesta-en-semanas.svg": respuesta_en_semanas,
+    # expanded entries2
+    "crowdstrike-sedes-y-centros.svg": sedes_y_centros,
+    "crowdstrike-plantilla.svg": plantilla,
+    "crowdstrike-esquema-del-negocio.svg": esquema_del_negocio,
+    "crowdstrike-costo-del-incidente.svg": costo_del_incidente,
+    "crowdstrike-pila-hardware-software.svg": pila_hardware_software,
+    "crowdstrike-infraestructura-de-entrega.svg": infraestructura_de_entrega,
+    "crowdstrike-a-prueba-de-fallos.svg": a_prueba_de_fallos,
 }

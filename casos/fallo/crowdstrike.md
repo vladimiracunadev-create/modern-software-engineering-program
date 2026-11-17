@@ -20,6 +20,28 @@ El viernes 19 de julio de 2024, durante 78 minutos, CrowdStrike distribuyó un a
 
 La tabla resume datos y se sustenta en las fuentes del último apartado; la fecha de consulta de todas es el 16 de noviembre de 2026.
 
+### Sedes, centros de datos y oficinas
+
+El informe anual de CrowdStrike para el ejercicio fiscal 2025 (cerrado el 31 de enero de 2025, presentado ante la SEC) permite fijar dónde está la empresa. **Documentado:** la sede ejecutiva está en el 206 de East 9th Street, oficina 1400, Austin (Texas), una oficina de unos 47.618 pies cuadrados con contrato hasta 2030; el liderazgo de investigación y desarrollo está en Seattle (Washington) y Sunnyvale (California); hay otros centros de I+D en Irvine (California), Minneapolis (Minnesota), Bucarest (Rumanía), Israel e India; y la plataforma Falcon se aloja en una mezcla de centros de datos de terceros, principalmente Amazon Web Services, y centros propios en instalaciones de colocación en EE. UU. y Europa. La enciclopedia que usa la ficha anterior ubica la mudanza de la sede desde Sunnyvale en 2021; ese dato es de fuente secundaria.
+
+**No se sabe:** el número de oficinas comerciales, la dirección de los centros de datos, el desglose de la plantilla por país y la ubicación del equipo que publicó el contenido del 19 de julio. El informe no lo dice y este caso no lo infiere. La clase [SE-349 · IaaS, PaaS, SaaS y responsabilidad compartida](../../classes/part-29-cloud-plataforma-e-infraestructura/se-349-iaas-paas-saas-y-responsabilidad-compartida/README.md) trata la responsabilidad compartida entre quien aloja y quien opera, relevante aquí porque la infraestructura de entrega de contenido combina un proveedor de nube y centros propios.
+
+![Mapa conceptual de sedes: Austin como sede ejecutiva; Seattle y Sunnyvale con el liderazgo de I+D; Irvine, Minneapolis, Bucarest, Israel e India con centros de I+D; centros de datos de colocación en EE. UU. y Europa y alojamiento principalmente en AWS; y, fuera de la empresa, los clientes y Microsoft.](../figures/crowdstrike-sedes-y-centros.svg)
+
+**Cómo leer la figura.** El nodo central es la sede; las cajas de arriba son los centros de I+D que cita el informe y las de abajo, dónde corre la plataforma. Mira primero que ninguna caja es un centro de operaciones públicamente descrito para el contenido rápido. **Dónde deja de valer:** es un diagrama de relaciones y no un mapa geográfico a escala; no incluye oficinas comerciales porque el informe no las lista.
+
+### Organización y plantilla
+
+El informe declara 10.118 empleados a tiempo completo al 31 de enero de 2025, frente a 7.273 al 31 de enero de 2023: un 39 % más en dos años (cálculo propio). **No es público** un organigrama detallado del área que mantiene el sensor, el sistema de contenido y el validador, de modo que este caso no dibuja una pirámide de cargos: sería inventar. Lo que sí se sabe por el análisis de causa raíz es la división funcional que importa para el incidente: ingenieros de desarrollo del sensor (código y *Template Types*), ingenieros de detección (instancias de plantilla), ingeniería de calidad y pruebas, y servicios gestionados como Falcon Adversary OverWatch y Falcon Complete, que el informe menciona como fuente de inteligencia. La figura muestra solo la cifra pública de plantilla.
+
+![Dos barras de plantilla: 7.273 empleados a tiempo completo al 31 de enero de 2023 y 10.118 al 31 de enero de 2025.](../figures/crowdstrike-plantilla.svg)
+
+**Cómo leer la figura.** Cada barra es una fecha de cierre fiscal. Mira primero el cambio entre ambas: la empresa creció en plantilla en el período del incidente. **Dónde deja de valer:** cuenta empleados a tiempo completo, no contratistas ni socios, y no dice cuántos trabajan en el sensor ni en el contenido.
+
+### Visión y misión
+
+**Documentado:** el informe anual no contiene una declaración de misión formal; describe la plataforma como «construida a propósito para detener las brechas» (traducción propia). Cualquier lema de la web comercial es cambiante y no se cita aquí. Lo relevante para el curso es la tensión entre esa promesa (detener brechas, es decir, velocidad de detección) y la disciplina de entrega: la misión de un producto de seguridad refuerza la presión a publicar rápido, un factor de contexto **inferido** que ya aparece en el análisis causal.
+
 ## Contexto y problema
 
 Un agente de seguridad de punto final (*endpoint*) observa lo que hace un equipo —procesos que nacen, archivos que se escriben, conexiones que se abren— y decide si bloquear algo. Para ver todo eso y para que un atacante con permisos de administrador no lo apague, la mayoría de los productos de este tipo, incluidos los de Microsoft, instalan un controlador que corre en el núcleo (modo *kernel*). Microsoft lo explica en su blog de seguridad: el núcleo da visibilidad de todo el sistema, carga en el arranque temprano y resiste la manipulación, pero a costa de resiliencia, porque un fallo allí no puede reiniciarse como el de una aplicación normal y detiene el sistema entero.
@@ -135,6 +157,28 @@ Cuatro observaciones de análisis propio. Primera: ninguna de estas cifras es el
 - **Mercado.** Las fuentes consultadas no permiten afirmar una cifra verificada de pérdida de clientes ni de valor de mercado atribuible al incidente. Se deja como **no se sabe**: citar una cotización exige fecha, bolsa y comparación, y ninguna de las fuentes de este caso la ofrece.
 
 La economía del caso queda así: un proveedor cuyo valor es la velocidad del contenido; un cliente que asume casi todo el costo de la falla; una cadena contractual que limita la responsabilidad del proveedor, y una plataforma que, tras el incidente, empieza a exigir lo que antes dependía de la disciplina de cada proveedor. [SE-453 · Economía del software y costo total](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) da el marco para pensar el costo total de un componente de ese tipo y [SE-450 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) el de las decisiones ejecutivas de riesgo.
+
+### Esquema del negocio: actores, valor y flujos
+
+El negocio se entiende como un conjunto de flujos entre actores. El cliente paga una suscripción por equipo protegido y recibe detección y prevención continuas; la empresa depende de Microsoft para que su controlador cargue y se certifique en Windows, del proveedor de nube y de centros propios para alojar la plataforma, y de ingenieros y servicios gestionados para producir contenido; las aseguradoras y los tribunales aparecen cuando el servicio falla. Las cifras del ejercicio fiscal 2025 (informe anual): ingresos de 3.953,6 millones de dólares (un 29 % más), de los que 3.761,5 millones (95 %) son suscripciones; ingresos anuales recurrentes de 4.200 millones; 806,7 millones de nuevos ingresos recurrentes netos; el 32 % de los ingresos son internacionales; una pérdida neta de 19,3 millones; una cartera comprometida de unos 2.800 millones; y 750 millones de deuda a fin de año.
+
+![Esquema del negocio: los clientes pagan suscripciones por equipo; CrowdStrike recibe de Microsoft la carga del controlador y la certificación; AWS y los centros de colocación alojan Falcon; los ingenieros de detección y los servicios gestionados producen contenido; las aseguradoras cubren parte de las pérdidas de los clientes; tribunales y reguladores intervienen tras el incidente.](../figures/crowdstrike-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** Las cajas son actores y las etiquetas, lo que fluye. Mira primero la caja central: concentra el valor (detección rápida) y el riesgo (acceso al núcleo). **Dónde deja de valer:** los flujos se infieren de las secciones de negocio del informe anual y del RCA; no hay detalles contractuales públicos más allá de la cláusula de responsabilidad que cita la prensa en el litigio con Delta.
+
+### Costos operativos y costo del incidente
+
+**Documentado en el informe anual:** el ejercicio fiscal 2025 incluye gastos atribuidos al incidente del 19 de julio de 21,4 millones en ventas y marketing, 6,8 millones en investigación y desarrollo y 31,9 millones en gastos generales y de administración, unos 60,1 millones en total (suma propia). Los paquetes de compromiso con clientes (descuentos, módulos adicionales, servicios profesionales y condiciones de pago flexibles) **no tienen importe público** en el informe; este dice que aumentaron la contracción y redujeron el valor de las ventas adicionales. También dice que los litigios abarcan demandas de valores, demandas derivadas y acciones colectivas de consumidores, y que el seguro no cubrirá todos los costos. La demanda de Delta, con más de 500 millones declarados por esa aerolínea, es un dato de prensa (CNBC) y no figura en las partes del informe leídas para este caso.
+
+![Una barra apilada de los gastos atribuidos al incidente en el ejercicio fiscal 2025: 21,4 millones de dólares en ventas y marketing, 6,8 en investigación y desarrollo y 31,9 en gastos generales y de administración.](../figures/crowdstrike-costo-del-incidente.svg)
+
+**Cómo leer la figura.** Cada tramo es una función de la empresa. Mira primero el tamaño relativo de los gastos generales: es donde caen los costos legales y de respuesta, según la categorización contable (lectura propia). **Dónde deja de valer:** es el costo reconocido por la empresa en un ejercicio, no el costo total del incidente para ella ni para sus clientes, y no incluye el efecto sobre ingresos futuros.
+
+El contraste con las cifras de la sección anterior es instructivo: 60,1 millones frente a ingresos de 3.953,6 millones es un 1,5 % (cálculo propio) para la empresa; las pérdidas de sus clientes, estimadas por Parametrix en 5.400 millones solo para las 500 mayores empresas de EE. UU., son de otro orden. **Inferido:** el costo del incidente recayó sobre todo en terceros. [SE-453 · Economía del software y costo total](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) trata la economía del software y el costo total, y [SE-134 · Costos de construcción, operación y oportunidad](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) los costos de operación y de oportunidad.
+
+### Competidores y contexto de mercado
+
+**Documentado:** el informe anual no nombra competidores; los agrupa en categorías (proveedores de antivirus tradicional, de seguridad de identidad y de seguridad en la nube). **No se sabe**, con fuente pública verificada para este caso, la cuota de mercado de CrowdStrike ni su variación tras el incidente. Lo que sí se puede afirmar con la fuente de Microsoft es el alcance de la plataforma afectada: 8,5 millones de equipos Windows, menos del 1 % del total. Y que Microsoft, el propietario del sistema operativo, ofrece sus propios productos de seguridad y participa en el programa de socios con el que ahora exige prácticas de despliegue seguro (19 de noviembre de 2024): un competidor y un regulador de facto a la vez.
 
 ## Arquitectura y esquemas
 
@@ -259,6 +303,36 @@ Con las mitigaciones documentadas y las propuestas de este programa, la arquitec
 ![Arquitectura posterior: la creación del contenido pasa por validación ampliada, pruebas de cada instancia contra el intérprete, canary, anillos con tiempo de observación y señales de salud con retroceso automático, y el cliente decide dónde y cuándo; en el sensor, comprobación de límites, verificación de cuenta y versión buena anterior como respaldo; en el entorno, kernel mínimo.](../figures/crowdstrike-arquitectura-despues.svg)
 
 **Cómo leer la figura.** Las cajas teal son compromisos que CrowdStrike dice haber implantado o anunciado; las doradas son propuestas de este programa que el informe no menciona. Las flechas muestran un nuevo bucle de retroalimentación: las señales de salud de cada anillo vuelven a decidir si se promueve o se retrocede. Mira primero ese bucle: es lo que convierte una lista de pruebas en un control que detiene. **Dónde deja de valer:** no afirma que cada elemento esté vigente hoy ni que sea suficiente; es un objetivo de diseño, no una auditoría.
+
+### Hardware utilizado
+
+**Documentado:** el incidente ocurrió en equipos Windows de arquitectura x64 (el volcado de memoria del RCA muestra registros y direcciones de 64 bits) con el sensor 7.11 o posterior; los equipos Mac y Linux no se vieron afectados. Los clientes eran organizaciones con parques de equipos de escritorio, portátiles, terminales de punto de venta, cajeros y estaciones clínicas, según Microsoft y la BBC. **No es público** el modelo de cada equipo, la memoria ni los procesadores; el hardware de los servidores de CrowdStrike (en AWS y colocación) tampoco lo es. **Inferido:** como el fallo se produjo por una lectura de memoria en un controlador, es independiente del fabricante del equipo; lo único que importa del hardware es que arrancaba Windows con el controlador cargado.
+
+### Software utilizado
+
+**Documentado (RCA y revisión preliminar):** el sensor está escrito en C++ y el intérprete de contenido es «parte del código C++ del sensor»; los *Template Types* son código compilado; el contenido (*Template Instances*) se expresa con expresiones regulares; los archivos de canal son binarios propietarios; el controlador `csagent.sys` es un controlador de filtro del sistema de archivos del núcleo de Windows y hay un controlador de arranque temprano firmado como ELAM; cada versión del sensor pasa la certificación WHQL con el *Windows Hardware Lab Kit*; el sistema de configuración de contenido incluye una interfaz generada a partir del archivo de definiciones y el *Content Validator*; y hay un compilador de contenido del sensor al que se añadió la comprobación de cuenta. Microsoft usó el depurador del núcleo WinDbg para analizar los volcados. **No se sabe:** el lenguaje y la tecnología de los servicios de nube, de las bases de datos y de las herramientas de despliegue de contenido; el informe anual solo dice que la plataforma corre en AWS y centros propios.
+
+![Pila de hardware y software del equipo afectado: equipo Windows x64; núcleo de Windows con carga temprana ELAM; controlador csagent.sys en C++; intérprete de contenido con motor de expresiones regulares; archivos de canal binarios en disco; y a un lado, certificación WHQL y política de versiones del sensor; el defecto estuvo en la capa del intérprete.](../figures/crowdstrike-pila-hardware-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa de la pila de un equipo, de la más baja a la más alta de arriba abajo en dependencia (el hardware sostiene todo lo demás). Las notas de la derecha dicen quién gobierna cada capa. Mira primero la capa coral: es la única donde el defecto fue datos que un intérprete privilegiado leyó mal. **Dónde deja de valer:** el nombre de cada componente es el que usa el RCA; la pila no incluye otros controladores ni componentes de usuario del sensor.
+
+### Infraestructura
+
+**Documentado:** Falcon corre en una mezcla de proveedores de nube, principalmente AWS, y de centros de datos propios en colocación en EE. UU. y Europa; existe una opción de despliegue en AWS GovCloud para clientes que la necesiten; el contenido rápido se distribuye desde la nube a los sensores en línea; y hay un entorno de pruebas con varios sistemas operativos y cargas. **No se sabe:** la capacidad, el número de regiones, la topología de red, la red de entrega y las dependencias de terceros más allá de las citadas. **Inferido:** una red de distribución que llega a millones de equipos en menos de 78 minutos implica que la capa de entrega es global y de alta capacidad; el RCA no la describe.
+
+![Infraestructura de entrega: AWS y centros de colocación alojan Falcon; el sistema de configuración y el validador producen archivos de canal; la distribución llega a sensores en línea de los clientes; el entorno de pruebas es independiente; y las flechas punteadas muestran la ausencia de etapas entre la publicación y la flota.](../figures/crowdstrike-infraestructura-de-entrega.svg)
+
+**Cómo leer la figura.** El flujo va de izquierda a derecha, de la producción de contenido a los equipos. Mira primero el tramo punteado: entre «publicar» y «flota» no había etapas ni elección del cliente en julio de 2024. **Dónde deja de valer:** no es un diagrama de la red real, que no es pública.
+
+### A prueba de fallos: qué existía, qué falló y qué debió existir
+
+El incidente es una prueba de estrés de los mecanismos de tolerancia a fallos de todo el ecosistema. La figura los clasifica en cuatro columnas según el estado documentado (con la columna «debió existir» rotulada como análisis propio).
+
+![Cuatro columnas de mecanismos de tolerancia a fallos: existían y funcionaron; existían y fallaron; no existían; y debieron existir según análisis propio.](../figures/crowdstrike-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Cada caja es un mecanismo; el color indica la columna. Mira primero la columna de «existían y fallaron»: son los controles que daban sensación de protección. **Dónde deja de valer:** los tres primeros estados son los del RCA y de la revisión preliminar; la última columna es opinión de este programa, sin sugerir que fuera suficiente ni que el costo fuera bajo.
+
+La lección general es que **la tolerancia a fallos depende del radio de impacto más que de la calidad de cada control**: con anillos y señales de salud, un defecto que pasó todas las pruebas habría afectado a pocos equipos; con un kernel mínimo y recuperación remota, uno que afectó a muchos habría sido corto. [SE-380 · Disponibilidad, durabilidad y recuperación](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/README.md) trata disponibilidad y recuperación, [SE-379 · Circuit breakers, bulkheads y degradación](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-379-circuit-breakers-bulkheads-y-degradacion/README.md) compartimentos y degradación, y [SE-536 · Arquitectura celular y radio de impacto](../../classes/part-44-estilos-arquitectonicos/se-536-arquitectura-celular-y-radio-de-impacto/README.md) el radio de impacto.
 
 ## Casos especiales y cómo fallan
 
@@ -591,6 +665,7 @@ Todas las URL se abrieron el 16 de noviembre de 2026.
 - [Cloudflare, Details of the Cloudflare outage on July 2, 2019](https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/): caso comparable; expresión regular, procedimiento de reparto global, 27 minutos y despliegue habitual con dogfooding y canarios.
 - [Google Cloud, Incident report: Service Control, 12 de junio de 2025](https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW): caso comparable; política con campos en blanco, puntero nulo, replicación global, recuperación con botón rojo y acciones correctivas.
 - [Wikipedia, CrowdStrike](https://en.wikipedia.org/wiki/CrowdStrike): fundadores, año de fundación y sede; fuente secundaria que se usa solo para esos datos de ficha.
+- [CrowdStrike Holdings, Form 10-K del ejercicio fiscal 2025 (31 de enero de 2025), en la SEC](https://www.sec.gov/Archives/edgar/data/1535527/000153552725000009/crwd-20250131.htm): sedes y centros de I+D, plantilla (10.118 y 7.273), alojamiento en AWS y centros propios, gastos atribuidos al incidente, paquetes de compromiso, litigios, ingresos, ingresos recurrentes, cartera comprometida y deuda; leído a través de una herramienta de lectura porque la SEC bloquea descargas automáticas anónimas.
 
 ---
 

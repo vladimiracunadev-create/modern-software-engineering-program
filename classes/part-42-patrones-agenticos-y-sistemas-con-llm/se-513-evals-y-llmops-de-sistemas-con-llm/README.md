@@ -121,6 +121,37 @@ La disciplina se resume en un bucle con cuatro propiedades: los casos crecen con
 
 **Cómo leer la figura.** La primera fila prepara la evidencia y la segunda decide y realimenta; la última caja devuelve al principio y por eso el conjunto de casos crece con la operación. **Dónde deja de valer:** con datos personales en los casos, guardar trazas y casos exige minimizar, anonimizar y fijar retención; y un conjunto que solo contiene fallos pasados no detecta los fallos nuevos.
 
+### Ampliación: cuándo ajustar el modelo (fine-tuning) y qué exige de la evaluación
+
+El **ajuste fino** (*fine-tuning*) continúa el entrenamiento de un modelo ya entrenado con ejemplos propios, de modo que cambian sus pesos (todos, o un subconjunto pequeño como en [LoRA](https://arxiv.org/abs/2106.09685), que entrena matrices de rango bajo añadidas al modelo, o con bibliotecas como [PEFT](https://huggingface.co/docs/peft/index)). Esta clase evalúa sistemas con modelos; el ajuste fino añade un caso en el que el modelo que se evalúa es uno que el equipo fabricó, con datos que el equipo eligió. La Parte 46 del programa, todavía no publicada al redactar esta ampliación, trata el ciclo de vida de modelos; aquí se fija solo cuándo conviene y qué condiciones impone a la evaluación.
+
+**La escalera de intervenciones.** Antes de ajustar, existen alternativas más baratas y reversibles, en este orden: mejorar el contexto y las instrucciones (prompt), añadir recuperación de información (RAG, SE-510), usar herramientas, y solo entonces ajustar. Cada peldaño cambia algo distinto. El ajuste fino enseña sobre todo **forma y comportamiento** (formato de salida, tono, un criterio de clasificación, una tarea estrecha repetida muchas veces) y es un mal sitio para guardar **hechos** que cambian, porque actualizarlos obliga a reentrenar y el modelo puede inventar con la misma seguridad. La recuperación sirve para hechos; el ajuste, para conducta.
+
+**Cuándo sí.** Una tarea estrecha y estable, con cientos o miles de ejemplos etiquetados de calidad, un criterio de éxito medible, un volumen que justifica el coste y un modelo más pequeño que, ajustado, iguale al grande sin ajustar para ese uso (menor latencia y costo por solicitud). **Cuándo no:** pocos ejemplos, una definición de calidad que aún cambia, conocimiento que se actualiza, o un modelo base que se sustituirá en meses (el ajuste hay que rehacerlo con cada base nueva).
+
+**Qué exige de la evaluación.** Tres cosas que un ajuste sin disciplina rompe:
+
+1. **Separar entrenamiento y evaluación sin fugas.** Si ejemplos de evaluación (o casi duplicados) aparecen en el entrenamiento, la medida mide memoria, no capacidad. Los conjuntos de datos reales tienen muchos duplicados: [Lee et al.](https://arxiv.org/abs/2107.06499) muestran que deduplicar los datos de entrenamiento reduce la memorización textual.
+2. **Medir lo que se pierde.** Ajustar para una tarea puede degradar otras capacidades (el **olvido catastrófico** de las redes neuronales, descrito por [Kirkpatrick et al.](https://arxiv.org/abs/1612.00796)); la evaluación incluye casos ajenos a la tarea y se comparan con el modelo base.
+3. **Versionar los datos y el modelo.** El ajuste produce un artefacto nuevo (pesos y conjunto de datos) que se versiona y se evalúa como cualquier cambio, con la puerta estadística de la sección 2 de esta clase.
+
+**Experimento reproducible.** `scripts/experiments_part42_ext.py` es una analogía deliberadamente pequeña (no se ajusta ningún modelo de lenguaje): clasifica «tickets» sintéticos de 12 palabras en 4 categorías, con 5 % de etiquetas de entrenamiento erróneas, con dos clasificadores: uno que **memoriza** (vecino más próximo por similitud de conjuntos) y uno bayesiano ingenuo. Se mide la exactitud con 10 a 3 000 ejemplos de entrenamiento (semilla 513 más el tamaño), con una evaluación limpia de 1 000 ejemplos nuevos y con una evaluación contaminada en la que la mitad de los ejemplos son copias del entrenamiento.
+
+| Ejemplos de entrenamiento | Memoriza: limpia | Memoriza: 50 % de copias | Bayesiano: limpia |
+|---:|---:|---:|---:|
+| 10 | 56,1 % | 77,6 % | 62,1 % |
+| 30 | 53,4 % | 76,6 % | 69,1 % |
+| 100 | 70,8 % | 85,8 % | 88,0 % |
+| 300 | 77,3 % | 88,9 % | 97,5 % |
+| 1 000 | 80,6 % | 89,1 % | 99,2 % |
+| 3 000 | 86,7 % | 93,2 % | 99,7 % |
+
+![Líneas con la exactitud frente al número de ejemplos de entrenamiento: el clasificador que memoriza marca 56,1 % con 10 ejemplos y 86,7 % con 3 000 en evaluación limpia, y 77,6 % y 93,2 % con una evaluación que contiene la mitad de copias; un clasificador bayesiano ingenuo marca 62,1 % y 99,7 % en evaluación limpia.](../../../content/part-42/figures/se-513-curva-de-aprendizaje-y-contaminacion.svg)
+
+**Cómo leer la figura.** El eje horizontal, en escala logarítmica, es el número de ejemplos de entrenamiento y el vertical la exactitud. Mira primero la separación entre las dos líneas del modelo que memoriza: la contaminación le regala entre 6,5 y 23,2 puntos, más cuanto menos datos tiene. Mira después la tercera línea: con 100 ejemplos, un modelo con mejor sesgo para la tarea (88,0 %) supera al que memoriza con 3 000 (86,7 %): más datos no compensan un modelo inadecuado. **Dónde deja de valer:** es un clasificador de bolsa de palabras sobre datos generados por el autor, no un modelo de lenguaje; el ruido de etiquetas, las proporciones y el tamaño de la contaminación son supuestos; y la contaminación real es más difícil de ver (duplicados aproximados, preguntas publicadas en la web), no una copia exacta.
+
+**Límite y decisión.** El experimento muestra que una cifra de evaluación solo vale si se conoce su relación con los datos de entrenamiento, y que reunir más ejemplos no sustituye elegir bien qué se entrena. La decisión práctica: antes de ajustar, fijar el conjunto de evaluación y congelarlo (con una comprobación de duplicados contra el entrenamiento); medir primero el modelo base con instrucciones y recuperación, y ajustar solo si la brecha restante justifica el costo y la deuda de reentrenar; incluir casos ajenos a la tarea para detectar lo perdido; y registrar el conjunto de datos, la configuración y la versión de la base con cada artefacto.
+
 ## Definiciones de trabajo
 
 - **Evaluación (eval):** conjunto de casos con un criterio de calificación que mide un sistema.
@@ -247,9 +278,13 @@ Reúne 30 casos de tu sistema con su señal de calificación. Mide dos veces el 
 - OpenTelemetry. [«Semantic conventions for generative AI systems»](https://opentelemetry.io/docs/specs/semconv/gen-ai/).
 - Anthropic. [«Building effective agents»](https://www.anthropic.com/engineering/building-effective-agents).
 
+- [Hu et al., «LoRA: Low-Rank Adaptation of Large Language Models»](https://arxiv.org/abs/2106.09685) y [Hugging Face PEFT](https://huggingface.co/docs/peft/index) — ajuste de un modelo entrenando un número pequeño de parámetros; autoridad: artículo de los autores (arXiv) y documentación de la biblioteca.
+- [Lee et al., «Deduplicating training data makes language models better»](https://arxiv.org/abs/2107.06499) — duplicados en los datos de entrenamiento y memorización; autoridad: artículo de investigación (arXiv).
+- [Kirkpatrick et al., «Overcoming catastrophic forgetting in neural networks»](https://arxiv.org/abs/1612.00796) — pérdida de capacidades previas al entrenar en una tarea nueva; autoridad: artículo de investigación (arXiv).
+
 ## Límites y siguiente paso
 
-Los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintéticos; la puerta usa una prueba z de McNemar de una cola con 800 evaluaciones por celda; no se evaluó ningún modelo real ni ninguna herramienta de evaluación. El siguiente paso, `SE-514`, trata las tres restricciones que decide un sistema en operación: cuánto cuesta, cuánto tarda y cómo se protege.
+Los sistemas, la dificultad por caso, el sesgo del juez y la traza son sintéticos; la puerta usa una prueba z de McNemar de una cola con 800 evaluaciones por celda; no se evaluó ningún modelo real ni ninguna herramienta de evaluación. El siguiente paso, `SE-514`, trata las tres restricciones que decide un sistema en operación: cuánto cuesta, cuánto tarda y cómo se protege. La ampliación sobre ajuste fino usa un clasificador pequeño con datos sintéticos y semilla fija, ejecutado con CPython 3.12.9 en Windows; no se ajustó ningún modelo de lenguaje, no se midió olvido catastrófico y la contaminación es una copia exacta, más simple que la real.
 
 ## Glosario
 

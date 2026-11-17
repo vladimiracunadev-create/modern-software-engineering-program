@@ -57,7 +57,7 @@ def legend(f: Fig, y: float, text: str = "Trazo continuo: documentado en una fue
 
 
 def sequence(title: str, desc: str, actors: list[str], messages: list[tuple], note: str, foot: str,
-             note_kind: str = "gold", width: int = 940, row_h: float = 46, kinds: list[str] | None = None) -> Fig:
+             note_kind: str = "gold", width: int = 940, row_h: float = 46, kinds: list[str] | None = None, first_gap: float = 34) -> Fig:
     """Sequence diagram. messages: (src, dst, text, style) with style in '', 'dashed' (inferred) or 'ret'."""
     f = canvas(title, desc, width)
     n = len(actors)
@@ -70,10 +70,10 @@ def sequence(title: str, desc: str, actors: list[str], messages: list[tuple], no
         kind = kinds[i] if kinds else "navy"
         B(f, xs[i] - bw / 2, top, bw, 46, a, kind, 13, bold=True)
     y0 = top + 46
-    total = y0 + 22 + row_h * len(messages) + 10
+    total = y0 + first_gap - 12 + row_h * len(messages) + 10
     for x in xs:
         f.line(x, y0, x, total - 6, "#8a9aa3", dashed=True, width=1.2)
-    y = y0 + 34
+    y = y0 + first_gap
     for i, msg in enumerate(messages, 1):
         s, d, text, style = (list(msg) + [""])[:4]
         x1, x2 = xs[s], xs[d]

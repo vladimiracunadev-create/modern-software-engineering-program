@@ -120,6 +120,38 @@ Una contribución de 3 líneas contiguas a un archivo de 50 líneas se preparó 
 
 **Cómo leer la figura.** Cada barra es un desfase del original con seis semillas; la etiqueta indica cuántas dieron conflicto. **Dónde deja de valer:** con seis semillas por celda los porcentajes tienen mucha incertidumbre; el archivo de 50 líneas concentra las ediciones y exagera el conflicto frente a un repositorio con muchos archivos, y la figura no mide cuánto tarda en resolverse.
 
+### Ampliación: InnerSource, gobierno y colaboración dentro de una organización
+
+**InnerSource** es aplicar dentro de una empresa las prácticas del desarrollo abierto: código legible por otros equipos, contribuciones por solicitud de cambio, decisiones escritas y revisión por pares, pero con una licencia y un público acotados a la organización. No es código abierto publicado ni una política de «todo el mundo puede cambiar todo»: el repositorio sigue teniendo dueño, y lo que cambia es que ese dueño acepta trabajo ajeno con reglas conocidas. La [comunidad InnerSource Commons](https://innersourcecommons.org/) recopila estas prácticas como patrones con nombre; esta ampliación usa cuatro de ellos y los explica desde el mecanismo.
+
+**Por qué existe.** Dos equipos con una dependencia común suelen resolver la falta de una funcionalidad con una petición al equipo dueño, que la prioriza contra su propio plan y tarda semanas; o con un fork privado que diverge y que nadie mantiene (la copia desfasada de esta clase, ahora sin la comunidad que la sincronice). InnerSource ofrece una tercera salida: el equipo que necesita el cambio lo escribe, y el dueño lo revisa. El coste real no desaparece, se traslada: el equipo dueño deja de escribir ese cambio y pasa a leerlo, y revisar con contexto ajeno suele costar más por línea que escribir con el propio.
+
+**Los mecanismos que lo hacen funcionar.**
+
+- **Mantenedor de confianza** (*Trusted Committer* en los patrones): una o dos personas del equipo dueño tienen como parte explícita de su trabajo revisar y fusionar aportes ajenos, con tiempo reservado y un plazo de primera respuesta publicado. Sin esa reserva, la revisión compite con la agenda del equipo y pierde.
+- **Documentación base estándar** (*Standard Base Documentation*): `README`, `CONTRIBUTING`, cómo ejecutar las pruebas, qué decisiones de arquitectura están cerradas y cuáles aceptan propuesta. Su efecto se mide en rondas de revisión: cada pregunta que el contribuyente puede resolver solo es una ronda menos.
+- **Contribuyente contratado** (*Contracted Contributor*): cuando un equipo no puede ceder tiempo de desarrollo, otro cede personas por un periodo acotado, con compromisos de revisión escritos. Es la forma de que la capacidad de revisión crezca junto con la demanda.
+- **Garantía de 30 días** (*30 Day Warranty*): quien aporta un cambio grande se compromete a corregir sus defectos durante un periodo tras la fusión, de modo que el dueño no hereda un mantenimiento no pedido.
+
+**Gobierno: qué se decide y quién.** La gobernanza de InnerSource es la de una comunidad abierta (SE-200, secciones 3 y 4) con tres diferencias. Primero, hay una autoridad que la comunidad abierta no tiene: la línea de mando, que puede reasignar personas y prioridades; el patrón de [propuestas de cambio por RFC](https://patterns.innersourcecommons.org/) existe para que las decisiones entre equipos queden escritas y no dependan de quién tiene más antigüedad. Segundo, hay incentivos externos: lo que se mide y se premia (tickets cerrados por el equipo propio, no aportes revisados) decide si el mantenedor de confianza revisa o difiere. Tercero, el riesgo de licencia desaparece pero aparece el de propiedad: ¿qué equipo responde de una incidencia en código escrito por otro? La respuesta se escribe en `CODEOWNERS` y en el acuerdo de aporte (SE-199), no se deduce.
+
+**Experimento reproducible: cuándo el cuello es la revisión.** `scripts/experiments_part16_ext.py` simula una cola de un solo servidor con retorno: llegan 6 aportes por semana (proceso de Poisson, semilla 200, 1 000 aportes), cada ronda de revisión cuesta 1,5 horas del equipo anfitrión, el autor tarda un día laborable en responder entre rondas y el equipo dedica entre 14 y 40 horas semanales a revisar. Se comparan dos políticas: sin guía, con 3 rondas por aporte en media (27 horas semanales de carga); con guía, plantilla y CI previo, con 1,5 rondas (13,5 horas).
+
+| Horas de revisión por semana | Mediana sin guía (días) | p90 sin guía (días) | Mediana con guía (días) | p90 con guía (días) |
+|---:|---:|---:|---:|---:|
+| 14 | 255,4 | 850,8 | 6,2 | 17,8 |
+| 20 | 85,5 | 329,9 | 1,0 | 4,1 |
+| 28 | 8,6 | 36,2 | 0,5 | 2,9 |
+| 32 | 3,0 | 10,6 | 0,4 | 2,7 |
+| 36 | 2,3 | 7,6 | 0,3 | 2,6 |
+| 40 | 1,9 | 6,9 | 0,2 | 2,6 |
+
+![Líneas en escala logarítmica con la mediana de días hasta fusionar un aporte ajeno según las horas semanales de revisión del equipo anfitrión, con y sin guía de contribución; sin guía la mediana pasa de 1,9 días con 40 horas a 255,4 con 14, y con guía de 0,2 a 6,2.](../../../content/part-16/figures/se-200-cuello-de-revision-innersource.svg)
+
+**Cómo leer la figura.** El eje horizontal es el tiempo que el equipo anfitrión reserva a revisar y el vertical, en escala logarítmica, los días hasta fusionar; la línea punteada marca la carga que exige el modelo sin guía (27 horas). Mira que la curva coral se dispara en cuanto la capacidad queda por debajo de esa carga, mientras la verde sigue baja con la mitad de la capacidad: la guía no acelera la revisión, reduce las rondas, y eso mueve el umbral. **Dónde deja de valer:** las llegadas, el coste por ronda y las rondas medias son supuestos del autor; las medianas de 14 y 20 horas son del horizonte simulado (la cola no alcanza un equilibrio) y no predicen el valor de una organización concreta; el modelo ignora la calidad del aporte, la prioridad entre aportes y el efecto de rechazar los malos pronto.
+
+**Límite y decisión.** El experimento no demuestra que una guía de contribución reduzca las rondas a la mitad, solo qué ocurre si lo hace. Para decidir con datos propios se miden tres cosas en los repositorios que ya existen: tiempo hasta la primera respuesta, rondas por aporte y horas de revisión por semana, y se comparan con la carga. Si la carga supera la capacidad, la intervención correcta no es abrir más el repositorio, sino aumentar la capacidad de revisión (mantenedores de confianza o contribuyentes contratados) o bajar la carga (documentación, plantilla, CI previo). Un programa InnerSource que mide aportes recibidos sin medir tiempo de espera está midiendo el síntoma contrario al que importa.
+
 ## Definiciones de trabajo
 
 - **fork:** copia propia de un repositorio desde la que una persona sin permiso de escritura propone cambios.
@@ -264,9 +296,12 @@ Cada fuente respalda el mecanismo indicado; ninguna demuestra que la regla de de
 - [GitHub: código de conducta](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project) — cómo añadirlo a un repositorio.
 - [git-rev-list](https://git-scm.com/docs/git-rev-list) — recuento de commits por delante y por detrás.
 
+- [InnerSource Commons](https://innersourcecommons.org/) y su [catálogo de patrones](https://patterns.innersourcecommons.org/) — definición de InnerSource y patrones de mantenedor de confianza, documentación base, contribuyente contratado y garantía de 30 días; autoridad: comunidad InnerSource Commons (fuente comunitaria, no norma).
+- [Adopting InnerSource (Cooper y Bonewald)](https://innersourcecommons.org/learn/books/adopting-innersource/) — libro de adopción con roles, incentivos y medición; autoridad: InnerSource Commons y O'Reilly.
+
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos con datos sintéticos y repositorios temporales en Windows y Ubuntu (WSL2) con resultados idénticos. Los contribuyentes, las probabilidades y los desfases son supuestos del autor, con seis semillas en el experimento de Git, y no se midió ninguna comunidad real. La siguiente clase pregunta bajo qué licencia se reciben y se redistribuyen las contribuciones.
+Se ejecutaron tres experimentos con datos sintéticos y repositorios temporales en Windows y Ubuntu (WSL2) con resultados idénticos. Los contribuyentes, las probabilidades y los desfases son supuestos del autor, con seis semillas en el experimento de Git, y no se midió ninguna comunidad real. La siguiente clase pregunta bajo qué licencia se reciben y se redistribuyen las contribuciones. La ampliación sobre InnerSource añade un modelo de cola con semilla fija, ejecutado con CPython 3.12.9 en Windows y no repetido en Ubuntu en esta ampliación; sus llegadas, costes por ronda y rondas medias son supuestos del autor y no se midió ninguna organización real.
 
 ## Glosario
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito: Netflix, WhatsApp, Uber y Mercado Libre
+
+- cuatro casos completos con fichas verificadas, hechos separados en documentado, inferido y no se sabe, fuentes públicas citadas y 22 figuras propias (`scripts/figures_case_<slug>.py`).
+- cada caso enlaza las clases reales que enseñan sus conceptos; sin cambio de contadores 540/45 (commit `e565f7b4`, CI verde: Validate, Pages y Security).
+
 ## 2026-11-16 — Casos de estudio: estructura de la superficie
 
 - nueva superficie propia «Casos de estudio» (no son clases ni roles; los contadores 540/45 no cambian): páginas `casos/exito/` y `casos/fallo/` con mapa visual e índice, 16 casos fijados en esqueleto, `casos/GUIDE.md` con el esquema único y las reglas editoriales.

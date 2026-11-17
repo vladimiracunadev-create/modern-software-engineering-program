@@ -163,6 +163,14 @@ Las fuentes de este caso no incluyen cifras de competidores. Documentado (F2): l
 
 Documentado (F2): nuevos negocios en 2025 (más del 57 % fuera de Estados Unidos), productos de ingresos recurrentes, stablecoins, comercio con agentes, y crecimiento de clientes grandes (F3). Inferido: la expansión geográfica se apoya en métodos de pago locales (la lista de precios menciona 100 métodos de pago, F9).
 
+### Visión y misión
+
+Documentado (F1): la página «About» de Stripe (consulta del 16 de noviembre de 2026) dice que es una empresa tecnológica centrada en mejorar las condiciones del crecimiento económico y la prosperidad, que construye infraestructura financiera programable repensando desde cero cómo deberían funcionar los servicios financieros para que empezar y escalar un negocio sea más fácil y barato; afirma que su crecimiento depende por completo del éxito de las empresas que construyen sobre ella y que por eso reinvierte en tecnología a un ritmo inusual. Documentado (F2, F3): las cartas anuales lo reformulan como «servicios financieros programables» (2025) y como «plataforma de infraestructura financiera» (2024). Análisis propio: el vocabulario pasa de pagos a infraestructura económica y a servicios financieros programables, a la vez que el producto se amplía a facturación, impuestos, constitución de empresas y stablecoins. No se sabe si existe una declaración de visión distinta de la misión.
+
+### Estructura, plantilla y presencia mundial
+
+Documentado (F2): comunicados fechados en San Francisco y Dublín; la carta de 2025 menciona más de 350 actualizaciones de producto, adquisiciones y una oferta de recompra a empleados actuales y antiguos. Documentado (F13): una parte de la seguridad (la bóveda de tarjetas) la gestiona un equipo dedicado en un entorno aislado. No se sabe: la plantilla total y por área, el organigrama de alto nivel, las oficinas de ingeniería por país con su año de apertura y cómo se organizan los equipos de ingeniería.
+
 ## Arquitectura y esquemas
 
 ### Nivel 1: contexto
@@ -292,6 +300,38 @@ No se sabe. Las fuentes de este caso no describen cómo se despliegan los servic
 **Cómo leer la figura.** El carril superior son las etapas de la plataforma y el inferior, el volumen de pagos en billones de dólares. Las líneas verticales son hitos. Mira que el volumen documentado solo cubre tres años: antes de 2023 no hay dato citado en este caso. **Dónde deja de valer.** Las etapas son síntesis del autor; las fechas de origen y lanzamiento provienen de una fuente secundaria.
 
 Antes y después, con lo documentado: antes de 2017, migraciones de datos de una vez; después, un patrón de cuatro pasos con experimentos de comparación (F7). Antes de 2024, fragmentos con rangos de datos grandes y pocos; después, miles de fragmentos con un coordinador que mueve datos sin parar el servicio (F8). Antes de 2024-09, versiones rodantes por fecha con pocos cambios incompatibles; después, versiones mensuales sin rupturas y mayores semestrales (F16-docs). Antes del 11 de febrero de 2019, los estados de pago se llamaban «requires_source» (F12-bis). No se sabe cómo era la arquitectura de 2011 más allá de MongoDB.
+
+### Hardware utilizado
+
+![Diagrama del hardware de Stripe según sus fuentes: lectores de tarjetas con precios publicados, llaves de seguridad físicas, una flota de bases en la nube y un entorno aislado en AWS para la bóveda de tarjetas.](../figures/stripe-hardware-utilizado.svg)
+
+**Cómo leer la figura.** Dispositivos de pago, seguridad física, servidores y bases, y red. **Dónde deja de valer.** Los precios son de una lista de 2026.
+
+Documentado (F9): lectores Stripe Reader M2 por 59 dólares, S710 y S700 por 299 y T600 por 329, con datos celulares incluidos para las aplicaciones en el dispositivo (límite de 10 GB mensuales) y administración en la nube; Terminal cifra de extremo a extremo por defecto. Documentado (F13): el panel admite llaves de seguridad físicas; la bóveda de tarjetas vive en un entorno aislado de AWS. Documentado (F8): flota propia de MongoDB en la nube desde 2011. No se sabe: tipos de servidor, proveedor de cada servicio y centros de datos.
+
+### Software utilizado
+
+![Diagrama del software documentado de Stripe: MongoDB Community con proxies en Go, Kafka, almacenamiento de objetos, Redis, Ruby, Hadoop con Scalding, Scientist, Stripe.js y seguridad.](../figures/stripe-software-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro grupos tecnológicos con su fuente. **Dónde deja de valer.** Blogs de 2017 y 2024.
+
+Documentado (F8): DocDB extiende MongoDB Community con servicios propios; proxies en Go; Kafka y un almacén de objetos para los cambios. Documentado (F5): limitadores con Redis (ElastiCache se cita como opción en AWS). Documentado (F4, F6): clientes y código de versionado en Ruby. Documentado (F7): Hadoop, MapReduce y Scalding para el relleno, y Scientist de GitHub para comparar rutas de código. Documentado (F13, F14): HTTPS, HSTS, TLS mutuo, AES-256, claves PGP, componentes de interfaz y Stripe.js. No se sabe: orquestación, sistemas operativos y herramientas internas de despliegue.
+
+### Características de la infraestructura
+
+![Diagrama de la infraestructura de Stripe: flota propia de bases en la nube, más de 2.000 fragmentos, bóveda en AWS, sedes en San Francisco y Dublín; costos y regiones sin publicar.](../figures/stripe-caracteristicas-de-la-infraestructura.svg)
+
+**Cómo leer la figura.** Modelo, escala, costos y sedes. **Dónde deja de valer.** La agrupación de fragmentos es un ahorro puntual.
+
+Documentado (F8): más de 5 millones de consultas por segundo, más de 10.000 formas de consulta, más de 5.000 colecciones y más de 2.000 fragmentos sobre petabytes de datos; en 2023 se agruparon bases con 1,5 petabytes y se redujeron fragmentos en cerca de tres cuartas partes. Documentado (F2): volumen de 1,9 billones de dólares en 2025. Documentado (F17): 100 peticiones por segundo por cuenta en modo real. No se sabe: modelo de nube completo (única, múltiple o híbrida), regiones, zonas y gasto total de infraestructura.
+
+### Tolerancia a fallos: qué pasa si cae cada componente
+
+![Diagrama de la tolerancia a fallos documentada de Stripe: respuesta perdida, cliente que se excede, receptor de eventos caído, fragmento que debe moverse, migración desviada y lo que no se documenta.](../figures/stripe-tolerancia-a-fallos.svg)
+
+**Cómo leer la figura.** Cada recuadro es un fallo y su defensa; el último lista lo que falta. **Dónde deja de valer.** Los 99,999 % de disponibilidad son una afirmación sin definición pública.
+
+Documentado (F4, F10): claves de idempotencia. Documentado (F5): limitadores y descarte de carga que fallan abiertos, con interruptores y lanzamiento en modo oscuro. Documentado (F11): reintentos de eventos durante tres días. Documentado (F8): replicación bidireccional etiquetada para poder volver al origen, compuerta por versión, traspaso en menos de dos segundos y control de que la fase clave sea más corta que una conmutación del primario. Documentado (F7): escritura doble y experimentos de comparación en producción. No se sabe: pruebas de caos, recuperación ante desastres, copias de seguridad más allá del archivo de cambios en el almacén de objetos, y SLO internos.
 
 ### Alternativas descartadas y trade-offs (análisis propio)
 

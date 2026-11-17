@@ -508,6 +508,54 @@ def linea_tiempo2() -> Fig:
         note_kind="gold", foot="Fuentes: F2, F3, F4 a F8, F12-bis y F16; síntesis propia de las eras.")
 
 
+
+# ====================== segunda ampliación: hardware, software, infraestructura, fallos ======================
+from figure_kit import _wrap as _w2  # noqa: E402
+
+
+def _cards(title, desc, groups, note, foot, ncols=2):
+    f = Fig(940, 0, title, desc)
+    f.text(14, 27, title, 15, "start", 700, "#142231")
+    colw = (940 - 20 - (ncols - 1) * 20) / ncols
+    ys = [50.0] * ncols
+    for i, (head, kind, items) in enumerate(groups):
+        c = i % ncols
+        x = 10 + c * (colw + 20)
+        y = ys[c]
+        f.box(x, y, colw, 34, head, kind, 14, bold=True)
+        y += 42
+        for t in items:
+            h = 18 + len(_w2(t, 13, colw - 20)) * 16.6
+            f.box(x, y, colw, h, t, "plain", 13)
+            y += h + 8
+        ys[c] = y + 8
+    y = max(ys)
+    n = len(_w2(note, 13, 900))
+    nh = 22 + n * 16.6
+    f.box(10, y, 920, nh, note, "gold", 13)
+    y += nh + 6
+    lines = _w2(foot, 12, 900)
+    for i, line in enumerate(lines):
+        f.text(470, y + 22 + i * 15, line, 12, "middle", 400, "#5c1f14")
+    f.height = int(y + 30 + 15 * len(lines))
+    return f
+
+
+def _x_hardware() -> Fig:
+    return _cards('Hardware de Stripe: lo publicado y lo que no', 'Diagrama del hardware de Stripe según sus fuentes: lectores de tarjetas Stripe Reader M2 de 59 dólares y S710, S700 y T600 de 299 a 329 dólares con datos móviles; llaves de seguridad físicas para el acceso de empleados; una flota de bases en la nube y un entorno aislado en AWS para la bóveda de tarjetas; sin datos públicos de servidores ni de redes.', [('Dispositivos de pago', 'teal', ['Documentado: lectores Stripe Reader M2 (59 dólares), S710 y S700 (299 dólares) y T600 (329 dólares), con datos celulares y administración en la nube (F9).', 'Documentado: todas las transacciones de Terminal van cifradas de extremo a extremo por defecto (F9).']), ('Seguridad física y de acceso', 'gold', ['Documentado: el panel admite llaves de seguridad físicas y claves de acceso, y las recomienda por ser resistentes al phishing (F13).', 'Documentado: la bóveda de tarjetas vive en un entorno aislado de Amazon Web Services separado del resto (F13).']), ('Servidores y bases', 'navy', ['Documentado: MongoDB en una flota propia «en la nube» porque en 2011 no existía Atlas (F8).', 'No se sabe: tipos de máquina, proveedor de cada servicio y centros de datos.']), ('Red', 'grey', ['Documentado: TLS 1.2 como mínimo y TLS mutuo entre servidores (F13).', 'No se sabe: topología y capacidad de red.'])], 'Lectura: cuatro recuadros con lo documentado. Dónde deja de valer: los precios de lectores son de una lista consultada en 2026; no se conocen costos de fabricación ni cantidades.', 'Fuentes: F8, F9, F13.')
+
+
+def _x_software() -> Fig:
+    return _cards('Software de Stripe que sus propias fuentes documentan', 'Diagrama del software documentado de Stripe: MongoDB Community como base de DocDB con proxies en Go, Kafka y almacenamiento de objetos para cambios, Redis para limitadores, Ruby en el código de versiones, Hadoop con Scalding para migraciones, la biblioteca Scientist de GitHub, Stripe.js y componentes de interfaz.', [('Bases de datos y mensajería', 'teal', ['Documentado: DocDB es una extensión de MongoDB Community con servicios propios; los cambios van a Kafka y se archivan en un almacén de objetos como Amazon S3 (F8).', 'Documentado: limitadores con Redis (F5).']), ('Lenguajes y marcos', 'gold', ['Documentado: proxies de base de datos en Go (F8); código de versionado y biblioteca de cliente en Ruby (F4, F6); Scalding en Scala para trabajos de datos (F7).', 'No se sabe: lenguajes de otros servicios.']), ('Herramientas de código abierto', 'navy', ['Documentado: Scientist de GitHub para comparar rutas de código en producción (F7); MapReduce con Hadoop para relleno offline (F7).', 'Documentado: Stripe.js y componentes de interfaz (Elements) para la tokenización en el navegador (F14).']), ('Seguridad y protocolos', 'grey', ['Documentado: HTTPS, HSTS, TLS mutuo, AES-256, claves PGP para correos (F13).', 'No se sabe: orquestación, sistema operativo y herramientas de despliegue internas.'])], 'Lectura: grupos por función con su fuente. Dónde deja de valer: son blogs de 2017 y 2024; no cubren el resto de servicios.', 'Fuentes: F4, F5, F6, F7, F8, F13, F14.')
+
+
+def _x_infra() -> Fig:
+    return _cards('Características de la infraestructura de Stripe: nube, escala y costo', 'Diagrama de la infraestructura de Stripe: nube con flota propia de bases, más de 2.000 fragmentos y 5 millones de consultas por segundo en 2024, bóveda de tarjetas en un entorno de AWS separado, sedes en San Francisco y Dublín; los costos y las regiones no se publican.', [('Modelo', 'teal', ['Documentado: bases propias sobre MongoDB en la nube; bóveda de tarjetas en un entorno aislado de AWS (F8, F13).', 'No se sabe: si el resto es nube única, múltiple o híbrida.']), ('Escala', 'gold', ['Documentado: más de 5 millones de consultas por segundo, más de 2.000 fragmentos, más de 5.000 colecciones y petabytes de datos (F8); volumen de pagos de 1,9 billones de dólares en 2025 (F2).', 'Documentado: límites de tasa de 100 peticiones por segundo por cuenta en modo real (F17).']), ('Costos', 'navy', ['Documentado: en 2023 se agruparon bases infrautilizadas con 1,5 petabytes y se redujo el número de fragmentos en cerca de tres cuartas partes (F8).', 'No se sabe: gasto total de infraestructura: no se publica.']), ('Sedes y regiones', 'grey', ['Documentado: comunicados fechados en San Francisco y Dublín (F2).', 'No se sabe: regiones y zonas de operación y oficinas de ingeniería por país.'])], 'Lectura: modelo, escala, costos y sedes. Dónde deja de valer: la agrupación de fragmentos es un ahorro puntual de 2023, no un costo total.', 'Fuentes: F2, F8, F13, F17.')
+
+
+def _x_fallos() -> Fig:
+    return _cards('Qué pasa cuando cae cada componente en lo que Stripe documenta', 'Diagrama de la tolerancia a fallos documentada de Stripe: una respuesta perdida se cubre con claves de idempotencia; un cliente que se excede se frena con limitadores; una sobrecarga se maneja con descarte de carga; un receptor de webhooks caído recibe reintentos durante tres días; un fragmento se mueve con compuerta por versión y réplica bidireccional; el limitador que falla lo hace abierto; no se documentan pruebas de caos ni recuperación ante desastres.', [('Se pierde una respuesta', 'teal', ['Documentado: clave de idempotencia y resultado guardado (F4, F10).']), ('Un cliente se excede o hay sobrecarga', 'gold', ['Documentado: cuatro limitadores, con descarte de carga que protege lo crítico y que falla abierto si cae Redis; interruptores para apagarlos y lanzamiento en modo oscuro (F5).']), ('Cae el receptor de eventos', 'coral', ['Documentado: reintentos hasta tres días con espera exponencial en modo real (F11).']), ('Un fragmento debe moverse o falla', 'navy', ['Documentado: replicación bidireccional para volver atrás, compuerta por versión y traspaso en menos de dos segundos con reintentos (F8).']), ('Una migración de datos se desvía', 'plain', ['Documentado: escritura doble, experimentos de comparación en producción y cambios de pocos cientos de líneas (F7).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos, recuperación ante desastres y copias de seguridad más allá del archivo de cambios, y SLO internos.'])], 'Lectura: cada recuadro es un fallo y su defensa. Dónde deja de valer: la disponibilidad de 99,999 % se afirma en el título de un artículo y no se define.', 'Fuentes: F4, F5, F7, F8, F10, F11.')
+
 FIGURES = {
     "stripe-contexto-intermediario.svg": contexto,
     "stripe-volumen-de-pagos.svg": volumen,
@@ -531,6 +579,10 @@ FIGURES = {
     "stripe-seguridad-de-tarjeta.svg": seguridad,
     "stripe-connect.svg": connect,
     "stripe-linea-de-tiempo.svg": linea_tiempo2,
+    "stripe-hardware-utilizado.svg": _x_hardware,
+    "stripe-software-utilizado.svg": _x_software,
+    "stripe-caracteristicas-de-la-infraestructura.svg": _x_infra,
+    "stripe-tolerancia-a-fallos.svg": _x_fallos,
 }
 
 

@@ -375,6 +375,107 @@ def ingresos() -> Fig:
         note_kind="gold", foot=SEC)
 
 
+def negocio() -> Fig:
+    f = _canvas("Esquema del negocio: de dónde entra el dinero y a dónde va",
+                "Diagrama de flujos: los miembros pagan cuotas y los anunciantes pagan publicidad hacia Netflix; Netflix paga contenido a estudios y talento, entrega a Open Connect, nube y personal, y paga marketing, tecnología y administración; lo que queda es resultado operativo; el valor vuelve al miembro como catálogo y servicio.",
+                940, 0)
+    B(f, 10, 70, 190, 70, "Miembros: cuotas por plan", "teal")
+    B(f, 10, 160, 190, 70, "Anunciantes: publicidad en el plan con anuncios", "gold")
+    B(f, 300, 100, 210, 100, "Netflix: ingresos de 45 183 millones de USD en 2025", "navy", 13, bold=True)
+    B(f, 620, 56, 310, 52, "Coste de ingresos, sobre todo contenido: 51,5 % de los ingresos", "plain")
+    B(f, 620, 118, 310, 52, "Marketing, tecnología y administración: 19 %", "plain")
+    B(f, 620, 180, 310, 52, "Entrega (Open Connect, nube): dentro del coste de ingresos, sin cifra aparte", "plain", dashed=True)
+    B(f, 620, 242, 310, 52, "Resultado operativo: 29,5 % de los ingresos", "gold")
+    f.arrow([(200, 105), (300, 130)])
+    f.arrow([(200, 195), (300, 170)])
+    for y in (82, 144, 206, 268):
+        f.arrow([(510, 150), (620, y)])
+    B(f, 10, 262, 490, 52, "Valor que vuelve: catálogo, recomendaciones, descargas y servicio estable (documentado en la ficha de planes)", "grey")
+    return finish(f, 330, "Porcentajes de 2025 calculados con el 10-K: coste de ingresos 51,5 %, marketing 7,3 %, tecnología 7,5 %, administración 4,2 %, resultado operativo 29,5 %. El coste de ingresos mezcla contenido, entrega y otros; el 10-K no los separa, por eso la caja de entrega es punteada. Los flujos a estudios y a anunciantes no tienen cifras públicas por separado.", SEC)
+
+
+def plantilla() -> Fig:
+    return grouped_bars(
+        "Dónde trabaja el personal de Netflix: empleados a tiempo completo por región (31 de diciembre de 2025)",
+        "Barras de empleados a tiempo completo por región: 10 900 en Estados Unidos y Canadá, 2 500 en Europa, Oriente Medio y África, 1 900 en Asia-Pacífico y 700 en Latinoamérica, de unos 16 000 en total.",
+        ["EE. UU. y Canadá", "Europa, Oriente Medio y África", "Asia-Pacífico", "Latinoamérica"],
+        [("Empleados a tiempo completo", [10900, 2500, 1900, 700], "navy")],
+        unit="personas", decimals=0, plot_h=240,
+        note="Representan 68, 16, 12 y 4 por ciento de unos 16 000; no incluyen al personal de producción temporal o a tiempo parcial. Los ingresos de 2025 se reparten 44, 32, 12 y 12 por ciento entre las mismas regiones (UCAN, EMEA, APAC y LATAM, ver la figura de ingresos): la plantilla está más concentrada en Norteamérica que los ingresos. El 10-K no publica la plantilla por función (ingeniería, contenido).",
+        note_kind="gold", foot=SEC)
+
+
+def costos() -> Fig:
+    names = ["2023", "2024", "2025"]
+    rev = [33723.297, 39000.966, 45183.036]
+    cost = [19715.368, 21038.464, 23275.329]
+    sm = [2657.883, 2917.554, 3301.306]
+    td = [2675.758, 2925.295, 3391.390]
+    ga = [1720.285, 1702.039, 1888.408]
+    op = [6954.003, 10417.614, 13326.603]
+    pct = lambda a: [round(100 * x / r, 1) for x, r in zip(a, rev)]
+    return stacked_bars(
+        "Costos operativos de Netflix por rubro, 2023-2025 (porcentaje de los ingresos)",
+        "Barras apiladas al cien por ciento: el coste de ingresos baja de 58,5 a 51,5 por ciento de los ingresos entre 2023 y 2025; marketing, tecnología y administración se mantienen entre 4 y 8 por ciento cada uno; el resultado operativo sube de 20,6 a 29,5 por ciento.",
+        names, [("Coste de ingresos", pct(cost), "navy"), ("Marketing", pct(sm), "teal"), ("Tecnología y desarrollo", pct(td), "grey"), ("Administración", pct(ga), "coral"), ("Resultado operativo", pct(op), "gold")],
+        unit="% de los ingresos", percent=True, horizontal=True, decimals=1, label_w=70,
+        note="En dólares, en 2025: coste de ingresos 23 275 millones, marketing 3 301, tecnología y desarrollo 3 391, administración 1 888 y resultado operativo 13 327. El coste de ingresos incluye amortización de contenido (16 422 millones en 2025), entrega, soporte y comisiones de pago; el 10-K no separa lo que corresponde a infraestructura. Tecnología y desarrollo es solo 7,5 por ciento de los ingresos.",
+        note_kind="gold", foot=SEC)
+
+
+def hardware() -> Fig:
+    return grouped_bars(
+        "Dos clases de servidor Open Connect: la pequeña como porcentaje de la de almacenamiento",
+        "Barras del servidor global relativo al de almacenamiento: rendimiento 40 por ciento (80 frente a 200 gigabits por segundo), capacidad 50 por ciento (60 frente a 120 terabytes) y potencia pico 62,5 por ciento (250 frente a 400 vatios).",
+        ["Rendimiento", "Capacidad en bruto", "Potencia pico"],
+        [("Servidor global (relativo)", [40, 50, 62.5], "teal"), ("Servidor de almacenamiento (base)", [100, 100, 100], "navy")],
+        unit="% del servidor de almacenamiento", decimals=1, plot_h=240,
+        note="Valores absolutos de la ficha oficial: almacenamiento hasta 120 TB, unos 200 Gbps y unos 400 W; global hasta 60 TB, unos 80 Gbps y unos 250 W. Ambos son servidores 2U con procesador AMD, memoria Micron, discos de estado sólido de Kioxia o Micron y tarjetas de red Mellanox y Broadcom. Se aprecia que el servidor pequeño ofrece menos prestaciones por vatio.",
+        note_kind="gold", foot="Fuente: Netflix Open Connect, página de appliances. Consulta: 16 de noviembre de 2026.")
+
+
+def software() -> Fig:
+    f = _canvas("Pila de software documentada: tres entornos y sus lenguajes",
+                "Diagrama de tres entornos: el servidor Open Connect con FreeBSD, NGINX y BIRD; el plano de control en AWS con herramientas de código abierto en Java como Eureka, Zuul, Hystrix y EVCache; y herramientas auxiliares en otros lenguajes: Chaos Monkey en Go, Atlas en Scala, Metaflow en Python y VMAF en C.",
+                940, 0)
+    G(f, 10, 52, 290, 250, "Servidor de vídeo (Open Connect)", "gold")
+    B(f, 26, 92, 258, 56, "Sistema operativo: FreeBSD (versión de desarrollo)", "gold")
+    B(f, 26, 158, 258, 56, "Servidor web: NGINX, vídeo por HTTP", "plain")
+    B(f, 26, 224, 258, 66, "BIRD: encaminamiento por BGP hacia el control en AWS", "plain")
+    G(f, 320, 52, 300, 250, "Plano de control en AWS (Java)", "navy")
+    B(f, 336, 92, 268, 40, "Zuul: puerta de entrada", "plain")
+    B(f, 336, 140, 268, 40, "Eureka: registro de servicios", "plain")
+    B(f, 336, 188, 268, 40, "Hystrix: interruptor y alternativa", "plain")
+    B(f, 336, 236, 268, 54, "EVCache sobre memcached; Cassandra con Priam", "plain")
+    G(f, 640, 52, 290, 250, "Herramientas de operación y datos", "grey")
+    B(f, 656, 92, 258, 40, "Chaos Monkey (Go, 2016)", "plain")
+    B(f, 656, 140, 258, 40, "Atlas: series temporales (Scala)", "plain")
+    B(f, 656, 188, 258, 44, "Metaflow: IA y datos (Python)", "plain")
+    B(f, 656, 236, 258, 54, "VMAF: calidad de vídeo percibida (C)", "plain")
+    return finish(f, 322, "Documentado en la página de Open Connect (sistema operativo y servidores), en los repositorios oficiales de GitHub (lenguaje y año de creación de cada uno) y en las wikis de Hystrix, Eureka y Zuul. El hecho de que un repositorio exista no prueba que se use hoy con ese nombre: Conductor, Titus y Dispatch figuran como archivados. No se sabe qué bases de datos, colas y orquestadores usa la plataforma actual.", DOC)
+
+
+def fallos() -> Fig:
+    f = _canvas("Qué pasa cuando cae cada componente: de la unidad más pequeña a la más grande",
+                "Cinco filas de falla creciente: un disco de un servidor de vídeo, un servidor entero, una dependencia lenta, una instancia de servicio y una región de nube; para cada una, el efecto en el espectador y el mecanismo que lo contiene, con rótulo de documentado o inferido; la última fila, el proveedor de nube completo, no tiene mecanismo público.",
+                940, 0)
+    rows = [
+        ("Un disco del servidor de vídeo", "Se desactiva solo; el servidor sigue sirviendo (documentado)", "teal"),
+        ("Un servidor de vídeo entero", "El control lo saca del reparto; el cliente usa otro candidato (inferido)", "plain!"),
+        ("Una dependencia lenta", "Tiempo límite, interruptor y respuesta alternativa (documentado)", "teal"),
+        ("Una instancia de servicio", "El balanceo y el registro la reemplazan; se prueba apagándolas (documentado)", "teal"),
+        ("Una región de nube", "El tráfico pasa a otra región con datos replicados (documentado, 2013)", "gold"),
+        ("El proveedor de nube completo", "Sin mecanismo público; el 10-K declara dependencia y dificultad de cambio", "coral"),
+    ]
+    y = 56.0
+    for i, (a, b, k) in enumerate(rows):
+        B(f, 10, y, 280, 52, a, "navy", 13, bold=True)
+        B(f, 330, y, 600, 52, b, k.rstrip("!"), 13, dashed=k.endswith("!"))
+        f.arrow([(290, y + 26), (330, y + 26)])
+        y += 62
+    return finish(f, y + 4, "Documentado en: página de appliances (discos redundantes y desactivación automática), wiki de Hystrix, artículo de activo-activo de 2013, repositorio de Chaos Monkey y 10-K de 2025. Inferido: la salida de un servidor del reparto, porque el control devuelve candidatos. La escala de gravedad aumenta hacia abajo.", DOC)
+
+
 FIGURES = {
     "netflix-contexto.svg": contexto,
     "netflix-capas-de-resiliencia.svg": componentes,
@@ -395,6 +496,12 @@ FIGURES = {
     "netflix-ingresos-por-region.svg": regiones,
     "netflix-economia-del-dvd.svg": captacion,
     "netflix-ingresos-anuales.svg": ingresos,
+    "netflix-esquema-del-negocio.svg": negocio,
+    "netflix-plantilla-por-region.svg": plantilla,
+    "netflix-costos-operativos.svg": costos,
+    "netflix-hardware-open-connect.svg": hardware,
+    "netflix-pila-de-software.svg": software,
+    "netflix-que-pasa-si-cae.svg": fallos,
 }
 
 

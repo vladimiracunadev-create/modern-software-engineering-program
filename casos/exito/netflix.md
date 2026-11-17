@@ -28,6 +28,20 @@
 
 **Qué mide cada cifra de escala.** «Miembro de pago» es, según el informe de 2016, el derecho a recibir el servicio tras registrarse y aportar un método de pago, e incluye a quien está en periodo de prueba mientras haya un medio de pago ([N3]). Los ingresos son contables y el resultado operativo es el de un único segmento: el 10-K de 2025 dice que opera como un solo segmento ([N14]), de modo que no hay desglose oficial de rentabilidad por región o por línea.
 
+### Oficinas, plantilla y estructura
+
+**Oficinas (documentado).** El 10-K de 2025 dice que Netflix arrienda sus propiedades principales en Los Gatos, California, sede corporativa, y en Los Ángeles, y que posee y arrienda oficinas y espacio de producción «en todo el mundo» ([N14]). **[No se sabe]** la lista pública de oficinas por país, las fechas de apertura y los centros de ingeniería fuera de California: el 10-K no los enumera y este caso no encontró una fuente primaria que lo haga.
+
+**Plantilla (documentado).** A fines de 2025 Netflix tenía unos 16 000 empleados a tiempo completo: unos 10 900 (68 %) en Estados Unidos y Canadá, 2 500 (16 %) en Europa, Oriente Medio y África, 1 900 (12 %) en Asia-Pacífico y 700 (4 %) en Latinoamérica, además de personal de producción a tiempo parcial o temporal cuyo número varía ([N14]).
+
+![Barras de empleados a tiempo completo por región al 31 de diciembre de 2025: 10 900 en Estados Unidos y Canadá, 2 500 en Europa, Oriente Medio y África, 1 900 en Asia-Pacífico y 700 en Latinoamérica.](../figures/netflix-plantilla-por-region.svg)
+
+**Cómo leer la figura.** Cada barra es una región y su altura el número de empleados a tiempo completo; compare con los ingresos por región de la sección de economía. Mire la diferencia: la plantilla está más concentrada en Norteamérica (68 %) que los ingresos (44 %). **Dónde deja de valer.** Es un corte a una fecha, no incluye al personal temporal de producción y no distingue funciones; no es un mapa geográfico de oficinas.
+
+**Estructura (documentado y no documentado).** El 10-K declara un solo segmento operativo ([N14]), lo que implica que no hay divisiones con resultados propios publicados. **[No se sabe]** el organigrama de alto nivel, el número de ingenieros, cómo se agrupan los equipos de plataforma y de producto, y cuántos trabajan en Open Connect. El 10-K de 2025 sí fija un orden de magnitud: 3 391 millones de USD de gasto en tecnología y desarrollo en 2025, 7,5 % de los ingresos ([N14]).
+
+**Cálculo propio.** Con ingresos de 45 183 millones y unos 16 000 empleados a tiempo completo, el ingreso por empleado es de unos 2,8 millones de USD; es una cifra de orden de magnitud, no de productividad, porque gran parte del trabajo (producción, entrega, nube) se contrata fuera.
+
 ## Contexto y problema
 
 **Documentado.** En 1997 la idea fue alquilar DVD por correo; la propia empresa cuenta que probaron el concepto enviándose un DVD a sí mismos y que llegó intacto ([N2]). El sitio de alquiler y venta se lanzó en 1998 y en 1999 apareció la suscripción «sin fechas de devolución, sin recargos por demora y sin límites mensuales» ([N2]). En su informe de 2007 Netflix se describe aún como proveedor de acceso a «aproximadamente 90 000 títulos en DVD» para unos 7,5 millones de suscriptores, con una biblioteca creciente de más de 6 000 títulos que se podían ver al instante en el PC y nueve planes desde 4,99 USD al mes ([N4]).
@@ -180,6 +194,38 @@ El 10-K de 2025 informa unos 16 000 empleados a tiempo completo (10 900 en Estad
 **Costos relevantes.** **[Documentado]** que el coste de los ingresos fue de 21 000 millones de USD en 2024 ([N5]) y que el 10-K define como principal componente la amortización de contenido; otros incluyen costes de entrega en streaming, que «principalmente» se relacionan con Open Connect, y costes operativos como atención al cliente y comisiones de pago ([N14]). **[No se sabe]** el desglose exacto de entrega frente a contenido. **[Inferido]** que el contenido es la mayor parte, porque la amortización de 15 302 millones de 2024 es más de 70 % del coste de los ingresos de 21 040 millones (cálculo propio).
 
 **Ventajas competitivas que Netflix mismo declara.** Escala global (más de 190 países), una red propia de entrega (Open Connect), recomendación personalizada y contenido original ([N2], [N3]). Cuánto pesa cada una en el resultado **[No se sabe]**.
+
+### Esquema del negocio: flujos de dinero y de valor
+
+![Diagrama de flujos: los miembros pagan cuotas y los anunciantes pagan publicidad; Netflix destina el coste de ingresos, sobre todo contenido, el marketing, la tecnología y la administración, y retiene el resultado operativo.](../figures/netflix-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** A la izquierda entra el dinero (cuotas y publicidad); en el centro está Netflix; a la derecha, a dónde va en 2025. Cada cifra es un porcentaje de los 45 183 millones de ingresos. Mire cuánto queda como resultado operativo (29,5 %). **Dónde deja de valer.** El coste de ingresos mezcla contenido, entrega y otros costes; la caja punteada indica que lo que se paga por entrega no se publica por separado. Los ingresos por publicidad no se separan en el 10-K citado.
+
+**Flujo de valor.** El miembro recibe un catálogo, recomendaciones y un servicio que funcione en cualquier pantalla; los estudios y creadores reciben licencias o contratos; el proveedor de internet recibe tráfico más barato; Netflix retiene la diferencia. **Documentado:** la cuota por plan, el plan con anuncios desde 2022, la amortización de contenido de 16 422 millones en 2025 y la estructura de costes del estado de resultados ([N5], [N14]). **[No se sabe]** el reparto entre cuotas y publicidad, el precio de cada plan y las condiciones con estudios.
+
+### Visión, misión y estrategia
+
+**Documentado.** El 10-K de 2025 describe a Netflix como uno de los principales servicios de entretenimiento del mundo, con series, películas, juegos y programación en directo, donde los miembros pueden reproducir, pausar y reanudar cuanto quieran, en cualquier momento y lugar ([N14]). La estrategia central, dicha en el mismo documento, es crecer globalmente dentro de los parámetros de un objetivo de margen operativo, mejorando la experiencia del miembro con contenido que atrae nuevos miembros, con una gama de planes que incluye el plan con anuncios ([N14]). La carta a accionistas de 2024 declara como meta sostener un crecimiento de ingresos saludable, ampliar el margen operativo y aumentar el flujo de caja libre ([N5]).
+
+**Evolución.** En 2007 el informe se describía como un servicio de suscripción de DVD con acceso al instante en PC ([N4]); en 2016, como una red global de streaming ([N3]); en 2025, como una oferta que añade juegos y directo ([N14]). **[No se sabe]** un texto formal de «misión» con fecha de adopción en las fuentes consultadas; por eso se cita la estrategia declarada y no una frase de misión.
+
+### Costos operativos
+
+![Barras apiladas al cien por ciento de los costos de Netflix en 2023, 2024 y 2025: coste de ingresos de 58,5 a 51,5 por ciento, marketing alrededor de 7 por ciento, tecnología alrededor de 7,5, administración de 5,1 a 4,2 y resultado operativo de 20,6 a 29,5.](../figures/netflix-costos-operativos.svg)
+
+**Cómo leer la figura.** Cada barra es un año reducido a 100 % de los ingresos; los segmentos son rubros del estado de resultados. Mire cómo el coste de ingresos cede siete puntos y el resultado operativo los gana. **Dónde deja de valer.** Son rubros contables: no separan la infraestructura del contenido y la amortización de contenido es un gasto, no la caja.
+
+**Cifras de 2025 en dólares ([N14]).** Coste de ingresos de 23 275 millones, marketing de 3 301, tecnología y desarrollo de 3 391 y administración de 1 888. Dentro del coste de ingresos, la amortización de contenido fue de 16 422 millones (8 714 de licenciado y 7 709 de producido). El 10-K define el coste de ingresos como principalmente amortización de contenido, además de costes de adquisición y producción, entrega en streaming (sobre todo Open Connect: equipo, personal y costes de terceros como la nube) y costes operativos como atención al cliente y comisiones de pago ([N14]). **[No se sabe]** el desglose de la entrega, de la nube y del soporte.
+
+**Cálculo propio.** Si toda la amortización de contenido es el 70,6 % del coste de ingresos de 2025 (16 422 / 23 275), el resto (6 853 millones, 15,2 % de los ingresos) cubre entrega, producción no amortizada, soporte, pagos y otros; ese remanente es la cota superior de todo el coste de infraestructura y entrega, y es pequeño frente al contenido.
+
+**Márgenes.** Resultado operativo de 29,5 % en 2025, 26,7 % en 2024 y 20,6 % en 2023; resultado neto de 10 981 millones en 2025 ([N14]).
+
+### Competidores
+
+**Documentado.** El 10-K de 2025 describe un mercado de entretenimiento en vídeo intensamente competitivo y cambiante, en el que Netflix compite por el tiempo libre del consumidor con televisión lineal, proveedores de streaming (incluidos los que ofrecen contenido pirata), videojuegos, plataformas abiertas de contenido generado por usuarios y otras fuentes de entretenimiento, como las redes sociales; los modelos económicos incluyen suscripción, transaccional, con publicidad y basados en piratería; y algunos competidores tienen mayor historia, base de clientes, derechos exclusivos y recursos ([N14]).
+
+**[No se sabe]** con fuente primaria la cuota de mercado por competidor: el 10-K no nombra competidores en el fragmento consultado ni da cuotas, y este caso no usa estimaciones de terceros sin verificar. **Análisis propio** de por qué el mercado favoreció a Netflix (ver «Competencia» en la sección de mercado): ventaja temprana en entrega por internet y recomendación, coste fijo de contenido repartido entre muchos miembros y una red de entrega propia. Es hipótesis, no un hecho declarado.
 
 ## Arquitectura y esquemas
 
@@ -335,6 +381,59 @@ El curso enseña cómo se razonaría este apartado: modelo de amenazas ([SE-385]
 
 **Originales frente a licencias.** Los originales exigen caja por adelantado y tienen riesgo de fallo por título; las licencias permiten pagar durante el periodo de amortización pero dejan a la empresa expuesta a lo que decidan los estudios ([N14], [N2]). El dato de 2025 muestra la mezcla resultante: casi mitad y mitad entre producido y licenciado en la amortización, con el licenciado creciendo más rápido que el producido en 2023-2025 ([N14]). La lección de [SE-142](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-142-decisiones-reversibles-e-irreversibles/README.md) es que la decisión no fue binaria sino una cartera.
 
+### 6.12 Hardware utilizado
+
+**Documentado (servidores de Open Connect).** La página oficial dice que los appliances se basan en componentes de PC comunes, ensamblados en cajas a medida por proveedores; se entregan sin cargo a ISP que cumplan requisitos básicos y no se venden a terceros; tienen discos del sistema, fuentes de alimentación y puertos de red redundantes; si un disco falla se desactiva automáticamente y el equipo sigue funcionando; no tienen piezas reparables por el usuario salvo fuentes y ópticas; y se monitorizan de forma continua desde un centro de operaciones de red ([N6]). Hay dos clases principales ([N6]):
+
+- **Appliance de almacenamiento:** servidor 2U que aloja el catálogo en muchos puntos de intercambio y en los ISP más grandes; busca gran capacidad y suficiente memoria NAND de bajo coste para llegar a 10 GB/s de rendimiento; conexión de red de 6 enlaces de 10 Gbps agregados o hasta 2 de 100 Gbps; procesador único; potencia operativa pico de unos 400 W; rendimiento operativo de unos 200 Gbps; hasta 120 TB en bruto.
+- **Appliance global:** servidor 2U de menor coste para ISP pequeños y mercados emergentes; hasta 60 TB en bruto, unos 80 Gbps y unos 250 W; solo ópticas reemplazables en campo y una fiabilidad de 4 a 6 años sin intervención.
+
+Los componentes citados son placa Tyan, procesador AMD, memoria Micron, discos de estado sólido de Kioxia o Micron, controladores de red de Mellanox y Broadcom, y chasis de Ahead; los integradores de sistemas son Sanmina, MBX e Intequus ([N6]).
+
+![Barras de la relación entre el servidor global y el de almacenamiento: 40 por ciento de rendimiento, 50 por ciento de capacidad y 62,5 por ciento de potencia pico.](../figures/netflix-hardware-open-connect.svg)
+
+**Cómo leer la figura.** Cada grupo compara una magnitud: la barra azul es el servidor de almacenamiento (100 %) y la teal el global como porcentaje. Mire que la potencia baja menos que el rendimiento: el servidor pequeño es menos eficiente por vatio. **Dónde deja de valer.** Son valores nominales de la ficha oficial de la versión más reciente; no incluyen el coste de los equipos ni la cantidad desplegada, que no se publican.
+
+**Cálculo propio de eficiencia.** Rendimiento por vatio: 0,5 Gbps/W en el de almacenamiento (200/400) y 0,32 en el global (80/250). Es una comparación de las cifras nominales de la ficha, no una medición.
+
+**Documentado (otros dispositivos).** El 10-K cita equipo de Open Connect entre los costes de entrega ([N14]). Los dispositivos del usuario (televisores, móviles, consolas, navegadores) son diversos y Netflix colabora con fabricantes desde 2008 ([N2]). **[No se sabe]** los aceleradores (por ejemplo, para codificación de vídeo), los servidores de la nube (que son los de AWS) y la red de transporte entre centros de datos.
+
+### 6.13 Software utilizado
+
+**Documentado.** En los servidores de vídeo: FreeBSD como sistema operativo (la versión de desarrollo), elegido por equilibrio entre estabilidad y funciones, con mejoras contribuidas a la comunidad; NGINX como servidor web que entrega audio y vídeo por HTTP; y el demonio de encaminamiento BIRD, que recoge la topología de red de los ISP y la comparte con el sistema de control en AWS; con soporte de IPv4 e IPv6 ([N6]). El diseño busca software abierto, lectura eficiente de disco a conexión de red, entrega HTTP de alto rendimiento y obtención de rutas por BGP ([N6]).
+
+**Documentado (código abierto de la plataforma).** Los repositorios oficiales de Netflix en GitHub muestran, con lenguaje y año de creación ([N21]): Hystrix (Java, 2012), Eureka (Java, 2012), Zuul (Java, 2013), EVCache (Java, 2013), Chaos Monkey (Go, 2016), Atlas (Scala, 2014), Genie (Java, 2013), Priam (Java, 2011), Falcor (JavaScript, 2015), VMAF (C, 2016) y Metaflow (Python, 2019). Conductor y Dispatch figuran como archivados. Las descripciones oficiales: Atlas es una base de datos de series temporales dimensionales en memoria; Genie, un servicio de orquestación de datos masivos; Priam, un coproceso para copia de seguridad y recuperación, gestión de tokens y configuración centralizada (de Cassandra); VMAF, una métrica perceptual de calidad de vídeo; Metaflow, una herramienta para construir y desplegar sistemas de IA y aprendizaje automático ([N21]).
+
+![Tres entornos y su software documentado: FreeBSD, NGINX y BIRD en el servidor de vídeo; Zuul, Eureka, Hystrix, EVCache y Cassandra en el control en AWS; Chaos Monkey, Atlas, Metaflow y VMAF como herramientas.](../figures/netflix-pila-de-software.svg)
+
+**Cómo leer la figura.** Tres bloques: el servidor de vídeo (dorado), el plano de control en AWS (azul) y las herramientas (gris). Cada caja es un componente con su función y, cuando figura, su lenguaje. **Dónde deja de valer.** Muestra componentes con repositorio o página oficial, no la pila de producción de hoy: un repositorio existente o archivado no prueba que se use. No se sabe qué colas, orquestadores o bases de datos operan hoy.
+
+**[No se sabe]** los lenguajes de los servicios de negocio actuales, las colas y el sistema de streaming de datos, y el orquestador de contenedores en uso (Titus, una plataforma de contenedores, figura como archivada).
+
+### 6.14 Características de la infraestructura
+
+**Modelo híbrido (documentado).** El plano de control corre en la nube: Netflix declara que ejecuta la mayor parte de su cómputo en AWS y que no puede cambiar fácilmente de proveedor ([N14]); el plano de datos es una red propia de appliances dentro de los ISP y en puntos de intercambio, abastecida desde más de 60 centros de datos de Netflix, con más de mil ISP asociados ([N20]).
+
+**Regiones y zonas.** Una arquitectura en varias regiones activas con datos replicados se documenta en 2013 ([N8]). **[No se sabe]** el número y ubicación de regiones y zonas hoy.
+
+**Capacidad y escala.** Servidores de 60 a 120 TB y de 80 a unos 200 Gbps cada uno ([N6]); EVCache con más de 30 millones de peticiones por segundo en el pico de 2016 ([N10]); más de 300 millones de miembros a fines de 2024 ([N5]). **[No se sabe]** la capacidad total en terabits ni el número de servidores.
+
+**Redes.** Peering sin liquidación (SFI) en puntos de intercambio y appliances embebidos con sesiones BGP con el ISP ([N20]); el ISP aporta espacio, energía y conectividad ([N20]). El relleno ocurre cada noche ([N20]).
+
+**Costos.** El 10-K trata el equipo de Open Connect, el personal y la nube como costes de entrega dentro del coste de ingresos ([N14]); por el cálculo propio de la sección de costos, el coste total de entrega y otros ajenos al contenido está acotado por unos 6 900 millones de USD en 2025 (15,2 % de los ingresos). **[No se sabe]** la parte de nube frente a la de equipo propio.
+
+### 6.15 Temas a prueba de fallos
+
+![Seis filas de falla creciente: un disco, un servidor de vídeo, una dependencia lenta, una instancia, una región y el proveedor de nube; el efecto y el mecanismo de contención, con rótulo de documentado o inferido.](../figures/netflix-que-pasa-si-cae.svg)
+
+**Cómo leer la figura.** Cada fila es un componente cada vez mayor y a su derecha lo que ocurre y cómo se contiene. Los colores indican el tipo de respuesta; la caja coral inferior es la falla sin respuesta pública. **Dónde deja de valer.** Cada fila es una síntesis de documentos de años distintos; no es un plan de continuidad vigente ni un conjunto de objetivos de recuperación.
+
+**Tolerancia a fallos y redundancia.** Hardware: discos, fuentes y puertos redundantes, con desactivación automática del disco averiado ([N6]). Software: interruptor y alternativa por dependencia ([N7], [N15]). **Replicación y failover.** Datos replicados entre regiones y tráfico dirigido a otra región ([N8]); EVCache replicada y tolerante a datos algo viejos ([N10]). **Degradación elegante.** La alternativa de Hystrix sirve una respuesta menos personalizada en vez de un error ([N7], [N15]). **Pruebas de caos.** Chaos Monkey termina instancias y contenedores al azar en producción; el método formal de caos define estado estable, hipótesis y variables reales ([N19], [N12]). **Recuperación ante desastres.** El ejercicio de pérdida de región de 2013 ([N8]); **[No se sabe]** el plan de recuperación actual ni los objetivos de tiempo y punto de recuperación.
+
+**Límites de velocidad y aislamiento.** Zuul aplica filtros en el borde y la biblioteca Hystrix aísla cada dependencia con su propia reserva de hilos o semáforo ([N15], [N17]). **[No se sabe]** los límites de velocidad por cliente.
+
+**Qué pasa cuando cae cada componente.** (1) Un disco: se desactiva y el servidor sigue ([N6]). (2) Un servidor: el control puede dirigir al cliente a otro; **[Inferido]**. (3) El control en una región: el tráfico pasa a otra región ([N8]). (4) Una dependencia: alternativa ([N15]). (5) Una caché: los datos se vuelven a leer del origen; EVCache admite pérdida de datos por diseño ([N18]). (6) AWS completo: sin mecanismo público ([N14]).
+
 ## Casos especiales y cómo se resuelven
 
 Cada caso se expone como: situación, mecanismo que lo resuelve, decisión de diseño, trade-off, y qué se sabe.
@@ -488,6 +587,8 @@ Fecha de consulta de todas: 16 de noviembre de 2026. Las URL se comprobaron con 
 - **[N18]** Netflix, EVCache (GitHub): [https://github.com/Netflix/EVCache](https://github.com/Netflix/EVCache). Respalda el significado de las siglas y su base en memcached.
 - **[N19]** Netflix, Chaos Monkey (GitHub): [https://github.com/Netflix/chaosmonkey](https://github.com/Netflix/chaosmonkey). Respalda que termina instancias y contenedores al azar en producción.
 - **[N20]** Netflix Open Connect, página principal: [https://openconnect.netflix.com/en/](https://openconnect.netflix.com/en/). Respalda la participación de ISP, el relleno nocturno, el coste para el ISP y las cifras de ISP y centros de datos.
+
+- **[N21]** Netflix, repositorios oficiales en GitHub, consultados con la API pública (lenguaje, año de creación, descripción y estado): [Atlas](https://github.com/Netflix/atlas), [Metaflow](https://github.com/Netflix/metaflow), [Priam](https://github.com/Netflix/Priam), [Genie](https://github.com/Netflix/genie), [Conductor](https://github.com/Netflix/conductor), [VMAF](https://github.com/Netflix/vmaf) y [Falcor](https://github.com/Netflix/falcor).
 
 **Límites de este caso.** No se ejecutó ni se midió ningún sistema de Netflix; todo es lectura de fuentes públicas. Las cifras de EVCache y de Open Connect son de las fechas indicadas y pueden haber cambiado. Los artículos de blog de [N7] a [N13] están protegidos frente a descargas automáticas y se citan por lo que ya recogía la versión anterior de este caso; el resto se verificó directamente. Las clases enlazadas enseñan los conceptos con laboratorios propios; este caso no prueba que Netflix aplique cada uno tal como se enseña. Los apartados rotulados «análisis propio» y las hipótesis del curso no son hechos de la empresa.
 

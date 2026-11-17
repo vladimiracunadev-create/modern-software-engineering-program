@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de fallo ×3: CrowdStrike, Therac-25, GitLab 2017 y Quibi
+
+- los cuatro casos ampliados al triple (de unas 4 000 a 4 900 palabras a entre 12 500 y 16 300, y de 5 o 6 figuras a entre 17 y 19), con arquitectura en varios niveles de zoom, árbol de fallas, análisis causal, mejoras por factor, comparables, preguntas de discusión y mini-ejercicios;
+- hechos nuevos verificados contra el análisis de causa raíz y el hub de CrowdStrike, los blogs de Microsoft, el artículo de Leveson y Turner, el postmortem de GitLab, los resúmenes de AWS y Atlassian, el post mortem de Cloudflare de 2019, el informe de Google Cloud de 2025 y la prensa sobre Quibi;
+- commits `b90f735c`, `5fce6562`, `16b59c55` y `83578796`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de fallo ×3: Knight Capital, HealthCare.gov, TSB y Meta 2021
 
 - los cuatro casos de fallo ampliados al triple: de unas 3 300 a 3 700 palabras a entre 9 800 y 10 400, y de 5 o 6 figuras a entre 16 y 19, con arquitectura en ocho niveles de zoom, árbol de fallas, línea de tiempo con más resolución, mejoras por factor (control técnico, de proceso y de gobierno), vínculos concepto → clase, preguntas y mini-ejercicios, y la separación explícita entre documentado, inferido y no se sabe;

@@ -123,7 +123,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44, 46–48 (`SE-001`–`SE-540`, `SE-553`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–48 (`SE-001`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -141,6 +141,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-529 · Estilos como respuestas a fuerzas de calidad](../classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 44 |
 | [SE-534 · Multi-tenancy y aislamiento](../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) | Parte 44 |
 | [SE-540 · Proyecto: decisión arquitectónica defendida con ADR](../classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) | Parte 44 |
+| [SE-541 · Del dato operacional al analítico](../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-541-del-dato-operacional-al-analitico/README.md) | Parte 45 |
+| [SE-546 · Contratos de datos y evolución de esquemas](../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-546-contratos-de-datos-y-evolucion-de-esquemas/README.md) | Parte 45 |
+| [SE-552 · Proyecto: plataforma de datos mínima gobernada](../classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-552-proyecto-plataforma-de-datos-minima-gobernada/README.md) | Parte 45 |
 
 **Cómo recorrerla.** Empieza por [SE-315](../classes/part-26-datos-persistencia-y-recuperacion/se-315-transacciones-aislamiento-y-concurrencia/README.md) para fijar el
 primer mecanismo, usa [SE-423](../classes/part-35-observabilidad-sre-e-incidentes/se-423-metricas-dimensiones-y-cardinalidad/README.md) para integrar el
@@ -150,26 +153,15 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44, 46–48 (`SE-001`–`SE-540`, `SE-553`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–48 (`SE-001`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Parte 45 (sin clases publicadas)
+## ✅ Ampliación completada: Partes 40–48
 
 > [!NOTE]
-> La Parte 45 (`SE-541`–`SE-552`) está **planificada** desde el 17 de noviembre
-> de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
-> tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
-> considerarse disponible.
+> Las Partes 40–48 (`SE-481`–`SE-588`) ya están desarrolladas ([ADR-004](../docs/adr/ADR-004-expand-to-540-class-scope.md) y [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)); sus clases figuran en el núcleo y en las clases de apoyo de esta guía.
 
-| Parte planificada | Rango previsto | Qué cambiará para este rol |
-| --- | --- | --- |
-| **Parte 45 · Ingeniería de datos y plataformas de datos** | `SE-541`–`SE-552` | Relaciona warehouse, lake y lakehouse con la durabilidad, la recuperación y el costo de las cargas analíticas. |
-
-Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
-desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es
-evidencia de que el contenido exista ni de que su alcance final coincida con esta
-descripción.
 
 ## ⚖️ Decisiones y trade-offs que debes defender
 

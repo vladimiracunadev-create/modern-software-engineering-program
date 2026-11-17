@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 48,
-  "class_count": 576,
-  "estimated_hours": 2592,
+  "part_count": 49,
+  "class_count": 588,
+  "estimated_hours": 2646,
   "planned_scope": {
     "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
     "decisions": [
@@ -27,15 +27,7 @@
     "estimated_hours": 2646,
     "first_class": "SE-001",
     "last_class": "SE-588",
-    "unpublished_parts": [
-      {
-        "id": "45",
-        "title": "Ingeniería de datos y plataformas de datos",
-        "first_class": "SE-541",
-        "last_class": "SE-552",
-        "status": "planned"
-      }
-    ]
+    "unpublished_parts": []
   },
   "stages": [
     {
@@ -4839,6 +4831,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr"
+        }
+      ]
+    },
+    {
+      "id": "45",
+      "stage": "E",
+      "stage_title": "Diseño, arquitectura, datos e integración",
+      "title": "Ingeniería de datos y plataformas de datos",
+      "owner": "suite",
+      "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos",
+      "lessons": [
+        {
+          "id": "SE-541",
+          "number": 541,
+          "title": "Del dato operacional al analítico",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-541-del-dato-operacional-al-analitico"
+        },
+        {
+          "id": "SE-542",
+          "number": 542,
+          "title": "Ingesta batch y streaming",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-542-ingesta-batch-y-streaming"
+        },
+        {
+          "id": "SE-543",
+          "number": 543,
+          "title": "Modelado analítico: hechos, dimensiones y granularidad",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-543-modelado-analitico-hechos-dimensiones-y-granularidad"
+        },
+        {
+          "id": "SE-544",
+          "number": 544,
+          "title": "Transformación y orquestación idempotente con backfills",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-544-transformacion-y-orquestacion-idempotente-con-backfills"
+        },
+        {
+          "id": "SE-545",
+          "number": 545,
+          "title": "Calidad y observabilidad de datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-545-calidad-y-observabilidad-de-datos"
+        },
+        {
+          "id": "SE-546",
+          "number": 546,
+          "title": "Contratos de datos y evolución de esquemas",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-546-contratos-de-datos-y-evolucion-de-esquemas"
+        },
+        {
+          "id": "SE-547",
+          "number": 547,
+          "title": "Linaje, catálogo y metadatos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-547-linaje-catalogo-y-metadatos"
+        },
+        {
+          "id": "SE-548",
+          "number": 548,
+          "title": "Warehouse, lake, lakehouse y formatos columnares",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-548-warehouse-lake-lakehouse-y-formatos-columnares"
+        },
+        {
+          "id": "SE-549",
+          "number": 549,
+          "title": "Gobierno, privacidad y retención de datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-549-gobierno-privacidad-y-retencion-de-datos"
+        },
+        {
+          "id": "SE-550",
+          "number": 550,
+          "title": "Costos y operación de plataformas de datos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-550-costos-y-operacion-de-plataformas-de-datos"
+        },
+        {
+          "id": "SE-551",
+          "number": 551,
+          "title": "Taller: reparar un pipeline defectuoso",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-551-taller-reparar-un-pipeline-defectuoso"
+        },
+        {
+          "id": "SE-552",
+          "number": 552,
+          "title": "Proyecto: plataforma de datos mínima gobernada",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-45-ingenieria-de-datos-y-plataformas-de-datos/se-552-proyecto-plataforma-de-datos-minima-gobernada"
         }
       ]
     },

@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-576 clases desarrolladas · 48 partes desarrolladas (`SE-001`–`SE-540`, `SE-553`–`SE-588`) · 12 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
+588 clases desarrolladas · 49 partes desarrolladas (`SE-001`–`SE-588`) · alcance completo: 588 clases en 49 partes.
 
 > [!WARNING]
-> Las Partes 00–44, 46–48 (`SE-001`–`SE-540`, `SE-553`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 45 (`SE-541`–`SE-552`) está **planificada**, sin clases publicadas.
+> Las Partes 00–48 (`SE-001`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. No quedan partes planificadas sin publicar.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 48 partes desarrolladas
+## Las 49 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -57,19 +57,14 @@
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
+| 45 | [Ingeniería de datos y plataformas de datos](part-45-ingenieria-de-datos-y-plataformas-de-datos/README.md) | E | SE-541–SE-552 | `suite` |
 | 46 | [Machine learning en producción y MLOps](part-46-machine-learning-en-produccion-y-mlops/README.md) | H | SE-553–SE-564 | `suite` |
 | 47 | [Sistemas críticos, tiempo real y normas de seguridad](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) | F | SE-565–SE-576 | `suite` |
 | 48 | [Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md) | D | SE-577–SE-588 | `suite` |
 
-## Partes planificadas sin publicar
-
-| Parte | Título | Clases | Estado |
-| --- | --- | --- | --- |
-| 45 | Ingeniería de datos y plataformas de datos | SE-541–SE-552 | planificada, sin clases publicadas |
-
 ---
 
-## Índice plano de las 576 clases desarrolladas
+## Índice plano de las 588 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -705,6 +700,20 @@ sin recorrer carpetas manualmente.
 - [SE-538 — Evolución y migración entre estilos](part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-538.html)
 - [SE-539 — Taller: seleccionar un estilo con escenarios de calidad](part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-539.html)
 - [SE-540 — Proyecto: decisión arquitectónica defendida con ADR](part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html)
+## [Parte 45 — Ingeniería de datos y plataformas de datos](part-45-ingenieria-de-datos-y-plataformas-de-datos/README.md)
+
+- [SE-541 — Del dato operacional al analítico](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-541-del-dato-operacional-al-analitico/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-541.html)
+- [SE-542 — Ingesta batch y streaming](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-542-ingesta-batch-y-streaming/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-542.html)
+- [SE-543 — Modelado analítico: hechos, dimensiones y granularidad](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-543-modelado-analitico-hechos-dimensiones-y-granularidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-543.html)
+- [SE-544 — Transformación y orquestación idempotente con backfills](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-544-transformacion-y-orquestacion-idempotente-con-backfills/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-544.html)
+- [SE-545 — Calidad y observabilidad de datos](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-545-calidad-y-observabilidad-de-datos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-545.html)
+- [SE-546 — Contratos de datos y evolución de esquemas](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-546-contratos-de-datos-y-evolucion-de-esquemas/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-546.html)
+- [SE-547 — Linaje, catálogo y metadatos](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-547-linaje-catalogo-y-metadatos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-547.html)
+- [SE-548 — Warehouse, lake, lakehouse y formatos columnares](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-548-warehouse-lake-lakehouse-y-formatos-columnares/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-548.html)
+- [SE-549 — Gobierno, privacidad y retención de datos](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-549-gobierno-privacidad-y-retencion-de-datos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-549.html)
+- [SE-550 — Costos y operación de plataformas de datos](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-550-costos-y-operacion-de-plataformas-de-datos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-550.html)
+- [SE-551 — Taller: reparar un pipeline defectuoso](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-551-taller-reparar-un-pipeline-defectuoso/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-551.html)
+- [SE-552 — Proyecto: plataforma de datos mínima gobernada](part-45-ingenieria-de-datos-y-plataformas-de-datos/se-552-proyecto-plataforma-de-datos-minima-gobernada/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-552.html)
 ## [Parte 46 — Machine learning en producción y MLOps](part-46-machine-learning-en-produccion-y-mlops/README.md)
 
 - [SE-553 — Ciclo de vida de ML y por qué falla en producción](part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-553.html)

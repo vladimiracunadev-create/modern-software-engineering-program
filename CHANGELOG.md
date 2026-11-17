@@ -18,6 +18,12 @@
 - doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre WebAssembly y WASI, WebAssembly en servidor y borde, eBPF, modelo de ejecución y costo de aceleradores, contenedores, microVM y sandboxes, hardware seguro y atestación, computación cuántica, criptografía poscuántica, confianza cero, un taller con batería hostil y un proyecto de plataforma de ejecución aislada con evidencia;
 - experimentos reproducibles en `scripts/experiments_part48_*.py`: módulos de WebAssembly ejecutados con `wasmtime` 50.0.1, nueve programas eBPF cargados en el núcleo de Linux de WSL2, proxies de CPU con NumPy, ML-KEM-768 y ML-DSA-65 reales (bibliotecas de estudio), simulación cuántica con vectores de estado y una plataforma mínima con registro encadenado e informe firmado; 36 figuras sin tablas repetidas;
 - lo que no se ejecutó se declara en cada clase: ninguna GPU (el controlador informó «GPU is lost»), ningún TEE ni TPM, ningún ordenador cuántico ni SDK, el modelo de componentes de WebAssembly, ningún contenedor ni microVM;
+
+## 2026-11-17 — Parte 45: Ingeniería de datos y plataformas de datos (SE-541 a SE-552)
+
+- 12 clases nuevas con las 16 secciones del contrato, README de la parte con guía razonada y resumen operativo, `part.json` con 39 fuentes verificadas y 36 figuras (`scripts/figures_part45_a.py` y `_b.py`) sin figuras que repitan una tabla;
+- experimentos reproducibles en `scripts/experiments_part45_*.py` (semilla 45, solo biblioteca estándar: SQLite, `zlib`, `array`, `hmac`, `tempfile`): bytes y bloqueo en una base operacional, ingesta con marcas de agua y reentregas, estrella frente a Data Vault, cargas idempotentes y backfills, detectores de volumen, compatibilidad de esquemas, linaje por perturbación, formato columnar propio y manifiesto, privacidad y borrado propagado, costos y ruta crítica, pipeline con ocho defectos y plataforma gobernada con diez mutaciones;
+- los tiempos de reloj varían entre equipos y los precios, volúmenes y defectos son parámetros del autor; no se ejecutó ninguna herramienta de terceros ni se evaluó ningún sistema real; sigue pendiente la revisión editorial humana independiente;
 - commit: ver `docs/PART-EXECUTION-TRACKER.md`.
 ## 2026-11-17 — Parte 47 desarrollada con experimentos reales y simulaciones de sistemas críticos y normas de seguridad (SE-565 a SE-576)
 

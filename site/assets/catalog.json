@@ -5942,6 +5942,138 @@
       "url": "classes/SE-540.html"
     },
     {
+      "id": "SE-541",
+      "title": "Del dato operacional al analítico",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-541.html"
+    },
+    {
+      "id": "SE-542",
+      "title": "Ingesta batch y streaming",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-542.html"
+    },
+    {
+      "id": "SE-543",
+      "title": "Modelado analítico: hechos, dimensiones y granularidad",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-543.html"
+    },
+    {
+      "id": "SE-544",
+      "title": "Transformación y orquestación idempotente con backfills",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-544.html"
+    },
+    {
+      "id": "SE-545",
+      "title": "Calidad y observabilidad de datos",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-545.html"
+    },
+    {
+      "id": "SE-546",
+      "title": "Contratos de datos y evolución de esquemas",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-546.html"
+    },
+    {
+      "id": "SE-547",
+      "title": "Linaje, catálogo y metadatos",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-547.html"
+    },
+    {
+      "id": "SE-548",
+      "title": "Warehouse, lake, lakehouse y formatos columnares",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-548.html"
+    },
+    {
+      "id": "SE-549",
+      "title": "Gobierno, privacidad y retención de datos",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-549.html"
+    },
+    {
+      "id": "SE-550",
+      "title": "Costos y operación de plataformas de datos",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-550.html"
+    },
+    {
+      "id": "SE-551",
+      "title": "Taller: reparar un pipeline defectuoso",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-551.html"
+    },
+    {
+      "id": "SE-552",
+      "title": "Proyecto: plataforma de datos mínima gobernada",
+      "part": "45",
+      "part_title": "Ingeniería de datos y plataformas de datos",
+      "stage": "E",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-552.html"
+    },
+    {
       "id": "SE-553",
       "title": "Ciclo de vida de ML y por qué falla en producción",
       "part": "46",

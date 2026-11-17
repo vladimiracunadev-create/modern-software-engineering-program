@@ -839,18 +839,18 @@ se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte complet
 
 ### Parte 45 — Ingeniería de datos y plataformas de datos
 
-- [ ] `SE-541` — Del dato operacional al analítico.
-- [ ] `SE-542` — Ingesta batch y streaming.
-- [ ] `SE-543` — Modelado analítico: hechos, dimensiones y granularidad.
-- [ ] `SE-544` — Transformación y orquestación idempotente con backfills.
-- [ ] `SE-545` — Calidad y observabilidad de datos.
-- [ ] `SE-546` — Contratos de datos y evolución de esquemas.
-- [ ] `SE-547` — Linaje, catálogo y metadatos.
-- [ ] `SE-548` — Warehouse, lake, lakehouse y formatos columnares.
-- [ ] `SE-549` — Gobierno, privacidad y retención de datos.
-- [ ] `SE-550` — Costos y operación de plataformas de datos.
-- [ ] `SE-551` — Taller: reparar un pipeline defectuoso.
-- [ ] `SE-552` — Proyecto: plataforma de datos mínima gobernada.
+- [x] `SE-541` — Del dato operacional al analítico.
+- [x] `SE-542` — Ingesta batch y streaming.
+- [x] `SE-543` — Modelado analítico: hechos, dimensiones y granularidad.
+- [x] `SE-544` — Transformación y orquestación idempotente con backfills.
+- [x] `SE-545` — Calidad y observabilidad de datos.
+- [x] `SE-546` — Contratos de datos y evolución de esquemas.
+- [x] `SE-547` — Linaje, catálogo y metadatos.
+- [x] `SE-548` — Warehouse, lake, lakehouse y formatos columnares.
+- [x] `SE-549` — Gobierno, privacidad y retención de datos.
+- [x] `SE-550` — Costos y operación de plataformas de datos.
+- [x] `SE-551` — Taller: reparar un pipeline defectuoso.
+- [x] `SE-552` — Proyecto: plataforma de datos mínima gobernada.
 
 ### Parte 46 — Machine learning en producción y MLOps
 

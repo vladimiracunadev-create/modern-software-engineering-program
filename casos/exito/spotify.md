@@ -173,6 +173,18 @@ Documentado (F3): Spotify cita datos de MIDiA sobre cuota de usuarios de streami
 
 Documentado (F2): el trimestre con mayor aumento neto de usuarios de su historia y crecimiento de dos dígitos en suscriptores; audiolibros en Premium en cinco países nuevos del norte de Europa (F2). Documentado (F1): ampliación del catálogo a podcasts y audiolibros. Inferido: la estrategia de añadir audio no musical busca elevar el uso y la mezcla de ingresos, pero no hay desglose público de ingresos por tipo de contenido.
 
+### Visión y misión
+
+Documentado (F1): la página institucional de Spotify dice que su misión es llevar creatividad al mundo, nota a nota y voz a voz, y que busca construir la mejor y más valiosa experiencia posible, conectando al mundo con el arte y con quienes lo crean (consulta del 16 de noviembre de 2026); se presenta como el servicio de suscripción de audio más popular del mundo. Documentado (F1): la historia de producto pasa de la música (2008) a los podcasts y a los audiolibros (2022). Análisis propio: el texto de misión se ha ampliado de «música» a «audio» y «creatividad»; la fuente no publica versiones anteriores del texto y por eso este caso no reconstruye su evolución palabra por palabra. No se sabe: visión formal distinta de la misión.
+
+### Estructura, plantilla y presencia mundial
+
+![Diagrama por regiones de las entidades de Spotify con dirección publicada: Europa, América, y Asia y Oriente Medio.](../figures/spotify-presencia-mundial.svg)
+
+**Cómo leer la figura.** Cada recuadro agrupa por región las entidades de la página de contacto; el último dice lo que no se sabe. **Dónde deja de valer.** Son entidades legales y direcciones de contacto, no centros de ingeniería ni plantilla.
+
+Documentado (F12): la sede del servicio está en Estocolmo (Spotify AB) y la sociedad matriz, Spotify Technology S.A., en Luxemburgo; Spotify USA Inc., con dirección en Nueva York, presta el servicio en Estados Unidos y Spotify AB en el resto de mercados; la página lista entidades en Bruselas, Berlín, Toronto, Copenhague, Madrid, Helsinki, París, Mumbai, Milán, Ámsterdam, Londres, Ciudad de México e Israel. Documentado (F1): 184 mercados. Documentado (F9): el vídeo de cultura de ingeniería de 2014 describe escuadras autónomas, tribus, capítulos y gremios, con la advertencia de que es un viaje en progreso. No se sabe: la plantilla total y por área, el organigrama de alto nivel, los años de apertura de cada oficina y los centros de ingeniería.
+
 ## Arquitectura y esquemas
 
 Lo documentado se limita a la plataforma de datos, las herramientas de ingeniería y la decisión de nube. No hay descripción pública detallada de cómo se sirve el audio hoy.
@@ -288,6 +300,38 @@ Documentado (F7): en 2011 el equipo de marketing lanzó «Year in Music», un re
 **Cómo leer la figura.** El carril superior son las eras de producto, el central la plataforma y el inferior la práctica de datos y experimentación; las líneas verticales son hitos. Fíjate en que ABBA (2013) precede a la nube (2016) y que Kafka se apaga un año después de decidir la migración. **Dónde deja de valer.** Las eras son síntesis del autor; la migración fue gradual y los años de fundación y bolsa no están verificados con fuente primaria.
 
 Antes y después, con lo documentado: antes de 2016, centros de datos propios, Hadoop, MapReduce y Hive; después, Google Cloud, microservicios en Compute Engine, Pub/Sub, Dataflow y BigQuery (F4). Antes de 2017, un sistema de entrega de eventos basado en Kafka; después, uno en Pub/Sub, con aislamiento por tipo (F5). Antes de 2021, TSV, disco y perímetro; después, SDK, receptor disponible y deduplicación por identificador (F5-bis). Antes de 2020, ABBA con un indicador por experimento; después, propiedades, catálogo de métricas y planificador (F6, F13). No se sabe la arquitectura del audio en ningún momento.
+
+### Hardware utilizado
+
+![Diagrama del hardware que Spotify documenta: máquinas virtuales de Google Cloud, discos SSD, servicios de red, dispositivos de usuario y la época P2P.](../figures/spotify-hardware-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro recuadros: servidores, almacenamiento y red, dispositivos de usuario y época P2P. **Dónde deja de valer.** Es información de 2010, 2016 y 2019; no hay inventario actual.
+
+Documentado (F4): antes de 2016 Spotify tenía ingenieros que operaban su infraestructura, compraba o alquilaba espacio, equipos de PC y redes; al migrar a Google Cloud, el proveedor destaca discos SSD de muchas operaciones por segundo y SSD locales, redes con Direct Peering, VPN y enrutadores en nube para transferir petabytes. Documentado (F5): la entrega de eventos corre en unas 2.500 máquinas virtuales. Documentado (F5-bis): las aplicaciones móviles tardan meses en actualizarse y algunos televisores y altavoces probablemente no se actualicen nunca. No se sabe: el hardware que sirve el audio, la red de entrega de contenidos y las cifras de almacenamiento de las pistas.
+
+### Software utilizado
+
+![Diagrama del software documentado de Spotify: servicios de datos de Google Cloud, Java, Scala con Scio, Avro, Puppet, Docker y Helios, Backstage y PlanOut, y los sistemas anteriores Kafka y Hadoop.](../figures/spotify-software-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro grupos tecnológicos con su fuente. **Dónde deja de valer.** Son blogs de 2016 a 2021.
+
+Documentado (F4, F5, F5-bis, F6, F8): la entrega de eventos usa Pub/Sub, Cloud Storage, clústeres de Compute Engine, Cloud SQL, Dataproc, Dataflow y BigQuery; los esquemas son Avro; los clientes de Pub/Sub eran bibliotecas Java; el trabajo de deduplicación de 2021 usa Scio (API de Scala para Apache Beam) sobre Dataflow tras considerar Spark y Flink; la biblioteca que convertía TSV a Avro es de 2007 y estaba escrita en Python; Puppet instalaba Docker y Helios, el orquestador interno; Backstage y la plataforma de experimentación (PlanOut, SQL) completan las herramientas internas. No se sabe: el lenguaje y los marcos de los servicios de audio, búsqueda y recomendación.
+
+### Características de la infraestructura
+
+![Diagrama de la infraestructura de Spotify: nube pública de Google, unas 2.500 máquinas virtuales, 500 tipos de evento y 350 terabytes diarios, costos sin cifras y regiones no publicadas.](../figures/spotify-caracteristicas-de-la-infraestructura.svg)
+
+**Cómo leer la figura.** Modelo, escala, costos y regiones; las dos últimas casi no tienen dato público. **Dónde deja de valer.** Las cifras de eventos son de analítica.
+
+Documentado (F4): nube pública de Google con una vía de servicios y otra de datos, tras decidir que no quería estar en el negocio de los centros de datos. Documentado (F5, F5-bis): cerca de 15 microservicios en unas 2.500 máquinas virtuales en 2019; más de 500 tipos de evento y más de 350 TB diarios de datos brutos (2019); picos de casi 8 millones de eventos por segundo y cerca de 70 TB diarios comprimidos y más de 600 tipos de evento en 2021. Documentado (F5): los costos eran altos y se abstrajeron al principio de los equipos para no frenar el aprendizaje; después se hicieron ciclos de ahorro. No se sabe: el gasto de nube, las regiones y zonas, y la distribución del audio.
+
+### Tolerancia a fallos: qué pasa si cae cada componente
+
+![Diagrama de la tolerancia a fallos documentada de Spotify: tipo de evento roto, receptor caído, máquina mal reemplazada, cambio en producción y migración.](../figures/spotify-tolerancia-a-fallos.svg)
+
+**Cómo leer la figura.** Cada recuadro es un fallo y su defensa; el último lista lo que falta. **Dónde deja de valer.** Solo cubre datos y herramientas.
+
+Documentado (F5): el aislamiento por tipo y la vitalidad sobre tardanza protegen al resto cuando un tipo falla; hay pruebas de integración de extremo a extremo, entorno de preparación y canarios; el verificador de salud por defecto de las máquinas virtuales gestionadas reemplazaba una máquina por otra con el mismo nombre y la infraestructura de configuración la rechazaba, por lo que escribieron uno propio. Documentado (F5-bis): si el receptor cae, los eventos esperan en el cliente; la migración de 2021 se hizo sin parar el servicio y con una capa de exportación de lo heredado. Documentado (F5): la migración de 2016-2017 ejecutó ambos sistemas en paralelo. No se sabe: pruebas de caos, recuperación ante desastres y copias de seguridad; ni degradación elegante del reproductor.
 
 ### Alternativas descartadas y trade-offs (análisis propio)
 

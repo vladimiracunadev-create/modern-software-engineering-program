@@ -416,6 +416,58 @@ def linea_tiempo2() -> Fig:
         note_kind="gold", foot="Fuentes: F1, F4, F5, F6 y F13; síntesis propia de las eras.")
 
 
+
+# ====================== segunda ampliación: hardware, software, infraestructura, fallos ======================
+from figure_kit import _wrap as _w2  # noqa: E402
+
+
+def _cards(title, desc, groups, note, foot, ncols=2):
+    f = Fig(940, 0, title, desc)
+    f.text(14, 27, title, 15, "start", 700, "#142231")
+    colw = (940 - 20 - (ncols - 1) * 20) / ncols
+    ys = [50.0] * ncols
+    for i, (head, kind, items) in enumerate(groups):
+        c = i % ncols
+        x = 10 + c * (colw + 20)
+        y = ys[c]
+        f.box(x, y, colw, 34, head, kind, 14, bold=True)
+        y += 42
+        for t in items:
+            h = 18 + len(_w2(t, 13, colw - 20)) * 16.6
+            f.box(x, y, colw, h, t, "plain", 13)
+            y += h + 8
+        ys[c] = y + 8
+    y = max(ys)
+    n = len(_w2(note, 13, 900))
+    nh = 22 + n * 16.6
+    f.box(10, y, 920, nh, note, "gold", 13)
+    y += nh + 6
+    lines = _w2(foot, 12, 900)
+    for i, line in enumerate(lines):
+        f.text(470, y + 22 + i * 15, line, 12, "middle", 400, "#5c1f14")
+    f.height = int(y + 30 + 15 * len(lines))
+    return f
+
+
+def _x_hardware() -> Fig:
+    return _cards('Hardware de Spotify: lo que se publica y lo que no', 'Diagrama del hardware que Spotify documenta: tras 2016 usa máquinas virtuales de Google Cloud (unas 2.500 en la entrega de eventos), discos SSD de alta capacidad y servicios de red del proveedor; los clientes son móviles, televisores y altavoces; no se publican servidores propios de la época anterior ni el hardware del servicio de audio.', [('Servidores', 'teal', ['Documentado: la migración de 2016 dejó de operar centros de datos propios; antes compraba o alquilaba espacio, equipos y redes (F4).', 'Documentado: la entrega de eventos corre en unas 2.500 máquinas virtuales de Compute Engine en 2019 (F5).', 'No se sabe: tipos de máquina, regiones y volumen de flota del audio.']), ('Almacenamiento y red', 'gold', ['Documentado: Google destaca discos SSD de muchas operaciones por segundo y SSD locales, además de Direct Peering, VPN y enrutadores en nube para mover petabytes (F4).', 'No se sabe: capacidad de almacenamiento de audio y distribución por CDN.']), ('Dispositivos de usuario', 'navy', ['Documentado: móviles con modo sin conexión, y televisores y altavoces que se actualizan poco o nunca (F5-bis).', 'Documentado: la plataforma de experimentación llega a clientes de escritorio, móvil y servicios (F6).']), ('Época P2P', 'grey', ['Documentado: en 2010 el servicio combinaba servidores con una red entre pares de los propios clientes (F10).', 'No se sabe: las mediciones del artículo: no se pudo leer el texto completo.'])], 'Lectura: cuatro recuadros separan nube, red, dispositivos y la época P2P. Dónde deja de valer: la información de nube es de 2016 y 2019; no hay inventario actual ni datos de hardware del reproductor.', 'Fuentes: F4, F5, F5-bis, F6, F10.')
+
+
+def _x_software() -> Fig:
+    return _cards('Software de Spotify que sus propias fuentes documentan', 'Diagrama del software documentado de Spotify: Pub/Sub, Cloud Storage, BigQuery, Dataproc, Dataflow y Cloud SQL en la entrega de eventos; Java, Scala con Scio y una biblioteca de Python de 2007; Avro para esquemas; Puppet, Docker y el orquestador interno Helios; Backstage y PlanOut en las herramientas internas; Kafka y Hadoop en el sistema anterior.', [('Datos y mensajería', 'teal', ['Documentado: Pub/Sub, Cloud Storage, Dataflow, Dataproc, BigQuery y Cloud SQL (F5); en 2016 adoptó además Cloud Datastore y Cloud Bigtable y se alejó de Hadoop, MapReduce y Hive (F4).', 'Documentado: el sistema anterior de eventos usaba Kafka y se apagó en febrero de 2017 (F5).']), ('Lenguajes y formatos', 'gold', ['Documentado: Java para los clientes de Pub/Sub; Scala con Scio sobre Beam y Dataflow en 2021; biblioteca de Python de 2007 para convertir TSV a Avro; Avro para esquemas compatibles hacia atrás (F5, F5-bis).', 'No se sabe: lenguajes de los servicios de audio.']), ('Orquestación y entrega', 'navy', ['Documentado: Puppet instalaba dependencias como Docker y Helios, el orquestador de contenedores interno, en cada máquina virtual (F5).', 'Documentado: pruebas de integración de extremo a extremo, entorno de preparación y máquinas canario (F5).']), ('Herramientas de código abierto', 'grey', ['Documentado: Backstage es un marco de código abierto de la CNCF en incubación (F8).', 'Documentado: la plataforma de experimentación usa PlanOut y SQL para métricas (F6).', 'Documentado: Scio y bibliotecas propias de Pub/Sub se mencionan como extensiones propias (F5).'])], 'Lectura: se agrupan por función; cada ítem lleva su fuente. Dónde deja de valer: son blogs de 2016 a 2021; no describen el reproductor, la búsqueda ni la recomendación.', 'Fuentes: F4, F5, F5-bis, F6, F8.')
+
+
+def _x_infra() -> Fig:
+    return _cards('Características de la infraestructura de Spotify: nube, escala y costo', 'Diagrama de la infraestructura de Spotify: nube pública de Google desde 2016; unas 2.500 máquinas virtuales y unos 15 microservicios en la entrega de eventos; 500 tipos de evento y más de 350 terabytes diarios en bruto en 2019; costos declarados como altos sin cifras; y regiones y zonas no publicadas.', [('Modelo', 'teal', ['Documentado: nube pública de Google, con una vía de servicios y una de datos (F4); decisión de no estar en el negocio de los centros de datos (F4).', 'No se sabe: qué parte, si alguna, sigue en infraestructura propia.']), ('Escala', 'gold', ['Documentado: en 2019, más de 500 tipos de evento, 350 terabytes diarios en bruto y picos de más de 8 millones de eventos por segundo; en 2021, cerca de 70 terabytes comprimidos diarios y más de 600 tipos (F5, F5-bis).', 'Documentado: en 2016, más de 2 mil millones de listas y más de 30 millones de canciones (F4).']), ('Costos', 'navy', ['Documentado: «los sistemas grandes cuestan mucho dinero»: decidieron abstraer el costo de los equipos y luego hacer ciclos de ahorro (F5).', 'No se sabe: gasto de nube en euros: no se publica; solo se conoce el margen bruto de 33,1 % de un trimestre (F2).']), ('Regiones y redes', 'grey', ['No se sabe: regiones, zonas de disponibilidad y topología de red de los servicios de audio.', 'Documentado: servicios de red del proveedor para transferir petabytes (F4).'])], 'Lectura: modelo, escala, costos y regiones; las dos últimas columnas casi no tienen dato público. Dónde deja de valer: las cifras de eventos son de datos de analítica y no de audio.', 'Fuentes: F2, F4, F5, F5-bis.')
+
+
+def _x_fallos() -> Fig:
+    return _cards('Qué pasa cuando cae cada componente en lo que Spotify documenta', 'Diagrama de la tolerancia a fallos documentada de Spotify: un tipo de evento roto no frena a los demás; un cliente móvil sin conexión reenvía; el receptor caído espera en el cliente; la migración corrió ambos sistemas en paralelo; los despliegues usan canarios; el verificador de salud propio corrigió un fallo de reemplazo de máquinas; no se documentan pruebas de caos ni recuperación ante desastres.', [('Un tipo de evento falla', 'teal', ['Documentado: aislamiento por tipo y vitalidad sobre tardanza: las particiones abiertas no bloquean a los demás tipos (F5).']), ('El receptor cae', 'gold', ['Documentado: los eventos esperan en el cliente y se reenvían con una política de reintento (F5-bis).']), ('Una máquina se reemplaza mal', 'coral', ['Documentado: el verificador de salud por defecto reemplazaba una máquina por otra con el mismo nombre y la infraestructura de configuración la rechazaba; escribieron el suyo (F5).']), ('Un cambio llega a producción', 'navy', ['Documentado: pruebas de extremo a extremo, entorno de preparación y canarios (F5).']), ('Una migración sale mal', 'plain', ['Documentado: ambos sistemas corrieron en paralelo para comparar completitud y se apagó el antiguo después (F5).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos, recuperación ante desastres, copias de seguridad y degradación elegante del reproductor.'])], 'Lectura: cada recuadro es un fallo y su defensa. Dónde deja de valer: solo cubre la plataforma de datos y las herramientas, no el audio.', 'Fuentes: F5, F5-bis.')
+
+
+def _x_presencia() -> Fig:
+    return _cards('Dónde tiene Spotify entidades y oficinas que su propia página de contacto publica', 'Diagrama por regiones de las entidades de Spotify con dirección publicada: sede en Estocolmo y sociedad matriz en Luxemburgo; en Europa Bruselas, Berlín, Copenhague, Madrid, Helsinki, París, Milán, Ámsterdam y Londres; en América Nueva York, Toronto y Ciudad de México; en Asia Mumbai e Israel.', [('Europa', 'teal', ['Documentado: sede del servicio en Estocolmo; Spotify Technology S.A. en Luxemburgo; entidades en Bruselas, Berlín, Copenhague, Madrid, Helsinki, París, Milán, Ámsterdam y Londres (F12).']), ('América', 'gold', ['Documentado: Spotify USA en Nueva York, que presta el servicio en Estados Unidos; entidades en Toronto y Ciudad de México (F12).']), ('Asia y Oriente Medio', 'navy', ['Documentado: Spotify India en Mumbai y una entidad en Israel, sin dirección en la página (F12).']), ('Lo que no se sabe', 'grey', ['No se sabe: años de apertura de cada oficina, dónde están los centros de ingeniería y cuántas personas trabajan en cada una.'])], 'Lectura: son entidades legales con dirección de contacto, no necesariamente centros de ingeniería. Dónde deja de valer: la página no fecha las aperturas ni cuenta plantilla; el servicio opera en 184 mercados con muchas menos oficinas.', 'Fuentes: F1 y F12.')
+
 FIGURES = {
     "spotify-contexto-dos-lados.svg": contexto,
     "spotify-industria-musical.svg": industria,
@@ -435,6 +487,11 @@ FIGURES = {
     "spotify-validez-de-experimentos.svg": validez,
     "spotify-discover-weekly-camino.svg": discover_weekly,
     "spotify-linea-de-tiempo.svg": linea_tiempo2,
+    "spotify-hardware-utilizado.svg": _x_hardware,
+    "spotify-software-utilizado.svg": _x_software,
+    "spotify-caracteristicas-de-la-infraestructura.svg": _x_infra,
+    "spotify-tolerancia-a-fallos.svg": _x_fallos,
+    "spotify-presencia-mundial.svg": _x_presencia,
 }
 
 

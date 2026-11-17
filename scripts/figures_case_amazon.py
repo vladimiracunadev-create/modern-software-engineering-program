@@ -495,6 +495,54 @@ def linea_tiempo() -> Fig:
         note_kind="gold", foot="Fuentes: F1, F3, F5, F8, F9, F11, F12 y F14; síntesis propia de las eras.")
 
 
+
+# ====================== segunda ampliación: hardware, software, infraestructura, fallos ======================
+from figure_kit import _wrap as _w2  # noqa: E402
+
+
+def _cards(title, desc, groups, note, foot, ncols=2):
+    f = Fig(940, 0, title, desc)
+    f.text(14, 27, title, 15, "start", 700, "#142231")
+    colw = (940 - 20 - (ncols - 1) * 20) / ncols
+    ys = [50.0] * ncols
+    for i, (head, kind, items) in enumerate(groups):
+        c = i % ncols
+        x = 10 + c * (colw + 20)
+        y = ys[c]
+        f.box(x, y, colw, 34, head, kind, 14, bold=True)
+        y += 42
+        for t in items:
+            h = 18 + len(_w2(t, 13, colw - 20)) * 16.6
+            f.box(x, y, colw, h, t, "plain", 13)
+            y += h + 8
+        ys[c] = y + 8
+    y = max(ys)
+    n = len(_w2(note, 13, 900))
+    nh = 22 + n * 16.6
+    f.box(10, y, 920, nh, note, "gold", 13)
+    y += nh + 6
+    lines = _w2(foot, 12, 900)
+    for i, line in enumerate(lines):
+        f.text(470, y + 22 + i * 15, line, 12, "middle", 400, "#5c1f14")
+    f.height = int(y + 30 + 15 * len(lines))
+    return f
+
+
+def _x_hardware() -> Fig:
+    return _cards('Hardware de Amazon: lo que se publica y lo que no', 'Diagrama del hardware que Amazon documenta públicamente: servidores de uso general y nodos homogéneos en el artículo de Dynamo, procesadores Graviton2 y almacenamiento EBS en Prime Day 2022, chips propios Trainium y Graviton en 2025 y una terminal de satélite con silicio propio; no se publican modelos de servidor, redes ni centros de datos.', [('Servidores', 'teal', ['Documentado: decenas de miles de servidores en muchos centros de datos (Dynamo, 2007); hardware estándar de uso general con menos rendimiento de disco que servidores empresariales de gama alta; las mediciones del artículo usan unos cientos de nodos homogéneos.', 'No se sabe: modelos, fabricantes y densidad de cada servidor.']), ('Procesadores y chips propios', 'gold', ['Documentado: en Prime Day 2022 la huella de servidores creció solo un 7 % gracias al mayor uso de procesadores Graviton2.', 'Documentado: en 2025 Amazon dice que Trainium y Graviton suman más de 10 mil millones de dólares de ingreso anual recurrente y que Trainium2 tiene 1,4 millones de chips instalados (afirmación de la empresa).', 'No se sabe: cuántos servidores usan Graviton hoy.']), ('Almacenamiento y bases', 'navy', ['Documentado: en Prime Day 2022 se añadieron 152 petabytes de EBS; la flota atendió 11,4 billones de peticiones por día y movió 532 petabytes por día.', 'Documentado: 5.326 instancias de Aurora procesaron 288 mil millones de transacciones y guardaron 1.849 terabytes ese día.', 'No se sabe: tipos de disco y de red de almacenamiento.']), ('Red y dispositivos', 'grey', ['Documentado: los centros de datos de Dynamo se conectan con enlaces de alta velocidad; la latencia entre centros afecta a la respuesta (F1).', 'Documentado: Amazon presenta en 2025 una terminal para su servicio de satélites con silicio propio y que Alexa+ llega a televisores y coches de terceros (F4).', 'No se sabe: topología de red, capacidad de enlace y detalle de los dispositivos de usuario.'])], 'Lectura: cada recuadro separa lo publicado de lo que no se sabe. Los datos de 2007 (Dynamo) y de 2022 (Prime Day) describen servicios de AWS, no la tienda entera. Dónde deja de valer: Amazon no publica inventario de hardware; las cifras de chips propios son afirmaciones de la empresa en un comunicado.', 'Fuentes: DeCandia et al. 2007 (F1); Barr, 2022 (F10); comunicado Q4 2025 (F4).')
+
+
+def _x_software() -> Fig:
+    return _cards('Software de Amazon que sus propias fuentes documentan', 'Diagrama del software documentado de Amazon: en Dynamo, Java con mensajería por etapas, almacenes BDB y MySQL; en Prime Day, DynamoDB, SQS, SES, Lambda, Kinesis, ElastiCache, S3, Aurora y EBS; en el proceso de entrega, los sistemas internos Brazil, Apollo y Pipelines; no se publican el sistema operativo ni los marcos de la tienda.', [('Almacenes y colas', 'teal', ['Documentado: Dynamo usó almacenes locales intercambiables: BDB Transactional Data Store, BDB Java Edition, MySQL o un búfer en memoria; la mayoría de las instancias usaba BDB (F1).', 'Documentado: en Prime Day 2022 se citan DynamoDB, SQS, SES, S3, Aurora, ElastiCache y Kinesis como servicios que sostienen a la tienda (F10).']), ('Lenguajes y marcos', 'gold', ['Documentado: Dynamo se implementó con mensajería sobre canales Java NIO y una tubería por etapas de tipo SEDA (F1).', 'Documentado: el patrón de funciones sin servidor (Lambda) se usa en la planificación de paquetes de América del Norte (F10).', 'No se sabe: lenguajes y marcos de la tienda, de los sistemas de pago y de la logística.']), ('Entrega de software', 'navy', ['Documentado: sistema de compilación Brazil, sistema de despliegue Apollo y la herramienta Pipelines que los une (F13).', 'Documentado: alarmas agregadas, pruebas «canario» continuas y reversión automática (F9).']), ('Sistemas operativos y orquestación', 'grey', ['No se sabe: sistema operativo de las flotas internas y orquestador propio: las fuentes no los nombran.', 'Documentado: contenedores y funciones se citan como unidades de despliegue en los pipelines (una máquina virtual, un contenedor o un porcentaje de invocaciones de una función) (F9).'])], 'Lectura: cuatro grupos de tecnologías; cada afirmación lleva su fuente o la marca «no se sabe». Dónde deja de valer: los nombres de servicios de AWS no equivalen a la pila interna de la tienda; el artículo de Dynamo es de 2007.', 'Fuentes: F1, F9, F10, F13.')
+
+
+def _x_infra() -> Fig:
+    return _cards('Características de la infraestructura de Amazon: regiones, zonas, capacidad y costo', 'Diagrama de la infraestructura de Amazon según sus fuentes: nube propia con 24 regiones y 76 zonas de disponibilidad en 2020, servicios en tres o más zonas con sobreaprovisionamiento, células dentro de una región, y un gasto de capital de 131,8 mil millones de dólares brutos en 2025 con unos 200 mil millones previstos para 2026.', [('Escala y ubicación', 'teal', ['Documentado: 24 regiones y 76 zonas de disponibilidad en 2020 (F9); no se sabe el número actual.', 'Documentado: decenas de miles de servidores en muchos centros de datos en 2007 (F1).', 'Inferido: la infraestructura es propia y no alquilada: AWS es la propia Amazon; no se publica la parte propiedad de terceros (por ejemplo, ubicación en centros de datos compartidos).']), ('Diseño por zonas y células', 'gold', ['Documentado: servicios en un grupo de autoescalado en tres o más zonas, con 50 % de capacidad sobrante con tres zonas (F7).', 'Documentado: equipos que dividen una región en zonas o en células, los fragmentos internos de su servicio, para despliegues de alcance menor (F9).']), ('Capacidad y costo', 'navy', ['Documentado: compras de propiedad y equipo de 131,8 mil millones de dólares brutos en 2025 y 83,0 en 2024; amortización de 65,8 mil millones en 2025; unos 200 mil millones previstos de inversión de capital en 2026 (F4).', 'Documentado: flujo de caja libre de 11,2 mil millones en 2025 frente a 38,2 en 2024 (F4).']), ('Redes', 'grey', ['Documentado: enlaces de alta velocidad entre centros de datos (F1).', 'No se sabe: topología, proveedores y capacidad de la red mundial; tampoco hay dato de costo de red.'])], 'Lectura: los cuatro recuadros recorren escala, diseño, costo y red. Dónde deja de valer: las cifras de capital son consolidadas de toda la empresa, no solo de AWS; el desglose por segmento no se publica en las fuentes de este caso.', 'Fuentes: F1, F4, F7, F9.')
+
+
+def _x_fallos() -> Fig:
+    return _cards('Qué pasa cuando cae cada componente en lo que Amazon documenta', 'Diagrama de la tolerancia a fallos documentada de Amazon por nivel: un nodo de Dynamo (traspaso con pista, árboles de Merkle), una zona de disponibilidad (sobreaprovisionamiento y estabilidad estática), una dependencia lenta (retroceso con variación y cubo de fichas), un cliente ruidoso (shuffle sharding) y un cambio defectuoso (una caja, olas y reversión automática); no se documentan pruebas de caos ni recuperación ante desastres de la tienda.', [('Cae un nodo de almacenamiento', 'teal', ['Documentado: la réplica se guarda con una pista en otro nodo y se devuelve al volver; los árboles de Merkle recuperan réplicas perdidas; la lectura reparadora actualiza réplicas atrasadas (F1).']), ('Cae una zona de disponibilidad', 'gold', ['Documentado: los servicios se dimensionan para que las demás zonas absorban la carga; el plano de datos sigue sin depender del plano de control (F7).']), ('Una dependencia es lenta o falla', 'coral', ['Documentado: retroceso exponencial con tope y variación aleatoria, cubo de fichas local y reintento en un solo punto de la pila; se evitan los interruptores de circuito por su comportamiento modal (F6).']), ('Un cliente se comporta mal', 'navy', ['Documentado: shuffle sharding limita el impacto a una combinación de recursos (F8).']), ('Un cambio es defectuoso', 'plain', ['Documentado: una caja, lotes de hasta el 33 %, tiempo de espera y reversión automática si salta la alarma agregada (F9).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos o ejercicios de fallo, recuperación ante desastres de la tienda y degradación elegante de la página: ninguna de las fuentes consultadas las describe.'])], 'Lectura: cada recuadro es un componente que cae y la defensa documentada; el último recuadro lista lo que falta. Dónde deja de valer: son mecanismos de AWS y de Dynamo; no prueban que la tienda los use de igual modo.', 'Fuentes: F1, F6, F7, F8, F9.')
+
 FIGURES = {
     "amazon-contexto-actores.svg": contexto,
     "amazon-segmentos-2025.svg": segmentos,
@@ -518,6 +566,10 @@ FIGURES = {
     "amazon-prime-day-2022.svg": prime_day,
     "amazon-working-backwards.svg": working_backwards,
     "amazon-linea-de-tiempo.svg": linea_tiempo,
+    "amazon-hardware-utilizado.svg": _x_hardware,
+    "amazon-software-utilizado.svg": _x_software,
+    "amazon-caracteristicas-de-la-infraestructura.svg": _x_infra,
+    "amazon-tolerancia-a-fallos.svg": _x_fallos,
 }
 
 

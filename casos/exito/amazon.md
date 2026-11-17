@@ -168,6 +168,14 @@ Análisis propio (con apoyo en F3, F4 y F14, no una afirmación documentada de c
 
 Documentado (F3): la carta de 1997 habla de «entrada competitiva agresiva» sin nombrar competidores. Los comunicados recientes (F4) no comparan con rivales. Este caso no incluye una tabla de competidores porque las fuentes citadas no la contienen; hacerlo exigiría fuentes adicionales por mercado y por año.
 
+### Visión y misión
+
+Documentado (F15): en su página institucional Amazon dice que su misión es hacer más fácil y mejor la vida de sus clientes mediante la invención constante en su nombre, y que ofrece selección, valor y comodidad en compras, nube, entretenimiento, dispositivos, publicidad, salud y servicios de IA (consulta del 16 de noviembre de 2026). Documentado (F16): los principios de liderazgo resumen una ambición triple, ser la empresa más centrada en el cliente, el mejor empleador y el lugar de trabajo más seguro de la Tierra; el primer principio es la obsesión por el cliente. Documentado (F3): en 1997 la carta a los accionistas ya hablaba de enfoque implacable en el cliente y de liderazgo de mercado a largo plazo. Análisis propio: la misión ha cambiado de alcance (de libros a «todo») pero no de criterio; lo que se amplía es la lista de servicios, no el método de decidir desde el cliente. No se sabe cómo ha evolucionado el texto oficial entre 1997 y hoy más allá de lo que muestran las cartas.
+
+### Estructura, plantilla y presencia mundial
+
+Documentado (F4): sede en Seattle; plantilla de más de 1,5 millones de personas, de tiempo completo y parcial, sin contratistas, al cierre de 2025. Documentado (F4): tres segmentos de reporte (América del Norte, Internacional y AWS). Documentado (F15): la página institucional habla de una red de operaciones mundial. No se sabe: el organigrama de alto nivel más allá del equipo directivo, la plantilla por segmento o por área (ingeniería, logística, AWS), la lista de oficinas y centros de ingeniería por país con su año de apertura. Documentado (F13): los equipos de software son pequeños y de un solo hilo («single-threaded»), dueños de su producto y de sus defectos; no hay cifras de cuántos equipos hay.
+
 ## Arquitectura y esquemas
 
 Todo lo que sigue es lo que Amazon ha publicado; no existe un diagrama interno público completo y no se debe inventar uno. Cada nivel de zoom lleva su figura y su etiqueta de evidencia.
@@ -309,6 +317,38 @@ Antes y después, con lo documentado: antes de las tuberías, 16 días desde el 
 **Cómo leer la figura.** Seis pasos en orden: del cliente a la revisión con la dirección; abajo, dos datos documentados y dos recuadros de análisis propio sobre qué evita y qué cuesta. **Dónde deja de valer.** La fuente es un extracto autopublicado por Amazon; no mide cuántos proyectos salvó el proceso.
 
 Documentado (F11): desde 2004 la mayoría de los productos importantes de Amazon se crearon con ese proceso; el comunicado es de menos de una página y el FAQ de cinco o menos; es normal escribir diez borradores o más y reunirse cinco veces o más con los líderes; la mayoría de los documentos nunca llega a ser producto, y los autores lo consideran una característica, no un defecto.
+
+### Hardware utilizado
+
+![Diagrama del hardware que Amazon documenta públicamente: servidores de uso general y nodos homogéneos, procesadores Graviton2, almacenamiento EBS, chips propios Trainium y Graviton y una terminal de satélite con silicio propio.](../figures/amazon-hardware-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro grupos (servidores, chips, almacenamiento y red/dispositivos); cada ítem empieza con «Documentado» o «No se sabe». **Dónde deja de valer.** Describe servicios de AWS en 2007, 2022 y 2025, no el inventario de la tienda; no hay modelos, fabricantes ni densidad.
+
+Documentado (F1): el artículo de Dynamo dice que el sistema corre sobre hardware estándar de uso general, con menos capacidad de disco que servidores empresariales de gama alta, de modo que el rendimiento de cada lectura o escritura queda limitado por la réplica más lenta; las mediciones se hicieron con unos cientos de nodos de hardware homogéneo repartidos en varios centros de datos conectados por enlaces de alta velocidad, cuya latencia influye en el tiempo de respuesta. Documentado (F10): en Prime Day de 2022 el uso de procesadores Graviton2 explicó que la huella equivalente de servidores solo creciera un 7 % frente al Cyber Monday anterior, y que se añadieran 152 petabytes de EBS. Documentado (F4): Amazon afirma que Trainium y Graviton suman más de 10 mil millones de dólares de ingreso anual recurrente y que Trainium2 tiene 1,4 millones de chips instalados; es una afirmación de la empresa. No se sabe: los modelos de servidor, la red interna y los dispositivos de borde de la tienda.
+
+### Software utilizado
+
+![Diagrama del software documentado de Amazon: Java y mensajería por etapas, almacenes BDB y MySQL, servicios de AWS de Prime Day, y las herramientas Brazil, Apollo y Pipelines.](../figures/amazon-software-utilizado.svg)
+
+**Cómo leer la figura.** Cuatro grupos: almacenes y colas, lenguajes y marcos, entrega de software, y sistemas operativos y orquestación. **Dónde deja de valer.** Los servicios de AWS no equivalen a la pila interna de la tienda; el artículo de Dynamo es de 2007.
+
+Documentado (F1): Dynamo usa una arquitectura de mensajería por etapas y canales Java NIO, almacenamiento local con BDB (la mayoría), BDB Java Edition, MySQL o un búfer en memoria, y una biblioteca de cliente opcional que coordina las peticiones. Documentado (F10): los servicios citados como base de Prime Day 2022 incluyen DynamoDB (con latencia de un solo dígito en milisegundos), SQS, SES, S3, Kinesis, ElastiCache, Lambda y Aurora. Documentado (F13): Brazil compila, Apollo despliega y Pipelines automatiza el tramo entre ambos. No se sabe: el sistema operativo, el orquestador y los marcos de la tienda.
+
+### Características de la infraestructura
+
+![Diagrama de la infraestructura de Amazon: 24 regiones y 76 zonas de disponibilidad en 2020, servicios en tres o más zonas con sobreaprovisionamiento, células, y un gasto de capital de 131,8 mil millones de dólares brutos en 2025.](../figures/amazon-caracteristicas-de-la-infraestructura.svg)
+
+**Cómo leer la figura.** Escala y ubicación, diseño por zonas y células, capacidad y costo, y redes. **Dónde deja de valer.** Las cifras de capital son de toda la empresa.
+
+Documentado (F9): 24 regiones y 76 zonas de disponibilidad cuando se escribió el artículo (2020); algunos equipos dividen aún más una región en zonas o en células. Documentado (F7): los servicios corren en tres o más zonas con sobreaprovisionamiento. Documentado (F4): compras de propiedad y equipo por 131,8 mil millones de dólares brutos en 2025 (83,0 en 2024), amortización de 65,8 mil millones y unos 200 mil millones de inversión de capital previstos en 2026. Inferido: la infraestructura es esencialmente propia, porque AWS es parte de Amazon; no hay un desglose público de qué es propio y qué es alquilado.
+
+### Tolerancia a fallos: qué pasa si cae cada componente
+
+![Diagrama de la tolerancia a fallos documentada de Amazon por nivel: nodo, zona, dependencia lenta, cliente ruidoso y cambio defectuoso.](../figures/amazon-tolerancia-a-fallos.svg)
+
+**Cómo leer la figura.** Cada recuadro es un componente que cae y su defensa documentada; el último lista lo que no se documenta. **Dónde deja de valer.** Son mecanismos de AWS y de Dynamo.
+
+Los mecanismos ya descritos en los niveles anteriores se resumen así. Nodo de almacenamiento: traspaso con pista, árboles de Merkle y lectura reparadora (F1). Zona: capacidad sobrante y estabilidad estática (F7). Dependencia lenta: retroceso, variación aleatoria, cubo de fichas y reintento en un solo punto (F6). Cliente ruidoso: shuffle sharding (F8). Cambio defectuoso: una caja, olas, tiempo de espera y reversión (F9). Documentado (F1): control de admisión para que las tareas de fondo no degraden las de primer plano, y escrituras duraderas en una réplica cuando se usa un búfer en memoria. No se sabe: pruebas de caos o ejercicios de fallo, recuperación ante desastres de la tienda y degradación elegante de la página; ninguna fuente consultada las describe, y este caso no las supone.
 
 ### Alternativas descartadas y trade-offs (análisis propio)
 
@@ -477,6 +517,9 @@ Todas consultadas el 2026-11-16 con `curl` o verificadas por DOI en Crossref. «
 - **F12.** (Secundaria) Wikipedia, «Amazon (company)», texto de la edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Amazon_(company)](https://en.wikipedia.org/wiki/Amazon_(company)). Se usa solo para fechas de fundación, lanzamiento y AWS 2002, y se declara en cada caso.
 - **F13.** Amazon Builders' Library, «Going faster with continuous delivery»: [https://aws.amazon.com/builders-library/going-faster-with-continuous-delivery/](https://aws.amazon.com/builders-library/going-faster-with-continuous-delivery/). Se usa para el promedio de 16 días y el piloto de tuberías.
 - **F14.** AWS, «Announcing Amazon S3 - Simple Storage Service», 14 de marzo de 2006: [https://aws.amazon.com/about-aws/whats-new/2006/03/14/announcing-amazon-s3---simple-storage-service/](https://aws.amazon.com/about-aws/whats-new/2006/03/14/announcing-amazon-s3---simple-storage-service/)
+
+- **F15.** Amazon, «About Amazon: Mission, businesses, and innovation»: [https://www.aboutamazon.com/about-us](https://www.aboutamazon.com/about-us). Se usa para la misión y la plantilla.
+- **F16.** Amazon, «Leadership Principles»: [https://www.aboutamazon.com/about-us/leadership-principles](https://www.aboutamazon.com/about-us/leadership-principles). Se usa para la ambición triple y la lista de principios.
 
 **Qué no cubren estas fuentes.** No documentan la arquitectura actual de la tienda, el diseño de la logística, el desglose de ingresos de América del Norte por línea con margen, el costo interno de la nube, el flujo de pago, el control de fraude ni el cumplimiento normativo por país; esos puntos quedan como «no se sabe». Tampoco documentan competidores ni cuota de mercado.
 

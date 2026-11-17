@@ -468,6 +468,40 @@ def _x_fallos() -> Fig:
 def _x_presencia() -> Fig:
     return _cards('Dónde tiene Spotify entidades y oficinas que su propia página de contacto publica', 'Diagrama por regiones de las entidades de Spotify con dirección publicada: sede en Estocolmo y sociedad matriz en Luxemburgo; en Europa Bruselas, Berlín, Copenhague, Madrid, Helsinki, París, Milán, Ámsterdam y Londres; en América Nueva York, Toronto y Ciudad de México; en Asia Mumbai e Israel.', [('Europa', 'teal', ['Documentado: sede del servicio en Estocolmo; Spotify Technology S.A. en Luxemburgo; entidades en Bruselas, Berlín, Copenhague, Madrid, Helsinki, París, Milán, Ámsterdam y Londres (F12).']), ('América', 'gold', ['Documentado: Spotify USA en Nueva York, que presta el servicio en Estados Unidos; entidades en Toronto y Ciudad de México (F12).']), ('Asia y Oriente Medio', 'navy', ['Documentado: Spotify India en Mumbai y una entidad en Israel, sin dirección en la página (F12).']), ('Lo que no se sabe', 'grey', ['No se sabe: años de apertura de cada oficina, dónde están los centros de ingeniería y cuántas personas trabajan en cada una.'])], 'Lectura: son entidades legales con dirección de contacto, no necesariamente centros de ingeniería. Dónde deja de valer: la página no fecha las aperturas ni cuenta plantilla; el servicio opera en 184 mercados con muchas menos oficinas.', 'Fuentes: F1 y F12.')
 
+
+def _x_negocio() -> Fig:
+    return _cards("Esquema del negocio de Spotify: valor, ingreso, actores y flujos",
+        "Diagrama del negocio de Spotify con cinco grupos: la propuesta de valor, las dos fuentes de ingreso (suscripción Premium y publicidad del nivel gratuito), los actores, los flujos de dinero con un fondo de regalías de unos dos tercios, y los flujos de valor.",
+        [("Propuesta de valor", "teal", ["Documentado: acceso inmediato a un catálogo enorme, con un nivel gratuito financiado por anuncios y una suscripción sin anuncios (F1, F3)."]),
+         ("Ingreso (nueve meses de 2025, millones de euros)", "gold", ["Documentado: Premium 11.337 y Ad-Supported 1.318, total 12.655 (F14)."]),
+         ("Actores", "navy", ["Oyentes del nivel gratuito y Premium, anunciantes, titulares de derechos (sellos y editoras), artistas, creadores de podcasts y de audiolibros, y Spotify (F1, F3)."]),
+         ("Flujos de dinero", "coral", ["Documentado: Premium paga suscripción; anunciantes pagan por la audiencia gratuita; unos dos tercios del ingreso van al fondo de regalías y de allí a titulares de derechos (F3).", "Documentado: el costo de ingresos incluye regalías y distribución, costos de procesamiento de pagos y costos de contenido de podcasts (F14)."]),
+         ("Flujos de valor", "grey", ["Música y audio a la carta hacia el oyente; descubrimiento y pago hacia el artista; audiencia hacia el anunciante; embudo del nivel gratuito hacia Premium (más del 60 % de los suscriptores nuevos) (F3)."])],
+        "Lectura: cinco grupos desde lo que se ofrece hasta cómo circulan dinero y valor. Dónde deja de valer: los dos tercios son una cifra redondeada de la empresa; los contratos con cada sello no son públicos.",
+        "Fuentes: F1, F3 y formulario 6-K del tercer trimestre de 2025 (F14).")
+
+
+def _x_costos() -> Fig:
+    return stacked_bars(
+        "Qué pasó con cada 100 euros de ingreso de Spotify en los nueve primeros meses de 2025",
+        "Barra apilada al 100 por ciento con los nueve meses de 2025: costo de ingresos 68,4 por ciento, investigación y desarrollo 8,7, ventas y marketing 8,1, administración 2,9 y resultado operativo 11,8 por ciento de los 12.655 millones de euros de ingreso.",
+        ["Nueve meses de 2025"],
+        [("Costo de ingresos", [8658], "coral"), ("Investigación y desarrollo", [1103], "navy"), ("Ventas y marketing", [1027], "gold"), ("Administración", [370], "grey"), ("Resultado operativo", [1497], "teal")],
+        unit="Porcentaje del ingreso de nueve meses (12.655 millones de euros)", horizontal=True, percent=True, decimals=1, plot_h=150, label_w=100,
+        note="Lectura: dos terceras partes del ingreso se van en el costo de ingresos, que incluye regalías y distribución; el resultado operativo es el 11,8 % de 12.655 millones de euros. Dónde deja de valer: son nueve meses, no el año; el formulario 6-K no separa las regalías del resto del costo de ingresos en estas líneas.",
+        note_kind="gold", foot="Fuente: Spotify, formulario 6-K del tercer trimestre de 2025, estados financieros intermedios (F14).")
+
+
+def _x_margen_segmentos() -> Fig:
+    return grouped_bars(
+        "Margen bruto por segmento de Spotify: nueve meses de 2024 y de 2025 (porcentaje del ingreso)",
+        "Barras agrupadas: el margen bruto del segmento Premium pasa de 31,7 por ciento en los nueve primeros meses de 2024 a 33,2 en 2025, y el del segmento financiado con publicidad de 11,2 a 17,4 por ciento.",
+        ["Premium", "Ad-Supported (publicidad)"],
+        [("9 meses de 2024", [31.7, 11.2], "grey"), ("9 meses de 2025", [33.2, 17.4], "teal")],
+        unit="Margen bruto (porcentaje del ingreso del segmento)", decimals=1, plot_h=240,
+        note="Lectura: el nivel gratuito deja mucho menos margen bruto que la suscripción, aunque mejora; la suscripción pesa 90 % del ingreso. Dónde deja de valer: cálculo propio sobre cifras del 6-K (ganancia bruta dividida por ingreso del segmento); los gastos de operación no se asignan a segmentos.",
+        note_kind="gold", foot="Fuente: Spotify, formulario 6-K del tercer trimestre de 2025, nota de segmentos (F14); cálculo propio.")
+
 FIGURES = {
     "spotify-contexto-dos-lados.svg": contexto,
     "spotify-industria-musical.svg": industria,
@@ -492,6 +526,9 @@ FIGURES = {
     "spotify-caracteristicas-de-la-infraestructura.svg": _x_infra,
     "spotify-tolerancia-a-fallos.svg": _x_fallos,
     "spotify-presencia-mundial.svg": _x_presencia,
+    "spotify-esquema-del-negocio.svg": _x_negocio,
+    "spotify-costos-operativos-9m-2025.svg": _x_costos,
+    "spotify-margen-por-segmento.svg": _x_margen_segmentos,
 }
 
 

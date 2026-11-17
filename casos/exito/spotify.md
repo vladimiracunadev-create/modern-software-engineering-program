@@ -185,6 +185,37 @@ Documentado (F1): la página institucional de Spotify dice que su misión es lle
 
 Documentado (F12): la sede del servicio está en Estocolmo (Spotify AB) y la sociedad matriz, Spotify Technology S.A., en Luxemburgo; Spotify USA Inc., con dirección en Nueva York, presta el servicio en Estados Unidos y Spotify AB en el resto de mercados; la página lista entidades en Bruselas, Berlín, Toronto, Copenhague, Madrid, Helsinki, París, Mumbai, Milán, Ámsterdam, Londres, Ciudad de México e Israel. Documentado (F1): 184 mercados. Documentado (F9): el vídeo de cultura de ingeniería de 2014 describe escuadras autónomas, tribus, capítulos y gremios, con la advertencia de que es un viaje en progreso. No se sabe: la plantilla total y por área, el organigrama de alto nivel, los años de apertura de cada oficina y los centros de ingeniería.
 
+### Esquema del negocio
+
+![Diagrama del negocio de Spotify con propuesta de valor, ingreso por segmento, actores, flujos de dinero y flujos de valor.](../figures/spotify-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** Cinco grupos de arriba abajo: qué se ofrece, cuánto ingresa por segmento, quién participa y cómo circulan dinero y valor. **Dónde deja de valer.** Los dos tercios de regalías son una cifra redondeada de la empresa; no se publican los contratos.
+
+Documentado (F14): la empresa tiene dos segmentos, Premium (ingreso por suscripciones) y Ad-Supported (ingreso por publicidad de display, audio y video), y las regalías se registran en cada segmento según las tarifas acordadas con los titulares de derechos; todo el costo del contenido de podcasts se registra en el segmento con publicidad. Documentado (F14): 446 millones de usuarios activos mensuales del segmento con publicidad a fines de septiembre de 2025 (402 millones un año antes).
+
+### Costos operativos y márgenes
+
+![Barra apilada al 100 por ciento de los nueve primeros meses de 2025 de Spotify: costo de ingresos, investigación y desarrollo, ventas y marketing, administración y resultado operativo.](../figures/spotify-costos-operativos-9m-2025.svg)
+
+**Cómo leer la figura.** La barra es el ingreso de nueve meses dividido en 100; cada tramo es un rubro. Mira que el costo de ingresos pesa unas dos terceras partes. **Dónde deja de valer.** Son nueve meses y no un año completo.
+
+Documentado (F14), nueve meses a septiembre de 2025 en millones de euros (entre paréntesis, 2024): ingreso 12.655 (11.431); costo de ingresos 8.658 (8.075); ganancia bruta 3.997 (3.356); investigación y desarrollo 1.103 (1.110); ventas y marketing 1.027 (999); administración 370 (359); resultado operativo 1.497 (888). Documentado (F14): el costo de ingresos consiste sobre todo en regalías y costos de distribución del streaming, más costos de contenido de podcasts, tarifas de procesamiento de pagos de las suscripciones y de la publicidad, y costos de atención al cliente y de medición; investigación y desarrollo incluye sobre todo compensación de ingenieros, consultoría y costos de personal; ventas y marketing, compensación, relaciones públicas, marca y consultoría. Documentado (F14): el acuerdo de servicios con Google para Google Cloud figura entre las obligaciones de gasto mínimo no cancelables; no se publica la cifra de gasto en nube como rubro propio en lo consultado. No se sabe: plantilla por área ni gasto de infraestructura por separado.
+
+![Barras agrupadas con el margen bruto de los segmentos Premium y Ad-Supported de Spotify en los nueve primeros meses de 2024 y de 2025.](../figures/spotify-margen-por-segmento.svg)
+
+**Cómo leer la figura.** Cada grupo es un segmento y cada barra un período de nueve meses; el eje parte de cero. **Dónde deja de valer.** Es cálculo propio sobre el 6-K y cubre nueve meses.
+
+Documentado (F14): ingreso Premium de 11.337 millones (10.114) y ganancia bruta de 3.768 (3.208); ingreso del segmento con publicidad de 1.318 (1.317) y ganancia bruta de 229 (148). Análisis propio: eso da márgenes brutos de 33,2 % y 17,4 % en 2025 (31,7 % y 11,2 % en 2024); el nivel gratuito sigue siendo el de menor margen pero es el embudo hacia Premium.
+
+### Competidores nombrados en documentos oficiales
+
+Documentado (F14): el formulario 6-K cita entre los riesgos la competencia por usuarios, su tiempo y los anunciantes, sin nombrar competidores en lo consultado, y declara una inversión de alrededor del 9 % en Tencent Music Entertainment, de lo que no se deduce rivalidad. Documentado (F3): Spotify afirma que cerca del 40 % de los usuarios de streaming del mundo, sin China, están en Spotify (dato de MIDiA citado por la empresa). No se sabe: cuota de mercado por servicio y país con fuente independiente y año; este caso no la inventa.
+
+### Plantilla, oficinas y estructura
+
+Documentado (F12): entidades y direcciones por país (ver figura de presencia mundial). No se sabe: plantilla total y por área, que el 6-K de tercer trimestre no incluye; el 20-F anual, que sí suele publicarla, no pudo leerse.
+
+
 ## Arquitectura y esquemas
 
 Lo documentado se limita a la plataforma de datos, las herramientas de ingeniería y la decisión de nube. No hay descripción pública detallada de cómo se sirve el audio hoy.
@@ -496,6 +527,8 @@ Todas consultadas el 2026-11-16 con `curl`, o verificadas por DOI en Crossref. �
 - **F11.** (Secundaria) Wikipedia, «Spotify», edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Spotify](https://en.wikipedia.org/wiki/Spotify). Se usa solo para fundación, lanzamiento por mercado, fin del P2P en 2014, planes dúo y familiar e ingresos de 2025, declarando cada vez su carácter secundario.
 - **F12.** Spotify, página de contacto con las entidades y la dirección de la sede: [https://www.spotify.com/us/about-us/contact/](https://www.spotify.com/us/about-us/contact/)
 - **F13.** Spotify Engineering, «Spotify's New Experimentation Platform (Part 2)», noviembre de 2020: [https://engineering.atspotify.com/2020/11/spotifys-new-experimentation-platform-part-2](https://engineering.atspotify.com/2020/11/spotifys-new-experimentation-platform-part-2). Se usa para dominios, exclusividad, retenedores, máquina de sal, controles de validez y recomendaciones de despliegue.
+
+- **F14.** Spotify Technology S.A., formulario 6-K del tercer trimestre de 2025 (estados financieros intermedios y nota de segmentos): [https://s29.q4cdn.com/175625835/files/doc_financials/2025/q3/Spotify-Q3-2025-6K-Filing.pdf](https://s29.q4cdn.com/175625835/files/doc_financials/2025/q3/Spotify-Q3-2025-6K-Filing.pdf). Verificado con curl y leído con pdftotext; son cifras de nueve meses, no del año.
 
 **Qué no cubren estas fuentes.** No documentan cómo se sirve el audio hoy, el algoritmo de recomendación, el cálculo interno de regalías ni la composición exacta del costo del ingreso; tampoco las mediciones del artículo de P2P de 2010, la cuota de mercado por país ni a los competidores. Quedan como «no se sabe».
 

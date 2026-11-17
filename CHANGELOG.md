@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de fallo, segunda ampliación: CrowdStrike, Therac-25, GitLab 2017 y Quibi
+
+- sedes y equipo, organización, visión y misión, esquema del negocio, costos, competidores, hardware, software, infraestructura y mecanismos a prueba de fallos, con 5 a 7 figuras nuevas por caso y rótulo documentado, inferido o no se sabe;
+- datos nuevos del informe anual 10-K de CrowdStrike, del S-1 de GitLab, de Leveson y Turner y de la prensa sobre Quibi; los datos de hardware y software que no son públicos se declaran así;
+- commits `e57975cf`, `3a5164c4`, `87b47deb` y `ccc64fa9`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de éxito ×3: Amazon, Spotify, Airbnb y Stripe
 
 - los cuatro casos ampliados al triple (de unas 3 600 a 4 000 palabras a entre 10 400 y 12 900, y de 4 a 6 figuras a entre 18 y 22), con arquitectura en varios niveles de zoom, viajes completos por tipo de usuario, economía con cifras citadas, alternativas y trade-offs rotulados como análisis propio, vínculos concepto → clase, preguntas de discusión y mini-ejercicios;

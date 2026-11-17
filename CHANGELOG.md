@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de fallo ×3: Knight Capital, HealthCare.gov, TSB y Meta 2021
+
+- los cuatro casos de fallo ampliados al triple: de unas 3 300 a 3 700 palabras a entre 9 800 y 10 400, y de 5 o 6 figuras a entre 16 y 19, con arquitectura en ocho niveles de zoom, árbol de fallas, línea de tiempo con más resolución, mejoras por factor (control técnico, de proceso y de gobierno), vínculos concepto → clase, preguntas y mini-ejercicios, y la separación explícita entre documentado, inferido y no se sabe;
+- hechos nuevos verificados contra la orden de la SEC y la Regulación SCI, GAO-14-694, GAO-15-238, GAO-13-601, la OIG de HHS, el Final Notice de la FCA, el comunicado de TSB de 2019, las publicaciones de Meta y Cloudflare y el informe de Google Cloud de 2019;
+- commits `3a6bceff`, `4bd565bf`, `3cc31a97` y `ca76bfda`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de estudio: Knight Capital, HealthCare.gov, TSB y Meta 2021
 
 - cuatro casos de fallo escritos con el esquema de 14 secciones de `casos/GUIDE.md`, separando lo documentado, lo inferido y lo que no se sabe, con 5 o 6 figuras propias cada uno y fuentes oficiales comprobadas el 16 de noviembre de 2026.

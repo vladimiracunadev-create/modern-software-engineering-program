@@ -176,6 +176,33 @@ Documentado (F15): en su página institucional Amazon dice que su misión es hac
 
 Documentado (F4): sede en Seattle; plantilla de más de 1,5 millones de personas, de tiempo completo y parcial, sin contratistas, al cierre de 2025. Documentado (F4): tres segmentos de reporte (América del Norte, Internacional y AWS). Documentado (F15): la página institucional habla de una red de operaciones mundial. No se sabe: el organigrama de alto nivel más allá del equipo directivo, la plantilla por segmento o por área (ingeniería, logística, AWS), la lista de oficinas y centros de ingeniería por país con su año de apertura. Documentado (F13): los equipos de software son pequeños y de un solo hilo («single-threaded»), dueños de su producto y de sus defectos; no hay cifras de cuántos equipos hay.
 
+### Esquema del negocio
+
+![Diagrama del negocio de Amazon con propuesta de valor, ingreso de 2025 por línea, actores, flujos de dinero y flujos de valor.](../figures/amazon-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** Cinco grupos de arriba abajo: qué se ofrece, cuánto ingresa por línea, quién participa y cómo circulan el dinero y el valor. **Dónde deja de valer.** Es un esquema con cifras del comunicado de resultados; no publica el margen por línea ni el reparto del precio entre actores.
+
+Documentado (F4): la empresa vende producto propio y servicios, y cobra por tres vías a quien vende en su plataforma (comisiones, cumplimiento y envío, y publicidad) además de las suscripciones y de AWS. El valor y el dinero circulan en sentidos opuestos: el comprador entrega dinero y recibe selección y plazo; el vendedor entrega comisión y recibe tráfico y logística; el anunciante entrega dinero y recibe audiencia; el cliente de AWS entrega dinero por uso y recibe capacidad. No se sabe: cuánto del precio de un artículo vendido por un tercero se queda Amazon (el comunicado agrega «comisiones y tarifas de cumplimiento y envío» en una sola línea).
+
+### Costos operativos y estructura de capital
+
+Documentado (F4): en 2025 el costo de ventas fue de 356,4 mil millones de dólares (49,7 % de las ventas), logística y cumplimiento de 109,1 (15,2 %), tecnología e infraestructura de 108,5 (15,1 %), marketing de 47,1 (6,6 %), administración de 11,2 (1,6 %) y otros gastos de 4,6; el resultado operativo fue de 80,0 mil millones (11,2 %), frente a 68,6 (10,8 %) en 2024; el desglose se dibujó en la figura de la estructura de costos. Documentado (F4): los gastos de envío mundiales del cuarto trimestre fueron de 31,5 mil millones, y las unidades pagadas crecieron 12 %. Documentado (F4): amortización de 65,8 mil millones y compras de propiedad y equipo de 131,8 mil millones brutos en 2025. No se sabe: el costo de infraestructura de AWS por separado, el costo del soporte al cliente, los costos de pago a procesadores y el gasto de marketing por línea; el comunicado no los desglosa por segmento.
+
+![Barras apiladas con la superficie de instalaciones de Amazon por segmento a fines de 2025, propia y arrendada.](../figures/amazon-superficie-de-instalaciones.svg)
+
+**Cómo leer la figura.** Cada barra es un segmento; el tramo dorado es superficie arrendada y el azul verdoso, propia. Mira que AWS es el único con más propia que arrendada. **Dónde deja de valer.** Agrupa centros de datos con cumplimiento y otros usos; no hay ubicaciones ni regiones.
+
+Documentado (F17): a fines de 2025 la superficie de instalaciones era de 741,5 millones de pies cuadrados arrendados y 78,1 millones propios; la de oficinas, de 40,2 millones en América del Norte y 28,3 en el resto; 623 tiendas físicas. Inferido: la infraestructura no es «solo propia»; incluye una parte importante de arrendamientos, incluso en el segmento AWS (28,4 millones arrendados frente a 28,5 propios).
+
+### Competidores nombrados en documentos oficiales
+
+Documentado (F17): el 10-K de 2025 no nombra competidores concretos; describe categorías: minoristas físicos, de comercio electrónico y omnicanal, proveedores de nube y servicios de TI, y empresas de dispositivos electrónicos, publicidad, comestibles y salud, y dice que el mercado es muy competitivo y cambia con rapidez. No se sabe: cuota de mercado por país o segmento con fuente y año; las fuentes de este caso no la contienen y este caso no la inventa.
+
+### Plantilla, sede y oficinas (actualización con el 10-K)
+
+Documentado (F17): 1.576.000 empleados de tiempo completo y parcial al 31 de diciembre de 2025, sin contar contratistas ni personal temporal; sede en 410 Terry Avenue North, Seattle, con oficinas propias y arrendadas en la región de Puget Sound y en Arlington (Virginia). No se sabe: oficinas y centros de ingeniería por país con su año de apertura.
+
+
 ## Arquitectura y esquemas
 
 Todo lo que sigue es lo que Amazon ha publicado; no existe un diagrama interno público completo y no se debe inventar uno. Cada nivel de zoom lleva su figura y su etiqueta de evidencia.
@@ -520,6 +547,8 @@ Todas consultadas el 2026-11-16 con `curl` o verificadas por DOI en Crossref. «
 
 - **F15.** Amazon, «About Amazon: Mission, businesses, and innovation»: [https://www.aboutamazon.com/about-us](https://www.aboutamazon.com/about-us). Se usa para la misión y la plantilla.
 - **F16.** Amazon, «Leadership Principles»: [https://www.aboutamazon.com/about-us/leadership-principles](https://www.aboutamazon.com/about-us/leadership-principles). Se usa para la ambición triple y la lista de principios.
+
+- **F17.** Amazon, formulario 10-K del ejercicio 2025 (presentado en febrero de 2026), accesible en el índice de EDGAR: [https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm). El cliente automático de curl fue bloqueado por la SEC, de modo que se leyó con la herramienta WebFetch (resumen del contenido); se usa para empleados, competencia y superficies. Las cifras de costos vienen del comunicado F4.
 
 **Qué no cubren estas fuentes.** No documentan la arquitectura actual de la tienda, el diseño de la logística, el desglose de ingresos de América del Norte por línea con margen, el costo interno de la nube, el flujo de pago, el control de fraude ni el cumplimiento normativo por país; esos puntos quedan como «no se sabe». Tampoco documentan competidores ni cuota de mercado.
 

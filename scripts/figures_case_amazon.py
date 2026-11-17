@@ -543,6 +543,29 @@ def _x_infra() -> Fig:
 def _x_fallos() -> Fig:
     return _cards('Qué pasa cuando cae cada componente en lo que Amazon documenta', 'Diagrama de la tolerancia a fallos documentada de Amazon por nivel: un nodo de Dynamo (traspaso con pista, árboles de Merkle), una zona de disponibilidad (sobreaprovisionamiento y estabilidad estática), una dependencia lenta (retroceso con variación y cubo de fichas), un cliente ruidoso (shuffle sharding) y un cambio defectuoso (una caja, olas y reversión automática); no se documentan pruebas de caos ni recuperación ante desastres de la tienda.', [('Cae un nodo de almacenamiento', 'teal', ['Documentado: la réplica se guarda con una pista en otro nodo y se devuelve al volver; los árboles de Merkle recuperan réplicas perdidas; la lectura reparadora actualiza réplicas atrasadas (F1).']), ('Cae una zona de disponibilidad', 'gold', ['Documentado: los servicios se dimensionan para que las demás zonas absorban la carga; el plano de datos sigue sin depender del plano de control (F7).']), ('Una dependencia es lenta o falla', 'coral', ['Documentado: retroceso exponencial con tope y variación aleatoria, cubo de fichas local y reintento en un solo punto de la pila; se evitan los interruptores de circuito por su comportamiento modal (F6).']), ('Un cliente se comporta mal', 'navy', ['Documentado: shuffle sharding limita el impacto a una combinación de recursos (F8).']), ('Un cambio es defectuoso', 'plain', ['Documentado: una caja, lotes de hasta el 33 %, tiempo de espera y reversión automática si salta la alarma agregada (F9).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos o ejercicios de fallo, recuperación ante desastres de la tienda y degradación elegante de la página: ninguna de las fuentes consultadas las describe.'])], 'Lectura: cada recuadro es un componente que cae y la defensa documentada; el último recuadro lista lo que falta. Dónde deja de valer: son mecanismos de AWS y de Dynamo; no prueban que la tienda los use de igual modo.', 'Fuentes: F1, F6, F7, F8, F9.')
 
+
+def _x_negocio() -> Fig:
+    return _cards("Esquema del negocio de Amazon: valor, ingreso, actores y flujos",
+        "Diagrama del negocio de Amazon con cinco grupos: la propuesta de valor (selección, valor y comodidad), las líneas de ingreso de 2025, los actores, los flujos de dinero y los flujos de valor entre compradores, vendedores, anunciantes y clientes de AWS.",
+        [("Propuesta de valor", "teal", ["Documentado: selección amplia, valor y comodidad para el cliente, y una nube que ofrece como servicio lo que la tienda ya necesitaba (F15, F5)."]),
+         ("Ingreso 2025 (miles de millones de dólares)", "gold", ["Documentado: tiendas en línea 269,3; servicios a vendedores 172,2; AWS 128,7; publicidad 68,6; suscripciones 49,6; tiendas físicas 22,6; otros 5,9 (suma de los cuatro trimestres de F4)."]),
+         ("Actores", "navy", ["Compradores y miembros Prime; vendedores externos (61 % de las unidades pagadas del cuarto trimestre); anunciantes; clientes de AWS; empleados y operadores logísticos (F4)."]),
+         ("Flujos de dinero", "coral", ["Comprador → Amazon (venta propia o venta de un tercero con comisión); vendedor → Amazon (comisión, envío, publicidad); anunciante → Amazon; cliente de AWS → Amazon por uso; Amazon → proveedores, transportistas, proveedores de nube y empleados.", "No se sabe: la parte del precio que se queda cada actor ni el margen por línea."]),
+         ("Flujos de valor", "grey", ["Selección y plazo de entrega hacia el comprador; tráfico y logística hacia el vendedor; audiencia con intención de compra hacia el anunciante; cómputo y almacenamiento hacia el desarrollador.", "Inferido: la logística y la nube comparten capacidad de inversión; no hay dato público del reparto."])],
+        "Lectura: cinco grupos que van de lo que se ofrece a cómo circula el dinero. Dónde deja de valer: es un esquema; las cifras salen del comunicado de resultados y el reparto de costos entre líneas no se publica.",
+        "Fuentes: comunicado Q4 2025 (F4); página institucional (F15); anuncio de EC2 (F5).")
+
+
+def _x_superficie() -> Fig:
+    return stacked_bars(
+        "Superficie de instalaciones de Amazon por segmento, propia y arrendada (millones de pies cuadrados)",
+        "Barras apiladas con la superficie de instalaciones a fines de 2025: América del Norte 481,2 millones de pies cuadrados arrendados y 25,4 propios, Internacional 174,5 arrendados y 13,3 propios, AWS 28,4 arrendados y 28,5 propios; AWS es el único segmento con más superficie propia que arrendada.",
+        ["América del Norte", "Internacional", "AWS"],
+        [("Arrendada", [481.153, 174.499, 28.370], "gold"), ("Propia", [25.437, 13.263, 28.469], "teal")],
+        unit="Millones de pies cuadrados (31 de diciembre de 2025)", horizontal=True, decimals=1, plot_h=200, label_w=150,
+        note="Lectura: la tienda opera sobre todo en superficie arrendada (cumplimiento, centros de datos y otros usos van agrupados) y AWS reparte casi por igual entre propia y arrendada. Dónde deja de valer: el 10-K agrupa centros de datos con cumplimiento y no da ubicaciones ni regiones; la cifra excluye instalaciones corporativas.",
+        note_kind="gold", foot="Fuente: Amazon, formulario 10-K de 2025, Item 2 (F17), leído con WebFetch porque el cliente automático fue bloqueado por la SEC.")
+
 FIGURES = {
     "amazon-contexto-actores.svg": contexto,
     "amazon-segmentos-2025.svg": segmentos,
@@ -570,6 +593,8 @@ FIGURES = {
     "amazon-software-utilizado.svg": _x_software,
     "amazon-caracteristicas-de-la-infraestructura.svg": _x_infra,
     "amazon-tolerancia-a-fallos.svg": _x_fallos,
+    "amazon-esquema-del-negocio.svg": _x_negocio,
+    "amazon-superficie-de-instalaciones.svg": _x_superficie,
 }
 
 

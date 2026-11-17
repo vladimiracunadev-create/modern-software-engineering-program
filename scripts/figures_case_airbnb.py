@@ -529,6 +529,29 @@ def _x_infra() -> Fig:
 def _x_fallos() -> Fig:
     return _cards('Qué pasa cuando cae cada componente en lo que Airbnb documenta', 'Diagrama de la tolerancia a fallos documentada de Airbnb en pagos: una respuesta perdida se cubre con la clave de idempotencia; un procesador caído se reintenta si el error es reintentable; una réplica con retraso se evita leyendo de la maestra; dos sistemas de pagos conviven durante la migración con trabajos de comparación; un paso falla y la orquestación lo repite; no se documentan pruebas de caos ni recuperación ante desastres.', [('Se pierde una respuesta', 'teal', ['Documentado: idempotencia con clave, contrato con caducidad y respuesta guardada (F5).']), ('Cae un servicio externo', 'gold', ['Documentado: los errores de infraestructura se tratan como reintentables y los de validación no; el cliente reintenta con retroceso y variación (F5).']), ('Una réplica se atrasa', 'coral', ['Documentado: las tablas de idempotencia se leen y escriben solo en la base maestra fragmentada (F5).']), ('Falla un paso de un flujo', 'navy', ['Documentado: grafo de pasos idempotentes y reintentables; eventos con idempotencia sobre Kafka; análisis de integridad transaccional (F7).']), ('Una migración se desvía', 'plain', ['Documentado: trabajos asíncronos que comparan el modelo nuevo y el antiguo, y una capa de traducción (F7).']), ('Lo que no se documenta', 'grey', ['No se sabe: pruebas de caos, recuperación ante desastres, copias de seguridad, degradación de la búsqueda y de los mensajes.'])], 'Lectura: cada recuadro es un fallo y su defensa; el último lista lo que falta. Dónde deja de valer: solo cubre pagos; la tolerancia a fallos de la búsqueda no está descrita.', 'Fuentes: F5, F7.')
 
+
+def _x_negocio() -> Fig:
+    return _cards("Esquema del negocio de Airbnb: valor, ingreso, actores y flujos",
+        "Diagrama del negocio de Airbnb con cinco grupos: la propuesta de valor (confianza entre desconocidos), el ingreso por comisiones sobre el valor bruto de reservas, los actores, los flujos de dinero entre huésped, anfitrión, la plataforma y los procesadores de pago, y los flujos de valor.",
+        [("Propuesta de valor", "teal", ["Documentado: un alojamiento o experiencia con la certeza de que, si algo sale mal, la plataforma responde (pagos propios, reseñas, AirCover) (F1, F4, F6)."]),
+         ("Ingreso", "gold", ["Documentado: comisión de servicio sobre cada reserva; ingresos de 12.241 millones de dólares en 2025 frente a 11.102 en 2024 (F13)."]),
+         ("Actores", "navy", ["Huéspedes, anfitriones (más de 5,5 millones), coanfitriones, gobiernos locales, procesadores de pago, proveedores de soporte (unos 13.000 trabajadores de terceros) y Airbnb (F1, F13)."]),
+         ("Flujos de dinero", "coral", ["Documentado: huésped → plataforma (precio más comisión del huésped en la estructura dividida); plataforma → anfitrión (precio menos comisión); plataforma → procesadores (tarifas de comerciante, la mayor parte del costo de ingresos) (F3, F13).", "No se sabe: el calendario de pago al anfitrión."]),
+         ("Flujos de valor", "grey", ["Demanda y confianza hacia el anfitrión; capacidad ociosa y variedad hacia el huésped; impuestos recaudados y datos hacia las ciudades (F1)."])],
+        "Lectura: cinco grupos de lo que se ofrece a cómo circulan dinero y valor. Dónde deja de valer: los porcentajes de comisión varían por país y tipo de anfitrión; el 10-K agrega los costos de pago en la línea de costo de ingresos.",
+        "Fuentes: F1, F3, F4, F6 y formulario 10-K de 2025 (F13).")
+
+
+def _x_costos() -> Fig:
+    return stacked_bars(
+        "A dónde fue cada dólar de ingreso de Airbnb, 2024 frente a 2025",
+        "Barras apiladas al 100 por ciento: en 2025 el costo de ingresos fue 17,0 por ciento de los ingresos, operaciones, soporte y administración 21,8, desarrollo de producto 19,2, ventas y marketing 21,1 y resultado operativo 20,8; en 2024 el resultado operativo era 23,0.",
+        ["2024", "2025"],
+        [("Costo de ingresos", [1878, 2086], "coral"), ("Operaciones, soporte y administración", [2467, 2669], "grey"), ("Desarrollo de producto", [2056, 2354], "navy"), ("Ventas y marketing", [2148, 2588], "gold"), ("Resultado operativo", [2553, 2544], "teal")],
+        unit="Porcentaje del ingreso (11.102 y 12.241 millones de dólares)", horizontal=True, percent=True, decimals=1, plot_h=210, label_w=60,
+        note="Lectura: el margen operativo baja de 23 % a 21 % porque ventas y marketing sube del 19 % al 21 % de los ingresos; el costo de ingresos sube sobre todo por tarifas de comerciante. Dónde deja de valer: son rubros consolidados; el 10-K no separa el costo de infraestructura en la nube ni el de soporte de terceros.",
+        note_kind="gold", foot="Fuente: Airbnb, formulario 10-K de 2025 (F13), leído con WebFetch.")
+
 FIGURES = {
     "airbnb-contexto-confianza.svg": contexto,
     "airbnb-confianza-en-capas.svg": confianza,
@@ -555,6 +578,8 @@ FIGURES = {
     "airbnb-software-utilizado.svg": _x_software,
     "airbnb-caracteristicas-de-la-infraestructura.svg": _x_infra,
     "airbnb-tolerancia-a-fallos.svg": _x_fallos,
+    "airbnb-esquema-del-negocio.svg": _x_negocio,
+    "airbnb-costos-operativos.svg": _x_costos,
 }
 
 

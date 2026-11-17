@@ -173,6 +173,31 @@ Documentado (F11): en su mensaje de mayo de 2020, Brian Chesky describe la misi�
 
 Documentado (F1): sede en San Francisco (888 Brannan Street desde junio de 2013); primera oficina internacional, en Alemania, en junio de 2011; operación en más de 220 países y regiones. Documentado (F11): 7.500 empleados en mayo de 2020, de los que casi 1.900 salen. Documentado (F10, secundaria): unos 8.200 empleados en 2025. Documentado (F7): ofertas de empleo de la época del blog sitúan la ingeniería de pagos en San Francisco y Seattle y el cumplimiento de pagos en Bangalore; es un indicio, no un organigrama. Documentado (F7): la organización de pagos, Alojamiento, Experiencia del huésped, Control de calidad y Finanzas trabajó junta en la migración de pagos. No se sabe: el organigrama de alto nivel, la plantilla por área y los años de apertura de oficinas.
 
+### Esquema del negocio
+
+![Diagrama del negocio de Airbnb con propuesta de valor, ingreso, actores, flujos de dinero y flujos de valor.](../figures/airbnb-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** Cinco grupos de arriba abajo: qué se ofrece, cuánto ingresa, quién participa y cómo circulan dinero y valor. **Dónde deja de valer.** Las comisiones varían por país y tipo de anfitrión y se están unificando.
+
+Documentado (F13): Airbnb registra ingresos de 12.241 millones de dólares en 2025 (11.102 en 2024), un resultado operativo de 2.544 (2.553), una utilidad neta de 2.511 (2.648) y un flujo de caja libre de 4.613 (4.484); la empresa explica que los pagos se procesan con terceros y que el costo de ingresos refleja sobre todo tarifas de comerciante y contracargos (67 millones de dólares en 2025).
+
+### Costos operativos y márgenes
+
+![Barras apiladas al 100 por ciento de los costos de Airbnb en 2024 y 2025: costo de ingresos, operaciones y soporte y administración juntos, desarrollo de producto, ventas y marketing y resultado operativo.](../figures/airbnb-costos-operativos.svg)
+
+**Cómo leer la figura.** Cada barra es el 100 % del ingreso del año; mira cómo crece el tramo de ventas y marketing y baja el de resultado operativo. **Dónde deja de valer.** Son rubros consolidados sin detalle de nube ni de soporte.
+
+Documentado (F13), en millones de dólares (2025; entre paréntesis, 2024): costo de ingresos 2.086 (1.878), operaciones y soporte 1.327 (1.282), desarrollo de producto 2.354 (2.056), ventas y marketing 2.588 (2.148), administración 1.342 (1.185); resultado operativo 2.544 (2.553). Documentado (F13): el costo de ingresos subió 208 millones sobre todo por 188 millones más de tarifas de comerciante (por mayor volumen de pagos); operaciones y soporte subió 45 millones, sobre todo por nómina y seguros, con menos costos de relación con clientes; desarrollo de producto subió 298 millones, de los que 293 son nómina por más plantilla; ventas y marketing subió 440 millones, con 163 más de marketing, 121 de nómina y 102 de proveedores de servicios; administración subió 157 millones, con 74 más en impuestos no sobre la renta y multas, 51 en nómina y 37 en servicios profesionales. Análisis propio: el costo de pagos pesa unos 17 % de los ingresos (costo de ingresos) y el de personal domina el desarrollo de producto. No se sabe: el costo de AWS ni el del soporte tercerizado como rubros propios.
+
+### Competidores nombrados en documentos oficiales
+
+Documentado (F13): el 10-K de 2025 nombra como competidores a agencias de viajes en línea (Booking Holdings con Booking.com, Expedia Group con Expedia y Vrbo, Trip.com Group), motores de búsqueda y de IA (Google), cadenas hoteleras (Marriott, Hilton, Accor, Wyndham) y hoteles boutique e independientes, empresas de gestión de propiedades, plataformas de experiencias (Viator, GetYourGuide, Klook) y proveedores de servicios verticales. No se sabe: la cuota de mercado de cada uno con fuente independiente y año; las fuentes consultadas no la dan y este caso no la inventa.
+
+### Plantilla, oficinas e infraestructura en la nube (10-K)
+
+Documentado (F13): unos 8.200 empleados al 31 de diciembre de 2025 y unos 13.000 trabajadores de terceros dedicados al soporte a la comunidad («la gran mayoría» de las operaciones de soporte las hacen pocos proveedores externos); oficina ejecutiva principal en 888 Brannan Street, San Francisco. Documentado (F13): Airbnb se apoya principalmente en Amazon Web Services para alojar y entregar su plataforma, dentro y fuera de Estados Unidos. Esto completa lo que las secciones de hardware e infraestructura declaran como no público en los blogs de ingeniería: el proveedor principal de nube sí es público en el 10-K; no lo son las regiones ni el costo.
+
+
 ## Arquitectura y esquemas
 
 No hay un diagrama interno completo y público de Airbnb. Lo documentado se limita a: el paso de un monolito Rails a servicios con contratos IDL (2017), la biblioteca de idempotencia Orpheus (2019), la reconstrucción de la orquestación de pagos (2022) y la búsqueda con redes neuronales (2018 y 2020).
@@ -493,6 +518,8 @@ Todas consultadas el 2026-11-16 con `curl` salvo lo indicado. «Secundaria» sig
 - **F10.** (Secundaria) Wikipedia, «Airbnb», edición consultada el 2026-11-16: [https://en.wikipedia.org/wiki/Airbnb](https://en.wikipedia.org/wiki/Airbnb). Se usa para el año de fundación de la sociedad, los ingresos y los empleados de 2025.
 - **F11.** Brian Chesky, «A Message from Co-Founder and CEO Brian Chesky» (mayo de 2020): [https://news.airbnb.com/a-message-from-co-founder-and-ceo-brian-chesky](https://news.airbnb.com/a-message-from-co-founder-and-ceo-brian-chesky)
 - **F12.** Malay Haldar y otros, «Improving Deep Learning For Airbnb Search», arXiv:2002.05515 (febrero de 2020): [https://arxiv.org/abs/2002.05515](https://arxiv.org/abs/2002.05515). Se usa para dos torres, sesgo de posición, arranque en frío y los resultados de pruebas A/B.
+
+- **F13.** Airbnb, Inc., formulario 10-K del ejercicio 2025 (presentado el 12 de febrero de 2026): [https://www.sec.gov/Archives/edgar/data/1559720/000155972026000004/abnb-20251231.htm](https://www.sec.gov/Archives/edgar/data/1559720/000155972026000004/abnb-20251231.htm). El cliente automático de curl es bloqueado por la SEC, de modo que se leyó con la herramienta WebFetch (resumen del contenido); se usa para costos, empleados, competidores y nube.
 
 **Qué no cubren estas fuentes.** No documentan la arquitectura actual completa, el calendario de pagos al anfitrión, los controles de fraude, el efecto del alquiler de corta duración sobre la vivienda ni las normas locales concretas; tampoco a competidores ni cuota de mercado. Esos puntos quedan como «no se sabe» o no verificados. La documentación de la salida a bolsa (formulario S-1) no pudo leerse porque el servidor de la SEC bloqueó al cliente automatizado.
 

@@ -27,6 +27,12 @@
 
 **Qué no se afirma.** El nombre original del producto, la ronda de financiación inicial, el número de ciudades por año y las fechas de lanzamiento de Uber Eats, Freight y otros productos no se verificaron en fuentes primarias consultadas y por eso no figuran con fecha. Que Kalanick fuera cofundador lo dice él mismo en el texto de 2010; las cifras bursátiles proceden del comunicado de la empresa. El número de ciudades difiere según la fuente: más de 15 000 según el 10-K de 2025 y más de 10 000 según el artículo de ingeniería de 2021 sobre la plataforma de cumplimiento; son definiciones y fechas distintas.
 
+### Oficinas, plantilla y estructura
+
+**Oficinas (documentado).** Al 31 de diciembre de 2025 Uber arrendaba y poseía instalaciones de oficinas en todo el mundo por 9,3 millones de pies cuadrados, de los cuales 1,8 millones corresponden a la sede corporativa en el área de la bahía de San Francisco, California ([U10]); la dirección registrada es 1725 3rd Street, San Francisco ([U10]). Opera en más de 70 países y más de 15 000 ciudades ([U10]). **[No se sabe]** la lista de oficinas por país, los centros de ingeniería y sus fechas de apertura: el 10-K no los enumera.
+
+**Plantilla (documentado).** Unos 34 000 empleados al 31 de diciembre de 2025 ([U10]), sin contar a conductores y repartidores, que son proveedores independientes ([U10]). **[No se sabe]** la plantilla por función o por región. **Estructura (documentado).** El 10-K informa tres segmentos operativos (Mobility, Delivery y Freight) y costes corporativos y de investigación de plataforma por separado, que fueron de 2 708 millones en 2025 ([U10]). En ingeniería, el artículo de 2021 cita más de 500 desarrolladores trabajando en más de 120 flujos de cumplimiento sobre la plataforma de cumplimiento ([U7]) y el de 2020 describe equipos organizados por dominios ([U6]). **[Inferido]** que la organización de ingeniería sigue la estructura de dominios y capas de DOMA ([U6]).
+
 ## Contexto y problema
 
 **Documentado.** Kalanick cuenta que el punto de partida fue «el horrible problema de los taxis en San Francisco»: quedarse varado en la calle era familiar para cualquiera. La propuesta inicial de Camp fue un servicio de limusinas compartidas con un coche, un conductor y una aplicación de iPhone para pedirlo a demanda ([U1]).
@@ -157,6 +163,34 @@ El 10-K de 2025 permite ver qué se queda Uber de cada dólar de ingreso en cada
 Uber One tenía 46 millones de miembros al 31 de diciembre de 2025 y la división de publicidad se lanzó en octubre de 2022 ([U10]). Ambas son palancas de ingreso por consumidor que no requieren más conductores. **[No se sabe]** cuánto aportan al ingreso.
 
 **Ventajas competitivas. [Inferido]** Una red con densidad en cada ciudad (más oferta reduce la espera, más demanda atrae oferta); datos de ubicación y de precios a escala; y una plataforma de cumplimiento que sirve a varias verticales, que Uber describe como «una capacidad fundacional que permite escalar rápido nuevas verticales» ([U7]).
+
+### Esquema del negocio: flujos de dinero y de valor
+
+![Diagrama de flujos del dinero de Uber: quien pide paga el precio fijo y los comercios una comisión; Uber paga a quienes conducen, cubre seguro, pagos y soporte, costes corporativos e investigación, y retiene el resultado operativo.](../figures/uber-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** A la izquierda están quienes pagan; en el centro, Uber con las dos cifras que no deben confundirse (reservas e ingresos); a la derecha, a dónde va el dinero. Mire la última caja: el resultado operativo es una décima parte de los ingresos. **Dónde deja de valer.** Las cajas de la derecha no están a escala (ver la figura de costos); el reconocimiento neto o bruto cambia qué es «ingreso» en cada mercado.
+
+**Flujo de valor.** Quien pide obtiene certeza de llegada y de precio; quien conduce, trabajo flexible; el comercio, ventas; Uber, la diferencia, que en 2025 fue del 26,9 % de las reservas ([U10]). El valor depende de la densidad local ([SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md)). **[No se sabe]** el reparto de comisiones por mercado y producto.
+
+### Visión, misión y estrategia
+
+**Documentado.** El 10-K de 2025 describe a Uber como una plataforma tecnológica que usa una red masiva, tecnología líder, excelencia operativa y experiencia de producto para impulsar el movimiento «de un punto A a un punto B» ([U10]); el de 2020 usa la misma frase y añade que conecta a los pasajeros también con otras formas de transporte, incluido el transporte público ([U11]). Las ventajas que el 10-K enumera son la red, la tecnología, la excelencia operativa (equipos regionales que lanzan productos en las ciudades y gestionan la relación con reguladores) y la experiencia de producto ([U10]). El director ejecutivo presenta los vehículos autónomos como una oportunidad central ([U2]).
+
+**Evolución.** De «limusina compartida» y «una aplicación de iPhone» (2010) a una plataforma de movilidad y reparto con transporte público y autónomos en el horizonte (2020-2025). **[No se sabe]** un texto de misión formal con fecha de adopción en las fuentes consultadas; se cita la autodescripción del informe anual.
+
+### Costos operativos
+
+![Barras apiladas al cien por ciento de los costos de Uber en 2023, 2024 y 2025: coste de ingresos cerca de 60 por ciento, ventas y marketing de 11,7 a 9,4, investigación y desarrollo de 8,5 a 6,5, otros costes y resultado operativo de 3,0 a 10,7.](../figures/uber-costos-operativos.svg)
+
+**Cómo leer la figura.** Cada barra es un año de ingresos reducido a 100 %; el segmento azul es el coste de ingresos. Mire que casi no cambia y que el resultado operativo (dorado) crece a costa de marketing, investigación y administración. **Dónde deja de valer.** Los rubros son contables: no separan seguro, pagos o infraestructura, y el coste de ingresos mezcla modelos de ingreso bruto y neto.
+
+**Cifras de 2025 ([U10]).** Coste de ingresos de 31 338 millones (60,2 % de los ingresos), operaciones y soporte de 2 854, ventas y marketing de 4 898, investigación y desarrollo de 3 402, administración de 3 241, depreciación de 719 y resultado operativo de 5 565. **Por segmento (ver «Unit economics»):** los costes directos de participantes e incentivos fueron 29 % de los ingresos de movilidad y 41 % de los de reparto. **Documentado:** «otros» incluye seguro de viaje, comisiones de tarjeta y banco, soporte al cliente y tecnología ([U10]). **[No se sabe]** el coste de infraestructura de nube o de centros de datos, ni el de seguros por separado.
+
+### Competidores
+
+**Documentado ([U10]).** En movilidad, Bolt, Didi, Lyft y Ola, entre otros; en autónomos, Alphabet (Waymo), Amazon (Zoox) y Tesla; en reparto, DoorDash, Instacart, Gopuff, Rappi, Delivery Hero, Just Eat Takeaway y Amazon, entre otros. El 10-K también dice que las industrias de movilidad, reparto y logística son altamente competitivas, con alternativas de bajo coste establecidas desde hace décadas, barreras de entrada bajas, costes de cambio bajos y competidores con buen capital, y que para competir Uber ha bajado tarifas y ofrecido incentivos significativos a conductores ([U10]).
+
+**[No se sabe]** con fuente primaria la cuota de mercado por país ni por competidor: el 10-K no la publica y este caso no usa estimaciones de terceros. **Análisis propio** de por qué el mercado favoreció a Uber: densidad local, una plataforma de cumplimiento reutilizable, datos y capital durante años de pérdidas (ver «Competencia»); no es un hecho declarado y no explica por qué otros actores prevalecen en ciertas ciudades.
 
 ## Arquitectura y esquemas
 
@@ -311,6 +345,42 @@ La arquitectura se recorre con zoom creciente. La regla de fondo: cada artículo
 **Monolito frente a microservicios.** Un monolito modular habría evitado la complejidad que Uber reporta con 2 200 servicios, pero habría atado el despliegue de equipos que crecían por ciudades y productos ([U6]). Hoy la teoría del curso sugiere empezar por un monolito modular y dividir con razones; Uber lo hizo al revés por la velocidad de crecimiento ([SE-303](../../classes/part-25-arquitectura-de-software-y-dominio/se-303-monolito-modular-monolith-y-servicios/README.md), [SE-532](../../classes/part-44-estilos-arquitectonicos/se-532-microservicios-y-sus-costes-reales/README.md)).
 
 **Cassandra frente a una base transaccional.** Afinar Cassandra habría mantenido la disponibilidad pero habría dejado la reconciliación en cada flujo; el rediseño cambió disponibilidad por consistencia ([U7]). La decisión muestra que la elección entre consistencia y disponibilidad ([SE-342](../../classes/part-28-concurrencia-y-sistemas-distribuidos/se-342-consistencia-disponibilidad-y-particiones/README.md)) no es una vez y para siempre: cambia con las necesidades del producto.
+
+### 6.12 Hardware utilizado
+
+**Documentado.** Las fuentes consultadas no describen el hardware de los servidores, de la red ni del almacenamiento de Uber. Lo que sí consta: el 10-K de 2025 afirma que la empresa depende de centros de datos en coubicación para el funcionamiento de la plataforma ([U10]); la plataforma de cumplimiento de 2021 usa Google Cloud Spanner, un servicio de base de datos en la nube de Google ([U7]); y el artículo de 2018 sobre H3 y el de 2016 sobre Ringpop describen software, no equipos ([U5], [U8]). Los dispositivos del usuario son teléfonos con la aplicación; la idea inicial de 2008 fue un servicio bajo demanda desde un iPhone ([U1]). **[No se sabe]** el tipo de servidores, los aceleradores (por ejemplo, para modelos de aprendizaje automático), las redes entre centros de datos y los costes de hardware. No se rellena esta laguna con datos de terceros no verificados.
+
+### 6.13 Software utilizado
+
+![Cinco capas documentadas de software e infraestructura de Uber: datos, servicios, coordinación y espacio, infraestructura y hardware no publicado.](../figures/uber-hardware-y-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa; las cajas dicen qué componentes con nombre se documentan y la última, gris punteada, qué no se sabe. Mire la capa de datos: tres generaciones de almacenamiento conviven en el relato. **Dónde deja de valer.** Cada componente se describe en el año de su artículo; no hay un inventario actual y el uso de un lenguaje en un componente no dice nada del resto.
+
+**Documentado por capa.**
+
+- **Datos.** Postgres en el monolito, MySQL con la capa de particionado Schemaless, Cassandra y Redis en la plataforma de 2014 y Spanner en la de 2021 ([U4], [U7]); Protobuf para formalizar estados ([U7]).
+- **Servicios.** Un backend monolítico en Python ([U4]); Ringpop en Node.js ([U8]); Cadence escrito para código en Go, con un almacenamiento en Cassandra ([U9]); un marco genérico en Java para los diagramas de estados ([U7]); microservicios en general ([U6]).
+- **Coordinación y espacio.** Ringpop con un protocolo de pertenencia tipo SWIM sobre TCP y hashing consistente con FarmHash ([U8]); Cadence como orquestador ([U9]); H3 escrito en C con enlaces para Java y JavaScript ([U5]); el mecanismo propio LATE para ejecución posterior a la confirmación ([U7]).
+- **Datos en tiempo real.** Una infraestructura de datos en tiempo real que usa mucho código abierto con adaptaciones ([U13]).
+- **Sistema operativo y contenedores.** **[No se sabe]**.
+
+**[No se sabe]** las colas y el sistema de streaming de datos actuales, el orquestador de contenedores, las herramientas de despliegue y los lenguajes dominantes hoy.
+
+### 6.14 Características de la infraestructura
+
+**Modelo.** El 10-K de 2025 dice que depende de centros de datos en coubicación y reconoce que si fallan los usuarios podrían sufrir caídas, y que ha tenido caídas por limitaciones de su software y que versiones nuevas del software han causado interrupciones ([U10]). La plataforma de cumplimiento de 2021 corre en regiones operativas de América del Norte y llama a una configuración multirregión de Spanner de Google Cloud ([U7]): un modelo híbrido por componente, no una decisión única. **[No se sabe]** qué parte del tráfico corre en nube pública.
+
+**Regiones y zonas.** Dos dominios de fallo con dos regiones independientes cada uno y pods por ciudad (2014, descrito en 2021) ([U7]). **Capacidad y escala.** Más de un millón de usuarios simultáneos, miles de millones de viajes al año y de transacciones de base de datos por día en la plataforma de cumplimiento ([U7]); 13 567 millones de viajes en 2025 ([U10]). **Redes.** **[No se sabe]**. **Costos.** Costes de infraestructura no separados en el 10-K; el coste de ingresos total de 2025 fue de 31 338 millones, en su mayoría pagos a participantes ([U10]).
+
+### 6.15 Temas a prueba de fallos
+
+![Seis filas de falla creciente en Uber: un nodo del anillo, un flujo largo, una escritura concurrente, un pod, una región y los centros de datos en coubicación.](../figures/uber-que-pasa-si-cae.svg)
+
+**Cómo leer la figura.** Cada fila es un componente cada vez mayor; a la derecha, el efecto y el mecanismo. Mire que las respuestas pasan de software (anillo, flujos, transacciones) a organización de despliegue (pods y regiones) y que la última fila no tiene respuesta pública. **Dónde deja de valer.** Mezcla artículos de 2016 a 2021 y supone que siguen vigentes; no son objetivos de disponibilidad.
+
+**Tolerancia a fallos y replicación.** Ringpop detecta fallos de nodos y reasigna claves ([U8]); Cadence recupera flujos largos ([U9]); la plataforma de 2021 usa transacciones y consistencia fuerte, con replicación multirregión del almacén ([U7]). **Aislamiento.** Pods por ciudad y dominios de fallo para limitar el radio del impacto ([U7]); puertas de entrada y capas de DOMA para limitar quién depende de quién ([U6]). **Degradación elegante.** **[No se sabe]**: los artículos no describen la experiencia degradada de la aplicación. **Límites de velocidad.** **[No se sabe]**. **Pruebas de caos y recuperación ante desastres.** **[No se sabe]**; el 10-K reconoce las caídas por limitaciones de software como riesgo ([U10]).
+
+**Qué pasa cuando cae cada componente.** (1) Un nodo del anillo: sus claves pasan a otro ([U8]). (2) Un flujo largo: se reanuda desde su registro ([U9]). (3) Escrituras concurrentes: una transacción gana ([U7]). (4) Un pod: caen las ciudades de ese pod ([U7]). (5) Una región: dos dominios de fallo con regiones independientes ([U7]). (6) Los centros de datos en coubicación: sin información pública, con riesgo declarado ([U10]).
 
 ## Casos especiales y cómo se resuelven
 

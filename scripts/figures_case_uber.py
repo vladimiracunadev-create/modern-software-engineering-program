@@ -403,6 +403,80 @@ def alternativas() -> Fig:
     return finish(f, y + 4, "Es un análisis propio, no un hecho: Uber no publica todas las alternativas que evaluó. Lo documentado es la opción elegida y los motivos declarados (Postgres, Cassandra) o implícitos. Las consecuencias de las alternativas son hipótesis razonadas con la teoría del curso.", INF, "coral")
 
 
+def negocio() -> Fig:
+    f = _canvas("Esquema del negocio: el dinero de un viaje, de quien paga a quien conduce",
+                "Diagrama de flujos: quien pide paga un precio fijo; la plataforma recibe las reservas brutas, paga a conductores y repartidores e incentivos a usuarios, cubre seguro, pagos y soporte, y retiene el resultado; en 2025 las reservas fueron de 193 454 millones y los ingresos de 52 017 millones, con un resultado operativo de 5 565 millones.",
+                940, 0)
+    B(f, 10, 70, 200, 80, "Quien pide: paga el precio fijo (reservas brutas)", "teal")
+    B(f, 10, 170, 200, 80, "Comercio o cargador: paga comisión o tarifa", "gold")
+    B(f, 310, 110, 250, 100, "Uber: reservas brutas de 193 454 millones y ingresos de 52 017 millones en 2025", "navy", 13, bold=True)
+    B(f, 660, 56, 270, 52, "Pagos a quienes conducen o reparten, e incentivos", "plain")
+    B(f, 660, 118, 270, 52, "Seguro, pagos, soporte, tecnología y personal", "plain")
+    B(f, 660, 180, 270, 52, "Costes corporativos e investigación de plataforma", "plain")
+    B(f, 660, 242, 270, 52, "Resultado operativo: 5 565 millones (10,7 %)", "gold")
+    f.arrow([(210, 110), (310, 140)])
+    f.arrow([(210, 210), (310, 180)])
+    for y in (82, 144, 206, 268):
+        f.arrow([(560, 160), (660, y)])
+    B(f, 10, 270, 560, 56, "Valor que vuelve: certeza de llegada y de precio para quien pide, trabajo flexible para quien conduce, ventas para el comercio", "grey")
+    return finish(f, 342, "Documentado en el 10-K de 2025: la distinción entre reservas e ingresos, que los pagos a conductores se contabilizan como coste de ingresos o se descuentan del ingreso según el mercado, los costes directos e incentivos, y que «otros» incluye seguro de viaje, comisiones de pago y soporte. Las proporciones entre las cajas de la derecha no se muestran a escala: ver la figura de costos.", SEC)
+
+
+def costos() -> Fig:
+    names = ["2023", "2024", "2025"]
+    rev = [37281, 43978, 52017]
+    parts = [("Coste de ingresos", [22457, 26651, 31338], "navy"), ("Ventas y marketing", [4356, 4337, 4898], "grey"),
+             ("Investigación y desarrollo", [3164, 3109, 3402], "coral"),
+             ("Operaciones, soporte, administración y depreciación", [2689 + 2682 + 823, 2732 + 3639 + 711, 2854 + 3241 + 719], "teal"), ("Resultado operativo", [1110, 2799, 5565], "gold")]
+    series = [(n, [round(100 * v / r, 1) for v, r in zip(vals, rev)], k) for n, vals, k in parts]
+    return stacked_bars(
+        "Costos operativos de Uber por rubro, 2023-2025 (porcentaje de los ingresos)",
+        "Barras apiladas al cien por ciento: el coste de ingresos se mantiene cerca de 60 por ciento de los ingresos; ventas y marketing baja de 11,7 a 9,4 por ciento, investigación y desarrollo de 8,5 a 6,5, y el resultado operativo sube de 3,0 a 6,4 y a 10,7 por ciento.",
+        names, series, unit="% de los ingresos", percent=True, horizontal=True, decimals=1, label_w=70,
+        note="En dólares, en 2025: coste de ingresos 31 338 millones, ventas y marketing 4 898, investigación y desarrollo 3 402, y operaciones y soporte 2 854, administración 3 241 y depreciación 719 (agrupados). El coste de ingresos es en su mayoría pagos a quienes conducen o reparten en los mercados donde Uber registra ingresos brutos. Tecnología (investigación y desarrollo) pesa 6,5 por ciento de los ingresos.",
+        note_kind="gold", foot=SEC)
+
+
+def pila() -> Fig:
+    f = _canvas("Hardware y software documentados de Uber, por capa",
+                "Diagrama de cuatro capas: datos con Postgres, MySQL y Schemaless, Cassandra, Redis y Spanner; servicios con Python, Node.js, Go y Java; infraestructura de coordinación con Ringpop, Cadence y H3 en C; y centros de datos compartidos o arrendados más la nube de Google para Spanner; hardware concreto no publicado.",
+                940, 0)
+    rows = [
+        ("Datos", "Postgres (monolito), MySQL con Schemaless, Cassandra y Redis (2014), Spanner (2021); Protobuf", "plain"),
+        ("Servicios", "Python (monolito), Node.js (Ringpop), Go (Cadence), Java (marco de estados de la plataforma de cumplimiento)", "plain"),
+        ("Coordinación y espacio", "Ringpop (SWIM y hashing consistente), Cadence (orquestación), H3 (rejilla hexagonal en C con enlaces a Java y JavaScript)", "gold"),
+        ("Infraestructura", "Centros de datos en coubicación (10-K de 2025) y, para Spanner, la nube de Google (artículo de 2021)", "plain"),
+        ("Hardware", "No se sabe: servidores, red, almacenamiento y aceleradores no se publican en las fuentes consultadas", "grey!"),
+    ]
+    y = 56.0
+    for name, text, k in rows:
+        B(f, 10, y, 190, 62, name, "navy", 13, bold=True)
+        B(f, 212, y, 718, 62, text, k.rstrip("!"), 13, dashed=k.endswith("!"))
+        y += 74
+    return finish(f, y, "Documentado en los artículos de ingeniería de 2016, 2018, 2019, 2020 y 2021 y en el 10-K de 2025 (coubicación y oficinas). Los lenguajes citados son los de componentes concretos; no se sabe cuáles dominan hoy. El 10-K reconoce que depende de centros de datos en coubicación, lo que contrasta con la elección de Spanner en la nube de Google para una parte.", DOC)
+
+
+def fallos() -> Fig:
+    f = _canvas("Qué pasa cuando cae cada componente de Uber: de lo pequeño a lo grande",
+                "Seis filas de falla creciente: un nodo del anillo, un flujo largo a medias, una escritura concurrente, un pod de ciudades, una región y los centros de datos en coubicación completos; efecto y mecanismo con rótulo de documentado o no se sabe.",
+                940, 0)
+    rows = [
+        ("Un nodo del anillo de Ringpop", "El protocolo de pertenencia lo detecta; sus claves pasan a otro nodo (documentado)", "teal"),
+        ("Un flujo largo a medias", "Cadence registra cada acción y recupera el estado tras reiniciar (documentado)", "teal"),
+        ("Dos escrituras sobre el mismo viaje", "Antes, el último gana; desde 2021, una transacción (documentado)", "teal"),
+        ("Un pod de ciudades", "El impacto queda limitado a las ciudades asignadas (documentado)", "gold"),
+        ("Una región", "Dos dominios de fallo con dos regiones independientes cada uno (documentado, 2021)", "gold"),
+        ("Los centros de datos en coubicación", "El 10-K dice que sus usuarios podrían sufrir caída; no hay plan público", "coral"),
+    ]
+    y = 56.0
+    for a, b, k in rows:
+        B(f, 10, y, 280, 52, a, "navy", 13, bold=True)
+        B(f, 330, y, 600, 52, b, k)
+        f.arrow([(290, y + 26), (330, y + 26)])
+        y += 62
+    return finish(f, y + 4, "Documentado en los artículos de Ringpop (2016), Cadence (2019) y de la plataforma de cumplimiento (2021) y en el 10-K de 2025, que reconoce que ha sufrido caídas por limitaciones de software y que depende de centros de datos en coubicación. No se publican objetivos de recuperación ni pruebas de caos.", DOC)
+
+
 FIGURES = {
     "uber-contexto.svg": contexto,
     "uber-dominios-y-capas.svg": componentes,
@@ -424,6 +498,10 @@ FIGURES = {
     "uber-ingresos-por-segmento.svg": segmentos,
     "uber-alternativas-descartadas.svg": alternativas,
     "uber-estructura-de-ingresos-2025.svg": estructura,
+    "uber-esquema-del-negocio.svg": negocio,
+    "uber-costos-operativos.svg": costos,
+    "uber-hardware-y-software.svg": pila,
+    "uber-que-pasa-si-cae.svg": fallos,
 }
 
 

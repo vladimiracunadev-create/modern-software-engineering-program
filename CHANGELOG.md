@@ -19,6 +19,13 @@
 - experimentos reproducibles en `scripts/experiments_part48_*.py`: módulos de WebAssembly ejecutados con `wasmtime` 50.0.1, nueve programas eBPF cargados en el núcleo de Linux de WSL2, proxies de CPU con NumPy, ML-KEM-768 y ML-DSA-65 reales (bibliotecas de estudio), simulación cuántica con vectores de estado y una plataforma mínima con registro encadenado e informe firmado; 36 figuras sin tablas repetidas;
 - lo que no se ejecutó se declara en cada clase: ninguna GPU (el controlador informó «GPU is lost»), ningún TEE ni TPM, ningún ordenador cuántico ni SDK, el modelo de componentes de WebAssembly, ningún contenedor ni microVM;
 - commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+## 2026-11-17 — Parte 47 desarrollada con experimentos reales y simulaciones de sistemas críticos y normas de seguridad (SE-565 a SE-576)
+
+- las clases `SE-565`–`SE-576` pasan de planificadas a clases completas sobre el *Horno de curado*: peligro, riesgo y seguridad funcional (HARA, FMEA, FTA y STPA), IEC 61508, automoción (ISO 26262), aviación (DO-178C, DO-254 y ARP4754), dispositivos médicos (IEC 62304), casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA y CERT), verificación formal (TLA+, SPARK y Alloy), verificación y cobertura (MC/DC, HIL y SIL), taller del Therac-25 y proyecto de paquete de aseguramiento;
+- 36 figuras con experimentos ejecutados con la biblioteca estándar (CPython 3.12.9, semilla 47): árbol de fallos con causa común, FMEA, probabilidad de fallo bajo demanda, inyección de fallos, cobertura estructural, clases de seguridad, trazabilidad con resúmenes, planificación con inversión de prioridad, reglas de código, verificador de estados, MC/DC por mutantes, modelos del Therac-25 y paquete de aseguramiento;
+- `content/part-47/part.json` aporta 23 fuentes nuevas verificadas (FAA, SAE, FDA, IEC, ESA, NASA, SEI, GSN, TLA+, SPARK, Alloy, Holzmann y el caso del Pathfinder); las normas de pago se describen sin reproducir su texto y lo no público se declara;
+- no se ejecutó TLA+, SPARK, Alloy ni ningún RTOS y no se compiló C (no había compilador); no se afirma conformidad con ninguna norma ni revisión humana independiente;
+- los contadores pasan a contar la Parte 47 como desarrollada (12 clases más); commit: ver `docs/PART-EXECUTION-TRACKER.md`.
 
 ## 2026-11-17 — Infraestructura para las Partes 45–48 y tres roles nuevos (ADR-006)
 

@@ -1,0 +1,287 @@
+{
+  "sources": [
+    "PYTHON-3",
+    "IEEE-SWEBOK-4A",
+    "ISO-25010-2023",
+    "SAFE-THERAC-LEVESON",
+    "SAFE-ARIANE-501",
+    "SAFE-IEC-61508-1",
+    "SAFE-GSN",
+    "SAFE-FAA-AC-20-115D",
+    "SAFE-FAA-AIR-SOFTWARE",
+    "SAFE-FAA-AC-20-152A",
+    "SAFE-SAE-ARP4754A",
+    "SAFE-SAE-ARP4761A",
+    "SAFE-NASA-MCDC",
+    "SAFE-FDA-62304",
+    "SAFE-FDA-GPSV",
+    "SAFE-FDA-PREMARKET",
+    "SAFE-JATR-737MAX",
+    "SAFE-ISO26262-ML",
+    "SAFE-PATHFINDER-JONES",
+    "SAFE-HOLZMANN-P10",
+    "SAFE-CERT-C",
+    "SAFE-MISRA",
+    "SAFE-TLAPLUS",
+    "SAFE-SPARK",
+    "SAFE-ALLOY",
+    "SAFE-NASA-SWEHB"
+  ],
+  "extra_sources": [
+    {
+      "id": "SAFE-THERAC-LEVESON",
+      "title": "An Investigation of the Therac-25 Accidents",
+      "authority": "Leveson y Turner, IEEE Computer, 1993",
+      "url": "https://www.cs.columbia.edu/~junfeng/08fa-e6998/sched/readings/therac25.pdf",
+      "status": "stable",
+      "used_for": [
+        "therac-25",
+        "software-safety",
+        "case-analysis"
+      ]
+    },
+    {
+      "id": "SAFE-ARIANE-501",
+      "title": "Informe de la comisión de investigación del vuelo 501 de Ariane 5",
+      "authority": "Agencia Espacial Europea",
+      "url": "https://esamultimedia.esa.int/docs/esa-x-1819eng.pdf",
+      "status": "stable",
+      "used_for": [
+        "common-cause",
+        "integer-overflow",
+        "reuse"
+      ]
+    },
+    {
+      "id": "SAFE-IEC-61508-1",
+      "title": "IEC 61508-1: ficha de la norma de seguridad funcional",
+      "authority": "IEC",
+      "url": "https://webstore.iec.ch/en/publication/5515",
+      "status": "living",
+      "used_for": [
+        "functional-safety",
+        "sil"
+      ]
+    },
+    {
+      "id": "SAFE-GSN",
+      "title": "Comunidad GSN y estándar GSN",
+      "authority": "Safety Critical Systems Club",
+      "url": "https://scsc.uk/gsn",
+      "status": "living",
+      "used_for": [
+        "assurance-case",
+        "gsn"
+      ]
+    },
+    {
+      "id": "SAFE-FAA-AC-20-115D",
+      "title": "Advisory Circular 20-115D",
+      "authority": "FAA",
+      "url": "https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_20-115D.pdf",
+      "status": "living",
+      "used_for": [
+        "do-178c",
+        "airborne-software"
+      ]
+    },
+    {
+      "id": "SAFE-FAA-AIR-SOFTWARE",
+      "title": "Software y hardware electrónico aerotransportado",
+      "authority": "FAA",
+      "url": "https://www.faa.gov/aircraft/air_cert/design_approvals/air_software",
+      "status": "living",
+      "used_for": [
+        "do-178c",
+        "do-254"
+      ]
+    },
+    {
+      "id": "SAFE-FAA-AC-20-152A",
+      "title": "Advisory Circular 20-152A",
+      "authority": "FAA",
+      "url": "https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_20-152A.pdf",
+      "status": "living",
+      "used_for": [
+        "do-254",
+        "airborne-hardware"
+      ]
+    },
+    {
+      "id": "SAFE-SAE-ARP4754A",
+      "title": "ARP4754A: Guidelines for Development of Civil Aircraft and Systems",
+      "authority": "SAE International",
+      "url": "https://www.sae.org/standards/content/arp4754a/",
+      "status": "living",
+      "used_for": [
+        "arp4754",
+        "system-development"
+      ]
+    },
+    {
+      "id": "SAFE-SAE-ARP4761A",
+      "title": "ARP4761A: Guidelines for the Safety Assessment Process",
+      "authority": "SAE International",
+      "url": "https://www.sae.org/standards/content/arp4761a/",
+      "status": "living",
+      "used_for": [
+        "arp4761",
+        "safety-assessment"
+      ]
+    },
+    {
+      "id": "SAFE-NASA-MCDC",
+      "title": "A Practical Tutorial on Modified Condition/Decision Coverage (NASA/TM-2001-210876)",
+      "authority": "NASA Langley Research Center",
+      "url": "https://shemesh.larc.nasa.gov/fm/papers/Hayhurst-2001-tm210876-MCDC.pdf",
+      "status": "stable",
+      "used_for": [
+        "mcdc",
+        "structural-coverage"
+      ]
+    },
+    {
+      "id": "SAFE-FDA-62304",
+      "title": "Base de datos de normas reconocidas: IEC 62304 Edition 1.1 2015-06",
+      "authority": "FDA",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfStandards/detail.cfm?standard__identification_no=38829",
+      "status": "living",
+      "used_for": [
+        "iec-62304",
+        "medical-device-software"
+      ]
+    },
+    {
+      "id": "SAFE-FDA-GPSV",
+      "title": "General Principles of Software Validation",
+      "authority": "FDA",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/general-principles-software-validation",
+      "status": "living",
+      "used_for": [
+        "software-validation",
+        "medical-device-software"
+      ]
+    },
+    {
+      "id": "SAFE-FDA-PREMARKET",
+      "title": "Content of Premarket Submissions for Device Software Functions",
+      "authority": "FDA",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+      "status": "living",
+      "used_for": [
+        "premarket",
+        "documentation"
+      ]
+    },
+    {
+      "id": "SAFE-JATR-737MAX",
+      "title": "Informe final de la revisión conjunta de autoridades (JATR) sobre el Boeing 737 MAX",
+      "authority": "JATR / FAA",
+      "url": "https://www.faa.gov/sites/faa.gov/files/2022-08/Final_JATR_Submittal_to_FAA_Oct_2019.pdf",
+      "status": "stable",
+      "used_for": [
+        "design-assumptions",
+        "certification"
+      ]
+    },
+    {
+      "id": "SAFE-ISO26262-ML",
+      "title": "An Analysis of ISO 26262: Using Machine Learning Safely in Automotive Software",
+      "authority": "Salay, Queiroz y Czarnecki (arXiv)",
+      "url": "https://arxiv.org/abs/1709.02435",
+      "status": "stable",
+      "used_for": [
+        "iso-26262",
+        "asil"
+      ]
+    },
+    {
+      "id": "SAFE-PATHFINDER-JONES",
+      "title": "What really happened on Mars Rover Pathfinder",
+      "authority": "Mike Jones, RISKS Digest 19.49",
+      "url": "https://catless.ncl.ac.uk/Risks/19/49",
+      "status": "stable",
+      "used_for": [
+        "priority-inversion",
+        "case-analysis"
+      ]
+    },
+    {
+      "id": "SAFE-HOLZMANN-P10",
+      "title": "The Power of 10: Rules for Developing Safety-Critical Code",
+      "authority": "Gerard J. Holzmann, NASA/JPL",
+      "url": "https://spinroot.com/gerard/pdf/P10.pdf",
+      "status": "stable",
+      "used_for": [
+        "coding-rules",
+        "safety-critical"
+      ]
+    },
+    {
+      "id": "SAFE-CERT-C",
+      "title": "SEI CERT C Coding Standard",
+      "authority": "Software Engineering Institute",
+      "url": "https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard",
+      "status": "living",
+      "used_for": [
+        "secure-coding",
+        "c"
+      ]
+    },
+    {
+      "id": "SAFE-MISRA",
+      "title": "MISRA: sitio oficial",
+      "authority": "MISRA",
+      "url": "https://misra.org.uk/",
+      "status": "living",
+      "used_for": [
+        "coding-standard",
+        "c"
+      ]
+    },
+    {
+      "id": "SAFE-TLAPLUS",
+      "title": "TLA+",
+      "authority": "Leslie Lamport",
+      "url": "https://lamport.azurewebsites.net/tla/tla.html",
+      "status": "living",
+      "used_for": [
+        "model-checking",
+        "tla"
+      ]
+    },
+    {
+      "id": "SAFE-SPARK",
+      "title": "SPARK 2014 User's Guide",
+      "authority": "AdaCore",
+      "url": "https://docs.adacore.com/spark2014-docs/html/ug/",
+      "status": "living",
+      "used_for": [
+        "spark",
+        "deductive-verification"
+      ]
+    },
+    {
+      "id": "SAFE-ALLOY",
+      "title": "Alloy",
+      "authority": "Alloy Tools",
+      "url": "https://alloytools.org/",
+      "status": "living",
+      "used_for": [
+        "alloy",
+        "bounded-verification"
+      ]
+    },
+    {
+      "id": "SAFE-NASA-SWEHB",
+      "title": "NASA Software Engineering Handbook",
+      "authority": "NASA",
+      "url": "https://swehb.nasa.gov/",
+      "status": "living",
+      "used_for": [
+        "nasa",
+        "software-assurance"
+      ]
+    }
+  ]
+}

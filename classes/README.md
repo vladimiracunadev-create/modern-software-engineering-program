@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-564 clases desarrolladas · 47 partes desarrolladas (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) · 24 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
+576 clases desarrolladas · 48 partes desarrolladas (`SE-001`–`SE-540`, `SE-553`–`SE-588`) · 12 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
 
 > [!WARNING]
-> Las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45, 47 (`SE-541`–`SE-552`, `SE-565`–`SE-576`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–44, 46–48 (`SE-001`–`SE-540`, `SE-553`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. La Parte 45 (`SE-541`–`SE-552`) está **planificada**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 47 partes desarrolladas
+## Las 48 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -58,6 +58,7 @@
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
 | 46 | [Machine learning en producción y MLOps](part-46-machine-learning-en-produccion-y-mlops/README.md) | H | SE-553–SE-564 | `suite` |
+| 47 | [Sistemas críticos, tiempo real y normas de seguridad](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md) | F | SE-565–SE-576 | `suite` |
 | 48 | [Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md) | D | SE-577–SE-588 | `suite` |
 
 ## Partes planificadas sin publicar
@@ -65,11 +66,10 @@
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
 | 45 | Ingeniería de datos y plataformas de datos | SE-541–SE-552 | planificada, sin clases publicadas |
-| 47 | Sistemas críticos, tiempo real y normas de seguridad | SE-565–SE-576 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 564 clases desarrolladas
+## Índice plano de las 576 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -719,6 +719,20 @@ sin recorrer carpetas manualmente.
 - [SE-562 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](part-46-machine-learning-en-produccion-y-mlops/se-562-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-562.html)
 - [SE-563 — Taller: degradar y recuperar un modelo](part-46-machine-learning-en-produccion-y-mlops/se-563-taller-degradar-y-recuperar-un-modelo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-563.html)
 - [SE-564 — Proyecto: sistema de ML operable con evidencia](part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-564.html)
+## [Parte 47 — Sistemas críticos, tiempo real y normas de seguridad](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/README.md)
+
+- [SE-565 — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-565-riesgo-peligro-y-seguridad-funcional-hara-fmea-fta-y-stpa/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-565.html)
+- [SE-566 — IEC 61508 y niveles de integridad de seguridad](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-566-iec-61508-y-niveles-de-integridad-de-seguridad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-566.html)
+- [SE-567 — Automoción: ISO 26262 y niveles ASIL](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-567-automocion-iso-26262-y-niveles-asil/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-567.html)
+- [SE-568 — Aviación: DO-178C, DO-254 y ARP4754](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-568-aviacion-do-178c-do-254-y-arp4754/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-568.html)
+- [SE-569 — Dispositivos médicos: IEC 62304](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-569-dispositivos-medicos-iec-62304/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-569.html)
+- [SE-570 — Casos de seguridad y trazabilidad](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-570-casos-de-seguridad-y-trazabilidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-570.html)
+- [SE-571 — RTOS y planificación de tiempo real](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-571-rtos-y-planificacion-de-tiempo-real/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-571.html)
+- [SE-572 — Codificación segura: MISRA y CERT](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-572-codificacion-segura-misra-y-cert/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-572.html)
+- [SE-573 — Verificación formal y model checking: TLA+, SPARK y Alloy](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-573-verificacion-formal-y-model-checking-tla-spark-y-alloy/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-573.html)
+- [SE-574 — Verificación y cobertura: MC/DC, HIL y SIL](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-574-verificacion-y-cobertura-mc-dc-hil-y-sil/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-574.html)
+- [SE-575 — Taller: analizar un fallo real frente a las normas](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-575-taller-analizar-un-fallo-real-frente-a-las-normas/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-575.html)
+- [SE-576 — Proyecto: paquete de aseguramiento de un controlador](part-47-sistemas-criticos-tiempo-real-y-normas-de-seguridad/se-576-proyecto-paquete-de-aseguramiento-de-un-controlador/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-576.html)
 ## [Parte 48 — Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md)
 
 - [SE-577 — WebAssembly y WASI](part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-577.html)

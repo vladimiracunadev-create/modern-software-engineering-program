@@ -6074,6 +6074,138 @@
       "url": "classes/SE-564.html"
     },
     {
+      "id": "SE-565",
+      "title": "Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-565.html"
+    },
+    {
+      "id": "SE-566",
+      "title": "IEC 61508 y niveles de integridad de seguridad",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-566.html"
+    },
+    {
+      "id": "SE-567",
+      "title": "Automoción: ISO 26262 y niveles ASIL",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-567.html"
+    },
+    {
+      "id": "SE-568",
+      "title": "Aviación: DO-178C, DO-254 y ARP4754",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-568.html"
+    },
+    {
+      "id": "SE-569",
+      "title": "Dispositivos médicos: IEC 62304",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-569.html"
+    },
+    {
+      "id": "SE-570",
+      "title": "Casos de seguridad y trazabilidad",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-570.html"
+    },
+    {
+      "id": "SE-571",
+      "title": "RTOS y planificación de tiempo real",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-571.html"
+    },
+    {
+      "id": "SE-572",
+      "title": "Codificación segura: MISRA y CERT",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-572.html"
+    },
+    {
+      "id": "SE-573",
+      "title": "Verificación formal y model checking: TLA+, SPARK y Alloy",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-573.html"
+    },
+    {
+      "id": "SE-574",
+      "title": "Verificación y cobertura: MC/DC, HIL y SIL",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-574.html"
+    },
+    {
+      "id": "SE-575",
+      "title": "Taller: analizar un fallo real frente a las normas",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-575.html"
+    },
+    {
+      "id": "SE-576",
+      "title": "Proyecto: paquete de aseguramiento de un controlador",
+      "part": "47",
+      "part_title": "Sistemas críticos, tiempo real y normas de seguridad",
+      "stage": "F",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-576.html"
+    },
+    {
       "id": "SE-577",
       "title": "WebAssembly y WASI",
       "part": "48",

@@ -869,18 +869,18 @@ se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte complet
 
 ### Parte 47 — Sistemas críticos, tiempo real y normas de seguridad
 
-- [ ] `SE-565` — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA.
-- [ ] `SE-566` — IEC 61508 y niveles de integridad de seguridad.
-- [ ] `SE-567` — Automoción: ISO 26262 y niveles ASIL.
-- [ ] `SE-568` — Aviación: DO-178C, DO-254 y ARP4754.
-- [ ] `SE-569` — Dispositivos médicos: IEC 62304.
-- [ ] `SE-570` — Casos de seguridad y trazabilidad.
-- [ ] `SE-571` — RTOS y planificación de tiempo real.
-- [ ] `SE-572` — Codificación segura: MISRA y CERT.
-- [ ] `SE-573` — Verificación formal y model checking: TLA+, SPARK y Alloy.
-- [ ] `SE-574` — Verificación y cobertura: MC/DC, HIL y SIL.
-- [ ] `SE-575` — Taller: analizar un fallo real frente a las normas.
-- [ ] `SE-576` — Proyecto: paquete de aseguramiento de un controlador.
+- [x] `SE-565` — Riesgo, peligro y seguridad funcional: HARA, FMEA, FTA y STPA.
+- [x] `SE-566` — IEC 61508 y niveles de integridad de seguridad.
+- [x] `SE-567` — Automoción: ISO 26262 y niveles ASIL.
+- [x] `SE-568` — Aviación: DO-178C, DO-254 y ARP4754.
+- [x] `SE-569` — Dispositivos médicos: IEC 62304.
+- [x] `SE-570` — Casos de seguridad y trazabilidad.
+- [x] `SE-571` — RTOS y planificación de tiempo real.
+- [x] `SE-572` — Codificación segura: MISRA y CERT.
+- [x] `SE-573` — Verificación formal y model checking: TLA+, SPARK y Alloy.
+- [x] `SE-574` — Verificación y cobertura: MC/DC, HIL y SIL.
+- [x] `SE-575` — Taller: analizar un fallo real frente a las normas.
+- [x] `SE-576` — Proyecto: paquete de aseguramiento de un controlador.
 
 ### Parte 48 — Runtimes y plataformas modernas
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito: Amazon, Spotify, Airbnb y Stripe
+
+- cuatro casos terminados en `casos/exito/` con el esquema único, 23 figuras propias y fuentes públicas citadas; commits `20c1ad30` y `07a54c5b`, sin cambio de contadores
+
 ## 2026-11-17 — Casos de fallo: CrowdStrike, Therac-25, GitLab 2017 y Quibi
 
 - cuatro casos de fallo completos en `casos/fallo/` con el esquema de 14 secciones, hechos separados de interpretación y mejoras rotuladas como análisis propio;

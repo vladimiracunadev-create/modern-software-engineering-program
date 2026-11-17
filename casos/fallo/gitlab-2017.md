@@ -20,6 +20,24 @@ El 31 de enero de 2017, un ingeniero de GitLab.com ejecutó un borrado del direc
 
 La fecha de consulta de las fuentes citadas al final es el 16 de noviembre de 2026.
 
+### Sedes, oficinas y equipo
+
+**Documentado:** GitLab declara en su solicitud de salida a bolsa (formulario S-1, 2021) que es una empresa «solo remota» y que, por eso, «no mantiene una sede»; que ha sido 100 % remota desde su origen; y que a 31 de julio de 2021 tenía unos 1.350 miembros del equipo en más de 65 países. Su página corporativa actual declara más de 2.500 miembros del equipo (cifra de junio de 2026 que figura en la propia página) y no enumera países. La ficha anterior ubica la sede en el área de San Francisco según fuentes secundarias; se citan ambas posiciones porque no se pudo reconciliarlas con una fuente primaria de 2017.
+
+**No se sabe:** la plantilla y la distribución por país en enero de 2017, el número de ingenieros de infraestructura y las zonas horarias de quienes respondieron al incidente. El postmortem solo dice que «uno de los ingenieros», otro «que no estaba presente» y que se pidió ayuda por Slack: es decir, un equipo distribuido que se coordina por mensajería. No hay centros de datos propios: el servicio corre en infraestructura de nube.
+
+![Mapa de relaciones del equipo y la infraestructura: un equipo totalmente remoto sin sede operativa; el servicio alojado en Azure; copias lógicas en Amazon S3; coordinación por Slack, documento público y transmisión; y clientes de GitLab.com y de ediciones autoalojadas.](../figures/gitlab-2017-equipo-remoto-y-nube.svg)
+
+**Cómo leer la figura.** El nodo central es el equipo remoto; alrededor están los lugares donde vive la infraestructura y los canales de coordinación. Mira primero que no hay una caja de «oficina»: la operación del incidente fue distribuida. **Dónde deja de valer:** las cifras de plantilla son de 2021 y de 2026 y no describen enero de 2017.
+
+### Organización y plantilla
+
+**No es público** un organigrama de GitLab de 2017. Las funciones que el postmortem menciona son: ingenieros de producción y de infraestructura (quienes operaron la base de datos), el director ejecutivo (que firma la disculpa pública), el equipo que mantiene el sistema de reportes de abuso y los equipos que desarrollan GitLab con GitLab.com. Este caso no dibuja una pirámide porque la fuente no da niveles. Lo relevante para el curso es el **ownership**: el postmortem concluye que nadie era dueño de la durabilidad de los datos. Es una condición organizativa documentada (y no una deducción de este programa) que la clase [SE-446 · Diseño de equipos y ownership](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-446-diseno-de-equipos-y-ownership/README.md) trata.
+
+### Visión y misión
+
+**Documentado:** en el S-1 de 2021, la visión es «un mundo innovador impulsado por software» y la plataforma «permite que todos contribuyan a construir mejor software con rapidez, eficiencia y seguridad». La misión que publica hoy la página corporativa es «desbloquear a cada equipo para entregar software confiable a la velocidad de la imaginación»; esa frase es posterior al incidente y no se atribuye a 2017. **Inferido:** la cultura de transparencia que llevó a publicar el postmortem, el documento y la transmisión es coherente con la preferencia declarada por el trabajo remoto y de código abierto, pero el postmortem no lo explica así.
+
 ## Contexto y problema
 
 GitLab.com era en 2017 el servicio alojado donde miles de equipos guardaban código, incidencias y solicitudes de fusión. Su base de datos, PostgreSQL, se había diseñado con un servidor primario (`db1`) que atendía toda la carga y un secundario (`db2`) en espera activa (*hot standby*) para conmutación por falla. El propio postmortem reconoce que ese diseño convertía a `db1` en un punto único de falla y recuerda incidentes anteriores, como el de noviembre de 2016 por hinchazón de una tabla.
@@ -127,6 +145,22 @@ Tres lecturas de análisis propio. Primera: las dos cifras que más pesan (las 1
 - **Qué no hizo.** Su respuesta no fue prohibir el comando peligroso: argumenta que un alias de `rm` protege solo contra un caso entre muchos y prioriza distinguir los servidores y mejorar la recuperación.
 - **Comunidad.** El postmortem pidió sugerencias en los comentarios; las fuentes consultadas no permiten resumir esas respuestas.
 
+### Esquema del negocio: tres formas de usar el producto
+
+El postmortem distingue tres grupos: usuarios de GitLab.com (el servicio alojado afectado), clientes de ediciones Enterprise y de GitHost, y usuarios de GitLab CE autoalojado. El valor de GitLab.com es evitar que el cliente opere su propia instalación; a cambio, el cliente delega la durabilidad. El S-1 de 2021 da una cifra de escala que no es de 2017 pero ayuda a situar el negocio: ingresos de 81,2 millones de dólares en el ejercicio fiscal 2020 y 152,2 millones en 2021, un crecimiento del 87 %. **No se sabe** el reparto de ingresos de 2017 por producto.
+
+![Esquema del negocio: usuarios de GitLab.com que usan el servicio alojado; clientes de ediciones Enterprise y de GitHost; usuarios de la edición comunitaria autoalojada; infraestructura en Azure y respaldos en S3; y el equipo que desarrolla GitLab con GitLab.com.](../figures/gitlab-2017-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** El nodo central es el producto; alrededor, quién lo usa y de dónde depende. Las cajas coral son los usuarios afectados por el incidente. Mira primero que el alcance del daño coincide con el modelo de negocio alojado. **Dónde deja de valer:** no cuantifica usuarios ni ingresos de 2017 porque el postmortem no los da.
+
+### Costos operativos y costo del incidente
+
+**Documentado:** la decisión de usar en staging discos de Azure «clásicos» sin almacenamiento premium se tomó «para ahorrar costos»; la decisión de no habilitar instantáneas de Azure en las bases de datos se justificó por suficiencia de otros procedimientos y por el tiempo de restauración. **No se sabe:** el costo de infraestructura, el costo de ingeniería de la noche, el costo de la transmisión y cualquier compensación a usuarios. El único costo medible que da el documento es de tiempo: unas 18 horas de indisponibilidad y los datos perdidos. Se declara como no cuantificable en dinero con fuentes públicas.
+
+### Competidores y contexto de mercado
+
+**Documentado:** en su S-1 de 2021, GitLab dice competir con proveedores establecidos como Atlassian y Microsoft (esta última propietaria de GitHub). Ese es el contexto de 2021; el postmortem de 2017 no habla de competencia. **No se sabe** la cuota de GitLab.com frente a otras plataformas en 2017 con fuente verificada. Lo relevante para el curso es que, para un servicio alojado de código, la confianza en la durabilidad es un factor competitivo que se comunica con hechos y no con promesas: un postmortem público se convierte en parte de esa confianza. [SE-125 · Propuesta de valor y resultados deseados](../../classes/part-10-descubrimiento-y-estrategia-de-producto/se-125-propuesta-de-valor-y-resultados-deseados/README.md) trata la propuesta de valor frente a alternativas y [SE-134 · Costos de construcción, operación y oportunidad](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-134-costos-de-construccion-operacion-y-oportunidad/README.md) los costos de operación.
+
 ## Arquitectura y esquemas
 
 ### Contexto y componentes: cuatro caminos de recuperación
@@ -220,6 +254,38 @@ Con la lista de mejoras del postmortem y las propuestas de este programa, la arq
 ![Arquitectura posterior: la primaria con varias réplicas; archivado continuo de WAL; instantáneas LVM cada hora; instantáneas de Azure; respaldo lógico supervisado; entorno de restauración con almacenamiento rápido; pruebas automáticas de restauración que alimentan un panel; y un responsable asignado de la durabilidad.](../figures/gitlab-2017-arquitectura-despues.svg)
 
 **Cómo leer la figura.** Las cajas teal son compromisos de la lista de GitLab; las doradas son propuestas de este programa que el postmortem no menciona. El bucle de pruebas de restauración que alimenta un panel es lo que convierte un respaldo en una afirmación verificable. Mira primero ese bucle. **Dónde deja de valer:** es un objetivo de diseño según compromisos de febrero de 2017; no afirma qué se implantó ni cuándo.
+
+### Hardware utilizado
+
+**Documentado:** servidores de base de datos `db1` (primaria) y `db2` (secundaria en espera) con un volumen gestionado por LVM; servidores NFS que guardan los repositorios y las wikis; máquinas virtuales y discos de Azure (en staging, discos «clásicos» sin almacenamiento premium, estrangulados a unos 60 Mbps y ubicados en otra región); cuentas de almacenamiento de Azure con un límite de unos 30 TB; y almacenamiento de objetos en Amazon S3 para los respaldos lógicos. **No se sabe:** el número de núcleos, la memoria, el tamaño de los volúmenes y la ubicación física de cada servidor. El postmortem no los publica y este caso no los infiere. Un dato que no se puede dejar implícito: `max_connections` valía 8.000, un valor que el propio documento llama «demasiado alto», y obligó a bajar el parámetro a 2.000 para reiniciar PostgreSQL; es una pista de dimensionamiento, no una especificación.
+
+![Pila de hardware de GitLab.com: aplicación; servidores de base de datos db1 y db2 con volúmenes LVM; servidores NFS con repositorios; discos de Azure de staging sin almacenamiento premium; y almacenamiento de objetos en S3; con las limitaciones documentadas a la derecha.](../figures/gitlab-2017-pila-de-hardware.svg)
+
+**Cómo leer la figura.** Cada fila es una capa de hardware o de almacenamiento; a la derecha, la limitación documentada. Mira primero los discos de staging: el cuello de botella de 18 horas era hardware barato. **Dónde deja de valer:** no incluye otros servidores de la plataforma.
+
+### Software utilizado
+
+**Documentado:** PostgreSQL 9.6 en producción (y binarios 9.2 en el paquete que se ejecutaba en el servidor de aplicación); el paquete de instalación Omnibus; la aplicación GitLab (el postmortem habla de migraciones de Rails); `pg_dump` y `pg_basebackup`; replicación por *streaming* con WAL; instantáneas LVM; instantáneas de disco de Azure; Amazon S3; `strace` para diagnóstico; tareas programadas con aviso por correo; DMARC en el correo; Slack para coordinación; un documento público, YouTube y Twitter para comunicar; y, como mejoras evaluadas, `pgpool-II` 3.6.1, monitoreo con Prometheus, `pgbarman` y WAL-E. **No se sabe:** versiones exactas de Ruby, del sistema operativo y de las herramientas de despliegue; el postmortem no las cita.
+
+![Pila de software de la base de datos: aplicación GitLab con Rails; paquete Omnibus que elige versiones; PostgreSQL 9.6; herramientas de respaldo y replicación pg_dump, pg_basebackup, LVM y Azure; y a la derecha las herramientas evaluadas tras el incidente.](../figures/gitlab-2017-pila-de-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa; a la derecha, lo que se evaluó después. Mira primero la capa del paquete Omnibus: eligió una versión del cliente de respaldo por el directorio de datos. **Dónde deja de valer:** es el software que el postmortem nombra; no es un inventario completo.
+
+### Infraestructura: nube mixta, un equipo remoto y entornos separados
+
+**Documentado:** el servicio corría en Azure con respaldos en S3, esto es, en dos nubes distintas; el entorno de staging estaba en otra región con discos lentos; los servidores NFS usaban instantáneas de Azure; y había un sitio de monitoreo público (`dashboards.gitlab.com`) basado en un sistema interno de monitoreo que no se vio afectado. **Inferido:** el uso de una segunda nube para respaldos fue una buena decisión de aislamiento (un fallo de Azure no habría tocado S3), pero no tuvo efecto porque el contenido de S3 estaba vacío.
+
+![Infraestructura mixta: aplicación y bases en Azure; staging en otra región con discos lentos; NFS con instantáneas de Azure; respaldos lógicos en Amazon S3; monitoreo interno y público; y la restauración por el camino lento de staging a producción.](../figures/gitlab-2017-infraestructura-mixta.svg)
+
+**Cómo leer la figura.** Las zonas son las nubes y regiones; las flechas, los flujos de datos. Mira primero el camino punteado de restauración: cruza una región con discos lentos. **Dónde deja de valer:** no incluye la red ni las dependencias externas no mencionadas.
+
+### A prueba de fallos: qué existía y qué falló
+
+![Cuatro columnas de mecanismos: existían y funcionaron; existían y fallaron; no existían; y debieron existir según análisis propio.](../figures/gitlab-2017-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Cada caja es un mecanismo y su color es la columna. Mira primero cuántos mecanismos entran en la columna «existían y fallaron»: eran capas que cada una confiaba en que otra respaldaría. **Dónde deja de valer:** las tres primeras columnas son del postmortem; la cuarta es análisis propio.
+
+El postmortem aporta una frase útil para este tema: un entorno ideal es aquel donde se puede cometer un error y recuperarse con rapidez y poco impacto. Esa es la definición operativa de tolerancia a fallos humanos: no evitar el error, sino acotar su costo. [SE-380 · Disponibilidad, durabilidad y recuperación](../../classes/part-31-calidad-rendimiento-y-resiliencia/se-380-disponibilidad-durabilidad-y-recuperacion/README.md), [SE-321 · Backups, restauración y pruebas de recuperación](../../classes/part-26-datos-persistencia-y-recuperacion/se-321-backups-restauracion-y-pruebas-de-recuperacion/README.md) y [SE-430 · Continuidad, disaster recovery y ejercicios](../../classes/part-35-observabilidad-sre-e-incidentes/se-430-continuidad-disaster-recovery-y-ejercicios/README.md) la desarrollan.
 
 ## Casos especiales y cómo fallan
 
@@ -563,6 +629,8 @@ Todas las URL se abrieron el 16 de noviembre de 2026.
 - [Wikipedia, GitLab Inc.](https://en.wikipedia.org/wiki/GitLab_Inc.): fuente secundaria para los fundadores y la sede.
 - [Wikipedia, GitLab](https://en.wikipedia.org/wiki/GitLab): fuente secundaria del origen del proyecto por Dmytro Zaporozhets en 2011 y de sus componentes.
 - [GitLab, Home](https://about.gitlab.com/): sitio oficial de la compañía, para identificar las ediciones y el servicio alojado.
+- [GitLab Inc., Form S-1 (2021), en la SEC](https://www.sec.gov/Archives/edgar/data/1653482/000162828021018818/gitlab-sx1.htm): empresa solo remota sin sede, unos 1.350 miembros del equipo en más de 65 países a 31 de julio de 2021, visión, competidores nombrados e ingresos de 81,2 y 152,2 millones de dólares; leído a través de una herramienta de lectura porque la SEC bloquea descargas automáticas anónimas.
+- [GitLab, About the company](https://about.gitlab.com/company/): misión actual, trabajo remoto y plantilla actual; se usa solo para el contraste con 2017.
 
 ---
 

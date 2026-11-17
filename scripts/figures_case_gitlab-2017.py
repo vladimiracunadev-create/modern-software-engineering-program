@@ -5,6 +5,7 @@ Times are UTC; hours and ratios derived from them are marked as own calculation.
 """
 from __future__ import annotations
 
+from case_fig_helpers import hub, kanban, layer_stack
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, timeline
 
 FUENTE = "Fuente: postmortem público de GitLab (10 feb 2017); esquema propio."
@@ -396,6 +397,88 @@ def comparables() -> Fig:
 
 # ==== EXPANDED FIGURES (end) ====
 
+
+# ==== EXPANDED FIGURES2 (begin) ====
+
+SRCGL = "Fuente: postmortem público de GitLab (10 feb 2017) y S-1 de 2021; esquema propio."
+
+
+def equipo_remoto_y_nube() -> Fig:
+    return hub(
+        "Equipo remoto y nube: sin sede operativa, con el servicio en Azure y los respaldos en S3",
+        "Esquema de relaciones con un equipo totalmente remoto en el centro. Arriba: servicio en Azure, respaldos en Amazon S3, servidores NFS con repositorios y entorno de staging. Abajo: coordinación por Slack, documento público y transmisión en vivo, y clientes de GitLab.com y de ediciones autoalojadas.",
+        ("Equipo remoto: sin sede operativa", "navy"),
+        [("Servicio GitLab.com en Azure", "plain", ""), ("Respaldos lógicos en Amazon S3", "plain", ""), ("Servidores NFS: repositorios y wikis", "plain", ""), ("Staging en otra región", "gold", ""),
+         ("Coordinación por Slack", "teal", ""), ("Documento público y transmisión en vivo", "teal", ""), ("Clientes de GitLab.com y de ediciones autoalojadas", "coral", "")],
+        "Cifras de plantilla de 2021 y 2026; las de 2017 no se conocen. El postmortem no dice dónde estaba cada ingeniero.", SRCGL)
+
+
+def esquema_del_negocio() -> Fig:
+    return hub(
+        "Esquema del negocio: el alcance del daño coincidió con el modelo alojado",
+        "Esquema con el producto GitLab en el centro. Arriba: usuarios de GitLab.com que usan el servicio alojado, clientes de ediciones Enterprise y de GitHost, usuarios de la edición comunitaria autoalojada y el equipo que desarrolla GitLab con GitLab.com. Abajo: Azure y S3 como infraestructura, y la confianza en la durabilidad como valor.",
+        ("Producto GitLab", "teal"),
+        [("Usuarios de GitLab.com: servicio alojado", "coral", "afectados"), ("Enterprise y GitHost: sin afectación", "plain", ""), ("CE autoalojada: sin afectación", "plain", ""), ("Equipo de GitLab: desarrolla con GitLab.com", "gold", ""),
+         ("Azure y S3: infraestructura del servicio", "plain", ""), ("Confianza en la durabilidad: parte del valor", "teal", "")],
+        "Ingresos del S-1 de 2021: 81,2 millones (ejercicio 2020) y 152,2 millones (2021). Los de 2017 y su reparto por producto no se conocen.", SRCGL)
+
+
+def pila_de_hardware() -> Fig:
+    return layer_stack(
+        "Pila de hardware: servidores de base de datos, NFS y discos de Azure donde el más barato fue el cuello de botella",
+        "Cinco capas: aplicación, servidores de base de datos db1 y db2 con volúmenes LVM, servidores NFS con repositorios, discos de Azure de staging sin almacenamiento premium y almacenamiento de objetos S3. A la derecha, las limitaciones documentadas.",
+        [("Aplicación", "Servidores de aplicación; allí corría pg_dump", "plain"),
+         ("db1 y db2", "Primaria y secundaria; volúmenes con instantáneas LVM", "coral"),
+         ("Servidores NFS", "Repositorios Git y wikis; instantáneas de Azure cada 24 h", "teal"),
+         ("Discos de staging", "Azure clásico sin almacenamiento premium; unos 60 Mbps", "gold"),
+         ("Amazon S3", "Respaldos lógicos; el depósito estaba vacío", "plain")],
+        [("max_connections en 8.000: obligó a bajarlo a 2.000 para reiniciar", "coral"), ("Cuentas de almacenamiento de Azure: unos 30 TB cada una", "gold"), ("No se sabe: núcleos, memoria y tamaño de volúmenes", "plain")],
+        "Especificaciones de hardware no públicas; los datos de la derecha son del postmortem.", SRCGL)
+
+
+def pila_de_software() -> Fig:
+    return layer_stack(
+        "Pila de software: de la aplicación Rails al cliente de respaldo que no coincidía con la base",
+        "Cinco capas: aplicación GitLab con Rails; paquete Omnibus que elige las versiones; PostgreSQL 9.6 en producción; herramientas de respaldo y replicación pg_dump, pg_basebackup y LVM; y servicios de nube Azure y S3. A la derecha, las herramientas evaluadas después del incidente.",
+        [("Aplicación GitLab", "Rails; migraciones; reportes de abuso", "plain"),
+         ("Paquete Omnibus", "Elige la versión de PostgreSQL por el directorio de datos", "coral"),
+         ("PostgreSQL 9.6", "Primaria y secundaria; WAL por streaming", "teal"),
+         ("Respaldo y replicación", "pg_dump 9.2, pg_basebackup, LVM y instantáneas de Azure", "gold"),
+         ("Nube", "Azure para el servicio; Amazon S3 para los respaldos", "plain")],
+        [("Evaluadas: pgpool-II 3.6.1, pgbarman y WAL-E", "teal"), ("Monitoreo de respaldos con Prometheus", "teal"), ("No se sabe: versiones de Ruby y del sistema operativo", "plain")],
+        "Software nombrado por el postmortem; no es un inventario completo.", SRCGL)
+
+
+def infraestructura_mixta() -> Fig:
+    f, y = sketch("Infraestructura mixta: servicio en Azure, respaldos en S3 y una restauración que cruzó discos lentos",
+                  "Zonas: Azure con aplicación, bases y NFS; otra región de Azure con staging de discos lentos; Amazon S3 con respaldos vacíos; y monitoreo interno y público. Flechas continuas de datos y una flecha punteada de restauración de staging a producción durante unas 18 horas.")
+    f.group(10, y, 420, 260, "Azure: región de producción", "grey")
+    bx(f, 26, y + 40, 388, 50, "Aplicación y servidores de base de datos db1 y db2", "coral")
+    bx(f, 26, y + 106, 388, 50, "Servidores NFS: repositorios y wikis", "teal")
+    bx(f, 26, y + 172, 388, 60, "Monitoreo interno; sitio público de paneles", "plain")
+    f.group(470, y, 460, 120, "Azure: otra región", "grey")
+    bx(f, 486, y + 40, 428, 60, "Staging con discos clásicos de unos 60 Mbps", "gold")
+    f.group(470, y + 140, 460, 120, "Amazon S3", "grey")
+    bx(f, 486, y + 180, 428, 60, "Respaldos lógicos diarios: depósito vacío", "coral")
+    f.arrow([(414, y + 56), (486, y + 56)], dashed=True)
+    f.arrow([(486, y + 84), (414, y + 84)], "18 h", dashed=True, color="#c0432f", label_at=(450, y + 104))
+    f.arrow([(414, y + 80), (486, y + 200)], dashed=True)
+    return done(f, y + 280, "Dos nubes aislaban los respaldos del servicio, pero el contenido de una de ellas estaba vacío y la otra era lenta. Red, capacidad y dependencias externas: no se sabe.", foot=SRCGL)
+
+
+def a_prueba_de_fallos() -> Fig:
+    return kanban(
+        "A prueba de fallos: qué existía, qué falló, qué no existía y qué debió existir",
+        "Cuatro columnas. Existían y funcionaron: instantánea LVM manual, repositorios en otro almacenamiento, sistema de monitoreo interno. Existían y fallaron: réplica, respaldo lógico, avisos por correo, resincronización manual. No existían: archivado de WAL, instantáneas de Azure en bases, pruebas de restauración, propietario de la durabilidad. Debieron existir: confirmación con el nombre del host, alerta por ausencia, restauración rápida y ensayada.",
+        [("Existían y funcionaron", "teal", ["Instantánea LVM manual de las 17:20", "Repositorios en NFS: sin pérdida", "Monitoreo interno sin afectación"]),
+         ("Existían y fallaron", "coral", ["Réplica db2: atrasada y vaciada", "Respaldo pg_dump: vacío por versión", "Avisos por correo rechazados por DMARC", "Resincronización manual sin documentar"]),
+         ("No existían (documentado)", "gold", ["Archivado de WAL", "Instantáneas de Azure en bases", "Pruebas periódicas de restauración", "Propietario de la durabilidad"]),
+         ("Debieron existir (análisis propio)", "plain", ["Confirmación con el nombre del host", "Alerta por ausencia sin depender del correo", "Restauración rápida y ensayada", "RPO y RTO escritos y verificados"])],
+        "Las tres primeras columnas son del postmortem; la cuarta es análisis propio. Diez de doce capas de control no cumplieron su función según la sección de defensa en profundidad.",
+        SRCGL)
+
+# ==== EXPANDED FIGURES2 (end) ====
+
 FIGURES = {
     "gitlab-2017-capas-de-recuperacion.svg": capas_de_recuperacion,
     "gitlab-2017-cadena-de-causas.svg": cadena_de_causas,
@@ -415,4 +498,11 @@ FIGURES = {
     "gitlab-2017-arbol-de-fallas.svg": arbol_de_fallas,
     "gitlab-2017-cinco-porques.svg": cinco_porques,
     "gitlab-2017-comparables.svg": comparables,
+    # expanded entries2
+    "gitlab-2017-equipo-remoto-y-nube.svg": equipo_remoto_y_nube,
+    "gitlab-2017-esquema-del-negocio.svg": esquema_del_negocio,
+    "gitlab-2017-pila-de-hardware.svg": pila_de_hardware,
+    "gitlab-2017-pila-de-software.svg": pila_de_software,
+    "gitlab-2017-infraestructura-mixta.svg": infraestructura_mixta,
+    "gitlab-2017-a-prueba-de-fallos.svg": a_prueba_de_fallos,
 }

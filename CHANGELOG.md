@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de fallo: negocio, organización, costos, hardware, software, infraestructura y tolerancia a fallos
+
+- Knight Capital, HealthCare.gov, TSB y Meta 2021 con secciones nuevas de sedes y organización, visión y misión, esquema de la operación, costos del incidente, competidores, hardware, software, infraestructura y mecanismos a prueba de fallos, cada una con figura propia (22 a 24 figuras por caso, 11 000 a 12 000 palabras);
+- fuentes nuevas: Form 10-K de Knight de 2012 y Form 10-Q de Facebook; lo que las fuentes públicas no publican (hardware, lenguajes, centros de datos, plantilla, misión) queda marcado como no se sabe y no se inventa;
+- commits `c6cfd632`, `99baa5da`, `6366c211` y `7d55893b`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de éxito: hardware, software, infraestructura y tolerancia a fallos (Amazon, Spotify, Airbnb y Stripe)
 
 - cada caso suma secciones y figuras propias de hardware, software, características de la infraestructura, tolerancia a fallos, visión y misión, y estructura y presencia mundial, con cada afirmación rotulada documentado, inferido o no se sabe; donde las fuentes no publican el dato (hardware de Airbnb, nube de Airbnb, plantilla por área) se declara;

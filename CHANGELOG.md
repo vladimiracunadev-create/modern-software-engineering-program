@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito: esquema del negocio y costos operativos (Amazon, Spotify, Airbnb y Stripe)
+
+- esquema del negocio con figura en los cuatro casos; costos operativos con cifras del 10-K de Amazon y de Airbnb y del formulario 6-K de Spotify, con márgenes por segmento; Stripe, empresa privada, declara que costos y competidores no son públicos;
+- competidores nombrados por el 10-K de Airbnb, plantilla y propiedades del 10-K de Amazon y el proveedor de nube de Airbnb; las cifras de la SEC se leyeron con WebFetch porque curl está bloqueado y la fuente lo declara;
+- commits `18591f0f`, `bd6bd497`, `1d500a55` y `6fbc8502`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de fallo: negocio, organización, costos, hardware, software, infraestructura y tolerancia a fallos
 
 - Knight Capital, HealthCare.gov, TSB y Meta 2021 con secciones nuevas de sedes y organización, visión y misión, esquema de la operación, costos del incidente, competidores, hardware, software, infraestructura y mecanismos a prueba de fallos, cada una con figura propia (22 a 24 figuras por caso, 11 000 a 12 000 palabras);

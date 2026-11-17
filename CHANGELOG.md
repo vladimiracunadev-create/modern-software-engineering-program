@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de éxito: hardware, software, infraestructura y tolerancia a fallos (Amazon, Spotify, Airbnb y Stripe)
+
+- cada caso suma secciones y figuras propias de hardware, software, características de la infraestructura, tolerancia a fallos, visión y misión, y estructura y presencia mundial, con cada afirmación rotulada documentado, inferido o no se sabe; donde las fuentes no publican el dato (hardware de Airbnb, nube de Airbnb, plantilla por área) se declara;
+- fuentes nuevas verificadas con curl: páginas institucionales y de principios de Amazon, página de contacto de Spotify y documentación de Stripe;
+- commits `58eccfa6`, `262bacf0`, `33245217` y `6ee3018d`; sin cambio de contadores 540/45
+
 ## 2026-11-17 — Casos de éxito ampliados: Netflix, WhatsApp, Uber y Mercado Libre
 
 - los cuatro casos pasan de unas 2 900 a 4 200 palabras a entre 11 000 y 16 200 (Netflix 16 200, WhatsApp 13 100, Uber 12 400, Mercado Libre 11 200) y de 4 a 6 figuras a entre 22 y 25, con arquitectura en niveles de zoom (contexto, contenedores, componentes, secuencias, datos, despliegue), esquema del negocio, costos operativos por rubro, plantilla, hardware, software, infraestructura, tolerancia a fallos, alternativas descartadas rotuladas como análisis propio, vínculos concepto → clase, preguntas y mini-ejercicios;

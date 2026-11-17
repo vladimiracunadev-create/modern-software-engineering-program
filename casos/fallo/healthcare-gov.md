@@ -19,6 +19,22 @@
 | Daño | Fallos, errores y lentitud de acceso; el sitio estuvo caído, en estimación de CMS, un 60 % del tiempo durante algunas semanas de octubre; el FFM pasó de 56 a más de 209 millones de dólares obligados | CMS, 1 de diciembre de 2013; GAO-14-694 |
 | Estado posterior | Recuperado para un uso alto en dos meses; 5,4 millones de planes elegidos en el mercado federal al cierre de la primera inscripción (31 de marzo de 2014) | OEI-06-14-00350 |
 
+### Sedes, agencias y contratistas
+
+HealthCare.gov no es una empresa con oficinas por países, sino un programa de varias agencias y contratistas de EE. UU. Lo que consta: HHS creó una oficina nueva para los mercados en marzo de 2010 y trasladó el proyecto a CMS en enero de 2011, una decisión que, según los entrevistados por la OIG, se debió en gran parte a que la financiación y la infraestructura de CMS podían apoyarlo; algunos funcionarios de HHS se oponían (OEI-06-14-00350). Los contratistas principales fueron CGI Federal (mercado federal), QSSI (centro de datos y, desde octubre de 2013, integrador), Terremark (infraestructura y capacidad de cómputo) y Accenture (desde 2014) (GAO-14-694; OEI-06-14-00350). QSSI trabajaba desde una sede en Columbia (OEI-06-14-00350). **No se sabe:** la ubicación de los centros de datos, los países o ciudades de cada contratista y la plantilla de cada organización.
+
+### Organización y responsabilidades
+
+![Esquema de actores: HHS, CMS con sus oficinas, el centro de operaciones y los contratistas CGI Federal, QSSI, Terremark y Accenture, junto con fuentes federales, estados y aseguradoras.](../figures/healthcare-gov-organizacion-y-actores.svg)
+
+**Cómo leer la figura.** De arriba abajo: la agencia, las oficinas de CMS, los contratistas y, abajo, las organizaciones externas de las que dependía el flujo. Las flechas discontinuas son relaciones de contrato o de coordinación. Mira que hasta octubre no había una caja de integración. **Dónde deja de valer:** no es un organigrama: las fuentes consultadas no publican la estructura interna ni la plantilla.
+
+La OIG documenta que HHS asignó primero el proyecto a una oficina nueva, que logró avances pero tenía recursos limitados y expectativas contrapuestas, y que la integración en CMS trajo desafíos por una dirección poco clara; el estudio identifica como factor la falta de un liderazgo claro del proyecto (OEI-06-14-00350). El análisis se hace sobre funciones y decisiones, no sobre personas.
+
+### Visión y misión
+
+La misión legal del programa es la que fija la ley de 2010: que cada estado tenga un mercado donde la persona compare y elija planes privados con subsidios según ingresos, y que el gobierno federal opere uno donde el estado no lo haga (GAO-14-694). Este caso no cita un texto de misión o visión de CMS o de HHS porque no se pudo verificar una versión consultable el 16 de noviembre de 2026; no se inventa una cita.
+
 ## Contexto y problema
 
 La ley creó los «mercados»: sitios donde una persona compara y elige planes de seguro privados, con subsidios según sus ingresos. Para los estados que no montaron el suyo, el gobierno federal tenía que ofrecer uno. Era, en palabras de CMS recogidas por GAO, un mercado federal **sin precedente**, con plazos comprimidos (GAO-14-694). El objetivo de Healthcare.gov era permitir que cualquier residente de esos estados creara una cuenta, verificara su identidad e ingresos, viera los planes para los que era elegible, eligiera uno y se inscribiera.
@@ -115,6 +131,28 @@ La cifra de 91 a 175 millones del contrato de continuación se explica en parte 
 - **OIG.** Su estudio de caso ordena los factores del colapso y de la recuperación por fases, con una cronología hasta la segunda temporada (OEI-06-14-00350).
 - **Reputacional.** Las fuentes consultadas no miden el efecto reputacional; este caso no lo cuantifica.
 
+### Esquema de la operación: servicio público, actores y flujos
+
+La «operación» no genera ingresos sino un servicio: elegibilidad, comparación e inscripción. El valor está en conectar a consumidores, aseguradoras y programas públicos; el flujo de datos va del solicitante a las fuentes federales para verificar, del consumidor al plan elegido y del mercado a la aseguradora (GAO-14-694; GAO-15-238). El flujo de dinero entre el gobierno, los consumidores subsidiados y las aseguradoras correspondía al módulo financiero, aplazado antes del lanzamiento (GAO-14-694); los detalles de esos pagos no se desarrollan en las fuentes consultadas.
+
+### Costos operativos y costo del incidente
+
+| Rubro | Cifra | Fuente |
+| --- | --- | --- |
+| Obligaciones del FFM | De 56 a más de 209 millones (septiembre de 2011 a febrero de 2014) | GAO-14-694 |
+| Obligaciones del centro de datos | De 30 a casi 85 millones | GAO-14-694 |
+| Contrato de continuación | 91 millones en enero de 2014; más de 175 millones a junio de 2014 | GAO-14-694 |
+| Ampliación de capacidad | 1,5 millones de obligación para pasar de 50 a 400 TB | GAO-14-694 |
+| Honorarios no pagados al contratista | Unos 267 000 dólares (≈ 2 % de 12,5 millones) | GAO-14-694 |
+| Autorizaciones de gasto indebidas | Unas 40 ocasiones, más de 30 millones | GAO-14-694 |
+| Costo total del programa y de la recuperación | No se sabe en las fuentes consultadas | — |
+
+El análisis de GAO cubre dos órdenes de trabajo y un contrato que sumaban más del 40 % de lo obligado para el desarrollo hasta marzo de 2014 (GAO-14-694). Las cifras son obligaciones, no gasto ejecutado; el costo total del programa, el del primer día y el efecto sobre los usuarios no se publican con una fuente verificada en este caso.
+
+### Competidores y contexto de mercado
+
+No hay competidores: es un servicio público. El contexto comparable son los mercados estatales, que cada estado podía elegir operar: 34 estados dejaron el federal a CMS en la planificación de 2013, 15 de ellos con colaboración estatal (GAO-13-601), y 36 lo usaron en la primera inscripción (OEI-06-14-00350). La alternativa del consumidor eran otros canales de inscripción, como centros de llamadas y navegantes (GAO-14-694; OEI-06-14-00350). Qué ocurrió con los mercados estatales después del fallo no consta en las fuentes consultadas.
+
 ## Arquitectura y esquemas
 
 La arquitectura fue **incremental**: CMS adoptó un enfoque de desarrollo iterativo (llamado Ágil en el informe) que era nuevo para su programa, y diseñó un marco de ciclo de vida con cuatro revisiones de gobierno que debía aprobar una junta. Los funcionarios de CMS dijeron a GAO que ese marco no siempre se siguió porque no encajaba con el enfoque modificado que adoptaron (GAO-14-694).
@@ -172,6 +210,34 @@ Más allá del número, GAO cuenta cómo era la capacidad: los requisitos de cap
 **Cómo leer la figura.** Cada lámina es una barrera; el hueco, la manera en que fue sorteada; la flecha roja, la decisión de lanzar en la fecha fijada. **Dónde deja de valer:** metáfora, no medición; la lista de barreras sale de las deficiencias que describen GAO y la OIG, y la agrupación en ocho es nuestra.
 
 Detalle de las barreras. **Estrategia de adquisición:** HHS exige una por cada inversión mayor de TI; CMS no la elaboró (GAO-14-694). **Revisiones de gobierno:** la de preparación se movió de marzo a septiembre de 2013 y no consta la aprobación (GAO-14-694). **Requisitos:** no siempre aprobados ni vinculados a requisitos superiores e inferiores (GAO-15-238). **Verificación independiente (IV&V):** existió; en septiembre de 2013 encontró 45 errores críticos y 324 graves y reportó que no había evidencia de que se estuvieran corrigiendo (GAO-15-238). **Pruebas:** las de integración y de extremo a extremo requeridas no se hicieron antes del lanzamiento; la documentación de pruebas carecía de criterios de aprobación (GAO-15-238). **Capacidad:** sin plan. **Contratista:** CMS expresó preocupaciones por escrito en abril y noviembre de 2013, trasladó operaciones a las oficinas del contratista en septiembre, pero optó por no retener honorarios (GAO-14-694). **Monitoreo:** insuficiente, según CMS (1 de diciembre de 2013).
+
+### Hardware utilizado
+
+Lo documentado es la capacidad: el mercado se alojaba en un entorno de computación en la nube a cargo de Terremark, el contratista principal de la capacidad y la infraestructura (OEI-06-14-00350). A cuatro días y medio del lanzamiento, CMS pidió a Terremark duplicar la capacidad ya comprada; el contratista afirmó haber reunido equipos de varios lugares, y hacia el 29 de septiembre los probadores indicaron que el límite de usuarios simultáneos había subido de forma sustancial (OEI-06-14-00350). Tras el lanzamiento, CMS duplicó los servidores, añadió máquinas virtuales para identidad y el FFM y sustituyó una base de datos virtual por una física de alta capacidad en identidad (GAO-15-238). **No se sabe:** marcas y modelos de servidores, red y ubicación de los centros de datos.
+
+### Software utilizado
+
+![Seis capas de la pila de HealthCare.gov: aplicaciones, bases de datos, identidad y centro de datos documentados; lenguajes y sistemas operativos desconocidos; cómputo en parte; hardware y red desconocidos.](../figures/healthcare-gov-hardware-y-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa; verde: documentada; dorado: parcial; gris: no se sabe. Mira que lo desconocido está donde las auditorías no miraron: el código y la máquina. **Dónde deja de valer:** es el límite de lo público, no la pila real.
+
+Documentado: el FFM de CGI Federal con tres módulos (elegibilidad e inscripción, gestión de planes y financiero); el centro de servicios de datos de QSSI; el sistema de gestión de identidad; un enfoque de desarrollo iterativo nuevo para CMS con un marco de revisiones secuenciales (GAO-14-694; GAO-15-238). La propuesta del contratista incluía bases relacional (se cita Oracle) y no relacional; CMS dirigió en enero de 2012 el uso de una plataforma NoSQL concreta pese a las reservas del contratista (OEI-06-14-00350). En la segunda temporada se rediseñó la parte de identidad. **No se sabe:** lenguajes, frameworks, sistemas operativos, middleware y herramientas de despliegue.
+
+### Infraestructura
+
+Era una infraestructura de nube contratada, con un entorno de producción y entornos de prueba cuya coordinación fue una barrera en 2013 (OEI-06-14-00350). La escala está documentada por el uso: más de 1,8 millones de visitas al día en diciembre de 2013 y 250 000 usuarios simultáneos de capacidad en la segunda inscripción (GAO-15-238; OEI-06-14-00350). Dependencias: fuentes federales como IRS y seguridad social, aseguradoras que cargan planes y estados (OEI-06-14-00350; GAO-15-238). **No se sabe:** regiones, número de centros de datos y la capacidad real el primer día.
+
+![Línea de tiempo en días del 26 de septiembre al 1 de octubre de 2013 con la duplicación de capacidad, un día de pruebas y la decisión de que la capacidad ya no era crítica.](../figures/healthcare-gov-ultimas-72-horas.svg)
+
+**Cómo leer la figura.** Cada fila es un hilo de las últimas jornadas; las líneas discontinuas marcan el pedido y el lanzamiento. Mira lo corta que es la ventana. **Dónde deja de valer:** solo el pedido, el 29 y 30 de septiembre y el lanzamiento son fechas documentadas; la longitud de las barras es indicativa.
+
+### A prueba de fallos: qué existía, qué falló y qué debió existir
+
+![Tres columnas con mecanismos que existían, que fallaron o faltaban y que debieron existir en HealthCare.gov.](../figures/healthcare-gov-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Verde azulado: lo que existía; coral: lo que falló o faltaba; dorado: análisis propio. Las filas no se corresponden una a una. **Dónde deja de valer:** no mide eficacia.
+
+Redundancia y capacidad: se amplió la capacidad al doble en 72 horas, pero no existía un plan de capacidad (GAO-15-238). Conmutación y degradación: no consta que hubiera una cola de espera o una apertura por cohortes; el módulo financiero y el mercado de pequeñas empresas se aplazaron como reducción de alcance (GAO-14-694). Pruebas: las de extremo a extremo requeridas no se hicieron y la verificación independiente detectó 45 críticos y 324 graves (GAO-15-238). Límites: ninguno sobre el tráfico de entrada se menciona en las fuentes. Recuperación: tras el lanzamiento, un integrador, sala de crisis dos veces al día, monitoreo instrumentado y sistemas de respaldo (CMS, 1 de diciembre de 2013; OEI-06-14-00350). Qué debió existir: criterio de salida, carga con margen y apertura gradual (análisis propio).
 
 ## Casos especiales y cómo fallan
 

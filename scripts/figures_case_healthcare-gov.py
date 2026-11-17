@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from case_fig_helpers_fallo import equi_axis, sequence, slices  # noqa: E402
+from figure_kit import dumbbell as _dumbbell_unused  # noqa: E402
 from figure_cases import case_cards  # noqa: E402
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, dumbbell, line_chart, timeline  # noqa: E402
 
@@ -358,6 +359,78 @@ def salida() -> Fig:
                 "teal", ANALISIS)
 
 
+def organizacion() -> Fig:
+    f, y = sketch("Quién era quién: organizaciones y contratistas del mercado federal",
+                  "Esquema de actores: HHS, que creó en 2010 una oficina nueva y en enero de 2011 trasladó el proyecto a CMS; dentro de CMS, la oficina de información y la de adquisiciones; los contratistas CGI Federal para el mercado federal, QSSI para el centro de datos y luego como integrador, Terremark para la infraestructura de cómputo y Accenture desde 2014; y las fuentes federales y los estados.")
+    y0 = y + 6
+    bx(f, 300, y0, 340, 52, "HHS: crea en marzo de 2010 una oficina nueva para los mercados", "navy", 13, True)
+    bx(f, 300, y0 + 80, 340, 56, "CMS: el proyecto pasa a CMS en enero de 2011", "teal", 13, True)
+    f.arrow([(470, y0 + 52), (470, y0 + 80)])
+    bx(f, 10, y0 + 170, 280, 60, "Oficina de información de CMS: programa y tecnología", "plain")
+    bx(f, 330, y0 + 170, 280, 60, "Oficina de adquisiciones y subvenciones de CMS: contratos", "plain")
+    bx(f, 650, y0 + 170, 280, 60, "Centro de operaciones del mercado (XOC): creado tras el lanzamiento", "gold")
+    for x in (150, 470, 790):
+        f.arrow([(470, y0 + 136), (x, y0 + 170)], dashed=True)
+    cs = [("CGI Federal: mercado federal (FFM)", "coral"), ("QSSI: centro de datos; integrador desde octubre de 2013", "coral"), ("Terremark: infraestructura y capacidad de cómputo", "coral"), ("Accenture: continuación del FFM desde enero de 2014", "gold")]
+    for i, (t, k) in enumerate(cs):
+        bx(f, 10 + i * 232, y0 + 270, 218, 76, t, k, 13, True)
+        f.arrow([(470, y0 + 230), (119 + i * 232, y0 + 270)], dashed=True)
+    bx(f, 10, y0 + 376, 450, 56, "Fuentes federales: por ejemplo IRS y seguridad social", "plain")
+    bx(f, 480, y0 + 376, 450, 56, "Estados con mercado propio o asociado; aseguradoras", "plain")
+    return done(f, y0 + 448,
+                "Lo que enseña: un mismo producto dependía de varias organizaciones con contratos distintos y, hasta octubre, sin un integrador único. Los nombres son los que dan las auditorías; no se asigna responsabilidad a personas.",
+                "gold", "Fuente: OEI-06-14-00350 y GAO-14-694. Plantilla y organigrama interno de CMS: no se sabe.")
+
+
+def setenta_y_dos() -> Fig:
+    return timeline(
+        "Las últimas 72 horas: duplicar la capacidad con el lanzamiento encima",
+        "Línea de tiempo en días desde el 26 de septiembre de 2013: ese día CMS pide a su contratista de infraestructura duplicar la capacidad ya comprada; el 29 los probadores dicen que el límite de usuarios simultáneos subió mucho; el 29 y 30 un responsable técnico comunica que la capacidad ya no es un problema crítico; el 1 de octubre se lanza.",
+        [("Infraestructura (Terremark)", [(0, 3, "duplica capacidad", "teal")]),
+         ("Pruebas", [(2, 4, "1 día de pruebas", "gold")]),
+         ("Decisión", [(3, 5, "«ya no es crítico»", "navy")])],
+        unit="Días desde el 26 de septiembre de 2013", events=[(0, "26 sep: pedido"), (5, "1 oct: lanzamiento")],
+        ticks=[0, 1, 2, 3, 4, 5, 6], t_max=6, label_w=250,
+        note="Solo son fechas documentadas el pedido del 26 de septiembre, el 29 y 30 de septiembre y el lanzamiento; la longitud de las barras es indicativa. El pedido llegó a 4,5 días del lanzamiento y se dejó al menos un día de pruebas. Un directivo de Terremark describió el esfuerzo como «duplicar todo en 72 horas»; las fuentes no dan el resultado medido de esa prueba. Lo que consta es que, el primer día, la identidad aun así se vio desbordada (GAO-15-238).",
+        note_kind="gold", foot="Fuente: OEI-06-14-00350 (capítulo del lanzamiento) y GAO-15-238. Cifras de capacidad real: no se sabe.")
+
+
+def hw_sw() -> Fig:
+    f, y = sketch("Hardware y software de HealthCare.gov: lo que se sabe y lo que no es público",
+                  "Pila de seis capas: aplicaciones del mercado federal con tres módulos, bases de datos relacional y NoSQL, gestión de identidad, centro de datos de servicios, infraestructura de cómputo en nube a cargo de Terremark, y red y hardware; solo se documentan las aplicaciones, la elección de bases de datos y la capacidad añadida; lenguajes, sistemas operativos y hardware concreto no constan.")
+    y0 = y + 6
+    capas = [("Aplicaciones: FFM de CGI Federal con elegibilidad e inscripción, gestión de planes y financiero; desarrollo iterativo (documentado)", "teal", "GAO-14-694"),
+             ("Bases de datos: relacional (Oracle citada) y NoSQL de un proveedor concreto elegido en enero de 2012 (documentado)", "teal", "OEI-06-14-00350"),
+             ("Identidad (EIDM) y centro de datos (Hub de QSSI) (documentado)", "teal", "GAO-15-238"),
+             ("Lenguajes, frameworks, sistemas operativos y herramientas de despliegue (no se sabe)", "grey", "no consta"),
+             ("Cómputo: entorno en nube de Terremark; máquinas virtuales; base de datos física para identidad; servidores duplicados (parcial)", "gold", "OEI-06-14-00350; GAO-15-238"),
+             ("Hardware, red y centros de datos: modelo, ubicación y topología (no se sabe)", "grey", "no consta")]
+    for i, (t, k, s) in enumerate(capas):
+        yy = y0 + i * 66
+        bx(f, 10, yy, 640, 58, t, k, 13, k == "teal")
+        bx(f, 670, yy, 250, 58, s, "plain", 13)
+    return done(f, y0 + 6 * 66 + 4,
+                "Lo que enseña: las auditorías describen contratos, módulos, bases de datos y capacidad, no el código ni el hardware. La decisión sobre la base de datos y el cómputo en la nube son los datos técnicos más concretos que hay. Aquí no se inventa ningún lenguaje ni modelo de servidor.",
+                "gold", "Fuentes: GAO-14-694, GAO-15-238 y OEI-06-14-00350. Verde: documentado; dorado: parcial; gris: no se sabe.")
+
+
+def prueba_de_fallos() -> Fig:
+    f, y = sketch("A prueba de fallos: lo que existía, lo que falló y lo que debió existir",
+                  "Tres columnas: mecanismos que existían (verificación independiente, revisiones de gobierno en papel, ampliación de capacidad de última hora, cartas al contratista), los que fallaron o faltaban (pruebas de extremo a extremo, plan de capacidad, criterio de salida con veto, monitoreo, apertura gradual) y los que debieron existir.")
+    y0 = y + 6
+    cols = [("Existían (documentado)", "teal", ["Verificación independiente con hallazgos de septiembre", "Marco de cuatro revisiones de gobierno", "Ampliación urgente de capacidad en 72 horas", "Cartas de preocupación al contratista", "Revisión de preparación operativa parcial"]),
+            ("Fallaron o faltaban (documentado)", "coral", ["Pruebas de extremo a extremo requeridas", "Plan de capacidad y requisitos de hardware", "Criterio de salida con poder de veto", "Monitoreo y respuesta en tiempo real", "Apertura gradual con vuelta atrás"]),
+            ("Debieron existir (análisis propio)", "gold", ["Criterio de salida de cinco preguntas", "Carga con margen sobre la demanda", "Apertura por cohortes y regiones", "Integrador único desde el inicio", "Canal formal para malas noticias"])]
+    for c, (h, k, items) in enumerate(cols):
+        x = 10 + c * 306
+        bx(f, x, y0, 296, 40, h, k, 13, True)
+        for i, t in enumerate(items):
+            bx(f, x, y0 + 52 + i * 68, 296, 60, t, k, 13)
+    return done(f, y0 + 52 + 5 * 68 + 4,
+                "Lo que enseña: las barreras que existían medían o informaban pero ninguna tenía poder de detener el lanzamiento. La recuperación posterior añadió justamente lo que faltaba: un integrador, una sala de crisis y monitoreo. La columna de la derecha es análisis propio.",
+                "gold", "Fuente: GAO-14-694, GAO-15-238, OEI-06-14-00350 y CMS (1 de diciembre de 2013); tercera columna: análisis propio.")
+
+
 FIGURES = {
     "healthcare-gov-contexto.svg": contexto,
     "healthcare-gov-recorrido-y-modulos.svg": flujo,
@@ -376,6 +449,10 @@ FIGURES = {
     "healthcare-gov-recuperacion.svg": recuperacion,
     "healthcare-gov-arquitectura-despues.svg": despues,
     "healthcare-gov-criterio-de-salida.svg": salida,
+    "healthcare-gov-organizacion-y-actores.svg": organizacion,
+    "healthcare-gov-ultimas-72-horas.svg": setenta_y_dos,
+    "healthcare-gov-hardware-y-software.svg": hw_sw,
+    "healthcare-gov-a-prueba-de-fallos.svg": prueba_de_fallos,
 }
 
 

@@ -24,6 +24,22 @@ Las fuentes consultadas no atribuyen responsabilidades a personas concretas por 
 
 Dos datos más de la ficha. La FCA define como periodo relevante de su análisis del 16 de diciembre de 2015 al 10 de diciembre de 2018 (FCA, 3.1), es decir, desde el programa de migración hasta el regreso a la normalidad. Y el regulador concluyó que TSB incumplió dos principios de la regulación británica: el Principio 2 (diligencia, cuidado y pericia, por la gestión de la externalización con SABIS) y el Principio 3 (organizarse y controlarse de forma responsable y eficaz, con sistemas adecuados de gestión de riesgos) (FCA, 2.33 y 2.34).
 
+### Sedes, oficinas y entidades
+
+El Final Notice da una sola sede: el domicilio registrado de TSB Bank plc en 20 Gresham Street, Londres. Las entidades que aparecen son TSB Bank plc (el banco), TSB Banking Group plc (el holding), Banco de Sabadell, S.A. (el propietario) y SABIS: Sabadell Information Systems, S.A. (SABIS Spain) y Sabadell Information Systems Limited (SABIS UK) (FCA, definiciones). **No se sabe** en las fuentes consultadas: el número de sucursales, la plantilla, el número de oficinas o países de SABIS y la ubicación de los centros de datos.
+
+### Organización y responsabilidades
+
+![Esquema de organizaciones: Sabadell propietario, holding y banco TSB con su consejo y comité ejecutivo, Lloyds como plataforma anterior, SABIS con 85 terceros y los reguladores.](../figures/tsb-organizacion-y-contratos.svg)
+
+**Cómo leer la figura.** De arriba abajo: propietario, holding, banco; a los lados, la plataforma anterior y el proveedor con su cadena de terceros. Mira la flecha de contrato de servicios: toda la plataforma nueva dependía de ella. **Dónde deja de valer:** no es un organigrama interno; las fuentes no lo publican.
+
+La FCA describe que el consejo de TSB (los consejos de TSB y de TSBBG) y el comité ejecutivo (BEC) tenían papeles distintos: las funciones del BEC atestiguaban sus requisitos no funcionales y la función de TI atestiguaba qué se había probado; el consejo y sus subcomités debían decidir con esa información (FCA, 2.15). El contrato con SABIS se articulaba en un acuerdo marco de servicios (MSA) y un acuerdo de servicios de operación (OSA) (FCA, 2.34). El análisis se hace sobre funciones y decisiones, no sobre personas.
+
+### Visión y misión
+
+Este caso no cita una declaración de visión o misión de TSB: las fuentes consultadas no la contienen y no se pudo verificar una versión consultable el 16 de noviembre de 2026. La lógica estratégica documentada es otra: Sabadell compró TSB en 2015 con la expectativa de rendimientos financieros de migrar los servicios a su plataforma Proteo (FCA, 2.2).
+
 ## Contexto y problema
 
 Tras la escisión, TSB siguió recibiendo sus servicios informáticos de la plataforma de Lloyds bajo un contrato de externalización que le permitía usarla hasta julio de 2024, con opción de salir mediante una copia operada por un tercero o una plataforma completamente nueva (FCA, 2.1). Cuando Sabadell compró TSB, parte de la lógica de negocio era migrar los servicios a Proteo, la plataforma bancaria de Sabadell, con la expectativa de rendimientos financieros; el objetivo era migrar a finales de 2017 (FCA, 2.2). El sistema objetivo era una versión nueva, **Proteo4UK**, adaptada al mercado británico, creada en gran parte a partir de la plataforma española ya existente pero «aún no probada» en su versión británica (FCA, 2.3).
@@ -112,6 +128,26 @@ Estaba en juego la lógica económica de la adquisición: migrar a Proteo era pa
 
 **Lo que cuesta el control y lo que cuesta su ausencia (análisis propio).** Un ensayo adicional de la configuración activo-activo costaba días de pruebas sobre servicios en vivo y un riesgo acotado; las consecuencias de no hacerlo se midieron en meses de incidente, 32,7 millones de compensación y la sanción. La asimetría es la misma que en otros casos: el coste de verificar es visible y inmediato, el de no verificar es probabilístico y diferido.
 
+### Esquema de la operación: valor, ingresos y flujos
+
+TSB es un banco minorista del Reino Unido: sus clientes usan cuentas, pagos y tarjetas por cuatro canales (internet y móvil, teléfono, sucursal y tarjetas) y el banco obtiene sus ingresos de la actividad bancaria; el desglose de ingresos de TSB no está en las fuentes consultadas. El flujo de servicio es de la plataforma al canal; el flujo económico del proyecto es de TSB a SABIS por los servicios de diseño, construcción, migración y operación, con la expectativa de ahorro y rendimiento para el propietario (FCA, 2.2, 2.4). La compensación a clientes (32,7 millones de libras) y las multas son flujos de salida del incidente.
+
+### Costos operativos y costo del incidente
+
+| Rubro | Cifra | Fuente |
+| --- | --- | --- |
+| Compensación a clientes | 32 705 762 libras, incluidos pagos por molestias, gastos y reposición de situación | FCA, 2.8, 2.32 |
+| Multa de la FCA | 29,75 millones (42,5 con un 30 % de descuento por acuerdo) | FCA, Final Notice |
+| Multa de la PRA | 18,9 millones | Comunicado FCA/PRA |
+| Quejas gestionadas | 225 492 (≈ 4,3 % de la base) entre el 22 de abril de 2018 y el 7 de abril de 2019 | FCA, 2.8 |
+| Coste interno de remediación, programa y pérdidas por clientes | No se sabe en las fuentes consultadas | — |
+
+La FCA identifica como hechos de costo solo los de compensación y sanción. Los recursos adicionales para quejas, incluidos terceros, se mencionan sin cifra (FCA, 2.32). El coste interno total y el efecto en resultados del banco o de Sabadell no se pueden dar sin una fuente verificada y no se inventan.
+
+### Competidores y contexto de mercado
+
+Las fuentes consultadas no hablan de competidores ni de cuota de mercado de TSB. Lo documentado del contexto: el banco se escindió de Lloyds en 2014 y siguió usando su plataforma hasta 2018 con opción hasta 2024 (FCA, 2.1); la estrategia del propietario preveía migrar a Proteo (FCA, 2.2). Qué ocurrió con los clientes o con los competidores tras el incidente no consta en las fuentes consultadas.
+
 ## Arquitectura y esquemas
 
 Tres decisiones arquitectónicas y de gobierno condicionan todo lo demás.
@@ -173,6 +209,30 @@ La FCA detalla la dependencia: TSB no hizo al inicio una diligencia formal y com
 **Cómo leer la figura.** Cada lámina es una barrera; rojo: no se hizo o se redujo; dorado: existió con eficacia parcial. La flecha es la decisión de migrar. **Dónde deja de valer:** es una metáfora, no una medición; la lista de barreras sale del Final Notice y la agrupación en ocho es nuestra.
 
 Resumen de las barreras con su deficiencia: **planificación**, plan maestro y replan «insuficientemente de izquierda a derecha» (2.11, 2.12); **pruebas**, no siguieron los plazos y se solaparon, terminando el día antes de decidir (2.13); **activo-activo**, reducida (2.14); **documentación**, configuración en vez de diseño y, en febrero, sin exigir toda (2.21); **proveedor**, sin diligencia formal (2.19); **confirmaciones**, con salvedades (2.25); **consejo**, limitaciones y cambios de responsabilidad no señalados (2.15, 2.17); **continuidad**, planes y ensayos para periodos cortos (2.28 a 2.30).
+
+### Hardware utilizado
+
+Las fuentes no describen el hardware. Lo único documentado es que había dos centros de datos en una configuración activo-activo para los canales digitales, y que ciertos componentes de esos centros estaban mal configurados (FCA, 2.14); el banco añade que los dos centros no quedaron idénticos pese a especificarse así (TSB, 2019). **No se sabe:** marcas, modelos, capacidad, ubicación y red de los centros.
+
+### Software utilizado
+
+![Seis capas de la pila de TSB: plataforma Proteo4UK, migración, configuración sin diseño, dos centros de datos con configuración incoherente; lenguajes, sistemas operativos y hardware desconocidos.](../figures/tsb-hardware-y-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa técnica; verde: documentada; dorado: parcial; gris: no se sabe. Mira que lo documentado trata de procedencia y proceso, no de código. **Dónde deja de valer:** es el límite de lo público.
+
+Proteo4UK es una versión nueva de la plataforma bancaria Proteo de Sabadell, adaptada al Reino Unido, construida en gran parte a partir de la plataforma española y aún no probada (FCA, 2.3 y definiciones). La plataforma anterior era la de Lloyds (FCA, 2.1). **No se sabe:** el stack técnico (lenguajes, bases de datos, sistemas operativos, middleware) y las herramientas de migración y despliegue.
+
+### Infraestructura
+
+Estaba a cargo de SABIS, que se apoyaba en 85 terceros, y no se podía volver a la plataforma de Lloyds tras la migración (FCA, 2.22, 2.27). La escala se conoce por los clientes (5,2 millones) y por el volumen de llamadas, que superó lo planificado (FCA, 2.31). **No se sabe:** si la infraestructura era propia, alquilada o híbrida, las regiones y las dependencias concretas.
+
+### A prueba de fallos: qué existía, qué falló y qué debió existir
+
+![Tres columnas con mecanismos que existían, que fallaron o faltaban y que debieron existir en TSB.](../figures/tsb-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Verde azulado: lo que existía; coral: lo que falló o faltaba; dorado: análisis propio. **Dónde deja de valer:** no mide eficacia; las filas no se corresponden una a una.
+
+Redundancia: dos centros de datos activo-activo, con una prueba reducida de esa configuración (FCA, 2.14). Conmutación y retorno: no había vuelta atrás a la plataforma de Lloyds (FCA, 2.27). Límites y despliegue gradual: algunos servicios se migraron antes (TSB, 2019), pero el evento principal movió la mayoría de las operaciones y datos (FCA, 2.5). Pruebas: terminaron el día antes de decidir (FCA, 2.13). Recuperación: estructura Bronze, Silver y Gold, playbooks de 48 horas y ejercicios de pocos días frente a incidentes de semanas (FCA, 2.29, 2.30). Qué debió existir: oleadas con retorno, evidencia según irreversibilidad y capacidad de quejas desde el inicio (análisis propio).
 
 ## Casos especiales y cómo fallan
 

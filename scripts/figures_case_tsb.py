@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from case_fig_helpers_fallo import equi_axis, sequence, slices  # noqa: E402
+from figure_kit import dumbbell as _dumbbell_unused  # noqa: E402
 from figure_cases import case_cards  # noqa: E402
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, timeline  # noqa: E402
 
@@ -331,6 +332,64 @@ def escalera() -> Fig:
                 "teal", ANALISIS)
 
 
+def organizacion() -> Fig:
+    f, y = sketch("Quién contrataba con quién: propietario, banco, proveedor y regulador",
+                  "Esquema de organizaciones y contratos: Banco Sabadell como propietario de TSB, el grupo holding y el banco TSB con su consejo y su comité ejecutivo, el proveedor SABIS con 85 terceros bajo contratos de servicios, Lloyds como proveedor anterior, y la FCA y la PRA como reguladores.")
+    y0 = y + 6
+    bx(f, 310, y0, 320, 56, "Banco Sabadell: propietario desde julio de 2015", "navy", 13, True)
+    bx(f, 310, y0 + 84, 320, 56, "TSB Banking Group plc: holding; su consejo y el del banco", "teal", 13, True)
+    bx(f, 310, y0 + 168, 320, 56, "TSB Bank plc: banco minorista; comité ejecutivo (BEC)", "teal", 13, True)
+    f.arrow([(470, y0 + 56), (470, y0 + 84)])
+    f.arrow([(470, y0 + 140), (470, y0 + 168)])
+    bx(f, 10, y0 + 84, 250, 80, "Lloyds Banking Group: plataforma anterior; contrato hasta julio de 2024", "grey")
+    bx(f, 680, y0 + 84, 250, 80, "SABIS (Sabadell Information Systems): diseña, construye, prueba, migra y opera", "coral", 13, True)
+    f.arrow([(310, y0 + 196), (135, y0 + 164)], dashed=True)
+    f.arrow([(630, y0 + 196), (805, y0 + 164)], "contrato de servicios", label_at=(560, y0 + 192))
+    bx(f, 680, y0 + 220, 250, 60, "85 terceros de SABIS (cuartas partes para TSB)", "gold")
+    f.arrow([(805, y0 + 164), (805, y0 + 220)], dashed=True)
+    bx(f, 10, y0 + 250, 450, 56, "FCA y PRA: reguladores que sancionaron en diciembre de 2022", "plain", 13, True)
+    bx(f, 480, y0 + 320, 450, 56, "5,2 millones de clientes (junio de 2014: banco escindido de Lloyds)", "plain")
+    return done(f, y0 + 392,
+                "Lo que enseña: el banco era una pieza de un grupo en el que el diseño, la construcción y la operación de la plataforma estaban en un proveedor del mismo propietario, con una cadena de subcontratistas debajo. El Final Notice destaca que el consejo debía supervisar ese proveedor como un tercero.",
+                "gold", "Fuente: FCA, Final Notice, párrafos 2.1 a 2.4, 2.18 y 2.22 y definiciones. Plantilla, oficinas y organigrama interno: no se sabe.")
+
+
+def hw_sw() -> Fig:
+    f, y = sketch("Hardware y software de TSB: lo que se sabe y lo que no es público",
+                  "Pila de seis capas: aplicaciones bancarias de la plataforma Proteo4UK, derivada de la plataforma española Proteo; migración de datos; documentación de diseño sustituida por documentos de configuración; dos centros de datos en configuración activo-activo con una configuración incoherente; lenguajes, sistemas operativos y hardware no constan.")
+    y0 = y + 6
+    capas = [("Aplicación: plataforma bancaria Proteo4UK, versión británica de Proteo, aún no probada en el Reino Unido (documentado)", "teal", "FCA, 2.3"),
+             ("Migración: evento principal del 20 al 22 de abril de 2018; datos de clientes (documentado)", "teal", "FCA, 2.5"),
+             ("Diseño y configuración: documentos de configuración en lugar de diseño (documentado)", "teal", "FCA, 2.21"),
+             ("Dos centros de datos en activo-activo, configurados de forma incoherente según TSB (parcial)", "gold", "FCA, 2.14; TSB, 2019"),
+             ("Lenguajes, frameworks, bases de datos, sistemas operativos (no se sabe)", "grey", "no consta"),
+             ("Hardware, red, ubicación de los centros de datos y proveedores de nube (no se sabe)", "grey", "no consta")]
+    for i, (t, k, s) in enumerate(capas):
+        yy = y0 + i * 66
+        bx(f, 10, yy, 640, 58, t, k, 13, k == "teal")
+        bx(f, 670, yy, 250, 58, s, "plain", 13)
+    return done(f, y0 + 6 * 66 + 4,
+                "Lo que enseña: lo documentado de la tecnología es su procedencia, su configuración y su proceso de migración, no su implementación. El único detalle de infraestructura es la configuración activo-activo, con el relato de TSB sobre centros no idénticos. No se inventa ningún dato de hardware ni de lenguajes.",
+                "gold", "Fuentes: FCA, Final Notice y TSB, comunicado del 19 de noviembre de 2019. Verde: documentado; dorado: en parte; gris: no se sabe.")
+
+
+def prueba_de_fallos() -> Fig:
+    f, y = sketch("A prueba de fallos: lo que existía, lo que falló y lo que debió existir",
+                  "Tres columnas: mecanismos que existían (estructura de incidentes Bronze, Silver y Gold, playbooks de 48 horas, migración por etapas de algunos servicios, programa de reparación), los que fallaron o faltaban (retorno a Lloyds, prueba activo-activo, diligencia del proveedor, capacidad de quejas) y los que debieron existir.")
+    y0 = y + 6
+    cols = [("Existían (documentado)", "teal", ["Estructura de incidentes Bronze, Silver y Gold", "Playbooks para las primeras 48 horas", "Servicios migrados antes por etapas (según TSB)", "Plan maestro y replan", "Programa «Putting Things Right» desde mayo de 2018"]),
+            ("Fallaron o faltaban (documentado)", "coral", ["Vuelta atrás a la plataforma de Lloyds", "Prueba de configuración activo-activo completa", "Diligencia formal del proveedor y de sus terceros", "Capacidad de contacto y de quejas", "Ejercicios de incidente de semanas"]),
+            ("Debieron existir (análisis propio)", "gold", ["Migración por oleadas con retorno ensayado", "Criterio de salida con evidencia por irreversibilidad", "Reconciliación de datos por oleada", "Ejercicios conjuntos con el proveedor", "Plan de escalado de quejas desde el inicio"])]
+    for c, (h, k, items) in enumerate(cols):
+        x = 10 + c * 306
+        bx(f, x, y0, 296, 40, h, k, 13, True)
+        for i, t in enumerate(items):
+            bx(f, x, y0 + 52 + i * 68, 296, 60, t, k, 13)
+    return done(f, y0 + 52 + 5 * 68 + 4,
+                "Lo que enseña: había estructuras de incidente y de plan, pero dimensionadas para horas o días y sin la posibilidad de volver atrás. La columna de la derecha es análisis propio.",
+                "gold", "Fuente: FCA, Final Notice, párrafos 2.10 a 2.32 y TSB (2019); tercera columna: análisis propio.")
+
+
 FIGURES = {
     "tsb-contexto.svg": contexto,
     "tsb-cascada-de-canales.svg": cascada,
@@ -348,6 +407,9 @@ FIGURES = {
     "tsb-explosion-de-una-vez-u-oleadas.svg": oleadas,
     "tsb-arquitectura-despues.svg": despues,
     "tsb-evidencia-segun-irreversibilidad.svg": escalera,
+    "tsb-organizacion-y-contratos.svg": organizacion,
+    "tsb-hardware-y-software.svg": hw_sw,
+    "tsb-a-prueba-de-fallos.svg": prueba_de_fallos,
 }
 
 

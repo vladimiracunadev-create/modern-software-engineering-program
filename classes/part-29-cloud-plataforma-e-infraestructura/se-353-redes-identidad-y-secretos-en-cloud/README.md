@@ -186,6 +186,35 @@ Si un secreto se filtra en un instante al azar entre dos rotaciones, la exposici
 
 La detección aporta más que acortar el plazo cuando el plazo es largo: con 365 días, detectar a los 14 reduce la exposición de 183 a 14 días. Con credenciales de vida corta emitidas por solicitud el plazo baja a horas y la detección importa menos.
 
+### Ampliación: confianza cero, identidad de servicio y movimiento lateral
+
+La **confianza cero** (*zero trust*) es un modelo de seguridad que no concede acceso por estar «dentro» de una red: cada solicitud se autentica, se autoriza y se evalúa en el momento, con la identidad de quien la hace y el contexto en que ocurre. [NIST SP 800-207](https://csrc.nist.gov/pubs/sp/800/207/final) lo describe como una arquitectura con un punto que decide (¿se permite esta solicitud?) y puntos que aplican la decisión. No es un producto ni una red: es la sustitución de la regla «lo que está en la red interna es confiable» por «solo es confiable lo que se acaba de verificar». La sección 5 de esta clase la enuncia; aquí se muestra con un modelo qué evita y qué no.
+
+**Mecanismo: tres piezas que se complementan.**
+
+- **Identidad de carga de trabajo.** Cada servicio recibe una identidad verificable y de vida corta, no una dirección de red. Estándares como [SPIFFE](https://spiffe.io/docs/latest/spiffe-about/overview/) definen un identificador (`spiffe://dominio/servicio`) y un documento firmado que lo acredita, renovado de forma automática.
+- **mTLS (TLS mutuo).** En TLS corriente solo el servidor presenta un certificado; en mTLS lo presentan ambos extremos, y cada uno comprueba que el del otro está firmado por una autoridad en la que confía y que su identidad es la esperada. Así el servidor sabe quién llama, con una clave que no viaja por la red, y el tráfico queda cifrado. Las mallas de servicios como [Istio](https://istio.io/latest/docs/concepts/security/) lo aplican en un proxy junto a cada servicio, sin cambiar el código.
+- **Autorización por servicio y por operación.** Saber quién llama no basta: una política dice qué identidad puede llamar a qué operación de qué servicio. Sin esa política, mTLS solo prueba que el llamante pertenece a la organización.
+
+La **microsegmentación** es la versión de red de lo mismo: en lugar de segmentos grandes («la red de producción»), reglas por carga de trabajo (por ejemplo, [políticas de red de Kubernetes](https://kubernetes.io/docs/concepts/services-networking/network-policies/) que fijan qué pods hablan con cuáles). Es una capa de red; no sustituye a la identidad porque una dirección o una etiqueta de pod puede cambiar de dueño.
+
+**Causa: el atacante no entra por la puerta final, entra por una cualquiera y se mueve.** Casi ningún incidente comienza comprometiendo la base de datos; comienza en un servicio con una vulnerabilidad o un secreto filtrado y avanza por donde la red lo permite: el **movimiento lateral**. Que el servicio inicial sea de poco valor no importa si desde él se alcanza el crítico. Por eso la pregunta de diseño es qué alcanza cada servicio, no qué servicio es el más protegido.
+
+**Experimento reproducible.** `scripts/experiments_part29_ext.py` construye, con semilla 353, 40 servicios en 5 equipos de 8; cada uno llama a 3 otros (dos de su equipo y uno del equipo siguiente). Un atacante compromete un servicio al azar y avanza por las conexiones que la regla de red permite; cada servicio al alcance cae con probabilidad 0,3. Se promedian 4 000 ensayos. En la regla con identidad se supone que cada llamada autorizada expone 2 de 8 operaciones, de modo que la probabilidad de caída por salto baja a 0,075.
+
+| Regla de red e identidad | Servicios comprometidos (de 40) | El servicio crítico cae |
+|---|---:|---:|
+| Red plana, confianza por ubicación | 40,00 | 100 % |
+| Segmentos por equipo | 39,61 | 99,0 % |
+| Lista de permitidos por servicio (microsegmentación) | 4,32 | 6,6 % |
+| Identidad, mTLS y autorización por operación | 1,28 | 0,6 % |
+
+![Barras horizontales con el número medio de servicios, de 40, que cae un atacante que parte de uno cualquiera según la regla de red: 40 con red plana, 39,61 con segmentos por equipo, 4,32 con lista de permitidos por servicio y 1,28 con identidad y autorización por operación.](../../../content/part-29/figures/se-353-movimiento-lateral-y-confianza-cero.svg)
+
+**Cómo leer la figura.** Cada barra es una regla de red y su longitud, cuántos de los 40 servicios caen de media cuando el atacante parte de uno al azar. Mira que pasar de red plana a segmentos por equipo no cambia casi nada: como un equipo llama al siguiente, el atacante recorre el anillo. La caída llega con la lista de permitidos por servicio y se profundiza al limitar qué operaciones expone cada conexión. **Dónde deja de valer:** el grafo es sintético (3 llamadas por servicio), las probabilidades de caída son supuestos y no hay ninguna vulnerabilidad real detrás; el modelo trata las listas de permitidos como si estuvieran bien mantenidas, y una regla «por si acaso» que añade conexiones que nadie usa devuelve el resultado hacia la red plana. No se ejecutó mTLS ni una malla de servicios.
+
+**Límite y decisión.** El experimento no mide una malla de servicios ni el coste de operar certificados, que es real: autoridad certificadora, rotación, observabilidad y un nuevo punto de fallo si el proxy cae. Una regla práctica: empezar por el inventario real de llamadas (qué servicio llama a cuál, medido, no supuesto), generar la lista de permitidos desde ese inventario, registrar en modo de observación qué bloquearía antes de aplicarla y añadir identidad cuando el cambio de red no basta. La confianza cero no elimina la detección: la clase de identidad y sesiones de la Parte 32 (SE-386) muestra qué ocurre con una credencial robada cuando el equipo comprometido es el dueño de la identidad.
+
 ## Definiciones de trabajo
 
 - **segmentación:** división de una red en zonas con reglas que fijan qué flujos se permiten entre ellas.
@@ -332,9 +361,13 @@ Traslada el análisis a otro dominio (por ejemplo, una tienda con pagos y un pan
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que los cuatro saltos, el 1,4 % de uso ni el 25,8 % de precisión se observen en una plataforma real. Esa afirmación depende de las reglas, los roles y los repositorios de cada organización.
 
+- [SPIFFE: visión general](https://spiffe.io/docs/latest/spiffe-about/overview/) — identidad de carga de trabajo con documentos firmados y de vida corta; autoridad: proyecto SPIFFE (CNCF).
+- [Istio: seguridad](https://istio.io/latest/docs/concepts/security/) — mTLS entre servicios mediante proxies y políticas de autorización; autoridad: documentación oficial de Istio.
+- [Kubernetes: políticas de red](https://kubernetes.io/docs/concepts/services-networking/network-policies/) — reglas por pod como forma de microsegmentación; autoridad: documentación oficial de Kubernetes.
+
 ## Límites y siguiente paso
 
-Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún proveedor, política real ni repositorio real: la red, los roles, el registro de uso y los secretos son fabricados por el autor, el detector se escribió conociendo sus datos y la rotación supone filtraciones uniformes. La siguiente clase mira cómo se declara y se mantiene todo esto de forma repetible: infraestructura como código y su estado.
+Se ejecutaron tres experimentos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se evaluó ningún proveedor, política real ni repositorio real: la red, los roles, el registro de uso y los secretos son fabricados por el autor, el detector se escribió conociendo sus datos y la rotación supone filtraciones uniformes. La siguiente clase mira cómo se declara y se mantiene todo esto de forma repetible: infraestructura como código y su estado. La ampliación sobre confianza cero usa un grafo sintético de 40 servicios con 4 000 ensayos y semilla 353, ejecutado con CPython 3.12.9 en Windows; no se ejecutó mTLS, SPIFFE, Istio ni políticas de red reales, y las probabilidades de caída son supuestos del autor.
 
 ## Glosario
 

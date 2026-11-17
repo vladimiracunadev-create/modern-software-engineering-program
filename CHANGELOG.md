@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-17 — Casos de estudio: Knight Capital, HealthCare.gov, TSB y Meta 2021
+
+- cuatro casos de fallo escritos con el esquema de 14 secciones de `casos/GUIDE.md`, separando lo documentado, lo inferido y lo que no se sabe, con 5 o 6 figuras propias cada uno y fuentes oficiales comprobadas el 16 de noviembre de 2026.
+- sin cambio de contadores 540/45 (commits `262724ac`, `55831842`, `fa29b660` y `8122dc35`)
+
 ## 2026-11-17 — Casos de éxito: Amazon, Spotify, Airbnb y Stripe
 
 - cuatro casos terminados en `casos/exito/` con el esquema único, 23 figuras propias y fuentes públicas citadas; commits `20c1ad30` y `07a54c5b`, sin cambio de contadores

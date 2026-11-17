@@ -21,6 +21,22 @@ Quibi fue un servicio de vídeo por suscripción pensado solo para el teléfono,
 
 La fecha de consulta de las fuentes citadas al final es el 16 de noviembre de 2026.
 
+### Sedes, oficinas y equipo
+
+**Documentado:** Quibi tenía su sede en Los Ángeles (California), según la ficha del caso; unas 200 personas formaban la plantilla al anunciarse el cierre (Deadline, 21 de octubre de 2020), que se informó en una reunión virtual con casi toda la plantilla. La financiación inicial la anunció en agosto de 2018 la sociedad de inversión de Katzenberg (la fuente la nombra como la que reunió el capital), y los inversores incluían a varios estudios y bancos. **No se sabe:** el número de oficinas, si había equipos fuera de Los Ángeles, la plantilla en 2018 y 2019 (cuando se construyó el producto) y el reparto entre ingeniería, contenido y marketing.
+
+![Mapa de relaciones: Quibi con sede en Los Ángeles y unas 200 personas al cierre; estudios y bancos inversores; creadores y estudios que producían series; un operador móvil socio; anunciantes; tiendas de aplicaciones; y Roku como comprador de los derechos.](../figures/quibi-sedes-y-equipo.svg)
+
+**Cómo leer la figura.** El nodo central es la empresa; arriba, quienes la financiaron o le dieron contenido; abajo, por dónde llegaba al espectador y quién compró los activos. Mira primero que casi todos los vínculos son externos: la empresa era una organización pequeña que orquestaba a otras. **Dónde deja de valer:** no es un organigrama ni un mapa geográfico; no hay datos públicos de la estructura interna.
+
+### Organización y plantilla
+
+**No es público** el organigrama. Las personas que la fuente nombra lo hacen por su papel: un fundador que impulsó la idea y una directora ejecutiva que dirigía la empresa; un director de producto que explicó la solución de las capturas de pantalla; un equipo de ingeniería cuyas prioridades menciona la directora ejecutiva. Este caso no dibuja una pirámide porque no se conocen los niveles, y no atribuye decisiones a personas más allá de lo que ellas mismas declararon.
+
+### Visión y misión
+
+**Documentado (Variety, 2018):** la directora ejecutiva dijo que la financiación permitía «unir lo mejor de Hollywood y Silicon Valley» (traducción propia), y el fundador defendió que era «un caso de uso completamente distinto» del de la televisión. El texto de la propia prensa añade que el servicio estaría construido «desde cero» y centrado al 100 % en la experiencia de visión en el móvil. No se cita una declaración de misión formal de la empresa. **Inferido:** la visión de producto era la de una nueva categoría, de ahí el argumento del lanzamiento grande.
+
 ## Contexto y problema
 
 En 2018, los grandes servicios de vídeo bajo demanda competían por la pantalla del televisor. La apuesta de Quibi era que existía otro espacio sin servir: los momentos en movimiento, de camino al trabajo o entre una tarea y otra, en que la gente mira el teléfono. Katzenberg lo describió en 2018 con una analogía con el crecimiento de Spotify y Apple Music y con el aumento mundial de usuarios de teléfonos inteligentes, y la prensa recogió su idea de un «espacio en blanco» para el vídeo móvil de calidad (Variety, 2018 y 2020).
@@ -160,6 +176,20 @@ Cuatro lecturas de análisis propio. Primera: la relación entre la meta inicial
 - **Reacción de la prensa.** Variety describió el cierre como «el rápido y silencioso final» de la apuesta; NBC News concluyó que era imposible fijar una sola causa.
 - **Fin de los contenidos.** Roku adquirió más de 75 programas con una ventana de exclusividad de dos años y derechos hasta 2027, con la condición, según el WSJ citado por The Verge, de mantener el formato original corto.
 
+### Costos operativos y costo del cierre
+
+**Documentado:** el gasto estimado de la prensa para el tercer trimestre de 2020 (unos 1.000 millones de los 1.750 recaudados), el costo de contenido de hasta 6 millones de dólares por hora, el efectivo restante de unos 350 millones al anunciar el cierre y el precio de los derechos vendidos a Roku («significativamente menos» de 100 millones). **No se sabe:** el desglose entre contenido, marketing, personal y tecnología; el costo de adquisición por suscriptor; el costo de entrega de vídeo; los costos del cierre (indemnizaciones, contratos de contenido) y cómo se repartieron entre inversores y acreedores. Es la razón de que este caso no dibuje una cuenta de resultados.
+
+### Competidores y por qué el mercado no lo adoptó
+
+**Documentado (con las estimaciones y su fuente):** Sensor Tower estimó, para los tres primeros días de lanzamiento, unos 9,5 millones de registros de Disney+ frente a unos 910.000 de Quibi; la misma consultora estimó que Disney+ convirtió el 11 % de sus registros iniciales frente al 8 % de Quibi; Disney tenía más de 50 millones de suscriptores de pago a abril de 2020 según The Verge; y Kantar estimó que Quibi tenía 1,1 millones de hogares suscriptores en el segundo trimestre de 2020 y 710.000 en el tercero. Variety y NBC añaden el contexto: Disney+, HBO Max y Peacock llegaron con catálogos y marcas conocidos; y la oferta de vídeo breve gratuito (TikTok, Instagram, Snapchat y YouTube) cubría el mismo rato libre sin costo.
+
+**Por qué no lo adoptó el mercado, separando lo documentado de lo inferido.** *Documentado:* el contexto de confinamiento, la competencia gratuita y la ausencia inicial de acceso al televisor; los responsables reconocen que la pandemia influyó, y que no se puede separar su efecto. *Inferido:* que la propuesta de pagar por contenido breve premium no superaba la alternativa gratuita para la mayoría de los usuarios (Variety y NBC lo plantean como interpretación). *No se sabe:* qué fracción del rechazo fue por precio, por contenido, por falta de hábito o por el contexto; Quibi no publicó la retención ni los minutos de visión.
+
+![Barras agrupadas en millones: registros en los primeros tres días, unos 9,5 de Disney+ y unos 0,91 de Quibi; y suscriptores de pago o hogares suscriptores en 2020, más de 50 de Disney y 1,1 de Quibi en el segundo trimestre.](../figures/quibi-competidores.svg)
+
+**Cómo leer la figura.** Cada grupo compara a Disney+ con Quibi en una medida distinta; el eje es logarítmico para ver ambos órdenes de magnitud. Mira primero que en las dos medidas la diferencia es de uno o dos órdenes. **Dónde deja de valer:** las medidas no son iguales (registros frente a suscriptores o hogares), las fuentes son estimaciones de terceros y las fechas difieren; la figura no mide gustos ni calidad.
+
 ## Arquitectura y esquemas
 
 Quibi no publicó detalles de su arquitectura interna, por lo que este apartado se limita al producto y a la distribución, que sí son públicos. No se infiere nada del interior de los sistemas.
@@ -258,6 +288,34 @@ El cierre es una secuencia con orden propio, aquí más rica que en un incidente
 **Cómo leer la figura.** Cada carril es un tipo de actividad del cierre y el eje cuenta días desde la decisión. Las marcas son hitos documentados; las barras son períodos con inicio y fin informados. Mira primero lo corto del tiempo entre la decisión y el anuncio, y lo que se hizo en el medio. **Dónde deja de valer:** el día 0 (30 de septiembre) es tres semanas antes del anuncio, según Katzenberg; la fecha de la decisión es una aproximación a partir de «un par de semanas» que dijo Whitman; el resto son fechas de prensa.
 
 La lectura propia es que un cierre ordenado es un acto de ingeniería de la decisión: comunicar a la plantilla, devolver capital, preservar el activo (el catálogo) y cerrar el servicio con una fecha. Se enseña poco porque casi nunca se estudia. [SE-450 · Gestión de riesgos y decisiones ejecutivas](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-450-gestion-de-riesgos-y-decisiones-ejecutivas/README.md) trata la gestión de riesgos y las decisiones ejecutivas.
+
+### Hardware utilizado: el teléfono y, después, el televisor
+
+**Documentado:** el producto se pensó para teléfonos inteligentes y se distribuía desde las tiendas de aplicaciones (TechCrunch menciona la App Store y las preinscripciones); las funciones de acceso al televisor llegaron por AirPlay y Chromecast (junio de 2020) y con aplicaciones nativas para Apple TV, Amazon Fire TV y Android TV (20 de octubre de 2020); un operador móvil (T-Mobile) fue socio y TechCrunch cita su hoja de ruta de 5G como una de las razones del acuerdo. **No se sabe:** modelos de teléfono compatibles, versión mínima de sistema operativo, requisitos de red, y cualquier hardware propio (servidores, redes de entrega).
+
+### Software utilizado: Turnstyle, DRM y capturas de pantalla
+
+**Documentado:** una aplicación móvil con suscripción dentro de la aplicación; la función Turnstyle (según The Verge, la patente de Quibi describe el envío de dos archivos de vídeo en proporciones distintas y el cambio entre ellos al girar el teléfono); un sistema de gestión de derechos digitales que bloqueaba las capturas de pantalla, por lo que se desarrolló un método propio (Engadget y su director de producto); y aplicaciones de televisor desarrolladas al final. **No se sabe:** lenguajes, plataformas de nube, base de datos, proveedor de vídeo, sistema de recomendaciones, herramientas de despliegue y de analítica. Quibi no publicó su arquitectura y este caso no la infiere.
+
+![Plataforma de Quibi de abajo arriba: teléfono y tiendas de aplicaciones; aplicación con Turnstyle de dos versiones de vídeo, protección de derechos y capturas propias; acceso al televisor por AirPlay, Chromecast y aplicaciones nativas; y a la derecha lo que no es público: la infraestructura de entrega y el stack de servidor.](../figures/quibi-pila-de-plataforma.svg)
+
+**Cómo leer la figura.** Cada fila es una capa del producto; a la derecha, lo que se sabe y lo que no. Mira primero la fila de la entrega: es la parte de la que no hay datos. **Dónde deja de valer:** describe lo que la prensa y los responsables dicen; no es una arquitectura técnica.
+
+### Infraestructura: lo que no se sabe
+
+**No es público** si Quibi usaba su propia infraestructura, una nube, una red de entrega de contenido ni cuál; tampoco su capacidad, redes ni dependencias técnicas. Sería **inferir sin evidencia** afirmar cualquiera de esas cosas. Lo que sí se puede describir con la prensa es la **cadena de dependencias de producto**: estudios y creadores que entregan los títulos; tiendas de aplicaciones por donde llega la aplicación y se cobra; un sistema de derechos digitales exigido por los titulares; un socio de red móvil; y, para el televisor, Apple, Amazon y Google. Cada una es un tercero con sus propias reglas.
+
+![Dependencias externas del producto: estudios y creadores que entregan los títulos; tiendas de aplicaciones que distribuyen y cobran; titulares de derechos que exigen protección; un operador móvil socio; y fabricantes de televisores y dispositivos para el acceso en pantalla grande; con la infraestructura propia marcada como no pública.](../figures/quibi-dependencias-externas.svg)
+
+**Cómo leer la figura.** El nodo central es el producto; alrededor, terceros que eran dependencias documentadas. La caja punteada es lo que no se sabe. Mira primero las dependencias del televisor: la distribución a la pantalla grande dependía de plataformas de otros. **Dónde deja de valer:** solo muestra dependencias que la prensa menciona.
+
+### A prueba de fallos: resiliencia del negocio y del producto
+
+En un fallo de producto y mercado, la tolerancia a fallos es sobre todo de **decisión y de capital**: qué mecanismos permitían detectar el error pronto, limitar el daño y salir con orden. De la resiliencia técnica (disponibilidad, recuperación) no hay datos públicos; ninguna de las fuentes reporta caídas del servicio.
+
+![Cuatro columnas de mecanismos de resiliencia del negocio: existían y funcionaron; existían y fallaron; no existían; y debieron existir según análisis propio.](../figures/quibi-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Cada caja es un mecanismo; el color es la columna. Mira primero la columna de «existían y funcionaron»: el cierre ordenado con devolución del capital es el mecanismo que limitó el daño final. **Dónde deja de valer:** la cuarta columna es análisis propio, y una columna «no existían» no afirma que no se hicieran internamente, sino que no hay evidencia pública.
 
 ## Casos especiales y cómo fallan
 

@@ -5,6 +5,7 @@ NBC News (2020). Quibi's internal data are not public and are not inferred.
 """
 from __future__ import annotations
 
+from case_fig_helpers import hub, kanban, layer_stack
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, line_chart, stacked_bars, timeline
 
 FUENTE = "Fuente: prensa especializada citada en el caso; esquema propio."
@@ -404,6 +405,67 @@ def operacion_en_dias() -> Fig:
 
 # ==== EXPANDED FIGURES (end) ====
 
+# ==== EXPANDED FIGURES2 (begin) ====
+
+SRCQB = "Fuente: prensa especializada citada en el caso (2018 a 2021); esquema propio."
+
+
+def sedes_y_equipo() -> Fig:
+    return hub(
+        "Sede y entorno: una empresa de unas 200 personas que orquestaba a estudios, tiendas y socios",
+        "Esquema de relaciones con Quibi en Los Ángeles en el centro. Arriba: estudios y bancos inversores, creadores y estudios que producían series, un operador móvil socio y anunciantes. Abajo: tiendas de aplicaciones, fabricantes de dispositivos de televisor y Roku como comprador de los derechos.",
+        ("Quibi: Los Ángeles, unas 200 personas al cierre", "navy"),
+        [("Estudios y bancos inversores", "plain", ""), ("Creadores y estudios: producen las series", "plain", ""), ("Operador móvil socio", "plain", ""), ("Anunciantes: inventario del primer año vendido", "plain", ""),
+         ("Tiendas de aplicaciones", "teal", ""), ("Dispositivos de televisor: AirPlay, Chromecast y apps", "teal", ""), ("Roku: compra los derechos en 2021", "gold", "")],
+        "No es un organigrama ni un mapa. Estructura interna, oficinas fuera de Los Ángeles y plantilla de 2018 y 2019: no se sabe.", SRCQB)
+
+
+def competidores() -> Fig:
+    return grouped_bars(
+        "Frente a Disney+: uno o dos órdenes de magnitud menos en registros y en suscriptores",
+        "Dos grupos de barras en millones con eje logarítmico. Registros en los primeros tres días: unos 9,5 de Disney+ y unos 0,91 de Quibi. Suscriptores de pago o hogares suscriptores en 2020: más de 50 de Disney y 1,1 de Quibi en el segundo trimestre.",
+        ["Registros en los tres primeros días", "Suscriptores de pago u hogares, 2020"],
+        [("Disney+", [9.5, 50], "navy"), ("Quibi", [0.91, 1.1], "coral")],
+        unit="millones", log=True, decimals=2, ticks=[0.5, 1, 5, 10, 50],
+        note="Las dos medidas no son iguales (registros frente a suscriptores o hogares), las fuentes son estimaciones de terceros (Sensor Tower y Kantar) y la cifra de Disney es de abril de 2020. La figura compara órdenes de magnitud, no calidad ni gustos.",
+        foot="Fuentes: The Verge (8 jul 2020, Sensor Tower) y Variety (1 dic 2020, Kantar).")
+
+
+def pila_de_plataforma() -> Fig:
+    return layer_stack(
+        "Plataforma de Quibi: del teléfono al televisor, con la infraestructura de entrega sin datos públicos",
+        "Cuatro capas de abajo arriba: teléfono y tiendas de aplicaciones; aplicación con Turnstyle, protección de derechos y capturas propias; acceso al televisor por AirPlay, Chromecast y aplicaciones nativas; y entrega de vídeo cuya infraestructura no es pública.",
+        [("Entrega y servidor", "Infraestructura y software de servidor: no son públicos", "plain"),
+         ("Acceso al televisor", "AirPlay y Chromecast (junio); aplicaciones nativas (20 de octubre)", "gold"),
+         ("Aplicación móvil", "Turnstyle, protección de derechos y capturas propias", "teal"),
+         ("Teléfono y tiendas", "Descarga, preinscripción y compra dentro de la aplicación", "plain")],
+        [("Turnstyle: dos versiones de vídeo según la patente (The Verge)", "teal"), ("Derechos digitales: bloquean capturas; método propio (Engadget)", "gold"), ("No se sabe: lenguajes, nube, base de datos y proveedor de vídeo", "coral")],
+        "Lo que la prensa y los responsables dicen; no es una arquitectura técnica. Los datos de servidor no son públicos y no se infieren.", SRCQB)
+
+
+def dependencias_externas() -> Fig:
+    return hub(
+        "Dependencias externas del producto: casi todo lo que llegaba al espectador pasaba por un tercero",
+        "Esquema con el producto Quibi en el centro. Arriba: estudios y creadores que entregan los títulos, tiendas de aplicaciones que distribuyen y cobran, titulares de derechos que exigen protección y un operador móvil socio. Abajo: fabricantes de televisores y dispositivos, y la infraestructura propia marcada como no pública.",
+        ("Producto Quibi", "teal"),
+        [("Estudios y creadores: entregan los títulos", "plain", "títulos"), ("Tiendas de aplicaciones: distribuyen y cobran", "plain", "cobran"), ("Titulares de derechos: exigen protección", "plain", "exigen"), ("Operador móvil: socio con 5G y un año gratis", "plain", "socio"),
+         ("Apple, Amazon y Google: pantalla grande", "gold", "acceso"), ("Infraestructura propia: no es pública", "coral", "")],
+        "Solo dependencias que la prensa menciona. Cada tercero tenía sus propias reglas; la infraestructura de Quibi no se conoce y no se infiere.", SRCQB)
+
+
+def a_prueba_de_fallos() -> Fig:
+    return kanban(
+        "Resiliencia del negocio: qué existía, qué falló, qué no existía y qué debió existir",
+        "Cuatro columnas. Existían y funcionaron: preventa de publicidad, cierre ordenado con devolución del capital, venta de derechos a Roku. Existían y fallaron: pruebas de cambio de modelo en el verano, prueba gratuita larga, revisión tardía de solo móvil. No existían de forma pública: lanzamiento escalonado, criterios de abandono, tramos de capital. Debieron existir: pruebas por supuesto, tramos de capital, criterios firmados, estudio de alternativas gratuitas.",
+        [("Existían y funcionaron", "teal", ["Preventa de unos 150 millones de publicidad", "Cierre ordenado: devolución de unos 350 millones", "Venta del catálogo a Roku"]),
+         ("Existían y fallaron", "coral", ["Variantes del verano: ninguna cambió la respuesta", "Prueba gratuita de 90 días: datos tardíos", "Restricción solo móvil revisada tarde"]),
+         ("No existían de forma pública", "gold", ["Lanzamiento escalonado (descartado)", "Criterios de abandono escritos", "Capital por tramos", "Estudio público de alternativas gratuitas"]),
+         ("Debieron existir (análisis propio)", "plain", ["Una prueba barata por supuesto", "Tramos de capital ligados a hitos", "Criterios firmados antes del gasto", "Análisis del antecedente Go90"])],
+        "La cuarta columna es análisis propio. De resiliencia técnica (disponibilidad y recuperación) no hay datos públicos; ninguna fuente reporta caídas.",
+        SRCQB)
+
+# ==== EXPANDED FIGURES2 (end) ====
+
 FIGURES = {
     "quibi-premisa-y-realidad.svg": premisa_y_realidad,
     "quibi-producto-y-distribucion.svg": producto,
@@ -425,4 +487,10 @@ FIGURES = {
     "quibi-capital-por-tramos.svg": capital_por_tramos,
     "quibi-arbol-de-fallas.svg": arbol_de_fallas,
     "quibi-operacion-en-dias.svg": operacion_en_dias,
+    # expanded entries2
+    "quibi-sedes-y-equipo.svg": sedes_y_equipo,
+    "quibi-competidores.svg": competidores,
+    "quibi-pila-de-plataforma.svg": pila_de_plataforma,
+    "quibi-dependencias-externas.svg": dependencias_externas,
+    "quibi-a-prueba-de-fallos.svg": a_prueba_de_fallos,
 }

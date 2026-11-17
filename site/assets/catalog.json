@@ -5942,6 +5942,138 @@
       "url": "classes/SE-540.html"
     },
     {
+      "id": "SE-553",
+      "title": "Ciclo de vida de ML y por qué falla en producción",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-553.html"
+    },
+    {
+      "id": "SE-554",
+      "title": "Datos de entrenamiento, etiquetas y feature stores",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-554.html"
+    },
+    {
+      "id": "SE-555",
+      "title": "Experimentos y entrenamiento reproducible",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-555.html"
+    },
+    {
+      "id": "SE-556",
+      "title": "Evaluación, sesgos y validación de modelos",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-556.html"
+    },
+    {
+      "id": "SE-557",
+      "title": "Ajuste fino, adaptación y costo",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-557.html"
+    },
+    {
+      "id": "SE-558",
+      "title": "Servir modelos: latencia, lotes y GPU",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-558.html"
+    },
+    {
+      "id": "SE-559",
+      "title": "Despliegue seguro de modelos: shadow, canary y rollback",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-559.html"
+    },
+    {
+      "id": "SE-560",
+      "title": "Monitoreo, deriva y reentrenamiento",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-560.html"
+    },
+    {
+      "id": "SE-561",
+      "title": "Seguridad y robustez de sistemas de ML",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-561.html"
+    },
+    {
+      "id": "SE-562",
+      "title": "Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "class",
+      "hours": 4,
+      "phase": "futura",
+      "url": "classes/SE-562.html"
+    },
+    {
+      "id": "SE-563",
+      "title": "Taller: degradar y recuperar un modelo",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "studio",
+      "hours": 6,
+      "phase": "futura",
+      "url": "classes/SE-563.html"
+    },
+    {
+      "id": "SE-564",
+      "title": "Proyecto: sistema de ML operable con evidencia",
+      "part": "46",
+      "part_title": "Machine learning en producción y MLOps",
+      "stage": "H",
+      "kind": "project",
+      "hours": 8,
+      "phase": "futura",
+      "url": "classes/SE-564.html"
+    },
+    {
       "id": "SE-577",
       "title": "WebAssembly y WASI",
       "part": "48",

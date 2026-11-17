@@ -123,7 +123,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -140,6 +140,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-529 · Estilos como respuestas a fuerzas de calidad](../classes/part-44-estilos-arquitectonicos/se-529-estilos-como-respuestas-a-fuerzas-de-calidad/README.md) | Parte 44 |
 | [SE-534 · Multi-tenancy y aislamiento](../classes/part-44-estilos-arquitectonicos/se-534-multi-tenancy-y-aislamiento/README.md) | Parte 44 |
 | [SE-540 · Proyecto: decisión arquitectónica defendida con ADR](../classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) | Parte 44 |
+| [SE-553 · Ciclo de vida de ML y por qué falla en producción](../classes/part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) | Parte 46 |
+| [SE-558 · Servir modelos: latencia, lotes y GPU](../classes/part-46-machine-learning-en-produccion-y-mlops/se-558-servir-modelos-latencia-lotes-y-gpu/README.md) | Parte 46 |
+| [SE-564 · Proyecto: sistema de ML operable con evidencia](../classes/part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia/README.md) | Parte 46 |
 | [SE-577 · WebAssembly y WASI](../classes/part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) | Parte 48 |
 | [SE-582 · Contenedores, microVM y sandboxes](../classes/part-48-runtimes-y-plataformas-modernas/se-582-contenedores-microvm-y-sandboxes/README.md) | Parte 48 |
 | [SE-588 · Proyecto: plataforma de ejecución aislada con evidencia](../classes/part-48-runtimes-y-plataformas-modernas/se-588-proyecto-plataforma-de-ejecucion-aislada-con-evidencia/README.md) | Parte 48 |
@@ -152,21 +155,21 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 45–47 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 45, 47 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas** desde el 17 de noviembre
+> Las Partes 45, 47 (`SE-541`–`SE-552`, `SE-565`–`SE-576`) están **planificadas** desde el 17 de noviembre
 > de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
 
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
-| **Parte 46 · Machine learning en producción y MLOps** | `SE-553`–`SE-564` | Mide latencia, lotes y GPU en el servicio de modelos con percentiles y capacidad. |
+| — | — | Las partes que este rol esperaba ya están desarrolladas y figuran en el núcleo o en las clases de apoyo. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases
 desarrolladas de arriba. La planificación indica hacia dónde crecerá la ruta; no es

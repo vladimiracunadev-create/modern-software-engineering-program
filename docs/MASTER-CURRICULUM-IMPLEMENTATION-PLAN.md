@@ -854,18 +854,18 @@ se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte complet
 
 ### Parte 46 — Machine learning en producción y MLOps
 
-- [ ] `SE-553` — Ciclo de vida de ML y por qué falla en producción.
-- [ ] `SE-554` — Datos de entrenamiento, etiquetas y feature stores.
-- [ ] `SE-555` — Experimentos y entrenamiento reproducible.
-- [ ] `SE-556` — Evaluación, sesgos y validación de modelos.
-- [ ] `SE-557` — Ajuste fino, adaptación y costo.
-- [ ] `SE-558` — Servir modelos: latencia, lotes y GPU.
-- [ ] `SE-559` — Despliegue seguro de modelos: shadow, canary y rollback.
-- [ ] `SE-560` — Monitoreo, deriva y reentrenamiento.
-- [ ] `SE-561` — Seguridad y robustez de sistemas de ML.
-- [ ] `SE-562` — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF.
-- [ ] `SE-563` — Taller: degradar y recuperar un modelo.
-- [ ] `SE-564` — Proyecto: sistema de ML operable con evidencia.
+- [x] `SE-553` — Ciclo de vida de ML y por qué falla en producción.
+- [x] `SE-554` — Datos de entrenamiento, etiquetas y feature stores.
+- [x] `SE-555` — Experimentos y entrenamiento reproducible.
+- [x] `SE-556` — Evaluación, sesgos y validación de modelos.
+- [x] `SE-557` — Ajuste fino, adaptación y costo.
+- [x] `SE-558` — Servir modelos: latencia, lotes y GPU.
+- [x] `SE-559` — Despliegue seguro de modelos: shadow, canary y rollback.
+- [x] `SE-560` — Monitoreo, deriva y reentrenamiento.
+- [x] `SE-561` — Seguridad y robustez de sistemas de ML.
+- [x] `SE-562` — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF.
+- [x] `SE-563` — Taller: degradar y recuperar un modelo.
+- [x] `SE-564` — Proyecto: sistema de ML operable con evidencia.
 
 ### Parte 47 — Sistemas críticos, tiempo real y normas de seguridad
 

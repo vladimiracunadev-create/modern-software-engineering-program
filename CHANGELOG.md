@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
+
+- doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre el ciclo de vida y las fallas de un sistema de ML, datos, etiquetas y feature stores, entrenamiento reproducible, evaluación y sesgos, ajuste fino y costo, servicio con lotes y GPU, despliegue seguro (sombra, canary y rollback), monitoreo y reentrenamiento, seguridad y robustez, gobierno de IA y regulación, taller de degradación y recuperación y proyecto de sistema operable con evidencia;
+- experimentos reproducibles en `scripts/experiments_part46_*.py` con numpy 2.4.4 y scikit-learn 1.8.0 (versiones fijadas en `scripts/requirements-part46.txt`), datos sintéticos de *Avisos-ML* con semilla 46, sin GPU, sin herramientas de terceros y sin modelos de lenguaje; 36 figuras en `scripts/figures_part46_a.py` y `_b.py`;
+- fuentes verificadas con curl; el reglamento europeo se consultó en el Diario Oficial y el calendario en la página de la Comisión (paquete de simplificación incluido), y las normas ISO se citan por su fuente oficial sin reproducir su texto; el triaje de riesgo y el expediente de gobierno se declaran provisionales y no son asesoría jurídica;
+- sin revisión humana independiente todavía; commit y CI en `docs/PART-EXECUTION-TRACKER.md`
+
 ## 2026-11-17 — Ampliación de clases existentes con temas ausentes (InnerSource, software verde, confianza cero, CRDT y Raft, RTOS, calidad de datos, regulación de IA y ajuste fino)
 
 - diez clases ampliadas sin renumerar ni cambiar la estructura de las partes, cada una con una sección «Ampliación», un experimento reproducible (`scripts/experiments_partNN_ext.py`, semilla fija o medición real), una figura nueva sin repetir tablas y fuentes verificadas con curl: `SE-200` InnerSource (cola de revisión), `SE-268` RTOS y EDF frente a prioridades fijas, `SE-330` controles de calidad y linaje de datos, `SE-342` conjuntos CRDT, `SE-343` Raft y Paxos con un modelo reducido, `SE-353` confianza cero y movimiento lateral, `SE-356` software verde y SCI, `SE-386` confianza cero y credenciales robadas, `SE-466` Reglamento de IA e ISO/IEC 42001, `SE-513` ajuste fino y contaminación de la evaluación;

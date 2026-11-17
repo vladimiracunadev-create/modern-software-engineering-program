@@ -6,21 +6,21 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | 8 especificadas |
-| Partes | 46 desarrolladas de 49 planificadas |
-| Clases | 552 desarrolladas de 588 planificadas |
-| Contenido desarrollado | Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), pendiente de revisión editorial humana independiente |
+| Partes | 47 desarrolladas de 49 planificadas |
+| Clases | 564 desarrolladas de 588 planificadas |
+| Contenido desarrollado | Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado sin publicar | Partes 45–47 (`SE-541`–`SE-576`), sin clases publicadas |
+| Alcance planificado sin publicar | Partes 45, 47 (`SE-541`–`SE-552`, `SE-565`–`SE-576`), sin clases publicadas |
 | Alcance de fase 3 | 180 clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | 180 clases (`SE-181`–`SE-360`) |
-| Horas | 2.484 estimadas en las partes desarrolladas (2.646 en el alcance planificado); pendientes de validación por contenido |
-| Metadatos de clase | 552 archivos generados |
-| Registro bibliográfico | 552 entradas sembradas desde fuentes base |
+| Horas | 2.538 estimadas en las partes desarrolladas (2.646 en el alcance planificado); pendientes de validación por contenido |
+| Metadatos de clase | 564 archivos generados |
+| Registro bibliográfico | 564 entradas sembradas desde fuentes base |
 | Rutas profesionales | 45 guías con responsabilidades, límites, recorrido y evidencia |
-| Sitio | 599 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
-| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 552 clases ni en las 46 partes |
-| Portal definitivo | catálogo navegable con las 552 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
+| Sitio | 612 páginas HTML generadas desde el manifiesto, más las 18 de `site/casos/` |
+| Casos de estudio | 16 casos (8 de éxito y 8 de fallo) en `casos/`; no son clases ni roles y no cuentan en las 564 clases ni en las 47 partes |
+| Portal definitivo | catálogo navegable con las 564 clases desarrolladas, sin presentarlas como aprobadas por una revisión humana independiente |
 | Publicación | GitHub Pages activo; workflow y respuesta HTTPS verificados el 30 de septiembre de 2026 |
 
 ## Significado

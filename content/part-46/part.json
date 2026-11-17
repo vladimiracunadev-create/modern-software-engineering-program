@@ -1,0 +1,575 @@
+{
+  "sources": [
+    "ISO-25010-2023",
+    "PYTHON-3",
+    "NIST-AI-RMF",
+    "ML-HIDDEN-DEBT",
+    "ML-TEST-SCORE",
+    "ML-RULES-OF-ML",
+    "ML-GOOGLE-MLOPS",
+    "ML-DATA-VALIDATION",
+    "ML-LEAKAGE",
+    "ML-LABEL-ERRORS",
+    "ML-FEAST-PIT",
+    "ML-REPRODUCIBILITY",
+    "ML-DEEP-RL-MATTERS",
+    "ML-SKLEARN-PITFALLS",
+    "ML-NUMPY-RANDOM",
+    "ML-SKLEARN-EVAL",
+    "ML-SKLEARN-CALIB",
+    "ML-SKLEARN-CV",
+    "ML-SKLEARN-PERSIST",
+    "ML-EQ-OPPORTUNITY",
+    "ML-FAIRNESS-TRADEOFFS",
+    "ML-MODEL-CARDS",
+    "ML-DATASHEETS",
+    "ML-LORA",
+    "ML-SCALING-LAWS",
+    "ML-COMPUTE-OPTIMAL",
+    "ML-FORGETTING",
+    "ML-TRITON-BATCHER",
+    "ML-PAGEDATTENTION",
+    "ML-GPTQ",
+    "ML-SRE-OVERLOAD",
+    "ML-SRE-MONITORING",
+    "ML-SRE-POSTMORTEM",
+    "ML-SRE-INCIDENT",
+    "ML-SRE-CANARY",
+    "ML-KSERVE-CANARY",
+    "ML-MLFLOW-REGISTRY",
+    "ML-FAILING-LOUDLY",
+    "ML-FGSM",
+    "ML-MODEL-STEALING",
+    "ML-MEMBERSHIP",
+    "ML-BADNETS",
+    "ML-NIST-AML",
+    "ML-OWASP-ML10",
+    "ML-OWASP-LLM10",
+    "ML-EU-AI-ACT",
+    "ML-EC-AI-ACT",
+    "ML-ISO-42001",
+    "ML-NIST-AI-100-1",
+    "ML-NIST-AI-600-1"
+  ],
+  "extra_sources": [
+    {
+      "id": "ML-HIDDEN-DEBT",
+      "title": "Hidden Technical Debt in Machine Learning Systems",
+      "authority": "Sculley et al., NeurIPS 2015",
+      "url": "https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html",
+      "status": "stable",
+      "used_for": [
+        "ml-lifecycle",
+        "technical-debt",
+        "feedback-loops"
+      ]
+    },
+    {
+      "id": "ML-TEST-SCORE",
+      "title": "The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction",
+      "authority": "Breck et al., Google Research",
+      "url": "https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/",
+      "status": "stable",
+      "used_for": [
+        "ml-readiness",
+        "monitoring",
+        "release-gate"
+      ]
+    },
+    {
+      "id": "ML-RULES-OF-ML",
+      "title": "Rules of Machine Learning: Best Practices for ML Engineering",
+      "authority": "Google",
+      "url": "https://developers.google.com/machine-learning/guides/rules-of-ml",
+      "status": "living",
+      "used_for": [
+        "ml-engineering",
+        "training-serving-skew",
+        "baselines"
+      ]
+    },
+    {
+      "id": "ML-GOOGLE-MLOPS",
+      "title": "MLOps: Continuous delivery and automation pipelines in machine learning",
+      "authority": "Google Cloud Architecture Center",
+      "url": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning",
+      "status": "living",
+      "used_for": [
+        "mlops",
+        "pipelines",
+        "deployment"
+      ]
+    },
+    {
+      "id": "ML-DATA-VALIDATION",
+      "title": "Data Validation for Machine Learning",
+      "authority": "Breck et al., MLSys 2019",
+      "url": "https://mlsys.org/Conferences/2019/doc/2019/167.pdf",
+      "status": "stable",
+      "used_for": [
+        "data-validation",
+        "skew",
+        "drift"
+      ]
+    },
+    {
+      "id": "ML-LEAKAGE",
+      "title": "Leakage and the Reproducibility Crisis in ML-based Science",
+      "authority": "Kapoor and Narayanan",
+      "url": "https://arxiv.org/abs/2207.07048",
+      "status": "stable",
+      "used_for": [
+        "data-leakage",
+        "reproducibility"
+      ]
+    },
+    {
+      "id": "ML-LABEL-ERRORS",
+      "title": "Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks",
+      "authority": "Northcutt et al.",
+      "url": "https://arxiv.org/abs/2103.14749",
+      "status": "stable",
+      "used_for": [
+        "label-noise",
+        "evaluation"
+      ]
+    },
+    {
+      "id": "ML-FEAST-PIT",
+      "title": "Point-in-time joins",
+      "authority": "Feast documentation",
+      "url": "https://docs.feast.dev/getting-started/concepts/point-in-time-joins",
+      "status": "living",
+      "used_for": [
+        "feature-store",
+        "point-in-time"
+      ]
+    },
+    {
+      "id": "ML-REPRODUCIBILITY",
+      "title": "Improving Reproducibility in Machine Learning Research",
+      "authority": "Pineau et al.",
+      "url": "https://arxiv.org/abs/2003.12206",
+      "status": "stable",
+      "used_for": [
+        "reproducibility",
+        "checklist"
+      ]
+    },
+    {
+      "id": "ML-DEEP-RL-MATTERS",
+      "title": "Deep Reinforcement Learning that Matters",
+      "authority": "Henderson et al.",
+      "url": "https://arxiv.org/abs/1709.06560",
+      "status": "stable",
+      "used_for": [
+        "seed-variance",
+        "evaluation"
+      ]
+    },
+    {
+      "id": "ML-SKLEARN-PITFALLS",
+      "title": "Common pitfalls and recommended practices",
+      "authority": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "status": "living",
+      "used_for": [
+        "randomness",
+        "data-leakage",
+        "pipelines"
+      ]
+    },
+    {
+      "id": "ML-NUMPY-RANDOM",
+      "title": "Random Generator",
+      "authority": "NumPy documentation",
+      "url": "https://numpy.org/doc/stable/reference/random/generator.html",
+      "status": "living",
+      "used_for": [
+        "random-generator",
+        "seeds"
+      ]
+    },
+    {
+      "id": "ML-SKLEARN-EVAL",
+      "title": "Metrics and scoring: quantifying the quality of predictions",
+      "authority": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "status": "living",
+      "used_for": [
+        "metrics",
+        "evaluation"
+      ]
+    },
+    {
+      "id": "ML-SKLEARN-CALIB",
+      "title": "Probability calibration",
+      "authority": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/modules/calibration.html",
+      "status": "living",
+      "used_for": [
+        "calibration"
+      ]
+    },
+    {
+      "id": "ML-SKLEARN-CV",
+      "title": "Cross-validation: evaluating estimator performance",
+      "authority": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/modules/cross_validation.html",
+      "status": "living",
+      "used_for": [
+        "validation",
+        "splits"
+      ]
+    },
+    {
+      "id": "ML-SKLEARN-PERSIST",
+      "title": "Model persistence",
+      "authority": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/model_persistence.html",
+      "status": "living",
+      "used_for": [
+        "serialization",
+        "security"
+      ]
+    },
+    {
+      "id": "ML-EQ-OPPORTUNITY",
+      "title": "Equality of Opportunity in Supervised Learning",
+      "authority": "Hardt, Price and Srebro",
+      "url": "https://arxiv.org/abs/1610.02413",
+      "status": "stable",
+      "used_for": [
+        "fairness",
+        "equal-opportunity"
+      ]
+    },
+    {
+      "id": "ML-FAIRNESS-TRADEOFFS",
+      "title": "Inherent Trade-Offs in the Fair Determination of Risk Scores",
+      "authority": "Kleinberg, Mullainathan and Raghavan",
+      "url": "https://arxiv.org/abs/1609.05807",
+      "status": "stable",
+      "used_for": [
+        "fairness",
+        "impossibility"
+      ]
+    },
+    {
+      "id": "ML-MODEL-CARDS",
+      "title": "Model Cards for Model Reporting",
+      "authority": "Mitchell et al.",
+      "url": "https://arxiv.org/abs/1810.03993",
+      "status": "stable",
+      "used_for": [
+        "documentation",
+        "model-card"
+      ]
+    },
+    {
+      "id": "ML-DATASHEETS",
+      "title": "Datasheets for Datasets",
+      "authority": "Gebru et al.",
+      "url": "https://arxiv.org/abs/1803.09010",
+      "status": "stable",
+      "used_for": [
+        "documentation",
+        "datasets"
+      ]
+    },
+    {
+      "id": "ML-LORA",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "authority": "Hu et al.",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "status": "stable",
+      "used_for": [
+        "fine-tuning",
+        "adapters"
+      ]
+    },
+    {
+      "id": "ML-SCALING-LAWS",
+      "title": "Scaling Laws for Neural Language Models",
+      "authority": "Kaplan et al.",
+      "url": "https://arxiv.org/abs/2001.08361",
+      "status": "stable",
+      "used_for": [
+        "training-compute",
+        "scaling"
+      ]
+    },
+    {
+      "id": "ML-COMPUTE-OPTIMAL",
+      "title": "Training Compute-Optimal Large Language Models",
+      "authority": "Hoffmann et al.",
+      "url": "https://arxiv.org/abs/2203.15556",
+      "status": "stable",
+      "used_for": [
+        "training-compute",
+        "scaling"
+      ]
+    },
+    {
+      "id": "ML-FORGETTING",
+      "title": "Overcoming catastrophic forgetting in neural networks",
+      "authority": "Kirkpatrick et al.",
+      "url": "https://arxiv.org/abs/1612.00796",
+      "status": "stable",
+      "used_for": [
+        "forgetting",
+        "adaptation"
+      ]
+    },
+    {
+      "id": "ML-TRITON-BATCHER",
+      "title": "Triton Inference Server: Batchers",
+      "authority": "NVIDIA documentation",
+      "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html",
+      "status": "living",
+      "used_for": [
+        "serving",
+        "dynamic-batching"
+      ]
+    },
+    {
+      "id": "ML-PAGEDATTENTION",
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "authority": "Kwon et al.",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "status": "stable",
+      "used_for": [
+        "llm-serving",
+        "kv-cache"
+      ]
+    },
+    {
+      "id": "ML-GPTQ",
+      "title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+      "authority": "Frantar et al.",
+      "url": "https://arxiv.org/abs/2210.17323",
+      "status": "stable",
+      "used_for": [
+        "quantization"
+      ]
+    },
+    {
+      "id": "ML-SRE-OVERLOAD",
+      "title": "Handling Overload",
+      "authority": "Google SRE Book",
+      "url": "https://sre.google/sre-book/handling-overload/",
+      "status": "stable",
+      "used_for": [
+        "overload",
+        "load-shedding"
+      ]
+    },
+    {
+      "id": "ML-SRE-MONITORING",
+      "title": "Monitoring Distributed Systems",
+      "authority": "Google SRE Book",
+      "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+      "status": "stable",
+      "used_for": [
+        "monitoring",
+        "alerting"
+      ]
+    },
+    {
+      "id": "ML-SRE-POSTMORTEM",
+      "title": "Postmortem Culture: Learning from Failure",
+      "authority": "Google SRE Book",
+      "url": "https://sre.google/sre-book/postmortem-culture/",
+      "status": "stable",
+      "used_for": [
+        "postmortem",
+        "incident-learning"
+      ]
+    },
+    {
+      "id": "ML-SRE-INCIDENT",
+      "title": "Incident Response",
+      "authority": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/incident-response/",
+      "status": "stable",
+      "used_for": [
+        "incident-response"
+      ]
+    },
+    {
+      "id": "ML-SRE-CANARY",
+      "title": "Canarying Releases",
+      "authority": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/canarying-releases/",
+      "status": "stable",
+      "used_for": [
+        "canary",
+        "release"
+      ]
+    },
+    {
+      "id": "ML-KSERVE-CANARY",
+      "title": "Canary Rollout",
+      "authority": "KServe documentation",
+      "url": "https://kserve.github.io/website/latest/modelserving/v1beta1/rollout/canary/",
+      "status": "living",
+      "used_for": [
+        "canary",
+        "model-serving"
+      ]
+    },
+    {
+      "id": "ML-MLFLOW-REGISTRY",
+      "title": "MLflow Model Registry",
+      "authority": "MLflow documentation",
+      "url": "https://mlflow.org/docs/latest/model-registry/",
+      "status": "living",
+      "used_for": [
+        "model-registry",
+        "versions"
+      ]
+    },
+    {
+      "id": "ML-FAILING-LOUDLY",
+      "title": "Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift",
+      "authority": "Rabanser, Günnemann and Lipton",
+      "url": "https://arxiv.org/abs/1810.11953",
+      "status": "stable",
+      "used_for": [
+        "drift-detection",
+        "dataset-shift"
+      ]
+    },
+    {
+      "id": "ML-FGSM",
+      "title": "Explaining and Harnessing Adversarial Examples",
+      "authority": "Goodfellow, Shlens and Szegedy",
+      "url": "https://arxiv.org/abs/1412.6572",
+      "status": "stable",
+      "used_for": [
+        "adversarial-examples",
+        "evasion"
+      ]
+    },
+    {
+      "id": "ML-MODEL-STEALING",
+      "title": "Stealing Machine Learning Models via Prediction APIs",
+      "authority": "Tramèr et al.",
+      "url": "https://arxiv.org/abs/1609.02943",
+      "status": "stable",
+      "used_for": [
+        "model-extraction"
+      ]
+    },
+    {
+      "id": "ML-MEMBERSHIP",
+      "title": "Membership Inference Attacks against Machine Learning Models",
+      "authority": "Shokri et al.",
+      "url": "https://arxiv.org/abs/1610.05820",
+      "status": "stable",
+      "used_for": [
+        "membership-inference",
+        "privacy"
+      ]
+    },
+    {
+      "id": "ML-BADNETS",
+      "title": "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+      "authority": "Gu, Dolan-Gavitt and Garg",
+      "url": "https://arxiv.org/abs/1708.06733",
+      "status": "stable",
+      "used_for": [
+        "backdoor",
+        "poisoning"
+      ]
+    },
+    {
+      "id": "ML-NIST-AML",
+      "title": "Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations (NIST AI 100-2 E2025)",
+      "authority": "NIST",
+      "url": "https://csrc.nist.gov/pubs/ai/100/2/e2025/final",
+      "status": "current",
+      "used_for": [
+        "adversarial-ml",
+        "taxonomy"
+      ]
+    },
+    {
+      "id": "ML-OWASP-ML10",
+      "title": "Machine Learning Security Top 10",
+      "authority": "OWASP",
+      "url": "https://owasp.org/www-project-machine-learning-security-top-10/",
+      "status": "living",
+      "used_for": [
+        "ml-security",
+        "risks"
+      ]
+    },
+    {
+      "id": "ML-OWASP-LLM10",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "authority": "OWASP GenAI Security Project",
+      "url": "https://genai.owasp.org/llm-top-10/",
+      "status": "living",
+      "used_for": [
+        "llm-security",
+        "prompt-injection"
+      ]
+    },
+    {
+      "id": "ML-EU-AI-ACT",
+      "title": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)",
+      "authority": "European Union, Official Journal",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "status": "current-with-amendments",
+      "used_for": [
+        "ai-regulation",
+        "high-risk",
+        "transparency"
+      ]
+    },
+    {
+      "id": "ML-EC-AI-ACT",
+      "title": "AI Act: regulatory framework and application timeline",
+      "authority": "European Commission",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "status": "living",
+      "used_for": [
+        "ai-regulation",
+        "timeline"
+      ]
+    },
+    {
+      "id": "ML-ISO-42001",
+      "title": "ISO/IEC 42001:2023 Information technology: Artificial intelligence: Management system",
+      "authority": "ISO/IEC",
+      "url": "https://www.iso.org/standard/81230.html",
+      "status": "current",
+      "used_for": [
+        "ai-management-system"
+      ]
+    },
+    {
+      "id": "ML-NIST-AI-100-1",
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1",
+      "authority": "NIST",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "status": "stable",
+      "used_for": [
+        "ai-risk",
+        "govern-map-measure-manage"
+      ]
+    },
+    {
+      "id": "ML-NIST-AI-600-1",
+      "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "authority": "NIST",
+      "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "status": "current",
+      "used_for": [
+        "generative-ai",
+        "ai-risk"
+      ]
+    }
+  ]
+}

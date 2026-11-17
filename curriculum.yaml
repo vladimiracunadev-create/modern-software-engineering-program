@@ -13,9 +13,9 @@
     "last_class": "SE-360",
     "classes": 180
   },
-  "part_count": 46,
-  "class_count": 552,
-  "estimated_hours": 2484,
+  "part_count": 47,
+  "class_count": 564,
+  "estimated_hours": 2538,
   "planned_scope": {
     "decision": "docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md",
     "decisions": [
@@ -33,13 +33,6 @@
         "title": "Ingeniería de datos y plataformas de datos",
         "first_class": "SE-541",
         "last_class": "SE-552",
-        "status": "planned"
-      },
-      {
-        "id": "46",
-        "title": "Machine learning en producción y MLOps",
-        "first_class": "SE-553",
-        "last_class": "SE-564",
         "status": "planned"
       },
       {
@@ -4853,6 +4846,112 @@
           "kind": "project",
           "estimated_hours": 8,
           "path": "classes/part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr"
+        }
+      ]
+    },
+    {
+      "id": "46",
+      "stage": "H",
+      "stage_title": "Ingeniería de software nativa con IA",
+      "title": "Machine learning en producción y MLOps",
+      "owner": "suite",
+      "path": "classes/part-46-machine-learning-en-produccion-y-mlops",
+      "lessons": [
+        {
+          "id": "SE-553",
+          "number": 553,
+          "title": "Ciclo de vida de ML y por qué falla en producción",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion"
+        },
+        {
+          "id": "SE-554",
+          "number": 554,
+          "title": "Datos de entrenamiento, etiquetas y feature stores",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-554-datos-de-entrenamiento-etiquetas-y-feature-stores"
+        },
+        {
+          "id": "SE-555",
+          "number": 555,
+          "title": "Experimentos y entrenamiento reproducible",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-555-experimentos-y-entrenamiento-reproducible"
+        },
+        {
+          "id": "SE-556",
+          "number": 556,
+          "title": "Evaluación, sesgos y validación de modelos",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-556-evaluacion-sesgos-y-validacion-de-modelos"
+        },
+        {
+          "id": "SE-557",
+          "number": 557,
+          "title": "Ajuste fino, adaptación y costo",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-557-ajuste-fino-adaptacion-y-costo"
+        },
+        {
+          "id": "SE-558",
+          "number": 558,
+          "title": "Servir modelos: latencia, lotes y GPU",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-558-servir-modelos-latencia-lotes-y-gpu"
+        },
+        {
+          "id": "SE-559",
+          "number": 559,
+          "title": "Despliegue seguro de modelos: shadow, canary y rollback",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-559-despliegue-seguro-de-modelos-shadow-canary-y-rollback"
+        },
+        {
+          "id": "SE-560",
+          "number": 560,
+          "title": "Monitoreo, deriva y reentrenamiento",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-560-monitoreo-deriva-y-reentrenamiento"
+        },
+        {
+          "id": "SE-561",
+          "number": 561,
+          "title": "Seguridad y robustez de sistemas de ML",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-561-seguridad-y-robustez-de-sistemas-de-ml"
+        },
+        {
+          "id": "SE-562",
+          "number": 562,
+          "title": "Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF",
+          "kind": "class",
+          "estimated_hours": 4,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-562-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf"
+        },
+        {
+          "id": "SE-563",
+          "number": 563,
+          "title": "Taller: degradar y recuperar un modelo",
+          "kind": "studio",
+          "estimated_hours": 6,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-563-taller-degradar-y-recuperar-un-modelo"
+        },
+        {
+          "id": "SE-564",
+          "number": 564,
+          "title": "Proyecto: sistema de ML operable con evidencia",
+          "kind": "project",
+          "estimated_hours": 8,
+          "path": "classes/part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia"
         }
       ]
     },

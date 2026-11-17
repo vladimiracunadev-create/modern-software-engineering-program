@@ -133,7 +133,7 @@ propias páginas ni convierten en opcional la base común.
 ### ✅ Clases ya desarrolladas que sostienen la ruta hoy
 
 El núcleo anterior apunta a la capacidad profesional completa. Estas clases de apoyo,
-de las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
+de las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`), también tienen contenido desarrollado y
 permiten practicar el rol desde otros ángulos:
 
 | Clase desarrollada | Parte |
@@ -150,6 +150,9 @@ permiten practicar el rol desde otros ángulos:
 | [SE-505 · Workflows frente a agentes: cuándo no usar un agente](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-505-workflows-frente-a-agentes-cuando-no-usar-un-agente/README.md) | Parte 42 |
 | [SE-510 · Embeddings, recuperación y agentic RAG](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-510-embeddings-recuperacion-y-agentic-rag/README.md) | Parte 42 |
 | [SE-516 · Proyecto: sistema con LLM evaluado y operable](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/se-516-proyecto-sistema-con-llm-evaluado-y-operable/README.md) | Parte 42 |
+| [SE-553 · Ciclo de vida de ML y por qué falla en producción](../classes/part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) | Parte 46 |
+| [SE-558 · Servir modelos: latencia, lotes y GPU](../classes/part-46-machine-learning-en-produccion-y-mlops/se-558-servir-modelos-latencia-lotes-y-gpu/README.md) | Parte 46 |
+| [SE-564 · Proyecto: sistema de ML operable con evidencia](../classes/part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia/README.md) | Parte 46 |
 
 **Cómo recorrerla.** Empieza por [SE-147](../classes/part-12-ingenieria-de-requisitos/se-147-atributos-de-calidad-y-restricciones/README.md) para fijar el
 primer mecanismo, usa [SE-361](../classes/part-30-estrategia-y-tecnicas-de-prueba/se-361-calidad-por-riesgo-y-proposito-de-las-pruebas/README.md) para integrar el
@@ -159,14 +162,14 @@ sólo cuando su concepto cambia una decisión y deja evidencia; abrir todos los 
 no constituye competencia.
 
 > [!IMPORTANT]
-> El mapa expresa el currículo vigente. Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) están
+> El mapa expresa el currículo vigente. Las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) están
 > desarrolladas, a falta de una revisión editorial humana independiente. Esta ruta no
 > declara aprobadas esas clases ni reemplaza el [roadmap](../ROADMAP.md).
 
-## 🔭 Ampliación planificada: Partes 45–47 (sin clases publicadas)
+## 🔭 Ampliación planificada: Partes 45, 47 (sin clases publicadas)
 
 > [!NOTE]
-> Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas** desde el 17 de noviembre
+> Las Partes 45, 47 (`SE-541`–`SE-552`, `SE-565`–`SE-576`) están **planificadas** desde el 17 de noviembre
 > de 2026 ([ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)). Todavía no
 > tienen clases ni README, por lo que no se enlazan aquí y ninguna de sus clases debe
 > considerarse disponible.
@@ -174,7 +177,6 @@ no constituye competencia.
 | Parte planificada | Rango previsto | Qué cambiará para este rol |
 | --- | --- | --- |
 | **Parte 45 · Ingeniería de datos y plataformas de datos** | `SE-541`–`SE-552` | Define pruebas de calidad de datos y de pipelines idempotentes con oráculos explícitos. |
-| **Parte 46 · Machine learning en producción y MLOps** | `SE-553`–`SE-564` | Trata la evaluación de modelos, sus sesgos y la validación antes del despliegue como disciplina de prueba. |
 | **Parte 47 · Sistemas críticos, tiempo real y normas de seguridad** | `SE-565`–`SE-576` | Cubre verificación y cobertura exigidas por las normas (MC/DC, HIL, SIL) y su relación con las pruebas habituales. |
 
 Hasta que esas partes se publiquen, el rol se apoya en el núcleo y en las clases

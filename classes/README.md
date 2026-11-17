@@ -1,14 +1,14 @@
 # Índice completo del currículo
 
-552 clases desarrolladas · 46 partes desarrolladas (`SE-001`–`SE-540`, `SE-577`–`SE-588`) · 36 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
+564 clases desarrolladas · 47 partes desarrolladas (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) · 24 clases planificadas sin publicar · alcance total 588 clases en 49 partes (`SE-001`–`SE-588`).
 
 > [!WARNING]
-> Las Partes 00–44, 48 (`SE-001`–`SE-540`, `SE-577`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45–47 (`SE-541`–`SE-576`) están **planificadas**, sin clases publicadas.
+> Las Partes 00–44, 46, 48 (`SE-001`–`SE-540`, `SE-553`–`SE-564`, `SE-577`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Las Partes 45, 47 (`SE-541`–`SE-552`, `SE-565`–`SE-576`) están **planificadas**, sin clases publicadas.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)
 
-## Las 46 partes desarrolladas
+## Las 47 partes desarrolladas
 
 | Parte | Título | Etapa | Clases | Propietario |
 | --- | --- | --- | --- | --- |
@@ -57,6 +57,7 @@
 | 42 | [Patrones agénticos y sistemas con LLM](part-42-patrones-agenticos-y-sistemas-con-llm/README.md) | H | SE-505–SE-516 | `suite` |
 | 43 | [Patrones de diseño, empresariales y de resiliencia](part-43-patrones-de-diseno-empresariales-y-de-resiliencia/README.md) | E | SE-517–SE-528 | `suite` |
 | 44 | [Estilos arquitectónicos](part-44-estilos-arquitectonicos/README.md) | E | SE-529–SE-540 | `suite` |
+| 46 | [Machine learning en producción y MLOps](part-46-machine-learning-en-produccion-y-mlops/README.md) | H | SE-553–SE-564 | `suite` |
 | 48 | [Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md) | D | SE-577–SE-588 | `suite` |
 
 ## Partes planificadas sin publicar
@@ -64,12 +65,11 @@
 | Parte | Título | Clases | Estado |
 | --- | --- | --- | --- |
 | 45 | Ingeniería de datos y plataformas de datos | SE-541–SE-552 | planificada, sin clases publicadas |
-| 46 | Machine learning en producción y MLOps | SE-553–SE-564 | planificada, sin clases publicadas |
 | 47 | Sistemas críticos, tiempo real y normas de seguridad | SE-565–SE-576 | planificada, sin clases publicadas |
 
 ---
 
-## Índice plano de las 552 clases desarrolladas
+## Índice plano de las 564 clases desarrolladas
 
 Cada título abre el `README.md` de la clase en GitHub. El enlace **portal** abre
 la misma entrada en GitHub Pages. Esto permite auditar contenido y publicación
@@ -705,6 +705,20 @@ sin recorrer carpetas manualmente.
 - [SE-538 — Evolución y migración entre estilos](part-44-estilos-arquitectonicos/se-538-evolucion-y-migracion-entre-estilos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-538.html)
 - [SE-539 — Taller: seleccionar un estilo con escenarios de calidad](part-44-estilos-arquitectonicos/se-539-taller-seleccionar-un-estilo-con-escenarios-de-calidad/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-539.html)
 - [SE-540 — Proyecto: decisión arquitectónica defendida con ADR](part-44-estilos-arquitectonicos/se-540-proyecto-decision-arquitectonica-defendida-con-adr/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-540.html)
+## [Parte 46 — Machine learning en producción y MLOps](part-46-machine-learning-en-produccion-y-mlops/README.md)
+
+- [SE-553 — Ciclo de vida de ML y por qué falla en producción](part-46-machine-learning-en-produccion-y-mlops/se-553-ciclo-de-vida-de-ml-y-por-que-falla-en-produccion/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-553.html)
+- [SE-554 — Datos de entrenamiento, etiquetas y feature stores](part-46-machine-learning-en-produccion-y-mlops/se-554-datos-de-entrenamiento-etiquetas-y-feature-stores/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-554.html)
+- [SE-555 — Experimentos y entrenamiento reproducible](part-46-machine-learning-en-produccion-y-mlops/se-555-experimentos-y-entrenamiento-reproducible/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-555.html)
+- [SE-556 — Evaluación, sesgos y validación de modelos](part-46-machine-learning-en-produccion-y-mlops/se-556-evaluacion-sesgos-y-validacion-de-modelos/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-556.html)
+- [SE-557 — Ajuste fino, adaptación y costo](part-46-machine-learning-en-produccion-y-mlops/se-557-ajuste-fino-adaptacion-y-costo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-557.html)
+- [SE-558 — Servir modelos: latencia, lotes y GPU](part-46-machine-learning-en-produccion-y-mlops/se-558-servir-modelos-latencia-lotes-y-gpu/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-558.html)
+- [SE-559 — Despliegue seguro de modelos: shadow, canary y rollback](part-46-machine-learning-en-produccion-y-mlops/se-559-despliegue-seguro-de-modelos-shadow-canary-y-rollback/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-559.html)
+- [SE-560 — Monitoreo, deriva y reentrenamiento](part-46-machine-learning-en-produccion-y-mlops/se-560-monitoreo-deriva-y-reentrenamiento/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-560.html)
+- [SE-561 — Seguridad y robustez de sistemas de ML](part-46-machine-learning-en-produccion-y-mlops/se-561-seguridad-y-robustez-de-sistemas-de-ml/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-561.html)
+- [SE-562 — Gobierno de IA y regulación: EU AI Act, ISO 42001 y NIST AI RMF](part-46-machine-learning-en-produccion-y-mlops/se-562-gobierno-de-ia-y-regulacion-eu-ai-act-iso-42001-y-nist-ai-rmf/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-562.html)
+- [SE-563 — Taller: degradar y recuperar un modelo](part-46-machine-learning-en-produccion-y-mlops/se-563-taller-degradar-y-recuperar-un-modelo/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-563.html)
+- [SE-564 — Proyecto: sistema de ML operable con evidencia](part-46-machine-learning-en-produccion-y-mlops/se-564-proyecto-sistema-de-ml-operable-con-evidencia/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-564.html)
 ## [Parte 48 — Runtimes y plataformas modernas](part-48-runtimes-y-plataformas-modernas/README.md)
 
 - [SE-577 — WebAssembly y WASI](part-48-runtimes-y-plataformas-modernas/se-577-webassembly-y-wasi/README.md) · [🌐 portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/classes/SE-577.html)

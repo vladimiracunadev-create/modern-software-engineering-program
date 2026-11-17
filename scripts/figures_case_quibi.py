@@ -5,7 +5,7 @@ NBC News (2020). Quibi's internal data are not public and are not inferred.
 """
 from __future__ import annotations
 
-from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, timeline
+from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, line_chart, stacked_bars, timeline
 
 FUENTE = "Fuente: prensa especializada citada en el caso; esquema propio."
 
@@ -127,6 +127,283 @@ def aprender_antes_de_escalar() -> Fig:
     return done(f, y + 240, "El recorrido seguido es el que describen Whitman y Katzenberg y la prensa: decidieron lanzar con atención masiva por considerar que creaban una categoría. El alternativo es una propuesta de este programa para estudiar la decisión; no sabemos si habría funcionado ni si los inversionistas lo habrían aceptado.", "gold")
 
 
+
+
+
+# ==== EXPANDED FIGURES (begin) ====
+
+# ------------------------------------------------------------------ 6. cuadrante de mercado
+def cuadrante_de_mercado() -> Fig:
+    f, y = sketch("Cuadrante de mercado: Quibi apostó por el único hueco donde el espectador tenía que pagar por lo corto",
+                  "Cuadrante con dos ejes. Horizontal: contenido largo a la izquierda y corto a la derecha. Vertical: gratuito arriba y de pago abajo. Arriba a la derecha, vídeo corto gratuito como TikTok, YouTube e Instagram. Abajo a la izquierda, servicios de pago de formato largo como Netflix, Disney+, HBO Max y Peacock. Abajo a la derecha, Quibi con producciones premium. A la derecha, Go90 de Verizon, cerrado en 2018, de vídeo corto con anuncios.")
+    f.box(60, y + 10, 420, 150, "", "plain")
+    f.box(480, y + 10, 420, 150, "", "plain")
+    f.box(60, y + 160, 420, 150, "", "plain")
+    f.box(480, y + 160, 420, 150, "", "coral")
+    f.text(270, y + 34, "Gratuito y largo", 13, "middle", 700, "#5b7280")
+    f.text(690, y + 34, "Gratuito y corto", 13, "middle", 700, "#5b7280")
+    f.text(270, y + 184, "De pago y largo", 13, "middle", 700, "#5b7280")
+    f.text(690, y + 184, "De pago y corto", 13, "middle", 700, "#5c1f14")
+    bx(f, 80, y + 52, 380, 88, "Televisión abierta y vídeo bajo demanda con anuncios (fuera del caso)", "grey", 13, dashed=True)
+    bx(f, 500, y + 52, 190, 88, "TikTok, YouTube, Instagram y Snapchat", "teal", 13)
+    bx(f, 710, y + 52, 170, 88, "Go90 de Verizon: cerrado en 2018", "gold", 13)
+    bx(f, 80, y + 202, 380, 88, "Netflix, Disney+, HBO Max y Peacock: catálogos largos y marcas conocidas", "plain", 13)
+    bx(f, 500, y + 202, 380, 88, "Quibi: episodios de diez minutos o menos, producciones con talento, solo teléfono al inicio", "coral", 13, bold=True)
+    f.text(60, y + 328, "contenido largo", 13, "start", 400, "#5b7280")
+    f.text(900, y + 328, "contenido corto", 13, "end", 400, "#5b7280")
+    return done(f, y + 340, "El cuadrante inferior derecho obliga a pagar por lo que el superior derecho ofrece sin costo. Go90 es el antecedente que Variety recordó en 2018. Mapa cualitativo, no una medición de cuota de mercado.",
+                foot="Fuente: Variety (2018 y 2020), The Verge (2020) y NBC News (2020); esquema propio.")
+
+
+# ------------------------------------------------------------------ 7. lienzo del producto
+def lienzo_del_producto() -> Fig:
+    f, y = sketch("Lienzo del producto con datos públicos: tres supuestos sostenían los nueve bloques",
+                  "Lienzo de modelo de negocio de nueve bloques resumido con datos públicos: segmentos, propuesta de valor, canales, relación, ingresos, recursos, actividades, costos y socios. Tres supuestos, uso en movimiento, solo teléfono y pago por contenido premium breve, aparecen marcados como los que el caso examina.")
+    w, g = 296, 16
+    blocks = [
+        (0, 0, "Segmentos: espectador en movimiento, anunciantes, creadores", "plain"),
+        (1, 0, "Propuesta: episodios de diez minutos o menos con talento reconocido", "teal"),
+        (2, 0, "Canales: tiendas de aplicaciones; luego AirPlay, Chromecast y televisor", "gold"),
+        (0, 1, "Relación: suscripción de dos planes y publicidad", "plain"),
+        (1, 1, "Ingresos: 4,99 con anuncios; 7,99 sin ellos; publicidad", "plain"),
+        (2, 1, "Socios: estudios inversores, operador móvil y anunciantes", "plain"),
+        (0, 2, "Recursos: producciones, talento y la función Turnstyle", "plain"),
+        (1, 2, "Actividades: producción, marketing y desarrollo de la aplicación", "plain"),
+        (2, 2, "Costos: contenido (hasta 6 millones por hora) y marketing", "plain"),
+    ]
+    for c, r, t, k in blocks:
+        bx(f, 10 + c * (w + g), y + 8 + r * 96, w, 80, t, k, 13)
+    f.group(10, y + 310, 920, 120, "Los tres supuestos que sostenían el modelo (el caso los examina)", "grey")
+    for i, t in enumerate(["1 El uso en movimiento es frecuente y valioso", "2 Basta el teléfono, sin televisor", "3 Se paga por contenido premium breve frente a lo gratuito"]):
+        bx(f, 26 + i * 300, y + 344, 280, 66, t, "coral", 13)
+    return done(f, y + 450, "Reconstrucción de este programa a partir de la prensa: Quibi no publicó su lienzo y no se infieren cifras internas. Las tres cajas coral eran verificables con experimentos baratos antes de comprometer el gasto.",
+                foot="Fuente: Variety, TechCrunch, Deadline y The Verge (2018 a 2021); esquema propio.")
+
+
+# ------------------------------------------------------------------ 8. embudo con datos
+def embudo_con_datos() -> Fig:
+    f, y = sketch("El embudo con las cifras públicas: una estimación de terceros y una objeción sin cifra",
+                  "A la izquierda, embudo de la cohorte inicial según Sensor Tower: unos 910.000 registros en los primeros días de abril de 2020 y unos 72.000 usuarios de pago tras los tres meses de prueba, cerca del 8 por ciento. A la derecha, la posición de Quibi: el número de suscriptores de pago de esa estimación es incorrecto en un orden de magnitud, sin publicar su propia cifra.")
+    f.group(10, y, 560, 280, "Estimación de Sensor Tower (julio de 2020)", "grey")
+    f.parts.append(f'<polygon points="40,{y + 50} 540,{y + 50} 440,{y + 130} 140,{y + 130}" fill="#dff1ee" stroke="#087f8c" stroke-width="1.6"/>')
+    f.text(290, y + 96, "unos 910.000 registros en los primeros días", 13, "middle", 700, "#0b3f45")
+    f.parts.append(f'<polygon points="140,{y + 150} 440,{y + 150} 380,{y + 230} 200,{y + 230}" fill="#fbe4de" stroke="#c0432f" stroke-width="1.6"/>')
+    f.text(290, y + 196, "unos 72.000 de pago tras 90 días", 13, "middle", 700, "#5c1f14")
+    f.text(290, y + 258, "conversión estimada: cerca del 8 %", 13, "middle", 700, "#0b3f45")
+    f.group(590, y, 340, 280, "Posición de Quibi", "grey")
+    bx(f, 606, y + 44, 308, 88, "El número de suscriptores de pago es incorrecto en un orden de magnitud", "gold", 13)
+    bx(f, 606, y + 150, 308, 88, "Cifra propia de suscriptores de pago: no publicada", "plain", 13, dashed=True, bold=True)
+    f.arrow([(570, y + 190), (606, y + 190)], dashed=True)
+    return done(f, y + 300, "Las dos columnas no se pueden comparar: una tiene números y la otra, una objeción. Disney+ convirtió, según la misma fuente, un 11 % de unos 9,5 millones de registros iniciales. La estimación cubre solo los primeros días de abril.",
+                foot="Fuente: The Verge (8 jul 2020), con datos de Sensor Tower; esquema propio.")
+
+
+# ------------------------------------------------------------------ 9. descargas según cada fuente
+def descargas_segun_cada_fuente() -> Fig:
+    return line_chart(
+        "Descargas acumuladas según cada fuente: la discrepancia crece con el tiempo",
+        "Dos líneas por días desde el lanzamiento. Sensor Tower: 0,3 millones el primer día, 2,6 el primer mes y 4,5 en julio. Quibi: 0,6 millones de usuarios nuevos la primera semana, 3,5 de descargas el primer mes y más de 5,6 en julio.",
+        [("Sensor Tower", [(1, 0.3, "0,3", "b"), (30, 2.6, "2,6", "b"), (93, 4.5, "4,5", "b")], "navy"),
+         ("Quibi", [(7, 0.6, "0,6", "t"), (30, 3.5, "3,5", "t"), (93, 5.6, "5,6", "t")], "coral")],
+        x_label="días desde el 6 de abril de 2020", y_label="millones", x_ticks=[(0, "0"), (30, "30"), (60, "60"), (93, "93")], y_ticks=[0, 2, 4, 6],
+        decimals=1, point_labels="all",
+        note="Los puntos son hitos informados por cada fuente, no una serie continua. El de la primera semana de Quibi son usuarios nuevos y el de Sensor Tower, descargas del primer día; no son la misma medida. A los 93 días Quibi dice más de 5,6 millones y Sensor Tower estima 4,5.",
+        foot="Fuentes: TechCrunch (7 abr 2020), Deadline (21 oct 2020), NBC News (22 oct 2020) y The Verge (8 jul 2020).")
+
+
+# ------------------------------------------------------------------ 10. recorrido y cobro
+def recorrido_y_cobro() -> Fig:
+    return timeline(
+        "El dato que decidía el negocio llegó cuando ya había pasado más de un tercio de la vida del servicio",
+        "Línea de tiempo en días desde el 6 de abril de 2020. La cohorte de lanzamiento tiene una prueba gratuita de 90 días hasta el 5 de julio, día 90. Las altas de mayo y junio tienen pruebas de 14 días. El primer cobro posible es el día 90 y el cierre del servicio el día 239.",
+        [
+            ("Cohorte de lanzamiento", [(0, 90, "prueba gratuita de 90 días", "teal")]),
+            ("Altas de mayo y junio", [(25, 85, "pruebas de 14 días", "gold")]),
+            ("Servicio abierto", [(0, 239, "de abril a diciembre", "grey")]),
+        ],
+        unit="días desde el 6 de abril de 2020",
+        events=[(90, "5 jul: cobro"), (239, "1 dic")],
+        t_max=250, ticks=[0, 50, 100, 150, 200, 250], lane_h=50, label_w=230,
+        note="El primer cobro de la cohorte de lanzamiento es cálculo propio (90 días después del 6 de abril). Las pruebas de 14 días se introdujeron en mayo y junio según la propia empresa; no se sabe cuántos usuarios convirtieron o cancelaron antes.",
+        foot="Fuentes: TechCrunch (7 abr 2020), Deadline (21 oct 2020) y The Verge (8 jul y 22 oct 2020).")
+
+
+# ------------------------------------------------------------------ 11. decisiones técnicas
+def decisiones_tecnicas() -> Fig:
+    f, y = sketch("Cuatro decisiones técnicas documentadas: la restricción, la decisión y lo que la fuente dice que ocurrió",
+                  "Cuatro filas de tres cajas unidas por flechas. Solo teléfono: se priorizaron otras tareas de ingeniería y las aplicaciones de televisor llegaron el 20 de octubre. Turnstyle: dos versiones de vídeo según la patente y una disputa con Eko. Capturas de pantalla: la gestión de derechos digitales bloqueaba las capturas y se desarrolló un método propio. Televisor: AirPlay y Chromecast en junio y aplicaciones nativas el 20 de octubre.")
+    heads = ["Restricción que la motivó", "Decisión", "Lo que dice la fuente"]
+    for i, h in enumerate(heads):
+        bx(f, 10 + i * 316, y + 4, 296, 34, h, "navy", 13, bold=True)
+    rows = [
+        ("Caso de uso en movimiento y prioridades de ingeniería", "Solo teléfono al inicio", "Aplicación nativa de televisor el 20 de octubre, un día antes del anuncio del cierre", "coral"),
+        ("Una experiencia propia al girar el teléfono", "Turnstyle: dos versiones de vídeo según la patente", "Disputa con Eko: patente y secretos industriales; Quibi lo niega", "coral"),
+        ("Gestión de derechos digitales que bloquea capturas", "Método propio: pulsar, mantener y deslizar", "Anunciado en julio de 2020 por el director de producto", "gold"),
+        ("El uso real era en casa", "AirPlay y Chromecast, y después aplicaciones nativas", "Acceso por etapas; las fuentes difieren en la fecha de la primera", "gold"),
+    ]
+    for r, (a, b, c, k) in enumerate(rows):
+        yy = y + 52 + r * 100
+        bx(f, 10, yy, 296, 80, a, "plain", 13)
+        bx(f, 326, yy, 296, 80, b, "teal", 13)
+        bx(f, 642, yy, 288, 80, c, k, 13)
+        f.arrow([(306, yy + 40), (326, yy + 40)])
+        f.arrow([(622, yy + 40), (642, yy + 40)])
+    return done(f, y + 52 + 4 * 100, "Dorado: consecuencia o dato de la fuente sin juicio; coral: costo o disputa señalados por la fuente. Whitman habló de AirPlay y Chromecast «a las pocas semanas»; Variety las sitúa en junio. No hay documentación técnica pública.",
+                foot="Fuente: Deadline (21 oct 2020), The Verge (11 mar 2020), Engadget (24 jul 2020), Variety (1 dic 2020); esquema propio.")
+
+
+# ------------------------------------------------------------------ 12. cascada del capital
+def cascada_del_capital() -> Fig:
+    return stacked_bars(
+        "De 1.750 millones recaudados a unos 350 en caja: el uso del capital y lo que se devolvió",
+        "Cuatro barras horizontales en millones de dólares. Capital recaudado: unos 1.750. Uso del capital por diferencia: unos 1.400 consumidos y unos 350 en caja al anunciar el cierre. Efectivo a devolver a los inversores: unos 350. Derechos vendidos a Roku: menos de 100.",
+        ["Capital recaudado", "Uso del capital (cálculo propio)", "Efectivo a devolver", "Derechos a Roku (tope)"],
+        [("Recaudado", [1750, 0, 0, 0], "navy"), ("Consumido por diferencia", [0, 1400, 0, 0], "coral"), ("En caja al cierre", [0, 350, 0, 0], "teal"),
+         ("Efectivo a devolver", [0, 0, 350, 0], "teal"), ("Derechos a Roku (tope)", [0, 0, 0, 100], "gold")],
+        unit="millones de dólares", horizontal=True, label_w=270,
+        note="Lo consumido es la diferencia entre dos cifras de prensa y no una cifra contable: no distingue contenido, marketing y operación. Las dos últimas barras vienen de fuentes distintas y no se suman; la de Roku es un tope («significativamente menos» de 100 millones) y su destino no es público.",
+        foot="Fuentes: Deadline (21 oct 2020), Variety (1 dic 2020) y The Verge (8 ene 2021, citando al WSJ).")
+
+
+# ------------------------------------------------------------------ 13. mapa de supuestos
+def mapa_de_supuestos() -> Fig:
+    f, y = sketch("Mapa de supuestos: los más importantes eran los que menos evidencia tenían antes de lanzar",
+                  "Cuadrante con dos ejes: importancia para el negocio, de abajo hacia arriba, y evidencia disponible antes del lanzamiento, de izquierda a derecha. Uso en movimiento y disposición a pagar por contenido corto premium están arriba a la izquierda. Que bastara el teléfono está en el centro con evidencia contraria posterior. El inventario publicitario vendido está a la derecha como evidencia a favor.")
+    f.box(70, y + 10, 420, 150, "", "coral")
+    f.box(490, y + 10, 420, 150, "", "plain")
+    f.box(70, y + 160, 420, 150, "", "plain")
+    f.box(490, y + 160, 420, 150, "", "plain")
+    f.text(280, y + 34, "Probar primero: muy importante y poca evidencia", 13, "middle", 700, "#5c1f14")
+    f.text(700, y + 34, "Seguir con vigilancia", 13, "middle", 700, "#5b7280")
+    f.text(280, y + 184, "Probar si es barato", 13, "middle", 700, "#5b7280")
+    f.text(700, y + 184, "Dar por buenos", 13, "middle", 700, "#5b7280")
+    bx(f, 100, y + 56, 180, 80, "Uso en movimiento frecuente y valioso", "coral", 13)
+    bx(f, 296, y + 56, 180, 80, "Se paga por lo corto premium frente a lo gratuito", "coral", 13)
+    bx(f, 506, y + 56, 190, 80, "Basta el teléfono, sin televisor: evidencia contraria posterior", "gold", 13)
+    bx(f, 726, y + 56, 170, 80, "Calidad de los títulos: valoración disputada", "gold", 13)
+    bx(f, 726, y + 206, 170, 80, "Interés de anunciantes: 150 millones vendidos", "teal", 13)
+    bx(f, 100, y + 206, 380, 80, "Que una función propia (Turnstyle) diferencie al producto", "plain", 13)
+    f.text(70, y + 330, "poca evidencia", 13, "start", 400, "#5b7280")
+    f.text(910, y + 330, "mucha evidencia", 13, "end", 400, "#5b7280")
+    return done(f, y + 340, "Ubicación según valoración de este programa a partir de lo público; Quibi pudo tener estudios internos que moverían puntos. El eje vertical es la importancia para que el negocio funcione, de menos abajo a más arriba.",
+                foot="Fuente: Variety, TechCrunch, Deadline y NBC News (2018 a 2020); esquema propio.")
+
+
+# ------------------------------------------------------------------ 14. puertas de aprendizaje
+def puertas_de_aprendizaje() -> Fig:
+    f, y = sketch("Siete puertas de decisión: qué se sabe públicamente de cada una",
+                  "Siete puertas en dos filas. Investigación de la hipótesis y prototipo o prueba pequeña: se desconoce. Lanzamiento escalonado: considerado y descartado por los responsables. Medición de conversión antes de comprometer capital: la prueba de 90 días retrasó el dato hasta julio. Criterios de abandono escritos: se desconocen. Capital por tramos: no, capital grande desde 2018. Preventa de publicidad: 150 millones vendidos antes del lanzamiento.")
+    cells = [
+        ("1 Investigación de la hipótesis", "No se sabe: no hay documentos públicos", "grey"),
+        ("2 Prototipo o prueba pequeña", "No se sabe: no hay documentos públicos", "grey"),
+        ("3 Lanzamiento escalonado", "Considerado y descartado, según Whitman, para crear una categoría", "coral"),
+        ("4 Medir conversión antes de comprometer capital", "La prueba de 90 días llevó el dato a julio", "coral"),
+        ("5 Criterios de abandono escritos", "No se sabe; la salida se decidió con los datos del verano", "grey"),
+        ("6 Capital por tramos", "Capital grande desde 2018: 1.000 millones anunciados", "coral"),
+        ("7 Preventa de publicidad", "Unos 150 millones vendidos antes del lanzamiento", "teal"),
+    ]
+    w, g = 224, 12
+    for i, (t, r, k) in enumerate(cells):
+        row, col = divmod(i, 4)
+        x = 10 + col * (w + g)
+        yy = y + 8 + row * 190
+        bx(f, x, yy, w, 76, t, "plain", 13, bold=True)
+        bx(f, x, yy + 80, w, 90, r, k, 13)
+    return done(f, y + 8 + 2 * 190, "Teal: hay evidencia pública de que existió. Coral: hay evidencia pública de que no existió o se decidió no hacerlo. Gris: no se sabe. Que una puerta no sea pública no significa que faltara.",
+                foot="Fuente: Deadline (21 oct 2020), TechCrunch (2019), The Verge (8 jul 2020); esquema propio.")
+
+
+# ------------------------------------------------------------------ 15. cronología del cierre
+def cronologia_del_cierre() -> Fig:
+    return timeline(
+        "Del 30 de septiembre al 8 de enero: tres semanas de búsqueda, un anuncio, el cierre y la venta de los derechos",
+        "Línea de tiempo en días desde el 30 de septiembre de 2020. Tres semanas de búsqueda de socios y compradores hasta el anuncio del 21 de octubre, día 21. La decisión de devolver el efectivo hacia el 7 de octubre, día 7. El servicio se cierra el 1 de diciembre, día 62, y los derechos se venden a Roku el 8 de enero, día 100.",
+        [
+            ("Búsqueda de socios y compradores", [(0, 21, "tres semanas", "gold")]),
+            ("Decisión de devolver el efectivo", [(6, 21, "decisión", "navy")]),
+            ("Servicio y plantilla", [(21, 62, "desmontaje", "coral")]),
+            ("Activos y litigios", [(62, 100, "venta a Roku", "teal")]),
+        ],
+        unit="días desde el 30 de septiembre de 2020",
+        events=[(21, "21 oct: anuncio"), (62, "1 dic: cierre"), (100, "8 ene: Roku")],
+        t_max=120, ticks=[0, 20, 40, 60, 80, 100, 120], lane_h=50, label_w=280,
+        note="El día 0 es tres semanas antes del anuncio, según Katzenberg. La fecha de la decisión es una aproximación a partir de «un par de semanas» que dijo Whitman. Roku compró más de 75 programas por menos de 100 millones; la disputa con Eko seguía abierta.",
+        foot="Fuentes: Deadline (21 oct 2020), The Verge (22 oct 2020 y 8 ene 2021) y Variety (1 dic 2020).")
+
+
+# ------------------------------------------------------------------ 16. capital por tramos
+def capital_por_tramos() -> Fig:
+    f, y = sketch("Propuesta: capital por tramos, cada uno liberado por un hito de evidencia y con una salida si no se cumple",
+                  "Cuatro etapas en fila: hipótesis y prueba barata, piloto con una cohorte, lanzamiento por segmento y escala. Cada una tiene un hito de evidencia que libera el siguiente tramo y una flecha de salida hacia abandono o cambio si no se cumple. Es una propuesta de este programa.")
+    steps = [("1 Hipótesis y prueba barata", "Hito: uso y disposición a pagar medidos con una cohorte pequeña", "Tramo pequeño"),
+             ("2 Piloto con una cohorte", "Hito: conversión y retención por encima del umbral pactado", "Tramo moderado"),
+             ("3 Lanzamiento por segmento", "Hito: costo por suscriptor por debajo del límite", "Tramo mayor"),
+             ("4 Escala", "Hito: retención sostenida a los 90 días", "Resto del capital")]
+    w, g = 214, 21
+    for i, (t, h, c) in enumerate(steps):
+        x = 10 + i * (w + g)
+        bx(f, x, y + 8, w, 56, t, "teal", 13, bold=True)
+        bx(f, x, y + 68, w, 90, h, "plain", 13)
+        bx(f, x, y + 162, w, 40, c, "gold", 13)
+        if i:
+            f.arrow([(x - g, y + 36), (x, y + 36)])
+        f.arrow([(x + w / 2, y + 202), (x + w / 2, y + 232)], color="#c0432f", dashed=True)
+    bx(f, 10, y + 232, 920, 58, "Si el hito no se cumple: cambiar de modelo, devolver el capital restante o parar, según criterios firmados antes de gastar", "coral", 13, bold=True)
+    return done(f, y + 310, "La proporción de capital por tramo es ilustrativa. Propuesta de este programa: no afirma que los inversores la habrían aceptado ni que el resultado habría cambiado.",
+                foot="Fuente: análisis propio apoyado en las clases SE-130 y SE-141 del curso.")
+
+
+# ------------------------------------------------------------------ 17. árbol de fallas
+def arbol_de_fallas() -> Fig:
+    f, y = sketch("Árbol de fallas: el cierre a los siete meses exigió tres condiciones a la vez",
+                  "Árbol de fallas con compuerta Y. Evento superior: cierre del servicio a los siete meses del lanzamiento. Ramas: la demanda de pago fue insuficiente, el capital necesario para llegar a escala no estaba disponible y no hubo un cambio de rumbo a tiempo. Cada rama tiene causas documentadas e interpretaciones.")
+    bx(f, 290, y + 4, 360, 56, "Cierre del servicio a los siete meses", "navy", 14, bold=True)
+    f.line(470, y + 60, 470, y + 84)
+    f.dot(470, y + 96, "Y")
+    f.line(155, y + 112, 785, y + 112)
+    for x in (155, 470, 785):
+        f.line(x, y + 112, x, y + 130)
+    bx(f, 10, y + 130, 290, 60, "La demanda de pago fue insuficiente", "plain", bold=True)
+    bx(f, 325, y + 130, 290, 60, "No había capital para llegar a escala", "plain", bold=True)
+    bx(f, 640, y + 130, 290, 60, "No hubo cambio de rumbo a tiempo", "plain", bold=True)
+    for x in (155, 470, 785):
+        f.line(x, y + 190, x, y + 206)
+    f.dot(155, y + 218, "O")
+    f.dot(470, y + 218, "Y")
+    f.dot(785, y + 218, "O")
+    leaves = [
+        (10, [("Conversión baja o en disputa (estimaciones de terceros)", "coral"), ("Oferta gratuita de vídeo corto (documentado)", "coral"), ("Uso en movimiento reducido por el confinamiento (documentado)", "coral")]),
+        (325, [("Necesidad de más capital pronto, según Whitman (documentado)", "coral"), ("Datos que no respaldaban una nueva ronda (documentado)", "coral")]),
+        (640, [("Experimentos del verano sin cambiar la respuesta (documentado)", "coral"), ("Televisor solo el 20 de octubre (documentado)", "coral"), ("Compromiso de capital previo muy grande (interpretación)", "gold")]),
+    ]
+    for x, items in leaves:
+        cy = y + 244
+        f.line(x + 145, y + 230, x + 145, y + 244)
+        for t, k in items:
+            bx(f, x, cy, 290, 58, t, k)
+            cy += 70
+    return done(f, y + 244 + 70 * 3 + 6, "O: basta una causa; Y: hacen falta todas. Es un modelo lógico simplificado, sin probabilidades ni datos internos. Evitar una de las tres ramas principales habría evitado el cierre en ese plazo, según el modelo.",
+                foot="Fuente: Deadline, Variety, NBC News y The Verge (2020); esquema propio.")
+
+
+# ------------------------------------------------------------------ 18. operación en días
+def operacion_en_dias() -> Fig:
+    return timeline(
+        "Siete meses de operación: cuándo llegaron el producto, los datos y las decisiones de capital",
+        "Línea de tiempo en días desde el 6 de abril de 2020 con tres carriles: producto, datos y capital. Producto: AirPlay y Chromecast en junio y aplicaciones de televisor el día 197. Datos: primer cobro posible el día 90, informe de Sensor Tower el día 93 y estimaciones de Kantar al final de cada trimestre. Capital: gasto esperado de 1.000 millones hacia el tercer trimestre, decisión de cerrar hacia el día 184 y anuncio el día 198.",
+        [
+            ("Producto: acceso al televisor", [(0, 70, "solo teléfono", "coral"), (70, 197, "AirPlay y Chromecast", "gold"), (197, 239, "apps", "teal")]),
+            ("Datos que decidían el negocio", [(90, 93, "", "navy"), (85, 87, "", "grey"), (177, 179, "", "grey")]),
+            ("Capital", [(0, 177, "gasto esperado: 1.000 millones", "gold"), (184, 198, "", "navy")]),
+        ],
+        unit="días desde el 6 de abril de 2020",
+        events=[(90, "5 jul"), (198, "21 oct")],
+        t_max=250, ticks=[0, 50, 100, 150, 200, 250], lane_h=52, label_w=260,
+        note="Los días son cálculo propio a partir de fechas de prensa. En el carril de datos: primer cobro (día 90), informe de Sensor Tower (93) y cierres de trimestre con las estimaciones de Kantar (85 y 177). El paso de «solo teléfono» a AirPlay y Chromecast se sitúa en junio (Variety); Whitman habló de pocas semanas.",
+        foot="Fuentes: Variety (1 dic 2020), NBC News (22 oct 2020), Deadline (21 oct 2020) y The Verge (8 jul 2020).")
+
+# ==== EXPANDED FIGURES (end) ====
+
 FIGURES = {
     "quibi-premisa-y-realidad.svg": premisa_y_realidad,
     "quibi-producto-y-distribucion.svg": producto,
@@ -134,4 +411,18 @@ FIGURES = {
     "quibi-dinero.svg": dinero,
     "quibi-audiencia.svg": audiencia,
     "quibi-aprender-antes-de-escalar.svg": aprender_antes_de_escalar,
+    # expanded entries
+    "quibi-cuadrante-de-mercado.svg": cuadrante_de_mercado,
+    "quibi-lienzo-del-producto.svg": lienzo_del_producto,
+    "quibi-embudo-con-datos.svg": embudo_con_datos,
+    "quibi-descargas-segun-cada-fuente.svg": descargas_segun_cada_fuente,
+    "quibi-recorrido-y-cobro.svg": recorrido_y_cobro,
+    "quibi-decisiones-tecnicas.svg": decisiones_tecnicas,
+    "quibi-cascada-del-capital.svg": cascada_del_capital,
+    "quibi-mapa-de-supuestos.svg": mapa_de_supuestos,
+    "quibi-puertas-de-aprendizaje.svg": puertas_de_aprendizaje,
+    "quibi-cronologia-del-cierre.svg": cronologia_del_cierre,
+    "quibi-capital-por-tramos.svg": capital_por_tramos,
+    "quibi-arbol-de-fallas.svg": arbol_de_fallas,
+    "quibi-operacion-en-dias.svg": operacion_en_dias,
 }

@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from case_fig_helpers_fallo import sequence, slices  # noqa: E402
+from figure_kit import dumbbell as _dumbbell_unused  # noqa: E402
 from figure_cases import case_cards  # noqa: E402
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, grouped_bars, timeline  # noqa: E402
 
@@ -357,6 +358,76 @@ def comparable() -> Fig:
                 "gold", "Fuente: " + GOOGLE + "; Meta Engineering (5 de octubre de 2021). La comparación es análisis propio.")
 
 
+Q10 = "Fuente: Facebook, Inc., Form 10-Q del trimestre terminado el 30 de septiembre de 2021."
+
+
+def organizacion() -> Fig:
+    f, y = sketch("Qué se ve de la organización: la empresa, sus aplicaciones y su red",
+                  "Esquema de la estructura pública: Facebook, Inc., con sede en Menlo Park, California, cuya familia de aplicaciones incluye Facebook, Instagram, WhatsApp y Messenger y que opera una red troncal propia que une centros de datos grandes e instalaciones de borde; los equipos de ingeniería de red, plantilla y organigrama interno no constan.")
+    y0 = y + 6
+    bx(f, 250, y0, 440, 60, "Facebook, Inc. (hoy Meta): sede en Menlo Park, California; sociedad de Delaware", "navy", 13, True)
+    for i, t in enumerate(["Facebook", "Instagram", "WhatsApp", "Messenger"]):
+        x = 10 + i * 232
+        bx(f, x, y0 + 100, 218, 56, t, "teal", 13, True)
+        f.arrow([(470, y0 + 60), (x + 109, y0 + 100)], dashed=True)
+    bx(f, 10, y0 + 200, 450, 80, "Red troncal propia: decenas de miles de millas de fibra entre todas las instalaciones", "coral", 13, True)
+    bx(f, 480, y0 + 200, 450, 80, "Centros de datos masivos e instalaciones pequeñas de borde que conectan con internet y los usuarios", "coral")
+    f.arrow([(235, y0 + 156), (235, y0 + 200)], dashed=True)
+    f.arrow([(705, y0 + 156), (705, y0 + 200)], dashed=True)
+    bx(f, 10, y0 + 310, 920, 60, "Plantilla, organigrama de ingeniería de red, oficinas y centros de datos por país: no se sabe en las fuentes consultadas", "grey", 13, True)
+    return done(f, y0 + 386,
+                "Lo que enseña: lo público muestra la empresa y su infraestructura de red, no su estructura interna. Para el caso importa que cuatro aplicaciones con 3 580 millones de personas activas al mes compartían una red troncal y un DNS.",
+                "gold", "Fuente: Form 10-Q de 2021, Meta Engineering y comunicado de resultados del tercer trimestre.")
+
+
+def escala() -> Fig:
+    return grouped_bars(
+        "La escala económica: ingresos y costos del tercer trimestre de 2021",
+        "Barras horizontales en millones de dólares: ingresos de 29 010 y costo de ingresos de 5 771 en el tercer trimestre de 2021; compras de propiedad y equipo de 13 198 en los nueve primeros meses, una partida de otro periodo.",
+        ["Ingresos (tercer trimestre)", "Costo de ingresos (tercer trimestre)", "Compras de propiedad y equipo (nueve meses)"],
+        [("Millones de dólares", [29010, 5771, 13198], "navy")],
+        unit="Millones de dólares de EE. UU. (periodos distintos, ver etiquetas)", horizontal=True, label_w=320,
+        ticks=[0, 10000, 20000, 30000],
+        note="La tercera barra cubre nueve meses, no un trimestre, y no se compara directamente con las otras dos. La construcción en curso incluye centros de datos, equipos de red y oficinas, sin desglose. El costo del incidente no está cuantificado: las fuentes consultadas no lo publican.",
+        note_kind="gold", foot=Q10 + " Comunicado de resultados del tercer trimestre de 2021 para los ingresos.")
+
+
+def hw_sw() -> Fig:
+    f, y = sketch("Hardware y software de la red de Meta: lo que se sabe y lo que no es público",
+                  "Pila de seis capas: aplicaciones de usuario, servidores DNS autoritativos que anuncian por BGP, routers de la red troncal con su software, herramienta de auditoría de comandos, centros de datos con millones de máquinas e instalaciones de borde; marcas, modelos, sistemas operativos y lenguajes no constan.")
+    y0 = y + 6
+    capas = [("Aplicaciones: Facebook, Instagram, WhatsApp y Messenger (documentado)", "teal", "Meta Engineering; resultados"),
+             ("DNS autoritativo en el borde, con direcciones fijas anunciadas por BGP (documentado)", "teal", "Meta Engineering; Cloudflare"),
+             ("Routers de la red troncal, con software actualizable (documentado)", "teal", "Meta Engineering"),
+             ("Herramienta de auditoría de comandos, con un error (documentado)", "teal", "Meta Engineering"),
+             ("Centros de datos masivos con millones de máquinas y instalaciones de borde (parcial)", "gold", "Meta Engineering; 10-Q"),
+             ("Fabricantes, modelos, sistemas operativos, lenguajes y herramientas de despliegue (no se sabe)", "grey", "no consta")]
+    for i, (t, k, s) in enumerate(capas):
+        yy = y0 + i * 62
+        bx(f, 10, yy, 640, 54, t, k, 13, k == "teal")
+        bx(f, 670, yy, 250, 54, s, "plain", 13)
+    return done(f, y0 + 6 * 62 + 4,
+                "Lo que enseña: Meta describe sus componentes por función, no por marca. Para el caso basta saber qué hacían: los routers movían el tráfico, el DNS decidía a quién se alcanzaba y la auditoría debía frenar los comandos peligrosos. No se inventa ningún fabricante ni versión.",
+                "gold", "Fuentes: Meta Engineering (5 de octubre de 2021), Cloudflare y el 10-Q. Verde: documentado; dorado: parcial; gris: no se sabe.")
+
+
+def prueba_de_fallos() -> Fig:
+    f, y = sketch("A prueba de fallos: lo que existía, lo que falló y lo que debió existir",
+                  "Tres columnas: mecanismos que existían (auditoría de comandos, regla de salud del DNS, acceso primario y fuera de banda, ejercicios de tormenta, seguridad física, reinicio gradual), los que fallaron o faltaban (auditoría con error, red fuera de banda independiente, herramientas sin DNS, límite de alcance) y los que debieron existir.")
+    y0 = y + 6
+    cols = [("Existían (documentado)", "teal", ["Auditoría de comandos de mantenimiento", "Regla de salud del DNS", "Acceso primario y red fuera de banda", "Ejercicios de «tormenta» desde hace tiempo", "Reinicio gradual de la carga"]),
+            ("Fallaron o faltaban (documentado)", "coral", ["Auditoría con un error propio", "Acceso primario y fuera de banda caídos", "Herramientas rotas por la pérdida del DNS", "Ejercicio de pérdida de la red troncal global", "Acceso físico lento por diseño"]),
+            ("Debieron existir (análisis propio)", "gold", ["Límite de alcance por comando", "Gestión independiente de la red afectada", "Suelo global en la regla de salud", "Ejercicio de pérdida total y recuperación sin DNS", "Acceso de emergencia preautorizado"])]
+    for c, (h, k, items) in enumerate(cols):
+        x = 10 + c * 306
+        bx(f, x, y0, 296, 40, h, k, 13, True)
+        for i, t in enumerate(items):
+            bx(f, x, y0 + 52 + i * 68, 296, 60, t, k, 13)
+    return done(f, y0 + 52 + 5 * 68 + 4,
+                "Lo que enseña: casi todos los mecanismos existían, pero compartían el mismo camino que lo que protegían. Lo único que funcionó como se esperaba fue el reinicio gradual, el único que se había ensayado. La columna de la derecha es análisis propio.",
+                "gold", "Fuente: Meta Engineering (4 y 5 de octubre de 2021) y Cloudflare; tercera columna: análisis propio.")
+
+
 FIGURES = {
     "meta-2021-contexto.svg": contexto,
     "meta-2021-cadena-causal.svg": cadena,
@@ -376,6 +447,10 @@ FIGURES = {
     "meta-2021-arquitectura-despues.svg": despues,
     "meta-2021-barrera-de-alcance.svg": barrera,
     "meta-2021-mismo-patron-dos-veces.svg": comparable,
+    "meta-2021-organizacion.svg": organizacion,
+    "meta-2021-escala-economica.svg": escala,
+    "meta-2021-hardware-y-software.svg": hw_sw,
+    "meta-2021-a-prueba-de-fallos.svg": prueba_de_fallos,
 }
 
 

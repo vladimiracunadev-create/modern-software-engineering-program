@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Casos de fallo: CrowdStrike, Therac-25, GitLab 2017 y Quibi
+
+- cuatro casos de fallo completos en `casos/fallo/` con el esquema de 14 secciones, hechos separados de interpretación y mejoras rotuladas como análisis propio;
+- 23 figuras propias (`scripts/figures_case_*.py`) sin tablas dibujadas; fuentes públicas verificadas el 16 de noviembre de 2026;
+- commits `b0c9789c`, `6b42788a` y `bffb904b`; contadores 540 clases y 45 partes sin cambio.
+
 ## 2026-11-17 — Casos de éxito: Netflix, WhatsApp, Uber y Mercado Libre
 
 - cuatro casos completos con fichas verificadas, hechos separados en documentado, inferido y no se sabe, fuentes públicas citadas y 22 figuras propias (`scripts/figures_case_<slug>.py`).

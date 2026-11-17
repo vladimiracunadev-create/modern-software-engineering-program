@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from case_fig_helpers_fallo import bx, done, sequence, sketch, slices, year_axis  # noqa: E402
+from figure_kit import stacked_bars  # noqa: E402
 from figure_kit import Fig, grouped_bars, line_chart, timeline  # noqa: E402
 
 SEC = "Fuente: SEC, Release No. 34-70694 (16 de octubre de 2013)."
@@ -419,6 +420,89 @@ def consecuencias() -> Fig:
                 "gold", SEC + " Párrafos 1, 11, 35, 50, 51 y sanciones. Financiación: comunicado de Knight del 6 de agosto de 2012.")
 
 
+K10 = "Fuente: Knight Capital Group, Form 10-K del ejercicio 2012 (1 de marzo de 2013)."
+
+
+def segmentos() -> Fig:
+    return grouped_bars(
+        "El negocio de Knight por segmentos: lo que cayó en 2012",
+        "Barras horizontales con los ingresos de 2011 y 2012 en millones de dólares por segmento: creación de mercado de 704 a 61, ventas y negociación institucional de 512 a 468, ejecución electrónica de 168 a 159 y corporativo y otros de 21 a 48.",
+        ["Creación de mercado", "Ventas y negociación institucional", "Ejecución electrónica", "Corporativo y otros"],
+        [("2011", [704.5, 511.5, 167.9, 20.6], "navy"), ("2012", [60.9, 468.4, 159.1, 47.7], "coral")],
+        unit="Millones de dólares de EE. UU. (ingresos del segmento)", horizontal=True, label_w=280, decimals=1,
+        ticks=[0, 200, 400, 600, 800],
+        note="Los ingresos consolidados pasaron de 1 404,5 a 736,1 millones. El segmento que más cayó es el de creación de mercado, el que más dependía de ejecutar volumen con márgenes pequeños; el 10-K no separa cuánto de esa caída se debe al 1 de agosto y cuánto a otros factores de 2012, así que la figura no atribuye la caída.",
+        note_kind="gold", foot=K10 + " Cifras redondeadas a una décima.")
+
+
+def costos() -> Fig:
+    return grouped_bars(
+        "Cuánto costó el 1 de agosto: pérdida, deterioro y sanción",
+        "Barras horizontales en millones de dólares: pérdida de negociación de 457,6; costos legales y profesionales relacionados de unos 10,5 (diferencia entre 468,1 y 457,6); deterioro no monetario de fondo de comercio e intangibles de 143,0; multa de la SEC de 12 en 2013.",
+        ["Pérdida de negociación", "Legales y profesionales (por diferencia)", "Deterioro de fondo de comercio e intangibles", "Multa de la SEC (2013)"],
+        [("Millones de dólares", [457.6, 10.5, 143.0, 12.0], "coral")],
+        unit="Millones de dólares de EE. UU.", horizontal=True, label_w=300, decimals=1, ticks=[0, 100, 200, 300, 400, 500],
+        note="El 10-K da 468,1 como pérdida total con costos legales y profesionales y 457,6 como pérdida de negociación; los 10,5 son la resta, aritmética propia. El deterioro de 143,0 es contable y no es dinero que saliera ese día. No figuran las reclamaciones de seguros y el 10-K no dice que hubiera recuperación. Los 400 millones de capital recaudados (de los que 359,5 fueron netos) financiaron la continuidad, no son un costo.",
+        note_kind="gold", foot=K10 + " Multa: SEC, Release No. 34-70694.")
+
+
+def organizacion() -> Fig:
+    f, y = sketch("Organización de Knight en 2012: estructura pública de alto nivel",
+                  "Esquema de organización: el consejo de Knight Capital Group con cuatro comités, el consejero delegado y presidente del consejo, la filial Knight Capital Americas que era el bróker-dealer, cuatro segmentos de negocio, y la plantilla de 1 524 empleados, 1 361 en EE. UU. y 163 fuera, sobre todo en Londres.")
+    y0 = y + 6
+    bx(f, 10, y0, 910, 56, "Consejo de Knight Capital Group, con cuatro comités: Finanzas y Auditoría, Riesgos, Compensación y Nominaciones y Gobierno corporativo", "navy", 13, True)
+    bx(f, 260, y0 + 76, 410, 56, "Consejero delegado y presidente del consejo (comunicado de 2012)", "plain", 13, True)
+    f.arrow([(465, y0 + 56), (465, y0 + 80)])
+    bx(f, 310, y0 + 150, 310, 56, "Knight Capital Americas LLC: el bróker-dealer, Jersey City, miembro de FINRA", "coral", 13, True)
+    f.arrow([(465, y0 + 130), (465, y0 + 150)])
+    segs = ["Creación de mercado", "Ventas y negociación institucional", "Ejecución electrónica", "Corporativo y otros"]
+    for i, t in enumerate(segs):
+        x = 10 + i * 232
+        bx(f, x, y0 + 236, 218, 60, t, "teal", 13, True)
+        f.arrow([(465, y0 + 206), (x + 109, y0 + 236)], dashed=True)
+    bx(f, 10, y0 + 320, 440, 62, "1 524 empleados a 31 de diciembre de 2012 (1 423 un año antes)", "gold", 13, True)
+    bx(f, 480, y0 + 320, 440, 62, "1 361 en EE. UU. y 163 fuera, sobre todo en Londres", "gold")
+    return done(f, y0 + 398,
+                "Lo que enseña: el organigrama público llega al consejo, al consejero delegado, a los segmentos y a la filial regulada; no muestra quién respondía de SMARS, de despliegue o de cumplimiento, y eso es lo que importa para el caso. La SEC solo menciona funciones (cumplimiento, grupo de control de supervisión, tecnología) sin organigrama.",
+                "gold", "Fuente: 10-K de 2012; comunicado de Knight de 2012; SEC, párr. 11 y 28 a 34.")
+
+
+def hw_sw() -> Fig:
+    f, y = sketch("Hardware y software de SMARS: lo que se sabe y lo que no es público",
+                  "Pila de seis capas del sistema de enrutamiento de Knight, desde el despliegue hasta los centros de datos: solo dos están documentadas, el router SMARS con sus ocho servidores y el despliegue manual con código de 2003 y de 2012; el lenguaje, el sistema operativo, el middleware, el modelo de servidores, la red y los centros de datos no constan en las fuentes públicas.")
+    y0 = y + 6
+    capas = [("Despliegue: un técnico copia el código servidor a servidor, sin revisión (documentado)", "teal", "SEC, párr. 15 y 26"),
+             ("Aplicación: router SMARS algorítmico; código Power Peg de 2003 y RLP de 2012 (documentado)", "teal", "SEC, párr. 12 a 14"),
+             ("Lenguaje, framework y middleware (no se sabe)", "grey", "no consta"),
+             ("Sistema operativo y base de datos (no se sabe)", "grey", "no consta"),
+             ("Servidores: ocho en SMARS; modelo y capacidad (no se sabe)", "gold", "SEC, párr. 15; resto no consta"),
+             ("Red y centros de datos: «instalaciones de negociación y de datos alternativas»; ubicación y topología (no se sabe)", "gold", "10-K, Item 1; resto no consta")]
+    for i, (t, k, s) in enumerate(capas):
+        yy = y0 + i * 62
+        bx(f, 10, yy, 640, 54, t, k, 13, k == "teal")
+        bx(f, 670, yy, 250, 54, s, "plain", 13)
+    return done(f, y0 + 6 * 62 + 4,
+                "Lo que enseña: de la pila técnica solo el despliegue y la aplicación están descritos. Para el caso no hace falta más: el fallo fue de proceso y de lógica, no de un componente de hardware. Aquí no se inventa ninguna marca, lenguaje ni sistema operativo.",
+                "gold", "Fuentes: SEC, Release No. 34-70694 y el 10-K de 2012. Verde: documentado; dorado: en parte; gris: no se sabe.")
+
+
+def prueba_de_fallos() -> Fig:
+    f, y = sketch("A prueba de fallos: lo que existía, lo que falló y lo que debió existir",
+                  "Tres columnas: mecanismos que existían en Knight (controles en la entrada de órdenes, tope de precio del 9,5 por ciento, límite de la cuenta 33, apagado de algunas estrategias, PMON), mecanismos que fallaron o faltaron (revisión de despliegue, control de salida, parada propia, capital en línea, alerta, guion) y mecanismos que debieron existir.")
+    y0 = y + 6
+    cols = [("Existían (documentado)", "teal", ["Controles contra órdenes erróneas en la interfaz, el gestor y la ejecución interna", "Tope de precio del 9,5 % en órdenes madre de sesión", "Límite bruto de 2 M en la cuenta 33", "Apagado automático de ciertas estrategias por pérdidas", "PMON: monitor posterior de posiciones"]),
+            ("Fallaron o faltaban (documentado)", "coral", ["Revisión de segunda persona del despliegue", "Control de salida de SMARS y parada ante actividad anómala", "Capital agregado enlazado al envío de órdenes", "Alerta sobre los 97 correos", "Guion de incidente y desconexión del mercado"]),
+            ("Debieron existir (análisis propio)", "gold", ["Despliegue automatizado y verificado por nodo", "Puerta independiente antes de las bolsas", "Interruptor de parada con dueño", "Alertas con responsable", "Retiro o retest del código muerto"])]
+    for c, (h, k, items) in enumerate(cols):
+        x = 10 + c * 306
+        bx(f, x, y0, 296, 40, h, k, 13, True)
+        for i, t in enumerate(items):
+            bx(f, x, y0 + 52 + i * 68, 296, 60, t, k, 13)
+    return done(f, y0 + 52 + 5 * 68 + 4,
+                "Lo que enseña: la columna del medio no es una lista de fallos de personas, sino de capas que no existían; la de la izquierda muestra que Knight tenía controles reales, pero en la entrada y después de ejecutar. La columna de la derecha es análisis propio.",
+                "gold", "Fuente: SEC, Release No. 34-70694, párr. 19 a 27 y notas 7 y 8; la tercera columna es análisis propio.")
+
+
 FIGURES = {
     "knight-capital-contexto.svg": contexto,
     "knight-capital-capas-de-control.svg": capas,
@@ -439,6 +523,11 @@ FIGURES = {
     "knight-capital-arquitectura-despues.svg": despues,
     "knight-capital-barrera.svg": barrera,
     "knight-capital-consecuencias.svg": consecuencias,
+    "knight-capital-negocio-por-segmentos.svg": segmentos,
+    "knight-capital-costos-del-incidente.svg": costos,
+    "knight-capital-organizacion.svg": organizacion,
+    "knight-capital-hardware-y-software.svg": hw_sw,
+    "knight-capital-a-prueba-de-fallos.svg": prueba_de_fallos,
 }
 
 

@@ -22,6 +22,29 @@
 
 Las fuentes consultadas no nombran fundadores de la firma; este caso no los inventa. El caso trata de una organización de mercado con un peso grande: en 2011 y 2012 su negociación agregada, propia y de clientes, rondaba el 10 % de toda la de acciones cotizadas en EE. UU., y el router SMARS, por sí solo, el 1 % o más (SEC, párr. 11).
 
+### Sedes, centros de datos y oficinas
+
+| Lugar | Qué consta | Fuente |
+| --- | --- | --- |
+| Jersey City, Nueva Jersey | Sede y principales operaciones; unos 266 000 pies cuadrados alquilados en 545 Washington Boulevard, con contrato hasta octubre de 2021 | 10-K de 2012, Item 2 |
+| Otras oficinas de EE. UU. y Europa | Unos 290 000 pies cuadrados alquilados en conjunto | 10-K de 2012, Item 2 |
+| Londres | Principal lugar de empleados fuera de EE. UU. (163 de 1 524) | 10-K de 2012, Item 1 |
+| Centros de datos | Se mencionan «instalaciones alternativas de negociación y de datos» para las operaciones principales; número, ubicación y propiedad: no se sabe | 10-K de 2012, Item 1 |
+
+**No se sabe:** la lista completa de oficinas por país, el número de centros de datos y si había colocación en los centros de las bolsas; el 10-K consultado no declara centros de datos como propiedad.
+
+### Organización y plantilla
+
+![Organización de Knight en 2012: consejo con cuatro comités, consejero delegado, bróker-dealer Knight Capital Americas, cuatro segmentos y plantilla.](../figures/knight-capital-organizacion.svg)
+
+**Cómo leer la figura.** De arriba abajo: gobierno, dirección, entidad regulada y segmentos de negocio; abajo, la plantilla. Mira lo que falta: ninguna caja dice quién respondía de SMARS. **Dónde deja de valer:** es el nivel público de detalle; no es un organigrama interno.
+
+Datos documentados. A 31 de diciembre de 2012 Knight tenía 1 524 empleados a tiempo completo (1 423 un año antes): 1 361 en EE. UU. y 163 fuera, sobre todo en Londres. El consejo tenía comités de Finanzas y Auditoría, de Riesgos, de Compensación y de Nominaciones y Gobierno corporativo; el consejero delegado era además presidente del consejo (10-K de 2012; comunicado de Knight del 6 de agosto de 2012). La SEC menciona, sin organigrama, un departamento de cumplimiento, un grupo de control de supervisión (SCG), un grupo de negociación electrónica propia (ETG), una mesa de creación de mercado líder (LMM) y un equipo de tecnología (SEC, párr. 28 a 34). **No se sabe:** quién respondía de qué dentro de tecnología, la línea de mando de SMARS y el tamaño de cada equipo.
+
+### Visión y misión
+
+El 10-K de 2012 describe a Knight como una firma global de servicios financieros que da acceso a los mercados de capitales en varias clases de activos a una amplia red de clientes, y su estrategia en creación de mercado como diferenciarse con una ejecución competitiva y de calidad y un servicio superior; no incluye una declaración formal de misión. Dice también que busca aplicar de manera continua su experiencia e innovación a la creación de mercado y a la negociación (10-K de 2012, Item 1 y Item 7). El análisis propio es que una estrategia basada en velocidad y en volumen presiona los pasos de control que no generan ingresos.
+
 ## Contexto y problema
 
 Un bróker-dealer con acceso directo a las bolsas es un guardián (*gatekeeper*) del mercado: lo que él envía llega a las bolsas con su identificador. Desde 2010 la regla 15c3-5 de la SEC («regla de acceso al mercado») exige a esos brókeres controles de riesgo que impidan órdenes erróneas y que superen umbrales de capital, y una revisión periódica con certificación del consejero delegado (SEC, párr. 5 a 8). La fecha de cumplimiento inicial fue el 14 de julio de 2011, aunque la SEC amplió hasta el 30 de noviembre de 2011 el plazo de algunos requisitos (SEC, nota 2).
@@ -73,6 +96,35 @@ Knight era un intermediario cuyo negocio dependía de ejecutar muchas órdenes c
 ![Cadena de seis eslabones desde la pérdida de más de 460 millones hasta el consultor independiente impuesto por la SEC, pasando por la financiación de 400 millones, la fusión con GETCO y la multa de 12 millones.](../figures/knight-capital-consecuencias.svg)
 
 **Cómo leer la figura.** Cada caja es una consecuencia fechada, de izquierda a derecha en el tiempo; el color distingue daño (coral), respuesta financiera (dorado), cambio corporativo (azul oscuro) y sanción o remedio (verde azulado). Mira la distancia entre el primer y el último eslabón: catorce meses. **Dónde deja de valer:** que cada eslabón sea consecuencia del anterior no consta; la figura ordena en el tiempo hechos documentados, no prueba causalidad entre la pérdida y la fusión.
+
+### Esquema del negocio: actores, valor y flujos
+
+![Barras de ingresos por segmento de 2011 y 2012: creación de mercado de 704 a 61, ventas y negociación institucional de 512 a 468, ejecución electrónica de 168 a 159 y corporativo de 21 a 48.](../figures/knight-capital-negocio-por-segmentos.svg)
+
+**Cómo leer la figura.** Cada pareja de barras es un segmento; azul oscuro es 2011 y coral 2012; el eje parte de cero. Mira la primera pareja: un segmento casi desaparece. **Dónde deja de valer:** el 10-K no atribuye esa caída al 1 de agosto; hubo otros factores en 2012 y la figura no los separa.
+
+Knight ganaba por ejecutar órdenes de otros (como intermediario) y por mantener un inventario propio como creador de mercado, con márgenes mínimos por operación: el 10-K da una captura de ingreso por dólar negociado en acciones de EE. UU. de 1,06 puntos básicos en 2011 y 0,06 en 2012 (1,03 sin el efecto de la salida a bolsa de Facebook y del 1 de agosto). Los flujos de dinero son: clientes pagan por la ejecución; Knight asume riesgo de inventario; las bolsas cobran comisiones de ejecución (200,4 millones de gasto de ejecución y liquidación en 2012). El análisis propio es que, con márgenes de centésimas de punto básico, un error que acumula exposición no deseada se mide contra el capital, no contra los ingresos.
+
+### Costos operativos y costo del incidente
+
+| Rubro | 2012 | 2011 | Fuente |
+| --- | --- | --- | --- |
+| Gastos totales | 1 272,8 millones | 1 217,4 millones | 10-K de 2012 |
+| Compensación y beneficios | 525,2 millones | 583,8 millones | 10-K de 2012 |
+| Comunicaciones y procesamiento de datos | 97,7 millones | 87,1 millones | 10-K de 2012 |
+| Honorarios profesionales | 32,4 millones | 21,3 millones | 10-K de 2012 |
+| Ejecución y liquidación | 200,4 millones | 229,2 millones | 10-K de 2012 |
+| Reducción de activos y provisión por contratos | 143,0 millones | 3,0 millones | 10-K de 2012 |
+
+![Barras con los costos del 1 de agosto: pérdida de negociación de 457,6 millones, costos legales y profesionales de unos 10,5, deterioro de 143,0 y multa de la SEC de 12.](../figures/knight-capital-costos-del-incidente.svg)
+
+**Cómo leer la figura.** Cada barra es un rubro en millones de dólares; los 10,5 son una resta mía. Mira que el deterioro contable es la segunda barra: parte del costo no es dinero perdido en el mercado sino valor que se reconoce como perdido. **Dónde deja de valer:** no incluye costos indirectos (clientes perdidos, tiempo de dirección); el 10-K no los cuantifica.
+
+Documentado: la pérdida de negociación fue de 457,6 millones, y con costos legales y profesionales relacionados la «pérdida del 1 de agosto» fue de 468,1 millones (10-K de 2012). Hubo además un deterioro de 143,0 millones de fondo de comercio (126,4) e intangibles (16,7). La captación del 6 de agosto fue de 400 millones, con 359,5 netos. En el plano legal el 10-K registra dos demandas colectivas (una desistida a favor de la otra), una demanda derivativa y una orden formal de investigación de la SEC del 29 de agosto de 2012. **No se sabe:** si hubo recuperación de seguros (el 10-K consultado no la menciona) y el costo de las medidas correctivas posteriores.
+
+### Competidores y contexto de mercado
+
+El 10-K no nombra competidores concretos; los define por categorías: brókeres-dealers globales, nacionales y regionales, bolsas, sistemas alternativos de negociación, redes de cruce, ECN, mercados de liquidez oscura, bancos de inversión tradicionales y otras plataformas electrónicas (10-K de 2012, Item 1 y factores de riesgo). La SEC sitúa a Knight en torno al 10 % de la negociación de acciones cotizadas de EE. UU. (SEC, párr. 11). El 10-K da volúmenes y no cuotas porcentuales: valor diario negociado en creación de mercado en acciones de EE. UU. de 20,1 mil millones de dólares en 2012 frente a 25,3 en 2011. Tras el incidente, el hecho documentado es la fusión con GETCO, que formó KCG Holdings el 1 de julio de 2013 (SEC, párr. 11); GETCO fue uno de los inversores de la captación de agosto de 2012 (comunicado de Knight). Qué ocurrió con los competidores después del fallo no consta en las fuentes consultadas y este caso no lo inventa.
 
 ## Arquitectura y esquemas
 
@@ -139,6 +191,30 @@ La lección de datos es que **el estado correcto existía y no llegaba a quien d
 **Cómo leer la figura.** Cada lámina es una barrera; el hueco es el punto por el que el defecto pasó; las rojas no existían y las doradas existían sin eficacia suficiente. La flecha es el defecto activo. Mira que no hay una sola lámina sin hueco alineado. **Dónde deja de valer:** el modelo de láminas es una metáfora, no una medición; el tamaño y la posición de cada hueco no son datos. La lista de barreras sale de las deficiencias que la SEC enumera, y es nuestra la agrupación en ocho.
 
 Detalle de cada barrera según la orden. **Revisión de segunda persona:** inexistente y sin procedimiento escrito (párr. 15, 26). **Retest o retirada de código muerto:** sin protocolo de pruebas tras acceder a código sin uso (párr. 26, 41). **Alerta:** 97 correos automáticos no diseñados como alertas y que nadie revisó (párr. 19). **Control de salida en SMARS:** ausente (párr. 21). **Tope de precio del 9,5 %:** existente, pero no cubría órdenes de preapertura ni movimientos menores del 9,5 % (párr. 21). **Capital:** sin umbrales agregados enlazados al envío; la cuenta 33, con límite bruto de 2 millones, sin enlace (párr. 22 a 24). **PMON:** posterior, humano, sin alertas ni límites visibles, con retardos (párr. 25). **Incidente:** sin procedimientos de respuesta (párr. 27, 42).
+
+### Hardware utilizado
+
+La documentación pública no describe el hardware de SMARS más allá de lo siguiente: el router corría en ocho servidores y el despliegue se hacía copiando el código a cada uno (SEC, párr. 15). El 10-K habla de tecnología propia y licenciada de terceros y de «instalaciones alternativas de negociación y de datos» (10-K de 2012, Item 1). **No se sabe:** el fabricante y modelo de los servidores, su capacidad, la red de conexión a las bolsas, los centros de datos y su ubicación, ni si había colocación. Este caso no inventa ninguno de esos datos.
+
+### Software utilizado
+
+![Seis capas de la pila de SMARS: despliegue y aplicación documentados, lenguaje, sistema operativo y base de datos desconocidos, servidores y red en parte.](../figures/knight-capital-hardware-y-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa técnica; verde, documentada; dorado, parcial; gris, no se sabe; la columna de la derecha dice la fuente. Mira que lo documentado está arriba (proceso y código) y lo desconocido, abajo (plataforma). **Dónde deja de valer:** no pretende describir la pila real, solo el límite de lo público.
+
+Documentado: SMARS es un router automatizado y algorítmico; contenía código Power Peg de 2003, mantenido y llamable en producción; una función de cantidad acumulada movida en 2005; código nuevo del RLP de 2012 que reutilizaba un indicador; PMON como monitor de posiciones; una cuenta 33; un sistema interno de correos BNET de rechazo (SEC, párr. 12 a 25). El 10-K menciona una plataforma propia de compensación (10-K, Item 1). **No se sabe:** lenguaje de programación, sistema operativo, base de datos, middleware, herramientas de construcción y de despliegue (el despliegue era un procedimiento manual de copia, sin procedimientos escritos para SMARS: SEC, párr. 15 y 26).
+
+### Infraestructura
+
+Knight operaba una infraestructura propia, con sistemas propios y licenciados, conectada a las bolsas y otros centros de negociación (10-K de 2012, Item 1; SEC, párr. 12). La escala está documentada solo por la actividad: Knight representaba cerca del 10 % de la negociación de acciones cotizadas de EE. UU. y SMARS, un 1 % o más (SEC, párr. 11). **No se sabe:** si la infraestructura era propia, alquilada o híbrida, el número de regiones, la capacidad de cada servidor, la red de acceso y las dependencias de terceros (proveedores de conectividad o de datos de mercado).
+
+### A prueba de fallos: qué existía, qué falló y qué debió existir
+
+![Tres columnas con mecanismos que existían, que fallaron o faltaban y que debieron existir en Knight.](../figures/knight-capital-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Verde azulado: lo que había; coral: lo que falló o faltaba; dorado: análisis propio de lo que debió haber. Las filas no se corresponden una a una. **Dónde deja de valer:** no mide eficacia; un control que existía puede haber fallado por diseño y no por ausencia.
+
+Redundancia y conmutación: no consta que SMARS tuviera conmutación a otro router; sí había ocho servidores, pero la versión mezclada convertía la redundancia en un riesgo. Interruptor de parada: no existía uno sobre SMARS; sí había apagado automático de ciertas estrategias de un grupo por límites de pérdidas (SEC, nota 7). Límites: tope de precio del 9,5 %, límite bruto de 2 millones en la cuenta 33 sin enlace automático. Pruebas: no se volvió a probar Power Peg tras 2005; en 2011 una prueba de recuperación con datos de prueba generó una pérdida de unos 7,5 millones. Despliegue gradual: se hizo por días y por servidores, sin verificación de versión. Recuperación: sin guion, y la reversión empeoró. Qué debió existir: despliegue verificado por nodo, puerta previa al mercado, interruptor con dueño y alertas con responsable (análisis propio, ver «Mejoras»).
 
 ## Casos especiales y cómo fallan
 
@@ -363,6 +439,9 @@ Todas consultadas el 16 de noviembre de 2026; las del sitio de la SEC se abriero
 4. SEC, *Risk Management Controls for Brokers or Dealers with Market Access*, Release No. 34-63241. [https://www.sec.gov/files/rules/final/2010/34-63241.pdf](https://www.sec.gov/files/rules/final/2010/34-63241.pdf). Respalda: el contenido de la regla 15c3-5 que Knight incumplió.
 5. SEC, Release No. 34-67347, aprobación del Retail Liquidity Program de la NYSE, 3 de julio de 2012. [https://www.sec.gov/files/rules/sro/nyse/2012/34-67347.pdf](https://www.sec.gov/files/rules/sro/nyse/2012/34-67347.pdf). Respalda: el programa piloto de un año cuyo inicio motivó los cambios de software.
 6. SEC, *Regulation Systems Compliance and Integrity*, Release No. 34-73639, 19 de noviembre de 2014. [https://www.sec.gov/files/rules/final/2014/34-73639.pdf](https://www.sec.gov/files/rules/final/2014/34-73639.pdf). Respalda: la fecha de adopción, las notas 1332 y 1333 sobre el evento de Knight en los comentarios, que la SEC no amplió entonces el alcance a otros broker-dealers y las pérdidas citadas por el caso de Facebook en Nasdaq.
+
+
+7. Knight Capital Group, Inc., Form 10-K del ejercicio terminado el 31 de diciembre de 2012, presentado el 1 de marzo de 2013. [https://www.sec.gov/Archives/edgar/data/1060749/000119312513087636/d449921d10k.htm](https://www.sec.gov/Archives/edgar/data/1060749/000119312513087636/d449921d10k.htm). Respalda: ingresos y gastos por segmento, plantilla de 1 524 empleados, sede y oficinas, descripción del negocio y la estrategia, competidores por categorías y la pérdida de 457,6 y 468,1 millones. Leído con la herramienta de lectura web porque la descarga directa de sec.gov se bloqueaba por límite de tasa.
 
 ---
 

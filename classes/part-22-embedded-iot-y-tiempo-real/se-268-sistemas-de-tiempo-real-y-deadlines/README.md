@@ -158,6 +158,31 @@ Sin herencia, si M se libera entre 2 y 5 ms (mientras L aún tiene el mutex), H 
 
 **Cómo leer la figura.** Cada barra es el tiempo de respuesta de H en milisegundos para un caso; la coral es la inversión sin acotar. **Dónde deja de valer:** el modelo tiene tres tareas, un solo mutex y cómputos fijos; en un sistema con cadenas de bloqueo, la herencia no basta y hace falta el protocolo de techo de prioridad. Tampoco se midió ningún sistema operativo: la figura muestra el mecanismo, no la implementación de uno.
 
+### Ampliación: qué agrega un RTOS y cuándo conviene el plazo más cercano (EDF)
+
+Un **sistema operativo de tiempo real** (RTOS) no es un sistema operativo rápido: es un núcleo pequeño cuyo planificador y cuyas primitivas de sincronización tienen un comportamiento temporal acotado y documentado. Lo que aporta frente a un bucle principal con interrupciones es sobre todo estructura: tareas con prioridad, un temporizador del sistema (*tick*) que despierta tareas, colas y semáforos que bloquean sin consumir CPU, y mutex con herencia de prioridad. Un ejemplo es [Zephyr](https://docs.zephyrproject.org/latest/kernel/services/scheduling/index.html), cuyo planificador elige siempre la tarea lista de mayor prioridad, admite tareas cooperativas (que solo ceden por sí mismas) y expulsables, y documenta la herencia de prioridad en sus [mutex](https://docs.zephyrproject.org/latest/kernel/services/synchronization/mutexes.html). [FreeRTOS](https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/03-Task-priorities) usa el mismo modelo de prioridades fijas. Su coste aparece en el cambio de contexto, en la sobrecarga del tick y en las secciones donde se inhiben interrupciones, que son los números que el análisis de esta clase necesita y que dependen de la plataforma.
+
+**Mecanismo: dos criterios para elegir la tarea que ejecuta.** Con prioridades fijas (la asignación por periodo de la sección 2) la prioridad es una propiedad de la tarea y no cambia. Con el **plazo más cercano primero** (*earliest deadline first*, EDF) la prioridad es una propiedad del trabajo concreto: cada activación tiene un plazo absoluto y ejecuta la que lo tiene más próximo. Para tareas periódicas con plazo igual al periodo, Liu y Layland demostraron que EDF cumple todos los plazos si y solo si la utilización total no supera 1; las prioridades fijas por periodo exigen, en el peor caso, quedarse en 0,693 (el análisis exacto de esta clase permite llegar más lejos en cada conjunto concreto). Por eso Zephyr ofrece, cuando se activa `CONFIG_SCHED_DEADLINE`, desempatar por plazo entre hilos de igual prioridad estática.
+
+**Causa de la elección: qué falla primero cuando el trabajo supera al procesador.** Si el análisis es correcto y el peor caso está bien medido, EDF es más eficiente. El problema es qué pasa cuando el modelo es falso: una interrupción que tarda más de lo previsto, una caché fría, una tarea sin acotar. Con prioridades fijas el planificador sacrifica siempre a las mismas tareas, las de periodo largo, y las de periodo corto siguen cumpliendo; el diseñador puede decidir de antemano que esas son las prescindibles. Con EDF una tarea atrasada tiene un plazo cada vez más viejo, así que gana prioridad sobre las demás y las arrastra: el atraso se propaga a todo el conjunto (*efecto dominó*).
+
+**Experimento reproducible.** `scripts/experiments_part22_ext.py` simula, con una unidad de tiempo por paso, conjuntos de 5 tareas con periodos tomados de 10, 20, 25, 40, 50 y 100, tiempos de cómputo enteros (mínimo 1) y utilización repartida con UUniFast (semilla 268, 300 conjuntos por celda, 2 000 unidades de tiempo). Un trabajo atrasado sigue ejecutando hasta terminar. Como el redondeo hacia arriba sube la utilización real, la tabla la incluye.
+
+| Utilización objetivo (real media) | Sin fallos, prioridades fijas | Sin fallos, EDF | Tareas con fallo si fracasa: prioridades fijas | Tareas con fallo si fracasa: EDF | Falla la tarea más prioritaria: prioridades fijas | Falla la tarea más prioritaria: EDF |
+|---|---:|---:|---:|---:|---:|---:|
+| 0,9 (0,92) | 82,7 % | 97,0 % | 1,08 | 4,44 | 0,0 % | 100 % |
+| 1,0 (1,02) | 18,7 % | 36,3 % | 1,45 | 4,76 | 0,0 % | 100 % |
+| 1,1 (1,12) | 0,0 % | 0,0 % | 1,91 | 5,00 | 0,7 % | 100 % |
+| 1,2 (1,22) | 0,0 % | 0,0 % | 2,22 | 5,00 | 0,7 % | 100 % |
+
+En las 1 200 simulaciones EDF, ningún conjunto con utilización real menor o igual que 1 perdió un plazo, lo que coincide con el resultado teórico y sirve como control del simulador. Los fallos de EDF con objetivo 0,9 (3 % de los conjuntos) son conjuntos cuyo redondeo superó 1.
+
+![Barras agrupadas con el número medio de tareas distintas, de cinco, que pierden algún plazo en los conjuntos que fracasan, con prioridades fijas por periodo y con el plazo más cercano primero, según la utilización objetivo de 0,9 a 1,2; con prioridades fijas entre 1,08 y 2,22 y con EDF entre 4,44 y 5.](../../../content/part-22/figures/se-268-sobrecarga-prioridades-fijas-y-edf.svg)
+
+**Cómo leer la figura.** El eje vertical cuenta cuántas de las cinco tareas pierden al menos un plazo en los conjuntos que no cumplen todo, y cada grupo es una utilización objetivo. Mira la distancia entre barras: con prioridades fijas crece despacio con la sobrecarga, con EDF ya es casi total desde el primer grupo. La figura responde a una pregunta distinta de la tabla de planificabilidad de esta clase, que decide si un conjunto cumple; esta mide cómo se rompe. **Dónde deja de valer:** los trabajos atrasados no se abortan (una política que descarta el trabajo atrasado atenúa el efecto dominó de EDF), las tareas no comparten recursos ni hay interrupciones, el cómputo es constante y no variable, y no se ejecutó ningún RTOS: es un modelo de planificador de una sola CPU.
+
+**Límite y decisión.** El experimento no dice que EDF sea peor, dice que su ventaja de utilización se compra con un comportamiento menos predecible fuera del modelo. La decisión práctica: si el peor caso está acotado con margen y se necesita la utilización, EDF o prioridades fijas con análisis exacto; si hay tareas críticas y otras prescindibles, prioridades fijas con las críticas arriba; en ambos casos, un detector del plazo perdido (un contador de atrasos por tarea) debe estar en la telemetría, porque el sistema real fallará fuera del modelo antes o después. Qué hacer con el trabajo atrasado (abortarlo, saltarlo o terminarlo) es una decisión de seguridad de la función, no del planificador, y se vincula con la clase de seguridad funcional del final de esta parte.
+
 ## Definiciones de trabajo
 
 - **plazo:** instante límite, relativo a la activación de una tarea, en el que debe haber terminado.
@@ -303,9 +328,12 @@ Traslada el análisis a otro sistema (por ejemplo, un controlador de motor con u
 
 Cada fuente respalda el mecanismo indicado; ninguna demuestra que el 11,2 % de plazos incumplidos, el 15,1 ms de respuesta o el 92,5 % de planificables se observen en el nodo real. Esa afirmación depende del peor caso medido y de los recursos compartidos.
 
+- [Zephyr: planificación de hilos](https://docs.zephyrproject.org/latest/kernel/services/scheduling/index.html) y [mutex con herencia de prioridad](https://docs.zephyrproject.org/latest/kernel/services/synchronization/mutexes.html) — planificador por prioridad con tareas cooperativas y expulsables, desempate por plazo con `CONFIG_SCHED_DEADLINE` y herencia de prioridad documentada; autoridad: documentación oficial de Zephyr Project.
+- [FreeRTOS: prioridades de tareas](https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/01-Tasks-and-co-routines/03-Task-priorities) — modelo de prioridades de un RTOS ampliamente usado; autoridad: documentación oficial de FreeRTOS (la página responde 200, pero su texto no pudo comprobarse por curl).
+
 ## Límites y siguiente paso
 
-Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún peor caso de ejecución ni se usó un sistema operativo de tiempo real: los conjuntos de tareas, las duraciones lognormales y la inversión de tres tareas son construcciones del autor. La siguiente clase trata cómo las interrupciones y las tareas comparten estado sin romperlo.
+Se ejecutaron tres simulaciones con datos sintéticos en Windows y Ubuntu (WSL2) con resultados idénticos. No se midió ningún peor caso de ejecución ni se usó un sistema operativo de tiempo real: los conjuntos de tareas, las duraciones lognormales y la inversión de tres tareas son construcciones del autor. La siguiente clase trata cómo las interrupciones y las tareas comparten estado sin romperlo. La ampliación sobre EDF compara dos planificadores simulados de una CPU con 300 conjuntos sintéticos por celda y semilla fija, ejecutada con CPython 3.12.9 en Windows; no se ejecutó Zephyr ni FreeRTOS ni se midió ningún cambio de contexto.
 
 ## Glosario
 

@@ -20,6 +20,24 @@ Entre junio de 1985 y enero de 1987, seis pacientes de cáncer recibieron en Est
 
 La fecha de consulta de las fuentes citadas al final es el 16 de noviembre de 2026.
 
+### Fabricantes, hospitales y lugares implicados
+
+**Documentado (Leveson y Turner, 1993):** el fabricante, Atomic Energy of Canada Limited (AECL), es una empresa pública canadiense («corporación de la Corona») que a principios de los años setenta colaboró con la empresa francesa CGR en aceleradores lineales; los modelos anteriores derivaban de máquinas de CGR (la Neptune y la Sagittaire). La cooperación no se renovó en 1981 «por presiones competitivas». Cuando el fabricante necesitó soporte técnico en un accidente, envió un ingeniero desde Ottawa (la «oficina central» en Canadá). La división médica de AECL se estaba privatizando cuando se escribió el artículo y pasó a llamarse Theratronics International. Las once máquinas se instalaron en cinco centros de EE. UU. y seis de Canadá; los hospitales con accidentes fueron Kennestone (Marietta, Georgia), la Fundación Oncológica de Ontario (Hamilton), Yakima Valley Memorial (Washington) y East Texas Cancer Center (Tyler). Otros centros aparecen por sus acciones: Vancouver y Halifax añadieron protecciones propias.
+
+**No se sabe:** dónde fabricó AECL cada componente, cuántas personas trabajaban en la división médica, qué oficinas de soporte existían y cuáles eran los otros seis centros. El artículo no lo dice y este caso no lo infiere.
+
+![Mapa de relaciones: AECL en Canadá con soporte desde Ottawa; CGR en Francia como socio histórico hasta 1981; cuatro hospitales con accidentes en Georgia, Ontario, Washington y Texas; hospitales de Vancouver y Halifax que añadieron protecciones; y los reguladores de EE. UU. y de Canadá.](../figures/therac-25-sedes-y-hospitales.svg)
+
+**Cómo leer la figura.** El nodo central es el fabricante; arriba, quienes le suministraron o supervisaron; abajo, los centros que usaron la máquina. Mira primero qué centros tuvieron accidentes (los cuatro en coral) y qué centros añadieron protecciones por su cuenta (dorado). **Dónde deja de valer:** no es un mapa geográfico ni lista las once instalaciones, porque la fuente solo nombra algunas.
+
+### Organización y plantilla
+
+**No es público** el organigrama de AECL Medical ni su plantilla en esos años. Lo que el artículo permite decir sobre la estructura son los **roles**: un programador a cargo del software durante varios años (la persona dejó la empresa en 1986 y los autores no pudieron conocer su formación), un responsable de aseguramiento de calidad que respondió a usuarios y al regulador, ingenieros de soporte locales y de la oficina central, y un área de relación con los usuarios que participó en tres reuniones de grupo de usuarios. Este programa **no** reconstruye una pirámide de la organización con esos datos, porque sería inventar niveles que la fuente no da.
+
+### Visión y misión
+
+**No se sabe:** el artículo no cita una misión ni una visión de AECL Medical. Lo que sí documenta es la apuesta de producto: una máquina de doble modo, más compacta y pensada desde el principio para control por computador. Es una decisión de diseño, no una declaración de propósito.
+
 ## Contexto y problema
 
 Un acelerador lineal médico (*linac*) acelera electrones para destruir tumores con el menor daño posible al tejido sano. Con los electrones se tratan tejidos poco profundos; para llegar más hondo, el haz de electrones se convierte en fotones de alta energía (rayos X) frenándolo contra un blanco. En los años setenta, AECL y CGR cooperaron en aceleradores: el Therac-6, solo de rayos X, y el Therac-20, de doble modo. En ambos, un minicomputador PDP-11 se agregó a máquinas que ya funcionaban solas, y se conservaron los interlocks y circuitos protectores de hardware.
@@ -122,6 +140,22 @@ Tres lecturas de análisis propio. Primera: los 14 meses de respuesta muestran q
 - **FDA.** Declaró defectuoso el equipo el 2 de mayo de 1986 y exigió un plan y la renotificación a los usuarios. En febrero de 1987 pidió que se suspendiera el uso rutinario hasta contar con un plan aprobado; clasificó la retirada como clase I. El autor del artículo describe su respuesta, una vez implicada, como «impresionante», dada su poca experiencia con problemas de dispositivos médicos computarizados.
 - **Autoridad canadiense.** La *Health Protection Branch* hizo lo mismo que la FDA en cuanto a la restricción de uso, hasta agosto de 1987.
 - **Comunidad de usuarios.** Los centros se reunieron en tres reuniones de grupo de usuarios; la de marzo de 1987, descrita por los autores como inusualmente productiva, reunió en un solo lugar a los interesados, entre ellos el fabricante y los usuarios, para decidir una línea de acción con rapidez; de ella salieron nueve puntos que AECL se comprometió a calendarizar en abril. Los físicos pidieron un registro impreso de auditoría y acceso al código fuente; el fabricante respondió que las limitaciones de memoria no permitían un registro y que el código no se entregaría. La asociación de físicos médicos estadounidense había formado un grupo de trabajo sobre computadores en radioterapia en 1979 y reforzó ese trabajo tras los accidentes.
+
+### Esquema del negocio: quién compra, quién usa y quién supervisa
+
+El valor del producto era para el hospital: una sola máquina que ofrece dos modalidades de tratamiento, con menos espacio y operación más ágil. El flujo económico (el hospital compra o arrienda el equipo y paga mantenimiento) **no está cuantificado** en el artículo: no hay precios, ventas ni márgenes. El flujo de seguridad es el que el caso documenta: el fabricante diseña, el hospital opera, el físico médico calibra, el regulador vigila de forma reactiva y la asociación de físicos propone estándares de usuario. [SE-133 · Modelos de negocio y sostenibilidad](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md) trata los modelos de negocio y [SE-453 · Economía del software y costo total](../../classes/part-37-gestion-liderazgo-y-practica-profesional/se-453-economia-del-software-y-costo-total/README.md) el costo total, aplicables aquí con una salvedad: faltan los datos.
+
+![Esquema del negocio: el hospital compra y opera el equipo; el fabricante diseña, instala y da soporte; los físicos y técnicos calibran y operan; el paciente recibe el tratamiento; el regulador vigila y exige correcciones; la asociación de físicos propone estándares; y los precios, ventas y costos no son públicos.](../figures/therac-25-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** El nodo central es el tratamiento; los demás son actores con su aporte. Los recuadros punteados son lo que no se sabe. Mira primero que el pago no aparece: no hay cifras públicas. **Dónde deja de valer:** representa roles según el artículo y no relaciones contractuales, que no son públicas.
+
+### Costos operativos y costo del incidente
+
+**Documentado:** hubo una demanda por el accidente de Marietta presentada el 13 de noviembre de 1985, demandas por Tyler y Yakima (algunas resueltas fuera de los tribunales) y, de febrero a agosto de 1987, una restricción del uso rutinario por orden del regulador. **No se sabe:** el costo de los litigios, de las modificaciones, de la retirada y de la pérdida de ventas. El artículo lo dice de forma explícita: no se conocen cifras de ventas ni los costos de duplicar interlocks. Por eso este caso **no ofrece un total económico**, y no lo estima: el costo humano, además, no se agrega en una cifra.
+
+### Competidores y contexto de mercado
+
+**Documentado:** el artículo atribuye la ruptura entre AECL y CGR en 1981 a «presiones competitivas» y menciona que la industria de aceleradores médicos había sido considerada segura durante décadas, salvo algunos incidentes en los años sesenta. **No se sabe** (con fuente pública verificada para este caso) la cuota de mercado de AECL, los nombres de los competidores ni el número de aceleradores instalados en el mundo en 1985. Dejar esa laguna a la vista es preferible a citar cifras de fuentes secundarias no contrastadas.
 
 ## Arquitectura y esquemas
 
@@ -239,6 +273,40 @@ El plan final (21 de julio de 1987) añadió cambios de tres tipos: hardware ind
 ![Dos columnas unidas por flechas: causas a la izquierda (software como única barrera, ediciones rápidas, desbordamiento del contador, dosimetría saturada, pausas normalizadas, mensajes crípticos, ausencia de registro y notificación) y medidas del plan final a la derecha (circuito de hardware de un pulso, interlock y potenciómetro de la plataforma, límite de teclas de edición, suspensiones con reingreso de parámetros, mensajes claros, cambios de software y manuales).](../figures/therac-25-plan-correctivo-por-causa.svg)
 
 **Cómo leer la figura.** A la izquierda, causas documentadas; a la derecha, medidas del plan final. Cada flecha es «esta medida corta esta causa». Mira primero las causas sin flecha: son las que el plan no resolvió (registro impreso de auditoría y notificación obligatoria), que se atendieron por otras vías o más tarde. **Dónde deja de valer:** la lista de medidas es la del artículo a julio de 1987; no afirma que cada medida bastara ni que se aplicara igual en todas las máquinas.
+
+### Hardware utilizado: acelerador, controlador e interbloqueos
+
+**Documentado:** el acelerador lineal de doble modo (electrones de 5 a 25 MeV y fotones de 25 MeV); una plataforma giratoria con tres posiciones y tres microinterruptores que informan su posición como señal binaria; imanes de barrido y de flexión; cámaras de ionización para medir electrones y fotones; un blanco y un aplanador para el modo de rayos X; un computador PDP-11/23 con 32 KB de memoria; un terminal VT100 en la sala de control; un sistema de interlocks de hardware que retira la alimentación ante un fallo; circuitos muestreadores y de retención de las cámaras de ionización; y, tras el plan final, un potenciómetro de la plataforma, un circuito independiente que corta tras un pulso alto y un interruptor de pie de «hombre muerto» para movimientos. **No se sabe:** la capacidad de cómputo exacta fuera de la memoria, los fabricantes de cada componente y las especificaciones eléctricas.
+
+![Pila de hardware del Therac-25 de arriba abajo: operador y terminal; computador PDP-11/23 de 32 KB; controladores y sensores; plataforma con microinterruptores y cámaras de ionización; acelerador; y a la derecha quién protegía cada tramo antes y después del plan final.](../figures/therac-25-pila-de-hardware.svg)
+
+**Cómo leer la figura.** Cada fila es una capa de hardware de la máquina; a la derecha, qué barrera de seguridad dependía de ella. Mira primero la fila del computador: era el único enlace entre la orden y los actuadores. **Dónde deja de valer:** es un esquema funcional del artículo y no un plano.
+
+### Software utilizado
+
+**Documentado:** lenguaje ensamblador de PDP-11; un ejecutivo de tiempo real escrito para esta máquina (no un sistema operativo estándar) con planificador expropiativo que lanza tareas cada 0,1 segundos; tareas críticas (monitor de tratamiento, servos, ama de llaves) y no críticas; servicios de interrupción; variables compartidas entre tareas sin sincronización real; módulos heredados de las máquinas anteriores (paquete del Therac-6 y rutinas del Therac-20); un programa que se carga en la máquina y cuya copia in situ se impidió en el plan final; y un único programador durante varios años. **No se sabe:** los nombres y versiones de las herramientas de ensamblado y de prueba, el sistema de control de versiones y los procedimientos de construcción: el fabricante reclamó propiedad sobre el diseño y los autores no pudieron examinar el código fuente.
+
+![Capas de software: aplicación de tratamiento con tareas críticas y no críticas; ejecutivo de tiempo real propio con planificador cada 0,1 segundos; servicios de interrupción; ensamblador de PDP-11; y a la derecha los componentes heredados del Therac-6 y del Therac-20 y las prácticas que no constan.](../figures/therac-25-pila-de-software.svg)
+
+**Cómo leer la figura.** Cada fila es una capa de software; a la derecha, lo heredado y lo desconocido. Mira primero la capa del ejecutivo: no había un sistema operativo estándar que impusiera exclusión mutua. **Dónde deja de valer:** el artículo advierte que su descripción es aproximada y que la documentación consultada puede contener errores.
+
+### Infraestructura: máquinas aisladas, sin red documentada
+
+**Documentado:** once máquinas en hospitales, cada una autónoma; la comunicación entre hospitales y fabricante era por teléfono, carta y reuniones de usuarios; el fabricante informó a la FDA el 15 de abril de 1986 con un informe de accidente. **No se sabe** (y no se infiere) si las máquinas tenían conexión de red, y el artículo no menciona transmisión remota de datos. **Inferido:** sin registro de auditoría en la máquina y sin red, la única memoria del sistema era lo que cada hospital anotaba; lo cual se alinea con que el artículo señale que cada centro conocía solo sus propios casos.
+
+![Infraestructura: once máquinas aisladas en hospitales de Estados Unidos y Canadá; cada una con su sala de control; enlaces con el fabricante por teléfono, carta y reunión de usuarios; sin registro de auditoría ni red documentada.](../figures/therac-25-infraestructura.svg)
+
+**Cómo leer la figura.** Cada caja de hospital es independiente; las líneas son canales humanos y no de datos. Mira primero que no hay un nodo central de telemetría. **Dónde deja de valer:** no afirma que no hubiera red; dice que no hay evidencia pública de ella.
+
+### A prueba de fallos: interbloqueos, redundancia y recuperación
+
+El caso es el ejemplo clásico de una arquitectura que retiró redundancia de hardware y la reemplazó con comprobaciones de software.
+
+![Cuatro columnas de mecanismos: existían y funcionaron; existían y fallaron; no existían; y debieron existir según análisis propio.](../figures/therac-25-a-prueba-de-fallos.svg)
+
+**Cómo leer la figura.** Cada caja es un mecanismo y su color es la columna. Mira primero la columna «existían y fallaron»: son controles que daban sensación de seguridad (las pausas, la dosimetría). **Dónde deja de valer:** las tres primeras columnas se apoyan en Leveson y Turner; la cuarta es análisis propio y no sugiere que fuera barata ni suficiente.
+
+Un detalle de diseño del plan correctivo ilustra la tolerancia a fallos de la dosimetría: antes de 1986, el apagado automático ante una lectura alta de las cámaras exigía **tres lecturas altas consecutivas**, lo que implicaba un tiempo de apagado de unos 300 milisegundos; el plan lo cambió por un apagado tras **un solo** pulso alto, y añadió un circuito independiente del software. Es la diferencia entre un control que espera confirmación y uno que protege en el primer indicio.
 
 ## Casos especiales y cómo fallan
 

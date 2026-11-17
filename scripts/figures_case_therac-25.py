@@ -5,6 +5,7 @@ pp. 18-41. Where a figure is a schematic and not a measurement, the foot says so
 """
 from __future__ import annotations
 
+from case_fig_helpers import hub, kanban, layer_stack
 from figure_kit import Fig, _kit_finish, _kit_start, _wrap, percentile_intervals, timeline
 
 FUENTE = "Fuente: Leveson y Turner, IEEE Computer 26(7), 1993; esquema propio."
@@ -427,6 +428,84 @@ def arbol_de_fallas() -> Fig:
 
 # ==== EXPANDED FIGURES (end) ====
 
+# ==== EXPANDED FIGURES2 (begin) ====
+
+SRCLT = "Fuente: Leveson y Turner, IEEE Computer 26(7), 1993; esquema propio."
+
+
+def sedes_y_hospitales() -> Fig:
+    return hub(
+        "Fabricantes y hospitales: un fabricante público canadiense, un socio francés y once máquinas en dos países",
+        "Esquema de relaciones con AECL en el centro. Arriba: CGR en Francia como socio hasta 1981, soporte desde Ottawa y los reguladores de EE. UU. y Canadá. Abajo: hospitales con accidentes en Marietta, Hamilton, Yakima y Tyler y hospitales de Vancouver y Halifax que añadieron protecciones.",
+        ("AECL: corporación pública de Canadá", "navy"),
+        [("CGR, Francia: socio hasta 1981", "plain", ""), ("Soporte desde Ottawa", "plain", ""), ("FDA de EE. UU.", "plain", ""), ("Autoridades de Canadá", "plain", ""),
+         ("Accidentes: Marietta (Georgia) y Hamilton (Ontario)", "coral", ""), ("Accidentes: Yakima (Washington) y Tyler (Texas)", "coral", ""), ("Vancouver y Halifax: protecciones propias", "gold", "")],
+        "No es un mapa geográfico ni lista las once instalaciones. Plantilla, oficinas y otros seis centros: no se sabe.", SRCLT)
+
+
+def esquema_del_negocio() -> Fig:
+    return hub(
+        "Esquema del negocio: quién compra, quién opera, quién calibra y quién vigila",
+        "Esquema con el tratamiento al paciente en el centro. Arriba: el hospital que compra y opera, el fabricante que diseña, instala y da soporte, los físicos y técnicos que calibran y operan, y el regulador que vigila. Abajo: la asociación de físicos que propone estándares, y precios, ventas y costos que no son públicos.",
+        ("Tratamiento al paciente", "teal"),
+        [("Hospital: compra y opera el equipo", "plain", "compra"), ("Fabricante: diseña, instala y da soporte", "plain", "diseña"), ("Físicos y técnicos: calibran y operan", "plain", "operan"), ("Regulador: vigila y exige correcciones", "plain", "vigila"),
+         ("Asociación de físicos: estándares de usuario", "teal", ""), ("Precios, ventas y costos: no se sabe", "gold", "")],
+        "Roles según el artículo. No hay datos públicos de precios, ventas ni márgenes y no se estiman. Las flechas son relaciones, no contratos.", SRCLT)
+
+
+def pila_de_hardware() -> Fig:
+    return layer_stack(
+        "Pila de hardware: del terminal del operador al acelerador, con el computador en medio",
+        "Cinco capas de arriba abajo: terminal VT100 y operador; computador PDP-11/23 de 32 KB; controladores y sensores; plataforma giratoria con microinterruptores y cámaras de ionización; y acelerador con imanes. A la derecha, qué barrera dependía de cada tramo antes y después del plan final de 1987.",
+        [("Operador y terminal VT100", "Sala de control; ve al paciente por vídeo y voz", "plain"),
+         ("Computador PDP-11/23", "32 KB; lee sensores y comanda actuadores", "gold"),
+         ("Controladores y sensores", "Servos, imanes y tres microinterruptores de la plataforma", "teal"),
+         ("Plataforma y cámaras", "Posición de blanco, aplanador y cámaras de ionización", "teal"),
+         ("Acelerador y imanes", "Electrones de 5 a 25 MeV; fotones de 25 MeV", "plain")],
+        [("Antes: comprobaciones de software sustituyeron a interlocks electromecánicos", "coral"), ("Después: potenciómetro, interlock de la plataforma y apagado tras un pulso alto sin software", "teal"), ("No se sabe: fabricantes de cada componente y especificaciones eléctricas", "gold")],
+        "Esquema funcional reconstruido del artículo; no es un plano. Memoria de 32 KB documentada; el resto de especificaciones, no públicas.", SRCLT)
+
+
+def pila_de_software() -> Fig:
+    return layer_stack(
+        "Pila de software: ensamblador, ejecutivo propio y tareas que hablan por variables compartidas",
+        "Cuatro capas de arriba abajo: tareas de tratamiento críticas y no críticas; ejecutivo de tiempo real propio con planificador cada 0,1 segundos; servicios de interrupción; y lenguaje ensamblador de PDP-11. A la derecha, lo heredado del Therac-6 y del Therac-20 y lo que no consta.",
+        [("Tareas de tratamiento", "Monitor, servos y ama de llaves; procesador de teclado y pantalla", "coral"),
+         ("Ejecutivo de tiempo real", "Escrito para esta máquina; planificador expropiativo de 0,1 s", "gold"),
+         ("Servicios de interrupción", "Reloj, barrido, teclados, pantalla, impresora y trampas", "teal"),
+         ("Ensamblador de PDP-11", "Un solo programador durante varios años", "plain")],
+        [("Heredado: paquete del Therac-6 y rutinas del Therac-20", "gold"), ("Plan final: copia del programa impedida en el sitio y 23 cambios de software", "teal"), ("No se sabe: herramientas, control de versiones y procesos de construcción", "plain")],
+        "El artículo advierte que su descripción es aproximada porque el fabricante reclamó propiedad sobre el diseño y no se pudo examinar el código.", SRCLT)
+
+
+def infraestructura() -> Fig:
+    f, y = sketch("Infraestructura: once máquinas aisladas, unidas solo por teléfono, carta y reuniones",
+                  "Cuatro hospitales con su máquina y su sala de control, aislados entre sí. Hacia el fabricante van llamadas y cartas; hacia el regulador, informes del fabricante. No hay un nodo central de telemetría ni registro de auditoría en la máquina; la existencia de red no está documentada.")
+    for i, t in enumerate(["Marietta: máquina y sala de control", "Hamilton: máquina y sala de control", "Yakima: máquina y sala de control", "Tyler: máquina y sala de control"]):
+        bx(f, 10 + i * 232, y + 6, 214, 66, t, "plain")
+        f.arrow([(117 + i * 232, y + 72), (117 + i * 232, y + 110)], dashed=True)
+    bx(f, 10, y + 110, 920, 46, "Llamadas, cartas y reuniones de usuarios: canales humanos, no de datos", "gold")
+    f.arrow([(470, y + 156), (470, y + 190)])
+    bx(f, 330, y + 190, 280, 60, "AECL: ve cada incidente por separado", "navy", 13, bold=True)
+    f.arrow([(610, y + 220), (700, y + 220)])
+    bx(f, 700, y + 190, 230, 60, "FDA y autoridades de Canadá", "plain")
+    bx(f, 10, y + 190, 300, 60, "Sin registro de auditoría ni telemetría central documentados", "coral", dashed=True)
+    return done(f, y + 270, "Las flechas punteadas son comunicaciones informales entre cada hospital y el fabricante. La existencia de una red entre máquinas y fabricante no consta: no se sabe.", foot=SRCLT)
+
+
+def a_prueba_de_fallos() -> Fig:
+    return kanban(
+        "A prueba de fallos: qué existía, qué falló, qué no existía y qué debió existir",
+        "Cuatro columnas de mecanismos de tolerancia a fallos. Existían y funcionaron: interlocks de hardware en el Therac-20, suspensión tras cinco pausas, interlock que retira la alimentación ante fallos de hardware. Existían y fallaron: dosimetría saturada, comprobaciones de software, pausas con una tecla, análisis de 1983. No existían: interlock de la plataforma, registro de auditoría, notificación obligatoria, aviso de saturación. Debieron existir: suspensión con reingreso, apagado de un pulso, mensajes claros, registro de peligros.",
+        [("Existían y funcionaron", "teal", ["Interlocks de hardware del Therac-20", "Suspensión tras cinco pausas seguidas", "Interlock que retira la alimentación ante fallos de hardware"]),
+         ("Existían y fallaron", "coral", ["Dosimetría saturada: mostraba dosis baja", "Comprobaciones de software de la plataforma", "Pausa con una tecla como rutina", "Análisis de peligros de 1983"]),
+         ("No existían (documentado)", "gold", ["Interlock independiente de la plataforma", "Registro de auditoría del estado interno", "Aviso de cámaras saturadas", "Notificación obligatoria hasta 1990"]),
+         ("Debieron existir (análisis propio)", "plain", ["Suspensión con reingreso de parámetros", "Apagado tras un pulso alto sin software", "Mensajes comprensibles", "Registro de peligros con dueño"])],
+        "Las tres primeras columnas se apoyan en Leveson y Turner y en el plan final de 1987. La cuarta es análisis propio: varias medidas coinciden con el plan final, que llegó tras los accidentes.",
+        SRCLT)
+
+# ==== EXPANDED FIGURES2 (end) ====
+
 FIGURES = {
     "therac-25-tres-maquinas.svg": tres_maquinas,
     "therac-25-plataforma-giratoria.svg": plataforma_giratoria,
@@ -447,4 +526,11 @@ FIGURES = {
     "therac-25-bucle-de-pausas.svg": bucle_de_pausas,
     "therac-25-revisiones-del-plan.svg": revisiones_del_plan,
     "therac-25-arbol-de-fallas.svg": arbol_de_fallas,
+    # expanded entries2
+    "therac-25-sedes-y-hospitales.svg": sedes_y_hospitales,
+    "therac-25-esquema-del-negocio.svg": esquema_del_negocio,
+    "therac-25-pila-de-hardware.svg": pila_de_hardware,
+    "therac-25-pila-de-software.svg": pila_de_software,
+    "therac-25-infraestructura.svg": infraestructura,
+    "therac-25-a-prueba-de-fallos.svg": a_prueba_de_fallos,
 }

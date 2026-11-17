@@ -361,6 +361,81 @@ def ingresos_meta() -> Fig:
         note_kind="gold", foot="Fuente: Meta, Form 10-K de 2025 (SEC). Consulta: 16 de noviembre de 2026.")
 
 
+META = "Fuente: Meta Platforms, Form 10-K de 2025 (SEC). Consulta: 16 de noviembre de 2026."
+
+
+def negocio() -> Fig:
+    f = _canvas("Esquema del negocio: quién paga, quién recibe y por dónde pasa el valor",
+                "Diagrama de flujos: las personas usan WhatsApp sin pagar y generan el valor de la red; las empresas pagan por mensajería de la Cloud API; los anunciantes pueden comprar anuncios que aparecen en varias aplicaciones de Meta, entre ellas WhatsApp; Meta aloja y opera y recibe ingresos como otros ingresos de la familia de aplicaciones.",
+                940, 0)
+    B(f, 10, 70, 220, 80, "Personas: usan mensajes y llamadas sin pagar", "teal")
+    B(f, 10, 170, 220, 80, "Empresas: pagan por mensajería (Cloud API y Business)", "gold")
+    B(f, 10, 270, 220, 70, "Anunciantes: compran anuncios que pueden aparecer en WhatsApp", "gold", 13)
+    B(f, 340, 120, 250, 110, "WhatsApp dentro de Meta: servidores, claves, mensajes pendientes y producto", "navy", 13, bold=True)
+    B(f, 690, 70, 240, 80, "Otros ingresos de la familia de aplicaciones: 2 584 millones en 2025", "gold")
+    B(f, 690, 170, 240, 80, "Publicidad de Meta: 196 175 millones en 2025, casi todo en Facebook e Instagram", "plain")
+    B(f, 690, 270, 240, 70, "Valor que vuelve: contacto con cualquiera, sin cuota", "grey")
+    f.arrow([(230, 110), (340, 150)], "valor de red", label_at=(270, 118))
+    f.arrow([(230, 210), (340, 190)], "pago por mensaje", label_at=(270, 226))
+    f.arrow([(230, 305), (340, 215)], dashed=True)
+    f.arrow([(590, 150), (690, 110)])
+    f.arrow([(590, 190), (690, 210)], dashed=True)
+    f.arrow([(590, 225), (690, 305)])
+    return finish(f, 360, "Documentado: gratuidad para personas, productos para empresas, que el pago por mensajería de WhatsApp está dentro de «otros ingresos» y que los anuncios pueden aparecer en WhatsApp. Las flechas punteadas son relaciones sin cifra pública; Meta no separa el ingreso de WhatsApp y dice que sustancialmente todos sus ingresos proceden de publicidad en Facebook e Instagram.", META)
+
+
+def costos() -> Fig:
+    names = ["2023", "2024", "2025"]
+    rev = [134902, 164501, 200966]
+    parts = [("Coste de ingresos", [25959, 30161, 36175], "navy"), ("Investigación y desarrollo", [38483, 43873, 57372], "teal"),
+             ("Marketing y ventas", [12301, 11347, 11991], "grey"), ("Administración", [11408, 9740, 12152], "coral"), ("Resultado operativo", [46751, 69380, 83276], "gold")]
+    series = [(n, [round(100 * v / r, 1) for v, r in zip(vals, rev)], k) for n, vals, k in parts]
+    return stacked_bars(
+        "Costos de Meta por rubro, 2023-2025: el contexto de costos de WhatsApp (porcentaje de los ingresos)",
+        "Barras apiladas al cien por ciento de la estructura de costos de Meta: investigación y desarrollo pasa de 28,5 a 26,7 y a 28,5 por ciento, el coste de ingresos baja de 19,2 a 18,0, marketing de 9,1 a 6,0 y el resultado operativo sube de 34,7 a 41,4 por ciento.",
+        names, series, unit="% de los ingresos", percent=True, horizontal=True, decimals=1, label_w=70,
+        note="WhatsApp no tiene estado de resultados propio: es parte de la familia de aplicaciones, que invirtió 96 290 millones de USD en 2025 en plantilla, centros de datos e infraestructura técnica. El 10-K de Meta dice que diseñó y construyó sus propios centros de datos y partes clave de su infraestructura, y que una parte sustancial la proveen terceros. No se sabe el coste de servir a WhatsApp ni su plantilla.",
+        note_kind="gold", foot=META)
+
+
+def pila() -> Fig:
+    f = _canvas("Hardware y software documentados de WhatsApp, por época",
+                "Diagrama de dos épocas: en 2012, un servidor de doble procesador Westmere con 24 CPU lógicas, 100 GB de RAM, SSD y dos tarjetas de red, con FreeBSD, Erlang y su base Mnesia; en 2021, un servicio de conexiones llamado ChatD, protocolo Signal y canal Noise Pipes, y una bóveda de claves con módulos de seguridad de hardware repartida entre centros de datos.",
+                940, 0)
+    G(f, 10, 52, 450, 260, "2012: servidor de conexiones (charla de Rick Reed)", "gold")
+    B(f, 26, 90, 418, 44, "Hardware: 2 procesadores Westmere de 6 núcleos (24 CPU lógicas), 100 GB de RAM, SSD", "gold")
+    B(f, 26, 142, 418, 44, "Red: dos tarjetas, una hacia usuarios y otra hacia el interior", "plain")
+    B(f, 26, 194, 418, 44, "Sistema operativo: FreeBSD 8.3 con parches y ajustes de red", "plain")
+    B(f, 26, 246, 418, 52, "Lenguaje y plataforma: Erlang OTP R14B03; Mnesia, ETS y pg2 particionados", "plain")
+    G(f, 480, 52, 450, 260, "2021: servicios de claves y conexiones (artículos de Meta)", "navy")
+    B(f, 496, 90, 418, 44, "ChatD: servicio de conexiones y autenticación de clientes", "plain")
+    B(f, 496, 142, 418, 44, "Protocolo Signal y canal Noise Pipes con Curve25519 y AES-GCM", "plain")
+    B(f, 496, 194, 418, 44, "Bóveda de claves de respaldo: módulos de seguridad de hardware (HSM)", "gold")
+    B(f, 496, 246, 418, 52, "Distribución geográfica en varios centros de datos; hardware y lenguajes de ChatD: no se sabe", "grey", dashed=True)
+    return finish(f, 332, "Documentado: la configuración de 2012 (charla de marzo de 2012 y blog de enero de 2012), ChatD y la bóveda (artículo de 2021) y el canal Noise Pipes (libro blanco). No se sabe el hardware, los lenguajes ni las bases de datos de hoy, ni cuánto de la infraestructura es de Meta compartida. Un servicio de 2012 no describe el actual.", DOC)
+
+
+def fallos() -> Fig:
+    f = _canvas("Qué pasa cuando cae cada componente de WhatsApp: de lo pequeño a lo grande",
+                "Seis filas de falla creciente: un proceso interno, un servidor sobrecargado, el teléfono receptor desconectado, un centro de datos de la bóveda de claves, un dispositivo vinculado y el servicio de claves completo; efecto y mecanismo con rótulo de documentado, inferido o no se sabe.",
+                940, 0)
+    rows = [
+        ("Un proceso interno de un servidor", "Aislamiento de procesos de Erlang (inferido); no se detalla en las fuentes", "plain!"),
+        ("Un servidor sobrecargado", "Objetivo de 2012: resistir fallos y picos; cargas reales para ensayarlo (documentado)", "teal"),
+        ("El receptor desconectado", "El mensaje cifrado espera en el servidor hasta que se conecte (inferido)", "plain!"),
+        ("Un teléfono principal sin batería", "Los dispositivos vinculados funcionan sin él desde 2021 (documentado)", "teal"),
+        ("Un centro de datos de la bóveda de claves", "La bóveda se distribuye en varios centros de datos (documentado)", "gold"),
+        ("Todo el servicio de WhatsApp", "No se sabe: sin recuperación ante desastres pública ni objetivos de tiempo", "coral"),
+    ]
+    y = 56.0
+    for a, b, k in rows:
+        B(f, 10, y, 280, 52, a, "navy", 13, bold=True)
+        B(f, 330, y, 600, 52, b, k.rstrip("!"), 13, dashed=k.endswith("!"))
+        f.arrow([(290, y + 26), (330, y + 26)])
+        y += 62
+    return finish(f, y + 4, "Documentado en la charla de 2012, el artículo de dispositivos múltiples y el de copias cifradas; inferido el aislamiento de procesos y la cola de mensajes, que son consecuencias de Erlang y del diseño asíncrono. No se publica un plan de continuidad ni cifras de disponibilidad.", DOC)
+
+
 FIGURES = {
     "whatsapp-contexto.svg": contexto,
     "whatsapp-piezas-de-escala.svg": componentes,
@@ -380,6 +455,10 @@ FIGURES = {
     "whatsapp-alternativas-descartadas.svg": alternativas,
     "whatsapp-precio-de-la-compra.svg": compra,
     "whatsapp-otros-ingresos-de-meta.svg": ingresos_meta,
+    "whatsapp-esquema-del-negocio.svg": negocio,
+    "whatsapp-costos-de-meta.svg": costos,
+    "whatsapp-hardware-y-software-por-epoca.svg": pila,
+    "whatsapp-que-pasa-si-cae.svg": fallos,
 }
 
 

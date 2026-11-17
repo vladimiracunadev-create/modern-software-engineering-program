@@ -25,6 +25,10 @@
 
 **Qué no se afirma.** Hay relatos muy difundidos sobre el inicio de la empresa (financiación inicial, nombre de la oficina, número de empleados). Ninguna de las fuentes primarias consultadas los confirma, así que el caso no los repite. Tampoco se afirma el tamaño del equipo: ninguna fuente primaria consultada lo da.
 
+### Oficinas, plantilla y estructura
+
+**[No se sabe]** las oficinas de WhatsApp, su plantilla ni su organigrama: ninguna de las fuentes primarias consultadas los publica, y los relatos sobre el tamaño del equipo no se repiten. Lo que sí es público es el marco de Meta: su sede está en Menlo Park, California; al 31 de diciembre de 2025 tenía una plantilla de 78 865 personas, 6 % más que un año antes; y tiene oficinas en más de 90 ciudades de América del Norte, Europa, Oriente Medio, África, Asia-Pacífico y Latinoamérica ([W14]). **Documentado** que WhatsApp se describe como una aplicación separada dentro de Meta ([W1]); **[Inferido]** que su ingeniería forma parte de la organización de la familia de aplicaciones, que el 10-K trata como un solo segmento de informe junto con Facebook, Instagram y Messenger ([W14]). El único dato público de tamaño de equipo es indirecto y antiguo: en 2012 un ingeniero de WhatsApp había entrado en 2011 y la empresa anunciaba contrataciones de servidores y clientes ([W6], [W7]), sin cifras de plantilla.
+
 ## Contexto y problema
 
 **Documentado.** El comunicado de la compra describe a WhatsApp como una empresa de mensajería móvil multiplataforma con un volumen de mensajes que «se aproxima a todo el volumen mundial de SMS» ([W2]). El problema que atacó, en palabras de la propia empresa, fue que las personas se comunicaran en cualquier lugar sin barreras ([W1]).
@@ -144,6 +148,32 @@ Se recorre primero a la persona y luego a los demás tipos de usuario, cada uno 
 **Ventaja competitiva declarada.** Simplicidad, fiabilidad y privacidad ([W1]: «simple, segura, confiable»). La escala está respaldada por las cifras de [W2], [W3] y [W1].
 
 **Palancas y límites.** Documentado: el cambio de cuota a gratuito amplió el acceso a quien no tenía tarjeta ([W12]); la mensajería de pago a empresas es la vía de ingreso elegida ([W12], [W14]). Límites: la regulación (concentraciones y datos, [W16]), el cifrado (menos señales para segmentar, [W14]) y la expectativa de los usuarios, que se formó con una promesa de no publicidad ([W11]).
+
+### Esquema del negocio: flujos de dinero y de valor
+
+![Diagrama de flujos: las personas usan WhatsApp sin pagar, las empresas pagan por mensajería, los anunciantes pueden comprar anuncios que aparecen en WhatsApp, y Meta recibe otros ingresos de la familia de aplicaciones.](../figures/whatsapp-esquema-del-negocio.svg)
+
+**Cómo leer la figura.** A la izquierda están quienes aportan valor o dinero; en el centro, WhatsApp dentro de Meta; a la derecha, dónde se reconoce el ingreso. Mire cuál es el único flujo directo con cifra pública (otros ingresos de 2 584 millones, que mezcla varias fuentes) y qué flechas son punteadas. **Dónde deja de valer.** No hay un ingreso de WhatsApp por separado: es una vista cualitativa, no una cuenta de resultados, y la flecha de anuncios solo refleja que el 10-K nombra a WhatsApp como un lugar donde pueden aparecer.
+
+**Flujo de valor (análisis propio sobre hechos documentados).** El valor lo crea la red: cada persona vale lo que valen sus contactos ([SE-133](../../classes/part-11-economia-metricas-y-decisiones-de-producto/se-133-modelos-de-negocio-y-sostenibilidad/README.md)). La empresa captura valor por dos vías públicas: cobrando a empresas por mensajería y, como dice el 10-K de Meta, permitiendo anuncios en varias aplicaciones, entre ellas WhatsApp ([W14]). El ingreso por usuario es bajo (cota superior de menos de 0,9 USD al año con todos los «otros ingresos»), de modo que el modelo depende de la escala.
+
+### Visión, misión y estrategia
+
+**Documentado.** La página oficial de WhatsApp dice que empezó como una alternativa al SMS y que detrás de cada decisión de producto está el deseo de que las personas se comuniquen en cualquier lugar sin barreras; que ofrece mensajería y llamadas «simples, seguras y confiables»; y que opera como una aplicación separada con foco en un servicio rápido y confiable en cualquier parte ([W1]). El texto de 2012 formula la visión de producto en negativo: no vender publicidad ni minar datos y cobrar directamente por un servicio que funciona ([W11]); la entrada de 2020 reafirma que «simple, confiable y privado» es el objetivo desde el principio y que no se comprometerá la seguridad ([W3]). La misión de la matriz, en el 10-K de 2025, es construir el futuro de la conexión humana y la tecnología que lo hace posible, con una visión de «superinteligencia personal para todos» ([W14]).
+
+**Evolución.** De «sin publicidad, cuota anual» (2012) a «sin cuota, sin publicidad de terceros, herramientas para empresas» (2016) a la misión de Meta, en la que WhatsApp es una de las aplicaciones de la familia (2025). El énfasis en privacidad se mantiene en los tres textos.
+
+### Costos operativos
+
+![Barras apiladas al cien por ciento de los costos de Meta en 2023, 2024 y 2025: coste de ingresos de 19,2 a 18,0 por ciento, investigación y desarrollo 28,5, 26,7 y 28,5, marketing de 9,1 a 6,0 y resultado operativo de 34,7 a 41,4.](../figures/whatsapp-costos-de-meta.svg)
+
+**Cómo leer la figura.** Cada barra es un año de ingresos de Meta reducido a 100 %; los segmentos son rubros del estado de resultados. Mire el segmento dorado: el resultado operativo crece siete puntos. **Dónde deja de valer.** Es Meta, no WhatsApp: no hay costos publicados por aplicación, y los rubros no separan servidores, ancho de banda ni soporte de la mensajería.
+
+**Cifras de 2025 de Meta ([W14]).** Ingresos de 200 966 millones de USD; coste de ingresos de 36 175; investigación y desarrollo de 57 372; marketing y ventas de 11 991; administración de 12 152; resultado operativo de 83 276 (41,4 %). Las inversiones de la familia de aplicaciones fueron de 96 290 millones de USD e incluyen plantilla, centros de datos e infraestructura técnica ([W14]). **[No se sabe]** el coste de servir a WhatsApp, los rubros de infraestructura, pagos o soporte. **Análisis propio:** la visibilidad limitada del contenido cifrado que reconoce Meta ([W14]) implica que el servidor no puede usarse para segmentación, y que los costes dominantes de una mensajería cifrada son conexiones, medios y ancho de banda, no cómputo sobre el contenido; es una hipótesis.
+
+### Competidores
+
+**Documentado.** El 10-K de Meta describe una competencia general con empresas que ofrecen productos de conexión, compartición, descubrimiento y comunicación en línea, con anunciantes y desarrolladores, y señala competencia en inteligencia artificial y hardware ([W14]); no nombra competidores de mensajería ni da cuotas de mercado en el fragmento consultado. **[No se sabe]** con fuente primaria quiénes son los competidores de WhatsApp por país ni su cuota. El comunicado de 2014 solo compara WhatsApp con el volumen mundial de SMS ([W2]). **Análisis propio** de por qué el mercado favoreció a WhatsApp: efecto de red, identidad por número de teléfono, coste marginal bajo y producto simple (ver la sección de mercado).
 
 ## Arquitectura y esquemas
 
@@ -312,6 +342,42 @@ La arquitectura se recorre con zoom creciente: contexto, contenedores, component
 **Cuota frente a publicidad.** La cuota exigía un medio de pago que muchos no tenían ([W12]). La publicidad habría exigido señales de usuario, lo que choca con el cifrado y con la promesa de 2012 ([W11]). El camino elegido en 2016 fue una tercera vía, la mensajería con empresas ([W12]).
 
 **Claves por dispositivo frente al teléfono como fuente de verdad.** El diseño de 2021 aumentó el trabajo de cifrado en el emisor y la superficie de verificación, a cambio de eliminar el teléfono como punto único de fallo ([W8]).
+
+### 6.12 Hardware utilizado
+
+**Documentado (2012).** El servidor estándar de la charla de marzo de 2012 era de doble procesador Westmere de seis núcleos (24 CPU lógicas), 100 GB de RAM, SSD y dos tarjetas de red, una para los usuarios y otra para la distribución interna ([W7]). El blog de enero de 2012 da el detalle de una máquina concreta: procesador Intel Xeon X5675 a 3,07 GHz, 24 CPU lógicas y unos 103 GB de memoria física ([W6]). La charla menciona contadores de hardware (`pmcstat`) como herramienta de medición ([W7]).
+
+**Documentado (2021).** Los respaldos cifrados usan módulos de seguridad de hardware (HSM) para guardar claves, en un servicio distribuido geográficamente ([W9]). **Documentado (dispositivos del usuario).** El cliente corre en teléfonos Android y iPhone como dispositivos principales y en dispositivos compañeros como escritorio y web, hasta cuatro ([W5], [W8]).
+
+![Dos épocas de hardware y software de WhatsApp: el servidor de conexiones de 2012 con FreeBSD y Erlang, y los servicios de claves y conexiones de 2021 con ChatD, Signal, Noise Pipes y módulos de seguridad de hardware.](../figures/whatsapp-hardware-y-software-por-epoca.svg)
+
+**Cómo leer la figura.** A la izquierda, el servidor de 2012; a la derecha, lo documentado en 2021. Las cajas punteadas son lo que no se sabe. Mire la diferencia de naturaleza: el hardware de 2012 es de cómputo y red; el de 2021 es de seguridad (HSM). **Dónde deja de valer.** Son dos fotos de épocas distintas, no una evolución continua; no hay datos de hardware actual, de aceleradores ni de red de transporte.
+
+**[No se sabe]** el hardware de hoy: tipo de servidores, redes entre centros de datos, almacenamiento de adjuntos y si usa aceleradores. Meta declara que diseñó y construyó sus propios centros de datos y partes clave de su infraestructura técnica, y que una parte sustancial la proveen terceros ([W14]).
+
+### 6.13 Software utilizado
+
+**Documentado (2012).** Sistema operativo FreeBSD (8.2-STABLE en el blog de enero; 8.3 en la charla de marzo) con parches de reloj, controlador de red y límites; Erlang/OTP R14B03 con su máquina virtual BEAM y parches propios, la base de datos distribuida Mnesia (con un parche en `mnesia_tm`), tablas ETS particionadas y la biblioteca de grupos `pg2` ([W6], [W7]); herramientas de medición `dtrace`, `fprof` y contadores de cerrojos ([W7]).
+
+**Documentado (cifrado y conexión).** Protocolo Signal para el cifrado de extremo a extremo (acuerdo de claves X3DH y doble trinquete); Noise Pipes con Curve25519, AES-GCM y SHA256 para el canal cliente-servidor; AES-256 y HMAC-SHA256 para adjuntos; SRTP para llamadas ([W5], [W17], [W18]). **Documentado (servicios).** ChatD como servicio de entrada y un servicio de bóveda con HSM ([W9]).
+
+**[No se sabe]** los lenguajes y frameworks actuales del servidor y del cliente, las bases de datos y colas, el orquestador y las herramientas internas de código abierto de WhatsApp. El estado actual de Erlang en la plataforma tampoco es público. Esta es una de las lagunas más grandes del caso y se declara en lugar de rellenarse.
+
+### 6.14 Características de la infraestructura
+
+**Modelo.** El 10-K de Meta dice que la empresa diseñó y construyó sus propios centros de datos y partes clave de su infraestructura técnica, que una parte sustancial la proveen terceros, y que es propietaria de 30 ubicaciones de centros de datos en el mundo y arrienda algunos más ([W14]). **[No se sabe]** qué parte de WhatsApp corre en esos centros de datos, en cuáles regiones o con qué red. El servicio de claves de respaldo está repartido en varios centros de datos ([W9]).
+
+**Capacidad y escala.** En 2012 un servidor llegó a 2,8 millones de conexiones con más de 200 000 mensajes distribuidos por segundo ([W7]); en 2020 había más de 2 000 millones de usuarios ([W3]); en 2026, más de 3 000 millones ([W1]). **Costos.** La inversión de la familia de aplicaciones fue de 96 290 millones de USD en 2025 ([W14]); no hay una cifra para WhatsApp.
+
+### 6.15 Temas a prueba de fallos
+
+![Seis filas de falla creciente en WhatsApp: un proceso, un servidor sobrecargado, el receptor desconectado, un teléfono sin batería, un centro de datos de la bóveda de claves y el servicio completo.](../figures/whatsapp-que-pasa-si-cae.svg)
+
+**Cómo leer la figura.** Cada fila es un componente de tamaño creciente; a la derecha el efecto y el mecanismo, con su rótulo. La última fila, coral, no tiene respuesta pública. **Dónde deja de valer.** Mezcla documentos de 2012 y 2021 y supone el diseño actual; no es un plan de continuidad.
+
+**Tolerancia a fallos y degradación.** El objetivo de 2012 era resistir fallos de software, hardware y red, y eventos del mundo ([W7]); las cargas duplicadas y desviadas ensayaban picos reales y producían fallos de núcleo a conexiones altas, lo que muestra que las pruebas también tienen riesgo ([W7]). **Redundancia y replicación.** La bóveda de claves se distribuye geográficamente ([W9]); los dispositivos vinculados mantienen la experiencia sin el teléfono ([W8]). **Aislamiento.** Cada dispositivo tiene sus claves, de modo que la fuga de una no abre las demás ([W5]). **Límites de velocidad.** El límite de reenvíos a cinco chats es un control de abuso a nivel de producto ([W13]); la bóveda limita los intentos de contraseña ([W9]). **Pruebas de caos.** No se sabe de una práctica pública de WhatsApp. **Recuperación ante desastres.** No se sabe: el único dato es la distribución de la bóveda de claves.
+
+**Qué pasa cuando cae cada componente.** (1) El receptor desconectado: el mensaje espera (**[Inferido]**). (2) El teléfono principal: los dispositivos vinculados siguen ([W8]). (3) Un centro de datos de la bóveda: otro lo sustituye ([W9]). (4) Un servidor sobrecargado: depende de la capacidad reservada y de la contención ([W7]). (5) El servicio de conexiones completo: sin información pública.
 
 ## Casos especiales y cómo se resuelven
 

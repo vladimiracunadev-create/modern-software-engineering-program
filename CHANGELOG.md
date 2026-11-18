@@ -12,6 +12,12 @@
 - las Partes 40 a 48 entran al núcleo donde el rol decide con ellas (por ejemplo seguridad con 42, 46 y 48, observabilidad con 42, 45 y 48, finops con 42 y 44 a 48, cumplimiento con 45 a 47) y el resto se mueve a las clases de apoyo; se retiran de `PLANNED_BY_ROLE` las filas de estos roles, que describían como pendientes partes ya publicadas;
 - guías y mapa del README raíz regenerados con `scripts/build_role_guides.py`, sin tocar a mano los archivos generados; sin cambio de contadores ni de generadores.
 
+## 2026-11-17 — Mapa de partes núcleo y clases por rol ampliado (15 roles técnicos)
+
+- los roles `software-engineer`, `systems-programmer`, `backend-engineer`, `frontend-engineer`, `full-stack-engineer`, `mobile-engineer`, `desktop-engineer`, `embedded-iot-engineer`, `safety-critical-software-engineer`, `api-engineer`, `data-engineer`, `database-reliability-engineer`, `distributed-systems-engineer`, `qa-test-engineer` y `performance-engineer` pasan de 4 partes y 12 clases en el núcleo a entre 7 y 9 partes y entre 30 y 41 clases, elegidas por la decisión que el rol toma con cada una e incluyendo las Partes 40, 43-48 donde corresponden (por ejemplo Parte 45 y 46 para datos, Parte 47 para sistemas críticos y embebidos, Parte 48 para sistemas, embebidos y rendimiento).
+- el texto de `PLANNED_BY_ROLE` de esos roles se retira porque describía partes ya desarrolladas: sus clases pasan al núcleo o a las clases de apoyo (`DEVELOPED`); las guías y los mapas se regeneran sin cambiar esquema ni generadores.
+- sin cambio de contadores; commit y CI en `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
 
 - doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre el ciclo de vida y las fallas de un sistema de ML, datos, etiquetas y feature stores, entrenamiento reproducible, evaluación y sesgos, ajuste fino y costo, servicio con lotes y GPU, despliegue seguro (sombra, canary y rollback), monitoreo y reentrenamiento, seguridad y robustez, gobierno de IA y regulación, taller de degradación y recuperación y proyecto de sistema operable con evidencia;

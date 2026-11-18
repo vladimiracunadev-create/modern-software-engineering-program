@@ -170,7 +170,7 @@ def profile(
 
 PROFILES = {
     "software-engineer.md": profile(
-        "Ingeniería general", "fundamentos → senior", "05:68,69,70;24:289,295,296;30:361,363,371;35:421,428,430",
+        "Ingeniería general", "fundamentos → senior", "05:65,68,69,70;12:147,149,151,154;16:194,195,196,198;24:289,290,294,295,296,298;25:301,303,304,309;30:361,362,363,371;35:421,425,428,429;40:481,482,484,487;43:517,520,521,526",
         "Comprender|Diseñar|Construir|Verificar|Evolucionar",
         "Velocidad o mantenibilidad|hacer explícito el coste futuro y la reversibilidad|medir cambio seguro y deuda residual;Abstracción o simplicidad|introducir una capa sólo cuando elimina duplicación conceptual|probar que reduce acoplamiento sin ocultar el dominio;Entrega o estabilidad|graduar riesgo por tamaño impacto y recuperación|observar fallos y demostrar rollback",
         "Tiempo de ciclo|rapidez desde intención hasta evidencia|optimizar velocidad ignorando calidad;Defectos escapados|riesgo que llega a usuarios u operación|contar bugs sin severidad ni exposición;Tiempo de recuperación|capacidad para restaurar servicio y aprendizaje|celebrar promedios que ocultan incidentes largos",
@@ -179,7 +179,7 @@ PROFILES = {
         "SWEBOK|ISO25010|ACMETHICS", "backend-engineer.md|qa-test-engineer.md|technical-leadership.md",
     ),
     "systems-programmer.md": profile(
-        "Ingeniería general", "semi-senior → principal", "01:17,18,19;02:26,28,33;28:337,338,339;31:376,377,380",
+        "Ingeniería general", "semi-senior → principal", "01:17,18,19,21,22;02:26,27,28,33;28:337,338,339,341;31:375,376,377,380;43:517,524,525,526;44:529,530,531,536;47:571,572,573,574;48:577,579,580,582,583",
         "Modelo de máquina|Recursos|Concurrencia|Medición|Recuperación",
         "Rendimiento o seguridad|evitar optimizaciones que rompen memoria aislamiento o portabilidad|benchmark y pruebas de sanitización;Bloqueo o progreso|elegir exclusión sincronización o diseño sin estado según garantías|reproducir carreras y demostrar ausencia de deadlock;Portabilidad o especialización|aislar dependencias de plataforma detrás de contratos|ejecutar el mismo comportamiento en entornos declarados",
         "CPU y memoria por operación|coste físico de una unidad funcional|medir sólo un promedio caliente;Latencia de cola|contención y scheduling bajo carga|culpar al runtime sin perfil;Errores de recursos|handles memoria descriptores o threads agotados|reiniciar sin localizar la fuga",
@@ -188,7 +188,7 @@ PROFILES = {
         "POSIX|ISO25010|SWEBOK", "performance-engineer.md|embedded-iot-engineer.md|distributed-systems-engineer.md",
     ),
     "backend-engineer.md": profile(
-        "Producto digital", "junior → principal", "20:241,246,250;26:315,318,321;27:328,329,334;35:421,425,431",
+        "Producto digital", "junior → principal", "20:241,244,245,246,247,250;25:303,304,305,306;26:315,316,317,318,321;27:328,329,332,334;31:376,378,379,380;35:421,424,425,428;43:522,523,524,525;44:529,532,533,537",
         "Regla de negocio|Contrato|Persistencia|Telemetría|Evolución",
         "Síncrono o asíncrono|evaluar latencia acoplamiento confirmación y reintentos|prueba contractual más experimento de duplicación;Consistencia o disponibilidad|declarar qué invariantes no se negocian durante particiones|historial de operaciones y reconciliación verificable;Monolito o servicio|separar por límites y autonomía reales no por moda|ADR con costes de operación y estrategia de retorno",
         "Errores por operación|corrección observada por contrato y tipo de fallo|mezclar validación con dependencia caída;Latencia p50 p95 p99|distribución y cola bajo carga conocida|publicar percentiles sin volumen ni ventana;Duplicados reconciliados|eficacia de idempotencia y deduplicación|ocultar el problema descartando mensajes",
@@ -197,7 +197,7 @@ PROFILES = {
         "OPENAPI|RFC9110|SRE", "api-engineer.md|data-engineer.md|distributed-systems-engineer.md",
     ),
     "frontend-engineer.md": profile(
-        "Producto digital", "junior → principal", "14:172,174,176;19:229,232,235;30:364,369,370;31:373,382,384",
+        "Producto digital", "junior → principal", "14:172,173,174,175,176;19:231,232,233,234,235,237;24:289,291,293,296;30:362,364,369,370;31:373,377,382,384;43:517,519,520,526;44:529,530,533,538",
         "Tarea de usuario|Estado|Interacción|Medición|Recuperación",
         "Renderizado cliente o servidor|comparar tiempo de interacción caché complejidad y SEO|presupuesto medido en una ruta real;Estado local o compartido|colocar cada dato donde tenga propietario y ciclo de vida claro|pruebas de transición y recuperación;Componente propio o dependencia|evaluar accesibilidad peso mantenimiento y contrato|auditoría de bundle y prueba con teclado",
         "Éxito de tarea|personas que completan el flujo sin asistencia|confundir clics con valor;Core Web Vitals por ruta|experiencia real de carga respuesta y estabilidad|optimizar laboratorio ignorando dispositivos;Errores recuperables|fallos que ofrecen salida y preservan trabajo|contar sólo excepciones JavaScript",
@@ -206,7 +206,7 @@ PROFILES = {
         "WCAG|RFC9110|ISO25010", "accessibility-engineer.md|full-stack-engineer.md|performance-engineer.md",
     ),
     "full-stack-engineer.md": profile(
-        "Producto digital", "junior → senior", "19:232,233,239;20:244,246,250;26:313,318,321;34:409,413,420",
+        "Producto digital", "junior → senior", "13:162,163,164,166;19:231,232,233,234,237;20:242,244,245,246,247,250;25:303,304,305,309;26:313,315,317,318;30:363,364,370,371;34:409,411,413,420;35:421,422,425,428;40:484,485,487,488",
         "Experiencia|Contrato|Dominio|Entrega|Operación",
         "Validar en cliente o servidor|usar cliente para feedback y servidor para autoridad|pruebas negativas en ambos límites;Consulta directa o API|proteger invariantes y evolución sin capas ceremoniales|contrato más perfil de una ruta vertical;Generalismo o profundidad|asumir una capacidad completa y pedir revisión experta donde el riesgo lo exige|evidencia de coordinación y límites documentados",
         "Tiempo de una tarea completa|latencia percibida entre interfaz API y datos|optimizar una capa aislada;Fallos por despliegue|regresiones que atraviesan contratos|atribuir todo al último commit;Cobertura de flujo crítico|protección real de la ruta de negocio|sumar cobertura de líneas sin escenarios",
@@ -215,7 +215,7 @@ PROFILES = {
         "OPENAPI|WCAG|DORA", "frontend-engineer.md|backend-engineer.md|software-engineer.md",
     ),
     "mobile-engineer.md": profile(
-        "Clientes", "junior → principal", "14:173,176,177;21:254,256,260;30:364,367,370;33:403,405,408",
+        "Clientes", "junior → principal", "14:172,173,176,177;21:254,256,257,260,261,262;30:364,367,368,370;31:373,377,378,382;32:386,389,390,391;33:403,404,405,408;43:519,520,524,525",
         "Ciclo de vida|Estado local|Sincronización|Distribución|Aprendizaje",
         "Nativo o multiplataforma|comparar capacidad dispositivo rendimiento equipo y vida útil|prototipo medido en plataformas objetivo;Offline o conexión obligatoria|definir qué tareas deben sobrevivir y cómo reconciliar|escenarios de conflicto y reloj;Actualización rápida o conservadora|equilibrar adopción compatibilidad y rollback limitado por tiendas|telemetría por versión y plan de retirada",
         "Sesiones sin crash|estabilidad por versión dispositivo y sistema|celebrar un promedio que oculta modelos afectados;Éxito de sincronización|operaciones convergentes después de desconexión|contar reintentos como éxito;Consumo por tarea|batería red y almacenamiento de una acción útil|medir sólo en emulador",
@@ -224,7 +224,7 @@ PROFILES = {
         "WCAG|ISO25010|SEMVER", "frontend-engineer.md|desktop-engineer.md|backend-engineer.md",
     ),
     "desktop-engineer.md": profile(
-        "Clientes", "junior → principal", "02:25,26,27;18:217,222,225;21:253,259,262;33:402,405,408",
+        "Clientes", "junior → principal", "02:25,26,27,28;14:173,174,175,176;18:222,224,225,226;21:253,254,255,258,259,262;32:387,389,390,393;33:401,402,405,408;43:517,519,520,526",
         "Plataforma|Integración nativa|Empaquetado|Actualización|Soporte",
         "Nativo o cross-platform|comparar integración accesibilidad tamaño y mantenimiento|matriz funcional por sistema operativo;Autoactualización o control administrado|respetar permisos canales empresariales y reversión|instalación limpia upgrade downgrade y desinstalación;Privilegio o comodidad|reducir superficie y elevar sólo operaciones necesarias|pruebas con usuario estándar y auditoría de permisos",
         "Éxito de instalación|instalaciones y actualizaciones completas por plataforma|ignorar instalaciones silenciosas;Fallos por versión de SO|compatibilidad real con ambientes soportados|probar sólo la máquina del equipo;Tiempo de diagnóstico|capacidad de soporte con logs y códigos útiles|añadir telemetría invasiva",
@@ -233,7 +233,7 @@ PROFILES = {
         "WINDOWS|POSIX|SEMVER", "mobile-engineer.md|systems-programmer.md|build-release-engineer.md",
     ),
     "embedded-iot-engineer.md": profile(
-        "Sistemas físicos", "semi-senior → principal", "01:17,18,22;22:267,268,271;31:376,379,380;32:385,389,393",
+        "Sistemas físicos", "semi-senior → principal", "01:17,18,19,22;22:266,267,268,269,271,272;31:374,378,379,380;32:385,389,390,393;33:400,401,404,405;47:565,566,570,571,572,574;48:577,578,583,585",
         "Restricción física|Deadline|Telemetría|Actualización|Recuperación",
         "Procesar en dispositivo o edge|comparar latencia energía privacidad y conectividad|presupuesto por unidad funcional;Seguridad o disponibilidad física|diseñar modos degradados sin exponer control peligroso|hazard analysis y pruebas de transición;OTA rápida o conservadora|equilibrar parcheo flota ancho de banda y brick risk|actualización A/B y recuperación ante corte",
         "Deadlines incumplidos|respuestas fuera de ventana temporal|promediar y ocultar el peor caso;Energía por ciclo|autonomía asociada a una función útil|medir sólo CPU;Flota recuperable|dispositivos que vuelven a versión sana tras fallo OTA|confundir entrega con activación",
@@ -242,7 +242,7 @@ PROFILES = {
         "FREERTOS|ZEPHYR|NISTSSDF", "systems-programmer.md|safety-critical-software-engineer.md|cloud-engineer.md",
     ),
     "safety-critical-software-engineer.md": profile(
-        "Sistemas críticos", "senior → principal", "04:52,54,57;13:159,161,166;23:282,283,287;30:361,365,371",
+        "Sistemas críticos", "senior → principal", "04:52,53,54,57;12:147,151,152,154;13:157,159,161,166;22:268,269,274,275;30:361,365,366,371;31:374,378,379,380;32:385,392,393,394;40:481,482,485,487;47:565,566,570,571,573,574",
         "Hazard|Requisito|Control|Verificación|Assurance",
         "Disponibilidad o estado seguro|definir qué degradación evita daño y cuál lo incrementa|análisis de hazards más prueba de transición;Prueba o demostración formal|usar rigor proporcional a criticidad y modelo disponible|trazabilidad de propiedades supuestos y contraejemplos;Cambio o recertificación|aislar impacto y conservar evidencia de configuración|baseline revisada y análisis de regresión",
         "Cobertura de hazards|peligros con controles y pruebas trazables|contar requisitos sin severidad;Defectos de escape críticos|fallos que invalidan una garantía de seguridad|mezclar incidentes menores y catastróficos;Tiempo hasta estado seguro|capacidad de detectar y mitigar condición peligrosa|optimizar disponibilidad sobre seguridad",
@@ -251,7 +251,7 @@ PROFILES = {
         "ISO25010|ACMETHICS|SWEBOK", "embedded-iot-engineer.md|requirements-engineer.md|compliance-engineer.md",
     ),
     "api-engineer.md": profile(
-        "Interfaces", "semi-senior → principal", "13:163,164,166;20:242,243,246;27:331,332,334;30:363,364,371",
+        "Interfaces", "semi-senior → principal", "13:159,162,163,164,165,166;17:206,208,210,214;20:242,243,244,245,246,249;27:325,326,331,332,334;30:363,364,366,371;32:386,387,388,392;36:436,437,440,441;40:484,485,487,488;43:519,523,524,525",
         "Consumidor|Contrato|Compatibilidad|Gobierno|Retiro",
         "REST RPC o eventos|elegir semántica por interacción acoplamiento y tooling|prototipo contractual y escenario de fallo;Versión nueva o evolución compatible|preferir cambios aditivos con deprecación observable|consumer contract y análisis de uso;Gateway o lógica distribuida|centralizar capacidades transversales sin ocultar dominio|políticas versionadas y trazas extremo a extremo",
         "Éxito por operación|resultado contractual no sólo código HTTP|agrupar errores de cliente y servidor;Adopción de versión|consumidores migrados antes de retiro|medir llamadas sin identificar dependencia;Incidentes de compatibilidad|rupturas causadas por cambio de contrato|culpar consumidores sin test previo",
@@ -260,7 +260,7 @@ PROFILES = {
         "OPENAPI|ASYNCAPI|RFC9110", "backend-engineer.md|technical-writer.md|solutions-architect.md",
     ),
     "data-engineer.md": profile(
-        "Datos", "semi-senior → principal", "26:313,318,322;27:330,332,334;29:354,356,360;35:421,423,430",
+        "Datos", "semi-senior → principal", "26:313,314,316,317,318,322;27:327,328,330,332,334;28:340,341,344,345;29:353,354,356,360;35:421,423,425,430;45:542,543,544,545,546,548;46:553,554,555,560",
         "Fuente|Contrato de datos|Transformación|Calidad|Consumo",
         "Batch o streaming|comparar frescura coste complejidad y corrección|SLO de dato y replay controlado;Esquema central o evolución distribuida|asignar ownership y compatibilidad por productor|registro de esquemas y contract test;Recalcular o corregir en sitio|preservar lineage reproducibilidad y auditoría|backfill ensayado con reconciliación",
         "Frescura del dato|retraso desde evento hasta consumo útil|medir reloj de pipeline sin reloj de fuente;Calidad por regla|completitud validez unicidad y coherencia contextual|crear un score único sin impacto;Costo por unidad procesada|eficiencia por volumen y nivel de servicio|reducir costo degradando confiabilidad",
@@ -269,7 +269,7 @@ PROFILES = {
         "POSTGRESQL|ASYNCAPI|ISO25010", "database-reliability-engineer.md|distributed-systems-engineer.md|finops-engineer.md",
     ),
     "database-reliability-engineer.md": profile(
-        "Datos", "senior → principal", "26:315,317,321;31:375,376,380;35:423,426,430;36:436,439,440",
+        "Datos", "senior → principal", "26:315,317,318,319,321,322;28:341,342,343,345;31:375,376,377,380;35:423,425,426,428,430;36:436,439,440,441;44:529,534,536,538;45:544,548,549,550",
         "Carga|Capacidad|Cambio|Respaldo|Restauración",
         "Índice o coste de escritura|equilibrar patrón de acceso espacio y mantenimiento|plan real más benchmark comparable;Disponibilidad o consistencia|definir garantía por operación y modo degradado|prueba de failover y reconciliación;Migrar en línea o ventana|comparar doble escritura lock impacto y reversión|ensayo sobre volumen representativo",
         "Saturación por recurso|CPU I/O locks conexiones y almacenamiento|mirar sólo CPU;Lag de réplica|riesgo de lectura obsoleta y pérdida ante failover|promediar entre réplicas;Restore time observado|tiempo real para recuperar una copia válida|confundir backup exitoso con restauración",
@@ -278,7 +278,7 @@ PROFILES = {
         "POSTGRESQL|SRE|ISO25010", "data-engineer.md|site-reliability-engineer.md|legacy-modernization-engineer.md",
     ),
     "distributed-systems-engineer.md": profile(
-        "Distribución", "senior → principal", "27:328,329,332;28:340,341,343;31:378,379,380;35:424,425,431",
+        "Distribución", "senior → principal", "26:315,316,319,320;27:327,328,329,332;28:340,341,342,343,345,346;31:376,378,379,380;35:424,425,428,431;43:523,524,525,526;44:529,532,533,536",
         "Garantía|Partición|Coordinación|Degradación|Reconciliación",
         "Consistencia o disponibilidad|definir operación por operación durante partición|historial verificable y modelo de fallos;Consenso o coordinación local|pagar consenso sólo por invariantes globales necesarias|simulación de pérdida líder y split brain;Retry o fail-fast|acotar por presupuesto temporal idempotencia y carga|experimento de tormenta de reintentos",
         "Violaciones de invariante|estados imposibles observados entre nodos|contar sólo errores de transporte;Tiempo de convergencia|duración hasta acuerdo después de una partición|ocultar colas y reloj;Amplificación de reintentos|trabajo adicional causado por recuperación|medir tasa de solicitudes externas solamente",
@@ -287,7 +287,7 @@ PROFILES = {
         "RAFT|SRE|OTEL", "backend-engineer.md|database-reliability-engineer.md|software-architect.md",
     ),
     "qa-test-engineer.md": profile(
-        "Calidad", "junior → principal", "12:147,149,154;13:158,166,167;30:361,365,371;31:373,374,384",
+        "Calidad", "junior → principal", "12:147,149,154,155;13:158,159,166,167;30:361,363,364,366,370,371;31:373,374,375,377,384;40:481,482,484,485,487,489;45:544,545,546,551;46:556,559,560,563",
         "Riesgo|Oráculo|Diseño de prueba|Ejecución|Aprendizaje",
         "Automatizar o explorar|automatizar repetición estable y explorar incertidumbre nueva|charter más regresión que captura el hallazgo;Mock o sistema real|elegir aislamiento según el riesgo contractual|test que falla ante defecto intencional;Cobertura o señal|usar métricas como pistas y no equivalentes de confianza|mutation o fault injection proporcional",
         "Defectos detectados antes de producción|capacidad de encontrar riesgo relevante temprano|premiar cantidad de casos;Flakiness|pruebas no deterministas que erosionan feedback|reintentar hasta verde;Tiempo hasta diagnóstico|velocidad para convertir fallo en causa accionable|optimizar sólo duración de suite",
@@ -296,7 +296,7 @@ PROFILES = {
         "ISO25010|SWEBOK|NISTSSDF", "software-engineer.md|performance-engineer.md|accessibility-engineer.md",
     ),
     "performance-engineer.md": profile(
-        "Calidad", "semi-senior → principal", "01:18,22,24;07:94,95,96;31:375,376,377;35:423,426,431",
+        "Calidad", "semi-senior → principal", "01:17,18,19,22,24;07:93,94,95,96;08:98,99,105,107;28:337,338,339,345;31:375,376,377,378,379,382;35:423,424,425,431;48:579,580,581,582",
         "Carga|Medición|Perfil|Cambio|Capacidad",
         "Latencia o throughput|definir objetivo y saturación según la tarea de negocio|curva de carga con percentiles;Optimizar código o arquitectura|localizar primero el recurso limitante y la cola|perfil antes y después con intervalo;Escalar o reducir demanda|comparar coste cache backpressure y degradación|prueba de capacidad con presupuesto",
         "p50 p95 p99|distribución de latencia por operación y carga|publicar un percentil sin muestra;Utilización y saturación|recurso ocupado y trabajo en espera|confundir alta utilización con problema;Costo por transacción|recursos necesarios para resultado útil|abaratar degradando SLO",
@@ -606,21 +606,21 @@ PART_STATUS = _part_status()
 # Clases desarrolladas de apoyo (partes desarrolladas, hoy SE-001..SE-588) que sostienen cada ruta además de su núcleo.
 # Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
 DEVELOPED = {
-    "software-engineer.md": [65, 100, 105, 196, 208, 295],
-    "systems-programmer.md": [21, 94, 99, 105],
-    "backend-engineer.md": [242, 244, 245, 247, 249, 315, 317, 318],
-    "frontend-engineer.md": [233, 234, 236, 237],
-    "full-stack-engineer.md": [231, 234, 242, 245],
-    "mobile-engineer.md": [255, 257, 261, 262, 264],
-    "desktop-engineer.md": [254, 255, 258, 261],
-    "embedded-iot-engineer.md": [265, 266, 269, 272, 274, 276],
-    "safety-critical-software-engineer.md": [160, 187, 268, 274, 283],
-    "api-engineer.md": [110, 210, 244, 245, 249, 300, 318],
-    "data-engineer.md": [66, 67, 162, 163, 164, 223, 247, 278, 313, 314, 316, 318, 321, 322],
-    "database-reliability-engineer.md": [18, 93, 162, 164, 224, 315, 317, 318, 319, 321],
-    "distributed-systems-engineer.md": [40, 81, 246, 247, 260, 306, 315, 319, 320],
-    "qa-test-engineer.md": [69, 105, 155, 158, 188, 295, 299],
-    "performance-engineer.md": [22, 94, 99, 235, 249, 261, 317, 320],
+    "software-engineer.md": [66, 100, 105, 208, 209, 308],
+    "systems-programmer.md": [20, 94, 99, 105, 343],
+    "backend-engineer.md": [242, 243, 248, 249],
+    "frontend-engineer.md": [229, 230, 236],
+    "full-stack-engineer.md": [229, 235, 236, 306, 533],
+    "mobile-engineer.md": [253, 255, 258, 259, 264, 533],
+    "desktop-engineer.md": [115, 261, 529, 530],
+    "embedded-iot-engineer.md": [265, 270, 273, 274, 276],
+    "safety-critical-software-engineer.md": [160, 187, 279, 283, 287, 429, 430, 567, 568, 569, 572, 582, 583],
+    "api-engineer.md": [110, 300, 318],
+    "data-engineer.md": [66, 67, 93, 162, 163, 164, 223, 247, 278, 321, 541, 547, 549, 550, 551, 552],
+    "database-reliability-engineer.md": [18, 93, 162, 164, 224, 316, 320, 387, 389, 391, 524, 525],
+    "distributed-systems-engineer.md": [40, 81, 246, 247, 260, 306, 344, 511, 512, 542, 544, 573, 579, 586],
+    "qa-test-engineer.md": [69, 105, 188, 295, 299, 362, 365, 367, 368, 369, 462, 465, 513, 570, 574],
+    "performance-engineer.md": [235, 249, 261, 317, 320, 524, 525, 532, 558, 560],
     "accessibility-engineer.md": [106, 169, 170, 171, 178, 221, 484, 485],
     "internationalization-engineer.md": [14, 67, 175, 176, 238, 391, 394, 484, 485],
     "requirements-engineer.md": [146, 148, 150, 152, 155, 156, 301, 493, 494, 486],
@@ -669,67 +669,6 @@ PLANNED_PARTS = {
 
 # Qué cambia para cada rol cuando existan las partes planificadas.
 PLANNED_BY_ROLE = {
-    "software-engineer.md": {
-        "40": "Fija cuándo conviene escribir la prueba primero, un ejemplo ejecutable o un contrato, en lugar de tratarlas como modas intercambiables.",
-        "43": "Da un catálogo disciplinado de patrones de diseño y antipatrones para elegir una estructura por la fuerza que resuelve y no por nombre.",
-    },
-    "systems-programmer.md": {
-        "43": "Añade los patrones de resiliencia y de aislamiento de recursos que hoy se estudian de forma dispersa entre concurrencia y calidad.",
-        "44": "Aclara qué estilos (microkernel, pipes and filters) describen mejor un sistema de bajo nivel y qué coste de comunicación imponen.",
-    },
-    "backend-engineer.md": {
-        "43": "Incorpora Repository, Unit of Work y el catálogo de patrones de integración empresarial como decisiones con modo de fallo explícito.",
-        "44": "Compara monolito modular, microservicios, BFF y arquitecturas por celdas con sus costes operativos, sin presentarlos como una escalera de madurez.",
-    },
-    "frontend-engineer.md": {
-        "44": "Sitúa el Backend for Frontend y el gateway dentro del criterio de estilo arquitectónico y de su coste.",
-        "43": "Aporta el catálogo de patrones de diseño aplicable a la interfaz sin confundirlo con el catálogo de un framework.",
-    },
-    "full-stack-engineer.md": {
-        "40": "Conecta ejemplos de aceptación, pruebas de contrato y TDD para que un fragmento vertical conserve el mismo significado en cliente, API y datos.",
-        "44": "Ofrece criterio para decidir dónde cortar un sistema vertical (BFF, gateway, monolito modular) antes de repartirlo entre equipos.",
-    },
-    "mobile-engineer.md": {
-        "43": "Concreta patrones de reintento y degradación (retry con jitter, circuit breaker) para conectividad intermitente.",
-        "44": "Sitúa el cliente móvil frente al estilo BFF y su impacto en versionado y compatibilidad.",
-    },
-    "desktop-engineer.md": {
-        "43": "Cubre los patrones de diseño del catálogo GoF que sostienen la extensibilidad y sus riesgos de compatibilidad.",
-        "44": "Explica cuándo un cliente rico justifica un estilo microkernel o de plugins y qué compatibilidad exige.",
-    },
-    "embedded-iot-engineer.md": {
-        "43": "Añade patrones de resiliencia para fallos físicos, con límites de memoria y tiempo explícitos.",
-        "44": "Describe estilos como pipes and filters y microkernel en dispositivos con recursos acotados.",
-    },
-    "safety-critical-software-engineer.md": {
-        "40": "Examina qué metodologías de prueba y contrato producen evidencia aceptable para un caso de seguridad y cuáles no sustituyen el análisis de hazards.",
-        "44": "Relaciona estilos arquitectónicos con aislamiento, redundancia y trazabilidad hasta la descripción de arquitectura que exige la evidencia.",
-    },
-    "api-engineer.md": {
-        "40": "Convierte el contrato en práctica de equipo: spec-first, pruebas de contrato dirigidas por el consumidor y SDD con criterios de compatibilidad.",
-        "43": "Aporta el catálogo de patrones de integración empresarial para gobernar fronteras entre sistemas.",
-    },
-    "data-engineer.md": {
-        "43": "Incluye el catálogo de patrones de integración empresarial con sus garantías y modos de fallo.",
-        "44": "Compara data mesh, arquitecturas por capas de datos y pipes and filters, con propiedad y contrato como eje.",
-    },
-    "database-reliability-engineer.md": {
-        "43": "Detalla patrones de resiliencia (bulkhead, circuit breaker, retry con jitter) que condicionan la capacidad y la recuperación de los datos.",
-        "44": "Muestra cómo estilos como multi-tenancy y arquitectura celular cambian el aislamiento, la migración y el radio de fallo.",
-    },
-    "distributed-systems-engineer.md": {
-        "42": "Introduce ejecución durable, orquestación y coordinación entre agentes como casos de sistemas distribuidos con modelo de fallo propio.",
-        "43": "Sistematiza patrones de resiliencia y de integración (retry con jitter, circuit breaker, bulkhead) con condiciones de aplicación.",
-        "44": "Compara estilos celulares, orientados a eventos y mallas con el modelo de consistencia que cada uno supone.",
-    },
-    "qa-test-engineer.md": {
-        "40": "Aclara el reparto entre estrategia de QA y las prácticas de equipo TDD, BDD y ATDD, y qué evidencia produce cada una.",
-        "42": "Añade evaluación de sistemas con LLM y agentes como disciplina de prueba con oráculos probabilísticos.",
-    },
-    "performance-engineer.md": {
-        "43": "Aporta patrones de resiliencia (bulkhead, retry con jitter, circuit breaker) con su efecto medible sobre latencia de cola y capacidad.",
-        "44": "Relaciona estilos arquitectónicos con costes de red, serialización y saltos que dominan la latencia.",
-    },
     "open-source-innersource-engineer.md": {
         "41": "Plantea la política de contribuciones asistidas por agentes: procedencia, revisión y responsabilidad del mantenedor.",
     },
@@ -784,18 +723,6 @@ PLANNED_BY_ROLE = {
 # Qué cambia para cada rol con las Partes 45-48 (ADR-006). Se fusiona con PLANNED_BY_ROLE; una fila
 # deja de mostrarse como pendiente cuando la parte correspondiente tiene contenido.
 _ROWS_45_48 = {
-    "data-engineer.md": {
-        "45": "Es la parte central del rol: ingesta batch y streaming, modelado analítico, transformación idempotente con backfills, calidad, contratos, linaje y gobierno de plataformas de datos.",
-        "46": "Trata los datos de entrenamiento, las etiquetas y los feature stores como productos de datos con contrato, linaje y reproducibilidad.",
-    },
-    "safety-critical-software-engineer.md": {
-        "47": "Es la parte central del rol: HARA, FMEA, FTA y STPA, IEC 61508, ISO 26262, DO-178C, IEC 62304, casos de seguridad, MC/DC y verificación formal.",
-        "48": "Examina aislamiento, hardware seguro y runtimes aislados como medios para sostener independencia entre funciones de distinto nivel de integridad.",
-    },
-    "embedded-iot-engineer.md": {
-        "47": "Cubre RTOS, planificación de tiempo real, codificación segura (MISRA, CERT) y las normas que gobiernan el firmware crítico.",
-        "48": "Trata WebAssembly en el borde, aceleradores y hardware seguro (TEE y atestación) como opciones de cómputo y de confianza en dispositivos.",
-    },
     "open-source-innersource-engineer.md": {
         "45": "Aplica contratos de datos y catálogos como mecanismo de InnerSource entre equipos productores y consumidores de datos.",
         "48": "Trata la ejecución aislada de complementos y contribuciones de terceros como condición para aceptar riesgo acotado.",
@@ -804,27 +731,6 @@ _ROWS_45_48 = {
         "45": "Aporta los datos de recuperación y la calidad de datos de los que dependen RAG y la evaluación.",
         "46": "Es la parte central del paso a producción: datos de entrenamiento, evaluación, servicio, despliegue seguro, deriva y gobierno de IA.",
         "48": "Aporta el servicio en GPU y aceleradores y su costo, base de la inferencia que opera este rol.",
-    },
-    "distributed-systems-engineer.md": {
-        "45": "Trata la ingesta streaming, el orden, el tiempo de evento y los reprocesos como sistemas distribuidos con garantías declaradas.",
-        "47": "Compara los modelos de tiempo real y la verificación formal (TLA+, model checking) con el razonamiento sobre protocolos distribuidos.",
-        "48": "Añade eBPF, microVM y confianza cero como mecanismos de observación, aislamiento y control entre nodos.",
-    },
-    "qa-test-engineer.md": {
-        "45": "Define pruebas de calidad de datos y de pipelines idempotentes con oráculos explícitos.",
-        "46": "Trata la evaluación de modelos, sus sesgos y la validación antes del despliegue como disciplina de prueba.",
-        "47": "Cubre verificación y cobertura exigidas por las normas (MC/DC, HIL, SIL) y su relación con las pruebas habituales.",
-    },
-    "performance-engineer.md": {
-        "46": "Mide latencia, lotes y GPU en el servicio de modelos con percentiles y capacidad.",
-        "48": "Trata el rendimiento y el costo en aceleradores con un modelo de ejecución explícito.",
-    },
-    "database-reliability-engineer.md": {
-        "45": "Relaciona warehouse, lake y lakehouse con la durabilidad, la recuperación y el costo de las cargas analíticas.",
-    },
-    "systems-programmer.md": {
-        "47": "Aporta RTOS, planificación de tiempo real y codificación segura con evidencia verificable.",
-        "48": "Es parte central de su frontera con el kernel: WebAssembly, eBPF, aceleradores, microVM y sandboxes.",
     },
     "software-architect.md": {
         "45": "Ubica la plataforma de datos dentro de la arquitectura y sus contratos de propiedad.",

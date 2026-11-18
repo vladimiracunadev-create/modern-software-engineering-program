@@ -5,7 +5,7 @@
 - los generadores (`build_phase2.py`, `program_state.py`) escriben «planificadas» únicamente si queda alguna parte sin contenido; con las 49 partes publicadas, el titular, `STATUS.md`, el índice de clases y la tabla de cobertura dicen «588 clases en 49 partes (00–48)» sin «588 planificadas» ni «N planificadas sin publicar».
 - el portal (`portal/index.html`), `roles/README.md` y tres guías de rol dejan de hablar de 540 clases, 45 partes o partes planificadas.
 - About: texto nuevo sin repetir el nombre del repositorio ni la misma cifra dos veces; `tests/test_about.py` comprueba sus cifras contra `catalog.json`, `roles/` y `casos/`, el límite de 350 caracteres y que `docs/PUBLICATION-PLAN.md` cite el texto exacto.
-- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+- commit `cb29db35` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 
 ## 2026-11-17 — Documentación alineada con las 588 clases desarrolladas
 

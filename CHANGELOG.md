@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-17 — Documentación alineada con las 588 clases desarrolladas
+
+- README, ROADMAP, plan maestro, arquitectura, matriz de cobertura, plan de publicación, guía de ampliación, mapa de roles, `curriculum/README.md`, `casos/GUIDE.md`, `DATA_LICENSES.md` y el About (`.github/repository-metadata.json` y GitHub) dicen ahora 588 clases desarrolladas en 49 partes (`SE-001`–`SE-588`); ADR-004 y ADR-006 se citan una sola vez como origen del alcance.
+- el texto de la nota de partes sale de `scripts/build_phase2.py`, corregido en el generador; sigue pendiente la revisión editorial humana independiente.
+- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
 
 - doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre el ciclo de vida y las fallas de un sistema de ML, datos, etiquetas y feature stores, entrenamiento reproducible, evaluación y sesgos, ajuste fino y costo, servicio con lotes y GPU, despliegue seguro (sombra, canary y rollback), monitoreo y reentrenamiento, seguridad y robustez, gobierno de IA y regulación, taller de degradación y recuperación y proyecto de sistema operable con evidencia;
@@ -24,14 +30,15 @@
 - 12 clases nuevas con las 16 secciones del contrato, README de la parte con guía razonada y resumen operativo, `part.json` con 39 fuentes verificadas y 36 figuras (`scripts/figures_part45_a.py` y `_b.py`) sin figuras que repitan una tabla;
 - experimentos reproducibles en `scripts/experiments_part45_*.py` (semilla 45, solo biblioteca estándar: SQLite, `zlib`, `array`, `hmac`, `tempfile`): bytes y bloqueo en una base operacional, ingesta con marcas de agua y reentregas, estrella frente a Data Vault, cargas idempotentes y backfills, detectores de volumen, compatibilidad de esquemas, linaje por perturbación, formato columnar propio y manifiesto, privacidad y borrado propagado, costos y ruta crítica, pipeline con ocho defectos y plataforma gobernada con diez mutaciones;
 - los tiempos de reloj varían entre equipos y los precios, volúmenes y defectos son parámetros del autor; no se ejecutó ninguna herramienta de terceros ni se evaluó ningún sistema real; sigue pendiente la revisión editorial humana independiente;
-- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+- commit `e8cbab8a` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
+
 ## 2026-11-17 — Parte 47 desarrollada con experimentos reales y simulaciones de sistemas críticos y normas de seguridad (SE-565 a SE-576)
 
 - las clases `SE-565`–`SE-576` pasan de planificadas a clases completas sobre el *Horno de curado*: peligro, riesgo y seguridad funcional (HARA, FMEA, FTA y STPA), IEC 61508, automoción (ISO 26262), aviación (DO-178C, DO-254 y ARP4754), dispositivos médicos (IEC 62304), casos de seguridad y trazabilidad, RTOS y planificación de tiempo real, codificación segura (MISRA y CERT), verificación formal (TLA+, SPARK y Alloy), verificación y cobertura (MC/DC, HIL y SIL), taller del Therac-25 y proyecto de paquete de aseguramiento;
 - 36 figuras con experimentos ejecutados con la biblioteca estándar (CPython 3.12.9, semilla 47): árbol de fallos con causa común, FMEA, probabilidad de fallo bajo demanda, inyección de fallos, cobertura estructural, clases de seguridad, trazabilidad con resúmenes, planificación con inversión de prioridad, reglas de código, verificador de estados, MC/DC por mutantes, modelos del Therac-25 y paquete de aseguramiento;
 - `content/part-47/part.json` aporta 23 fuentes nuevas verificadas (FAA, SAE, FDA, IEC, ESA, NASA, SEI, GSN, TLA+, SPARK, Alloy, Holzmann y el caso del Pathfinder); las normas de pago se describen sin reproducir su texto y lo no público se declara;
 - no se ejecutó TLA+, SPARK, Alloy ni ningún RTOS y no se compiló C (no había compilador); no se afirma conformidad con ninguna norma ni revisión humana independiente;
-- los contadores pasan a contar la Parte 47 como desarrollada (12 clases más); commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+- los contadores pasan a contar la Parte 47 como desarrollada (12 clases más); commit `eb99d1ae` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 
 ## 2026-11-17 — Infraestructura para las Partes 45–48 y tres roles nuevos (ADR-006)
 

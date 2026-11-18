@@ -10,7 +10,7 @@ el [estándar pedagógico](../docs/PEDAGOGICAL-STANDARD.md) y la
 - Es una superficie propia, como los talleres o simuladores de otros programas: dos páginas especiales
   ([éxito](exito/README.md) y [fallo](fallo/README.md)) y un archivo por caso.
 - **No** son clases, **no** son roles, **no** crean partes y **no** cambian los contadores de
-  540 clases y 45 partes. No se escribe ningún ADR de ampliación de clases por ellos.
+  588 clases y 49 partes. No se escribe ningún ADR de ampliación de clases por ellos.
 - Se leen **después** de la teoría. Cada caso enlaza las clases reales (`SE-nnn`) que explican lo que
   muestra; no las sustituye.
 

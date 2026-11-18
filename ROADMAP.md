@@ -5,12 +5,12 @@ incorporarse. No es un prompt ni un conjunto de instrucciones para agentes. Las 
 de contribución viven en `AGENTS.md`, `CONTRIBUTING.md` y
 `docs/PEDAGOGICAL-STANDARD.md`; aquí se describe el producto educativo.
 
-El programa vigente planifica 588 clases (ADR-004 y ADR-006) en 49 partes; 540 están desarrolladas. El número
+El programa vigente es de 588 clases (ADR-004 y ADR-006) en 49 partes, todas desarrolladas. El número
 no es una cuota: cualquier ampliación debe resolver una brecha real y respetar la
 prioridad **calidad > profundidad > coherencia > cantidad**.
 
 El mandato completo, las brechas transversales y la acción específica pendiente para
-cada uno de los IDs `SE-001`–`SE-540` se conservan en el
+cada uno de los IDs `SE-001`–`SE-588` se conservan en el
 [`plan maestro de auditoría y mejora curricular`](docs/MASTER-CURRICULUM-IMPLEMENTATION-PLAN.md).
 Ese plan es el backlog operativo recuperable; este roadmap continúa siendo la fuente
 de verdad sobre el producto educativo y su secuencia.
@@ -23,22 +23,22 @@ de verdad sobre el producto educativo y su secuencia.
   estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
   (ver [`docs/adr/ADR-005-publish-parts-40-44-from-content.md`](docs/adr/ADR-005-publish-parts-40-44-from-content.md)
   y [`docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)).
-- Al 2026-11-16 las Partes 00–44 contienen 540 clases desarrolladas y profundizadas con
+- Al 2026-11-17 las 49 partes (00–48) contienen 588 clases desarrolladas y profundizadas con
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
-  navegación (`SE-001`–`SE-540`), con laboratorios ejecutables en las Partes 01–05 y
-  experimentos reproducibles en las Partes 32–44; falta una revisión editorial humana
-  independiente. No quedan borradores ni estructuras sin desarrollar entre esas 540 posiciones.
-- El alcance de 540 clases se decidió en
-  [`docs/adr/ADR-004-expand-to-540-class-scope.md`](docs/adr/ADR-004-expand-to-540-class-scope.md):
-  las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic
-  engineering, patrones agénticos, patrones de diseño y estilos arquitectónicos) ya tienen
-  su contenido completo.
-- [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) amplió el alcance a 588 clases con
-  cuatro partes nuevas al final, sin renumerar nada: 45 ingeniería de datos y plataformas de datos
-  (`SE-541`–`SE-552`), 46 machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 sistemas
-  críticos, tiempo real y normas de seguridad (`SE-565`–`SE-576`) y 48 runtimes y plataformas modernas
-  (`SE-577`–`SE-588`). Están **planificadas**: no tienen clases publicadas hasta que exista su contenido
-  completo. Cualquier ampliación posterior exige un ADR nuevo.
+  navegación (`SE-001`–`SE-588`), con laboratorios ejecutables en las Partes 01–05 y
+  experimentos reproducibles en las Partes 32–48; falta una revisión editorial humana
+  independiente. No quedan borradores, estructuras sin desarrollar ni partes planificadas
+  sin publicar entre esas 588 posiciones.
+- El alcance se amplió dos veces, siempre al final y sin renumerar.
+  [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance de 480 a 540 clases
+  con las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic
+  engineering, patrones agénticos, patrones de diseño y estilos arquitectónicos).
+  [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) lo llevó a 588 con
+  cuatro partes más: 45 ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`),
+  46 machine learning en producción y MLOps (`SE-553`–`SE-564`), 47 sistemas críticos, tiempo
+  real y normas de seguridad (`SE-565`–`SE-576`) y 48 runtimes y plataformas modernas
+  (`SE-577`–`SE-588`), y con tres guías de rol nuevas (45 en total). Cualquier ampliación
+  posterior exige un ADR nuevo.
 - El portal publica el recorrido completo, pero la presencia de una página no demuestra
   por sí sola que la enseñanza, los laboratorios o sus resultados hayan sido validados.
 - Los conteos describen archivos y alcance; la calidad se demuestra revisando contenido,

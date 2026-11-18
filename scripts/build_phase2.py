@@ -174,8 +174,9 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
     )
     blocks["parts-note"] = (
         "> Una parte cuenta como desarrollada solo cuando existe su contenido completo; el estado de revisión"
-        "\n> se declara una vez, en el encabezado. El alcance de 540 clases se decidió en"
-        "\n> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md)."
+        "\n> se declara una vez, en el encabezado. El alcance se fijó en"
+        "\n> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) (540 clases, Partes 00–44) y se amplió en"
+        "\n> [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) (588 clases, Partes 45–48)."
         + (f"\n>{plan_clause}" if planned else "")
     )
     plan_by_id = {part["id"]: part for part in build_full_plan_cached()}

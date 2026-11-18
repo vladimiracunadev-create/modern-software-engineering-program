@@ -1,6 +1,6 @@
 """Fixed list of the case studies ("Casos de estudio") and the shared contract of the surface.
 
-The cases are not classes, roles or parts: they never change the 540 / 45 counters. The list below is
+The cases are not classes, roles or parts: they never change the 588 / 49 counters. The list below is
 the single source for the index pages, the README section, the portal pages and the validators.
 Each case lives in ``casos/<kind>/<slug>.md`` and may ship ``scripts/figures_case_<slug>.py`` (a
 ``FIGURES`` mapping like ``scripts/figures_part*_a.py``) whose SVG files go to ``casos/figures/`` and

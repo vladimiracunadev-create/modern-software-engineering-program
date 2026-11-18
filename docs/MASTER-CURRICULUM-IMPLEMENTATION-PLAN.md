@@ -132,10 +132,9 @@ Al crear este plan existen 8 etapas, 40 partes, 480 IDs consecutivos y 521 pági
 ejecutable común, con seis pruebas. Hay tres workflows. Estos marcadores de estado se
 sincronizan en la auditoría vigente; esta oración queda como línea base histórica.
 
-Estado actual (2026-11-16): las Partes 00–44 (`SE-001`–`SE-540`) están desarrolladas y
-publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. Las
-Partes 45–48 (`SE-541`–`SE-588`, ADR-006) están planificadas, sin clases publicadas. Falta la
-revisión editorial humana independiente.
+Estado actual (2026-11-17): las 49 partes (00–48, `SE-001`–`SE-588`) están desarrolladas y
+publicadas con CI verde; sus hitos figuran como hechos en las listas de abajo. No quedan partes
+planificadas sin publicar. Falta la revisión editorial humana independiente.
 
 Brechas detectadas que se atienden parte a parte:
 
@@ -834,8 +833,8 @@ solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validad
 - [x] `SE-539` — taller: seleccionar un estilo con escenarios de calidad.
 - [x] `SE-540` — proyecto: decisión arquitectónica defendida con ADR.
 
-Las Partes 45–48 (`SE-541`–`SE-588`) se añadieron por ADR-006 y nacen planificadas: cada casilla
-se marca `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
+Las Partes 45–48 (`SE-541`–`SE-588`) se añadieron por ADR-006 y nacieron planificadas: cada casilla
+se marcó `[x]` solo cuando existe `content/part-NN/SE-NNN.md` y la parte completa está validada.
 
 ### Parte 45 — Ingeniería de datos y plataformas de datos
 

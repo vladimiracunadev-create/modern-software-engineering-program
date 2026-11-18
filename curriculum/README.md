@@ -2,8 +2,8 @@
 
 > [!WARNING]
 > Este índice de 260 horas se conserva como antecedente de la versión 0.1. La
-> arquitectura vigente está en [`../curriculum.yaml`](../curriculum.yaml): 45 partes
-> desarrolladas (540 clases y 2.430 horas estimadas) y 49 planificadas (588 clases). Estos documentos se migrarán sin
+> arquitectura vigente está en [`../curriculum.yaml`](../curriculum.yaml): 49 partes
+> desarrolladas (588 clases y 2.646 horas estimadas). Estos documentos se migrarán sin
 > perder su historia en las fases de construcción.
 
 Duración histórica sugerida: **260 horas** más práctica autónoma.

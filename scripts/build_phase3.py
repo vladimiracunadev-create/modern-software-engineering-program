@@ -1027,7 +1027,7 @@ def with_class_navigation(
 
     Las fuentes editoriales de content/ pueden traerlo escrito a mano. Si falta
     (Partes 40-44) o quedó desactualizado (la última clase de una parte escrita
-    antes de que existiera la siguiente), se compone aquí, para que las 540 clases
+    antes de que existiera la siguiente), se compone aquí, para que todas las clases
     lleven la misma navegación sin editar cada fuente.
     """
     marker = "[↑ Parte"

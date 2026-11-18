@@ -27,7 +27,7 @@ calidad. La profundidad se demuestra en mecanismos, decisiones, fallos, evidenci
 límites específicos; el validador sólo impide que una regresión vuelva a convertirlas
 en fichas breves.
 
-Las Partes 00–44 (`SE-001`–`SE-540`) tienen contenido desarrollado, a falta de revisión
+Las 49 partes (00–48, `SE-001`–`SE-588`) tienen contenido desarrollado, a falta de revisión
 editorial humana independiente.
 Una ruta describe el recorrido previsto y no certifica que el material haya sido aprobado
 por una revisión humana independiente.
@@ -41,7 +41,7 @@ Methodology Engineer nacen de la brecha documentada en la
 [auditoría de metodologías](../docs/METHODOLOGY-GAP-AUDIT-2026-11-13.md). Las tres últimas
 guías (MLOps / ML Platform Engineer, AI Governance & Responsible AI Engineer y Runtime &
 Systems Engineer) nacen de [ADR-006](../docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md)
-y se apoyan en partes ya desarrolladas mientras las Partes 45–48 no se publiquen.
+y se apoyan en las Partes 45–48, ya desarrolladas, además de las partes núcleo de cada ruta.
 Los perfiles cercanos se mantienen separados solo cuando cambian responsabilidades,
 evidencia y decisiones de salida.
 
@@ -951,4 +951,4 @@ La [rúbrica transversal](../assessments/rubric.md) y el
 
 ---
 
-[⬅️ Volver al programa](../README.md) · [📚 Abrir las 540 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)
+[⬅️ Volver al programa](../README.md) · [📚 Abrir las 588 clases](../classes/README.md) · [🗺️ Consultar el roadmap](../ROADMAP.md)

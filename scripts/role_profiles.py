@@ -603,7 +603,7 @@ def _part_status() -> dict[str, str]:
 
 PART_STATUS = _part_status()
 
-# Clases desarrolladas de apoyo (partes desarrolladas, hoy SE-001..SE-540) que sostienen cada ruta además de su núcleo.
+# Clases desarrolladas de apoyo (partes desarrolladas, hoy SE-001..SE-588) que sostienen cada ruta además de su núcleo.
 # Cada id se verifica contra curriculum.yaml al generar; los que ya están en el núcleo se omiten.
 DEVELOPED = {
     "software-engineer.md": [65, 100, 105, 196, 208, 295],

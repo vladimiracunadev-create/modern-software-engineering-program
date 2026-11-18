@@ -2,7 +2,7 @@
 
 # 🧭 Programa de Ingeniería de Software Moderna
 
-## **540 clases desarrolladas · 588 planificadas · 49 partes (00–48) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
+## **588 clases desarrolladas · 49 partes (00–48) · del fundamento a la operación, la arquitectura, el liderazgo y la IA**
 
 **Currículo profesional abierto en español para comprender, especificar, construir,
 probar, entregar, operar, modernizar y retirar software con evidencia.**
@@ -11,7 +11,7 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 [![Deploy Pages](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/pages.yml)
 [![Security](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/modern-software-engineering-program/actions/workflows/security.yml)
 
-[![Clases](https://img.shields.io/badge/clases-540%20desarrolladas%20·%20588%20planificadas-7c5cff?style=for-the-badge)](classes/README.md)
+[![Clases](https://img.shields.io/badge/clases-588%20desarrolladas%20·%2049%20partes-7c5cff?style=for-the-badge)](classes/README.md)
 [![Nivel](https://img.shields.io/badge/nivel-fundamentos%20→%20liderazgo-2e8b57?style=for-the-badge)](ROADMAP.md)
 [![Idioma](https://img.shields.io/badge/idioma-español-blue?style=for-the-badge)](README.md)
 [![Software](https://img.shields.io/badge/licencia-Apache--2.0-3fb950?style=for-the-badge&logo=apache)](LICENSE)
@@ -116,7 +116,7 @@ contrasta con fuentes que representan distintas dimensiones de la disciplina:
 Las fuentes se conservan como datos auditables, no como bibliografía decorativa:
 
 - [línea base de fuentes](sources/baseline.json): estándares, especificaciones y documentación oficial;
-- [registro por clase](sources/class-sources.json): fuentes asignadas a `SE-001`–`SE-540`;
+- [registro por clase](sources/class-sources.json): fuentes asignadas a `SE-001`–`SE-588`;
 - [fuentes de fase 3](sources/phase3.json) y [fase 4](sources/phase4.json): cobertura por parte;
 - [trazabilidad pedagógica](sources/pedagogical/): afirmación, evidencia, error conceptual y límite;
 - [política de fuentes](docs/SOURCES.md): autoridad, vigencia y tratamiento de material obsoleto.
@@ -150,8 +150,9 @@ y comprobación debe incorporar.
 
 <!-- state:parts-note -->
 > Una parte cuenta como desarrollada solo cuando existe su contenido completo; el estado de revisión
-> se declara una vez, en el encabezado. El alcance de 540 clases se decidió en
-> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md).
+> se declara una vez, en el encabezado. El alcance se fijó en
+> [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) (540 clases, Partes 00–44) y se amplió en
+> [`ADR-006`](docs/adr/ADR-006-extend-program-parts-45-48-and-roles.md) (588 clases, Partes 45–48).
 <!-- /state:parts-note -->
 
 <!-- state:parts-table -->

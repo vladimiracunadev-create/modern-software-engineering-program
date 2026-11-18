@@ -11,8 +11,8 @@ anterior si existe.
 
 - **Títulos y rangos fijos.** `scripts/build_program_blueprint.py` ya define las 49 partes
   y sus 588 títulos: Parte 40 = `SE-481`–`SE-492`, 41 = `SE-493`–`SE-504`,
-  42 = `SE-505`–`SE-516`, 43 = `SE-517`–`SE-528`, 44 = `SE-529`–`SE-540` (todas desarrolladas) y,
-  planificadas por ADR-006, Parte 45 = `SE-541`–`SE-552`, 46 = `SE-553`–`SE-564`,
+  42 = `SE-505`–`SE-516`, 43 = `SE-517`–`SE-528`, 44 = `SE-529`–`SE-540` y, añadidas por ADR-006
+  (todas desarrolladas), Parte 45 = `SE-541`–`SE-552`, 46 = `SE-553`–`SE-564`,
   47 = `SE-565`–`SE-576` y 48 = `SE-577`–`SE-588`. El primer
   encabezado de cada clase debe ser exactamente `# SE-NNN — <título del blueprint>`; si un
   título necesita cambiar, se cambia en el blueprint (un solo lugar) y se regenera.
@@ -95,8 +95,9 @@ CHANGELOG y el plan maestro solo requieren conservar ambas filas o casillas.
 ## Partes 45–48: rangos y títulos finales (ADR-006)
 
 Estos títulos y rangos están fijados en el blueprint y no cambian sin un ADR. Las cuatro partes
-nacen **planificadas**: no existen en `classes/`, `site/` ni en las guías de rol hasta que exista
-su contenido completo (`content/part-NN/README.md` más los doce `SE-NNN.md`).
+nacieron **planificadas** y hoy están desarrolladas. Una parte nueva sigue el mismo camino: no existe en
+`classes/`, `site/` ni en las guías de rol hasta que exista su contenido completo
+(`content/part-NN/README.md` más los doce `SE-NNN.md`).
 
 ### Parte 45 — Ingeniería de datos y plataformas de datos (`SE-541`–`SE-552`)
 

@@ -6,6 +6,12 @@
 - el texto de la nota de partes sale de `scripts/build_phase2.py`, corregido en el generador; sigue pendiente la revisión editorial humana independiente.
 - commit `63e4d719` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 
+## 2026-11-17 — Mapa de partes y clases por rol: 15 roles de plataforma, entrega, seguridad y conocimiento
+
+- el núcleo de `accessibility-engineer`, `internationalization-engineer`, `requirements-engineer`, `devops-engineer`, `build-release-engineer`, `cloud-engineer`, `site-reliability-engineer`, `observability-engineer`, `platform-engineer`, `developer-experience-engineer`, `security-engineer`, `compliance-engineer`, `finops-engineer`, `green-software-engineer` y `technical-writer` pasa de 4 partes y 12 clases a entre 7 y 9 partes y entre 34 y 40 clases, elegidas leyendo el título y el resumen reales de cada clase y justificadas por la decisión que el rol toma con ella;
+- las Partes 40 a 48 entran al núcleo donde el rol decide con ellas (por ejemplo seguridad con 42, 46 y 48, observabilidad con 42, 45 y 48, finops con 42 y 44 a 48, cumplimiento con 45 a 47) y el resto se mueve a las clases de apoyo; se retiran de `PLANNED_BY_ROLE` las filas de estos roles, que describían como pendientes partes ya publicadas;
+- guías y mapa del README raíz regenerados con `scripts/build_role_guides.py`, sin tocar a mano los archivos generados; sin cambio de contadores ni de generadores.
+
 ## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
 
 - doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre el ciclo de vida y las fallas de un sistema de ML, datos, etiquetas y feature stores, entrenamiento reproducible, evaluación y sesgos, ajuste fino y costo, servicio con lotes y GPU, despliegue seguro (sombra, canary y rollback), monitoreo y reentrenamiento, seguridad y robustez, gobierno de IA y regulación, taller de degradación y recuperación y proyecto de sistema operable con evidencia;

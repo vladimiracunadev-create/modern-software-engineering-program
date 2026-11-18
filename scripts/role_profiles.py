@@ -305,7 +305,7 @@ PROFILES = {
         "ISO25010|OTEL|SRE", "site-reliability-engineer.md|systems-programmer.md|finops-engineer.md",
     ),
     "accessibility-engineer.md": profile(
-        "Inclusión", "semi-senior → lead", "14:173,174,179;19:229,233,239;21:258,263,264;30:364,369,371",
+        "Inclusión", "semi-senior → lead", "10:122,123,127,129;12:147,149,151,154;14:172,173,174,175,176,179;19:229,233,234,239,240;21:257,258,263,264;30:364,369,370,371;31:373,381,382,384;34:409,410,411,416",
         "Tarea|Barrera|Patrón accesible|Prueba|Prevención",
         "Semántica nativa o ARIA|usar el mecanismo más interoperable y simple|matriz navegador tecnología asistiva;Automático o manual|combinar detección rápida con evaluación de tarea y comprensión|evidencia de teclado lector zoom y contraste;Conformidad o usabilidad|cumplir criterios sin perder el objetivo real de la persona|prueba de tarea con barreras priorizadas",
         "Éxito de tarea asistida|personas que completan el flujo con distintas técnicas|contar issues cerrados;Regresiones por componente|barreras reintroducidas en patrones compartidos|medir páginas y no sistema de diseño;Tiempo de remediación|velocidad desde barrera confirmada hasta solución verificada|cerrar tickets sin revalidación",
@@ -314,7 +314,7 @@ PROFILES = {
         "WCAG|ISO25010|ACMETHICS", "frontend-engineer.md|qa-test-engineer.md|technical-writer.md",
     ),
     "internationalization-engineer.md": profile(
-        "Globalización", "semi-senior → lead", "01:15,16,24;14:177,178,180;19:233,234,240;21:256,260,263",
+        "Globalización", "semi-senior → lead", "01:14,15,16,24;12:147,149,152,154;14:175,176,177,178,180;17:205,207,212,213;19:229,233,234,238,240;21:256,259,260,263;26:313,316,317,322;30:365,366,368,371",
         "Dato internacional|Locale|Presentación|Localización|Verificación",
         "Almacenar o formatear|conservar representación canónica y aplicar locale en el borde|pruebas de ida y vuelta;Traducir texto o rediseñar contenido|preservar intención espacio y pluralización|pseudo-localización más revisión lingüística;Hora local o instante|distinguir evento zona calendario y regla futura|casos de DST y cambios de zona",
         "Defectos por locale|fallos funcionales y visuales asociados a configuración cultural|contar cadenas sin contexto;Cobertura de mensajes|interfaces externalizadas y traducibles|confundir extracción con calidad;Errores de tiempo y moneda|impacto de conversiones y redondeo incorrectos|probar sólo en UTC y dólares",
@@ -323,7 +323,7 @@ PROFILES = {
         "I18N|UNICODE|WCAG", "frontend-engineer.md|mobile-engineer.md|accessibility-engineer.md",
     ),
     "requirements-engineer.md": profile(
-        "Análisis", "junior → principal", "10:121,123,130;12:145,151,154;13:157,159,167;17:205,208,215",
+        "Análisis", "junior → principal", "10:121,122,123,124,125,130;12:145,147,149,151,153,154;13:157,158,159,163,166,167;14:169,172,173,178;17:205,208,210,215;32:385,391,392,394;39:469,470,471,472;40:484,485,487,488",
         "Necesidad|Conflicto|Requisito|Criterio|Evidencia",
         "Detalle temprano o aprendizaje|especificar lo irreversible y explorar lo incierto|mapa de supuestos y criterios de abandono;Deseo o requisito|separar solución propuesta necesidad restricción y regla|trazabilidad hasta fuente y aceptación;Consenso o desacuerdo explícito|registrar conflicto propietario y decisión sin fabricar unanimidad|baseline y log de decisiones",
         "Requisitos verificables|afirmaciones con condición resultado y criterio observable|contar historias escritas;Cambios con impacto trazado|modificaciones conectadas a diseño prueba y riesgo|congelar alcance para mejorar métrica;Defectos por ambigüedad|fallos originados en interpretación divergente|culpar a implementación sin revisar lenguaje",
@@ -332,7 +332,7 @@ PROFILES = {
         "ISO29148|SWEBOK|ACMETHICS", "technical-product-engineer.md|api-engineer.md|software-architect.md",
     ),
     "devops-engineer.md": profile(
-        "Entrega", "semi-senior → principal", "29:353,354,359;33:397,400,404;34:409,412,420;35:422,428,430",
+        "Entrega", "semi-senior → principal", "02:28,31,33,35;18:222,224,225,227;29:350,351,353,354,355,359;31:375,379,380,383;33:398,400,403,404,406,408;34:410,411,413,414,415,420;35:422,425,426,428,429,430",
         "Commit|Artefacto|Entorno|Despliegue|Recuperación",
         "Velocidad o control|automatizar evidencia y aprobación proporcional al riesgo|lead time más change failure rate;Mutable o inmutable|promover el mismo artefacto y externalizar configuración|checksum entre entornos;Centralizar o autoservicio|crear paved road sin bloquear casos excepcionales|adopción tiempo de feedback y salida documentada",
         "Lead time verificable|tiempo desde cambio aceptado hasta valor desplegado|medir desde un punto conveniente;Change failure rate|cambios que exigen remediación o rollback|ocultar hotfix como éxito;Tiempo de recuperación|capacidad de revertir o corregir con evidencia|medir sólo incidentes simples",
@@ -341,7 +341,7 @@ PROFILES = {
         "DORA|SLSA|TERRAFORM", "build-release-engineer.md|platform-engineer.md|site-reliability-engineer.md",
     ),
     "build-release-engineer.md": profile(
-        "Entrega", "semi-senior → principal", "09:110,111,112;16:194,197,202;33:397,400,407;34:409,410,419",
+        "Entrega", "semi-senior → principal", "08:100,102,103,104;09:110,111,112,114,117,120;16:195,197,199,201,202;32:389,390,392,393;33:397,398,400,401,404,408;34:409,410,411,412,419,420;48:582,583,585,587",
         "Fuente|Build hermético|Artefacto|Firma|Promoción",
         "Reproducibilidad o velocidad|controlar entradas y cachés sin perder trazabilidad|rebuild independiente con mismo resultado;Versión automática o deliberada|derivar SemVer de compatibilidad y política de producto|pruebas de consumidor más changelog;Disponibilidad o cuarentena|publicar rápido sin promover artefacto no verificado|repositorios separados y atestación",
         "Builds reproducibles|resultados equivalentes desde entradas declaradas|aceptar sólo que compiló;Tiempo de pipeline|feedback y capacidad de release|acelerar quitando controles críticos;Artefactos verificables|paquetes con checksum firma SBOM y procedencia|generar evidencia que nadie comprueba",
@@ -350,7 +350,7 @@ PROFILES = {
         "SLSA|SPDX|SEMVER", "devops-engineer.md|security-engineer.md|desktop-engineer.md",
     ),
     "cloud-engineer.md": profile(
-        "Cloud", "semi-senior → principal", "29:349,353,354;32:387,390,393;34:412,414,415;35:425,426,430",
+        "Cloud", "semi-senior → principal", "03:39,41,43,44;28:341,342,345,346;29:349,351,353,354,356,360;31:376,378,379,380;32:385,387,389,390;34:412,414,415,416;35:423,425,426,430;48:580,581,582,583,586",
         "Cuenta|Identidad|Infraestructura|Servicio|Recuperación",
         "Gestionado o autogestionado|comparar control carga operativa lock-in y recuperación|TCO más prueba de salida;Una cuenta o separación|aislar riesgo blast radius facturación y deberes|policy y ejercicio de credenciales;Multi-cloud o profundidad|exigir necesidad de negocio antes de duplicar complejidad|escenario de continuidad y costes reales",
         "Cambios fuera de IaC|drift que rompe reproducibilidad y control|medir sólo recursos importados;Costo por servicio|consumo asociado a outcome y capacidad|premiar ahorro que reduce resiliencia;Recuperación por región|RTO y RPO observados ante pérdida|aceptar arquitectura en papel",
@@ -359,7 +359,7 @@ PROFILES = {
         "KUBERNETES|TERRAFORM|NISTSSDF", "devops-engineer.md|platform-engineer.md|security-engineer.md",
     ),
     "site-reliability-engineer.md": profile(
-        "Confiabilidad", "semi-senior → principal", "28:341,342,346;31:376,378,380;35:425,427,430;36:433,436,443",
+        "Confiabilidad", "semi-senior → principal", "03:40,41,44,46;28:341,342,343,344,346,348;31:375,376,378,379,380,383;35:425,426,427,428,429,430;36:433,436,439,443;43:523,524,525,526;46:558,559,560,563;48:579,582,586,587",
         "Expectativa|SLI|SLO|Respuesta|Aprendizaje",
         "Confiabilidad o velocidad|usar error budget como señal de decisión compartida|SLO y tendencia de consumo;Automatizar o documentar|automatizar toil entendido y conservar ruta manual segura|horas de toil y fallo de automatización;Redundancia o simplicidad|añadir copias sólo si reducen modos de fallo netos|game day y coste operativo",
         "Cumplimiento de SLO|experiencia buena medida sobre ventana acordada|usar uptime de proceso como servicio;Consumo de error budget|ritmo y concentración del riesgo|convertirlo en castigo al equipo;Toil por guardia|trabajo manual repetitivo y automatizable|automatizar sin medir demanda",
@@ -368,7 +368,7 @@ PROFILES = {
         "SRE|OTEL|DORA", "observability-engineer.md|devops-engineer.md|database-reliability-engineer.md",
     ),
     "observability-engineer.md": profile(
-        "Confiabilidad", "semi-senior → principal", "03:41,43,47;20:244,250,252;35:421,424,426;39:473,477,479",
+        "Confiabilidad", "semi-senior → principal", "03:41,44,46,47,48;08:98,99,105,107;20:244,246,250,252;28:340,341,346,347;31:376,377,382,384;35:421,422,423,424,426,431;42:512,513,514,516;45:544,545,547,550;48:579,580,581,582",
         "Pregunta|Instrumentación|Correlación|Diagnóstico|Acción",
         "Más datos o mejor señal|capturar contexto necesario con coste cardinalidad y privacidad controlados|preguntas diagnósticas respondidas por señal;Logs métricas o trazas|combinar según evento tendencia y causalidad distribuida|escenario de investigación con presupuesto;Centralizar o federar|equilibrar consistencia ownership y acceso|SLO de plataforma y contrato de telemetría",
         "Preguntas diagnosticables|incidentes que pueden explicarse con datos disponibles|contar terabytes ingeridos;Costo por señal útil|valor diagnóstico frente a almacenamiento y procesamiento|reducir retención sin evaluar investigación;Cardinalidad controlada|dimensiones que no saturan backend ni presupuesto|bloquear etiquetas útiles de forma global",
@@ -377,7 +377,7 @@ PROFILES = {
         "OTEL|SRE|ISO25010", "site-reliability-engineer.md|performance-engineer.md|platform-engineer.md",
     ),
     "platform-engineer.md": profile(
-        "Plataforma", "senior → principal", "09:113,118,120;29:354,358,360;34:417,418,420;37:446,450,455",
+        "Plataforma", "senior → principal", "09:109,113,115,118,119,120;29:350,351,354,355,358,360;34:412,414,415,417,418,420;37:446,447,451,453;44:530,533,534,536,537;45:546,547,550,552;46:553,555,558,559,560;48:578,582,586,587",
         "Necesidad interna|Capacidad|Golden path|Adopción|Evolución",
         "Estandarizar o permitir excepción|ofrecer camino recomendado con escape explícito y soporte|adopción voluntaria más coste de excepción;Build o comprar plataforma|comparar diferenciación integración TCO y salida|experimento de onboarding y análisis económico;API o portal|diseñar capacidad estable antes que interfaz vistosa|tiempo hasta primer éxito y consumo automatizado",
         "Tiempo hasta primer despliegue|fricción desde repositorio nuevo hasta entorno útil|ensayar sólo con expertos;Adopción activa|equipos que usan y conservan la capacidad|contar repos creados;Carga cognitiva percibida|decisiones y conocimiento exigidos al consumidor|reducir opciones ocultando fallos",
@@ -386,7 +386,7 @@ PROFILES = {
         "KUBERNETES|DORA|SWEBOK", "developer-experience-engineer.md|devops-engineer.md|technical-leadership.md",
     ),
     "developer-experience-engineer.md": profile(
-        "Plataforma", "semi-senior → principal", "08:97,104,106;09:113,118,120;34:409,417,418;37:446,448,455",
+        "Plataforma", "semi-senior → principal", "08:97,98,100,104,105,108;09:110,113,115,118,119,120;17:206,207,212,213;18:217,219,220,228;34:409,410,416,417,418,420;37:446,447,448,455;38:460,463,464,465;41:494,495,496,499",
         "Fricción|Hipótesis|Herramienta|Feedback|Adopción",
         "Automatizar o enseñar|eliminar trabajo accidental sin ocultar modelos que se deben comprender|observación de onboarding y soporte;Velocidad o comprensión|acortar feedback conservando diagnóstico accionable|tiempo hasta causa no sólo hasta rojo;Uniformidad o autonomía|estandarizar interfaces y seguridad dejando decisiones de dominio|encuesta cualitativa más datos de uso",
         "Tiempo hasta primer cambio|capacidad de contribuir con contexto mínimo|medir sólo clon a build;Tiempo de feedback|duración hasta señal accionable en edición y CI|hacer checks rápidos pero inútiles;Interrupciones de soporte|fricción no resuelta por autoservicio y documentación|convertir menos tickets en objetivo aislado",
@@ -395,7 +395,7 @@ PROFILES = {
         "DORA|DEVCONTAINERS|SWEBOK", "platform-engineer.md|technical-writer.md|engineering-manager.md",
     ),
     "security-engineer.md": profile(
-        "Seguridad", "semi-senior → principal", "20:245,249,251;32:385,387,392;33:399,400,406;35:422,428,430",
+        "Seguridad", "semi-senior → principal", "20:244,245,249,251;32:385,387,388,389,392,393;33:399,400,401,406,407;35:422,428,429,430;39:473,474,475,478;42:510,511,513,514;46:554,559,561,562;48:579,582,583,585,586,587",
         "Activo|Amenaza|Control|Prueba|Respuesta",
         "Prevenir o detectar|combinar controles según coste evasión y recuperación|prueba negativa más señal operativa;Bloquear o advertir|graduar por explotabilidad impacto confianza y salida|falsos positivos y excepciones que caducan;Secreto o identidad federada|reducir material de larga vida y blast radius|sesión efímera con mínimo privilegio",
         "Riesgo residual por amenaza|exposición después de controles y supuestos|contar vulnerabilidades sin contexto;Tiempo de contención|capacidad de revocar aislar y limitar daño|cerrar ticket sin verificar alcance;Cobertura de controles probados|defensas que realmente detectan o impiden abuso|contar herramientas instaladas",
@@ -404,7 +404,7 @@ PROFILES = {
         "NISTSSDF|SLSA|ACMETHICS", "compliance-engineer.md|build-release-engineer.md|cloud-engineer.md",
     ),
     "compliance-engineer.md": profile(
-        "Gobierno", "semi-senior → principal", "12:151,152,153;23:283,287,288;32:391,394,396;37:450,451,452",
+        "Gobierno", "semi-senior → principal", "00:4,8,9,10;12:147,151,152,153;32:385,391,392,393,394,396;35:425,428,429,430;37:450,451,452,453;45:546,547,549,552;46:556,560,561,562,564;47:565,566,567,568,569,570",
         "Obligación|Requisito|Control|Prueba|Evidencia",
         "Control común o específico|reutilizar capacidad cuando la obligación y riesgo coinciden|matriz de trazabilidad y brecha explícita;Evidencia continua o puntual|automatizar recolección sin perder contexto y custodia|muestra reproducible con propietario;Cumplir o reducir riesgo|distinguir obligación legal criterio auditor y decisión técnica|opinión legal identificada y límite documentado",
         "Controles con evidencia vigente|implementaciones demostrables durante la ventana auditada|contar políticas aprobadas;Hallazgos reincidentes|causas que reaparecen entre auditorías|cerrar por documentación;Tiempo de obtención|capacidad de producir evidencia sin operación heroica|automatizar datos irrelevantes",
@@ -413,7 +413,7 @@ PROFILES = {
         "ISO29148|NISTSSDF|ACMETHICS", "security-engineer.md|requirements-engineer.md|cto.md",
     ),
     "finops-engineer.md": profile(
-        "Economía", "semi-senior → principal", "11:134,140,144;29:349,356,357;31:376,380,384;37:450,451,453",
+        "Economía", "semi-senior → principal", "11:134,135,140,141,142,144;29:349,352,355,356,357;31:375,376,377,380;37:450,451,452,453;42:505,513,514,516;44:532,534,536,538;45:542,548,549,550;46:555,557,558,560;48:578,580,581,582",
         "Valor|Consumo|Asignación|Decisión|Seguimiento",
         "Ahorro o resiliencia|reducir desperdicio sin erosionar SLO ni opciones de recuperación|coste unitario más riesgo;Reservar o mantener elasticidad|comparar demanda incertidumbre compromiso y salida|escenarios de sensibilidad;Showback o chargeback|elegir incentivo que mejora decisiones sin castigar equipos|calidad de etiquetas y comportamiento observado",
         "Costo por unidad útil|gasto asociado a transacción cliente o capacidad|usar coste total sin denominador;Cobertura de asignación|consumo atribuible a propietario y producto|forzar etiquetas sin corregir shared cost;Forecast y desviación|capacidad de anticipar demanda y explicar cambio|premiar exactitud falsa",
@@ -422,7 +422,7 @@ PROFILES = {
         "GSF|DORA|ISO25010", "cloud-engineer.md|technical-product-engineer.md|cto.md",
     ),
     "green-software-engineer.md": profile(
-        "Sostenibilidad", "semi-senior → lead", "01:18,22,24;11:134,139,140;29:352,356,359;31:375,376,377",
+        "Sostenibilidad", "semi-senior → lead", "01:13,18,20,22,24;11:134,139,140,141;19:231,235,237,240;29:350,351,352,356,357,359;31:373,375,376,377;45:542,544,548,549,550;46:555,557,558,560;48:577,580,581,582",
         "Unidad funcional|Energía|Carbono|Cambio|Rebote",
         "Eficiencia o desplazamiento temporal|comparar energía carbono intensidad y deadline|SCI con frontera y datos declarados;Menos cómputo o mejor experiencia|proteger resultado útil accesibilidad y confiabilidad|presupuesto por tarea;Optimizar o retirar|considerar embodied carbon vida útil migración y datos retenidos|análisis de ciclo y plan de salida",
         "SCI por unidad funcional|emisiones asociadas a una tarea definida|cambiar frontera para mejorar cifra;Energía por operación|consumo físico o estimado con método declarado|convertir CPU directamente a carbono;Efecto rebote|demanda adicional causada por menor coste|declarar ahorro sin observar volumen",
@@ -431,7 +431,7 @@ PROFILES = {
         "GSF|ISO25010|ACMETHICS", "performance-engineer.md|finops-engineer.md|cloud-engineer.md",
     ),
     "technical-writer.md": profile(
-        "Conocimiento", "junior → principal", "13:157,163,167;17:205,206,215;35:427,428,429;39:469,473,477",
+        "Conocimiento", "junior → principal", "09:110,113,118,120;13:157,158,163,164,166,167;14:169,170,172,173,177;17:205,206,207,210,211,212;35:427,428,429,432;38:458,462,464,466;39:469,470,471,472;40:484,485,486,487,488",
         "Audiencia|Tarea|Contenido|Prueba|Mantenimiento",
         "Tutorial o referencia|elegir forma por necesidad y experiencia previa|prueba de tarea con persona objetivo;Precisión o descubribilidad|preservar exactitud sin esconder la respuesta|búsqueda y éxito de tarea;Documento o fuente ejecutable|derivar cuando sea posible y declarar ownership del resto|drift check y fecha de revisión",
         "Éxito de tarea documental|persona completa operación sin conocimiento tácito|medir visitas;Tiempo hasta primera respuesta|facilidad para encontrar y aplicar información correcta|optimizar SEO sin resolución;Drift detectado|diferencias entre producto contrato y documentación|contar cambios de palabras",
@@ -621,21 +621,21 @@ DEVELOPED = {
     "distributed-systems-engineer.md": [40, 81, 246, 247, 260, 306, 315, 319, 320],
     "qa-test-engineer.md": [69, 105, 155, 158, 188, 295, 299],
     "performance-engineer.md": [22, 94, 99, 235, 249, 261, 317, 320],
-    "accessibility-engineer.md": [169, 172, 175, 178, 258],
-    "internationalization-engineer.md": [14, 67, 175, 176, 238],
-    "requirements-engineer.md": [146, 147, 149, 150, 153, 156, 301],
-    "devops-engineer.md": [29, 31, 104, 114, 196, 202, 211, 224],
-    "build-release-engineer.md": [103, 104, 112, 114, 225],
-    "cloud-engineer.md": [31, 34, 44, 211, 250, 307],
-    "site-reliability-engineer.md": [33, 46, 211, 224, 250, 319, 321],
-    "observability-engineer.md": [33, 99, 220, 226, 250, 296],
-    "platform-engineer.md": [104, 114, 115, 212, 225],
-    "developer-experience-engineer.md": [98, 100, 105, 108, 212],
-    "security-engineer.md": [27, 31, 43, 202, 236, 262, 322],
-    "compliance-engineer.md": [4, 117, 129, 153, 226, 283, 322],
-    "finops-engineer.md": [22, 133, 141, 142, 143],
-    "green-software-engineer.md": [94, 99, 235, 261],
-    "technical-writer.md": [207, 208, 210, 211, 212, 214, 309],
+    "accessibility-engineer.md": [106, 169, 170, 171, 178, 221, 484, 485],
+    "internationalization-engineer.md": [14, 67, 175, 176, 238, 391, 394, 484, 485],
+    "requirements-engineer.md": [146, 148, 150, 152, 155, 156, 301, 493, 494, 486],
+    "devops-engineer.md": [29, 31, 104, 114, 196, 202, 211, 224, 409, 412, 418, 495, 498, 501, 524, 525],
+    "build-release-engineer.md": [103, 104, 112, 114, 225, 259, 262, 399, 402, 403, 405, 406, 407, 498, 499],
+    "cloud-engineer.md": [31, 34, 44, 211, 250, 307, 350, 352, 355, 357, 358, 359, 321, 524, 525, 534, 536, 537, 550],
+    "site-reliability-engineer.md": [33, 46, 211, 224, 250, 319, 321, 246, 249, 403, 404, 406, 418, 565, 497, 498],
+    "observability-engineer.md": [33, 99, 220, 226, 250, 296, 137, 334, 425, 427, 432, 490, 501, 503, 560],
+    "platform-engineer.md": [104, 114, 115, 212, 225, 310, 398, 400, 404, 494, 495, 498, 410, 411],
+    "developer-experience-engineer.md": [98, 100, 105, 108, 212, 99, 101, 196, 370, 482, 484, 488, 494],
+    "security-engineer.md": [27, 31, 43, 202, 236, 262, 322, 350, 353, 386, 390, 391, 394, 396, 495, 498, 565, 572, 573],
+    "compliance-engineer.md": [4, 117, 129, 153, 226, 283, 322, 282, 400, 401, 477, 495, 502, 583, 585, 586, 513, 514],
+    "finops-engineer.md": [22, 133, 141, 142, 143, 423, 465, 349],
+    "green-software-engineer.md": [94, 99, 235, 261, 22, 267, 273, 274, 317, 320, 322, 505, 514],
+    "technical-writer.md": [207, 208, 210, 211, 212, 214, 309, 10, 154, 209, 213, 215, 216, 434, 441, 494, 496, 540],
     "open-source-innersource-engineer.md": [112, 198, 201, 202, 204],
     "legacy-modernization-engineer.md": [110, 142, 164, 195, 208, 295, 298, 300, 318],
     "software-architect.md": [8, 142, 160, 164, 208, 209, 301, 302, 303, 304, 305, 308, 309, 310, 312],
@@ -730,61 +730,6 @@ PLANNED_BY_ROLE = {
         "43": "Aporta patrones de resiliencia (bulkhead, retry con jitter, circuit breaker) con su efecto medible sobre latencia de cola y capacidad.",
         "44": "Relaciona estilos arquitectónicos con costes de red, serialización y saltos que dominan la latencia.",
     },
-    "accessibility-engineer.md": {
-        "40": "Integra criterios de accesibilidad como ejemplos ejecutables y contratos dentro de BDD y ATDD en lugar de auditorías tardías.",
-    },
-    "internationalization-engineer.md": {
-        "40": "Lleva reglas de formato, plural y dirección de escritura a ejemplos ejecutables y pruebas de contrato.",
-    },
-    "requirements-engineer.md": {
-        "40": "Relaciona requisitos con ATDD, BDD, Specification by Example y SDD, y cuándo cada técnica reduce ambigüedad.",
-        "41": "Trata la especificación como entrada de un agente: qué debe contener para que un harness pueda ejecutarla y verificarla.",
-    },
-    "devops-engineer.md": {
-        "41": "Cubre la ejecución de agentes en pipelines con permisos acotados, aislamiento y evaluación dentro de la entrega.",
-        "43": "Incorpora patrones de resiliencia (bulkhead, retry con jitter, circuit breaker) con criterios de reversión.",
-    },
-    "build-release-engineer.md": {
-        "41": "Examina la procedencia y la verificación de cambios producidos por agentes dentro de la cadena de build y release.",
-    },
-    "cloud-engineer.md": {
-        "43": "Sistematiza patrones cloud de resiliencia (sidecar, ambassador, retry con jitter) con la responsabilidad compartida de cada servicio.",
-        "44": "Compara estilos celulares, multi-tenant y 12-factor con sus límites de plataforma y de coste.",
-    },
-    "site-reliability-engineer.md": {
-        "41": "Añade el funcionamiento de agentes como carga operada: presupuestos, límites de autoridad y recuperación.",
-        "43": "Sistematiza patrones de resiliencia que sostienen SLO: timeouts, retries, circuit breakers y degradación elegante.",
-    },
-    "observability-engineer.md": {
-        "40": "Incorpora a la política de equipo las señales de producción que el cambio debe dejar; ODD en esta parte es el flujo de trabajo para agentes (Organic Driven Development), no una práctica de observabilidad.",
-        "41": "Define las trazas, el registro de herramientas y las señales que hacen auditable un bucle agentic.",
-    },
-    "platform-engineer.md": {
-        "41": "Ofrece el harness como capacidad de plataforma: entornos aislados, catálogo de herramientas, permisos y evaluación comunes.",
-        "44": "Relaciona estilos de plataforma, multi-tenancy y celdas con el contrato de autoservicio.",
-    },
-    "developer-experience-engineer.md": {
-        "40": "Examina cómo las prácticas TDD, BDD y SDD cambian el bucle de feedback del desarrollador y cómo medirlo.",
-        "41": "Estudia la configuración de agentes de codificación (instrucciones, herramientas, entornos) como experiencia de desarrollo medible.",
-    },
-    "security-engineer.md": {
-        "41": "Profundiza el modelo de amenazas del harness: permisos, aislamiento, inyección de instrucciones y auditoría.",
-        "42": "Trata la superficie de ataque de los sistemas con LLM y agentes: RAG, memoria, herramientas y comunicación entre agentes.",
-    },
-    "compliance-engineer.md": {
-        "42": "Conecta sistemas con LLM con marcos de gestión de IA como ISO/IEC 42001 y NIST AI RMF, y con la evidencia que exigen.",
-        "41": "Define qué registros, aprobaciones y límites de autoridad hacen demostrable el control humano sobre un agente.",
-    },
-    "finops-engineer.md": {
-        "42": "Incorpora el coste de tokens, reintentos y caché como unidad económica de los sistemas con LLM.",
-    },
-    "green-software-engineer.md": {
-        "42": "Mide la energía y el carbono de inferencia, recuperación y agentes con unidad funcional comparable.",
-    },
-    "technical-writer.md": {
-        "40": "Trata la documentación ejecutable (ejemplos Gherkin, contratos) como parte del producto y no como texto paralelo.",
-        "41": "Cubre instrucciones para agentes (como AGENTS.md y SPEC) escritas para lectores máquina con control de calidad.",
-    },
     "open-source-innersource-engineer.md": {
         "41": "Plantea la política de contribuciones asistidas por agentes: procedencia, revisión y responsabilidad del mantenedor.",
     },
@@ -851,19 +796,9 @@ _ROWS_45_48 = {
         "47": "Cubre RTOS, planificación de tiempo real, codificación segura (MISRA, CERT) y las normas que gobiernan el firmware crítico.",
         "48": "Trata WebAssembly en el borde, aceleradores y hardware seguro (TEE y atestación) como opciones de cómputo y de confianza en dispositivos.",
     },
-    "green-software-engineer.md": {
-        "45": "Incorpora el costo energético y de almacenamiento de las plataformas de datos y la retención como decisión de carbono con unidad funcional comparable.",
-        "46": "Mide la energía de entrenamiento, ajuste fino e inferencia en aceleradores con la unidad funcional adecuada.",
-        "48": "Relaciona la eficiencia de aceleradores, WebAssembly y sandboxes con el costo energético por unidad de trabajo.",
-    },
     "open-source-innersource-engineer.md": {
         "45": "Aplica contratos de datos y catálogos como mecanismo de InnerSource entre equipos productores y consumidores de datos.",
         "48": "Trata la ejecución aislada de complementos y contribuciones de terceros como condición para aceptar riesgo acotado.",
-    },
-    "security-engineer.md": {
-        "46": "Cubre la seguridad y la robustez de sistemas de ML: envenenamiento de datos, extracción de modelos, ejemplos adversarios y cadena de suministro de modelos.",
-        "47": "Aporta la codificación segura (MISRA, CERT) y la relación entre seguridad informática y seguridad funcional.",
-        "48": "Es parte central para la superficie moderna: sandboxes y microVM, WebAssembly, eBPF, hardware seguro con atestación, criptografía poscuántica y confianza cero.",
     },
     "ai-systems-engineer.md": {
         "45": "Aporta los datos de recuperación y la calidad de datos de los que dependen RAG y la evaluación.",
@@ -874,29 +809,6 @@ _ROWS_45_48 = {
         "45": "Trata la ingesta streaming, el orden, el tiempo de evento y los reprocesos como sistemas distribuidos con garantías declaradas.",
         "47": "Compara los modelos de tiempo real y la verificación formal (TLA+, model checking) con el razonamiento sobre protocolos distribuidos.",
         "48": "Añade eBPF, microVM y confianza cero como mecanismos de observación, aislamiento y control entre nodos.",
-    },
-    "compliance-engineer.md": {
-        "45": "Convierte gobierno, privacidad y retención de datos en controles con evidencia verificable.",
-        "46": "Conecta la regulación de IA (EU AI Act, ISO/IEC 42001, NIST AI RMF) con los controles y la evidencia de un sistema de ML.",
-        "47": "Relaciona las normas de seguridad funcional con casos de seguridad y trazabilidad de evidencia.",
-    },
-    "finops-engineer.md": {
-        "45": "Incorpora el costo de almacenamiento, cómputo y consulta de las plataformas de datos como unidad económica.",
-        "46": "Trata el costo de entrenamiento, ajuste fino e inferencia en aceleradores como decisión de capacidad.",
-        "48": "Compara costo y rendimiento en GPU y aceleradores con la unidad de trabajo útil.",
-    },
-    "platform-engineer.md": {
-        "45": "Ofrece la plataforma de datos como capacidad de autoservicio con contrato y gobierno.",
-        "46": "Ofrece la plataforma de ML como capacidad común: registro, entrenamiento reproducible, servicio y monitoreo.",
-        "48": "Sitúa sandboxes, microVM y runtimes aislados dentro del contrato de la plataforma.",
-    },
-    "site-reliability-engineer.md": {
-        "46": "Añade el monitoreo de deriva y el reentrenamiento como parte de la operación de un servicio con modelos.",
-        "48": "Incorpora eBPF como instrumento de observación del kernel y los límites de aislamiento como parte de la confiabilidad.",
-    },
-    "observability-engineer.md": {
-        "45": "Extiende la observabilidad a la calidad, la frescura y el linaje de los datos.",
-        "48": "Describe eBPF como fuente de telemetría sin modificar la aplicación y sus costos de operación.",
     },
     "qa-test-engineer.md": {
         "45": "Define pruebas de calidad de datos y de pipelines idempotentes con oráculos explícitos.",

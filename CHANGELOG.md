@@ -25,6 +25,11 @@
 - el texto de `PLANNED_BY_ROLE` de esos roles se retira porque describía partes ya desarrolladas: sus clases pasan al núcleo o a las clases de apoyo (`DEVELOPED`); las guías y los mapas se regeneran sin cambiar esquema ni generadores.
 - sin cambio de contadores; commit y CI en `docs/PART-EXECUTION-TRACKER.md`.
 
+## 2026-11-17 — Mapa de roles: núcleo ampliado para 15 roles
+
+- `open-source-innersource-engineer`, `legacy-modernization-engineer`, `software-architect`, `solutions-architect`, `technical-product-engineer`, `technical-leadership`, `engineering-manager`, `cto`, `ai-augmented-software-engineer`, `ai-systems-engineer`, `agentic-harness-engineer`, `domain-methodology-engineer`, `mlops-ml-platform-engineer`, `ai-governance-responsible-ai-engineer` y `runtime-systems-engineer` pasan de 4-5 partes y 10-17 clases a 6-10 partes y 32-45 clases en `scripts/role_profiles.py`, con 4 a 6 clases por parte y las Partes 40-48 que cada rol decide;
+- se retiran las filas «planificada» de esos roles; las clases que dejan el núcleo pasan a clases de apoyo; las guías y el mapa del README se regeneran sin tocar los generadores ni cambiar contadores.
+
 ## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
 
 - doce clases desarrolladas con mecanismos, causas, ejemplos y límites sobre el ciclo de vida y las fallas de un sistema de ML, datos, etiquetas y feature stores, entrenamiento reproducible, evaluación y sesgos, ajuste fino y costo, servicio con lotes y GPU, despliegue seguro (sombra, canary y rollback), monitoreo y reentrenamiento, seguridad y robustez, gobierno de IA y regulación, taller de degradación y recuperación y proyecto de sistema operable con evidencia;

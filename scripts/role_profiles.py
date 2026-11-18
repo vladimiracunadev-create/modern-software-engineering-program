@@ -440,7 +440,7 @@ PROFILES = {
         "DIATAXIS|OPENAPI|SWEBOK", "developer-experience-engineer.md|api-engineer.md|observability-engineer.md",
     ),
     "open-source-innersource-engineer.md": profile(
-        "Colaboración", "semi-senior → principal", "09:110,117,119;16:196,199,200;33:399,400,406;37:446,448,452",
+        "Colaboración", "semi-senior → principal", "09:110,115,117,118;16:196,198,199,200,201,204;17:205,207,208,212;33:399,400,401,406;34:411,412,417,418;37:446,447,448,452;45:545,546,547,549;48:577,578,582,586",
         "Comunidad|Contribución|Revisión|Release|Sostenibilidad",
         "Apertura o control|definir decisiones transparentes y límites de seguridad|governance y log de decisiones;Velocidad o mantenedor sostenible|reducir cola con ownership documentación y automatización|tiempo de revisión más carga humana;Dependencia o fork|comparar influencia upstream urgencia y coste de mantener divergencia|plan de contribución y salida",
         "Tiempo de primera contribución|fricción desde intención hasta cambio aceptable|medir sólo PR abierto;Bus factor|concentración de conocimiento y permisos críticos|contar contribuidores ocasionales;Carga de mantenedores|revisión soporte release y seguridad por persona|premiar volumen de issues cerrados",
@@ -449,7 +449,7 @@ PROFILES = {
         "GIT|GITHUB|SPDX", "technical-writer.md|build-release-engineer.md|technical-leadership.md",
     ),
     "legacy-modernization-engineer.md": profile(
-        "Evolución", "senior → principal", "08:105,107,108;24:294,295,298;36:434,435,444;37:450,451,453",
+        "Evolución", "senior → principal", "08:98,99,105,107;24:294,295,297,298,299,300;26:316,318,321,323;27:330,332,333,336;33:399,402,403,404;36:435,437,439,440,442,444;37:450,451,453,455;44:529,532,538,540;45:541,544,546,547",
         "Descubrir|Caracterizar|Aislar|Migrar|Retirar",
         "Reescribir o evolucionar|comparar valor riesgo coexistencia y conocimiento perdido|caso económico más prueba de caracterización;Strangler o branch by abstraction|elegir frontera según tráfico datos y ciclo de despliegue|migración reversible;Compatibilidad o limpieza inmediata|pagar coexistencia temporal para reducir riesgo|telemetría de consumidores y criterio de retiro",
         "Cobertura de comportamiento crítico|rutas legacy protegidas por caracterización|usar cobertura de líneas;Porcentaje de tráfico migrado|adopción real de la nueva ruta con calidad equivalente|mover tráfico sin datos;Tiempo de rollback|capacidad de volver ante divergencia|confiar en backup no ensayado",
@@ -458,7 +458,7 @@ PROFILES = {
         "SWEBOK|ISO25010|SEMVER", "software-architect.md|database-reliability-engineer.md|technical-leadership.md",
     ),
     "software-architect.md": profile(
-        "Diseño sistémico", "senior → principal", "12:147,151,154;25:301,303,309;28:341,342,346;37:446,450,455",
+        "Diseño sistémico", "senior → principal", "12:147,150,151,154;24:289,290,296,297;25:301,303,305,308,309,310;28:341,342,343,346;31:373,376,379,380;37:446,450,451,455;43:517,521,523,524,525,526;44:529,532,533,536,538,540;45:541,546,547,549",
         "Contexto|Driver|Alternativas|Decisión|Fitness",
         "Modular monolith o microservicios|derivar límites de autonomía escala y fallo no de organigrama ideal|escenarios de calidad y coste operacional;Consistencia o disponibilidad|asignar garantías por flujo y daño de divergencia|modelo de fallos más experimento;Estándar o excepción|crear coherencia donde reduce coste y salida donde el contexto difiere|fitness functions y revisión periódica",
         "Drivers con evidencia|decisiones conectadas a requisitos y escenarios|contar ADR;Fitness functions activas|propiedades arquitectónicas verificadas continuamente|convertir toda preferencia en gate;Costo de cambio transversal|equipos y componentes afectados por una evolución|premiar uniformidad",
@@ -467,7 +467,7 @@ PROFILES = {
         "C4|ISO25010|SWEBOK", "solutions-architect.md|technical-leadership.md|legacy-modernization-engineer.md",
     ),
     "solutions-architect.md": profile(
-        "Diseño de soluciones", "senior → principal", "10:121,126,128;25:301,302,309;29:349,357,360;37:450,451,455",
+        "Diseño de soluciones", "senior → principal", "10:121,125,126,128;11:134,140,141,144;25:301,302,303,307,309,311;27:325,327,328,329,333;29:349,353,356,357,358,360;32:385,387,391,394;37:450,451,453,455;44:529,532,533,534,535,538;45:541,546,548,549",
         "Contexto|Capacidad|Integración|Transición|Adopción",
         "Build buy o partner|comparar diferenciación TCO dependencia y estrategia de salida|prueba de concepto más matriz económica;Producto o plataforma|definir consumidor ownership y operación antes de la tecnología|service blueprint y RACI;Migración directa o coexistencia|reducir riesgo mediante etapas observables|plan de transición con rollback",
         "Tiempo hasta valor|duración desde decisión hasta uso efectivo|medir firma de contrato;Costo total por escenario|construcción integración operación cambio y salida|comparar sólo licencias;Riesgos abiertos|supuestos sin owner evidencia o fecha de revisión|convertir todo en semáforo verde",
@@ -476,7 +476,7 @@ PROFILES = {
         "ISO25010|OPENAPI|C4", "software-architect.md|technical-product-engineer.md|cloud-engineer.md",
     ),
     "technical-product-engineer.md": profile(
-        "Producto técnico", "semi-senior → principal", "10:121,124,132;11:134,138,144;12:146,149,154;38:461,465,468",
+        "Producto técnico", "semi-senior → principal", "10:121,124,125,127,128,132;11:134,136,138,139,140,144;12:146,149,150,151,154;14:169,172,173,178;15:185,186,187,189;38:461,465,466,468;40:484,485,488,489;45:541,545,546,549",
         "Problema|Hipótesis|Experimento|Entrega|Aprendizaje",
         "Descubrir o construir|reducir primero la incertidumbre que puede invalidar inversión|evidencia de usuario y criterio de no éxito;Métrica o narrativa|combinar señal cuantitativa con mecanismo causal y contexto|guardrails y análisis de sesgo;Prototipo o producto|declarar qué riesgo prueba cada artefacto y qué no|decisión posterior explícita",
         "Outcome de usuario|cambio de capacidad o resultado no actividad interna|celebrar features entregadas;Tiempo hasta aprendizaje|velocidad para invalidar una suposición importante|hacer experimentos sin decisión;Costo de demora|valor perdido y opciones cerradas por secuencia|inventar precisión monetaria",
@@ -485,7 +485,7 @@ PROFILES = {
         "ISO29148|NISTAI|ACMETHICS", "requirements-engineer.md|solutions-architect.md|finops-engineer.md",
     ),
     "technical-leadership.md": profile(
-        "Liderazgo técnico", "senior → principal", "15:186,187,190;25:309,310,311;35:428,429,430;37:445,448,455",
+        "Liderazgo técnico", "senior → principal", "15:182,186,187,189,190;17:208,209,211,212;24:289,295,297,298;25:301,308,309,310,311;35:425,427,428,429,430;37:445,446,447,448,449,455;38:457,463,465,466;40:481,488,491,492;44:529,532,538,540",
         "Ambigüedad|Alineamiento|Decisión|Delegación|Aprendizaje",
         "Decidir o facilitar|usar autoridad técnica sólo cuando riesgo y tiempo lo requieren|decision record y participación adecuada;Consistencia o autonomía|definir principios interfaces y ownership sin microgestión|resultados entre equipos y excepciones;Deuda o entrega|hacer visible interés riesgo y oportunidad para secuenciar|opciones y criterio de revisión",
         "Decisiones reabiertas|claridad insuficiente de contexto autoridad o evidencia|evitar debate contando reuniones;Dependencias entre equipos|esperas y handoffs que bloquean outcomes|culpar velocidad individual;Crecimiento de referentes|personas que asumen decisiones con soporte decreciente|medir mentorías realizadas",
@@ -494,7 +494,7 @@ PROFILES = {
         "SWEBOK|DORA|ACMETHICS", "software-architect.md|engineering-manager.md|cto.md",
     ),
     "engineering-manager.md": profile(
-        "Liderazgo de personas", "senior → dirección", "15:184,189,190;31:373,379,380;35:428,429,430;37:446,447,448",
+        "Liderazgo de personas", "senior → dirección", "11:134,135,139,142;15:182,183,184,185,189,190;31:373,374,379,380;34:411,413,417,418;35:425,427,428,429,430;37:445,446,447,448,449,450;38:457,465,466,468;46:553,556,560,562",
         "Contexto|Equipo|Flujo|Entrega|Crecimiento",
         "Compromiso o forecast|comunicar rango riesgo y capacidad sin convertir incertidumbre en promesa|revisión de supuestos y flujo;Autonomía o coordinación|dar ownership claro con mecanismos de alineación|dependencias y decisiones escaladas;Rendimiento o sostenibilidad|proteger ritmo calidad guardia y aprendizaje|tendencias de salud y outcomes",
         "Throughput y cycle time|flujo del sistema no productividad individual|rankear personas;Carga de guardia|impacto operativo y distribución justa|normalizar heroísmo;Crecimiento y movilidad|capacidad asumida con feedback y oportunidades|contar promociones como única señal",
@@ -503,7 +503,7 @@ PROFILES = {
         "KANBAN|DORA|ACMETHICS", "technical-leadership.md|developer-experience-engineer.md|cto.md",
     ),
     "cto.md": profile(
-        "Dirección", "dirección ejecutiva", "11:134,141,144;25:301,309,310;36:441,442,444;37:450,451,453",
+        "Dirección", "dirección ejecutiva", "11:133,134,140,141,142,144;15:182,186,187,189;25:301,303,308,309,310;29:349,356,357,358;32:385,391,393,394;36:436,441,442,444;37:445,449,450,451,452,453;38:457,465,466,468;46:553,557,561,562;48:583,584,585,586",
         "Estrategia|Portafolio|Organización|Riesgo|Renovación",
         "Invertir construir o comprar|asignar capital por capacidad diferenciación riesgo y opción de salida|caso económico con revisión;Centralizar o federar tecnología|alinear plataformas estándares y autonomía a estrategia|coste de coordinación y ownership;Explotar o modernizar|equilibrar continuidad deuda talento y oportunidad|roadmap financiable con hitos reversibles",
         "Valor y riesgo del portafolio|outcomes opciones exposición y concentración|sumar proyectos verdes;Costo total de capacidades|construcción operación cambio proveedores y retiro|mirar presupuesto anual;Resiliencia organizacional|sucesión bus factor y respuesta a crisis|medir headcount",
@@ -512,7 +512,7 @@ PROFILES = {
         "SWEBOK|ISO25010|ACMETHICS", "technical-leadership.md|software-architect.md|engineering-manager.md",
     ),
     "ai-augmented-software-engineer.md": profile(
-        "Ingeniería con IA", "junior → principal", "13:165,166,168;30:365,366,371;38:457,465,468;39:473,477,479",
+        "Ingeniería con IA", "junior → principal", "13:158,159,165,166,168;30:361,362,365,366,371;38:457,459,464,465,466,468;39:469,471,473,477,478,479;40:481,482,484,488,489,491;41:494,496,499,502",
         "Intención|Contexto|Propuesta IA|Verificación|Revisión humana",
         "Automatizar o asistir|ceder ejecución sólo cuando autoridad pruebas y reversión son adecuadas|eval más log de herramientas;Contexto amplio o mínimo|aportar evidencia suficiente sin filtrar secretos ni saturar atención|prueba de recuperación y coste;Aceptar o regenerar|diagnosticar causa y cambiar especificación herramienta o modelo|regresión determinista no preferencia estética",
         "Tasa de aceptación verificada|propuestas que pasan revisión y sistema sin regresión|contar sugerencias aceptadas;Costo por cambio válido|tokens latencia revisión y retrabajo por outcome|comparar precio de llamada;Regresiones asistidas|defectos introducidos o no detectados por flujo IA|atribuir éxito al agente",
@@ -521,7 +521,7 @@ PROFILES = {
         "NISTAI|MCP|NISTSSDF", "software-engineer.md|ai-systems-engineer.md|technical-leadership.md",
     ),
     "ai-systems-engineer.md": profile(
-        "Sistemas con IA", "semi-senior → principal", "11:137,138,139;23:279,287,288;38:457,465,466;39:473,475,478",
+        "Sistemas con IA", "semi-senior → principal", "20:244,246,249,250;23:278,279,287,288;31:376,378,379,382;35:421,424,425,426;38:457,458,459,464,465,466;39:473,475,476,477,478;42:505,509,510,512,513,514;45:545,546,547,549;46:553,556,558,559,560,561",
         "Tarea|Datos|Modelo|Guardrail|Operación",
         "Modelo grande o pequeño|comparar calidad latencia coste privacidad y control|eval por segmento y presupuesto;Prompt o ajuste|elegir intervención por estabilidad datos y mantenimiento|baseline versionado y conjunto de regresión;Responder o abstener|definir incertidumbre daño fallback y escalamiento humano|pruebas de negativa y recuperación",
         "Calidad por segmento|resultado útil y daño para grupos y casos distintos|publicar un promedio global;Costo y latencia por tarea|recursos desde entrada hasta decisión útil|medir sólo inferencia;Tasa de fallback|veces que el sistema se abstiene deriva o escala|tratar toda abstención como fracaso",
@@ -530,7 +530,7 @@ PROFILES = {
         "NISTAI|MCP|ISO25010", "ai-augmented-software-engineer.md|data-engineer.md|security-engineer.md",
     ),
     "agentic-harness-engineer.md": profile(
-        "Ingeniería agentic", "semi-senior → principal", "18:222,224,228;20:245,246,247;35:424,426,431;38:459,464,465;39:473,474,477,478,479",
+        "Ingeniería agentic", "semi-senior → principal", "18:220,222,224,228;20:245,246,247,250;35:421,424,426,431;38:459,464,465,466;39:473,474,475,477,478,479;41:493,495,497,498,499,501;42:505,508,509,511,512,513;46:556,559,560,561;48:577,582,583,586",
         "Objetivo|Contexto|Herramientas|Bucle y evaluación|Recuperación",
         "Más contexto o contexto curado|incluir sólo lo que cambia la decisión y medir el coste de atención y de filtración|ablación de contexto con tasa de éxito y tokens;Herramienta amplia o estrecha|preferir herramientas con efectos acotados entradas validables y salidas verificables|prueba de permisos y registro de cada invocación;Bucle libre o con puntos de control|insertar checkpoints límites de pasos y aprobación donde la acción no es reversible|simulación de bucle atascado y reanudación desde checkpoint",
         "Éxito de tarea verificado|tareas cuyo resultado pasa oráculos externos al agente|contar finales declarados por el propio agente;Coste y pasos por tarea resuelta|tokens llamadas y tiempo hasta un resultado aceptado|comparar sólo el precio por llamada;Intervenciones humanas útiles|aprobaciones que detienen daño frente a las que sólo interrumpen|premiar autonomía sin medir incidentes",
@@ -539,7 +539,7 @@ PROFILES = {
         "EFFAGENTS|CONTEXTENG|MCP|OWASPLLM|OTELGENAI", "ai-augmented-software-engineer.md|ai-systems-engineer.md|platform-engineer.md",
     ),
     "domain-methodology-engineer.md": profile(
-        "Metodología y dominio", "semi-senior → principal", "05:69;12:149,155;13:158,159,165,166,167;24:295,296;25:305,308;30:362,363",
+        "Metodología y dominio", "semi-senior → principal", "12:146,148,149,151,154,155;13:157,158,159,165,166,167;24:289,295,296,297;25:301,304,305,308;30:361,362,363,365,366,371;39:469,470,471,472;40:481,482,484,486,488,492",
         "Intención|Ejemplo|Contrato|Modelo de dominio|Evidencia",
         "Prueba primero o prueba después|usar prueba primero cuando el diseño es incierto y el feedback rápido y después cuando un contrato ya fija el comportamiento|historial de ciclos rojo verde refactor con una prueba que falla por la razón correcta;Ejemplos ejecutables o especificación narrativa|elegir un lenguaje ejecutable cuando el ejemplo debe sobrevivir al cambio y ser leído por negocio|escenarios vinculados a automatización y a la regla que ilustran;Modelo de dominio rico o transaccional simple|invertir en límites y lenguaje ubicuo sólo donde la complejidad esencial lo justifica|mapa de contextos y pruebas de invariantes",
         "Defectos de regla de negocio escapados|reglas mal entendidas que llegan a producción|usar la cobertura de líneas como sustituto;Estabilidad del lenguaje ubicuo|términos del dominio coincidentes entre código pruebas y conversaciones|contar glosarios que nadie usa;Tiempo de feedback de la práctica|minutos entre un cambio y una señal fiable de pruebas o contratos|ganar velocidad con pruebas frágiles",
@@ -548,7 +548,7 @@ PROFILES = {
         "SWEBOK|TDDFOWLER|BDDNORTH|GHERKIN|SPECEX|DDDREF|PACT", "qa-test-engineer.md|software-architect.md|requirements-engineer.md",
     ),
     "mlops-ml-platform-engineer.md": profile(
-        "MLOps y plataforma de ML", "semi-senior → principal", "23:278,279;27:330,332;34:410,413,415;35:421,424,425;42:510,513,514",
+        "MLOps y plataforma de ML", "semi-senior → principal", "27:328,329,330,332;29:350,351,354,356;31:376,377,379,380;33:397,398,400,404;34:410,411,413,414,415;35:421,423,424,425,426;42:510,512,513,514;45:541,542,544,545,546,547;46:553,554,555,556,559,560",
         "Datos|Entrenamiento|Evaluación|Despliegue|Monitoreo",
         "Reentrenar o recalibrar|reentrenar sólo cuando la deriva medida degrada una métrica de negocio y el costo está justificado|comparación del modelo vigente y el candidato sobre datos recientes con intervalo de confianza;Servir en línea o por lotes|decidir según la latencia exigida la frescura de las características y el costo de capacidad|prueba de carga con tráfico real o reproducido y costo por mil predicciones;Plataforma propia o gestionada|evaluar portabilidad costo de operación y dependencia del registro y del servicio|ADR con escenario de salida y costo comparado",
         "Deriva de datos y de predicción|distancia entre la distribución de entrenamiento y la de producción por característica|alertar por cualquier cambio estadístico sin vincularlo a una métrica de negocio;Latencia de predicción p95|cola de la inferencia por modelo y tamaño de lote|reportar la media o medir sólo el modelo sin el preprocesamiento;Tiempo de recuperación de un modelo|minutos desde la detección hasta volver a un modelo previo conocido|medir el reentrenamiento y olvidar el rollback",
@@ -557,7 +557,7 @@ PROFILES = {
         "SCULLEY|MLFLOW|NISTAI|ISO42001|OTEL|SRE", "ai-systems-engineer.md|data-engineer.md|platform-engineer.md",
     ),
     "ai-governance-responsible-ai-engineer.md": profile(
-        "Gobierno de IA", "semi-senior → principal", "00:4,6;32:391,394;38:465,466;39:477,478;42:513,514",
+        "Gobierno de IA", "semi-senior → principal", "00:4,6,8,9;32:385,391,392,393,394;38:457,465,466,468;39:473,477,478,479;41:494,498,499,501,502;42:505,513,514,516;45:545,546,547,549;46:553,556,560,561,562,564;47:565,566,570,575",
         "Contexto|Riesgo|Control|Evidencia|Auditoría",
         "Cuánta supervisión humana|graduar la intervención humana según el daño posible y la reversibilidad de la decisión|registro de decisiones revisadas con tasa de anulación y tiempo de revisión;Qué definición de equidad medir|elegir y justificar la métrica según el daño y declarar las que se descartan|evaluación por segmentos con intervalos y decisión documentada;Documentar o restringir un uso|decidir qué uso queda fuera del alcance y declararlo en la ficha del sistema|tarjeta de modelo y registro de usos excluidos con responsable",
         "Cobertura del inventario de IA|proporción de sistemas con propietario clasificación de riesgo y evidencia vigente|declarar completo un inventario hecho una sola vez;Brecha de equidad por segmento|diferencia de tasas de error entre grupos con su incertidumbre|promediar el error y ocultar el segmento peor tratado;Tiempo de respuesta a un incidente de IA|desde la detección hasta la contención y la notificación debida|cerrar el ticket sin corregir el control que falló",
@@ -566,7 +566,7 @@ PROFILES = {
         "NISTAI|ISO42001|EUAIACT|OWASPLLM|MODELCARDS|ACMETHICS", "compliance-engineer.md|ai-systems-engineer.md|security-engineer.md",
     ),
     "runtime-systems-engineer.md": profile(
-        "Runtimes y plataformas", "semi-senior → principal", "01:19,20,21,22;29:350,351,352;31:376,377,380;32:389,390",
+        "Runtimes y plataformas", "semi-senior → principal", "01:17,18,19,20,21,22;22:267,268,269,271;28:337,338,339,341;29:350,351,352,356;31:375,376,377,379,380;32:385,387,389,390;33:397,398,400,401;47:571,572,573,574;48:577,578,579,580,582,583",
         "Modelo de ejecución|Aislamiento|Rendimiento|Observación|Recuperación",
         "Contenedor o microVM|elegir el límite de aislamiento según el modelo de amenaza de la carga y el costo de arranque|prueba de escape controlado y medición de arranque en frío y densidad;Código nativo o módulo aislado|usar un módulo WebAssembly cuando la carga no es confiable y el costo de la frontera es aceptable|benchmark del cruce de frontera y política de capacidades concedidas;CPU o acelerador|trasladar a GPU sólo cuando el trabajo es paralelo y el movimiento de datos no domina|perfil de utilización y costo por unidad de trabajo",
         "Tiempo de arranque en frío|latencia desde la petición hasta la primera instrucción útil del runtime|medir sólo con la caché caliente;Densidad por host|cargas aisladas por unidad de memoria con el aislamiento exigido|ganar densidad relajando el aislamiento sin declararlo;Utilización del acelerador|fracción del tiempo con trabajo útil frente a esperas de datos|celebrar alta utilización con trabajo redundante",
@@ -636,21 +636,21 @@ DEVELOPED = {
     "finops-engineer.md": [22, 133, 141, 142, 143, 423, 465, 349],
     "green-software-engineer.md": [94, 99, 235, 261, 22, 267, 273, 274, 317, 320, 322, 505, 514],
     "technical-writer.md": [207, 208, 210, 211, 212, 214, 309, 10, 154, 209, 213, 215, 216, 434, 441, 494, 496, 540],
-    "open-source-innersource-engineer.md": [112, 198, 201, 202, 204],
-    "legacy-modernization-engineer.md": [110, 142, 164, 195, 208, 295, 298, 300, 318],
-    "software-architect.md": [8, 142, 160, 164, 208, 209, 301, 302, 303, 304, 305, 308, 309, 310, 312],
+    "open-source-innersource-engineer.md": [112, 119, 198, 201, 202, 204],
+    "legacy-modernization-engineer.md": [108, 110, 142, 164, 195, 208, 295, 298, 300, 318, 433, 434, 436, 438, 441, 443],
+    "software-architect.md": [8, 142, 160, 164, 208, 209, 301, 302, 303, 304, 305, 306, 308, 309, 310, 312, 582, 586],
     "solutions-architect.md": [44, 117, 141, 163, 209, 301, 303, 309],
     "technical-product-engineer.md": [125, 127, 128, 139, 143],
     "technical-leadership.md": [5, 142, 196, 199, 208, 298, 310],
     "engineering-manager.md": [5, 182, 187, 188, 196, 298, 310],
     "cto.md": [8, 117, 133, 142, 208, 298, 309, 310],
-    "ai-augmented-software-engineer.md": [69, 100, 158, 196, 214, 295],
-    "ai-systems-engineer.md": [6, 214, 245, 246, 249, 279],
-    "agentic-harness-engineer.md": [27, 31, 104, 105, 214],
-    "domain-methodology-engineer.md": [52, 57, 60, 146, 153, 208, 305],
-    "mlops-ml-platform-engineer.md": [313, 318, 321, 351, 356, 400, 404, 457, 465, 466],
-    "ai-governance-responsible-ai-engineer.md": [8, 117, 129, 153, 226, 279, 283, 322, 392, 393, 400],
-    "runtime-systems-engineer.md": [13, 17, 18, 99, 338, 339, 353, 354, 397, 398],
+    "ai-augmented-software-engineer.md": [69, 100, 158, 196, 214, 295, 388, 392],
+    "ai-systems-engineer.md": [6, 137, 138, 139, 214, 245, 246, 249, 279, 511, 516],
+    "agentic-harness-engineer.md": [27, 31, 104, 105, 214, 388, 489, 494, 496, 500, 502, 503, 504],
+    "domain-methodology-engineer.md": [52, 57, 60, 69, 146, 153, 208, 305, 483, 485, 487, 489, 490, 491],
+    "mlops-ml-platform-engineer.md": [278, 279, 313, 318, 321, 351, 356, 400, 404, 457, 465, 466, 549, 550, 558, 561, 562],
+    "ai-governance-responsible-ai-engineer.md": [8, 117, 129, 153, 226, 279, 283, 322, 392, 393, 400, 425, 428, 429],
+    "runtime-systems-engineer.md": [13, 17, 18, 99, 338, 339, 353, 354, 397, 398, 581, 585, 586, 587, 588],
 }
 
 # Partes 40-48 (ADR-004 y ADR-006): título y rango fijos. Una parte deja de estar planificada cuando existe su
@@ -669,91 +669,12 @@ PLANNED_PARTS = {
 
 # Qué cambia para cada rol cuando existan las partes planificadas.
 PLANNED_BY_ROLE = {
-    "open-source-innersource-engineer.md": {
-        "41": "Plantea la política de contribuciones asistidas por agentes: procedencia, revisión y responsabilidad del mantenedor.",
-    },
-    "legacy-modernization-engineer.md": {
-        "40": "Usa pruebas de caracterización, contratos y SDD como red de seguridad en brownfield antes de refactorizar.",
-        "44": "Compara estilos de destino (microkernel, microservicios con sus costes, celdas) con coste de transición y retorno.",
-    },
-    "software-architect.md": {
-        "43": "Aporta el catálogo de patrones de diseño (GoF, GRASP), empresariales y de resiliencia con fuerzas, consecuencias y antipatrones.",
-        "44": "Convierte los estilos arquitectónicos en alternativas comparables con ISO/IEC/IEEE 42010 y escenarios de calidad.",
-    },
-    "solutions-architect.md": {
-        "43": "Da patrones de integración empresarial para conectar terceros y sistemas heredados con modos de fallo explícitos.",
-        "44": "Compara estilos de integración y de despliegue (BFF, gateway, mesh, multi-tenant) con su coste de adopción.",
-    },
-    "technical-product-engineer.md": {
-        "40": "Relaciona hipótesis, ejemplos de aceptación y evaluación como forma de reducir incertidumbre antes de construir.",
-        "42": "Evalúa cuándo un patrón agéntico o un sistema con LLM resuelve un problema de producto y cuándo basta software determinista.",
-    },
-    "technical-leadership.md": {
-        "40": "Aporta criterio para elegir y sostener prácticas de equipo (TDD, BDD, SDD) sin imponerlas como ritual.",
-        "44": "Permite defender un estilo arquitectónico en un RFC con escenarios y reversibilidad.",
-    },
-    "engineering-manager.md": {
-        "40": "Explica cómo introducir prácticas de metodología en un equipo y qué señales indican que mejoran el flujo.",
-        "41": "Plantea cómo organizar trabajo, revisión y responsabilidad cuando parte del cambio lo produce un agente.",
-    },
-    "cto.md": {
-        "41": "Fija política de autonomía, riesgo y gobierno de agentes en la organización.",
-        "42": "Aporta criterio de portafolio para decidir qué capacidades con LLM construir, comprar o evitar.",
-        "44": "Sitúa la estrategia de plataforma y de organización frente a los estilos arquitectónicos disponibles.",
-    },
-    "ai-augmented-software-engineer.md": {
-        "40": "Cambia el flujo asistido: TDD, SDD y evaluación sirven de oráculo externo al agente que propone el código.",
-        "41": "Enseña a configurar el harness con el que trabaja el agente, que hoy se trata de forma introductoria.",
-    },
-    "ai-systems-engineer.md": {
-        "42": "Es la parte central del rol: workflows, agentes, RAG, memoria, MCP/A2A, evaluación, ejecución durable y coste.",
-        "41": "Aporta el harness y la evaluación de agentes sobre los que se apoya un sistema de producción.",
-    },
-    "agentic-harness-engineer.md": {
-        "41": "Es la parte central del rol: anatomía del harness, contexto, herramientas, bucles, permisos, evaluación y recuperación.",
-        "42": "Aporta los patrones (encadenado, enrutamiento, orquestador-trabajadores, evaluador-optimizador) que el harness ejecuta.",
-    },
-    "domain-methodology-engineer.md": {
-        "40": "Es la parte central del rol: TDD, BDD, ATDD, DDD, contratos, SDD, EDD y ODD como prácticas de equipo con evidencia.",
-        "43": "Conecta el modelo de dominio con patrones de persistencia (Repository, Unit of Work, Active Record) y sus antipatrones.",
-    },
 }
 
 
 # Qué cambia para cada rol con las Partes 45-48 (ADR-006). Se fusiona con PLANNED_BY_ROLE; una fila
 # deja de mostrarse como pendiente cuando la parte correspondiente tiene contenido.
 _ROWS_45_48 = {
-    "open-source-innersource-engineer.md": {
-        "45": "Aplica contratos de datos y catálogos como mecanismo de InnerSource entre equipos productores y consumidores de datos.",
-        "48": "Trata la ejecución aislada de complementos y contribuciones de terceros como condición para aceptar riesgo acotado.",
-    },
-    "ai-systems-engineer.md": {
-        "45": "Aporta los datos de recuperación y la calidad de datos de los que dependen RAG y la evaluación.",
-        "46": "Es la parte central del paso a producción: datos de entrenamiento, evaluación, servicio, despliegue seguro, deriva y gobierno de IA.",
-        "48": "Aporta el servicio en GPU y aceleradores y su costo, base de la inferencia que opera este rol.",
-    },
-    "software-architect.md": {
-        "45": "Ubica la plataforma de datos dentro de la arquitectura y sus contratos de propiedad.",
-        "48": "Sitúa runtimes aislados y confianza cero como decisiones de arquitectura con su costo.",
-    },
-    "cto.md": {
-        "46": "Aporta criterio de portafolio y de gobierno para decidir qué capacidades de ML construir, comprar o evitar.",
-        "48": "Sitúa criptografía poscuántica, confianza cero y runtimes aislados en la estrategia de riesgo tecnológico.",
-    },
-    "mlops-ml-platform-engineer.md": {
-        "45": "Aporta la plataforma de datos de la que dependen las características y las etiquetas, con contratos y linaje.",
-        "46": "Es la parte central del rol: ciclo de vida de ML, entrenamiento reproducible, evaluación, servicio, despliegue seguro, deriva y gobierno.",
-        "48": "Aporta el modelo de ejecución en GPU y aceleradores y el costo de servir modelos.",
-    },
-    "ai-governance-responsible-ai-engineer.md": {
-        "45": "Aporta gobierno, privacidad, retención y linaje de datos como base de cualquier control sobre un sistema de IA.",
-        "46": "Es la parte central del rol: evaluación, sesgos, seguridad y robustez, gobierno de IA y regulación (EU AI Act, ISO/IEC 42001, NIST AI RMF).",
-        "47": "Aporta el razonamiento de riesgo, los casos de seguridad y la trazabilidad como modelo para evidencia de sistemas de IA de alto impacto.",
-    },
-    "runtime-systems-engineer.md": {
-        "47": "Aporta RTOS, planificación de tiempo real y verificación como marco para runtimes con garantías temporales.",
-        "48": "Es la parte central del rol: WebAssembly y WASI, eBPF, aceleradores, microVM, sandboxes, hardware seguro, criptografía poscuántica y confianza cero.",
-    },
 }
 for _role, _rows in _ROWS_45_48.items():
     PLANNED_BY_ROLE.setdefault(_role, {}).update(_rows)

@@ -3,7 +3,7 @@
 588 clases desarrolladas · 49 partes desarrolladas (`SE-001`–`SE-588`) · alcance completo: 588 clases en 49 partes.
 
 > [!WARNING]
-> Las Partes 00–48 (`SE-001`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. No quedan partes planificadas sin publicar.
+> Las Partes 00–48 (`SE-001`–`SE-588`) contienen clases desarrolladas, con texto íntegro, figuras y evidencia reproducible, pendientes de revisión editorial humana independiente. Todo el alcance del programa está publicado.
 > Consulta [`../ROADMAP.md`](../ROADMAP.md) para conocer qué se incorporará.
 
 [← Volver al README principal](../README.md) · [🌐 Abrir el portal](https://vladimiracunadev-create.github.io/modern-software-engineering-program/) · [📐 Criterio de aprobación](../docs/PEDAGOGICAL-STANDARD.md)

@@ -149,7 +149,7 @@ def status_sentence() -> str:
             f" {the_parts(planned)} ({class_ranges(planned)}) {verb_planned(planned)}, sin clases publicadas."
         )
     else:
-        text += " No quedan partes planificadas sin publicar."
+        text += " Todo el alcance del programa está publicado."
     return text
 
 

@@ -17,7 +17,7 @@ de verdad sobre el producto educativo y su secuencia.
 
 ## Estado verificable de partida
 
-- La arquitectura curricular planifica 8 etapas, 49 partes y 588 posiciones de clase,
+- La arquitectura curricular define 8 etapas, 49 partes y 588 posiciones de clase,
   de `SE-001` a `SE-588`, sin renumerar el material existente. Qué partes están
   desarrolladas lo decide el contenido real (`content/part-NN/`), no este documento: el
   estado vigente y sus contadores se generan en [`STATUS.md`](STATUS.md) y `catalog.json`
@@ -27,8 +27,8 @@ de verdad sobre el producto educativo y su secuencia.
   explicación, práctica, figuras interpretadas, experimentos reproducibles, fuentes y
   navegación (`SE-001`–`SE-588`), con laboratorios ejecutables en las Partes 01–05 y
   experimentos reproducibles en las Partes 32–48; falta una revisión editorial humana
-  independiente. No quedan borradores, estructuras sin desarrollar ni partes planificadas
-  sin publicar entre esas 588 posiciones.
+  independiente. No quedan borradores, estructuras sin desarrollar ni partes sin publicar
+  entre esas 588 posiciones.
 - El alcance se amplió dos veces, siempre al final y sin renumerar.
   [`ADR-004`](docs/adr/ADR-004-expand-to-540-class-scope.md) llevó el alcance de 480 a 540 clases
   con las Partes 40–44 (`SE-481`–`SE-540`: metodologías de TDD a ODD, harness y agentic

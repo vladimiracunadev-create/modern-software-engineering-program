@@ -9,11 +9,16 @@
 
 ## About publicado
 
-> 🧭 Programa de Ingeniería de Software Moderna · 588 clases en 49 partes (588 desarrolladas, SE-001–SE-588) · práctica, evidencia, figuras y fuentes · fundamentos → producto → arquitectura → DevOps → IA y agentes · Python + Pages · 🐧🍎🪟
+> 🧭 Currículo abierto en español para aprender ingeniería de software de los fundamentos a la operación, la arquitectura y la IA con agentes · 588 clases en 49 partes, 45 rutas por rol y 16 casos de estudio de plataformas reales · práctica reproducible, figuras y fuentes verificadas · Python + Pages
 
-La descripción no repite el nombre que GitHub ya muestra. Las 588 clases desarrolladas siguen el
-mismo estándar pedagógico; el contenido realmente disponible se explica por separado
-en `STATUS.md` sin asignar etiquetas a cada clase.
+Reglas del texto:
+
+- no repite el nombre del repositorio, que GitHub ya muestra encima de la descripción;
+- cada cifra aparece una sola vez (aquí, «588 clases»; el resto va en el README y en `STATUS.md`);
+- las cifras (clases, partes, rutas por rol y casos de estudio) salen del repositorio y las comprueba
+  `tests/test_about.py` contra `catalog.json`, `roles/` y `casos/`; también comprueba el límite de 350
+  caracteres de GitHub y que este documento cite el texto exacto;
+- no usa «planificadas» mientras no haya partes sin publicar; el estado de cada parte vive en `STATUS.md`.
 
 ## Topics publicados
 

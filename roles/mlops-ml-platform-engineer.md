@@ -67,7 +67,7 @@ modelos, y regulación y gestión de riesgos de IA.
 3. Partes 26–27 para datos, esquemas, eventos y sincronización.
 4. Partes 34–35 para pipelines, entrega y observabilidad.
 5. Partes 38 y 42 para evaluación y operación de sistemas con LLM.
-6. Partes 45–46 (planificadas): plataformas de datos y ML en producción con MLOps.
+6. Partes 45–46: plataformas de datos y ML en producción con MLOps.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol

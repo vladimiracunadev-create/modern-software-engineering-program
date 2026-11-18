@@ -62,7 +62,7 @@ EU AI Act, ISO/IEC 42001 y NIST AI RMF sin confundir el marco con su cumplimient
 3. Partes 38–39 para asistencia con IA, supervisión humana y seguridad agentic.
 4. [Parte 42 — Patrones agénticos y sistemas con LLM](../classes/part-42-patrones-agenticos-y-sistemas-con-llm/README.md)
    para evaluación, costo y seguridad.
-5. Parte 46 (planificada): gobierno de IA y regulación dentro del ciclo de ML en producción.
+5. Parte 46: gobierno de IA y regulación dentro del ciclo de ML en producción.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol

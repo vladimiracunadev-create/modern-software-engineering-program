@@ -159,19 +159,29 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
         plan_clause_short = f"{len(planned) * 12} planificadas ({ps.parts_label(planned)}, {ps.class_ranges(planned)}) sin publicar"
         nav_clause = f"las {ps.parts_label(planned)} figuran como planificadas, sin enlaces"
     else:
-        plan_clause = " No quedan partes planificadas sin publicar."
-        plan_clause_short = "0 planificadas sin publicar"
-        nav_clause = "no quedan partes planificadas"
+        plan_clause = ""
+        plan_clause_short = ""
+        nav_clause = ""
     blocks = {}
-    blocks["headline"] = (
-        "> [!IMPORTANT]\n"
-        f"> **Cobertura real, sin inflar cifras:** el alcance planificado es de **{scope['class_count']} clases en\n"
-        f"> {scope['part_count']} partes (00–{scope['part_count'] - 1})**, de las cuales {n_classes} clases ({dev_label}, {dev_ranges}) están\n"
-        "> desarrolladas y publicadas en el portal con texto íntegro, figuras, experimentos\n"
-        "> reproducibles y fuentes; todavía no pasaron una revisión editorial humana independiente.\n"
-        f">{plan_clause} Una\n"
-        "> carpeta o página generada no cuenta como aprendizaje terminado."
-    )
+    if planned:
+        blocks["headline"] = (
+            "> [!IMPORTANT]\n"
+            f"> **Cobertura real, sin inflar cifras:** el alcance planificado es de **{scope['class_count']} clases en\n"
+            f"> {scope['part_count']} partes (00–{scope['part_count'] - 1})**, de las cuales {n_classes} clases ({dev_label}, {dev_ranges}) están\n"
+            "> desarrolladas y publicadas en el portal con texto íntegro, figuras, experimentos\n"
+            "> reproducibles y fuentes; todavía no pasaron una revisión editorial humana independiente.\n"
+            f">{plan_clause} Una\n"
+            "> carpeta o página generada no cuenta como aprendizaje terminado."
+        )
+    else:
+        blocks["headline"] = (
+            "> [!IMPORTANT]\n"
+            f"> **Cobertura real, sin inflar cifras:** **{n_classes} clases en {n_parts} partes\n"
+            f"> (00–{n_parts - 1}, {dev_ranges})**, todas desarrolladas y publicadas en el portal con texto\n"
+            "> íntegro, figuras, experimentos reproducibles y fuentes; todavía no pasaron una revisión\n"
+            "> editorial humana independiente. Una carpeta o página generada no cuenta como\n"
+            "> aprendizaje terminado."
+        )
     blocks["parts-note"] = (
         "> Una parte cuenta como desarrollada solo cuando existe su contenido completo; el estado de revisión"
         "\n> se declara una vez, en el encabezado. El alcance se fijó en"
@@ -197,7 +207,7 @@ def readme_state_blocks(program: dict) -> dict[str, str]:
     blocks["coverage"] = "\n".join([
         "| Superficie | Evidencia verificable |",
         "| --- | --- |",
-        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004 y ADR-006) |",
+        f"| arquitectura | 8 etapas, {n_parts} partes publicadas, {n_classes} IDs únicos y {ps.format_thousands(program['estimated_hours'])} horas estimadas; " + (f"el alcance planificado es de {scope['part_count']} partes y {scope['class_count']} clases (ADR-004 y ADR-006)" if planned else "alcance fijado por ADR-004 y ADR-006") + " |",
         f"| clases | {n_classes} desarrolladas ({dev_label}, {dev_ranges})" + (f"; {plan_clause_short}" if planned else "") + " |",
         f"| contratos | {n_classes} metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |",
         "| fuentes | línea base y registros por clase y por parte |",
@@ -578,6 +588,20 @@ def status_document(program: dict) -> str:
         f"{ps.planned_label()} ({ps.class_ranges(ps.planned_parts())}), sin clases publicadas"
         if pending else "ninguno"
     )
+    parts_state = (
+        f"{program['part_count']} desarrolladas de {scope['part_count']} planificadas"
+        if pending else f"{program['part_count']} desarrolladas (00–{program['part_count'] - 1})"
+    )
+    classes_state = (
+        f"{program['class_count']} desarrolladas de {scope['class_count']} planificadas"
+        if pending else f"{program['class_count']} desarrolladas"
+    )
+    pending_row = f"| Alcance planificado sin publicar | {planned_text} |\n" if pending else ""
+    hours_state = (
+        f"{ps.format_thousands(program['estimated_hours'])} estimadas en las partes desarrolladas "
+        f"({ps.format_thousands(scope['estimated_hours'])} en el alcance planificado)"
+        if pending else f"{ps.format_thousands(program['estimated_hours'])} estimadas"
+    )
     return f"""# Estado verificable
 
 Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
@@ -586,15 +610,14 @@ Este archivo es generado por `scripts/build_phase2.py`. No editar manualmente.
 | --- | --- |
 | Arquitectura | fases 1 y 2 completadas; fases 3 y 4 desarrolladas, a falta de revisión editorial humana independiente |
 | Etapas | {len(program['stages'])} especificadas |
-| Partes | {program['part_count']} desarrolladas de {scope['part_count']} planificadas |
-| Clases | {program['class_count']} desarrolladas de {scope['class_count']} planificadas |
+| Partes | {parts_state} |
+| Clases | {classes_state} |
 | Contenido desarrollado | {ps.developed_label()} ({ps.class_ranges(ps.developed_parts())}), pendiente de revisión editorial humana independiente |
 | Borradores publicados | ninguno |
 | Estructura pendiente | ninguna |
-| Alcance planificado sin publicar | {planned_text} |
-| Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
+{pending_row}| Alcance de fase 3 | {phase3['classes']} clases (`SE-001`–`SE-180`) |
 | Alcance de fase 4 | {phase4['classes']} clases (`SE-181`–`SE-360`) |
-| Horas | {ps.format_thousands(program['estimated_hours'])} estimadas en las partes desarrolladas ({ps.format_thousands(scope['estimated_hours'])} en el alcance planificado); pendientes de validación por contenido |
+| Horas | {hours_state}; pendientes de validación por contenido |
 | Metadatos de clase | {program['class_count']} archivos generados |
 | Registro bibliográfico | {program['class_count']} entradas sembradas desde fuentes base |
 | Rutas profesionales | {ROLE_COUNT} guías con responsabilidades, límites, recorrido y evidencia |
@@ -707,7 +730,7 @@ def site_index(program: dict) -> str:
             f"{ps.the_parts(ps.planned_parts()).lower().replace('las partes', 'las Partes').replace('la parte', 'la Parte')} "
             f"({ps.class_ranges(ps.planned_parts(), markup=False)}) {ps.verb_planned(ps.planned_parts()).replace('*', '')} y todavía no existen, "
             f"según el roadmap, que planifica {scope['class_count']} clases en total."
-            if pending else f"el alcance planificado de {scope['class_count']} clases está completo."
+            if pending else f"las {scope['class_count']} clases del programa están desarrolladas."
         )
     )
     return f"""<!doctype html>

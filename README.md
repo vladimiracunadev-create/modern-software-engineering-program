@@ -32,12 +32,11 @@ probar, entregar, operar, modernizar y retirar software con evidencia.**
 
 <!-- state:headline -->
 > [!IMPORTANT]
-> **Cobertura real, sin inflar cifras:** el alcance planificado es de **588 clases en
-> 49 partes (00–48)**, de las cuales 588 clases (Partes 00–48, `SE-001`–`SE-588`) están
-> desarrolladas y publicadas en el portal con texto íntegro, figuras, experimentos
-> reproducibles y fuentes; todavía no pasaron una revisión editorial humana independiente.
-> No quedan partes planificadas sin publicar. Una
-> carpeta o página generada no cuenta como aprendizaje terminado.
+> **Cobertura real, sin inflar cifras:** **588 clases en 49 partes
+> (00–48, `SE-001`–`SE-588`)**, todas desarrolladas y publicadas en el portal con texto
+> íntegro, figuras, experimentos reproducibles y fuentes; todavía no pasaron una revisión
+> editorial humana independiente. Una carpeta o página generada no cuenta como
+> aprendizaje terminado.
 <!-- /state:headline -->
 
 ## 🎯 Qué es esto
@@ -1257,7 +1256,7 @@ Requiere Python 3.11 o posterior y no instala dependencias para estas validacion
 
 | Superficie | Evidencia verificable |
 | --- | --- |
-| arquitectura | 8 etapas, 49 partes publicadas, 588 IDs únicos y 2.646 horas estimadas; el alcance planificado es de 49 partes y 588 clases (ADR-004 y ADR-006) |
+| arquitectura | 8 etapas, 49 partes publicadas, 588 IDs únicos y 2.646 horas estimadas; alcance fijado por ADR-004 y ADR-006 |
 | clases | 588 desarrolladas (Partes 00–48, `SE-001`–`SE-588`) |
 | contratos | 588 metadatos; 360 actividades y 360 rúbricas en las fases 3–4 |
 | fuentes | línea base y registros por clase y por parte |
@@ -1275,7 +1274,7 @@ La evidencia detallada y las brechas están en [STATUS.md](STATUS.md), la
 ## 🧱 Estructura del repositorio
 
 ```text
-curriculum.yaml    manifiesto generado de las partes desarrolladas y del alcance planificado
+curriculum.yaml    manifiesto generado de las partes desarrolladas y del alcance del programa
 catalog.json       conteos canónicos del programa
 classes/           clases, índices de parte, actividades y rúbricas
 roles/             índice y 45 guías profesionales

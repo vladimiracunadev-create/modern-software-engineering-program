@@ -1,6 +1,6 @@
 # 🧭 Rutas profesionales de Ingeniería de Software
 
-Las rutas convierten las partes del programa (49 planificadas, 00–48; 45 publicadas hoy, 00–44) en recorridos orientados a trabajo real. No reemplazan la secuencia fundamental: indican qué profundizar, qué decisiones
+Las rutas convierten las partes del programa (49 partes, 00–48, todas publicadas) en recorridos orientados a trabajo real. No reemplazan la secuencia fundamental: indican qué profundizar, qué decisiones
 debe dominar cada perfil y qué evidencia conviene construir.
 
 > Los nombres cambian entre empresas. Una oferta puede llamar *Software Engineer* a

@@ -61,7 +61,7 @@ medición con percentiles y perfiles.
    para aislamiento, contenedores y orquestación.
 3. Parte 31 para latencia, capacidad y resiliencia, y Parte 32 para criptografía y secretos.
 4. Parte 28 para concurrencia y fallos parciales.
-5. Parte 48 (planificada): WebAssembly, eBPF, GPU, sandboxes, hardware seguro, cuántica y confianza cero.
+5. Parte 48: WebAssembly, eBPF, GPU, sandboxes, hardware seguro, cuántica y confianza cero.
 
 <!-- role-depth:start -->
 ## 🗺️ Sistema profesional del rol

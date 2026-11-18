@@ -4,7 +4,7 @@
 
 - README, ROADMAP, plan maestro, arquitectura, matriz de cobertura, plan de publicación, guía de ampliación, mapa de roles, `curriculum/README.md`, `casos/GUIDE.md`, `DATA_LICENSES.md` y el About (`.github/repository-metadata.json` y GitHub) dicen ahora 588 clases desarrolladas en 49 partes (`SE-001`–`SE-588`); ADR-004 y ADR-006 se citan una sola vez como origen del alcance.
 - el texto de la nota de partes sale de `scripts/build_phase2.py`, corregido en el generador; sigue pendiente la revisión editorial humana independiente.
-- commit: ver `docs/PART-EXECUTION-TRACKER.md`.
+- commit `63e4d719` (Validate, Pages y Security en verde); detalle en `docs/PART-EXECUTION-TRACKER.md`.
 
 ## 2026-11-17 — Parte 46: Machine learning en producción y MLOps (SE-553 a SE-564)
 
